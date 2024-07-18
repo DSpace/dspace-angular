@@ -5,23 +5,19 @@ import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service.stub';
-import { of as observableOf, of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { Component } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { HardRedirectService } from '../../../core/services/hard-redirect.service';
 
 describe('ExpandableAdminSidebarSectionComponent', () => {
   let component: ExpandableAdminSidebarSectionComponent;
   let fixture: ComponentFixture<ExpandableAdminSidebarSectionComponent>;
   const menuService = new MenuServiceStub();
   const iconString = 'test';
-  const hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
-    redirect: of({})
-  });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -32,7 +28,6 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },
-        {provide: HardRedirectService, useValue: hardRedirectService},
       ]
     }).overrideComponent(ExpandableAdminSidebarSectionComponent, {
       set: {

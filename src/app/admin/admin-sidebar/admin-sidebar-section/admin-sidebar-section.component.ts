@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnInit, Optional } from '@angular/core';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
@@ -7,8 +7,6 @@ import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { isEmpty } from '../../../shared/empty.util';
 import { Router } from '@angular/router';
-import { ExternalLinkMenuItemModel } from '../../../shared/menu/menu-item/models/external-link.model';
-import { HardRedirectService } from '../../../core/services/hard-redirect.service';
 
 /**
  * Represents a non-expandable section in the admin sidebar
@@ -38,33 +36,20 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
     protected menuService: MenuService,
     protected injector: Injector,
     protected router: Router,
-    protected hardRedirectService: HardRedirectService,
   ) {
     super(menuSection, menuService, injector);
-    this.itemModel = menuSection.model as LinkMenuItemModel | ExternalLinkMenuItemModel;
+    this.itemModel = menuSection.model as LinkMenuItemModel;
   }
 
   ngOnInit(): void {
-    if (this.itemModel instanceof LinkMenuItemModel) {
-      this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.link);
-    } else if (this.itemModel instanceof ExternalLinkMenuItemModel) {
-      this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.href);
-    } else {
-      this.isDisabled = true;
-    }
-
+    this.isDisabled = this.itemModel?.disabled || isEmpty(this.itemModel?.link);
     super.ngOnInit();
   }
 
   navigate(event: any): void {
     event.preventDefault();
     if (!this.isDisabled) {
-
-      if (this.itemModel instanceof LinkMenuItemModel) {
-        this.router.navigate([this.itemModel.link]);
-      } else if (this.itemModel instanceof ExternalLinkMenuItemModel) {
-        this.hardRedirectService.redirect(this.itemModel.href);
-      }
+      this.router.navigateByUrl(this.itemModel.link);
     }
   }
 }

@@ -622,20 +622,22 @@ export class MenuResolver implements Resolve<boolean> {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.getDLExporterURL()
     ]).subscribe(([authorized, url]) => {
-      this.menuService.addSection(MenuID.ADMIN, {
-        id: 'loginmiur_dlexporter_url',
-        index: 15,
-        active: false,
-        visible: authorized && (hasValue(url) && url.length > 0),
-        model: {
-          type: MenuItemType.EXTERNAL,
-          text: 'menu.section.loginmiur_dlexporter_url',
-          disabled: false,
-          href: url
-        } as ExternalLinkMenuItemModel,
-        icon: 'fa-solid fa-arrows-spin',
-        shouldPersistOnRouteChange: true
-      });
+      this.menuService.addSection(MenuID.ADMIN,
+        {
+          id: 'loginmiur_dlexporter_url',
+          index: 15,
+          active: false,
+          visible: authorized && (hasValue(url) && url.length > 0),
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.loginmiur_dlexporter_url',
+            disabled: false,
+            link: url
+          } as LinkMenuItemModel,
+          icon: 'fa-solid fa-arrows-spin',
+          shouldPersistOnRouteChange: true
+        }
+      );
     });
   }
 
