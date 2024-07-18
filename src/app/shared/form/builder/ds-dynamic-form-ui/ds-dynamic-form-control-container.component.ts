@@ -583,9 +583,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   isNotRequiredGroupAndEmpty(): boolean {
     const parent = this.model.parent;
+
     if (hasValue(parent) && parent.type === 'GROUP') {
-      console.log('this.model', this.model);
-      console.log('parent', parent);
+
      const groupHasSomeValue = parent.group.some(elem => !!elem.value);
 
       if (!groupHasSomeValue && !parent.isRequired && parent.group?.length > 1) {
