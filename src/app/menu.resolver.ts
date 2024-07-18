@@ -54,7 +54,6 @@ import { Section } from './core/layout/models/section.model';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { ConfigurationProperty } from './core/shared/configuration-property.model';
-import { ExternalLinkMenuItemModel } from './shared/menu/menu-item/models/external-link.model';
 
 /**
  * Creates all of the app's menus

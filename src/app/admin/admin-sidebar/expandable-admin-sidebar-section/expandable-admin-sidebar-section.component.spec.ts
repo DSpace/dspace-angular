@@ -18,7 +18,6 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
   let fixture: ComponentFixture<ExpandableAdminSidebarSectionComponent>;
   const menuService = new MenuServiceStub();
   const iconString = 'test';
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, TranslateModule.forRoot()],
