@@ -14,6 +14,10 @@ import { Collection } from '../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { getRemoteDataPayload } from '../../../core/shared/operators';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import {
+  JsonPatchOperationPathCombiner,
+} from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-clarin-notice',
@@ -28,6 +32,7 @@ export class SubmissionSectionClarinNoticeComponent extends SectionModelComponen
               private configurationDataService: ConfigurationDataService,
               private collectionDataService: CollectionDataService,
               private dsoNameService: DSONameService,
+              private translateService: TranslateService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
@@ -50,12 +55,30 @@ export class SubmissionSectionClarinNoticeComponent extends SectionModelComponen
    */
   collectionName: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
+  toggleAcceptation = {
+      handleColor: 'dark',
+      handleOnColor: 'danger',
+      handleOffColor: 'info',
+      onColor: 'success',
+      offColor: 'danger',
+      onText: this.translateService.instant('submission.sections.clarin-notice.toggle.on-text'),
+      offText: this.translateService.instant('submission.sections.clarin-notice.toggle.off-text'),
+      disabled: false,
+      size: 'sm',
+      value: false
+    };
+
+  protected pathCombiner: JsonPatchOperationPathCombiner;
+
   ngOnInit(): void {
     super.ngOnInit();
   }
 
   protected getSectionStatus(): Observable<boolean> {
-    return of(true);
+    if (this.toggleAcceptation.value) {
+      return of(true);
+    }
+    return of(false);
   }
 
   /**
@@ -75,5 +98,9 @@ export class SubmissionSectionClarinNoticeComponent extends SectionModelComponen
       .subscribe((collection: Collection) => {
         this.collectionName.next(this.dsoNameService.getName(collection));
       });
+  }
+
+  onChange() {
+    this.updateSectionStatus();
   }
 }

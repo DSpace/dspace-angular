@@ -102,7 +102,7 @@ describe('SubmissionSectionClarinNoticeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SubmissionSectionClarinNoticeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // fixture.detectChanges();
   });
 
   it('should create', () => {

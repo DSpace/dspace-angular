@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
-import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
+import { hasValue, isEmpty, isNotUndefined, isUndefined } from '../shared/empty.util';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -189,12 +189,40 @@ export class SubmissionService {
 
   /**
    * Dispatch a new [SaveAndDepositSubmissionAction]
+   * If the submission has a Notice step, do not allow to deposit if the user hasn't confirmed they saw the message.
+   * Show the warning message instead.
    *
    * @param submissionId
    *    The submission id
    */
   dispatchDeposit(submissionId) {
-    this.store.dispatch(new SaveAndDepositSubmissionAction(submissionId));
+    if (this.clarinNoticeApproved(submissionId)) {
+      this.store.dispatch(new SaveAndDepositSubmissionAction(submissionId));
+      return;
+    }
+    this.notificationsService.warning(this.translate.instant('submission.sections.clarin-notice.error'));
+  }
+
+  /**
+   * Some special submission forms has a Notice step with toggle, that the user have read the message.
+   * Do not allow to deposit without confirming that the user have read that message.
+   *
+   * @param submissionId
+   */
+  clarinNoticeApproved(submissionId): boolean {
+    let result = true;
+    this.getSubmissionObject(submissionId).subscribe(submissionObjectEntry => {
+      const clarinNoticeStep = submissionObjectEntry.sections?.['clarin-notice'];
+      if (isUndefined(clarinNoticeStep)) {
+        return result;
+      }
+      if (clarinNoticeStep.isValid) {
+        return result;
+      }
+
+      result = false;
+    });
+    return result;
   }
 
   /**

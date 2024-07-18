@@ -5235,6 +5235,14 @@
 
   "submission.sections.clarin-notice.message": ["The submission process for this collection (\"","\") is still being fine-tuned. If you find yourself unable to continue the submission because you can't provide the required information, because the required format for a field is too strict, because there's no appropriate field for your information, or for any other reason", "let us know"],
 
+  "submission.sections.clarin-notice.toggle.on-text": "Confirmed",
+
+  "submission.sections.clarin-notice.toggle.off-text": "Click to confirm",
+
+  "submission.sections.clarin-notice.toggle.message": "By checking this box, you confirm that you read the text above and that you understand it.",
+
+  "submission.sections.clarin-notice.error": "Please confirm that you have read the Notice.",
+
   "submission.submit.breadcrumbs": "New submission",
 
   "submission.submit.title": "New submission",
