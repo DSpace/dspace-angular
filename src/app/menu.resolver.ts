@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuState } from './shared/menu/menu-state.model';
 import { MenuItemType } from './shared/menu/menu-item-type.model';
@@ -52,9 +52,10 @@ import { environment } from '../environments/environment';
 import { SectionDataService } from './core/layout/section-data.service';
 import { Section } from './core/layout/models/section.model';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { isPlatformBrowser } from '@angular/common';
 
 /**
- * Creates all of the app's menus
+ * Creates all the app's menus
  */
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,7 @@ export class MenuResolver implements Resolve<boolean> {
   private activatedRouteLastChild: ActivatedRoute;
 
   constructor(
+    @Inject(PLATFORM_ID) public platformId: any,
     protected route: ActivatedRoute,
     protected menuService: MenuService,
     protected authorizationService: AuthorizationDataService,
@@ -77,6 +79,9 @@ export class MenuResolver implements Resolve<boolean> {
    * Initialize all menus
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return of(true);
+    }
     return observableCombineLatest([
       this.createPublicMenu$(),
       this.createAdminMenu$(),
