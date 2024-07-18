@@ -4015,7 +4015,9 @@
 
   "menu.section.workflow": "Administer Workflow",
 
-  "menu.section.loginmiur_dlexporter_url": "DLExporter",
+  "menu.section.icon.loginmiur_dlexporter_url": "DLExporter",
+
+  "menu.section.loginmiur_dlexporter": "DLExporter",
 
   "metadata-export-search.tooltip": "Export search results as CSV",
 

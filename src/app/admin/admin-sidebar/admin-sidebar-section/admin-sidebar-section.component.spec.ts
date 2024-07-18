@@ -20,7 +20,6 @@ describe('AdminSidebarSectionComponent', () => {
   describe('when not disabled', () => {
 
     beforeEach(waitForAsync(() => {
-
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot()],
         declarations: [AdminSidebarSectionComponent, TestComponent],
