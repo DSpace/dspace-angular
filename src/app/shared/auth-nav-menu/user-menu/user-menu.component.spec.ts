@@ -203,6 +203,17 @@ describe('UserMenuComponent', () => {
       expect(components).toBeFalsy();
     });
 
+    it('should call onMenuItemClick when li is clicked', () => {
+      spyOn(component, 'onMenuItemClick');
+      const lis = fixture.debugElement.queryAll(By.css('.ds-menu-item-wrapper'));
+      const secondLi = lis[1];
+      secondLi.triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        },
+      });
+      expect(component.onMenuItemClick).toHaveBeenCalled();
+    });
+
   });
 
 });
