@@ -6,14 +6,14 @@
     </div>
     <div class="modal-body">
         <button class="btn btn-outline-primary btn-lg btn-block" (click)="selectObject(undefined)">{{'dso-selector.' + action + '.' + objectType.toString().toLowerCase() + '.button'| translate }}</button>
-        <h3 class="position-relative py-1 my-3 font-weight-normal">
+        <div class="position-relative py-1 my-3 font-weight-normal h3">
             <hr>
             <div id="create-community-or-separator" class="text-center position-absolute w-100">
                 <span class="px-4 bg-white">{{'dso-selector.' + action + '.' + objectType.toString().toLowerCase() + '.or-divider' | translate}}</span>
             </div>
-        </h3>
+        </div>
 
-        <h5 class="px-2">{{'dso-selector.' + action + '.' + objectType.toString().toLowerCase() + '.input-header' | translate}}</h5>
+        <h2 class="px-2 h5">{{'dso-selector.' + action + '.' + objectType.toString().toLowerCase() + '.input-header' | translate}}</h2>
         <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)"></ds-dso-selector>
     </div>
 </div>
