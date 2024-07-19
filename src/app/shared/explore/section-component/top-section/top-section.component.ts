@@ -26,6 +26,10 @@ export class TopSectionComponent implements OnInit {
 
   paginatedSearchOptions: PaginatedSearchOptions;
 
+  showLabel: boolean;
+
+  showMetrics = true;
+
   showThumbnails: boolean;
 
   ngOnInit() {
