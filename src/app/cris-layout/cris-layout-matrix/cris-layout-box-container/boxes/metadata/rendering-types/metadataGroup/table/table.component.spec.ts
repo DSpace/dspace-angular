@@ -1,17 +1,23 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { TableComponent } from './table.component';
+import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../../../../shared/mocks/translate-loader.mock';
-import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
-import { FieldRenderingType } from '../../metadata-box.decorator';
-import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
 import { DsDatePipe } from '../../../../../../../pipes/ds-date.pipe';
+import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
+import { FieldRenderingType } from '../../metadata-box.decorator';
 import { TextComponent } from '../../text/text.component';
+import { TableComponent } from './table.component';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -22,24 +28,24 @@ describe('TableComponent', () => {
     metadata: {
       'dc.contributor.author': [
         {
-          value: 'Donohue, Tim'
+          value: 'Donohue, Tim',
         },
         {
-          value: 'Surname, Name'
-        }
+          value: 'Surname, Name',
+        },
       ],
       'oairecerif.author.affiliation': [
         {
-          value: 'Duraspace'
+          value: 'Duraspace',
         },
         {
-          value: '4Science'
-        }
-      ]
+          value: '4Science',
+        },
+      ],
     },
     _links: {
-      self: { href: 'item-selflink' }
-    }
+      self: { href: 'item-selflink' },
+    },
   });
 
   const mockField = Object.assign({
@@ -61,7 +67,7 @@ describe('TableComponent', () => {
           fieldType: 'METADATA',
           style: null,
           styleLabel: 'font-weight-bold col-0',
-          styleValue: 'col'
+          styleValue: 'col',
         },
         {
           metadata: 'oairecerif.author.affiliation',
@@ -70,10 +76,10 @@ describe('TableComponent', () => {
           fieldType: 'METADATA',
           style: null,
           styleLabel: 'font-weight-bold col-0',
-          styleValue: 'col'
-        }
-      ]
-    }
+          styleValue: 'col',
+        },
+      ],
+    },
   }) as LayoutField;
 
 
@@ -82,8 +88,8 @@ describe('TableComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
@@ -95,10 +101,10 @@ describe('TableComponent', () => {
         DsDatePipe,
         MetadataRenderComponent,
         TableComponent,
-        TextComponent
-      ]
+        TextComponent,
+      ],
     }).overrideComponent(TableComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.OnPush }
+      set: { changeDetection: ChangeDetectionStrategy.OnPush },
     }).compileComponents();
   }));
   beforeEach(() => {

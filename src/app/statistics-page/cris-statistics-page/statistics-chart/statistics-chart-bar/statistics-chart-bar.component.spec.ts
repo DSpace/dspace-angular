@@ -1,16 +1,24 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { StatisticsChartBarComponent } from './statistics-chart-bar.component';
+
+import { BrowserExportService } from '../../../../core/export-service/browser-export.service';
+import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.resource-type';
-import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
-import { BrowserExportService } from '../../../../core/export-service/browser-export.service';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
-import { CommonModule } from '@angular/common';
 import { StatisticsType } from '../../statistics-type.model';
+import { StatisticsChartBarComponent } from './statistics-chart-bar.component';
 
 
 describe('StatisticsChartBarComponent', () => {
@@ -29,15 +37,15 @@ describe('StatisticsChartBarComponent', () => {
         'type': 'item',
         'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb',
         'values': {
-          'views': 3
-        }
-      }
+          'views': 3,
+        },
+      },
     ],
     '_links': {
       'self': {
-        'href': 'https://{dspace.url}/server/api/statistics/usagereports/1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits'
-      }
-    }
+        'href': 'https://{dspace.url}/server/api/statistics/usagereports/1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits',
+      },
+    },
   };
 
   const expectedResult = [
@@ -49,10 +57,10 @@ describe('StatisticsChartBarComponent', () => {
         'type': 'item',
         'id': '1911e8a4-6939-490c-b58b-a5d70f8d91fb',
         'values': {
-          'views': 3
-        }
+          'views': 3,
+        },
       },
-    }
+    },
   ];
 
   const page = observableOf(0);
@@ -67,7 +75,7 @@ describe('StatisticsChartBarComponent', () => {
         { provide: BrowserExportService, useValue: exportServiceStub },
         { provide: 'categoryType', useValue: 'mainReports' },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

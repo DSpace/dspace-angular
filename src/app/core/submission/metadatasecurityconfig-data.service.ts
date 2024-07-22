@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
 
-import { dataService } from '../data/base/data-service.decorator';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { RemoteData } from '../data/remote-data';
-import { MetadataSecurityConfiguration } from './models/metadata-security-configuration';
+import { dataService } from '../data/base/data-service.decorator';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { METADATA_SECURITY_TYPE } from './models/metadata-security-config.resource-type';
+import { MetadataSecurityConfiguration } from './models/metadata-security-configuration';
 
 /**
  * A service that provides methods to make REST requests with securitysettings endpoint.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 @dataService(METADATA_SECURITY_TYPE)
 export class MetadataSecurityConfigurationService extends IdentifiableDataService<MetadataSecurityConfiguration> {
@@ -25,7 +24,7 @@ export class MetadataSecurityConfigurationService extends IdentifiableDataServic
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService
+    protected halService: HALEndpointService,
   ) {
     super('securitysettings', requestService, rdbService, objectCache, halService);
   }

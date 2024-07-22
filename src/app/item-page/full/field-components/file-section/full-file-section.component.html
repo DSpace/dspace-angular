@@ -1,7 +1,7 @@
 <ds-metadata-field-wrapper [label]="label | translate">
     <div *ngVar="(originals$ | async)?.payload as originals">
         <div *ngIf="hasValuesInBundle(originals)">
-            <h5 class="simple-view-element-header">{{"item.page.filesection.original.bundle" | translate}}</h5>
+            <h3 class="h5 simple-view-element-header">{{"item.page.filesection.original.bundle" | translate}}</h3>
             <ds-pagination *ngIf="originals?.page?.length > 0"
                            [hideGear]="true"
                            [hidePagerWhenSinglePage]="true"
@@ -34,7 +34,7 @@
                         </dl>
                     </div>
                     <div *ngIf="!hasNoDownload(file)" class="col-2">
-                        <ds-themed-file-download-link [showIcon]="!(canDownload(file) | async)" [bitstream]="file" [item]="item">
+                        <ds-themed-file-download-link [showIcon]="(canDownload(file) | async) === false" [bitstream]="file" [item]="item">
                           {{"item.page.filesection.download" | translate}}
                         </ds-themed-file-download-link>
                     </div>
@@ -44,7 +44,7 @@
     </div>
     <div *ngVar="(licenses$ | async)?.payload as licenses">
         <div *ngIf="hasValuesInBundle(licenses)">
-            <h5 class="simple-view-element-header">{{"item.page.filesection.license.bundle" | translate}}</h5>
+            <h3 class="h5 simple-view-element-header">{{"item.page.filesection.license.bundle" | translate}}</h3>
             <ds-pagination *ngIf="licenses?.page?.length > 0"
                            [hideGear]="true"
                            [hidePagerWhenSinglePage]="true"

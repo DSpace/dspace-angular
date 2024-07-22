@@ -1,4 +1,5 @@
 /* eslint-disable max-classes-per-file */
+import { isNull } from '../../shared/empty.util';
 import {
   RequestAction,
   RequestActionTypes,
@@ -8,15 +9,14 @@ import {
   RequestRemoveAction,
   RequestStaleAction,
   RequestSuccessAction,
-  ResetResponseTimestampsAction
+  ResetResponseTimestampsAction,
 } from './request.actions';
-import { isNull } from '../../shared/empty.util';
 import {
   hasSucceeded,
+  isRequestPending,
+  isResponsePending,
   isStale,
   RequestEntryState,
-  isRequestPending,
-  isResponsePending
 } from './request-entry-state.model';
 import { RequestState } from './request-state.model';
 
@@ -66,8 +66,8 @@ function configureRequest(storeState: RequestState, action: RequestConfigureActi
       request: action.payload,
       state: RequestEntryState.RequestPending,
       response: null,
-      lastUpdated: action.lastUpdated
-    }
+      lastUpdated: action.lastUpdated,
+    },
   });
 }
 
@@ -80,8 +80,8 @@ function executeRequest(storeState: RequestState, action: RequestExecuteAction):
     return Object.assign({}, storeState, {
       [action.payload]: Object.assign({}, storeState[action.payload], {
         state: RequestEntryState.ResponsePending,
-        lastUpdated: action.lastUpdated
-      })
+        lastUpdated: action.lastUpdated,
+      }),
     });
   }
 }
@@ -114,10 +114,10 @@ function completeSuccessRequest(storeState: RequestState, action: RequestSuccess
           statusCode: action.payload.statusCode,
           payloadLink: action.payload.link,
           unCacheableObject: action.payload.unCacheableObject,
-          errorMessage: null
+          errorMessage: null,
         },
-        lastUpdated: action.lastUpdated
-      })
+        lastUpdated: action.lastUpdated,
+      }),
     });
   }
 }
@@ -150,10 +150,10 @@ function completeFailedRequest(storeState: RequestState, action: RequestErrorAct
           statusCode: action.payload.statusCode,
           payloadLink: null,
           errorMessage: action.payload.errorMessage,
-          errors: action.payload.errors
+          errors: action.payload.errors,
         },
-        lastUpdated: action.lastUpdated
-      })
+        lastUpdated: action.lastUpdated,
+      }),
     });
   }
 }
@@ -186,8 +186,8 @@ function expireRequest(storeState: RequestState, action: RequestStaleAction): Re
     return Object.assign({}, storeState, {
       [action.payload.uuid]: Object.assign({}, prevEntry, {
         state: nextRequestEntryState,
-        lastUpdated: action.lastUpdated
-      })
+        lastUpdated: action.lastUpdated,
+      }),
     });
   }
 }
@@ -208,10 +208,10 @@ function resetResponseTimestamps(storeState: RequestState, action: ResetResponse
     newState[key] = Object.assign({}, storeState[key],
       {
         response: Object.assign({}, storeState[key].response, {
-          timeCompleted: action.payload
+          timeCompleted: action.payload,
         }),
-        lastUpdated: action.payload
-      }
+        lastUpdated: action.payload,
+      },
     );
   });
   return newState;

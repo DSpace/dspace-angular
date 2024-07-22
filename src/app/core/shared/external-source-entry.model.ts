@@ -1,13 +1,21 @@
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
+
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { EXTERNAL_SOURCE_ENTRY } from './external-source-entry.resource-type';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
-import { MetadataMap, MetadataMapSerializer } from './metadata.models';
-import { ResourceType } from './resource-type';
 import { Item } from './item.model';
+import {
+  MetadataMap,
+  MetadataMapSerializer,
+} from './metadata.models';
+import { ResourceType } from './resource-type';
 
 /**
  * Model class for a single entry from an external source
@@ -20,50 +28,50 @@ export class ExternalSourceEntry extends ListableObject {
    * Unique identifier
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The object type
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The value to display
    */
   @autoserialize
-  display: string;
+    display: string;
 
   /**
    * The value to store the entry with
    */
   @autoserialize
-  value: string;
+    value: string;
 
   /**
    * The ID of the external source this entry originates from
    */
   @autoserialize
-  externalSource: string;
+    externalSource: string;
 
   /**
    * Metadata of the entry
    */
   @autoserializeAs(MetadataMapSerializer)
-  metadata: MetadataMap;
+    metadata: MetadataMap;
 
   /**
    * The list of objects that match this entry
    */
   @autoserializeAs(Item)
-  matchObjects: Item[];
+    matchObjects: Item[];
 
   /**
    * The {@link HALLink}s for this ExternalSourceEntry
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
   };
 

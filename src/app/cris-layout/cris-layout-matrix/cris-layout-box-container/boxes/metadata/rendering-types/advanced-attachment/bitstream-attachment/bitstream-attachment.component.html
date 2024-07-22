@@ -24,11 +24,11 @@
 
         <div class="content"
              [attr.data-test]="attachmentConf.name"
-             *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type == AdvancedAttachmentElementType.Attribute"
+             *ngIf="attachment.firstMetadataValue(attachmentConf.name) || attachmentConf.type === AdvancedAttachmentElementType.Attribute"
         >
           <strong>{{ 'cris-layout.advanced-attachment.'+attachmentConf.name | translate }}</strong>
 
-          <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Metadata">
+          <ng-container *ngIf="attachmentConf.type === AdvancedAttachmentElementType.Metadata">
 
             <p class="text-break m-0" *ngIf="!attachmentConf.truncatable && attachmentConf.name === attachmentTypeMetadata">
               {{attachment.firstMetadataValue(attachmentConf.name) | titlecase}}
@@ -46,20 +46,20 @@
 
           </ng-container>
 
-          <ng-container *ngIf="attachmentConf.type == AdvancedAttachmentElementType.Attribute">
-            <ng-container *ngIf="attachmentConf.name == 'format'">
-              <p *ngIf="!(getFormat(attachment) | async) " class="text-muted">
+          <ng-container *ngIf="attachmentConf.type === AdvancedAttachmentElementType.Attribute">
+            <ng-container *ngIf="attachmentConf.name === 'format'">
+              <p *ngIf="(getFormat(attachment) | async) === null || (getFormat(attachment) | async) === undefined" class="text-muted">
                 {{'cris-layout.advanced-attachment.label.not-present' | translate}}
               </p>
               <p class="word-break m-0">{{getFormat(attachment) | async}}</p>
             </ng-container>
 
-            <ng-container *ngIf="attachmentConf.name == 'size'">
+            <ng-container *ngIf="attachmentConf.name === 'size'">
               <p class="word-break m-0">{{getSize(attachment) | dsFileSize}}</p>
             </ng-container>
 
-            <ng-container *ngIf="attachmentConf.name == 'checksum'">
-              <p *ngIf="!(getChecksum(attachment)?.value) " class="text-muted">
+            <ng-container *ngIf="attachmentConf.name === 'checksum'">
+              <p *ngIf="(getChecksum(attachment)?.value) !== true"class="text-muted">
                 {{'cris-layout.advanced-attachment.label.not-present' | translate}}
               </p>
               <p class="word-break m-0">({{getChecksum(attachment).checkSumAlgorithm}}):{{ getChecksum(attachment).value }}</p>

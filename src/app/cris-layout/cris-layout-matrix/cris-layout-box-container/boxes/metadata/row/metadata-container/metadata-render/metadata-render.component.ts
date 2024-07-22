@@ -7,26 +7,32 @@ import {
   Input,
   OnInit,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import { Item } from '../../../../../../../../core/shared/item.model';
-import { CrisLayoutBox, LayoutField } from '../../../../../../../../core/layout/models/box.model';
+
+import {
+  CrisLayoutBox,
+  LayoutField,
+} from '../../../../../../../../core/layout/models/box.model';
 import { GenericConstructor } from '../../../../../../../../core/shared/generic-constructor';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../../shared/empty.util';
+import { Item } from '../../../../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../../../../core/shared/metadata.models';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../../../../../../shared/empty.util';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,
-  MetadataBoxFieldRenderOptions
+  MetadataBoxFieldRenderOptions,
 } from '../../../rendering-types/metadata-box.decorator';
-import {
-  PLACEHOLDER_PARENT_METADATA
-} from '../../../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { MetadataValue } from '../../../../../../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-metadata-render',
   templateUrl: './metadata-render.component.html',
-  styleUrls: ['./metadata-render.component.scss']
+  styleUrls: ['./metadata-render.component.scss'],
 })
 export class MetadataRenderComponent implements OnInit {
 
@@ -59,7 +65,7 @@ export class MetadataRenderComponent implements OnInit {
    */
   @ViewChild('metadataValue', {
     static: true,
-    read: ViewContainerRef
+    read: ViewContainerRef,
   }) metadataValueViewRef: ViewContainerRef;
 
   constructor(
@@ -89,10 +95,8 @@ export class MetadataRenderComponent implements OnInit {
    * Generate ComponentRef for metadata rendering
    */
   generateComponentRef(): ComponentRef<any> {
-    let metadataRef: ComponentRef<Component>;
     const factory: ComponentFactory<any> = this.computeComponentFactory();
-    metadataRef = this.metadataValueViewRef.createComponent(factory, 0, this.getComponentInjector());
-    return metadataRef;
+    return this.metadataValueViewRef.createComponent(factory, 0, this.getComponentInjector());
   }
 
   /**
@@ -111,7 +115,7 @@ export class MetadataRenderComponent implements OnInit {
 
     return Injector.create({
       providers: providers,
-      parent: this.injector
+      parent: this.injector,
     });
   }
 
@@ -168,7 +172,7 @@ export class MetadataRenderComponent implements OnInit {
     const value = metadataValue.value;
     if (isNotEmpty(value) && value.includes(PLACEHOLDER_PARENT_METADATA)) {
       return Object.assign(new MetadataValue(), metadataValue, {
-        value: ''
+        value: '',
       });
     } else {
       return metadataValue;

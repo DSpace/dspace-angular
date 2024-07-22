@@ -1,11 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 import {
-  WorkspaceitemSectionUploadFileObject
-} from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { isNotEmpty } from '../../../../../shared/empty.util';
+  MetadataMap,
+  MetadataValue,
+} from '../../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
-import { MetadataMap, MetadataValue } from '../../../../../core/shared/metadata.models';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { isNotEmpty } from '../../../../../shared/empty.util';
 
 /**
  * This component allow to show bitstream's metadata

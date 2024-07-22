@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { CoreModule } from '../../core/core.module';
+import { NotificationsModule } from '../../notifications/notifications.module';
 import { SharedModule } from '../../shared/shared.module';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
 import { AdminNotificationsRoutingModule } from './admin-notifications-routing.module';
-import { AdminNotificationsOpenaireTopicsPageComponent } from './admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page.component';
-import { AdminNotificationsOpenaireEventsPageComponent } from './admin-notifications-openaire-events-page/admin-notifications-openaire-events-page.component';
-import { OpenaireModule } from '../../openaire/openaire.module';
-import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page.component';
 
 @NgModule({
   imports: [
@@ -14,14 +13,12 @@ import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifi
     SharedModule,
     CoreModule.forRoot(),
     AdminNotificationsRoutingModule,
-    OpenaireModule
+    NotificationsModule,
   ],
   declarations: [
-    AdminNotificationsOpenaireTopicsPageComponent,
-    AdminNotificationsOpenaireEventsPageComponent,
-    AdminNotificationsSuggestionTargetsPageComponent
+    AdminNotificationsPublicationClaimPageComponent,
   ],
-  entryComponents: []
+  entryComponents: [],
 })
 /**
  * This module handles all components related to the notifications pages

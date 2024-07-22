@@ -1,42 +1,54 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import {
   DynamicFormControlLayout,
   DynamicFormLayoutService,
   DynamicFormsCoreModule,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
-import { DsDynamicListComponent } from './dynamic-list.component';
-import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
-import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { createTestComponent } from '../../../../../testing/utils.test';
+import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import {
   mockDynamicFormLayoutService,
-  mockDynamicFormValidationService
+  mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
+import { createTestComponent } from '../../../../../testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+import { FormBuilderService } from '../../../form-builder.service';
+import { DsDynamicListComponent } from './dynamic-list.component';
+import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 
 export const LAYOUT_TEST = {
   element: {
-    group: ''
-  }
+    group: '',
+  },
 } as DynamicFormControlLayout;
 
 export const LIST_CHECKBOX_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
     name: 'type_programme',
-    closed: false
+    closed: false,
   } as VocabularyOptions,
   disabled: false,
   id: 'listCheckbox',
@@ -52,7 +64,7 @@ export const LIST_CHECKBOX_TEST_MODEL_CONFIG = {
 export const LIST_RADIO_TEST_MODEL_CONFIG = {
   vocabularyOptions: {
     name: 'type_programme',
-    closed: false
+    closed: false,
   } as VocabularyOptions,
   disabled: false,
   id: 'listRadio',
@@ -61,7 +73,7 @@ export const LIST_RADIO_TEST_MODEL_CONFIG = {
   placeholder: 'Programme',
   readOnly: false,
   required: false,
-  repeatable: false
+  repeatable: false,
 };
 
 describe('DsDynamicListComponent test suite', () => {
@@ -84,7 +96,7 @@ describe('DsDynamicListComponent test suite', () => {
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
         ReactiveFormsModule,
-        NgbModule
+        NgbModule,
       ],
       declarations: [
         DsDynamicListComponent,
@@ -97,9 +109,9 @@ describe('DsDynamicListComponent test suite', () => {
         FormBuilderService,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
-        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService }
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -139,7 +151,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = new UntypedFormGroup({
           listCheckbox: new UntypedFormGroup({}),
-          listRadio: new UntypedFormGroup({})
+          listRadio: new UntypedFormGroup({}),
         });
         listComp.model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
         listFixture.detectChanges();
@@ -187,7 +199,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = new UntypedFormGroup({
           listCheckbox: new UntypedFormGroup({}),
-          listRadio: new UntypedFormGroup({})
+          listRadio: new UntypedFormGroup({}),
         });
         listComp.model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
         modelValue = [Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 })];
@@ -227,7 +239,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = new UntypedFormGroup({
           listCheckbox: new UntypedFormGroup({}),
-          listRadio: new UntypedFormGroup({})
+          listRadio: new UntypedFormGroup({}),
         });
         listComp.model = new DynamicListRadioGroupModel(LIST_RADIO_TEST_MODEL_CONFIG, LAYOUT_TEST);
         listFixture.detectChanges();
@@ -263,7 +275,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = new UntypedFormGroup({
           listCheckbox: new UntypedFormGroup({}),
-          listRadio: new UntypedFormGroup({})
+          listRadio: new UntypedFormGroup({}),
         });
         listComp.model = new DynamicListRadioGroupModel(LIST_RADIO_TEST_MODEL_CONFIG, LAYOUT_TEST);
         modelValue = Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 });
@@ -288,13 +300,13 @@ describe('DsDynamicListComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 
   group: UntypedFormGroup = new UntypedFormGroup({
     listCheckbox: new UntypedFormGroup({}),
-    listRadio: new UntypedFormGroup({})
+    listRadio: new UntypedFormGroup({}),
   });
 
   model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);

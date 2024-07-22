@@ -1,6 +1,7 @@
 import { first } from 'rxjs/operators';
-import { BulkImportPageResolver } from './bulk-import-page.resolver';
+
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { BulkImportPageResolver } from './bulk-import-page.resolver';
 
 describe('BulkImportPageResolver', () => {
   describe('resolve', () => {
@@ -10,7 +11,7 @@ describe('BulkImportPageResolver', () => {
 
     beforeEach(() => {
       collectionService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$({ id })
+        findById: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       };
       resolver = new BulkImportPageResolver(collectionService);
     });
@@ -22,7 +23,7 @@ describe('BulkImportPageResolver', () => {
           (resolved) => {
             expect(resolved.payload.id).toEqual(uuid);
             done();
-          }
+          },
         );
     });
   });

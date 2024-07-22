@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {
+  RouterModule,
+  Routes,
+} from '@angular/router';
+
+import { RegistrationDataResolver } from '../external-log-in/resolvers/registration-data.resolver';
 import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-review-account-info-page.component';
 import { ReviewAccountGuard } from './helpers/review-account.guard';
-import { RegistrationDataResolver } from '../external-log-in/resolvers/registration-data.resolver';
 
 const routes: Routes = [
   {

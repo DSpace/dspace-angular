@@ -1,8 +1,8 @@
+import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { ParserOptions } from './parser-options';
 import { NumberFieldParser } from './number-field-parser';
-import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { ParserOptions } from './parser-options';
 
 describe('NumberFieldParser test suite', () => {
   let field: FormFieldModel;
@@ -14,13 +14,13 @@ describe('NumberFieldParser test suite', () => {
     submissionScope: null,
     collectionUUID: null,
     typeField: 'type',
-    isInnerForm: false
+    isInnerForm: false,
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'number'
+        type: 'number',
       },
       label: 'Number',
       mandatory: 'false',
@@ -28,10 +28,10 @@ describe('NumberFieldParser test suite', () => {
       hints: 'Enter a number.',
       selectableMetadata: [
         {
-          metadata: 'number'
-        }
+          metadata: 'number',
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

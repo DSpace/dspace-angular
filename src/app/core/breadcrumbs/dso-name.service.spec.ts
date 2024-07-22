@@ -23,7 +23,7 @@ describe(`DSONameService`, () => {
       },
       getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
         return ['Person', Item, DSpaceObject];
-      }
+      },
     });
 
     mockPersonWithTitle = Object.assign(new DSpaceObject(), {
@@ -31,13 +31,13 @@ describe(`DSONameService`, () => {
         'dc.title': [
           {
             language: null,
-            value: 'User Test'
-          }
-        ]
+            value: 'User Test',
+          },
+        ],
       },
       getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
         return ['Person', Item, DSpaceObject];
-      }
+      },
     });
 
     mockOrgUnitName = 'Molecular Spectroscopy';
@@ -47,7 +47,7 @@ describe(`DSONameService`, () => {
       },
       getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
         return ['OrgUnit', Item, DSpaceObject];
-      }
+      },
     });
 
     mockDSOName = 'Lorem Ipsum';
@@ -57,7 +57,7 @@ describe(`DSONameService`, () => {
       },
       getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
         return [DSpaceObject];
-      }
+      },
     });
 
     service = new DSONameService({ instant: (a) => a } as any);

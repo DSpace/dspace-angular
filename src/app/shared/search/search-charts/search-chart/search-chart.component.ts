@@ -1,20 +1,35 @@
-import { Component, Inject, Input, OnInit, SimpleChanges } from '@angular/core';
-
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { isNotEmpty } from '../../../empty.util';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
 
 @Component({
   selector: 'ds-search-chart',
   styleUrls: ['./search-chart.component.scss'],
-  templateUrl: './search-chart.component.html'
+  templateUrl: './search-chart.component.html',
 })
 
 /**
@@ -117,12 +132,12 @@ export class SearchChartComponent implements OnInit {
         } else {
           return this.searchConfigService.searchOptions.pipe(
             switchMap((options) => {
-                return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
-                  filter((RD) => !RD.isLoading),
-                  map((valuesRD) => {
-                    return valuesRD.payload.totalElements > 0;
-                  }));
-              }
+              return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
+                filter((RD) => !RD.isLoading),
+                map((valuesRD) => {
+                  return valuesRD.payload.totalElements > 0;
+                }));
+            },
             ));
         }
       }),

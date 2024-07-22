@@ -16,9 +16,9 @@ import { LuckySearchComponent } from './search/lucky-search.component';
             path: '',
             component: LuckySearchComponent,
           },
-        ]
+        ],
       },
-    ])
-  ]
+    ]),
+  ],
 })
 export class LuckySearchRoutingModule { }

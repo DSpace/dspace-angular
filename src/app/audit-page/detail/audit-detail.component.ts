@@ -1,15 +1,21 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { map } from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+import { AuditDataService } from '../../core/audit/audit-data.service';
+import { Audit } from '../../core/audit/model/audit.model';
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { Audit } from '../../core/audit/model/audit.model';
-import { AuditDataService } from '../../core/audit/audit-data.service';
-import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * A component displaying detailed information about a DSpace Audit
@@ -17,7 +23,7 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-audit-detail',
   templateUrl: './audit-detail.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuditDetailComponent implements OnInit {
 
@@ -45,7 +51,7 @@ export class AuditDetailComponent implements OnInit {
   ngOnInit(): void {
     this.auditRD$ = this.route.data.pipe(
       map((data) => data.process as RemoteData<Audit>),
-      redirectOn4xx(this.router, this.authService)
+      redirectOn4xx(this.router, this.authService),
     );
   }
 

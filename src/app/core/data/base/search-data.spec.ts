@@ -5,15 +5,23 @@
  *
  * http://www.dspace.org/license/
  */
-import { constructSearchEndpointDefault, SearchData, SearchDataImpl } from './search-data';
-import { FindListOptions } from '../find-list-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { of, of as observableOf } from 'rxjs';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { FindListOptions } from '../find-list-options.model';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';
+import {
+  constructSearchEndpointDefault,
+  SearchData,
+  SearchDataImpl,
+} from './search-data';
 
 /**
  * Tests whether calls to `SearchData` methods are correctly patched through in a concrete data service that implements it
@@ -25,7 +33,7 @@ export function testSearchDataImplementation(serviceFactory: () => SearchData<an
     let testScheduler: TestScheduler;
     const searchByResp = Object.assign(
       new RemoteData(0, 0, 0, undefined, undefined, {}, 200),
-      { state: RequestEntryState.Success, payload: 'TEST searchBy' }
+      { state: RequestEntryState.Success, payload: 'TEST searchBy' },
     );
     const searchByResp$ = of(searchByResp);
     const OPTIONS = Object.assign(new FindListOptions(), { elementsPerPage: 10, currentPage: 3 });
@@ -49,7 +57,7 @@ export function testSearchDataImplementation(serviceFactory: () => SearchData<an
     it('should handle calls to searchBy', () => {
       const expectedMarbles = '(a|)';
       const expectedValues = {
-        a: searchByResp
+        a: searchByResp,
       };
       const out: any = service.searchBy('searchMethod', OPTIONS, false, true, ...FOLLOWLINKS);
 

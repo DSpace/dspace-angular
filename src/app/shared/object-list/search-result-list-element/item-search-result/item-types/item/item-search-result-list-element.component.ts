@@ -1,21 +1,33 @@
-import { AfterViewInit, Component, Inject, Input, OnInit, Optional } from '@angular/core';
 import {
-  listableObjectComponent
-} from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../../core/shared/view-mode.model';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
-import { Item } from '../../../../../../core/shared/item.model';
-import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
-import { Context } from '../../../../../../core/shared/context.model';
-import { environment } from '../../../../../../../environments/environment';
-import { KlaroService } from '../../../../../cookies/klaro.service';
-import { combineLatest, Observable } from 'rxjs';
-import { TruncatableService } from '../../../../../truncatable/truncatable.service';
-import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../../../config/app-config.interface';
-import { getFirstSucceededRemoteListPayload } from '../../../../../../core/shared/operators';
+  AfterViewInit,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  Optional,
+} from '@angular/core';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../../environments/environment';
+import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
+import { Context } from '../../../../../../core/shared/context.model';
+import { Item } from '../../../../../../core/shared/item.model';
+import { getFirstSucceededRemoteListPayload } from '../../../../../../core/shared/operators';
+import { ViewMode } from '../../../../../../core/shared/view-mode.model';
+import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
+import { KlaroService } from '../../../../../cookies/klaro.service';
+import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
+import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
+import { TruncatableService } from '../../../../../truncatable/truncatable.service';
+import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -23,7 +35,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ds-item-search-result-list-element',
   styleUrls: ['./item-search-result-list-element.component.scss'],
-  templateUrl: './item-search-result-list-element.component.html'
+  templateUrl: './item-search-result-list-element.component.html',
 })
 /**
  * The component for displaying a list element for an item search result of the type Publication
@@ -74,14 +86,14 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
           getFirstSucceededRemoteListPayload(),
           map(metrics => {
             return metrics.filter(metric => this.thirdPartyMetrics.includes(metric.metricType));
-          })
-        )
+          }),
+        ),
       ]).pipe(
         map(([consents, metrics]) => {
           return metrics.reduce((previous, current) => {
             return consents[current.metricType] && previous;
           }, true);
-        })
+        }),
       );
     }
   }

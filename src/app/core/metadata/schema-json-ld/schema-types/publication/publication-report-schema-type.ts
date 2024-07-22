@@ -25,7 +25,7 @@ export class PublicationReportSchemaType extends SchemaType {
       'abstract': SchemaType.getMetadataValue(item, 'dc.description.abstract'),
       'about': SchemaType.getMetadataValue(item, 'dc.subject'),
       'inLanguage': SchemaType.getMetadataValue(item, 'dc.language.iso'),
-      'reportNumber': SchemaType.getMetadataValue(item, 'dc.relation.ispartofseries')
+      'reportNumber': SchemaType.getMetadataValue(item, 'dc.relation.ispartofseries'),
     };
   }
 }

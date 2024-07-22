@@ -1,25 +1,38 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
-
-import { isEmpty, isNotEmpty } from '../empty.util';
+import { environment } from '../../../environments/environment';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
-import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { RemoteData } from '../../core/data/remote-data';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { environment } from '../../../environments/environment';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
+import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { followLink } from '../utils/follow-link-config.model';
 import { MetadataView } from './metadata-view.model';
 
 @Component({
   selector: 'ds-metadata-link-view',
   templateUrl: './metadata-link-view.component.html',
-  styleUrls: ['./metadata-link-view.component.scss']
+  styleUrls: ['./metadata-link-view.component.scss'],
 })
 export class MetadataLinkViewComponent implements OnInit {
 
@@ -68,7 +81,7 @@ export class MetadataLinkViewComponent implements OnInit {
   ngOnInit(): void {
     this.metadataView$ = observableOf(this.metadata).pipe(
       switchMap((metadataValue: MetadataValue) => this.getMetadataView(metadataValue)),
-      take(1)
+      take(1),
     );
   }
 
@@ -87,7 +100,7 @@ export class MetadataLinkViewComponent implements OnInit {
     if (Metadata.hasValidAuthority(metadataValue.authority)) {
       return this.itemService.findById(metadataValue.authority, true, false, ...linksToFollow).pipe(
         getFirstCompletedRemoteData(),
-        map((itemRD: RemoteData<Item>) => this.createMetadataView(itemRD, metadataValue))
+        map((itemRD: RemoteData<Item>) => this.createMetadataView(itemRD, metadataValue)),
       );
     } else {
       return observableOf({
@@ -95,7 +108,7 @@ export class MetadataLinkViewComponent implements OnInit {
         value: metadataValue.value,
         orcidAuthenticated: null,
         entityType: null,
-        entityStyle: null
+        entityStyle: null,
       });
     }
   }
@@ -115,7 +128,7 @@ export class MetadataLinkViewComponent implements OnInit {
         value: metadataValue.value,
         orcidAuthenticated: this.getOrcid(itemRD.payload),
         entityType: itemRD.payload?.entityType,
-        entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue)
+        entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue),
       };
     } else {
       return {
@@ -123,7 +136,7 @@ export class MetadataLinkViewComponent implements OnInit {
         value: metadataValue.value,
         orcidAuthenticated: null,
         entityType: 'PRIVATE',
-        entityStyle: this.metadataName
+        entityStyle: this.metadataName,
       };
     }
   }
@@ -162,7 +175,7 @@ export class MetadataLinkViewComponent implements OnInit {
       const asLowercase = entity.toLowerCase();
       metadata = this.crisRefMetadata[Object.keys(this.crisRefMetadata)
         .find(k => k.toLowerCase() === asLowercase)
-        ];
+      ];
     }
     return metadata ?? this.crisRefMetadata?.default;
   }

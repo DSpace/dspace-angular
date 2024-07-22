@@ -7,20 +7,21 @@ import {
   Input,
   OnInit,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
+
+import { Bitstream } from '../../../../../../../../../core/shared/bitstream.model';
+import { GenericConstructor } from '../../../../../../../../../core/shared/generic-constructor';
+import { Item } from '../../../../../../../../../core/shared/item.model';
 import {
   AttachmentRenderingType,
-  getAttachmentTypeRendering
+  getAttachmentTypeRendering,
 } from '../attachment-type.decorator';
-import { Item } from '../../../../../../../../../core/shared/item.model';
-import { GenericConstructor } from '../../../../../../../../../core/shared/generic-constructor';
-import { Bitstream } from '../../../../../../../../../core/shared/bitstream.model';
 
 @Component({
   selector: 'ds-attachment-render',
   templateUrl: './attachment-render.component.html',
-  styleUrls: ['./attachment-render.component.scss']
+  styleUrls: ['./attachment-render.component.scss'],
 })
 export class AttachmentRenderComponent implements OnInit {
 
@@ -46,12 +47,12 @@ export class AttachmentRenderComponent implements OnInit {
    */
   @ViewChild('attachmentValue', {
     static: true,
-    read: ViewContainerRef
+    read: ViewContainerRef,
   }) attachmentValueViewRef: ViewContainerRef;
 
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
-    private injector: Injector
+    private injector: Injector,
   ) {
 
   }
@@ -91,14 +92,14 @@ export class AttachmentRenderComponent implements OnInit {
    */
   getComponentInjector() {
     const providers = [
-      {provide: 'itemProvider', useValue: this.item, deps: []},
-      {provide: 'bitstreamProvider', useValue: this.bitstream, deps: []},
-      {provide: 'tabNameProvider', useValue: this.tabName, deps: []}
+      { provide: 'itemProvider', useValue: this.item, deps: [] },
+      { provide: 'bitstreamProvider', useValue: this.bitstream, deps: [] },
+      { provide: 'tabNameProvider', useValue: this.tabName, deps: [] },
     ];
 
     return Injector.create({
       providers: providers,
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

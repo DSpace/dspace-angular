@@ -1,15 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+
 import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { isNotEmpty } from '../../../shared/empty.util';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-end-user-agreement-content',
   templateUrl: './end-user-agreement-content.component.html',
-  styleUrls: ['./end-user-agreement-content.component.scss']
+  styleUrls: ['./end-user-agreement-content.component.scss'],
 })
 /**
  * Component displaying the contents of the End User Agreement
@@ -26,8 +34,8 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
 
   constructor(private siteService: SiteDataService,
               private localeService: LocaleService,
-              private translateService: TranslateService
-            ) {
+              private translateService: TranslateService,
+  ) {
   }
 
   private filterMetadata(metadata: MetadatumViewModel, langCode: string) {
@@ -49,7 +57,6 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach((sub) => sub.unsubscribe());
-    this.userAgreementText$.unsubscribe();
   }
 
 }

@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { LuckySearchComponent } from './search/lucky-search.component';
-import { LuckySearchRoutingModule } from './lucky-search-routing.module';
 import { SearchModule } from '../shared/search/search.module';
 import { SharedModule } from '../shared/shared.module';
+import { LuckySearchRoutingModule } from './lucky-search-routing.module';
+import { LuckySearchComponent } from './search/lucky-search.component';
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     SharedModule.withEntryComponents(),
     SearchModule.withEntryComponents(),
-    LuckySearchRoutingModule
-  ]
+    LuckySearchRoutingModule,
+  ],
 })
 export class LuckySearchModule { }

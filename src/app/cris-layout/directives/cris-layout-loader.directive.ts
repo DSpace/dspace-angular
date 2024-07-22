@@ -1,9 +1,12 @@
-import { Directive, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  ViewContainerRef,
+} from '@angular/core';
 /**
  * Directive hook used to place the dynamic child component
  */
 @Directive({
-  selector: '[dsCrisLayoutLoader]'
+  selector: '[dsCrisLayoutLoader]',
 })
 export class CrisLayoutLoaderDirective {
 

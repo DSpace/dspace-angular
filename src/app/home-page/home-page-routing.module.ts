@@ -15,17 +15,17 @@ import { ThemedHomePageComponent } from './themed-home-page.component';
           title: 'home.title',
           menu: {
             public: [],
-          }, showSocialButtons: true
+          }, showSocialButtons: true,
         },
         resolve: {
-          site: HomePageResolver
-        }
-      }
-    ])
+          site: HomePageResolver,
+        },
+      },
+    ]),
   ],
   providers: [
-    HomePageResolver
-  ]
+    HomePageResolver,
+  ],
 })
 export class HomePageRoutingModule {
 }

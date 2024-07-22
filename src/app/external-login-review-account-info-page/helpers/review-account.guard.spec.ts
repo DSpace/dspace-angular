@@ -1,13 +1,25 @@
 import { TestBed } from '@angular/core/testing';
-import { ReviewAccountGuard } from './review-account.guard';
-import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
-import { of as observableOf, of } from 'rxjs';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { Registration } from '../../core/shared/registration.model';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
+import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { Registration } from '../../core/shared/registration.model';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { ReviewAccountGuard } from './review-account.guard';
 
 describe('ReviewAccountGuard', () => {
   let guard: ReviewAccountGuard;
@@ -18,7 +30,7 @@ describe('ReviewAccountGuard', () => {
   const registrationMock = Object.assign(new Registration(),
     {
       email: 'test@email.org',
-      registrationType: AuthRegistrationType.Validation
+      registrationType: AuthRegistrationType.Validation,
 
     });
 
@@ -26,22 +38,22 @@ describe('ReviewAccountGuard', () => {
     const paramObject: Params = {};
     paramObject.token = '1234';
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      searchRegistrationByToken: createSuccessfulRemoteDataObject$(registrationMock)
+      searchRegistrationByToken: createSuccessfulRemoteDataObject$(registrationMock),
     });
     authService = {
-      isAuthenticated: () => observableOf(true)
+      isAuthenticated: () => observableOf(true),
     } as any;
     TestBed.configureTestingModule({
       providers: [{ provide: Router, useValue: route },
-      {
-        provide: ActivatedRoute,
-        useValue: {
-          queryParamMap: observableOf(convertToParamMap(paramObject))
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            queryParamMap: observableOf(convertToParamMap(paramObject)),
+          },
         },
-      },
-      { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
-      { provide: AuthService, useValue: authService }
-      ]
+        { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
+        { provide: AuthService, useValue: authService },
+      ],
     });
     guard = TestBed.inject(ReviewAccountGuard);
   });
@@ -55,7 +67,7 @@ describe('ReviewAccountGuard', () => {
       .subscribe(
         (canActivate) => {
           expect(canActivate).toEqual(true);
-        }
+        },
       );
   });
 

@@ -1,23 +1,40 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
+import { AuthService } from '../core/auth/auth.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { RequestService } from '../core/data/request.service';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Collection } from '../core/shared/collection.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { Process } from '../process-page/processes/process.model';
 import { ProcessParameter } from '../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { AuthService } from '../core/auth/auth.service';
-import { Process } from '../process-page/processes/process.model';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
 
 /**
  * Page to perform an items bulk imports into the given collection.
@@ -56,15 +73,15 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.form = this.formBuilder.group({
-      name: new FormControl({value:'', disabled: true}),
+      name: new FormControl({ value:'', disabled: true }),
       file: new FormControl(),
-      abortOnError: new FormControl(false)
+      abortOnError: new FormControl(false),
     });
 
     this.subs.push(this.route.data.pipe(
       map((data) => data.collection as RemoteData<Collection>),
       redirectOn4xx(this.router, this.authService),
-      take(1)
+      take(1),
     ).subscribe((remoteData) => {
       if (remoteData.payload) {
         const collection = remoteData.payload;
@@ -88,7 +105,7 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
 
     const stringParameters: ProcessParameter[] = [
       { name: '-c', value: this.collectionId },
-      { name: '-f', value: file.name }
+      { name: '-f', value: file.name },
     ];
 
     if (values.abortOnError) {

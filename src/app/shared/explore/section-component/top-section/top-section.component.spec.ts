@@ -1,19 +1,32 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { TopSectionComponent } from './top-section.component';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { SearchResult } from '../../../search/models/search-result.model';
+import { TopSectionComponent } from './top-section.component';
 
 describe('TopSectionComponent', () => {
   let component: TopSectionComponent;
@@ -29,11 +42,11 @@ describe('TopSectionComponent', () => {
         name: 'My first publication',
         metadata: {
           'dspace.entity.type': [
-            { value: 'Publication' }
-          ]
-        }
-      })
-    }
+            { value: 'Publication' },
+          ],
+        },
+      }),
+    },
   });
 
   const secondSearchResult = Object.assign(new SearchResult(), {
@@ -41,15 +54,15 @@ describe('TopSectionComponent', () => {
       indexableObject: Object.assign(new DSpaceObject(), {
         id: '0c34d491-b5ed-4a78-8b29-83d0bad80e5a',
         uuid: '0c34d491-b5ed-4a78-8b29-83d0bad80e5a',
-        name: 'This is a publication'
-      })
-    }
+        name: 'This is a publication',
+      }),
+    },
   });
 
   beforeEach(waitForAsync(() => {
     searchServiceStub = jasmine.createSpyObj('SearchService', {
       search: jasmine.createSpy('search'),
-      getSearchLink: jasmine.createSpy('getSearchLink')
+      getSearchLink: jasmine.createSpy('getSearchLink'),
     });
 
     TestBed.configureTestingModule({
@@ -57,14 +70,14 @@ describe('TopSectionComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [TopSectionComponent],
       providers: [TopSectionComponent,
         { provide: SearchService, useValue: searchServiceStub }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -139,4 +152,4 @@ describe('TopSectionComponent', () => {
     });
   });
 
-  });
+});

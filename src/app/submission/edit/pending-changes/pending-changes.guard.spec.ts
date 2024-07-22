@@ -1,11 +1,13 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { PendingChangesGuard } from './pending-changes.guard';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
-import { EMPTY, of } from 'rxjs';
 import { cold } from 'jasmine-marbles';
-import { take } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
+import { PendingChangesGuard } from './pending-changes.guard';
 import SpyObj = jasmine.SpyObj;
 
 describe('PendingChangesGuard', () => {
@@ -22,8 +24,8 @@ describe('PendingChangesGuard', () => {
       confirmLabel: 'confirmLabel',
       brandColor: 'brandColor',
       confirmIcon: 'confirmIcon',
-      response: EMPTY,
-    }
+      response: of(true),
+    },
   };
 
   const canDeactivateServiceSpy = jasmine.createSpyObj('canDeactivateService', ['canDeactivate']);
@@ -39,7 +41,7 @@ describe('PendingChangesGuard', () => {
       providers: [
         { provide: NgbModal, useValue: modalServiceSpy },
         { provide: SubmissionEditCanDeactivateService, useValue: canDeactivateServiceSpy },
-      ]
+      ],
     });
     guard = TestBed.inject(PendingChangesGuard);
     modalService = TestBed.inject(NgbModal) as SpyObj<NgbModal>;
@@ -56,7 +58,7 @@ describe('PendingChangesGuard', () => {
       canDeactivateServiceSpy.canDeactivate.and.returnValue(of(false));
     });
     it('should open confirmation modal', () => {
-      guard.canDeactivate().pipe(take(1)).subscribe(() => {
+      guard.canDeactivate().subscribe(() => {
         expect(modalService.open).toHaveBeenCalled();
       });
 

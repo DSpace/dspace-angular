@@ -1,13 +1,17 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { RetrieveAuthMethodsAction } from '../../core/auth/auth.actions';
+import { AuthMethod } from '../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { EPersonMock } from './eperson.mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { AuthMethod } from '../../core/auth/models/auth.method';
 import { hasValue } from '../empty.util';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
-import { RetrieveAuthMethodsAction } from '../../core/auth/auth.actions';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { EPersonMock } from './eperson.mock';
 
 export const authMethodsMock: AuthMethod[] = [
   new AuthMethod(AuthMethodType.Password, 0),

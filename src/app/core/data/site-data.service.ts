@@ -1,26 +1,37 @@
 import { Injectable } from '@angular/core';
-
-import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
 import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
 import { SITE } from '../shared/site.resource-type';
+import { dataService } from './base/data-service.decorator';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { FindAllData, FindAllDataImpl } from './base/find-all-data';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { FindListOptions } from './find-list-options.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from './base/data-service.decorator';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { IdentifiableDataService } from './base/identifiable-data.service';
 
 /**
  * Service responsible for handling requests related to the Site object
@@ -36,7 +47,7 @@ export class SiteDataService extends IdentifiableDataService<Site> implements Fi
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected comparator: DefaultChangeAnalyzer<Site>
+    protected comparator: DefaultChangeAnalyzer<Site>,
   ) {
     super('sites', requestService, rdbService, objectCache, halService);
 
@@ -58,10 +69,10 @@ export class SiteDataService extends IdentifiableDataService<Site> implements Fi
         } else {
           return this.findAll().pipe(
             getFirstCompletedRemoteData(),
-            map((rd: RemoteData<PaginatedList<Site>>) => rd.hasSucceeded ? rd.payload.page[0] : null)
+            map((rd: RemoteData<PaginatedList<Site>>) => rd.hasSucceeded ? rd.payload.page[0] : null),
           );
         }
-      })
+      }),
     );
   }
 

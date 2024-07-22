@@ -1,35 +1,51 @@
-import { fakeAsync, tick } from '@angular/core/testing';
-import { Meta, Title } from '@angular/platform-browser';
-import { NavigationEnd, Router } from '@angular/router';
-
+import {
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
+import {
+  Meta,
+  Title,
+} from '@angular/platform-browser';
+import {
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import { getMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, of } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+  of,
+} from 'rxjs';
 
-import { RemoteData } from '../data/remote-data';
-import { Item } from '../shared/item.model';
-
+import { AppConfig } from '../../../config/app-config.interface';
 import {
   ItemMock,
   MockBitstream1,
+  MockBitstream2,
   MockBitstream3,
-  MockBitstream2
 } from '../../shared/mocks/item.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginatedList } from '../data/paginated-list.model';
-import { Bitstream } from '../shared/bitstream.model';
-import { MetadataValue } from '../shared/metadata.models';
-
-import { MetadataService } from './metadata.service';
-import { RootDataService } from '../data/root-data.service';
-import { Bundle } from '../shared/bundle.model';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { getMockStore } from '@ngrx/store/testing';
-import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { AppConfig } from '../../../config/app-config.interface';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RootDataService } from '../data/root-data.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { Bitstream } from '../shared/bitstream.model';
+import { Bundle } from '../shared/bundle.model';
+import { Item } from '../shared/item.model';
+import { MetadataValue } from '../shared/metadata.models';
+import {
+  AddMetaTagAction,
+  ClearMetaTagAction,
+} from './meta-tag.actions';
+import { MetadataService } from './metadata.service';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 
 xdescribe('MetadataService', () => {
@@ -54,46 +70,46 @@ xdescribe('MetadataService', () => {
 
   let appConfig: AppConfig;
 
-  const initialState = { 'core': { metaTag: { tagsInUse: ['title', 'description'] }}};
+  const initialState = { 'core': { metaTag: { tagsInUse: ['title', 'description'] } } };
 
 
   beforeEach(() => {
     rootService = jasmine.createSpyObj({
-      findRoot: createSuccessfulRemoteDataObject$({ dspaceVersion: 'mock-dspace-version' })
+      findRoot: createSuccessfulRemoteDataObject$({ dspaceVersion: 'mock-dspace-version' }),
     });
     bitstreamDataService = jasmine.createSpyObj({
       findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([MockBitstream3])),
     });
     bundleDataService = jasmine.createSpyObj({
-      findByItemAndName: mockBundleRD$([MockBitstream3])
+      findByItemAndName: mockBundleRD$([MockBitstream3]),
     });
     translateService = getMockTranslateService();
     meta = jasmine.createSpyObj('meta', {
       addTag: {},
-      removeTag: {}
+      removeTag: {},
     });
     title = jasmine.createSpyObj({
-      setTitle: {}
+      setTitle: {},
     });
     dsoNameService = jasmine.createSpyObj({
-      getName: ItemMock.firstMetadataValue('dc.title')
+      getName: ItemMock.firstMetadataValue('dc.title'),
     });
     router = {
       url: '/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
       events: of(new NavigationEnd(1, '', '')),
       routerState: {
-        root: {}
-      }
+        root: {},
+      },
     } as any as Router;
     hardRedirectService = jasmine.createSpyObj( {
       getCurrentOrigin: 'https://request.org',
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     schemaJsonLDService = jasmine.createSpyObj('authorizationService', {
       insertSchema: jasmine.createSpy('insertSchema'),
-      removeStructuredData: jasmine.createSpy('removeStructuredData')
+      removeStructuredData: jasmine.createSpy('removeStructuredData'),
     });
 
     // @ts-ignore
@@ -103,9 +119,9 @@ xdescribe('MetadataService', () => {
     appConfig = {
       item: {
         bitstream: {
-          pageSize: 5
-        }
-      }
+          pageSize: 5,
+        },
+      },
     } as any;
 
     metadataService = new MetadataService(
@@ -124,7 +140,7 @@ xdescribe('MetadataService', () => {
       authorizationService,
       schemaJsonLDService,
       'browser',
-      null
+      null,
     );
   });
 
@@ -133,25 +149,25 @@ xdescribe('MetadataService', () => {
       data: {
         value: {
           dso: createSuccessfulRemoteDataObject(ItemMock),
-        }
-      }
+        },
+      },
     });
     tick();
     expect(title.setTitle).toHaveBeenCalledWith('Test PowerPoint Document');
     expect(meta.addTag).toHaveBeenCalledWith({
       name: 'citation_title',
-      content: 'Test PowerPoint Document'
+      content: 'Test PowerPoint Document',
     });
     expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
     expect(meta.addTag).toHaveBeenCalledWith({
       name: 'citation_publication_date',
-      content: '1650-06-26'
+      content: '1650-06-26',
     });
     expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_issn', content: '123456789' });
     expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_language', content: 'en' });
     expect(meta.addTag).toHaveBeenCalledWith({
       name: 'citation_keywords',
-      content: 'keyword1; keyword2; keyword3'
+      content: 'keyword1; keyword2; keyword3',
     });
   }));
 
@@ -160,17 +176,17 @@ xdescribe('MetadataService', () => {
       data: {
         value: {
           dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Thesis'))),
-        }
-      }
+        },
+      },
     });
     tick();
     expect(meta.addTag).toHaveBeenCalledWith({
       name: 'citation_dissertation_name',
-      content: 'Test PowerPoint Document'
+      content: 'Test PowerPoint Document',
     });
     expect(meta.addTag).toHaveBeenCalledWith({
       name: 'citation_pdf_url',
-      content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download'
+      content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download',
     });
   }));
 
@@ -179,13 +195,13 @@ xdescribe('MetadataService', () => {
       data: {
         value: {
           dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Technical Report'))),
-        }
-      }
+        },
+      },
     });
     tick();
     expect(meta.addTag).toHaveBeenCalledWith({
       name: 'citation_technical_report_institution',
-      content: 'Mock Publisher'
+      content: 'Mock Publisher',
     });
   }));
 
@@ -196,8 +212,8 @@ xdescribe('MetadataService', () => {
         value: {
           dso: createSuccessfulRemoteDataObject(ItemMock),
           title: 'route.title.key',
-        }
-      }
+        },
+      },
     });
     tick();
     expect(title.setTitle).toHaveBeenCalledTimes(2);
@@ -211,19 +227,19 @@ xdescribe('MetadataService', () => {
       data: {
         value: {
           title: 'Dummy Title',
-          description: 'This is a dummy item component for testing!'
-        }
-      }
+          description: 'This is a dummy item component for testing!',
+        },
+      },
     });
     tick();
     expect(title.setTitle).toHaveBeenCalledWith('DSpace :: Dummy Title');
     expect(meta.addTag).toHaveBeenCalledWith({
       name: 'title',
-      content: 'DSpace :: Dummy Title'
+      content: 'DSpace :: Dummy Title',
     });
     expect(meta.addTag).toHaveBeenCalledWith({
       name: 'description',
-      content: 'This is a dummy item component for testing!'
+      content: 'This is a dummy item component for testing!',
     });
   }));
 
@@ -240,7 +256,7 @@ xdescribe('MetadataService', () => {
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
         name: 'Generator',
-        content: 'mock-dspace-version'
+        content: 'mock-dspace-version',
       });
     }));
   });
@@ -251,13 +267,13 @@ xdescribe('MetadataService', () => {
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockUri(ItemMock, 'https://ddg.gg')),
-          }
-        }
+          },
+        },
       });
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
         name: 'citation_abstract_html_url',
-        content: 'https://ddg.gg'
+        content: 'https://ddg.gg',
       });
     }));
 
@@ -266,13 +282,13 @@ xdescribe('MetadataService', () => {
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockUri(ItemMock)),
-          }
-        }
+          },
+        },
       });
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
         name: 'citation_abstract_html_url',
-        content: 'https://request.org/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
+        content: 'https://request.org/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
       });
     }));
   });
@@ -283,13 +299,13 @@ xdescribe('MetadataService', () => {
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Thesis'))),
-          }
-        }
+          },
+        },
       });
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
         name: 'citation_dissertation_institution',
-        content: 'Mock Publisher'
+        content: 'Mock Publisher',
       });
       expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_technical_report_institution' }));
       expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_publisher' }));
@@ -300,14 +316,14 @@ xdescribe('MetadataService', () => {
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Technical Report'))),
-          }
-        }
+          },
+        },
       });
       tick();
       expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_dissertation_institution' }));
       expect(meta.addTag).toHaveBeenCalledWith({
         name: 'citation_technical_report_institution',
-        content: 'Mock Publisher'
+        content: 'Mock Publisher',
       });
       expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_publisher' }));
     }));
@@ -317,15 +333,15 @@ xdescribe('MetadataService', () => {
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Some Other Type'))),
-          }
-        }
+          },
+        },
       });
       tick();
       expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_dissertation_institution' }));
       expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_technical_report_institution' }));
       expect(meta.addTag).toHaveBeenCalledWith({
         name: 'citation_publisher',
-        content: 'Mock Publisher'
+        content: 'Mock Publisher',
       });
     }));
   });
@@ -338,13 +354,13 @@ xdescribe('MetadataService', () => {
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(ItemMock),
-          }
-        }
+          },
+        },
       });
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
         name: 'citation_pdf_url',
-        content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download'
+        content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download',
       });
     }));
 
@@ -357,8 +373,8 @@ xdescribe('MetadataService', () => {
           data: {
             value: {
               dso: createSuccessfulRemoteDataObject(ItemMock),
-            }
-          }
+            },
+          },
         });
         tick();
         expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_pdf_url' }));
@@ -374,13 +390,13 @@ xdescribe('MetadataService', () => {
           data: {
             value: {
               dso: createSuccessfulRemoteDataObject(ItemMock),
-            }
-          }
+            },
+          },
         });
         tick();
         expect(meta.addTag).toHaveBeenCalledWith({
           name: 'citation_pdf_url',
-          content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download'
+          content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download',
         });
       }));
 
@@ -400,13 +416,13 @@ xdescribe('MetadataService', () => {
             data: {
               value: {
                 dso: createSuccessfulRemoteDataObject(ItemMock),
-              }
-            }
+              },
+            },
           });
           tick();
           expect(meta.addTag).toHaveBeenCalledWith({
             name: 'citation_pdf_url',
-            content: 'https://request.org/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download'
+            content: 'https://request.org/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download',
           });
         }));
 
@@ -431,13 +447,13 @@ xdescribe('MetadataService', () => {
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(ItemMock),
-          }
-        }
+          },
+        },
       });
       tick();
       expect(meta.addTag).not.toHaveBeenCalledWith({
         name: 'citation_pdf_url',
-        content: 'https://request.org/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download'
+        content: 'https://request.org/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download',
       });
     }));
 
@@ -450,8 +466,8 @@ xdescribe('MetadataService', () => {
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(ItemMock),
-          }
-        }
+          },
+        },
       });
       tick();
     }));
@@ -479,8 +495,8 @@ xdescribe('MetadataService', () => {
     publishedMockItem.metadata['dc.publisher'] = [
       {
         language: 'en_US',
-        value: 'Mock Publisher'
-      }
+        value: 'Mock Publisher',
+      },
     ] as MetadataValue[];
     return publishedMockItem;
   };
@@ -497,7 +513,7 @@ xdescribe('MetadataService', () => {
         name: 'ORIGINAL',
         bitstreams: createSuccessfulRemoteDataObject$(mockBitstreamPages$(bitstreams)[0]),
         primaryBitstream: createSuccessfulRemoteDataObject$(primary),
-      })
+      }),
     );
   };
 
@@ -507,8 +523,8 @@ xdescribe('MetadataService', () => {
         totalElements: bitstreams.length,       // announce multiple elements/pages
       },
       _links: index < bitstreams.length - 1
-        ? { next: { href: 'not empty' }}        // fake link to the next bitstream page
-        : { next: { href: undefined }},         // last page has no link
+        ? { next: { href: 'not empty' } }        // fake link to the next bitstream page
+        : { next: { href: undefined } },         // last page has no link
     }));
   };
 });

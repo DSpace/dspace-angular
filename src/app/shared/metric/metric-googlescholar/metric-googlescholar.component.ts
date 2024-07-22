@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseMetricComponent } from '../metric-loader/base-metric.component';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+
 import { hasValue } from '../../empty.util';
+import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 
 @Component({
   selector: 'ds-metric-googlescholar',

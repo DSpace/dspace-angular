@@ -1,33 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { SortDirection } from '../cache/models/sort-options.model';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
-import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
+import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
   getBrowseDefinitionLinks,
   getFirstOccurrence,
-  getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  getPaginatedListPayload
+  getPaginatedListPayload,
+  getRemoteDataPayload,
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { HrefOnlyDataService } from '../data/href-only-data.service';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
-import { SortDirection } from '../cache/models/sort-options.model';
-
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
-  followLink('thumbnail')
+  followLink('thumbnail'),
 ];
 
 /**
@@ -102,10 +114,10 @@ export class BrowseService {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      })
+      }),
     );
     if (options.fetchThumbnail ) {
-      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
@@ -155,7 +167,7 @@ export class BrowseService {
       }),
     );
     if (options.fetchThumbnail) {
-      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, true, false, ...[...linksToFollow, ...BROWSE_LINKS_TO_FOLLOW]);
+      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, true, false, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findListByHref<Item>(href$,{}, true, false, ...linksToFollow);
   }
@@ -189,12 +201,12 @@ export class BrowseService {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      })
+      }),
     );
 
     return this.hrefOnlyDataService.findListByHref<Item>(href$).pipe(
       getFirstSucceededRemoteData(),
-      getFirstOccurrence()
+      getFirstOccurrence(),
     );
 
   }
@@ -250,7 +262,7 @@ export class BrowseService {
           }
 
           return isNotEmpty(matchingKeys);
-        })
+        }),
       ),
       map((def: BrowseDefinition) => {
         if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
@@ -260,7 +272,7 @@ export class BrowseService {
         }
       }),
       startWith(undefined),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

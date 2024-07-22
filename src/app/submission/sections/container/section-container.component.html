@@ -1,6 +1,6 @@
 <div dsSection #sectionRef="sectionRef"
      [attr.id]="'section_' + sectionData.id"
-     [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() && !(isRemoving | async) }"
+     [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() && (isRemoving | async) !== true }"
      [mandatory]="sectionData.mandatory"
      [opened]="sectionData.opened"
      [submissionId]="submissionId"
@@ -17,7 +17,7 @@
           'submission.sections.'+sectionData.header | translate
           }}</span>
         <div class="d-inline-block float-right">
-          <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
+          <i *ngIf="(sectionRef.isValid() | async) !== true && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
             class="fas fa-exclamation-circle text-warning mr-3"
             title="{{'submission.sections.status.warnings.title' | translate}}" role="img"
             [attr.aria-label]="'submission.sections.status.warnings.aria' | translate"></i>
@@ -39,10 +39,10 @@
               class="fas fa-chevron-up fa-fw"></span>
             <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"></span>
           </a>
-          <a href="javascript:void(0);" class="close mr-3" *ngIf="!sectionRef.isMandatory() && !(sectionRef.isReadOnly() | async)"
+          <a href="javascript:void(0);" class="close mr-3" *ngIf="!sectionRef.isMandatory() && (sectionRef.isReadOnly() | async) !== true"
             (click)="removeSection($event)">
-            <i *ngIf="!(isRemoving | async)" class="far fa-trash-alt" aria-hidden="true" tabindex="0"></i>
-            <i *ngIf="(isRemoving | async)" class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>
+            <i *ngIf="(isRemoving | async) !== true" class="far fa-trash-alt" aria-hidden="true" tabindex="0"></i>
+            <i *ngIf="(isRemoving | async) === true" class="fas fa-circle-notch fa-spin" aria-hidden="true"></i>
           </a>
         </div>
       </ng-template>

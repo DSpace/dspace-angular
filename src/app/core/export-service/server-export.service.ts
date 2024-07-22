@@ -1,6 +1,9 @@
 import { BehaviorSubject } from 'rxjs';
 
-import { ExportImageType, ExportService } from './export.service';
+import {
+  ExportImageType,
+  ExportService,
+} from './export.service';
 
 export class ServerExportService implements ExportService {
   /**

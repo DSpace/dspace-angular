@@ -1,12 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  async,
+  ComponentFixture,
+  inject,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { Site } from '../../core/shared/site.model';
@@ -28,13 +43,13 @@ describe('AdminEditUserAgreementComponent', () => {
     metadata: {
       'dc.rights' : [{
         value: 'This is the End User Agreement text for this test',
-        language: 'en'
+        language: 'en',
       },
       {
         value: 'Dies ist der Text der Endbenutzervereinbarung für diesen Test',
-        language: 'de'
-      }]
-    }
+        language: 'de',
+      }],
+    },
   });
 
   beforeEach(async(() => {
@@ -44,7 +59,7 @@ describe('AdminEditUserAgreementComponent', () => {
     siteService = {
       find(): Observable<Site> {
         return of(site);
-      }
+      },
     };
 
     TestBed.configureTestingModule({
@@ -52,8 +67,8 @@ describe('AdminEditUserAgreementComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [AdminEditUserAgreementComponent],
@@ -61,7 +76,7 @@ describe('AdminEditUserAgreementComponent', () => {
         { provide: NotificationsService, useValue: notificationService },
         { provide: SiteDataService, useValue: siteService },
         { provide: ScriptDataService, useValue: scriptDataService }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

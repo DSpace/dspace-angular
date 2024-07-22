@@ -1,28 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { CollectionPageResolver } from './collection-page.resolver';
-import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
+import { BrowseByGuard } from '../browse-by/browse-by-guard';
+import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
-import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
-import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
-import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
-import { LinkService } from '../core/cache/builders/link.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import {
-  ITEMTEMPLATE_PATH,
-  COLLECTION_EDIT_PATH,
-  COLLECTION_CREATE_PATH
-} from './collection-page-routing-paths';
-import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { ThemedCollectionPageComponent } from './themed-collection-page.component';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
-import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { LinkService } from '../core/cache/builders/link.service';
 import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection.resolver';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { CollectionPageResolver } from './collection-page.resolver';
+import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
+import {
+  COLLECTION_CREATE_PATH,
+  COLLECTION_EDIT_PATH,
+  ITEMTEMPLATE_PATH,
+} from './collection-page-routing-paths';
+import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
+import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
+import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
+import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
+import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
+import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 
 @NgModule({
   imports: [
@@ -30,14 +34,14 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
       {
         path: COLLECTION_CREATE_PATH,
         component: CreateCollectionPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
+        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard],
       },
       {
         path: ':id',
         resolve: {
           dso: CollectionPageResolver,
           breadcrumb: CollectionBreadcrumbResolver,
-          menu: DSOEditMenuResolver
+          menu: DSOEditMenuResolver,
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -48,7 +52,7 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
             path: COLLECTION_EDIT_PATH,
             loadChildren: () => import('./edit-collection-page/edit-collection-page.module')
               .then((m) => m.EditCollectionPageModule),
-            canActivate: [CollectionPageAdministratorGuard]
+            canActivate: [CollectionPageAdministratorGuard],
           },
           {
             path: 'delete',
@@ -62,15 +66,31 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
             canActivate: [AuthenticatedGuard],
             resolve: {
               item: ItemTemplatePageResolver,
-              breadcrumb: I18nBreadcrumbResolver
+              breadcrumb: I18nBreadcrumbResolver,
             },
-            data: { title: 'collection.edit.template.title', breadcrumbKey: 'collection.edit.template' }
+            data: { title: 'collection.edit.template.title', breadcrumbKey: 'collection.edit.template' },
           },
           {
             path: '',
             component: ThemedCollectionPageComponent,
-            pathMatch: 'full',
-          }
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: ComcolSearchSectionComponent,
+              },
+              {
+                path: 'browse/:id',
+                pathMatch: 'full',
+                component: ComcolBrowseByComponent,
+                canActivate: [BrowseByGuard],
+                resolve: {
+                  breadcrumb: BrowseByI18nBreadcrumbResolver,
+                },
+                data: { breadcrumbKey: 'browse.metadata' },
+              },
+            ],
+          },
         ],
         data: {
           menu: {
@@ -88,7 +108,7 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
           },
         },
       },
-    ])
+    ]),
   ],
   providers: [
     CollectionPageResolver,
@@ -98,8 +118,8 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
     LinkService,
     CreateCollectionPageGuard,
     CollectionPageAdministratorGuard,
-    EditCollectionResolver
-  ]
+    EditCollectionResolver,
+  ],
 })
 export class CollectionPageRoutingModule {
 

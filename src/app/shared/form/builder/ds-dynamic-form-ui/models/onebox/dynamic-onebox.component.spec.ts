@@ -1,41 +1,63 @@
 /* eslint-disable max-classes-per-file */
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { CdkTreeModule } from '@angular/cdk/tree';
-
-import { TestScheduler } from 'rxjs/testing';
-import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormLayoutService,
+  DynamicFormsCoreModule,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 import { v4 as uuidv4 } from 'uuid';
 
+import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
+import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
-import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
-import { DynamicOneboxModel } from './dynamic-onebox.model';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
 import {
   mockDynamicFormLayoutService,
-  mockDynamicFormValidationService
+  mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
-import { FormBuilderService } from '../../../form-builder.service';
-import { SubmissionService } from '../../../../../../submission/submission.service';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
-import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
+import { createTestComponent } from '../../../../../testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
+import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { FormBuilderService } from '../../../form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
+import { DynamicOneboxModel } from './dynamic-onebox.model';
 
 export let ONEBOX_TEST_GROUP;
 
@@ -49,7 +71,7 @@ export class MockNgbModalRef {
   componentInstance = {
     vocabularyOptions: undefined,
     preloadLevel: undefined,
-    selectedItem: undefined
+    selectedItem: undefined,
   };
   result: Promise<any> = new Promise((resolve, reject) => resolve(true));
 }
@@ -62,7 +84,7 @@ function init() {
   ONEBOX_TEST_MODEL_CONFIG = {
     vocabularyOptions: {
       closed: false,
-      name: 'vocabulary'
+      name: 'vocabulary',
     } as VocabularyOptions,
     disabled: false,
     id: 'onebox',
@@ -73,7 +95,7 @@ function init() {
     readOnly: false,
     required: false,
     repeatable: false,
-    value: undefined
+    value: undefined,
   };
 }
 
@@ -98,12 +120,12 @@ describe('DsDynamicOneboxComponent test suite', () => {
     type: 'vocabulary',
     _links: {
       self: {
-        url: 'self'
+        url: 'self',
       },
       entries: {
-        url: 'entries'
-      }
-    }
+        url: 'entries',
+      },
+    },
   });
   const vocabularyExternal: any = Object.assign(new Vocabulary(), {
     id: 'author',
@@ -113,18 +135,18 @@ describe('DsDynamicOneboxComponent test suite', () => {
     preloadLevel: 1,
     entity: 'test',
     externalSource: {
-      onebox: 'authorExternalSource'
+      onebox: 'authorExternalSource',
     },
     type: 'vocabulary',
     uuid: 'vocabulary-author',
     _links: {
       self: {
-        href: 'https://rest.api/rest/api/submission/vocabularies/types'
+        href: 'https://rest.api/rest/api/submission/vocabularies/types',
       },
       entries: {
-        href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
+        href: 'https://rest.api/rest/api/submission/vocabularies/types/entries',
       },
-    }
+    },
   });
   const hierarchicalVocabulary = Object.assign(new Vocabulary(), {
     id: 'hierarchicalVocabulary',
@@ -135,12 +157,12 @@ describe('DsDynamicOneboxComponent test suite', () => {
     type: 'vocabulary',
     _links: {
       self: {
-        url: 'self'
+        url: 'self',
       },
       entries: {
-        url: 'entries'
-      }
-    }
+        url: 'entries',
+      },
+    },
   });
 
   // waitForAsync beforeEach
@@ -152,7 +174,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         open: jasmine.createSpy('open'),
         close: jasmine.createSpy('close'),
         dismiss: jasmine.createSpy('dismiss'),
-      }
+      },
     );
     init();
     TestBed.configureTestingModule({
@@ -163,14 +185,14 @@ describe('DsDynamicOneboxComponent test suite', () => {
         NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-        CdkTreeModule
+        CdkTreeModule,
       ],
       declarations: [
         DsDynamicOneboxComponent,
         TestComponent,
         AuthorityConfidenceStateDirective,
         ObjNgFor,
-        VocabularyTreeviewComponent
+        VocabularyTreeviewComponent,
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
@@ -180,9 +202,9 @@ describe('DsDynamicOneboxComponent test suite', () => {
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: NgbModal, useValue: modal },
         { provide: FormBuilderService },
-        { provide: SubmissionService, useClass: SubmissionServiceStub }
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
   });
@@ -296,7 +318,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur',));
+        oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.change.emit).toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
@@ -309,7 +331,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur',));
+        oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.change.emit).not.toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
@@ -322,7 +344,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         spyOn(oneboxComponent.blur, 'emit');
         spyOn(oneboxComponent.change, 'emit');
         spyOn(oneboxComponent.instance, 'isPopupOpen').and.returnValue(false);
-        oneboxComponent.onBlur(new Event('blur',));
+        oneboxComponent.onBlur(new Event('blur'));
         expect(oneboxComponent.change.emit).not.toHaveBeenCalled();
         expect(oneboxComponent.blur.emit).toHaveBeenCalled();
       });
@@ -344,7 +366,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         const entry = observableOf(Object.assign(new VocabularyEntry(), {
           authority: null,
           value: 'test',
-          display: 'testDisplay'
+          display: 'testDisplay',
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
@@ -381,7 +403,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         const entry = observableOf(Object.assign(new VocabularyEntry(), {
           authority: validAuthority,
           value: 'test',
-          display: 'test'
+          display: 'test',
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
@@ -453,7 +475,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         const entry = observableOf(Object.assign(new VocabularyEntry(), {
           authority: null,
           value: 'test',
-          display: 'testDisplay'
+          display: 'testDisplay',
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
@@ -523,7 +545,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

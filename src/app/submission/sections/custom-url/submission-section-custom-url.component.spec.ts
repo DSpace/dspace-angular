@@ -1,25 +1,36 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SubmissionSectionCustomUrlComponent } from './submission-section-custom-url.component';
-import { of as observableOf } from 'rxjs';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SectionsService } from '../sections.service';
+import {
+  DynamicFormControlEvent,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { SubmissionService } from '../../submission.service';
 import { WorkspaceitemSectionCustomUrlObject } from '../../../core/submission/models/workspaceitem-section-custom-url.model';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsType } from '../sections-type';
-import { DynamicFormControlEvent, DynamicInputModel } from '@ng-dynamic-forms/core';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormComponent } from '../../../shared/form/form.component';
+import { FormService } from '../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { FormService } from '../../../shared/form/form.service';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import { FormComponent } from '../../../shared/form/form.component';
-import { FormControl, FormGroup } from '@angular/forms';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { SubmissionService } from '../../submission.service';
+import { SectionFormOperationsService } from '../form/section-form-operations.service';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { SectionsType } from '../sections-type';
+import { SubmissionSectionCustomUrlComponent } from './submission-section-custom-url.component';
 import SpyObj = jasmine.SpyObj;
 
 describe('SubmissionSectionCustomUrlComponent', () => {
@@ -34,8 +45,8 @@ describe('SubmissionSectionCustomUrlComponent', () => {
     'url': 'test',
     'redirected-urls': [
       'redirected1',
-      'redirected2'
-    ]
+      'redirected2',
+    ],
   } as WorkspaceitemSectionCustomUrlObject;
 
   let formService: any;
@@ -47,7 +58,7 @@ describe('SubmissionSectionCustomUrlComponent', () => {
       component.sectionData.data = updatedData;
     },
     getSectionServerErrors: observableOf([]),
-    checkSectionErrors: () => undefined
+    checkSectionErrors: () => undefined,
   });
 
   const sectionObject: SectionDataObject = {
@@ -60,17 +71,17 @@ describe('SubmissionSectionCustomUrlComponent', () => {
     header: 'test header',
     id: 'test section id',
     sectionType: SectionsType.CustomUrl,
-    sectionVisibility: null
+    sectionVisibility: null,
   };
 
   const operationsBuilder = jasmine.createSpyObj('operationsBuilder', {
     add: undefined,
     remove: undefined,
-    replace: undefined
+    replace: undefined,
   });
 
   const submissionService = jasmine.createSpyObj('SubmissionService', {
-    getSubmissionScope: jasmine.createSpy('getSubmissionScope')
+    getSubmissionScope: jasmine.createSpy('getSubmissionScope'),
   });
 
   const changeEvent: DynamicFormControlEvent = {
@@ -104,7 +115,7 @@ describe('SubmissionSectionCustomUrlComponent', () => {
       tabIndex: null,
       updateOn: null,
     }),
-    type: 'change'
+    type: 'change',
   };
 
 
@@ -115,7 +126,7 @@ describe('SubmissionSectionCustomUrlComponent', () => {
       ],
       declarations: [
         SubmissionSectionCustomUrlComponent,
-        FormComponent
+        FormComponent,
       ],
       providers: [
         { provide: SectionsService, useValue: sectionService },

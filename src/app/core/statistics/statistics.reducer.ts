@@ -1,4 +1,7 @@
-import { StatisticsAction, StatisticsActionTypes } from './statistics.action';
+import {
+  StatisticsAction,
+  StatisticsActionTypes,
+} from './statistics.action';
 
 /**
  * Interface that represents the state of the user report state
@@ -10,7 +13,7 @@ export interface StatisticsState {
 
 const initialState: StatisticsState = {
   reportId: null,
-  categoryId: null
+  categoryId: null,
 };
 
 /**
@@ -25,13 +28,13 @@ export function StatisticsReducer(state: StatisticsState = initialState, action:
     case StatisticsActionTypes.CLEAN_CATEGORY_REPORT :
       return Object.assign({}, state, {
         reportId: null,
-        categoryId: null
+        categoryId: null,
       });
 
     case StatisticsActionTypes.SET_CATEGORY_REPORT :
       return Object.assign({}, state, {
         reportId: action.payload.reportId,
-        categoryId: action.payload.categoryId
+        categoryId: action.payload.categoryId,
       });
 
     default:

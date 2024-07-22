@@ -1,19 +1,32 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
+
+import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
+import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Item } from '../../core/shared/item.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
-import { environment } from '../../../environments/environment';
-import { Subscription } from 'rxjs/internal/Subscription';
 
 /**
  * This component renders the media viewers
@@ -42,6 +55,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
+    protected changeDetectorRef: ChangeDetectorRef,
   ) {
   }
 
@@ -75,7 +89,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
                 const mediaItem = this.createMediaViewerItem(
                   bitstreamsRD.payload.page[index],
                   format,
-                  thumbnailsRD.payload && thumbnailsRD.payload.page[index]
+                  thumbnailsRD.payload && thumbnailsRD.payload.page[index],
                 );
                 if (types.includes(mediaItem.format)) {
                   this.mediaList$.next([...this.mediaList$.getValue(), mediaItem]);
@@ -85,6 +99,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
               }));
           }
           this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
         }));
       }
     }));
@@ -95,7 +110,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
    * @param bundleName Bundle name
    */
   loadRemoteData(
-    bundleName: string
+    bundleName: string,
   ): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bitstreamDataService
       .findAllByItemAndBundleName(
@@ -104,15 +119,15 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
         {},
         true,
         true,
-        followLink('format')
+        followLink('format'),
       )
       .pipe(
         filter(
           (bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) =>
             hasValue(bitstreamsRD) &&
-            (hasValue(bitstreamsRD.errorMessage) || hasValue(bitstreamsRD.payload))
+            (hasValue(bitstreamsRD.errorMessage) || hasValue(bitstreamsRD.payload)),
         ),
-        take(1)
+        take(1),
       );
   }
 

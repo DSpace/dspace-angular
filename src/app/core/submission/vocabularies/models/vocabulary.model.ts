@@ -1,15 +1,24 @@
-import { autoserialize, deserialize } from 'cerialize';
-
-import { HALLink } from '../../../shared/hal-link.model';
-import { VOCABULARY, VOCABULARY_ENTRY } from './vocabularies.resource-type';
-import { typedObject, link } from '../../../cache/builders/build-decorators';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { isNotEmpty } from '../../../../shared/empty.util';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../../data/remote-data';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { VocabularyEntry } from './vocabulary-entry.model';
+
+import { isNotEmpty } from '../../../../shared/empty.util';
+import {
+  link,
+  typedObject,
+} from '../../../cache/builders/build-decorators';
 import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { PaginatedList } from '../../../data/paginated-list.model';
+import { RemoteData } from '../../../data/remote-data';
+import { HALLink } from '../../../shared/hal-link.model';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import {
+  VOCABULARY,
+  VOCABULARY_ENTRY,
+} from './vocabularies.resource-type';
+import { VocabularyEntry } from './vocabulary-entry.model';
 
 export interface VocabularyExternalSourceMap {
   [metadata: string]: string;
@@ -25,45 +34,45 @@ export class Vocabulary implements CacheableObject {
    * The identifier of this Vocabulary
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The name of this Vocabulary
    */
   @autoserialize
-  name: string;
+    name: string;
 
   /**
    * True if it is possible to scroll all the entries in the vocabulary without providing a filter parameter
    */
   @autoserialize
-  scrollable: boolean;
+    scrollable: boolean;
 
   /**
    * True if the vocabulary exposes a tree structure where some entries are parent of others
    */
   @autoserialize
-  hierarchical: boolean;
+    hierarchical: boolean;
 
   /**
    * For hierarchical vocabularies express the preference to preload the tree at a specific
    * level of depth (0 only the top nodes are shown, 1 also their children are preloaded and so on)
    */
   @autoserialize
-  preloadLevel: any;
+    preloadLevel: any;
 
   /**
    * If externalSource is available represent the entity type that can be use to create a new entity from
    * this vocabulary
    */
   @autoserialize
-  entity: string;
+    entity: string;
 
   /**
    * If available represent that this vocabulary can be use to create a new entity
    */
   @autoserialize
-  externalSource: VocabularyExternalSourceMap;
+    externalSource: VocabularyExternalSourceMap;
 
   /**
    * A string representing the kind of Vocabulary model
@@ -73,13 +82,13 @@ export class Vocabulary implements CacheableObject {
   public type: any;
 
   @link(VOCABULARY_ENTRY, true)
-  entries?: Observable<RemoteData<PaginatedList<VocabularyEntry>>>;
+    entries?: Observable<RemoteData<PaginatedList<VocabularyEntry>>>;
 
   /**
    * The {@link HALLink}s for this Vocabulary
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
     entries: HALLink
   };

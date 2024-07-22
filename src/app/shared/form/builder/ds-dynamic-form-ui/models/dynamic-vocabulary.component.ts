@@ -1,39 +1,53 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
   DynamicFormControlCustomEvent,
   DynamicFormControlModel,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
-import { Observable, of as observableOf } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../empty.util';
-import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
-import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DsDynamicInputModel } from './ds-dynamic-input.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { FormBuilderService } from '../../form-builder.service';
-import { Vocabulary } from '../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import {
-  VocabularyExternalSourceComponent
-} from '../../../../vocabulary-external-source/vocabulary-external-source.component';
-import { SubmissionScopeType } from '../../../../../core/submission/submission-scope-type';
-import { SubmissionService } from '../../../../../submission/submission.service';
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { SubmissionScopeType } from '../../../../../core/submission/submission-scope-type';
+import { Vocabulary } from '../../../../../core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
+import { SubmissionService } from '../../../../../submission/submission.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../../empty.util';
+import { VocabularyExternalSourceComponent } from '../../../../vocabulary-external-source/vocabulary-external-source.component';
+import { FormBuilderService } from '../../form-builder.service';
+import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 /**
  * An abstract class to be extended by form components that handle vocabulary
  */
 @Component({
   selector: 'ds-dynamic-vocabulary',
-  template: ''
+  template: '',
 })
 export abstract class DsDynamicVocabularyComponent extends DynamicFormControlComponent {
 
@@ -66,7 +80,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
                         protected validationService: DynamicFormValidationService,
                         protected formBuilderService: FormBuilderService,
                         protected modalService: NgbModal,
-                        protected submissionService: SubmissionService
+                        protected submissionService: SubmissionService,
   ) {
     super(layoutService, validationService);
   }
@@ -80,8 +94,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
 
   /**
    * Retrieves the init form value from model
+   * @param preserveConfidence if the original model confidence value should be used after retrieving the vocabulary's entry
    */
-  getInitValueFromModel(): Observable<FormFieldMetadataValueObject> {
+  getInitValueFromModel(preserveConfidence = false): Observable<FormFieldMetadataValueObject> {
     let initValue$: Observable<FormFieldMetadataValueObject>;
     if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject) && !this.model.value.hasAuthorityToGenerate()) {
       let initEntry$: Observable<VocabularyEntry>;
@@ -93,7 +108,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       initValue$ = initEntry$.pipe(map((initEntry: VocabularyEntry) => {
         if (isNotEmpty(initEntry)) {
           // Integrate FormFieldMetadataValueObject with retrieved information
-          return new FormFieldMetadataValueObject(
+          const formField = new FormFieldMetadataValueObject(
             initEntry.value,
             null,
             (this.model.value as any).securityLevel,
@@ -101,8 +116,13 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
             initEntry.display,
             (this.model.value as any).place,
             (this.model.value as any).confidence || null,
-            initEntry.otherInformation || null
+            initEntry.otherInformation || null,
           );
+          // Preserve the original confidence
+          if (preserveConfidence) {
+            formField.confidence = (this.model.value as any).confidence;
+          }
+          return formField;
         } else {
           return this.model.value as any;
         }
@@ -117,8 +137,8 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           this.model.value.display,
           0,
           (this.model.value as any).confidence || null,
-          this.model.value.otherInformation || null
-        )
+          this.model.value.otherInformation || null,
+        ),
       );
     } else {
       initValue$ = observableOf(new FormFieldMetadataValueObject(this.model.value));
@@ -132,7 +152,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
   public createEntityFromMetadata(): void {
     this.vocabulary$.pipe(
       filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
-      take(1)
+      take(1),
     ).subscribe((vocabulary: Vocabulary) => {
       const modalRef = this.modalService.open(VocabularyExternalSourceComponent, {
         size: 'lg',
@@ -163,7 +183,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     return this.vocabulary$.pipe(
       filter((vocabulary: Vocabulary) => isNotEmpty(vocabulary)),
       map((vocabulary: Vocabulary) => isNotEmpty(vocabulary.entity) && isNotEmpty(vocabulary.getExternalSourceByMetadata(this.model.name))
-        && (this.model as any).submissionScope === SubmissionScopeType.WorkflowItem)
+        && (this.model as any).submissionScope === SubmissionScopeType.WorkflowItem),
     );
   }
 
@@ -238,7 +258,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
       totalElements: totalElements,
-      totalPages: totalPages
+      totalPages: totalPages,
     });
   }
 
@@ -289,12 +309,12 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         value.substring(0, value.lastIndexOf('::')),
         null,
         null,
-        value.substring(value.lastIndexOf('::') + 2)
+        value.substring(value.lastIndexOf('::') + 2),
       );
     } else if (value.indexOf('|||') !== -1 && this.otherInfoValue) {
       const unformattedValue =  this.otherInfoValuesUnformatted.find(otherInfoValue => otherInfoValue.includes(this.otherInfoValue || this.otherName));
       const authorityValue = hasValue(unformattedValue) ?  unformattedValue.substring(unformattedValue.lastIndexOf('::') + 2) : null;
-      let otherInfo = {};
+      const otherInfo = {};
       let alternativeValue;
       otherInfo[key] = value;
       if (hasValue(this.otherName)) {
@@ -309,7 +329,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         null,
         null,
         null,
-        otherInfo
+        otherInfo,
       );
     }
     return returnValue;

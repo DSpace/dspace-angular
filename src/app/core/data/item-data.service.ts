@@ -8,49 +8,81 @@
 /* eslint-disable max-classes-per-file */
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, switchMap, take } from 'rxjs/operators';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+import { validate as uuidValidate } from 'uuid';
+
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { Bundle } from '../shared/bundle.model';
 import { Collection } from '../shared/collection.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
-import { URLCombiner } from '../url-combiner/url-combiner';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { PaginatedList } from './paginated-list.model';
-import { RemoteData } from './remote-data';
-import { DeleteRequest, GetRequest, PostRequest, PutRequest } from './request.models';
-import { RequestService } from './request.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { Bundle } from '../shared/bundle.model';
 import { MetadataMap } from '../shared/metadata.models';
-import { BundleDataService } from './bundle-data.service';
-import { Operation } from 'fast-json-patch';
-import { NoContent } from '../shared/NoContent.model';
 import { Metric } from '../shared/metric.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { ResponseParsingService } from './parsing.service';
-import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
+import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
-import { RestRequest } from './rest-request.model';
-import { FindListOptions } from './find-list-options.model';
-import { ConstructIdEndpoint, IdentifiableDataService } from './base/identifiable-data.service';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { DeleteData, DeleteDataImpl } from './base/delete-data';
-import { RestRequestMethod } from './rest-request-method';
-import { CreateData, CreateDataImpl } from './base/create-data';
-import { RequestParam } from '../cache/models/request-param.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  CreateData,
+  CreateDataImpl,
+} from './base/create-data';
 import { dataService } from './base/data-service.decorator';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { ItemSearchParams } from './item-search-params';
-import { validate as uuidValidate } from 'uuid';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './base/delete-data';
+import {
+  ConstructIdEndpoint,
+  IdentifiableDataService,
+} from './base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
 import { SearchDataImpl } from './base/search-data';
+import { BundleDataService } from './bundle-data.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { FindListOptions } from './find-list-options.model';
+import { ItemSearchParams } from './item-search-params';
+import { PaginatedList } from './paginated-list.model';
+import { ResponseParsingService } from './parsing.service';
+import { RemoteData } from './remote-data';
+import {
+  DeleteRequest,
+  GetRequest,
+  PostRequest,
+  PutRequest,
+} from './request.models';
+import { RequestService } from './request.service';
+import { RestRequest } from './rest-request.model';
+import { RestRequestMethod } from './rest-request-method';
+import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
 
 /**
  * An abstract service for CRUD operations on Items
@@ -99,7 +131,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.browseService.getBrowseURLFor(field, linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString()),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -149,7 +181,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
         return new PostRequest(this.requestService.generateRequestId(), endpointURL, collectionURI, options);
       }),
       sendRequest(this.requestService),
-      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid))
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID(request.uuid)),
     );
   }
 
@@ -161,7 +193,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   public setWithDrawn(item: Item, withdrawn: boolean): Observable<RemoteData<Item>> {
 
     const patchOperation = {
-      op: 'replace', path: '/withdrawn', value: withdrawn
+      op: 'replace', path: '/withdrawn', value: withdrawn,
     } as Operation;
     this.requestService.removeByHrefSubstring('/discover');
 
@@ -175,7 +207,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public setDiscoverable(item: Item, discoverable: boolean): Observable<RemoteData<Item>> {
     const patchOperation = {
-      op: 'replace', path: '/discoverable', value: discoverable
+      op: 'replace', path: '/discoverable', value: discoverable,
     } as Operation;
     this.requestService.removeByHrefSubstring('/discover');
 
@@ -189,7 +221,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getBundlesEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('bundles', `${url}/${itemId}`))
+      switchMap((url: string) => this.halService.getEndpoint('bundles', `${url}/${itemId}`)),
     );
   }
 
@@ -200,10 +232,10 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getBundles(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bundle>>> {
     const hrefObs = this.getBundlesEndpoint(itemId).pipe(
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href),
     );
     hrefObs.pipe(
-      take(1)
+      take(1),
     ).subscribe((href) => {
       const request = new GetRequest(this.requestService.generateRequestId(), href);
       this.requestService.send(request);
@@ -218,7 +250,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getMetricsEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('metrics', `${url}/${itemId}`))
+      switchMap((url: string) => this.halService.getEndpoint('metrics', `${url}/${itemId}`)),
     );
   }
 
@@ -229,10 +261,10 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getMetrics(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Metric>>> {
     const hrefObs = this.getMetricsEndpoint(itemId).pipe(
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href),
     );
     hrefObs.pipe(
-      take(1)
+      take(1),
     ).subscribe((href) => {
       const request = new GetRequest(this.requestService.generateRequestId(), href);
       this.requestService.send(request);
@@ -253,11 +285,11 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
 
     const bundleJson = {
       name: bundleName,
-      metadata: metadata ? metadata : {}
+      metadata: metadata ? metadata : {},
     };
 
     hrefObs.pipe(
-      take(1)
+      take(1),
     ).subscribe((href) => {
       const options: HttpOptions = Object.create({});
       let headers = new HttpHeaders();
@@ -276,7 +308,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getIdentifiersEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('identifiers', `${url}/${itemId}`))
+      switchMap((url: string) => this.halService.getEndpoint('identifiers', `${url}/${itemId}`)),
     );
   }
 
@@ -287,7 +319,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   public getMoveItemEndpoint(itemId: string, inheritPolicies: boolean): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, itemId)),
-      map((endpoint: string) => `${endpoint}/owningCollection?inheritPolicies=${inheritPolicies}`)
+      map((endpoint: string) => `${endpoint}/owningCollection?inheritPolicies=${inheritPolicies}`),
     );
   }
 
@@ -313,10 +345,10 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
           // TODO: for now, the move Item endpoint returns a malformed collection -- only look at the status code
           getResponseParser(): GenericConstructor<ResponseParsingService> {
             return StatusCodeOnlyResponseParsingService;
-          }
+          },
         });
         return request;
-      })
+      }),
     ).subscribe((request) => {
       this.requestService.send(request);
     });
@@ -343,7 +375,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       map((href: string) => {
         const request = new PostRequest(requestId, href, externalSourceEntry._links.self.href, options);
         this.requestService.send(request);
-      })
+      }),
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);
@@ -355,7 +387,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getBitstreamsEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`))
+      switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`)),
     );
   }
 
@@ -453,7 +485,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       switchMap((params: ItemSearchParams) => {
         return this.searchData.searchBy(this.searchFindAllByIdPath,
           this.createSearchOptionsObjectsFindAllByID(params.uuidList, options), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-      })
+      }),
     );
   }
 
@@ -471,7 +503,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       params.push(new RequestParam('id', uuid));
     });
     return Object.assign(new FindListOptions(), options, {
-      searchParams: [...params]
+      searchParams: [...params],
     });
   }
 
@@ -536,7 +568,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     const options = Object.assign({}, {
       searchParams: [
         new RequestParam('q', id),
-      ]
+      ],
     });
 
     projections.forEach((projection) => {

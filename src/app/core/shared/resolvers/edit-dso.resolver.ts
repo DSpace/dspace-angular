@@ -1,12 +1,16 @@
-import { DSpaceObject } from './../dspace-object.model';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-
-import { ChildHALResource } from '../child-hal-resource.model';
 import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+import { ChildHALResource } from '../child-hal-resource.model';
+import { DSpaceObject } from './../dspace-object.model';
 
 /**
  * This class represents a resolver that requests a specific DSpaceObject before the route is activated
@@ -30,7 +34,7 @@ export abstract class EditDsoResolver<T extends ChildHALResource & DSpaceObject>
       ['allLanguages'],
       true,
       false,
-      ...this.getFollowLinks()
+      ...this.getFollowLinks(),
     ).pipe(
       getFirstCompletedRemoteData(),
     );

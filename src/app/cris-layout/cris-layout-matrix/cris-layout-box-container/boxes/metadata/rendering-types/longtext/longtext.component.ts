@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+import {
+  FieldRenderingType,
+  MetadataBoxFieldRendering,
+} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -10,7 +13,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'div[ds-longtext]',
   templateUrl: './longtext.component.html',
-  styleUrls: ['./longtext.component.scss']
+  styleUrls: ['./longtext.component.scss'],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.LONGTEXT)
 export class LongtextComponent extends RenderingTypeValueModelComponent {

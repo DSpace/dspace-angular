@@ -1,22 +1,29 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { BROWSE_BY_COMPONENT_FACTORY } from '../browse-by-switcher/browse-by-decorator';
-import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { BROWSE_BY_COMPONENT_FACTORY } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-taxonomy-page',
   templateUrl: './browse-by-taxonomy-page.component.html',
-  styleUrls: ['./browse-by-taxonomy-page.component.scss']
+  styleUrls: ['./browse-by-taxonomy-page.component.scss'],
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
@@ -79,7 +86,7 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
       map((data: { browseDefinition: BrowseDefinition }) => {
         this.getComponentByBrowseByType(data.browseDefinition.getRenderType(), this.themeService.getThemeName());
         return data.browseDefinition;
-      })
+      }),
     );
     this.browseByComponentSubs.push(this.browseByComponent.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
       this.selectedItems = [];
@@ -97,9 +104,9 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
    * @param detail VocabularyEntryDetail to be added
    */
   onSelect(detail: VocabularyEntryDetail): void {
-      this.selectedItems.push(detail);
-      this.filterValues = this.selectedItems
-        .map((item: VocabularyEntryDetail) => `${item.value},equals`);
+    this.selectedItems.push(detail);
+    this.filterValues = this.selectedItems
+      .map((item: VocabularyEntryDetail) => `${item.value},equals`);
     this.updateQueryParams();
   }
 
@@ -119,7 +126,7 @@ export class BrowseByTaxonomyPageComponent implements OnInit, OnDestroy {
    */
   private updateQueryParams(): void {
     this.queryParams = {
-      ['f.' + this.facetType]: this.filterValues
+      ['f.' + this.facetType]: this.filterValues,
     };
   }
 

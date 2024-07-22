@@ -1,6 +1,10 @@
-import { ThemedComponent } from '../../../theme-support/themed.component';
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { FacetSection } from '../../../../core/layout/models/section.model';
+import { ThemedComponent } from '../../../theme-support/themed.component';
 import { FacetSectionComponent } from './facet-section.component';
 
 @Component({
@@ -11,10 +15,10 @@ import { FacetSectionComponent } from './facet-section.component';
 export class ThemedFacetSectionComponent extends ThemedComponent<FacetSectionComponent> {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  facetSection: FacetSection;
+    facetSection: FacetSection;
 
   protected inAndOutputNames: (keyof FacetSectionComponent & keyof this)[] = ['sectionId', 'facetSection'];
 

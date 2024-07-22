@@ -1,12 +1,12 @@
 import { SubmissionService } from '../../submission/submission.service';
 import { RemoteData } from '../data/remote-data';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { EditItemDataService } from './edititem-data.service';
 import { SubmissionObject } from './models/submission-object.model';
 import { SubmissionObjectDataService } from './submission-object-data.service';
 import { SubmissionScopeType } from './submission-scope-type';
 import { WorkflowItemDataService } from './workflowitem-data.service';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { EditItemDataService } from './edititem-data.service';
 
 describe('SubmissionObjectDataService', () => {
   let service: SubmissionObjectDataService;
@@ -23,23 +23,23 @@ describe('SubmissionObjectDataService', () => {
 
   beforeEach(() => {
     workspaceitemDataService = jasmine.createSpyObj('WorkspaceitemDataService', {
-      findById: wsiResult
+      findById: wsiResult,
     });
     workflowItemDataService = jasmine.createSpyObj('WorkflowItemDataService', {
-      findById: wfiResult
+      findById: wfiResult,
     });
     editItemDataService  = jasmine.createSpyObj('EditItemDataService', {
-      findById: eiResult
+      findById: eiResult,
     });
     halService = jasmine.createSpyObj('HALEndpointService', {
-      getEndpoint: '/workspaceItem'
+      getEndpoint: '/workspaceItem',
     });
   });
 
   describe('findById', () => {
     it('should call SubmissionService.getSubmissionScope to determine the type of submission object', () => {
       submissionService = jasmine.createSpyObj('SubmissionService', {
-        getSubmissionScope: {}
+        getSubmissionScope: {},
       });
       service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, editItemDataService, submissionService, halService);
       service.findById(submissionId);
@@ -49,7 +49,7 @@ describe('SubmissionObjectDataService', () => {
     describe('when the submission ID refers to a WorkspaceItem', () => {
       beforeEach(() => {
         submissionService = jasmine.createSpyObj('SubmissionService', {
-          getSubmissionScope: SubmissionScopeType.WorkspaceItem
+          getSubmissionScope: SubmissionScopeType.WorkspaceItem,
         });
         service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, editItemDataService, submissionService, halService);
       });
@@ -64,7 +64,7 @@ describe('SubmissionObjectDataService', () => {
     describe('when the submission ID refers to a WorkflowItem', () => {
       beforeEach(() => {
         submissionService = jasmine.createSpyObj('SubmissionService', {
-          getSubmissionScope: SubmissionScopeType.WorkflowItem
+          getSubmissionScope: SubmissionScopeType.WorkflowItem,
         });
         service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, editItemDataService, submissionService, halService);
       });
@@ -79,7 +79,7 @@ describe('SubmissionObjectDataService', () => {
     describe('when the type of submission object is unknown', () => {
       beforeEach(() => {
         submissionService = jasmine.createSpyObj('SubmissionService', {
-          getSubmissionScope: 'Something else'
+          getSubmissionScope: 'Something else',
         });
         service = new SubmissionObjectDataService(workspaceitemDataService, workflowItemDataService, editItemDataService, submissionService, halService);
       });

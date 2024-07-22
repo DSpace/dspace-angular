@@ -1,4 +1,8 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+
 import { TruncateBreadcrumbItemCharactersPipe } from './truncate-breadcrumb-item-characters.pipe';
 
 @Pipe({

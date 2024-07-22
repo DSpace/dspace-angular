@@ -1,14 +1,26 @@
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { RelationshipsSortListComponent } from './relationships-sort-list.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ItemInfo, RelationshipsData } from '../../shared/testing/relationships-mocks';
+import {
+  ItemInfo,
+  RelationshipsData,
+} from '../../shared/testing/relationships-mocks';
+import { RelationshipsSortListComponent } from './relationships-sort-list.component';
 
 describe('RelationshipsSortListComponent', () => {
   let component: RelationshipsSortListComponent;
@@ -24,12 +36,12 @@ describe('RelationshipsSortListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();
   });
@@ -53,7 +65,7 @@ describe('RelationshipsSortListComponent', () => {
     component.relationships = RelationshipsData;
     component.item = ItemInfo;
     component.ngOnChanges({
-      relationships: new SimpleChange(null, RelationshipsData, true)
+      relationships: new SimpleChange(null, RelationshipsData, true),
     });
     fixture.detectChanges();
 

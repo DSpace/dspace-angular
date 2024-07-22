@@ -1,57 +1,91 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-
-import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-
+import {
+  DOCUMENT,
+  isPlatformServer,
+} from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  Meta,
+  MetaDefinition,
+  Title,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-
 import {
   BehaviorSubject,
   combineLatest,
   concat as observableConcat,
   EMPTY,
   Observable,
-  of as observableOf
+  of as observableOf,
 } from 'rxjs';
-import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
-
-import { RemoteData } from '../data/remote-data';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { Bitstream } from '../shared/bitstream.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Item } from '../shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
-import { RootDataService } from '../data/root-data.service';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
-import { BundleDataService } from '../data/bundle-data.service';
-import { PaginatedList } from '../data/paginated-list.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { MetaTagState } from './meta-tag.reducer';
-import { createSelector, select, Store } from '@ngrx/store';
-import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
+import { BitstreamDataService } from '../data/bitstream-data.service';
+import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
+import { BundleDataService } from '../data/bundle-data.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { getDownloadableBitstream } from '../shared/bitstream.operators';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
-import { ITEM } from '../shared/item.resource-type';
-import { DOCUMENT, isPlatformServer } from '@angular/common';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
 import { Root } from '../data/root.model';
-import { environment } from '../../../environments/environment';
+import { RootDataService } from '../data/root-data.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { Bitstream } from '../shared/bitstream.model';
+import { getDownloadableBitstream } from '../shared/bitstream.operators';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
+import { ITEM } from '../shared/item.resource-type';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../shared/operators';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  AddMetaTagAction,
+  ClearMetaTagAction,
+} from './meta-tag.actions';
+import { MetaTagState } from './meta-tag.reducer';
+import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 
 /**
  * The base selector function to select the metaTag section in the store
  */
 const metaTagSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state.metaTag
+  (state: CoreState) => state.metaTag,
 );
 
 /**
@@ -391,7 +425,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_conference_title" ... >  to the <head>
    */
-   private setCitationConferenceTag(): void {
+  private setCitationConferenceTag(): void {
     const value = this.getMetaTagValue('dc.relation.conference');
     this.addMetaTag('citation_conference_title', value);
   }
@@ -399,7 +433,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_technical_report_number" ... >  to the <head>
    */
-   private setCitationTechnicalReportNumberTag(): void {
+  private setCitationTechnicalReportNumberTag(): void {
     const value = this.getMetaTagValue('dc.relation.ispartofseries');
     this.addMetaTag('citation_technical_report_number', value);
   }
@@ -461,7 +495,7 @@ export class MetadataService {
   private setOpenGraphUrlTag(url?: string): void {
     const value = url ?? this.getMetaTagValue('dc.identifier.uri');
     this.addMetaTag('og:url', value);
-}
+  }
 
 
   /**
@@ -511,7 +545,7 @@ export class MetadataService {
           return null;
         }
       }),
-      getDownloadableBitstream(this.authorizationService)
+      getDownloadableBitstream(this.authorizationService),
     );
   }
 
@@ -526,13 +560,13 @@ export class MetadataService {
             return null;
           }
         }),
-        take(1)
+        take(1),
       ).subscribe((link) => {
         if (hasValue(link)) {
           // Use the found link to set the <meta> tag
           this.addMetaTag(
             tag,
-            new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
+            new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
           );
         } else {
           this.addFallbackImageToTag(tag);
@@ -553,7 +587,7 @@ export class MetadataService {
           // Otherwise check all bitstreams to see if one matches the format whitelist
           return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
         }
-      })
+      }),
     );
   }
 
@@ -577,13 +611,13 @@ export class MetadataService {
           getFirstSucceededRemoteDataPayload(),
           // Keep the original bitstream, because it, not the format, is what we'll need
           // for the link at the end
-          map((format: BitstreamFormat) => [bitstream, format])
-        ))
+          map((format: BitstreamFormat) => [bitstream, format]),
+        )),
       ).pipe(
         // Verify that the bitstream is downloadable
         mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
           getDownloadableBitstream(this.authorizationService),
-          map((bit: Bitstream) => [bit, format])
+          map((bit: Bitstream) => [bit, format]),
         )),
         // Filter out only pairs with whitelisted formats and non-null bitstreams, null from download check
         filter(([bitstream, format]: [Bitstream, BitstreamFormat]) =>
@@ -592,7 +626,7 @@ export class MetadataService {
         take(1),
         // Emit the link of the match
         // tap((v) => console.log('result', v)),
-        map(([bitstream, ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream))
+        map(([bitstream ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream)),
       );
     } else {
       return EMPTY;
@@ -632,19 +666,19 @@ export class MetadataService {
    * @returns {boolean}
    *      true if this._item has a dc.type equal to 'Thesis'
    */
-   private isResearchOutput(): boolean {
+  private isResearchOutput(): boolean {
     return this.hasEntityType('publication') || this.hasEntityType('product') || this.hasEntityType('patent');
   }
 
-    /**
+  /**
    * Returns true if this._item is a research output (publication, patent or product)
    *
    * @returns {boolean}
    *      true if this._item has a dc.type equal to 'Thesis'
    */
-     private isPatent(): boolean {
-      return this.hasEntityType('patent');
-    }
+  private isPatent(): boolean {
+    return this.hasEntityType('patent');
+  }
 
   /**
    * Returns true if this._item is a technical report
@@ -694,7 +728,7 @@ export class MetadataService {
     this.schemaJsonLDService.removeStructuredData();
     this.store.pipe(
       select(tagsInUseSelector),
-      take(1)
+      take(1),
     ).subscribe((tagsInUse: string[]) => {
       for (const name of tagsInUse) {
         this.meta.removeTag('name=\'' + name + '\'');
@@ -706,7 +740,7 @@ export class MetadataService {
   private addFallbackImageToTag(tag: string) {
     this.addMetaTag(
       tag,
-      new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.fallbackImagePath).toString()
+      new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.fallbackImagePath).toString(),
     );
   }
 

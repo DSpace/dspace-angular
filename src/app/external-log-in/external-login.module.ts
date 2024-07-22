@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { SharedModule } from '../shared/shared.module';
 import { ConfirmEmailComponent } from './email-confirmation/confirm-email/confirm-email.component';
 import { ConfirmationSentComponent } from './email-confirmation/confirmation-sent/confirmation-sent.component';
 import { ProvideEmailComponent } from './email-confirmation/provide-email/provide-email.component';
 import { ExternalLogInComponent } from './external-log-in/external-log-in.component';
 import { OrcidConfirmationComponent } from './registration-types/orcid-confirmation/orcid-confirmation.component';
-import { SharedModule } from '../shared/shared.module';
 
 const COMPONENTS = [
   ExternalLogInComponent,

@@ -1,18 +1,21 @@
-import { TestBed } from '@angular/core/testing';
-
-import { ExternalLoginService } from './external-login.service';
-import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
+
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { RemoteData } from '../../core/data/remote-data';
 import { Registration } from '../../core/shared/registration.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { ExternalLoginService } from './external-login.service';
 
 describe('ExternalLoginService', () => {
   let service: ExternalLoginService;
@@ -20,6 +23,7 @@ describe('ExternalLoginService', () => {
   let router: any;
   let notificationService;
   let translate;
+  let scheduler: TestScheduler;
 
   const values = ['value1', 'value2'];
   const field = 'field1';
@@ -29,7 +33,7 @@ describe('ExternalLoginService', () => {
 
   beforeEach(() => {
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      patchUpdateRegistration: createSuccessfulRemoteDataObject$(new Registration)
+      patchUpdateRegistration: createSuccessfulRemoteDataObject$(new Registration),
     });
     router = new RouterMock();
     notificationService = new NotificationsServiceStub();
@@ -44,9 +48,10 @@ describe('ExternalLoginService', () => {
         { provide: TranslateService, useValue: translate },
         { provide: Store, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
     service = TestBed.inject(ExternalLoginService);
+    scheduler = getTestScheduler();
   });
 
   it('should be created', () => {
@@ -54,25 +59,22 @@ describe('ExternalLoginService', () => {
   });
 
   it('should call epersonRegistrationService.patchUpdateRegistration with the correct parameters', () => {
-    epersonRegistrationService.patchUpdateRegistration.and.returnValue(observableOf({} as RemoteData<Registration>));
+    epersonRegistrationService.patchUpdateRegistration.and.returnValue(createSuccessfulRemoteDataObject$(new Registration()));
     service.patchUpdateRegistration(values, field, registrationId, token, operation);
     expect(epersonRegistrationService.patchUpdateRegistration).toHaveBeenCalledWith(values, field, registrationId, token, operation);
   });
 
   it('should navigate to /email-confirmation if the remote data has succeeded', () => {
-    const remoteData = { hasSucceeded: true } as RemoteData<Registration>;
-    epersonRegistrationService.patchUpdateRegistration.and.returnValue(observableOf(remoteData));
-    service.patchUpdateRegistration(values, field, registrationId, token, operation).subscribe(() => {
-      expect((router as any).navigate).toHaveBeenCalledWith(['/email-confirmation']);
-    });
+    epersonRegistrationService.patchUpdateRegistration.and.returnValue(createSuccessfulRemoteDataObject$(new Registration()));
+    scheduler.schedule(() => service.patchUpdateRegistration(values, field, registrationId, token, operation).subscribe());
+    scheduler.flush();
+    expect((router as any).navigate).toHaveBeenCalledWith(['/email-confirmation']);
   });
 
   it('should show an error notification if the remote data has failed', () => {
-    const remoteData = { hasFailed: true } as RemoteData<Registration>;
-    epersonRegistrationService.patchUpdateRegistration.and.returnValue(observableOf(remoteData));
-    translate.get.and.returnValue(observableOf('error message'));
-    service.patchUpdateRegistration(values, field, registrationId, token, operation).subscribe(() => {
-      expect(notificationService.error).toHaveBeenCalledWith('error message');
-    });
+    epersonRegistrationService.patchUpdateRegistration.and.returnValue(createFailedRemoteDataObject$());
+    scheduler.schedule(() => service.patchUpdateRegistration(values, field, registrationId, token, operation).subscribe());
+    scheduler.flush();
+    expect(notificationService.error).toHaveBeenCalled();
   });
 });

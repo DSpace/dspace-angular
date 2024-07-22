@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { ExternalLoginPageRoutingModule } from './external-login-page-routing.module';
-import { ExternalLoginPageComponent } from './external-login-page.component';
-import { ThemedExternalLoginPageComponent } from './themed-external-login-page.component';
-import { SharedModule } from '../shared/shared.module';
 import { ExternalLoginModule } from '../external-log-in/external-login.module';
+import { SharedModule } from '../shared/shared.module';
+import { ExternalLoginPageComponent } from './external-login-page.component';
+import { ExternalLoginPageRoutingModule } from './external-login-page-routing.module';
+import { ThemedExternalLoginPageComponent } from './themed-external-login-page.component';
 
 const COMPONENTS = [
   ExternalLoginPageComponent,
@@ -14,13 +14,13 @@ const COMPONENTS = [
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     CommonModule,
     ExternalLoginPageRoutingModule,
     SharedModule,
-    ExternalLoginModule
-  ]
+    ExternalLoginModule,
+  ],
 })
 export class ExternalLoginPageModule { }

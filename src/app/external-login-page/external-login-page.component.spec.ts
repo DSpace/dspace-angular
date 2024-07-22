@@ -1,12 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ExternalLoginPageComponent } from './external-login-page.component';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { Registration } from '../core/shared/registration.model';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { ExternalLoginPageComponent } from './external-login-page.component';
 
 describe('ExternalLoginPageComponent', () => {
   let component: ExternalLoginPageComponent;
@@ -50,7 +56,7 @@ describe('ExternalLoginPageComponent', () => {
         }),
       ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

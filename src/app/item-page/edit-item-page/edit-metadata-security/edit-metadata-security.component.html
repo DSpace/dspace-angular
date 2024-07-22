@@ -7,7 +7,7 @@
               [disabled]="readOnly"
               (click)="changeSelectedSecurityLevel($any(secLevel).value)">
         <i [class]="$any(secLevel).icon"
-           [ngStyle]="{'color': securityLevel == $any(secLevel).value ? $any(secLevel).color : '' }"></i>
+           [ngStyle]="{'color': securityLevel === $any(secLevel).value ? $any(secLevel).color : '' }"></i>
       </button>
     </div>
   </div>

@@ -1,17 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  interval,
+  Observable,
+  race,
+} from 'rxjs';
+import {
+  map,
+  mapTo,
+  take,
+} from 'rxjs/operators';
+
+import { AdditionalMetadataConfig } from '../../../../../config/additional-metadata.config';
 import { SearchResultAdditionalMetadataEntityTypeConfig } from '../../../../../config/search-result-config.interface';
 import { environment } from '../../../../../environments/environment';
-import { MetadataLinkValue } from '../../../../cris-layout/models/cris-layout-metadata-link-value.model';
-import { hasValue, isNotEmpty } from '../../../empty.util';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { ResolverStrategyService } from '../../../../cris-layout/services/resolver-strategy.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { AdditionalMetadataConfig } from '../../../../../config/additional-metadata.config';
-import { getFirstSucceededRemoteDataPayload, getPaginatedListPayload } from '../../../../core/shared/operators';
-import {map, mapTo, take} from 'rxjs/operators';
-import {interval, Observable, race} from 'rxjs';
+import { Item } from '../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+} from '../../../../core/shared/operators';
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
+import { MetadataLinkValue } from '../../../../cris-layout/models/cris-layout-metadata-link-value.model';
+import { ResolverStrategyService } from '../../../../cris-layout/services/resolver-strategy.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 
 interface LinkData {
   href: string,
@@ -21,7 +40,7 @@ interface LinkData {
 @Component({
   selector: 'ds-additional-metadata',
   templateUrl: './additional-metadata.component.html',
-  styleUrls: ['./additional-metadata.component.scss']
+  styleUrls: ['./additional-metadata.component.scss'],
 })
 export class AdditionalMetadataComponent implements OnInit {
 
@@ -44,11 +63,11 @@ export class AdditionalMetadataComponent implements OnInit {
   ngOnInit(): void {
 
     const entityTypeConfig = environment.searchResult.additionalMetadataFields.filter(
-      (field: SearchResultAdditionalMetadataEntityTypeConfig) => field.entityType.toLocaleLowerCase() === (this.object as Item).entityType.toLocaleLowerCase()
+      (field: SearchResultAdditionalMetadataEntityTypeConfig) => field.entityType.toLocaleLowerCase() === (this.object as Item).entityType.toLocaleLowerCase(),
     );
 
     const defaultConfig = environment.searchResult.additionalMetadataFields.filter(
-      (field: SearchResultAdditionalMetadataEntityTypeConfig) => field.entityType.toLocaleLowerCase() === this.DEFAULT_CONFIG_NAME
+      (field: SearchResultAdditionalMetadataEntityTypeConfig) => field.entityType.toLocaleLowerCase() === this.DEFAULT_CONFIG_NAME,
     );
 
     let unfilteredAdditionalMetadataFields: Array<AdditionalMetadataConfig>[] = [];
@@ -62,7 +81,7 @@ export class AdditionalMetadataComponent implements OnInit {
     this.additionalMetadataFields = unfilteredAdditionalMetadataFields.map(field => {
       const fields = field?.length ? field : [field];
       return (fields as AdditionalMetadataConfig[]).filter(item =>
-        this.object.hasMetadata(item?.name)
+        this.object.hasMetadata(item?.name),
       );
     }).filter(field => !!field.length);
 
@@ -79,7 +98,7 @@ export class AdditionalMetadataComponent implements OnInit {
   linkData(configuration: AdditionalMetadataConfig, metadataValue: MetadataValue): LinkData {
 
     const renderingSubtype = this.metadataRenderingSubtype(configuration);
-    let linkData = {} as LinkData;
+    const linkData = {} as LinkData;
 
     if (renderingSubtype?.toLocaleLowerCase() === 'email') {
       linkData.href = `mailto:${metadataValue.value}`;
@@ -103,7 +122,7 @@ export class AdditionalMetadataComponent implements OnInit {
       if (this.resolver.checkLink(metadataValue.value)) {
         linkData = {
           href: metadataValue.value,
-          text: metadataValue.value
+          text: metadataValue.value,
         };
       } else {
         for (const urn of this.resolver.managedUrn) {
@@ -115,7 +134,7 @@ export class AdditionalMetadataComponent implements OnInit {
         if (!linkData) {
           linkData = {
             href: metadataValue.value,
-            text: metadataValue.value
+            text: metadataValue.value,
           };
         }
       }
@@ -134,7 +153,7 @@ export class AdditionalMetadataComponent implements OnInit {
     const text = isNotEmpty(value) && value !== '' ? value : href;
     return {
       href,
-      text
+      text,
     };
   }
 
@@ -154,7 +173,7 @@ export class AdditionalMetadataComponent implements OnInit {
     const initValue$ = interval(1000).pipe(mapTo(metadataValue.value));
 
     return race([entry$, initValue$]).pipe(
-      take(1)
+      take(1),
     );
 
   }

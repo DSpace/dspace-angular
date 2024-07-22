@@ -1,28 +1,38 @@
-import { MetadataRegistryComponent } from './metadata-registry.component';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { of, of as observableOf } from 'rxjs';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { HostWindowService } from '../../../shared/host-window.service';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RestResponse } from '../../../core/cache/response.models';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import {
-  MetadataSchemaExportService
-} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
+
+import { RestResponse } from '../../../core/cache/response.models';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { MetadataSchemaExportService } from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
+import { MetadataRegistryComponent } from './metadata-registry.component';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -34,22 +44,22 @@ describe('MetadataRegistryComponent', () => {
       id: 1,
       _links: {
         self: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1'
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
         },
       },
       prefix: 'dc',
-      namespace: 'http://dublincore.org/documents/dcmi-terms/'
+      namespace: 'http://dublincore.org/documents/dcmi-terms/',
     },
     {
       id: 2,
       _links: {
         self: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2'
+          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
         },
       },
       prefix: 'mock',
-      namespace: 'http://dspace.org/mockschema'
-    }
+      namespace: 'http://dspace.org/mockschema',
+    },
   ];
   const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -64,7 +74,7 @@ describe('MetadataRegistryComponent', () => {
     deleteMetadataSchema: () => observableOf(new RestResponse(true, 200, 'OK')),
     deselectAllMetadataSchema: () => {
     },
-    clearMetadataSchemaRequests: () => observableOf(undefined)
+    clearMetadataSchemaRequests: () => observableOf(undefined),
   };
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
@@ -83,12 +93,12 @@ describe('MetadataRegistryComponent', () => {
           provide: MetadataSchemaExportService,
           useValue: jasmine.createSpyObj('metadataSchemaExportService', {
             exportSchema: of(1),
-          })
-        }
+          }),
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataRegistryComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

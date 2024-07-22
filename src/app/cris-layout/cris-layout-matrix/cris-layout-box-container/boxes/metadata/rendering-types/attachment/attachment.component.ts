@@ -1,23 +1,32 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-
 import { BehaviorSubject } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { environment } from '../../../../../../../../environments/environment';
+import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
 import { FindListOptions } from '../../../../../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
+import { Item } from '../../../../../../../core/shared/item.model';
+import {
+  FieldRenderingType,
+  MetadataBoxFieldRendering,
+} from '../metadata-box.decorator';
 import { BitstreamAttachmentRenderingModelComponent } from './bitstream-attachment-rendering.model';
 
 @Component({
   selector: 'ds-attachment',
   templateUrl: './attachment.component.html',
-  styleUrls: ['./attachment.component.scss']
+  styleUrls: ['./attachment.component.scss'],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT, true)
 /**
@@ -51,7 +60,7 @@ export class AttachmentComponent extends BitstreamAttachmentRenderingModelCompon
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     @Inject('tabNameProvider') public tabNameProvider: string,
     protected bitstreamDataService: BitstreamDataService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
     super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, bitstreamDataService, translateService);
   }
@@ -73,7 +82,7 @@ export class AttachmentComponent extends BitstreamAttachmentRenderingModelCompon
         this.canViewMore = this.envPagination.enabled && this.pageOptions?.currentPage !== bitstreamList?.pageInfo?.totalPages;
         return bitstreamList.page;
       }),
-      take(1)
+      take(1),
     ).subscribe((bitstreams: Bitstream[]) => {
       if (this.envPagination.enabled) {
         this.bitstreams$.next([...this.bitstreams$.value, ...bitstreams]);
@@ -98,7 +107,7 @@ export class AttachmentComponent extends BitstreamAttachmentRenderingModelCompon
   protected initPageOptions(): void {
     this.pageOptions = Object.assign(new FindListOptions(), {
       elementsPerPage: this.envPagination.enabled ? this.envPagination.elementsPerPage : 100,
-      currentPage: 1
+      currentPage: 1,
     });
   }
 }

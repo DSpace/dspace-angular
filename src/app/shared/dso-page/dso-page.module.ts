@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import {
+  NgbDropdownModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
 import { DsoEditMenuComponent } from './dso-edit-menu/dso-edit-menu.component';
-import {
-  DsoEditMenuSectionComponent
-} from './dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
-import {
-  DsoEditMenuExpandableSectionComponent
-} from './dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
-import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { DsoEditMenuSectionComponent } from './dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
 
 const COMPONENTS = [
   DsoEditMenuComponent,
@@ -33,7 +33,7 @@ const PROVIDERS = [
 
 @NgModule({
   imports: [
-    ...MODULES
+    ...MODULES,
   ],
   declarations: [
     ...COMPONENTS,
@@ -44,8 +44,8 @@ const PROVIDERS = [
     ...ENTRY_COMPONENTS,
   ],
   exports: [
-    ...COMPONENTS
-  ]
+    ...COMPONENTS,
+  ],
 })
 
 /**

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { TopLevelCommunityListComponent } from './top-level-community-list.component';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
+import { TopLevelCommunityListComponent } from './top-level-community-list.component';
 
 @Component({
   selector: 'ds-themed-top-level-community-list',

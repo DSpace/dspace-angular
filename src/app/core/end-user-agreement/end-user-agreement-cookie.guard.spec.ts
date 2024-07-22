@@ -1,7 +1,11 @@
-import { EndUserAgreementService } from './end-user-agreement.service';
-import { Router, UrlTree } from '@angular/router';
-import { EndUserAgreementCookieGuard } from './end-user-agreement-cookie.guard';
+import {
+  Router,
+  UrlTree,
+} from '@angular/router';
 import { of } from 'rxjs';
+
+import { EndUserAgreementService } from './end-user-agreement.service';
+import { EndUserAgreementCookieGuard } from './end-user-agreement-cookie.guard';
 
 describe('EndUserAgreementCookieGuard', () => {
   let guard: EndUserAgreementCookieGuard;
@@ -17,7 +21,7 @@ describe('EndUserAgreementCookieGuard', () => {
     router = jasmine.createSpyObj('router', {
       navigateByUrl: {},
       parseUrl: new UrlTree(),
-      createUrlTree: new UrlTree()
+      createUrlTree: new UrlTree(),
     });
 
     guard = new EndUserAgreementCookieGuard(endUserAgreementService, router);

@@ -1,10 +1,14 @@
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
 
 import { typedObject } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/cacheable-object.model';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
 import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { MACHINE_TOKEN } from './machine-token.resource-type';
 
 /**
@@ -18,19 +22,19 @@ export class MachineToken implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The value for this MachineToken
    */
   @autoserializeAs('token')
-  value: string;
+    value: string;
 
   /**
    * The {@link HALLink}s for this MachineToken
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
   };
 }

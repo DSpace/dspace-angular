@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { fadeIn } from '../../../shared/animations/fade';
 import { renderChartFor } from '../../charts.decorator';
 import { ChartType } from '../../models/chart-type';

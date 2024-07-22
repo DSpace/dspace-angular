@@ -1,6 +1,12 @@
-import { EventEmitter, Injector } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import {
+  EventEmitter,
+  Injector,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
@@ -23,8 +29,8 @@ xdescribe('PieChartComponent', () => {
     },
     {
       name: 'France',
-      value: 7200000
-    }
+      value: 7200000,
+    },
   ];
   const animations = true;
   const legend = true;
@@ -56,7 +62,7 @@ xdescribe('PieChartComponent', () => {
         { provide: 'isLastPage', useValue: isLastPage },
         { provide: 'currentPage', useValue: currentPage },
         { provide: 'type', useValue: type },
-        Injector
+        Injector,
       ],
     }).compileComponents();
   }));

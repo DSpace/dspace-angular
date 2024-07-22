@@ -1,9 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
   let component: AdminNotificationsSuggestionTargetsPageComponent;
@@ -13,17 +17,17 @@ describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
-        AdminNotificationsSuggestionTargetsPageComponent
+        AdminNotificationsSuggestionTargetsPageComponent,
       ],
       providers: [
-        AdminNotificationsSuggestionTargetsPageComponent
+        AdminNotificationsSuggestionTargetsPageComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -15,7 +15,7 @@
           <ng-container *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate; let i = index">
             <li class="nav-item mr-3" *ngIf="(canShowChart(filter) | async)"
                 (click)="changeChartType(filter)">
-              <a class="nav-link" [ngClass]="{'active' : selectedFilter.name == filter.name}" data-test="search-charts-tab">
+              <a class="nav-link" [ngClass]="{'active' : selectedFilter.name === filter.name}" data-test="search-charts-tab">
                 {{'search.filters.applied.charts.' + filter.name + '.tab' | translate}}
               </a>
             </li>

@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { RemoteData } from '../core/data/remote-data';
+
 import { ItemDataService } from '../core/data/item-data.service';
-import { followLink } from '../shared/utils/follow-link-config.model';
+import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { followLink } from '../shared/utils/follow-link-config.model';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -33,7 +38,7 @@ export class CrisItemPageResolver implements Resolve<RemoteData<Item>> {
       followLink('relationships'),
       followLink('version', {}, followLink('versionhistory')),
     ).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     );
   }
 

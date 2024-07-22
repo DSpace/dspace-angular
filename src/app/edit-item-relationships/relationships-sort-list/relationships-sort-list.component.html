@@ -2,7 +2,7 @@
   <div class="relationships-container">
     <h2>{{ 'manage.relationships.selected-list.title' | translate }}</h2>
     <ds-loading *ngIf="(isLoading | async)"></ds-loading>
-    <ng-container *ngIf="!(this.isLoading | async)">
+    <ng-container *ngIf="(this.isLoading | async) !== true">
       <div *ngIf="(filteredRelationships && filteredRelationships.length > 0) ; else noData"
         cdkDropList
         [cdkDropListData]="filteredRelationships"

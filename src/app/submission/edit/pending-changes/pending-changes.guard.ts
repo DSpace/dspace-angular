@@ -1,20 +1,28 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  CanDeactivate,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
+import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
 import { ThemedSubmissionEditComponent } from '../themed-submission-edit.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PendingChangesGuard implements CanDeactivate<ThemedSubmissionEditComponent> {
 
   constructor(
     private modalService: NgbModal,
-    private canDeactivateService: SubmissionEditCanDeactivateService
+    private canDeactivateService: SubmissionEditCanDeactivateService,
   ) {
   }
 
@@ -34,7 +42,7 @@ export class PendingChangesGuard implements CanDeactivate<ThemedSubmissionEditCo
           modalRef.componentInstance.confirmIcon = 'fas fa-trash';
           return modalRef.componentInstance.response as Observable<boolean>;
         }
-      })
+      }),
     );
   }
 

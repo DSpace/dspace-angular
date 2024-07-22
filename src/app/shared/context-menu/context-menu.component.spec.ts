@@ -1,32 +1,48 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import {
+  Component,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { AppState } from '../../app.reducer';
+import { AuthService } from '../../core/auth/auth.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { Item } from '../../core/shared/item.model';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import {
+  ItemExportFormConfiguration,
+  ItemExportService,
+} from '../search/item-export/item-export.service';
+import { EPersonMock } from '../testing/eperson.mock';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { ContextMenuComponent } from './context-menu.component';
 import { rendersContextMenuEntriesForType } from './context-menu.decorator';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ExportItemMenuComponent } from './export-item/export-item-menu.component';
 import { StatisticsMenuComponent } from './statistics/statistics-menu.component';
 import { SubscriptionMenuComponent } from './subscription/subscription-menu.component';
-import { NotificationsService } from '../notifications/notifications.service';
-import { NotificationsServiceStub } from '../testing/notifications-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { EPersonMock } from '../testing/eperson.mock';
-import { ItemExportFormConfiguration, ItemExportService } from '../search/item-export/item-export.service';
 
 describe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
@@ -38,7 +54,7 @@ describe('ContextMenuComponent', () => {
   const itemExportService: any = jasmine.createSpyObj('ItemExportFormatService', {
     initialItemExportFormConfiguration: jasmine.createSpy('initialItemExportFormConfiguration'),
     onSelectEntityType: jasmine.createSpy('onSelectEntityType'),
-    submitForm: jasmine.createSpy('submitForm')
+    submitForm: jasmine.createSpy('submitForm'),
   });
   const authState: any = {
     core: {
@@ -46,9 +62,9 @@ describe('ContextMenuComponent', () => {
         authenticated: true,
         loaded: true,
         loading: false,
-        authMethods: []
-      }
-    }
+        authMethods: [],
+      },
+    },
   };
 
   const notAuthState: any = {
@@ -57,13 +73,13 @@ describe('ContextMenuComponent', () => {
         authenticated: false,
         loaded: true,
         loading: false,
-        authMethods: []
-      }
-    }
+        authMethods: [],
+      },
+    },
   };
 
   const configurationDataService = jasmine.createSpyObj('configurationDataService', {
-    findByPropertyName: jasmine.createSpy('findByPropertyName')
+    findByPropertyName: jasmine.createSpy('findByPropertyName'),
   });
   const authorizationDataService = jasmine.createSpyObj('AuthorizationDataService', {
     isAuthorized: of(true),
@@ -83,8 +99,8 @@ describe('ContextMenuComponent', () => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
-        self: { href: 'test-item-selflink' }
-      }
+        self: { href: 'test-item-selflink' },
+      },
     });
   }
 
@@ -95,10 +111,10 @@ describe('ContextMenuComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        NgbDropdownModule
+        NgbDropdownModule,
       ],
       declarations: [ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent],
       providers: [
@@ -110,13 +126,13 @@ describe('ContextMenuComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        Injector
+        Injector,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [TestComponent]
-      }
+        entryComponents: [TestComponent],
+      },
     });
   }));
 
@@ -184,7 +200,7 @@ describe('ContextMenuComponent', () => {
         confResponseDisabled$,
         confResponseDisabled$,
         confResponseDisabled$,
-        confResponseDisabled$
+        confResponseDisabled$,
       );
       fixture.detectChanges();
       component.getContextMenuEntries().subscribe((list) => {
@@ -274,7 +290,7 @@ describe('ContextMenuComponent', () => {
 @Component({
   selector: 'ds-test-menu-entry',
   template: `
-    <button class="dropdown-item">test menu item</button>`
+    <button class="dropdown-item">test menu item</button>`,
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
 class TestComponent {

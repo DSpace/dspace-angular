@@ -1,16 +1,25 @@
-import { Component, ComponentFactoryResolver, ComponentRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
-import { CrisLayoutTab } from '../../core/layout/models/tab.model';
-import { environment } from '../../../environments/environment';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+
 import { CrisLayoutTypeConfig } from '../../../config/layout-config.interfaces';
-import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
+import { environment } from '../../../environments/environment';
+import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { Item } from '../../core/shared/item.model';
 import { getCrisLayoutPage } from '../decorators/cris-layout-page.decorator';
+import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
 
 @Component({
   selector: 'ds-cris-layout-loader',
   templateUrl: './cris-layout-loader.component.html',
-  styleUrls: ['./cris-layout-loader.component.scss']
+  styleUrls: ['./cris-layout-loader.component.scss'],
 })
 export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
 

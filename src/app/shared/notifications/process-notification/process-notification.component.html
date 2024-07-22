@@ -3,7 +3,7 @@
 
     <button *ngIf="notification.options.clickToClose"
             (click)="remove()"
-            [disabled]="!(finished | async)"
+            [disabled]="(finished | async) !== true"
             type="button" class="close pt-0 pr-1 pl-0 pb-0" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -28,11 +28,11 @@
       <span  *ngIf="(finished | async)" class="notification-content pl-1">
         {{process.processStatus.toString() | titlecase}}
       </span>
-      <span *ngIf="!(finished | async)" class="notification-content pl-1">
+      <span *ngIf="(finished | async) !== true" class="notification-content pl-1">
         {{'process.new.notification.process.processing' | translate}}
       </span>
 
-      <div class="pl-1" class="progress" *ngIf="!(finished | async)">
+      <div class="pl-1" class="progress" *ngIf="(finished | async) !== true">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
         </div>
       </div>

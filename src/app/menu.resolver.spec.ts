@@ -1,28 +1,33 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { MenuResolver } from './menu.resolver';
-import { of as observableOf } from 'rxjs';
-import { FeatureID } from './core/data/feature-authorization/feature-id';
-import { TranslateModule } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MenuService } from './shared/menu/menu.service';
-import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from './core/data/processes/script-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MenuServiceStub } from './shared/testing/menu-service.stub';
-import { MenuID } from './shared/menu/menu-id.model';
+import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
-import { createPaginatedList } from './shared/testing/utils.test';
+import { of as observableOf } from 'rxjs';
+
+import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
+import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from './core/data/feature-authorization/feature-id';
+import { ScriptDataService } from './core/data/processes/script-data.service';
 import { SectionDataService } from './core/layout/section-data.service';
+import { MenuResolver } from './menu.resolver';
+import { MenuService } from './shared/menu/menu.service';
+import { MenuID } from './shared/menu/menu-id.model';
+import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
+import { ConfigurationDataServiceStub } from './shared/testing/configuration-data.service.stub';
+import { MenuServiceStub } from './shared/testing/menu-service.stub';
+import { createPaginatedList } from './shared/testing/utils.test';
 import createSpy = jasmine.createSpy;
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
-  id: 'some menu'
+  id: 'some menu',
 };
 const EXPLORE_SECTIONS_DEFINITIONS = [
   { id: 'definition1' },
@@ -30,8 +35,8 @@ const EXPLORE_SECTIONS_DEFINITIONS = [
     id: 'definition2',
     nestedSections: [
       { id: 'definition1' },
-      { id: 'definition2' }
-    ]
+      { id: 'definition2' },
+    ],
   },
   { id: 'definition3' },
 ];
@@ -46,18 +51,18 @@ const ALL_NESTED_MENUS = [
     id: 'definition1',
     nestedSections: [
       { id: 'definition1' },
-    ]
+    ],
   },{
     id: 'definition2',
     nestedSections: [
       { id: 'definition2' },
-    ]
+    ],
   },{
     id: 'definition3',
     nestedSections: [
       { id: 'definition3' },
-    ]
-  }
+    ],
+  },
 ];
 const NO_MENUS = [];
 
@@ -68,6 +73,7 @@ describe('MenuResolver', () => {
   let sectionsService;
   let authorizationService;
   let scriptService;
+  let configurationDataService;
 
   beforeEach(waitForAsync(() => {
     menuService = new MenuServiceStub();
@@ -75,14 +81,17 @@ describe('MenuResolver', () => {
     spyOn(menuService, 'addSection');
 
     sectionsService = jasmine.createSpyObj('SectionDataService', {
-      findVisibleSections: createSuccessfulRemoteDataObject$(createPaginatedList(EXPLORE_SECTIONS_DEFINITIONS))
+      findVisibleSections: createSuccessfulRemoteDataObject$(createPaginatedList(EXPLORE_SECTIONS_DEFINITIONS)),
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     scriptService = jasmine.createSpyObj('scriptService', {
-      scriptWithNameExistsAndCanExecute: observableOf(true)
+      scriptWithNameExistsAndCanExecute: observableOf(true),
     });
+
+    configurationDataService = new ConfigurationDataServiceStub();
+    spyOn(configurationDataService, 'findByPropertyName').and.returnValue(observableOf(true));
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
@@ -92,14 +101,15 @@ describe('MenuResolver', () => {
         { provide: SectionDataService, useValue: sectionsService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
-            }
-          }
-        }
+            },
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
     resolver = TestBed.inject(MenuResolver);
   }));
@@ -164,7 +174,7 @@ describe('MenuResolver', () => {
           id: 'explore_nested_definition2',
           parentID: 'explore_definition2',
           active: false,
-          visible: true
+          visible: true,
         }));
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
           id: 'explore_definition3', visible: true,
@@ -175,7 +185,7 @@ describe('MenuResolver', () => {
     describe('handle menus', () => {
       it('should show all flat menus', () => {
         sectionsService.findVisibleSections.and.returnValue(
-          createSuccessfulRemoteDataObject$(createPaginatedList(ALL_FLAT_MENUS))
+          createSuccessfulRemoteDataObject$(createPaginatedList(ALL_FLAT_MENUS)),
         );
         resolver.createPublicMenu$().subscribe();
         expect(menuService.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, jasmine.objectContaining({
@@ -191,7 +201,7 @@ describe('MenuResolver', () => {
 
       it('should show all nested menus', () => {
         sectionsService.findVisibleSections.and.returnValue(
-          createSuccessfulRemoteDataObject$(createPaginatedList(ALL_NESTED_MENUS))
+          createSuccessfulRemoteDataObject$(createPaginatedList(ALL_NESTED_MENUS)),
         );
         resolver.createPublicMenu$().subscribe();
         expect(menuService.addSection).toHaveBeenCalledWith(
@@ -200,8 +210,8 @@ describe('MenuResolver', () => {
             id: 'explore_nested_definition1',
             parentID: 'explore_definition1',
             active: false,
-            visible: true
-          })
+            visible: true,
+          }),
         );
         expect(menuService.addSection).toHaveBeenCalledWith(
           MenuID.PUBLIC,
@@ -209,8 +219,8 @@ describe('MenuResolver', () => {
             id: 'explore_nested_definition2',
             parentID: 'explore_definition2',
             active: false,
-            visible: true
-          })
+            visible: true,
+          }),
         );
         expect(menuService.addSection).toHaveBeenCalledWith(
           MenuID.PUBLIC,
@@ -218,19 +228,19 @@ describe('MenuResolver', () => {
             id: 'explore_nested_definition3',
             parentID: 'explore_definition3',
             active: false,
-            visible: true
-          })
+            visible: true,
+          }),
         );
       });
 
       it('should show no menus', () => {
         sectionsService.findVisibleSections.and.returnValue(
-          createSuccessfulRemoteDataObject$(createPaginatedList(NO_MENUS))
+          createSuccessfulRemoteDataObject$(createPaginatedList(NO_MENUS)),
         );
         resolver.createPublicMenu$().subscribe();
         expect(menuService.addSection).toHaveBeenCalledWith(
           MenuID.PUBLIC,
-          jasmine.objectContaining({})
+          jasmine.objectContaining({}),
         );
       });
     });

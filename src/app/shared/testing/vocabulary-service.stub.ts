@@ -1,14 +1,20 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { PageInfo } from '../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { PageInfo } from '../../core/shared/page-info.model';
 import { Vocabulary } from '../../core/submission/vocabularies/models/vocabulary.model';
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { FollowLinkConfig } from '../utils/follow-link-config.model';
 
 export class VocabularyServiceStub {
 
@@ -43,6 +49,10 @@ export class VocabularyServiceStub {
 
   findVocabularyById(id: string): Observable<RemoteData<Vocabulary>> {
     return;
+  }
+
+  getVocabularyByMetadataAndCollection(metadataField: string, collectionUUID: string): Observable<RemoteData<Vocabulary>> {
+    return createSuccessfulRemoteDataObject$(null);
   }
 
   searchVocabularyByMetadataAndCollection(vocabularyOptions: VocabularyOptions): Observable<RemoteData<Vocabulary>> {

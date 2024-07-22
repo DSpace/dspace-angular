@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
+import { AuthService } from '../core/auth/auth.service';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import {
+  redirectOn4xx,
+  returnForbiddenUrlTreeOrLoginOnFalse,
+} from '../core/shared/authorized.operators';
 import { Collection } from '../core/shared/collection.model';
-import { getFirstCompletedRemoteData, } from '../core/shared/operators';
-import { AuthService } from '../core/auth/auth.service';
-import { redirectOn4xx, returnForbiddenUrlTreeOrLoginOnFalse } from '../core/shared/authorized.operators';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * A guard taking care of the correct route.data being set for the BulkImport components
@@ -31,7 +39,7 @@ export class BulkImportGuard implements CanActivate {
       getFirstCompletedRemoteData(),
       redirectOn4xx(this.router, this.authService),
       mergeMap((RD) => this.isCollectionAdmin(RD.payload)),
-      returnForbiddenUrlTreeOrLoginOnFalse(this.router, this.authService, state.url)
+      returnForbiddenUrlTreeOrLoginOnFalse(this.router, this.authService, state.url),
     );
   }
 

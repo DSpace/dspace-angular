@@ -1,21 +1,30 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { Observable, of as observableOf } from 'rxjs';
-
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
+import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 @Component({
   selector: 'ds-subscription-menu',
   templateUrl: './subscription-menu.component.html',
-  styleUrls: ['./subscription-menu.component.scss']
+  styleUrls: ['./subscription-menu.component.scss'],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY, true)
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION, true)
@@ -48,7 +57,7 @@ export class SubscriptionMenuComponent extends ContextMenuEntryComponent impleme
     @Inject('contextMenuObjectProvider') public injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     protected authorizationService: AuthorizationDataService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.Subscriptions);
   }

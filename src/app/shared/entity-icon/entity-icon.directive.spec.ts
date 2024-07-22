@@ -1,5 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { EntityIconDirective } from './entity-icon.directive';
@@ -12,8 +15,8 @@ describe('EntityIconDirective', () => {
     await TestBed.configureTestingModule({
       declarations: [
         EntityIconDirective,
-        TestComponent
-      ]
+        TestComponent,
+      ],
     })
       .compileComponents();
   });
@@ -109,7 +112,7 @@ describe('EntityIconDirective', () => {
                    [iconPosition]="iconPosition"
                    [entityType]="metadata.entityType"
                    [entityStyle]="metadata.entityStyle"
-                   [fallbackOnDefault]="fallbackOnDefault">{{metadata.value}}</span></div>`
+                   [fallbackOnDefault]="fallbackOnDefault">{{metadata.value}}</span></div>`,
 })
 class TestComponent {
 
@@ -118,7 +121,7 @@ class TestComponent {
     value: 'Test',
     orcidAuthenticated: null,
     entityType: 'default',
-    entityStyle: 'default'
+    entityStyle: 'default',
   };
   iconPosition = 'after';
   fallbackOnDefault = true;

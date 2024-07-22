@@ -1,4 +1,8 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+
 import { InternalLinkService } from './internal-link.service';
 import { NativeWindowService } from './window.service';
 
@@ -10,7 +14,7 @@ describe('InternalLinkService', () => {
       providers: [
         InternalLinkService,
         { provide: NativeWindowService, useValue: { nativeWindow: { location: { origin: 'https://currentdomain' } } } },
-    ],
+      ],
     }).compileComponents();
   }));
 

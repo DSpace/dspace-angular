@@ -1,3 +1,4 @@
+import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -8,28 +9,34 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-
-import { of as observableOf } from 'rxjs';
-import { FileUploader } from 'ng2-file-upload';
-import uniqueId from 'lodash/uniqueId';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import uniqueId from 'lodash/uniqueId';
+import { FileUploader } from 'ng2-file-upload';
+import { of as observableOf } from 'rxjs';
 
-import { UploaderOptions } from './uploader-options.model';
-import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
-import { UploaderProperties } from './uploader-properties.model';
-import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.constants';
-import { CookieService } from '../../../core/services/cookie.service';
-import { DragService } from '../../../core/drag.service';
-import { AuthService } from '../../../core/auth/auth.service';
 import { ON_BEHALF_OF_HEADER } from '../../../core/auth/auth.interceptor';
+import { AuthService } from '../../../core/auth/auth.service';
+import { DragService } from '../../../core/drag.service';
+import { CookieService } from '../../../core/services/cookie.service';
+import {
+  XSRF_COOKIE,
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+} from '../../../core/xsrf/xsrf.constants';
+import {
+  hasValue,
+  isNotEmpty,
+  isUndefined,
+} from '../../empty.util';
+import { UploaderOptions } from './uploader-options.model';
+import { UploaderProperties } from './uploader-properties.model';
 
 @Component({
   selector: 'ds-uploader',
   templateUrl: 'uploader.component.html',
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 
 export class UploaderComponent {
@@ -63,6 +70,11 @@ export class UploaderComponent {
    * Extra properties to be passed with the form-data of the upload
    */
   @Input() uploadProperties: UploaderProperties;
+
+  /**
+   * The aria label to describe what kind of files need to be uploaded
+   */
+  @Input() ariaLabel: string;
 
   /**
    * The function to call when upload is completed
@@ -102,7 +114,7 @@ export class UploaderComponent {
     private dragService: DragService,
     private scrollToService: ScrollToService,
     private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService
+    private cookieService: CookieService,
   ) {
   }
 

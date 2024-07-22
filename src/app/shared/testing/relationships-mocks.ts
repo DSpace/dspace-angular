@@ -1,32 +1,33 @@
 import { of as observableOf } from 'rxjs';
+
 import { Item } from '../../core/shared/item.model';
 
 export const ItemInfo: any = {
-    'timeCompleted': 1619374035878,
-    'msToLive': 10000,
-    'lastUpdated': 1619374035878,
-    'state': 'Success',
-    'errorMessage': null,
-    'payload': {
-      '_name': 'Bollini, Andrea',
-      'id': '092b59e8-8159-4e70-98b5-93ec60bd3431',
-      'uuid': '092b59e8-8159-4e70-98b5-93ec60bd3431',
-      'type': 'item',
-      'metadata': {
-        'dspace.entity.type': [
-          {
-            'uuid': '00494f33-46e0-45fa-8399-84e76366e21c',
-            'language': null,
-            'value': 'Person',
-            'place': 0,
-            'authority': null,
-            'confidence': -1
-          }
-        ]
-      }
+  'timeCompleted': 1619374035878,
+  'msToLive': 10000,
+  'lastUpdated': 1619374035878,
+  'state': 'Success',
+  'errorMessage': null,
+  'payload': {
+    '_name': 'Bollini, Andrea',
+    'id': '092b59e8-8159-4e70-98b5-93ec60bd3431',
+    'uuid': '092b59e8-8159-4e70-98b5-93ec60bd3431',
+    'type': 'item',
+    'metadata': {
+      'dspace.entity.type': [
+        {
+          'uuid': '00494f33-46e0-45fa-8399-84e76366e21c',
+          'language': null,
+          'value': 'Person',
+          'place': 0,
+          'authority': null,
+          'confidence': -1,
+        },
+      ],
     },
-    'statusCode': 200
-  };
+  },
+  'statusCode': 200,
+};
 
 
 export const RelationshipsTypesData: any = [
@@ -39,7 +40,7 @@ export const RelationshipsTypesData: any = [
     'leftMinCardinality': 0,
     'rightwardType': 'notDisplayingResearchoutputs',
     'rightMaxCardinality': null,
-    'rightMinCardinality': 0
+    'rightMinCardinality': 0,
   },
   {
     'type': 'relationshiptype',
@@ -50,7 +51,7 @@ export const RelationshipsTypesData: any = [
     'leftMinCardinality': 0,
     'rightwardType': 'notDisplayingResearchoutputs',
     'rightMaxCardinality': null,
-    'rightMinCardinality': 0
+    'rightMinCardinality': 0,
   },
   {
     'type': 'relationshiptype',
@@ -61,7 +62,7 @@ export const RelationshipsTypesData: any = [
     'leftMinCardinality': 0,
     'rightwardType': 'hasSelectedResearchoutputs',
     'rightMaxCardinality': null,
-    'rightMinCardinality': 0
+    'rightMinCardinality': 0,
   },
   {
     'type': 'relationshiptype',
@@ -72,7 +73,7 @@ export const RelationshipsTypesData: any = [
     'leftMinCardinality': 0,
     'rightwardType': 'hasSelectedResearchoutputs',
     'rightMaxCardinality': null,
-    'rightMinCardinality': 0
+    'rightMinCardinality': 0,
   },
 ];
 
@@ -103,8 +104,8 @@ export const RelationshipsData: any = [
         'uuid': '87e35ca7-2826-422e-8ecb-079bc4e23744',
         'type': 'item',
       }),
-      'statusCode': 200
-    })
+      'statusCode': 200,
+    }),
   },
   {
     'type': 'relationship',
@@ -129,10 +130,10 @@ export const RelationshipsData: any = [
         '_name': 'COVID-19 Vaccine: Promoting Vaccine Acceptance',
         'id': '11b61935-5228-4a94-acd9-b44131509494',
         'uuid': '11b61935-5228-4a94-acd9-b44131509494',
-        'type': 'item'
+        'type': 'item',
       }),
-      'statusCode': 200
-    })
+      'statusCode': 200,
+    }),
   },
   {
     'type': 'relationship',
@@ -157,10 +158,10 @@ export const RelationshipsData: any = [
         '_name': 'Non-viral COVID-19 vaccine delivery systems',
         'id': '572a1622-edcc-4fdf-8b87-4695c758823e',
         'uuid': '572a1622-edcc-4fdf-8b87-4695c758823e',
-        'type': 'item'
+        'type': 'item',
       }),
-      'statusCode': 200
-    })
+      'statusCode': 200,
+    }),
   },
   {
     'type': 'relationship',
@@ -185,10 +186,10 @@ export const RelationshipsData: any = [
         '_name': 'Color blindness (daltonism) in the light of genetic studies',
         'id': '11605f08-27f0-4e96-b229-a69609c68639',
         'uuid': '11605f08-27f0-4e96-b229-a69609c68639',
-        'type': 'item'
+        'type': 'item',
       }),
-      'statusCode': 200
-    })
-  }
+      'statusCode': 200,
+    }),
+  },
 ];
 

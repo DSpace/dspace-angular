@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { SiteDataService } from '../../core/data/site-data.service';
-import { Site } from '../../core/shared/site.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { BehaviorSubject } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
+import { SiteDataService } from '../../core/data/site-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { Site } from '../../core/shared/site.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component representing the page to edit cms metadata for site.
@@ -14,7 +18,7 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 @Component({
   selector: 'ds-edit-homepage-metadata',
   templateUrl: './edit-cms-metadata.component.html',
-  styleUrls: ['./edit-cms-metadata.component.scss']
+  styleUrls: ['./edit-cms-metadata.component.scss'],
 })
 export class EditCmsMetadataComponent implements OnInit {
   /**
@@ -113,8 +117,8 @@ export class EditCmsMetadataComponent implements OnInit {
       path: '/metadata/' + this.selectedMetadata,
       value: {
         value: this.selectedMetadataValues.get(firstLanguage) ?? '',
-        language: firstLanguage
-      }
+        language: firstLanguage,
+      },
     });
     this.selectedMetadataValues.forEach((value, key) => {
       if (key !== firstLanguage) {
@@ -123,8 +127,8 @@ export class EditCmsMetadataComponent implements OnInit {
           path: '/metadata/' + this.selectedMetadata,
           value: {
             value: value ?? '',
-            language: key
-          }
+            language: key,
+          },
         });
       }
     });

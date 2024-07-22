@@ -1,13 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ExternalLogInComponent } from './external-log-in.component';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { EventEmitter, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
+import {
+  EventEmitter,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
@@ -16,6 +26,7 @@ import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { BrowserOnlyMockPipe } from '../../shared/testing/browser-only-mock.pipe';
 import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
+import { ExternalLogInComponent } from './external-log-in.component';
 
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
@@ -38,7 +49,7 @@ describe('ExternalLogInComponent', () => {
           place: -1,
         }),
       ],
-    }
+    },
   };
   const translateServiceStub = {
     get: () => observableOf('Info Text'),
@@ -47,29 +58,29 @@ describe('ExternalLogInComponent', () => {
     },
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExternalLogInComponent, BrowserOnlyMockPipe, ],
+      declarations: [ExternalLogInComponent, BrowserOnlyMockPipe ],
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Injector, useValue: {} },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: NgbModal, useValue: modalService },
-        FormBuilder
+        FormBuilder,
       ],
       imports: [
         CommonModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   });

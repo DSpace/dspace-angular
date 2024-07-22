@@ -1,24 +1,35 @@
-import { Component, Inject, OnInit, } from '@angular/core';
-
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
 
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-
-import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/selectors';
-import { NativeWindowRef, NativeWindowService } from '../../../../core/services/window.service';
-import { isEmpty } from '../../../empty.util';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import { CoreState } from '../../../../core/core-state.model';
-import { renderAuthMethodFor } from '../log-in.methods-decorator';
+import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '../../../../core/auth/selectors';
+import { CoreState } from '../../../../core/core-state.model';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../../core/services/window.service';
+import { isEmpty } from '../../../empty.util';
+import { renderAuthMethodFor } from '../log-in.methods-decorator';
 
 @Component({
   selector: 'ds-log-in-external-provider',
   templateUrl: './log-in-external-provider.component.html',
-  styleUrls: ['./log-in-external-provider.component.scss']
+  styleUrls: ['./log-in-external-provider.component.scss'],
 })
 @renderAuthMethodFor(AuthMethodType.Oidc)
 @renderAuthMethodFor(AuthMethodType.Shibboleth)
@@ -64,7 +75,7 @@ export class LogInExternalProviderComponent implements OnInit {
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
-    private store: Store<CoreState>
+    private store: Store<CoreState>,
   ) {
     this.authMethod = injectedAuthMethodModel;
   }
@@ -94,7 +105,7 @@ export class LogInExternalProviderComponent implements OnInit {
       const externalServerUrl = this.authService.getExternalServerRedirectUrl(
         this._window.nativeWindow.origin,
         redirectRoute,
-        this.location
+        this.location,
       );
       // redirect to shibboleth/orcid/(external) authentication url
       this.hardRedirectService.redirect(externalServerUrl);

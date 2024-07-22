@@ -3,15 +3,24 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
+import {
+  Observable,
+  ReplaySubject,
+  Subject,
+} from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../services/window.service';import { MathJaxConfig, MathService } from './math.service';
+} from '../services/window.service';
+import {
+  MathJaxConfig,
+  MathService,
+} from './math.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * Provide the MathService for CSR
@@ -22,23 +31,23 @@ export class ClientMathService extends MathService {
 
   protected mathJaxOptions = {
     tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']]
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
     },
     svg: {
-      fontCache: 'global'
+      fontCache: 'global',
     },
     startup: {
-      typeset: false
-    }
+      typeset: false,
+    },
   };
 
   protected mathJax: MathJaxConfig = {
     source: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js',
-    id: 'MathJaxScript'
+    id: 'MathJaxScript',
   };
   protected mathJaxFallback: MathJaxConfig = {
     source: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js',
-    id: 'MathJaxBackupScript'
+    id: 'MathJaxBackupScript',
   };
 
   constructor(
@@ -47,7 +56,7 @@ export class ClientMathService extends MathService {
   ) {
     super();
 
-    this.isReady$ = new ReplaySubject<boolean>();
+    this.isReady$ = new ReplaySubject<boolean>(1);
 
     void this.registerMathJaxAsync(this.mathJax)
       .then(() => this.isReady$.next(true))

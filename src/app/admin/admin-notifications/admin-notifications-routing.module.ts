@@ -4,71 +4,115 @@ import { RouterModule } from '@angular/router';
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
-import { NOTIFICATIONS_EDIT_PATH, NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin-notifications-routing-paths';
-import { AdminNotificationsOpenaireTopicsPageComponent } from './admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page.component';
-import { AdminNotificationsOpenaireEventsPageComponent } from './admin-notifications-openaire-events-page/admin-notifications-openaire-events-page.component';
-import { AdminNotificationsOpenaireTopicsPageResolver } from './admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page-resolver.service';
-import { AdminNotificationsOpenaireEventsPageResolver } from './admin-notifications-openaire-events-page/admin-notifications-openaire-events-page.resolver';
-import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page.component';
-import { AdminNotificationsSuggestionTargetsPageResolver } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page-resolver.service';
+import { QualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
+import { QualityAssuranceBreadcrumbService } from '../../core/breadcrumbs/quality-assurance-breadcrumb.service';
+import { SiteAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { AdminNotificationsPublicationClaimPageResolver } from '../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
+import { QualityAssuranceEventsPageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.component';
+import { QualityAssuranceEventsPageResolver } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.resolver';
+import { SourceDataResolver } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-data.resolver';
+import { QualityAssuranceSourcePageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page.component';
+import { QualityAssuranceSourcePageResolver } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import { QualityAssuranceTopicsPageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page.component';
+import { QualityAssuranceTopicsPageResolver } from '../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
+import {
+  PUBLICATION_CLAIMS_PATH,
+  QUALITY_ASSURANCE_EDIT_PATH,
+} from './admin-notifications-routing-paths';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${NOTIFICATIONS_EDIT_PATH}`,
-        component: AdminNotificationsOpenaireTopicsPageComponent,
+        path: `${PUBLICATION_CLAIMS_PATH}`,
+        component: AdminNotificationsPublicationClaimPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerTopicsParams: AdminNotificationsOpenaireTopicsPageResolver
+          suggestionTargetParams: AdminNotificationsPublicationClaimPageResolver,
         },
         data: {
-          title: 'admin.notifications.openairebroker.page.title',
-          breadcrumbKey: 'admin.notifications.openairebroker',
-          showBreadcrumbsFluid: false
-        }
+          title: 'admin.notifications.publicationclaim.page.title',
+          breadcrumbKey: 'admin.notifications.publicationclaim',
+          showBreadcrumbsFluid: false,
+        },
       },
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${NOTIFICATIONS_EDIT_PATH}/:id`,
-        component: AdminNotificationsOpenaireEventsPageComponent,
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId`,
+        component: QualityAssuranceTopicsPageComponent,
         pathMatch: 'full',
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver,
-          openaireBrokerEventsParams: AdminNotificationsOpenaireEventsPageResolver
+          breadcrumb: QualityAssuranceBreadcrumbResolver,
+          openaireQualityAssuranceTopicsParams: QualityAssuranceTopicsPageResolver,
         },
         data: {
-          title: 'admin.notifications.openaireevent.page.title',
-          breadcrumbKey: 'admin.notifications.openaireevent',
-          showBreadcrumbsFluid: false
-        }
+          title: 'admin.quality-assurance.page.title',
+          breadcrumbKey: 'admin.quality-assurance',
+          showBreadcrumbsFluid: false,
+        },
       },
       {
         canActivate: [ AuthenticatedGuard ],
-        path: `${NOTIFICATIONS_RECITER_SUGGESTION_PATH}`,
-        component: AdminNotificationsSuggestionTargetsPageComponent,
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/target/:targetId`,
+        component: QualityAssuranceTopicsPageComponent,
         pathMatch: 'full',
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
-          reciterSuggestionTargetParams: AdminNotificationsSuggestionTargetsPageResolver
+          openaireQualityAssuranceTopicsParams: QualityAssuranceTopicsPageResolver,
         },
         data: {
-          title: 'admin.notifications.recitersuggestion.page.title',
-          breadcrumbKey: 'admin.notifications.recitersuggestion',
-          showBreadcrumbsFluid: false
-        }
+          title: 'admin.quality-assurance.page.title',
+          breadcrumbKey: 'admin.quality-assurance',
+          showBreadcrumbsFluid: false,
+        },
       },
-    ])
+      {
+        canActivate: [ SiteAdministratorGuard ],
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
+        component: QualityAssuranceSourcePageComponent,
+        pathMatch: 'full',
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+          openaireQualityAssuranceSourceParams: QualityAssuranceSourcePageResolver,
+          sourceData: SourceDataResolver,
+        },
+        data: {
+          title: 'admin.notifications.source.breadcrumbs',
+          breadcrumbKey: 'admin.notifications.source',
+          showBreadcrumbsFluid: false,
+        },
+      },
+      {
+        canActivate: [ AuthenticatedGuard ],
+        path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/:topicId`,
+        component: QualityAssuranceEventsPageComponent,
+        pathMatch: 'full',
+        resolve: {
+          breadcrumb: QualityAssuranceBreadcrumbResolver,
+          openaireQualityAssuranceEventsParams: QualityAssuranceEventsPageResolver,
+        },
+        data: {
+          title: 'admin.notifications.event.page.title',
+          breadcrumbKey: 'admin.notifications.event',
+          showBreadcrumbsFluid: false,
+        },
+      },
+    ]),
   ],
   providers: [
     I18nBreadcrumbResolver,
     I18nBreadcrumbsService,
-    AdminNotificationsOpenaireTopicsPageResolver,
-    AdminNotificationsOpenaireEventsPageResolver,
-    AdminNotificationsSuggestionTargetsPageResolver
-  ]
+    AdminNotificationsPublicationClaimPageResolver,
+    SourceDataResolver,
+    QualityAssuranceSourcePageResolver,
+    QualityAssuranceTopicsPageResolver,
+    QualityAssuranceEventsPageResolver,
+    QualityAssuranceBreadcrumbResolver,
+    QualityAssuranceBreadcrumbService,
+  ],
 })
 /**
  * Routing module for the Notifications section of the admin sidebar

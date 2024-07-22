@@ -1,17 +1,28 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
-
-import { Chips } from './models/chips.model';
-import { ChipsComponent } from './chips.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
-import { createTestComponent } from '../../testing/utils.test';
-import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
+
 import { environment } from '../../../../environments/environment';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
+import { createTestComponent } from '../../testing/utils.test';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
+import { ChipsComponent } from './chips.component';
+import { Chips } from './models/chips.model';
 
 describe('ChipsComponent test suite', () => {
 
@@ -28,18 +39,18 @@ describe('ChipsComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         ChipsComponent,
         TestComponent,
-        AuthorityConfidenceStateDirective
+        AuthorityConfidenceStateDirective,
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
         ChipsComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -115,7 +126,7 @@ describe('ChipsComponent test suite', () => {
       const item = {
         mainField: new FormFieldMetadataValueObject('main test', null, null,'test001', 'main test with long text and tooltip', 0, ConfidenceType.CF_ACCEPTED),
         relatedField: new FormFieldMetadataValueObject('related test', null, null,'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
-        otherRelatedField: new FormFieldMetadataValueObject('other related test')
+        otherRelatedField: new FormFieldMetadataValueObject('other related test'),
       };
 
       chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
@@ -152,7 +163,7 @@ describe('ChipsComponent test suite', () => {
   describe('when has a chip with short text to display', () => {
     beforeEach(() => {
       const item = {
-        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED)
+        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
       };
 
       chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
@@ -174,7 +185,7 @@ describe('ChipsComponent test suite', () => {
   describe('when has a chip with long text to display', () => {
     beforeEach(() => {
       const item = {
-        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'long text to display is truncated but not in tooltip', 0, ConfidenceType.CF_ACCEPTED)
+        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'long text to display is truncated but not in tooltip', 0, ConfidenceType.CF_ACCEPTED),
       };
 
       chips = new Chips([item], 'display', 'mainField');
@@ -210,10 +221,10 @@ describe('ChipsComponent test suite', () => {
     it('should return true if authority starts with will be generated and false otherwise', () => {
       const metadata = 'dc.title';
       let chip;
-      chip = { item: { 'dc.title': { authority: 'will be generated::'}}} as any;
+      chip = { item: { 'dc.title': { authority: 'will be generated::' } } } as any;
       expect(chipsComp.hasWillBeGenerated(chip, metadata)).toEqual(true);
 
-      chip = { item: { 'dc.title': { authority: ''}}} as any;
+      chip = { item: { 'dc.title': { authority: '' } } } as any;
       expect(chipsComp.hasWillBeGenerated(chip, metadata)).toEqual(false);
     });
 
@@ -231,10 +242,10 @@ describe('ChipsComponent test suite', () => {
     it('should return true if authority starts with will be referenced and false otherwise', () => {
       const metadata = 'dc.title';
       let chip;
-      chip = { item: { 'dc.title': { authority: 'will be referenced::'}}} as any;
+      chip = { item: { 'dc.title': { authority: 'will be referenced::' } } } as any;
       expect(chipsComp.hasWillBeReferenced(chip, metadata)).toEqual(true);
 
-      chip = { item: { 'dc.title': { authority: ''}}} as any;
+      chip = { item: { 'dc.title': { authority: '' } } } as any;
       expect(chipsComp.hasWillBeReferenced(chip, metadata)).toEqual(false);
     });
 
@@ -252,10 +263,10 @@ describe('ChipsComponent test suite', () => {
     it('should return the value of the reference if present, null otherwise', () => {
       const metadata = 'dc.title';
       let chip;
-      chip = { item: { 'dc.title': { authority: 'will be referenced::ORCID::0000'}}} as any;
+      chip = { item: { 'dc.title': { authority: 'will be referenced::ORCID::0000' } } } as any;
       expect(chipsComp.getWillBeReferencedContent(chip, metadata)).toEqual('ORCID::0000');
 
-      chip = { item: { 'dc.title': { authority: ''}}} as any;
+      chip = { item: { 'dc.title': { authority: '' } } } as any;
       expect(chipsComp.getWillBeReferencedContent(chip, metadata)).toEqual(null);
     });
 
@@ -266,7 +277,7 @@ describe('ChipsComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

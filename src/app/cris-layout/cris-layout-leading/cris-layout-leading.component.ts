@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { Item } from '../../core/shared/item.model';
@@ -6,7 +9,7 @@ import { Item } from '../../core/shared/item.model';
 @Component({
   selector: 'ds-cris-layout-leading',
   templateUrl: './cris-layout-leading.component.html',
-  styleUrls: ['./cris-layout-leading.component.scss']
+  styleUrls: ['./cris-layout-leading.component.scss'],
 })
 export class CrisLayoutLeadingComponent {
 

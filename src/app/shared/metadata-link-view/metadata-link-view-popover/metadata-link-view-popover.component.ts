@@ -1,17 +1,24 @@
-import { IdentifierSubtypesConfig } from './../../../../config/identifier-subtypes-config.interface';
-import { MetadataLinkViewPopoverDataConfig } from 'src/config/metadata-link-view-popoverdata-config.interface';
-import { Item } from './../../../core/shared/item.model';
-import { Component, Input, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { hasNoValue, hasValue } from '../../empty.util';
-
-import { AuthorithyIcon } from 'src/config/submission-config.interface';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { getItemPageRoute } from 'src/app/item-page/item-page-routing-paths';
+import { MetadataLinkViewPopoverDataConfig } from 'src/config/metadata-link-view-popoverdata-config.interface';
+import { AuthorithyIcon } from 'src/config/submission-config.interface';
+import { environment } from 'src/environments/environment';
+
+import {
+  hasNoValue,
+  hasValue,
+} from '../../empty.util';
+import { IdentifierSubtypesConfig } from './../../../../config/identifier-subtypes-config.interface';
+import { Item } from './../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-metadata-link-view-popover',
   templateUrl: './metadata-link-view-popover.component.html',
-  styleUrls: ['./metadata-link-view-popover.component.scss']
+  styleUrls: ['./metadata-link-view-popover.component.scss'],
 })
 export class MetadataLinkViewPopoverComponent implements OnInit {
 
@@ -77,7 +84,7 @@ export class MetadataLinkViewPopoverComponent implements OnInit {
    * @returns The page route for the item.
    */
   getItemPageRoute(): string {
-   return getItemPageRoute(this.item);
+    return getItemPageRoute(this.item);
   }
 
   /**

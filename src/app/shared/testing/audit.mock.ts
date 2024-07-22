@@ -14,7 +14,7 @@ export const AuditEPersonMock: EPerson = Object.assign(new EPerson(), {
     self: {
       href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/4eebf0fa-cb9a-463e-8d4c-8a63122c7658',
     },
-    groups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/4eebf0fa-cb9a-463e-8d4c-8a63122c7658/groups' }
+    groups: { href: 'https://dspace.4science.it/dspace-spring-rest/api/eperson/epersons/4eebf0fa-cb9a-463e-8d4c-8a63122c7658/groups' },
   },
   id: '4eebf0fa-cb9a-463e-8d4c-8a63122c7658',
   uuid: '4eebf0fa-cb9a-463e-8d4c-8a63122c7658',
@@ -23,28 +23,28 @@ export const AuditEPersonMock: EPerson = Object.assign(new EPerson(), {
     'dc.title': [
       {
         language: null,
-        value: 'User Test'
-      }
+        value: 'User Test',
+      },
     ],
     'eperson.firstname': [
       {
         language: null,
-        value: 'User'
-      }
+        value: 'User',
+      },
     ],
     'eperson.lastname': [
       {
         language: null,
-        value: 'Test'
+        value: 'Test',
       },
     ],
     'eperson.language': [
       {
         language: null,
-        value: 'en'
+        value: 'en',
       },
-    ]
-  }
+    ],
+  },
 });
 
 export const AuditMock: Audit = Object.assign(new Audit(), {
@@ -59,23 +59,23 @@ export const AuditMock: Audit = Object.assign(new Audit(), {
   timeStamp: '2020-11-13T10:41:06.223+0000',
   type: 'auditevent',
   _embedded: {
-    eperson: AuditEPersonMock
+    eperson: AuditEPersonMock,
   },
   self: {
     _links: {
       eperson: {
-        href: 'https://dspace.4science.it/dspace-spring-rest/api/system/auditevents/6fcd7329-8439-4492-bb72-0a4240b52da8/eperson'
+        href: 'https://dspace.4science.it/dspace-spring-rest/api/system/auditevents/6fcd7329-8439-4492-bb72-0a4240b52da8/eperson',
       },
       object: {
-        href: 'https://dspace.4science.it/dspace-spring-rest/api/system/auditevents/6fcd7329-8439-4492-bb72-0a4240b52da8/object'
+        href: 'https://dspace.4science.it/dspace-spring-rest/api/system/auditevents/6fcd7329-8439-4492-bb72-0a4240b52da8/object',
       },
       self: {
-        href: 'https://dspace.4science.it/dspace-spring-rest/api/system/auditevents/6fcd7329-8439-4492-bb72-0a4240b52da8'
+        href: 'https://dspace.4science.it/dspace-spring-rest/api/system/auditevents/6fcd7329-8439-4492-bb72-0a4240b52da8',
       },
       subject: {
         href: 'https://dspace.4science.it/dspace-spring-rest/api/system/auditevents/6fcd7329-8439-4492-bb72-0a4240b52da8/subject',
-      }
-    }
-  }
+      },
+    },
+  },
 });
 

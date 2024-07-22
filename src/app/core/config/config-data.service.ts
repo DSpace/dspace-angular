@@ -1,13 +1,13 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ConfigObject } from './models/config.model';
-import { RemoteData } from '../data/remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { ConfigObject } from './models/config.model';
 
 /**
  * Abstract data service to retrieve configuration objects from the REST server.

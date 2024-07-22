@@ -1,6 +1,12 @@
-import { isUndefined } from '../../shared/empty.util';
 import { v4 as uuidv4 } from 'uuid';
-import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
+
+import { isUndefined } from '../../shared/empty.util';
+import {
+  MetadataMap,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel,
+} from './metadata.models';
 import { Metadata } from './metadata.utils';
 
 const mdValue = (value: string, language?: string, authority?: string): MetadataValue => {
@@ -10,7 +16,7 @@ const mdValue = (value: string, language?: string, authority?: string): Metadata
     language: isUndefined(language) ? null : language,
     place: 0,
     authority: isUndefined(authority) ? null : authority,
-    confidence: undefined
+    confidence: undefined,
   });
 };
 
@@ -28,7 +34,7 @@ const multiMap = {
   'dc.description': [dcDescription],
   'dc.description.abstract': [dcAbstract],
   'dc.title': [dcTitle1, dcTitle2],
-  'foo': [bar]
+  'foo': [bar],
 };
 
 const regexTestMap = {
@@ -41,7 +47,7 @@ const multiViewModelList = [
   { key: 'dc.description.abstract', ...dcAbstract, order: 0 },
   { key: 'dc.title', ...dcTitle1, order: 0 },
   { key: 'dc.title', ...dcTitle2, order: 1 },
-  { key: 'foo', ...bar, order: 0 }
+  { key: 'foo', ...bar, order: 0 },
 ];
 
 const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?) => {
@@ -192,31 +198,31 @@ describe('Metadata', () => {
     });
     describe('with undefined value for a MetadataValue object', () => {
       const value: Partial<MetadataValue> = {
-        value: undefined
+        value: undefined,
       };
       testHasValue(value, false);
     });
     describe('with null value for a MetadataValue object', () => {
       const value: Partial<MetadataValue> = {
-        value: null
+        value: null,
       };
       testHasValue(value, false);
     });
     describe('with empty string for a MetadataValue object', () => {
       const value: Partial<MetadataValue> = {
-        value: ''
+        value: '',
       };
       testHasValue(value, false);
     });
     describe('with value for a MetadataValue object', () => {
       const value: Partial<MetadataValue> = {
-        value: 'test'
+        value: 'test',
       };
       testHasValue(value, true);
     });
     describe('with a generic object', () => {
-      const value: Object = {
-        test: 'test'
+      const value: any = {
+        test: 'test',
       };
       testHasValue(value, true);
     });
@@ -279,7 +285,7 @@ describe('Metadata', () => {
 
     const metadataMap = {
       'dc.description': [mdValue('Test description')],
-      'dc.title': [mdValue('Test title 1'), mdValue('Test title 2')]
+      'dc.title': [mdValue('Test title 1'), mdValue('Test title 2')],
     };
 
     const testSetFirstValue = (map: MetadataMap, key: string, value: string) => {

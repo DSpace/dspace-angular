@@ -1,30 +1,34 @@
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
-import { DSONameService } from './dso-name.service';
-import { Observable } from 'rxjs';
-import { LinkService } from '../cache/builders/link.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { map } from 'rxjs/operators';
-import { hasValue } from '../../shared/empty.util';
 import { Injectable } from '@angular/core';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
-import { Item } from '../shared/item.model';
-import { Community } from '../shared/community.model';
 import { TranslateService } from '@ngx-translate/core';
-import { CommunityDataService } from '../data/community-data.service';
-import { CollectionDataService } from '../data/collection-data.service';
-import { Collection } from '../shared/collection.model';
-import { ItemDataService } from '../data/item-data.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page/item.resolver';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page/item.resolver';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { hasValue } from '../../shared/empty.util';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { LinkService } from '../cache/builders/link.service';
+import { CollectionDataService } from '../data/collection-data.service';
+import { CommunityDataService } from '../data/community-data.service';
+import { ItemDataService } from '../data/item-data.service';
+import { Collection } from '../shared/collection.model';
+import { Community } from '../shared/community.model';
+import { Item } from '../shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
+import { DSONameService } from './dso-name.service';
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DsoContextBreadcrumbService implements BreadcrumbsProviderService<string> {
   constructor(
@@ -33,7 +37,7 @@ export class DsoContextBreadcrumbService implements BreadcrumbsProviderService<s
     protected itemDataService: ItemDataService,
     private collectionService: CollectionDataService,
     private communityService: CommunityDataService,
-    private dsoNameService: DSONameService
+    private dsoNameService: DSONameService,
   ) {
 
   }
@@ -86,7 +90,7 @@ export class DsoContextBreadcrumbService implements BreadcrumbsProviderService<s
         } else {
           return [];
         }
-      })
+      }),
     );
   }
 
@@ -115,7 +119,7 @@ export class DsoContextBreadcrumbService implements BreadcrumbsProviderService<s
         } else {
           return [];
         }
-      })
+      }),
     );
   }
 
@@ -143,7 +147,7 @@ export class DsoContextBreadcrumbService implements BreadcrumbsProviderService<s
         } else {
           return [];
         }
-      })
+      }),
     );
   }
 

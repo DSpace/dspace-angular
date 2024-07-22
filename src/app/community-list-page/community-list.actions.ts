@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 import { type } from '../shared/ngrx/type';
 import { FlatNode } from './flat-node.model';
 
@@ -7,7 +8,7 @@ import { FlatNode } from './flat-node.model';
  */
 
 export const CommunityListActionTypes = {
-  SAVE: type('dspace/community-list-page/SAVE')
+  SAVE: type('dspace/community-list-page/SAVE'),
 };
 
 /**

@@ -7,7 +7,7 @@ export const metricsComponent: MetricsComponent = {
   metrics: ['views'],
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/metricscomponent/1'
-    }
-  }
+      href: 'https://rest.api/rest/api/metricscomponent/1',
+    },
+  },
 };

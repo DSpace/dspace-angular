@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { TextRowSection } from '../../../../core/layout/models/section.model';
-import { Site } from '../../../../core/shared/site.model';
 import { LocaleService } from '../../../../core/locale/locale.service';
+import { Site } from '../../../../core/shared/site.model';
 
 @Component({
   selector: 'ds-text-section',
@@ -12,13 +15,13 @@ import { LocaleService } from '../../../../core/locale/locale.service';
 export class TextSectionComponent {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  textRowSection: TextRowSection;
+    textRowSection: TextRowSection;
 
   @Input()
-  site: Site;
+    site: Site;
 
   constructor(
     private locale: LocaleService,
@@ -26,6 +29,6 @@ export class TextSectionComponent {
   }
 
   metadataValue(content: string) {
-    return this.site?.firstMetadataValue(content, {language: this.locale.getCurrentLanguageCode()}) ?? '';
+    return this.site?.firstMetadataValue(content, { language: this.locale.getCurrentLanguageCode() }) ?? '';
   }
 }

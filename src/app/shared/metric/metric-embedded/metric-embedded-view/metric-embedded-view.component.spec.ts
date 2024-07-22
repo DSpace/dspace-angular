@@ -1,11 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-  metricEmbeddedView
-} from '../../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { MetricEmbeddedViewComponent } from './metric-embedded-view.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { metricEmbeddedView } from '../../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { MetricEmbeddedViewComponent } from './metric-embedded-view.component';
 
 describe('MetricEmbeddedViewComponent', () => {
   let component: MetricEmbeddedViewComponent;
@@ -15,12 +19,12 @@ describe('MetricEmbeddedViewComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [MetricEmbeddedViewComponent],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

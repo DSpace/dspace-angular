@@ -24,9 +24,9 @@ export class VocabularyOptions {
   closed: boolean;
 
   constructor(name: string,
-              metadata?: string,
-              scope?: string,
-              closed: boolean = false) {
+    metadata?: string,
+    scope?: string,
+    closed: boolean = false) {
     this.name = name;
     this.metadata = metadata;
     this.scope = scope;

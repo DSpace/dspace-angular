@@ -1,26 +1,34 @@
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { RequestService } from '../../data/request.service';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { PageInfo } from '../../shared/page-info.model';
-import { buildPaginatedList } from '../../data/paginated-list.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { RestResponse } from '../../cache/response.models';
-import { VocabularyService } from './vocabulary.service';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { VocabularyOptions } from './models/vocabulary-options.model';
-import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
-import { HrefOnlyDataService } from '../../data/href-only-data.service';
 import { getMockHrefOnlyDataService } from '../../../shared/mocks/href-only-data.service.mock';
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { RestResponse } from '../../cache/response.models';
+import { HrefOnlyDataService } from '../../data/href-only-data.service';
+import { buildPaginatedList } from '../../data/paginated-list.model';
+import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { PageInfo } from '../../shared/page-info.model';
+import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
+import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyDataService } from './vocabulary.data.service';
+import { VocabularyService } from './vocabulary.service';
 import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 
 describe('VocabularyService', () => {
@@ -44,12 +52,12 @@ describe('VocabularyService', () => {
     entries: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     _links: {
       self: {
-        href: 'https://rest.api/rest/api/submission/vocabularies/types'
+        href: 'https://rest.api/rest/api/submission/vocabularies/types',
       },
       entries: {
-        href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
+        href: 'https://rest.api/rest/api/submission/vocabularies/types/entries',
       },
-    }
+    },
   };
 
   const hierarchicalVocabulary: any = {
@@ -63,33 +71,33 @@ describe('VocabularyService', () => {
     entries: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     _links: {
       self: {
-        href: 'https://rest.api/rest/api/submission/vocabularies/types'
+        href: 'https://rest.api/rest/api/submission/vocabularies/types',
       },
       entries: {
-        href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
+        href: 'https://rest.api/rest/api/submission/vocabularies/types/entries',
       },
-    }
+    },
   };
 
   const vocabularyEntry: any = {
     display: 'testValue1',
     value: 'testValue1',
     otherInformation: {},
-    type: 'vocabularyEntry'
+    type: 'vocabularyEntry',
   };
 
   const vocabularyEntry2: any = {
     display: 'testValue2',
     value: 'testValue2',
     otherInformation: {},
-    type: 'vocabularyEntry'
+    type: 'vocabularyEntry',
   };
 
   const vocabularyEntry3: any = {
     display: 'testValue3',
     value: 'testValue3',
     otherInformation: {},
-    type: 'vocabularyEntry'
+    type: 'vocabularyEntry',
   };
 
   const entryDetailRequestURL = `https://rest.api/rest/api/submission/vocabularyEntryDetails/${hierarchicalVocabulary.id}:testValue`;
@@ -103,20 +111,20 @@ describe('VocabularyService', () => {
     otherInformation: {
       id: 'authorityId',
       hasChildren: 'true',
-      note: 'Familjeforskning'
+      note: 'Familjeforskning',
     },
     type: 'vocabularyEntryDetail',
     _links: {
       self: {
-        href: entryDetailRequestURL
+        href: entryDetailRequestURL,
       },
       parent: {
-        href: entryDetailParentRequestURL
+        href: entryDetailParentRequestURL,
       },
       children: {
-        href: entryDetailChildrenRequestURL
-      }
-    }
+        href: entryDetailChildrenRequestURL,
+      },
+    },
   };
 
   const vocabularyEntryParentDetail: any = {
@@ -126,20 +134,20 @@ describe('VocabularyService', () => {
     otherInformation: {
       id: 'authorityId2',
       hasChildren: 'true',
-      note: 'Familjeforskning'
+      note: 'Familjeforskning',
     },
     type: 'vocabularyEntryDetail',
     _links: {
       self: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:VR131402'
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:VR131402',
       },
       parent: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent'
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent',
       },
       children: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children'
-      }
-    }
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children',
+      },
+    },
   };
 
   const vocabularyEntryChildDetail: any = {
@@ -149,20 +157,20 @@ describe('VocabularyService', () => {
     otherInformation: {
       id: 'authoritytestChild1',
       hasChildren: 'true',
-      note: 'Familjeforskning'
+      note: 'Familjeforskning',
     },
     type: 'vocabularyEntryDetail',
     _links: {
       self: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:authoritytestChild1'
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:authoritytestChild1',
       },
       parent: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent'
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent',
       },
       children: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children'
-      }
-    }
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children',
+      },
+    },
   };
 
   const vocabularyEntryChild2Detail: any = {
@@ -172,20 +180,20 @@ describe('VocabularyService', () => {
     otherInformation: {
       id: 'authoritytestChild2',
       hasChildren: 'true',
-      note: 'Familjeforskning'
+      note: 'Familjeforskning',
     },
     type: 'vocabularyEntryDetail',
     _links: {
       self: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:authoritytestChild2'
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:authoritytestChild2',
       },
       parent: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent'
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:parent',
       },
       children: {
-        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children'
-      }
-    }
+        href: 'https://rest.api/rest/api/submission/vocabularyEntryDetails/srsc:children',
+      },
+    },
   };
 
   const endpointURL = `https://rest.api/rest/api/submission/vocabularies`;
@@ -206,7 +214,7 @@ describe('VocabularyService', () => {
     name: vocabularyId,
     metadata: metadata,
     scope: collectionUUID,
-    closed: false
+    closed: false,
   };
   const pageInfo = new PageInfo();
   const array = [vocabulary, hierarchicalVocabulary];
@@ -224,12 +232,13 @@ describe('VocabularyService', () => {
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
   const getRequestEntries$ = (successful: boolean) => {
     return observableOf({
-      response: { isSuccessful: successful, payload: arrayEntries } as any
+      response: { isSuccessful: successful, payload: arrayEntries } as any,
     } as RequestEntry);
   };
 
   function initTestService() {
     hrefOnlyDataService = getMockHrefOnlyDataService();
+    objectCache = new ObjectCacheServiceStub() as ObjectCacheService;
 
     return new VocabularyService(
       requestService,
@@ -266,12 +275,12 @@ describe('VocabularyService', () => {
         });
         rdbService = jasmine.createSpyObj('rdbService', {
           buildSingle: hot('a|', {
-            a: vocabularyRD
+            a: vocabularyRD,
           }),
           buildList: hot('a|', {
             a: paginatedListRD,
           }),
-          setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
+          setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
         });
 
         service = initTestService();
@@ -279,6 +288,7 @@ describe('VocabularyService', () => {
         spyOn((service as any).vocabularyDataService, 'findById').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findAll').and.callThrough();
         spyOn((service as any).vocabularyDataService, 'findByHref').and.callThrough();
+        spyOn((service as any).vocabularyDataService, 'getVocabularyByMetadataAndCollection').and.callThrough();
         spyOn((service as any).vocabularyDataService.findAllData, 'getFindAllHref').and.returnValue(observableOf(entriesRequestURL));
         spyOn((service as any).vocabularyDataService.searchData, 'getSearchByHref').and.returnValue(observableOf(searchRequestURL));
       });
@@ -298,7 +308,7 @@ describe('VocabularyService', () => {
         it('should return a RemoteData<Vocabulary> for the object with the given id', () => {
           const result = service.findVocabularyById(vocabularyId);
           const expected = cold('a|', {
-            a: vocabularyRD
+            a: vocabularyRD,
           });
           expect(result).toBeObservable(expected);
         });
@@ -315,7 +325,7 @@ describe('VocabularyService', () => {
         it('should return a RemoteData<Vocabulary> for the object with the given URL', () => {
           const result = service.findVocabularyByHref(requestURL);
           const expected = cold('a|', {
-            a: vocabularyRD
+            a: vocabularyRD,
           });
           expect(result).toBeObservable(expected);
         });
@@ -332,7 +342,24 @@ describe('VocabularyService', () => {
         it('should return a RemoteData<PaginatedList<Vocabulary>>', () => {
           const result = service.findAllVocabularies();
           const expected = cold('a|', {
-            a: paginatedListRD
+            a: paginatedListRD,
+          });
+          expect(result).toBeObservable(expected);
+        });
+      });
+
+      describe('getVocabularyByMetadataAndCollection', () => {
+        it('should proxy the call to vocabularyDataService.getVocabularyByMetadataAndCollection', () => {
+          scheduler.schedule(() => service.getVocabularyByMetadataAndCollection(metadata, collectionUUID));
+          scheduler.flush();
+
+          expect((service as any).vocabularyDataService.getVocabularyByMetadataAndCollection).toHaveBeenCalledWith(metadata, collectionUUID, true, true);
+        });
+
+        it('should return a RemoteData<Vocabulary> for the object with the given metadata and collection', () => {
+          const result = service.getVocabularyByMetadataAndCollection(metadata, collectionUUID);
+          const expected = cold('a|', {
+            a: vocabularyRD,
           });
           expect(result).toBeObservable(expected);
         });
@@ -349,7 +376,7 @@ describe('VocabularyService', () => {
         it('should return a RemoteData<Vocabulary> for the search', () => {
           const result = service.searchVocabularyByMetadataAndCollection(vocabularyOptions);
           const expected = cold('a|', {
-            a: vocabularyRD
+            a: vocabularyRD,
           });
           expect(result).toBeObservable(expected);
         });
@@ -379,7 +406,7 @@ describe('VocabularyService', () => {
               filter: null,
               exact: null,
               entryID: null,
-            })
+            }),
           }));
         });
       });
@@ -394,7 +421,7 @@ describe('VocabularyService', () => {
             findListOptions: jasmine.objectContaining({
               filter: 'test',
               exact: false,
-            })
+            }),
           }));
         });
       });
@@ -409,7 +436,7 @@ describe('VocabularyService', () => {
             findListOptions: jasmine.objectContaining({
               filter: 'test',
               exact: true,
-            })
+            }),
           }));
         });
       });
@@ -422,7 +449,7 @@ describe('VocabularyService', () => {
           expect(service.findVocabularyById).toHaveBeenCalledWith(vocabularyOptions.name, true, true, jasmine.objectContaining({
             findListOptions: jasmine.objectContaining({
               entryID,
-            })
+            }),
           }));
         });
       });
@@ -436,7 +463,7 @@ describe('VocabularyService', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: entryDetailEndpointURL })
+        getEndpoint: cold('a', { a: entryDetailEndpointURL }),
       });
 
       responseCacheEntry = new RequestEntry();
@@ -452,12 +479,12 @@ describe('VocabularyService', () => {
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {
-          a: vocabularyEntryDetailParentRD
+          a: vocabularyEntryDetailParentRD,
         }),
         buildList: hot('a|', {
-          a: vocabularyEntryChildrenRD
+          a: vocabularyEntryChildrenRD,
         }),
-        setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
+        setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
       });
 
       service = initTestService();
@@ -487,7 +514,7 @@ describe('VocabularyService', () => {
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given URL', () => {
         const result = service.findEntryDetailByHref(entryDetailRequestURL);
         const expected = cold('a|', {
-          a: vocabularyEntryDetailParentRD
+          a: vocabularyEntryDetailParentRD,
         });
         expect(result).toBeObservable(expected);
       });
@@ -504,7 +531,7 @@ describe('VocabularyService', () => {
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given id', () => {
         const result = service.findEntryDetailById('testValue', hierarchicalVocabulary.id);
         const expected = cold('a|', {
-          a: vocabularyEntryDetailParentRD
+          a: vocabularyEntryDetailParentRD,
         });
         expect(result).toBeObservable(expected);
       });
@@ -525,7 +552,7 @@ describe('VocabularyService', () => {
       it('should return a RemoteData<VocabularyEntryDetail> for the object with the given URL', () => {
         const result = service.getEntryDetailParent('testValue', hierarchicalVocabulary.id);
         const expected = cold('a|', {
-          a: vocabularyEntryDetailParentRD
+          a: vocabularyEntryDetailParentRD,
         });
         expect(result).toBeObservable(expected);
       });
@@ -545,7 +572,7 @@ describe('VocabularyService', () => {
           null,
           null,
           pageInfo.elementsPerPage,
-          pageInfo.currentPage
+          pageInfo.currentPage,
         );
         scheduler.schedule(() => service.getEntryDetailChildren('testValue', hierarchicalVocabulary.id, pageInfo).subscribe());
         scheduler.flush();
@@ -556,7 +583,7 @@ describe('VocabularyService', () => {
       it('should return a RemoteData<PaginatedList<ResourcePolicy>> for the object with the given URL', () => {
         const result = service.getEntryDetailChildren('testValue', hierarchicalVocabulary.id, new PageInfo());
         const expected = cold('a|', {
-          a: vocabularyEntryChildrenRD
+          a: vocabularyEntryChildrenRD,
         });
         expect(result).toBeObservable(expected);
       });
@@ -572,7 +599,7 @@ describe('VocabularyService', () => {
           null,
           null,
           pageInfo.elementsPerPage,
-          pageInfo.currentPage
+          pageInfo.currentPage,
         );
         options.searchParams = [new RequestParam('vocabulary', 'srsc')];
         scheduler.schedule(() => service.searchTopEntries('srsc', pageInfo));
@@ -584,7 +611,7 @@ describe('VocabularyService', () => {
       it('should return a RemoteData<PaginatedList<ResourcePolicy>> for the search', () => {
         const result = service.searchTopEntries('srsc', pageInfo);
         const expected = cold('a|', {
-          a: vocabularyEntryChildrenRD
+          a: vocabularyEntryChildrenRD,
         });
         expect(result).toBeObservable(expected);
       });

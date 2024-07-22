@@ -7,27 +7,45 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { hasValue, isNotNull } from '../empty.util';
-import { map, reduce, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  reduce,
+  startWith,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import {
+  ItemExportFormatMolteplicity,
+  ItemExportFormatService,
+} from '../../core/itemexportformat/item-export-format.service';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
 import {
-  ItemExportFormatMolteplicity,
-  ItemExportFormatService
-} from '../../core/itemexportformat/item-export-format.service';
+  hasValue,
+  isNotNull,
+} from '../empty.util';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
-import { FindListOptions } from '../../core/data/find-list-options.model';
 
 @Component({
   selector: 'ds-entity-dropdown',
   templateUrl: './entity-dropdown.component.html',
-  styleUrls: ['./entity-dropdown.component.scss']
+  styleUrls: ['./entity-dropdown.component.scss'],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**
@@ -96,7 +114,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private entityTypeService: EntityTypeDataService,
     private itemExportFormatService: ItemExportFormatService,
-    private el: ElementRef
+    private el: ElementRef,
   ) { }
 
   /**
@@ -163,7 +181,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
       // Set the pagination info
       const findOptions: FindListOptions = {
         elementsPerPage: 10,
-        currentPage: page
+        currentPage: page,
       };
       searchListEntity$ =
         this.entityTypeService.getAllAuthorizedRelationshipType(findOptions)
@@ -173,7 +191,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
               if ((this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements) {
                 this.hasNextPage = false;
               }
-            })
+            }),
           );
     } else {
       searchListEntity$ =
@@ -185,23 +203,23 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
                 .filter((entityType: string) => isNotNull(entityType) && entityType !== 'null')
                 .map((entityType: string) => ({
                   id: entityType,
-                  label: entityType
+                  label: entityType,
                 } as any));
               return createSuccessfulRemoteDataObject(buildPaginatedList(null, entityList));
             }),
-            tap(() => this.hasNextPage = false)
+            tap(() => this.hasNextPage = false),
           );
     }
     this.searchListEntity$ = searchListEntity$.pipe(
       switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => entityType.payload.page),
       reduce((acc: any, value: any) => [...acc, value], []),
-      startWith([])
+      startWith([]),
     );
     this.subs.push(
       this.searchListEntity$.subscribe({
         next: (result: ItemType[]) => { this.searchListEntity.push(...result); },
-        complete: () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
-      })
+        complete: () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); },
+      }),
     );
   }
 

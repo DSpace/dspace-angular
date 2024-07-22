@@ -1,12 +1,22 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-
+import {
+  isPlatformBrowser,
+  Location,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { hasValue } from '../empty.util';
 import { environment } from '../../../environments/environment';
 import { AlertType } from '../alert/alert-type';
-import { Router } from '@angular/router';
-import { isPlatformBrowser, Location } from '@angular/common';
+import { hasValue } from '../empty.util';
 
 enum MessageType {
   LOADING = 'loading',
@@ -17,7 +27,7 @@ enum MessageType {
 @Component({
   selector: 'ds-loading',
   styleUrls: ['./loading.component.scss'],
-  templateUrl: './loading.component.html'
+  templateUrl: './loading.component.html',
 })
 export class LoadingComponent implements OnDestroy, OnInit {
 
@@ -61,7 +71,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     // saving current url and query params for the upcoming router trick
-    let currentUrl = this.router.url.split('?')[0];
+    const currentUrl = this.router.url.split('?')[0];
     const queryParams = new URLSearchParams(this.router.url.split('?')[1]);
 
     // get reload count from state
@@ -96,13 +106,13 @@ export class LoadingComponent implements OnDestroy, OnInit {
             // navigate to a fake url to trigger a reload of the current page
             // this is needed because the router does not reload the page if the url is the same,
             // even if the state changes and the onSameUrlNavigation property is set to 'reload'
-            this.router.navigate(['/fake-url'], {queryParams, queryParamsHandling: 'merge', skipLocationChange: true}).then(() => {
+            this.router.navigate(['/fake-url'], { queryParams, queryParamsHandling: 'merge', skipLocationChange: true }).then(() => {
               // navigate back to the current url
               this.router.navigate([currentUrl], {
                 queryParams,
                 queryParamsHandling: 'merge',
                 onSameUrlNavigation: 'reload',
-                state: {[this.QUERY_PARAM_RELOAD_COUNT]: this.pageReloadCount}
+                state: { [this.QUERY_PARAM_RELOAD_COUNT]: this.pageReloadCount },
               });
             });
           } else {

@@ -1,14 +1,27 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { datadogRum } from '@datadog/browser-rum';
-import { CookieConsents, KlaroService } from '../cookies/klaro.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { createSelector, Store } from '@ngrx/store';
-import { setDatadogRumStatusAction } from './datadog-rum.actions';
-import { DatadogRumState } from './datadog-rum.reducer';
-import { distinctUntilChanged, take } from 'rxjs/operators';
+import {
+  createSelector,
+  Store,
+} from '@ngrx/store';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  take,
+} from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
 import { coreSelector } from '../../core/core.selectors';
 import { CoreState } from '../../core/core-state.model';
+import {
+  CookieConsents,
+  KlaroService,
+} from '../cookies/klaro.service';
+import { setDatadogRumStatusAction } from './datadog-rum.actions';
+import { DatadogRumState } from './datadog-rum.reducer';
 import { DatadogRumService } from './datadog-rum.service';
 
 @Injectable()
@@ -19,7 +32,7 @@ export class BrowserDatadogRumService extends DatadogRumService {
 
   constructor(
     private klaroService: KlaroService,
-    private store: Store
+    private store: Store,
   ) {
     super();
   }
@@ -35,19 +48,19 @@ export class BrowserDatadogRumService extends DatadogRumService {
           if (!state.isInitialized) {
             this.store.dispatch(new setDatadogRumStatusAction({
               isInitialized: true,
-              isRunning: true
+              isRunning: true,
             }));
             datadogRum.init(environment.datadogRum);
           } else if (!state.isRunning) {
             this.store.dispatch(new setDatadogRumStatusAction({
-              isRunning: true
+              isRunning: true,
             }));
             datadogRum.startSessionReplayRecording();
           }
         } else {
           datadogRum.stopSessionReplayRecording();
           this.store.dispatch(new setDatadogRumStatusAction({
-            isRunning: false
+            isRunning: false,
           }));
         }
       });
@@ -61,7 +74,7 @@ export class BrowserDatadogRumService extends DatadogRumService {
       .pipe(
         distinctUntilChanged(),
         take(1),
-    );
+      );
   }
 }
 

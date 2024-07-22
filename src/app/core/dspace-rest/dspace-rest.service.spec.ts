@@ -1,20 +1,35 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import {
+  inject,
+  TestBed,
+} from '@angular/core/testing';
 
-import { DEFAULT_CONTENT_TYPE, DspaceRestService } from './dspace-rest.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { HttpHeaders } from '@angular/common/http';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import {
+  DEFAULT_CONTENT_TYPE,
+  DspaceRestService,
+} from './dspace-rest.service';
 
 describe('DspaceRestService', () => {
   let dspaceRestService: DspaceRestService;
   let httpMock: HttpTestingController;
   const url = 'http://www.dspace.org/';
-  const mockError: any = {
-    statusCode: 0,
+
+  const mockError = new HttpErrorResponse({
+    status: 0,
     statusText: 'Unknown Error',
-    message: 'Http failure response for http://www.dspace.org/: 0 '
-  };
+    error: {
+      message: 'Http failure response for http://www.dspace.org/: 0 ',
+    },
+  });
 
   const pathableErrors = [
     {
@@ -22,29 +37,28 @@ describe('DspaceRestService', () => {
       paths: [
         '/sections/traditionalpageone/dc.contributor.author',
         '/sections/traditionalpageone/dc.title',
-        '/sections/traditionalpageone/dc.date.issued'
-      ]
+        '/sections/traditionalpageone/dc.date.issued',
+      ],
     },
     {
       message: 'error.validation.license.notgranted',
       paths: [
-        '/sections/license'
-      ]
-    }
+        '/sections/license',
+      ],
+    },
   ];
 
   const mockErrorResponse = { status: 422, statusText: 'Unprocessable Entity' };
   const mockErrorWithPathableErrorList: any = {
     statusCode: 422,
     statusText: 'Unprocessable Entity',
-    message: 'Http failure response for http://www.dspace.org/: 422 Unprocessable Entity',
-    errors: pathableErrors
+    errors: pathableErrors,
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [DspaceRestService]
+      providers: [DspaceRestService],
     });
 
     dspaceRestService = TestBed.inject(DspaceRestService);
@@ -60,7 +74,7 @@ describe('DspaceRestService', () => {
   describe('#get', () => {
     it('should return an Observable<RawRestResponse>', () => {
       const mockPayload = {
-        page: 1
+        page: 1,
       };
       const mockStatusCode = 200;
       const mockStatusText = 'GREAT';
@@ -77,24 +91,28 @@ describe('DspaceRestService', () => {
       req.flush(mockPayload, { status: mockStatusCode, statusText: mockStatusText });
     });
     it('should throw an error', () => {
-      dspaceRestService.get(url).subscribe(() => undefined, (err) => {
-        expect(err).toEqual(mockError);
+      dspaceRestService.get(url).subscribe(() => undefined, (err: unknown) => {
+        expect(err).toEqual(jasmine.objectContaining({
+          statusCode: 0,
+          statusText: 'Unknown Error',
+          message: 'Http failure response for http://www.dspace.org/: 0 ',
+        }));
       });
       const req = httpMock.expectOne(url);
       expect(req.request.method).toBe('GET');
-      req.error(mockError);
+      req.error({ error: mockError } as ErrorEvent);
     });
 
     it('should log an error', () => {
       spyOn(console, 'log');
 
-      dspaceRestService.get(url).subscribe(() => undefined, (err) => {
+      dspaceRestService.get(url).subscribe(() => undefined, (err: unknown) => {
         expect(console.log).toHaveBeenCalled();
       });
 
       const req = httpMock.expectOne(url);
       expect(req.request.method).toBe('GET');
-      req.error(mockError);
+      req.error({ error: mockError } as ErrorEvent);
     });
 
     it('when no content-type header is provided, it should use application/json', () => {
@@ -108,7 +126,7 @@ describe('DspaceRestService', () => {
   describe('#request', () => {
     it('should return an Observable<RawRestResponse>', () => {
       const mockPayload = {
-        page: 1
+        page: 1,
       };
       const mockStatusCode = 200;
       const mockStatusText = 'GREAT';
@@ -144,9 +162,12 @@ describe('DspaceRestService', () => {
     it('should throw an error with pathable error list', () => {
       let response: any;
       let errResponse: any;
-      dspaceRestService.request(RestRequestMethod.PATCH, url, {}).subscribe(res => response = res, err => errResponse = err);
+      dspaceRestService.request(RestRequestMethod.PATCH, url, {}).subscribe({
+        next: res => response = res,
+        error: (err: unknown) => errResponse = err,
+      });
       httpMock.expectOne(url).flush(pathableErrors, mockErrorResponse);
-      expect(errResponse).toEqual(mockErrorWithPathableErrorList);
+      expect({ ...errResponse }).toEqual({ ...mockErrorWithPathableErrorList });
     });
   });
 
@@ -154,7 +175,7 @@ describe('DspaceRestService', () => {
     it('should return the correct data', () => {
       const name = 'testname';
       const dso: DSpaceObject = {
-        name: name
+        name: name,
       } as DSpaceObject;
       const formdata = dspaceRestService.buildFormData(dso);
       expect(formdata.get('name')).toBe(name);

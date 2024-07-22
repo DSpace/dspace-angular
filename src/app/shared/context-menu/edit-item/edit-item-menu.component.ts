@@ -1,26 +1,44 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
-import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../../../core/shared/operators';
-import { EditItemDataService } from '../../../core/submission/edititem-data.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { ContextMenuEntryType } from '../context-menu-entry-type';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+} from 'rxjs/operators';
+
 import { getEditItemPageRoute } from '../../../app-routing-paths';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+} from '../../../core/shared/operators';
+import { EditItemDataService } from '../../../core/submission/edititem-data.service';
+import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
  * This component renders a context menu option that provides the links to edit item page.
  */
 @Component({
   selector: 'ds-context-menu-edit-item',
-  templateUrl: './edit-item-menu.component.html'
+  templateUrl: './edit-item-menu.component.html',
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class EditItemMenuComponent extends ContextMenuEntryComponent implements OnInit, OnDestroy {
@@ -65,7 +83,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     private editItemService: EditItemDataService,
-    public notificationService: NotificationsService
+    public notificationService: NotificationsService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditSubmission);
   }
@@ -88,7 +106,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    */
   isEditAvailable(): Observable<boolean> {
     return this.editModes$.asObservable().pipe(
-      map((editModes) => isNotEmpty(editModes) && editModes.length > 0)
+      map((editModes) => isNotEmpty(editModes) && editModes.length > 0),
     );
   }
 
@@ -104,7 +122,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     this.sub = this.editItemService.searchEditModesById(this.contextMenuObject.id).pipe(
       getAllSucceededRemoteDataPayload(),
       getPaginatedListPayload(),
-      startWith([])
+      startWith([]),
     ).subscribe((editModes: EditItemMode[]) => {
       this.editModes$.next(editModes);
     });

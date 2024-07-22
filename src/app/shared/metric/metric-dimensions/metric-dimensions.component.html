@@ -1,5 +1,5 @@
 <div class="d-flex flex-nowrap flex-row gapx-3 align-items-center pr-3"
-     *ngIf="!(isHidden$ | async) &&
+     *ngIf="(isHidden$ | async) !== true &&
       canLoadScript &&
       !failed &&
       (remark | dsListMetricProps: 'data-badge-enabled':isListElement == true)"

@@ -1,6 +1,6 @@
-import { DsoContextBreadcrumbResolver } from './dso-context-breadcrumb.resolver';
-import { Collection } from '../shared/collection.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { Collection } from '../shared/collection.model';
+import { DsoContextBreadcrumbResolver } from './dso-context-breadcrumb.resolver';
 
 describe('DsoContextBreadcrumbResolver', () => {
   describe('resolve', () => {
@@ -21,7 +21,7 @@ describe('DsoContextBreadcrumbResolver', () => {
       dsoBreadcrumbService = {};
       breadcrumbKey = 'statistics';
       collectionService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection)
+        findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection),
       };
       resolver = new DsoContextBreadcrumbResolver(dsoBreadcrumbService);
     });

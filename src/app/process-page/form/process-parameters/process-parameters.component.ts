@@ -1,8 +1,20 @@
-import { Component, EventEmitter, Input, OnChanges, Optional, Output, SimpleChanges } from '@angular/core';
-import { Script } from '../../scripts/script.model';
-import { ProcessParameter } from '../../processes/process-parameter.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Optional,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  ControlContainer,
+  NgForm,
+} from '@angular/forms';
+
 import { hasValue } from '../../../shared/empty.util';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { ProcessParameter } from '../../processes/process-parameter.model';
+import { Script } from '../../scripts/script.model';
 import { ScriptParameter } from '../../scripts/script-parameter.model';
 import { controlContainerFactory } from '../process-form.component';
 
@@ -16,8 +28,8 @@ import { controlContainerFactory } from '../process-form.component';
   viewProviders: [{
     provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]]
-  }]
+    deps: [[new Optional(), NgForm]],
+  }],
 })
 export class ProcessParametersComponent implements OnChanges {
   /**
@@ -99,7 +111,7 @@ export class ProcessParametersComponent implements OnChanges {
       this.parameterValues = this.script.parameters
         .filter((param) => param.mandatory)
         .map(
-          (parameter: ScriptParameter) => Object.assign(new ProcessParameter(), { name: parameter.name })
+          (parameter: ScriptParameter) => Object.assign(new ProcessParameter(), { name: parameter.name }),
         );
     }
     this.addParameter();

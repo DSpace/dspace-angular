@@ -1,19 +1,17 @@
 /* eslint-disable max-classes-per-file */
-import { GenericConstructor } from '../shared/generic-constructor';
-import { ResponseParsingService } from './parsing.service';
-import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import {
-  SubmissionResponseParsingService
-} from '../submission/submission-response-parsing.service';
-import { RestRequestMethod } from './rest-request-method';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
-import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
-import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
-import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
+import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
+import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
+import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { FindListOptions } from './find-list-options.model';
+import { ResponseParsingService } from './parsing.service';
 import { PathableObjectError } from './response-state.model';
+import { RestRequestMethod } from './rest-request-method';
+import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 
 
 // uuid and handle requests have separate endpoints
@@ -33,7 +31,7 @@ export class GetRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.GET, body, options);
   }
@@ -44,7 +42,7 @@ export class PostRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.POST, body);
   }
@@ -59,7 +57,7 @@ export class MultipartPostRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   )  {
     super(uuid, href, RestRequestMethod.POST, body);
   }
@@ -70,7 +68,7 @@ export class PutRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.PUT, body);
   }
@@ -81,7 +79,7 @@ export class DeleteRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.DELETE, body);
   }
@@ -92,7 +90,7 @@ export class OptionsRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.OPTIONS, body);
   }
@@ -103,7 +101,7 @@ export class HeadRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.HEAD, body);
   }
@@ -114,7 +112,7 @@ export class PatchRequest extends DSpaceRestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
     super(uuid, href, RestRequestMethod.PATCH, body);
   }
@@ -236,7 +234,7 @@ export class DeleteByIDRequest extends DeleteRequest {
   constructor(
     uuid: string,
     href: string,
-    public resourceID: string
+    public resourceID: string,
   ) {
     super(uuid, href);
   }

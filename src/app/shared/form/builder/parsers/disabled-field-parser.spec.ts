@@ -1,7 +1,7 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { ParserOptions } from './parser-options';
-import { DisabledFieldParser } from './disabled-field-parser';
 import { DynamicDisabledModel } from '../ds-dynamic-form-ui/models/disabled/dynamic-disabled.model';
+import { FormFieldModel } from '../models/form-field.model';
+import { DisabledFieldParser } from './disabled-field-parser';
+import { ParserOptions } from './parser-options';
 
 describe('DisabledFieldParser test suite', () => {
   let field: FormFieldModel;
@@ -13,13 +13,13 @@ describe('DisabledFieldParser test suite', () => {
     submissionScope: null,
     collectionUUID: null,
     typeField: 'dc_type',
-    isInnerForm: false
+    isInnerForm: false,
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: ''
+        type: '',
       },
       label: 'Description',
       mandatory: 'false',
@@ -27,10 +27,10 @@ describe('DisabledFieldParser test suite', () => {
       hints: 'Enter a description.',
       selectableMetadata: [
         {
-          metadata: 'description'
-        }
+          metadata: 'description',
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

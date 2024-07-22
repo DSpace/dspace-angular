@@ -1,11 +1,15 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view-avatar-popover.component';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
+
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FileService } from '../../../core/shared/file.service';
+import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view-avatar-popover.component';
 
 describe('MetadataLinkViewAvatarPopoverComponent', () => {
   let component: MetadataLinkViewAvatarPopoverComponent;
@@ -22,17 +26,17 @@ describe('MetadataLinkViewAvatarPopoverComponent', () => {
       isAuthorized: observableOf(true),
     });
     fileService = jasmine.createSpyObj('FileService', {
-      retrieveFileDownloadLink: null
+      retrieveFileDownloadLink: null,
     });
     TestBed.configureTestingModule({
       declarations: [ MetadataLinkViewAvatarPopoverComponent ],
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: FileService, useValue: fileService }
-      ]
+        { provide: FileService, useValue: fileService },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

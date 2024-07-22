@@ -1,9 +1,18 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
-import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
+import {
+  NgxGalleryAnimation,
+  NgxGalleryImage,
+  NgxGalleryOptions,
+} from '@kolkov/ngx-gallery';
 import { Observable } from 'rxjs';
+
 import { AuthService } from '../../../core/auth/auth.service';
+import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 
 /**
  * This componenet render an image gallery for the image viewer

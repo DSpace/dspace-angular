@@ -1,6 +1,13 @@
-import { CookieService, ICookieService } from './cookie.service';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
+
+import {
+  CookieService,
+  ICookieService,
+} from './cookie.service';
 
 describe(CookieService.name, () => {
   let service: ICookieService;
@@ -9,8 +16,8 @@ describe(CookieService.name, () => {
     TestBed.configureTestingModule({
       providers: [
         CookieService,
-        { provide: REQUEST, useValue: {} }
-      ]
+        { provide: REQUEST, useValue: {} },
+      ],
     });
   }));
 

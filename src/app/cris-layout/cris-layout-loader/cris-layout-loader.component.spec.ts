@@ -1,19 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { CrisLayoutLoaderComponent } from './cris-layout-loader.component';
 import { Item } from '../../core/shared/item.model';
-import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
-import { MockActivatedRoute } from '../../shared/mocks/active-router.mock';
 import { HostWindowService } from '../../shared/host-window.service';
+import { MockActivatedRoute } from '../../shared/mocks/active-router.mock';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { CommonModule } from '@angular/common';
-import { CrisLayoutVerticalComponent } from './cris-layout-vertical/cris-layout-vertical.component';
-import { CrisLayoutHorizontalComponent } from './cris-layout-horizontal/cris-layout-horizontal.component';
 import { loaderTabs } from '../../shared/testing/layout-tab.mocks';
+import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
+import { CrisLayoutHorizontalComponent } from './cris-layout-horizontal/cris-layout-horizontal.component';
+import { CrisLayoutLoaderComponent } from './cris-layout-loader.component';
+import { CrisLayoutVerticalComponent } from './cris-layout-vertical/cris-layout-vertical.component';
 
 describe('CrisLayoutLoaderComponent', () => {
   let component: CrisLayoutLoaderComponent;
@@ -28,35 +31,35 @@ describe('CrisLayoutLoaderComponent', () => {
       'dc.title': [
         {
           language: null,
-          value: 'test'
-        }
+          value: 'test',
+        },
       ],
       'dspace.entity.type': [
         {
           language: null,
-          value: 'Person'
-        }
-      ]
-    }
+          value: 'Person',
+        },
+      ],
+    },
   });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       declarations: [
         CrisLayoutLoaderComponent,
         CrisLayoutLoaderDirective,
         CrisLayoutVerticalComponent,
-        CrisLayoutHorizontalComponent
+        CrisLayoutHorizontalComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: HostWindowService, useValue: windowServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   });

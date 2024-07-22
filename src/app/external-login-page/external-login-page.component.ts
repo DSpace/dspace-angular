@@ -1,10 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { hasNoValue } from '../shared/empty.util';
-import { AlertType } from '../shared/alert/alert-type';
-import { Observable, first, map, tap } from 'rxjs';
-import { Registration } from '../core/shared/registration.model';
+import {
+  first,
+  map,
+  Observable,
+  tap,
+} from 'rxjs';
+
 import { RemoteData } from '../core/data/remote-data';
+import { Registration } from '../core/shared/registration.model';
+import { AlertType } from '../shared/alert/alert-type';
+import { hasNoValue } from '../shared/empty.util';
 
 @Component({
   templateUrl: './external-login-page.component.html',
@@ -31,7 +40,7 @@ export class ExternalLoginPageComponent implements OnInit {
   public hasErrors = false;
 
   constructor(
-    private arouter: ActivatedRoute
+    private arouter: ActivatedRoute,
   ) {
     this.token = this.arouter.snapshot.params.token;
     this.hasErrors = hasNoValue(this.arouter.snapshot.params.token);
@@ -39,8 +48,8 @@ export class ExternalLoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.registrationData$ = this.arouter.data.pipe(
-    first(),
-    tap((data) => this.hasErrors = (data.registrationData as RemoteData<Registration>).hasFailed),
-    map((data) => (data.registrationData as RemoteData<Registration>).payload));
+      first(),
+      tap((data) => this.hasErrors = (data.registrationData as RemoteData<Registration>).hasFailed),
+      map((data) => (data.registrationData as RemoteData<Registration>).payload));
   }
 }

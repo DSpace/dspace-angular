@@ -1,11 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MetricEmbeddedDownloadComponent } from './metric-embedded-download.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import {
-  metricEmbeddedDownload
-} from '../../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { metricEmbeddedDownload } from '../../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { MetricEmbeddedDownloadComponent } from './metric-embedded-download.component';
 
 describe('MetricEmbeddedDownloadComponent', () => {
   let component: MetricEmbeddedDownloadComponent;
@@ -16,8 +20,8 @@ describe('MetricEmbeddedDownloadComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       })],
       declarations: [MetricEmbeddedDownloadComponent],
     })

@@ -1,4 +1,8 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+
 import { environment } from '../../../environments/environment';
 import { hasValue } from '../../shared/empty.util';
 

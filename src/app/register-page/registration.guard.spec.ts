@@ -1,14 +1,19 @@
-import { RegistrationGuard } from './registration.guard';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { of as observableOf } from 'rxjs';
+
 import { AuthService } from '../core/auth/auth.service';
+import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
+import { RemoteData } from '../core/data/remote-data';
+import { Registration } from '../core/shared/registration.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
-import { Registration } from '../core/shared/registration.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RemoteData } from '../core/data/remote-data';
+import { RegistrationGuard } from './registration.guard';
 
 describe('RegistrationGuard', () => {
   let guard: RegistrationGuard;

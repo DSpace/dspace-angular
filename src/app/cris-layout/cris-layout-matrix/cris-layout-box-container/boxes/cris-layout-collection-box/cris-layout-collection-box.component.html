@@ -19,7 +19,7 @@
         {{'cris-layout.rendering.collections.loading' | translate}}
       </div>
 
-      <a *ngIf="!(isLoading$ | async) && (hasMore$ | async)"
+      <a *ngIf="(isLoading$ | async) !== true && (hasMore$ | async) === true"
          (click)="$event.preventDefault(); handleLoadMore()"
          class="d-block" [class.ml-3]="isInline"
          role="button" href="javascript:void(0);">

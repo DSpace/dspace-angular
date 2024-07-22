@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 
 @Component({

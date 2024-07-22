@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
@@ -16,13 +17,13 @@ import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submiss
             canActivate: [AuthenticatedGuard],
             canDeactivate: [PendingChangesGuard],
             component: ThemedSubmissionEditComponent,
-            data: { title: 'submission.edit.title' }
-          }
+            data: { title: 'submission.edit.title' },
+          },
         ],
-      }
-    ])
+      },
+    ]),
   ],
-  providers: []
+  providers: [],
 })
 export class EditItemRoutingModule {
 

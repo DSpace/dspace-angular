@@ -10,7 +10,7 @@ import {
   isStale,
   isSuccess,
   isSuccessStale,
-  RequestEntryState
+  RequestEntryState,
 } from './request-entry-state.model';
 import { PathableObjectError } from './response-state.model';
 
@@ -26,7 +26,7 @@ export class RemoteData<T> {
     public errorMessage?: string,
     public payload?: T,
     public statusCode?: number,
-    public errors?: PathableObjectError[]
+    public errors?: PathableObjectError[],
   ) {
   }
 

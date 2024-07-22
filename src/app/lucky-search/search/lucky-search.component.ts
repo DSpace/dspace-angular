@@ -1,28 +1,58 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, mergeMap, Observable, Subject, Subscription } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { SearchResult } from '../../shared/search/models/search-result.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../core/shared/operators';
-import { SearchFilter } from '../../shared/search/models/search-filter.model';
-import { LuckySearchService } from '../lucky-search.service';
-import { Params, Router } from '@angular/router';
-import { filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { Context } from '../../core/shared/context.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { Item } from '../../core/shared/item.model';
-import { BitstreamDataService, MetadataFilter } from '../../core/data/bitstream-data.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  mergeMap,
+  Observable,
+  Subject,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
+
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
+import {
+  BitstreamDataService,
+  MetadataFilter,
+} from '../../core/data/bitstream-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { Context } from '../../core/shared/context.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Item } from '../../core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '../../core/shared/operators';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchFilter } from '../../shared/search/models/search-filter.model';
+import { SearchResult } from '../../shared/search/models/search-result.model';
+import { LuckySearchService } from '../lucky-search.service';
 
 @Component({
   selector: 'ds-lucky-search',
   templateUrl: './lucky-search.component.html',
-  styleUrls: ['./lucky-search.component.scss']
+  styleUrls: ['./lucky-search.component.scss'],
 })
 export class LuckySearchComponent implements OnInit, OnDestroy {
   /**
@@ -46,7 +76,7 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
    */
   currentFilter = {
     identifier: '',
-    value: ''
+    value: '',
   };
   context: Context = Context.ItemPage;
 
@@ -64,7 +94,7 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
     private luckySearchService: LuckySearchService,
     private router: Router,
     private bitstreamDataService: BitstreamDataService,
-    public searchConfigService: SearchConfigurationService
+    public searchConfigService: SearchConfigurationService,
   ) {}
 
   ngOnInit(): void {
@@ -91,8 +121,8 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
     }
     this.subscription.add(
       this.searchOptions$
-          .pipe(switchMap((options: PaginatedSearchOptions) => this.getLuckySearchResults(options)))
-          .subscribe((results) => this.resultsRD$.next(results as any))
+        .pipe(switchMap((options: PaginatedSearchOptions) => this.getLuckySearchResults(options)))
+        .subscribe((results) => this.resultsRD$.next(results as any)),
     );
   }
 
@@ -100,8 +130,8 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.bitstreams$.pipe(
         filter(bitstreams => isNotEmpty(bitstreams) && bitstreams.length === 1),
-        map(bitstreams => getBitstreamDownloadRoute(bitstreams[0]))
-      ).subscribe(bitstreamRoute => this.redirect(bitstreamRoute))
+        map(bitstreams => getBitstreamDownloadRoute(bitstreams[0])),
+      ).subscribe(bitstreamRoute => this.redirect(bitstreamRoute)),
     );
   }
 
@@ -131,38 +161,38 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
 
   private readResult() {
     this.subscription.add(
-        this.resultsRD$.pipe(
-          filter(results => results?.payload?.totalElements === 0)
-        ).subscribe(_ => this.showEmptySearchSection = true)
+      this.resultsRD$.pipe(
+        filter(results => results?.payload?.totalElements === 0),
+      ).subscribe(_ => this.showEmptySearchSection = true),
     );
     this.subscription.add(
-        this.resultsRD$.pipe(
-          filter(results =>
-            this.hasBitstreamFilters() && results?.payload?.totalElements === 1
-          ),
-          map(results => results.payload.page[0].indexableObject as Item),
-          tap(item => this.item$.next(item)),
-          withLatestFrom(this.bitstreamFilters$),
-          mergeMap(([item, bitstreamFilters]) => this.loadBitstreamsAndRedirectIfNeeded(item, bitstreamFilters)),
-        ).subscribe(results => {
-          this.showEmptySearchSection = isEmpty(results);
-          this.bitstreams$.next(results);
-        })
+      this.resultsRD$.pipe(
+        filter(results =>
+          this.hasBitstreamFilters() && results?.payload?.totalElements === 1,
+        ),
+        map(results => results.payload.page[0].indexableObject as Item),
+        tap(item => this.item$.next(item)),
+        withLatestFrom(this.bitstreamFilters$),
+        mergeMap(([item, bitstreamFilters]) => this.loadBitstreamsAndRedirectIfNeeded(item, bitstreamFilters)),
+      ).subscribe(results => {
+        this.showEmptySearchSection = isEmpty(results);
+        this.bitstreams$.next(results);
+      }),
     );
     this.subscription.add(
-        this.resultsRD$.pipe(
-          filter(results =>
-            !this.hasBitstreamFilters() && results?.payload?.totalElements === 1
-          ),
-          map(results => results.payload.page[0].indexableObject as Item),
-          tap(item => this.item$.next(item)),
-          map(item => getItemPageRoute(item))
-        ).subscribe(results => this.redirect(results))
+      this.resultsRD$.pipe(
+        filter(results =>
+          !this.hasBitstreamFilters() && results?.payload?.totalElements === 1,
+        ),
+        map(results => results.payload.page[0].indexableObject as Item),
+        tap(item => this.item$.next(item)),
+        map(item => getItemPageRoute(item)),
+      ).subscribe(results => this.redirect(results)),
     );
     this.subscription.add(
-        this.resultsRD$.pipe(
-          filter(results => results?.payload?.totalElements > 1),
-        ).subscribe(_ => this.showMultipleSearchSection = true)
+      this.resultsRD$.pipe(
+        filter(results => results?.payload?.totalElements > 1),
+      ).subscribe(_ => this.showMultipleSearchSection = true),
     );
   }
 
@@ -175,7 +205,7 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
   }
 
   public redirect(url): void {
-    this.router.navigateByUrl(url, {replaceUrl: true});
+    this.router.navigateByUrl(url, { replaceUrl: true });
   }
 
   private parseBitstreamFilters(queryParams: Params): MetadataFilter[] {
@@ -188,7 +218,7 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
 
       return metadataNames.map((name, index) => ({
         metadataName: name,
-        metadataValue: metadataValues[index]
+        metadataValue: metadataValues[index],
       } as MetadataFilter));
     }
     return [];

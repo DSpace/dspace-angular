@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
-import { BehaviorSubject, Observable } from 'rxjs';
 export interface CookieConsents {
   [key: string]: boolean;
 }

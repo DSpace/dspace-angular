@@ -4,11 +4,19 @@ import {
   DynamicFormControlLayout,
   DynamicFormControlModel,
   DynamicFormControlRelation,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { isEmpty, isNotEmpty, isNotUndefined } from '../../../../../empty.util';
+import {
+  BehaviorSubject,
+  Subject,
+} from 'rxjs';
+
 import { MetadataValue } from '../../../../../../core/shared/metadata.models';
+import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../../../../empty.util';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 
@@ -50,6 +58,8 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
     this.repeatable = config.repeatable;
     this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
+    this.repeatable = config.repeatable;
+    // This was a subscription, then an async setTimeout, but it seems unnecessary
     this.hiddenUpdates.subscribe((hidden: boolean) => {
       this.hidden = hidden;
       const parentModel = this.getRootParent(this);

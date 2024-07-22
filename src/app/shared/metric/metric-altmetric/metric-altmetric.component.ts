@@ -1,15 +1,22 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit, Renderer2 } from '@angular/core';
-import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { hasValue } from '../../empty.util';
 import { BehaviorSubject } from 'rxjs';
+
+import { hasValue } from '../../empty.util';
+import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
 
 declare let _altmetric_embed_init: any;
 
 @Component({
   selector: 'ds-metric-altmetric',
   templateUrl: './metric-altmetric.component.html',
-  styleUrls: ['./metric-altmetric.component.scss', '../metric-loader/base-metric.component.scss']
+  styleUrls: ['./metric-altmetric.component.scss', '../metric-loader/base-metric.component.scss'],
 })
 export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implements OnInit, AfterViewChecked, AfterViewInit {
   remark: JSON;
@@ -24,7 +31,7 @@ export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implem
 
   ngOnInit() {
     if (hasValue(this.metric.remark)) {
-        this.remark = this.parseRemark();
+      this.remark = this.parseRemark();
     }
   }
 

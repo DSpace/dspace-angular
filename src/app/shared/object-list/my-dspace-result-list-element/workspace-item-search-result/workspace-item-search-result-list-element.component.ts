@@ -1,25 +1,27 @@
-import { Component, Inject } from '@angular/core';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
-import { Observable } from 'rxjs';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../config/app-config.interface';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
-
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
+import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import {
-  SearchResultListElementComponent
-} from '../../search-result-list-element/search-result-list-element.component';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { map } from 'rxjs/operators';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { Context } from '../../../../core/shared/context.model';
+import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 /**
  * This component renders workspaceitem object for the search result in the list view.
@@ -39,7 +41,7 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
   /**
    * The item search result derived from the WorkspaceItemSearchResult
    */
-  derivedSearchResult$: Observable<ItemSearchResult>;
+  derivedSearchResult$: BehaviorSubject<ItemSearchResult> = new BehaviorSubject(undefined);
 
   /**
    * Represents the badge context
@@ -55,7 +57,7 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
     protected truncatableService: TruncatableService,
     protected linkService: LinkService,
     public dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }
@@ -70,13 +72,14 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
 
   private deriveSearchResult() {
     this.linkService.resolveLink(this.object.indexableObject, followLink('item'));
-    this.derivedSearchResult$ = this.object.indexableObject.item.pipe(
+    this.object.indexableObject.item.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((item: Item) => {
+    ).subscribe((item: Item) => {
       const result = new ItemSearchResult();
-      result.indexableObject = item;
-      result.hitHighlights = this.object.hitHighlights;
-      return result;
-    }));
+      this.derivedSearchResult$.next(Object.assign(new ItemSearchResult(), {
+        indexableObject: item,
+        hitHighlights: this.object.hitHighlights,
+      }));
+    });
   }
 }

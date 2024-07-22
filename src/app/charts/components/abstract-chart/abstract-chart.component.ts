@@ -1,16 +1,27 @@
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
-
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { ChartData } from '../../models/chart-data';
 import { ChartSeries } from '../../models/chart-series';
 import { ChartType } from '../../models/chart-type';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 
 @Component({
-  template: ''
+  template: '',
 })
 export abstract class AbstractChartComponent implements OnInit {
 
@@ -38,7 +49,7 @@ export abstract class AbstractChartComponent implements OnInit {
     @Inject('type') public type: ChartType,
     @Inject('xAxisLabel') public xAxisLabel: string,
     @Inject('yAxisLabel') public yAxisLabel: string,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
   }
 
@@ -50,7 +61,7 @@ export abstract class AbstractChartComponent implements OnInit {
       this.results.pipe(distinctUntilChanged())
         .subscribe((results: ChartData[] | ChartSeries[]) => {
           this.chartData.next(results);
-        })
+        }),
     );
 
   }

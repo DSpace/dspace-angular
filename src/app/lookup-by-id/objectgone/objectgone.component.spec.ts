@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ObjectGoneComponent } from './objectgone.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { ObjectGoneComponent } from './objectgone.component';
 
 describe('ObjectGoneComponent', () => {
   let component: ObjectGoneComponent;
@@ -9,11 +13,11 @@ describe('ObjectGoneComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
-      declarations: [ ObjectGoneComponent ]
+      declarations: [ ObjectGoneComponent ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

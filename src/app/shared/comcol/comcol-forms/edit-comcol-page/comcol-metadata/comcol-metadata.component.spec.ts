@@ -1,20 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
 import { ComColDataService } from '../../../../../core/data/comcol-data.service';
 import { Community } from '../../../../../core/shared/community.model';
 import { NotificationsService } from '../../../../notifications/notifications.service';
-import { SharedModule } from '../../../../shared.module';
-import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../remote-data.utils';
+import { SharedModule } from '../../../../shared.module';
+import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {
@@ -34,16 +42,16 @@ describe('ComColMetadataComponent', () => {
       uuid: 'a20da287-e174-466a-9926-f66b9300d347',
       metadata: [{
         key: 'dc.title',
-        value: 'test community'
-      }]
+        value: 'test community',
+      }],
     });
 
     newCommunity = Object.assign(new Community(), {
       uuid: '1ff59938-a69a-4e62-b9a4-718569c55d48',
       metadata: [{
         key: 'dc.title',
-        value: 'new community'
-      }]
+        value: 'new community',
+      }],
     });
 
     communityDataServiceStub = {
@@ -52,15 +60,15 @@ describe('ComColMetadataComponent', () => {
     };
 
     routerStub = {
-      navigate: (commands) => commands
+      navigate: (commands) => commands,
     };
 
     routeStub = {
       parent: {
         data: observableOf({
-          dso: createSuccessfulRemoteDataObject(community)
-        })
-      }
+          dso: createSuccessfulRemoteDataObject(community),
+        }),
+      },
     };
 
   }
@@ -73,9 +81,9 @@ describe('ComColMetadataComponent', () => {
         { provide: ComColDataService, useValue: communityDataServiceStub },
         { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -107,12 +115,12 @@ describe('ComColMetadataComponent', () => {
           dso: new Community(),
           uploader: {
             options: {
-              url: ''
+              url: '',
             },
             queue: [],
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             uploadAll: () => {
-            }
+            },
             /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
           },
         };
@@ -153,12 +161,12 @@ describe('ComColMetadataComponent', () => {
           dso: new Community(),
           uploader: {
             options: {
-              url: ''
+              url: '',
             },
             queue: [],
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             uploadAll: () => {
-            }
+            },
             /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
           },
         };
@@ -188,12 +196,12 @@ describe('ComColMetadataComponent', () => {
           dso: new Community(),
           uploader: {
             options: {
-              url: ''
+              url: '',
             },
             queue: [],
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             uploadAll: () => {
-            }
+            },
             /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
           },
         };

@@ -1,7 +1,11 @@
-import { CommunityDataService } from '../../data/community-data.service';
 import { Injectable } from '@angular/core';
+
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
+import { CommunityDataService } from '../../data/community-data.service';
 import { Community } from '../community.model';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { EditDsoResolver } from './edit-dso.resolver';
 
 /**

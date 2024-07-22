@@ -1,32 +1,50 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
-
-import { BehaviorSubject, EMPTY, interval, Observable, race, Subscription, } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  EMPTY,
+  interval,
+  Observable,
+  race,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
+import { AppState } from '../app.reducer';
+import { EntityTypeDataService } from '../core/data/entity-type-data.service';
 import { RelationshipDataService } from '../core/data/relationship-data.service';
-import { RelationshipType } from '../core/shared/item-relationships/relationship-type.model';
+import { RemoteData } from '../core/data/remote-data';
+import { Context } from '../core/shared/context.model';
+import { Item } from '../core/shared/item.model';
 import { Relationship } from '../core/shared/item-relationships/relationship.model';
-import { hasValue } from '../shared/empty.util';
-import { followLink } from '../shared/utils/follow-link-config.model';
+import { RelationshipType } from '../core/shared/item-relationships/relationship-type.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../core/shared/operators';
-import { RemoteData } from '../core/data/remote-data';
-import { Item } from '../core/shared/item.model';
-import { EntityTypeDataService } from '../core/data/entity-type-data.service';
-import { Context } from '../core/shared/context.model';
-import { HostWindowService } from '../shared/host-window.service';
 import { getItemPageRoute } from '../item-page/item-page-routing-paths';
-import { AppState } from '../app.reducer';
-import { EditItemRelationshipsActionTypes } from './edit-item-relationships.actions';
+import { hasValue } from '../shared/empty.util';
+import { HostWindowService } from '../shared/host-window.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { followLink } from '../shared/utils/follow-link-config.model';
+import { EditItemRelationshipsActionTypes } from './edit-item-relationships.actions';
 
 export enum ManageRelationshipEventType {
   Select = 'select',
@@ -167,7 +185,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
               private translate: TranslateService,
               private title: Title,
               protected store: Store<AppState>,
-              protected notification: NotificationsService
+              protected notification: NotificationsService,
   ) {
     this.relationshipType = this.route.snapshot.params.type;
     this.isXsOrSm$ = this.windowService.isXsOrSm();
@@ -182,7 +200,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
     this.hiddenRelationshipMsg = this.translate.instant('manage.relationships.hidden-related-items-alert');
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.info),
-      getFirstSucceededRemoteData()
+      getFirstSucceededRemoteData(),
     ) as Observable<RemoteData<Item>>;
 
     this.getInfo();
@@ -194,7 +212,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
     this.pendingChanges$ = this.processing$.asObservable().pipe(
       tap((res) => {
         this.store.dispatch(EditItemRelationshipsActionTypes.PENDING_CHANGES({ pendingChanges: res }));
-      })
+      }),
     );
 
   }
@@ -203,7 +221,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.itemRD$.pipe(
         getRemoteDataPayload(),
-        take(1)
+        take(1),
       ).subscribe((item: Item) => {
         this.item = item;
         const itemType = item.firstMetadataValue('dspace.entity.type');
@@ -215,7 +233,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
 
         this.searchFilter = `scope=${item.id}`;
         this.isActive = true;
-      })
+      }),
     );
   }
 
@@ -229,7 +247,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
       switchMap((item: Item) => {
         // fallback for cache issue
         const fallback$ = interval(5000).pipe(
-          switchMap(() => this.relationshipService.getItemRelationshipsAsArrayAll(item, followLink('leftItem')))
+          switchMap(() => this.relationshipService.getItemRelationshipsAsArrayAll(item, followLink('leftItem'))),
         );
         const relationships$ = this.relationshipService.getItemRelationshipsAsArrayAll(item, followLink('leftItem'));
         return race([relationships$, fallback$]);
@@ -251,7 +269,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
         this.isInit = true;
 
         this.processing$.next(false);
-      })
+      }),
     );
   }
 
@@ -268,10 +286,10 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
           switchMap((entityType) => this.entityTypeService.getEntityTypeRelationships(entityType.id)),
           getFirstSucceededRemoteDataPayload(),
           map((relationshipTypes) => relationshipTypes.page),
-          take(1)
+          take(1),
         ))).subscribe((relationshipTypes) => {
         this.relTypes = relationshipTypes;
-      })
+      }),
     );
   }
 
@@ -324,7 +342,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
           this.notification.error(null, this.getErrMsgByAction(action));
           return EMPTY;
         }
-      })
+      }),
     );
   }
 
@@ -335,7 +353,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
   updateRelationship(relationship: Relationship): void {
     this.processing$.next(true);
     this.relationshipService.updateRightPlace(relationship).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).pipe(
       switchMap((rd: RemoteData<Relationship>) => {
         if (rd.hasSucceeded) {
@@ -346,7 +364,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
           this.notification.error(null, this.getErrMsgByAction(ManageRelationshipEventType.Sort));
           return EMPTY;
         }
-      })
+      }),
     ).subscribe();
   }
 
@@ -368,7 +386,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
           this.notification.error(null, this.getErrMsgByAction(action));
           return EMPTY;
         }
-      })
+      }),
     ).subscribe();
   }
 
@@ -391,7 +409,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
           this.notification.error(null, errMsg);
           return EMPTY;
         }
-      })
+      }),
     );
   }
 
@@ -407,7 +425,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    */
   isSideBarHidden(): Observable<boolean> {
     return this.sidebarStatus$.asObservable().pipe(
-      map((status: boolean) => !status)
+      map((status: boolean) => !status),
     );
   }
 

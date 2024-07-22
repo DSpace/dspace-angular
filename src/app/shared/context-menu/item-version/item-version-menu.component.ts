@@ -1,21 +1,31 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  distinctUntilChanged,
+  map,
+  Subscription,
+} from 'rxjs';
 
-import { BehaviorSubject, combineLatest, distinctUntilChanged, map, Subscription } from 'rxjs';
-
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DsoVersioningModalService } from '../../dso-page/dso-versioning-modal-service/dso-versioning-modal.service';
 import { hasValue } from '../../empty.util';
+import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 @Component({
   selector: 'ds-item-version-menu',
   templateUrl: './item-version-menu.component.html',
-  styleUrls: ['./item-version-menu.component.scss']
+  styleUrls: ['./item-version-menu.component.scss'],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 /**
@@ -61,7 +71,7 @@ export class ItemVersionMenuComponent extends ContextMenuEntryComponent implemen
 
     this.sub = combineLatest([isAuthorized$, isDisabled$]).pipe(
       map(([isAuthorized, isDisabled]) => isAuthorized && !isDisabled),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     ).subscribe((canShow) => {
       this.canShow$.next(canShow);
     });

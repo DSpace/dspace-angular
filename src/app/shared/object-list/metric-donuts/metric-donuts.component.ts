@@ -6,20 +6,23 @@ import {
   Input,
   OnInit,
   PLATFORM_ID,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-
-import { BehaviorSubject, Observable, of } from 'rxjs';
-
-import { Metric } from '../../../core/shared/metric.model';
-import { isEmpty } from '../../empty.util';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Item } from '../../../core/shared/item.model';
+
 import { LinkService } from '../../../core/cache/builders/link.service';
-import { followLink } from '../../utils/follow-link-config.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
+import { Metric } from '../../../core/shared/metric.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { isEmpty } from '../../empty.util';
+import { followLink } from '../../utils/follow-link-config.model';
 
 export const allowedDonuts = ['altmetric', 'dimensions', 'plumX'];
 
@@ -27,7 +30,7 @@ export const allowedDonuts = ['altmetric', 'dimensions', 'plumX'];
   selector: 'ds-metric-donuts',
   templateUrl: './metric-donuts.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 /**
  * Component rendering the metric badges of a Dspace Object
@@ -44,7 +47,7 @@ export class MetricDonutsComponent implements OnInit {
    */
   metrics$: BehaviorSubject<Metric[]> = new BehaviorSubject<Metric[]>([]);
 
-  constructor(private linkService: LinkService, @Inject(PLATFORM_ID) protected platformId: Object) {
+  constructor(private linkService: LinkService, @Inject(PLATFORM_ID) protected platformId: any) {
   }
 
   ngOnInit() {

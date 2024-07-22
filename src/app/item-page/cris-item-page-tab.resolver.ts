@@ -1,21 +1,32 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-
+import { isPlatformServer } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
+import { getPageNotFoundRoute } from '../app-routing-paths';
 import { ItemDataService } from '../core/data/item-data.service';
+import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { CrisLayoutTab } from '../core/layout/models/tab.model';
 import { TabDataService } from '../core/layout/tab-data.service';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { Item } from '../core/shared/item.model';
-import { getItemPageRoute } from './item-page-routing-paths';
-import { createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
-import { getPageNotFoundRoute } from '../app-routing-paths';
-import { isPlatformServer } from '@angular/common';
+import { Item } from '../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
+import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
  * This class represents a resolver that requests the tabs of specific
@@ -46,7 +57,7 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
           return this.tabService.findByItem(
             itemRD.payload.uuid,
             true,
-            true
+            true,
           ).pipe(
             getFirstCompletedRemoteData(),
             map((tabsRD: RemoteData<PaginatedList<CrisLayoutTab>>) => {
@@ -75,13 +86,13 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
                 }
               }
               return tabsRD;
-            })
+            }),
           );
 
         } else {
           return createFailedRemoteDataObject$<PaginatedList<CrisLayoutTab>>(itemRD?.errorMessage, itemRD?.statusCode, itemRD?.timeCompleted);
         }
-      })
+      }),
     );
   }
 

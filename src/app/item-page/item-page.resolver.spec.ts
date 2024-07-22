@@ -1,21 +1,22 @@
+import { PLATFORM_ID } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { first } from 'rxjs/operators';
+
 import { ItemDataService } from '../core/data/item-data.service';
+import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { Item } from '../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ItemPageResolver } from './item-page.resolver';
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
-import { HardRedirectService } from '../core/services/hard-redirect.service';
-import { PLATFORM_ID } from '@angular/core';
 
 describe('ItemPageResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{
         path: 'entities/:entity-type/:id',
-        component: {} as any
-      }])]
+        component: {} as any,
+      }])],
     });
   });
 
@@ -35,14 +36,14 @@ describe('ItemPageResolver', () => {
         'cris.customurl': [
           {
             value: 'customurl',
-          }
+          },
         ],
         'dspace.entity.type': [
           {
-            value: 'Person'
-          }
-        ]
-      }
+            value: 'Person',
+          },
+        ],
+      },
     });
     const noMetadataItem = Object.assign(new Item(), {
       id: uuid,
@@ -50,10 +51,10 @@ describe('ItemPageResolver', () => {
       metadata: {
         'dspace.entity.type': [
           {
-            value: 'Person'
-          }
-        ]
-      }
+            value: 'Person',
+          },
+        ],
+      },
     });
 
     describe('When item has custom url', () => {
@@ -62,7 +63,7 @@ describe('ItemPageResolver', () => {
         router = TestBed.inject(Router);
         platformId = TestBed.inject(PLATFORM_ID);
         itemService = {
-          findById: (id: string) => createSuccessfulRemoteDataObject$(item)
+          findById: (id: string) => createSuccessfulRemoteDataObject$(item),
         } as any;
 
         store = jasmine.createSpyObj('store', {
@@ -70,7 +71,7 @@ describe('ItemPageResolver', () => {
         });
 
         hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
-          'redirect': jasmine.createSpy('redirect')
+          'redirect': jasmine.createSpy('redirect'),
         });
 
         spyOn(router, 'navigateByUrl');
@@ -84,7 +85,7 @@ describe('ItemPageResolver', () => {
             (resolved) => {
               expect(router.navigateByUrl).toHaveBeenCalledWith('test-url/customurl');
               done();
-            }
+            },
           );
       });
 
@@ -95,7 +96,7 @@ describe('ItemPageResolver', () => {
             (resolved) => {
               expect(router.navigateByUrl).toHaveBeenCalledWith('test-url/customurl/edit');
               done();
-            }
+            },
           );
       });
 
@@ -106,7 +107,7 @@ describe('ItemPageResolver', () => {
             (resolved) => {
               expect(router.navigateByUrl).not.toHaveBeenCalledWith('/entities/person/customurl');
               done();
-            }
+            },
           );
       });
 
@@ -117,7 +118,7 @@ describe('ItemPageResolver', () => {
             (resolved) => {
               expect(hardRedirectService.redirect).not.toHaveBeenCalledWith('/entities/person/customurl/edit');
               done();
-            }
+            },
           );
       });
 
@@ -128,7 +129,7 @@ describe('ItemPageResolver', () => {
       beforeEach(() => {
         router = TestBed.inject(Router);
         itemService = {
-          findById: (id: string) => createSuccessfulRemoteDataObject$(noMetadataItem)
+          findById: (_id: string) => createSuccessfulRemoteDataObject$(noMetadataItem),
         } as any;
 
         store = jasmine.createSpyObj('store', {
@@ -136,7 +137,7 @@ describe('ItemPageResolver', () => {
         });
 
         hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
-          'redirect': jasmine.createSpy('redirect')
+          'redirect': jasmine.createSpy('redirect'),
         });
 
         spyOn(router, 'navigateByUrl');
@@ -157,7 +158,7 @@ describe('ItemPageResolver', () => {
                 expect(hardRedirectService.redirect).toHaveBeenCalledWith('/entities/person/1234-65487-12354-1235/edit', 301);
                 expect(router.navigateByUrl).not.toHaveBeenCalled();
                 done();
-              }
+              },
             );
         });
 
@@ -169,7 +170,7 @@ describe('ItemPageResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(router.navigateByUrl).not.toHaveBeenCalled();
                 done();
-              }
+              },
             );
         });
       });
@@ -189,7 +190,7 @@ describe('ItemPageResolver', () => {
                 expect(router.navigateByUrl).toHaveBeenCalledWith('/entities/person/1234-65487-12354-1235/edit');
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 done();
-              }
+              },
             );
         });
 
@@ -201,7 +202,7 @@ describe('ItemPageResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(router.navigateByUrl).not.toHaveBeenCalled();
                 done();
-              }
+              },
             );
         });
       });

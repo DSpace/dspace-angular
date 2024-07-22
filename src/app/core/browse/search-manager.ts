@@ -1,31 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { Item } from '../shared/item.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { ItemDataService } from '../data/item-data.service';
-import { BrowseService } from './browse.service';
+import isArray from 'lodash/isArray';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
 import { environment } from '../../../environments/environment';
-import { DSpaceObject } from '../shared/dspace-object.model';
+import { hasValue } from '../../shared/empty.util';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
-import { SearchService } from '../shared/search/search.service';
-import { WorkspaceItem } from '../submission/models/workspaceitem.model';
-import { WorkflowItem } from '../submission/models/workflowitem.model';
-import { hasValue } from '../../shared/empty.util';
-import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { ItemDataService } from '../data/item-data.service';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
 import { MetadataValue } from '../shared/metadata.models';
 import { Metadata } from '../shared/metadata.utils';
-import isArray from 'lodash/isArray';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { SearchService } from '../shared/search/search.service';
+import { WorkflowItem } from '../submission/models/workflowitem.model';
+import { WorkspaceItem } from '../submission/models/workspaceitem.model';
+import { BrowseService } from './browse.service';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 /**
  * The service aims to manage browse requests and subsequent extra fetch requests.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SearchManager {
 
   constructor(
@@ -115,7 +122,7 @@ export class SearchManager {
         } else {
           of(null);
         }
-      })
+      }),
     ) : of(null);
   }
 

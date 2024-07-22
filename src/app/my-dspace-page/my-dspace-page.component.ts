@@ -1,17 +1,22 @@
-import { ChangeDetectionStrategy, Component, Inject, InjectionToken, OnInit } from '@angular/core';
-
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  InjectionToken,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { SearchService } from '../core/shared/search/search.service';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
-import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
-import { Context } from '../core/shared/context.model';
 import { RoleType } from '../core/roles/role-types';
+import { Context } from '../core/shared/context.model';
+import { SearchService } from '../core/shared/search/search.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { ViewMode } from '../core/shared/view-mode.model';
+import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -27,9 +32,9 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: MyDSpaceConfigurationService
-    }
-  ]
+      useClass: MyDSpaceConfigurationService,
+    },
+  ],
 })
 export class MyDSpacePageComponent implements OnInit {
 

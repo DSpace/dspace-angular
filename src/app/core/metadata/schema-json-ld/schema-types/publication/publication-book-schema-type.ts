@@ -17,7 +17,7 @@ export class PublicationBookSchemaType extends SchemaType {
       'description': SchemaType.getMetadataValue(item, 'dc.description.abstract'),
       'genre': SchemaType.getMetadataValue(item, 'dc.subject'),
       'inLanguage': SchemaType.getMetadataValue(item, 'dc.language.iso'),
-      'publisher': SchemaType.getMetadataValue(item, 'dc.publisher')
+      'publisher': SchemaType.getMetadataValue(item, 'dc.publisher'),
     };
   }
 }

@@ -1,34 +1,41 @@
-import { take } from 'rxjs/operators';
-import { ItemDataService } from '../core/data/item-data.service';
-import { Item } from '../core/shared/item.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
-import { HardRedirectService } from '../core/services/hard-redirect.service';
-import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
-import { TabDataService } from '../core/layout/tab-data.service';
-import { createPaginatedList } from '../shared/testing/utils.test';
-import { tabDetailsTest, tabPublicationsTest } from '../shared/testing/layout-tab.mocks';
 import { PLATFORM_ID } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { take } from 'rxjs/operators';
+
+import { ItemDataService } from '../core/data/item-data.service';
+import { TabDataService } from '../core/layout/tab-data.service';
+import { HardRedirectService } from '../core/services/hard-redirect.service';
+import { Item } from '../core/shared/item.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
+import {
+  tabDetailsTest,
+  tabPublicationsTest,
+} from '../shared/testing/layout-tab.mocks';
+import { createPaginatedList } from '../shared/testing/utils.test';
+import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
 
 describe('CrisItemPageTabResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{
         path: 'entities/:entity-type/:id/:tab',
-        component: {} as any
-      }])]
+        component: {} as any,
+      }])],
     });
   });
 
   describe('when item exists', () => {
     let resolver: CrisItemPageTabResolver;
     const itemService: jasmine.SpyObj<ItemDataService> = jasmine.createSpyObj('ItemDataService', {
-      'findById': jasmine.createSpy('findById')
+      'findById': jasmine.createSpy('findById'),
     });
     const tabService: jasmine.SpyObj<TabDataService> = jasmine.createSpyObj('TabDataService', {
-      'findByItem': jasmine.createSpy('findByItem')
+      'findByItem': jasmine.createSpy('findByItem'),
     });
     let hardRedirectService: HardRedirectService;
 
@@ -42,10 +49,10 @@ describe('CrisItemPageTabResolver', () => {
       metadata: {
         'dspace.entity.type': [
           {
-            value: 'Publication'
-          }
-        ]
-      }
+            value: 'Publication',
+          },
+        ],
+      },
     });
 
     const tabsRD = createSuccessfulRemoteDataObject(createPaginatedList([tabPublicationsTest, tabDetailsTest]));
@@ -61,7 +68,7 @@ describe('CrisItemPageTabResolver', () => {
       itemService.findById.and.returnValue(createSuccessfulRemoteDataObject$(item));
 
       hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
-        'redirect': jasmine.createSpy('redirect')
+        'redirect': jasmine.createSpy('redirect'),
       });
     });
 
@@ -86,7 +93,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
 
@@ -99,7 +106,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
 
@@ -112,7 +119,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
 
@@ -125,7 +132,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
       });
@@ -149,7 +156,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).toHaveBeenCalledWith('/entities/publication/1234-65487-12354-1235', 302);
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
 
@@ -162,7 +169,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
 
@@ -175,7 +182,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
 
@@ -188,7 +195,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
       });
@@ -213,7 +220,7 @@ describe('CrisItemPageTabResolver', () => {
               expect(hardRedirectService.redirect).not.toHaveBeenCalled();
               expect(resolved).toEqual(noTabsRD);
               done();
-            }
+            },
           );
       });
     });

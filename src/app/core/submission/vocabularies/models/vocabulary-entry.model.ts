@@ -1,17 +1,18 @@
-import { autoserialize, deserialize } from 'cerialize';
-
-import { HALLink } from '../../../shared/hal-link.model';
-import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import {
-  PLACEHOLDER_PARENT_METADATA
-} from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
+import { typedObject } from '../../../cache/builders/build-decorators';
 import { GenericConstructor } from '../../../shared/generic-constructor';
+import { HALLink } from '../../../shared/hal-link.model';
 import { Metadata } from '../../../shared/metadata.utils';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
 
 /**
  * Model class for a VocabularyEntry
@@ -24,31 +25,31 @@ export class VocabularyEntry extends ListableObject {
    * The identifier of this vocabulary entry
    */
   @autoserialize
-  authority: string;
+    authority: string;
 
   /**
    * The display value of this vocabulary entry
    */
   @autoserialize
-  display: string;
+    display: string;
 
   /**
    * The value of this vocabulary entry
    */
   @autoserialize
-  value: string;
+    value: string;
 
   /**
    * An object containing additional information related to this vocabulary entry
    */
   @autoserialize
-  otherInformation: OtherInformation;
+    otherInformation: OtherInformation;
 
   /**
    * A value representing security level value of the metadata
    */
   @autoserialize
-  securityLevel: number;
+    securityLevel: number;
 
   /**
    * A string representing the kind of vocabulary entry
@@ -61,7 +62,7 @@ export class VocabularyEntry extends ListableObject {
    * The {@link HALLink}s for this ExternalSourceEntry
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     vocabularyEntryDetail?: HALLink;
   };

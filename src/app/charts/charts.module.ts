@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { ChartComponent } from './components/chart/chart.component';
@@ -11,14 +10,14 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 const MODULES = [
   NgxChartsModule,
-  TranslateModule
+  TranslateModule,
 ];
 
 const COMPONENTS = [
   ChartComponent,
   LineChartComponent,
   PieChartComponent,
-  BarChartComponent
+  BarChartComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -29,14 +28,14 @@ const ENTRY_COMPONENTS = [
 
 @NgModule({
   imports: [
-    ...MODULES
+    ...MODULES,
   ],
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   exports: [
-    ...COMPONENTS
-  ]
+    ...COMPONENTS,
+  ],
 })
 
 /**
@@ -50,7 +49,7 @@ export class ChartsModule {
   static withEntryComponents() {
     return {
       ngModule: ChartsModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component}))
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 }

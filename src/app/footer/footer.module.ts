@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from './footer.component';
+import { NgModule } from '@angular/core';
+
 import { ExploreModule } from '../shared/explore/explore.module';
 import { SharedModule } from '../shared/shared.module';
+import { FooterComponent } from './footer.component';
 import { ThemedFooterComponent } from './themed-footer.component';
 
 const COMPONENTS = [
@@ -12,15 +13,15 @@ const COMPONENTS = [
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     CommonModule,
     ExploreModule,
-    SharedModule
+    SharedModule,
   ],
   exports: [
-    ...COMPONENTS
-  ]
+    ...COMPONENTS,
+  ],
 })
 export class FooterModule { }

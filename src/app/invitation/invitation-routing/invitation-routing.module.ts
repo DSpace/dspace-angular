@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { InvitationAcceptanceComponent } from '../invitation-acceptance/invitation-acceptance.component';
+
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
+import { InvitationAcceptanceComponent } from '../invitation-acceptance/invitation-acceptance.component';
 import { ValidTokenGuard } from '../valid-token.guard';
 
 
@@ -14,9 +15,9 @@ import { ValidTokenGuard } from '../valid-token.guard';
           title: 'invitation',
         },
         component: InvitationAcceptanceComponent,
-        canActivate: [AuthenticatedGuard, ValidTokenGuard]
+        canActivate: [AuthenticatedGuard, ValidTokenGuard],
       },
-    ])
-  ]
+    ]),
+  ],
 })
 export class InvitationRoutingModule { }

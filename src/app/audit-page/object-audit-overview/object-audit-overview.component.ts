@@ -1,23 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-
-import { combineLatest, Observable } from 'rxjs';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+import { AuditDataService } from '../../core/audit/audit-data.service';
+import { Audit } from '../../core/audit/model/audit.model';
+import { AuthService } from '../../core/auth/auth.service';
+import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Audit } from '../../core/audit/model/audit.model';
-import { AuditDataService } from '../../core/audit/audit-data.service';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { AuthService } from '../../core/auth/auth.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 
 /**
  * Component displaying a list of all audit about a object in a paginated table
@@ -45,8 +54,8 @@ export class ObjectAuditOverviewComponent implements OnInit {
     elementsPerPage: 10,
     sort: {
       field: 'timeStamp',
-      direction: SortDirection.DESC
-    }
+      direction: SortDirection.DESC,
+    },
   });
 
   /**
@@ -54,7 +63,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'oop',
-    pageSize: 10
+    pageSize: 10,
   });
 
   /**
@@ -75,7 +84,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
     this.route.paramMap.pipe(
       mergeMap((paramMap: ParamMap) => this.itemService.findById(paramMap.get('objectId'))),
       getFirstCompletedRemoteData(),
-      redirectOn4xx(this.router, this.authService)
+      redirectOn4xx(this.router, this.authService),
     ).subscribe((rd) => {
       this.object = rd.payload;
       this.setAudits();
@@ -93,7 +102,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
         if (isAdmin) {
           return this.auditService.findByObject(this.object.id, config);
         }
-      })
+      }),
     );
   }
 

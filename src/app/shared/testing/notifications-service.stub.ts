@@ -1,5 +1,6 @@
+import { BehaviorSubject } from 'rxjs';
+
 import { NotificationOptions } from '../notifications/models/notification-options.model';
-import {BehaviorSubject} from 'rxjs';
 
 export class NotificationsServiceStub {
 

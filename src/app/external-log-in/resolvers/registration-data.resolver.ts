@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
@@ -30,7 +35,7 @@ export class RegistrationDataResolver implements Resolve<RemoteData<Registration
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Registration>> {
     const token = route.params.token;
     if (hasValue(token)) {
-     return this.epersonRegistrationService.searchRegistrationByToken(token).pipe(
+      return this.epersonRegistrationService.searchRegistrationByToken(token).pipe(
         getFirstCompletedRemoteData(),
       );
     }

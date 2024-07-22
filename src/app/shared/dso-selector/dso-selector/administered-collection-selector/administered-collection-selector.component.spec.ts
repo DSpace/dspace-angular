@@ -1,17 +1,22 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { VarDirective } from '../../../utils/var.directive';
 import { AdministeredCollectionSelectorComponent } from './administered-collection-selector.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
 
 describe('AdministeredCollectionSelectorComponent', () => {
   let component: AdministeredCollectionSelectorComponent;
@@ -26,7 +31,7 @@ describe('AdministeredCollectionSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     collection = Object.assign(new Collection(), {
-      id: 'admin-collection'
+      id: 'admin-collection',
     });
     collectionService = jasmine.createSpyObj('collectionService', {
       getAdministeredCollectionByEntityType: createSuccessfulRemoteDataObject$(createPaginatedList([collection])),
@@ -41,7 +46,7 @@ describe('AdministeredCollectionSelectorComponent', () => {
         { provide: CollectionDataService, useValue: collectionService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AdministeredCollectionSelectorComponent);
