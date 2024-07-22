@@ -1,7 +1,6 @@
 import { testA11y } from 'cypress/support/utils';
 
 describe('Batch Import Page', () => {
-  // NOTE: these tests currently assume this query will return results!
   beforeEach(() => {
     // Must login as an Admin to see processes
     cy.visit('/admin/batch-import');

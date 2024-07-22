@@ -1,9 +1,8 @@
 import { testA11y } from 'cypress/support/utils';
 
 describe('Edit Group', () => {
-  // NOTE: these tests currently assume this query will return results!
   beforeEach(() => {
-    // Must login as an Admin to see processes
+    // Must login as an Admin to see the page
     cy.visit('/access-control/groups/'.concat(Cypress.env('DSPACE_ADMINISTRATOR_GROUP')).concat('/edit'));
     cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
   });
