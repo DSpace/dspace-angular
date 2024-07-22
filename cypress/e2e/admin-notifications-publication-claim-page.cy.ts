@@ -1,6 +1,6 @@
 import { testA11y } from 'cypress/support/utils';
 
-describe('Admin Notifications Publication Claim', () => {
+describe('Admin Notifications Publication Claim Page', () => {
   beforeEach(() => {
     // Must login as an Admin to see the page
     cy.visit('/admin/notifications/publication-claim');
