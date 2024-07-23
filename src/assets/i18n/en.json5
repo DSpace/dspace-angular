@@ -867,6 +867,8 @@
 
   "browse.metadata.language": "Language",
 
+  "browse.metadata.language.breadcrumbs": "Browse by Language",
+
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
@@ -3305,6 +3307,8 @@
   "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
 
   "menu.section.browse_global_by_title": "By Title",
+
+  "menu.section.browse_global_by_language": "By Language",
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
 
