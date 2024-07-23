@@ -14,7 +14,7 @@ describe('Admin Export Modals', () => {
     // Click on entry of menu
     cy.get('#admin-menu-section-export-title').click();
 
-    cy.get('a[title="menu.section.export_metadata"]').click();
+    cy.get('a[data-test="menu.section.export_metadata"]').click();
 
     // Analyze <ds-export-metadata-selector> for accessibility
     testA11y('ds-export-metadata-selector');
@@ -27,7 +27,7 @@ describe('Admin Export Modals', () => {
     // Click on entry of menu
     cy.get('#admin-menu-section-export-title').click();
 
-    cy.get('a[title="menu.section.export_batch"]').click();
+    cy.get('a[data-test="menu.section.export_batch"]').click();
 
     // Analyze <ds-export-batch-selector> for accessibility
     testA11y('ds-export-batch-selector');
