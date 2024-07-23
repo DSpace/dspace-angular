@@ -14,7 +14,7 @@ describe('Admin Edit Modals', () => {
     // Click on entry of menu
     cy.get('#admin-menu-section-edit-title').click();
 
-    cy.get('a[title="menu.section.edit_community"]').click();
+    cy.get('a[data-test="menu.section.edit_community"]').click();
 
     // Analyze <ds-edit-community-selector> for accessibility
     testA11y('ds-edit-community-selector');
@@ -27,7 +27,7 @@ describe('Admin Edit Modals', () => {
     // Click on entry of menu
     cy.get('#admin-menu-section-edit-title').click();
 
-    cy.get('a[title="menu.section.edit_collection"]').click();
+    cy.get('a[data-test="menu.section.edit_collection"]').click();
 
     // Analyze <ds-edit-collection-selector> for accessibility
     testA11y('ds-edit-collection-selector');
@@ -40,7 +40,7 @@ describe('Admin Edit Modals', () => {
     // Click on entry of menu
     cy.get('#admin-menu-section-edit-title').click();
 
-    cy.get('a[title="menu.section.edit_item"]').click();
+    cy.get('a[data-test="menu.section.edit_item"]').click();
 
     // Analyze <ds-edit-item-selector> for accessibility
     testA11y('ds-edit-item-selector');

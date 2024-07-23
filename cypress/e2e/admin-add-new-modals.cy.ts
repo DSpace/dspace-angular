@@ -14,7 +14,7 @@ describe('Admin Add New Modals', () => {
     // Click on entry of menu
     cy.get('#admin-menu-section-new-title').click();
 
-    cy.get('a[title="menu.section.new_community"]').click();
+    cy.get('a[data-test="menu.section.new_community"]').click();
 
     // Analyze <ds-create-community-parent-selector> for accessibility
     testA11y('ds-create-community-parent-selector');
@@ -27,7 +27,7 @@ describe('Admin Add New Modals', () => {
     // Click on entry of menu
     cy.get('#admin-menu-section-new-title').click();
 
-    cy.get('a[title="menu.section.new_collection"]').click();
+    cy.get('a[data-test="menu.section.new_collection"]').click();
 
     // Analyze <ds-create-collection-parent-selector> for accessibility
     testA11y('ds-create-collection-parent-selector');
@@ -40,7 +40,7 @@ describe('Admin Add New Modals', () => {
     // Click on entry of menu
     cy.get('#admin-menu-section-new-title').click();
 
-    cy.get('a[title="menu.section.new_item"]').click();
+    cy.get('a[data-test="menu.section.new_item"]').click();
 
     // Analyze <ds-create-item-parent-selector> for accessibility
     testA11y('ds-create-item-parent-selector');
