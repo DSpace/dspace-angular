@@ -30,8 +30,10 @@ describe('Health Page > Info Tab', () => {
     cy.get('ds-health-page').should('be.visible');
     cy.get('a[data-test="health-page.info-tab"]').click();
 
-    // Analyze <ds-health-page> for accessibility issues
-    testA11y('ds-health-page', {
+    cy.get('ds-health-info').should('be.visible');
+
+    // Analyze <ds-health-info> for accessibility issues
+    testA11y('ds-health-info', {
       rules: {
         // All panels are accordians & fail "aria-required-children" and "nested-interactive".
         // Seem to require updating ng-bootstrap and https://github.com/DSpace/dspace-angular/issues/2216
