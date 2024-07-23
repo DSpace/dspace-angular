@@ -151,6 +151,13 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
   }
 
   /**
+   * Indicates if the content is expanded, button state is 'Collapse'
+   */
+  public get isExpanded() {
+    return this.expand && this.expandable;
+  }
+
+  /**
    * Unsubscribe from the subscription
    */
   ngOnDestroy(): void {
