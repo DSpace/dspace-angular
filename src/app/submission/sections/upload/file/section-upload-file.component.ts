@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -33,6 +33,11 @@ import {
   getPaginatedListPayload,
   getRemoteDataPayload
 } from '../../../../core/shared/operators';
+
+
+import uniqBy from 'lodash/uniqBy';
+import { isNumeric } from '../../../../shared/numeric.util';
+import { AlertType } from '../../../../shared/alert/alert-type';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -154,6 +159,11 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @type {BehaviorSubject<boolean>}
    */
   public processingDelete$ = new BehaviorSubject<boolean>(false);
+
+  /**
+   * The Enum for the Alert type to be visualized
+   */
+  public AlertTypeEnum = AlertType;
 
   /**
    * The [JsonPatchOperationPathCombiner] object
@@ -292,6 +302,31 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     this.subscriptions.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
+  /**
+   * Get current file errors status
+   *
+   * @public
+   */
+  public getFileHasErrors(): Observable<boolean> {
+    return this.submissionService.getSubmissionObject(this.submissionId).pipe(
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      switchMap((submission) => {
+        const uploadSection =  submission.sections ? submission.sections[this.sectionId] : null;
+        let hasErrors = false;
+
+        if (hasValue(uploadSection)) {
+          const errorList = uniqBy([].concat(uploadSection.errorsToShow ?? []).concat(uploadSection.serverValidationErrors ?? []), 'path');
+          const errorPaths = errorList.map(error => error.path);
+          const errorIndexes = errorPaths.map(path => path.split('/')[path.split('/').length - 1]);
+          //second OR condition is needed in case there is just one file as the index is not added
+          hasErrors = errorIndexes.includes(this.fileIndex.toString()) || (errorPaths.length === 1 && !isNumeric(parseInt(errorIndexes[0], 10)));
+        }
+
+        return of(hasErrors);
+      })
+    );
+  }
+
   protected loadFormMetadata() {
     this.configMetadataForm.rows.forEach((row) => {
         row.fields.forEach((field) => {
@@ -333,5 +368,4 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
       row.fields[0].selectableMetadata[0].metadata === 'dc.type'
     ).map((filteredRow) => filteredRow.fields[0].selectableMetadata[0].controlledVocabulary)[0];
   }
-
 }
