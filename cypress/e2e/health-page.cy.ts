@@ -10,6 +10,9 @@ beforeEach(() => {
 
 describe('Health Page > Status Tab', () => {
   it('should pass accessibility tests', () => {
+    cy.intercept('GET', '/server/actuator/health').as('status');
+    cy.wait('@status');
+
     cy.get('a[data-test="health-page.status-tab"]').click();
     // Page must first be visible
     cy.get('ds-health-page').should('be.visible');
@@ -33,6 +36,8 @@ describe('Health Page > Status Tab', () => {
 
 describe('Health Page > Info Tab', () => {
   it('should pass accessibility tests', () => {
+    cy.intercept('GET', '/server/actuator/info').as('info');
+    cy.wait('@info');
 
     cy.get('a[data-test="health-page.info-tab"]').click();
     // Page must first be visible
