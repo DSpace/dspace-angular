@@ -1,10 +1,8 @@
-import { BehaviorSubject, Observable, of as observableOf, Subscription, timer } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
-  NgZone,
   OnDestroy,
   OnInit,
   TemplateRef,
@@ -12,6 +10,10 @@ import {
 } from '@angular/core';
 import { trigger } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
+
+import { BehaviorSubject, Observable, of as observableOf, Subscription, timer } from 'rxjs';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+
 import { NotificationsService } from '../notifications.service';
 import { scaleEnter, scaleInState, scaleLeave, scaleOutState } from '../../animations/scale';
 import { rotateEnter, rotateInState, rotateLeave, rotateOutState } from '../../animations/rotate';
@@ -26,12 +28,9 @@ import { IProcessNotification } from '../models/process-notification.model';
 import { ProcessDataService } from '../../../core/data/processes/process-data.service';
 import { Process } from '../../../process-page/processes/process.model';
 import { Bitstream } from '../../../core/shared/bitstream.model';
-import {
-  getAllCompletedRemoteData, getFirstCompletedRemoteData
-} from '../../../core/shared/operators';
+import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { filter, map, switchMap, take } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 
 @Component({
@@ -110,7 +109,7 @@ export class ProcessNotificationComponent implements OnInit, OnDestroy {
               protected processService: ProcessDataService,
               protected nameService: DSONameService,
               private cdr: ChangeDetectorRef,
-              private zone: NgZone) {
+  ) {
   }
 
   /**
@@ -127,45 +126,54 @@ export class ProcessNotificationComponent implements OnInit, OnDestroy {
    * Poll process endpoint until it's finished.
    */
   pollUntilProcessFinished() {
-    timer(0, 5000).pipe(
+    timer(0, this.notification.checkTime).pipe(
       switchMap(() => this.processService.getProcess(this.notification.processId)),
       getAllCompletedRemoteData(),
-      filter((res: RemoteData<Process>) => res?.payload?.processStatus.toString() === 'COMPLETED' || res?.payload?.processStatus.toString() === 'FAILED'),
+      filter((res: RemoteData<Process>) => res.hasFailed || res?.payload?.processStatus.toString() === 'COMPLETED' || res?.payload?.processStatus.toString() === 'FAILED'),
       take(1),
-    ).subscribe((res: RemoteData<Process>) => {
-      this.pollingFinishedFor(res.payload);
+      tap((res: RemoteData<Process>) => this.pollingFinishedFor(res)),
+      switchMap((res: RemoteData<Process>) => this.getFiles(res)),
+    ).subscribe((files: Bitstream[]) => {
+      const logFiles = files.filter( (file) => !this.getFileName(file).includes('.log'));
+      this.files$.next(logFiles);
+      this.finished.next(true);
     });
   }
 
   /**
    * Handle process results
    *
-   * @param process The process finished
+   * @param processRD The RemoteData object for finished process
    */
-  pollingFinishedFor(process: Process) {
-    const processStatus = process.processStatus.toString();
-    if (processStatus === 'COMPLETED') {
+  pollingFinishedFor(processRD: RemoteData<Process>) {
+    if (processRD.hasSucceeded && processRD.payload.processStatus.toString() === 'COMPLETED') {
       this.notificationType$.next('alert-success');
       this.processStatus$.next('process.new.notification.process.status.completed');
-      this.getFiles();
     } else {
       this.processStatus$.next('process.new.notification.process.status.failed');
       this.notificationType$.next('alert-danger');
     }
-    this.finished.next(true);
   }
 
   /**
    * When the process is completed get the files output.
    */
-  getFiles() {
-    this.processService.getFiles(this.notification.processId).pipe(
+  getFiles(processRD: RemoteData<Process>): Observable<Bitstream[]> {
+    if (processRD.hasSucceeded && processRD.payload.processStatus.toString() === 'COMPLETED') {
+      return this.processService.getFiles(processRD.payload.processId).pipe(
+        getFirstCompletedRemoteData(),
+        map((response) => response.hasSucceeded ? response.payload.page : [])
+      );
+    } else {
+      return observableOf([]);
+    }
+/*    this.processService.getFiles(this.notification.processId).pipe(
       getFirstCompletedRemoteData(),
       map((response) => response.hasSucceeded ? response.payload.page : [])
     ).subscribe( (files: Bitstream[]) => {
       const logFiles = files.filter( (file) => !this.getFileName(file).includes('.log'));
       this.files$.next(logFiles);
-    });
+    });*/
   }
 
   /**
