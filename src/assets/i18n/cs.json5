@@ -1477,8 +1477,8 @@
   // "bitstream.download.page": "Now downloading {{bitstream}}...",
   "bitstream.download.page": "Nyní se stahuje {{bitstream}}..." ,
 
-  // "bitstream.download.page.back": "Back",
-  "bitstream.download.page.back": "Zpět" ,
+  // "bitstream.download.page.back": "Back" ,
+  "bitstream.download.page.back": "Zpět",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
   "bitstream.edit.authorizations.link": "Upravit politiky souboru",
@@ -1797,7 +1797,7 @@
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
   "claimed-declined-task-search-result-list-element.title": "Zamítnuto, posláno zpět správci schvalovacího workflow",
 
-  // "collection.create.breadcrumbs": "Create collection",
+    // "collection.create.breadcrumbs": "Create collection",
   // TODO New key - Add a translation
   "collection.create.breadcrumbs": "Create collection",
 
@@ -2210,8 +2210,7 @@
   "collection.source.controls.harvest.last": "Naposledy harvestováno:",
 
   // "collection.source.controls.harvest.message": "Harvest info:",
-  "collection.source.controls.harvest.message": "Informace o harevstu:",
-
+  "collection.source.controls.harvest.message": "Informace o harvestu:",
   // "collection.source.controls.harvest.no-information": "N/A",
   "collection.source.controls.harvest.no-information": "Není k dispozi",
 
@@ -2703,7 +2702,7 @@
   "dso-selector.create.community.head": "Nová komunita",
 
   // "dso-selector.create.community.or-divider": "or",
-  "dso-selector.create.community.or-divider": "or",
+  "dso-selector.create.community.or-divider": "nebo",
 
   // "dso-selector.create.community.sub-level": "Create a new community in",
   "dso-selector.create.community.sub-level": "Vytvořit novou komunitu v",
@@ -2940,7 +2939,7 @@
   "error.top-level-communities": "Chyba při načítání komunit nejvyšší úrovně",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "eslání. Pokud tuto licenci v tuto chvíli nemůžete udělit, můžete svou práci uložit a vrátit se k ní později nebo podání odstranit.",
+  "error.validation.license.notgranted": "Pro dokončení zaslání musíte udělit licenci. Pokud v tuto chvíli tuto licenci nemůžete udělit, můžete svou práci uložit a později se k svému příspěveku vrátit nebo jej smazat.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Toto zadání je omezeno aktuálním vzorcem: {{ pattern }}.",
@@ -3252,7 +3251,7 @@
   "grant-deny-request-copy.intro2": "Po výběru možnosti se zobrazí návrh e-mailové odpovědi, který můžete upravit.",
 
   // "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
-  "grant-deny-request-copy.processed": " Tato žádost již byla zpracována. Pomocí níže uvedeného tlačítka se můžete vrátit na domovskou stránku.",
+  "grant-deny-request-copy.processed": "Tato žádost již byla zpracována. Pomocí níže uvedeného tlačítka se můžete vrátit na domovskou stránku.",
 
   // "grant-request-copy.email.subject": "Request copy of document",
   "grant-request-copy.email.subject": "Žádost o kopii dokumentu",
@@ -3432,8 +3431,7 @@
   "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
 
   // "item.alerts.private": "This item is non-discoverable",
-  // TODO Source message changed - Revise the translation
-  "item.alerts.private": "Tento záznam je nezobrazitelný",
+  "item.alerts.private": "Tento záznam je nevyhledatelný",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
   "item.alerts.withdrawn": "Tento záznam byl stažen",
@@ -4168,7 +4166,7 @@
   "item.page.journal-title": "Název časopisu",
 
   // "item.page.publisher": "Publisher",
-  "item.page.publisher": "Vydavatel",
+  "item.page.publisher": "Nakladatel",
 
   // "item.page.titleprefix": "Item: ",
   "item.page.titleprefix": "Záznam: ",
@@ -4268,7 +4266,7 @@
   "item.page.abstract": "Abstrakt",
 
   // "item.page.author": "Authors",
-  "item.page.author": "Autor",
+  "item.page.author": "Autoři",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Citace",
@@ -4310,10 +4308,10 @@
   "item.page.journal.search.title": "Články v tomto časopise",
 
   // "item.page.link.full": "Full item page",
-  "item.page.link.full": "Úplný záznam",
+  "item.page.link.full": "Zobrazit celý záznam",
 
   // "item.page.link.simple": "Simple item page",
-  "item.page.link.simple": "Jednoduchý záznam",
+  "item.page.link.simple": "Zobrazit minimální záznam",
 
   // "item.page.orcid.title": "ORCID",
   "item.page.orcid.title": "ORCID",
@@ -4346,7 +4344,7 @@
   "item.page.subject": "Klíčová slova",
 
   // "item.page.uri": "URI",
-  "item.page.uri": "URI",
+  "item.page.uri": "Identifikátor",
 
   // "item.page.bitstreams.view-more": "Show more",
   "item.page.bitstreams.view-more": "Zobrazit více",
@@ -4461,10 +4459,10 @@
   "item.preview.oaire.awardNumber": "Identifikátor zdroje financování:",
 
   // "item.preview.dc.title.alternative": "Acronym:",
-  "item.preview.dc.title.alternative": "Akronym:",
+  "item.preview.dc.title.alternative": "Zkratka:",
 
   // "item.preview.dc.coverage.spatial": "Jurisdiction:",
-  "item.preview.dc.coverage.spatial": "Jurisdikce:",
+  "item.preview.dc.coverage.spatial": "Příslušnost:",
 
   // "item.preview.oaire.fundingStream": "Funding Stream:",
   "item.preview.oaire.fundingStream": "Tok finančních prostředků:",
@@ -4841,7 +4839,7 @@
   "journal.page.issn": "ISSN",
 
   // "journal.page.publisher": "Publisher",
-  "journal.page.publisher": "Vydavatel",
+  "journal.page.publisher": "Nakladatel",
 
   // "journal.page.titleprefix": "Journal: ",
   "journal.page.titleprefix": "Časopis: ",
@@ -4936,7 +4934,7 @@
   "iiif.page.doi": "Trvalý odkaz: ",
 
   // "iiif.page.issue": "Issue: ",
-  "iiif.page.issue": "Číslo: ",
+  "iiif.page.issue": "Problém:",
 
   // "iiif.page.description": "Description: ",
   "iiif.page.description": "Popis: ",
@@ -5042,8 +5040,7 @@
   "menu.header.nav.description": "Admin navigation bar",
 
   // "menu.header.admin": "Management",
-  // TODO Source message changed - Revise the translation
-  "menu.header.admin": "Management",
+  "menu.header.admin": "Admin",
 
   // "menu.header.image.logo": "Repository logo",
   "menu.header.image.logo": "Logo úložiště",
@@ -5378,7 +5375,7 @@
   "mydspace.new-submission-external-short": "Importovat metadata",
 
   // "mydspace.results.head": "Your submissions",
-  "mydspace.results.head": "Váš příspěvek",
+  "mydspace.results.head": "Vaše zázmany",
 
   // "mydspace.results.no-abstract": "No Abstract",
   "mydspace.results.no-abstract": "Žádný abstrakt",
@@ -5390,7 +5387,7 @@
   "mydspace.results.no-collections": "Žádné kolekce",
 
   // "mydspace.results.no-date": "No Date",
-  "mydspace.results.no-date": "Žádné datum",
+  "mydspace.results.no-date": "Žádny datum",
 
   // "mydspace.results.no-files": "No Files",
   "mydspace.results.no-files": "Žádné soubory",
@@ -5412,9 +5409,9 @@
   // TODO Source message changed - Revise the translation
   "mydspace.show.workflow": "Úlohy workflow",
 
-  // "mydspace.show.workspace": "Your submissions",
+  // "mydspace.show.workspace": "Your Submissions",
   // TODO Source message changed - Revise the translation
-  "mydspace.show.workspace": "Váš příspěvek",
+  "mydspace.show.workspace": "Vaše záznamy",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Zkontrolované záznamy",
@@ -5488,7 +5485,7 @@
   "nav.user-profile-menu-and-logout": "Menu uživatelského profilu a odhlášení",
 
   // "nav.logout": "Log Out",
-  "nav.logout": "Menu uživatelského profilu a odhlášení",
+  "nav.logout": "Odhlásit se",
 
   // "nav.main.description": "Main navigation bar",
   "nav.main.description": "Hlavní navigační panel",
@@ -6289,7 +6286,7 @@
   "publication.page.journal-title": "Název časopisu",
 
   // "publication.page.publisher": "Publisher",
-  "publication.page.publisher": "Vydavatel",
+  "publication.page.publisher": "Nakladatel",
 
   // "publication.page.titleprefix": "Publication: ",
   "publication.page.titleprefix": "Publikace: ",
@@ -6913,7 +6910,7 @@
   "search.filters.applied.f.subject": "Předmět",
 
   // "search.filters.applied.f.submitter": "Submitter",
-  "search.filters.applied.f.submitter": "Vkladatel",
+  "search.filters.applied.f.submitter": "Předkladatel",
 
   // "search.filters.applied.f.jobTitle": "Job Title",
   "search.filters.applied.f.jobTitle": "Název pracovní pozice",
@@ -7019,10 +7016,10 @@
   "search.filters.filter.creativeWorkKeywords.label": "Předmět hledání",
 
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
-  "search.filters.filter.creativeWorkPublisher.head": "Vydavatel",
+  "search.filters.filter.creativeWorkPublisher.head": "Nakladatel",
 
   // "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
-  "search.filters.filter.creativeWorkPublisher.placeholder": "Vydavatel",
+  "search.filters.filter.creativeWorkPublisher.placeholder": "Nakladatel",
 
   // "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
   "search.filters.filter.creativeWorkPublisher.label": "Hledat vydavatele",
@@ -7058,7 +7055,7 @@
   "search.filters.filter.discoverable.head": "Nedohledatelné",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
-  "search.filters.filter.withdrawn.head": "Zrušeno",
+  "search.filters.filter.withdrawn.head": "Vyřazeno",
 
   // "search.filters.filter.entityType.head": "Item Type",
   "search.filters.filter.entityType.head": "Typ záznamu",
@@ -7142,7 +7139,7 @@
   "search.filters.filter.objectpeople.placeholder": "Lidé",
 
   // "search.filters.filter.objectpeople.label": "Search people",
-  "search.filters.filter.objectpeople.label": "Hledat lidi",
+  "search.filters.filter.objectpeople.label": "Hledat osoby",
 
   // "search.filters.filter.organizationAddressCountry.head": "Country",
   "search.filters.filter.organizationAddressCountry.head": "Stát",
@@ -7178,7 +7175,7 @@
   "search.filters.filter.scope.placeholder": "Filtr rozsahu",
 
   // "search.filters.filter.scope.label": "Search scope filter",
-  "search.filters.filter.scope.label": "Hledat filtr rozsahu",
+  "search.filters.filter.scope.label": "Filtr rozsahu hledání",
 
   // "search.filters.filter.show-less": "Collapse",
   "search.filters.filter.show-less": "Sbalit",
@@ -7196,13 +7193,13 @@
   "search.filters.filter.subject.label": "Hledat předmět",
 
   // "search.filters.filter.submitter.head": "Submitter",
-  "search.filters.filter.submitter.head": "Vkladatel",
+  "search.filters.filter.submitter.head": "Předkladatel",
 
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  "search.filters.filter.submitter.placeholder": "Vkladatel",
+  "search.filters.filter.submitter.placeholder": "Předkladatel",
 
   // "search.filters.filter.submitter.label": "Search submitter",
-  "search.filters.filter.submitter.label": "Hledat vkladatele",
+  "search.filters.filter.submitter.label": "Hledat předkladatele",
 
   // "search.filters.filter.show-tree": "Browse {{ name }} tree",
   "search.filters.filter.show-tree": "Procházet {{ name }} podle",
@@ -7286,8 +7283,8 @@
   // "search.filters.withdrawn.false": "No",
   "search.filters.withdrawn.false": "Ne",
 
-  // "search.filters.head": "Filters",
-  "search.filters.head": "Filtry",
+  // "search.filters.head": "Limit your search",
+  "search.filters.head": "Zúžit hledání",
 
   // "search.filters.reset": "Reset filters",
   "search.filters.reset": "Resetovat filtry",
@@ -7526,7 +7523,7 @@
   "submission.general.cannot_submit": "Nemáte oprávnění k vytvoření nového příspěvku.",
 
   // "submission.general.deposit": "Deposit",
-  "submission.general.deposit": "Vložit do repozitáře",
+  "submission.general.deposit": "Nahrát",
 
   // "submission.general.discard.confirm.cancel": "Cancel",
   "submission.general.discard.confirm.cancel": "Zrušit",
@@ -7554,7 +7551,7 @@
   "submission.general.info.pending-changes": "Neuložené změny",
 
   // "submission.general.save": "Save",
-  "submission.general.save": "Průběžně uložit záznam",
+  "submission.general.save": "Uložit",
 
   // "submission.general.save-later": "Save for later",
   "submission.general.save-later": "Uložit na později",
@@ -7709,10 +7706,10 @@
   "submission.import-external.preview.subtitle": "Níže uvedená metadata byla importována z externího zdroje. Budou předvyplněna při zahájení odesílání..",
 
   // "submission.import-external.preview.button.import": "Start submission",
-  "submission.import-external.preview.button.import": "Zahájit odesílání",
+  "submission.import-external.preview.button.import": "Začít nový příspěvek",
 
   // "submission.import-external.preview.error.import.title": "Submission error",
-  "submission.import-external.preview.error.import.title": "Chyba při odesílání",
+  "submission.import-external.preview.error.import.title": "Chyba při vytváření nového příspěvku",
 
   // "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
   "submission.import-external.preview.error.import.body": "Během procesu importu externí zdrojového záznamu došlo k chybě.",
@@ -7893,7 +7890,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Vyhledávací dotaz",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
-  "submission.sections.describe.relationship-lookup.search-tab.search": "Hledání",
+  "submission.sections.describe.relationship-lookup.search-tab.search": "Přejít na",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
   "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Hledání...",
@@ -8080,7 +8077,7 @@
   "submission.sections.describe.relationship-lookup.title.Funding Agency": "Financující agentura",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
-  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Projekt, ke kterému publikace náleží",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Financování",
 
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Nadřazená organizační jednotka",
@@ -8311,7 +8308,7 @@
   "submission.sections.submit.progressbar.describe.recycle": "Opětovně použít",
 
   // "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
-  "submission.sections.submit.progressbar.describe.stepcustom": "Popsat",
+  "submission.sections.submit.progressbar.describe.stepcustom": "Popis",
 
   // "submission.sections.submit.progressbar.describe.stepone": "Describe",
   "submission.sections.submit.progressbar.describe.stepone": "Základní informace o dokumentu",
@@ -8627,8 +8624,8 @@
   "submission.submit.breadcrumbs": "Nově podaný záznam",
 
   // "submission.submit.title": "New submission",
-  // TODO Source message changed - Revise the translation
-  "submission.submit.title": "Nově podaný záznam",
+  "submission.submit.title": "Nový příspěvek",
+
 
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Smazat",
@@ -8710,7 +8707,7 @@
   "submission.workflow.tasks.generic.processing": "Zpracování...",
 
   // "submission.workflow.tasks.generic.submitter": "Submitter",
-  "submission.workflow.tasks.generic.submitter": "Zadavatel",
+  "submission.workflow.tasks.generic.submitter": "Předkladatel",
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
   "submission.workflow.tasks.generic.success": "Operace proběhla úspěšně",
@@ -9074,10 +9071,10 @@
   "workflow-item.scorereviewaction.notification.error.content": "Nebylo možné zkontrolovat tento záznam",
 
   // "workflow-item.scorereviewaction.title": "Rate this item",
-  "workflow-item.scorereviewaction.title": "Zkontrolovat tento záznam",
+  "workflow-item.scorereviewaction.title": "Ohodnotit tento záznam",
 
   // "workflow-item.scorereviewaction.header": "Rate this item",
-  "workflow-item.scorereviewaction.header": "Zkontrolovat tento záznam",
+  "workflow-item.scorereviewaction.header": "Ohodnotit tento záznam",
 
   // "workflow-item.scorereviewaction.button.cancel": "Cancel",
   "workflow-item.scorereviewaction.button.cancel": "Zrušit",
@@ -11034,6 +11031,4 @@
   // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
   // TODO New key - Add a translation
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
-
-
 }
