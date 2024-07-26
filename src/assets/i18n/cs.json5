@@ -1797,7 +1797,7 @@
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
   "claimed-declined-task-search-result-list-element.title": "Zamítnuto, posláno zpět správci schvalovacího workflow",
 
-    // "collection.create.breadcrumbs": "Create collection",
+  // "collection.create.breadcrumbs": "Create collection",
   // TODO New key - Add a translation
   "collection.create.breadcrumbs": "Create collection",
 
