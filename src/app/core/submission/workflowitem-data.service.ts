@@ -13,7 +13,6 @@ import { RemoteData } from '../data/remote-data';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { WorkspaceItem } from './models/workspaceitem.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
@@ -28,7 +27,6 @@ import { dataService } from '../data/base/data-service.decorator';
 @Injectable()
 @dataService(WorkflowItem.type)
 export class WorkflowItemDataService extends IdentifiableDataService<WorkflowItem> implements SearchData<WorkflowItem>, DeleteData<WorkflowItem> {
-  protected linkPath = 'workflowitems';
   protected searchByItemLinkPath = 'item';
   protected responseMsToLive = 10 * 1000;
 
@@ -42,7 +40,7 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
   ) {
-    super('workspaceitems', requestService, rdbService, objectCache, halService);
+    super('workflowitems', requestService, rdbService, objectCache, halService);
 
     this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
@@ -105,7 +103,7 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
    * @param options        The {@link FindListOptions} object
    * @param linksToFollow  List of {@link FollowLinkConfig} that indicate which {@link HALLink}s should be automatically resolved
    */
-  public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
+  public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkflowItem>[]): Observable<RemoteData<WorkflowItem>> {
     const findListOptions = new FindListOptions();
     findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
     const href$ = this.searchData.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
@@ -126,7 +124,7 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<PaginatedList<WorkspaceItem>>> {
+  public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<WorkflowItem>[]): Observable<RemoteData<PaginatedList<WorkflowItem>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
