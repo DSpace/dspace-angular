@@ -341,6 +341,8 @@ export class DefaultAppConfig implements AppConfig {
     showLabels: true,
     // Whether to add item thumbnail images to BOTH browse and search result lists.
     showThumbnails: true,
+    // Whether to add item thumbnail images to BOTH browse and search result lists.
+    showMetrics: false,
     // The number of entries in a paginated browse results list.
     // Rounded to the nearest size in the list of selectable sizes on the
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
