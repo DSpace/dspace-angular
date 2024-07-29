@@ -68,7 +68,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   /**
    * Whether to show the badge label or not
    */
-  @Input() showLabel = true;
+  @Input() showLabel: boolean;
 
   /**
    * Whether to show the metrics badges
@@ -78,7 +78,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * The value to display for this element

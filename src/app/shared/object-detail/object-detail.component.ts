@@ -60,6 +60,11 @@ export class ObjectDetailComponent {
   @Input() context: Context;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
    * Whether to show the metrics badges
    */
   @Input() showMetrics = true;
@@ -72,7 +77,7 @@ export class ObjectDetailComponent {
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * Emit when one of the listed object has changed.

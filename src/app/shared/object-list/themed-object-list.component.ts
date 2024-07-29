@@ -79,6 +79,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() importConfig: { buttonLabel: string };
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
    * Whether to show the metrics badges
    */
   @Input() showMetrics = true;
@@ -91,7 +96,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * Emit when one of the listed object has changed.
@@ -175,6 +180,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'hidePaginationDetail',
     'importable',
     'importConfig',
+    'showLabel',
     'showMetrics',
     'showPaginator',
     'showThumbnails',
