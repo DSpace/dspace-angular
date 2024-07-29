@@ -23,16 +23,20 @@ export class BrowseMostElementsComponent implements OnInit {
   @Input() paginatedSearchOptions: PaginatedSearchOptions;
 
   @Input() context: Context;
+  /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
 
   /**
    * Whether to show the metrics badges
    */
-  @Input() showMetrics;
+  @Input() showMetrics: boolean;
 
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
 
