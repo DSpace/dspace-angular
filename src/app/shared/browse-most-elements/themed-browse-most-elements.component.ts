@@ -21,7 +21,9 @@ export class ThemedBrowseMostElementsComponent extends ThemedComponent<BrowseMos
 
   @Input() topSection: TopSection;
 
-  protected inAndOutputNames: (keyof BrowseMostElementsComponent & keyof this)[] = ['context', 'paginatedSearchOptions', 'topSection'];
+  @Input() showLabel: boolean;
+
+  protected inAndOutputNames: (keyof BrowseMostElementsComponent & keyof this)[] = ['context', 'paginatedSearchOptions', 'topSection', 'showLabel'];
 
   protected getComponentName(): string {
     return 'BrowseMostElementsComponent';

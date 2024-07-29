@@ -56,6 +56,12 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
   @Output() select: EventEmitter<DSpaceObject> = new EventEmitter<DSpaceObject>();
 
   /**
+   * An event fired when a eperson or group is deselected.
+   * Event's payload equals to DSpaceObject.
+   */
+  @Output() deselect: EventEmitter<DSpaceObject> = new EventEmitter<DSpaceObject>();
+
+  /**
    * Current search query
    */
   public currentSearchQuery = '';
@@ -204,5 +210,14 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
     this.paginationService.clearPagination(this.paginationOptions.id);
   }
 
-
+  /**
+   * Method called when an entry is deselected.
+   * Emit a new select Event
+   *
+   * @param entry The eperson or group selected
+   */
+  emitDeselect(entry: DSpaceObject) {
+    this.deselect.emit(entry);
+    this.entrySelectedId.next(null);
+  }
 }

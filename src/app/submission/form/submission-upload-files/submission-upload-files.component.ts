@@ -14,6 +14,12 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SectionsType } from '../../sections/sections-type';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { isNumeric } from '../../../shared/numeric.util';
+import { difference } from '../../../shared/object.util';
+import {
+  WorkspaceitemSectionUploadFileObject
+} from '../../../core/submission/models/workspaceitem-section-upload-file.model';
 
 /**
  * This component represents the drop zone that provides to add files to the submission.
@@ -130,16 +136,23 @@ export class SubmissionUploadFilesComponent implements OnChanges {
               Object.keys(sections)
                 .forEach((sectionId) => {
                   const sectionData = normalizeSectionData(sections[sectionId]);
+                  const sectionWarning = hasValue(sectionData.files) ? this.parseErrorsForWarning(sectionData.files, errorsList[sectionId]) : [];
+                  const errorsForErrorNotification = difference(errorsList[sectionId], sectionWarning) as SubmissionSectionError[];
                   const sectionErrors = errorsList[sectionId];
+
                   this.sectionService.isSectionType(this.submissionId, sectionId, SectionsType.Upload)
                       .pipe(take(1))
                       .subscribe((isUpload) => {
                         if (isUpload) {
                           // Look for errors on upload
-                          if ((isEmpty(sectionErrors))) {
+                          if ((isEmpty(sectionErrors)) || !isEmpty(sectionWarning)) {
                             this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
-                          } else {
+                          } else if (!isEmpty(errorsForErrorNotification)) {
                             this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
+                          }
+
+                          if (!(isEmpty(sectionWarning))) {
+                            this.notificationsService.warning(null, this.translate.get('submission.sections.upload.upload-warning'));
                           }
                         }
                       });
@@ -166,5 +179,23 @@ export class SubmissionUploadFilesComponent implements OnChanges {
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
+  }
+
+  /**
+   * Check if there are errors related to metadata connected to files successfully uploaded
+   *
+   * @param files
+   * @param sectionErrors
+   * @private
+   */
+  private parseErrorsForWarning(files: WorkspaceitemSectionUploadFileObject[], sectionErrors: SubmissionSectionError[]): SubmissionSectionError[] {
+    return !isEmpty(sectionErrors) ? sectionErrors.filter((error) => {
+      const errorPaths = error.path.split('/');
+      const errorIndexPart = errorPaths[errorPaths.length - 1];
+      // if index is not a number means that only one item is present
+      const errorIndex =  isNumeric(errorIndexPart) ? parseInt(errorIndexPart, 10) : 0;
+      //we check if the files as an url with value, meaning the upload has been successfull
+      return hasValue(files[errorIndex]) && hasValue(files[errorIndex].url);
+    }) : [];
   }
 }

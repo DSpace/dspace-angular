@@ -24,6 +24,11 @@ export interface BrowseByConfig extends Config {
   defaultLowerLimit: number;
 
   /**
+   *  If true, badges for items will be added to BOTH search and browse result lists.
+   */
+  showLabels: boolean;
+
+  /**
    *  If true, thumbnail images for items will be added to BOTH search and browse result lists.
    */
   showThumbnails: boolean;

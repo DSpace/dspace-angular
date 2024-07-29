@@ -15,6 +15,10 @@ export class BrowseMostElementsComponent implements OnInit, OnChanges {
   @Input() paginatedSearchOptions: PaginatedSearchOptions;
 
   @Input() context: Context;
+  /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
 
   @Input() topSection: TopSection;
 
