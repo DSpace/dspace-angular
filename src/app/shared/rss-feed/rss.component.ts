@@ -23,7 +23,9 @@ import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilter } from '../search/models/search-filter.model';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { NotificationsService } from '../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { environment } from '../../../environments/environment';
 /**
  * The Rss feed button component.
  */
