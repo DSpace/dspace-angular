@@ -29,7 +29,9 @@ export class ThemedDefaultBrowseElementsComponent extends ThemedComponent<Defaul
 
   @Input() showThumbnails: boolean;
 
-  protected inAndOutputNames: (keyof DefaultBrowseElementsComponent & keyof this)[] = ['paginatedSearchOptions', 'context', 'topSection', 'showMetrics', 'showThumbnails'];
+  @Input() showLabel: boolean;
+
+  protected inAndOutputNames: (keyof DefaultBrowseElementsComponent & keyof this)[] = ['paginatedSearchOptions', 'context', 'topSection', 'showMetrics', 'showThumbnails', 'showLabel'];
 
   protected getComponentName(): string {
     return 'DefaultBrowseElementsComponent';

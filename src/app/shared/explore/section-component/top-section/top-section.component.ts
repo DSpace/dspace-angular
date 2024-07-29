@@ -26,8 +26,6 @@ export class TopSectionComponent implements OnInit {
 
   paginatedSearchOptions: PaginatedSearchOptions;
 
-  showLabel: boolean;
-
   ngOnInit() {
     const order = this.topSection.order;
     const numberOfItems = this.topSection.numberOfItems;
