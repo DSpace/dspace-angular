@@ -6739,4 +6739,7 @@
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
 
   "browse.search-form.placeholder": "Search the repository",
+  
+  "rss.button.notification": "RSS link for this search has been copied to clipboard",
+
 }
