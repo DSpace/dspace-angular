@@ -167,13 +167,6 @@ export class ProcessNotificationComponent implements OnInit, OnDestroy {
     } else {
       return observableOf([]);
     }
-/*    this.processService.getFiles(this.notification.processId).pipe(
-      getFirstCompletedRemoteData(),
-      map((response) => response.hasSucceeded ? response.payload.page : [])
-    ).subscribe( (files: Bitstream[]) => {
-      const logFiles = files.filter( (file) => !this.getFileName(file).includes('.log'));
-      this.files$.next(logFiles);
-    });*/
   }
 
   /**
