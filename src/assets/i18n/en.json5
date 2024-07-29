@@ -4459,6 +4459,10 @@
 
   "process.new.notification.process.files": "Output Files: ",
 
+  "process.new.notification.process.status.completed": "Completed",
+
+  "process.new.notification.process.status.failed": "Failed",
+
   "process.new.header": "Create a new process",
 
   "process.new.title": "Create a new process",
