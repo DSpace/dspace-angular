@@ -1,0 +1,33 @@
+<div class="w-100 d-flex mt-1 mb-3 align-items-start">
+  <button
+    type="button"
+    class="btn btn-info mr-2"
+    ngbTooltip="{{'submission.workflow.tasks.pool.claim_selected_help' | translate}}"
+    [disabled]="(processing$ | async) || !(claimEnabled$ | async)"
+    (click)="claimAllSelectedTask()"
+  >
+    <span>
+      <i class="fas fa-hand-paper"></i>
+      {{'submission.workflow.tasks.pool.claim.selected' | translate}}
+    </span>
+  </button>
+
+  <button
+    type="button"
+    class="btn btn-success mr-2"
+    ngbTooltip="{{'submission.workflow.tasks.claimed.approve_selected_help' | translate}}"
+    [disabled]="(processing$ | async) || !(claimedTaskActionsEnabled$ | async)"
+    (click)="submitAllSelectedTask()"
+  >
+    <span>
+      <i class="fa fa-thumbs-up"></i>
+      {{'submission.workflow.tasks.claimed.approve.selected' | translate}}
+    </span>
+  </button>
+
+
+  <span *ngIf="(processing$ | async)">
+    <i class='fas fa-circle-notch fa-spin'></i>
+    {{'submission.workflow.tasks.generic.processing' | translate}}
+  </span>
+</div>
