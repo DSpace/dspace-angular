@@ -32,7 +32,7 @@ import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { RequestService } from '../../app/core/data/request.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { firstValueFrom, lastValueFrom, Subscription } from 'rxjs';
 import { ServerCheckGuard } from '../../app/core/server-check/server-check.guard';
 import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 
@@ -121,13 +121,20 @@ export class BrowserInitService extends InitService {
    * @private
    */
   private async loadAppState(): Promise<boolean> {
-    const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
-    this.transferState.remove(InitService.NGRX_STATE);
-    this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
-    return this.store.select(coreSelector).pipe(
-      find((core: any) => isNotEmpty(core)),
-      map(() => true)
-    ).toPromise();
+    // The app state can be transferred only when SSR and CSR are using the same base url for the REST API
+    if (!this.appConfig.rest.hasSsrBaseUrl) {
+      const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
+      this.transferState.remove(InitService.NGRX_STATE);
+      this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
+      return lastValueFrom(
+        this.store.select(coreSelector).pipe(
+          find((core: any) => isNotEmpty(core)),
+          map(() => true),
+        ),
+      );
+    } else {
+      return Promise.resolve(true);
+    }
   }
 
   private trackAuthTokenExpiration(): void {
