@@ -87,7 +87,7 @@ services:
       while (!</dev/tcp/dspacedb/543${INSTANCE}) > /dev/null 2>&1; do sleep 1; done;
       /dspace/bin/dspace database migrate force
       custom_run.sh
-      /dspace/bin/run-handle-server
+      /dspace/bin/start-handle-server
   # DSpace database container
   dspacedb:
     restart: unless-stopped
