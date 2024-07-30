@@ -15,6 +15,7 @@ import { RoleType } from '../core/roles/role-types';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { PoolTaskSearchResult } from '../shared/object-collection/shared/pool-task-search-result.model';
+import { ClaimedTaskSearchResult } from '../shared/object-collection/shared/claimed-task-search-result.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -107,12 +108,12 @@ export class MyDSpacePageComponent implements OnInit {
     this.currentConfiguration$ = this.searchConfigService.getCurrentConfiguration('');
   }
 
-  onDeselectObject(task: PoolTaskSearchResult) {
+  onDeselectObject(task: PoolTaskSearchResult | ClaimedTaskSearchResult) {
     this.selectableListService.deselectSingle(this.listId, task);
 
   }
 
-  onSelectObject(task: PoolTaskSearchResult) {
+  onSelectObject(task: PoolTaskSearchResult | ClaimedTaskSearchResult) {
     this.selectableListService.selectSingle(this.listId, task);
   }
 }
