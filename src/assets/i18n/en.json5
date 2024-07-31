@@ -1916,7 +1916,7 @@
 
   "info.feedback.title": "Feedback",
 
-  "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+  "info.feedback.info": "Thanks for sharing your feedback about the ResearchWorks system. Your comments are appreciated!",
 
   "info.feedback.email_help": "This address will be used to follow up on your feedback.",
 
@@ -2830,7 +2830,7 @@
 
   "login.form.forgot-password": "Have you forgotten your password?",
 
-  "login.form.header": "Please log in to DSpace",
+  "login.form.header": "Please log in to ResearchWorks",
 
   "login.form.new-user": "New user? Click here to register.",
 
@@ -2848,7 +2848,7 @@
 
   "login.breadcrumbs": "Login",
 
-  "logout.form.header": "Log out from DSpace",
+  "logout.form.header": "Log out from ResearchWorks",
 
   "logout.form.submit": "Log out",
 
@@ -3016,7 +3016,7 @@
 
   "metadata-export-search.submit.error": "Starting the export has failed",
 
-  "mydspace.breadcrumbs": "MyDSpace",
+  "mydspace.breadcrumbs": "MyResearchWorks",
 
   "mydspace.description": "",
 
@@ -3070,7 +3070,7 @@
 
   "mydspace.results.no-uri": "No URI",
 
-  "mydspace.search-form.placeholder": "Search in MyDSpace...",
+  "mydspace.search-form.placeholder": "Search in ResearchWorks...",
 
   "mydspace.show.workflow": "Workflow tasks",
 
@@ -3088,7 +3088,7 @@
 
   "mydspace.status.mydspaceWorkspace": "Workspace",
 
-  "mydspace.title": "MyDSpace",
+  "mydspace.title": "MyResearchWorks",
 
   "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
 
@@ -3100,7 +3100,7 @@
 
   "mydspace.view-btn": "View",
 
-  "nav.browse.header": "All of DSpace",
+  "nav.browse.header": "All of ResearchWorks",
 
   "nav.community-browse.header": "By Community",
 
@@ -3116,7 +3116,7 @@
 
   "nav.main.description": "Main navigation bar",
 
-  "nav.mydspace": "MyDSpace",
+  "nav.mydspace": "MyResearchWorks",
 
   "nav.profile": "Profile",
 
@@ -3484,7 +3484,7 @@
 
   "register-page.registration.header": "New user registration",
 
-  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
+  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to ResearchWorks.",
 
   "register-page.registration.email": "Email Address *",
 
@@ -3566,7 +3566,7 @@
 
   "repository.image.logo": "Repository logo",
 
-  "repository.title": "DSpace Repository",
+  "repository.title": "ResearchWorks Repository",
 
   "repository.title.prefix": "ResearchWorks :: ",
 
@@ -3922,7 +3922,7 @@
 
   "search.form.search_dspace": "All repository",
 
-  "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "All of ResearchWorks",
 
   "search.results.head": "Search Results",
 
@@ -4840,7 +4840,7 @@
 
   "thumbnail.person.placeholder": "No Profile Picture Available",
 
-  title: "DSpace",
+  title: "ResearchWorks",
 
   "vocabulary-treeview.header": "Hierarchical tree view",
 

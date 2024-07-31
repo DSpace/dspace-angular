@@ -33,4 +33,32 @@
   // no DSpace default
 
   "item.page.doi": "DOI",
+
+  //
+  // All lines below here have only had 'DSpace' changed to 'ResearchWorks'
+  //
+
+  "info.feedback.info": "Thanks for sharing your feedback about the ResearchWorks system. Your comments are appreciated!",
+
+  "login.form.header": "Please log in to ResearchWorks",
+
+  "logout.form.header": "Log out from ResearchWorks",
+
+  "mydspace.breadcrumbs": "MyResearchWorks",
+
+  "mydspace.search-form.placeholder": "Search in ResearchWorks...",
+
+  "mydspace.title": "MyResearchWorks",
+
+  "nav.browse.header": "All of ResearchWorks",
+
+  "nav.mydspace": "MyResearchWorks",
+
+  "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to ResearchWorks.",
+
+  "repository.title": "ResearchWorks Repository",
+
+  "search.form.scope.all": "All of ResearchWorks",
+
+  title: "ResearchWorks",
 }
