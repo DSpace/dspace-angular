@@ -4,11 +4,11 @@
 
 {
   // DSpace default: "All of DSpace"
-  "menu.section.browse_global": "Browse DSpace",
+  "menu.section.browse_global": "Browse ResearchWorks",
 
   // DSpace default: "DSpace Angular :: "
 
-  "repository.title.prefix": "DSpace :: ",
+  "repository.title.prefix": "ResearchWorks :: ",
 
   // DSpace default: "Communities in DSpace"
 
