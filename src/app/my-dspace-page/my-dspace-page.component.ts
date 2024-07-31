@@ -108,11 +108,19 @@ export class MyDSpacePageComponent implements OnInit {
     this.currentConfiguration$ = this.searchConfigService.getCurrentConfiguration('');
   }
 
+  /**
+   * Add object to selection list
+   * @param task
+   */
   onDeselectObject(task: PoolTaskSearchResult | ClaimedTaskSearchResult) {
     this.selectableListService.deselectSingle(this.listId, task);
 
   }
 
+  /**
+   * Deselect object from selection list
+   * @param task
+   */
   onSelectObject(task: PoolTaskSearchResult | ClaimedTaskSearchResult) {
     this.selectableListService.selectSingle(this.listId, task);
   }
