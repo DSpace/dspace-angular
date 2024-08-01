@@ -61,11 +61,21 @@ services:
     networks:
       dspacenet:
     ports:
+      # BE server port
     - published: 808${INSTANCE}
       target: 8080
       host_ip: 127.0.0.1
+      # original debug port
     - published: 800${INSTANCE}
       target: 8000
+      host_ip: 127.0.0.1
+      # handle binary port as per https://www.handle.net/hnr_support.html (5th paragraph)
+    - published: 264${INSTANCE}
+      target: 2641
+      host_ip: 127.0.0.1
+      # handle http port as per https://www.handle.net/hnr_support.html (5th paragraph)
+    - published: 801${INSTANCE}
+      target: 8010
       host_ip: 127.0.0.1
     stdin_open: true
     tty: true
@@ -74,6 +84,7 @@ services:
     - assetstore:/dspace/assetstore
     # Mount DSpace's solr configs to a volume, so that we can share to 'dspacesolr' container (see below)
     - solr_configs:/dspace/solr
+    - handle_server:/dspace/handle-server
     - ./local.cfg:/dspace/config/local.cfg
     # Ensure that the database is ready BEFORE starting tomcat
     # 1. While a TCP connection to dspacedb port 5432 is not available, continue to sleep
@@ -161,3 +172,4 @@ volumes:
   solr_configs:
   dspace_logs:
   solr_logs:
+  handle_server:
