@@ -26,8 +26,6 @@ export class TopSectionComponent implements OnInit {
 
   paginatedSearchOptions: PaginatedSearchOptions;
 
-  showThumbnails: boolean;
-
   ngOnInit() {
     const order = this.topSection.order;
     const numberOfItems = this.topSection.numberOfItems;
@@ -43,8 +41,6 @@ export class TopSectionComponent implements OnInit {
       pagination: pagination,
       sort: new SortOptions(this.topSection.sortField, sortDirection)
     });
-
-    this.showThumbnails = this.topSection.showThumbnails;
   }
 
 }

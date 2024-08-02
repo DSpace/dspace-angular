@@ -33,6 +33,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * Retrieve the dso from the search result
    */
   ngOnInit(): void {
+    this.showLabel = this.showLabel ?? this.appConfig.browseBy.showLabels;
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;

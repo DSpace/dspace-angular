@@ -18,7 +18,7 @@ import {
   templateUrl: '../../../theme-support/themed.component.html'
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
-  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'showThumbnails', 'workflowItem', 'metadataList'];
+  protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showLabel', 'showMetrics', 'showSubmitter', 'showThumbnails', 'workflowItem', 'metadataList'];
 
   @Input() item: Item;
 
@@ -26,9 +26,13 @@ export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPrev
 
   @Input() badgeContext: Context;
 
+  @Input() showLabel: boolean;
+
+  @Input() showMetrics: boolean;
+
   @Input() showSubmitter: boolean;
 
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   @Input() workflowItem: WorkflowItem;
 

@@ -176,6 +176,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showExport = true;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics: boolean;
+
+  /**
    * A boolean representing if show search result notice
    */
   @Input() showSearchResultNotice = false;

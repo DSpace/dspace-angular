@@ -1,5 +1,7 @@
 <ng-container *ngIf="fileData">
-  <div class="row">
+  <div
+    class="row py-1"
+  >
     <div class="col-md-12">
       <div class="float-left ml-3 mb-2 badge badge-pill bg-primary text-white" *ngIf="(vocabularyFileType$ | async)">
         {{(vocabularyFileType$ | async)}}
@@ -34,6 +36,12 @@
       <div class="clearfix"></div>
       <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
     </div>
+  </div>
+
+  <div class="pt-4" *ngIf="(getFileHasErrors() | async)">
+    <ds-alert [type]="AlertTypeEnum.Error" [dismissible]="false">
+      <span [innerHTML]="'submission.sections.upload.genericError' | translate"></span>
+    </ds-alert>
   </div>
 </ng-container>
 

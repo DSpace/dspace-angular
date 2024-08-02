@@ -60,6 +60,7 @@ export interface TopSection extends SectionComponent {
   componentType: 'top';
   numberOfItems: number;
   showThumbnails: boolean;
+  template: TopSectionTemplateType;
 }
 
 export interface SearchSection extends SectionComponent {
@@ -95,4 +96,11 @@ export interface TopSectionColumn {
   style: string;
   metadataField: string;
   titleKey: string;
+}
+
+/**
+ * Represents the type of template to use for the section
+ */
+export enum TopSectionTemplateType {
+  DEFAULT = 'default', // CRIS default template
 }
