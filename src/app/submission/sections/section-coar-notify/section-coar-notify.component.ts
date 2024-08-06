@@ -135,7 +135,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
   /**
    * Method called when section is initialized
-   * Retriev available NotifyConfigs
+   * Retrieve available NotifyConfigs
    */
   setCoarNotifyConfig() {
     this.subs.push(

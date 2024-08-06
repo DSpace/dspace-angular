@@ -157,7 +157,7 @@ export class PublicationClaimComponent implements OnInit {
   }
 
   /**
-   * Dispatch the Suggestion Targets retrival.
+   * Dispatch the Suggestion Targets retrieval.
    */
   public getSuggestionTargets(): void {
     this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(

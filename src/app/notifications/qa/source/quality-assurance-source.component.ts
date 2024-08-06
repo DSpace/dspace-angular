@@ -123,7 +123,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
   }
 
   /**
-   * Dispatch the Quality Assurance source retrival.
+   * Dispatch the Quality Assurance source retrieval.
    */
   public getQualityAssuranceSource(): void {
     this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(

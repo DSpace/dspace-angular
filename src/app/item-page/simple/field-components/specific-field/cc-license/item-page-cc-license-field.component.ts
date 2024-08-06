@@ -34,13 +34,13 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   @Input() variant?: 'small' | 'full' = 'small';
 
   /**
-   * Filed name containing the CC license URI, as configured in the back-end, in the 'dspace.cfg' file, propertie
+   * Filed name containing the CC license URI, as configured in the back-end, in the 'dspace.cfg' file, property
    * 'cc.license.uri'
    */
   @Input() ccLicenseUriField? = 'dc.rights.uri';
 
   /**
-   * Filed name containing the CC license name, as configured in the back-end, in the 'dspace.cfg' file, propertie
+   * Filed name containing the CC license name, as configured in the back-end, in the 'dspace.cfg' file, property
    * 'cc.license.name'
    */
   @Input() ccLicenseNameField? = 'dc.rights';
