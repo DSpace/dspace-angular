@@ -236,9 +236,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showFilterToggle = false;
 
   /**
-   * Defines whether to show the toggle button to Show/Hide filter
+   * Defines whether to fetch search results during SSR execution
    */
-  @Input() renderOnServerSide = true;
+  @Input() renderOnServerSide = false;
 
   /**
    * Defines whether to show the toggle button to Show/Hide chart
