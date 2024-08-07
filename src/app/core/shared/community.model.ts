@@ -83,32 +83,32 @@ export class Community extends DSpaceObject implements ChildHALResource, HandleO
    * The introductory text of this Community
    * Corresponds to the metadata field dc.description
    */
-  get introductoryText(): string {
-    return this.firstMetadataValue('dc.description');
+  public introductoryText(language: string): string {
+    return this.firstMetadataValue('dc.description', { language });
   }
 
   /**
    * The short description: HTML
    * Corresponds to the metadata field dc.description.abstract
    */
-  get shortDescription(): string {
-    return this.firstMetadataValue('dc.description.abstract');
+  public shortDescription(language: string): string {
+    return this.firstMetadataValue('dc.description.abstract', { language });
   }
 
   /**
    * The copyright text of this Community
    * Corresponds to the metadata field dc.rights
    */
-  get copyrightText(): string {
-    return this.firstMetadataValue('dc.rights');
+  public copyrightText(language: string): string {
+    return this.firstMetadataValue('dc.rights', { language });
   }
 
   /**
    * The sidebar text of this Community
    * Corresponds to the metadata field dc.description.tableofcontents
    */
-  get sidebarText(): string {
-    return this.firstMetadataValue('dc.description.tableofcontents');
+  public sidebarText(language: string): string {
+    return this.firstMetadataValue('dc.description.tableofcontents', { language });
   }
 
   getParentLinkKey(): keyof this['_links'] {
