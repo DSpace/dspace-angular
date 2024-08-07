@@ -4,6 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -16,6 +17,7 @@ import {
 } from '../notifications/models/notification.model';
 import { NotificationType } from '../notifications/models/notification-type';
 import { NotificationsService } from '../notifications/notifications.service';
+import { RouterStub } from '../testing/router.stub';
 import { AbstractTrackableComponent } from './abstract-trackable.component';
 
 describe('AbstractTrackableComponent', () => {
@@ -35,6 +37,7 @@ describe('AbstractTrackableComponent', () => {
       success: successNotification,
     },
   );
+  let router: RouterStub;
 
   const url = 'http://test-url.com/test-url';
 
@@ -50,15 +53,17 @@ describe('AbstractTrackableComponent', () => {
         isValidPage: observableOf(true),
       },
     );
+    router = new RouterStub();
+    router.url = url;
 
     scheduler = getTestScheduler();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [AbstractTrackableComponent],
+      imports: [TranslateModule.forRoot(), AbstractTrackableComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: Router, useValue: router },
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
@@ -68,7 +73,6 @@ describe('AbstractTrackableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AbstractTrackableComponent);
     comp = fixture.componentInstance;
-    comp.url = url;
 
     fixture.detectChanges();
   });

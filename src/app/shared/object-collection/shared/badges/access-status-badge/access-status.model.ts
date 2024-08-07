@@ -19,13 +19,13 @@ export class AccessStatusObject implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The access status value
    */
   @autoserialize
-    status: string;
+  status: string;
 
   /**
    * The {@link HALLink}s for this AccessStatusObject

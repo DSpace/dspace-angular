@@ -13,7 +13,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CreateDataImpl } from '../data/base/create-data';
-import { dataService } from '../data/base/data-service.decorator';
 import { DeleteDataImpl } from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { PatchDataImpl } from '../data/base/patch-data';
@@ -33,13 +32,11 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { SupervisionOrder } from './models/supervision-order.model';
-import { SUPERVISION_ORDER } from './models/supervision-order.resource-type';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the supervisionorders endpoint
  */
-@Injectable()
-@dataService(SUPERVISION_ORDER)
+@Injectable({ providedIn: 'root' })
 export class SupervisionOrderDataService extends IdentifiableDataService<SupervisionOrder> {
   protected searchByGroupMethod = 'group';
   protected searchByItemMethod = 'byItem';

@@ -23,7 +23,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
@@ -44,20 +47,27 @@ import {
   SearchConfig,
   SortConfig,
 } from '../../core/shared/search/search-filters/search-config.model';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../remote-data.utils';
+import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
+import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
+import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { FilterType } from './models/filter-type.model';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchComponent } from './search.component';
+import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
+import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -160,6 +170,7 @@ const searchManagerStub = jasmine.createSpyObj('SearchManager', {
 });
 const configurationParam = 'default';
 const queryParam = 'test query';
+const hiddenQuery = 'hidden query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 
 const defaultSearchOptions = new PaginatedSearchOptions({ pagination });
@@ -186,7 +197,7 @@ const routeServiceStub = {
   getQueryParamsWithPrefix: () => {
     return observableOf(null);
   },
-  setParameter: () => {
+  setParameter: (key: any, value: any) => {
     return;
   },
 };
@@ -215,8 +226,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
   searchConfigurationServiceStub.paginatedSearchOptions = new BehaviorSubject(new PaginatedSearchOptions({ pagination: { id: 'default' } as any }));
 
   TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule],
-    declarations: [compType, ...additionalDeclarations],
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, compType, ...additionalDeclarations],
     providers: [
       { provide: SearchService, useValue: searchServiceStub },
       { provide: SearchManager, useValue: searchManagerStub },
@@ -230,35 +240,46 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         provide: Store, useValue: store,
       },
       {
-        provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-          {
-            isXs: observableOf(true),
-            isSm: observableOf(false),
-            isXsOrSm: observableOf(true),
-          }),
+        provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+          isXs: observableOf(true),
+          isSm: observableOf(false),
+          isXsOrSm: observableOf(true),
+        }),
       },
       {
         provide: SidebarService,
-        useValue: SidebarServiceStub,
+        useClass: SidebarServiceStub,
       },
       {
         provide: SearchFilterService,
         useValue: {},
       },
+      { provide: XSRFService, useValue: {} },
       {
         provide: SEARCH_CONFIG_SERVICE,
         useValue: searchConfigurationServiceStub,
       },
+      { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       { provide: APP_CONFIG, useValue: environment },
     ],
     schemas: [NO_ERRORS_SCHEMA],
   }).overrideComponent(compType, {
-    set: {
+    add: {
       changeDetection: ChangeDetectionStrategy.Default,
       providers: [{
         provide: SearchConfigurationService,
         useValue: searchConfigurationServiceStub,
       }],
+    },
+    remove: {
+      imports: [
+        PageWithSidebarComponent,
+        ViewModeSwitchComponent,
+        ThemedSearchResultsComponent,
+        ThemedSearchSidebarComponent,
+        ThemedSearchFormComponent,
+        SearchLabelsComponent,
+      ],
     },
 
   }).compileComponents();
@@ -274,6 +295,7 @@ describe('SearchComponent', () => {
     comp = fixture.componentInstance; // SearchComponent test instance
     comp.inPlaceSearch = false;
     comp.paginationId = paginationId;
+    comp.hiddenQuery = hiddenQuery;
 
     spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
   });
@@ -289,6 +311,7 @@ describe('SearchComponent', () => {
 
     const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
       configuration: 'default',
+      scope: '',
       sort: sortOptionsList[0],
       forcedEmbeddedKeys: ['metrics'],
     });

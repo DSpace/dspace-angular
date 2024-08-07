@@ -37,6 +37,25 @@ body {
     z-index: 0;
 }
 
+.klaro
+.cookie-notice {
+  .cn-buttons {
+    .cm-btn.cm-btn-success {
+      color: var(--button-text-color-cookie);
+      background-color: var(--green1);
+    }
+    .cm-btn.cm-btn-success.cm-btn-accept-all {
+      color: var(--button-text-color-cookie);
+      background-color: var(--green1);
+    }
+  }
+}
+
+.klaro .cookie-modal a, .klaro .context-notice a, .klaro .cookie-notice a
+{
+  color: var(--green1);
+}
+
 .media-viewer
 .change-gallery
 .ngx-gallery

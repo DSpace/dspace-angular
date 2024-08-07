@@ -1,4 +1,5 @@
 import { trigger } from '@angular/animations';
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -8,6 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import uniqueId from 'lodash/uniqueId';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   fadeOutLeave,
@@ -27,6 +29,8 @@ import { AlertType } from './alert-type';
   ],
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
+  standalone: true,
+  imports: [NgIf, TranslateModule],
 })
 export class AlertComponent implements OnInit {
 

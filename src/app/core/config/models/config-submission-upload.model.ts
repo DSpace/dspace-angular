@@ -27,19 +27,19 @@ export class SubmissionUploadModel extends ConfigObject {
    * A list of available bitstream access conditions
    */
   @autoserialize
-    accessConditionOptions: AccessConditionOption[];
+  accessConditionOptions: AccessConditionOption[];
 
   /**
    * An object representing the configuration describing the bitstream metadata form
    */
   @link(SUBMISSION_FORMS_TYPE)
-    metadata?: Observable<RemoteData<SubmissionFormsModel>>;
+  metadata?: Observable<RemoteData<SubmissionFormsModel>>;
 
   @autoserialize
-    required: boolean;
+  required: boolean;
 
   @autoserialize
-    maxSize: number;
+  maxSize: number;
 
   /**
    * Boolean that indicates whether or not the user can see add more access condition options.
@@ -48,7 +48,7 @@ export class SubmissionUploadModel extends ConfigObject {
     singleAccessCondition: boolean;
 
   @deserialize
-    _links: {
+  _links: {
     metadata: HALLink
     self: HALLink
   };

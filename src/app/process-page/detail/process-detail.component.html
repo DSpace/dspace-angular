@@ -23,10 +23,10 @@
         <ds-process-detail-field *ngIf="files && files?.length > 0" id="process-files"
                                  [title]="'process.detail.output-files'">
           <div class="d-flex flex-column">
-            <ds-themed-file-download-link *ngFor="let file of files; let last=last;" [bitstream]="file">
+            <ds-file-download-link *ngFor="let file of files; let last=last;" [bitstream]="file">
               <span>{{getFileName(file)}}</span>
               <span>({{(file?.sizeBytes) | dsFileSize }})</span>
-            </ds-themed-file-download-link>
+            </ds-file-download-link>
           </div>
         </ds-process-detail-field>
     </div>
@@ -51,8 +51,8 @@
                 class="btn btn-primary" (click)="showProcessOutputLogs()">
             {{ 'process.detail.logs.button' | translate }}
         </button>
-        <ds-themed-loading *ngIf="retrievingOutputLogs$ | async" class="ds-themed-loading"
-                           message="{{ 'process.detail.logs.loading' | translate }}"></ds-themed-loading>
+        <ds-loading *ngIf="retrievingOutputLogs$ | async" class="ds-themed-loading"
+                           message="{{ 'process.detail.logs.loading' | translate }}"></ds-loading>
         <pre class="font-weight-bold text-secondary bg-light p-3" tabindex="0"
              *ngIf="showOutputLogs && (outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async) }}</pre>
         <p id="no-output-logs-message" *ngIf="((retrievingOutputLogs$ | async) !== true && showOutputLogs)

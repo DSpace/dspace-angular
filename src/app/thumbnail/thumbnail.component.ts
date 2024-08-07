@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   of as observableOf,
@@ -20,6 +22,9 @@ import {
   hasNoValue,
   hasValue,
 } from '../shared/empty.util';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
+import { VarDirective } from '../shared/utils/var.directive';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -27,9 +32,11 @@ import {
  * If no Bitstream is provided, an HTML placeholder will be rendered instead.
  */
 @Component({
-  selector: 'ds-thumbnail',
+  selector: 'ds-base-thumbnail',
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
+  standalone: true,
+  imports: [VarDirective, CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
 })
 export class ThumbnailComponent implements OnChanges {
   /**

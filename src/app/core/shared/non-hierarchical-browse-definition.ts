@@ -16,14 +16,14 @@ import { SortOption } from './sort-option.model';
 export abstract class NonHierarchicalBrowseDefinition extends BrowseDefinition {
 
   @autoserialize
-    sortOptions: SortOption[];
+  sortOptions: SortOption[];
 
   @autoserializeAs('order')
-    defaultSortOrder: string;
+  defaultSortOrder: string;
 
   @autoserializeAs('metadata')
-    metadataKeys: string[];
+  metadataKeys: string[];
 
   @autoserialize
-    dataType: BrowseByDataType;
+  dataType: BrowseByDataType;
 }

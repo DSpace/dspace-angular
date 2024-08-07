@@ -7,7 +7,7 @@ import { hasValue } from '../../shared/empty.util';
 /**
  * A class to determine move operations between two arrays
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ArrayMoveChangeAnalyzer<T> {
 
   /**

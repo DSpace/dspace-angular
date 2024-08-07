@@ -13,6 +13,7 @@ import {
 @Component({
   selector: 'ds-abstract-incremental-list',
   template: ``,
+  standalone: true,
 })
 /**
  * An abstract component for displaying an incremental list of objects

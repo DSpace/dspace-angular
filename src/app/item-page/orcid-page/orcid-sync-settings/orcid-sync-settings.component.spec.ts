@@ -14,6 +14,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -162,6 +163,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
         FormsModule,
         NgbAccordionModule,
         ReactiveFormsModule,
+        NoopAnimationsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -169,8 +171,8 @@ describe('OrcidSyncSettingsComponent test suite', () => {
           },
         }),
         RouterTestingModule.withRoutes([]),
+        OrcidSyncSettingsComponent,
       ],
-      declarations: [OrcidSyncSettingsComponent],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: ResearcherProfileDataService, useValue: researcherProfileService },

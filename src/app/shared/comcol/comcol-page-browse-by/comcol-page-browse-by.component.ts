@@ -1,20 +1,35 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Params,
+  NavigationEnd,
   Router,
+  RouterLink,
+  RouterLinkActive,
+  Scroll,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
 } from 'rxjs';
 import {
+  distinctUntilChanged,
+  filter,
   map,
   switchMap,
+  startWith,
+  take,
 } from 'rxjs/operators';
 
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
@@ -28,6 +43,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { isNotEmpty } from '../../empty.util';
 
 export interface ComColPageNavOption {
   id: string;
@@ -41,9 +57,19 @@ export interface ComColPageNavOption {
  * It expects the ID of the Community or Collection as input to be passed on as a scope
  */
 @Component({
-  selector: 'ds-comcol-page-browse-by',
+  selector: 'ds-base-comcol-page-browse-by',
   styleUrls: ['./comcol-page-browse-by.component.scss'],
   templateUrl: './comcol-page-browse-by.component.html',
+  imports: [
+    FormsModule,
+    NgForOf,
+    RouterLink,
+    RouterLinkActive,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class ComcolPageBrowseByComponent implements OnInit {
   /**

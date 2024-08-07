@@ -17,9 +17,10 @@ import { Site } from '../../core/shared/site.model';
 import { isEmpty } from '../../shared/empty.util';
 
 @Component({
-  selector: 'ds-home-news',
+  selector: 'ds-base-home-news',
   styleUrls: ['./home-news.component.scss'],
   templateUrl: './home-news.component.html',
+  standalone: true,
 })
 
 /**

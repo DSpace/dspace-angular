@@ -20,7 +20,7 @@ import {
 } from '../../core/auth/auth.actions';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {

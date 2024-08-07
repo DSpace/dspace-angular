@@ -90,6 +90,8 @@ describe('SubmissionObjectEffects test suite', () => {
   let submissionServiceStub;
   let submissionJsonPatchOperationsServiceStub;
   let submissionObjectDataServiceStub;
+  let workspaceItemDataService;
+
   const collectionId: string = mockSubmissionCollectionId;
   const submissionId: string = mockSubmissionId;
   const submissionDefinitionResponse: any = mockSubmissionDefinitionResponse;
@@ -105,6 +107,10 @@ describe('SubmissionObjectEffects test suite', () => {
     submissionObjectDataServiceStub = mockSubmissionObjectDataService;
 
     submissionServiceStub.hasUnsavedModification.and.returnValue(observableOf(true));
+
+    workspaceItemDataService = jasmine.createSpyObj('WorkspaceItemDataService', {
+      invalidateById: observableOf(true),
+    });
 
     TestBed.configureTestingModule({
       imports: [
@@ -130,6 +136,7 @@ describe('SubmissionObjectEffects test suite', () => {
         { provide: EditItemDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         { provide: SubmissionObjectDataService, useValue: submissionObjectDataServiceStub },
+        { provide: WorkspaceitemDataService, useValue: workspaceItemDataService },
       ],
     });
 

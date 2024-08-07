@@ -23,11 +23,9 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { Authorization } from '../../shared/authorization.model';
-import { AUTHORIZATION } from '../../shared/authorization.resource-type';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { BaseDataService } from '../base/base-data.service';
-import { dataService } from '../base/data-service.decorator';
 import {
   SearchData,
   SearchDataImpl,
@@ -44,8 +42,7 @@ import { FeatureID } from './feature-id';
 /**
  * A service to retrieve {@link Authorization}s from the REST API
  */
-@Injectable()
-@dataService(AUTHORIZATION)
+@Injectable({ providedIn: 'root' })
 export class AuthorizationDataService extends BaseDataService<Authorization> implements SearchData<Authorization> {
   protected linkPath = 'authorizations';
   protected searchByObjectPath = 'object';
@@ -164,7 +161,8 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
     if (isNotEmpty(options.searchParams)) {
       params = [...options.searchParams];
     }
-    params.push(new RequestParam('uri', objectUrl));
+    // TODO fix encode the uri parameter in the self link in the backend and set encodeValue to true afterwards
+    params.push(new RequestParam('uri', objectUrl, false));
     if (hasValue(featureId)) {
       params.push(new RequestParam('feature', featureId));
     }

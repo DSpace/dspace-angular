@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { dataService } from '../../data/base/data-service.decorator';
 import {
   FindAllData,
   FindAllDataImpl,
@@ -26,14 +25,12 @@ import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { VOCABULARY_ENTRY_DETAIL } from './models/vocabularies.resource-type';
 import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
 
 /**
  * Data service to retrieve vocabulary entry details from the REST server.
  */
-@Injectable()
-@dataService(VOCABULARY_ENTRY_DETAIL)
+@Injectable({ providedIn: 'root' })
 export class VocabularyEntryDetailsDataService extends IdentifiableDataService<VocabularyEntryDetail> implements FindAllData<VocabularyEntryDetail>, SearchData<VocabularyEntryDetail> {
   private findAllData: FindAllData<VocabularyEntryDetail>;
   private searchData: SearchData<VocabularyEntryDetail>;

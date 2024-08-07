@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -22,6 +23,8 @@ import { DuplicateMatchMetadataDetailConfig } from '../../../../../submission/se
   selector: 'ds-external-source-entry-list-submission-element',
   styleUrls: ['./external-source-entry-list-submission-element.component.scss'],
   templateUrl: './external-source-entry-list-submission-element.component.html',
+  standalone: true,
+  imports: [NgIf],
 })
 /**
  * The component for displaying a list element of an external source entry

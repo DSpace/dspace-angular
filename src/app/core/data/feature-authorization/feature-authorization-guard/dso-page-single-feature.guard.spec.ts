@@ -1,8 +1,8 @@
+import { TestBed } from '@angular/core/testing';
 import {
-  ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   Router,
-  RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
 import {
   Observable,
@@ -15,34 +15,23 @@ import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { RemoteData } from '../../remote-data';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { DsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
+import { dsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
+import {
+  defaultDSOGetObjectUrl,
+  getRouteWithDSOId,
+} from './dso-page-some-feature.guard';
 
-/**
- * Test implementation of abstract class DsoPageSingleFeatureGuard
- */
-class DsoPageSingleFeatureGuardImpl extends DsoPageSingleFeatureGuard<any> {
-  constructor(protected resolver: Resolve<RemoteData<any>>,
-              protected authorizationService: AuthorizationDataService,
-              protected router: Router,
-              protected authService: AuthService,
-              protected featureID: FeatureID) {
-    super(resolver, authorizationService, router, authService);
-  }
-
-  getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
-    return observableOf(this.featureID);
-  }
-}
 
 describe('DsoPageSingleFeatureGuard', () => {
-  let guard: DsoPageSingleFeatureGuard<any>;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
-  let resolver: Resolve<RemoteData<any>>;
+  let resolver: ResolveFn<RemoteData<any>>;
   let object: DSpaceObject;
   let route;
   let parentRoute;
+
+  let featureId: FeatureID;
 
   function init() {
     object = {
@@ -55,9 +44,7 @@ describe('DsoPageSingleFeatureGuard', () => {
     router = jasmine.createSpyObj('router', {
       parseUrl: {},
     });
-    resolver = jasmine.createSpyObj('resolver', {
-      resolve: createSuccessfulRemoteDataObject$(object),
-    });
+    resolver = () => createSuccessfulRemoteDataObject$(object);
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
     });
@@ -71,16 +58,25 @@ describe('DsoPageSingleFeatureGuard', () => {
       },
       parent: parentRoute,
     };
-    guard = new DsoPageSingleFeatureGuardImpl(resolver, authorizationService, router, authService, undefined);
+
+    featureId = FeatureID.LoginOnBehalfOf;
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: Router, useValue: router },
+        { provide: AuthService, useValue: authService },
+      ],
+    });
   }
 
   beforeEach(() => {
     init();
   });
 
-  describe('getObjectUrl', () => {
+  describe('defaultDSOGetObjectUrl', () => {
     it('should return the resolved object\'s selflink', (done) => {
-      guard.getObjectUrl(route, undefined).subscribe((selflink) => {
+      defaultDSOGetObjectUrl(resolver)(route, undefined).subscribe((selflink) => {
         expect(selflink).toEqual(object.self);
         done();
       });
@@ -89,8 +85,23 @@ describe('DsoPageSingleFeatureGuard', () => {
 
   describe('getRouteWithDSOId', () => {
     it('should return the route that has the UUID of the DSO', () => {
-      const foundRoute = (guard as any).getRouteWithDSOId(route);
+      const foundRoute = getRouteWithDSOId(route);
       expect(foundRoute).toBe(parentRoute);
+    });
+  });
+
+  describe('dsoPageSingleFeatureGuard', () => {
+    it('should call authorizationService.isAuthenticated with the appropriate arguments', (done) => {
+      const result$ = TestBed.runInInjectionContext(() => {
+        return dsoPageSingleFeatureGuard(
+          () => resolver, () => observableOf(featureId),
+        )(route, { url: 'current-url' } as any);
+      }) as Observable<boolean | UrlTree>;
+
+      result$.subscribe(() => {
+        expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId, object.self, undefined);
+        done();
+      });
     });
   });
 });

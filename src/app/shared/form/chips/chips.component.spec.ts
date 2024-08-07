@@ -1,5 +1,9 @@
 // Load the implementations that should be tested
 import {
+  CommonModule,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
@@ -39,13 +43,12 @@ describe('ChipsComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
+        CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ChipsComponent,
         TestComponent,
         AuthorityConfidenceStateDirective,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         ChipsComponent,
@@ -278,6 +281,8 @@ describe('ChipsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [NgbModule, NgIf],
 })
 class TestComponent {
 

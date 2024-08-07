@@ -10,6 +10,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
+import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
@@ -17,6 +18,8 @@ import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorat
 @Component({
   selector: 'ds-claimed-task-actions-loader',
   templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
+  standalone: true,
+  imports: [ DynamicComponentLoaderDirective ],
 })
 /**
  * Component for loading a ClaimedTaskAction component depending on the "option" input

@@ -1,4 +1,8 @@
 import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -7,12 +11,16 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   NgbDateParserFormatter,
   NgbDatepicker,
   NgbDatepickerConfig,
   NgbDateStruct,
+  NgbDatepickerModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
@@ -30,6 +38,13 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
   selector: 'ds-dynamic-date-picker-inline',
   styleUrls: ['./dynamic-date-picker-inline.component.scss'],
   templateUrl: './dynamic-date-picker-inline.component.html',
+  imports: [
+    NgClass,
+    NgbDatepickerModule,
+    ReactiveFormsModule,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class DsDatePickerInlineComponent extends DynamicFormControlComponent implements OnInit, OnDestroy{
 

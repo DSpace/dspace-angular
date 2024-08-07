@@ -30,7 +30,7 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { authReducer } from './core/auth/auth.reducer';
 import { AuthService } from './core/auth/auth.service';
 import { LocaleService } from './core/locale/locale.service';
-import { MetadataService } from './core/metadata/metadata.service';
+import { HeadTagService } from './core/metadata/head-tag.service';
 import { RouteService } from './core/services/route.service';
 import {
   NativeWindowRef,
@@ -38,13 +38,14 @@ import {
 } from './core/services/window.service';
 import { KlaroService } from './shared/cookies/klaro.service';
 import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
+import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MockActivatedRoute } from './shared/mocks/active-router.mock';
 import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
 import { AuthServiceMock } from './shared/mocks/auth.service.mock';
-import { MetadataServiceMock } from './shared/mocks/metadata-service.mock';
+import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
 import { RouterMock } from './shared/mocks/router.mock';
 import { getMockThemeService } from './shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
@@ -105,10 +106,9 @@ describe('App component', () => {
           },
         }),
       ],
-      declarations: [AppComponent], // declare the test component
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
-        { provide: MetadataService, useValue: new MetadataServiceMock() },
+        { provide: HeadTagService, useValue: new HeadTagServiceMock() },
         { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: Router, useValue: new RouterMock() },
@@ -133,7 +133,13 @@ describe('App component', () => {
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
-    return TestBed.configureTestingModule(getDefaultTestBedConf());
+    return TestBed.configureTestingModule(getDefaultTestBedConf()).overrideComponent(
+      AppComponent, {
+        remove: {
+          imports: [ ThemedRootComponent ],
+        },
+      },
+    );
   }));
 
   // synchronous beforeEach

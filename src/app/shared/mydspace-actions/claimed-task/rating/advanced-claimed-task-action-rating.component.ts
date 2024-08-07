@@ -6,33 +6,29 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
-import {
-  ADVANCED_WORKFLOW_ACTION_RATING,
-  ADVANCED_WORKFLOW_TASK_OPTION_RATING,
-} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 /**
  * Advanced Workflow button that redirect to the {@link AdvancedWorkflowActionRatingComponent}
  */
-@rendersWorkflowTaskOption(ADVANCED_WORKFLOW_TASK_OPTION_RATING)
 @Component({
   selector: 'ds-advanced-claimed-task-action-rating-reviewer',
   templateUrl: './advanced-claimed-task-action-rating.component.html',
   styleUrls: ['./advanced-claimed-task-action-rating.component.scss'],
+  standalone: true,
+  imports: [NgbTooltipModule, TranslateModule],
 })
 export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTaskActionsAbstractComponent {
-
-  /**
-   * This component represents the advanced select option
-   */
-  option = ADVANCED_WORKFLOW_TASK_OPTION_RATING;
 
   workflowType = ADVANCED_WORKFLOW_ACTION_RATING;
 

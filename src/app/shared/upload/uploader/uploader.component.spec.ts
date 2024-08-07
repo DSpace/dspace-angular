@@ -12,7 +12,6 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { AuthService } from '../../../core/auth/auth.service';
@@ -38,14 +37,11 @@ describe('UploaderComponent test', () => {
       imports: [
         FileUploadModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         UploaderComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
-        ScrollToService,
         UploaderComponent,
         DragService,
         { provide: AuthService, useValue: new AuthServiceMock() },
@@ -79,6 +75,8 @@ describe('UploaderComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [FileUploadModule, UploaderComponent],
 })
 class TestComponent {
   public uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {

@@ -15,6 +15,7 @@ import { ListableObject } from '../listable-object.model';
 @Component({
   selector: 'ds-abstract-object-element',
   template: ``,
+  standalone: true,
 })
 export class AbstractListableElementComponent<T extends ListableObject> {
 

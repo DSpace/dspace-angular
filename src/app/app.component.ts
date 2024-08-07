@@ -1,4 +1,5 @@
 import {
+  AsyncPipe,
   DOCUMENT,
   isPlatformBrowser,
 } from '@angular/common';
@@ -32,6 +33,7 @@ import {
   Observable,
 } from 'rxjs';
 import {
+  delay,
   distinctUntilChanged,
   map,
   switchMap,
@@ -55,6 +57,7 @@ import {
 } from './core/services/window.service';
 import { distinctNext } from './core/shared/distinct-next';
 import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
+import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
@@ -67,6 +70,11 @@ import { SocialService } from './social/social.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    ThemedRootComponent,
+    AsyncPipe,
+  ],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   notificationOptions;
@@ -117,9 +125,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.notificationOptions = environment.notifications;
     this.browserPlatform = isPlatformBrowser(this.platformId);
 
-    /* Use models object so all decorators are actually called */
-    this.models = models;
-
     if (this.browserPlatform) {
       this.trackIdleModal();
     }
@@ -159,6 +164,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.router.events.pipe(
+      // delay(0) to prevent "Expression has changed after it was checked" errors
+      delay(0),
       switchMap((event: RouterEvent) => this.routeService.getCurrentUrl().pipe(
         take(1),
         map((currentUrl) => [currentUrl, event]),

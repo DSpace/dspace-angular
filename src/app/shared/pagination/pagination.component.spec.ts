@@ -41,6 +41,7 @@ import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { HostWindowServiceMock } from '../mocks/host-window-service.mock';
 import { RouterMock } from '../mocks/router.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { RSSComponent } from '../rss-feed/rss.component';
 import { createTestComponent } from '../testing/utils.test';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponent } from './pagination.component';
@@ -168,12 +169,11 @@ describe('Pagination component', () => {
         NgbModule,
         RouterTestingModule.withRoutes([
           { path: 'home', component: TestComponent },
-        ])],
-      declarations: [
+        ]),
         PaginationComponent,
         TestComponent,
         EnumKeysPipe,
-      ], // declare the test component
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
@@ -183,6 +183,10 @@ describe('Pagination component', () => {
         PaginationComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).overrideComponent(PaginationComponent, {
+      remove: {
+        imports: [RSSComponent],
+      },
     });
 
   }));
@@ -390,7 +394,14 @@ describe('Pagination component', () => {
 });
 
 // declare a test component
-@Component({ selector: 'ds-test-cmp', template: '' })
+@Component({
+  selector: 'ds-test-cmp', template: '',
+  standalone: true,
+  imports: [CommonModule,
+    NgxPaginationModule,
+    PaginationComponent,
+    NgbModule],
+})
 class TestComponent {
 
   collection: string[] = [];

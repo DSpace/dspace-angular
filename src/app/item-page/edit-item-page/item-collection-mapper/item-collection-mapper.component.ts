@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
@@ -8,7 +12,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -50,7 +58,9 @@ import {
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
@@ -62,6 +72,15 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     fadeIn,
     fadeInOut,
   ],
+  imports: [
+    NgbNavModule,
+    CollectionSelectComponent,
+    ThemedSearchFormComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+  ],
+  standalone: true,
 })
 /**
  * Component for mapping collections to an item

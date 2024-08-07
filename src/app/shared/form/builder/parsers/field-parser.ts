@@ -8,6 +8,7 @@ import {
   MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
 import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
@@ -37,6 +38,9 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
+import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
+import { VisibilityType } from '../../../../submission/sections/visibility-type';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -65,6 +69,7 @@ export abstract class FieldParser {
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
     @Inject(SECURITY_CONFIG) protected securityConfig: any = null,
+    protected translate: TranslateService,
   ) {
   }
 
@@ -72,8 +77,8 @@ export abstract class FieldParser {
 
   public parse() {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
-      && (this.configData.input.type !== ParserType.List)
-      && (this.configData.input.type !== ParserType.Tag)
+      && (this.configData.input.type !== ParserType.List.valueOf())
+      && (this.configData.input.type !== ParserType.Tag.valueOf())
       && (this.configData.input.type !== ParserType.RelationGroup)
       && (this.configData.input.type !== ParserType.InlineGroup)
     ) {
@@ -87,7 +92,7 @@ export abstract class FieldParser {
       }
 
       let isDraggable = true;
-      if (this.configData.input.type === ParserType.Onebox && this.configData?.selectableMetadata?.length > 1) {
+      if (this.configData.input.type === ParserType.Onebox.valueOf() && this.configData?.selectableMetadata?.length > 1) {
         isDraggable = false;
       }
       const config = {
@@ -371,8 +376,19 @@ export abstract class FieldParser {
    * @param visibility
    * @param submissionScope
    */
-  private isFieldReadOnly(visibility: SubmissionVisibilityType, submissionScope) {
-    return isNotEmpty(submissionScope) && SubmissionVisibility.isReadOnly(visibility, submissionScope);
+  private isFieldReadOnly(visibility: SectionVisibility, fieldScope: string, submissionScope: string) {
+    return isNotEmpty(submissionScope)
+      && isNotEmpty(fieldScope)
+      && isNotEmpty(visibility)
+      && ((
+        submissionScope === SubmissionScopeType.WorkspaceItem.valueOf()
+          && visibility.main === VisibilityType.READONLY
+      )
+        ||
+          (visibility.other === VisibilityType.READONLY
+          && submissionScope === SubmissionScopeType.WorkflowItem.valueOf()
+          )
+      );
   }
 
   /**
@@ -426,11 +442,14 @@ export abstract class FieldParser {
     } else {
       regex = new RegExp(this.configData.input.regex);
     }
+    const baseTranslationKey = 'error.validation.pattern';
+    const fieldranslationKey = `${baseTranslationKey}.${controlModel.id}`;
+    const fieldTranslationExists = this.translate.instant(fieldranslationKey) !== fieldranslationKey;
     controlModel.validators = Object.assign({}, controlModel.validators, { pattern: regex });
     controlModel.errorMessages = Object.assign(
       {},
       controlModel.errorMessages,
-      { pattern: 'error.validation.pattern' });
+      { pattern: fieldTranslationExists ? fieldranslationKey : baseTranslationKey });
   }
 
   protected markAsRequired(controlModel) {

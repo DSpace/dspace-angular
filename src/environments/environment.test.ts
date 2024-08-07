@@ -9,14 +9,14 @@ import { AdvancedAttachmentElementType } from '../config/advanced-attachment-ren
 export const environment: BuildConfig = {
   production: false,
 
-  // Angular Universal settings
-  universal: {
-    preboot: true,
-    async: true,
-    time: false,
+  // Angular SSR (Server Side Rendering) settings
+  ssr: {
+    enabled: true,
+    enablePerformanceProfiler: false,
+    inlineCriticalCss: false,
   },
 
-  // Angular Universal server settings.
+  // Angular express server settings.
   ui: {
     ssl: false,
     host: 'dspace.com',
@@ -349,6 +349,7 @@ export const environment: BuildConfig = {
   info: {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+    enableCOARNotifySupport: true,
     //Configuration for third-party metrics in Klaro
     metricsConsents: [
       {

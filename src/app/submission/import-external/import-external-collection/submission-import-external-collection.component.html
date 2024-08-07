@@ -5,11 +5,11 @@
     </button>
   </div>
   <div class="modal-body">
-    <ds-themed-loading *ngIf="isLoading()"></ds-themed-loading>
-    <ds-themed-collection-dropdown [ngClass]="{'d-none': isLoading()}"
+    <ds-loading *ngIf="isLoading()"></ds-loading>
+    <ds-collection-dropdown [ngClass]="{'d-none': isLoading()}"
                             (selectionChange)="selectObject($event)"
                             (searchComplete)="searchComplete()"
                             [entityType]="entityType">
-    </ds-themed-collection-dropdown>
+    </ds-collection-dropdown>
   </div>
 </div>

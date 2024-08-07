@@ -13,6 +13,7 @@ import {
   map,
   mergeMap,
   take,
+  withLatestFrom,
 } from 'rxjs/operators';
 
 import {
@@ -25,6 +26,7 @@ import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { XSRFService } from '../xsrf/xsrf.service';
 import {
   RequestActionTypes,
   RequestErrorAction,
@@ -35,6 +37,7 @@ import {
 import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 import { RequestError } from './request-error.model';
+import { RestRequestMethod } from './rest-request-method';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 
 @Injectable()
@@ -48,7 +51,11 @@ export class RequestEffects {
       );
     }),
     filter((entry: RequestEntry) => hasValue(entry)),
-    map((entry: RequestEntry) => entry.request),
+    withLatestFrom(this.xsrfService.tokenInitialized$),
+    // If it's a GET request, or we have an XSRF token, dispatch it immediately
+    // Otherwise wait for the XSRF token first
+    filter(([entry, tokenInitialized]: [RequestEntry, boolean]) => entry.request.method === RestRequestMethod.GET || tokenInitialized === true),
+    map(([entry, tokenInitialized]: [RequestEntry, boolean]) => entry.request),
     mergeMap((request: RestRequestWithResponseParser) => {
       let body = request.body;
       if (isNotEmpty(request.body) && !request.isMultipart) {
@@ -89,6 +96,7 @@ export class RequestEffects {
     private restApi: DspaceRestService,
     private injector: Injector,
     protected requestService: RequestService,
+    protected xsrfService: XSRFService,
   ) { }
 
 }

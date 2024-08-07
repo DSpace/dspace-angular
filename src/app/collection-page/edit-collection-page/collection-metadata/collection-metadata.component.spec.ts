@@ -14,18 +14,22 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import { AuthService } from '../../../core/auth/auth.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { CommunityDataService } from '../../../core/data/community-data.service';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
+import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { SharedModule } from '../../../shared/shared.module';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 import { CollectionMetadataComponent } from './collection-metadata.component';
 
@@ -72,8 +76,7 @@ describe('CollectionMetadataComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [CollectionMetadataComponent],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, CollectionMetadataComponent],
       providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ItemTemplateDataService, useValue: itemTemplateServiceStub },
@@ -81,6 +84,10 @@ describe('CollectionMetadataComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: RequestService, useValue: requestService },
         { provide: Router, useValue: routerMock },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: CommunityDataService, useValue: {} },
+        { provide: ObjectCacheService, useValue: {} },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

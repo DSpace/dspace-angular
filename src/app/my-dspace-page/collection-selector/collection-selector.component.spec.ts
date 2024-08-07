@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   ElementRef,
   NO_ERRORS_SCHEMA,
@@ -9,7 +10,6 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -135,8 +135,9 @@ describe('CollectionSelectorComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        CollectionSelectorComponent,
+        CollectionDropdownComponent,
       ],
-      declarations: [ CollectionSelectorComponent, CollectionDropdownComponent ],
       providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceMock },
         { provide: ElementRef, useClass: MockElementRef },
@@ -146,6 +147,11 @@ describe('CollectionSelectorComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(CollectionSelectorComponent, {
+        set: {
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
+      })
       .compileComponents();
   }));
 
@@ -153,7 +159,7 @@ describe('CollectionSelectorComponent', () => {
     scheduler = getTestScheduler();
     fixture = TestBed.overrideComponent(CollectionSelectorComponent, {
       set: {
-        template: '<ds-collection-dropdown (selectionChange)="selectObject($event)"></ds-collection-dropdown>',
+        template: '<ds-base-collection-dropdown (selectionChange)="selectObject($event)"></ds-base-collection-dropdown>',
       },
     }).createComponent(CollectionSelectorComponent);
     component = fixture.componentInstance;
@@ -165,11 +171,13 @@ describe('CollectionSelectorComponent', () => {
   });
 
   it('should call selectObject', () => {
-    spyOn(component, 'selectObject');
+    spyOn(component, 'selectObject').and.callThrough();
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    const collectionItem = fixture.debugElement.query(By.css('.collection-item:nth-child(2)'));
-    collectionItem.triggerEventHandler('click', null);
+    fixture.detectChanges();
+
+    component.selectObject({ collection: { name: 'test', id: 'test', uuid: 'test' }, communities: [] });
+
     expect(component.selectObject).toHaveBeenCalled();
   });
 

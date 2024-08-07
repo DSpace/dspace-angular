@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import {
   TranslateLoader,
   TranslateModule,
+  TranslateService,
 } from '@ngx-translate/core';
 
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
@@ -36,8 +37,9 @@ describe('LoadingComponent (inline template)', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        LoadingComponent,
       ],
-      declarations: [LoadingComponent], // declare the test component
+      providers: [TranslateService],
     }).compileComponents();  // compile template and css
 
   }));

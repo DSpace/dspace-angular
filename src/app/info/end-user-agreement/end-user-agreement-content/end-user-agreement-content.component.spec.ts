@@ -4,6 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
@@ -49,12 +50,17 @@ describe('EndUserAgreementContentComponent', () => {
       },
     };
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EndUserAgreementContentComponent],
+      imports: [TranslateModule.forRoot(), EndUserAgreementContentComponent],
       providers: [{ provide: SiteDataService, useValue: siteServiceStub },
         { provide: LocaleService, useValue: localeServiceStub }],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(EndUserAgreementContentComponent, {
+        remove: {
+          imports: [RouterLink],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

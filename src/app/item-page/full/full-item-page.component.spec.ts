@@ -29,10 +29,14 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { MetadataService } from '../../core/metadata/metadata.service';
+import { HeadTagService } from '../../core/metadata/head-tag.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import {
   createSuccessfulRemoteDataObject,
@@ -40,9 +44,17 @@ import {
 } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { CollectionsComponent } from '../field-components/collections/collections.component';
+import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
 import { FullItemPageComponent } from './full-item-page.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -135,18 +147,10 @@ const mockWithdrawnItem: Item = Object.assign(new Item(), {
   isWithdrawn: true,
 });
 
-const metadataServiceStub = {
-  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-  processRemoteData: () => {
-  },
-  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-};
-
 describe('FullItemPageComponent', () => {
   let comp: FullItemPageComponent;
   let fixture: ComponentFixture<FullItemPageComponent>;
 
-  let authService: AuthService;
   let routeStub: ActivatedRouteStub;
   let routeData;
   let authorizationDataService: AuthorizationDataService;
@@ -154,6 +158,7 @@ describe('FullItemPageComponent', () => {
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
+  let headTagService: HeadTagServiceMock;
 
   const mocklink = {
     href: 'http://test.org',
@@ -174,11 +179,6 @@ describe('FullItemPageComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {},
-    });
-
     routeData = {
       dso: createSuccessfulRemoteDataObject(mockItem),
     };
@@ -210,31 +210,46 @@ describe('FullItemPageComponent', () => {
       getInboxRelationLink: observableOf('http://test.org'),
     });
 
+    headTagService = new HeadTagServiceMock();
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
-      declarations: [FullItemPageComponent, TruncatePipe, VarDirective],
+      }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule, FullItemPageComponent, TruncatePipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: metadataServiceStub },
-        { provide: AuthService, useValue: authService },
+        { provide: HeadTagService, useValue: headTagService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: ThemeService, useValue: getMockThemeService() },
         { provide: APP_CONFIG, useValue: appConfig },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(FullItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
-    }).compileComponents();
+    })
+      .overrideComponent(FullItemPageComponent, {
+        remove: {
+          imports: [
+            ItemVersionsComponent,
+            ItemVersionsNoticeComponent,
+            ThemedLoadingComponent,
+            ThemedItemPageTitleFieldComponent,
+            DsoEditMenuComponent,
+            ViewTrackerComponent,
+            ThemedItemAlertsComponent,
+            CollectionsComponent,
+            ThemedFullFileSectionComponent,
+          ],
+        },
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+      }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

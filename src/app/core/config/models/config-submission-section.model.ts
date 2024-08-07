@@ -34,13 +34,13 @@ export class SubmissionSectionModel extends ConfigObject {
    * The header for this section
    */
   @autoserialize
-    header: string;
+  header: string;
 
   /**
    * A boolean representing if this submission section is the mandatory or not
    */
   @autoserialize
-    mandatory: boolean;
+  mandatory: boolean;
 
   /**
    * A boolean representing if this submission section is opened or collapsed by default
@@ -52,7 +52,7 @@ export class SubmissionSectionModel extends ConfigObject {
    * A string representing the kind of section object
    */
   @autoserialize
-    sectionType: SectionsType;
+  sectionType: SectionsType;
 
   /**
    * The [SubmissionVisibilityType] object for this section
@@ -64,7 +64,7 @@ export class SubmissionSectionModel extends ConfigObject {
    * The {@link HALLink}s for this SubmissionSectionModel
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     config: HALLink;
   };

@@ -25,7 +25,7 @@ import {
   RemoveNotificationAction,
 } from './notifications.actions';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NotificationsService {
   claimedProfile = new BehaviorSubject(true);
 

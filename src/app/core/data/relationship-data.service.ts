@@ -54,11 +54,11 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { MetadataService } from '../metadata/metadata.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
-import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '../shared/metadata.models';
 import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
@@ -73,7 +73,6 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PutData,
@@ -121,8 +120,7 @@ const compareItemsByUUID = (itemCheck: Item) =>
 /**
  * The service handling all relationship requests
  */
-@Injectable()
-@dataService(RELATIONSHIP)
+@Injectable({ providedIn: 'root' })
 export class RelationshipDataService extends IdentifiableDataService<Relationship> implements SearchData<Relationship> {
   private searchData: SearchData<Relationship>;
   private putData: PutData<Relationship>;
@@ -132,6 +130,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
+    protected metadataService: MetadataService,
     protected itemService: ItemDataService,
     protected appStore: Store<AppState>,
     @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
@@ -157,8 +156,11 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param id                    the ID of the relationship to delete
    * @param copyVirtualMetadata   whether to copy this relationship's virtual metadata to the related Items
    *                              accepted values: none, all, left, right, configured
+   * @param shouldRefresh         refresh the cache for the items in the relationship after creating
+   *                              it. Disable this if you want to add relationships in bulk, and
+   *                              want to refresh the cachemanually at the end
    */
-  deleteRelationship(id: string, copyVirtualMetadata?: string): Observable<RemoteData<NoContent>> {
+  deleteRelationship(id: string, copyVirtualMetadata?: string, shouldRefresh = true): Observable<RemoteData<NoContent>> {
     return this.getRelationshipEndpoint(id).pipe(
       isNotEmptyOperator(),
       take(1),
@@ -173,7 +175,11 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
       sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
       getFirstCompletedRemoteData(),
-      tap(() => this.refreshRelationshipItemsInCacheByRelationship(id)),
+      tap(() => {
+        if (shouldRefresh) {
+          this.refreshRelationshipItemsInCacheByRelationship(id);
+        }
+      }),
     );
   }
 
@@ -184,8 +190,11 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param item2 The second item of the relationship
    * @param leftwardValue The leftward value of the relationship
    * @param rightwardValue The rightward value of the relationship
+   * @param shouldRefresh refresh the cache for the items in the relationship after creating it.
+   *                      Disable this if you want to add relationships in bulk, and want to refresh
+   *                      the cache manually at the end
    */
-  addRelationship(typeId: string, item1: Item, item2: Item, leftwardValue?: string, rightwardValue?: string): Observable<RemoteData<Relationship>> {
+  addRelationship(typeId: string, item1: Item, item2: Item, leftwardValue?: string, rightwardValue?: string, shouldRefresh = true): Observable<RemoteData<Relationship>> {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
@@ -200,8 +209,12 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
       sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
       getFirstCompletedRemoteData(),
-      tap(() => this.refreshRelationshipItemsInCache(item1)),
-      tap(() => this.refreshRelationshipItemsInCache(item2)),
+      tap(() => {
+        if (shouldRefresh) {
+          this.refreshRelationshipItemsInCache(item1);
+          this.refreshRelationshipItemsInCache(item2);
+        }
+      }),
     ) as Observable<RemoteData<Relationship>>;
   }
 
@@ -229,7 +242,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * Method to remove an item that's part of a relationship from the cache
    * @param item The item to remove from the cache
    */
-  public refreshRelationshipItemsInCache(item) {
+  public refreshRelationshipItemsInCache(item: Item): void {
     this.objectCache.remove(item._links.self.href);
     this.requestService.removeByHrefSubstring(item.uuid);
     observableCombineLatest([
@@ -363,7 +376,19 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     } else {
       findListOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+
+    // always set reRequestOnStale to false here, so it doesn't happen automatically in BaseDataService
+    const result$ = this.searchBy('byLabel', findListOptions, useCachedVersionIfAvailable, false, ...linksToFollow);
+
+    // add this result as a dependency of the item, meaning that if the item is invalided, this
+    // result will be as well
+    this.addDependency(result$, item._links.self.href);
+
+    // do the reRequestOnStale call here, to ensure any re-requests also get added as dependencies
+    return result$.pipe(
+      this.reRequestStaleRemoteData(reRequestOnStale, () =>
+        this.getItemRelationshipsByLabel(item, label, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
+    );
   }
 
   /**
@@ -568,50 +593,33 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param arrayOfItemIds The uuid of the items to be found on the other side of returned relationships
    */
   searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<RemoteData<PaginatedList<Relationship>>> {
-
-    const searchParams = [
-      {
-        fieldName: 'typeId',
-        fieldValue: typeId,
-      },
-      {
-        fieldName: 'focusItem',
-        fieldValue: itemUuid,
-      },
-      {
-        fieldName: 'relationshipLabel',
-        fieldValue: relationshipLabel,
-      },
-      {
-        fieldName: 'size',
-        fieldValue: arrayOfItemIds.length,
-      },
-      {
-        fieldName: 'embed',
-        fieldValue: 'leftItem',
-      },
-      {
-        fieldName: 'embed',
-        fieldValue: 'rightItem',
-      },
+    const searchParams: RequestParam[] = [
+      new RequestParam('typeId', typeId),
+      new RequestParam('focusItem', itemUuid),
+      new RequestParam('relationshipLabel', relationshipLabel),
+      new RequestParam('size', arrayOfItemIds.length),
+      new RequestParam('embed', 'leftItem'),
+      new RequestParam('embed', 'rightItem'),
     ];
 
     arrayOfItemIds.forEach( (itemId) => {
       searchParams.push(
-        {
-          fieldName: 'relatedItem',
-          fieldValue: itemId,
-        },
+        new RequestParam('relatedItem', itemId),
       );
     });
 
-    return this.searchBy(
+    const searchRD$: Observable<RemoteData<PaginatedList<Relationship>>> = this.searchBy(
       'byItemsAndType',
       {
         searchParams: searchParams,
       },
     ) as Observable<RemoteData<PaginatedList<Relationship>>>;
 
+    arrayOfItemIds.forEach((itemId: string) => {
+      this.addDependency(searchRD$, this.itemService.getIDHrefObs(encodeURIComponent(itemId)));
+    });
+
+    return searchRD$;
   }
 
   /**
@@ -639,8 +647,8 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param itemType    The type of item this metadata value represents (will only be used when no related item can be found, as a fallback)
    */
   resolveMetadataRepresentation(metadatum: MetadataValue, parentItem: DSpaceObject, itemType: string): Observable<MetadataRepresentation> {
-    if (metadatum.isVirtual) {
-      return this.findById(metadatum.virtualValue, true, false, followLink('leftItem'), followLink('rightItem')).pipe(
+    if (this.metadataService.isVirtual(metadatum)) {
+      return this.findById(this.metadataService.virtualValue(metadatum), true, false, followLink('leftItem'), followLink('rightItem')).pipe(
         getFirstSucceededRemoteData(),
         switchMap((relRD: RemoteData<Relationship>) =>
           observableCombineLatest(relRD.payload.leftItem, relRD.payload.rightItem).pipe(

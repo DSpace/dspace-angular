@@ -6,8 +6,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
-import { SuggestionNotificationsState } from '../../notifications/notifications.reducer';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionNotificationsState } from '../notifications.reducer';
 import {
   getCurrentUserSuggestionTargetsSelector,
   getCurrentUserSuggestionTargetsVisitedSelector,
@@ -27,7 +27,7 @@ import {
 /**
  * The service handling the Suggestion targets State.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SuggestionTargetsStateService {
 
   /**

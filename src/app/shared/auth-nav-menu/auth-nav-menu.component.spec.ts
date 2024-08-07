@@ -10,6 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   Store,
@@ -18,6 +19,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AppState } from '../../app.reducer';
 import {
   authReducer,
@@ -25,7 +27,9 @@ import {
 } from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../host-window.service';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 import { EPersonMock } from '../testing/eperson.mock';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
@@ -90,22 +94,22 @@ describe('AuthNavMenuComponent', () => {
             },
           }),
           TranslateModule.forRoot(),
-          NgbDropdownModule,
-        ],
-        declarations: [
           AuthNavMenuComponent,
+          NgbDropdownModule,
           BrowserOnlyMockPipe,
         ],
         providers: [
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: HostWindowService, useValue: window },
           { provide: AuthService, useValue: authService },
+          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+          { provide: XSRFService, useValue: {} },
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA,
         ],
       })
         .compileComponents();
-
     }));
 
     beforeEach(() => {
@@ -263,7 +267,7 @@ describe('AuthNavMenuComponent', () => {
           component = null;
         });
         it('should render UserMenuComponent component', () => {
-          const logoutDropdownMenu = deNavMenuItem.query(By.css('ds-themed-user-menu'));
+          const logoutDropdownMenu = deNavMenuItem.query(By.css('ds-user-menu'));
           expect(logoutDropdownMenu.nativeElement).toBeDefined();
         });
       });
@@ -286,13 +290,12 @@ describe('AuthNavMenuComponent', () => {
             },
           }),
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           AuthNavMenuComponent,
         ],
         providers: [
           { provide: HostWindowService, useValue: window },
           { provide: AuthService, useValue: authService },
+          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA,

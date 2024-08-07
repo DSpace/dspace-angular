@@ -40,10 +40,10 @@ import { ThemeService } from './theme.service';
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
 })
-export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, OnChanges {
+export abstract class ThemedComponent<T extends object> implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('content') themedElementContent: ElementRef;
-  protected compRef: ComponentRef<T>;
+  compRef: ComponentRef<T>;
 
   /**
    * A reference to the themed component. Will start as undefined and emit every time the themed

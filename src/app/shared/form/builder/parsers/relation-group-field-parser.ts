@@ -12,7 +12,7 @@ import { ParserType } from './parser-type';
 
 export class RelationGroupFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean) {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean) {
     const modelConfiguration: DynamicRelationGroupModelConfig = this.initModel(null, label);
 
     modelConfiguration.submissionId = this.submissionId;

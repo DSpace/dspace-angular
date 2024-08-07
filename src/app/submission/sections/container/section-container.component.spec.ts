@@ -87,12 +87,10 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       imports: [
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionContainerComponent,
         SectionsDirective,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionsService, useValue: sectionsServiceStub },
@@ -246,6 +244,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

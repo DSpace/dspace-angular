@@ -17,7 +17,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
 import { SITE } from '../shared/site.resource-type';
-import { dataService } from './base/data-service.decorator';
+import { BaseDataService } from './base/base-data.service';
 import {
   FindAllData,
   FindAllDataImpl,
@@ -36,8 +36,7 @@ import { RequestService } from './request.service';
 /**
  * Service responsible for handling requests related to the Site object
  */
-@Injectable()
-@dataService(SITE)
+@Injectable({ providedIn: 'root' })
 export class SiteDataService extends IdentifiableDataService<Site> implements FindAllData<Site> {
   private findAllData: FindAllData<Site>;
   private patchData: PatchData<Site>;

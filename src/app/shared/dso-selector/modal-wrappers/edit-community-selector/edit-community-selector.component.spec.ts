@@ -18,6 +18,7 @@ import { Community } from '../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 
 describe('EditCommunitySelectorComponent', () => {
@@ -40,8 +41,7 @@ describe('EditCommunitySelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EditCommunitySelectorComponent],
+      imports: [TranslateModule.forRoot(), EditCommunitySelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -61,7 +61,13 @@ describe('EditCommunitySelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(EditCommunitySelectorComponent, {
+        remove: {
+          imports: [DSOSelectorComponent],
+        },
+      })
+      .compileComponents();
 
   }));
 

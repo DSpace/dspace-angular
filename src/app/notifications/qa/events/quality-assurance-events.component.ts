@@ -1,11 +1,25 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -50,15 +64,19 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   ProjectEntryImportModalComponent,
   QualityAssuranceEventData,
 } from '../project-entry-import-modal/project-entry-import-modal.component';
+import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -67,6 +85,8 @@ import {
   selector: 'ds-quality-assurance-events',
   templateUrl: './quality-assurance-events.component.html',
   styleUrls: ['./quality-assurance-events.component.scss'],
+  standalone: true,
+  imports: [AlertComponent, NgIf, ThemedLoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent],
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**
@@ -235,6 +255,13 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       this.showTopic.indexOf('/REINSTATE') !== -1 ||
       this.showTopic.indexOf('/ABSTRACT') !== -1
     );
+  }
+
+  /**
+   * Checks if the current topic is related to a reinstate or withdrawn request.
+   */
+  public get isReinstateWithdrawnRequest(): boolean {
+    return this.showTopic.indexOf('/WITHDRAWN') !== -1 || this.showTopic.indexOf('/REINSTATE') !== -1;
   }
 
   /**

@@ -10,6 +10,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import {
   Store,
   StoreModule,
@@ -24,9 +25,11 @@ import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
-import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { LogInPasswordComponent } from './log-in-password.component';
 
 describe('LogInPasswordComponent', () => {
@@ -36,6 +39,7 @@ describe('LogInPasswordComponent', () => {
   let page: Page;
   let initialState: any;
   let hardRedirectService: HardRedirectService;
+  let themeService = getMockThemeService();
 
   beforeEach(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
@@ -63,10 +67,7 @@ describe('LogInPasswordComponent', () => {
         ReactiveFormsModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         LogInPasswordComponent,
-        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
@@ -74,6 +75,8 @@ describe('LogInPasswordComponent', () => {
         { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password, 0) },
         { provide: 'isStandalonePage', useValue: true },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: themeService },
         provideMockStore({ initialState }),
       ],
       schemas: [

@@ -27,8 +27,8 @@ describe('HealthStatusComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        HealthStatusComponent,
       ],
-      declarations: [ HealthStatusComponent ],
     })
       .compileComponents();
   });

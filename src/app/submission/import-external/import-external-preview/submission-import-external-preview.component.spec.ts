@@ -30,6 +30,7 @@ import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
+import { Metadata } from '../../../core/shared/metadata.utils';
 
 const uriMetadata = Object.assign(new MetadataValue(), {
   value: 'https://orcid.org/0001-0001-0001-0001',
@@ -72,8 +73,6 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionImportExternalPreviewComponent,
         TestComponent,
       ],
@@ -128,7 +127,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     it('Should init component properly', () => {
       comp.externalSourceEntry = externalEntry;
       const expected = [
-        { key: 'dc.identifier.uri', value: uriMetadata },
+        { key: 'dc.identifier.uri', values: Metadata.all(comp.externalSourceEntry.metadata, 'dc.identifier.uri') },
       ];
       fixture.detectChanges();
 
@@ -198,6 +197,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

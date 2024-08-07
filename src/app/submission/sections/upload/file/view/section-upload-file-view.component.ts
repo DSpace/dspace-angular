@@ -1,8 +1,13 @@
 import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   MetadataMap,
@@ -11,6 +16,8 @@ import {
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
 
 /**
  * This component allow to show bitstream's metadata
@@ -19,6 +26,14 @@ import { isNotEmpty } from '../../../../../shared/empty.util';
   selector: 'ds-submission-section-upload-file-view',
   styleUrls: ['section-upload-file-view.component.scss'],
   templateUrl: './section-upload-file-view.component.html',
+  imports: [
+    SubmissionSectionUploadAccessConditionsComponent,
+    TranslateModule,
+    TruncatePipe,
+    NgIf,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class SubmissionSectionUploadFileViewComponent implements OnInit {
 

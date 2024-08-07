@@ -10,6 +10,7 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   Router,
@@ -24,6 +25,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { CoreState } from '../../core/core-state.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { Registration } from '../../core/shared/registration.model';
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
@@ -69,10 +71,14 @@ describe('ForgotPasswordFormComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        ReactiveFormsModule,
         BrowserOnlyPipe,
         ForgotPasswordFormComponent,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: Router, useValue: router },
@@ -84,6 +90,8 @@ describe('ForgotPasswordFormComponent', () => {
         { provide: AuthService, useValue: authService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).overrideComponent(ForgotPasswordFormComponent, {
+      remove: { imports: [ ProfilePageSecurityFormComponent ] },
     }).compileComponents();
   }));
   beforeEach(() => {

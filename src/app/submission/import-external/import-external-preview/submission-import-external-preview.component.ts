@@ -1,3 +1,4 @@
+import { NgFor } from '@angular/common';
 import {
   Component,
   Input,
@@ -9,6 +10,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { mergeMap } from 'rxjs/operators';
 
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
@@ -27,6 +29,11 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
   selector: 'ds-submission-import-external-preview',
   styleUrls: ['./submission-import-external-preview.component.scss'],
   templateUrl: './submission-import-external-preview.component.html',
+  imports: [
+    NgFor,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
@@ -36,7 +43,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
    * The entry metadata list
    */
-  public metadataList: { key: string, value: MetadataValue }[];
+  public metadataList: { key: string, values: MetadataValue[] }[];
   /**
    * The label prefix to use to generate the translation label
    */
@@ -71,7 +78,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     metadataKeys.forEach((key) => {
       this.metadataList.push({
         key: key,
-        value: Metadata.first(this.externalSourceEntry.metadata, key),
+        values: Metadata.all(this.externalSourceEntry.metadata, key),
       });
     });
   }

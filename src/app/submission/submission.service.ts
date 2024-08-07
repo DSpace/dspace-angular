@@ -4,7 +4,12 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   ScrollToConfigOptions,
@@ -85,6 +90,20 @@ import {
 } from './submission.reducers';
 import { SubmissionVisibility } from './utils/visibility.util';
 
+function getSubmissionSelector(submissionId: string):  MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
+  return createSelector(
+    submissionSelector,
+    (state: SubmissionState) => state.objects[submissionId],
+  );
+}
+
+function getSubmissionCollectionIdSelector(submissionId: string): MemoizedSelector<SubmissionState, string> {
+  return createSelector(
+    getSubmissionSelector(submissionId),
+    (submission: SubmissionObjectEntry) => submission?.collection,
+  );
+}
+
 /**
  * A service that provides methods used in submission process.
  */
@@ -138,8 +157,17 @@ export class SubmissionService {
    * @param collectionId
    *    The collection id
    */
-  changeSubmissionCollection(submissionId, collectionId) {
+  changeSubmissionCollection(submissionId: string, collectionId: string): void {
     this.store.dispatch(new ChangeSubmissionCollectionAction(submissionId, collectionId));
+  }
+
+  /**
+   * Listen to collection changes for a certain {@link SubmissionObject}
+   *
+   * @param submissionId The submission id
+   */
+  getSubmissionCollectionId(submissionId: string): Observable<string> {
+    return this.store.pipe(select(getSubmissionCollectionIdSelector(submissionId)));
   }
 
   /**

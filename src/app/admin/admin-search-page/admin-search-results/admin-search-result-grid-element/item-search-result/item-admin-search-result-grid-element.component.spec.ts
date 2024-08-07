@@ -19,6 +19,7 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../../core/shared/file.service';
 import { Item } from '../../../../../core/shared/item.model';
+import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
@@ -74,13 +75,14 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [ItemAdminSearchResultGridElementComponent, DynamicComponentLoaderDirective],
         imports: [
           CommonModule,
           BrowserModule,
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
+          ListableModule,
+          ItemAdminSearchResultGridElementComponent,
         ],
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },

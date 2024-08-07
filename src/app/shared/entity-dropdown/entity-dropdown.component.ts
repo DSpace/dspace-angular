@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -9,6 +14,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   Observable,
@@ -41,11 +48,14 @@ import {
   isNotNull,
 } from '../empty.util';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-entity-dropdown',
   templateUrl: './entity-dropdown.component.html',
   styleUrls: ['./entity-dropdown.component.scss'],
+  standalone: true,
+  imports: [InfiniteScrollModule, NgIf, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**
@@ -108,7 +118,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {EntityTypeDataService} entityTypeService
    * @param {ItemExportFormatService} itemExportFormatService
-   * @param {ElementRef} el
+   * @param el
    */
   constructor(
     private changeDetectorRef: ChangeDetectorRef,

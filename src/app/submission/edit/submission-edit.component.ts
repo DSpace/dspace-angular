@@ -47,6 +47,7 @@ import {
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
@@ -56,9 +57,13 @@ import { SubmissionEditCanDeactivateService } from './submission-edit-can-deacti
  * This component allows to edit an existing workspaceitem/workflowitem.
  */
 @Component({
-  selector: 'ds-submission-edit',
+  selector: 'ds-base-submission-edit',
   styleUrls: ['./submission-edit.component.scss'],
   templateUrl: './submission-edit.component.html',
+  standalone: true,
+  imports: [
+    SubmissionFormComponent,
+  ],
 })
 export class SubmissionEditComponent implements OnDestroy, OnInit {
 

@@ -117,8 +117,7 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ExternalSourceEntryListSubmissionElementComponent],
-      imports: [TranslateModule.forRoot(), NgbCollapseModule],
+      imports: [TranslateModule.forRoot(), ExternalSourceEntryListSubmissionElementComponent, NgbCollapseModule],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));

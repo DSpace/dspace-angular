@@ -46,7 +46,7 @@ import {
 } from './form.reducer';
 import { formObjectFromIdSelector } from './selectors';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FormService {
 
   constructor(

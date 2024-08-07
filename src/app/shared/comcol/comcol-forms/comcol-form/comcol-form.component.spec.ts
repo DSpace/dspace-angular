@@ -26,11 +26,14 @@ import { RequestService } from '../../../../core/data/request.service';
 import { RestRequestMethod } from '../../../../core/data/rest-request-method';
 import { Community } from '../../../../core/shared/community.model';
 import { hasValue } from '../../../empty.util';
+import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { VarDirective } from '../../../utils/var.directive';
+import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 import { ComColFormComponent } from './comcol-form.component';
 
 describe('ComColFormComponent', () => {
@@ -92,8 +95,7 @@ describe('ComColFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [ComColFormComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, ComColFormComponent, VarDirective],
       providers: [
         { provide: Location, useValue: locationStub },
         { provide: DynamicFormService, useValue: formServiceStub },
@@ -103,7 +105,17 @@ describe('ComColFormComponent', () => {
         { provide: ObjectCacheService, useValue: objectCacheStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ComColFormComponent, {
+        remove: {
+          imports: [
+            FormComponent,
+            UploaderComponent,
+            ComcolPageLogoComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   describe('when the dso doesn\'t contain an ID (newly created)', () => {

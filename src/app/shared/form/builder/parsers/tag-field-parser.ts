@@ -8,7 +8,7 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { FieldParser } from './field-parser';
 
 export class TagFieldParser extends FieldParser {
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     const clsTag: DynamicFormControlLayout = {
       grid: {
         container: 'mb-3 mt-3',

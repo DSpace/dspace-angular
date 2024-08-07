@@ -6,6 +6,7 @@ import {
   Input,
   OnChanges,
   OnDestroy,
+  OnInit,
   SecurityContext,
   SimpleChanges,
 } from '@angular/core';
@@ -33,6 +34,7 @@ const MARKDOWN_IT = new InjectionToken<LazyMarkdownIt>(
 
 @Directive({
   selector: '[dsMarkdown]',
+  standalone: true,
 })
 export class MarkdownDirective implements OnChanges, OnDestroy {
 
@@ -60,19 +62,19 @@ export class MarkdownDirective implements OnChanges, OnDestroy {
       this.el.innerHTML = value;
       return;
     } else {
-      const MarkdownIt = await this.markdownIt;
-      const md = new MarkdownIt({
-        html: true,
-        linkify: true,
-      });
+    const MarkdownIt = await this.markdownIt;
+    const md = new MarkdownIt({
+      html: true,
+      linkify: true,
+    });
 
-      const html = this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
-      this.el.innerHTML = html;
+    const html = this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
+    this.el.innerHTML = html;
 
-      if (environment.markdown.mathjax) {
-        this.renderMathjax();
-      }
+    if (environment.markdown.mathjax) {
+      this.renderMathjax();
     }
+  }
   }
 
   private renderMathjax() {

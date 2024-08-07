@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnChanges,
@@ -8,6 +12,9 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 import { Observable } from 'rxjs';
 
@@ -23,11 +30,21 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
 
 @Component({
   selector: 'ds-item-edit-bitstream',
   styleUrls: ['../item-bitstreams.component.scss'],
   templateUrl: './item-edit-bitstream.component.html',
+  imports: [
+    RouterLink,
+    TranslateModule,
+    BrowserOnlyPipe,
+    NgbTooltipModule,
+    AsyncPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 /**
  * Component that displays a single bitstream of an item on the edit page
@@ -128,7 +145,7 @@ export class ItemEditBitstreamComponent implements OnChanges, OnDestroy, OnInit 
    * Check if a user should be allowed to cancel the update to this field
    */
   canUndo(): boolean {
-    return this.fieldUpdate.changeType >= 0;
+    return this.fieldUpdate.changeType?.valueOf() >= 0;
   }
 
 }

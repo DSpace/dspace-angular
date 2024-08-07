@@ -1,5 +1,6 @@
 import { CdkTreeModule } from '@angular/cdk/tree';
 import {
+  ChangeDetectorRef,
   Component,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
@@ -10,6 +11,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -75,15 +77,15 @@ describe('VocabularyTreeviewComponent test suite', () => {
       imports: [
         CdkTreeModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         VocabularyTreeviewComponent,
         TestComponent,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: NgbActiveModal, useValue: modalStub },
+        ChangeDetectorRef,
         VocabularyTreeviewComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -309,6 +311,8 @@ describe('VocabularyTreeviewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CdkTreeModule],
 })
 class TestComponent {
 

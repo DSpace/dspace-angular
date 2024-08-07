@@ -1,7 +1,15 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
@@ -15,7 +23,10 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
 
@@ -26,13 +37,15 @@ import { NotificationsStateService } from '../../notifications-state.service';
   selector: 'ds-quality-assurance-source',
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
+  standalone: true,
+  imports: [AlertComponent, NgIf, ThemedLoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
 export class QualityAssuranceSourceComponent implements OnInit {
 
   /**
-  * The pagination system configuration for HTML listing.
-  * @type {PaginationComponentOptions}
-  */
+   * The pagination system configuration for HTML listing.
+   * @type {PaginationComponentOptions}
+   */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'btp',
     pageSize: 10,
@@ -65,7 +78,8 @@ export class QualityAssuranceSourceComponent implements OnInit {
   constructor(
     private paginationService: PaginationService,
     private notificationsStateService: NotificationsStateService,
-  ) { }
+  ) {
+  }
 
   /**
    * Component initialization.

@@ -29,19 +29,19 @@ export class FacetValues extends SearchQueryResponse<FacetValue> {
    * The name of the facet the values are for
    */
   @autoserialize
-    name: string;
+  name: string;
 
   /**
    * The type of facet the values are for
    */
   @autoserializeAs(String, 'facetType')
-    filterType: FilterType;
+  filterType: FilterType;
 
   /**
    * The max number of returned facetValues
    */
   @autoserialize
-    facetLimit: number;
+  facetLimit: number;
 
   /**
    * The total number of missing facet values
@@ -59,5 +59,5 @@ export class FacetValues extends SearchQueryResponse<FacetValue> {
    * The results for this query
    */
   @autoserializeAs(FacetValue, 'values')
-    page: FacetValue[];
+  page: FacetValue[];
 }

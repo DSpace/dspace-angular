@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   ComponentRef,
   EventEmitter,
@@ -12,6 +16,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
@@ -34,7 +39,7 @@ import { Item } from '../../../../../../core/shared/item.model';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
@@ -43,16 +48,22 @@ import {
   hasValue,
   hasValueOperator,
 } from '../../../../../empty.util';
+import { ErrorComponent } from '../../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
+import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
+import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-external-source-tab',
+  selector: 'ds-base-dynamic-lookup-relation-external-source-tab',
   styleUrls: ['./dynamic-lookup-relation-external-source-tab.component.scss'],
   templateUrl: './dynamic-lookup-relation-external-source-tab.component.html',
   providers: [
@@ -65,6 +76,18 @@ import { ThemedExternalSourceEntryImportModalComponent } from './external-source
     fadeIn,
     fadeInOut,
   ],
+  imports: [
+    ThemedSearchFormComponent,
+    PageSizeSelectorComponent,
+    ObjectCollectionComponent,
+    VarDirective,
+    AsyncPipe,
+    TranslateModule,
+    ErrorComponent,
+    NgIf,
+    ThemedLoadingComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component rendering the tab content of an external source during submission lookup

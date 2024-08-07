@@ -1,31 +1,14 @@
-import {
-  CdkDragDrop,
-  moveItemInArray,
-} from '@angular/cdk/drag-drop';
-import { isPlatformBrowser } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnChanges,
-  Output,
-  PLATFORM_ID,
-  SimpleChanges,
-} from '@angular/core';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, } from '@angular/cdk/drag-drop';
+import { AsyncPipe, isPlatformBrowser, NgClass, NgForOf, NgIf, } from '@angular/common';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnChanges, Output, PLATFORM_ID, SimpleChanges, } from '@angular/core';
+import { NgbTooltip, NgbTooltipModule, } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService, } from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
-import {
-  BehaviorSubject,
-  forkJoin,
-} from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, } from 'rxjs';
+import { map, take, } from 'rxjs/operators';
 
 import { isNotEmpty } from '../../empty.util';
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
 
@@ -35,6 +18,18 @@ const TOOLTIP_TEXT_LIMIT = 21;
   selector: 'ds-chips',
   styleUrls: ['./chips.component.scss'],
   templateUrl: './chips.component.html',
+  imports: [
+    NgbTooltipModule,
+    NgClass,
+    NgForOf,
+    AsyncPipe,
+    AuthorityConfidenceStateDirective,
+    NgIf,
+    TranslateModule,
+    CdkDrag,
+    CdkDropList,
+  ],
+  standalone: true,
 })
 export class ChipsComponent implements OnChanges {
   @Input() chips: Chips;
@@ -58,6 +53,7 @@ export class ChipsComponent implements OnChanges {
 
   constructor(
     @Inject(PLATFORM_ID) protected platformId: string,
+    private cdr: ChangeDetectorRef,
     private translate: TranslateService) {
   }
 
@@ -135,6 +131,7 @@ export class ChipsComponent implements OnChanges {
         textToDisplay.push(chipsItem.display);
         canShowToolTip = this.toolTipVisibleCheck(chipsItem.display);
       }
+      this.cdr.detectChanges();
       if ((!chipsItem.hasIcons() || !chipsItem.hasVisibleIcons() || field) && canShowToolTip) {
         this.tipText$.next(textToDisplay);
         tooltip.open();
@@ -187,5 +184,4 @@ export class ChipsComponent implements OnChanges {
     }
     return text;
   }
-
 }

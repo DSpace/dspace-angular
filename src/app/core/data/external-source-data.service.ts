@@ -31,7 +31,7 @@ import { RequestService } from './request.service';
 /**
  * A service handling all external source requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ExternalSourceDataService extends IdentifiableDataService<ExternalSource> implements SearchData<ExternalSource> {
   private searchData: SearchData<ExternalSource>;
 

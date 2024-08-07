@@ -16,12 +16,12 @@ import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import {
   CreateData,
   CreateDataImpl,
 } from '../../../data/base/create-data';
-import { dataService } from '../../../data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -48,13 +48,11 @@ import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NoContent } from '../../../shared/NoContent.model';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
-import { QUALITY_ASSURANCE_EVENT_OBJECT } from '../models/quality-assurance-event-object.resource-type';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
-@Injectable()
-@dataService(QUALITY_ASSURANCE_EVENT_OBJECT)
+@Injectable({ providedIn: 'root' })
 export class QualityAssuranceEventDataService extends IdentifiableDataService<QualityAssuranceEventObject> {
 
   private createData: CreateData<QualityAssuranceEventObject>;
@@ -100,10 +98,7 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
    */
   public getEventsByTopic(topic: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceEventObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceEventObject>>> {
     options.searchParams = [
-      {
-        fieldName: 'topic',
-        fieldValue: topic,
-      },
+      new RequestParam('topic', topic),
     ];
     return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);
   }

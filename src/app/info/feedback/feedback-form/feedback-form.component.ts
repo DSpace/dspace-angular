@@ -1,14 +1,20 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { getHomePageRoute } from '../../../app-routing-paths';
@@ -24,12 +30,15 @@ import {
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { ErrorComponent } from '../../../shared/error/error.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
-  selector: 'ds-feedback-form',
+  selector: 'ds-base-feedback-form',
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule],
 })
 /**
  * Component displaying the contents of the Feedback Statement
