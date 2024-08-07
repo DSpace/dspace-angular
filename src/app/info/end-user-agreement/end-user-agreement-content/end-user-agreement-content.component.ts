@@ -3,7 +3,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,
@@ -13,8 +17,6 @@ import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { isNotEmpty } from '../../../shared/empty.util';
-import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-end-user-agreement-content',

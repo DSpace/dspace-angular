@@ -1,3 +1,4 @@
+import { DebugElement } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -5,9 +6,6 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  DebugElement,
-} from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -87,7 +85,7 @@ describe('Footer component', () => {
   it('should render TextSectionComponent', () => {
     comp.showTopFooter = true;
     fixture.detectChanges();
-    const textComponent = fixture.debugElement.queryAll(By.css('ds-themed-text-section'));
+    const textComponent = fixture.debugElement.queryAll(By.css('ds-text-section'));
     expect(textComponent).toHaveSize(1);
   });
 

@@ -28,6 +28,7 @@ import {
 } from 'rxjs/operators';
 import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -61,7 +62,6 @@ import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
 import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
-import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * This component renders a simple item page.

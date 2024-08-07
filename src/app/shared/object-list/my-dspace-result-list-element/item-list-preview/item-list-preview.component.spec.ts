@@ -25,7 +25,6 @@ import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspa
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { VarDirective } from '../../../utils/var.directive';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 
 let component: ItemListPreviewComponent;

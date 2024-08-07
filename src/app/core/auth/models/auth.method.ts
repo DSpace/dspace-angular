@@ -14,7 +14,7 @@ export class AuthMethod {
         break;
       }
       case 'ldap': {
-        this.authMethodType = AuthMethodType.Ldap;
+        this.authMethodType = AuthMethodType.Password;
         break;
       }
       case 'shibboleth': {

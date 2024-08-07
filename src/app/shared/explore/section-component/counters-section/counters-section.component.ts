@@ -23,9 +23,10 @@ import { PaginatedSearchOptions } from '../../../search/models/paginated-search-
 import { SearchObjects } from '../../../search/models/search-objects.model';
 
 @Component({
-  selector: 'ds-counters-section',
+  selector: 'ds-base-counters-section',
   styleUrls: ['./counters-section.component.scss'],
   templateUrl: './counters-section.component.html',
+  standalone: true,
 })
 export class CountersSectionComponent implements OnInit {
 

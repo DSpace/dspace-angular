@@ -13,18 +13,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-
   of as observableOf,
   of,
 } from 'rxjs';
 
-import { CollectionDataService } from '../../core/data/collection-data.service';
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
@@ -76,9 +75,9 @@ describe('SubmissionEditComponent Component', () => {
     findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
   });
 
-    halService = jasmine.createSpyObj('halService', {
-      getEndpoint: of('fake-url'),
-    });
+  halService = jasmine.createSpyObj('halService', {
+    getEndpoint: of('fake-url'),
+  });
 
   const metadataSecurityConfigDataServiceSpy = jasmine.createSpyObj('metadataSecurityConfigDataService', {
     findById: createSuccessfulRemoteDataObject$(submissionObject.metadataSecurityConfiguration),

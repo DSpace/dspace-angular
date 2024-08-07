@@ -1,4 +1,4 @@
-<ds-themed-loading *ngIf="(itemRD$ | async)?.isLoading" message="{{'loading.item' | translate}}"></ds-themed-loading>
+<ds-loading *ngIf="(itemRD$ | async)?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
 <ng-container *ngIf="((itemRD$ | async)?.hasSucceeded && !(itemRD$ | async)?.hasNoContent)">
   <div class="container">
     <ds-item-alerts [item]="(itemRD$ | async)?.payload"></ds-item-alerts>

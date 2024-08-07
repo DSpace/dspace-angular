@@ -2,7 +2,7 @@
   <h4 class="modal-title">{{'item-export.modal.title' | translate}}</h4>
 </div>
 <div class="modal-body">
-  <ds-themed-loading *ngIf="(initialized$ | async) !== true"></ds-themed-loading>
+  <ds-loading *ngIf="(initialized$ | async) !== true"></ds-loading>
   <ng-container *ngIf="(initialized$ | async)">
     <ng-container *ngIf="(canExport$ | async); else cannotExport">
       <ng-container *ngIf="!selectCollection; else selectCollectionForm">

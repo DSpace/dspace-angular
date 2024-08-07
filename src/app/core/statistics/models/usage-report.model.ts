@@ -55,7 +55,7 @@ export interface Point {
   id: string;
   label: string;
   type: string;
-  values: any | any[];
+  values: any;
   //  {
   //   views?: number;
   //   downloads?: number;

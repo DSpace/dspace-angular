@@ -9,9 +9,11 @@ import { ThemedComponent } from '../../../theme-support/themed.component';
 import { TextSectionComponent } from './text-section.component';
 
 @Component({
-  selector: 'ds-themed-text-section',
+  selector: 'ds-text-section',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [TextSectionComponent],
 })
 export class ThemedTextSectionComponent extends ThemedComponent<TextSectionComponent> {
 

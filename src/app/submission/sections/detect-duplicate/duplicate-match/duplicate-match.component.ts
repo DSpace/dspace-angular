@@ -234,10 +234,10 @@ export class DuplicateMatchComponent implements OnInit {
       : this.match.submitterDecision !== null;
 
     if (this.match.submitterDecision) {
-      this.submitterDecision$ = (this.match.submitterDecision === DuplicateDecisionValue.Reject) ?
+      this.submitterDecision$ = (this.match.submitterDecision === DuplicateDecisionValue.Reject.toString()) ?
         this.translate.get('submission.sections.detect-duplicate.not-duplicate') :
         this.translate.get('submission.sections.detect-duplicate.duplicate');
-      this.decisionLabelClass = (this.match.submitterDecision === DuplicateDecisionValue.Reject) ? 'badge-success' : 'badge-warning';
+      this.decisionLabelClass = (this.match.submitterDecision === DuplicateDecisionValue.Reject.toString()) ? 'badge-success' : 'badge-warning';
       this.submitterNote = this.match.submitterNote;
     } else {
       this.submitterDecision$ = this.translate.get('submission.sections.detect-duplicate.no-decision');
@@ -247,12 +247,12 @@ export class DuplicateMatchComponent implements OnInit {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
 
     this.duplicateBtnLabel$ = this.isWorkFlow ?
-      ((this.match.submitterDecision === DuplicateDecisionValue.Verify) ?
+      ((this.match.submitterDecision === DuplicateDecisionValue.Verify.toString()) ?
         this.translate.get('submission.sections.detect-duplicate.confirm-duplicate') :
         this.translate.get('submission.sections.detect-duplicate.duplicate-ctrl'))
       : this.translate.get('submission.sections.detect-duplicate.duplicate');
 
-    this.notDuplicateBtnLabel$ = (this.isWorkFlow && this.match.submitterDecision === DuplicateDecisionValue.Reject) ?
+    this.notDuplicateBtnLabel$ = (this.isWorkFlow && this.match.submitterDecision === DuplicateDecisionValue.Reject.toString()) ?
       this.translate.get('submission.sections.detect-duplicate.confirm-not-duplicate') :
       this.translate.get('submission.sections.detect-duplicate.not-duplicate');
   }

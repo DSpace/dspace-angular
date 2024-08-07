@@ -1,5 +1,4 @@
 import { testA11y } from 'cypress/support/utils';
-import { Options } from 'cypress-axe';
 
 describe('Search Page', () => {
   // NOTE: these tests currently assume this query will return results!

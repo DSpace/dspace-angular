@@ -34,7 +34,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
-import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';

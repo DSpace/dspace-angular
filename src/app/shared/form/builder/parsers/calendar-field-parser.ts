@@ -6,12 +6,11 @@ import {
 
 import { isNotEmpty } from '../../../empty.util';
 import { DS_DATE_PICKER_SEPARATOR } from '../ds-dynamic-form-ui/models/date-picker/date-picker.component';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
 
 export class CalendarFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: any, label?: boolean): any {
     const inputDateModelConfig: DynamicDatePickerModelConfig = this.initModel(null, label);
 
     inputDateModelConfig.toggleIcon = 'fas fa-calendar';

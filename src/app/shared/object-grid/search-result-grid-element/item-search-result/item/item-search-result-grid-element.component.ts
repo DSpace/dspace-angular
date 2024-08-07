@@ -1,9 +1,19 @@
-import { AsyncPipe, NgFor, NgIf, } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { Observable, of, } from 'rxjs';
-import { map, switchMap, } from 'rxjs/operators';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../../../environments/environment';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
@@ -13,17 +23,22 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getRemoteDataPayload, } from '../../../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../../../core/shared/operators';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { focusShadow } from '../../../../animations/focus';
-import { isEmpty, isNotNull, isUndefined, } from '../../../../empty.util';
+import {
+  isEmpty,
+  isNotNull,
+  isUndefined,
+} from '../../../../empty.util';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import {
-  listableObjectComponent
-} from '../../../../object-collection/shared/listable-object/listable-object.decorator';
+import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';

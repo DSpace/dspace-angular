@@ -84,7 +84,7 @@ export class NotificationsService {
     options: NotificationOptions = this.getDefaultOptions(),
     html: boolean = false): IProcessNotification {
     const notificationOptions = { ...this.getDefaultOptions(), ...options };
-    const notification = new ProcessNotification(uniqueId(), NotificationType.Process, processId, checkTime, title, notificationOptions, html);
+    const notification = new ProcessNotification(uniqueId(), NotificationType.Info, processId, checkTime, title, notificationOptions, html);
     this.add(notification);
     return notification;
   }

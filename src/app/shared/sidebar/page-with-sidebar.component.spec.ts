@@ -20,18 +20,18 @@ describe('PageWithSidebarComponent', () => {
   describe('', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, PageWithSidebarComponent],
+        imports: [NoopAnimationsModule, PageWithSidebarComponent],
         providers: [
           {
             provide: SidebarService,
             useClass: SidebarServiceStub,
           },
           {
-          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
-                isXs: observableOf(true),
-                isSm: observableOf(false),
-                isXsOrSm: observableOf(true),
-              }),
+            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+              isXs: observableOf(true),
+              isSm: observableOf(false),
+              isXsOrSm: observableOf(true),
+            }),
           },
         ],
       }).compileComponents().then(() => {

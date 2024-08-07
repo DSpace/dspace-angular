@@ -14,9 +14,6 @@ import {
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Operation } from 'fast-json-patch';
-import { Observable } from 'rxjs';
-
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
@@ -26,10 +23,11 @@ import { ITEM } from '../../core/shared/item.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
-import { mockSecurityConfig } from '../../shared/mocks/submission.mock';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { mockSecurityConfig } from '../../shared/mocks/submission.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { TestDataService } from '../../shared/testing/test-data-service.mock';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
@@ -38,8 +36,6 @@ import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { RemoteData } from '../../core/data/remote-data';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';

@@ -18,6 +18,7 @@ import { hasNoValue } from '../shared/empty.util';
 @Component({
   templateUrl: './external-login-review-account-info-page.component.html',
   styleUrls: ['./external-login-review-account-info-page.component.scss'],
+  standalone: true,
 })
 export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   /**

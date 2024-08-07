@@ -13,8 +13,8 @@ import {
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of } from 'rxjs';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';

@@ -16,7 +16,6 @@ import { ResourceType } from '../core/shared/resource-type';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {

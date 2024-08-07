@@ -1,4 +1,10 @@
-import { AsyncPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet, } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -18,8 +24,17 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormArray, UntypedFormGroup, } from '@angular/forms';
-import { NgbModal, NgbModalRef, NgbTooltipModule, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormArray,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  NgbModal,
+  NgbModalRef,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -48,12 +63,38 @@ import {
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 import { DynamicFormControlMapFn } from '@ng-dynamic-forms/core/lib/service/dynamic-form-component.service';
+import {
+  DynamicNGBootstrapCalendarComponent,
+  DynamicNGBootstrapCheckboxComponent,
+  DynamicNGBootstrapCheckboxGroupComponent,
+  DynamicNGBootstrapInputComponent,
+  DynamicNGBootstrapRadioGroupComponent,
+  DynamicNGBootstrapSelectComponent,
+  DynamicNGBootstrapTextAreaComponent,
+  DynamicNGBootstrapTimePickerComponent,
+} from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest, Observable, Subscription, } from 'rxjs';
-import { find, map, startWith, switchMap, take, } from 'rxjs/operators';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  find,
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { APP_CONFIG, AppConfig, } from '../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { AppState } from '../../../../app.reducer';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
@@ -64,7 +105,10 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { MetadataValue, VIRTUAL_METADATA_PREFIX, } from '../../../../core/shared/metadata.models';
+import {
+  MetadataValue,
+  VIRTUAL_METADATA_PREFIX,
+} from '../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../core/shared/metadata.utils';
 import {
   getAllSucceededRemoteData,
@@ -77,7 +121,12 @@ import { SubmissionObject } from '../../../../core/submission/models/submission-
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
-import { hasNoValue, hasValue, isNotEmpty, isNotUndefined, } from '../../../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../../empty.util';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
@@ -87,14 +136,15 @@ import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../models/relationship-options.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import {
   ExistingMetadataListElementComponent,
   ReorderableRelationship,
 } from './existing-metadata-list-element/existing-metadata-list-element.component';
-import {
-  ExistingRelationListElementComponent
-} from './existing-relation-list-element/existing-relation-list-element.component';
+import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
+import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
+import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
@@ -114,31 +164,12 @@ import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.compone
 import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
-import {
-  DsDynamicRelationInlineGroupComponent
-} from './models/relation-inline-group/dynamic-relation-inline-group.components';
-import {
-  DsDynamicScrollableDropdownComponent
-} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN
-} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
-import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
-import {
-  DynamicNGBootstrapCalendarComponent,
-  DynamicNGBootstrapCheckboxComponent,
-  DynamicNGBootstrapCheckboxGroupComponent,
-  DynamicNGBootstrapInputComponent,
-  DynamicNGBootstrapRadioGroupComponent,
-  DynamicNGBootstrapSelectComponent,
-  DynamicNGBootstrapTextAreaComponent,
-  DynamicNGBootstrapTimePickerComponent,
-} from '@ng-dynamic-forms/ui-ng-bootstrap';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {

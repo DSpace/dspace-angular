@@ -101,7 +101,7 @@ export class MetadataContainerComponent implements OnInit {
    * Returns a string representing the label of field if exists
    */
   getLabel(): string {
-    if (this.field.fieldType === LayoutFieldType.BITSTREAM) {
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM.toString()) {
       return (hasValue(this.field.bitstream.metadataValue) ?
         this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.BITSTREAM[${this.field.bitstream.metadataValue}]`) :
         this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.BITSTREAM`)
@@ -141,7 +141,7 @@ export class MetadataContainerComponent implements OnInit {
 
   ngOnInit() {
     const rendering = this.computeRendering(this.field);
-    if (this.field.fieldType === LayoutFieldType.BITSTREAM
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM.toString()
       && (rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()
         || rendering.toLocaleLowerCase() === FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase())) {
       this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
@@ -180,16 +180,16 @@ export class MetadataContainerComponent implements OnInit {
   hasFieldMetadataComponent(field: LayoutField) {
     // if it is metadatagroup and none of the nested metadatas has values then dont generate the component
     let existOneMetadataWithValue = false;
-    if (field.fieldType === LayoutFieldType.METADATAGROUP) {
+    if (field.fieldType === LayoutFieldType.METADATAGROUP.toString()) {
       field.metadataGroup.elements.forEach(el => {
         if (this.item.metadata[el.metadata]) {
           existOneMetadataWithValue = true;
         }
       });
     }
-    return (this.field.fieldType === LayoutFieldType.BITSTREAM) ||
-      (field.fieldType === LayoutFieldType.METADATAGROUP && existOneMetadataWithValue) ||
-      (field.fieldType === LayoutFieldType.METADATA && this.item.firstMetadataValue(field.metadata));
+    return (this.field.fieldType === LayoutFieldType.BITSTREAM.toString()) ||
+      (field.fieldType === LayoutFieldType.METADATAGROUP.toString() && existOneMetadataWithValue) ||
+      (field.fieldType === LayoutFieldType.METADATA.toString() && this.item.firstMetadataValue(field.metadata));
   }
 
   computeRendering(field: LayoutField): string | FieldRenderingType {

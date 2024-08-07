@@ -1,7 +1,7 @@
-import { NgIf } from '@angular/common';
 import {
   isPlatformBrowser,
   Location,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,

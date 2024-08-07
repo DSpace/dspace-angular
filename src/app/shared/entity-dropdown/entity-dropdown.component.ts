@@ -47,8 +47,8 @@ import {
   hasValue,
   isNotNull,
 } from '../empty.util';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 
 @Component({
   selector: 'ds-entity-dropdown',

@@ -1,11 +1,44 @@
-import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, } from '@angular/cdk/drag-drop';
-import { AsyncPipe, isPlatformBrowser, NgClass, NgForOf, NgIf, } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnChanges, Output, PLATFORM_ID, SimpleChanges, } from '@angular/core';
-import { NgbTooltip, NgbTooltipModule, } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnChanges,
+  Output,
+  PLATFORM_ID,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  NgbTooltip,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
-import { BehaviorSubject, forkJoin, } from 'rxjs';
-import { map, take, } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  forkJoin,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { isNotEmpty } from '../../empty.util';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';

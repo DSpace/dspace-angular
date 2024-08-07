@@ -8,8 +8,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import uniqueId from 'lodash/uniqueId';
 import { TranslateModule } from '@ngx-translate/core';
+import uniqueId from 'lodash/uniqueId';
 
 import {
   fadeOutLeave,

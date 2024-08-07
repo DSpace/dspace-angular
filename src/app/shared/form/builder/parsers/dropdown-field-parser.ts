@@ -27,7 +27,7 @@ export class DropdownFieldParser extends FieldParser {
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
     @Inject(SECURITY_CONFIG)  securityConfig: any = null,
-      translate: TranslateService,
+    translate: TranslateService,
   ) {
     super(submissionId, configData, initFormValues, parserOptions, translate, securityConfig);
   }

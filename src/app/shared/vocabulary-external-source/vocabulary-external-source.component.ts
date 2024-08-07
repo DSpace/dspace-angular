@@ -37,7 +37,7 @@ import {
 } from '../../core/shared/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
-import { CreateItemParentSelectorComponent } from '../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { ThemedCreateItemParentSelectorComponent } from '../dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import { NotificationsService } from '../notifications/notifications.service';
 import { createFailedRemoteDataObject } from '../remote-data.utils';
 import { followLink } from '../utils/follow-link-config.model';
@@ -122,7 +122,7 @@ export class VocabularyExternalSourceComponent implements OnInit {
    * Start the import of an entry by opening up a collection choice modal window.
    */
   public import(): void {
-    this.modalRef = this.modalService.open(CreateItemParentSelectorComponent, {
+    this.modalRef = this.modalService.open(ThemedCreateItemParentSelectorComponent, {
       size: 'lg',
     });
     this.modalRef.componentInstance.entityType = this.entityType;

@@ -405,7 +405,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
           return this.addRelationship(type, objectItem, action);
         } else {
           this.processing$.next(false);
-          const errMsg = (action === 'unselect') ? 'manage.relationships.error.unselect' : 'manage.relationships.error.unhide';
+          const errMsg = (action?.toString() === 'unselect') ? 'manage.relationships.error.unselect' : 'manage.relationships.error.unhide';
           this.notification.error(null, errMsg);
           return EMPTY;
         }

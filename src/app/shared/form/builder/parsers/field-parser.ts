@@ -11,11 +11,12 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../core/shared/metadata.utils';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
+import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
+import { VisibilityType } from '../../../../submission/sections/visibility-type';
 import { isNgbDateStruct } from '../../../date.util';
 import {
   hasValue,
@@ -38,9 +39,6 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
-import { VisibilityType } from '../../../../submission/sections/visibility-type';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -79,8 +77,8 @@ export abstract class FieldParser {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
       && (this.configData.input.type !== ParserType.List.valueOf())
       && (this.configData.input.type !== ParserType.Tag.valueOf())
-      && (this.configData.input.type !== ParserType.RelationGroup)
-      && (this.configData.input.type !== ParserType.InlineGroup)
+      && (this.configData.input.type !== ParserType.RelationGroup.toString())
+      && (this.configData.input.type !== ParserType.InlineGroup.toString())
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;

@@ -1,10 +1,28 @@
-import { AsyncPipe, NgClass, NgFor, NgIf, } from '@angular/common';
-import { AfterViewInit, Component, Inject, Input, OnInit, Optional } from '@angular/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  Optional,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { combineLatest, Observable, } from 'rxjs';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { APP_CONFIG, AppConfig, } from '../../../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../../environments/environment';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { Context } from '../../../../../../core/shared/context.model';
@@ -13,15 +31,13 @@ import { getFirstSucceededRemoteListPayload } from '../../../../../../core/share
 import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
-import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
 import { KlaroService } from '../../../../../cookies/klaro.service';
+import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import {
-  listableObjectComponent
-} from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
+import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)

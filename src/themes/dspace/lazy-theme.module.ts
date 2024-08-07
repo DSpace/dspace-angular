@@ -9,6 +9,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+
 import { FooterModule } from '../../app/footer/footer.module';
 import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
 import { RootModule } from '../../app/root.module';

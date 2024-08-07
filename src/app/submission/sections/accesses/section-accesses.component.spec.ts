@@ -42,7 +42,6 @@ import {
   getSubmissionAccessesConfigService,
 } from '../../../shared/mocks/section-accesses-config.service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import {
   accessConditionChangeEvent,
@@ -148,7 +147,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
         submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionConfigRes) as any);
         fixture.detectChanges();
-    });
+      });
 
       it('should create', () => {
         expect(component).toBeTruthy();

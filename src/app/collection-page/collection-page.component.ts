@@ -1,6 +1,6 @@
-import { isPlatformServer } from '@angular/common';
 import {
   AsyncPipe,
+  isPlatformServer,
   NgIf,
 } from '@angular/common';
 import {

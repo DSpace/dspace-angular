@@ -145,7 +145,6 @@ describe('ListableObjectComponentLoaderComponent', () => {
 
       listableComponent.reloadedObject.emit(reloadedObject);
       tick(200);
-ta
       expect(comp.contentChange.emit).toHaveBeenCalledWith(reloadedObject);
     }));
 

@@ -8,9 +8,10 @@ import { LocaleService } from '../../../../core/locale/locale.service';
 import { Site } from '../../../../core/shared/site.model';
 
 @Component({
-  selector: 'ds-text-section',
+  selector: 'ds-base-text-section',
   templateUrl: './text-section.component.html',
   styleUrls: ['./text-section.component.scss'],
+  standalone: true,
 })
 export class TextSectionComponent {
 

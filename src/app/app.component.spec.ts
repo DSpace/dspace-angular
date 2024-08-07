@@ -36,9 +36,9 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from './core/services/window.service';
+import { ThemedRootComponent } from './root/themed-root.component';
 import { KlaroService } from './shared/cookies/klaro.service';
 import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
-import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';
 import { MenuService } from './shared/menu/menu.service';

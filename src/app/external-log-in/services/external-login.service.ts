@@ -67,7 +67,7 @@ export class ExternalLoginService {
     return this.store.pipe(
       select(getAuthenticationMethods),
       filter((methods: AuthMethod[]) => methods.length > 0),
-      map((methods: AuthMethod[]) => methods.find(m => m.authMethodType === registrationType.toLocaleLowerCase()).location),
+      map((methods: AuthMethod[]) => methods.find(m => m.authMethodType?.toString() === registrationType.toLocaleLowerCase()).location),
     );
   }
 }

@@ -3,5 +3,4 @@ export enum NotificationType {
   Error = 'alert-danger',
   Info = 'alert-info',
   Warning = 'alert-warning',
-  Process = 'alert-info'
 }

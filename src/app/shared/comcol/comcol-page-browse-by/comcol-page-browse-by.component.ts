@@ -12,11 +12,9 @@ import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Params,
-  NavigationEnd,
   Router,
   RouterLink,
   RouterLinkActive,
-  Scroll,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -24,12 +22,8 @@ import {
   of,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
-  filter,
   map,
   switchMap,
-  startWith,
-  take,
 } from 'rxjs/operators';
 
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
@@ -43,7 +37,6 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { isNotEmpty } from '../../empty.util';
 
 export interface ComColPageNavOption {
   id: string;

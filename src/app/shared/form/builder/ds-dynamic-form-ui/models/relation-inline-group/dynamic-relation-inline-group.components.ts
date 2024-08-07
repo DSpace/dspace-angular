@@ -192,7 +192,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     });
   }
 
-  private initSecurityLevelConfig(model: DynamicInputModel | any, modelGroup: DynamicFormGroupModel) {
+  private initSecurityLevelConfig(model: any, modelGroup: DynamicFormGroupModel) {
     if (this.model.name === model.name && this.model.securityConfigLevel?.length > 1) {
       model.securityConfigLevel = this.model.securityConfigLevel;
       model.toggleSecurityVisibility = true;

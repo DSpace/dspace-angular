@@ -12,9 +12,11 @@ import { BrowseMostElementsComponent } from './browse-most-elements.component';
  * Themed wrapper for BrowseMostElementsComponent
  */
 @Component({
-  selector: 'ds-themed-browse-most-elements',
+  selector: 'ds-browse-most-elements',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
+  imports: [BrowseMostElementsComponent],
 })
 export class ThemedBrowseMostElementsComponent extends ThemedComponent<BrowseMostElementsComponent> {
 

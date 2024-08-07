@@ -29,7 +29,6 @@ import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
 import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
-import { VarDirective } from '../../../../../utils/var.directive';
 import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;

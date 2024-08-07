@@ -1,4 +1,7 @@
-import { Route, UrlSegment, } from '@angular/router';
+import {
+  Route,
+  UrlSegment,
+} from '@angular/router';
 
 import { isNotEmpty } from '../shared/empty.util';
 import { lookupGuard } from './lookup-guard';

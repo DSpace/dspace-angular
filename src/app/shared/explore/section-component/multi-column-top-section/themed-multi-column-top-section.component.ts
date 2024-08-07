@@ -8,9 +8,11 @@ import { ThemedComponent } from '../../../theme-support/themed.component';
 import { MultiColumnTopSectionComponent } from './multi-column-top-section.component';
 
 @Component({
-  selector: 'ds-themed-multi-column-top-section',
+  selector: 'ds-multi-column-top-section',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [MultiColumnTopSectionComponent],
 })
 export class ThemedMultiColumnTopSectionComponent extends ThemedComponent<MultiColumnTopSectionComponent> {
 

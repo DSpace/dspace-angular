@@ -19,8 +19,8 @@ import {
   NgbDateParserFormatter,
   NgbDatepicker,
   NgbDatepickerConfig,
-  NgbDateStruct,
   NgbDatepickerModule,
+  NgbDateStruct,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,

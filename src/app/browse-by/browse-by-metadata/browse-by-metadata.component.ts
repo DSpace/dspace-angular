@@ -60,11 +60,11 @@ import {
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import { VarDirective } from '../../shared/utils/var.directive';
 import {
   followLink,
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 export const BBM_PAGINATION_ID = 'bbm';

@@ -23,7 +23,7 @@ export class MetricGooglescholarComponent extends BaseMetricComponent implements
     this.url = this.getDetailUrl();
   }
 
-  getDetailUrl(): null | any {
+  getDetailUrl(): any {
     try {
       const remark = this.parseRemark();
       if (hasValue(remark)) {

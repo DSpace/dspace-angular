@@ -30,8 +30,8 @@ import {
   DynamicFormLayout,
   DynamicFormsCoreModule,
 } from '@ng-dynamic-forms/core';
-import cloneDeep from 'lodash/cloneDeep';
 import { TranslateModule } from '@ngx-translate/core';
+import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 import {
@@ -50,12 +50,12 @@ import {
   isNotNull,
   isNull,
 } from '../empty.util';
+import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DynamicLinkModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-link.model';
 import { DynamicRowGroupModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicRelationGroupModel } from './builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicScrollableDropdownModel } from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import {

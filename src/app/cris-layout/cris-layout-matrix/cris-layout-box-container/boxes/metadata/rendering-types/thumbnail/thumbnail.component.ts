@@ -31,10 +31,11 @@ import {
 } from '../metadata-box.decorator';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector, dspace-angular-ts/themed-component-selectors
   selector: 'span[ds-thumbnail].float-left',
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.scss'],
+  standalone: true,
 })
 @MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
 /**

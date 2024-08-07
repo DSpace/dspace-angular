@@ -1,9 +1,27 @@
-import { AsyncPipe, NgClass, NgComponentOutlet, NgForOf, NgIf, } from '@angular/common';
-import { Component, Injector, Input, OnInit, ViewChild, } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';

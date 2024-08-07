@@ -17,8 +17,9 @@ import { PaginatedSearchOptions } from '../../../search/models/paginated-search-
  * Component representing the Top component section.
  */
 @Component({
-  selector: 'ds-top-section',
+  selector: 'ds-base-top-section',
   templateUrl: './top-section.component.html',
+  standalone: true,
 })
 export class TopSectionComponent implements OnInit {
 

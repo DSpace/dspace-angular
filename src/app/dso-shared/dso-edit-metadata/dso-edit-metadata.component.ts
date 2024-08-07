@@ -31,7 +31,6 @@ import {
 import {
   map,
   mergeMap,
-  switchMap,
   tap,
 } from 'rxjs/operators';
 
@@ -39,6 +38,7 @@ import {
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
 } from '../../../config/app-config.interface';
+import { DATA_SERVICE_FACTORY } from '../../core/cache/builders/build-decorators';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { UpdateDataService } from '../../core/data/update-data.service';
@@ -68,7 +68,6 @@ import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
-import { DATA_SERVICE_FACTORY } from '../../core/cache/builders/build-decorators';
 
 @Component({
   selector: 'ds-base-dso-edit-metadata',
@@ -197,7 +196,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
         map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
         tap((data: any) => this.initDSO(data.dso.payload)),
         mergeMap(() => this.retrieveDataService()),
-        withLatestFrom(this.getSecuritySettings())
+        withLatestFrom(this.getSecuritySettings()),
       ).subscribe(([dataService, securitySettings]: [UpdateDataService<DSpaceObject>, MetadataSecurityConfiguration]) => {
         this.securitySettings$.next(securitySettings);
         this.initDataService(dataService);

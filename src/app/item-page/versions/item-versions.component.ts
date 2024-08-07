@@ -11,14 +11,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
-  Router,
+  RouterLink,
 } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
@@ -55,9 +52,9 @@ import {
 } from '../../core/shared/operators';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
-import { AlertComponent } from '../../shared/alert/alert.component';
 import { RenderCrisLayoutBoxFor } from '../../cris-layout/decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../cris-layout/enums/layout-box.enum';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {
   hasValue,

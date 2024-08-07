@@ -3,8 +3,10 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
-import { of } from 'rxjs';
-import { Observable } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { endUserAgreementCookieGuard } from './end-user-agreement-cookie.guard';

@@ -1,9 +1,27 @@
-import { AsyncPipe, NgClass, NgForOf, NgIf, } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterLink, } from '@angular/router';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, zip, } from 'rxjs';
-import { filter, map, switchMap, take, } from 'rxjs/operators';
+import { RouterLink } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  zip,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -13,9 +31,7 @@ import { RegistryService } from '../../../core/registry/registry.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
-import {
-  MetadataSchemaExportService
-} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
+import { MetadataSchemaExportService } from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';

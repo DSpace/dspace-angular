@@ -1,8 +1,6 @@
 import {
-  Component,
   Directive,
   inject,
-  OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,

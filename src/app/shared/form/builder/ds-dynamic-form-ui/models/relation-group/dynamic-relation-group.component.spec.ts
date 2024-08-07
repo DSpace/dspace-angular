@@ -35,21 +35,21 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
-import { of as observableOf } from 'rxjs';
 
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { MetadataSecurityConfigurationService } from '../../../../../../core/submission/metadatasecurityconfig-data.service';
-import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
+import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { XSRFService } from '../../../../../../core/xsrf/xsrf.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
@@ -61,7 +61,6 @@ import { FormFieldModel } from '../../../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';
-import { DsDynamicInputModel } from '../ds-dynamic-input.model';
 import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
 import {
   DynamicRelationGroupModel,

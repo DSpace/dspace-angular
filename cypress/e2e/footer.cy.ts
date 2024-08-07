@@ -9,12 +9,12 @@ xdescribe('Footer', () => {
     cy.get('ds-footer').should('be.visible');
 
     // Analyze <ds-footer> for accessibility
-        testA11y('ds-footer',
+    testA11y('ds-footer',
           {
             rules: {
-              'heading-order': { enabled: false }
-            }
-          } as Options
-        );
+              'heading-order': { enabled: false },
+            },
+          } as Options,
+    );
   });
 });

@@ -18,8 +18,9 @@ import { getFacetValueForTypeAndLabel } from '../../../search/search.utils';
  * Component representing the Facet component section.
  */
 @Component({
-  selector: 'ds-facet-section',
+  selector: 'ds-base-facet-section',
   templateUrl: './facet-section.component.html',
+  standalone: true,
 })
 export class FacetSectionComponent implements OnInit {
 

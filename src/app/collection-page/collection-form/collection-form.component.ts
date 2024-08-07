@@ -12,7 +12,6 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
   DynamicFormControlModel,

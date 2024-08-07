@@ -22,8 +22,9 @@ import { SearchConfig } from '../../../search/search-filters/search-config.model
  * Component representing the Search component section.
  */
 @Component({
-  selector: 'ds-search-section',
+  selector: 'ds-base-search-section',
   templateUrl: './search-section.component.html',
+  standalone: true,
 })
 export class SearchSectionComponent implements OnInit {
 

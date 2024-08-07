@@ -9,8 +9,9 @@ import { BrowseSection } from '../../../../core/layout/models/section.model';
  * Component representing the Browse component section.
  */
 @Component({
-  selector: 'ds-browse-section',
+  selector: 'ds-base-browse-section',
   templateUrl: './browse-section.component.html',
+  standalone: true,
 })
 export class BrowseSectionComponent {
 

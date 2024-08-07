@@ -22,10 +22,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  combineLatest,
-  Subscription,
   from,
-  Observable,
 } from 'rxjs';
 import {
   map,

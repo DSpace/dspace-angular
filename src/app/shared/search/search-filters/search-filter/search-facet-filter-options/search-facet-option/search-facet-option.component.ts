@@ -7,14 +7,16 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import {
   ActivatedRoute,
   Params,
   Router,
   RouterLink,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

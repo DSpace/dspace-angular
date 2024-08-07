@@ -1,11 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf, of, } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+  of,
+} from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
@@ -15,7 +26,10 @@ import { ConfigurationDataService } from '../../../../../core/data/configuration
 import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
 import { FindListOptions } from '../../../../../core/data/find-list-options.model';
-import { buildPaginatedList, PaginatedList, } from '../../../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
@@ -31,16 +45,15 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../../remote-data.utils';
+import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { FollowLinkConfig } from '../../../../utils/follow-link-config.model';
 import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
+import { FollowLinkConfig } from '../../../../utils/follow-link-config.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
-import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
-import { ActivatedRoute } from '@angular/router';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};

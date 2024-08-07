@@ -20,8 +20,8 @@ import {
 import {
   NgbDropdown,
   NgbDropdownModule,
-  NgbTooltipModule,
   NgbModal,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlCustomEvent,

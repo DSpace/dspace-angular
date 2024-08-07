@@ -8,9 +8,11 @@ import { ThemedComponent } from '../../../theme-support/themed.component';
 import { FacetSectionComponent } from './facet-section.component';
 
 @Component({
-  selector: 'ds-themed-facet-section',
+  selector: 'ds-facet-section',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [FacetSectionComponent],
 })
 export class ThemedFacetSectionComponent extends ThemedComponent<FacetSectionComponent> {
 

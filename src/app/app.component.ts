@@ -49,15 +49,14 @@ import {
 } from './app-routing-paths';
 import { AuthService } from './core/auth/auth.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { models } from './core/core.module';
 import { RouteService } from './core/services/route.service';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from './core/services/window.service';
 import { distinctNext } from './core/shared/distinct-next';
-import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 import { ThemedRootComponent } from './root/themed-root.component';
+import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';

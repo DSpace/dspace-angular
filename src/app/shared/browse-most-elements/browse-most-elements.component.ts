@@ -23,9 +23,10 @@ import { SearchResult } from '../search/models/search-result.model';
 import { followLink } from '../utils/follow-link-config.model';
 
 @Component({
-  selector: 'ds-browse-most-elements',
+  selector: 'ds-base-browse-most-elements',
   styleUrls: ['./browse-most-elements.component.scss'],
   templateUrl: './browse-most-elements.component.html',
+  standalone: true,
 })
 
 export class BrowseMostElementsComponent implements OnInit {

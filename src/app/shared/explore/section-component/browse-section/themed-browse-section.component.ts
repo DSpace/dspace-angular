@@ -8,9 +8,11 @@ import { ThemedComponent } from '../../../theme-support/themed.component';
 import { BrowseSectionComponent } from './browse-section.component';
 
 @Component({
-  selector: 'ds-themed-browse-section',
+  selector: 'ds-browse-section',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [BrowseSectionComponent],
 })
 export class ThemedBrowseSectionComponent extends ThemedComponent<BrowseSectionComponent> {
 

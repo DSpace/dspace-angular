@@ -17,8 +17,8 @@ import { UntypedFormGroup } from '@angular/forms';
 import {
   NgbModal,
   NgbModalRef,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
@@ -55,16 +55,15 @@ import {
   isEmpty,
 } from '../../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
-import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { ChipsItem } from '../../../../chips/models/chips-item.model';
+import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
-import { FormComponent } from '../../../../form.component';
 
 /**
  * Component representing a group input field

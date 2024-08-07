@@ -9,7 +9,6 @@ import {
   fakeAsync,
   TestBed,
   tick,
-  waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';

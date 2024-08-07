@@ -7,9 +7,11 @@ import { ObjectGoneComponent } from './objectgone.component';
  * Themed wrapper for ObjectGoneComponent
  */
 @Component({
-  selector: 'ds-themed-objgone',
+  selector: 'ds-objgone',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [ObjectGoneComponent],
 })
 export class ThemedObjectGoneComponent extends ThemedComponent<ObjectGoneComponent> {
   protected getComponentName(): string {

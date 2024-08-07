@@ -9,9 +9,11 @@ import { ThemedComponent } from '../../../theme-support/themed.component';
 import { TopSectionComponent } from './top-section.component';
 
 @Component({
-  selector: 'ds-themed-top-section',
+  selector: 'ds-top-section',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [TopSectionComponent],
 })
 export class ThemedTopSectionComponent extends ThemedComponent<TopSectionComponent> {
 

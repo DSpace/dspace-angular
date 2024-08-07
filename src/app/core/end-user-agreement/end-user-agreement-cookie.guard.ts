@@ -1,9 +1,5 @@
 import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
-import { of as observableOf } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { endUserAgreementGuard } from './end-user-agreement.guard';
@@ -20,5 +16,5 @@ export const endUserAgreementCookieGuard: CanActivateFn =
       const endUserAgreementService = inject(EndUserAgreementService);
       return endUserAgreementService.isUserAgreementEnabled().pipe(
         map((isUserAgreementEnabled) => isUserAgreementEnabled ? endUserAgreementService.isCookieAccepted() : true));
-    }
+    },
   );

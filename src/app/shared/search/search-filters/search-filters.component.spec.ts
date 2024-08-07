@@ -12,8 +12,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';

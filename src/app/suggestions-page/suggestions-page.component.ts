@@ -228,22 +228,22 @@ export class SuggestionsPageComponent implements OnInit {
     this.isBulkOperationPending = true;
     this.suggestionService.ignoreSuggestionMultiple(Object.values(this.selectedSuggestions)).pipe(
       tap((results: SuggestionBulkResult) => {
-          this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
-          this.isBulkOperationPending = false;
-          this.selectedSuggestions = {};
-          if (results.success > 0) {
-            this.notificationService.success(
-              this.translateService.get('suggestion.ignoreSuggestion.bulk.success',
-                { count: results.success }));
-          }
-          if (results.fails > 0) {
-            this.notificationService.error(
-              this.translateService.get('suggestion.ignoreSuggestion.bulk.error',
-                { count: results.fails }));
-          }
-        }),
-        switchMap(() => this.updatePage()),
-      ).subscribe();
+        this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
+        this.isBulkOperationPending = false;
+        this.selectedSuggestions = {};
+        if (results.success > 0) {
+          this.notificationService.success(
+            this.translateService.get('suggestion.ignoreSuggestion.bulk.success',
+              { count: results.success }));
+        }
+        if (results.fails > 0) {
+          this.notificationService.error(
+            this.translateService.get('suggestion.ignoreSuggestion.bulk.error',
+              { count: results.fails }));
+        }
+      }),
+      switchMap(() => this.updatePage()),
+    ).subscribe();
   }
 
   /**
@@ -269,22 +269,22 @@ export class SuggestionsPageComponent implements OnInit {
     this.isBulkOperationPending = true;
     this.suggestionService.approveAndImportMultiple(this.workspaceItemService, Object.values(this.selectedSuggestions), event.collectionId).pipe(
       tap((results: SuggestionBulkResult) => {
-          this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
-          this.isBulkOperationPending = false;
-          this.selectedSuggestions = {};
-          if (results.success > 0) {
-            this.notificationService.success(
-              this.translateService.get('suggestion.approveAndImport.bulk.success',
-                { count: results.success }));
-          }
-          if (results.fails > 0) {
-            this.notificationService.error(
-              this.translateService.get('suggestion.approveAndImport.bulk.error',
-                { count: results.fails }));
-          }
-        }),
-        switchMap(() => this.updatePage()),
-      ).subscribe();
+        this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
+        this.isBulkOperationPending = false;
+        this.selectedSuggestions = {};
+        if (results.success > 0) {
+          this.notificationService.success(
+            this.translateService.get('suggestion.approveAndImport.bulk.success',
+              { count: results.success }));
+        }
+        if (results.fails > 0) {
+          this.notificationService.error(
+            this.translateService.get('suggestion.approveAndImport.bulk.error',
+              { count: results.fails }));
+        }
+      }),
+      switchMap(() => this.updatePage()),
+    ).subscribe();
   }
 
   /**

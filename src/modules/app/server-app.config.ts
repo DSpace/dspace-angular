@@ -1,12 +1,33 @@
 import { XhrFactory } from '@angular/common';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, } from '@angular/common/http';
-import { APP_ID, ApplicationConfig, importProvidersFrom, mergeApplicationConfig, TransferState, } from '@angular/core';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  APP_ID,
+  ApplicationConfig,
+  importProvidersFrom,
+  mergeApplicationConfig,
+  TransferState,
+} from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServerRendering } from '@angular/platform-server';
 import { EffectsModule } from '@ngrx/effects';
-import { Action, StoreConfig, StoreModule, } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
-import { Angulartics2, Angulartics2GoogleAnalytics, Angulartics2GoogleGlobalSiteTag, } from 'angulartics2';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Angulartics2,
+  Angulartics2GoogleAnalytics,
+  Angulartics2GoogleGlobalSiteTag,
+} from 'angulartics2';
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
@@ -29,10 +50,10 @@ import { ServerHardRedirectService } from '../../app/core/services/server-hard-r
 import { ServerXhrService } from '../../app/core/services/server-xhr.service';
 import { MathService } from '../../app/core/shared/math.service';
 import { ServerMathService } from '../../app/core/shared/server-math.service';
-import { DatadogRumService } from '../../app/shared/datadog-rum/datadog-rum.service';
-import { ServerDatadogRumService } from '../../app/shared/datadog-rum/server-datadog-rum.service';
 import { ServerXSRFService } from '../../app/core/xsrf/server-xsrf.service';
 import { XSRFService } from '../../app/core/xsrf/xsrf.service';
+import { DatadogRumService } from '../../app/shared/datadog-rum/datadog-rum.service';
+import { ServerDatadogRumService } from '../../app/shared/datadog-rum/server-datadog-rum.service';
 import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';

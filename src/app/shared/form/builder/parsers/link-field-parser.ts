@@ -17,7 +17,6 @@ import {
 } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicLinkModel } from '../ds-dynamic-form-ui/models/ds-dynamic-link.model';
 import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ConcatFieldParser } from './concat-field-parser';
 import {
   CONFIG_DATA,
@@ -40,7 +39,7 @@ export class LinkFieldParser extends ConcatFieldParser {
     super(submissionId, configData, initFormValues, parserOptions, securityConfig, ',', 'Label', 'Value');
   }
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: any, label?: boolean): any {
     const clsGroup: DynamicFormControlLayout = {
       element: {
         control: 'form-row',

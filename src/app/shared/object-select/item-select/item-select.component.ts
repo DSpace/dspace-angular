@@ -16,6 +16,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
@@ -29,10 +31,8 @@ import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { PaginationComponent } from '../../pagination/pagination.component';
 import { VarDirective } from '../../utils/var.directive';
 import { DSpaceObjectSelect } from '../object-select.model';
-import { ObjectSelectComponent } from '../object-select/object-select.component';
 import { ObjectSelectService } from '../object-select.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { ObjectSelectComponent } from '../object-select/object-select.component';
 
 @Component({
   selector: 'ds-item-select',

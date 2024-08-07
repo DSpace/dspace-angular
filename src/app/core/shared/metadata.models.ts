@@ -5,6 +5,7 @@ import {
   Serialize,
 } from 'cerialize';
 import { v4 as uuidv4 } from 'uuid';
+
 import { hasValue } from '../../shared/empty.util';
 
 export const VIRTUAL_METADATA_PREFIX = 'virtual::';

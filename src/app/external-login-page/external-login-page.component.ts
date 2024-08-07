@@ -18,6 +18,7 @@ import { hasNoValue } from '../shared/empty.util';
 @Component({
   templateUrl: './external-login-page.component.html',
   styleUrls: ['./external-login-page.component.scss'],
+  standalone: true,
 })
 export class ExternalLoginPageComponent implements OnInit {
   /**

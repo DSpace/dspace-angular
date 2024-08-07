@@ -123,7 +123,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should show bitstream content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail.id).toEqual('bitstream1');
     });
 
@@ -138,7 +138,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should not show bitstream content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail).toBeFalsy();
     });
 
@@ -154,7 +154,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should show thumbnail content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail.id).toEqual('thumbnail1');
     });
 
@@ -170,7 +170,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should not show thumbnail content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail).toBeFalsy();
     });
 
