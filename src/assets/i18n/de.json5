@@ -5948,7 +5948,7 @@
   "workspace-item.delete.button.cancel": "Abbrechen",
 
   // "workspace-item.delete.notification.success.title": "Deleted",
-   "workspace-item.delete.notification.success.title": "Gelöscht",
+  "workspace-item.delete.notification.success.title": "Gelöscht",
 
   // "workspace-item.delete.title": "This workspace item was successfully deleted",
   "workspace-item.delete.title": "Dieses Workspace-Item wurde erfolgreich gelöscht.",
@@ -5958,5 +5958,4 @@
 
   // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
   "workspace-item.delete.notification.error.content": "Das Workspace-Item konnte nicht gelöscht werden.",
-
 }
