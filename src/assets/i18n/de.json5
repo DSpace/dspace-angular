@@ -5464,7 +5464,7 @@
   "workflow-item.delete.notification.success.title": "Gelöscht",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde gelöscht.",
+  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde erfolgreich gelöscht.",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
   "workflow-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
@@ -5509,4 +5509,36 @@
   // "workflow-item.send-back.button.confirm": "Send back"
   "workflow-item.send-back.button.confirm": "Zurücksenden",
 
+  // "workflow-item.view.breadcrumbs": "Workflow View",
+  "workflow-item.view.breadcrumbs": "Workflow-Ansicht",
+
+  // "workspace-item.view.breadcrumbs": "Workspace View",
+  "workspace-item.view.breadcrumbs": "Workspace-Ansicht",
+
+  // "workspace-item.view.title": "Workspace View",
+  "workspace-item.view.title": "Workspace-Ansicht",
+
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  "workspace-item.delete.breadcrumbs": "Workspace-Item löschen",
+
+  // "workspace-item.delete.header": "Delete workspace item",
+  "workspace-item.delete.header": "Workspace-Item löschen",
+
+  // "workspace-item.delete.button.confirm": "Delete",
+  "workspace-item.delete.button.confirm": "Löschen",
+
+  // "workspace-item.delete.button.cancel": "Cancel",
+  "workspace-item.delete.button.cancel": "Abbrechen",
+
+  // "workspace-item.delete.notification.success.title": "Deleted",
+  "workspace-item.delete.notification.success.title": "Gelöscht",
+
+  // "workspace-item.delete.title": "This workspace item was successfully deleted",
+  "workspace-item.delete.title": "Dieses Workspace-Item wurde erfolgreich gelöscht.",
+
+  // "workspace-item.delete.notification.error.title": "Something went wrong",
+  "workspace-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
+
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  "workspace-item.delete.notification.error.content": "Das Workspace-Item konnte nicht gelöscht werden.",
 }
