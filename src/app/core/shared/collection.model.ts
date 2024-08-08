@@ -130,6 +130,14 @@ export class Collection extends DSpaceObject implements ChildHALResource, Handle
     return this.firstMetadataValue('dc.description.tableofcontents');
   }
 
+  /**
+   * The CSS of this Collection
+   * Corresponds to the metadata field collection.css
+   */
+  get cssDisplay(): string {
+    return this.firstMetadataValue('collection.css');
+  }
+
   getParentLinkKey(): keyof this['_links'] {
     return 'parentCommunity';
   }
