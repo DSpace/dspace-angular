@@ -126,6 +126,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       name: this.getVocabularyEntry(),
       closed: true,
     };
+    modalRef.componentInstance.showAdd = false;
     this.subs.push(from(modalRef.result).pipe(
       switchMap((detail: VocabularyEntryDetail) => this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, detail.value, 'equals')),
       take(1),

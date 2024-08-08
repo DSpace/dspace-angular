@@ -1,10 +1,7 @@
-import {
-  mapToCanActivate,
-  Route,
-} from '@angular/router';
+import { Route } from '@angular/router';
 
 import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { CollectionAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
+import { collectionAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
@@ -30,7 +27,7 @@ export const ROUTES: Route[] = [
     },
     data: { breadcrumbKey: 'collection.edit' },
     component: EditCollectionPageComponent,
-    canActivate: mapToCanActivate([CollectionAdministratorGuard]),
+    canActivate: [collectionAdministratorGuard],
     children: [
       {
         path: '',

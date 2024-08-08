@@ -14,13 +14,11 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { WorkflowItemDataService } from '../../../../core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
@@ -41,6 +39,7 @@ const searchService = getMockSearchService();
 const requestService = getMockRequestService();
 
 let mockPoolTaskDataService: PoolTaskDataService;
+let mockWorkflowItemDataService: WorkflowItemDataService;
 
 describe('ClaimedTaskActionsApproveComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
@@ -50,6 +49,10 @@ describe('ClaimedTaskActionsApproveComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
+    mockWorkflowItemDataService = jasmine.createSpyObj('WorkflowItemDataService', {
+      'invalidateByHref': observableOf(false),
+    });
+
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -68,6 +71,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
+        { provide: WorkflowItemDataService, useValue: mockWorkflowItemDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsApproveComponent, {
@@ -103,7 +107,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
 
     beforeEach(() => {
       spyOn(component.processCompleted, 'emit');
-      spyOn(component, 'startActionExecution').and.returnValue(of(null));
+      spyOn(component, 'startActionExecution').and.returnValue(observableOf(null));
 
       expectedBody = {
         [component.option]: 'true',

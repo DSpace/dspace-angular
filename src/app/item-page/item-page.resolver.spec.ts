@@ -1,17 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { MetadataValueFilter } from '../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { AuthServiceStub } from '../shared/testing/auth-service.stub';
 import { itemPageResolver } from './item-page.resolver';
 
 describe('itemPageResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{
+      imports: [RouterModule.forRoot([{
         path: 'entities/:entity-type/:id',
         component: {} as any,
       }])],
@@ -22,7 +25,8 @@ describe('itemPageResolver', () => {
     let resolver: any;
     let itemService: any;
     let store: any;
-    let router: any;
+    let router: Router;
+    let authService: AuthServiceStub;
 
     const uuid = '1234-65487-12354-1235';
     let item: DSpaceObject;
@@ -42,6 +46,7 @@ describe('itemPageResolver', () => {
         store = jasmine.createSpyObj('store', {
           dispatch: {},
         });
+        authService = new AuthServiceStub();
         resolver = itemPageResolver;
       });
 
@@ -54,6 +59,7 @@ describe('itemPageResolver', () => {
           router,
           itemService,
           store,
+          authService,
         ).pipe(first())
           .subscribe(
             () => {
@@ -73,6 +79,7 @@ describe('itemPageResolver', () => {
           router,
           itemService,
           store,
+          authService,
         ).pipe(first())
           .subscribe(
             () => {
