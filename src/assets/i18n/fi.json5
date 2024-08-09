@@ -2341,12 +2341,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(aina pakollinen)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Tästä kytkimestä voit ottaa kaikki palvelut käyttöön tai poistaa ne käytöstä",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Ota käyttöön tai poista käytöstä kaikki palvelut",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Viime käyntisi jälkeen on tehty muutoksia. Ole hyvä ja päivitä suostumuksesi.",
 
@@ -2362,14 +2356,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Tallenna",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Evästeiden hyväksyntä",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Keräämme ja käsittelemme tietojasi seuraaviin tarkoituksiin: <strong>todentaminen, asetukset, kuittaus ja tilastot</strong>. <br/> Lisätietoa saat lukemalla tämän: {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Keräämme ja käsittelemme tietojasi seuraaviin tarkoituksiin: <strong>todentaminen, asetukset, kuittaus ja tilastot</strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Räätälöi",
@@ -2385,12 +2373,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Keräämämme tieto",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "palvelut",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "palvelu",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Todentaminen",

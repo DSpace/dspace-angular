@@ -1004,7 +1004,6 @@
   "cookies.consent.content-modal.privacy-policy.text": "Για να μάθετε περισσότερα, διαβάστε την {Πολιτική απορρήτου} μας.",
   "cookies.consent.content-modal.title": "Πληροφορίες που συλλέγουμε",
   "cookies.consent.content-notice.description": "Συλλέγουμε και επεξεργαζόμαστε τα προσωπικά σας στοιχεία για τους ακόλουθους σκοπούς: <strong>Έλεγχος ταυτότητας, Προτιμήσεις, Αναγνώριση και Στατιστικά</strong>. <br/> Για να μάθετε περισσότερα, διαβάστε την {privacyPolicy} μας.",
-  "cookies.consent.content-notice.description.no-privacy": "Συλλέγουμε και επεξεργαζόμαστε τα προσωπικά σας στοιχεία για τους ακόλουθους σκοπούς: <strong>Έλεγχος ταυτότητας, Προτιμήσεις, Αναγνώριση και Στατιστικά</strong>.",
   "cookies.consent.content-notice.learnMore": "Προσαρμογή",
   "cookies.consent.decline": "Απόρριψη",
   "cookies.consent.purpose.functional": "Λειτουργικός",
