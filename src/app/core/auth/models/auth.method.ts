@@ -40,6 +40,11 @@ export class AuthMethod {
         this.location = location;
         break;
       }
+      case 'saml': {
+        this.authMethodType = AuthMethodType.Saml;
+        this.location = location;
+        break;
+      }
 
       default: {
         break;
