@@ -45,7 +45,7 @@ export class MetadataUriValuesComponent extends MetadataValuesComponent {
   @Input() mdValues: MetadataValue[];
 
   /**
-   * The seperator used to split the metadata values (can contain HTML)
+   * The separator used to split the metadata values (can contain HTML)
    */
   @Input() separator: string;
 

@@ -106,7 +106,7 @@ export class EndpointMockingRestService extends DspaceRestService {
    * Get the mock response associated with this URL from this.mockResponseMap
    *
    * @param urlStr
-   *    the URL to fetch a mock reponse for
+   *    the URL to fetch a mock response for
    * @return any
    *    the mock response if there is one, undefined otherwise
    */

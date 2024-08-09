@@ -33,7 +33,7 @@ import { PaginatedSearchOptions } from '../search/models/paginated-search-option
 
 
 /**
- * The Rss feed button componenet.
+ * The Rss feed button component.
  */
 @Component({
   exportAs: 'rssComponent',

@@ -28,7 +28,7 @@ export class Duplicate implements CacheableObject {
   @autoserialize
   uuid: string;
   /**
-   * The workfow item ID, if any
+   * The workflow item ID, if any
    */
   @autoserialize
   workflowItemId: number;

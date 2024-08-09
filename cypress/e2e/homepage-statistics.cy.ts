@@ -17,7 +17,7 @@ describe('Site Statistics Page', () => {
 
     cy.visit('/statistics');
 
-    // <ds-site-statistics-page> tag must be visable
+    // <ds-site-statistics-page> tag must be visible
     cy.get('ds-site-statistics-page').should('be.visible');
 
     // Verify / wait until "Total Visits" table's *last* label is non-empty

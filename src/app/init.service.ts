@@ -50,7 +50,7 @@ import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
  * Performs the initialization of the app.
  *
  * Should be extended to implement server- & browser-specific functionality.
- * Initialization steps shared between the server and brower implementations
+ * Initialization steps shared between the server and browser implementations
  * can be included in this class.
  *
  * Note that the service cannot (indirectly) depend on injection tokens that are only available _after_ APP_INITIALIZER.
@@ -134,7 +134,7 @@ export abstract class InitService {
   protected static resolveAppConfig(
     transferState: TransferState,
   ): void {
-    // overriden in subclasses if applicable
+    // overridden in subclasses if applicable
   }
 
   /**

@@ -118,7 +118,7 @@ describe('SearchFacetRangeOptionComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when the updateChangeParams method is called wih a value', () => {
+  describe('when the updateChangeParams method is called with a value', () => {
     it('should update the changeQueryParams with the new parameter values', () => {
       comp.changeQueryParams = {};
       comp.filterValue = {

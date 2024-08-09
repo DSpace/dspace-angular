@@ -115,7 +115,7 @@ describe('SubscriptionViewComponent', () => {
     expect(de.query(By.css('.subscription-type'))).toBeTruthy();
   });
 
-  it('should have subscription paramenter info', () => {
+  it('should have subscription parameter info', () => {
     expect(de.query(By.css('.subscription-parameters > span'))).toBeTruthy();
   });
 

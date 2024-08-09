@@ -59,7 +59,7 @@ cache:
     # Set to true to see all cache hits/misses/refreshes in your console logs. Useful for debugging SSR caching issues.
     debug: false
     # When enabled (i.e. max > 0), known bots will be sent pages from a server side cache specific for bots.
-    # (Keep in mind, bot detection cannot be guarranteed. It is possible some bots will bypass this cache.)
+    # (Keep in mind, bot detection cannot be guaranteed. It is possible some bots will bypass this cache.)
     botCache:
       # Maximum number of pages to cache for known bots. Set to zero (0) to disable server side caching for bots.
       # Default is 1000, which means the 1000 most recently accessed public pages will be cached.

@@ -304,7 +304,7 @@ function addDependentsObjectCacheState(state: ObjectCacheState, action: AddDepen
 
 
 /**
- * Remove all dependent request UUIDs from a cached object, used to clear out-of-date depedencies
+ * Remove all dependent request UUIDs from a cached object, used to clear out-of-date dependencies
  *
  * @param state   the current state
  * @param action  an AddDependentsObjectCacheAction

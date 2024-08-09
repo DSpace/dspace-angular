@@ -15,7 +15,7 @@ DSPACE_APP_CONFIG_PATH=/usr/local/dspace/config/config.yml
 Configuration options can be overridden by setting environment variables.
 
 ## Nodejs server
-When you start dspace-angular on node, it spins up an http server on which it listens for incoming connections. You can define the ip address and port the server should bind itsself to, and if ssl should be enabled not. By default it listens on `localhost:4000`. If you want it to listen on all your network connections, configure it to bind itself to `0.0.0.0`.
+When you start dspace-angular on node, it spins up an http server on which it listens for incoming connections. You can define the ip address and port the server should bind itself to, and if ssl should be enabled not. By default it listens on `localhost:4000`. If you want it to listen on all your network connections, configure it to bind itself to `0.0.0.0`.
 
 To change this configuration, change the options `ui.host`, `ui.port` and `ui.ssl` in the appropriate configuration file (see above):
 
