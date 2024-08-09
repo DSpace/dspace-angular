@@ -28,6 +28,11 @@ export interface SubmissionSectionObject {
   sectionType: SectionsType;
 
   /**
+   * The type this section extends
+   */
+  extendsSectionType: SectionsType;
+
+  /**
    * The section visibility
    */
   visibility: SectionVisibility;
