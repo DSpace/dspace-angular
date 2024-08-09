@@ -6,6 +6,7 @@ import {
 import {
   Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -50,7 +51,7 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
   ],
   standalone: true,
 })
-export class PublicationClaimComponent implements OnInit {
+export class PublicationClaimComponent implements OnDestroy, OnInit {
 
   /**
    * The source for which to list targets
