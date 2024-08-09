@@ -622,6 +622,9 @@ export class MenuResolver implements Resolve<boolean> {
       this.getDLExporterURL(),
       this.getDLExporterAccessToken()
     ]).subscribe(([authorized, url, accesstoken]) => {
+      console.log(accesstoken);
+      const urlSegments = url.split('?');
+      const queryParamSegments = urlSegments[1].split('=');
       this.menuService.addSection(MenuID.ADMIN,
         {
           id: 'loginmiur_dlexporter_url',
@@ -632,7 +635,10 @@ export class MenuResolver implements Resolve<boolean> {
             type: MenuItemType.LINK,
             text: 'menu.section.loginmiur_dlexporter_url',
             disabled: false,
-            link: url
+            link: urlSegments[0],
+            queryParams: {
+              [queryParamSegments[0]]: queryParamSegments[1]
+            }
           } as LinkMenuItemModel,
           icon: 'fa-solid fa-arrows-spin',
           shouldPersistOnRouteChange: true

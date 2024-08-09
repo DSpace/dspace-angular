@@ -7305,9 +7305,9 @@
   // TODO Source message changed - Revise the translation
   "menu.section.workflow": "Administrēt darba plūsmu",
 
-  // "menu.section.icon.loginmiur_dlexporter_url": "DLExporter",
+  // "menu.section.loginmiur_dlexporter_url": "DLExporter",
   // TODO New key - Add a translation
-  "menu.section.icon.loginmiur_dlexporter_url": "DLExporter",
+  "menu.section.loginmiur_dlexporter_url": "DLExporter",
 
   // "menu.section.loginmiur_dlexporter": "DLExporter",
   // TODO New key - Add a translation

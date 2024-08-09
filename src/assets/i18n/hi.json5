@@ -6857,9 +6857,9 @@
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "कार्यप्रवाह व्यवस्थापित करें",
 
-  // "menu.section.icon.loginmiur_dlexporter_url": "DLExporter",
+  // "menu.section.loginmiur_dlexporter_url": "DLExporter",
   // TODO New key - Add a translation
-  "menu.section.icon.loginmiur_dlexporter_url": "DLExporter",
+  "menu.section.loginmiur_dlexporter_url": "DLExporter",
 
   // "menu.section.loginmiur_dlexporter": "DLExporter",
   // TODO New key - Add a translation
