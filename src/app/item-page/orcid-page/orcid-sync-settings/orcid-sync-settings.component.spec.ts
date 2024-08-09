@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 
@@ -24,8 +24,8 @@ describe('OrcidSyncSettingsComponent test suite', () => {
   let comp: OrcidSyncSettingsComponent;
   let fixture: ComponentFixture<OrcidSyncSettingsComponent>;
   let scheduler: TestScheduler;
-  let researcherProfileService: jasmine.SpyObj<ResearcherProfileDataService>;
   let notificationsService;
+  let researcherProfileService: jasmine.SpyObj<ResearcherProfileDataService>;
   let formGroup: UntypedFormGroup;
 
   const mockResearcherProfile: ResearcherProfile = Object.assign(new ResearcherProfile(), {
@@ -161,6 +161,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
     scheduler = getTestScheduler();
     fixture = TestBed.createComponent(OrcidSyncSettingsComponent);
     comp = fixture.componentInstance;
+    researcherProfileService.findByRelatedItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
     comp.item = mockItemLinkedToOrcid;
     fixture.detectChanges();
   }));
@@ -197,7 +198,6 @@ describe('OrcidSyncSettingsComponent test suite', () => {
     });
 
     it('should call updateByOrcidOperations properly', () => {
-      researcherProfileService.findByRelatedItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
       researcherProfileService.patch.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
       const expectedOps: Operation[] = [
         {
@@ -226,7 +226,6 @@ describe('OrcidSyncSettingsComponent test suite', () => {
     });
 
     it('should show notification on success', () => {
-      researcherProfileService.findByRelatedItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
       researcherProfileService.patch.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
 
       scheduler.schedule(() => comp.onSubmit(formGroup));
@@ -238,6 +237,8 @@ describe('OrcidSyncSettingsComponent test suite', () => {
 
     it('should show notification on error', () => {
       researcherProfileService.findByRelatedItem.and.returnValue(createFailedRemoteDataObject$());
+      comp.item = mockItemLinkedToOrcid;
+      fixture.detectChanges();
 
       scheduler.schedule(() => comp.onSubmit(formGroup));
       scheduler.flush();
@@ -247,7 +248,6 @@ describe('OrcidSyncSettingsComponent test suite', () => {
     });
 
     it('should show notification on error', () => {
-      researcherProfileService.findByRelatedItem.and.returnValue(createSuccessfulRemoteDataObject$(mockResearcherProfile));
       researcherProfileService.patch.and.returnValue(createFailedRemoteDataObject$());
 
       scheduler.schedule(() => comp.onSubmit(formGroup));
