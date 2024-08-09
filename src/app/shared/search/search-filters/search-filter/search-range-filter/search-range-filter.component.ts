@@ -82,6 +82,11 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   range;
 
   /**
+   * The range currently selected by the slider
+   */
+  sliderRange: [number | undefined, number | undefined];
+
+  /**
    * Subscription to unsubscribe from
    */
   sub: Subscription;
@@ -136,6 +141,15 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
         { 'aria-label': this.maxLabel },
       ],
     };
+  }
+
+  /**
+   * Updates the sliderRange property with the current slider range.
+   * This method is called whenever the slider value changes, but it does not immediately apply the changes.
+   * @param range - The current range selected by the slider
+   */
+  onSliderChange(range: [number | undefined, number | undefined]): void {
+    this.sliderRange = range;
   }
 
   /**
