@@ -619,14 +619,15 @@ export class MenuResolver implements Resolve<boolean> {
   createDLExporterMenuItem() {
     observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.getDLExporterURL()
-    ]).subscribe(([authorized, url]) => {
+      this.getDLExporterURL(),
+      this.getDLExporterAccessToken()
+    ]).subscribe(([authorized, url, accesstoken]) => {
       this.menuService.addSection(MenuID.ADMIN,
         {
           id: 'loginmiur_dlexporter_url',
           index: 15,
           active: false,
-          visible: authorized && (hasValue(url) && url.length > 0),
+          visible: authorized && (hasValue(url) && url.length > 0) && (hasValue(accesstoken) && accesstoken.length > 0),
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.loginmiur_dlexporter_url',
@@ -1011,6 +1012,15 @@ export class MenuResolver implements Resolve<boolean> {
    */
   getDLExporterURL(): Observable<string> {
    return this.configService.findByPropertyName('loginmiur.dlexporter.url').pipe(
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res?.payload?.values[0];
+      })
+    );
+  }
+
+  private getDLExporterAccessToken() {
+    return this.configService.findByPropertyName('loginmiur.dlexporter.accesstoken').pipe(
       getFirstCompletedRemoteData(),
       map((res: RemoteData<ConfigurationProperty>) => {
         return res?.payload?.values[0];
