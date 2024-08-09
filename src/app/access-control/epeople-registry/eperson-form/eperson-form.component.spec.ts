@@ -314,7 +314,7 @@ describe('EPersonFormComponent', () => {
 
     describe('after inserting email wrong should show pattern validation error', () => {
       beforeEach(() => {
-        component.formGroup.controls.email.setValue('test@test.');
+        component.formGroup.controls.email.patchValue('test@test');
         fixture.detectChanges();
       });
       it('email should not be valid because the email pattern', () => {
