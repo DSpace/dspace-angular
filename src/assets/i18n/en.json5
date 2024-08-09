@@ -778,6 +778,8 @@
 
   "admin.workflow.item.send-back": "Send back",
 
+  "admin.workflow.item.return": "Return to pool",
+
   "admin.workflow.item.policies": "Policies",
 
   "admin.workflow.item.supervision": "Supervision",

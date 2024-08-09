@@ -1138,6 +1138,9 @@
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Zurücksenden",
 
+  // "admin.workflow.item.return": "Return to pool",
+  "admin.workflow.item.return": "Zurück in den gemeinsamen Aufgabenbereich",
+
 
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",

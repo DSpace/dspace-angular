@@ -649,6 +649,7 @@
   "admin.workflow.item.workflow": "Proces",
   "admin.workflow.item.delete": "Usuń",
   "admin.workflow.item.send-back": "Odeślij z powrotem",
+  "admin.workflow.item.return": "Cofnij do puli zadań",
   "admin.metadata-import.breadcrumbs": "Importuj metadane",
   "admin.metadata-import.title": "Importuj metadane",
   "admin.metadata-import.page.header": "Importuj metadane",
