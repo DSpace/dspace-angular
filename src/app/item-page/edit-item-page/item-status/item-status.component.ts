@@ -189,6 +189,7 @@ export class ItemStatusComponent implements OnInit, OnDestroy {
             ? new ItemOperation('private', `${currentUrl}/private`, FeatureID.CanMakePrivate, true)
             : new ItemOperation('public', `${currentUrl}/public`, FeatureID.CanMakePrivate, true),
           new ItemOperation('move', `${currentUrl}/move`, FeatureID.CanMove, true),
+          new ItemOperation('clone', `${currentUrl}/clone`, FeatureID.CanClone, true),
           new ItemOperation('delete', `${currentUrl}/delete`, FeatureID.CanDelete, true),
         ];
 

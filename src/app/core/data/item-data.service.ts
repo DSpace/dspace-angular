@@ -281,6 +281,18 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
   }
 
   /**
+   * Get the endpoint to clone the item
+   * @param itemId UUID of the source item
+   * @param collectionId UUID of the target collection
+   */
+  public getCloneItemEndpoint(itemId: string, collectionId: string): Observable<string> {
+    return this.halService.getEndpoint('workspaceitems').pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, itemId)),
+      map((endpoint: string) => `${endpoint}?owningCollection=${collectionId}`),
+    );
+  }
+
+  /**
    * Move the item to a different owning collection
    * @param itemId
    * @param collection
@@ -309,6 +321,31 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     ).subscribe((request) => {
       this.requestService.send(request);
     });
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
+
+  /**
+   * Create a new item in a specified collection using properties from the existing item
+   * @param item a source item
+   * @param collectionId an UUID of a target collection
+   */
+  public clone(item: Item, collectionId: string): Observable<RemoteData<any>> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.getCloneItemEndpoint(item.id, collectionId);
+
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, item._links.self.href, options);
+        this.requestService.send(request);
+      }),
+    ).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);
   }

@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{'item.edit.clone.head' | translate: {id: (itemRD$ | async)?.payload?.handle} }}</h1>
+      <p>{{'item.edit.clone.description' | translate}}</p>
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-3">
+            <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'dso-selector.placeholder.type.collection' | translate } }}</div>
+            <div class="card-body">
+              <ds-authorized-collection-selector [types]="COLLECTIONS"
+                                                 [entityType]="item.getRenderTypes[0]"
+                                                 [currentDSOId]="selectedCollection ? selectedCollection.id : originalCollection.id"
+                                                 (onSelect)="selectDso($event)">
+              </ds-authorized-collection-selector>
+            </div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <!--<div class="row">
+        <div class="col-12">
+          <p>
+            <label for="inheritPoliciesCheckbox">
+              <ng-template #tooltipContent>
+                {{ 'item.edit.clone.inheritpolicies.tooltip' | translate }}
+              </ng-template>
+              <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox" [ngbTooltip]="tooltipContent"
+              >
+              {{'item.edit.clone.inheritpolicies.checkbox' |translate}}
+            </label>
+          </p>
+          <p>
+            {{'item.edit.clone.inheritpolicies.description' | translate}}
+          </p>
+        </div>
+      </div>-->
+
+      <div class="button-row bottom">
+        <div class="float-right space-children-mr">
+          <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> {{'item.edit.clone.cancel' | translate}}
+          </button>
+          <button class="btn btn-primary" [disabled]="!canClone" (click)="cloneToCollection()">
+              <span *ngIf="!processing">
+                <i class="fas fa-save"></i> {{'item.edit.clone.save-button' | translate}}
+              </span>
+            <span *ngIf="processing">
+                <i class="fas fa-circle-notch fa-spin"></i> {{'item.edit.clone.processing' | translate}}
+              </span>
+          </button>
+          <button class="btn btn-danger" [disabled]="!canSubmit" (click)="discard()">
+            <i class="fas fa-times"></i> {{"item.edit.clone.discard-button" | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
