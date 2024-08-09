@@ -5560,10 +5560,10 @@
   "submission.sections.general.deposit_error_notice": "Beim Einreichen des Items ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht",
+  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht.",
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal",
+  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
   "submission.sections.general.discard_success_notice": "Einreichung erfolgreich verworfen.",
