@@ -16,9 +16,10 @@ List of changes in this PR:
 **Include guidance for how to test or review your PR.** This may include: steps to reproduce a bug, screenshots or description of a new feature, or reasons behind specific changes. 
 
 ## Checklist
-_This checklist provides a reminder of what we are going to look for when reviewing your PR. You need not complete this checklist prior to creating your PR (draft PRs are always welcome).
+_This checklist provides a reminder of what we are going to look for when reviewing your PR. You do not need to complete this checklist prior creating your PR (draft PRs are always welcome).
 However, reviewers may request that you complete any actions in this list if you have not done so. If you are unsure about an item in the checklist, don't hesitate to ask. We're here to help!_
 
+- [ ] My PR is **created against the `main` branch** of code (unless it is a backport or is fixing an issue specific to an older branch).
 - [ ] My PR is **small in size** (e.g. less than 1,000 lines of code, not including comments & specs/tests), or I have provided reasons as to why that's not possible.
 - [ ] My PR **passes [ESLint](https://eslint.org/)** validation using `yarn lint`
 - [ ] My PR **doesn't introduce circular dependencies** (verified via `yarn check-circ-deps`)

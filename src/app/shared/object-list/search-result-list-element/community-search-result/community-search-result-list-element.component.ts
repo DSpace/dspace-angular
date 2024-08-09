@@ -2,7 +2,10 @@ import {
   NgClass,
   NgIf,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Community } from '../../../../core/shared/community.model';
@@ -23,12 +26,11 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
  * Component representing a community search result in list view
  */
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement)
-export class CommunitySearchResultListElementComponent extends SearchResultListElementComponent<CommunitySearchResult, Community> {
+export class CommunitySearchResultListElementComponent extends SearchResultListElementComponent<CommunitySearchResult, Community> implements OnInit {
   /**
    * Display thumbnails if required by configuration
    */
   showThumbnails: boolean;
-
 
   ngOnInit(): void {
     super.ngOnInit();
