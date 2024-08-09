@@ -448,7 +448,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         {
           configuration: searchOptionsConfiguration,
           sort: sortOption || searchOptions.sort,
-          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration)
+          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration) || this.forcedEmbeddedKeys.get('default')
         });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
