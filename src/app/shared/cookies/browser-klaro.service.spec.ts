@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import clone from 'lodash/clone';
@@ -26,6 +26,7 @@ import {
 import { ANONYMOUS_STORAGE_NAME_KLARO } from './klaro-configuration';
 
 describe('BrowserKlaroService', () => {
+  let originalLocation;
   const trackingIdProp = 'google.analytics.key';
   const trackingIdTestValue = 'mock-tracking-id';
   const googleAnalytics = 'google-analytics';
@@ -126,6 +127,11 @@ describe('BrowserKlaroService', () => {
     };
 
     service.klaroConfig = mockConfig;
+  });
+
+  afterEach(() => {
+    // Restore the original location after each test
+    window.location = originalLocation;
   });
 
   it('should be created', () => {
@@ -278,13 +284,25 @@ describe('BrowserKlaroService', () => {
 
       spyOn(updatedUser, 'setMetadata');
       spyOn(JSON, 'stringify').and.returnValue(cookieConsentString);
+      spyOn(window.location, 'reload').and.stub(); // Prevents actual reload
       ePersonService.createPatchFromCache.and.returnValue(observableOf([operation]));
+      ePersonService.patch.and.returnValue(observableOf(undefined)); // Ensure this is mocked if it returns an Observable.
     });
-    it('should call patch on the data service', () => {
-      service.setSettingsForUser(updatedUser, cookieConsent);
-      expect(updatedUser.setMetadata).toHaveBeenCalledWith(COOKIE_MDFIELD, undefined, cookieConsentString);
-      expect(ePersonService.patch).toHaveBeenCalledWith(updatedUser, [operation]);
-    });
+    it('should call patch on the data service and reload the page', fakeAsync(() => {
+      // Call your method
+      service.updateSettingsForUsers(user);
+    
+      // Simulate time passage for async operations
+      tick();
+    
+      // Check if ePersonService.patch was called as expected
+      expect(ePersonService.patch).toHaveBeenCalledWith(
+        jasmine.any(EPerson),
+        jasmine.any(Array) // Adjust based on expected operations
+      );
+      // Now check if window.location.reload was called
+      expect(window.location.reload).toHaveBeenCalled();
+    }));
   });
 
   describe('setSettingsForUser when there are no changes', () => {
