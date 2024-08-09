@@ -466,3 +466,11 @@ ngb-accordion {
 .mt-ncs { margin-top: calc(var(--ds-content-spacing) * -1); }
 .mb-ncs { margin-bottom: calc(var(--ds-content-spacing) * -1); }
 .my-ncs { margin-top: calc(var(--ds-content-spacing) * -1); margin-bottom: calc(var(--ds-content-spacing) * -1); }
+
+
+.link-contrast {
+  // Rules for accessibility to meet minimum contrast and have an identifiable link between other texts
+  color: darken($link-color, 5%);
+  // We use underline to discern link from text as we can't make color lighter on a white bg
+  text-decoration: underline;
+}

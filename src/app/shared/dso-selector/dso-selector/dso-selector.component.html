@@ -31,6 +31,7 @@
       </button>
     </ng-container>
     <button *ngIf="loading"
+            title="{{'loading.default' | translate}}"
             class="list-group-item list-group-item-action border-0 list-entry">
       <ds-loading [showMessage]="false"></ds-loading>
     </button>
