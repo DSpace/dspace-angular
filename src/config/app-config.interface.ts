@@ -22,6 +22,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { LanguageHashesConfig } from './languageHashes-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
@@ -45,6 +46,7 @@ interface AppConfig extends Config {
   debug: boolean;
   defaultLanguage: string;
   languages: LangConfig[];
+  languageHashes: LanguageHashesConfig[];
   browseBy: BrowseByConfig;
   communityList: CommunityListConfig;
   homePage: HomeConfig;
