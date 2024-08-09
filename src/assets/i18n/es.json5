@@ -1929,6 +1929,9 @@
   // "collection.page.news": "News",
   "collection.page.news": "Noticias",
 
+  // "collection.search.breadcrumbs": "Search",
+  "collection.search.breadcrumbs": "Buscar",
+
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Confirmar seleccionado",
 
@@ -2249,6 +2252,9 @@
 
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Subcomunidades y colecciones",
+
+  // "community.search.breadcrumbs": "Search",
+  "community.search.breadcrumbs": "Buscar",
 
   // "community.sub-collection-list.head": "Collections in this Community",
   "community.sub-collection-list.head": "Colecciones de esta comunidad",

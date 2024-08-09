@@ -325,12 +325,20 @@ item:
 
 # Community Page Config
 community:
+  # Default tab to be shown when browsing a Community. Valid values are: comcols, search, or browse_<field>
+  # <field> must be any of the configured "browse by" fields, e.g., dateissued, author, title, or subject
+  # When the default tab is not the 'search' tab, the search tab is moved to the last position
+  defaultBrowseTab: search
   # Search tab config
   searchSection:
     showSidebar: true
 
 # Collection Page Config
 collection:
+  # Default tab to be shown when browsing a Collection. Valid values are: search, or browse_<field>
+  # <field> must be any of the configured "browse by" fields, e.g., dateissued, author, title, or subject
+  # When the default tab is not the 'search' tab, the search tab is moved to the last position
+  defaultBrowseTab: search
   # Search tab config
   searchSection:
     showSidebar: true
