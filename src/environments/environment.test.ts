@@ -422,4 +422,11 @@ export const environment: BuildConfig = {
       ],
     },
   ],
+  ccLicense: {
+    variant: 'small',
+    uriField: 'dc.rights.uri',
+    nameField: 'dc.rights',
+    showName: true,
+    showDisclaimer: true,
+  },
 };

@@ -10,6 +10,7 @@ import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
+import { CreativeCommonsLicenseConfig } from './creative-commons-license-config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
@@ -591,4 +592,12 @@ export class DefaultAppConfig implements AppConfig {
       ],
     },
   ];
+  // Metadatafields to determine the CC license variant
+  ccLicense: CreativeCommonsLicenseConfig = {
+    variant: 'small',
+    uriField: 'dc.rights.uri',
+    nameField: 'dc.rights',
+    showName: true,
+    showDisclaimer: true,
+  };
 }
