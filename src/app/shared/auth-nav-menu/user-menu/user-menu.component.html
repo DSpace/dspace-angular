@@ -6,17 +6,17 @@
     {{dsoNameService.getName(user$ | async)}}<br>
     <span class="text-muted">{{(user$ | async)?.email}}</span>
   </li>
-  <li class="ds-menu-item-wrapper" role="presentation">
+  <li class="ds-menu-item-wrapper" role="presentation" (click)="onMenuItemClick()">
     <a class="ds-menu-item" role="menuitem"
        [routerLink]="[profileRoute]"
        routerLinkActive="active">{{'nav.profile' | translate}}</a>
   </li>
-  <li class="ds-menu-item-wrapper" role="presentation">
+  <li class="ds-menu-item-wrapper" role="presentation" (click)="onMenuItemClick()">
     <a class="ds-menu-item" role="menuitem"
        [routerLink]="[mydspaceRoute]"
        routerLinkActive="active">{{'nav.mydspace' | translate}}</a>
   </li>
-  <li class="ds-menu-item-wrapper" role="presentation">
+  <li class="ds-menu-item-wrapper" role="presentation" (click)="onMenuItemClick()">
     <a class="ds-menu-item" role="menuitem"
        [routerLink]="[subscriptionsRoute]"
        routerLinkActive="active">{{'nav.subscriptions' | translate}}</a>
