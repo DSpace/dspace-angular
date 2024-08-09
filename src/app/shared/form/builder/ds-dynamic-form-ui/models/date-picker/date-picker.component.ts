@@ -22,6 +22,7 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 
 import { hasValue } from '../../../../../empty.util';
@@ -72,9 +73,9 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   minDay = 1;
   maxDay = 31;
 
-  yearPlaceholder = 'year';
-  monthPlaceholder = 'month';
-  dayPlaceholder = 'day';
+  yearPlaceholder: string;
+  monthPlaceholder: string;
+  dayPlaceholder: string;
 
   disabledMonth = true;
   disabledDay = true;
@@ -83,6 +84,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
+              protected translationService: TranslateService,
               private renderer: Renderer2,
               @Inject(DOCUMENT) private _document: Document,
   ) {
@@ -116,6 +118,10 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     }
 
     this.maxYear = now.getUTCFullYear() + 100;
+
+    this.translationService.get('form.date-picker.placeholder.year').subscribe(value => this.yearPlaceholder = value);
+    this.translationService.get('form.date-picker.placeholder.month').subscribe(value => this.monthPlaceholder = value);
+    this.translationService.get('form.date-picker.placeholder.day').subscribe(value => this.dayPlaceholder = value);
   }
 
   onBlur(event) {
