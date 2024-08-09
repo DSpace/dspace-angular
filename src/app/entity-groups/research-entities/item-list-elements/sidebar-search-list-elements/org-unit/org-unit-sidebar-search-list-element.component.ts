@@ -16,6 +16,8 @@ import { TruncatablePartComponent } from '../../../../../shared/truncatable/trun
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
+@listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.ScopeSelectorModal)
+@listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
 @Component({
   selector: 'ds-org-unit-sidebar-search-list-element',
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
