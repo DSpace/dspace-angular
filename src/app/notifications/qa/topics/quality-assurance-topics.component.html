@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom pb-2">{{'quality-assurance.title'| translate}}</h2>
+      <h1 class="border-bottom pb-2">{{'quality-assurance.title'| translate}}</h1>
       <ds-alert *ngIf="!targetId" [type]="'alert-info'">{{'quality-assurance.topics.description'| translate:{source: sourceId} }}</ds-alert>
       <ds-alert *ngIf="targetId" [type]="'alert-info'">
         {{'quality-assurance.topics.description-with-target'| translate:{source: sourceId} }}
@@ -11,7 +11,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <h4 class="border-bottom pb-2">{{'quality-assurance.topics'| translate}}</h4>
+      <h2 class="border-bottom pb-2">{{'quality-assurance.topics'| translate}}</h2>
 
       <ds-loading class="container" *ngIf="(isTopicsLoading() | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
       <ds-pagination *ngIf="(isTopicsLoading() | async) !== true"
