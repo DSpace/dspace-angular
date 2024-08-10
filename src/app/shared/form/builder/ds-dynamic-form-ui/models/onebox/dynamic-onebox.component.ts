@@ -9,6 +9,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -92,7 +93,7 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
   ],
   standalone: true,
 })
-export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
+export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
   @Input() group: UntypedFormGroup;
   @Input() model: DynamicOneboxModel;
