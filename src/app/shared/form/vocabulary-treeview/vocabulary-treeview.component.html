@@ -2,7 +2,9 @@
 <div class="treeview-header row">
   <div class="col-12">
     <div class="input-group">
-      <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()">
+      <input type="text" class="form-control" [(ngModel)]="searchText"
+             [attr.aria-label]="'vocabulary-treeview.search.form.search-placeholder' | translate"
+             (keyup.enter)="search()">
       <div class="input-group-append" id="button-addon4">
         <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
           {{'vocabulary-treeview.search.form.search' | translate}}
