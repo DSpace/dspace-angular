@@ -49,35 +49,31 @@
                 </ng-template>
               </div>
 
-              <div class="float-right btn-group edit-field space-children-mr" *ngIf="displayActions">
-                <!--DISCARD EDIT -->
-                <ng-container *ngIf="versionDTO.canEditVersion && isThisBeingEdited(versionDTO.version)">
-                  <button class="btn btn-sm"
-                          [ngClass]="isThisBeingEdited(versionDTO.version) ? 'btn-outline-warning' : 'btn-outline-primary'"
+              <div class="float-right btn-group edit-field space-children-mr" *ngIf="displayActions && versionDTO.canEditVersion | async">
+                <ng-container *ngIf="isThisBeingEdited(versionDTO.version); else notThisBeingEdited">
+                  <!--DISCARD EDIT-->
+                  <button class="btn btn-sm btn-outline-warning"
                           (click)="disableVersionEditing()"
                           title="{{'item.version.history.table.action.discardSummary' | translate}}">
                     <i class="fas fa-undo-alt fa-fw"></i>
                   </button>
-                </ng-container>
-                <!--EDIT / SAVE-->
-                <ng-container *ngIf="versionDTO.canEditVersion">
-                  <button class="btn btn-outline-primary btn-sm version-row-element-edit"
-                          *ngIf="!isThisBeingEdited(versionDTO.version)"
-                          [disabled]="isAnyBeingEdited()"
-                          (click)="enableVersionEditing(versionDTO.version)"
-                          title="{{'item.version.history.table.action.editSummary' | translate}}">
-                    <i class="fas fa-edit fa-fw"></i>
-                  </button>
+                  <!--SAVE-->
                   <button class="btn btn-outline-success btn-sm"
-                          *ngIf="isThisBeingEdited(versionDTO.version)"
                           (click)="onSummarySubmit()"
                           title="{{'item.version.history.table.action.saveSummary' | translate}}">
                     <i class="fas fa-check fa-fw"></i>
                   </button>
                 </ng-container>
+                <ng-template #notThisBeingEdited>
+                  <!--EDIT-->
+                  <button class="btn btn-outline-primary btn-sm version-row-element-edit"
+                          [disabled]="isAnyBeingEdited()"
+                          (click)="enableVersionEditing(versionDTO.version)"
+                          title="{{'item.version.history.table.action.editSummary' | translate}}">
+                    <i class="fas fa-edit fa-fw"></i>
+                  </button>
+                </ng-template>
               </div>
-
-
             </td>
           </tr>
           </tbody>
