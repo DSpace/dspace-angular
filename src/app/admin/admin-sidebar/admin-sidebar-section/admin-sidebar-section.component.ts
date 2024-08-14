@@ -51,7 +51,7 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
     if (!this.isDisabled) {
       const extras = {
         queryParams: this.itemModel.queryParams
-      }
+      };
       this.router.navigate(this.itemModel.link, extras);
     }
   }
