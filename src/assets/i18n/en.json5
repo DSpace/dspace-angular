@@ -4463,6 +4463,10 @@
 
   "process.new.notification.process.files": "Output Files: ",
 
+  "process.new.notification.process.status.completed": "Completed",
+
+  "process.new.notification.process.status.failed": "Failed",
+
   "process.new.header": "Create a new process",
 
   "process.new.title": "Create a new process",
@@ -6414,6 +6418,8 @@
 
   "submission.sections.upload.delete.confirm.title": "Delete bitstream",
 
+  "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+
   "submission.sections.upload.delete.submit": "Delete",
 
   "submission.sections.upload.download.title": "Download bitstream",
@@ -6465,6 +6471,8 @@
   "submission.sections.upload.upload-failed": "Upload failed",
 
   "submission.sections.upload.upload-successful": "Upload successful",
+
+  "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
 
   "submission.sections.custom-url.label.previous-urls": "Previous Urls",
 

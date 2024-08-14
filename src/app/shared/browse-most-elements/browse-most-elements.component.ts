@@ -1,16 +1,8 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
-import { isPlatformServer } from '@angular/common';
-
-import { SearchManager } from '../../core/browse/search-manager';
+import { TopSection, TopSectionTemplateType } from './../../core/layout/models/section.model';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchResult } from '../search/models/search-result.model';
 import { Context } from '../../core/shared/context.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { followLink } from '../utils/follow-link-config.model';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-browse-most-elements',
@@ -18,45 +10,29 @@ import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
   templateUrl: './browse-most-elements.component.html'
 })
 
-export class BrowseMostElementsComponent implements OnInit {
+export class BrowseMostElementsComponent implements OnInit, OnChanges {
 
   @Input() paginatedSearchOptions: PaginatedSearchOptions;
 
   @Input() context: Context;
 
-  /**
-   * Whether to show the metrics badges
-   */
-  @Input() showMetrics;
+  showLabel: boolean;
 
-  /**
-   * Whether to show the thumbnail preview
-   */
-  @Input() showThumbnails;
+  showMetrics = true;
 
-  searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
+  @Input() topSection: TopSection;
 
-  constructor(
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private searchService: SearchManager,
-    private cdr: ChangeDetectorRef) {
+  paginatedSearchOptionsBS = new BehaviorSubject<PaginatedSearchOptions>(null);
 
+  templateTypeEnum = TopSectionTemplateType;
+
+  sectionTemplateType: TopSectionTemplateType;
+
+  ngOnInit(): void {
+    this.sectionTemplateType = this.topSection?.template ?? TopSectionTemplateType.DEFAULT;
   }
 
-  ngOnInit() {
-    if (isPlatformServer(this.platformId)) {
-      return;
-    }
-
-    const showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
-    const followLinks = showThumbnails ? [followLink('thumbnail')] : [];
-    this.searchService.search(this.paginatedSearchOptions, null, true, true, ...followLinks).pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((response: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
-      this.searchResults = response as any;
-      this.cdr.detectChanges();
-    });
+  ngOnChanges() { // trigger change detection on child components
+    this.paginatedSearchOptionsBS.next(this.paginatedSearchOptions);
   }
-
 }
