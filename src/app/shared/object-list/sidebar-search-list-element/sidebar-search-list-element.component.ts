@@ -12,6 +12,7 @@ import {
 import {
   find,
   map,
+  switchMap,
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -65,7 +66,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   ngOnInit(): void {
     super.ngOnInit();
     if (hasValue(this.dso)) {
-      this.parentTitle$ = this.getParentTitle();
+      this.parentTitle$ = this.getHierarchicalName();
       this.description = this.getDescription();
     }
   }
@@ -87,6 +88,33 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
         return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
       }),
     );
+  }
+  
+  getHierarchicalName(): Observable<string> {
+    return this.getParentTitle().pipe(
+      switchMap((parentTitle: string) => {
+          return this.getParent().pipe(
+            switchMap((parentRD: RemoteData<DSpaceObject>) => {
+              if (hasValue(parentRD) && hasValue(parentRD.payload)) {
+                const parentInstance = this.createInstanceFromDSpaceObject(parentRD.payload);
+                return parentInstance.getHierarchicalName().pipe(
+                  map((ancestorName: string) => ancestorName ? `${ancestorName} > ${parentTitle}` : parentTitle)
+                );
+              }
+              return observableOf(parentTitle);
+            })
+          );
+      })
+    );
+  }
+  
+  /**
+   * Utility method to create an instance of the current class from a DSpaceObject
+   */
+  private createInstanceFromDSpaceObject(dso: DSpaceObject): this {
+    const instance = Object.create(this);
+    instance.dso = dso;
+    return instance;
   }
 
   /**
