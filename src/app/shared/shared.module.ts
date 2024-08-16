@@ -284,6 +284,9 @@ import {
 } from '../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bitstream-list-item.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {
+  ThemedAuthorizedCollectionSelectorComponent
+} from './dso-selector/dso-selector/authorized-collection-selector/themed-authorized-collection-selector.component';
 
 const MODULES = [
   CommonModule,
@@ -391,6 +394,7 @@ const COMPONENTS = [
   ExportBatchSelectorComponent,
   ConfirmationModalComponent,
   AuthorizedCollectionSelectorComponent,
+  ThemedAuthorizedCollectionSelectorComponent,
   SearchNavbarComponent,
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,

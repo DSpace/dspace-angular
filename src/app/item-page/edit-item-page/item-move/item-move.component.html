@@ -8,10 +8,10 @@
                   <div class="card mb-3">
                     <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'collection' } }}</div>
                     <div class="card-body">
-                      <ds-authorized-collection-selector [types]="COLLECTIONS"
+                      <ds-themed-authorized-collection-selector [types]="COLLECTIONS"
                                                          [currentDSOId]="selectedCollection ? selectedCollection.id : originalCollection.id"
                                                          (onSelect)="selectDso($event)">
-                      </ds-authorized-collection-selector>
+                      </ds-themed-authorized-collection-selector>
                     </div>
                     <div></div>
                   </div>
