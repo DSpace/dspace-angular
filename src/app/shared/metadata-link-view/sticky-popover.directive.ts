@@ -55,7 +55,6 @@ export class StickyPopoverDirective extends NgbPopover implements OnInit, OnDest
     this._elRef = _elementRef;
     this._render = _renderer;
     this.triggers = 'manual';
-    this.popoverTitle = 'Permissions';
     this.container = 'body';
   }
 
