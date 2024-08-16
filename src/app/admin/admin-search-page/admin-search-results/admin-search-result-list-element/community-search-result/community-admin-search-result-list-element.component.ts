@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -22,10 +25,10 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
 /**
  * The component for displaying a list element for a community search result on the admin search page
  */
-export class CommunityAdminSearchResultListElementComponent extends SearchResultListElementComponent<CommunitySearchResult, Community> {
+export class CommunityAdminSearchResultListElementComponent extends SearchResultListElementComponent<CommunitySearchResult, Community> implements OnInit {
   editPath: string;
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.editPath = getCommunityEditRoute(this.dso.uuid);
   }

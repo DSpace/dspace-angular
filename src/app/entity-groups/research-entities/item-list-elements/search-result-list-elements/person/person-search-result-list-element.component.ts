@@ -7,6 +7,7 @@ import {
 import {
   Component,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -36,7 +37,7 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
 /**
  * The component for displaying a list element for an item search result of the type Person
  */
-export class PersonSearchResultListElementComponent extends ItemSearchResultListElementComponent {
+export class PersonSearchResultListElementComponent extends ItemSearchResultListElementComponent implements OnInit {
 
   public constructor(
     protected truncatableService: TruncatableService,

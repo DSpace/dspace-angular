@@ -8,7 +8,7 @@
                     {{'search.filters.filter.' + filterConfig.name + '.min.label' | translate}}
                   </span>
                   <input type="text" [(ngModel)]="range[0]" [name]="filterConfig.paramName + '.min'"
-                         class="form-control" (blur)="onSubmit()"
+                         class="form-control"
                          [attr.aria-label]="minLabel"
                          [placeholder]="minLabel"
                   />
@@ -20,7 +20,7 @@
                       {{'search.filters.filter.' + filterConfig.name + '.max.label' | translate}}
                     </span>
                     <input type="text" [(ngModel)]="range[1]" [name]="filterConfig.paramName + '.max'"
-                           class="form-control" (blur)="onSubmit()"
+                           class="form-control"
                            [attr.aria-label]="maxLabel"
                            [placeholder]="maxLabel"
                     />
@@ -33,7 +33,8 @@
 
         <ng-container *ngIf="shouldShowSlider()">
             <nouislider [connect]="true" [config]="config" [min]="min" [max]="max" [step]="1"
-                        [dsDebounce]="250" (onDebounce)="onSubmit()"
+                        [dsDebounce]="250"
+                        (change)="onSliderChange($event)"
                         (keydown)="startKeyboardControl()" (keyup)="stopKeyboardControl()"
                         [(ngModel)]="range" ngDefaultControl>
             </nouislider>
@@ -43,5 +44,8 @@
           <ds-search-facet-range-option *ngFor="let value of page.page; trackBy: trackUpdate" [filterConfig]="filterConfig" [filterValue]="value" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-range-option>
           </div>
         </ng-container>
+        <button (click)="onSubmit()" class="btn btn-primary">
+          {{'search.filters.search.submit' | translate}}
+        </button>
     </div>
 </div>

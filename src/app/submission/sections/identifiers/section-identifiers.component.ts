@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnInit,
 } from '@angular/core';
 import {
   TranslateModule,
@@ -47,7 +48,7 @@ import { SectionsService } from '../sections.service';
   standalone: true,
 })
 
-export class SubmissionSectionIdentifiersComponent extends SectionModelComponent {
+export class SubmissionSectionIdentifiersComponent extends SectionModelComponent implements OnInit {
   /**
    * The Alert categories.
    * @type {AlertType}
@@ -76,7 +77,6 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
   /**
    * Initialize instance variables.
    *
-   * @param {PaginationService} paginationService
    * @param {TranslateService} translate
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
@@ -93,7 +93,7 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
   }
 
