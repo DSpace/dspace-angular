@@ -17,11 +17,13 @@ import {
   COLLECTION_CREATE_PATH,
   COLLECTION_EDIT_PATH,
   ITEMTEMPLATE_PATH,
+  COLLECTION_HOME_PATH,
 } from './collection-page-routing-paths';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { createCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { itemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
+import { CollectionHomePageComponent } from './collection-home/collection-home-page.component';
 import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 
@@ -79,6 +81,10 @@ export const ROUTES: Route[] = [
           breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'collection.edit.template.title', breadcrumbKey: 'collection.edit.template' },
+      },
+      {
+        path: COLLECTION_HOME_PATH,
+        component: CollectionHomePageComponent,
       },
       {
         path: '',

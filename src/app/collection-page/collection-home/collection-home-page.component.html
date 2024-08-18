@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="collection-page"
+       *ngVar="(collectionRD$ | async) as collectionRD">
+    <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
+      <div *ngIf="collectionRD?.payload as collection">
+        <ds-view-tracker [object]="collection"></ds-view-tracker>
+        <div class="d-flex flex-row border-bottom mb-4 pb-4">
+          <header class="comcol-header mr-auto">
+            <!-- Collection Name -->
+            <ds-comcol-page-header
+                [name]="dsoNameService.getName(collection)">
+            </ds-comcol-page-header>
+            <!-- Collection logo -->
+            <ds-comcol-page-logo *ngIf="logoRD$"
+                                 [logo]="(logoRD$ | async)?.payload"
+                                 [alternateText]="'collection.logo' | translate">
+            </ds-comcol-page-logo>
+
+            <!-- Handle -->
+            <ds-comcol-page-handle
+                [content]="collection.handle"
+                [title]="'collection.page.handle'">
+            </ds-comcol-page-handle>
+            <!-- Introductory text -->
+            <ds-comcol-page-content
+                [content]="collection.introductoryText"
+                [hasInnerHtml]="true">
+            </ds-comcol-page-content>
+            <!-- News -->
+            <ds-comcol-page-content
+                [content]="collection.sidebarText"
+                [hasInnerHtml]="true"
+                [title]="'collection.page.news'">
+            </ds-comcol-page-content>
+          </header>
+          <ds-dso-edit-menu></ds-dso-edit-menu>
+        </div>
+        <section class="comcol-page-browse-section">
+          <!-- Browse-By Links -->
+          <ds-comcol-page-browse-by
+              [id]="collection.id"
+              [contentType]="collection.type">
+          </ds-comcol-page-browse-by>
+
+          <router-outlet></router-outlet>
+        </section>
+        <footer *ngIf="collection.copyrightText" class="border-top my-5 pt-4">
+          <!-- Copyright -->
+          <ds-comcol-page-content
+              [content]="collection.copyrightText"
+              [hasInnerHtml]="true">
+          </ds-comcol-page-content>
+        </footer>
+      </div>
+    </div>
+    <ds-error *ngIf="collectionRD?.hasFailed"
+              message="{{'error.collection' | translate}}"></ds-error>
+    <ds-loading *ngIf="collectionRD?.isLoading"
+                       message="{{'loading.collection' | translate}}"></ds-loading>
+  </div>
+</div>
