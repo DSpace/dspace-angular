@@ -55,7 +55,7 @@ import { getCollectionPageRoute } from '../collection-page-routing-paths';
 
 @Component({
   selector: 'ds-base-collection-home-page',
-  styleUrls: ['./collection--home-page.component.scss'],
+  styleUrls: ['./collection-home-page.component.scss'],
   templateUrl: './collection-home-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
