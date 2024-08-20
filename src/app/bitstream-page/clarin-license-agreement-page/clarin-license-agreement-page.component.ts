@@ -312,6 +312,8 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     let shouldSee = false;
     this.requiredInfo$?.value?.forEach(requiredInfo => {
       if (requiredInfo?.name === 'SEND_TOKEN') {
+        // We don't want to display SEND_TOKEN as an input field
+        this.requiredInfo$.next(this.requiredInfo$.value?.filter(item => item.name !== 'SEND_TOKEN'));
         shouldSee = true;
       }
     });
