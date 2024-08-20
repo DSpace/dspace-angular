@@ -71,15 +71,7 @@ xdescribe('ChartComponent', () => {
         { provide: 'currentPage', useValue:  currentPage },
         { provide: 'type', useValue:  type },
       ],
-    }).overrideComponent(ChartComponent, {
-      set: {
-        entryComponents: [
-          BarChartComponent,
-          LineChartComponent,
-          PieChartComponent,
-        ],
-      },
-    })
+    }).overrideComponent(ChartComponent, {})
       .compileComponents();
   }));
 

@@ -12,6 +12,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
   DynamicFormControlModel,
@@ -126,7 +127,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef,
-                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService,
+                     protected modalService: NgbModal) {
     super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 

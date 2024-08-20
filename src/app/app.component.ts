@@ -165,11 +165,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.router.events.pipe(
       // delay(0) to prevent "Expression has changed after it was checked" errors
       delay(0),
-      switchMap((event: RouterEvent) => this.routeService.getCurrentUrl().pipe(
+      switchMap((event) => this.routeService.getCurrentUrl().pipe(
         take(1),
         map((currentUrl) => [currentUrl, event]),
       )),
-    ).subscribe(([currentUrl, event]: [string, RouterEvent]) => {
+    ).subscribe(([currentUrl, event]: [string, any]) => {
       if (event instanceof NavigationStart) {
         if (!(currentUrl.startsWith(getEditItemPageRoute()) || currentUrl.startsWith(getWorkspaceItemModuleRoute()) || currentUrl.startsWith(getWorkflowItemModuleRoute()))) {
           distinctNext(this.isRouteLoading$, true);

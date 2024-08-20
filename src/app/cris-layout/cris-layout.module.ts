@@ -3,13 +3,8 @@ import { NgModule } from '@angular/core';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MiradorViewerModule } from '../item-page/mirador-viewer/mirador-viewer.module';
-import { MyDSpacePageModule } from '../my-dspace-page/my-dspace-page.module';
-import { ComcolModule } from '../shared/comcol/comcol.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
-import { FormModule } from '../shared/form/form.module';
 import { MetricsModule } from '../shared/metric/metrics.module';
-import { SearchModule } from '../shared/search/search.module';
-import { SharedModule } from '../shared/shared.module';
 import { CrisLayoutComponent } from './cris-layout.component';
 import { CrisLayoutLeadingComponent } from './cris-layout-leading/cris-layout-leading.component';
 import { CrisLayoutHorizontalComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-horizontal.component';
@@ -38,7 +33,6 @@ import { TableComponent } from './cris-layout-matrix/cris-layout-box-container/b
 import { OrcidComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/orcid/orcid.component';
 import { TagComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/tag/tag.component';
 import { TextComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/text/text.component';
-import { ThumbnailComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/thumbnail/thumbnail.component';
 import { ValuepairComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/valuepair/valuepair.component';
 import { MetadataContainerComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/metadata-container/metadata-container.component';
 import { MetadataRenderComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/row/metadata-container/metadata-render/metadata-render.component';
@@ -66,7 +60,6 @@ const ENTRY_COMPONENTS = [
   LinkComponent,
   IdentifierComponent,
   CrisrefComponent,
-  ThumbnailComponent,
   AttachmentComponent,
   CrisLayoutMetricsBoxComponent,
   TableComponent,
@@ -105,16 +98,11 @@ const ENTRY_COMPONENTS = [
   ],
   imports: [
     CommonModule,
-    SharedModule,
-    SearchModule.withEntryComponents(),
-    MyDSpacePageModule,
     ContextMenuModule.withEntryComponents(),
     NgbAccordionModule,
-    ComcolModule,
     MiradorViewerModule,
     MetricsModule,
     AttachmentRenderingModule,
-    FormModule,
   ],
   exports: [
     CrisLayoutComponent,

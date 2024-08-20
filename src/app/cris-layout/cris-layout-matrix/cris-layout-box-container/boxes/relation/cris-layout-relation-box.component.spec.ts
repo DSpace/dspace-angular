@@ -22,7 +22,6 @@ import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
-import { SharedModule } from '../../../../../shared/shared.module';
 import {
   EPersonMock,
   EPersonMock2,
@@ -87,7 +86,6 @@ describe('CrisLayoutRelationBoxComponent', () => {
           },
         }),
         CommonModule,
-        SharedModule,
       ],
       declarations: [CrisLayoutRelationBoxComponent],
       schemas: [NO_ERRORS_SCHEMA],

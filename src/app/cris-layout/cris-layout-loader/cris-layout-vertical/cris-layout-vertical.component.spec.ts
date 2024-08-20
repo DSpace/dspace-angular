@@ -7,7 +7,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 import { HostWindowService } from '../../../shared/host-window.service';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
@@ -27,9 +26,6 @@ describe('CrisLayoutVerticalComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(1200) },
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
-      ],
-      imports: [
-        SharedModule,
       ],
     })
       .compileComponents();

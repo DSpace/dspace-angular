@@ -20,7 +20,6 @@ import { TabDataService } from '../core/layout/tab-data.service';
 import { Item } from '../core/shared/item.model';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { SharedModule } from '../shared/shared.module';
 import {
   bothTabs,
   leadingTabs,
@@ -67,7 +66,7 @@ describe('CrisLayoutComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule, SharedModule],
+      }), BrowserAnimationsModule],
       declarations: [CrisLayoutComponent],
       providers: [
         { provide: TabDataService, useValue: tabDataServiceMock },

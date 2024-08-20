@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SharedModule } from '../shared.module';
-import { SubscriptionsModule } from '../subscriptions/subscriptions.module';
 import { AuditItemMenuComponent } from './audit-item/audit-item-menu.component';
 import { BulkImportMenuComponent } from './bulk-import/bulk-import-menu.component';
 import { ClaimItemMenuComponent } from './claim-item/claim-item-menu.component';
@@ -62,8 +60,6 @@ const MODULE = [
   NgbDropdownModule,
   RouterModule,
   TranslateModule,
-  SubscriptionsModule,
-  SharedModule,
 ];
 @NgModule({
   imports: [

@@ -26,6 +26,7 @@ import {
   SUBMISSION_ID,
 } from './field-parser';
 import { ParserOptions } from './parser-options';
+import { TranslateService } from '@ngx-translate/core';
 
 export class LinkFieldParser extends ConcatFieldParser {
 
@@ -35,8 +36,9 @@ export class LinkFieldParser extends ConcatFieldParser {
         @Inject(INIT_FORM_VALUES) initFormValues,
         @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
         @Inject(SECURITY_CONFIG) securityConfig: any = null,
+        protected translateService: TranslateService,
   ) {
-    super(submissionId, configData, initFormValues, parserOptions, securityConfig, ',', 'Label', 'Value');
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translateService, 'Label', 'Value');
   }
 
   public modelFactory(fieldValue?: any, label?: boolean): any {

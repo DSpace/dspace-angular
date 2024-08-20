@@ -11,12 +11,14 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
+import {
+  SubmissionVisibilityType,
+  SubmissionVisibilityValue,
+} from '../../../../core/config/models/config-submission-section.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../core/shared/metadata.utils';
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
-import { VisibilityType } from '../../../../submission/sections/visibility-type';
 import { isNgbDateStruct } from '../../../date.util';
 import {
   hasValue,
@@ -328,7 +330,7 @@ export abstract class FieldParser {
 
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly
-      || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
+      || this.isFieldReadOnly(this.configData.visibility, 'test', this.parserOptions.submissionScope);
     controlModel.disabled = controlModel.readOnly;
     controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
@@ -374,16 +376,16 @@ export abstract class FieldParser {
    * @param visibility
    * @param submissionScope
    */
-  private isFieldReadOnly(visibility: SectionVisibility, fieldScope: string, submissionScope: string) {
+  private isFieldReadOnly(visibility: SubmissionVisibilityType, fieldScope: string, submissionScope: string) {
     return isNotEmpty(submissionScope)
       && isNotEmpty(fieldScope)
       && isNotEmpty(visibility)
       && ((
         submissionScope === SubmissionScopeType.WorkspaceItem.valueOf()
-          && visibility.main === VisibilityType.READONLY
+          && visibility.main === SubmissionVisibilityValue.ReadOnly
       )
         ||
-          (visibility.other === VisibilityType.READONLY
+          (visibility.other === SubmissionVisibilityValue.ReadOnly
           && submissionScope === SubmissionScopeType.WorkflowItem.valueOf()
           )
       );

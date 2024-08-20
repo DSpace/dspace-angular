@@ -13,7 +13,6 @@ import {
 
 import { Item } from '../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { boxMetadata } from '../../../../../shared/testing/box.mock';
 import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
 import { CrisLayoutMetadataBoxComponent } from './cris-layout-metadata-box.component';
@@ -49,7 +48,7 @@ describe('CrisLayoutMetadataBoxComponent', () => {
         },
       }),
       BrowserAnimationsModule,
-      SharedModule],
+      ],
       providers: [
         { provide: 'boxProvider', useValue: boxMetadata },
         { provide: 'itemProvider', useValue: testItem },
