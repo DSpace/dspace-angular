@@ -59,6 +59,7 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { VarDirective } from '../shared/utils/var.directive';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
+import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
 @Component({
   selector: 'ds-base-collection-page',
@@ -85,6 +86,7 @@ import { getCollectionPageRoute } from './collection-page-routing-paths';
     ThemedComcolPageBrowseByComponent,
     ObjectCollectionComponent,
     RouterOutlet,
+    ContextMenuModule,
   ],
   standalone: true,
 })

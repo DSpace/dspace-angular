@@ -41,7 +41,7 @@
         <ng-container
           *ngFor="let match of object.matchObjects | slice: (pageConfig.currentPage-1) * pageConfig.pageSize : pageConfig.currentPage * pageConfig.pageSize">
           <ds-item-list-preview [item]="match"
-                                       [object]="itemPreviewObject"
+                                       [object]="$any(itemPreviewObject)"
                                        [metadataList]="metadataList"
                                        [showThumbnails]="showThumbnails">
           </ds-item-list-preview>

@@ -1,5 +1,6 @@
 import { Inject } from '@angular/core';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import {
   hasNoValue,
@@ -26,7 +27,6 @@ import {
   SUBMISSION_ID,
 } from './field-parser';
 import { ParserOptions } from './parser-options';
-import { TranslateService } from '@ngx-translate/core';
 
 export class LinkFieldParser extends ConcatFieldParser {
 

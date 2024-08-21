@@ -12,6 +12,10 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { ItemSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
+import {
+  AdditionalMetadataComponent
+} from '../../../../../shared/object-list/search-result-list-element/additional-metadata/additional-metadata.component';
+import { MetricsModule } from '../../../../../shared/metric/metrics.module';
 
 @listableObjectComponent('ProjectSearchResult', ViewMode.ListElement)
 @Component({
@@ -19,7 +23,7 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./project-search-result-list-element.component.scss'],
   templateUrl: './project-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, TruncatableComponent, ThemedBadgesComponent, AsyncPipe],
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, TruncatableComponent, ThemedBadgesComponent, AsyncPipe, AdditionalMetadataComponent, MetricsModule],
 })
 /**
  * The component for displaying a list element for an item search result of the type Project

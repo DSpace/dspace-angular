@@ -45,6 +45,7 @@ import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-trac
 import { getCommunityPageRoute } from './community-page-routing-paths';
 import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
 import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
+import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
 @Component({
   selector: 'ds-base-community-page',
@@ -70,6 +71,7 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com
     VarDirective,
     RouterOutlet,
     RouterModule,
+    ContextMenuModule,
   ],
   standalone: true,
 })

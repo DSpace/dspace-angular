@@ -1,7 +1,7 @@
 import {
   AsyncPipe,
-  NgClass,
-  NgIf,
+  NgClass, NgForOf,
+  NgIf, NgSwitch, NgSwitchCase,
   NgTemplateOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
@@ -17,6 +17,24 @@ import { ThemedConfigurationSearchPageComponent } from '../../../../app/search-p
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-with-sidebar.component';
 import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
+import {
+  ThemedTextSectionComponent
+} from '../../../../app/shared/explore/section-component/text-section/themed-text-section.component';
+import {
+  ThemedTopSectionComponent
+} from '../../../../app/shared/explore/section-component/top-section/themed-top-section.component';
+import {
+  ThemedBrowseSectionComponent
+} from '../../../../app/shared/explore/section-component/browse-section/themed-browse-section.component';
+import {
+  ThemedSearchSectionComponent
+} from '../../../../app/shared/explore/section-component/search-section/themed-search-section.component';
+import {
+  ThemedFacetSectionComponent
+} from '../../../../app/shared/explore/section-component/facet-section/themed-facet-section.component';
+import {
+  ThemedCountersSectionComponent
+} from '../../../../app/shared/explore/section-component/counters-section/themed-counters-section.component';
 
 @Component({
   selector: 'ds-themed-home-page',
@@ -25,7 +43,23 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
   // templateUrl: './home-page.component.html'
   templateUrl: '../../../../app/home-page/home-page.component.html',
   standalone: true,
-  imports: [ThemedHomeNewsComponent, NgTemplateOutlet, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
+  imports: [
+    ThemedTextSectionComponent,
+    HomeCoarComponent,
+    ThemedHomeNewsComponent,
+    NgSwitch,
+    NgForOf,
+    NgIf,
+    ThemedTopSectionComponent,
+    NgSwitchCase,
+    ThemedBrowseSectionComponent,
+    ThemedSearchSectionComponent,
+    ThemedFacetSectionComponent,
+    ThemedCountersSectionComponent,
+    ViewTrackerComponent,
+    SuggestionsPopupComponent,
+    AsyncPipe,
+  ],
 })
 export class HomePageComponent extends BaseComponent {
 

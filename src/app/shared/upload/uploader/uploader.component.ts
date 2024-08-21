@@ -11,6 +11,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import uniqueId from 'lodash/uniqueId';
 import {
   FileUploader,

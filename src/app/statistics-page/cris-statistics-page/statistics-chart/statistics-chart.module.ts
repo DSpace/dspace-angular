@@ -3,9 +3,10 @@ import {
   NgModule,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ChartsModule } from '../../../charts/charts.module';
-import { SharedModule } from '../../../shared/shared.module';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { StatisticsPipesPageModule } from '../statistics-pipes/statistics-pipes.module';
 import { StatisticsChartComponent } from './statistics-chart.component';
 import { StatisticsChartBarComponent } from './statistics-chart-bar/statistics-chart-bar.component';
@@ -23,7 +24,6 @@ const ENTRY_COMPONENTS = [
 
 const IMPORTS = [
   CommonModule,
-  SharedModule.withEntryComponents(),
   StatisticsPipesPageModule,
   ChartsModule.withEntryComponents(),
 ];
@@ -37,6 +37,8 @@ const COMPONENTS = [
   declarations: COMPONENTS,
   imports: [
     ...IMPORTS,
+    TranslateModule,
+    AlertComponent,
   ],
   exports : COMPONENTS,
   schemas: [ NO_ERRORS_SCHEMA ],

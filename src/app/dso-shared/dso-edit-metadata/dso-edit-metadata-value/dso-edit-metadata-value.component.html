@@ -7,14 +7,14 @@
               [attr.aria-label]="(dsoType + '.edit.metadata.edit.value') | translate"
               [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
     <ds-dynamic-scrollable-dropdown *ngIf="mdValue.editing && (isScrollableVocabulary() | async)"
-                                    [bindId]="mdField"
+                                    [bindId]="$any(mdField)"
                                     [group]="group"
-                                    [model]="getModel()"
+                                    [model]="$any(getModel())"
                                     (change)="onChangeAuthorityField($event)">
     </ds-dynamic-scrollable-dropdown>
     <ds-dynamic-onebox *ngIf="mdValue.editing && ((isHierarchicalVocabulary() | async) || (isSuggesterVocabulary() | async))"
                       [group]="group"
-                      [model]="getModel()"
+                      [model]="$any(getModel())"
                       (change)="onChangeAuthorityField($event)">
     </ds-dynamic-onebox>
     <div *ngIf="!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE">
@@ -33,7 +33,7 @@
         <i dsAuthorityConfidenceState
           class="fas fa-fw p-0 mr-1 mt-auto mb-auto"
           aria-hidden="true"
-          [authorityValue]="mdValue.newValue.confidence"
+          [authorityValue]="$any(mdValue.newValue.confidence)"
           [iconMode]="true"
       ></i>
         <input class="form-control form-outline" data-test="authority-input" [(ngModel)]="mdValue.newValue.authority" [disabled]="!editingAuthority"

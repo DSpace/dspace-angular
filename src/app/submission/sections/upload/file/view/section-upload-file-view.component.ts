@@ -7,6 +7,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
@@ -32,6 +33,7 @@ import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessCo
     TruncatePipe,
     NgIf,
     NgForOf,
+    NgbTooltipModule,
   ],
   standalone: true,
 })

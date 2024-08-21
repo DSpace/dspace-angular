@@ -19,6 +19,7 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -75,6 +76,7 @@ import { SidebarService } from '../sidebar/sidebar.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { currentPath } from '../utils/route.utils';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
+import { ItemExportModalLauncherComponent } from './item-export/item-export-modal-launcher/item-export-modal-launcher.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
@@ -103,6 +105,8 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
     TranslateModule,
     SearchLabelsComponent,
     ViewModeSwitchComponent,
+    NgbTooltipModule,
+    ItemExportModalLauncherComponent,
   ],
 })
 

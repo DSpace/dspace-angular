@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { DatePipe, NgIf, SlicePipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -16,6 +16,16 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { AbstractListableElementComponent } from '../../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
 import { DuplicateMatchMetadataDetailConfig } from '../../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
+import {
+  TruncatablePartComponent
+} from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { NgbCollapseModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ThemedItemListPreviewComponent
+} from '../../../../../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
@@ -24,7 +34,7 @@ import { DuplicateMatchMetadataDetailConfig } from '../../../../../submission/se
   styleUrls: ['./external-source-entry-list-submission-element.component.scss'],
   templateUrl: './external-source-entry-list-submission-element.component.html',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, TruncatableComponent, TruncatablePartComponent, DatePipe, NgbCollapseModule, ThemedItemListPreviewComponent, SlicePipe, NgbTooltipModule, RouterLink, TranslateModule, NgbPaginationModule],
 })
 /**
  * The component for displaying a list element of an external source entry

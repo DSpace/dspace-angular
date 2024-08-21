@@ -34,14 +34,14 @@
             </ds-comcol-page-content>
           </header>
                 <div class="pl-2 btn-group h-100">
-                  <ds-context-menu [contextMenuObject]="collection" [contextMenuObjectType]="'COLLECTION'"></ds-context-menu>
+                  <ds-context-menu [contextMenuObject]="collection" [contextMenuObjectType]="$any('COLLECTION')"></ds-context-menu>
                 </div>
         </div>
         <section class="comcol-page-browse-section">
           <!-- Browse-By Links -->
           <ds-comcol-page-browse-by
               [id]="collection.id"
-              [contentType]="collection.type">
+              [contentType]="$any(collection.type)">
           </ds-comcol-page-browse-by>
 
           <router-outlet></router-outlet>

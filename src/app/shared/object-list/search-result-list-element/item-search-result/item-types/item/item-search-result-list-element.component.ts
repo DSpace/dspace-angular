@@ -13,6 +13,7 @@ import {
   Optional,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -32,12 +33,15 @@ import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
 import { KlaroService } from '../../../../../cookies/klaro.service';
+import { MetadataLinkViewComponent } from '../../../../../metadata-link-view/metadata-link-view.component';
+import { MetricsModule } from '../../../../../metric/metrics.module';
 import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
+import { AdditionalMetadataComponent } from '../../../additional-metadata/additional-metadata.component';
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
@@ -48,7 +52,7 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
   styleUrls: ['./item-search-result-list-element.component.scss'],
   templateUrl: './item-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe],
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule, AdditionalMetadataComponent, MetadataLinkViewComponent, MetricsModule],
 })
 /**
  * The component for displaying a list element for an item search result of the type Publication

@@ -1,4 +1,8 @@
-import { isPlatformServer } from '@angular/common';
+import {
+  isPlatformServer,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,6 +11,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   APP_CONFIG,
@@ -18,6 +23,8 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Context } from '../../core/shared/context.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SearchResult } from '../search/models/search-result.model';
 import { followLink } from '../utils/follow-link-config.model';
@@ -27,6 +34,13 @@ import { followLink } from '../utils/follow-link-config.model';
   styleUrls: ['./browse-most-elements.component.scss'],
   templateUrl: './browse-most-elements.component.html',
   standalone: true,
+  imports: [
+    ListableObjectComponentLoaderComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    NgForOf,
+    NgIf,
+  ],
 })
 
 export class BrowseMostElementsComponent implements OnInit {

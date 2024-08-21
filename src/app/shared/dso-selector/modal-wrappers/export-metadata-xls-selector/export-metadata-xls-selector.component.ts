@@ -48,6 +48,7 @@ import {
 @Component({
   selector: 'ds-export-metadata-xls-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
 })
 export class ExportMetadataXlsSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   configuration = 'communityOrCollection';

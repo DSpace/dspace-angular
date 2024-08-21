@@ -66,7 +66,10 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { getItemPageRoute, getItemVersionRoute } from '../item-page-routing-paths';
+import {
+  getItemPageRoute,
+  getItemVersionRoute,
+} from '../item-page-routing-paths';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 
 

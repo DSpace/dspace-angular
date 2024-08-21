@@ -1,7 +1,7 @@
 import {
   AsyncPipe,
   DOCUMENT,
-  isPlatformBrowser,
+  isPlatformBrowser, NgIf,
 } from '@angular/common';
 import {
   AfterViewInit,
@@ -17,7 +17,6 @@ import {
   NavigationEnd,
   NavigationStart,
   Router,
-  RouterEvent,
 } from '@angular/router';
 import {
   NgbModal,
@@ -63,6 +62,7 @@ import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { SocialService } from './social/social.service';
+import { SocialModule } from './social/social.module';
 
 @Component({
   selector: 'ds-app',
@@ -73,6 +73,8 @@ import { SocialService } from './social/social.service';
   imports: [
     ThemedRootComponent,
     AsyncPipe,
+    SocialModule,
+    NgIf,
   ],
 })
 export class AppComponent implements OnInit, AfterViewInit {

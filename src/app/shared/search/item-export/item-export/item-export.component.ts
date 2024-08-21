@@ -6,14 +6,14 @@ import {
 } from '@angular/core';
 import {
   FormControl,
-  FormGroup,
+  FormGroup, FormsModule, ReactiveFormsModule,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -52,6 +52,10 @@ import {
   ItemExportFormConfiguration,
   ItemExportService,
 } from '../item-export.service';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { ItemExportListComponent } from './item-export-list/item-export-list.component';
+import { ItemExportAlertComponent } from '../item-export-alert/item-export-alert.component';
 
 export enum ExportSelectionMode {
   All = 'all',
@@ -61,6 +65,18 @@ export enum ExportSelectionMode {
 @Component({
   selector: 'ds-item-export',
   templateUrl: './item-export.component.html',
+  imports: [
+    ThemedLoadingComponent,
+    NgIf,
+    FormsModule,
+    NgForOf,
+    TranslateModule,
+    ReactiveFormsModule,
+    AsyncPipe,
+    ItemExportListComponent,
+    ItemExportAlertComponent,
+  ],
+  standalone: true,
 })
 export class ItemExportComponent implements OnInit, OnDestroy {
 

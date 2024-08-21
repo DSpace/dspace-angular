@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   isPlatformServer,
+  NgClass,
   NgIf,
 } from '@angular/common';
 import {
@@ -49,6 +50,7 @@ import {
 import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { CrisItemPageModule } from '../../cris-item-page/cris-item-page.module';
 import { fadeInOut } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
@@ -89,6 +91,8 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
     NgIf,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
+    CrisItemPageModule,
+    NgClass,
   ],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {

@@ -1,11 +1,11 @@
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicDatePickerModel } from '@ng-dynamic-forms/core';
 
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { CalendarFieldParser } from './calendar-field-parser';
 import { ParserOptions } from './parser-options';
-import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 
 describe('CalendarFieldParser test suite', () => {
   let field: FormFieldModel;

@@ -10,10 +10,12 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   select,
   Store,
 } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqBy from 'lodash/uniqBy';
 import {
   map,
@@ -39,6 +41,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 
@@ -48,7 +51,7 @@ import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe],
+  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe, RouterLink, BrowserOnlyPipe, TranslateModule],
 })
 export class LogInComponent implements OnInit, OnDestroy {
 

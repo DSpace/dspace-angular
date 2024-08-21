@@ -1,8 +1,15 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FacetSection } from '../../../../core/layout/models/section.model';
@@ -13,6 +20,7 @@ import { FacetValue } from '../../../search/models/facet-value.model';
 import { FilterType } from '../../../search/models/filter-type.model';
 import { SearchFilterConfig } from '../../../search/models/search-filter-config.model';
 import { getFacetValueForTypeAndLabel } from '../../../search/search.utils';
+import { SearchChartComponent } from '../../../search/search-charts/search-chart/search-chart.component';
 
 /**
  * Component representing the Facet component section.
@@ -21,6 +29,14 @@ import { getFacetValueForTypeAndLabel } from '../../../search/search.utils';
   selector: 'ds-base-facet-section',
   templateUrl: './facet-section.component.html',
   standalone: true,
+  imports: [
+    SearchChartComponent,
+    RouterLink,
+    NgForOf,
+    NgIf,
+    TranslateModule,
+    AsyncPipe,
+  ],
 })
 export class FacetSectionComponent implements OnInit {
 

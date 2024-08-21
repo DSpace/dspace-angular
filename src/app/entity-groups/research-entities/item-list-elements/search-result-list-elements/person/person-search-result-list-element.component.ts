@@ -24,6 +24,10 @@ import { TruncatableComponent } from '../../../../../shared/truncatable/truncata
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
+import { MetricsModule } from '../../../../../shared/metric/metrics.module';
+import {
+  AdditionalMetadataComponent
+} from '../../../../../shared/object-list/search-result-list-element/additional-metadata/additional-metadata.component';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({
@@ -31,7 +35,7 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./person-search-result-list-element.component.scss'],
   templateUrl: './person-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule],
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule, MetricsModule, AdditionalMetadataComponent],
 })
 /**
  * The component for displaying a list element for an item search result of the type Person

@@ -72,6 +72,7 @@ import {
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { EditMetadataSecurityComponent } from '../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import {
   hasValue,
@@ -103,7 +104,7 @@ import {
   styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value.component.html',
   standalone: true,
-  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective],
+  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective, EditMetadataSecurityComponent],
 })
 /**
  * Component displaying a single editable row for a metadata value

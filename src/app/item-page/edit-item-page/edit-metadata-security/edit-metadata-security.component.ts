@@ -1,4 +1,9 @@
 import {
+  NgForOf,
+  NgIf,
+  NgStyle,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -17,6 +22,12 @@ import {
   selector: 'ds-edit-metadata-security',
   templateUrl: './edit-metadata-security.component.html',
   styleUrls: ['./edit-metadata-security.component.scss'],
+  imports: [
+    NgStyle,
+    NgForOf,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class EditMetadataSecurityComponent implements OnInit {
 

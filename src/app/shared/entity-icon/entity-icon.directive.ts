@@ -20,6 +20,7 @@ import {
  */
 @Directive({
   selector: '[dsEntityIcon]',
+  standalone: true,
 })
 export class EntityIconDirective implements OnInit {
 

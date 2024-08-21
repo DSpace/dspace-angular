@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -15,9 +20,13 @@ import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { fadeIn } from '../../../../animations/fade';
+import { ErrorComponent } from '../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
+import { VarDirective } from '../../../../utils/var.directive';
 import { PaginatedSearchOptions } from '../../../models/paginated-search-options.model';
 import { SearchObjects } from '../../../models/search-objects.model';
 import { SearchOptions } from '../../../models/search-options.model';
@@ -33,6 +42,16 @@ import { SearchOptions } from '../../../models/search-options.model';
     },
   ],
   animations: [fadeIn],
+  imports: [
+    ObjectCollectionComponent,
+    ThemedLoadingComponent,
+    ErrorComponent,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class ItemExportListComponent implements OnInit {
 

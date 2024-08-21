@@ -1,4 +1,10 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,6 +13,8 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -32,12 +40,23 @@ import {
   isNotEmpty,
 } from '../../empty.util';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchChartComponent } from './search-chart/search-chart.component';
 
 @Component({
   selector: 'ds-search-charts',
   styleUrls: ['./search-charts.component.scss'],
   templateUrl: './search-charts.component.html',
   animations: [shrinkInOut],
+  imports: [
+    NgbTooltipModule,
+    TranslateModule,
+    AsyncPipe,
+    NgClass,
+    NgIf,
+    NgForOf,
+    SearchChartComponent,
+  ],
+  standalone: true,
 })
 
 /**

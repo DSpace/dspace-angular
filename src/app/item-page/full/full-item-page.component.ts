@@ -4,6 +4,7 @@ import {
   Location,
   NgForOf,
   NgIf,
+  SlicePipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -34,6 +35,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -44,6 +46,7 @@ import { ServerResponseService } from '../../core/services/server-response.servi
 import { Item } from '../../core/shared/item.model';
 import { MetadataMap } from '../../core/shared/metadata.models';
 import { fadeInOut } from '../../shared/animations/fade';
+import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { hasValue } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
@@ -57,7 +60,6 @@ import { ItemPageComponent } from '../simple/item-page.component';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
-import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * This component renders a full item page.
@@ -88,6 +90,8 @@ import { AuthService } from '../../core/auth/auth.service';
     ViewTrackerComponent,
     ThemedItemAlertsComponent,
     VarDirective,
+    ContextMenuModule,
+    SlicePipe,
   ],
   standalone: true,
 })

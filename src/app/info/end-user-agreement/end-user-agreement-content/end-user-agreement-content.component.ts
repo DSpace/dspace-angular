@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -17,13 +18,14 @@ import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { MarkdownViewerModule } from '../../../shared/markdown-viewer/markdown-viewer.module';
 
 @Component({
   selector: 'ds-end-user-agreement-content',
   templateUrl: './end-user-agreement-content.component.html',
   styleUrls: ['./end-user-agreement-content.component.scss'],
   standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [RouterLink, TranslateModule, MarkdownViewerModule, AsyncPipe],
 })
 /**
  * Component displaying the contents of the End User Agreement

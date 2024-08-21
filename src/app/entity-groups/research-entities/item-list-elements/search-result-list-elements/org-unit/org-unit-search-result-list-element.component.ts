@@ -14,6 +14,10 @@ import { ItemSearchResultListElementComponent } from '../../../../../shared/obje
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
+import {
+  AdditionalMetadataComponent
+} from '../../../../../shared/object-list/search-result-list-element/additional-metadata/additional-metadata.component';
+import { MetricsModule } from '../../../../../shared/metric/metrics.module';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement)
 @Component({
@@ -21,7 +25,7 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./org-unit-search-result-list-element.component.scss'],
   templateUrl: './org-unit-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule, AdditionalMetadataComponent, MetricsModule],
 })
 /**
  * The component for displaying a list element for an item search result of the type Organisation Unit
