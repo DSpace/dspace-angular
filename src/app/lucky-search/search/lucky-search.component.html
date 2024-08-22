@@ -1,4 +1,4 @@
-<div *ngIf="showMultipleSearchSection">
+<div *ngIf="showMultipleSearchSection$ | async">
   <ds-page-with-sidebar [id]="'search-page'">
     <div class="row">
       <div class="col-12">
@@ -16,7 +16,7 @@
   </ds-page-with-sidebar>
 </div>
 
-<div *ngIf="showEmptySearchSection">
+<div *ngIf="showEmptySearchSection$ | async">
   <h5 class="text-center">{{'lucky.search.results.notfound' | translate}} {{currentFilter.identifier}}
     : {{currentFilter.value}}. {{'lucky.search.retry.search' | translate}}</h5>
   <br/>
@@ -24,7 +24,7 @@
     <div class="col-md-8">
       <ds-search-form [inPlaceSearch]="false"
                       [query]="currentFilter.value"
-                      [searchPlaceholder]="'search.search-form.placeholder' | translate"> >
+                      [searchPlaceholder]="'search.search-form.placeholder' | translate">
       </ds-search-form>
     </div>
   </div>
