@@ -20,6 +20,7 @@ export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
   ),
   followLink('relationships'),
   followLink('version', {}, followLink('versionhistory')),
+  followLink('bundles', {}, followLink('bitstreams')),
   followLink('thumbnail'),
   followLink('metrics')
 ];
