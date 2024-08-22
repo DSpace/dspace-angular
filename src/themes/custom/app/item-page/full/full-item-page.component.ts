@@ -2,7 +2,7 @@ import {
   AsyncPipe,
   KeyValuePipe,
   NgForOf,
-  NgIf,
+  NgIf, SlicePipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -24,6 +24,7 @@ import { ErrorComponent } from '../../../../../app/shared/error/error.component'
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
+import { ContextMenuModule } from '../../../../../app/shared/context-menu/context-menu.module';
 
 /**
  * This component renders a full item page.
@@ -57,6 +58,8 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     ViewTrackerComponent,
     ThemedItemAlertsComponent,
     VarDirective,
+    ContextMenuModule,
+    SlicePipe,
   ],
 })
 export class FullItemPageComponent extends BaseComponent {

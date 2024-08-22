@@ -56,6 +56,10 @@ import { ThemedLoadingComponent } from '../../../loading/themed-loading.componen
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { ItemExportListComponent } from './item-export-list/item-export-list.component';
 import { ItemExportAlertComponent } from '../item-export-alert/item-export-alert.component';
+import {
+  AdministeredCollectionSelectorComponent
+} from '../../../dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
+import { AlertComponent } from '../../../alert/alert.component';
 
 export enum ExportSelectionMode {
   All = 'all',
@@ -75,6 +79,8 @@ export enum ExportSelectionMode {
     AsyncPipe,
     ItemExportListComponent,
     ItemExportAlertComponent,
+    AdministeredCollectionSelectorComponent,
+    AlertComponent,
   ],
   standalone: true,
 })

@@ -29,13 +29,14 @@ import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { getFacetValueForType } from '../../../../search.utils';
+import { CapitalizePipe } from '../../../../../utils/capitalize.pipe';
 
 @Component({
   selector: 'ds-search-facet-option',
   styleUrls: ['./search-facet-option.component.scss'],
   templateUrl: './search-facet-option.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, AsyncPipe, TranslateModule, ShortNumberPipe],
+  imports: [NgIf, RouterLink, AsyncPipe, TranslateModule, ShortNumberPipe, CapitalizePipe],
 })
 
 /**

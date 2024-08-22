@@ -44,6 +44,13 @@ import { CrisLayoutBoxContainerComponent } from './cris-layout-matrix/cris-layou
 import { CrisLayoutMatrixComponent } from './cris-layout-matrix/cris-layout-matrix.component';
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { DsDatePipe } from './pipes/ds-date.pipe';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { MiradorViewerComponent } from '../item-page/mirador-viewer/mirador-viewer.component';
+import { ThemedThumbnailComponent } from '../thumbnail/themed-thumbnail.component';
+import { TruncatableComponent } from '../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../shared/truncatable/truncatable-part/truncatable-part.component';
+import { FileSizePipe } from '../shared/utils/file-size-pipe';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -103,6 +110,13 @@ const ENTRY_COMPONENTS = [
     MiradorViewerModule,
     MetricsModule,
     AttachmentRenderingModule,
+    TranslateModule,
+    RouterLink,
+    MiradorViewerComponent,
+    ThemedThumbnailComponent,
+    TruncatableComponent,
+    TruncatablePartComponent,
+    FileSizePipe,
   ],
   exports: [
     CrisLayoutComponent,

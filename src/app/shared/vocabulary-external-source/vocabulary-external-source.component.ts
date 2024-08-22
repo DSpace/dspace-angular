@@ -10,7 +10,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -41,11 +41,23 @@ import { ThemedCreateItemParentSelectorComponent } from '../dso-selector/modal-w
 import { NotificationsService } from '../notifications/notifications.service';
 import { createFailedRemoteDataObject } from '../remote-data.utils';
 import { followLink } from '../utils/follow-link-config.model';
+import { AlertComponent } from '../alert/alert.component';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-vocabulary-external-source',
   templateUrl: './vocabulary-external-source.component.html',
   styleUrls: ['./vocabulary-external-source.component.scss'],
+  imports: [
+    AlertComponent,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    NgForOf,
+    ThemedLoadingComponent
+  ],
+  standalone: true
 })
 export class VocabularyExternalSourceComponent implements OnInit {
 

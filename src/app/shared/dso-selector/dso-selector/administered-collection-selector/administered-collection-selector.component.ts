@@ -2,7 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -22,11 +22,21 @@ import { NotificationsService } from '../../../notifications/notifications.servi
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { DSOSelectorComponent } from '../dso-selector.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { HoverClassDirective } from '../../../hover-class.directive';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-administered-collection-selector',
   styleUrls: ['../dso-selector.component.scss'],
   templateUrl: '../dso-selector.component.html',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgIf, NgFor, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component rendering a list of collections to select from

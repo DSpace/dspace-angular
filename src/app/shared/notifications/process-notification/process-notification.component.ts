@@ -74,6 +74,10 @@ import { isNotEmpty } from '../../empty.util';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
 import { IProcessNotification } from '../models/process-notification.model';
 import { NotificationsService } from '../notifications.service';
+import { AsyncPipe, NgIf, NgTemplateOutlet, TitleCasePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { ThemedFileDownloadLinkComponent } from '../../file-download-link/themed-file-download-link.component';
+import { FileSizePipe } from '../../utils/file-size-pipe';
 
 @Component({
   selector: 'ds-process-notification',
@@ -92,6 +96,16 @@ import { NotificationsService } from '../notifications.service';
   templateUrl: './process-notification.component.html',
   styleUrls: ['./process-notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    NgTemplateOutlet,
+    TranslateModule,
+    ThemedFileDownloadLinkComponent,
+    FileSizePipe,
+    TitleCasePipe
+  ],
+  standalone: true
 })
 
 export class ProcessNotificationComponent implements OnInit, OnDestroy {

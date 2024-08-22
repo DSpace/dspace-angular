@@ -17,6 +17,8 @@ import { RelationshipDataService } from '../../../../core/data/relationship-data
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component represents a badge with correction item information.
@@ -25,6 +27,12 @@ import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/oper
   selector: 'ds-item-correction',
   styleUrls: ['./item-correction.component.scss'],
   templateUrl: './item-correction.component.html',
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule
+  ],
+  standalone: true
 })
 export class ItemCorrectionComponent implements OnInit {
 

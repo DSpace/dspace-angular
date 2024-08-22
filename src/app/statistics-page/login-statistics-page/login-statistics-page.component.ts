@@ -21,11 +21,19 @@ import {
 import { LoginStatisticsService } from '../../core/statistics/login-statistics.service';
 import { LoginStatistics } from '../../core/statistics/models/login-statistics.model';
 import { AlertType } from '../../shared/alert/alert-type';
+import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
+import { CommonModule } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-login-statistics',
   templateUrl: './login-statistics-page.component.html',
   styleUrls: ['./login-statistics-page.component.scss'],
+  standalone: true,
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageModule],
 })
 export class LoginStatisticsPageComponent implements OnInit {
 

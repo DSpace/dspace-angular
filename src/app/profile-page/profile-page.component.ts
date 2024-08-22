@@ -50,6 +50,7 @@ import { VarDirective } from '../shared/utils/var.directive';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
+import { ProfilePageAccessTokenComponent } from './profile-page-access-token/profile-page-access-token.component';
 
 @Component({
   selector: 'ds-base-profile-page',
@@ -65,6 +66,7 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     NgIf,
     NgForOf,
     SuggestionsNotificationComponent,
+    ProfilePageAccessTokenComponent,
   ],
   standalone: true,
 })

@@ -33,13 +33,16 @@ import {
   hasValue,
   isEmpty,
 } from '../shared/empty.util';
+import {
+  ThemedTextSectionComponent
+} from '../shared/explore/section-component/text-section/themed-text-section.component';
 
 @Component({
   selector: 'ds-base-footer',
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, AsyncPipe, DatePipe, TranslateModule],
+  imports: [NgIf, RouterLink, AsyncPipe, DatePipe, TranslateModule, ThemedTextSectionComponent],
 })
 export class FooterComponent implements OnInit {
   dateObj: number = Date.now();

@@ -11,7 +11,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import {
   NgbActiveModal,
-  NgbModal,
+  NgbModal, NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -56,6 +56,8 @@ import { FormFieldMetadataValueObject } from '../../../../models/form-field-meta
 import { PLACEHOLDER_PARENT_METADATA } from '../../../ds-dynamic-form-constants';
 import { DsDynamicInputModel } from '../../ds-dynamic-input.model';
 import { DynamicRelationGroupModel } from '../dynamic-relation-group.model';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component representing a group input field
@@ -65,6 +67,15 @@ import { DynamicRelationGroupModel } from '../dynamic-relation-group.model';
   styleUrls: ['../dynamic-relation-group.component.scss'],
   templateUrl: './dynamic-relation-group-modal.component.html',
   animations: [shrinkInOut],
+  imports: [
+    FormComponent,
+    NgClass,
+    NgIf,
+    NgbTooltipModule,
+    TranslateModule,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 

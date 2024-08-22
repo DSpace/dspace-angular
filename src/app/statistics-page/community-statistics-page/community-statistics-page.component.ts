@@ -7,6 +7,7 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { VarDirective } from '../../shared/utils/var.directive';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
+import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
 
 /**
  * Component representing the statistics page for a community.
@@ -16,7 +17,7 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./community-statistics-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageModule],
 })
 export class CommunityStatisticsPageComponent extends StatisticsPageDirective<Community> {
 

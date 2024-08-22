@@ -17,10 +17,21 @@ import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
+import {
+  AdministeredCollectionSelectorComponent
+} from '../../dso-selector/administered-collection-selector/administered-collection-selector.component';
 
 @Component({
   selector: 'ds-bulk-import-collection-selector',
   templateUrl: './bulk-import-collection-selector.component.html',
+  imports: [
+    TranslateModule,
+    NgIf,
+    AdministeredCollectionSelectorComponent
+  ],
+  standalone: true
 })
 export class BulkImportSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

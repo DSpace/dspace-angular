@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 
 import { HomeNewsComponent as BaseComponent } from '../../../../../app/home-page/home-news/home-news.component';
+import {
+  ThemedTextSectionComponent
+} from '../../../../../app/shared/explore/section-component/text-section/themed-text-section.component';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-themed-home-news',
@@ -9,6 +13,11 @@ import { HomeNewsComponent as BaseComponent } from '../../../../../app/home-page
   // templateUrl: './home-news.component.html'
   templateUrl: '../../../../../app/home-page/home-news/home-news.component.html',
   standalone: true,
+  imports: [
+    ThemedTextSectionComponent,
+    AsyncPipe,
+    NgIf
+  ]
 })
 
 /**

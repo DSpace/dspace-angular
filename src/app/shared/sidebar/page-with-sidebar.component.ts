@@ -1,5 +1,5 @@
 import {
-  AsyncPipe,
+  AsyncPipe, NgClass,
   NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
@@ -26,6 +26,7 @@ import { SidebarService } from './sidebar.service';
     AsyncPipe,
     NgTemplateOutlet,
     NgIf,
+    NgClass,
   ],
 })
 /**

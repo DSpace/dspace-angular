@@ -31,6 +31,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchResult } from '../models/search-result.model';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
+import { AlertComponent } from '../../alert/alert.component';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -45,7 +46,7 @@ export interface SelectionConfig {
     fadeInOut,
   ],
   standalone: true,
-  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, RouterLink, TranslateModule],
+  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, RouterLink, TranslateModule, AlertComponent],
 })
 
 /**

@@ -57,7 +57,6 @@ const DECLARATIONS = [
   ThemedPageNotFoundComponent,
   NotificationComponent,
   NotificationsBoardComponent,
-  ProcessNotificationComponent,
   BreadcrumbsComponent,
   ThemedBreadcrumbsComponent,
   ForbiddenComponent,

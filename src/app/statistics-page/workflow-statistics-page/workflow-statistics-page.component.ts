@@ -9,7 +9,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -24,6 +24,11 @@ import { WorkflowOwnerStatisticsDataService } from '../../core/statistics/workfl
 import { WorkflowStepStatisticsDataService } from '../../core/statistics/workflow-step-statistics-data.service';
 import { CollectionSelectorComponent } from '../../my-dspace-page/collection-selector/collection-selector.component';
 import { AlertType } from '../../shared/alert/alert-type';
+import { CommonModule } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
+import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
 
 /**
  * Component related to the WORKFLOW statistics page.
@@ -32,6 +37,8 @@ import { AlertType } from '../../shared/alert/alert-type';
   selector: 'ds-workflow-statistics',
   templateUrl: './workflow-statistics-page.component.html',
   styleUrls: ['./workflow-statistics-page.component.scss'],
+  standalone: true,
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageModule],
 })
 export class WorkflowStatisticsPageComponent implements OnInit {
 

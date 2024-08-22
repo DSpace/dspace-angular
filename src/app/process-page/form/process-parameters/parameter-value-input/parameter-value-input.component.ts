@@ -21,6 +21,7 @@ import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-
 import { DateValueInputComponent } from './date-value-input/date-value-input.component';
 import { FileValueInputComponent } from './file-value-input/file-value-input.component';
 import { StringValueInputComponent } from './string-value-input/string-value-input.component';
+import { NumberValueInputComponent } from './number-value-input/number-value-input.component';
 
 /**
  * Component that renders the correct parameter value input based the script parameter's type
@@ -33,7 +34,7 @@ import { StringValueInputComponent } from './string-value-input/string-value-inp
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [NgSwitch, NgSwitchCase, StringValueInputComponent, DateValueInputComponent, FileValueInputComponent, BooleanValueInputComponent],
+  imports: [NgSwitch, NgSwitchCase, StringValueInputComponent, DateValueInputComponent, FileValueInputComponent, BooleanValueInputComponent, NumberValueInputComponent],
 })
 export class ParameterValueInputComponent {
   @Input() index: number;

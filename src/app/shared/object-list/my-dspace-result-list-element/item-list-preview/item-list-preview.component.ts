@@ -30,6 +30,13 @@ import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspa
 import { SearchResult } from '../../../search/models/search-result.model';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
+import {
+  AdditionalMetadataComponent
+} from '../../search-result-list-element/additional-metadata/additional-metadata.component';
+import {
+  ItemCorrectionComponent
+} from '../../../object-collection/shared/mydspace-item-correction/item-correction.component';
 
 /**
  * This component show metadata for the given item object in the list view.
@@ -52,6 +59,9 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
     TranslateModule,
     TruncatableComponent,
     TruncatablePartComponent,
+    MetadataLinkViewComponent,
+    AdditionalMetadataComponent,
+    ItemCorrectionComponent,
   ],
 })
 export class ItemListPreviewComponent implements OnInit {

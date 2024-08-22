@@ -1,5 +1,5 @@
 import {
-  AsyncPipe,
+  AsyncPipe, NgClass,
   NgIf,
 } from '@angular/common';
 import {
@@ -20,6 +20,7 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
 import { ListableObjectComponentLoaderComponent } from '../../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
+import { CrisItemPageModule } from '../../../../../app/cris-item-page/cris-item-page.module';
 
 /**
  * This component renders a simple item page.
@@ -49,6 +50,8 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     NgIf,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
+    CrisItemPageModule,
+    NgClass,
   ],
 })
 export class ItemPageComponent extends BaseComponent {

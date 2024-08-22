@@ -16,6 +16,14 @@ import { ItemSearchResultListElementComponent as BaseComponent } from '../../../
 import { TruncatableComponent } from '../../../../../../../../../app/shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../../../../../app/thumbnail/themed-thumbnail.component';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  AdditionalMetadataComponent
+} from '../../../../../../../../../app/shared/object-list/search-result-list-element/additional-metadata/additional-metadata.component';
+import {
+  MetadataLinkViewComponent
+} from '../../../../../../../../../app/shared/metadata-link-view/metadata-link-view.component';
+import { MetricsModule } from '../../../../../../../../../app/shared/metric/metrics.module';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.Any, 'custom')
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Any, 'custom')
@@ -26,7 +34,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../../../app/thumbna
   // templateUrl: './item-search-result-list-element.component.html',
   templateUrl: '../../../../../../../../../app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe],
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule, AdditionalMetadataComponent, MetadataLinkViewComponent, MetricsModule],
 
 })
 export class ItemSearchResultListElementComponent extends BaseComponent {

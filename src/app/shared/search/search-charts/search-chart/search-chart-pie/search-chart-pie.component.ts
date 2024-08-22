@@ -1,9 +1,16 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -13,12 +20,10 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { ChartsModule } from '../../../../../charts/charts.module';
 import { ChartData } from '../../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../../charts/models/chart-series';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { getAllCompletedRemoteData } from '../../../../../core/shared/operators';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import {
@@ -28,7 +33,7 @@ import {
   SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { isNotEmpty } from '../../../../empty.util';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FacetValues } from '../../../models/facet-values.model';
@@ -43,6 +48,13 @@ import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-
   styleUrls: ['./search-chart-pie.component.scss'],
   templateUrl: './search-chart-pie.component.html',
   animations: [facetLoad],
+  imports: [
+    ChartsModule,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+  ],
+  standalone: true,
 })
 /**
  * Component that represents a search pie chart filter
@@ -61,16 +73,15 @@ export class SearchChartPieComponent extends SearchChartFilterComponent {
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
               @Inject(SCOPE) public scope: string,
   ) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope);
+    super(searchService, filterService, rdbs, router, searchConfigService);
   }
 
   protected getInitData(): Observable<ChartSeries[] | ChartData[]> {
-    return this.filterValues$.pipe(
-      getAllCompletedRemoteData(),
-      filter((rd: RemoteData<PaginatedList<FacetValue>[]>) => isNotEmpty(rd.payload)),
-      map((facetValues: RemoteData<PaginatedList<FacetValue>[]>) => {
+    return this.facetValues$.pipe(
+      filter((facetValues: FacetValues[]) => isNotEmpty(facetValues)),
+      map((facetValues: FacetValues[]) => {
         const values = [];
-        facetValues.payload.forEach((facetValue: FacetValues) => {
+        facetValues.forEach((facetValue: FacetValues) => {
           const list: any[] = facetValue.page.map((item: FacetValue) => ({
             name: item.value,
             value: item.count,

@@ -86,6 +86,7 @@ import { SelectionConfig } from './search-results/search-results.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import { SearchChartsComponent } from './search-charts/search-charts.component';
 
 @Component({
   selector: 'ds-base-search',
@@ -107,6 +108,7 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
     ViewModeSwitchComponent,
     NgbTooltipModule,
     ItemExportModalLauncherComponent,
+    SearchChartsComponent,
   ],
 })
 

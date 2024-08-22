@@ -6,12 +6,6 @@ import { MiradorViewerComponent } from './mirador-viewer.component';
 
 
 @NgModule({
-  declarations: [
-    MiradorViewerComponent,
-  ],
-  exports: [
-    MiradorViewerComponent,
-  ],
   imports: [
     CommonModule,
     TranslateModule,

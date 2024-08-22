@@ -26,6 +26,7 @@ import { ErrorComponent } from '../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
+import { ContextMenuModule } from '../../../../app/shared/context-menu/context-menu.module';
 
 @Component({
   selector: 'ds-themed-community-page',
@@ -54,6 +55,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     VarDirective,
     RouterOutlet,
     RouterModule,
+    ContextMenuModule,
   ],
 })
 /**

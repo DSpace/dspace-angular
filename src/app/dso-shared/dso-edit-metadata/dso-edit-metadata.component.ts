@@ -31,7 +31,7 @@ import {
 import {
   map,
   mergeMap,
-  tap,
+  tap, withLatestFrom,
 } from 'rxjs/operators';
 
 import {
@@ -68,6 +68,7 @@ import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
+import { HALDataService } from '../../core/data/base/hal-data-service.interface';
 
 @Component({
   selector: 'ds-base-dso-edit-metadata',

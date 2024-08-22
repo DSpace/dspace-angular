@@ -27,6 +27,9 @@ import {
 } from './my-dspace-configuration.service';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
+import {
+  MyDSpaceNewBulkImportComponent
+} from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 
@@ -52,6 +55,7 @@ export const MYDSPACE_ROUTE = '/mydspace';
     NgIf,
     SuggestionsNotificationComponent,
     MyDspaceQaEventsNotificationsComponent,
+    MyDSpaceNewBulkImportComponent,
   ],
   standalone: true,
 })

@@ -17,6 +17,11 @@ import { ThemedSearchSidebarComponent } from '../../../../../app/shared/search/s
 import { ThemedSearchFormComponent } from '../../../../../app/shared/search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../../../../../app/shared/sidebar/page-with-sidebar.component';
 import { ViewModeSwitchComponent } from '../../../../../app/shared/view-mode-switch/view-mode-switch.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ItemExportModalLauncherComponent
+} from '../../../../../app/shared/search/item-export/item-export-modal-launcher/item-export-modal-launcher.component';
+import { SearchChartsComponent } from '../../../../../app/shared/search/search-charts/search-charts.component';
 
 @Component({
   selector: 'ds-themed-search',
@@ -38,6 +43,9 @@ import { ViewModeSwitchComponent } from '../../../../../app/shared/view-mode-swi
     TranslateModule,
     SearchLabelsComponent,
     ViewModeSwitchComponent,
+    NgbTooltipModule,
+    ItemExportModalLauncherComponent,
+    SearchChartsComponent,
   ],
 })
 export class SearchComponent extends BaseComponent {

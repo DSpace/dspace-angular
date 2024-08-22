@@ -6,7 +6,7 @@ import {
 import {
   FormArray,
   FormBuilder,
-  FormGroup,
+  FormGroup, FormsModule, ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -17,6 +17,9 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/oper
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchConfig } from '../../../search/search-filters/search-config.model';
+import { ThemedSearchFormComponent } from '../../../search-form/themed-search-form.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 /**
  * Component representing the Search component section.
@@ -25,6 +28,15 @@ import { SearchConfig } from '../../../search/search-filters/search-config.model
   selector: 'ds-base-search-section',
   templateUrl: './search-section.component.html',
   standalone: true,
+  imports: [
+    ThemedSearchFormComponent,
+    TranslateModule,
+    NgIf,
+    FormsModule,
+    NgForOf,
+    ReactiveFormsModule,
+    AsyncPipe
+  ]
 })
 export class SearchSectionComponent implements OnInit {
 

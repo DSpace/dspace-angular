@@ -29,6 +29,7 @@ import { MetadataFieldWrapperComponent } from '../../../../../../../app/shared/m
 import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ThemedResultsBackButtonComponent } from '../../../../../../../app/shared/results-back-button/themed-results-back-button.component';
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
+import { ContextMenuModule } from '../../../../../../../app/shared/context-menu/context-menu.module';
 
 /**
  * Component that represents an untyped Item page
@@ -65,6 +66,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     AsyncPipe,
     TranslateModule,
     ItemPageCcLicenseFieldComponent,
+    ContextMenuModule,
   ],
 })
 export class UntypedItemComponent extends BaseComponent {}

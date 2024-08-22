@@ -15,12 +15,21 @@ import { SectionDataService } from '../../core/layout/section-data.service';
 import { LocaleService } from '../../core/locale/locale.service';
 import { Site } from '../../core/shared/site.model';
 import { isEmpty } from '../../shared/empty.util';
+import {
+  ThemedTextSectionComponent
+} from '../../shared/explore/section-component/text-section/themed-text-section.component';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-base-home-news',
   styleUrls: ['./home-news.component.scss'],
   templateUrl: './home-news.component.html',
   standalone: true,
+  imports: [
+    ThemedTextSectionComponent,
+    AsyncPipe,
+    NgIf
+  ]
 })
 
 /**

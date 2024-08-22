@@ -30,6 +30,7 @@ import { NotificationComponent } from '../notification/notification.component';
 import { NotificationsState } from '../notifications.reducers';
 import { NotificationsService } from '../notifications.service';
 import { notificationsStateSelector } from '../selectors';
+import { ProcessNotificationComponent } from '../process-notification/process-notification.component';
 
 @Component({
   selector: 'ds-notifications-board',
@@ -38,7 +39,7 @@ import { notificationsStateSelector } from '../selectors';
   styleUrls: ['./notifications-board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgClass, NgFor, NotificationComponent],
+  imports: [NgClass, NgFor, NotificationComponent, ProcessNotificationComponent],
 })
 export class NotificationsBoardComponent implements OnInit, OnDestroy {
 

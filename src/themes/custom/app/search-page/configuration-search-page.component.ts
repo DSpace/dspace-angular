@@ -19,6 +19,11 @@ import { ThemedSearchSidebarComponent } from '../../../../app/shared/search/sear
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-with-sidebar.component';
 import { ViewModeSwitchComponent } from '../../../../app/shared/view-mode-switch/view-mode-switch.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ItemExportModalLauncherComponent
+} from '../../../../app/shared/search/item-export/item-export-modal-launcher/item-export-modal-launcher.component';
+import { SearchChartsComponent } from '../../../../app/shared/search/search-charts/search-charts.component';
 
 @Component({
   selector: 'ds-themed-configuration-search-page',
@@ -35,7 +40,21 @@ import { ViewModeSwitchComponent } from '../../../../app/shared/view-mode-switch
     },
   ],
   standalone: true,
-  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgIf,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    SearchLabelsComponent,
+    ViewModeSwitchComponent,
+    NgbTooltipModule,
+    ItemExportModalLauncherComponent,
+    SearchChartsComponent,
+  ],
 })
 
 /**

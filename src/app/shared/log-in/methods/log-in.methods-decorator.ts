@@ -30,5 +30,5 @@ export function rendersAuthMethodType(authMethodType: AuthMethodType) {
 }
 
 export function hasAuthMethodRendering(authMethodType: AuthMethodType) {
-  return authMethodsMap.has(authMethodType);
+  return AUTH_METHOD_FOR_DECORATOR_MAP.has(authMethodType);
 }

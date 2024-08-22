@@ -6,6 +6,9 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { CommunityStatisticsPageComponent as BaseComponent } from '../../../../../app/statistics-page/community-statistics-page/community-statistics-page.component';
 import { StatisticsTableComponent } from '../../../../../app/statistics-page/statistics-table/statistics-table.component';
+import {
+  CrisStatisticsPageModule
+} from '../../../../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 
 @Component({
   selector: 'ds-themed-collection-statistics-page',
@@ -14,7 +17,7 @@ import { StatisticsTableComponent } from '../../../../../app/statistics-page/sta
   // templateUrl: './community-statistics-page.component.html',
   templateUrl: '../../../../../app/statistics-page/statistics-page/statistics-page.component.html',
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageModule],
 })
 
 /**

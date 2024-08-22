@@ -1,6 +1,6 @@
 import {
   AsyncPipe,
-  NgClass,
+  NgClass, NgFor,
   NgIf,
 } from '@angular/common';
 import {
@@ -30,6 +30,17 @@ import { WorkspaceItemSearchResult } from '../../../object-collection/shared/wor
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { RouterLink } from '@angular/router';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
+import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
+import { TruncatableComponent } from '../../../truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  AdditionalMetadataComponent
+} from '../../search-result-list-element/additional-metadata/additional-metadata.component';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
+import { MetricsModule } from '../../../metric/metrics.module';
 
 /**
  * This component renders workspaceitem object for the search result in the list view.
@@ -39,7 +50,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss', './workspace-item-search-result-list-element.component.scss'],
   templateUrl: './workspace-item-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ListableObjectComponentLoaderComponent, NgClass, WorkspaceitemActionsComponent, ThemedLoadingComponent, AsyncPipe],
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule, AdditionalMetadataComponent, MetadataLinkViewComponent, MetricsModule, ListableObjectComponentLoaderComponent, WorkspaceitemActionsComponent, ThemedLoadingComponent],
 })
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement)
