@@ -17,6 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { SwitchColor, SwitchOption } from '../../shared/switch/switch.component';
 
 @Component({
   selector: 'ds-batch-import-page',
@@ -47,6 +48,14 @@ export class BatchImportPageComponent {
    * File URL when flag is for url
    */
   fileURL: string;
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: 'upload', icon: 'fa fa-upload', label: 'admin.metadata-import.page.toggle.upload', iconColor: SwitchColor.Primary },
+    { value: 'url', icon: 'fa fa-link', label: 'admin.metadata-import.page.toggle.url', iconColor: SwitchColor.Primary },
+  ];
 
   public constructor(private location: Location,
                      protected translate: TranslateService,
@@ -154,4 +163,5 @@ export class BatchImportPageComponent {
   toggleUpload() {
     this.isUpload = !this.isUpload;
   }
+
 }
