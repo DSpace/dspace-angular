@@ -19,7 +19,6 @@ import {
   DsDynamicInputModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
   CONFIG_DATA,
   FieldParser,
@@ -49,7 +48,7 @@ export class ConcatFieldParser extends FieldParser {
     this.secondPlaceholder = secondPlaceholder;
   }
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
+  public modelFactory(fieldValue?: any, label?: boolean): any {
     const id: string = this.configData.selectableMetadata[0].metadata;
 
     const clsInput1: DynamicFormControlLayout = {

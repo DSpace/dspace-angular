@@ -12,6 +12,9 @@ import { TopSection } from '../../../../core/layout/models/section.model';
 import { Context } from '../../../../core/shared/context.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
+import { ThemedBrowseMostElementsComponent } from '../../../browse-most-elements/themed-browse-most-elements.component';
+import { NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component representing the Top component section.
@@ -20,6 +23,11 @@ import { PaginatedSearchOptions } from '../../../search/models/paginated-search-
   selector: 'ds-base-top-section',
   templateUrl: './top-section.component.html',
   standalone: true,
+  imports: [
+    ThemedBrowseMostElementsComponent,
+    NgIf,
+    TranslateModule
+  ]
 })
 export class TopSectionComponent implements OnInit {
 

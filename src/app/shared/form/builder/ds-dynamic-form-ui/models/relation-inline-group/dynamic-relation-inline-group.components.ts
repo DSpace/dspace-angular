@@ -45,6 +45,7 @@ import {
   DynamicRowArrayModelConfig,
 } from '../ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from '../relation-group/dynamic-relation-group.model';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -52,6 +53,12 @@ import { DynamicRelationGroupModel } from '../relation-group/dynamic-relation-gr
   styleUrls: ['./dynamic-relation-inline-group.component.scss'],
   templateUrl: './dynamic-relation-inline-group.component.html',
   animations: [shrinkInOut],
+  imports: [
+    FormComponent,
+    NgClass,
+    NgIf
+  ],
+  standalone: true
 })
 export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {
 

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MiradorViewerModule } from '../item-page/mirador-viewer/mirador-viewer.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
@@ -51,6 +51,12 @@ import { ThemedThumbnailComponent } from '../thumbnail/themed-thumbnail.componen
 import { TruncatableComponent } from '../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../shared/utils/file-size-pipe';
+import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { ChipsComponent } from '../shared/form/chips/chips.component';
+import { MetadataLinkViewComponent } from '../shared/metadata-link-view/metadata-link-view.component';
+import { ThemedFileDownloadLinkComponent } from '../shared/file-download-link/themed-file-download-link.component';
+import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -117,6 +123,13 @@ const ENTRY_COMPONENTS = [
     TruncatableComponent,
     TruncatablePartComponent,
     FileSizePipe,
+    ThemedConfigurationSearchPageComponent,
+    ThemedLoadingComponent,
+    ChipsComponent,
+    NgbTooltipModule,
+    MetadataLinkViewComponent,
+    ThemedFileDownloadLinkComponent,
+    ComcolPageHeaderComponent,
   ],
   exports: [
     CrisLayoutComponent,

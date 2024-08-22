@@ -9151,12 +9151,12 @@ ng2-file-upload@5.0.0:
   dependencies:
     tslib "^2.3.0"
 
-ng2-google-charts@^6.1.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/ng2-google-charts/-/ng2-google-charts-6.2.0.tgz#c0b89e2b7bde0acbdca7489270e2bb8c91ba75bd"
-  integrity sha512-dbG93G22hDcNNfdR3vL1GyT8ez0N2J5c8UHrI0MO8+AdFWJm6v4iODRbTGrcUGWYxKsC4V5gRrzfVBtOhMnlhA==
+ng2-google-charts@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/ng2-google-charts/-/ng2-google-charts-7.0.0.tgz#1e601dad1d6f2f964d052a8f6eeb6d56efd04c1a"
+  integrity sha512-MRc7oIDAvFVdvW2SQvE8xNjzL5NDdnB4GvJEBRW8PYsuNH1gj3RlQRdFRDdkzaRDy4y9jVI6x6yZZAYP3ZCVLw==
   dependencies:
-    tslib "^1.9.0"
+    tslib "^2.3.0"
 
 ng2-nouislider@^2.0.0:
   version "2.0.0"

@@ -1,4 +1,5 @@
 import {
+  AsyncPipe,
   NgClass,
   NgForOf,
   NgIf,
@@ -80,6 +81,7 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
     NgForOf,
     NgTemplateOutlet,
     ObjNgFor,
+    AsyncPipe,
   ],
   standalone: true,
 })

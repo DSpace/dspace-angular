@@ -19,7 +19,7 @@ import {
 } from '@angular/forms';
 import {
   NgbModal,
-  NgbModalRef,
+  NgbModalRef, NgbTooltipModule,
   NgbTypeahead,
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
@@ -92,6 +92,7 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
     ObjNgFor,
     NgForOf,
     FormsModule,
+    NgbTooltipModule,
   ],
   standalone: true,
 })

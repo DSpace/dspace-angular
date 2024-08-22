@@ -10,7 +10,7 @@ import {
   NgbActiveModal,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -40,6 +40,8 @@ import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
+import { NgIf } from '@angular/common';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
@@ -49,6 +51,7 @@ import {
   selector: 'ds-export-metadata-xls-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class ExportMetadataXlsSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   configuration = 'communityOrCollection';

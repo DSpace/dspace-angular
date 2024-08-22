@@ -170,6 +170,9 @@ import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollab
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import {
+  EditMetadataSecurityComponent
+} from '../../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -252,6 +255,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
     NgbTooltipModule,
     NgTemplateOutlet,
     ExistingRelationListElementComponent,
+    EditMetadataSecurityComponent,
   ],
   standalone: true,
 })

@@ -15,6 +15,15 @@ import { ItemListPreviewComponent as BaseComponent } from '../../../../../../../
 import { TruncatableComponent } from '../../../../../../../app/shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
+import {
+  MetadataLinkViewComponent
+} from '../../../../../../../app/shared/metadata-link-view/metadata-link-view.component';
+import {
+  AdditionalMetadataComponent
+} from '../../../../../../../app/shared/object-list/search-result-list-element/additional-metadata/additional-metadata.component';
+import {
+  ItemCorrectionComponent
+} from '../../../../../../../app/shared/object-collection/shared/mydspace-item-correction/item-correction.component';
 
 @Component({
   selector: 'ds-themed-item-list-preview',
@@ -36,6 +45,9 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     TranslateModule,
     TruncatableComponent,
     TruncatablePartComponent,
+    MetadataLinkViewComponent,
+    AdditionalMetadataComponent,
+    ItemCorrectionComponent,
   ],
 })
 export class ItemListPreviewComponent extends BaseComponent {

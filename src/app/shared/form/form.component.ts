@@ -1,5 +1,5 @@
 import {
-  AsyncPipe,
+  AsyncPipe, NgClass,
   NgIf,
 } from '@angular/common';
 import {
@@ -83,6 +83,7 @@ export interface MetadataFields {
     DynamicFormsCoreModule,
     NgIf,
     AsyncPipe,
+    NgClass,
   ],
   standalone: true,
 })

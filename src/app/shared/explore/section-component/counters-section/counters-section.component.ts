@@ -1,4 +1,4 @@
-import { isPlatformServer } from '@angular/common';
+import { AsyncPipe, isPlatformServer, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   Inject,
@@ -21,12 +21,25 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/oper
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { SearchObjects } from '../../../search/models/search-objects.model';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ds-base-counters-section',
   styleUrls: ['./counters-section.component.scss'],
   templateUrl: './counters-section.component.html',
   standalone: true,
+  imports: [
+    NgClass,
+    ThemedLoadingComponent,
+    NgIf,
+    NgTemplateOutlet,
+    TranslateModule,
+    AsyncPipe,
+    RouterLink,
+    NgForOf
+  ]
 })
 export class CountersSectionComponent implements OnInit {
 
