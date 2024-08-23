@@ -110,7 +110,7 @@ describe('CorrectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
         FormsModule,
@@ -118,9 +118,9 @@ describe('CorrectionComponent', () => {
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         AlertComponent,
-      ],
-      declarations: [SubmissionSectionCorrectionComponent],
-      providers: [
+    ],
+    declarations: [SubmissionSectionCorrectionComponent],
+    providers: [
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
@@ -128,8 +128,8 @@ describe('CorrectionComponent', () => {
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionLicenseComponent,
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

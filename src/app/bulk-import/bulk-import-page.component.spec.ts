@@ -83,16 +83,16 @@ describe('BulkImportPageComponent', () => {
     router = new RouterMock();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      declarations: [BulkImportPageComponent],
-      providers: [
+    ],
+    declarations: [BulkImportPageComponent],
+    providers: [
         BulkImportPageComponent,
         DSONameService,
         { provide: RequestService, useValue: requestService },
@@ -102,9 +102,9 @@ describe('BulkImportPageComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
   });
 

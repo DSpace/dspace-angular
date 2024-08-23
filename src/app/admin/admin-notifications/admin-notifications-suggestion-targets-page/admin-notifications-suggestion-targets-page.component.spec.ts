@@ -15,16 +15,16 @@ describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [AdminNotificationsSuggestionTargetsPageComponent],
-      providers: [
+    ],
+    declarations: [AdminNotificationsSuggestionTargetsPageComponent],
+    providers: [
         AdminNotificationsSuggestionTargetsPageComponent,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+})
       .compileComponents();
   }));
 

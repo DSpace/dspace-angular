@@ -77,39 +77,39 @@ describe('EditItemRelationshipsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      declarations: [EditItemRelationshipsComponent, RelationshipsSortListComponent],
-      providers: [
+    ],
+    declarations: [EditItemRelationshipsComponent, RelationshipsSortListComponent],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: RelationshipDataService, useValue: relationshipsServiceStub },
         { provide: EntityTypeDataService, useValue: {} },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Store, useValue: store },
         {
-          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
-            isXs: observableOf(true),
-            isSm: observableOf(false),
-            isXsOrSm: observableOf(true),
-          }),
+            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+                isXs: observableOf(true),
+                isSm: observableOf(false),
+                isXsOrSm: observableOf(true),
+            }),
         },
         {
-          provide: SidebarService,
-          useValue: SidebarServiceStub,
+            provide: SidebarService,
+            useValue: SidebarServiceStub,
         },
         {
-          provide: NotificationsService, useClass: NotificationsServiceStub,
+            provide: NotificationsService, useClass: NotificationsServiceStub,
         },
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
       .compileComponents();
   });
 

@@ -49,13 +49,13 @@ xdescribe('BarChartComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserAnimationsModule,
         NgxChartsModule,
         BarChartComponent,
-      ],
-      declarations: [AbstractChartComponent],
-      providers: [
+    ],
+    declarations: [AbstractChartComponent],
+    providers: [
         { provide: 'view', useValue: view },
         { provide: 'results', useValue: results },
         { provide: 'animations', useValue: animations },
@@ -70,8 +70,8 @@ xdescribe('BarChartComponent', () => {
         { provide: 'currentPage', useValue: currentPage },
         { provide: 'type', useValue: type },
         Injector,
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

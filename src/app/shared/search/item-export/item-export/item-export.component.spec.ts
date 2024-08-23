@@ -136,26 +136,26 @@ describe('ItemExportComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateLoaderMock } }),
         FormsModule,
         ReactiveFormsModule,
         ItemExportComponent,
-      ],
-      declarations: [ItemExportAlertStubComponent],
-      providers: [
+    ],
+    declarations: [ItemExportAlertStubComponent],
+    providers: [
         { provide: ItemExportService, useValue: itemExportService },
         { provide: NgbActiveModal, useValue: modal },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SelectableListService, useValue: selectService },
         { provide: Router, useValue: router },
         { provide: SearchManager, useValue: mockSearchManager },
-      ],
-      schemas: [
+    ],
+    schemas: [
         NO_ERRORS_SCHEMA,
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

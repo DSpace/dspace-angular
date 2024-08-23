@@ -99,20 +99,20 @@ describe('ExploreComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      declarations: [ExplorePageComponent],
-      providers: [ExplorePageComponent,
+    ],
+    declarations: [ExplorePageComponent],
+    providers: [ExplorePageComponent,
         { provide: SectionDataService, useValue: sectionDataServiceStub },
         { provide: ActivatedRoute, useValue: route }],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
   }));
 

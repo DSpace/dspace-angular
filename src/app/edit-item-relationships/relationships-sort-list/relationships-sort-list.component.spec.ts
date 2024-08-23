@@ -29,20 +29,20 @@ describe('RelationshipsSortListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RelationshipsSortListComponent],
-      imports: [
+    declarations: [RelationshipsSortListComponent],
+    imports: [
         RouterTestingModule.withRoutes([]),
         NoopAnimationsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      providers: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
+    ],
+    providers: [],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
       .compileComponents();
   });
 

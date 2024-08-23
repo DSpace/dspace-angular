@@ -23,22 +23,22 @@ describe('ProvideEmailComponent', () => {
     const externalLoginService = jasmine.createSpyObj('ExternalLoginService', ['patchUpdateRegistration']);
 
     await TestBed.configureTestingModule({
-      declarations: [ProvideEmailComponent],
-      providers: [
+    declarations: [ProvideEmailComponent],
+    providers: [
         FormBuilder,
         { provide: ExternalLoginService, useValue: externalLoginService },
-      ],
-      imports: [
+    ],
+    imports: [
         CommonModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
       .compileComponents();
   });
 

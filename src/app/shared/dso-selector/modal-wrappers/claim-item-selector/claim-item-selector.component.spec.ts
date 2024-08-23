@@ -25,16 +25,16 @@ describe('ClaimItemSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ClaimItemSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot()],
+    declarations: [ClaimItemSelectorComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
         { provide: Router, useValue: {} },
         { provide: ProfileClaimService, useValue: profileClaimService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+})
       .compileComponents();
   }));
 

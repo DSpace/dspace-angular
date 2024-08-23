@@ -305,14 +305,14 @@ describe('DuplicateMatchComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
         TranslateModule.forRoot(),
         TestComponent,
-      ],
-      declarations: [DuplicateMatchComponent],
-      providers: [
+    ],
+    declarations: [DuplicateMatchComponent],
+    providers: [
         { provide: DetectDuplicateService, useClass: getMockDetectDuplicateService },
         FormBuilder,
         NgbModal,
@@ -321,9 +321,9 @@ describe('DuplicateMatchComponent test suite', () => {
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         provideMockStore({ initialState }),
         DuplicateMatchComponent,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents().then();
   }));
 
   // First test to check the correct component creation
