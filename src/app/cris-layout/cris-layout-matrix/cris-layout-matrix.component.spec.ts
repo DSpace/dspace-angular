@@ -17,8 +17,8 @@ describe('CrisLayoutMatrixComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [CrisLayoutMatrixComponent],
-})
+      imports: [CrisLayoutMatrixComponent],
+    })
       .compileComponents();
   });
 

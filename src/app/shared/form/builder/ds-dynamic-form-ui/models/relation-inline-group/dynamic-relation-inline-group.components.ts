@@ -1,4 +1,8 @@
 import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -45,7 +49,6 @@ import {
   DynamicRowArrayModelConfig,
 } from '../ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from '../relation-group/dynamic-relation-group.model';
-import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -56,9 +59,9 @@ import { NgClass, NgIf } from '@angular/common';
   imports: [
     FormComponent,
     NgClass,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {
 

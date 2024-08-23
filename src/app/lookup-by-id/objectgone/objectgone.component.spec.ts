@@ -12,11 +12,11 @@ describe('ObjectGoneComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         ObjectGoneComponent,
-    ],
-})
+      ],
+    })
       .compileComponents();
   });
 

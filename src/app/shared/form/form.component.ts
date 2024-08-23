@@ -1,5 +1,6 @@
 import {
-  AsyncPipe, NgClass,
+  AsyncPipe,
+  NgClass,
   NgIf,
 } from '@angular/common';
 import {

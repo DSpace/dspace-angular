@@ -21,8 +21,8 @@ import { EntityTypeEnum } from '../../../cris-layout/enums/entity-type.enum';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 
 @Pipe({
-    name: 'dsCreateLink',
-    standalone: true,
+  name: 'dsCreateLink',
+  standalone: true,
 })
 export class CreateLinkPipe implements PipeTransform {
   constructor(private itemService: ItemDataService, private bitstreamService: BitstreamDataService) {

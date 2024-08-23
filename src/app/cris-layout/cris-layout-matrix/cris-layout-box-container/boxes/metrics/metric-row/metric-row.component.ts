@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
@@ -10,23 +15,22 @@ import {
 
 import { CrisLayoutMetricRow } from '../../../../../../core/layout/models/tab.model';
 import { MetricLoaderComponent } from '../../../../../../shared/metric/metric-loader/metric-loader.component';
-import { NgFor, NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders the rows of metadata boxes
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: '[ds-metric-row]',
-    templateUrl: './metric-row.component.html',
-    styleUrls: ['./metric-row.component.scss'],
-    standalone: true,
-    imports: [
-        NgFor,
-        NgIf,
-        MetricLoaderComponent,
-        AsyncPipe,
-    ],
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '[ds-metric-row]',
+  templateUrl: './metric-row.component.html',
+  styleUrls: ['./metric-row.component.scss'],
+  standalone: true,
+  imports: [
+    NgFor,
+    NgIf,
+    MetricLoaderComponent,
+    AsyncPipe,
+  ],
 })
 export class MetricRowComponent {
   /**

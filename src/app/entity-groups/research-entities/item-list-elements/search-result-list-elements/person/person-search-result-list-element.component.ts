@@ -17,17 +17,15 @@ import {
 } from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { MetricsModule } from '../../../../../shared/metric/metrics.module';
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { AdditionalMetadataComponent } from '../../../../../shared/object-list/search-result-list-element/additional-metadata/additional-metadata.component';
 import { ItemSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
-import { MetricsModule } from '../../../../../shared/metric/metrics.module';
-import {
-  AdditionalMetadataComponent
-} from '../../../../../shared/object-list/search-result-list-element/additional-metadata/additional-metadata.component';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement)
 @Component({

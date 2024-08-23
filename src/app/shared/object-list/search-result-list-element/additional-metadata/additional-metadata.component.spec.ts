@@ -25,11 +25,11 @@ describe('AdditionalMetadataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [AdditionalMetadataComponent],
-    providers: [
+      imports: [AdditionalMetadataComponent],
+      providers: [
         { provide: VocabularyService, useValue: new VocabularyServiceStub() },
-    ],
-})
+      ],
+    })
       .compileComponents();
   });
 

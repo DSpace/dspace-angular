@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
@@ -7,29 +13,28 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../../core/shared/item.model';
+import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
 import {
   FieldRenderingType,
   MetadataBoxFieldRendering,
 } from '../../metadata-box.decorator';
 import { MetadataGroupComponent } from '../metadata-group.component';
-import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
-import { NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders the inline  metadata group fields
  */
 @Component({
-    selector: 'ds-inline',
-    templateUrl: './inline.component.html',
-    styleUrls: ['./inline.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        NgClass,
-        NgFor,
-        MetadataRenderComponent,
-        AsyncPipe,
-    ],
+  selector: 'ds-inline',
+  templateUrl: './inline.component.html',
+  styleUrls: ['./inline.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgClass,
+    NgFor,
+    MetadataRenderComponent,
+    AsyncPipe,
+  ],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.INLINE, true)
 export class InlineComponent extends MetadataGroupComponent implements OnInit {

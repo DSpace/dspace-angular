@@ -63,31 +63,31 @@ describe('ExportExcelSelectorComponent', () => {
 
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot()],
-    declarations: [ExportExcelSelectorComponent],
-    providers: [
+      imports: [TranslateModule.forRoot()],
+      declarations: [ExportExcelSelectorComponent],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
-            provide: ActivatedRoute,
-            useValue: {
-                root: {
-                    snapshot: {
-                        data: {
-                            dso: collectionRD,
-                        },
-                    },
+          provide: ActivatedRoute,
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: collectionRD,
                 },
+              },
             },
+          },
         },
         {
-            provide: Router, useValue: router,
+          provide: Router, useValue: router,
         },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: RequestService, useValue: requestService },
         { provide: ScriptDataService, useValue: scriptDataService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
 
   }));
 

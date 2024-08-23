@@ -1,9 +1,14 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -21,19 +26,17 @@ import { hasValue } from '../../empty.util';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-item-version-menu',
-    templateUrl: './item-version-menu.component.html',
-    styleUrls: ['./item-version-menu.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        AsyncPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-item-version-menu',
+  templateUrl: './item-version-menu.component.html',
+  styleUrls: ['./item-version-menu.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 /**

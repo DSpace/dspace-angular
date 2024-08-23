@@ -46,15 +46,15 @@ xdescribe('ChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         BrowserAnimationsModule,
         NgxChartsModule,
         ChartComponent,
         BarChartComponent,
         LineChartComponent,
         PieChartComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: 'view', useValue: view },
         { provide: 'results', useValue: results },
         { provide: 'animations', useValue: animations },
@@ -68,8 +68,8 @@ xdescribe('ChartComponent', () => {
         { provide: 'isLastPage', useValue: isLastPage },
         { provide: 'currentPage', useValue: currentPage },
         { provide: 'type', useValue: type },
-    ],
-}).overrideComponent(ChartComponent, {})
+      ],
+    }).overrideComponent(ChartComponent, {})
       .compileComponents();
   }));
 

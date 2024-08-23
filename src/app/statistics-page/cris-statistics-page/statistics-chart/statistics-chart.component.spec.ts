@@ -168,10 +168,10 @@ describe('StatisticsChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), StatisticsPipesPageModule, StatisticsChartComponent],
-    providers: [],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(StatisticsChartComponent, {
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), StatisticsPipesPageModule, StatisticsChartComponent],
+      providers: [],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(StatisticsChartComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

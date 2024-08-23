@@ -1,12 +1,15 @@
 import {
   AsyncPipe,
-  NgClass, NgFor,
+  NgClass,
+  NgFor,
   NgIf,
 } from '@angular/common';
 import {
   Component,
   Inject,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -20,27 +23,23 @@ import { Item } from '../../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
+import { MetricsModule } from '../../../metric/metrics.module';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
+import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { followLink } from '../../../utils/follow-link-config.model';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
-import { RouterLink } from '@angular/router';
-import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
-import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
-import { TranslateModule } from '@ngx-translate/core';
-import {
-  AdditionalMetadataComponent
-} from '../../search-result-list-element/additional-metadata/additional-metadata.component';
-import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
-import { MetricsModule } from '../../../metric/metrics.module';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { AdditionalMetadataComponent } from '../../search-result-list-element/additional-metadata/additional-metadata.component';
+import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 /**
  * This component renders workspaceitem object for the search result in the list view.

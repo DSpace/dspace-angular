@@ -19,10 +19,10 @@ import { Metadata } from '../../../core/shared/metadata.utils';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
-import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 
 /**
  * This component display a preview of an external source item.

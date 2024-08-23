@@ -27,13 +27,13 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-    imports: [
-        ...MODULES,
-        ...COMPONENTS,
-    ],
-    exports: [
-        ...COMPONENTS,
-    ],
+  imports: [
+    ...MODULES,
+    ...COMPONENTS,
+  ],
+  exports: [
+    ...COMPONENTS,
+  ],
 })
 
 /**

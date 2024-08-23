@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { RootModule } from '../../app/root.module';
-
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
@@ -27,7 +26,7 @@ const DECLARATIONS = [
     CommonModule,
     RootModule,
     ...DECLARATIONS,
-],
+  ],
   providers: [
     ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
   ],

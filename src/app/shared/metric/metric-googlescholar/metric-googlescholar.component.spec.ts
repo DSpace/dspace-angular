@@ -39,17 +39,17 @@ describe('MetricGooglescholarComponent', () => {
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), MetricGooglescholarComponent, RedirectDirective, RedirectWithHrefDirective],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), MetricGooglescholarComponent, RedirectDirective, RedirectWithHrefDirective],
+      providers: [
         { provide: Router, useValue: routerStub },
         { provide: RedirectService, useValue: redirectServiceStub },
-    ],
-})
+      ],
+    })
       .compileComponents();
   }));
 

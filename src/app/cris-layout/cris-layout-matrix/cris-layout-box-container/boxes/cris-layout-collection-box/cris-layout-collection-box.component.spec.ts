@@ -65,16 +65,16 @@ describe('CrisLayoutCollectionBoxComponent', () => {
     ]);
 
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         CrisLayoutCollectionBoxComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: 'boxProvider', useValue: testBox },
         { provide: 'itemProvider', useValue: testItem },
         { provide: CollectionDataService, useValue: collectionDataService },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

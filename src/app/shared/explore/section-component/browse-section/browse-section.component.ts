@@ -1,12 +1,12 @@
+import { NgForOf } from '@angular/common';
 import {
   Component,
   Input,
 } from '@angular/core';
-
-import { BrowseSection } from '../../../../core/layout/models/section.model';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgForOf } from '@angular/common';
+
+import { BrowseSection } from '../../../../core/layout/models/section.model';
 
 /**
  * Component representing the Browse component section.
@@ -18,8 +18,8 @@ import { NgForOf } from '@angular/common';
   imports: [
     RouterLink,
     TranslateModule,
-    NgForOf
-  ]
+    NgForOf,
+  ],
 })
 export class BrowseSectionComponent {
 

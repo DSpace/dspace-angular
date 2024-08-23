@@ -1,4 +1,9 @@
-import { isPlatformBrowser, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -7,7 +12,14 @@ import {
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
-import { GoogleChartComponent, GoogleChartInterface, GoogleChartType, Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  GoogleChartComponent,
+  GoogleChartInterface,
+  GoogleChartType,
+  Ng2GoogleChartsModule,
+} from 'ng2-google-charts';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -15,22 +27,20 @@ import {
   ExportService,
 } from '../../../core/export-service/export.service';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: 'ds-statistics-map',
-    templateUrl: './statistics-map.component.html',
-    styleUrls: ['./statistics-map.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        NgbDropdownModule,
-        NgFor,
-        Ng2GoogleChartsModule,
-        AsyncPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-statistics-map',
+  templateUrl: './statistics-map.component.html',
+  styleUrls: ['./statistics-map.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgbDropdownModule,
+    NgFor,
+    Ng2GoogleChartsModule,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 // @renderChartFor(StatisticsType['map'])
 export class StatisticsMapComponent implements OnInit {

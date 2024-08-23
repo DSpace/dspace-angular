@@ -56,23 +56,23 @@ describe('EditItemMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         RouterTestingModule.withRoutes([]),
-        EditItemMenuComponent
-    ],
-    providers: [
+        EditItemMenuComponent,
+      ],
+      providers: [
         { provide: EditItemDataService, useValue: editItemDataService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: NotificationsService, useValue: notificationService },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   describe('when edit modes are available', () => {

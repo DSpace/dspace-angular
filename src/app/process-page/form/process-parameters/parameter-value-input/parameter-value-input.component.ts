@@ -20,8 +20,8 @@ import { controlContainerFactory } from '../../process-form-factory';
 import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';
 import { DateValueInputComponent } from './date-value-input/date-value-input.component';
 import { FileValueInputComponent } from './file-value-input/file-value-input.component';
-import { StringValueInputComponent } from './string-value-input/string-value-input.component';
 import { NumberValueInputComponent } from './number-value-input/number-value-input.component';
+import { StringValueInputComponent } from './string-value-input/string-value-input.component';
 
 /**
  * Component that renders the correct parameter value input based the script parameter's type

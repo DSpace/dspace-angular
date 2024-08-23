@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgIf,
+  TitleCasePipe,
+} from '@angular/common';
+import {
   AfterViewChecked,
   AfterViewInit,
   Component,
@@ -6,28 +11,27 @@ import {
   Renderer2,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { hasValue } from '../../empty.util';
 import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
 import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf, AsyncPipe, TitleCasePipe } from '@angular/common';
 
 declare let _altmetric_embed_init: any;
 
 @Component({
-    selector: 'ds-metric-altmetric',
-    templateUrl: './metric-altmetric.component.html',
-    styleUrls: ['./metric-altmetric.component.scss', '../metric-loader/base-metric.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        AsyncPipe,
-        TitleCasePipe,
-        TranslateModule,
-        ListMetricPropsPipe,
-    ],
+  selector: 'ds-metric-altmetric',
+  templateUrl: './metric-altmetric.component.html',
+  styleUrls: ['./metric-altmetric.component.scss', '../metric-loader/base-metric.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TitleCasePipe,
+    TranslateModule,
+    ListMetricPropsPipe,
+  ],
 })
 export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implements OnInit, AfterViewChecked, AfterViewInit {
   remark: JSON;

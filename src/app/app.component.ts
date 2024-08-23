@@ -1,7 +1,8 @@
 import {
   AsyncPipe,
   DOCUMENT,
-  isPlatformBrowser, NgIf,
+  isPlatformBrowser,
+  NgIf,
 } from '@angular/common';
 import {
   AfterViewInit,
@@ -61,8 +62,8 @@ import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { ThemeService } from './shared/theme-support/theme.service';
-import { SocialService } from './social/social.service';
 import { SocialComponent } from './social/social.component';
+import { SocialService } from './social/social.service';
 
 
 @Component({

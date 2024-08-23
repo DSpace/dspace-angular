@@ -23,19 +23,19 @@ import {
   isNotEmpty,
 } from '../../../../../../../../shared/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { CrisLayoutLoaderDirective } from '../../../../../../../directives/cris-layout-loader.directive';
 import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,
   MetadataBoxFieldRenderOptions,
 } from '../../../rendering-types/metadata-box.decorator';
-import { CrisLayoutLoaderDirective } from '../../../../../../../directives/cris-layout-loader.directive';
 
 @Component({
-    selector: 'ds-metadata-render',
-    templateUrl: './metadata-render.component.html',
-    styleUrls: ['./metadata-render.component.scss'],
-    standalone: true,
-    imports: [CrisLayoutLoaderDirective],
+  selector: 'ds-metadata-render',
+  templateUrl: './metadata-render.component.html',
+  styleUrls: ['./metadata-render.component.scss'],
+  standalone: true,
+  imports: [CrisLayoutLoaderDirective],
 })
 export class MetadataRenderComponent implements OnInit {
 

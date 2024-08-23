@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
@@ -7,6 +11,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -20,19 +25,17 @@ import { SubscriptionModalComponent } from '../../subscriptions/subscription-mod
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-subscription-menu',
-    templateUrl: './subscription-menu.component.html',
-    styleUrls: ['./subscription-menu.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        AsyncPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-subscription-menu',
+  templateUrl: './subscription-menu.component.html',
+  styleUrls: ['./subscription-menu.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY, true)
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION, true)

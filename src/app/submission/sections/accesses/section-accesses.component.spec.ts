@@ -54,8 +54,6 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';
 import { SectionAccessesService } from './section-accesses.service';
-import { AppState } from 'src/app/app.reducer';
-import { inject } from '@angular/core';
 
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {

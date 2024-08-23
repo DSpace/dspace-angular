@@ -1,13 +1,13 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
 import { AlertComponent } from '../../../alert/alert.component';
-import { NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-item-export-alert',
@@ -15,9 +15,9 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     AlertComponent,
     NgIf,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ItemExportAlertComponent {
 

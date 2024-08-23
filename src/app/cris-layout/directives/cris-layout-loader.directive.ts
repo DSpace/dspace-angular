@@ -6,8 +6,8 @@ import {
  * Directive hook used to place the dynamic child component
  */
 @Directive({
-    selector: '[dsCrisLayoutLoader]',
-    standalone: true,
+  selector: '[dsCrisLayoutLoader]',
+  standalone: true,
 })
 export class CrisLayoutLoaderDirective {
 

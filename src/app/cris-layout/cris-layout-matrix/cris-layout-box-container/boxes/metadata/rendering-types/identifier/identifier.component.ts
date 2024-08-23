@@ -1,8 +1,10 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 
@@ -25,18 +27,16 @@ import {
   IdentifierSubtypesConfig,
   IdentifierSubtypesIconPositionEnum,
 } from './../../../../../../../../config/identifier-subtypes-config.interface';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgIf } from '@angular/common';
 
 /**
  * This component renders the identifier metadata fields.
  */
 @Component({
-    selector: 'ds-identifier',
-    templateUrl: './identifier.component.html',
-    styleUrls: ['./identifier.component.scss'],
-    standalone: true,
-    imports: [NgIf, NgbTooltipModule],
+  selector: 'ds-identifier',
+  templateUrl: './identifier.component.html',
+  styleUrls: ['./identifier.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgbTooltipModule],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.IDENTIFIER)
 export class IdentifierComponent extends RenderingTypeValueModelComponent implements OnInit {

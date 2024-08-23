@@ -1,5 +1,13 @@
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -18,8 +26,6 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { BulkImportSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
 import { hasValue } from '../../../shared/empty.util';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 
 
@@ -34,9 +40,9 @@ import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-
     NgIf,
     TranslateModule,
     NgbDropdownModule,
-    EntityDropdownComponent
+    EntityDropdownComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class MyDSpaceNewBulkImportComponent {
 

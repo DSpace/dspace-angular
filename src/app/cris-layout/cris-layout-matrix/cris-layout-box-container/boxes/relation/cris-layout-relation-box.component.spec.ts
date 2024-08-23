@@ -78,23 +78,23 @@ describe('CrisLayoutRelationBoxComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         CommonModule,
         CrisLayoutRelationBoxComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-    providers: [
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
         { provide: 'boxProvider', useValue: testBox },
         { provide: 'itemProvider', useValue: testItem },
         { provide: AuthService, useValue: authService },
-    ],
-})
+      ],
+    })
       .compileComponents();
   }));
 

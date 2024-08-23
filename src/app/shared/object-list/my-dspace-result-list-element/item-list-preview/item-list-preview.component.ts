@@ -24,19 +24,15 @@ import { Item } from '../../../../core/shared/item.model';
 import { DuplicateMatchMetadataDetailConfig } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
+import { ItemCorrectionComponent } from '../../../object-collection/shared/mydspace-item-correction/item-correction.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
-import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
-import {
-  AdditionalMetadataComponent
-} from '../../search-result-list-element/additional-metadata/additional-metadata.component';
-import {
-  ItemCorrectionComponent
-} from '../../../object-collection/shared/mydspace-item-correction/item-correction.component';
+import { AdditionalMetadataComponent } from '../../search-result-list-element/additional-metadata/additional-metadata.component';
 
 /**
  * This component show metadata for the given item object in the list view.

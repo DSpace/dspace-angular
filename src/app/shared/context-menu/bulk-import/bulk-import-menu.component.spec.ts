@@ -43,23 +43,23 @@ describe('BulkImportMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         BulkImportMenuComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.COLLECTION },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: NotificationsService, useValue: notificationService },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

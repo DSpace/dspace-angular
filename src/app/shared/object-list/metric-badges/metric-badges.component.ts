@@ -1,9 +1,14 @@
 import {
+  AsyncPipe,
+  NgFor,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
@@ -16,19 +21,17 @@ import { Metric } from '../../../core/shared/metric.model';
 import { getFirstSucceededRemoteListPayload } from '../../../core/shared/operators';
 import { hasValue } from '../../empty.util';
 import { followLink } from '../../utils/follow-link-config.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-metric-badges',
-    templateUrl: './metric-badges.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        NgFor,
-        AsyncPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-metric-badges',
+  templateUrl: './metric-badges.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgFor,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component rendering the metric badges of a Dspace Object

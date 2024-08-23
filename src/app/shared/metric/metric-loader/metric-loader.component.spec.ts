@@ -57,12 +57,12 @@ describe('MetricLoaderComponent', () => {
 
 
     TestBed.configureTestingModule({
-    imports: [MetricLoaderComponent, MetricStyleConfigPipe],
-    providers: [
+      imports: [MetricLoaderComponent, MetricStyleConfigPipe],
+      providers: [
         { provide: MetricLoaderService, useValue: metricLoaderService },
         { provide: KlaroService, useValue: klaroServiceSpy },
-    ],
-})
+      ],
+    })
       .compileComponents();
   }));
 

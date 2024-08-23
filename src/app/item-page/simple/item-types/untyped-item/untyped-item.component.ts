@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { Item } from '../../../../core/shared/item.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { ContextMenuModule } from '../../../../shared/context-menu/context-menu.module';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -28,7 +29,6 @@ import { ThemedItemPageTitleFieldComponent } from '../../field-components/specif
 import { ItemPageUriFieldComponent } from '../../field-components/specific-field/uri/item-page-uri-field.component';
 import { ThemedMetadataRepresentationListComponent } from '../../metadata-representation-list/themed-metadata-representation-list.component';
 import { ItemComponent } from '../shared/item.component';
-import { ContextMenuModule } from '../../../../shared/context-menu/context-menu.module';
 
 /**
  * Component that represents a publication Item page

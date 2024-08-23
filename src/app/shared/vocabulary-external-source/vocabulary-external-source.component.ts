@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -10,7 +15,10 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -37,13 +45,12 @@ import {
 } from '../../core/shared/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { AlertComponent } from '../alert/alert.component';
 import { ThemedCreateItemParentSelectorComponent } from '../dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { NotificationsService } from '../notifications/notifications.service';
 import { createFailedRemoteDataObject } from '../remote-data.utils';
 import { followLink } from '../utils/follow-link-config.model';
-import { AlertComponent } from '../alert/alert.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-vocabulary-external-source',
@@ -55,9 +62,9 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
     AsyncPipe,
     TranslateModule,
     NgForOf,
-    ThemedLoadingComponent
+    ThemedLoadingComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class VocabularyExternalSourceComponent implements OnInit {
 

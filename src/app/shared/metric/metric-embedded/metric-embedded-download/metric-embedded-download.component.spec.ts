@@ -17,13 +17,13 @@ describe('MetricEmbeddedDownloadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), MetricEmbeddedDownloadComponent],
-})
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), MetricEmbeddedDownloadComponent],
+    })
       .compileComponents();
   });
 

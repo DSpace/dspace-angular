@@ -66,17 +66,17 @@ describe('TopSectionComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), TopSectionComponent,],
-    providers: [TopSectionComponent,
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }), TopSectionComponent],
+      providers: [TopSectionComponent,
         { provide: SearchService, useValue: searchServiceStub }],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
 
   }));
 

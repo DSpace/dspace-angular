@@ -1,37 +1,43 @@
 import {
+  NgComponentOutlet,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   ComponentFactoryResolver,
   Injector,
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { CrisLayoutBox } from '../../../core/layout/models/box.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { Item } from '../../../core/shared/item.model';
 import { hasNoValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   CrisLayoutBoxRenderOptions,
   getCrisLayoutBox,
 } from '../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../enums/layout-box.enum';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgIf, NgComponentOutlet } from '@angular/common';
 
 @Component({
-    selector: 'ds-cris-layout-box-container',
-    templateUrl: './cris-layout-box-container.component.html',
-    styleUrls: ['./cris-layout-box-container.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        NgbAccordionModule,
-        NgComponentOutlet,
-        ThemedLoadingComponent,
-        TranslateModule,
-    ],
+  selector: 'ds-cris-layout-box-container',
+  templateUrl: './cris-layout-box-container.component.html',
+  styleUrls: ['./cris-layout-box-container.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgbAccordionModule,
+    NgComponentOutlet,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class CrisLayoutBoxContainerComponent implements OnInit {
 

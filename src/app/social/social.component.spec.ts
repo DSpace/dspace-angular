@@ -20,12 +20,12 @@ describe('SocialComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [StoreModule.forRoot({}), SocialComponent],
-    providers: [
+      imports: [StoreModule.forRoot({}), SocialComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: SocialService, useValue: socialServiceStub },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
     fixture = TestBed.createComponent(SocialComponent);
     component = fixture.componentInstance;
     document = TestBed.inject(DOCUMENT) as any;

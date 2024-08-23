@@ -71,17 +71,17 @@ describe('MetricPlumxComponent', () => {
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), MetricPlumxComponent, ListMetricPropsPipe],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), MetricPlumxComponent, ListMetricPropsPipe],
+      providers: [
         { provide: Injector, useValue: Injector },
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
-    ],
-})
+      ],
+    })
       .compileComponents();
   }));
 

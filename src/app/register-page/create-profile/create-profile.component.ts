@@ -47,9 +47,9 @@ import {
 } from '../../core/shared/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { AlertComponent } from '../../shared/alert/alert.component';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token

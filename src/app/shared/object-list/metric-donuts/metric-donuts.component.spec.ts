@@ -48,12 +48,12 @@ describe('MetricDonutsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), MetricDonutsComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), MetricDonutsComponent],
+      providers: [
         { provide: LinkService, useValue: linkService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

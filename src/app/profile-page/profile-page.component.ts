@@ -47,10 +47,10 @@ import {
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { VarDirective } from '../shared/utils/var.directive';
+import { ProfilePageAccessTokenComponent } from './profile-page-access-token/profile-page-access-token.component';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
-import { ProfilePageAccessTokenComponent } from './profile-page-access-token/profile-page-access-token.component';
 
 @Component({
   selector: 'ds-base-profile-page',

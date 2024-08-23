@@ -15,17 +15,17 @@ describe('BitstreamAttachmentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([]), BitstreamAttachmentComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([]), BitstreamAttachmentComponent],
+      providers: [
         { provide: 'fieldProvider', useValue: {} },
         { provide: 'itemProvider', useValue: {} },
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
         { provide: BitstreamDataService, useValue: {} },
         { provide: TranslateService, useValue: {} },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   });
 

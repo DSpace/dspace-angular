@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -17,8 +22,6 @@ import { RelationshipDataService } from '../../../../core/data/relationship-data
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component represents a badge with correction item information.
@@ -30,9 +33,9 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     NgIf,
     AsyncPipe,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ItemCorrectionComponent implements OnInit {
 

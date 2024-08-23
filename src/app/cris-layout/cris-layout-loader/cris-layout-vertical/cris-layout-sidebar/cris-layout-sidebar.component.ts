@@ -1,4 +1,10 @@
-import { Location, NgClass, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  Location,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -22,17 +28,17 @@ import { CrisLayoutTabsComponent } from '../../shared/cris-layout-tabs/cris-layo
 import { CrisLayoutSidebarItemComponent } from '../../shared/sidebar-item/cris-layout-sidebar-item.component';
 
 @Component({
-    selector: 'ds-cris-layout-sidebar',
-    templateUrl: './cris-layout-sidebar.component.html',
-    styleUrls: ['./cris-layout-sidebar.component.scss'],
-    standalone: true,
-    imports: [
-        NgClass,
-        NgIf,
-        NgFor,
-        CrisLayoutSidebarItemComponent,
-        AsyncPipe,
-    ],
+  selector: 'ds-cris-layout-sidebar',
+  templateUrl: './cris-layout-sidebar.component.html',
+  styleUrls: ['./cris-layout-sidebar.component.scss'],
+  standalone: true,
+  imports: [
+    NgClass,
+    NgIf,
+    NgFor,
+    CrisLayoutSidebarItemComponent,
+    AsyncPipe,
+  ],
 })
 export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implements OnInit {
 

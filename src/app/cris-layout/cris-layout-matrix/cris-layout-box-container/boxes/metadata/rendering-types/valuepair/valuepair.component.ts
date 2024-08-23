@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -25,18 +26,17 @@ import {
   MetadataBoxFieldRendering,
 } from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
-import { AsyncPipe } from '@angular/common';
 
 /**
  * This component renders the valuepair (value + display) metadata fields.
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'span[ds-valuepair]',
-    templateUrl: './valuepair.component.html',
-    styleUrls: ['./valuepair.component.scss'],
-    standalone: true,
-    imports: [AsyncPipe],
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'span[ds-valuepair]',
+  templateUrl: './valuepair.component.html',
+  styleUrls: ['./valuepair.component.scss'],
+  standalone: true,
+  imports: [AsyncPipe],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.VALUEPAIR)
 export class ValuepairComponent extends RenderingTypeValueModelComponent implements OnInit {

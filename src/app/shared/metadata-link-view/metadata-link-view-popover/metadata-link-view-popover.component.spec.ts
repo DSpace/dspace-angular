@@ -69,9 +69,9 @@ describe('MetadataLinkViewPopoverComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), MetadataLinkViewPopoverComponent],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      imports: [TranslateModule.forRoot(), MetadataLinkViewPopoverComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   }));
 

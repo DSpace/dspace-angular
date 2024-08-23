@@ -1,24 +1,24 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { RedirectWithHrefDirective } from '../../../directives/redirect/redirect-href.directive';
 import { hasValue } from '../../empty.util';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
-import { RedirectWithHrefDirective } from '../../../directives/redirect/redirect-href.directive';
 
 @Component({
-    selector: 'ds-metric-googlescholar',
-    templateUrl: './metric-googlescholar.component.html',
-    styleUrls: ['./metric-googlescholar.component.scss'],
-    standalone: true,
-    imports: [
-        RedirectWithHrefDirective,
-        NgIf,
-        TranslateModule,
-    ],
+  selector: 'ds-metric-googlescholar',
+  templateUrl: './metric-googlescholar.component.html',
+  styleUrls: ['./metric-googlescholar.component.scss'],
+  standalone: true,
+  imports: [
+    RedirectWithHrefDirective,
+    NgIf,
+    TranslateModule,
+  ],
 })
 export class MetricGooglescholarComponent extends BaseMetricComponent implements OnInit {
 

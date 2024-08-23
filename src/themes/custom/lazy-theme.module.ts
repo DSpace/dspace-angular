@@ -12,13 +12,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
-
-
 import { RootModule } from '../../app/root.module';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
-
-
-
 import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
@@ -225,7 +220,7 @@ const DECLARATIONS = [
     CrisItemPageModule,
     CrisStatisticsPageModule,
     ...DECLARATIONS,
-],
+  ],
   exports: [
     CommunityPageSubCollectionListComponent,
     ConfigurationSearchPageComponent,

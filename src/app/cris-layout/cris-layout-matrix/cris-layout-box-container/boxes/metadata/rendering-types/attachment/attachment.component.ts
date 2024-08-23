@@ -1,9 +1,18 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+  TitleCasePipe,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import {
   map,
@@ -17,33 +26,32 @@ import { PaginatedList } from '../../../../../../../core/data/paginated-list.mod
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { ThemedFileDownloadLinkComponent } from '../../../../../../../shared/file-download-link/themed-file-download-link.component';
+import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { FileSizePipe } from '../../../../../../../shared/utils/file-size-pipe';
 import {
   FieldRenderingType,
   MetadataBoxFieldRendering,
 } from '../metadata-box.decorator';
 import { BitstreamAttachmentRenderingModelComponent } from './bitstream-attachment-rendering.model';
-import { FileSizePipe } from '../../../../../../../shared/utils/file-size-pipe';
-import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { ThemedFileDownloadLinkComponent } from '../../../../../../../shared/file-download-link/themed-file-download-link.component';
-import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
-import { NgFor, NgIf, AsyncPipe, TitleCasePipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-attachment',
-    templateUrl: './attachment.component.html',
-    styleUrls: ['./attachment.component.scss'],
-    standalone: true,
-    imports: [
-        NgFor,
-        TruncatableComponent,
-        ThemedFileDownloadLinkComponent,
-        NgIf,
-        TruncatablePartComponent,
-        AsyncPipe,
-        TitleCasePipe,
-        TranslateModule,
-        FileSizePipe,
-    ],
+  selector: 'ds-attachment',
+  templateUrl: './attachment.component.html',
+  styleUrls: ['./attachment.component.scss'],
+  standalone: true,
+  imports: [
+    NgFor,
+    TruncatableComponent,
+    ThemedFileDownloadLinkComponent,
+    NgIf,
+    TruncatablePartComponent,
+    AsyncPipe,
+    TitleCasePipe,
+    TranslateModule,
+    FileSizePipe,
+  ],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT, true)
 /**

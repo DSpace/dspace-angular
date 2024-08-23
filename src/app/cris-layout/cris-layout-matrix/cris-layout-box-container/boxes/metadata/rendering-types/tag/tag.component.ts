@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Inject,
@@ -7,25 +8,24 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { ChipsComponent } from '../../../../../../../shared/form/chips/chips.component';
 import { Chips } from '../../../../../../../shared/form/chips/models/chips.model';
 import {
   FieldRenderingType,
   MetadataBoxFieldRendering,
 } from '../metadata-box.decorator';
 import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
-import { ChipsComponent } from '../../../../../../../shared/form/chips/chips.component';
-import { NgIf } from '@angular/common';
 
 /**
  * This component renders the tag metadata fields
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'span[ds-tag]',
-    templateUrl: './tag.component.html',
-    styleUrls: ['./tag.component.scss'],
-    standalone: true,
-    imports: [NgIf, ChipsComponent],
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'span[ds-tag]',
+  templateUrl: './tag.component.html',
+  styleUrls: ['./tag.component.scss'],
+  standalone: true,
+  imports: [NgIf, ChipsComponent],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.TAG, true)
 export class TagComponent extends RenderingTypeStructuredModelComponent implements OnInit {

@@ -1,9 +1,16 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   ElementRef,
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { BarChartModule } from '@swimlane/ngx-charts';
 
 import { fadeIn } from '../../../shared/animations/fade';
 import { renderChartFor } from '../../charts.decorator';
@@ -11,23 +18,20 @@ import { ChartData } from '../../models/chart-data';
 import { ChartSeries } from '../../models/chart-series';
 import { ChartType } from '../../models/chart-type';
 import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { BarChartModule } from '@swimlane/ngx-charts';
-import { NgIf, NgClass, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-bar-chart',
-    styleUrls: ['./bar-chart.component.scss'],
-    templateUrl: './bar-chart.component.html',
-    animations: [fadeIn],
-    standalone: true,
-    imports: [
-        NgIf,
-        BarChartModule,
-        NgClass,
-        AsyncPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-bar-chart',
+  styleUrls: ['./bar-chart.component.scss'],
+  templateUrl: './bar-chart.component.html',
+  animations: [fadeIn],
+  standalone: true,
+  imports: [
+    NgIf,
+    BarChartModule,
+    NgClass,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 @renderChartFor(ChartType.BAR)
 @renderChartFor(ChartType.BAR_HORIZONTAL)

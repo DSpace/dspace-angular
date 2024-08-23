@@ -1,36 +1,42 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+  SlicePipe,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { EntityTypeEnum } from '../../../../cris-layout/enums/entity-type.enum';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
 import { renderChartFor } from '../../cris-statistics-element-decorator';
+import { CreateLinkPipe } from '../../statistics-pipes/create-link.pipe';
 import { StatisticsType } from '../../statistics-type.model';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { CreateLinkPipe } from '../../statistics-pipes/create-link.pipe';
-import { AlertComponent } from '../../../../shared/alert/alert.component';
-import { NgIf, NgFor, NgClass, AsyncPipe, SlicePipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-statistics-table',
-    templateUrl: './statistics-table.component.html',
-    styleUrls: ['./statistics-table.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        NgFor,
-        NgClass,
-        AlertComponent,
-        AsyncPipe,
-        SlicePipe,
-        CreateLinkPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-statistics-table',
+  templateUrl: './statistics-table.component.html',
+  styleUrls: ['./statistics-table.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NgClass,
+    AlertComponent,
+    AsyncPipe,
+    SlicePipe,
+    CreateLinkPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component that represents a table for report

@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
@@ -6,9 +11,12 @@ import {
 import {
   FormArray,
   FormBuilder,
-  FormGroup, FormsModule, ReactiveFormsModule,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -18,8 +26,6 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchConfig } from '../../../search/search-filters/search-config.model';
 import { ThemedSearchFormComponent } from '../../../search-form/themed-search-form.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 
 /**
  * Component representing the Search component section.
@@ -35,8 +41,8 @@ import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
     FormsModule,
     NgForOf,
     ReactiveFormsModule,
-    AsyncPipe
-  ]
+    AsyncPipe,
+  ],
 })
 export class SearchSectionComponent implements OnInit {
 

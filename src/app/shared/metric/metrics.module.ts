@@ -47,18 +47,18 @@ const COMPONENTS = [
   MetricDefaultComponent,
 ];
 @NgModule({
-    imports: [
-        ...MODULES,
-        TranslateModule.forChild({
-            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-            useDefaultLang: true,
-        }),
-        ...PIPES,
-        ...COMPONENTS,
-    ],
-    exports: [
-        ...COMPONENTS,
-    ],
+  imports: [
+    ...MODULES,
+    TranslateModule.forChild({
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+      useDefaultLang: true,
+    }),
+    ...PIPES,
+    ...COMPONENTS,
+  ],
+  exports: [
+    ...COMPONENTS,
+  ],
 })
 export class MetricsModule {
 }

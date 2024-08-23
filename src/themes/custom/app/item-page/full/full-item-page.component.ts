@@ -2,7 +2,8 @@ import {
   AsyncPipe,
   KeyValuePipe,
   NgForOf,
-  NgIf, SlicePipe,
+  NgIf,
+  SlicePipe,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -19,12 +20,12 @@ import { ThemedItemPageTitleFieldComponent } from '../../../../../app/item-page/
 import { ItemVersionsComponent } from '../../../../../app/item-page/versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../../../../../app/item-page/versions/notice/item-versions-notice.component';
 import { fadeInOut } from '../../../../../app/shared/animations/fade';
+import { ContextMenuModule } from '../../../../../app/shared/context-menu/context-menu.module';
 import { DsoEditMenuComponent } from '../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
-import { ContextMenuModule } from '../../../../../app/shared/context-menu/context-menu.module';
 
 /**
  * This component renders a full item page.

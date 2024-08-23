@@ -31,7 +31,8 @@ import {
 import {
   map,
   mergeMap,
-  tap, withLatestFrom,
+  tap,
+  withLatestFrom,
 } from 'rxjs/operators';
 
 import {
@@ -40,6 +41,7 @@ import {
 } from '../../../config/app-config.interface';
 import { DATA_SERVICE_FACTORY } from '../../core/cache/builders/build-decorators';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
+import { HALDataService } from '../../core/data/base/hal-data-service.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { UpdateDataService } from '../../core/data/update-data.service';
 import { lazyDataService } from '../../core/lazy-data-service';
@@ -68,7 +70,6 @@ import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
-import { HALDataService } from '../../core/data/base/hal-data-service.interface';
 
 @Component({
   selector: 'ds-base-dso-edit-metadata',

@@ -29,8 +29,8 @@ import { IProcessNotification } from '../models/process-notification.model';
 import { NotificationComponent } from '../notification/notification.component';
 import { NotificationsState } from '../notifications.reducers';
 import { NotificationsService } from '../notifications.service';
-import { notificationsStateSelector } from '../selectors';
 import { ProcessNotificationComponent } from '../process-notification/process-notification.component';
+import { notificationsStateSelector } from '../selectors';
 
 @Component({
   selector: 'ds-notifications-board',

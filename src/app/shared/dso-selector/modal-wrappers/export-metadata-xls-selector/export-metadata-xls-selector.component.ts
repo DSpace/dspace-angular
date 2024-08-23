@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -10,7 +11,10 @@ import {
   NgbActiveModal,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -36,12 +40,11 @@ import { ConfirmationModalComponent } from '../../../confirmation-modal/confirma
 import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
-import { NgIf } from '@angular/common';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 
 /**
  * Component to wrap a list of existing dso's inside a modal

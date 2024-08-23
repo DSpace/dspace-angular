@@ -7,7 +7,7 @@ import { FilterMapPipe } from './filter-map.pipe';
 const pipes = [FilterMapPipe, CreateLinkPipe];
 
 @NgModule({
-    imports: [CommonModule, ...pipes],
-    exports: pipes,
+  imports: [CommonModule, ...pipes],
+  exports: pipes,
 })
 export class StatisticsPipesPageModule { }

@@ -106,16 +106,16 @@ describe('VocabularyExternalSourceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         VocabularyExternalSourceComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NgbModal, useValue: ngbModal },
         { provide: ExternalSourceDataService, useValue: externalSourceService },
@@ -124,9 +124,9 @@ describe('VocabularyExternalSourceComponent', () => {
         { provide: SubmissionObjectDataService, useValue: submissionObjectDataService },
         TranslateService,
         VocabularyExternalSourceComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   }));
 

@@ -1,12 +1,13 @@
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowseMostElementsComponent as BaseComponent } from '../../../../app/shared/browse-most-elements/browse-most-elements.component';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgForOf, NgIf } from '@angular/common';
+import { ListableObjectComponentLoaderComponent } from '../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 
 /**
  * Component representing the breadcrumbs of a page

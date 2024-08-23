@@ -1,10 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgbAccordionModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterLink } from '@angular/router';
+import {
+  NgbAccordionModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
-
+import { MiradorViewerComponent } from '../item-page/mirador-viewer/mirador-viewer.component';
+import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
+import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
+import { ThemedFileDownloadLinkComponent } from '../shared/file-download-link/themed-file-download-link.component';
+import { ChipsComponent } from '../shared/form/chips/chips.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { MetadataLinkViewComponent } from '../shared/metadata-link-view/metadata-link-view.component';
 import { MetricsModule } from '../shared/metric/metrics.module';
+import { TruncatableComponent } from '../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../shared/truncatable/truncatable-part/truncatable-part.component';
+import { FileSizePipe } from '../shared/utils/file-size-pipe';
+import { ThemedThumbnailComponent } from '../thumbnail/themed-thumbnail.component';
 import { CrisLayoutComponent } from './cris-layout.component';
 import { CrisLayoutLeadingComponent } from './cris-layout-leading/cris-layout-leading.component';
 import { CrisLayoutHorizontalComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-horizontal.component';
@@ -44,19 +59,6 @@ import { CrisLayoutBoxContainerComponent } from './cris-layout-matrix/cris-layou
 import { CrisLayoutMatrixComponent } from './cris-layout-matrix/cris-layout-matrix.component';
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { DsDatePipe } from './pipes/ds-date.pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
-import { MiradorViewerComponent } from '../item-page/mirador-viewer/mirador-viewer.component';
-import { ThemedThumbnailComponent } from '../thumbnail/themed-thumbnail.component';
-import { TruncatableComponent } from '../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../shared/truncatable/truncatable-part/truncatable-part.component';
-import { FileSizePipe } from '../shared/utils/file-size-pipe';
-import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
-import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { ChipsComponent } from '../shared/form/chips/chips.component';
-import { MetadataLinkViewComponent } from '../shared/metadata-link-view/metadata-link-view.component';
-import { ThemedFileDownloadLinkComponent } from '../shared/file-download-link/themed-file-download-link.component';
-import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -85,7 +87,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-    imports: [
+  imports: [
     CommonModule,
     ContextMenuModule.withEntryComponents(),
     NgbAccordionModule,
@@ -127,11 +129,11 @@ const ENTRY_COMPONENTS = [
     MetadataRenderComponent,
     BitstreamAttachmentComponent,
     AttachmentRenderComponent,
-],
-    exports: [
-        CrisLayoutComponent,
-        CrisrefComponent,
-    ],
+  ],
+  exports: [
+    CrisLayoutComponent,
+    CrisrefComponent,
+  ],
 })
 export class CrisLayoutModule {
   /**

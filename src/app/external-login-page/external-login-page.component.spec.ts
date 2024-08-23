@@ -32,30 +32,30 @@ describe('ExternalLoginPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    providers: [
+      providers: [
         {
-            provide: ActivatedRoute,
-            useValue: {
-                snapshot: {
-                    params: {
-                        token: '1234567890',
-                    },
-                },
-                data: of(registrationDataMock),
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              params: {
+                token: '1234567890',
+              },
             },
+            data: of(registrationDataMock),
+          },
         },
-    ],
-    imports: [
+      ],
+      imports: [
         CommonModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         ExternalLoginPageComponent,
-    ],
-})
+      ],
+    })
       .compileComponents();
   });
 

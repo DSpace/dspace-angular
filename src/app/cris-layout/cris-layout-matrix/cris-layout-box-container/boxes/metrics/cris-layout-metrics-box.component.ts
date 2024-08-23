@@ -1,4 +1,9 @@
-import { isPlatformBrowser, NgIf, NgFor, AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -31,16 +36,16 @@ import { MetricRowComponent } from './metric-row/metric-row.component';
  * This component renders the metadata boxes of items
  */
 @Component({
-    selector: 'ds-cris-layout-metrics-box',
-    templateUrl: './cris-layout-metrics-box.component.html',
-    styleUrls: ['./cris-layout-metrics-box.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        NgFor,
-        MetricRowComponent,
-        AsyncPipe,
-    ],
+  selector: 'ds-cris-layout-metrics-box',
+  templateUrl: './cris-layout-metrics-box.component.html',
+  styleUrls: ['./cris-layout-metrics-box.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MetricRowComponent,
+    AsyncPipe,
+  ],
 })
 /**
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and

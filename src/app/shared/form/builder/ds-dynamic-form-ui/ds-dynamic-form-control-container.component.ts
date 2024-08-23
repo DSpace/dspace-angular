@@ -119,6 +119,7 @@ import {
 } from '../../../../core/shared/operators';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
+import { EditMetadataSecurityComponent } from '../../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
 import {
@@ -170,9 +171,6 @@ import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollab
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import {
-  EditMetadataSecurityComponent
-} from '../../../../item-page/edit-item-page/edit-metadata-security/edit-metadata-security.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {

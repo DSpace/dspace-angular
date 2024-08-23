@@ -1,11 +1,18 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -14,10 +21,9 @@ import { MachineToken } from '../../core/auth/models/machine-token.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-profile-page-access-token',
@@ -27,9 +33,9 @@ import { AsyncPipe, NgIf } from '@angular/common';
     AlertComponent,
     NgIf,
     AsyncPipe,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ProfilePageAccessTokenComponent implements OnInit {
 

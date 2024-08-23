@@ -78,16 +78,16 @@ describe('CommunityPageComponent', () => {
     authorizationDataServiceSpy = jasmine.createSpyObj('AuthorizationDataService', ['isAuthorized']);
     dsoNameServiceSpy = jasmine.createSpyObj('DSONameService', ['getName']);
     await TestBed.configureTestingModule({
-    imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule, CommunityPageComponent, VarDirective],
-    providers: [
+      imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule, CommunityPageComponent, VarDirective],
+      providers: [
         { provide: ActivatedRoute, useValue: aroute },
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authServiceSpy },
         { provide: AuthorizationDataService, useValue: authorizationDataServiceSpy },
         { provide: DSONameService, useValue: dsoNameServiceSpy },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   });
 
   beforeEach(() => {

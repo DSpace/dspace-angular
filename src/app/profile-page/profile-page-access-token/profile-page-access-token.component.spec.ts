@@ -50,23 +50,23 @@ describe('ProfilePageAccessTokenComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         ProfilePageAccessTokenComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: AuthService, useValue: authServiceStub },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         Clipboard,
         NgbModal,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   });
 

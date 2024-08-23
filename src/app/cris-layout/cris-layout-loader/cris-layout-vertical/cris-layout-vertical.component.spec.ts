@@ -21,13 +21,13 @@ describe('CrisLayoutVerticalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [CrisLayoutVerticalComponent],
-    providers: [
+      imports: [CrisLayoutVerticalComponent],
+      providers: [
         { provide: HostWindowService, useValue: new HostWindowServiceStub(1200) },
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
-    ],
-})
+      ],
+    })
       .compileComponents();
   });
 

@@ -1,3 +1,4 @@
+import { NgComponentOutlet } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -13,15 +14,14 @@ import { rendersChartType } from '../../charts.decorator';
 import { ChartData } from '../../models/chart-data';
 import { ChartSeries } from '../../models/chart-series';
 import { ChartType } from '../../models/chart-type';
-import { NgComponentOutlet } from '@angular/common';
 
 @Component({
-    selector: 'ds-chart',
-    styleUrls: ['./chart.component.scss'],
-    templateUrl: './chart.component.html',
-    animations: [fadeIn],
-    standalone: true,
-    imports: [NgComponentOutlet],
+  selector: 'ds-chart',
+  styleUrls: ['./chart.component.scss'],
+  templateUrl: './chart.component.html',
+  animations: [fadeIn],
+  standalone: true,
+  imports: [NgComponentOutlet],
 })
 export class ChartComponent implements OnInit {
 

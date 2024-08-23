@@ -33,6 +33,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { getRemoteDataPayload } from '../../../core/shared/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { shrinkInOut } from '../../animations/shrink';
 import {
   hasValue,
@@ -40,7 +41,6 @@ import {
 } from '../../empty.util';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchChartComponent } from './search-chart/search-chart.component';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
   selector: 'ds-search-charts',

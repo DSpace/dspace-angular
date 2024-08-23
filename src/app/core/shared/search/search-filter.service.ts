@@ -1,4 +1,7 @@
-import { Injectable, InjectionToken } from '@angular/core';
+import {
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
 import { Params } from '@angular/router';
 import {
   createSelector,

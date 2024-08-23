@@ -14,6 +14,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
 import {
   fadeIn,
@@ -31,7 +32,6 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchResult } from '../models/search-result.model';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
-import { AlertComponent } from '../../alert/alert.component';
 
 export interface SelectionConfig {
   repeatable: boolean;

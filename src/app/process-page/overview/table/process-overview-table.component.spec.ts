@@ -146,9 +146,9 @@ describe('ProcessOverviewTableComponent', () => {
     translateServiceSpy = jasmine.createSpyObj('TranslateService', ['get']);
 
     void TestBed.configureTestingModule({
-    declarations: [NgbCollapse],
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, ProcessOverviewTableComponent],
-    providers: [
+      declarations: [NgbCollapse],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, ProcessOverviewTableComponent],
+      providers: [
         { provide: ProcessOverviewService, useValue: processOverviewService },
         { provide: ProcessDataService, useValue: processService },
         { provide: EPersonDataService, useValue: ePersonService },
@@ -157,9 +157,9 @@ describe('ProcessOverviewTableComponent', () => {
         { provide: NgbModal, useValue: modalService },
         { provide: AuthService, useValue: authService },
         { provide: RouteService, useValue: routeService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ProcessOverviewTableComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ProcessOverviewTableComponent, {
       remove: {
         imports: [ PaginationComponent, ThemedLoadingComponent ],
       },

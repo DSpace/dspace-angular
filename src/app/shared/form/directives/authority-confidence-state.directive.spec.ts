@@ -25,17 +25,17 @@ describe('AuthorityConfidenceStateDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         AuthorityConfidenceStateDirective,
         TestComponent,
-    ],
-})
+      ],
+    })
       .compileComponents();
   });
 
@@ -196,12 +196,12 @@ describe('AuthorityConfidenceStateDirective', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: `<i dsAuthorityConfidenceState
+  selector: 'ds-test-cmp',
+  template: `<i dsAuthorityConfidenceState
                 class="far fa-circle fa-2x fa-fw"
                 aria-hidden="true"
                 [authorityValue]="authorityValue"></i>`,
-    standalone: true,
+  standalone: true,
 })
 class TestComponent {
 

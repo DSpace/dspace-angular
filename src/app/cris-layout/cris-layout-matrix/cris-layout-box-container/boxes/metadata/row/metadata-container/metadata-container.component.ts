@@ -1,4 +1,8 @@
 import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -40,19 +44,18 @@ import {
   MetadataBoxFieldRenderOptions,
 } from '../../rendering-types/metadata-box.decorator';
 import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
-import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-    selector: 'ds-metadata-container',
-    templateUrl: './metadata-container.component.html',
-    styleUrls: ['./metadata-container.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        NgIf,
-        NgFor,
-        MetadataRenderComponent,
-    ],
+  selector: 'ds-metadata-container',
+  templateUrl: './metadata-container.component.html',
+  styleUrls: ['./metadata-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MetadataRenderComponent,
+  ],
 })
 export class MetadataContainerComponent implements OnInit {
   /**

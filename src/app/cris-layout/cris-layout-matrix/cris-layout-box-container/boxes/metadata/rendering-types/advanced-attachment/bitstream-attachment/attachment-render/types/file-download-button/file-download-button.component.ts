@@ -1,28 +1,31 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { FileDownloadLinkComponent } from '../../../../../../../../../../../shared/file-download-link/file-download-link.component';
 import {
   AttachmentRenderingType,
   AttachmentTypeRendering,
 } from '../../../attachment-type.decorator';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-file-download-button',
-    templateUrl: './file-download-button.component.html',
-    styleUrls: ['./file-download-button.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        RouterLink,
-        AsyncPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-file-download-button',
+  templateUrl: './file-download-button.component.html',
+  styleUrls: ['./file-download-button.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    RouterLink,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component displaying a download button or the request a copy button depending on authorization

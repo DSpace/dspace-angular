@@ -36,6 +36,7 @@ import { ThemedComcolPageContentComponent } from '../shared/comcol/comcol-page-c
 import { ThemedComcolPageHandleComponent } from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { hasValue } from '../shared/empty.util';
 import { ErrorComponent } from '../shared/error/error.component';
@@ -45,7 +46,6 @@ import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-trac
 import { getCommunityPageRoute } from './community-page-routing-paths';
 import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
 import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
-import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
 @Component({
   selector: 'ds-base-community-page',

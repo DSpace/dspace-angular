@@ -22,12 +22,12 @@ describe('TextSectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TextSectionComponent],
-    providers: [
+      imports: [TextSectionComponent],
+      providers: [
         { provide: SearchService, useValue: {} },
         { provide: LocaleService, useValue: localeServiceStub },
-    ],
-})
+      ],
+    })
       .compileComponents();
   }));
 

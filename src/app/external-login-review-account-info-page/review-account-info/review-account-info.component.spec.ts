@@ -95,31 +95,31 @@ describe('ReviewAccountInfoComponent', () => {
     });
     authService = new AuthServiceMock();
     await TestBed.configureTestingModule({
-    declarations: [ReviewAccountInfoComponent, CompareValuesPipe],
-    providers: [
+      declarations: [ReviewAccountInfoComponent, CompareValuesPipe],
+      providers: [
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NgbModal, useValue: modalStub },
         {
-            provide: NotificationsService,
-            useValue: notificationsService,
+          provide: NotificationsService,
+          useValue: notificationsService,
         },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authService },
         { provide: ExternalLoginService, useValue: externalLoginServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
-    ],
-    imports: [
+      ],
+      imports: [
         CommonModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -14,16 +14,16 @@ const DIRECTIVES = [
 ];
 
 @NgModule({
-    imports: [
-        TranslateModule.forChild({
-            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-            useDefaultLang: true,
-        }),
-        ...DIRECTIVES,
-    ],
-    exports: [
-        ...DIRECTIVES,
-    ],
+  imports: [
+    TranslateModule.forChild({
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+      useDefaultLang: true,
+    }),
+    ...DIRECTIVES,
+  ],
+  exports: [
+    ...DIRECTIVES,
+  ],
 })
 export class DirectivesModule {
 }

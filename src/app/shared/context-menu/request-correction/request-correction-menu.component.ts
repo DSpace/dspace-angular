@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnDestroy,
@@ -8,7 +12,10 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -35,20 +42,19 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders a context menu option that provides the request a correction functionality.
  */
 @Component({
-    selector: 'ds-context-menu-request-correction',
-    templateUrl: './request-correction-menu.component.html',
-    standalone: true,
-    imports: [
-        NgIf,
-        AsyncPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-context-menu-request-correction',
+  templateUrl: './request-correction-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent implements OnDestroy {

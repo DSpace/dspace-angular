@@ -46,19 +46,19 @@ describe('StatisticsChartWrapperComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         BrowserAnimationsModule,
         StatisticsChartWrapperComponent,
         StatisticsChartBarComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: REPORT_DATA, useValue: report },
         { provide: BrowserExportService, useValue: exportServiceStub },
         { provide: 'categoryType', useValue: 'mainReports' },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   }));
 

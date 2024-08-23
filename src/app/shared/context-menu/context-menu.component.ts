@@ -1,4 +1,11 @@
-import { DOCUMENT, NgIf, NgFor, NgComponentOutlet, NgClass, AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  DOCUMENT,
+  NgClass,
+  NgComponentOutlet,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,6 +14,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   from,
   Observable,
@@ -33,26 +42,24 @@ import {
 } from './context-menu.decorator';
 import { ContextMenuEntryComponent } from './context-menu-entry.component';
 import { ContextMenuEntryType } from './context-menu-entry-type';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * This component renders a context menu for a given DSO.
  */
 @Component({
-    selector: 'ds-context-menu',
-    styleUrls: ['./context-menu.component.scss'],
-    templateUrl: './context-menu.component.html',
-    standalone: true,
-    imports: [
-        NgIf,
-        NgFor,
-        NgComponentOutlet,
-        NgbDropdownModule,
-        NgClass,
-        AsyncPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-context-menu',
+  styleUrls: ['./context-menu.component.scss'],
+  templateUrl: './context-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NgComponentOutlet,
+    NgbDropdownModule,
+    NgClass,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class ContextMenuComponent implements OnInit {
 

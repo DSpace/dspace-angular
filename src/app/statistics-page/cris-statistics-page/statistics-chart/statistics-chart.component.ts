@@ -1,25 +1,29 @@
 import {
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
-import { TranslateModule } from '@ngx-translate/core';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { FilterMapPipe } from '../statistics-pipes/filter-map.pipe';
 import { StatisticsChartWrapperComponent } from './statistics-chart-wrapper/statistics-chart-wrapper.component';
-import { NgIf, NgFor, NgClass } from '@angular/common';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'ds-statistics-chart',
-    styleUrls: ['./statistics-chart.component.scss'],
-    templateUrl: './statistics-chart.component.html',
-    standalone: true,
+  selector: 'ds-statistics-chart',
+  styleUrls: ['./statistics-chart.component.scss'],
+  templateUrl: './statistics-chart.component.html',
+  standalone: true,
   imports: [
     NgIf,
     NgFor,

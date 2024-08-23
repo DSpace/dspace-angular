@@ -92,21 +92,21 @@ describe('CrisrefComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), BrowserAnimationsModule, CrisrefComponent, MetadataLinkViewComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, CrisrefComponent, MetadataLinkViewComponent],
+      providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: metadataValue },
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
         { provide: ItemDataService, useValue: itemService },
-    ],
-})
+      ],
+    })
       .compileComponents();
   }));
 

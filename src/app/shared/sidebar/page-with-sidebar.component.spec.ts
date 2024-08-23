@@ -114,21 +114,21 @@ describe('PageWithSidebarComponent', () => {
   describe('', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, PageWithSidebarComponent],
-    providers: [
-        {
+        imports: [NoopAnimationsModule, PageWithSidebarComponent],
+        providers: [
+          {
             provide: SidebarService,
             useClass: SidebarServiceStub,
-        },
-        {
+          },
+          {
             provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
-                isXs: observableOf(false),
-                isSm: observableOf(false),
-                isXsOrSm: observableOf(false),
+              isXs: observableOf(false),
+              isSm: observableOf(false),
+              isXsOrSm: observableOf(false),
             }),
-        },
-    ],
-}).compileComponents().then(() => {
+          },
+        ],
+      }).compileComponents().then(() => {
         fixture = TestBed.createComponent(PageWithSidebarComponent);
         comp = fixture.componentInstance;
         sidebarService = TestBed.inject(SidebarService) as jasmine.SpyObj<SidebarService>;

@@ -29,11 +29,11 @@ enum TYPES {
  * The metadata value is used for href and text
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'span[ds-link]',
-    templateUrl: './link.component.html',
-    styleUrls: ['./link.component.scss'],
-    standalone: true,
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'span[ds-link]',
+  templateUrl: './link.component.html',
+  styleUrls: ['./link.component.scss'],
+  standalone: true,
 })
 @MetadataBoxFieldRendering(FieldRenderingType.LINK)
 export class LinkComponent extends RenderingTypeValueModelComponent implements OnInit {

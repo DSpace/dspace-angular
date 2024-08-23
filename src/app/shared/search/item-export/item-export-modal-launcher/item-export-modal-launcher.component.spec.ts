@@ -68,19 +68,19 @@ describe('ItemExportModalWrapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         BrowserModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateLoaderMock } }),
         ItemExportModalLauncherComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: AuthService, useValue: authServiceMock },
         { provide: NgbModal, useValue: modalService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         ViewContainerRef,
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

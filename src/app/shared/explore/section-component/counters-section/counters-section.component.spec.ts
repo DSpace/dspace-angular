@@ -15,12 +15,12 @@ xdescribe('CountersSectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CountersSectionComponent],
-    providers: [
+      imports: [CountersSectionComponent],
+      providers: [
         { provide: SearchManager, useValue: {} },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
-    ],
-})
+      ],
+    })
       .compileComponents();
   }));
 

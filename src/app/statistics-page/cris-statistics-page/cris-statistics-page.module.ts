@@ -8,6 +8,7 @@ import {
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -15,7 +16,6 @@ import { CrisStatisticsPageComponent } from './cris-statistics-page.component';
 import { StatisticsChartModule } from './statistics-chart/statistics-chart.module';
 import { StatisticsMapComponent } from './statistics-map/statistics-map.component';
 import { StatisticsPipesPageModule } from './statistics-pipes/statistics-pipes.module';
-import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
 const components = [
   CrisStatisticsPageComponent,
@@ -23,21 +23,21 @@ const components = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        StatisticsChartModule.withEntryComponents(),
-        HttpClientJsonpModule,
-        StatisticsPipesPageModule,
-        Ng2GoogleChartsModule,
-        ThemedLoadingComponent,
-        VarDirective,
-        TranslateModule,
-        FormsModule,
-        NgbDatepickerModule,
-        NgbNavModule,
-        NgbDropdownModule,
-        ...components,
-    ],
-    exports: components,
+  imports: [
+    CommonModule,
+    StatisticsChartModule.withEntryComponents(),
+    HttpClientJsonpModule,
+    StatisticsPipesPageModule,
+    Ng2GoogleChartsModule,
+    ThemedLoadingComponent,
+    VarDirective,
+    TranslateModule,
+    FormsModule,
+    NgbDatepickerModule,
+    NgbNavModule,
+    NgbDropdownModule,
+    ...components,
+  ],
+  exports: components,
 })
 export class CrisStatisticsPageModule { }

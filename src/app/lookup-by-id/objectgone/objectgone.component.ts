@@ -2,11 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
-
-import { AlertType } from '../../shared/alert/alert-type';
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { AlertType } from '../../shared/alert/alert-type';
 
 @Component({
   selector: 'ds-base-objectgone',
@@ -17,8 +17,8 @@ import { RouterLink } from '@angular/router';
   imports: [
     AlertComponent,
     TranslateModule,
-    RouterLink
-  ]
+    RouterLink,
+  ],
 })
 export class ObjectGoneComponent {
   /**

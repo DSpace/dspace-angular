@@ -63,26 +63,26 @@ describe('ExternalLogInComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [ExternalLogInComponent],
-    providers: [
+      declarations: [ExternalLogInComponent],
+      providers: [
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Injector, useValue: {} },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: NgbModal, useValue: modalService },
         FormBuilder,
-    ],
-    imports: [
+      ],
+      imports: [
         CommonModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         BrowserOnlyMockPipe,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   });
 

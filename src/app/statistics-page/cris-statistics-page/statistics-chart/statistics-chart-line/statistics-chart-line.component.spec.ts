@@ -191,14 +191,14 @@ describe('StatisticsChartLineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), StatisticsChartLineComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), StatisticsChartLineComponent],
+      providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
         { provide: BrowserExportService, useValue: ExportServiceStub },
         { provide: 'categoryType', useValue: 'mainReports' },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(StatisticsChartLineComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(StatisticsChartLineComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

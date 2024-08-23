@@ -33,13 +33,13 @@ describe('MetricAltmetricComponent', () => {
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), MetricAltmetricComponent, ListMetricPropsPipe],
-})
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), MetricAltmetricComponent, ListMetricPropsPipe],
+    })
       .compileComponents();
   }));
 

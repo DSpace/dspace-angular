@@ -1,3 +1,4 @@
+import { NgComponentOutlet } from '@angular/common';
 import {
   Component,
   Injector,
@@ -12,13 +13,12 @@ import { UsageReport } from '../../../../core/statistics/models/usage-report.mod
 import { renderChartStatisticsType } from '../../cris-statistics-element-decorator';
 import { StatisticsType } from '../../statistics-type.model';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
-import { NgComponentOutlet } from '@angular/common';
 
 @Component({
-    selector: 'ds-statistics-chart-wrapper',
-    templateUrl: './statistics-chart-wrapper.component.html',
-    standalone: true,
-    imports: [NgComponentOutlet],
+  selector: 'ds-statistics-chart-wrapper',
+  templateUrl: './statistics-chart-wrapper.component.html',
+  standalone: true,
+  imports: [NgComponentOutlet],
 })
 
 /**

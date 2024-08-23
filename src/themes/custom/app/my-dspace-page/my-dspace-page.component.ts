@@ -11,6 +11,7 @@ import {
   MyDSpaceConfigurationService,
   SEARCH_CONFIG_SERVICE,
 } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { MyDSpaceNewBulkImportComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { MyDSpaceNewSubmissionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
 import { MyDSpacePageComponent as BaseComponent } from '../../../../app/my-dspace-page/my-dspace-page.component';
 import { MyDspaceQaEventsNotificationsComponent } from '../../../../app/my-dspace-page/my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
@@ -18,9 +19,6 @@ import { SuggestionsNotificationComponent } from '../../../../app/notifications/
 import { pushInOut } from '../../../../app/shared/animations/push';
 import { RoleDirective } from '../../../../app/shared/roles/role.directive';
 import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
-import {
-  MyDSpaceNewBulkImportComponent
-} from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 
 /**
  * This component represents the whole mydspace page

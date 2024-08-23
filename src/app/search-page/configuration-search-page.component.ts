@@ -10,6 +10,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
@@ -23,7 +24,9 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
+import { ItemExportModalLauncherComponent } from '../shared/search/item-export/item-export-modal-launcher/item-export-modal-launcher.component';
 import { SearchComponent } from '../shared/search/search.component';
+import { SearchChartsComponent } from '../shared/search/search-charts/search-charts.component';
 import { SearchLabelsComponent } from '../shared/search/search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from '../shared/search/search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from '../shared/search/search-sidebar/themed-search-sidebar.component';
@@ -31,11 +34,6 @@ import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-f
 import { PageWithSidebarComponent } from '../shared/sidebar/page-with-sidebar.component';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-switch.component';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  ItemExportModalLauncherComponent
-} from '../shared/search/item-export/item-export-modal-launcher/item-export-modal-launcher.component';
-import { SearchChartsComponent } from '../shared/search/search-charts/search-charts.component';
 
 /**
  * This component renders a search page using a configuration as input.

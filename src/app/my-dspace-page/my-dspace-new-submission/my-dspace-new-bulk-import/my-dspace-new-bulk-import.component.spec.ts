@@ -94,19 +94,19 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
   describe('With only one Entity', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-    imports: [
-        CommonModule,
-        TranslateModule.forRoot(),
-        MyDSpaceNewBulkImportComponent,
-        TestComponent,
-    ],
-    providers: [
-        { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
-        { provide: NgbModal, useValue: modalStub },
-        MyDSpaceNewBulkImportComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+        imports: [
+          CommonModule,
+          TranslateModule.forRoot(),
+          MyDSpaceNewBulkImportComponent,
+          TestComponent,
+        ],
+        providers: [
+          { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
+          { provide: NgbModal, useValue: modalStub },
+          MyDSpaceNewBulkImportComponent,
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
 
       const html = `<ds-my-dspace-new-bulk-import></ds-my-dspace-new-bulk-import>`;
 
@@ -143,19 +143,19 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
   describe('With more than one Entity', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-    imports: [
-        CommonModule,
-        TranslateModule.forRoot(),
-        MyDSpaceNewBulkImportComponent,
-        TestComponent,
-    ],
-    providers: [
-        { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
-        { provide: NgbModal, useValue: modalStub },
-        MyDSpaceNewBulkImportComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+        imports: [
+          CommonModule,
+          TranslateModule.forRoot(),
+          MyDSpaceNewBulkImportComponent,
+          TestComponent,
+        ],
+        providers: [
+          { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
+          { provide: NgbModal, useValue: modalStub },
+          MyDSpaceNewBulkImportComponent,
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).compileComponents();
 
       const html = `<ds-my-dspace-new-bulk-import></ds-my-dspace-new-bulk-import>`;
 
@@ -193,10 +193,10 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [CommonModule],
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

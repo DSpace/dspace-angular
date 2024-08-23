@@ -81,12 +81,12 @@ import { PaginatedSearchOptions } from './models/paginated-search-options.model'
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchResult } from './models/search-result.model';
+import { SearchChartsComponent } from './search-charts/search-charts.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
-import { SearchChartsComponent } from './search-charts/search-charts.component';
 
 @Component({
   selector: 'ds-base-search',

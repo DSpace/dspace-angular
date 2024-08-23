@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -15,10 +19,7 @@ import { SectionDataService } from '../../core/layout/section-data.service';
 import { LocaleService } from '../../core/locale/locale.service';
 import { Site } from '../../core/shared/site.model';
 import { isEmpty } from '../../shared/empty.util';
-import {
-  ThemedTextSectionComponent
-} from '../../shared/explore/section-component/text-section/themed-text-section.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { ThemedTextSectionComponent } from '../../shared/explore/section-component/text-section/themed-text-section.component';
 
 @Component({
   selector: 'ds-base-home-news',
@@ -28,8 +29,8 @@ import { AsyncPipe, NgIf } from '@angular/common';
   imports: [
     ThemedTextSectionComponent,
     AsyncPipe,
-    NgIf
-  ]
+    NgIf,
+  ],
 })
 
 /**

@@ -33,9 +33,7 @@ import {
   hasValue,
   isEmpty,
 } from '../shared/empty.util';
-import {
-  ThemedTextSectionComponent
-} from '../shared/explore/section-component/text-section/themed-text-section.component';
+import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
 
 @Component({
   selector: 'ds-base-footer',

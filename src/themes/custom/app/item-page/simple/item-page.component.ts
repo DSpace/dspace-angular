@@ -1,5 +1,6 @@
 import {
-  AsyncPipe, NgClass,
+  AsyncPipe,
+  NgClass,
   NgIf,
 } from '@angular/common';
 import {
@@ -8,6 +9,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { CrisItemPageModule } from '../../../../../app/cris-item-page/cris-item-page.module';
 import { ThemedItemAlertsComponent } from '../../../../../app/item-page/alerts/themed-item-alerts.component';
 import { ItemPageComponent as BaseComponent } from '../../../../../app/item-page/simple/item-page.component';
 import { NotifyRequestsStatusComponent } from '../../../../../app/item-page/simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
@@ -20,7 +22,6 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
 import { ListableObjectComponentLoaderComponent } from '../../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
-import { CrisItemPageModule } from '../../../../../app/cris-item-page/cris-item-page.module';
 
 /**
  * This component renders a simple item page.

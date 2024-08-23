@@ -5,10 +5,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { CollectionStatisticsPageComponent as BaseComponent } from '../../../../../app/statistics-page/collection-statistics-page/collection-statistics-page.component';
+import { CrisStatisticsPageModule } from '../../../../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 import { StatisticsTableComponent } from '../../../../../app/statistics-page/statistics-table/statistics-table.component';
-import {
-  CrisStatisticsPageModule
-} from '../../../../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 
 @Component({
   selector: 'ds-themed-collection-statistics-page',

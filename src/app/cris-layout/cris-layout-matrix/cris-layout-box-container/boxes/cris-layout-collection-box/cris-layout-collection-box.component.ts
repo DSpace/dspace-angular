@@ -1,9 +1,19 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -32,22 +42,20 @@ import {
 import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
-import { RouterLink } from '@angular/router';
-import { NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-cris-layout-collection-box',
-    templateUrl: './cris-layout-collection-box.component.html',
-    styleUrls: ['./cris-layout-collection-box.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        RouterLink,
-        NgClass,
-        NgFor,
-        AsyncPipe,
-        TranslateModule,
-    ],
+  selector: 'ds-cris-layout-collection-box',
+  templateUrl: './cris-layout-collection-box.component.html',
+  styleUrls: ['./cris-layout-collection-box.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    RouterLink,
+    NgClass,
+    NgFor,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 @RenderCrisLayoutBoxFor(LayoutBox.COLLECTIONS)
 export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {

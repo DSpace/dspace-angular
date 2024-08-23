@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
@@ -6,14 +11,19 @@ import {
 } from '@angular/core';
 import {
   FormControl,
-  FormGroup, FormsModule, ReactiveFormsModule,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -36,10 +46,13 @@ import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { MYDSPACE_ROUTE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { AlertComponent } from '../../../alert/alert.component';
+import { AdministeredCollectionSelectorComponent } from '../../../dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
 import {
   isEmpty,
   isNotEmpty,
 } from '../../../empty.util';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
@@ -52,14 +65,8 @@ import {
   ItemExportFormConfiguration,
   ItemExportService,
 } from '../item-export.service';
-import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { ItemExportListComponent } from './item-export-list/item-export-list.component';
 import { ItemExportAlertComponent } from '../item-export-alert/item-export-alert.component';
-import {
-  AdministeredCollectionSelectorComponent
-} from '../../../dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
-import { AlertComponent } from '../../../alert/alert.component';
+import { ItemExportListComponent } from './item-export-list/item-export-list.component';
 
 export enum ExportSelectionMode {
   All = 'all',

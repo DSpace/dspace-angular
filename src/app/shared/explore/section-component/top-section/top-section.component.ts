@@ -1,8 +1,10 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   SortDirection,
@@ -10,11 +12,9 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { TopSection } from '../../../../core/layout/models/section.model';
 import { Context } from '../../../../core/shared/context.model';
+import { ThemedBrowseMostElementsComponent } from '../../../browse-most-elements/themed-browse-most-elements.component';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
-import { ThemedBrowseMostElementsComponent } from '../../../browse-most-elements/themed-browse-most-elements.component';
-import { NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component representing the Top component section.
@@ -26,8 +26,8 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     ThemedBrowseMostElementsComponent,
     NgIf,
-    TranslateModule
-  ]
+    TranslateModule,
+  ],
 })
 export class TopSectionComponent implements OnInit {
 

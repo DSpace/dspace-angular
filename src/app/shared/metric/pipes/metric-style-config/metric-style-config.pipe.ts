@@ -9,8 +9,8 @@ import { environment } from '../../../../../environments/environment';
 import { Metric } from '../../../../core/shared/metric.model';
 
 @Pipe({
-    name: 'dsMetricStyleConfig',
-    standalone: true,
+  name: 'dsMetricStyleConfig',
+  standalone: true,
 })
 export class MetricStyleConfigPipe implements PipeTransform {
   /**

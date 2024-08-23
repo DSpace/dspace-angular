@@ -1,8 +1,10 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Inject,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
@@ -17,17 +19,15 @@ import { ItemExportComponent } from '../../search/item-export/item-export/item-e
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
 
 /**
  * This component renders a context menu option that provides to export an item.
  */
 @Component({
-    selector: 'ds-context-menu-export-item',
-    templateUrl: './export-item-menu.component.html',
-    standalone: true,
-    imports: [NgIf, TranslateModule],
+  selector: 'ds-context-menu-export-item',
+  templateUrl: './export-item-menu.component.html',
+  standalone: true,
+  imports: [NgIf, TranslateModule],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM, true)
 export class ExportItemMenuComponent extends ContextMenuEntryComponent {

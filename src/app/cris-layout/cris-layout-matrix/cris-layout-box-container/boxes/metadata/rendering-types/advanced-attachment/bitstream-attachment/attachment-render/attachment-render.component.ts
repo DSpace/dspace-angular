@@ -13,18 +13,18 @@ import {
 import { Bitstream } from '../../../../../../../../../core/shared/bitstream.model';
 import { GenericConstructor } from '../../../../../../../../../core/shared/generic-constructor';
 import { Item } from '../../../../../../../../../core/shared/item.model';
+import { CrisLayoutLoaderDirective } from '../../../../../../../../directives/cris-layout-loader.directive';
 import {
   AttachmentRenderingType,
   getAttachmentTypeRendering,
 } from '../attachment-type.decorator';
-import { CrisLayoutLoaderDirective } from '../../../../../../../../directives/cris-layout-loader.directive';
 
 @Component({
-    selector: 'ds-attachment-render',
-    templateUrl: './attachment-render.component.html',
-    styleUrls: ['./attachment-render.component.scss'],
-    standalone: true,
-    imports: [CrisLayoutLoaderDirective],
+  selector: 'ds-attachment-render',
+  templateUrl: './attachment-render.component.html',
+  styleUrls: ['./attachment-render.component.scss'],
+  standalone: true,
+  imports: [CrisLayoutLoaderDirective],
 })
 export class AttachmentRenderComponent implements OnInit {
 

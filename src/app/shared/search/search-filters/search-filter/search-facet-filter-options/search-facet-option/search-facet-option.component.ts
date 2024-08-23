@@ -24,12 +24,12 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { CapitalizePipe } from '../../../../../utils/capitalize.pipe';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { getFacetValueForType } from '../../../../search.utils';
-import { CapitalizePipe } from '../../../../../utils/capitalize.pipe';
 
 @Component({
   selector: 'ds-search-facet-option',

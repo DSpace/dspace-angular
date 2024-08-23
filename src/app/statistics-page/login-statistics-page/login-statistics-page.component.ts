@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -7,6 +8,7 @@ import {
   NgbDateParserFormatter,
   NgbDateStruct,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import {
   take,
@@ -21,12 +23,10 @@ import {
 import { LoginStatisticsService } from '../../core/statistics/login-statistics.service';
 import { LoginStatistics } from '../../core/statistics/models/login-statistics.model';
 import { AlertType } from '../../shared/alert/alert-type';
-import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
-import { CommonModule } from '@angular/common';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-login-statistics',

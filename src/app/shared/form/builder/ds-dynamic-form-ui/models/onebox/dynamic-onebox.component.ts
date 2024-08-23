@@ -19,7 +19,8 @@ import {
 } from '@angular/forms';
 import {
   NgbModal,
-  NgbModalRef, NgbTooltipModule,
+  NgbModalRef,
+  NgbTooltipModule,
   NgbTypeahead,
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,

@@ -13,8 +13,8 @@ import {
 } from '../../shared/date.util';
 
 @Pipe({
-    name: 'dsDate',
-    standalone: true,
+  name: 'dsDate',
+  standalone: true,
 })
 export class DsDatePipe implements PipeTransform, OnDestroy {
 

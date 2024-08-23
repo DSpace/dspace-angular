@@ -50,16 +50,16 @@ describe('MetadataLinkViewOrcidComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), BrowserAnimationsModule, MetadataLinkViewOrcidComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, MetadataLinkViewOrcidComponent],
+      providers: [
         { provide: ConfigurationDataService, useValue: configurationDataService },
-    ],
-})
+      ],
+    })
       .compileComponents();
 
     fixture = TestBed.createComponent(MetadataLinkViewOrcidComponent);

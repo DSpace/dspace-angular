@@ -65,12 +65,12 @@ describe('ItemExportListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [ItemExportListComponent],
-    providers: [
+      imports: [ItemExportListComponent],
+      providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchManager, useValue: mockSearchManager },
-    ],
-})
+      ],
+    })
       .compileComponents();
   });
 

@@ -8,9 +8,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.component';
-import {
-  ThemedTextSectionComponent
-} from '../../../../app/shared/explore/section-component/text-section/themed-text-section.component';
+import { ThemedTextSectionComponent } from '../../../../app/shared/explore/section-component/text-section/themed-text-section.component';
 
 @Component({
   selector: 'ds-themed-footer',

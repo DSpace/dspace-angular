@@ -85,22 +85,22 @@ describe('TableComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), DsDatePipe,
-        MetadataRenderComponent,
-        TableComponent,
-        TextComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), DsDatePipe,
+      MetadataRenderComponent,
+      TableComponent,
+      TextComponent],
+      providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
-    ],
-}).overrideComponent(TableComponent, {
+      ],
+    }).overrideComponent(TableComponent, {
       set: { changeDetection: ChangeDetectionStrategy.OnPush },
     }).compileComponents();
   }));

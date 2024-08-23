@@ -5,9 +5,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Item } from '../../core/shared/item.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
-import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
 
 /**
  * Component representing the statistics page for an item.

@@ -4,13 +4,13 @@ import {
   NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { LogInContainerComponent } from 'src/app/shared/log-in/container/log-in-container.component';
 
 import { LogInComponent as BaseComponent } from '../../../../../app/shared/log-in/log-in.component';
-import { RouterLink } from '@angular/router';
 import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pipe';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-themed-log-in',
