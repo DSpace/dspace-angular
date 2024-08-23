@@ -17,7 +17,7 @@ import {
 
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { FilterType } from '../../models/filter-type.model';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
@@ -59,14 +59,14 @@ describe('SearchChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchChartComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchChartComponent],
+      providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SearchFilterService, useValue: mockFilterService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(SearchChartComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(SearchChartComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

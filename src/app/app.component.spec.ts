@@ -55,6 +55,7 @@ import { CSSVariableServiceStub } from './shared/testing/css-variable-service.st
 import { HostWindowServiceStub } from './shared/testing/host-window-service.stub';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { ThemeService } from './shared/theme-support/theme.service';
+import { SocialComponent } from './social/social.component';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 
 let comp: AppComponent;
@@ -136,7 +137,7 @@ describe('App component', () => {
     return TestBed.configureTestingModule(getDefaultTestBedConf()).overrideComponent(
       AppComponent, {
         remove: {
-          imports: [ ThemedRootComponent ],
+          imports: [ ThemedRootComponent, SocialComponent ],
         },
       },
     );

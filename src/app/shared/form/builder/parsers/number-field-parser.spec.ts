@@ -1,3 +1,4 @@
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -7,6 +8,7 @@ import { ParserOptions } from './parser-options';
 describe('NumberFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {
@@ -37,13 +39,13 @@ describe('NumberFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new NumberFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new NumberFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof NumberFieldParser).toBe(true);
   });
 
   it('should return a DsDynamicInputModel object when repeatable option is false', () => {
-    const parser = new NumberFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new NumberFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -51,7 +53,7 @@ describe('NumberFieldParser test suite', () => {
   });
 
   it('should have properly inputType', () => {
-    const parser = new NumberFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new NumberFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -66,7 +68,7 @@ describe('NumberFieldParser test suite', () => {
     };
     const expectedValue = '1';
 
-    const parser = new NumberFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new NumberFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 

@@ -1,12 +1,12 @@
 import { of as observableOf } from 'rxjs';
 
-import { Suggestion } from '../../core/notifications/models/suggestion.model';
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
 import { QualityAssuranceEventDataService } from '../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '../../core/notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceTopicObject } from '../../core/notifications/qa/models/quality-assurance-topic.model';
 import { QualityAssuranceTopicDataService } from '../../core/notifications/qa/topics/quality-assurance-topic-data.service';
+import { Suggestion } from '../../core/notifications/suggestions/models/suggestion.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { ResourceType } from '../../core/shared/resource-type';

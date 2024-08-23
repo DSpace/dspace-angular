@@ -20,7 +20,7 @@ import {
   IN_PLACE_SEARCH,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
@@ -95,8 +95,8 @@ xdescribe('SearchChartFilterComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(createPaginatedList(values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchChartFilterComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchChartFilterComponent],
+      providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
@@ -104,21 +104,21 @@ xdescribe('SearchChartFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         {
-            provide: SearchFilterService, useValue: {
-                getSelectedValuesForFilter: () => observableOf(selectedValues),
-                isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-                getPage: (paramName: string) => page,
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                incrementPage: (filterName: string) => {
-                },
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                resetPage: (filterName: string) => {
-                },
+          provide: SearchFilterService, useValue: {
+            getSelectedValuesForFilter: () => observableOf(selectedValues),
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
+            getPage: (paramName: string) => page,
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            incrementPage: (filterName: string) => {
             },
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            resetPage: (filterName: string) => {
+            },
+          },
         },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(SearchChartFilterComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(SearchChartFilterComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

@@ -26,7 +26,6 @@ import { Item } from '../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { SharedModule } from '../../shared.module';
 import { ItemInfo } from '../../testing/relationships-mocks';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { RelationshipsListComponent } from './relationships-list.component';
@@ -49,25 +48,24 @@ describe('RelationshipsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [RelationshipsListComponent],
-    imports: [
+      declarations: [RelationshipsListComponent],
+      imports: [
         NoopAnimationsModule,
-        SharedModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-    ],
-    providers: [
+      ],
+      providers: [
         provideMockStore({ initialState }),
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   });
 

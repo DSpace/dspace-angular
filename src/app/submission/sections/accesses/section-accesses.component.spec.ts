@@ -54,6 +54,8 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';
 import { SectionAccessesService } from './section-accesses.service';
+import { AppState } from 'src/app/app.reducer';
+import { inject } from '@angular/core';
 
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
@@ -80,6 +82,7 @@ describe('SubmissionSectionAccessesComponent', () => {
   });
 
   let formService: any;
+  let store: any;
   let formbuilderService: any;
 
   const storeStub = jasmine.createSpyObj('store', ['dispatch']);
@@ -200,16 +203,17 @@ describe('SubmissionSectionAccessesComponent', () => {
     });
 
     describe('when singleAccessCondition is true', () => {
-      beforeEach(inject([Store], (store: Store<AppState>) => {
+      beforeEach(() => {
         fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
         component = fixture.componentInstance;
+        store = TestBed.inject(Store);
         formService = TestBed.inject(FormService);
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
         submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionSingleAccessConfigRes) as any);
         fixture.detectChanges();
-      }));
+      });
 
       it('should create', () => {
         expect(component).toBeTruthy();

@@ -23,7 +23,6 @@ import { StatisticsState } from '../../core/statistics/statistics.reducer';
 import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { SharedModule } from '../../shared/shared.module';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { SiteDataServiceStub } from '../../shared/testing/site-data-service.stub';
@@ -63,27 +62,26 @@ describe('CrisStatisticsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule.withRoutes([]),
-        SharedModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         CrisStatisticsPageComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         provideMockStore({ initialState }),
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: UsageReportDataService, useValue: usageReportServiceStub },
         { provide: StatisticsCategoriesDataService, useValue: statisticsCategoriesServiceStub },
         { provide: SiteDataService, useValue: siteDataServiceStub },
         { provide: AuthService, useValue: authServiceStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   });
 
