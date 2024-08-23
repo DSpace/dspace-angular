@@ -35,12 +35,12 @@
                 title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
           <i class="fas fa-edit fa-fw"></i>
         </button>
-        <button [disabled]="!canRemove()" (click)="remove()"
+        <button [dsDisabled]="!canRemove()" (click)="remove()"
                 class="btn btn-outline-danger btn-sm"
                 title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
           <i class="fas fa-trash-alt fa-fw"></i>
         </button>
-        <button [disabled]="!canUndo()" (click)="undo()"
+        <button [dsDisabled]="!canUndo()" (click)="undo()"
                 class="btn btn-outline-warning btn-sm"
                 title="{{'item.edit.bitstreams.edit.buttons.undo' | translate}}">
           <i class="fas fa-undo-alt fa-fw"></i>

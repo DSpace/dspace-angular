@@ -77,7 +77,7 @@
                             title="{{labelPrefix + 'table.edit.buttons.edit' | translate: { name: dsoNameService.getName(epersonDto.eperson) } }}">
                       <i class="fas fa-edit fa-fw"></i>
                     </button>
-                    <button [disabled]="!epersonDto.ableToDelete" (click)="deleteEPerson(epersonDto.eperson)"
+                    <button [dsDisabled]="!epersonDto.ableToDelete" (click)="deleteEPerson(epersonDto.eperson)"
                             class="delete-button btn btn-outline-danger btn-sm access-control-deleteEPersonButton"
                             title="{{labelPrefix + 'table.edit.buttons.remove' | translate: { name: dsoNameService.getName(epersonDto.eperson) } }}">
                       <i class="fas fa-trash-alt fa-fw"></i>

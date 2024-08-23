@@ -40,7 +40,7 @@
                   class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
         </div>
         <div after *ngIf="groupBeingEdited != null" class="btn-group">
-          <button class="btn btn-danger delete-button" [disabled]="!(canEdit$ | async) || groupBeingEdited.permanent"
+          <button class="btn btn-danger delete-button" [dsDisabled]="!(canEdit$ | async) || groupBeingEdited.permanent"
                   (click)="delete()">
             <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
           </button>

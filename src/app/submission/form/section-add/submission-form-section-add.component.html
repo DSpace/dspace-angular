@@ -5,7 +5,7 @@
      [ngClass]="{'w-100': windowService.isXs()}">
   <button class="btn btn-outline-primary dropdown-toggle"
           id="sectionControls"
-          [disabled]="!(hasSections$ | async)"
+          [dsDisabled]="!(hasSections$ | async)"
           [ngClass]="{'w-100': (windowService.isXs() | async)}"
           ngbDropdownToggle>
           {{ 'submission.sections.general.add-more' | translate }} <i class="fa fa-plus" aria-hidden="true"></i>

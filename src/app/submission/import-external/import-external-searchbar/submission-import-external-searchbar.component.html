@@ -20,6 +20,6 @@
         <div ngbDropdownItem class="scrollable-dropdown-loading text-center" *ngIf="sourceListLoading"><p>{{'submission.import-external.source.loading' | translate}}</p></div>
       </div>
     </div>
-    <button type="button" class="btn btn-primary" [title]="(searchString === '')?('submission.import-external.search.button.hint' | translate):('submission.import-external.search.button' | translate)" [disabled]="searchString === ''" (click)="search()">{{'submission.import-external.search.button' | translate}}</button>
+    <button type="button" class="btn btn-primary" [title]="(searchString === '')?('submission.import-external.search.button.hint' | translate):('submission.import-external.search.button' | translate)" [dsDisabled]="searchString === ''" (click)="search()">{{'submission.import-external.search.button' | translate}}</button>
   </div>
 </div>
