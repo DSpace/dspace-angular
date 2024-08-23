@@ -52,6 +52,8 @@ import { environment } from '../environments/environment';
 import { SectionDataService } from './core/layout/section-data.service';
 import { Section } from './core/layout/models/section.model';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
+import { ConfigurationProperty } from './core/shared/configuration-property.model';
 
 /**
  * Creates all of the app's menus
@@ -70,6 +72,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
     protected sectionDataService: SectionDataService,
+    protected configService: ConfigurationDataService,
   ) {
   }
 
@@ -254,6 +257,7 @@ export class MenuResolver implements Resolve<boolean> {
     this.createExportMenuSections();
     this.createImportMenuSections();
     this.createAccessControlMenuSections();
+    this.createDLExporterMenuItem();
 
     return this.waitForMenu$(MenuID.ADMIN);
   }
@@ -606,6 +610,40 @@ export class MenuResolver implements Resolve<boolean> {
         } as OnClickMenuItemModel,
         shouldPersistOnRouteChange: true
       });
+    });
+  }
+
+  /**
+   * Add the DL Exporter menu item to the admin menu
+   */
+  createDLExporterMenuItem() {
+    observableCombineLatest([
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.getDLExporterURL(),
+      this.getDLExporterAccessToken()
+    ]).subscribe(([authorized, url, accesstoken]) => {
+      console.log(accesstoken);
+      const urlSegments = url.split('?');
+      const queryParamSegments = urlSegments[1].split('=');
+      this.menuService.addSection(MenuID.ADMIN,
+        {
+          id: 'loginmiur_dlexporter_url',
+          index: 15,
+          active: false,
+          visible: authorized && (hasValue(url) && url.length > 0) && (hasValue(accesstoken) && accesstoken.length > 0),
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.loginmiur_dlexporter_url',
+            disabled: false,
+            link: urlSegments[0],
+            queryParams: {
+              [queryParamSegments[0]]: queryParamSegments[1]
+            }
+          } as LinkMenuItemModel,
+          icon: 'fa-solid fa-arrows-spin',
+          shouldPersistOnRouteChange: true
+        }
+      );
     });
   }
 
@@ -973,5 +1011,26 @@ export class MenuResolver implements Resolve<boolean> {
   getObjectUrl(data) {
     const object = data.site ? data.site : data.dso?.payload;
     return object?._links?.self?.href;
+  }
+
+  /**
+   * Get the DL Exporter URL from the configuration
+   */
+  getDLExporterURL(): Observable<string> {
+   return this.configService.findByPropertyName('loginmiur.dlexporter.url').pipe(
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res?.payload?.values[0];
+      })
+    );
+  }
+
+  private getDLExporterAccessToken() {
+    return this.configService.findByPropertyName('loginmiur.dlexporter.accesstoken').pipe(
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res?.payload?.values[0];
+      })
+    );
   }
 }

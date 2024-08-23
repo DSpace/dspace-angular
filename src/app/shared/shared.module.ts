@@ -358,6 +358,7 @@ import { MetadataLinkViewPopoverComponent } from './metadata-link-view/metadata-
 import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view/metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
 import { MetadataLinkViewOrcidComponent } from './metadata-link-view/metadata-link-view-orcid/metadata-link-view-orcid.component';
 import { SwitchComponent } from './switch/switch.component';
+import {StickyPopoverDirective} from './metadata-link-view/sticky-popover.directive';
 
 const MODULES = [
   CommonModule,
@@ -625,6 +626,7 @@ const DIRECTIVES = [
   ContextHelpDirective,
   EntityIconDirective,
   MarkdownDirective,
+  StickyPopoverDirective
 ];
 
 @NgModule({
