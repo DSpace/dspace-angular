@@ -62,7 +62,8 @@ import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { SocialService } from './social/social.service';
-import { SocialModule } from './social/social.module';
+import { SocialComponent } from './social/social.component';
+
 
 @Component({
   selector: 'ds-app',
@@ -73,8 +74,8 @@ import { SocialModule } from './social/social.module';
   imports: [
     ThemedRootComponent,
     AsyncPipe,
-    SocialModule,
     NgIf,
+    SocialComponent,
   ],
 })
 export class AppComponent implements OnInit, AfterViewInit {

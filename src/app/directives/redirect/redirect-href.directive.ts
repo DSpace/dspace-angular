@@ -7,8 +7,9 @@ import { RedirectService } from '../../redirect/redirect.service';
 import { RedirectDirective } from './redirect.directive';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'a[dsRedirect],area[dsRedirect]',
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: 'a[dsRedirect],area[dsRedirect]',
+    standalone: true,
 })
 export class RedirectWithHrefDirective extends RedirectDirective {
 

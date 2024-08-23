@@ -28,11 +28,14 @@ import {
   getMetadataBoxFieldRendering,
   MetadataBoxFieldRenderOptions,
 } from '../../../rendering-types/metadata-box.decorator';
+import { CrisLayoutLoaderDirective } from '../../../../../../../directives/cris-layout-loader.directive';
 
 @Component({
-  selector: 'ds-metadata-render',
-  templateUrl: './metadata-render.component.html',
-  styleUrls: ['./metadata-render.component.scss'],
+    selector: 'ds-metadata-render',
+    templateUrl: './metadata-render.component.html',
+    styleUrls: ['./metadata-render.component.scss'],
+    standalone: true,
+    imports: [CrisLayoutLoaderDirective],
 })
 export class MetadataRenderComponent implements OnInit {
 

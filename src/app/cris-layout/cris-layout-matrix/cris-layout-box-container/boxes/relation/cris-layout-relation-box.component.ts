@@ -26,11 +26,19 @@ import { isNotEmpty } from '../../../../../shared/empty.util';
 import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
+import { ThemedConfigurationSearchPageComponent } from '../../../../../search-page/themed-configuration-search-page.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-cris-layout-search-box',
-  templateUrl: './cris-layout-relation-box.component.html',
-  styleUrls: ['./cris-layout-relation-box.component.scss'],
+    selector: 'ds-cris-layout-search-box',
+    templateUrl: './cris-layout-relation-box.component.html',
+    styleUrls: ['./cris-layout-relation-box.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        ThemedConfigurationSearchPageComponent,
+        AsyncPipe,
+    ],
 })
 @RenderCrisLayoutBoxFor(LayoutBox.RELATION)
 export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {

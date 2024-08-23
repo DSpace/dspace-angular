@@ -8,11 +8,28 @@ import {
 
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { FilterMapPipe } from '../statistics-pipes/filter-map.pipe';
+import { StatisticsChartWrapperComponent } from './statistics-chart-wrapper/statistics-chart-wrapper.component';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'ds-statistics-chart',
-  styleUrls: ['./statistics-chart.component.scss'],
-  templateUrl: './statistics-chart.component.html',
+    selector: 'ds-statistics-chart',
+    styleUrls: ['./statistics-chart.component.scss'],
+    templateUrl: './statistics-chart.component.html',
+    standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NgClass,
+    StatisticsChartWrapperComponent,
+    FilterMapPipe,
+    TranslateModule,
+    ThemedLoadingComponent,
+    RouterLink,
+  ],
 })
 
 /**

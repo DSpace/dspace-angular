@@ -142,24 +142,22 @@ describe('FacetSectionComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule,
+    imports: [CommonModule,
         BrowserModule,
         RouterTestingModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }),
-      ],
-      declarations: [FacetSectionComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }), FacetSectionComponent,],
+    providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SearchConfigurationService, useValue: searchConfigurationStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
   }));
 

@@ -98,14 +98,12 @@ xdescribe('LineChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserAnimationsModule,
         NgxChartsModule,
-      ],
-      declarations: [
         LineChartComponent,
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: 'view', useValue: view },
         { provide: 'results', useValue: results },
         { provide: 'animations', useValue: animations },
@@ -120,8 +118,8 @@ xdescribe('LineChartComponent', () => {
         { provide: 'currentPage', useValue: currentPage },
         { provide: 'type', useValue: type },
         Injector,
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

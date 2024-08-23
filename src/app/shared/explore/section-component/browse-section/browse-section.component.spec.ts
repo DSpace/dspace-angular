@@ -31,18 +31,16 @@ describe('BrowseSectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }),
-      ],
-      declarations: [BrowseSectionComponent],
-      providers: [BrowseSectionComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }), BrowseSectionComponent,],
+    providers: [BrowseSectionComponent],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
   }));
 
   beforeEach(() => {

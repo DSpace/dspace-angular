@@ -9,19 +9,17 @@ import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-trac
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [
-    CrisItemPageComponent,
-  ],
-  imports: [
-    CommonModule,
-    CrisLayoutModule,
-    ThemedLoadingComponent,
-    ThemedItemAlertsComponent,
-    ViewTrackerComponent,
-    TranslateModule,
-  ],
-  exports: [
-    CrisItemPageComponent,
-  ],
+    imports: [
+        CommonModule,
+        CrisLayoutModule,
+        ThemedLoadingComponent,
+        ThemedItemAlertsComponent,
+        ViewTrackerComponent,
+        TranslateModule,
+        CrisItemPageComponent,
+    ],
+    exports: [
+        CrisItemPageComponent,
+    ],
 })
 export class CrisItemPageModule { }

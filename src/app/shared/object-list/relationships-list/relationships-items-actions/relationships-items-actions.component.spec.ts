@@ -30,19 +30,19 @@ describe('RelationshipsItemsActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RelationshipsItemsActionsComponent ],
-      imports: [
+    declarations: [RelationshipsItemsActionsComponent],
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      providers: [
+    ],
+    providers: [
         provideMockStore({ initialState }),
-      ],
-    })
+    ],
+})
       .compileComponents();
   });
 

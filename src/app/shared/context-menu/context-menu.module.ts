@@ -62,15 +62,13 @@ const MODULE = [
   TranslateModule,
 ];
 @NgModule({
-  imports: [
-    MODULE,
-  ],
-  declarations: [
-    COMPONENTS,
-  ],
-  exports: [
-    COMPONENTS,
-  ],
+    imports: [
+        MODULE,
+        COMPONENTS,
+    ],
+    exports: [
+        COMPONENTS,
+    ],
 })
 export class ContextMenuModule {
   /**

@@ -63,21 +63,21 @@ describe('AdminEditUserAgreementComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      declarations: [AdminEditUserAgreementComponent],
-      providers: [AdminEditUserAgreementComponent,
+    ],
+    declarations: [AdminEditUserAgreementComponent],
+    providers: [AdminEditUserAgreementComponent,
         { provide: NotificationsService, useValue: notificationService },
         { provide: SiteDataService, useValue: siteService },
         { provide: ScriptDataService, useValue: scriptDataService }],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
   }));
 
   beforeEach(() => {

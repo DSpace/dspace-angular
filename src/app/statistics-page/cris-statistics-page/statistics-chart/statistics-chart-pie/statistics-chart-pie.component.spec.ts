@@ -67,15 +67,14 @@ describe('StatisticsChartPieComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [StatisticsChartPieComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), StatisticsChartPieComponent],
+    providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
         { provide: BrowserExportService, useValue: ExportServiceStub },
         { provide: 'categoryType', useValue: 'mainReports' },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(StatisticsChartPieComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).overrideComponent(StatisticsChartPieComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

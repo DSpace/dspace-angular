@@ -156,20 +156,20 @@ describe('MetadataContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      providers: [
+        MetadataContainerComponent,
+    ],
+    providers: [
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-      ],
-      declarations: [MetadataContainerComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+})
       .compileComponents();
   });
 

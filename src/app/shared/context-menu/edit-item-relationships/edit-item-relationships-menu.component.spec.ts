@@ -177,24 +177,25 @@ describe('EditItemRelationshipsMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [EditItemRelationshipsMenuComponent],
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-        RouterTestingModule.withRoutes([])],
-      providers: [
+        RouterTestingModule.withRoutes([]),
+        EditItemRelationshipsMenuComponent
+    ],
+    providers: [
         { provide: EditItemDataService, useValue: editItemDataService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: TabDataService, useValue: tabDataServiceMock },
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: notificationService },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   describe('when edit modes are available', () => {

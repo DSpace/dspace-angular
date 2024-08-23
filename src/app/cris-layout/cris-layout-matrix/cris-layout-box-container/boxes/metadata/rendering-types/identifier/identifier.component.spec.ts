@@ -78,22 +78,21 @@ describe('IdentifierComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock,
-        },
-      }), BrowserAnimationsModule],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }), BrowserAnimationsModule, IdentifierComponent],
+    providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: doiMetadataValueWithoutSubType },
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
         { provide: ResolverStrategyService, useClass: ResolverStrategyService },
-      ],
-      declarations: [IdentifierComponent],
-    })
+    ],
+})
       .compileComponents();
   }));
 

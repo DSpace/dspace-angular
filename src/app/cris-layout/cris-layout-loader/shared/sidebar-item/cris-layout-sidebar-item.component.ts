@@ -12,6 +12,7 @@ import {
   rotateNavbar,
 } from '../../../../shared/animations/rotate';
 import { slide } from '../../../../shared/animations/slide';
+import { NgClass, NgIf, NgFor } from '@angular/common';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
@@ -19,10 +20,16 @@ import { slide } from '../../../../shared/animations/slide';
  * CrisLayoutTabModelComponent decorator
  */
 @Component({
-  selector: 'ds-cris-layout-sidebar-item',
-  templateUrl: './cris-layout-sidebar-item.component.html',
-  styleUrls: ['./cris-layout-sidebar-item.component.scss'],
-  animations: [rotate, slide, rotateNavbar],
+    selector: 'ds-cris-layout-sidebar-item',
+    templateUrl: './cris-layout-sidebar-item.component.html',
+    styleUrls: ['./cris-layout-sidebar-item.component.scss'],
+    animations: [rotate, slide, rotateNavbar],
+    standalone: true,
+    imports: [
+        NgClass,
+        NgIf,
+        NgFor,
+    ],
 })
 export class CrisLayoutSidebarItemComponent {
   /**

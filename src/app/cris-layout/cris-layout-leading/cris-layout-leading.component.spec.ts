@@ -11,8 +11,8 @@ describe('CrisLayoutLeadingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrisLayoutLeadingComponent ],
-    })
+    imports: [CrisLayoutLeadingComponent],
+})
       .compileComponents();
   });
 

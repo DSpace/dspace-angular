@@ -63,27 +63,27 @@ describe('CrisStatisticsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports : [
+    imports: [
         RouterTestingModule.withRoutes([]),
         SharedModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      declarations: [ CrisStatisticsPageComponent ],
-      providers: [
+        CrisStatisticsPageComponent,
+    ],
+    providers: [
         provideMockStore({ initialState }),
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: UsageReportDataService, useValue: usageReportServiceStub },
         { provide: StatisticsCategoriesDataService, useValue: statisticsCategoriesServiceStub },
         { provide: SiteDataService, useValue: siteDataServiceStub },
         { provide: AuthService, useValue: authServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+})
       .compileComponents();
   });
 

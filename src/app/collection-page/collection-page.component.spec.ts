@@ -67,9 +67,8 @@ describe('CollectionPageComponent', () => {
     dsoNameServiceSpy = jasmine.createSpyObj('DSONameService', ['getName']);
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule],
-      declarations: [CollectionPageComponent, VarDirective],
-      providers: [
+    imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule, CollectionPageComponent, VarDirective],
+    providers: [
         { provide: ActivatedRoute, useValue: aroute },
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authServiceSpy },
@@ -77,9 +76,9 @@ describe('CollectionPageComponent', () => {
         { provide: DSONameService, useValue: dsoNameServiceSpy },
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
-      ],
-      schemas: [ NO_ERRORS_SCHEMA ],
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+})
       .compileComponents();
   });
 

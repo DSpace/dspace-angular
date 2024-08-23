@@ -3,7 +3,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -18,15 +18,24 @@ import {
   MetadataBoxFieldRendering,
 } from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders the text metadata fields
  */
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'span[ds-orcid]',
-  templateUrl: './orcid.component.html',
-  styleUrls: ['./orcid.component.scss'],
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'span[ds-orcid]',
+    templateUrl: './orcid.component.html',
+    styleUrls: ['./orcid.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgbTooltipModule,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.ORCID)
 export class OrcidComponent extends RenderingTypeValueModelComponent implements OnInit {

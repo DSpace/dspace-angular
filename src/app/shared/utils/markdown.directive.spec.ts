@@ -13,9 +13,10 @@ import { MockMathService } from '../../core/shared/math.service.spec';
 import { MarkdownDirective } from './markdown.directive';
 
 @Component({
-  template: `<div dsMarkdown="test"></div>`,
-  standalone: true,
-  imports: [ MarkdownDirective ],
+    template: `<div dsMarkdown="test"></div>`,
+    standalone: true,
+    imports: [MarkdownDirective],
+    standalone: true,
 })
 class TestComponent {}
 
@@ -26,11 +27,11 @@ describe('MarkdownDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TestComponent, MarkdownDirective ],
-      providers: [
+    imports: [TestComponent, MarkdownDirective],
+    providers: [
         { provide: MathService, useClass: MockMathService },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
     spyOn(MarkdownDirective.prototype, 'render');
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;

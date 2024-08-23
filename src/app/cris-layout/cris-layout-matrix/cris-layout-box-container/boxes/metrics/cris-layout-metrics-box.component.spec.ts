@@ -94,27 +94,23 @@ describe('CrisLayoutMetricsBoxComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock,
-        },
-      }),
-      BrowserAnimationsModule,
-      ],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }),
+        BrowserAnimationsModule, CrisLayoutMetricsBoxComponent,
+        CrisLayoutLoaderDirective,
+        TextComponent,],
+    providers: [
         { provide: MetricsComponentsService, useClass: MetricsComponentsDataServiceMock },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: 'boxProvider', useClass: boxMetrics },
         { provide: 'itemProvider', useClass: { metrics: [metric1Mock, metric2Mock] } },
-      ],
-      declarations: [
-        CrisLayoutMetricsBoxComponent,
-        CrisLayoutLoaderDirective,
-        TextComponent,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(CrisLayoutMetricsBoxComponent, {}).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).overrideComponent(CrisLayoutMetricsBoxComponent, {}).compileComponents();
   }));
 
   beforeEach(() => {

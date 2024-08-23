@@ -5,7 +5,10 @@ import {
 
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 
-@Pipe({ name: 'dsFilterMap' })
+@Pipe({
+    name: 'dsFilterMap',
+    standalone: true
+})
 
 export class FilterMapPipe implements PipeTransform {
 

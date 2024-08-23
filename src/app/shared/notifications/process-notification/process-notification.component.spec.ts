@@ -68,25 +68,26 @@ xdescribe('ProcessNotificationComponent', () => {
     } as any;
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        })],
-      declarations: [ProcessNotificationComponent], // declare the test component
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }),
+        ProcessNotificationComponent
+    ], // declare the test component
+    providers: [
         { provide: Store, useValue: store },
         { provide: ProcessDataService, useValue: processService },
         ChangeDetectorRef,
         NotificationsService,
         TranslateService,
-      ],
-    }).compileComponents();  // compile template and css
+    ],
+}).compileComponents();  // compile template and css
 
   }));
 

@@ -8,7 +8,7 @@ import { ExpandableAdminSidebarSectionComponent } from './admin/admin-sidebar/ex
 import { ThemedAdminSidebarComponent } from './admin/admin-sidebar/themed-admin-sidebar.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.component';
-import { FooterModule } from './footer/footer.module';
+
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { ContextHelpToggleComponent } from './header/context-help-toggle/context-help-toggle.component';
@@ -24,19 +24,16 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { RootComponent } from './root/root.component';
 import { ThemedRootComponent } from './root/themed-root.component';
-import { ExploreModule } from './shared/explore/explore.module';
+
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { ProcessNotificationComponent } from './shared/notifications/process-notification/process-notification.component';
-import { SocialModule } from './social/social.module';
+
 
 const IMPORTS = [
-  CommonModule,
-  NgbModule,
-  ExploreModule,
-  FooterModule,
-  SocialModule,
+    CommonModule,
+    NgbModule,
 ];
 
 const PROVIDERS = [

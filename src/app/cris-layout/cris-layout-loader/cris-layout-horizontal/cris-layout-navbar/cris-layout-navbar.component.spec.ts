@@ -57,22 +57,22 @@ describe('CrisLayoutNavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserAnimationsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      declarations: [CrisLayoutNavbarComponent],
-      providers: [
+        CrisLayoutNavbarComponent,
+    ],
+    providers: [
         { provide: HostWindowService, useValue: windowServiceStub },
         { provide: Router, useClass: RouterStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-      ],
-    })
+    ],
+})
       .compileComponents();
   });
 

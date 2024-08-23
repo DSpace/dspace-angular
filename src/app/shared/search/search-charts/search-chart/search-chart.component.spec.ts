@@ -59,15 +59,14 @@ describe('SearchChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
-      declarations: [SearchChartComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchChartComponent],
+    providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SearchFilterService, useValue: mockFilterService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(SearchChartComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).overrideComponent(SearchChartComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

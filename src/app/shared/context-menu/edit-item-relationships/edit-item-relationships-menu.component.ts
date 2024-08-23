@@ -4,7 +4,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalRef, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   BehaviorSubject,
   Observable,
@@ -38,13 +38,25 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders a context menu option that provides the links to edit item page.
  */
 @Component({
-  selector: 'ds-context-menu-edit-item-relationships',
-  templateUrl: './edit-item-relationships-menu.component.html',
+    selector: 'ds-context-menu-edit-item-relationships',
+    templateUrl: './edit-item-relationships-menu.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        NgbDropdownModule,
+        RouterLink,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponent implements OnInit, OnDestroy {

@@ -18,6 +18,10 @@ import {
 import { renderChartFor } from '../../cris-statistics-element-decorator';
 import { StatisticsType } from '../../statistics-type.model';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
+import { ChartComponent } from '../../../../charts/components/chart/chart.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders a simple item page.
@@ -25,9 +29,17 @@ import { StatisticsChartDataComponent } from '../statistics-chart-data/statistic
  * All fields of the item that should be displayed, are defined in its template.
  */
 @Component({
-  selector: 'ds-statistics-chart-pie',
-  styleUrls: ['./statistics-chart-pie.component.scss'],
-  templateUrl: './statistics-chart-pie.component.html',
+    selector: 'ds-statistics-chart-pie',
+    styleUrls: ['./statistics-chart-pie.component.scss'],
+    templateUrl: './statistics-chart-pie.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        ChartComponent,
+        AlertComponent,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 
 /**

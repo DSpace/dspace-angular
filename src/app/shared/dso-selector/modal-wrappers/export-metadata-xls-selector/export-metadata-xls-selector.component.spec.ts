@@ -44,17 +44,15 @@ import { ExportMetadataXlsSelectorComponent } from './export-metadata-xls-select
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
-  imports: [NgbModalModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useClass: TranslateLoaderMock,
-      },
-    }),
-  ],
-  exports: [],
-  declarations: [ConfirmationModalComponent],
-  providers: [],
+    imports: [NgbModalModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }), ConfirmationModalComponent,],
+    exports: [],
+    providers: [],
 })
 class ModelTestModule {
 }
@@ -104,30 +102,29 @@ describe('ExportMetadataXlsSelectorComponent', () => {
       },
     );
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
-      declarations: [ExportMetadataXlsSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportMetadataXlsSelectorComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            root: {
-              snapshot: {
-                data: {
-                  dso: itemRD,
+            provide: ActivatedRoute,
+            useValue: {
+                root: {
+                    snapshot: {
+                        data: {
+                            dso: itemRD,
+                        },
+                    },
                 },
-              },
             },
-          },
         },
         {
-          provide: Router, useValue: router,
+            provide: Router, useValue: router,
         },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
   }));
 

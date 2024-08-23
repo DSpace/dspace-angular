@@ -10,12 +10,12 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
-import { FooterModule } from '../../app/footer/footer.module';
-import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
+
+
 import { RootModule } from '../../app/root.module';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
-import { ExploreModule } from '../../app/shared/explore/explore.module';
-import { SocialModule } from '../../app/social/social.module';
+
+
 
 const DECLARATIONS = [
 ];
@@ -35,11 +35,7 @@ const DECLARATIONS = [
     TranslateModule,
     FormsModule,
     ContextMenuModule,
-    MiradorViewerModule,
-    FooterModule,
-    ExploreModule,
-    SocialModule,
-  ],
+],
   declarations: DECLARATIONS,
 })
 

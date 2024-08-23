@@ -103,25 +103,25 @@ describe('ValuepairComponent', () => {
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [
-          TranslateModule.forRoot({
+    imports: [
+        TranslateModule.forRoot({
             loader: {
-              provide: TranslateLoader,
-              useClass: TranslateLoaderMock,
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
             },
-          }),
-        ],
-        declarations: [ValuepairComponent, DsDatePipe],
-        providers: [
-          { provide: VocabularyService, useValue: vocabularyServiceSpy },
-          { provide: AuthService, useValue: authService },
-          { provide: 'fieldProvider', useValue: testField1 },
-          { provide: 'itemProvider', useValue: testItem1 },
-          { provide: 'metadataValueProvider', useValue: { value: 'it', authority: null } },
-          { provide: 'renderingSubTypeProvider', useValue: VOCABULARY_NAME_1 },
-          { provide: 'tabNameProvider', useValue: '' },
-        ],
-      }).compileComponents();
+        }),
+        ValuepairComponent, DsDatePipe,
+    ],
+    providers: [
+        { provide: VocabularyService, useValue: vocabularyServiceSpy },
+        { provide: AuthService, useValue: authService },
+        { provide: 'fieldProvider', useValue: testField1 },
+        { provide: 'itemProvider', useValue: testItem1 },
+        { provide: 'metadataValueProvider', useValue: { value: 'it', authority: null } },
+        { provide: 'renderingSubTypeProvider', useValue: VOCABULARY_NAME_1 },
+        { provide: 'tabNameProvider', useValue: '' },
+    ],
+}).compileComponents();
 
       vocabularyService = TestBed.inject(VocabularyService);
 
@@ -151,25 +151,25 @@ describe('ValuepairComponent', () => {
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [
-          TranslateModule.forRoot({
+    imports: [
+        TranslateModule.forRoot({
             loader: {
-              provide: TranslateLoader,
-              useClass: TranslateLoaderMock,
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
             },
-          }),
-        ],
-        declarations: [ValuepairComponent, DsDatePipe],
-        providers: [
-          { provide: VocabularyService, useValue: vocabularyServiceSpy },
-          { provide: AuthService, useValue: authService },
-          { provide: 'fieldProvider', useValue: testField2 },
-          { provide: 'itemProvider', useValue: testItem2 },
-          { provide: 'metadataValueProvider', useValue: { value: undefined, authority: VOCABULARY_NAME_2 + ':asd' } },
-          { provide: 'renderingSubTypeProvider', useValue: VOCABULARY_NAME_2 },
-          { provide: 'tabNameProvider', useValue: '' },
-        ],
-      }).compileComponents();
+        }),
+        ValuepairComponent, DsDatePipe,
+    ],
+    providers: [
+        { provide: VocabularyService, useValue: vocabularyServiceSpy },
+        { provide: AuthService, useValue: authService },
+        { provide: 'fieldProvider', useValue: testField2 },
+        { provide: 'itemProvider', useValue: testItem2 },
+        { provide: 'metadataValueProvider', useValue: { value: undefined, authority: VOCABULARY_NAME_2 + ':asd' } },
+        { provide: 'renderingSubTypeProvider', useValue: VOCABULARY_NAME_2 },
+        { provide: 'tabNameProvider', useValue: '' },
+    ],
+}).compileComponents();
 
       vocabularyService = TestBed.inject(VocabularyService);
 

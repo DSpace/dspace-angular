@@ -305,16 +305,14 @@ describe('DuplicateMatchComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        DuplicateMatchComponent,
         TestComponent,
-      ],
-      providers: [
+    ],
+    declarations: [DuplicateMatchComponent],
+    providers: [
         { provide: DetectDuplicateService, useClass: getMockDetectDuplicateService },
         FormBuilder,
         NgbModal,
@@ -323,9 +321,9 @@ describe('DuplicateMatchComponent test suite', () => {
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         provideMockStore({ initialState }),
         DuplicateMatchComponent,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -489,8 +487,11 @@ describe('DuplicateMatchComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``,
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [BrowserModule,
+        CommonModule],
 })
 class TestComponent {
   match = matchWorkflowMock;

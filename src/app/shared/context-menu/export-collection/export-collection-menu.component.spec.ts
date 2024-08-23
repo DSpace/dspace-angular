@@ -62,16 +62,16 @@ describe('ExportCollectionMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ ExportCollectionMenuComponent ],
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      providers: [
+        ExportCollectionMenuComponent,
+    ],
+    providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.COLLECTION },
         { provide: AuthorizationDataService, useValue: authorizationService },
@@ -80,8 +80,8 @@ describe('ExportCollectionMenuComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: ScriptDataService, useValue: scriptDataService },
         { provide: NotificationsService, useValue: notificationService },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -782,28 +782,27 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
-        providers: [
-          { provide: NotificationsService, useValue: notificationsService },
-          { provide: DynamicFormService, useValue: formService },
-          {
+    imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
+    providers: [
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: DynamicFormService, useValue: formService },
+        {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
-              snapshot: { queryParams: {} },
+                data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+                snapshot: { queryParams: {} },
             },
-          },
-          { provide: BitstreamDataService, useValue: bitstreamService },
-          { provide: DSONameService, useValue: dsoNameService },
-          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
-          { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          { provide: VocabularyService, useValue: mockVocabularyService },
-          { provide: RequestService, useValue: mockRequestService },
-          ChangeDetectorRef,
-        ],
-        schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+        },
+        { provide: BitstreamDataService, useValue: bitstreamService },
+        { provide: DSONameService, useValue: dsoNameService },
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+        { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+        { provide: VocabularyService, useValue: mockVocabularyService },
+        { provide: RequestService, useValue: mockRequestService },
+        ChangeDetectorRef,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
     }));
     describe('when there are vocabulary entries', () =>{
@@ -913,28 +912,27 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
-        providers: [
-          { provide: NotificationsService, useValue: notificationsService },
-          { provide: DynamicFormService, useValue: formService },
-          {
+    imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
+    providers: [
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: DynamicFormService, useValue: formService },
+        {
             provide: ActivatedRoute,
             useValue: {
-              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
-              snapshot: { queryParams: {} },
+                data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+                snapshot: { queryParams: {} },
             },
-          },
-          { provide: BitstreamDataService, useValue: bitstreamService },
-          { provide: DSONameService, useValue: dsoNameService },
-          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
-          { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          { provide: VocabularyService, useValue: mockVocabularyService },
-          { provide: RequestService, useValue: mockRequestService },
-          ChangeDetectorRef,
-        ],
-        schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+        },
+        { provide: BitstreamDataService, useValue: bitstreamService },
+        { provide: DSONameService, useValue: dsoNameService },
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+        { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+        { provide: VocabularyService, useValue: mockVocabularyService },
+        { provide: RequestService, useValue: mockRequestService },
+        ChangeDetectorRef,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
     }));
     describe('when there are no vocabulary entries', () =>{

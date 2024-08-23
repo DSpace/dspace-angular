@@ -34,14 +34,14 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: COMPONENTS,
-  imports: [
-    ...IMPORTS,
-    TranslateModule,
-    AlertComponent,
-  ],
-  exports : COMPONENTS,
-  schemas: [ NO_ERRORS_SCHEMA ],
+    imports: [
+        ...IMPORTS,
+        TranslateModule,
+        AlertComponent,
+        ...COMPONENTS,
+    ],
+    exports: COMPONENTS,
+    schemas: [NO_ERRORS_SCHEMA],
 })
 export class StatisticsChartModule {
   /**

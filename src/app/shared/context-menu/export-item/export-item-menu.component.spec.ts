@@ -49,23 +49,23 @@ describe('ExportItemMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ ExportItemMenuComponent ],
-      imports: [
+    imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      providers: [
+        ExportItemMenuComponent,
+    ],
+    providers: [
         { provide: ItemExportService, useValue: itemExportService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: NgbModal, useValue: ngbModal },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

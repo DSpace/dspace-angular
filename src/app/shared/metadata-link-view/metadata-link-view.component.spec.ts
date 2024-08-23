@@ -101,15 +101,15 @@ describe('MetadataLinkViewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         NgbTooltipModule,
         RouterTestingModule,
-      ],
-      declarations: [MetadataLinkViewComponent, EntityIconDirective, VarDirective],
-      providers: [
+        MetadataLinkViewComponent, EntityIconDirective, VarDirective,
+    ],
+    providers: [
         { provide: ItemDataService, useValue: itemService },
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

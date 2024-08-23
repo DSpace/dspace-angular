@@ -25,14 +25,24 @@ import {
 } from '../core/shared/operators';
 import { isNotEmpty } from '../shared/empty.util';
 import { PaginatedList } from './../core/data/paginated-list.model';
+import { CrisLayoutLoaderComponent } from './cris-layout-loader/cris-layout-loader.component';
+import { CrisLayoutLeadingComponent } from './cris-layout-leading/cris-layout-leading.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
  */
 @Component({
-  selector: 'ds-cris-layout',
-  templateUrl: './cris-layout.component.html',
-  styleUrls: ['./cris-layout.component.scss'],
+    selector: 'ds-cris-layout',
+    templateUrl: './cris-layout.component.html',
+    styleUrls: ['./cris-layout.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        CrisLayoutLeadingComponent,
+        CrisLayoutLoaderComponent,
+        AsyncPipe,
+    ],
 })
 export class CrisLayoutComponent implements OnInit {
 

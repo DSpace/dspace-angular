@@ -12,13 +12,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
-import { FooterModule } from '../../app/footer/footer.module';
-import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
+
+
 import { RootModule } from '../../app/root.module';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
-import { ExploreModule } from '../../app/shared/explore/explore.module';
-import { MarkdownViewerModule } from '../../app/shared/markdown-viewer/markdown-viewer.module';
-import { SocialModule } from '../../app/social/social.module';
+
+
+
 import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
@@ -224,13 +224,8 @@ const DECLARATIONS = [
     ContextMenuModule,
     CrisItemPageModule,
     CrisStatisticsPageModule,
-    MiradorViewerModule,
-    FooterModule,
-    ExploreModule,
-    SocialModule,
-    MarkdownViewerModule,
     ...DECLARATIONS,
-  ],
+],
   exports: [
     CommunityPageSubCollectionListComponent,
     ConfigurationSearchPageComponent,

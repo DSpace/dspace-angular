@@ -30,17 +30,15 @@ xdescribe('SearchChartFilterWrapperComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserAnimationsModule,
-      ],
-      declarations: [
         SearchChartFilterWrapperComponent,
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: FILTER_CONFIG, userValue: mockFilterConfig },
         { provide: IN_PLACE_SEARCH, userValue: inPlaceSearch },
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

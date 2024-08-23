@@ -3,7 +3,7 @@ import {
   Inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -23,13 +23,20 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders a context menu option that provides to export an item.
  */
 @Component({
-  selector: 'ds-context-menu-export-item',
-  templateUrl: './export-collection-menu.component.html',
+    selector: 'ds-context-menu-export-item',
+    templateUrl: './export-collection-menu.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
 export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {

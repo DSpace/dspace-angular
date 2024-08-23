@@ -13,11 +13,9 @@ describe('EntityIconDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        EntityIconDirective,
-        TestComponent,
-      ],
-    })
+    imports: [EntityIconDirective,
+        TestComponent],
+})
       .compileComponents();
   });
 
@@ -106,13 +104,14 @@ describe('EntityIconDirective', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: `<div [attr.data-test]="'entityTestComponent'">
+    selector: 'ds-test-cmp',
+    template: `<div [attr.data-test]="'entityTestComponent'">
               <span dsEntityIcon
                    [iconPosition]="iconPosition"
                    [entityType]="metadata.entityType"
                    [entityStyle]="metadata.entityStyle"
                    [fallbackOnDefault]="fallbackOnDefault">{{metadata.value}}</span></div>`,
+    standalone: true,
 })
 class TestComponent {
 

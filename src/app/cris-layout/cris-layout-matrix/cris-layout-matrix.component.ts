@@ -5,11 +5,19 @@ import {
 
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { Item } from '../../core/shared/item.model';
+import { CrisLayoutBoxContainerComponent } from './cris-layout-box-container/cris-layout-box-container.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'ds-cris-layout-matrix',
-  templateUrl: './cris-layout-matrix.component.html',
-  styleUrls: ['./cris-layout-matrix.component.scss'],
+    selector: 'ds-cris-layout-matrix',
+    templateUrl: './cris-layout-matrix.component.html',
+    styleUrls: ['./cris-layout-matrix.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        CrisLayoutBoxContainerComponent,
+    ],
 })
 export class CrisLayoutMatrixComponent {
 

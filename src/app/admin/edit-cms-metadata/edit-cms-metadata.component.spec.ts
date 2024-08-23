@@ -46,22 +46,22 @@ describe('EditCmsMetadataComponent', () => {
   ]);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      declarations: [EditCmsMetadataComponent],
-      providers: [
+    ],
+    declarations: [EditCmsMetadataComponent],
+    providers: [
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SiteDataService, useValue: siteServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -17,18 +17,17 @@ describe('ExternalLoginEmailConfirmationPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        ExternalLoginEmailConfirmationPageComponent,
-        ConfirmationSentComponent ],
-      imports: [
+    declarations: [ExternalLoginEmailConfirmationPageComponent,
+        ConfirmationSentComponent],
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-    })
+    ],
+})
       .compileComponents();
   });
 

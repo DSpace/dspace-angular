@@ -12,8 +12,9 @@ describe('RelationshipsItemsListPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RelationshipsItemsListPreviewComponent, VarDirective ],
-    })
+    imports: [VarDirective],
+    declarations: [RelationshipsItemsListPreviewComponent],
+})
       .compileComponents();
   });
 

@@ -15,13 +15,23 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component renders a context menu option that provides to export an item.
  */
 @Component({
-  selector: 'ds-context-menu-audit-item',
-  templateUrl: './bulk-import-menu.component.html',
+    selector: 'ds-context-menu-audit-item',
+    templateUrl: './bulk-import-menu.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        RouterLink,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
 export class BulkImportMenuComponent extends ContextMenuEntryComponent implements OnInit {

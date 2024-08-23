@@ -29,13 +29,13 @@ describe('MetadataLinkViewAvatarPopoverComponent', () => {
       retrieveFileDownloadLink: null,
     });
     TestBed.configureTestingModule({
-      declarations: [ MetadataLinkViewAvatarPopoverComponent ],
-      providers: [
+    imports: [MetadataLinkViewAvatarPopoverComponent],
+    providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FileService, useValue: fileService },
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

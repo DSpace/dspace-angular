@@ -22,25 +22,19 @@ describe('CrisLayoutSidebarItemComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock,
-        },
-      }),
-      NoopAnimationsModule,
-        // BrowserAnimationsModule
-      ],
-      declarations: [
-        CrisLayoutSidebarItemComponent,
-        CrisLayoutLoaderDirective,
-        // CrisLayoutMetadataBoxComponent
-      ],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }),
+        NoopAnimationsModule, CrisLayoutSidebarItemComponent,
+        CrisLayoutLoaderDirective,],
+    providers: [
         { provide: BitstreamDataService, useValue: {} },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
   }));
 
   beforeEach(() => {

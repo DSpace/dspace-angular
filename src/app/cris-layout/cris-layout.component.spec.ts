@@ -61,20 +61,19 @@ describe('CrisLayoutComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock,
-        },
-      }), BrowserAnimationsModule],
-      declarations: [CrisLayoutComponent],
-      providers: [
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }), BrowserAnimationsModule, CrisLayoutComponent],
+    providers: [
         { provide: TabDataService, useValue: tabDataServiceMock },
         { provide: ChangeDetectorRef, useValue: {} },
         { provide: ActivatedRoute, useValue: route },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,11 +8,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import {
-  NgbDate,
-  NgbDateParserFormatter,
-  NgbDateStruct,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateParserFormatter, NgbDateStruct, NgbDatepickerModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   select,
   Store,
@@ -52,11 +48,34 @@ import {
   getReportId,
 } from '../../core/statistics/statistics-selector';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { FilterMapPipe } from './statistics-pipes/filter-map.pipe';
+import { StatisticsChartComponent } from './statistics-chart/statistics-chart.component';
+import { StatisticsMapComponent } from './statistics-map/statistics-map.component';
+import { FormsModule } from '@angular/forms';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-cris-statistics-page',
-  templateUrl: './cris-statistics-page.component.html',
-  styleUrls: ['./cris-statistics-page.component.scss'],
+    selector: 'ds-cris-statistics-page',
+    templateUrl: './cris-statistics-page.component.html',
+    styleUrls: ['./cris-statistics-page.component.scss'],
+    standalone: true,
+    imports: [
+        VarDirective,
+        NgIf,
+        ThemedLoadingComponent,
+        NgbDatepickerModule,
+        FormsModule,
+        NgbNavModule,
+        NgFor,
+        StatisticsMapComponent,
+        StatisticsChartComponent,
+        AsyncPipe,
+        FilterMapPipe,
+        TranslateModule,
+    ],
 })
 export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
 

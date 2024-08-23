@@ -188,19 +188,17 @@ describe('DsDynamicRelationGroupModelComponent test suite', () => {
 
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
         StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         FormComponent,
         DsDynamicRelationGroupModalComponent,
-      ], // declare the test component
-      providers: [
+    ], // declare the test component
+    providers: [
         ChangeDetectorRef,
         DynamicFormValidationService,
         DynamicFormLayoutService,
@@ -212,9 +210,9 @@ describe('DsDynamicRelationGroupModelComponent test suite', () => {
         { provide: Store, useClass: StoreMock },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: NgbActiveModal, useValue: modal },
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+});
 
   }));
 

@@ -39,28 +39,27 @@ describe('BulkImportSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [BulkImportSelectorComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), BulkImportSelectorComponent],
+    providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            root: {
-              snapshot: {
-                data: {
-                  dso: collectionRD,
+            provide: ActivatedRoute,
+            useValue: {
+                root: {
+                    snapshot: {
+                        data: {
+                            dso: collectionRD,
+                        },
+                    },
                 },
-              },
             },
-          },
         },
         {
-          provide: Router, useValue: router,
+            provide: Router, useValue: router,
         },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
   }));
 

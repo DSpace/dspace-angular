@@ -12,8 +12,8 @@ describe('EditMetadataSecurityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EditMetadataSecurityComponent],
-    })
+    imports: [EditMetadataSecurityComponent],
+})
       .compileComponents();
   });
 

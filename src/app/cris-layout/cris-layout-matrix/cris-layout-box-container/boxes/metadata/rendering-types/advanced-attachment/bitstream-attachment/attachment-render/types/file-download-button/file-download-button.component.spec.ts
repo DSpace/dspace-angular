@@ -59,20 +59,21 @@ describe('FileDownloadButtonComponent', () => {
     init();
 
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        })],
-      declarations: [FileDownloadButtonComponent],
-      providers: [
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }),
+        FileDownloadButtonComponent
+    ],
+    providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
-      ],
-    })
+    ],
+})
       .compileComponents();
   });
   beforeEach(() => {

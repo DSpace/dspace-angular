@@ -85,20 +85,18 @@ describe('ComcolPageBrowseByComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }),
-      ],
-      declarations: [ComcolPageBrowseByComponent],
-      providers: [ComcolPageBrowseByComponent,
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }), ComcolPageBrowseByComponent,],
+    providers: [ComcolPageBrowseByComponent,
         { provide: ConfigurationDataService, useValue: configurationServiceStub },
         { provide: CollectionDataService, useValue: collectionServiceStub }],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
   }));
 

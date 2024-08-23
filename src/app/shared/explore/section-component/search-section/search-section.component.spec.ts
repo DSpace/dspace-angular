@@ -79,21 +79,19 @@ describe('SearchSectionComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }),
-      ],
-      declarations: [SearchSectionComponent],
-      providers: [SearchSectionComponent,
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }), SearchSectionComponent,],
+    providers: [SearchSectionComponent,
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SearchConfigurationService, useValue: searchConfigurationStub },
         { provide: Router, useValue: router }],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
 
   }));
 

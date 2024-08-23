@@ -54,22 +54,22 @@ describe('FullItemMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ FullItemMenuComponent ],
-      imports: [
+    imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      providers: [
+        FullItemMenuComponent,
+    ],
+    providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: AuthService, useValue: authServiceStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
     router = TestBed.inject(Router);
   }));
 

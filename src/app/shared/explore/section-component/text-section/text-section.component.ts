@@ -12,7 +12,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TextRowSection } from '../../../../core/layout/models/section.model';
 import { LocaleService } from '../../../../core/locale/locale.service';
 import { Site } from '../../../../core/shared/site.model';
-import { MarkdownViewerModule } from '../../../markdown-viewer/markdown-viewer.module';
+import { MarkdownViewerComponent } from '../../../markdown-viewer/markdown-viewer.component';
+
 
 @Component({
   selector: 'ds-base-text-section',
@@ -22,9 +23,9 @@ import { MarkdownViewerModule } from '../../../markdown-viewer/markdown-viewer.m
   imports: [
     NgSwitch,
     NgSwitchCase,
-    MarkdownViewerModule,
     NgTemplateOutlet,
     TranslateModule,
+    MarkdownViewerComponent,
   ],
 })
 export class TextSectionComponent {

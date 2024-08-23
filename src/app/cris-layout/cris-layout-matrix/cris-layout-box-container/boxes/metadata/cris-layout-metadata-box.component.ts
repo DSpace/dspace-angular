@@ -17,14 +17,18 @@ import { hasValue } from '../../../../../shared/empty.util';
 import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
+import { RowComponent } from './row/row.component';
+import { NgFor } from '@angular/common';
 
 /**
  * This component renders the metadata boxes of items
  */
 @Component({
-  selector: 'ds-cris-layout-metadata-box',
-  templateUrl: './cris-layout-metadata-box.component.html',
-  styleUrls: ['./cris-layout-metadata-box.component.scss'],
+    selector: 'ds-cris-layout-metadata-box',
+    templateUrl: './cris-layout-metadata-box.component.html',
+    styleUrls: ['./cris-layout-metadata-box.component.scss'],
+    standalone: true,
+    imports: [NgFor, RowComponent],
 })
 /**
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and

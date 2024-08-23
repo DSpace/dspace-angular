@@ -147,20 +147,18 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
     init();
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
         StoreModule.forRoot({}),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         FormComponent,
         DsDynamicRelationInlineGroupComponent,
         TestComponent,
-      ], // declare the test component
-      providers: [
+    ], // declare the test component
+    providers: [
         ChangeDetectorRef,
         DsDynamicRelationInlineGroupComponent,
         DynamicFormValidationService,
@@ -170,9 +168,9 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         FormService,
         { provide: Store, useClass: StoreMock },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    });
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+});
 
   }));
 
@@ -657,8 +655,12 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-cmp',
-  template: ``,
+    selector: 'ds-test-cmp',
+    template: ``,
+    standalone: true,
+    imports: [FormsModule,
+        ReactiveFormsModule,
+        NgbModule,],
 })
 class TestComponent {
 

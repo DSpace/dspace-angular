@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgbAccordionModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { MiradorViewerModule } from '../item-page/mirador-viewer/mirador-viewer.module';
+
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { MetricsModule } from '../shared/metric/metrics.module';
 import { CrisLayoutComponent } from './cris-layout.component';
@@ -85,7 +85,26 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [
+    imports: [
+    CommonModule,
+    ContextMenuModule.withEntryComponents(),
+    NgbAccordionModule,
+    MetricsModule,
+    AttachmentRenderingModule,
+    TranslateModule,
+    RouterLink,
+    MiradorViewerComponent,
+    ThemedThumbnailComponent,
+    TruncatableComponent,
+    TruncatablePartComponent,
+    FileSizePipe,
+    ThemedConfigurationSearchPageComponent,
+    ThemedLoadingComponent,
+    ChipsComponent,
+    NgbTooltipModule,
+    MetadataLinkViewComponent,
+    ThemedFileDownloadLinkComponent,
+    ComcolPageHeaderComponent,
     ...ENTRY_COMPONENTS,
     CrisLayoutLoaderDirective,
     CrisLayoutComponent,
@@ -108,33 +127,11 @@ const ENTRY_COMPONENTS = [
     MetadataRenderComponent,
     BitstreamAttachmentComponent,
     AttachmentRenderComponent,
-  ],
-  imports: [
-    CommonModule,
-    ContextMenuModule.withEntryComponents(),
-    NgbAccordionModule,
-    MiradorViewerModule,
-    MetricsModule,
-    AttachmentRenderingModule,
-    TranslateModule,
-    RouterLink,
-    MiradorViewerComponent,
-    ThemedThumbnailComponent,
-    TruncatableComponent,
-    TruncatablePartComponent,
-    FileSizePipe,
-    ThemedConfigurationSearchPageComponent,
-    ThemedLoadingComponent,
-    ChipsComponent,
-    NgbTooltipModule,
-    MetadataLinkViewComponent,
-    ThemedFileDownloadLinkComponent,
-    ComcolPageHeaderComponent,
-  ],
-  exports: [
-    CrisLayoutComponent,
-    CrisrefComponent,
-  ],
+],
+    exports: [
+        CrisLayoutComponent,
+        CrisrefComponent,
+    ],
 })
 export class CrisLayoutModule {
   /**

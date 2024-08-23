@@ -84,15 +84,14 @@ describe('StatisticsTableComponent', () => {
   };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [StatisticsTableComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), StatisticsTableComponent],
+    providers: [
         { provide: REPORT_DATA, useValue: report },
         { provide: BrowserExportService, useValue: ExportServiceStub },
         { provide: 'categoryType', useValue: 'mainReports' },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(StatisticsTableComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).overrideComponent(StatisticsTableComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   });

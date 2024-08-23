@@ -41,15 +41,15 @@ describe('AuditOverviewComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [AuditOverviewComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
+    declarations: [AuditOverviewComponent],
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective],
+    providers: [
         { provide: AuditDataService, useValue: auditService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
   }));
 
   describe('if the current user is an admin', () => {

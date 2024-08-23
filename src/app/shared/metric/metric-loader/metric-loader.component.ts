@@ -24,12 +24,16 @@ import {
 import { hasValue } from '../../empty.util';
 import { BaseMetricComponent } from './base-metric.component';
 import { MetricLoaderService } from './metric-loader.service';
+import { MetricStyleConfigPipe } from '../pipes/metric-style-config/metric-style-config.pipe';
+import { NgClass } from '@angular/common';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'ds-metric-loader',
-  templateUrl: './metric-loader.component.html',
-  styleUrls: ['./metric-loader.component.scss'],
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'ds-metric-loader',
+    templateUrl: './metric-loader.component.html',
+    styleUrls: ['./metric-loader.component.scss'],
+    standalone: true,
+    imports: [NgClass, MetricStyleConfigPipe],
 })
 export class MetricLoaderComponent implements OnInit, OnDestroy {
 

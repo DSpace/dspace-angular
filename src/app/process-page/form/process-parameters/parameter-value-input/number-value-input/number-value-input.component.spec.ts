@@ -21,18 +21,18 @@ describe('NumberValueInputComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        })],
-      declarations: [NumberValueInputComponent],
-      providers: [
-      ],
-    })
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }),
+        NumberValueInputComponent
+    ],
+    providers: [],
+})
       .compileComponents();
   }));
 

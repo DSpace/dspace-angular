@@ -51,20 +51,20 @@ const relationshipPaginatedListEmptyRD = createSuccessfulRemoteDataObject(relati
 describe('ItemCorrectionComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      declarations: [ItemCorrectionComponent],
-      providers: [
+        ItemCorrectionComponent,
+    ],
+    providers: [
         { provide: RelationshipDataService, useValue: mockRelationshipService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(ItemCorrectionComponent, {
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).overrideComponent(ItemCorrectionComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

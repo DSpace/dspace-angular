@@ -16,14 +16,13 @@ describe('MetricEmbeddedViewComponent', () => {
   let fixture: ComponentFixture<MetricEmbeddedViewComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock,
-        },
-      })],
-      declarations: [MetricEmbeddedViewComponent],
-    })
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }), MetricEmbeddedViewComponent],
+})
       .compileComponents();
   });
 

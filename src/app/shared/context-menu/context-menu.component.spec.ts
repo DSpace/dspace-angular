@@ -107,17 +107,17 @@ describe('ContextMenuComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
         NgbDropdownModule,
-      ],
-      declarations: [ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent],
-      providers: [
+        ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent,
+    ],
+    providers: [
         provideMockStore({ initialState }),
         { provide: ItemExportService, useValue: itemExportService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
@@ -127,9 +127,9 @@ describe('ContextMenuComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         Injector,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideModule(BrowserDynamicTestingModule, {});
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).overrideModule(BrowserDynamicTestingModule, {});
   }));
 
   beforeEach(() => {
@@ -284,9 +284,11 @@ describe('ContextMenuComponent', () => {
 
 // declare a test component
 @Component({
-  selector: 'ds-test-menu-entry',
-  template: `
+    selector: 'ds-test-menu-entry',
+    template: `
     <button class="dropdown-item">test menu item</button>`,
+    standalone: true,
+    imports: [NgbDropdownModule],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
 class TestComponent {

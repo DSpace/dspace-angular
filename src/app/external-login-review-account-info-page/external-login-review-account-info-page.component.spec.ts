@@ -25,11 +25,11 @@ describe('ExternalLoginReviewAccountInfoPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExternalLoginReviewAccountInfoPageComponent],
-      providers: [
+    imports: [ExternalLoginReviewAccountInfoPageComponent],
+    providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
-      ],
-    })
+    ],
+})
       .compileComponents();
   });
 

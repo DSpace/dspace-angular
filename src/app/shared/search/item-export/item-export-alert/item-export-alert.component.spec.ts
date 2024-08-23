@@ -26,16 +26,16 @@ describe('ItemExportAlertComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserModule,
-        TranslateModule.forRoot({ loader: { provide: TranslateLoader,  useClass: TranslateLoaderMock } }),
-      ],
-      providers: [ DSONameService ],
-      declarations: [ItemExportAlertComponent],
-      schemas: [
+        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateLoaderMock } }),
+        ItemExportAlertComponent,
+    ],
+    providers: [DSONameService],
+    schemas: [
         NO_ERRORS_SCHEMA,
-      ],
-    })
+    ],
+})
       .compileComponents();
   }));
 

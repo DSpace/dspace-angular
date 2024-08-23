@@ -11,11 +11,26 @@ import { EntityTypeEnum } from '../../../../cris-layout/enums/entity-type.enum';
 import { renderChartFor } from '../../cris-statistics-element-decorator';
 import { StatisticsType } from '../../statistics-type.model';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { CreateLinkPipe } from '../../statistics-pipes/create-link.pipe';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
+import { NgIf, NgFor, NgClass, AsyncPipe, SlicePipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-statistics-table',
-  templateUrl: './statistics-table.component.html',
-  styleUrls: ['./statistics-table.component.scss'],
+    selector: 'ds-statistics-table',
+    templateUrl: './statistics-table.component.html',
+    styleUrls: ['./statistics-table.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        NgClass,
+        AlertComponent,
+        AsyncPipe,
+        SlicePipe,
+        CreateLinkPipe,
+        TranslateModule,
+    ],
 })
 /**
  * Component that represents a table for report

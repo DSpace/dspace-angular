@@ -64,12 +64,11 @@ describe('StatisticsMapComponent', () => {
   let  exportService: ExportService = exportServiceMock;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ StatisticsMapComponent ],
-      providers: [
-        // { provide: ExportService, useValue: exportServiceMock }
-      ],
-    })
+    imports: [TranslateModule.forRoot(), StatisticsMapComponent],
+    providers: [
+    // { provide: ExportService, useValue: exportServiceMock }
+    ],
+})
       .compileComponents();
   });
 

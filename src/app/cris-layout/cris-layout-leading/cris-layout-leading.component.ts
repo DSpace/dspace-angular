@@ -5,11 +5,20 @@ import {
 
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { Item } from '../../core/shared/item.model';
+import { CrisLayoutMatrixComponent } from '../cris-layout-matrix/cris-layout-matrix.component';
+import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'ds-cris-layout-leading',
-  templateUrl: './cris-layout-leading.component.html',
-  styleUrls: ['./cris-layout-leading.component.scss'],
+    selector: 'ds-cris-layout-leading',
+    templateUrl: './cris-layout-leading.component.html',
+    styleUrls: ['./cris-layout-leading.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        ContextMenuComponent,
+        CrisLayoutMatrixComponent,
+    ],
 })
 export class CrisLayoutLeadingComponent {
 

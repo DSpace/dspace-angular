@@ -13,11 +13,21 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-dso-page-edit-menu',
-  templateUrl: './dso-page-edit-menu.component.html',
-  styleUrls: ['./dso-page-edit-menu.component.scss'],
+    selector: 'ds-dso-page-edit-menu',
+    templateUrl: './dso-page-edit-menu.component.html',
+    styleUrls: ['./dso-page-edit-menu.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        RouterLink,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY)
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)

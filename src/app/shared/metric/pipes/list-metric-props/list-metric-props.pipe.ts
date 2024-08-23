@@ -4,7 +4,8 @@ import {
 } from '@angular/core';
 
 @Pipe({
-  name: 'dsListMetricProps',
+    name: 'dsListMetricProps',
+    standalone: true,
 })
 export class ListMetricPropsPipe implements PipeTransform {
   transform(remark: JSON, property: string, isListElement: boolean): any {

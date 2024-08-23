@@ -58,24 +58,24 @@ describe('ItemDetailPageModalComponent', () => {
       };
 
       await TestBed.configureTestingModule({
-        imports: [
-          CommonModule,
-          NgbModule,
-          TranslateModule.forRoot({
+    imports: [
+        CommonModule,
+        NgbModule,
+        TranslateModule.forRoot({
             loader: {
-              provide: TranslateLoader,
-              useClass: TranslateLoaderMock,
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
             },
-          }),
-        ],
-        declarations: [ItemDetailPageModalComponent],
-        providers: [
-          { provide: ComponentFixtureAutoDetect, useValue: true },
-          { provide: ItemDataService, useValue: itemDataService },
-          { provide: TabDataService, useValue: tabDataServiceMock },
-          { provide: Router, useValue: new RouterStub() },
-        ],
-      })
+        }),
+    ],
+    declarations: [ItemDetailPageModalComponent],
+    providers: [
+        { provide: ComponentFixtureAutoDetect, useValue: true },
+        { provide: ItemDataService, useValue: itemDataService },
+        { provide: TabDataService, useValue: tabDataServiceMock },
+        { provide: Router, useValue: new RouterStub() },
+    ],
+})
         .compileComponents();
 
       fixture = TestBed.createComponent(ItemDetailPageModalComponent);

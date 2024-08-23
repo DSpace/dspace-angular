@@ -7,8 +7,9 @@ import {
 import { RedirectService } from '../../redirect/redirect.service';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: ':not(a):not(area)[dsRedirect]',
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: ':not(a):not(area)[dsRedirect]',
+    standalone: true,
 })
 export class RedirectDirective {
   constructor(readonly redirect: RedirectService) {

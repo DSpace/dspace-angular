@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { AttachmentRenderingModule } from '../../app/cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
-import { FooterModule } from '../../app/footer/footer.module';
-import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
+
+
 import { RootModule } from '../../app/root.module';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
-import { ExploreModule } from '../../app/shared/explore/explore.module';
+
 import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
 import { JournalIssueComponent } from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
@@ -86,10 +86,7 @@ const DECLARATIONS = [
     ...DECLARATIONS,
     AttachmentRenderingModule,
     ContextMenuModule,
-    FooterModule,
-    ExploreModule,
-    MiradorViewerModule,
-  ],
+],
   providers: [
     ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
   ],

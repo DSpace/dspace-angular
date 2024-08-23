@@ -76,14 +76,14 @@ describe('BrowseMostElementsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [BrowseMostElementsComponent],
-      providers: [
+    imports: [BrowseMostElementsComponent],
+    providers: [
         { provide: APP_CONFIG, useValue: mockConfig },
         { provide: SearchManager, useValue: mockSearchService },
         { provide: ChangeDetectorRef, useValue: {} },
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ignore unknown Angular elements
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ignore unknown Angular elements
+}).compileComponents();
   }));
 
   beforeEach(() => {

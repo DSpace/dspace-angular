@@ -13,11 +13,21 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-orcid-view-page',
-  templateUrl: './orcid-view-page-menu.component.html',
-  styleUrls: ['./orcid-view-page-menu.component.scss'],
+    selector: 'ds-orcid-view-page',
+    templateUrl: './orcid-view-page-menu.component.html',
+    styleUrls: ['./orcid-view-page-menu.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        RouterLink,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class OrcidViewPageMenuComponent extends ContextMenuEntryComponent implements OnInit {

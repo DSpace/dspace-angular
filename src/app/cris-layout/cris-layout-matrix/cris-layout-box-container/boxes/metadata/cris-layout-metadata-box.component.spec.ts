@@ -41,26 +41,22 @@ describe('CrisLayoutMetadataBoxComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock,
-        },
-      }),
-      BrowserAnimationsModule,
-      ],
-      providers: [
-        { provide: 'boxProvider', useValue: boxMetadata },
-        { provide: 'itemProvider', useValue: testItem },
-      ],
-      declarations: [
-        CrisLayoutMetadataBoxComponent,
+    imports: [TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
+        }),
+        BrowserAnimationsModule, CrisLayoutMetadataBoxComponent,
         CrisLayoutLoaderDirective,
         RowComponent,
-        TextComponent,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+        TextComponent,],
+    providers: [
+        { provide: 'boxProvider', useValue: boxMetadata },
+        { provide: 'itemProvider', useValue: testItem },
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
   }));
 
   beforeEach(() => {

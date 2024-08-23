@@ -122,26 +122,24 @@ describe('MetadataRenderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      providers: [
-        Injector,
-        { provide: 'tabNameProvider', useValue: '' },
-      ],
-      declarations: [
         DsDatePipe,
         MetadataRenderComponent,
         TableComponent,
         TextComponent,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(TableComponent, {
+    ],
+    providers: [
+        Injector,
+        { provide: 'tabNameProvider', useValue: '' },
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).overrideComponent(TableComponent, {
       set: { changeDetection: ChangeDetectionStrategy.OnPush },
     }).compileComponents();
   });

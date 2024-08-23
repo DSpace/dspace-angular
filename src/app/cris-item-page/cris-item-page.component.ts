@@ -19,15 +19,31 @@ import {
 } from '../core/shared/authorized.operators';
 import { Item } from '../core/shared/item.model';
 import { fadeInOut } from '../shared/animations/fade';
+import { TranslateModule } from '@ngx-translate/core';
+import { CrisLayoutComponent } from '../cris-layout/cris-layout.component';
+import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../item-page/alerts/themed-item-alerts.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component is the entry point for the page that renders items.
  */
 @Component({
-  selector: 'ds-cris-item-page',
-  templateUrl: './cris-item-page.component.html',
-  styleUrls: ['./cris-item-page.component.scss'],
-  animations: [fadeInOut],
+    selector: 'ds-cris-item-page',
+    templateUrl: './cris-item-page.component.html',
+    styleUrls: ['./cris-item-page.component.scss'],
+    animations: [fadeInOut],
+    standalone: true,
+    imports: [
+        NgIf,
+        ThemedLoadingComponent,
+        ThemedItemAlertsComponent,
+        ViewTrackerComponent,
+        CrisLayoutComponent,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 export class CrisItemPageComponent implements OnInit {
 

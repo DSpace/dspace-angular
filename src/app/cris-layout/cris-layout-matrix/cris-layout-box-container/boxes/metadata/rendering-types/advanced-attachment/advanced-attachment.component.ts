@@ -3,7 +3,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -25,11 +25,21 @@ import {
   FieldRenderingType,
   MetadataBoxFieldRendering,
 } from '../metadata-box.decorator';
+import { BitstreamAttachmentComponent } from './bitstream-attachment/bitstream-attachment.component';
+import { NgFor, NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-advanced-attachment',
-  templateUrl: './advanced-attachment.component.html',
-  styleUrls: ['./advanced-attachment.component.scss'],
+    selector: 'ds-advanced-attachment',
+    templateUrl: './advanced-attachment.component.html',
+    styleUrls: ['./advanced-attachment.component.scss'],
+    standalone: true,
+    imports: [
+        NgFor,
+        BitstreamAttachmentComponent,
+        NgIf,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 /**
  * This component renders the attachment with an advanced layout.

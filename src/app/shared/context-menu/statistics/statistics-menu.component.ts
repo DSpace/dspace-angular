@@ -13,11 +13,21 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-statistics-menu',
-  templateUrl: './statistics-menu.component.html',
-  styleUrls: ['./statistics-menu.component.scss'],
+    selector: 'ds-statistics-menu',
+    templateUrl: './statistics-menu.component.html',
+    styleUrls: ['./statistics-menu.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        RouterLink,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY, true)
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION, true)

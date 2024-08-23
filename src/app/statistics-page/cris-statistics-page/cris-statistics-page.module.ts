@@ -23,21 +23,21 @@ const components = [
 ];
 
 @NgModule({
-  declarations: components,
-  imports: [
-    CommonModule,
-    StatisticsChartModule.withEntryComponents(),
-    HttpClientJsonpModule,
-    StatisticsPipesPageModule,
-    Ng2GoogleChartsModule,
-    ThemedLoadingComponent,
-    VarDirective,
-    TranslateModule,
-    FormsModule,
-    NgbDatepickerModule,
-    NgbNavModule,
-    NgbDropdownModule,
-  ],
-  exports : components,
+    imports: [
+        CommonModule,
+        StatisticsChartModule.withEntryComponents(),
+        HttpClientJsonpModule,
+        StatisticsPipesPageModule,
+        Ng2GoogleChartsModule,
+        ThemedLoadingComponent,
+        VarDirective,
+        TranslateModule,
+        FormsModule,
+        NgbDatepickerModule,
+        NgbNavModule,
+        NgbDropdownModule,
+        ...components,
+    ],
+    exports: components,
 })
 export class CrisStatisticsPageModule { }

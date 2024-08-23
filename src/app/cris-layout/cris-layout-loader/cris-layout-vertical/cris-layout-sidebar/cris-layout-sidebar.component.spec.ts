@@ -47,12 +47,12 @@ describe('CrisLayoutSidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule,
-      ],
-      declarations: [CrisLayoutSidebarComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
+        CrisLayoutSidebarComponent,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+})
       .compileComponents();
   });
 

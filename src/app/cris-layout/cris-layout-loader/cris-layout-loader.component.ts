@@ -17,9 +17,11 @@ import { getCrisLayoutPage } from '../decorators/cris-layout-page.decorator';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
 
 @Component({
-  selector: 'ds-cris-layout-loader',
-  templateUrl: './cris-layout-loader.component.html',
-  styleUrls: ['./cris-layout-loader.component.scss'],
+    selector: 'ds-cris-layout-loader',
+    templateUrl: './cris-layout-loader.component.html',
+    styleUrls: ['./cris-layout-loader.component.scss'],
+    standalone: true,
+    imports: [CrisLayoutLoaderDirective],
 })
 export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
 

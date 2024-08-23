@@ -17,11 +17,14 @@ import {
   AttachmentRenderingType,
   getAttachmentTypeRendering,
 } from '../attachment-type.decorator';
+import { CrisLayoutLoaderDirective } from '../../../../../../../../directives/cris-layout-loader.directive';
 
 @Component({
-  selector: 'ds-attachment-render',
-  templateUrl: './attachment-render.component.html',
-  styleUrls: ['./attachment-render.component.scss'],
+    selector: 'ds-attachment-render',
+    templateUrl: './attachment-render.component.html',
+    styleUrls: ['./attachment-render.component.scss'],
+    standalone: true,
+    imports: [CrisLayoutLoaderDirective],
 })
 export class AttachmentRenderComponent implements OnInit {
 

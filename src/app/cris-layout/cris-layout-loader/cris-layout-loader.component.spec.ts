@@ -45,22 +45,20 @@ describe('CrisLayoutLoaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
+    imports: [
         CommonModule,
         RouterTestingModule,
-      ],
-      declarations: [
         CrisLayoutLoaderComponent,
         CrisLayoutLoaderDirective,
         CrisLayoutVerticalComponent,
         CrisLayoutHorizontalComponent,
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: HostWindowService, useValue: windowServiceStub },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+})
       .compileComponents();
   });
 

@@ -46,32 +46,30 @@ xdescribe('ChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         BrowserAnimationsModule,
         NgxChartsModule,
-      ],
-      declarations: [
         ChartComponent,
         BarChartComponent,
         LineChartComponent,
         PieChartComponent,
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: 'view', useValue: view },
         { provide: 'results', useValue: results },
         { provide: 'animations', useValue: animations },
         { provide: 'legend', useValue: legend },
         { provide: 'legendTitle', useValue: legendTitle },
         { provide: 'legendPosition', userValue: legendPosition },
-        { provide: 'select', useValue:  select },
-        { provide: 'enableScrollToLeft', useValue:  enableScrollToLeft },
-        { provide: 'enableScrollToRight', useValue:  enableScrollToRight },
-        { provide: 'showMore', useValue:  loadMore },
-        { provide: 'isLastPage', useValue:  isLastPage },
-        { provide: 'currentPage', useValue:  currentPage },
-        { provide: 'type', useValue:  type },
-      ],
-    }).overrideComponent(ChartComponent, {})
+        { provide: 'select', useValue: select },
+        { provide: 'enableScrollToLeft', useValue: enableScrollToLeft },
+        { provide: 'enableScrollToRight', useValue: enableScrollToRight },
+        { provide: 'showMore', useValue: loadMore },
+        { provide: 'isLastPage', useValue: isLastPage },
+        { provide: 'currentPage', useValue: currentPage },
+        { provide: 'type', useValue: type },
+    ],
+}).overrideComponent(ChartComponent, {})
       .compileComponents();
   }));
 

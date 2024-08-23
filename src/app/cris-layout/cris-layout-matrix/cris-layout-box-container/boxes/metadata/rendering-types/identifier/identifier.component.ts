@@ -25,14 +25,18 @@ import {
   IdentifierSubtypesConfig,
   IdentifierSubtypesIconPositionEnum,
 } from './../../../../../../../../config/identifier-subtypes-config.interface';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf } from '@angular/common';
 
 /**
  * This component renders the identifier metadata fields.
  */
 @Component({
-  selector: 'ds-identifier',
-  templateUrl: './identifier.component.html',
-  styleUrls: ['./identifier.component.scss'],
+    selector: 'ds-identifier',
+    templateUrl: './identifier.component.html',
+    styleUrls: ['./identifier.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgbTooltipModule],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.IDENTIFIER)
 export class IdentifierComponent extends RenderingTypeValueModelComponent implements OnInit {

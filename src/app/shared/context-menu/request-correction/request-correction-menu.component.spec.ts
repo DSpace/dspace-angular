@@ -104,16 +104,16 @@ describe('RequestCorrectionMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ RequestCorrectionMenuComponent ],
-      imports: [
+    imports: [
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      providers: [
+        RequestCorrectionMenuComponent,
+    ],
+    providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -122,8 +122,8 @@ describe('RequestCorrectionMenuComponent', () => {
         { provide: SubmissionService, useValue: submissionService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         TranslateService,
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

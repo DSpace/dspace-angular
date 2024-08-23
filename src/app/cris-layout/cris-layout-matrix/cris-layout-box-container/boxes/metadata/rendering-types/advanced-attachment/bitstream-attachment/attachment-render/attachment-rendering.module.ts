@@ -10,13 +10,13 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...COMPONENTS],
     imports: [
         CommonModule,
         TranslateModule,
         RouterLink,
+        ...COMPONENTS,
     ],
-  exports: [...COMPONENTS],
+    exports: [...COMPONENTS],
 })
 export class AttachmentRenderingModule {
 }

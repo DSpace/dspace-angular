@@ -3,7 +3,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -27,10 +27,17 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ds-context-menu-claim-item',
-  templateUrl: './claim-item-menu.component.html',
+    selector: 'ds-context-menu-claim-item',
+    templateUrl: './claim-item-menu.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        AsyncPipe,
+        TranslateModule,
+    ],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements OnInit {

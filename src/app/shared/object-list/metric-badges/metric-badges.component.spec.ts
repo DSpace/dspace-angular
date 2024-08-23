@@ -48,13 +48,12 @@ describe('MetricBadgesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [MetricBadgesComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), MetricBadgesComponent],
+    providers: [
         { provide: LinkService, useValue: linkService },
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+}).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

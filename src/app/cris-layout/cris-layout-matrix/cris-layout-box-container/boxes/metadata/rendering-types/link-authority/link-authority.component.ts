@@ -14,16 +14,19 @@ import {
   MetadataBoxFieldRendering,
 } from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
+import { NgClass } from '@angular/common';
 
 /**
  * This component renders the links metadata fields.
  * The metadata value is used for href and text
  */
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'span[ds-link-authority]',
-  templateUrl: './link-authority.component.html',
-  styleUrls: ['./link-authority.component.scss'],
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'span[ds-link-authority]',
+    templateUrl: './link-authority.component.html',
+    styleUrls: ['./link-authority.component.scss'],
+    standalone: true,
+    imports: [NgClass],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.AUTHORITYLINK)
 export class LinkAuthorityComponent extends RenderingTypeValueModelComponent implements OnInit {

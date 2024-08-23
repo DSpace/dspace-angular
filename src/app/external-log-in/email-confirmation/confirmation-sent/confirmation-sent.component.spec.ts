@@ -32,21 +32,21 @@ describe('ConfirmationSentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmationSentComponent ],
-      providers: [
+    declarations: [ConfirmationSentComponent],
+    providers: [
         { provide: TranslateService, useValue: translateServiceStub },
-      ],
-      imports: [
+    ],
+    imports: [
         CommonModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
       .compileComponents();
   });
 
