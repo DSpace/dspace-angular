@@ -55,30 +55,40 @@ export class MarkdownDirective implements OnInit, OnDestroy {
 
   async render(value: string, forcePreview = false): Promise<SafeHtml> {
     if (isEmpty(value) || (!environment.markdown.enabled && !forcePreview)) {
-      return value;
+      this.el.innerHTML = value;
+      return;
+    } else {
+      if (environment.markdown.mathjax) {
+        this.renderMathjaxThenMarkdown(value);
+      } else {
+        this.renderMarkdown(value);
+      }
     }
+  }
+
+  private renderMathjaxThenMarkdown(value: string) {
+    const sanitized = this.sanitizer.sanitize(SecurityContext.HTML, value);
+    this.el.innerHTML = sanitized;
+    this.mathService.ready().pipe(
+      filter((ready) => ready),
+      take(1),
+      takeUntil(this.alive$),
+    ).subscribe(() => {
+      this.mathService.render(this.el)?.then(_ => {
+        this.renderMarkdown(this.el.innerHTML, true);
+      });
+    });
+  }
+
+  private async renderMarkdown(value: string, alreadySanitized = false) {
     const MarkdownIt = await this.markdownIt;
     const md = new MarkdownIt({
       html: true,
       linkify: true,
     });
 
-    const html = this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
+    const html = alreadySanitized ? md.render(value) : this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
     this.el.innerHTML = html;
-
-    if (environment.markdown.mathjax) {
-      this.renderMathjax();
-    }
-  }
-
-  private renderMathjax() {
-    this.mathService.ready().pipe(
-      filter((ready) => ready),
-      take(1),
-      takeUntil(this.alive$),
-    ).subscribe(() => {
-      this.mathService.render(this.el);
-    });
   }
 
   ngOnDestroy() {
