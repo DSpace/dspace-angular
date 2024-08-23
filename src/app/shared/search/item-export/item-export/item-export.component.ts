@@ -45,7 +45,7 @@ import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.mod
 import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { MYDSPACE_ROUTE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { MYDSPACE_ROUTE } from '../../../../my-dspace-page/my-dspace-route';
 import { AlertComponent } from '../../../alert/alert.component';
 import { AdministeredCollectionSelectorComponent } from '../../../dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
 import {

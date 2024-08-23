@@ -28,7 +28,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { isAuthenticationLoading } from '../../../core/auth/selectors';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
+import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-route';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { LogOutComponent } from '../../log-out/log-out.component';
 
