@@ -3178,13 +3178,21 @@
 
   "pagination.sort-direction": "Sort Options",
 
+  "patent.listelement.badge": "Patent",
+
   "person.listelement.badge": "Person",
+
+  "product.listelement.badge": "Product",
 
   "person.listelement.no-title": "No name found",
 
   "person.page.birthdate": "Birth Date",
 
+  "patent.page.edit": "Edit this item",
+
   "person.page.edit": "Edit this item",
+
+  "product.page.edit": "Edit this item",
 
   "person.page.email": "Email Address",
 
@@ -3202,7 +3210,11 @@
 
   "person.page.staffid": "Staff ID",
 
+  "patent.page.titleprefix": "Patent: ",
+
   "person.page.titleprefix": "Person: ",
+
+  "product.page.titleprefix": "Product: ",
 
   "person.search.results.head": "Person Search Results",
 
