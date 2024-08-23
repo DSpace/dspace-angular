@@ -31,6 +31,7 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import {DisabledDirective} from '../../../shared/disabled-directive';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -191,7 +192,7 @@ describe('EPersonFormComponent', () => {
           }
         }),
       ],
-      declarations: [EPersonFormComponent],
+      declarations: [EPersonFormComponent, DisabledDirective],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
@@ -493,14 +494,16 @@ describe('EPersonFormComponent', () => {
 
     it('the delete button should be active if the eperson can be deleted', () => {
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(deleteButton.nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
     it('the delete button should be disabled if the eperson cannot be deleted', () => {
       component.canDelete$ = observableOf(false);
       fixture.detectChanges();
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(true);
+      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(deleteButton.nativeElement.classList.contains('disabled')).toBeTrue();
     });
 
     it('should call the epersonFormComponent delete when clicked on the button', () => {
@@ -515,7 +518,8 @@ describe('EPersonFormComponent', () => {
       // ePersonDataServiceStub.activeEPerson = eperson;
       spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(deleteButton.nativeElement.classList.contains('disabled')).toBeFalse();
       deleteButton.triggerEventHandler('click', null);
       fixture.detectChanges();
       expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);

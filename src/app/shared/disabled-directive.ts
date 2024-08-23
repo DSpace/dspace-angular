@@ -6,7 +6,7 @@ import { Directive, Input, HostBinding, HostListener } from '@angular/core';
 export class DisabledDirective {
 
     @Input() set dsDisabled(value: boolean) {
-        this.isDisabled = value;
+        this.isDisabled = !!value;
     }
 
     @HostBinding('attr.aria-disabled') isDisabled = false;
