@@ -2157,17 +2157,17 @@
   dependencies:
     tslib "^2.3.0"
 
-"@ng-dynamic-forms/core@^16.0.0":
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-16.0.0.tgz#3b5b21bd4e93f4ce6f11f840cca2298bc17537b0"
-  integrity sha512-fH0OIgFs/bWkVnnOtDoAAXHXb3K2UOQXm7qEgO9hg86keE2x3Tu/G/Ma6tRVi5+RfKRgvI2Q6JlMLHIQHYFAgA==
+"@ng-dynamic-forms/core@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-17.0.0.tgz#232f373a61925f45fe32b487e55620bd139ee1bf"
+  integrity sha512-0wpEdeCEh/EPVLILUzegB45IaBnOPEemY8jEi+gyd9OwIGyb1m7rex8LqELKr/5XMvIAsbmHU4qfRJUCDUJU7g==
   dependencies:
     tslib "^2.0.0"
 
-"@ng-dynamic-forms/ui-ng-bootstrap@^16.0.0":
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-16.0.0.tgz#3bc18a4ae7a1b265399438f1c8e3b81038102afa"
-  integrity sha512-qopjC+j1wfOaB6a/xSUKEpl5vohEospvhLqPl33BgNH557DQg3x3oI/oPo3caLRhIo2vpKGIeuEN5Itok0B3vg==
+"@ng-dynamic-forms/ui-ng-bootstrap@^17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-17.0.0.tgz#71e0a8de4bbcdefe5f0cd244e6690fe32cd5c140"
+  integrity sha512-6XUwuQRTsKEKZN/wh4hpXLiAs6AAT5QsqYdtnVGrgOyMr4S3e3BWWwKMGjJ/tW1VSR1sWdsAiTVoaB5uHbZfxA==
   dependencies:
     tslib "^2.0.0"
 
@@ -2235,15 +2235,10 @@
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-17.3.0.tgz#91e6168304739350fb6f3b9877d29e4a382cadb2"
   integrity sha512-wNTCDPPEtjP4mxYerLVLCMwOCTEOD2HqZMVXD8pJbarrGPMuoyglUZuqNSIS5KVqR+fFez6JEUnMvC3QSqf58w==
 
-"@ngtools/webpack@17.3.8":
+"@ngtools/webpack@17.3.8", "@ngtools/webpack@^17.3.8":
   version "17.3.8"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-17.3.8.tgz#96c0f99055910dd21438d7697d625fdeb7261015"
   integrity sha512-CjSVVa/9fzMpEDQP01SC4colKCbZwj7vUq0H2bivp8jVsmd21x9Fu0gDBH0Y9NdfAIm4eGZvmiZKMII3vIOaYQ==
-
-"@ngtools/webpack@^16.2.12":
-  version "16.2.12"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-16.2.12.tgz#478db8cca94a69f1708c38ad80b62d824c73f543"
-  integrity sha512-f9R9Qsk8v+ffDxryl6PQ7Wnf2JCNd4dDXOH+d/AuF06VFiwcwGDRDZpmqkAXbFxQfcWTbT1FFvfoJ+SFcJgXLA==
 
 "@ngx-translate/core@^14.0.0":
   version "14.0.0"
@@ -9176,10 +9171,10 @@ ngx-export-as@~1.15.1:
     tslib "^2.4.0"
     xlsx "^0.18.5"
 
-ngx-infinite-scroll@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-16.0.0.tgz#287b48898bc291a0e7c5b3344cf337d7ac82e2dd"
-  integrity sha512-bzyNYd+wVlUUxcopRVr2DAa81eEc8vITtKVvb+c7R1uy8hWPTlxOEXf3L1qA4FMwTEzCQ9b37TXzlJji3qBy+A==
+ngx-infinite-scroll@^17.0.0:
+  version "17.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-17.0.1.tgz#2c8a8bf31ff7e8f695e12c479e84c0bc120befa2"
+  integrity sha512-T+XseajbmT9YTMmPnFV/AfSlwjaV9m2gZtbIIZH3S+yg/rvvfbgkThqs54UWIu+pqcqNR4UhrXfw6mUjCVZD2A==
   dependencies:
     tslib "^2.3.0"
 
