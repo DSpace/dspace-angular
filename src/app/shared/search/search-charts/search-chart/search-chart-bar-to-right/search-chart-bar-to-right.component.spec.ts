@@ -101,36 +101,36 @@ xdescribe('SearchChartBarToRightComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-    declarations: [SearchChartBarToRightComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
+      declarations: [SearchChartBarToRightComponent],
+      providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         {
-            provide: RemoteDataBuildService,
-            useValue: { aggregate: () => observableOf({}) },
+          provide: RemoteDataBuildService,
+          useValue: { aggregate: () => observableOf({}) },
         },
         {
-            provide: SEARCH_CONFIG_SERVICE,
-            useValue: new SearchConfigurationServiceStub(),
+          provide: SEARCH_CONFIG_SERVICE,
+          useValue: new SearchConfigurationServiceStub(),
         },
         { provide: IN_PLACE_SEARCH, useValue: false },
         {
-            provide: SearchFilterService,
-            useValue: {
-                getSelectedValuesForFilter: () => observableOf(selectedValues),
-                isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-                getPage: (paramName: string) => page,
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                incrementPage: (filterName: string) => { },
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                resetPage: (filterName: string) => { },
-            },
+          provide: SearchFilterService,
+          useValue: {
+            getSelectedValuesForFilter: () => observableOf(selectedValues),
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
+            getPage: (paramName: string) => page,
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            incrementPage: (filterName: string) => { },
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            resetPage: (filterName: string) => { },
+          },
         },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(SearchChartBarToRightComponent, {
         set: { changeDetection: ChangeDetectionStrategy.Default },
       })

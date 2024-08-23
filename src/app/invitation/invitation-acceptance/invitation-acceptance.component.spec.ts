@@ -61,27 +61,27 @@ describe('InvitationAcceptanceComponent', () => {
   } as AuthService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [InvitationAcceptanceComponent],
-    imports: [
+      declarations: [InvitationAcceptanceComponent],
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-    ],
-    providers: [{ provide: Router, useValue: route },
+      ],
+      providers: [{ provide: Router, useValue: route },
         {
-            provide: ActivatedRoute,
-            useValue: {
-                paramMap: observableOf(convertToParamMap(paramObject)),
-            },
+          provide: ActivatedRoute,
+          useValue: {
+            paramMap: observableOf(convertToParamMap(paramObject)),
+          },
         },
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: AuthService, useValue: authService },
-    ],
-})
+      ],
+    })
       .compileComponents();
   });
   beforeEach(() => {

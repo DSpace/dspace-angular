@@ -68,8 +68,8 @@ describe('ConfirmEmailComponent', () => {
       redirect: {},
     });
     await TestBed.configureTestingModule({
-    declarations: [ConfirmEmailComponent],
-    providers: [
+      declarations: [ConfirmEmailComponent],
+      providers: [
         FormBuilder,
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: ExternalLoginService, useValue: externalLoginServiceSpy },
@@ -78,19 +78,19 @@ describe('ConfirmEmailComponent', () => {
         { provide: AuthService, useValue: authServiceSpy },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
-    ],
-    imports: [
+      ],
+      imports: [
         CommonModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         ReactiveFormsModule,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   });
 
   beforeEach(() => {

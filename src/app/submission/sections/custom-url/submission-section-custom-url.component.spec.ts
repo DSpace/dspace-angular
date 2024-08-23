@@ -121,12 +121,12 @@ describe('SubmissionSectionCustomUrlComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         FormComponent,
-    ],
-    declarations: [SubmissionSectionCustomUrlComponent],
-    providers: [
+      ],
+      declarations: [SubmissionSectionCustomUrlComponent],
+      providers: [
         { provide: SectionsService, useValue: sectionService },
         { provide: SubmissionService, useValue: submissionService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
@@ -137,8 +137,8 @@ describe('SubmissionSectionCustomUrlComponent', () => {
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
-    ],
-})
+      ],
+    })
       .compileComponents();
   }));
 
