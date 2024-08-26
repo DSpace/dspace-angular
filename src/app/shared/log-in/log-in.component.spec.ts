@@ -103,7 +103,7 @@ describe('LogInComponent', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      const html = `<ds-themed-log-in [isStandalonePage]="isStandalonePage"> </ds-themed-log-in>`;
+      const html = `<ds-log-in [isStandalonePage]="isStandalonePage"> </ds-log-in>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;

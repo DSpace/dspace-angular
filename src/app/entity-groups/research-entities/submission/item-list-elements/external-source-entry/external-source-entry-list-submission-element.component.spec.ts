@@ -156,7 +156,7 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   it('should display the entry\'s duplicate match titles when matchObjects has items', () => {
     const accordionHeaderBtn = fixture.nativeElement.querySelector('.btn-link');
     accordionHeaderBtn.click();
-    const matchObjectsLinks = fixture.nativeElement.querySelectorAll('ds-themed-item-list-preview');
+    const matchObjectsLinks = fixture.nativeElement.querySelectorAll('ds-item-list-preview');
     expect(matchObjectsLinks).toBeTruthy();
   });
 });

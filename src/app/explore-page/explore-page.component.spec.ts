@@ -132,16 +132,16 @@ describe('ExploreComponent', () => {
 
     const firstRow = container.children[0];
     expect(firstRow.children.length).toEqual(2);
-    expect(firstRow.children[0].children[0].name).toEqual('ds-themed-browse-section');
-    expect(firstRow.children[1].children[0].name).toEqual('ds-themed-search-section');
+    expect(firstRow.children[0].children[0].name).toEqual('ds-browse-section');
+    expect(firstRow.children[1].children[0].name).toEqual('ds-search-section');
 
     const secondRow = container.children[1];
     expect(secondRow.children.length).toEqual(1);
-    expect(secondRow.children[0].children[0].name).toEqual('ds-themed-top-section');
+    expect(secondRow.children[0].children[0].name).toEqual('ds-top-section');
 
     const thirdRow = container.children[2];
     expect(thirdRow.children.length).toEqual(1);
-    expect(thirdRow.children[0].children[0].name).toEqual('ds-themed-facet-section');
+    expect(thirdRow.children[0].children[0].name).toEqual('ds-facet-section');
 
     expect(component.sectionId).toEqual('publications');
   });
