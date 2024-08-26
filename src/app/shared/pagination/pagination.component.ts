@@ -39,6 +39,7 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
+import { PageInfo } from '../../core/shared/page-info.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { hasValue } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
@@ -70,6 +71,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Number of items in collection.
    */
   @Input() collectionSize: number;
+
+  /**
+   * Page state of a Remote paginated objects.
+   */
+  @Input() pageInfoState: Observable<PageInfo> = undefined;
 
   /**
    * Configuration for the NgbPagination component.

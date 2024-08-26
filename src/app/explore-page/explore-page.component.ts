@@ -1,4 +1,11 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -12,6 +19,12 @@ import { map } from 'rxjs/operators';
 import { SectionComponent } from '../core/layout/models/section.model';
 import { SectionDataService } from '../core/layout/section-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import { ThemedBrowseSectionComponent } from '../shared/explore/section-component/browse-section/themed-browse-section.component';
+import { ThemedCountersSectionComponent } from '../shared/explore/section-component/counters-section/themed-counters-section.component';
+import { ThemedFacetSectionComponent } from '../shared/explore/section-component/facet-section/themed-facet-section.component';
+import { ThemedSearchSectionComponent } from '../shared/explore/section-component/search-section/themed-search-section.component';
+import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
+import { ThemedTopSectionComponent } from '../shared/explore/section-component/top-section/themed-top-section.component';
 
 /**
  * Component representing the explore section.
@@ -19,6 +32,20 @@ import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 @Component({
   selector: 'ds-explore',
   templateUrl: './explore-page.component.html',
+  standalone: true,
+  imports: [
+    NgForOf,
+    NgClass,
+    ThemedTopSectionComponent,
+    ThemedBrowseSectionComponent,
+    ThemedSearchSectionComponent,
+    ThemedFacetSectionComponent,
+    ThemedTextSectionComponent,
+    ThemedCountersSectionComponent,
+    NgSwitchCase,
+    NgSwitch,
+    AsyncPipe,
+  ],
 })
 export class ExplorePageComponent implements OnInit {
 

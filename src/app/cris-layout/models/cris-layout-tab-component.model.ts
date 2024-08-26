@@ -13,6 +13,7 @@ import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model
  */
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class CrisLayoutTabModelComponent extends CrisLayoutPageModelComponent {
   /**

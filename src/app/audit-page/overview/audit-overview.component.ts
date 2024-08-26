@@ -1,7 +1,15 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -17,7 +25,9 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * Component displaying a list of all audit in a paginated table
@@ -25,6 +35,17 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 @Component({
   selector: 'ds-audit-overview',
   templateUrl: './audit-overview.component.html',
+  imports: [
+    PaginationComponent,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    RouterLink,
+    NgForOf,
+    VarDirective,
+    DatePipe,
+  ],
+  standalone: true,
 })
 export class AuditOverviewComponent implements OnInit {
 

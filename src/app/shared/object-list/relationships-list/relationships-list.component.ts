@@ -12,11 +12,18 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
+import { RelationshipsItemsActionsComponent } from './relationships-items-actions/relationships-items-actions.component';
+import { RelationshipsItemsListPreviewComponent } from './relationships-items-list-preview/relationships-items-list-preview.component';
 
 @Component({
   selector: 'ds-relationships-list',
   templateUrl: './relationships-list.component.html',
   styleUrls: ['./relationships-list.component.scss'],
+  imports: [
+    RelationshipsItemsListPreviewComponent,
+    RelationshipsItemsActionsComponent,
+  ],
+  standalone: true,
 })
 
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.RelationshipItem)

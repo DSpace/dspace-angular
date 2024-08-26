@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CrisLayoutModule } from '../cris-layout/cris-layout.module';
-import { ItemDetailPageModalComponent } from './item-detail-page-modal.component';
 
 
 @NgModule({
@@ -12,9 +11,8 @@ import { ItemDetailPageModalComponent } from './item-detail-page-modal.component
     CrisLayoutModule,
     TranslateModule,
   ],
-  declarations: [ItemDetailPageModalComponent],
-  exports: [ItemDetailPageModalComponent],
-  entryComponents: [ItemDetailPageModalComponent],
+  declarations: [],
+  exports: [],
 })
 
 /**

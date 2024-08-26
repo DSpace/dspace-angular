@@ -1,6 +1,8 @@
 import {
   Component,
+  EventEmitter,
   Input,
+  Output,
 } from '@angular/core';
 
 import { Context } from '../core/shared/context.model';
@@ -164,6 +166,31 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
    * Contains a notice to show before result list if any
    */
   @Input() searchResultNotice: string = null;
+
+  /**
+   * Defines whether to start as showing the filter sidebar collapsed
+   */
+  @Input() collapseFilters = false;
+
+  /**
+   * Defines whether to show the toggle button to Show/Hide filter
+   */
+  @Input() showFilterToggle = false;
+
+  /**
+   * A boolean representing if show export button
+   */
+  @Input() showExport = true;
+
+  /**
+   * Pass custom data to the component for custom utilization
+   */
+  @Input() customData: any;
+
+  /**
+   * Emit custom event for listable object custom actions.
+   */
+  @Output() customEvent = new EventEmitter<any>();
 
   protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] = [
     'configurationList',

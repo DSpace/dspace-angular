@@ -22,6 +22,7 @@ import { isNotNull } from '../../../../shared/empty.util';
 @Component({
   selector: 'ds-cris-layout-tabs-sidebar',
   template: '',
+  standalone: true,
 })
 export abstract class CrisLayoutTabsComponent {
 

@@ -39,6 +39,7 @@ import { ThemeService } from './theme.service';
   selector: 'ds-themed',
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
+  standalone: true,
 })
 export abstract class ThemedComponent<T extends object> implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;

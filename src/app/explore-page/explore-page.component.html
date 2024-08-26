@@ -4,22 +4,22 @@
          [ngClass]="sectionComponent.style" [class.col]="!hasColClass(sectionComponent.style)" class="pb-4">
       <ds-top-section *ngSwitchCase="'top'"
                              [sectionId]="sectionId"
-                             [topSection]="sectionComponent"></ds-top-section>
+                             [topSection]="$any(sectionComponent)"></ds-top-section>
       <ds-browse-section *ngSwitchCase="'browse'"
                                 [sectionId]="sectionId"
-                                [browseSection]="sectionComponent"></ds-browse-section>
+                                [browseSection]="$any(sectionComponent)"></ds-browse-section>
       <ds-search-section *ngSwitchCase="'search'"
                                 [sectionId]="sectionId"
-                                [searchSection]="sectionComponent"></ds-search-section>
+                                [searchSection]="$any(sectionComponent)"></ds-search-section>
       <ds-facet-section *ngSwitchCase="'facet'"
                                [sectionId]="sectionId"
-                               [facetSection]="sectionComponent"></ds-facet-section>
+                               [facetSection]="$any(sectionComponent)"></ds-facet-section>
       <ds-text-section *ngSwitchCase="'text-row'"
                               [sectionId]="sectionId"
-                              [textRowSection]="sectionComponent"></ds-text-section>
+                              [textRowSection]="$any(sectionComponent)"></ds-text-section>
       <ds-counters-section *ngSwitchCase="'counters'"
                                   [sectionId]="sectionId"
-                                  [countersSection]="sectionComponent"></ds-counters-section>
+                                  [countersSection]="$any(sectionComponent)"></ds-counters-section>
     </div>
   </div>
 </div>

@@ -10,6 +10,7 @@ import { Registration } from '../../core/shared/registration.model';
  */
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class ExternalLoginMethodEntryComponent {
 

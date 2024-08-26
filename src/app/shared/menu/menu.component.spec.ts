@@ -53,6 +53,7 @@ const mockMenuID = 'mock-menuID' as MenuID;
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '',
+  standalone: true,
 })
 @rendersSectionForMenu(mockMenuID, true)
 class TestExpandableMenuComponent {

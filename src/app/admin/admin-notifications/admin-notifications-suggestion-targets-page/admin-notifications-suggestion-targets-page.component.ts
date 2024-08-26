@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'ds-admin-notifications-reciter-page',
   templateUrl: './admin-notifications-suggestion-targets-page.component.html',
   styleUrls: ['./admin-notifications-suggestion-targets-page.component.scss'],
+  standalone: true,
 })
 export class AdminNotificationsSuggestionTargetsPageComponent {
 

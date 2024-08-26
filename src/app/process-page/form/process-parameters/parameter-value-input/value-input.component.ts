@@ -11,6 +11,7 @@ import {
 @Component({
   selector: 'ds-value-input',
   template: '',
+  standalone: true,
 })
 export abstract class ValueInputComponent<T> {
   @Input() index: number;

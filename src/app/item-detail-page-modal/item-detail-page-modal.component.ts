@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -10,6 +11,7 @@ import {
   Router,
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -26,12 +28,19 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../core/shared/operators';
+import { CrisLayoutComponent } from '../cris-layout/cris-layout.component';
 
 
 @Component({
   selector: 'ds-item-detail-page-modal',
   templateUrl: './item-detail-page-modal.component.html',
   styleUrls: ['./item-detail-page-modal.component.scss'],
+  imports: [
+    CrisLayoutComponent,
+    TranslateModule,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class ItemDetailPageModalComponent implements OnInit {
 

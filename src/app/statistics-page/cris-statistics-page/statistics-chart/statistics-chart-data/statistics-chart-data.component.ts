@@ -29,6 +29,7 @@ import {
 @Component({
   selector: 'ds-search-chart-filter',
   template: ``,
+  standalone: true,
 })
 /**
  * Component that is being injected by wrapper and obtains the report information

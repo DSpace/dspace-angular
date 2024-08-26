@@ -1,7 +1,13 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -17,6 +23,7 @@ import {
   WorkspaceitemSectionCorrectionMetadataObject,
   WorkspaceitemSectionCorrectionObject,
 } from '../../../core/submission/models/workspaceitem-section-correction.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
   hasValue,
   isNotEmpty,
@@ -30,6 +37,14 @@ import { SectionsType } from '../sections-type';
 @Component({
   selector: 'ds-submission-correction',
   templateUrl: './section-correction.component.html',
+  imports: [
+    NgIf,
+    AlertComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 @renderSectionFor(SectionsType.Correction)
 export class SubmissionSectionCorrectionComponent extends SectionModelComponent {

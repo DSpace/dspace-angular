@@ -15,6 +15,7 @@ import { hasValue } from '../../../../../../shared/empty.util';
  */
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class RenderingTypeModelComponent {
 

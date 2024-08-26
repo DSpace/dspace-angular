@@ -17,9 +17,9 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [OrcidConfirmationComponent];
 
 @NgModule({
-  declarations: [...COMPONENTS, ...ENTRY_COMPONENTS],
+  declarations: [],
   imports: [CommonModule],
-  exports: [...COMPONENTS, ...ENTRY_COMPONENTS],
+  exports: [],
 })
 export class ExternalLoginModule {
   /**

@@ -21,6 +21,7 @@ export interface NestedMetadataGroupEntry {
 
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class MetadataGroupComponent extends RenderingTypeStructuredModelComponent implements OnInit, OnDestroy {
 

@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
@@ -7,6 +12,7 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   mergeMap,
@@ -44,15 +50,36 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../../shared/search/models/search-filter.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
+import { ThemedSearchResultsComponent } from '../../shared/search/search-results/themed-search-results.component';
+import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
+import { PageWithSidebarComponent } from '../../shared/sidebar/page-with-sidebar.component';
+import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { LuckySearchService } from '../lucky-search.service';
 
 @Component({
   selector: 'ds-lucky-search',
   templateUrl: './lucky-search.component.html',
   styleUrls: ['./lucky-search.component.scss'],
+  imports: [
+    PageWithSidebarComponent,
+    NgIf,
+    ThemedSearchResultsComponent,
+    AsyncPipe,
+    TranslateModule,
+    ThemedSearchFormComponent,
+    NgForOf,
+    ThemedFileDownloadLinkComponent,
+    TruncatableComponent,
+    FileSizePipe,
+    TruncatablePartComponent,
+  ],
+  standalone: true,
 })
 export class LuckySearchComponent implements OnInit, OnDestroy {
   /**

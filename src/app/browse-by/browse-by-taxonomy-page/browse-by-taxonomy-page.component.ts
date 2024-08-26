@@ -18,12 +18,11 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { BROWSE_BY_COMPONENT_FACTORY } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-taxonomy-page',
-  templateUrl: './browse-by-taxonomy-page.component.html',
-  styleUrls: ['./browse-by-taxonomy-page.component.scss'],
+  template: '',
+  standalone: true,
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary

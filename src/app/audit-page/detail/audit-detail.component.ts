@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
@@ -6,7 +11,9 @@ import {
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -16,6 +23,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * A component displaying detailed information about a DSpace Audit
@@ -24,6 +32,15 @@ import { redirectOn4xx } from '../../core/shared/authorized.operators';
   selector: 'ds-audit-detail',
   templateUrl: './audit-detail.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    VarDirective,
+    DatePipe,
+    RouterLink,
+  ],
+  standalone: true,
 })
 export class AuditDetailComponent implements OnInit {
 

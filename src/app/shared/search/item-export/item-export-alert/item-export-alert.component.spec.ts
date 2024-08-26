@@ -51,7 +51,7 @@ describe('ItemExportAlertComponent', () => {
 
 });
 
-@Component({ selector: 'ds-item-export-alert', template: '' })
+@Component({ selector: 'ds-item-export-alert', template: '', standalone: true })
 export class ItemExportAlertStubComponent {
   @Input() molteplicity: ItemExportFormatMolteplicity;
   @Input() item: Item;
