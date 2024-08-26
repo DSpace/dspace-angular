@@ -44,6 +44,7 @@ import {
   DsoEditMetadataValue,
 } from '../dso-edit-metadata-form';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
+import {DisabledDirective} from '../../../shared/disabled-directive';
 
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';
@@ -188,6 +189,7 @@ describe('DsoEditMetadataValueComponent', () => {
         RouterTestingModule.withRoutes([]),
         DsoEditMetadataValueComponent,
         VarDirective,
+        DisabledDirective
       ],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
@@ -524,7 +526,14 @@ describe('DsoEditMetadataValueComponent', () => {
         });
 
         it(`should${disabled ? ' ' : ' not '}be disabled`, () => {
-          expect(btn.nativeElement.disabled).toBe(disabled);
+          if (disabled) {
+            expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeTrue();
+          } else {
+            // Can be null or false, depending on if button was ever disabled so just check not true
+            expect(btn.nativeElement.getAttribute('aria-disabled')).not.toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeFalse();
+          }
         });
       } else {
         it('should not exist', () => {

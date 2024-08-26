@@ -20,6 +20,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
+import {DisabledDirective} from '../../shared/disabled-directive';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;
@@ -57,7 +58,7 @@ describe('EndUserAgreementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), EndUserAgreementComponent],
+      imports: [TranslateModule.forRoot(), EndUserAgreementComponent, DisabledDirective],
       providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },
@@ -95,7 +96,8 @@ describe('EndUserAgreementComponent', () => {
 
     it('should disable the save button', () => {
       const button = fixture.debugElement.query(By.css('#button-save')).nativeElement;
-      expect(button.disabled).toBeTruthy();
+      expect(button.getAttribute('aria-disabled')).toBe('true');
+      expect(button.classList.contains('disabled')).toBeTrue();
     });
   });
 

@@ -57,6 +57,7 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';
+import {DisabledDirective} from '../../shared/disabled-directive';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -151,7 +152,7 @@ describe('EPeopleRegistryComponent', () => {
     paginationService = new PaginationServiceStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule.withRoutes([]),
-        TranslateModule.forRoot(), EPeopleRegistryComponent],
+        TranslateModule.forRoot(), EPeopleRegistryComponent, DisabledDirective],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },

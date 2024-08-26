@@ -51,6 +51,7 @@ import { PaginationServiceStub } from '../../shared/testing/pagination-service.s
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ItemVersionsComponent } from './item-versions.component';
+import {DisabledDirective} from '../../shared/disabled-directive';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -158,7 +159,7 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemVersionsComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemVersionsComponent, VarDirective, DisabledDirective],
       providers: [
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
@@ -234,8 +235,9 @@ describe('ItemVersionsComponent', () => {
     it('should not disable the delete button', () => {
       const deleteButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-delete'));
       expect(deleteButtons.length).not.toBe(0);
-      deleteButtons.forEach((btn: DebugElement) => {
-        expect(btn.nativeElement.disabled).toBe(false);
+      deleteButtons.forEach((btn) => {
+        expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+        expect(btn.nativeElement.classList.contains('disabled')).toBeFalse();
       });
     });
 

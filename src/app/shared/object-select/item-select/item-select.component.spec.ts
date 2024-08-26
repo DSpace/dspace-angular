@@ -28,6 +28,7 @@ import { SearchConfigurationServiceStub } from '../../testing/search-configurati
 import { createPaginatedList } from '../../testing/utils.test';
 import { ObjectSelectService } from '../object-select.service';
 import { ItemSelectComponent } from './item-select.component';
+import {DisabledDirective} from '../../disabled-directive';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
@@ -101,7 +102,7 @@ describe('ItemSelectComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DisabledDirective],
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -196,7 +197,9 @@ describe('ItemSelectComponent', () => {
 
       const checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
       expect(authorizationDataService.isAuthorized).toHaveBeenCalled();
-      expect(checkbox.disabled).toBeTrue();
+        expect(checkbox.getAttribute('aria-disabled')).toBe('true');
+        expect(checkbox.classList.contains('disabled')).toBe(true);
+      });
     }));
   });
 });

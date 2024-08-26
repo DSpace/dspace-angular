@@ -43,6 +43,7 @@ import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
+import {DisabledDirective} from '../../../shared/disabled-directive';
 
 describe('SubmissionFormCollectionComponent Component', () => {
 
@@ -152,6 +153,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
         TranslateModule.forRoot(),
         SubmissionFormCollectionComponent,
         TestComponent,
+        DisabledDirective
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
@@ -275,7 +277,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
       it('the dropdown button should be disabled when isReadonly is true', () => {
         comp.isReadonly = true;
         fixture.detectChanges();
-        expect(dropdowBtn.nativeNode.attributes.disabled).toBeDefined();
+        expect(dropdowBtn.nativeNode.getAttribute('aria-disabled')).toBe('true');
+        expect(dropdowBtn.nativeNode.classList.contains('disabled')).toBeTrue();
       });
 
       it('should be simulated when the drop-down menu is closed', () => {

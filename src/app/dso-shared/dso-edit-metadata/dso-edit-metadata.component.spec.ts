@@ -32,6 +32,7 @@ import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
+import {DisabledDirective} from '../../shared/disabled-directive';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
@@ -87,6 +88,7 @@ describe('DsoEditMetadataComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
+      declarations: [DisabledDirective]
       imports: [
         CommonModule,
         BrowserModule,
@@ -216,7 +218,13 @@ describe('DsoEditMetadataComponent', () => {
         });
 
         it(`should${disabled ? ' ' : ' not '}be disabled`, () => {
-          expect(btn.nativeElement.disabled).toBe(disabled);
+          if (disabled) {
+            expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeTrue();
+          } else {
+            expect(btn.nativeElement.getAttribute('aria-disabled')).not.toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeFalse();
+          }
         });
       } else {
         it('should not exist', () => {

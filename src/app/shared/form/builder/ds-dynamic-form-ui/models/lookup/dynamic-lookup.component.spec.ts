@@ -48,6 +48,7 @@ import {
   DynamicLookupModelConfig,
 } from './dynamic-lookup.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
+import {DisabledDirective} from '../../../../../disabled-directive';
 
 let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {
@@ -174,6 +175,7 @@ describe('Dynamic Lookup component', () => {
         TestComponent,
         AuthorityConfidenceStateDirective,
         ObjNgFor,
+        DisabledDirective,
       ],
       providers: [
         ChangeDetectorRef,
@@ -255,8 +257,10 @@ describe('Dynamic Lookup component', () => {
           const de = lookupFixture.debugElement.queryAll(By.css('button'));
           const searchBtnEl = de[0].nativeElement;
           const editBtnEl = de[1].nativeElement;
-          expect(searchBtnEl.disabled).toBe(true);
-          expect(editBtnEl.disabled).toBe(true);
+          expect(searchBtnEl.getAttribute('aria-disabled')).toBe('true');
+          expect(searchBtnEl.classList.contains('disabled')).toBeTrue();
+          expect(editBtnEl.getAttribute('aria-disabled')).toBe('true');
+          expect(editBtnEl.classList.contains('disabled')).toBeTrue();
           expect(editBtnEl.textContent.trim()).toBe('form.edit');
         });
 
@@ -354,8 +358,10 @@ describe('Dynamic Lookup component', () => {
           const de = lookupFixture.debugElement.queryAll(By.css('button'));
           const searchBtnEl = de[0].nativeElement;
           const saveBtnEl = de[1].nativeElement;
-          expect(searchBtnEl.disabled).toBe(true);
-          expect(saveBtnEl.disabled).toBe(false);
+          expect(searchBtnEl.getAttribute('aria-disabled')).toBe('true');
+          expect(searchBtnEl.classList.contains('disabled')).toBeTrue();
+          expect(saveBtnEl.getAttribute('aria-disabled')).not.toBe('true');
+          expect(saveBtnEl.classList.contains('disabled')).toBeFalse();
           expect(saveBtnEl.textContent.trim()).toBe('form.save');
 
         });
@@ -395,8 +401,10 @@ describe('Dynamic Lookup component', () => {
           const de = lookupFixture.debugElement.queryAll(By.css('button'));
           const searchBtnEl = de[0].nativeElement;
           const saveBtnEl = de[1].nativeElement;
-          expect(searchBtnEl.disabled).toBe(true);
-          expect(saveBtnEl.disabled).toBe(false);
+          expect(searchBtnEl.getAttribute('aria-disabled')).toBe('true');
+          expect(searchBtnEl.classList.contains('disabled')).toBeTrue();
+          expect(saveBtnEl.getAttribute('aria-disabled')).not.toBe('true');
+          expect(saveBtnEl.classList.contains('disabled')).toBeFalse();
           expect(saveBtnEl.textContent.trim()).toBe('form.save');
 
         });
@@ -427,8 +435,10 @@ describe('Dynamic Lookup component', () => {
           const editBtnEl = deBtn[1].nativeElement;
 
           expect(de.length).toBe(2);
-          expect(searchBtnEl.disabled).toBe(true);
-          expect(editBtnEl.disabled).toBe(true);
+          expect(searchBtnEl.getAttribute('aria-disabled')).toBe('true');
+          expect(searchBtnEl.classList.contains('disabled')).toBeTrue();
+          expect(editBtnEl.getAttribute('aria-disabled')).toBe('true');
+          expect(editBtnEl.classList.contains('disabled')).toBeTrue();
           expect(editBtnEl.textContent.trim()).toBe('form.edit');
         });
 
@@ -524,8 +534,10 @@ describe('Dynamic Lookup component', () => {
           const de = lookupFixture.debugElement.queryAll(By.css('button'));
           const searchBtnEl = de[0].nativeElement;
           const saveBtnEl = de[1].nativeElement;
-          expect(searchBtnEl.disabled).toBe(true);
-          expect(saveBtnEl.disabled).toBe(false);
+          expect(searchBtnEl.getAttribute('aria-disabled')).toBe('true');
+          expect(searchBtnEl.classList.contains('disabled')).toBeTrue();
+          expect(saveBtnEl.getAttribute('aria-disabled')).not.toBe('true');
+          expect(saveBtnEl.classList.contains('disabled')).toBeFalse();
           expect(saveBtnEl.textContent.trim()).toBe('form.save');
 
         });
@@ -567,8 +579,10 @@ describe('Dynamic Lookup component', () => {
           const de = lookupFixture.debugElement.queryAll(By.css('button'));
           const searchBtnEl = de[0].nativeElement;
           const saveBtnEl = de[1].nativeElement;
-          expect(searchBtnEl.disabled).toBe(true);
-          expect(saveBtnEl.disabled).toBe(false);
+          expect(searchBtnEl.getAttribute('aria-disabled')).toBe('true');
+          expect(searchBtnEl.classList.contains('disabled')).toBeTrue();
+          expect(saveBtnEl.getAttribute('aria-disabled')).not.toBe('true');
+          expect(saveBtnEl.classList.contains('disabled')).toBeFalse();
           expect(saveBtnEl.textContent.trim()).toBe('form.save');
 
         });
