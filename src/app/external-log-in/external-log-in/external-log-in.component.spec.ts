@@ -63,7 +63,6 @@ describe('ExternalLogInComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExternalLogInComponent],
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Injector, useValue: {} },
@@ -80,6 +79,7 @@ describe('ExternalLogInComponent', () => {
           },
         }),
         BrowserOnlyMockPipe,
+        ExternalLogInComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

@@ -54,8 +54,8 @@ describe('EditCmsMetadataComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        EditCmsMetadataComponent,
       ],
-      declarations: [EditCmsMetadataComponent],
       providers: [
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SiteDataService, useValue: siteServiceStub },

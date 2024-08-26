@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,9 +10,13 @@ import {
 import {
   FormBuilder,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
   combineLatest,
@@ -44,6 +49,12 @@ import { ExternalLoginService } from '../../services/external-login.service';
   templateUrl: './confirm-email.component.html',
   styleUrls: ['./confirm-email.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    TranslateModule,
+    ReactiveFormsModule,
+    NgIf,
+  ],
 })
 export class ConfirmEmailComponent implements OnInit, OnDestroy {
   /**

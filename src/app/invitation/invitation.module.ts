@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../shared/shared.module';
 import { InvitationAcceptanceComponent } from './invitation-acceptance/invitation-acceptance.component';
 import { InvitationRoutingModule } from './invitation-routing/invitation-routing.module';
 
@@ -10,7 +9,6 @@ import { InvitationRoutingModule } from './invitation-routing/invitation-routing
   declarations: [InvitationAcceptanceComponent],
   imports: [
     CommonModule,
-    SharedModule,
     InvitationRoutingModule,
   ],
 })

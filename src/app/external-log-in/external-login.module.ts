@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../shared/shared.module';
 import { ConfirmEmailComponent } from './email-confirmation/confirm-email/confirm-email.component';
 import { ConfirmationSentComponent } from './email-confirmation/confirmation-sent/confirmation-sent.component';
 import { ProvideEmailComponent } from './email-confirmation/provide-email/provide-email.component';
@@ -19,7 +18,7 @@ const ENTRY_COMPONENTS = [OrcidConfirmationComponent];
 
 @NgModule({
   declarations: [...COMPONENTS, ...ENTRY_COMPONENTS],
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule],
   exports: [...COMPONENTS, ...ENTRY_COMPONENTS],
 })
 export class ExternalLoginModule {

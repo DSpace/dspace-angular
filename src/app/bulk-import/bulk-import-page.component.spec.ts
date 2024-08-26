@@ -89,9 +89,7 @@ describe('BulkImportPageComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        }),
-      ],
-      declarations: [BulkImportPageComponent],
+        }), BulkImportPageComponent],
       providers: [
         BulkImportPageComponent,
         DSONameService,

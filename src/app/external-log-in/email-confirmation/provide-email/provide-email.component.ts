@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,8 +8,10 @@ import {
 import {
   FormBuilder,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 import { hasValue } from '../../../shared/empty.util';
@@ -19,6 +22,12 @@ import { ExternalLoginService } from '../../services/external-login.service';
   templateUrl: './provide-email.component.html',
   styleUrls: ['./provide-email.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    TranslateModule,
+    ReactiveFormsModule,
+    NgIf,
+  ],
 })
 export class ProvideEmailComponent implements OnDestroy {
   /**

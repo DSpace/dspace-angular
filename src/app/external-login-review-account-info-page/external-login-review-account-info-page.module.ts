@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
 import { ExternalLoginModule } from '../external-log-in/external-login.module';
-import { SharedModule } from '../shared/shared.module';
 import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-review-account-info-page.component';
 import { ExternalLoginReviewAccountInfoRoutingModule } from './external-login-review-account-info-page-routing.module';
 import { CompareValuesPipe } from './helpers/compare-values.pipe';
@@ -20,7 +19,6 @@ import { ThemedExternalLoginReviewAccountInfoPageComponent } from './themed-exte
   imports: [
     CommonModule,
     ExternalLoginReviewAccountInfoRoutingModule,
-    SharedModule,
     UiSwitchModule,
     ExternalLoginModule,
   ],

@@ -17,8 +17,6 @@ describe('ExternalLoginEmailConfirmationPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExternalLoginEmailConfirmationPageComponent,
-        ConfirmationSentComponent],
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -26,6 +24,8 @@ describe('ExternalLoginEmailConfirmationPageComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ExternalLoginEmailConfirmationPageComponent,
+        ConfirmationSentComponent,
       ],
     })
       .compileComponents();
