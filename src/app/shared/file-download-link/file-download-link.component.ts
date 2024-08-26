@@ -71,6 +71,11 @@ export class FileDownloadLinkComponent implements OnInit {
 
   canDownload$: Observable<boolean>;
 
+  /**
+   * Get the bitstream name
+   */
+  bitstreamName: string;
+
   constructor(
     private authorizationService: AuthorizationDataService,
   ) {
@@ -87,6 +92,8 @@ export class FileDownloadLinkComponent implements OnInit {
       this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());
       this.canDownload$ = observableOf(true);
     }
+
+    this.getBitstreamName()
   }
 
   getBitstreamPath(canDownload: boolean, canRequestACopy: boolean) {
@@ -101,5 +108,9 @@ export class FileDownloadLinkComponent implements OnInit {
       routerLink: getBitstreamDownloadRoute(this.bitstream),
       queryParams: {},
     };
+  }
+
+  getBitstreamName() {
+    return this.bitstreamName = this.bitstream.name;
   }
 }

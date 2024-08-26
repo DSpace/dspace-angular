@@ -10249,4 +10249,7 @@
 
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
+
+  // "file-download-link.download": "Download ",
+  "file-download-link.download": "Baixar ",
 }

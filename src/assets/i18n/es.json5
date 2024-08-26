@@ -8152,5 +8152,8 @@
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar en el repositorio",
 
+  // "file-download-link.download": "Download ",
+  "file-download-link.download": "Descargar ",
+
 
 }
