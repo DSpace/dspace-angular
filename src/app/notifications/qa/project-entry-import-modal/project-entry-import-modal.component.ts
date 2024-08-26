@@ -29,6 +29,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import {
   hasValue,
   isNotEmpty,
@@ -104,7 +105,7 @@ export interface QualityAssuranceEventData {
   styleUrls: ['./project-entry-import-modal.component.scss'],
   templateUrl: './project-entry-import-modal.component.html',
   standalone: true,
-  imports: [RouterLink, NgIf, FormsModule, ThemedLoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [RouterLink, NgIf, FormsModule, ThemedLoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule, DisabledDirective],
 })
 /**
  * Component to display a modal window for linking a project to an Quality Assurance event

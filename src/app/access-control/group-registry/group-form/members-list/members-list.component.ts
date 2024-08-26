@@ -55,6 +55,7 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { DisabledDirective } from '../../../../shared/disabled-directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
@@ -113,6 +114,7 @@ export interface EPersonListActionConfig {
     RouterLink,
     NgClass,
     NgForOf,
+    DisabledDirective,
   ],
   standalone: true,
 })

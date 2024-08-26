@@ -18,6 +18,7 @@ import { FeedbackDataService } from '../../../core/feedback/feedback-data.servic
 import { Feedback } from '../../../core/feedback/models/feedback.model';
 import { RouteService } from '../../../core/services/route.service';
 import { NativeWindowService } from '../../../core/services/window.service';
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -26,7 +27,6 @@ import { EPersonMock } from '../../../shared/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { FeedbackFormComponent } from './feedback-form.component';
-import {DisabledDirective} from '../../../shared/disabled-directive';
 
 
 describe('FeedbackFormComponent', () => {

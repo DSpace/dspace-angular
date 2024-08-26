@@ -50,6 +50,7 @@ import {
 } from '../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { DisabledDirective } from '../../../../disabled-directive';
 import {
   hasValue,
   isNotEmpty,
@@ -91,6 +92,7 @@ import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dy
     AsyncPipe,
     NgForOf,
     DsDynamicLookupRelationSelectionTabComponent,
+    DisabledDirective,
   ],
   standalone: true,
 })

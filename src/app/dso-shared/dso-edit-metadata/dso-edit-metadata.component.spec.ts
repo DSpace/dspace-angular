@@ -22,6 +22,7 @@ import { Item } from '../../core/shared/item.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { AlertComponent } from '../../shared/alert/alert.component';
+import { DisabledDirective } from '../../shared/disabled-directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TestDataService } from '../../shared/testing/test-data-service.mock';
@@ -32,7 +33,6 @@ import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
-import {DisabledDirective} from '../../shared/disabled-directive';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
@@ -88,7 +88,6 @@ describe('DsoEditMetadataComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
-      declarations: [DisabledDirective]
       imports: [
         CommonModule,
         BrowserModule,
@@ -96,6 +95,7 @@ describe('DsoEditMetadataComponent', () => {
         RouterTestingModule.withRoutes([]),
         DsoEditMetadataComponent,
         VarDirective,
+        DisabledDirective,
       ],
       providers: [
         { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },

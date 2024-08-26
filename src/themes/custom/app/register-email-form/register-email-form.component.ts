@@ -12,13 +12,14 @@ import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { GoogleRecaptchaComponent } from 'src/app/shared/google-recaptcha/google-recaptcha.component';
 
 import { RegisterEmailFormComponent as BaseComponent } from '../../../../app/register-email-form/register-email-form.component';
+import { DisabledDirective } from '../../../../app/shared/disabled-directive';
 
 @Component({
   selector: 'ds-themed-register-email-form',
   // templateUrl: './register-email-form.component.html',
   templateUrl: '../../../../app/register-email-form/register-email-form.component.html',
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, DisabledDirective],
 })
 export class RegisterEmailFormComponent extends BaseComponent {
 }

@@ -55,6 +55,7 @@ import { Registration } from '../core/shared/registration.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { KlaroService } from '../shared/cookies/klaro.service';
+import { DisabledDirective } from '../shared/disabled-directive';
 import { isNotEmpty } from '../shared/empty.util';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -66,7 +67,7 @@ export const TYPE_REQUEST_REGISTER = 'register';
   selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, DisabledDirective],
 })
 /**
  * Component responsible to render an email registration form.

@@ -42,6 +42,7 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { DisabledDirective } from '../../shared/disabled-directive';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getMockFormBuilderService } from '../../shared/mocks/form-builder-service.mock';
@@ -57,7 +58,6 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';
-import {DisabledDirective} from '../../shared/disabled-directive';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;

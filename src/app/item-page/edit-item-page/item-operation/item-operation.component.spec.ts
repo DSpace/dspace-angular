@@ -6,9 +6,9 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import { ItemOperationComponent } from './item-operation.component';
 import { ItemOperation } from './itemOperation.model';
-import {DisabledDirective} from '../../../shared/disabled-directive';
 
 describe('ItemOperationComponent', () => {
   let itemOperation: ItemOperation;

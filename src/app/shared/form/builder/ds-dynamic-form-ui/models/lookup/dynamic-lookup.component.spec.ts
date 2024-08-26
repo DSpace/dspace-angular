@@ -33,6 +33,7 @@ import { of as observableOf } from 'rxjs';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { DisabledDirective } from '../../../../../disabled-directive';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
@@ -48,7 +49,6 @@ import {
   DynamicLookupModelConfig,
 } from './dynamic-lookup.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-import {DisabledDirective} from '../../../../../disabled-directive';
 
 let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {

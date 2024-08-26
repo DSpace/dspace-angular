@@ -49,6 +49,7 @@ import {
   dateToISOFormat,
   stringToNgbDateStruct,
 } from '../../date.util';
+import { DisabledDirective } from '../../disabled-directive';
 import { isNotEmptyOperator } from '../../empty.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
@@ -68,7 +69,6 @@ import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,
 } from './resource-policy-form.component';
-import {DisabledDirective} from '../../disabled-directive';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -217,7 +217,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         ResourcePolicyFormComponent,
         TestComponent,
         NgxMaskModule.forRoot(),
-        DisabledDirective
+        DisabledDirective,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },

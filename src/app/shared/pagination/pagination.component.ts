@@ -40,6 +40,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { DisabledDirective } from '../disabled-directive';
 import { hasValue } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
@@ -58,7 +59,7 @@ import { PaginationComponentOptions } from './pagination-component-options.model
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgFor, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe],
+  imports: [NgIf, NgbDropdownModule, NgFor, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe, DisabledDirective],
 })
 export class PaginationComponent implements OnDestroy, OnInit {
   /**

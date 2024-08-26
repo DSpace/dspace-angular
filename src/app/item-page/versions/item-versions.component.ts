@@ -51,6 +51,7 @@ import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
+import { DisabledDirective } from '../../shared/disabled-directive';
 import {
   hasValue,
   hasValueOperator,
@@ -69,7 +70,7 @@ import { ItemVersionsRowElementVersionComponent } from './item-versions-row-elem
   templateUrl: './item-versions.component.html',
   styleUrls: ['./item-versions.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule, ItemVersionsRowElementVersionComponent],
+  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule, ItemVersionsRowElementVersionComponent, DisabledDirective],
 })
 
 /**

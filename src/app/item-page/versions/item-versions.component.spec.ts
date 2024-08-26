@@ -42,6 +42,7 @@ import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
+import { DisabledDirective } from '../../shared/disabled-directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -51,7 +52,6 @@ import { PaginationServiceStub } from '../../shared/testing/pagination-service.s
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ItemVersionsComponent } from './item-versions.component';
-import {DisabledDirective} from '../../shared/disabled-directive';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;

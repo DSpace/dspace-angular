@@ -34,6 +34,7 @@ import {
   VIRTUAL_METADATA_PREFIX,
 } from '../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
@@ -44,7 +45,6 @@ import {
   DsoEditMetadataValue,
 } from '../dso-edit-metadata-form';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
-import {DisabledDirective} from '../../../shared/disabled-directive';
 
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';
@@ -189,7 +189,7 @@ describe('DsoEditMetadataValueComponent', () => {
         RouterTestingModule.withRoutes([]),
         DsoEditMetadataValueComponent,
         VarDirective,
-        DisabledDirective
+        DisabledDirective,
       ],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
@@ -462,7 +462,8 @@ describe('DsoEditMetadataValueComponent', () => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
           const inputElement = fixture.nativeElement.querySelector('input[data-test="authority-input"]');
-          expect(inputElement.disabled).toBeTruthy();
+          expect(inputElement.getAttribute('aria-disabled')).toBe('true');
+          expect(inputElement.classList.contains('disabled')).toBeTrue();
           done();
         });
       });

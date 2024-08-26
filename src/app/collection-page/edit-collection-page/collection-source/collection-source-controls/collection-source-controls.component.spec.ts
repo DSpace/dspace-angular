@@ -22,12 +22,12 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
 import { Process } from '../../../../process-page/processes/process.model';
+import { DisabledDirective } from '../../../../shared/disabled-directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { CollectionSourceControlsComponent } from './collection-source-controls.component';
-import {DisabledDirective} from '../../../../shared/disabled-directive';
 
 describe('CollectionSourceControlsComponent', () => {
   let comp: CollectionSourceControlsComponent;

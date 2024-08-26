@@ -20,6 +20,7 @@ import { getDSORoute } from 'src/app/app-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
+import { DisabledDirective } from '../../disabled-directive';
 import { hasValue } from '../../empty.util';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { Subscription } from '../models/subscription.model';
@@ -32,7 +33,7 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss'],
   standalone: true,
-  imports: [NgIf, ThemedTypeBadgeComponent, RouterLink, NgFor, TranslateModule],
+  imports: [NgIf, ThemedTypeBadgeComponent, RouterLink, NgFor, TranslateModule, DisabledDirective],
 })
 /**
  * Table row representing a subscription that displays all information and action buttons to manage it

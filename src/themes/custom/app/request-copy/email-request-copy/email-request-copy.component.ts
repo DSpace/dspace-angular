@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { EmailRequestCopyComponent as BaseComponent } from 'src/app/request-copy/email-request-copy/email-request-copy.component';
 
+import { DisabledDirective } from '../../../../../app/shared/disabled-directive';
+
 @Component({
   selector: 'ds-themed-email-request-copy',
   // styleUrls: ['./email-request-copy.component.scss'],
@@ -14,7 +16,7 @@ import { EmailRequestCopyComponent as BaseComponent } from 'src/app/request-copy
   // templateUrl: './email-request-copy.component.html',
   templateUrl: './../../../../../app/request-copy/email-request-copy/email-request-copy.component.html',
   standalone: true,
-  imports: [FormsModule, NgClass, NgIf, TranslateModule],
+  imports: [FormsModule, NgClass, NgIf, TranslateModule, DisabledDirective],
 })
 export class EmailRequestCopyComponent
   extends BaseComponent {

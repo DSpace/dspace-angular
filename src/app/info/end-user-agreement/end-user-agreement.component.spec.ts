@@ -16,11 +16,11 @@ import { of as observableOf } from 'rxjs';
 import { LogOutAction } from '../../core/auth/auth.actions';
 import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
+import { DisabledDirective } from '../../shared/disabled-directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
-import {DisabledDirective} from '../../shared/disabled-directive';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;

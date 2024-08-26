@@ -18,7 +18,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let selectItem of selectItems$ | async">
-          <td><input #selectItemBtn [attr.aria-label]="(selectItemBtn.checked ? 'item.select.table.deselect' : 'item.select.table.select') | translate" [disabled]="(selectItem.canSelect$ | async) === false" class="item-checkbox" [ngModel]="selectItem.selected$ | async" (change)="switch(selectItem.dso.id)" type="checkbox" name="{{selectItem.dso.id}}"></td>
+          <td><input #selectItemBtn [attr.aria-label]="(selectItemBtn.checked ? 'item.select.table.deselect' : 'item.select.table.select') | translate" [dsDisabled]="(selectItem.canSelect$ | async) === false" class="item-checkbox" [ngModel]="selectItem.selected$ | async" (change)="switch(selectItem.dso.id)" type="checkbox" name="{{selectItem.dso.id}}"></td>
           <td *ngIf="!hideCollection">
             <span *ngVar="(selectItem.dso.owningCollection | async)?.payload as collection">
               <a *ngIf="collection" [routerLink]="['/collections', collection?.id]">
@@ -42,7 +42,7 @@
     <button class="btn btn-outline-secondary item-cancel float-left" (click)="onCancel()">{{cancelButton | translate}}</button>
     <button class="btn item-confirm float-right"
             [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
-            [disabled]="selectedIds?.length === 0"
+            [dsDisabled]="selectedIds?.length === 0"
             (click)="confirmSelected()">
       {{confirmButton | translate}}
     </button>

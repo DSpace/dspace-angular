@@ -1,89 +1,97 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { DisabledDirective } from './disabled-directive';
 
 @Component({
-    template: `
+  template: `
     <button [dsDisabled]="isDisabled">Test Button</button>
-  `
+  `,
 })
 class TestComponent {
-    isDisabled = false;
+  isDisabled = false;
 }
 
 describe('DisabledDirective', () => {
-    let component: TestComponent;
-    let fixture: ComponentFixture<TestComponent>;
-    let button: DebugElement;
+  let component: TestComponent;
+  let fixture: ComponentFixture<TestComponent>;
+  let button: DebugElement;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [TestComponent, DisabledDirective]
-        });
-        fixture = TestBed.createComponent(TestComponent);
-        component = fixture.componentInstance;
-        button = fixture.debugElement.query(By.css('button'));
-        fixture.detectChanges();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [DisabledDirective],
+      declarations: [TestComponent],
     });
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
+    button = fixture.debugElement.query(By.css('button'));
+    fixture.detectChanges();
+  });
 
-    it('should bind aria-disabled to false initially', () => {
-        expect(button.nativeElement.getAttribute('aria-disabled')).toBe('false');
-        expect(button.nativeElement.classList.contains('disabled')).toBeFalse();
-    });
+  it('should bind aria-disabled to false initially', () => {
+    expect(button.nativeElement.getAttribute('aria-disabled')).toBe('false');
+    expect(button.nativeElement.classList.contains('disabled')).toBeFalse();
+  });
 
-    it('should bind aria-disabled to true and add disabled class when isDisabled is true', () => {
-        component.isDisabled = true;
-        fixture.detectChanges();
+  it('should bind aria-disabled to true and add disabled class when isDisabled is true', () => {
+    component.isDisabled = true;
+    fixture.detectChanges();
 
-        expect(button.nativeElement.getAttribute('aria-disabled')).toBe('true');
-        expect(button.nativeElement.classList.contains('disabled')).toBeTrue();
-    });
+    expect(button.nativeElement.getAttribute('aria-disabled')).toBe('true');
+    expect(button.nativeElement.classList.contains('disabled')).toBeTrue();
+  });
 
-    it('should prevent click events when disabled', () => {
-        component.isDisabled = true;
-        fixture.detectChanges();
+  it('should prevent click events when disabled', () => {
+    component.isDisabled = true;
+    fixture.detectChanges();
 
-        let clickHandled = false;
-        button.nativeElement.addEventListener('click', () => clickHandled = true);
+    let clickHandled = false;
+    button.nativeElement.addEventListener('click', () => clickHandled = true);
 
-        button.nativeElement.click();
+    button.nativeElement.click();
 
-        expect(clickHandled).toBeFalse();
-    });
+    expect(clickHandled).toBeFalse();
+  });
 
-    it('should prevent Enter or Space keydown events when disabled', () => {
-        component.isDisabled = true;
-        fixture.detectChanges();
+  it('should prevent Enter or Space keydown events when disabled', () => {
+    component.isDisabled = true;
+    fixture.detectChanges();
 
-        let keydownHandled = false;
-        button.nativeElement.addEventListener('keydown', () => keydownHandled = true);
+    let keydownHandled = false;
+    button.nativeElement.addEventListener('keydown', () => keydownHandled = true);
 
-        const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
-        const spaceEvent = new KeyboardEvent('keydown', { key: 'Space' });
+    const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+    const spaceEvent = new KeyboardEvent('keydown', { key: 'Space' });
 
-        button.nativeElement.dispatchEvent(enterEvent);
-        button.nativeElement.dispatchEvent(spaceEvent);
+    button.nativeElement.dispatchEvent(enterEvent);
+    button.nativeElement.dispatchEvent(spaceEvent);
 
-        expect(keydownHandled).toBeFalse();
-    });
+    expect(keydownHandled).toBeFalse();
+  });
 
-    it('should allow click and keydown events when not disabled', () => {
-        let clickHandled = false;
-        let keydownHandled = false;
+  it('should allow click and keydown events when not disabled', () => {
+    let clickHandled = false;
+    let keydownHandled = false;
 
-        button.nativeElement.addEventListener('click', () => clickHandled = true);
-        button.nativeElement.addEventListener('keydown', () => keydownHandled = true);
+    button.nativeElement.addEventListener('click', () => clickHandled = true);
+    button.nativeElement.addEventListener('keydown', () => keydownHandled = true);
 
-        button.nativeElement.click();
+    button.nativeElement.click();
 
-        const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
-        const spaceEvent = new KeyboardEvent('keydown', { key: 'Space' });
+    const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+    const spaceEvent = new KeyboardEvent('keydown', { key: 'Space' });
 
-        button.nativeElement.dispatchEvent(enterEvent);
-        button.nativeElement.dispatchEvent(spaceEvent);
+    button.nativeElement.dispatchEvent(enterEvent);
+    button.nativeElement.dispatchEvent(spaceEvent);
 
-        expect(clickHandled).toBeTrue();
-        expect(keydownHandled).toBeTrue();
-    });
+    expect(clickHandled).toBeTrue();
+    expect(keydownHandled).toBeTrue();
+  });
 });

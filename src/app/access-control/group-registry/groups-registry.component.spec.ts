@@ -50,6 +50,7 @@ import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { DisabledDirective } from '../../shared/disabled-directive';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
@@ -71,7 +72,6 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { GroupsRegistryComponent } from './groups-registry.component';
-import {DisabledDirective} from '../../shared/disabled-directive';
 
 describe('GroupsRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -209,7 +209,7 @@ describe('GroupsRegistryComponent', () => {
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot(),
         GroupsRegistryComponent,
-        DisabledDirective
+        DisabledDirective,
       ],
       providers: [GroupsRegistryComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },

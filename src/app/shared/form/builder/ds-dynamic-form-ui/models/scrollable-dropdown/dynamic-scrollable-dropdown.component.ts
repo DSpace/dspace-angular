@@ -43,6 +43,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { DisabledDirective } from '../../../../../disabled-directive';
 import { isEmpty } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
@@ -62,6 +63,7 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
     InfiniteScrollModule,
     NgForOf,
     TranslateModule,
+    DisabledDirective,
   ],
   standalone: true,
 })
