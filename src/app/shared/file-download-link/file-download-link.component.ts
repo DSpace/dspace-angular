@@ -26,6 +26,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import {
   hasValue,
   isNotEmpty,
@@ -71,13 +72,9 @@ export class FileDownloadLinkComponent implements OnInit {
 
   canDownload$: Observable<boolean>;
 
-  /**
-   * Get the bitstream name
-   */
-  bitstreamName: string;
-
   constructor(
     private authorizationService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
   ) {
   }
 
@@ -92,8 +89,6 @@ export class FileDownloadLinkComponent implements OnInit {
       this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());
       this.canDownload$ = observableOf(true);
     }
-
-    this.getBitstreamName()
   }
 
   getBitstreamPath(canDownload: boolean, canRequestACopy: boolean) {
@@ -108,9 +103,5 @@ export class FileDownloadLinkComponent implements OnInit {
       routerLink: getBitstreamDownloadRoute(this.bitstream),
       queryParams: {},
     };
-  }
-
-  getBitstreamName() {
-    return this.bitstreamName = this.bitstream.name;
   }
 }
