@@ -54,29 +54,12 @@ import { ThemedLoadingComponent } from '../shared/loading/themed-loading.compone
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { VarDirective } from '../shared/utils/var.directive';
+import {
+  ManageRelationshipEvent,
+  ManageRelationshipEventType,
+} from './edit-item-relationship-types';
 import { EditItemRelationshipsActionTypes } from './edit-item-relationships.actions';
 import { RelationshipsSortListComponent } from './relationships-sort-list/relationships-sort-list.component';
-
-export enum ManageRelationshipEventType {
-  Select = 'select',
-  Unselect = 'unselect',
-  Hide = 'hide',
-  Unhide = 'unhide',
-  Sort = 'sort'
-}
-
-export interface ManageRelationshipEvent {
-  action: ManageRelationshipEventType;
-  item: Item;
-  relationship: Relationship;
-  place?: number
-}
-
-export interface ManageRelationshipCustomData {
-  relationships$: BehaviorSubject<Relationship[]>;
-  entityType: string;
-  updateStatusByItemId$: BehaviorSubject<string>;
-}
 
 @Component({
   selector: 'ds-edit-item-relationships',

@@ -16,7 +16,7 @@ import { Item } from '../../../../core/shared/item.model';
 import {
   ManageRelationshipEvent,
   ManageRelationshipEventType,
-} from '../../../../edit-item-relationships/edit-item-relationships.component';
+} from '../../../../edit-item-relationships/edit-item-relationship-types';
 import { fadeInOut } from '../../../animations/fade';
 import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { ThemedTypeBadgeComponent } from '../../../object-collection/shared/badges/type-badge/themed-type-badge.component';

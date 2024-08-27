@@ -31,7 +31,7 @@ import {
   ManageRelationshipCustomData,
   ManageRelationshipEvent,
   ManageRelationshipEventType,
-} from '../../../../edit-item-relationships/edit-item-relationships.component';
+} from '../../../../edit-item-relationships/edit-item-relationship-types';
 import { getPendingStatus } from '../../../../edit-item-relationships/edit-item-relationships.selectors';
 import { hasValue } from '../../../empty.util';
 
