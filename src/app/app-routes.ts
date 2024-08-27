@@ -298,7 +298,7 @@ export const APP_ROUTES: Route[] = [
       },
       {
         path: 'luck-search',
-        loadChildren: () => import('./lucky-search/lucky-search-routing.module')
+        loadChildren: () => import('./lucky-search/lucky-search-routes')
           .then((m) => m.ROUTES),
       },
       {
