@@ -19,6 +19,11 @@ import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { ItemEditBitstreamDragHandleComponent } from '../item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 import { PaginatedDragAndDropBitstreamListComponent } from './paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { map, Observable } from 'rxjs';
+import { AsyncPipe, NgClass, NgFor } from '@angular/common';
+import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -29,6 +34,10 @@ import { PaginatedDragAndDropBitstreamListComponent } from './paginated-drag-and
     TranslateModule,
     RouterLink,
     ItemEditBitstreamDragHandleComponent,
+    NgbDropdownModule,
+    AsyncPipe,
+    NgClass,
+    NgFor
   ],
   standalone: true,
 })
@@ -77,9 +86,20 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
    */
   itemPageRoute: string;
 
+  @ViewChild(PaginatedDragAndDropBitstreamListComponent) paginatedDragAndDropBitstreamListComponent: PaginatedDragAndDropBitstreamListComponent;
+
+  options = Object.assign(new PaginationComponentOptions(),{
+    id: 'dad',
+  });
+
+  public pageSize$: Observable<number>;
+
+  public pageSizeOptions: number[];
+
   constructor(
     protected viewContainerRef: ViewContainerRef,
     public dsoNameService: DSONameService,
+    public paginationService: PaginationService
   ) {
   }
 
@@ -87,10 +107,23 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
     this.bundleNameColumn = this.columnSizes.combineColumns(0, 2);
     this.viewContainerRef.createEmbeddedView(this.bundleView);
     this.itemPageRoute = getItemPageRoute(this.item);
+    this.pageSizeOptions = this.options.pageSizeOptions;
+    this.pageSize$ = this.paginationService.getCurrentPagination(this.options.id, this.options).pipe(
+      map((currentPagination) => currentPagination.pageSize),
+    );
   }
 
   ngOnDestroy(): void {
     this.viewContainerRef.clear();
   }
 
+  /**
+   * Method to change the route to the given page size
+   *
+   * @param pageSize
+   *    The page size being navigated to.
+   */
+  public doPageSizeChange(pageSize: number) {
+    this.paginatedDragAndDropBitstreamListComponent.paginationComponent.doPageSizeChange(pageSize);
+  }
 }
