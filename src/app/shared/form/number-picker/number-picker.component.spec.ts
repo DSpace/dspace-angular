@@ -44,7 +44,7 @@ describe('NumberPickerComponent test suite', () => {
   beforeEach(() => {
     html = `
       <ds-number-picker
-        [disabled]="disabled"
+        [dsDisabled]="disabled"
         [min]="min"
         [max]="max"
         [id]="'ds_test_field'"

@@ -509,7 +509,7 @@ describe('EPersonFormComponent', () => {
       // ePersonDataServiceStub.activeEPerson = eperson;
       spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBeNull();
       expect(deleteButton.nativeElement.classList.contains('disabled')).toBeFalse();
       deleteButton.triggerEventHandler('click', null);
       fixture.detectChanges();
