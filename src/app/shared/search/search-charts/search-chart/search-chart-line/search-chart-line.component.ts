@@ -14,9 +14,7 @@ import { ChartComponent } from '../../../../../charts/components/chart/chart.com
 import { ChartData } from '../../../../../charts/models/chart-data';
 import { isNotEmpty } from '../../../../empty.util';
 import { FacetValues } from '../../../models/facet-values.model';
-import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
-import { renderChartFor } from '../../chart-search-result-element-decorator';
 import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
 
 @Component({
@@ -35,7 +33,6 @@ import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-
 /**
  * Component that represents a search line chart filter
  */
-@renderChartFor(FilterType['chart.line'])
 export class SearchChartLineComponent extends SearchChartFilterComponent {
 
   protected getInitData(): Observable<ChartData[]> {

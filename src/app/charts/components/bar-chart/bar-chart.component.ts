@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BarChartModule } from '@swimlane/ngx-charts';
 
 import { fadeIn } from '../../../shared/animations/fade';
-import { renderChartFor } from '../../charts.decorator';
 import { ChartData } from '../../models/chart-data';
 import { ChartSeries } from '../../models/chart-series';
 import { ChartType } from '../../models/chart-type';
@@ -33,8 +32,6 @@ import { AbstractChartComponent } from '../abstract-chart/abstract-chart.compone
     TranslateModule,
   ],
 })
-@renderChartFor(ChartType.BAR)
-@renderChartFor(ChartType.BAR_HORIZONTAL)
 export class BarChartComponent extends AbstractChartComponent implements OnInit {
 
   /**

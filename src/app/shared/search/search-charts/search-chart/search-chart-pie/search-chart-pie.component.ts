@@ -37,10 +37,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-c
 import { isNotEmpty } from '../../../../empty.util';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FacetValues } from '../../../models/facet-values.model';
-import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
-import { renderChartFor } from '../../chart-search-result-element-decorator';
 import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
 
 @Component({
@@ -59,7 +57,6 @@ import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-
 /**
  * Component that represents a search pie chart filter
  */
-@renderChartFor(FilterType['chart.pie'])
 export class SearchChartPieComponent extends SearchChartFilterComponent {
 
   constructor(protected searchService: SearchService,
