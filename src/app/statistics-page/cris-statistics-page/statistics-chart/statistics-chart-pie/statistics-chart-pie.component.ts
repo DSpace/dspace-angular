@@ -22,8 +22,6 @@ import {
   UsageReport,
 } from '../../../../core/statistics/models/usage-report.model';
 import { AlertComponent } from '../../../../shared/alert/alert.component';
-import { renderChartFor } from '../../cris-statistics-element-decorator';
-import { StatisticsType } from '../../statistics-type.model';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 
 /**
@@ -48,7 +46,6 @@ import { StatisticsChartDataComponent } from '../statistics-chart-data/statistic
 /**
  * Component that represents a pie chart
  */
-@renderChartFor(StatisticsType['chart.pie'])
 export class StatisticsChartPieComponent extends StatisticsChartDataComponent {
 
   constructor(
