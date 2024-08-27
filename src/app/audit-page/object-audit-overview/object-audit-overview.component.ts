@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  DatePipe,
   NgForOf,
   NgIf,
 } from '@angular/common';
@@ -51,6 +52,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
     NgForOf,
     VarDirective,
     RouterLink,
+    DatePipe,
   ],
   standalone: true,
 })
