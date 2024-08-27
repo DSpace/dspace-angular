@@ -277,6 +277,21 @@ export const APP_ROUTES: Route[] = [
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {
+        path: 'external-login/:token',
+        loadChildren: () => import('./external-login-page/external-login-page-routes')
+          .then((m) => m.ROUTES),
+      },
+      {
+        path: 'review-account/:token',
+        loadChildren: () => import('./external-login-review-account-info-page/external-login-review-account-info-page-routes')
+          .then((m) => m.ROUTES),
+      },
+      {
+        path: 'email-confirmation',
+        loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page-routes')
+          .then((m) => m.ROUTES),
+      },
+      {
         path: 'subscriptions',
         loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
           .then((m) => m.ROUTES),
