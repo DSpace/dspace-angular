@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -9,7 +14,14 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+} from 'rxjs';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
+import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Bundle } from '../../../../core/shared/bundle.model';
@@ -19,11 +31,6 @@ import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { ItemEditBitstreamDragHandleComponent } from '../item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 import { PaginatedDragAndDropBitstreamListComponent } from './paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { map, Observable } from 'rxjs';
-import { AsyncPipe, NgClass, NgFor } from '@angular/common';
-import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -37,7 +44,7 @@ import { PaginationService } from 'src/app/core/pagination/pagination.service';
     NgbDropdownModule,
     AsyncPipe,
     NgClass,
-    NgFor
+    NgFor,
   ],
   standalone: true,
 })
@@ -86,12 +93,22 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
    */
   itemPageRoute: string;
 
+  /**
+   * Reference to child paginatedDragAndDropBitstreamListComponent
+   */
   @ViewChild(PaginatedDragAndDropBitstreamListComponent) paginatedDragAndDropBitstreamListComponent: PaginatedDragAndDropBitstreamListComponent;
 
+  /**
+   * Options object for PaginationComponent
+   * ID match with default ID to affect all paginated bundles
+   */
   options = Object.assign(new PaginationComponentOptions(),{
     id: 'dad',
   });
 
+  /**
+   * current page size
+   */
   public pageSize$: Observable<number>;
 
   public pageSizeOptions: number[];
@@ -99,7 +116,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   constructor(
     protected viewContainerRef: ViewContainerRef,
     public dsoNameService: DSONameService,
-    public paginationService: PaginationService
+    public paginationService: PaginationService,
   ) {
   }
 
@@ -118,7 +135,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method to change the route to the given page size
+   * Method to update page size in child components
    *
    * @param pageSize
    *    The page size being navigated to.
