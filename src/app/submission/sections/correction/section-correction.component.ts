@@ -31,8 +31,6 @@ import {
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 
 @Component({
   selector: 'ds-submission-correction',
@@ -46,7 +44,6 @@ import { SectionsType } from '../sections-type';
   ],
   standalone: true,
 })
-@renderSectionFor(SectionsType.Correction)
 export class SubmissionSectionCorrectionComponent extends SectionModelComponent {
 
   /**

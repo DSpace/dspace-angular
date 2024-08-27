@@ -35,8 +35,6 @@ import { SubmissionVisibility } from '../../utils/visibility.util';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { DetectDuplicateService } from './detect-duplicate.service';
 import { DuplicateMatchComponent } from './duplicate-match/duplicate-match.component';
 
@@ -63,7 +61,6 @@ import { DuplicateMatchComponent } from './duplicate-match/duplicate-match.compo
   standalone: true,
 })
 
-@renderSectionFor(SectionsType.DetectDuplicate)
 export class SubmissionSectionDetectDuplicateComponent extends SectionModelComponent {
   /**
    * The Alert categories.
