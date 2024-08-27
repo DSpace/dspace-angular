@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CrisItemPageModule } from '../../../../../app/cris-item-page/cris-item-page.module';
+import { CrisItemPageComponent } from '../../../../../app/cris-item-page/cris-item-page.component';
 import { ThemedItemAlertsComponent } from '../../../../../app/item-page/alerts/themed-item-alerts.component';
 import { ItemPageComponent as BaseComponent } from '../../../../../app/item-page/simple/item-page.component';
 import { NotifyRequestsStatusComponent } from '../../../../../app/item-page/simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
@@ -51,8 +51,8 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     NgIf,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
-    CrisItemPageModule,
     NgClass,
+    CrisItemPageComponent,
   ],
 })
 export class ItemPageComponent extends BaseComponent {

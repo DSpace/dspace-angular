@@ -15,7 +15,6 @@ import { ThemedFileDownloadLinkComponent } from '../shared/file-download-link/th
 import { ChipsComponent } from '../shared/form/chips/chips.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MetadataLinkViewComponent } from '../shared/metadata-link-view/metadata-link-view.component';
-import { MetricsModule } from '../shared/metric/metrics.module';
 import { TruncatableComponent } from '../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../shared/utils/file-size-pipe';
@@ -90,7 +89,6 @@ const ENTRY_COMPONENTS = [
     CommonModule,
     ContextMenuModule.withEntryComponents(),
     NgbAccordionModule,
-    MetricsModule,
     TranslateModule,
     RouterLink,
     MiradorViewerComponent,

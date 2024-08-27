@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { USAGE_REPORT } from '../../../core/statistics/models/usage-report.resource-type';
-import { StatisticsPipesPageModule } from '../statistics-pipes/statistics-pipes.module';
 import { StatisticsType } from '../statistics-type.model';
 import { StatisticsChartComponent } from './statistics-chart.component';
 
@@ -168,7 +167,7 @@ describe('StatisticsChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), StatisticsPipesPageModule, StatisticsChartComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), StatisticsChartComponent],
       providers: [],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(StatisticsChartComponent, {

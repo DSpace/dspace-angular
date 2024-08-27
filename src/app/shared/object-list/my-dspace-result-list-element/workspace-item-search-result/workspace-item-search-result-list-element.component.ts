@@ -26,7 +26,6 @@ import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
-import { MetricsModule } from '../../../metric/metrics.module';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
@@ -49,7 +48,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss', './workspace-item-search-result-list-element.component.scss'],
   templateUrl: './workspace-item-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule, AdditionalMetadataComponent, MetadataLinkViewComponent, MetricsModule, ListableObjectComponentLoaderComponent, WorkspaceitemActionsComponent, ThemedLoadingComponent],
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule, AdditionalMetadataComponent, MetadataLinkViewComponent, ListableObjectComponentLoaderComponent, WorkspaceitemActionsComponent, ThemedLoadingComponent],
 })
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement)

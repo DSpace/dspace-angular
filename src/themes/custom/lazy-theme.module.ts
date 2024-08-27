@@ -11,7 +11,6 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
-import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
 import { RootModule } from '../../app/root.module';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
 import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
@@ -216,7 +215,6 @@ const DECLARATIONS = [
     FormsModule,
     NgxGalleryModule,
     ContextMenuModule,
-    CrisItemPageModule,
     ...DECLARATIONS,
   ],
   exports: [

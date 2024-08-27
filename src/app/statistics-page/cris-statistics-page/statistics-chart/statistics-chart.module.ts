@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ChartsModule } from '../../../charts/charts.module';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { StatisticsPipesPageModule } from '../statistics-pipes/statistics-pipes.module';
 import { StatisticsChartComponent } from './statistics-chart.component';
 import { StatisticsChartBarComponent } from './statistics-chart-bar/statistics-chart-bar.component';
 import { StatisticsChartLineComponent } from './statistics-chart-line/statistics-chart-line.component';
@@ -24,7 +23,6 @@ const ENTRY_COMPONENTS = [
 
 const IMPORTS = [
   CommonModule,
-  StatisticsPipesPageModule,
   ChartsModule.withEntryComponents(),
 ];
 const COMPONENTS = [
