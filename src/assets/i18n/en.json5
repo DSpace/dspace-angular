@@ -6741,4 +6741,6 @@
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
 
   "browse.search-form.placeholder": "Search the repository",
+
+  "register-email.aria.label": "Enter your e-mail address",
 }
