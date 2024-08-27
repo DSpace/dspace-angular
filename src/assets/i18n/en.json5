@@ -5369,4 +5369,6 @@
   "process.overview.unknown.user": "Unknown",
 
   "browse.search-form.placeholder": "Search the repository",
+
+  "register-email.aria.label": "Enter your e-mail address",
 }

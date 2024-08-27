@@ -7831,5 +7831,8 @@
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar en el repositorio",
 
+  // "register-email.aria.label": "Enter your e-mail address",
+  "register-email.aria.label": "Introduzca su dirección de correo electrónico",
+
 
 }
