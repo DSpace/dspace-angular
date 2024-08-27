@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { RootModule } from '../../app/root.module';
-import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
 
 
 
@@ -32,7 +31,6 @@ const DECLARATIONS = [
     StoreRouterConnectingModule,
     TranslateModule,
     FormsModule,
-    ContextMenuModule,
   ],
   declarations: DECLARATIONS,
 })

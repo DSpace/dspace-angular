@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { RootModule } from '../../app/root.module';
-import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
 import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
 import { JournalIssueComponent } from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
@@ -80,7 +79,6 @@ const DECLARATIONS = [
     CommonModule,
     RootModule,
     ...DECLARATIONS,
-    ContextMenuModule,
   ],
   providers: [
     ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),

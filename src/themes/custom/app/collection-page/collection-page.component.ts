@@ -19,7 +19,7 @@ import { ThemedComcolPageContentComponent } from '../../../../app/shared/comcol/
 import { ThemedComcolPageHandleComponent } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import { ContextMenuModule } from '../../../../app/shared/context-menu/context-menu.module';
+import { ContextMenuComponent } from '../../../../app/shared/context-menu/context-menu.component';
 import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
@@ -55,7 +55,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     ThemedComcolPageBrowseByComponent,
     ObjectCollectionComponent,
     RouterOutlet,
-    ContextMenuModule,
+    ContextMenuComponent,
   ],
 })
 /**

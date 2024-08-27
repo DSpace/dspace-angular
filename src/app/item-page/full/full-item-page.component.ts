@@ -46,7 +46,7 @@ import { ServerResponseService } from '../../core/services/server-response.servi
 import { Item } from '../../core/shared/item.model';
 import { MetadataMap } from '../../core/shared/metadata.models';
 import { fadeInOut } from '../../shared/animations/fade';
-import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
+import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { hasValue } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
@@ -90,7 +90,7 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
     ViewTrackerComponent,
     ThemedItemAlertsComponent,
     VarDirective,
-    ContextMenuModule,
+    ContextMenuComponent,
     SlicePipe,
   ],
   standalone: true,

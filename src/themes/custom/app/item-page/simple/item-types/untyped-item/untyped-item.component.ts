@@ -24,7 +24,7 @@ import { ThemedItemPageTitleFieldComponent } from '../../../../../../../app/item
 import { ItemPageUriFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { UntypedItemComponent as BaseComponent } from '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component';
 import { ThemedMetadataRepresentationListComponent } from '../../../../../../../app/item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
-import { ContextMenuModule } from '../../../../../../../app/shared/context-menu/context-menu.module';
+import { ContextMenuComponent } from '../../../../../../../app/shared/context-menu/context-menu.component';
 import { DsoEditMenuComponent } from '../../../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -66,7 +66,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     AsyncPipe,
     TranslateModule,
     ItemPageCcLicenseFieldComponent,
-    ContextMenuModule,
+    ContextMenuComponent,
   ],
 })
 export class UntypedItemComponent extends BaseComponent {}

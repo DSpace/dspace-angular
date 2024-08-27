@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ChartsModule } from '../../../charts/charts.module';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { StatisticsChartComponent } from './statistics-chart.component';
 import { StatisticsChartBarComponent } from './statistics-chart-bar/statistics-chart-bar.component';
@@ -23,7 +22,6 @@ const ENTRY_COMPONENTS = [
 
 const IMPORTS = [
   CommonModule,
-  ChartsModule.withEntryComponents(),
 ];
 const COMPONENTS = [
   StatisticsChartComponent,

@@ -11,7 +11,7 @@ import { GenericItemPageFieldComponent } from '../../../../item-page/simple/fiel
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemComponent } from '../../../../item-page/simple/item-types/shared/item.component';
 import { RelatedItemsComponent } from '../../../../item-page/simple/related-items/related-items-component';
-import { ContextMenuModule } from '../../../../shared/context-menu/context-menu.module';
+import { ContextMenuComponent } from '../../../../shared/context-menu/context-menu.component';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
@@ -24,7 +24,7 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
   styleUrls: ['./journal-issue.component.scss'],
   templateUrl: './journal-issue.component.html',
   standalone: true,
-  imports: [NgIf, ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, AsyncPipe, TranslateModule, ContextMenuModule],
+  imports: [NgIf, ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, AsyncPipe, TranslateModule, ContextMenuComponent],
 })
 /**
  * The component for displaying metadata and relations of an item of the type Journal Issue

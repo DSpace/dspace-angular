@@ -10,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MiradorViewerComponent } from '../item-page/mirador-viewer/mirador-viewer.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { ThemedFileDownloadLinkComponent } from '../shared/file-download-link/themed-file-download-link.component';
 import { ChipsComponent } from '../shared/form/chips/chips.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
@@ -87,7 +86,6 @@ const ENTRY_COMPONENTS = [
 @NgModule({
   imports: [
     CommonModule,
-    ContextMenuModule.withEntryComponents(),
     NgbAccordionModule,
     TranslateModule,
     RouterLink,

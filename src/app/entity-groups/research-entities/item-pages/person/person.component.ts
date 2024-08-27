@@ -12,7 +12,6 @@ import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/
 import { ItemComponent } from '../../../../item-page/simple/item-types/shared/item.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../../../../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../../../item-page/simple/related-items/related-items-component';
-import { ContextMenuModule } from '../../../../shared/context-menu/context-menu.module';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
