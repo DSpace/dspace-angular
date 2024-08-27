@@ -39,8 +39,6 @@ import {
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
 } from '../../../../../core/shared/operators';
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 
 @Component({
@@ -57,7 +55,6 @@ import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-
     TranslateModule,
   ],
 })
-@RenderCrisLayoutBoxFor(LayoutBox.COLLECTIONS)
 export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   isInline = environment.crisLayout.collectionsBox.isInline;

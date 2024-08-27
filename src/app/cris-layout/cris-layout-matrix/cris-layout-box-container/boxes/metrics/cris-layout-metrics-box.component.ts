@@ -27,8 +27,6 @@ import { CrisLayoutMetricRow } from '../../../../../core/layout/models/tab.model
 import { Item } from '../../../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { hasValue } from '../../../../../shared/empty.util';
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 import { MetricRowComponent } from './metric-row/metric-row.component';
 
@@ -51,7 +49,6 @@ import { MetricRowComponent } from './metric-row/metric-row.component';
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and
  * add the CrisLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
-@RenderCrisLayoutBoxFor(LayoutBox.METRICS, true)
 export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent implements OnInit, OnDestroy {
 
   /**

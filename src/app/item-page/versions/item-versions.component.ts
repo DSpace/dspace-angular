@@ -52,8 +52,6 @@ import {
 } from '../../core/shared/operators';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
-import { RenderCrisLayoutBoxFor } from '../../cris-layout/decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../cris-layout/enums/layout-box.enum';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {
@@ -73,7 +71,6 @@ import {
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 
 
-@RenderCrisLayoutBoxFor(LayoutBox.VERSIONING)
 @Component({
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',

@@ -13,8 +13,6 @@ import { RouteService } from '../../../../../core/services/route.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { MiradorViewerComponent } from '../../../../../item-page/mirador-viewer/mirador-viewer.component';
 import { getDSpaceQuery } from '../../../../../item-page/simple/item-types/shared/item-iiif-utils';
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 
 @Component({
@@ -24,7 +22,6 @@ import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-
   standalone: true,
   imports: [MiradorViewerComponent, AsyncPipe],
 })
-@RenderCrisLayoutBoxFor(LayoutBox.IIIFVIEWER)
 export class CrisLayoutIIIFViewerBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   isSearchable: boolean;

@@ -28,8 +28,6 @@ import {
 import { Item } from '../../../../../core/shared/item.model';
 import { ThemedConfigurationSearchPageComponent } from '../../../../../search-page/themed-configuration-search-page.component';
 import { isNotEmpty } from '../../../../../shared/empty.util';
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 
 @Component({
@@ -43,7 +41,6 @@ import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-
     AsyncPipe,
   ],
 })
-@RenderCrisLayoutBoxFor(LayoutBox.RELATION)
 export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   /**
