@@ -10,10 +10,6 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FileDownloadLinkComponent } from '../../../../../../../../../../../shared/file-download-link/file-download-link.component';
-import {
-  AttachmentRenderingType,
-  AttachmentTypeRendering,
-} from '../../../attachment-type.decorator';
 
 @Component({
   selector: 'ds-file-download-button',
@@ -30,7 +26,6 @@ import {
 /**
  * Component displaying a download button or the request a copy button depending on authorization
  */
-@AttachmentTypeRendering(AttachmentRenderingType.DOWNLOAD, true)
 export class FileDownloadButtonComponent extends FileDownloadLinkComponent implements OnInit {
 
   hasNoDownload = true;
