@@ -78,6 +78,8 @@ export class DSOEditMenuResolverService  {
     let id = route.params.id;
     if (hasNoValue(id) && hasValue(route.queryParams.scope)) {
       id = route.queryParams.scope;
+    } else if (hasNoValue(id) && hasNoValue(route.queryParams.scope)) {
+      return observableOf({});
     }
     if (hasNoValue(id)) {
       // If there's no ID, we're not on a DSO homepage, so pass on any pre-existing menu route data
