@@ -56,6 +56,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
 } from '../../../core/shared/operators';
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import {
   hasNoValue,
   hasValue,
@@ -81,6 +82,7 @@ import { CollectionSourceControlsComponent } from './collection-source-controls/
     ThemedLoadingComponent,
     FormComponent,
     CollectionSourceControlsComponent,
+    DisabledDirective,
   ],
   standalone: true,
 })

@@ -45,6 +45,7 @@ import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -227,7 +228,7 @@ describe('EPersonFormComponent', () => {
     route = new ActivatedRouteStub();
     router = new RouterStub();
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, DisabledDirective, BrowserModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -546,7 +547,8 @@ describe('EPersonFormComponent', () => {
       // ePersonDataServiceStub.activeEPerson = eperson;
       spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBeNull();
+      expect(deleteButton.nativeElement.classList.contains('disabled')).toBeFalse();
       deleteButton.triggerEventHandler('click', null);
       fixture.detectChanges();
       expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);

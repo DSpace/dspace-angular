@@ -33,6 +33,7 @@ import {
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
@@ -45,6 +46,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
     NgIf,
     NgForOf,
     AlertComponent,
+    DisabledDirective,
   ],
   standalone: true,
 })

@@ -12,6 +12,7 @@ import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import { CaptionInfo } from './caption-info';
 import { languageHelper } from './language-helper';
 
@@ -27,6 +28,7 @@ import { languageHelper } from './language-helper';
     NgbDropdownModule,
     TranslateModule,
     NgIf,
+    DisabledDirective,
   ],
   standalone: true,
 })

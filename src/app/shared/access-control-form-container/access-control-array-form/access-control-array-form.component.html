@@ -13,7 +13,7 @@
           </label>
           <select
             id="accesscontroloption-{{control.id}}"
-            [disabled]="ngForm.disabled"
+            [dsDisabled]="ngForm.disabled"
             [(ngModel)]="control.itemName"
             (ngModelChange)="accessControlChanged(control, $event)"
             name="itemName-{{control.id}}"
@@ -47,7 +47,7 @@
             <div class="input-group-append">
               <button
                 class="btn btn-outline-secondary fas fa-calendar"
-                [disabled]="ngForm.disabled"
+                [dsDisabled]="ngForm.disabled"
                 (click)="d.toggle()" type="button">
               </button>
             </div>
@@ -76,7 +76,7 @@
             <div class="input-group-append">
               <button
                 type="button" class="btn btn-outline-secondary fas fa-calendar"
-                [disabled]="ngForm.disabled"
+                [dsDisabled]="ngForm.disabled"
                 (click)="d1.toggle()">
               </button>
             </div>
@@ -93,7 +93,7 @@
 
           <button type="button" class="btn btn-outline-danger"
                   [attr.aria-label]="'access-control-remove' | translate"
-                  [disabled]="ngForm.disabled || form.accessControls.length === 1"
+                  [dsDisabled]="ngForm.disabled || form.accessControls.length === 1"
                   (click)="removeAccessControlItem(control.id)">
             <i class="fas fa-trash"></i>
           </button>
@@ -103,7 +103,7 @@
   </ng-container>
 
   <button type="button" id="add-btn-{{type}}" class="btn btn-outline-primary mt-3"
-          [disabled]="ngForm.disabled"
+          [dsDisabled]="ngForm.disabled"
           (click)="addAccessControlItem()">
     <i class="fas fa-plus"></i>
     {{'access-control-add-more' | translate}}

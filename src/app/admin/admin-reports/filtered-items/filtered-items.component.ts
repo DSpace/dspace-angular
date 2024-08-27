@@ -43,6 +43,7 @@ import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operator
 import { isEmpty } from 'src/app/shared/empty.util';
 import { environment } from 'src/environments/environment';
 
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
 import { FilteredItems } from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
@@ -64,6 +65,7 @@ import { QueryPredicate } from './query-predicate.model';
     NgIf,
     NgForOf,
     FiltersComponent,
+    DisabledDirective,
   ],
   standalone: true,
 })

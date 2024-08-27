@@ -50,6 +50,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import {
   hasValue,
   isNotEmpty,
@@ -79,6 +80,7 @@ import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag
     ItemEditBitstreamDragHandleComponent,
     NgForOf,
     ThemedLoadingComponent,
+    DisabledDirective,
   ],
   providers: [ObjectValuesPipe],
   standalone: true,

@@ -5,7 +5,7 @@
       <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()"
              [placeholder]="'vocabulary-treeview.search.form.search-placeholder' | translate">
       <div class="input-group-append" id="button-addon4">
-        <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
+        <button class="btn btn-outline-primary" type="button" (click)="search()" [dsDisabled]="!isSearchEnabled()">
           {{'vocabulary-treeview.search.form.search' | translate}}
         </button>
         <button class="btn btn-outline-secondary" type="button" (click)="reset()">
@@ -14,7 +14,7 @@
         <button *ngIf="showAdd && this.vocabularyOptions.closed" class="btn btn-outline-primary" type="button" (click)="add()">
           {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
-        <button class="btn btn-outline-primary" type="button" (click)="add()" [disabled]="this.vocabularyOptions.closed">
+        <button class="btn btn-outline-primary" type="button" (click)="add()" [dsDisabled]="this.vocabularyOptions.closed">
           {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
       </div>
@@ -39,7 +39,7 @@
                  container="body"
           >
             <input class="mr-2" type="checkbox"
-                   [disabled]="!node.item?.selectable"
+                   [dsDisabled]="!node.item?.selectable"
                    [(ngModel)]="node.isSelected"
                    [checked]="node.isSelected"
                    (change)="onSelect(node.item)"
@@ -48,7 +48,7 @@
           </label>
           <button *ngIf="!multiSelect" class="btn btn-outline-link btn-sm text-left"
                   [class.text-success]="node.isSelected"
-                  [disabled]="!node.item?.selectable"
+                  [dsDisabled]="!node.item?.selectable"
                   [ngbTooltip]="node.item?.otherInformation?.note"
                   [openDelay]="500"
                   container="body"
@@ -71,7 +71,7 @@
                 [openDelay]="500"
                 container="body">
             <input class="mr-2" type="checkbox"
-                   [disabled]="!node.item?.selectable"
+                   [dsDisabled]="!node.item?.selectable"
                    [(ngModel)]="node.isSelected"
                    [checked]="node.isSelected"
                    (change)="onSelect(node.item)"
@@ -80,7 +80,7 @@
           </label>
           <button *ngIf="!multiSelect" class="btn btn-outline-link btn-sm text-left"
                   [class.text-success]="node.isSelected"
-                  [disabled]="!node.item?.selectable"
+                  [dsDisabled]="!node.item?.selectable"
                   [ngbTooltip]="node.item?.otherInformation?.note"
                   [openDelay]="500"
                   container="body"

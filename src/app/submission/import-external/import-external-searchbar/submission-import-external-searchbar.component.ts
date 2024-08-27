@@ -36,6 +36,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { DisabledDirective } from '../../../shared/disabled-directive';
 import { hasValue } from '../../../shared/empty.util';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
@@ -70,6 +71,7 @@ export interface ExternalSourceData {
     InfiniteScrollModule,
     NgbDropdownModule,
     FormsModule,
+    DisabledDirective,
   ],
   standalone: true,
 })

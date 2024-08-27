@@ -7,6 +7,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FeedbackFormComponent as BaseComponent } from '../../../../../../app/info/feedback/feedback-form/feedback-form.component';
+import { DisabledDirective } from '../../../../../../app/shared/disabled-directive';
 import { ErrorComponent } from '../../../../../../app/shared/error/error.component';
 
 @Component({
@@ -16,7 +17,7 @@ import { ErrorComponent } from '../../../../../../app/shared/error/error.compone
   // styleUrls: ['./feedback-form.component.scss'],
   styleUrls: ['../../../../../../app/info/feedback/feedback-form/feedback-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule, DisabledDirective],
 })
 export class FeedbackFormComponent extends BaseComponent {
 }

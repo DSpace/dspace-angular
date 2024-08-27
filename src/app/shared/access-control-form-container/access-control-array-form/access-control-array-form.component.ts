@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
 import { dateToISOFormat } from '../../date.util';
+import { DisabledDirective } from '../../disabled-directive';
 import { ToDatePipe } from './to-date.pipe';
 
 @Component({
@@ -25,7 +26,7 @@ import { ToDatePipe } from './to-date.pipe';
   styleUrls: ['./access-control-array-form.component.scss'],
   exportAs: 'accessControlArrayForm',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, NgbDatepickerModule, TranslateModule, ToDatePipe],
+  imports: [FormsModule, NgIf, NgFor, NgbDatepickerModule, TranslateModule, ToDatePipe, DisabledDirective],
 })
 export class AccessControlArrayFormComponent implements OnInit {
   @Input() dropdownOptions: AccessesConditionOption[] = [];

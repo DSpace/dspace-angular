@@ -31,7 +31,7 @@
                 <div class="form-check">
                   <input class="form-check-input" type="radio"
                          name="itemMode" id="itemReplace" value="replace"
-                         [disabled]="!state.item.toggleStatus"
+                         [dsDisabled]="!state.item.toggleStatus"
                          [(ngModel)]="state.item.accessMode">
                   <label class="form-check-label" for="itemReplace">
                     {{'access-control-replace-all' | translate}}
@@ -40,7 +40,7 @@
                 <div class="form-check">
                   <input class="form-check-input" type="radio"
                          name="itemMode" id="itemAdd" value="add"
-                         [disabled]="!state.item.toggleStatus"
+                         [dsDisabled]="!state.item.toggleStatus"
                          [(ngModel)]="state.item.accessMode">
                   <label class="form-check-label" for="itemAdd">
                     {{'access-control-add-to-existing' | translate}}
@@ -85,7 +85,7 @@
               <div class="form-check">
                 <input class="form-check-input" type="radio"
                        name="changesLimit" id="processAll" value="all"
-                       [disabled]="!state.bitstream.toggleStatus"
+                       [dsDisabled]="!state.bitstream.toggleStatus"
                        [(ngModel)]="state.bitstream.changesLimit">
                 <label class="form-check-label" for="processAll">
                   {{'access-control-process-all-bitstreams' | translate}}
@@ -94,7 +94,7 @@
               <div class="form-check">
                 <input class="form-check-input mt-2" type="radio"
                        name="changesLimit" id="processSelected" value="selected"
-                       [disabled]="!state.bitstream.toggleStatus"
+                       [dsDisabled]="!state.bitstream.toggleStatus"
                        [(ngModel)]="state.bitstream.changesLimit">
                 <label class="form-check-label" for="processSelected">
                   {{ state.bitstream.selectedBitstreams.length }}
@@ -103,7 +103,7 @@
                   <button
                     *ngIf="itemRD"
                     [attr.aria-label]="'access-control-bitstreams-select' | translate"
-                    [disabled]="!state.bitstream.toggleStatus || state.bitstream.changesLimit !== 'selected'"
+                    [dsDisabled]="!state.bitstream.toggleStatus || state.bitstream.changesLimit !== 'selected'"
                     (click)="openSelectBitstreamsModal(itemRD.payload)"
                     class="btn btn-outline-dark border-0" type="button">
                     <i class="fa fa-search"></i>
@@ -123,7 +123,7 @@
               <div class="form-check">
                 <input class="form-check-input" type="radio"
                        name="bitstreamMode" id="bitstreamReplace" value="replace"
-                       [disabled]="!state.bitstream.toggleStatus"
+                       [dsDisabled]="!state.bitstream.toggleStatus"
                        [(ngModel)]="state.bitstream.accessMode">
                 <label class="form-check-label" for="bitstreamReplace">
                   {{'access-control-replace-all' | translate}}
@@ -132,7 +132,7 @@
               <div class="form-check">
                 <input class="form-check-input" type="radio"
                        name="bitstreamMode" id="bitstreamAdd" value="add"
-                       [disabled]="!state.bitstream.toggleStatus"
+                       [dsDisabled]="!state.bitstream.toggleStatus"
                        [(ngModel)]="state.bitstream.accessMode">
                 <label class="form-check-label" for="bitstreamAdd">
                   {{'access-control-add-to-existing' | translate}}
@@ -161,7 +161,7 @@
           {{ 'access-control-cancel' | translate }}
         </button>
         <button class="btn btn-primary"
-                [disabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"
+                [dsDisabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"
                 (click)="submit()" type="submit">
           {{ 'access-control-execute' | translate }}
         </button>

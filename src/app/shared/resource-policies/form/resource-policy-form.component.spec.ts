@@ -49,6 +49,7 @@ import {
   dateToISOFormat,
   stringToNgbDateStruct,
 } from '../../date.util';
+import { DisabledDirective } from '../../disabled-directive';
 import { isNotEmptyOperator } from '../../empty.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
@@ -216,6 +217,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         ResourcePolicyFormComponent,
         TestComponent,
         NgxMaskModule.forRoot(),
+        DisabledDirective,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -426,7 +428,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
-      expect(depositBtn.nativeElement.disabled).toBeFalsy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
     it('should emit submit event', () => {
@@ -480,7 +483,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
-      expect(depositBtn.nativeElement.disabled).toBeTruthy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeTrue();
     });
 
   });
