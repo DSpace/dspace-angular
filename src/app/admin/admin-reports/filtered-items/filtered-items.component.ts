@@ -5,6 +5,7 @@ import {
 } from '@angular/common';
 import {
   Component,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import {
@@ -68,7 +69,7 @@ import { QueryPredicate } from './query-predicate.model';
   ],
   standalone: true,
 })
-export class FilteredItemsComponent {
+export class FilteredItemsComponent implements OnInit {
 
   collections: OptionVO[];
   presetQueries: PresetQuery[];
@@ -92,7 +93,7 @@ export class FilteredItemsComponent {
     private formBuilder: FormBuilder,
     private restService: DspaceRestService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadCollections();
     this.loadPresetQueries();
     this.loadMetadataFields();
