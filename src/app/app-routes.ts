@@ -263,6 +263,10 @@ export const APP_ROUTES: Route[] = [
         canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
       {
+        path: 'edit-item-relationships',
+        loadChildren: () => import('./edit-item-relationships/edit-item-relationships-routes').then((m) => m.ROUTES),
+      },
+      {
         path: 'subscriptions',
         loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
           .then((m) => m.ROUTES),
