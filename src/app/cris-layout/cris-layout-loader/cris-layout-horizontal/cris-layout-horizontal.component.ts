@@ -12,8 +12,6 @@ import { CrisLayoutTab } from '../../../core/layout/models/tab.model';
 import { Item } from '../../../core/shared/item.model';
 import { ContextMenuComponent } from '../../../shared/context-menu/context-menu.component';
 import { CrisLayoutMatrixComponent } from '../../cris-layout-matrix/cris-layout-matrix.component';
-import { RenderCrisLayoutPageFor } from '../../decorators/cris-layout-page.decorator';
-import { LayoutPage } from '../../enums/layout-page.enum';
 import { CrisLayoutNavbarComponent } from './cris-layout-navbar/cris-layout-navbar.component';
 
 @Component({
@@ -29,7 +27,6 @@ import { CrisLayoutNavbarComponent } from './cris-layout-navbar/cris-layout-navb
     AsyncPipe,
   ],
 })
-@RenderCrisLayoutPageFor(LayoutPage.HORIZONTAL)
 export class CrisLayoutHorizontalComponent {
 
   /**

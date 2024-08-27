@@ -1,10 +1,15 @@
 import { hasNoValue } from '../../shared/empty.util';
+import { CrisLayoutHorizontalComponent } from '../cris-layout-loader/cris-layout-horizontal/cris-layout-horizontal.component';
+import { CrisLayoutVerticalComponent } from '../cris-layout-loader/cris-layout-vertical/cris-layout-vertical.component';
 import {
   DEFAULT_LAYOUT_PAGE,
   LayoutPage,
 } from '../enums/layout-page.enum';
 
 const layoutPageMap = new Map();
+
+layoutPageMap.set(LayoutPage.HORIZONTAL, CrisLayoutHorizontalComponent);
+layoutPageMap.set(LayoutPage.VERTICAL, CrisLayoutVerticalComponent);
 
 export function RenderCrisLayoutPageFor(objectType: LayoutPage) {
   return function decorator(component: any) {

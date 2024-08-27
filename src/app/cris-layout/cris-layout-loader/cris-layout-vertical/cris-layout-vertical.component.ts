@@ -13,8 +13,6 @@ import { Item } from '../../../core/shared/item.model';
 import { ContextMenuComponent } from '../../../shared/context-menu/context-menu.component';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { CrisLayoutMatrixComponent } from '../../cris-layout-matrix/cris-layout-matrix.component';
-import { RenderCrisLayoutPageFor } from '../../decorators/cris-layout-page.decorator';
-import { LayoutPage } from '../../enums/layout-page.enum';
 import { CrisLayoutNavbarComponent } from '../cris-layout-horizontal/cris-layout-navbar/cris-layout-navbar.component';
 import { CrisLayoutSidebarComponent } from './cris-layout-sidebar/cris-layout-sidebar.component';
 
@@ -32,7 +30,6 @@ import { CrisLayoutSidebarComponent } from './cris-layout-sidebar/cris-layout-si
     AsyncPipe,
   ],
 })
-@RenderCrisLayoutPageFor(LayoutPage.VERTICAL)
 export class CrisLayoutVerticalComponent {
 
   /**
