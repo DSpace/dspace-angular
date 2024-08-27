@@ -1,6 +1,6 @@
 <div class="mb-4 ccLicense-select">
   <ds-select
-    [disabled]="!submissionCcLicenses">
+    [dsDisabled]="!submissionCcLicenses">
 
     <ng-container class="selection">
       <span *ngIf="!submissionCcLicenses">
@@ -81,7 +81,7 @@
 
     </ng-template>
 
-    <ds-select *ngIf="field.enums?.length > 5" [disabled]="field.id === 'jurisdiction' && defaultJurisdiction !== undefined && defaultJurisdiction !== 'none'">
+    <ds-select *ngIf="field.enums?.length > 5" [dsDisabled]="field.id === 'jurisdiction' && defaultJurisdiction !== undefined && defaultJurisdiction !== 'none'">
       <ng-container class="selection" *ngVar="getSelectedOption(getSelectedCcLicense(), field) as option">
         <span *ngIf="option">
           {{ option.label }}

@@ -466,3 +466,14 @@ ngb-accordion {
 .mt-ncs { margin-top: calc(var(--ds-content-spacing) * -1); }
 .mb-ncs { margin-bottom: calc(var(--ds-content-spacing) * -1); }
 .my-ncs { margin-top: calc(var(--ds-content-spacing) * -1); margin-bottom: calc(var(--ds-content-spacing) * -1); }
+
+// An element that is disabled should not have focus styles to avoid confusion
+// It however is still focusable for screen readers and keyboard navigation
+.disabled {
+    pointer-events: none;
+}
+
+.disabled:focus {
+    outline: none;
+    box-shadow: none;
+}

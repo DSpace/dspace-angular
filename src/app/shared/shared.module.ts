@@ -284,6 +284,7 @@ import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bi
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
 import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
+import {DisabledDirective} from './disabled-directive';
 
 const MODULES = [
   CommonModule,
@@ -493,6 +494,7 @@ const DIRECTIVES = [
   MetadataFieldValidator,
   HoverClassDirective,
   ContextHelpDirective,
+  DisabledDirective,
 ];
 
 @NgModule({
