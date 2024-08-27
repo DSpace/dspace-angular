@@ -292,6 +292,11 @@ export const APP_ROUTES: Route[] = [
           .then((m) => m.ROUTES),
       },
       {
+        path: 'invitation',
+        loadChildren: () => import('./invitation/invitation-routing/invitation-routes')
+          .then((m) => m.ROUTES),
+      },
+      {
         path: 'subscriptions',
         loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
           .then((m) => m.ROUTES),
