@@ -9,6 +9,7 @@ import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
+  BULK_IMPORT_PATH,
   ERROR_PAGE,
   FORBIDDEN_PATH,
   FORGOT_PASSWORD_PATH,
@@ -254,6 +255,11 @@ export const APP_ROUTES: Route[] = [
       {
         path: 'auditlogs',
         loadChildren: () => import('./audit-page/audit-page-routes').then((m) => m.ROUTES),
+        canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
+      },
+      {
+        path: BULK_IMPORT_PATH,
+        loadChildren: () => import('./bulk-import/bulk-import-page-routes').then((m) => m.ROUTES),
         canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
       {
