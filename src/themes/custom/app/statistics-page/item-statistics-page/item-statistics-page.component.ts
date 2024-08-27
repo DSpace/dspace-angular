@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { CrisStatisticsPageModule } from '../../../../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
+import { CrisStatisticsPageComponent } from '../../../../../app/statistics-page/cris-statistics-page/cris-statistics-page.component';
 import { ItemStatisticsPageComponent as BaseComponent } from '../../../../../app/statistics-page/item-statistics-page/item-statistics-page.component';
 import { StatisticsTableComponent } from '../../../../../app/statistics-page/statistics-table/statistics-table.component';
 
@@ -15,7 +15,7 @@ import { StatisticsTableComponent } from '../../../../../app/statistics-page/sta
   // templateUrl: './item-statistics-page.component.html',
   templateUrl: '../../../../../app/statistics-page/statistics-page/statistics-page.component.html',
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageModule],
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageComponent],
 })
 
 /**

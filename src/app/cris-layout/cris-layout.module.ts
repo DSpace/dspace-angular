@@ -33,7 +33,6 @@ import { CrisLayoutIIIFViewerBoxComponent } from './cris-layout-matrix/cris-layo
 import { CrisLayoutMetadataBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/cris-layout-metadata-box.component';
 import { AdvancedAttachmentComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/advanced-attachment.component';
 import { AttachmentRenderComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-render.component';
-import { AttachmentRenderingModule } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
 import { BitstreamAttachmentComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/bitstream-attachment.component';
 import { AttachmentComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/attachment/attachment.component';
 import { CrisrefComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/crisref/crisref.component';
@@ -92,7 +91,6 @@ const ENTRY_COMPONENTS = [
     ContextMenuModule.withEntryComponents(),
     NgbAccordionModule,
     MetricsModule,
-    AttachmentRenderingModule,
     TranslateModule,
     RouterLink,
     MiradorViewerComponent,

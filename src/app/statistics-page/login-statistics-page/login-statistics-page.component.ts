@@ -3,9 +3,11 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   NgbDate,
   NgbDateParserFormatter,
+  NgbDatepickerModule,
   NgbDateStruct,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,10 +24,10 @@ import {
 } from '../../core/shared/operators';
 import { LoginStatisticsService } from '../../core/statistics/login-statistics.service';
 import { LoginStatistics } from '../../core/statistics/models/login-statistics.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 @Component({
@@ -33,7 +35,7 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   templateUrl: './login-statistics-page.component.html',
   styleUrls: ['./login-statistics-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageModule],
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, FormsModule, NgbDatepickerModule, AlertComponent],
 })
 export class LoginStatisticsPageComponent implements OnInit {
 

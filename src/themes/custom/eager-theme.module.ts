@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { AttachmentRenderingModule } from '../../app/cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
 import { RootModule } from '../../app/root.module';
 import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
 import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
@@ -81,7 +80,6 @@ const DECLARATIONS = [
     CommonModule,
     RootModule,
     ...DECLARATIONS,
-    AttachmentRenderingModule,
     ContextMenuModule,
   ],
   providers: [

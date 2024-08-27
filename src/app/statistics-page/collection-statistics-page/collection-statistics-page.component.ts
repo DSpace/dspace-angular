@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Collection } from '../../core/shared/collection.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
@@ -17,7 +17,7 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./collection-statistics-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageModule],
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageComponent],
 })
 export class CollectionStatisticsPageComponent extends StatisticsPageDirective<Collection> {
 

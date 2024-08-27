@@ -6,7 +6,7 @@ import { SiteDataService } from '../../core/data/site-data.service';
 import { Site } from '../../core/shared/site.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
@@ -18,7 +18,7 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./site-statistics-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageModule],
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageComponent],
 })
 export class SiteStatisticsPageComponent extends StatisticsPageDirective<Site> {
 

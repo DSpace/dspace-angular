@@ -20,7 +20,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ChartsModule } from '../../../../../charts/charts.module';
+import { ChartComponent } from '../../../../../charts/components/chart/chart.component';
 import { ChartData } from '../../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../../charts/models/chart-series';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -49,10 +49,10 @@ import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-
   templateUrl: './search-chart-pie.component.html',
   animations: [facetLoad],
   imports: [
-    ChartsModule,
     AsyncPipe,
     TranslateModule,
     NgIf,
+    ChartComponent,
   ],
   standalone: true,
 })

@@ -30,7 +30,7 @@ import { CollectionSelectorComponent } from '../../my-dspace-page/collection-sel
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { CrisStatisticsPageModule } from '../cris-statistics-page/cris-statistics-page.module';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 /**
@@ -41,7 +41,7 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   templateUrl: './workflow-statistics-page.component.html',
   styleUrls: ['./workflow-statistics-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageModule],
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageComponent],
 })
 export class WorkflowStatisticsPageComponent implements OnInit {
 
