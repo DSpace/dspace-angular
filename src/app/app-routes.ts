@@ -268,6 +268,10 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./edit-item-relationships/edit-item-relationships-routes').then((m) => m.ROUTES),
       },
       {
+        path: 'explore',
+        loadChildren: () => import('./explore-page/explore-routes').then((m) => m.ROUTES),
+      },
+      {
         path: EDIT_ITEM_PATH,
         loadChildren: () => import('./edit-item/edit-item-routes').then((m) => m.ROUTES),
         canActivate: [endUserAgreementCurrentUserGuard],
