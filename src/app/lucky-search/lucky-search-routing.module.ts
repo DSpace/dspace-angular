@@ -1,24 +1,18 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Route } from '@angular/router';
 
 import { LuckySearchComponent } from './search/lucky-search.component';
 
-@NgModule({
-  imports: [
-    RouterModule.forChild([
+export const ROUTES: Route[] = [
+  {
+    path: '',
+    data: {
+      title: 'lucky-search',
+    },
+    children: [
       {
         path: '',
-        data: {
-          title: 'lucky-search',
-        },
-        children: [
-          {
-            path: '',
-            component: LuckySearchComponent,
-          },
-        ],
+        component: LuckySearchComponent,
       },
-    ]),
-  ],
-})
-export class LuckySearchRoutingModule { }
+    ],
+  },
+];
