@@ -39,7 +39,6 @@ import {
   isNotEmpty,
 } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -56,7 +55,6 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
     TranslateModule,
   ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent implements OnDestroy {
 
   /**

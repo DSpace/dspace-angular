@@ -23,7 +23,6 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { DsoVersioningModalService } from '../../dso-page/dso-versioning-modal-service/dso-versioning-modal.service';
 import { hasValue } from '../../empty.util';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -38,7 +37,6 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
     TranslateModule,
   ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 /**
  * Display a button linking to the item versioning of a DSpaceObject
  */

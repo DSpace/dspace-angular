@@ -27,7 +27,6 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { Process } from '../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -44,7 +43,6 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
     TranslateModule,
   ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
 export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
 
   /**

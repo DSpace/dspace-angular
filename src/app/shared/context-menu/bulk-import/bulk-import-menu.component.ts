@@ -18,7 +18,6 @@ import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -36,7 +35,6 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
     TranslateModule,
   ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
 export class BulkImportMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
   /**
