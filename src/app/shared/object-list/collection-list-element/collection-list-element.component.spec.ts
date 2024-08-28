@@ -9,6 +9,8 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Collection } from '../../../core/shared/collection.model';
@@ -64,12 +66,6 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
   }, archivedItemsCount: 1,
 });
 
-const environmentRouteThrough = {
-  routeThrough: {
-    collectionHomePage: true,
-  },
-};
-
 describe('CollectionListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -77,7 +73,7 @@ describe('CollectionListElementComponent', () => {
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: APP_CONFIG, useValue: environment },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
