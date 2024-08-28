@@ -31,6 +31,7 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { SearchConfig } from '../../../search/search-filters/search-config.model';
+import { ThemedSearchFormComponent } from '../../../search-form/themed-search-form.component';
 import { SearchSectionComponent } from './search-section.component';
 
 describe('SearchSectionComponent', () => {
@@ -91,7 +92,7 @@ describe('SearchSectionComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigurationStub },
         { provide: Router, useValue: router }],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SearchSectionComponent, { remove: { imports: [ThemedSearchFormComponent] } }).compileComponents();
 
   }));
 

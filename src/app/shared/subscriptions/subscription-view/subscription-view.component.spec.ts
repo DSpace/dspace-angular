@@ -29,6 +29,7 @@ import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 // Import utils
 import { NotificationsService } from '../../notifications/notifications.service';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import {
@@ -89,7 +90,7 @@ describe('SubscriptionViewComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(SubscriptionViewComponent, { remove: { imports: [ThemedTypeBadgeComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

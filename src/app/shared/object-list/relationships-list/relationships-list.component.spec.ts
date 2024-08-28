@@ -28,6 +28,8 @@ import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ItemInfo } from '../../testing/relationships-mocks';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { RelationshipsItemsActionsComponent } from './relationships-items-actions/relationships-items-actions.component';
+import { RelationshipsItemsListPreviewComponent } from './relationships-items-list-preview/relationships-items-list-preview.component';
 import { RelationshipsListComponent } from './relationships-list.component';
 
 describe('RelationshipsListComponent', () => {
@@ -66,7 +68,7 @@ describe('RelationshipsListComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(RelationshipsListComponent, { remove: { imports: [RelationshipsItemsListPreviewComponent, RelationshipsItemsActionsComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

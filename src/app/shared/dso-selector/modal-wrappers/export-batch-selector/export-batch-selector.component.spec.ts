@@ -43,6 +43,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
@@ -132,7 +133,7 @@ describe('ExportBatchSelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ExportBatchSelectorComponent, { remove: { imports: [DSOSelectorComponent] } }).compileComponents();
 
   }));
 

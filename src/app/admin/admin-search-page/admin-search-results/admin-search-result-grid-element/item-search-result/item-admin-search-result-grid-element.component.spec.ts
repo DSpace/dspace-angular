@@ -36,6 +36,7 @@ import { FileServiceStub } from '../../../../../shared/testing/file-service.stub
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { ThumbnailService } from '../../../../../shared/thumbnail/thumbnail.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-result-actions.component';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
@@ -95,7 +96,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA],
       })
-      .compileComponents();
+      .overrideComponent(ItemAdminSearchResultGridElementComponent, { remove: { imports: [ItemAdminSearchResultActionsComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

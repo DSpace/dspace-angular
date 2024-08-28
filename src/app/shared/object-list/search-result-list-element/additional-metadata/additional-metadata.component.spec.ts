@@ -5,6 +5,7 @@ import {
 
 import { Item } from '../../../../core/shared/item.model';
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { VocabularyServiceStub } from '../../../testing/vocabulary-service.stub';
 import { AdditionalMetadataComponent } from './additional-metadata.component';
 
@@ -30,7 +31,7 @@ describe('AdditionalMetadataComponent', () => {
         { provide: VocabularyService, useValue: new VocabularyServiceStub() },
       ],
     })
-      .compileComponents();
+      .overrideComponent(AdditionalMetadataComponent, { remove: { imports: [MetadataLinkViewComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

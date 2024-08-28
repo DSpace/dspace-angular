@@ -21,6 +21,7 @@ import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucata
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
+import { CommunitySearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
@@ -65,7 +66,7 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(CommunityAdminSearchResultGridElementComponent, { remove: { imports: [CommunitySearchResultGridElementComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

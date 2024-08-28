@@ -33,6 +33,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
@@ -40,10 +41,13 @@ import { PaginatedSearchOptions } from '../../../../search/models/paginated-sear
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
+import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
 } from './relationship.actions';
+import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
+import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -154,7 +158,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(DsDynamicLookupRelationModalComponent, { remove: { imports: [ThemedDynamicLookupRelationExternalSourceTabComponent, ThemedLoadingComponent, ThemedDynamicLookupRelationSearchTabComponent, DsDynamicLookupRelationSelectionTabComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

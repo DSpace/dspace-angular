@@ -20,7 +20,10 @@ import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
+import { CrisLayoutComponent } from '../cris-layout/cris-layout.component';
+import { ThemedItemAlertsComponent } from '../item-page/alerts/themed-item-alerts.component';
 import { createRelationshipsObservable } from '../item-page/simple/item-types/shared/item.component.spec';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import {
   createNoContentRemoteDataObject,
@@ -31,6 +34,7 @@ import {
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { VarDirective } from '../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { CrisItemPageComponent } from './cris-item-page.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -73,7 +77,7 @@ describe('CrisItemPageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(CrisItemPageComponent, { remove: { imports: [ThemedLoadingComponent, ThemedItemAlertsComponent, ViewTrackerComponent, CrisLayoutComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

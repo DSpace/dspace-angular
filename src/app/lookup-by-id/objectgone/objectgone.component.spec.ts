@@ -4,6 +4,7 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { ObjectGoneComponent } from './objectgone.component';
 
 describe('ObjectGoneComponent', () => {
@@ -17,7 +18,7 @@ describe('ObjectGoneComponent', () => {
         ObjectGoneComponent,
       ],
     })
-      .compileComponents();
+      .overrideComponent(ObjectGoneComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

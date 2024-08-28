@@ -29,6 +29,7 @@ import { AuthorizationDataServiceStub } from '../../../../../shared/testing/auth
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
 import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './workflow-item-search-result-admin-workflow-grid-element.component';
 
 describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
@@ -80,7 +81,7 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA],
       })
-      .compileComponents();
+      .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, { remove: { imports: [WorkflowItemAdminWorkflowActionsComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -13,6 +13,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { AlertComponent } from '../alert/alert.component';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { ErrorComponent } from './error.component';
 
@@ -37,7 +38,7 @@ describe('ErrorComponent (inline template)', () => {
         ErrorComponent,
       ],
       providers: [TranslateService],
-    }).compileComponents();  // compile template and css
+    }).overrideComponent(ErrorComponent, { remove: { imports: [AlertComponent] } }).compileComponents();  // compile template and css
   }));
 
   beforeEach(() => {

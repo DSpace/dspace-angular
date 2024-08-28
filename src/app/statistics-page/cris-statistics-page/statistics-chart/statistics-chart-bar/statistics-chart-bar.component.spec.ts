@@ -10,12 +10,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+import { ChartComponent } from '@swimlane/ngx-charts';
 import { of as observableOf } from 'rxjs';
 
 import { BrowserExportService } from '../../../../core/export-service/browser-export.service';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { USAGE_REPORT } from '../../../../core/statistics/models/usage-report.resource-type';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
 import { ExportServiceStub } from '../../../../shared/testing/export-service.stub';
 import { StatisticsType } from '../../statistics-type.model';
 import { StatisticsChartBarComponent } from './statistics-chart-bar.component';
@@ -75,7 +77,7 @@ describe('StatisticsChartBarComponent', () => {
         { provide: 'categoryType', useValue: 'mainReports' },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(StatisticsChartBarComponent, { remove: { imports: [ChartComponent, AlertComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

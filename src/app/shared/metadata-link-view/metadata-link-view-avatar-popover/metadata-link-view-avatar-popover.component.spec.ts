@@ -9,6 +9,7 @@ import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FileService } from '../../../core/shared/file.service';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view-avatar-popover.component';
 
 describe('MetadataLinkViewAvatarPopoverComponent', () => {
@@ -36,7 +37,7 @@ describe('MetadataLinkViewAvatarPopoverComponent', () => {
         { provide: FileService, useValue: fileService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(MetadataLinkViewAvatarPopoverComponent, { remove: { imports: [ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

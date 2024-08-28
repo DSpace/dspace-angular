@@ -15,6 +15,7 @@ import { VersionHistoryDataService } from '../../../core/data/version-history-da
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { VersionHistory } from '../../../core/shared/version-history.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ItemVersionsNoticeComponent } from './item-versions-notice.component';
@@ -75,7 +76,7 @@ describe('ItemVersionsNoticeComponent', () => {
         { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ItemVersionsNoticeComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
 

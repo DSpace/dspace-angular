@@ -13,6 +13,7 @@ import { of as observableOf } from 'rxjs';
 import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
 import { AuthService } from '../core/auth/auth.service';
 import { XSRFService } from '../core/xsrf/xsrf.service';
+import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LoginPageComponent } from './login-page.component';
@@ -45,7 +46,7 @@ describe('LoginPageComponent', () => {
         provideMockStore({}),
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(LoginPageComponent, { remove: { imports: [ThemedLogInComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

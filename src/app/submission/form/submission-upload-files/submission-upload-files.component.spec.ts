@@ -37,6 +37,7 @@ import { SectionsServiceStub } from '../../../shared/testing/sections-service.st
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
@@ -80,7 +81,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
         SubmissionUploadFilesComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SubmissionUploadFilesComponent, { remove: { imports: [UploaderComponent] } }).compileComponents();
   }));
 
   describe('', () => {

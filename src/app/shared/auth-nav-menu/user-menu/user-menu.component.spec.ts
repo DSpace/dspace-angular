@@ -30,6 +30,8 @@ import {
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { XSRFService } from '../../../core/xsrf/xsrf.service';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { LogOutComponent } from '../../log-out/log-out.component';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { EPersonMock } from '../../testing/eperson.mock';
@@ -98,7 +100,7 @@ describe('UserMenuComponent', () => {
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(UserMenuComponent, { remove: { imports: [ThemedLoadingComponent, LogOutComponent] } }).compileComponents();
 
   }));
 

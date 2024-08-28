@@ -28,6 +28,8 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
@@ -85,7 +87,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
         SubmissionImportExternalPreviewComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(SubmissionImportExternalPreviewComponent, { remove: { imports: [TruncatablePartComponent, TruncatableComponent] } }).compileComponents().then();
   }));
 
   // First test to check the correct component creation

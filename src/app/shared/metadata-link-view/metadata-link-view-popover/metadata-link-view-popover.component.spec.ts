@@ -12,6 +12,8 @@ import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
 import { environment } from 'src/environments/environment.test';
 
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { MetadataLinkViewAvatarPopoverComponent } from '../metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
+import { MetadataLinkViewOrcidComponent } from '../metadata-link-view-orcid/metadata-link-view-orcid.component';
 import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover.component';
 
 describe('MetadataLinkViewPopoverComponent', () => {
@@ -72,7 +74,7 @@ describe('MetadataLinkViewPopoverComponent', () => {
       imports: [TranslateModule.forRoot(), MetadataLinkViewPopoverComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(MetadataLinkViewPopoverComponent, { remove: { imports: [MetadataLinkViewOrcidComponent, MetadataLinkViewAvatarPopoverComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

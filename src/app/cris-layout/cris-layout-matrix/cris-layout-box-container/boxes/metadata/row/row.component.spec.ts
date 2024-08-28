@@ -14,6 +14,7 @@ import { metadataBoxConfigurationMock } from 'src/app/shared/testing/box-configu
 import { Item } from '../../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
 import { TextComponent } from '../rendering-types/text/text.component';
+import { MetadataContainerComponent } from './metadata-container/metadata-container.component';
 import { RowComponent } from './row.component';
 
 class TestItem {
@@ -36,7 +37,7 @@ describe('RowComponent', () => {
       }), RowComponent,
       TextComponent],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(RowComponent, { remove: { imports: [MetadataContainerComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

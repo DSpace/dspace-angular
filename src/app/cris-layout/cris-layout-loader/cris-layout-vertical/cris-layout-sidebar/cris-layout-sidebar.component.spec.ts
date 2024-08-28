@@ -17,6 +17,7 @@ import {
   tabPersonBiography,
   tabPersonProfile,
 } from '../../../../shared/testing/layout-tab.mocks';
+import { CrisLayoutSidebarItemComponent } from '../../shared/sidebar-item/cris-layout-sidebar-item.component';
 import { CrisLayoutSidebarComponent } from './cris-layout-sidebar.component';
 
 describe('CrisLayoutSidebarComponent', () => {
@@ -53,7 +54,7 @@ describe('CrisLayoutSidebarComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(CrisLayoutSidebarComponent, { remove: { imports: [CrisLayoutSidebarItemComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

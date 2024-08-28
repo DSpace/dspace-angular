@@ -46,6 +46,7 @@ import {
 } from '../../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
+import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service.stub';
@@ -145,7 +146,7 @@ describe('ItemCollectionMapperComponent', () => {
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
       ],
-    }).compileComponents();
+    }).overrideComponent(ItemCollectionMapperComponent, { remove: { imports: [CollectionSelectComponent, ThemedSearchFormComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

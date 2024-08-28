@@ -26,6 +26,7 @@ import {
   MetadataValue,
 } from '../../core/shared/metadata.models';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
@@ -34,7 +35,12 @@ import {
 } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
+import { ThemedSearchResultsComponent } from '../../shared/search/search-results/themed-search-results.component';
+import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
+import { PageWithSidebarComponent } from '../../shared/sidebar/page-with-sidebar.component';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { LuckySearchService } from '../lucky-search.service';
 import { LuckySearchComponent } from './lucky-search.component';
@@ -95,7 +101,7 @@ describe('SearchComponent', () => {
         { provide: BitstreamDataService, useValue: bitstreamDataService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(LuckySearchComponent, { remove: { imports: [PageWithSidebarComponent, ThemedSearchResultsComponent, ThemedSearchFormComponent, ThemedFileDownloadLinkComponent, TruncatableComponent, TruncatablePartComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

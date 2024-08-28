@@ -24,11 +24,13 @@ import { getMockLinkService } from '../../../../../shared/mocks/link-service.moc
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './workflow-item-search-result-admin-workflow-list-element.component';
 
 describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
@@ -72,7 +74,7 @@ describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA],
       })
-      .compileComponents();
+      .overrideComponent(WorkflowItemSearchResultAdminWorkflowListElementComponent, { remove: { imports: [ListableObjectComponentLoaderComponent, WorkflowItemAdminWorkflowActionsComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

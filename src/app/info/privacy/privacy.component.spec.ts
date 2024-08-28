@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { PrivacyComponent } from './privacy.component';
+import { PrivacyContentComponent } from './privacy-content/privacy-content.component';
 
 describe('PrivacyComponent', () => {
   let component: PrivacyComponent;
@@ -21,7 +22,7 @@ describe('PrivacyComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(PrivacyComponent, { remove: { imports: [PrivacyContentComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

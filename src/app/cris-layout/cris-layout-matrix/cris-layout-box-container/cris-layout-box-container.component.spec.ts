@@ -10,6 +10,7 @@ import {
 } from '@ngx-translate/core';
 
 import { Item } from '../../../core/shared/item.model';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { boxMetadata } from '../../../shared/testing/box.mock';
 import { CrisLayoutMetadataBoxComponent } from './boxes/metadata/cris-layout-metadata-box.component';
@@ -52,7 +53,7 @@ describe('CrisLayoutBoxContainerComponent', () => {
         }),
         CrisLayoutBoxContainerComponent,
       ],
-    }).compileComponents();
+    }).overrideComponent(CrisLayoutBoxContainerComponent, { remove: { imports: [ThemedLoadingComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

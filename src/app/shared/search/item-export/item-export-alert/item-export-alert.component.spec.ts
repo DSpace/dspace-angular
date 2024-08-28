@@ -17,6 +17,7 @@ import {
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 import { Item } from '../../../../core/shared/item.model';
+import { AlertComponent } from '../../../alert/alert.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ItemExportAlertComponent } from './item-export-alert.component';
 
@@ -36,7 +37,7 @@ describe('ItemExportAlertComponent', () => {
         NO_ERRORS_SCHEMA,
       ],
     })
-      .compileComponents();
+      .overrideComponent(ItemExportAlertComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -39,6 +39,9 @@ import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocab
 import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { hasValue } from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { FormComponent } from '../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {
   INotification,
   Notification,
@@ -52,6 +55,7 @@ import {
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
@@ -259,7 +263,7 @@ describe('EditBitstreamPageComponent', () => {
           ChangeDetectorRef,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(EditBitstreamPageComponent, { remove: { imports: [FormComponent, ThemedThumbnailComponent, ErrorComponent, ThemedLoadingComponent] } }).compileComponents();
 
     }));
 

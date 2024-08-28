@@ -24,8 +24,11 @@ import { Community } from '../../../../core/shared/community.model';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { ErrorComponent } from '../../../../shared/error/error.component';
 import { HostWindowService } from '../../../../shared/host-window.service';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { ObjectCollectionComponent } from '../../../../shared/object-collection/object-collection.component';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
@@ -172,7 +175,7 @@ describe('CommunityPageSubCommunityListComponent', () => {
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(CommunityPageSubCommunityListComponent, { remove: { imports: [ErrorComponent, ThemedLoadingComponent, ObjectCollectionComponent, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

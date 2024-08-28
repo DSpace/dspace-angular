@@ -17,6 +17,7 @@ import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { VarDirective } from '../../utils/var.directive';
 
 export function createSidebarSearchListElementTests(
@@ -56,7 +57,7 @@ export function createSidebarSearchListElementTests(
           ...extraProviders,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(componentClass, { remove: { imports: [TruncatablePartComponent] } }).compileComponents();
     }));
 
     beforeEach(() => {

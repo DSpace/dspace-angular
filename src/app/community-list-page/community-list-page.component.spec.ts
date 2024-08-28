@@ -13,6 +13,7 @@ import {
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
+import { ThemedCommunityListComponent } from './community-list/themed-community-list.component';
 import { CommunityListPageComponent } from './community-list-page.component';
 import { CommunityListService } from './community-list-service';
 
@@ -38,7 +39,7 @@ describe('CommunityListPageComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(CommunityListPageComponent, { remove: { imports: [ThemedCommunityListComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

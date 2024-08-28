@@ -36,6 +36,7 @@ import {
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
 import { WorkspaceItemSearchResultAdminWorkflowGridElementComponent } from './workspace-item-search-result-admin-workflow-grid-element.component';
 
 describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
@@ -94,7 +95,7 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA],
       })
-      .compileComponents();
+      .overrideComponent(WorkspaceItemSearchResultAdminWorkflowGridElementComponent, { remove: { imports: [WorkspaceItemAdminWorkflowActionsComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

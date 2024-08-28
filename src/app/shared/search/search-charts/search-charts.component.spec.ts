@@ -22,6 +22,7 @@ import { FacetValue } from '../models/facet-value.model';
 import { FilterType } from '../models/filter-type.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { RemoteData } from './../../../core/data/remote-data';
+import { SearchChartComponent } from './search-chart/search-chart.component';
 import { SearchChartsComponent } from './search-charts.component';
 
 describe('SearchChartsComponent', () => {
@@ -68,7 +69,7 @@ describe('SearchChartsComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SearchChartsComponent, { remove: { imports: [SearchChartComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

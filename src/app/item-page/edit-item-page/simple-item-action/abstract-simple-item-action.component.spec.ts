@@ -31,6 +31,7 @@ import {
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { getItemEditRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action.component';
 
 /**
@@ -105,7 +106,7 @@ describe('AbstractSimpleItemActionComponent', () => {
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(MySimpleItemActionComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -14,6 +14,9 @@ import {
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -56,7 +59,7 @@ describe('RecentItemListComponent', () => {
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
     })
-      .compileComponents();
+      .overrideComponent(RecentItemListComponent, { remove: { imports: [ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

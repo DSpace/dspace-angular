@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ProfileClaimService } from '../../../../profile-page/profile-claim/profile-claim.service';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ClaimItemSelectorComponent } from './claim-item-selector.component';
 
 describe('ClaimItemSelectorComponent', () => {
@@ -35,7 +36,7 @@ describe('ClaimItemSelectorComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(ClaimItemSelectorComponent, { remove: { imports: [ListableObjectComponentLoaderComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

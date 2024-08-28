@@ -19,6 +19,7 @@ import { ScriptParameterType } from '../../../scripts/script-parameter-type.mode
 import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';
 import { DateValueInputComponent } from './date-value-input/date-value-input.component';
 import { FileValueInputComponent } from './file-value-input/file-value-input.component';
+import { NumberValueInputComponent } from './number-value-input/number-value-input.component';
 import { ParameterValueInputComponent } from './parameter-value-input.component';
 import { StringValueInputComponent } from './string-value-input/string-value-input.component';
 
@@ -60,7 +61,7 @@ describe('ParameterValueInputComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(ParameterValueInputComponent, { remove: { imports: [StringValueInputComponent, DateValueInputComponent, FileValueInputComponent, BooleanValueInputComponent, NumberValueInputComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

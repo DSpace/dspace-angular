@@ -25,7 +25,9 @@ import { Item } from '../../core/shared/item.model';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { AlertComponent } from '../alert/alert.component';
 import { CreateItemParentSelectorComponent } from '../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import {
@@ -127,7 +129,7 @@ describe('VocabularyExternalSourceComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(VocabularyExternalSourceComponent, { remove: { imports: [AlertComponent, ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

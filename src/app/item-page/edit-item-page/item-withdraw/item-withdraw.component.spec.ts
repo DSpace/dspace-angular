@@ -25,6 +25,7 @@ import {
 } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { ItemWithdrawComponent } from './item-withdraw.component';
 
 let comp: ItemWithdrawComponent;
@@ -74,7 +75,7 @@ describe('ItemWithdrawComponent', () => {
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(ItemWithdrawComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

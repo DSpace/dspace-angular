@@ -23,6 +23,7 @@ import {
 
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { ThemedBrowseMostElementsComponent } from '../../../browse-most-elements/themed-browse-most-elements.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { SearchResult } from '../../../search/models/search-result.model';
@@ -76,7 +77,7 @@ describe('TopSectionComponent', () => {
       providers: [TopSectionComponent,
         { provide: SearchService, useValue: searchServiceStub }],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(TopSectionComponent, { remove: { imports: [ThemedBrowseMostElementsComponent] } }).compileComponents();
 
   }));
 

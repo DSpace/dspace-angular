@@ -7,6 +7,7 @@ import {
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { LogOutComponent } from '../shared/log-out/log-out.component';
 import { LogoutPageComponent } from './logout-page.component';
 
 describe('LogoutPageComponent', () => {
@@ -24,7 +25,7 @@ describe('LogoutPageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(LogoutPageComponent, { remove: { imports: [LogOutComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

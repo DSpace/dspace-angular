@@ -21,6 +21,8 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { AlertComponent } from '../../alert/alert.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { createTestComponent } from '../../testing/utils.test';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
@@ -89,7 +91,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
         VocabularyTreeviewComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then(() => {
+    }).overrideComponent(VocabularyTreeviewComponent, { remove: { imports: [ThemedLoadingComponent, AlertComponent] } }).compileComponents().then(() => {
       vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
       vocabularyTreeviewServiceStub.isLoading.and.returnValue(observableOf(false));
     });

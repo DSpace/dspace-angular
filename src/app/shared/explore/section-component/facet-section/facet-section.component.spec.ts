@@ -28,6 +28,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { FacetValue } from '../../../search/models/facet-value.model';
 import { FilterType } from '../../../search/models/filter-type.model';
 import { SearchFilterConfig } from '../../../search/models/search-filter-config.model';
+import { SearchChartComponent } from '../../../search/search-charts/search-chart/search-chart.component';
 import { FacetSectionComponent } from './facet-section.component';
 
 describe('FacetSectionComponent', () => {
@@ -157,7 +158,7 @@ describe('FacetSectionComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigurationStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(FacetSectionComponent, { remove: { imports: [SearchChartComponent] } }).compileComponents();
 
   }));
 

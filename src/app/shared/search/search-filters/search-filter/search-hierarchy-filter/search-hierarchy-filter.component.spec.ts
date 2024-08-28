@@ -34,10 +34,13 @@ import { SearchFilterService } from '../../../../../core/shared/search/search-fi
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
+import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {
@@ -91,7 +94,7 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SearchHierarchyFilterComponent, { remove: { imports: [SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, FilterInputSuggestionsComponent] } }).compileComponents();
   });
 
   function init() {

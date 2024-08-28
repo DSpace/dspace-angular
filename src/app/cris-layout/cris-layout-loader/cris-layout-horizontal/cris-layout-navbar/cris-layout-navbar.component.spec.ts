@@ -23,6 +23,7 @@ import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stu
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { loaderMultilevelTabs } from '../../../../shared/testing/layout-tab.mocks';
 import { RouterStub } from '../../../../shared/testing/router.stub';
+import { CrisLayoutSidebarItemComponent } from '../../shared/sidebar-item/cris-layout-sidebar-item.component';
 import { CrisLayoutNavbarComponent } from './cris-layout-navbar.component';
 
 
@@ -73,7 +74,7 @@ describe('CrisLayoutNavbarComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
       ],
     })
-      .compileComponents();
+      .overrideComponent(CrisLayoutNavbarComponent, { remove: { imports: [CrisLayoutSidebarItemComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

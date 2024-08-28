@@ -10,6 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
 
 import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
+import { ThemedItemListPreviewComponent } from '../../../../../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {
@@ -119,7 +122,7 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), ExternalSourceEntryListSubmissionElementComponent, NgbCollapseModule],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ExternalSourceEntryListSubmissionElementComponent, { remove: { imports: [TruncatableComponent, TruncatablePartComponent, ThemedItemListPreviewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

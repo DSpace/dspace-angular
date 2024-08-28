@@ -17,7 +17,10 @@ import { LinkHeadService } from '../../../core/services/link-head.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { ErrorComponent } from '../../error/error.component';
 import { HostWindowService } from '../../host-window.service';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
@@ -88,7 +91,7 @@ describe('CollectionSelectComponent', () => {
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(CollectionSelectComponent, { remove: { imports: [PaginationComponent, ErrorComponent, ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

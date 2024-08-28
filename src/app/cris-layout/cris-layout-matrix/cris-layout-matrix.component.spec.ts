@@ -6,6 +6,7 @@ import {
 import { By } from '@angular/platform-browser';
 
 import { leadingTabs } from '../../shared/testing/layout-tab.mocks';
+import { CrisLayoutBoxContainerComponent } from './cris-layout-box-container/cris-layout-box-container.component';
 import { CrisLayoutMatrixComponent } from './cris-layout-matrix.component';
 
 describe('CrisLayoutMatrixComponent', () => {
@@ -19,7 +20,7 @@ describe('CrisLayoutMatrixComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CrisLayoutMatrixComponent],
     })
-      .compileComponents();
+      .overrideComponent(CrisLayoutMatrixComponent, { remove: { imports: [CrisLayoutBoxContainerComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

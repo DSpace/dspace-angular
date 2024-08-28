@@ -16,6 +16,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
@@ -26,7 +27,10 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 import { MediaViewerComponent } from './media-viewer.component';
+import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
+import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
 
 describe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
@@ -93,7 +97,7 @@ describe('MediaViewerComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(MediaViewerComponent, { remove: { imports: [ThemedMediaViewerImageComponent, ThemedThumbnailComponent, ThemedMediaViewerVideoComponent, ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

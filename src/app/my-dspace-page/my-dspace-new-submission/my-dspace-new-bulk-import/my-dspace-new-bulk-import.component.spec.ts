@@ -19,6 +19,7 @@ import { EntityTypeDataService } from '../../../core/data/entity-type-data.servi
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import {
   createPaginatedList,
@@ -106,7 +107,7 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
           MyDSpaceNewBulkImportComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(MyDSpaceNewBulkImportComponent, { remove: { imports: [EntityDropdownComponent] } }).compileComponents();
 
       const html = `<ds-my-dspace-new-bulk-import></ds-my-dspace-new-bulk-import>`;
 

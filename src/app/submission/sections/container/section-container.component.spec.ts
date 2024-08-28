@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
@@ -98,7 +99,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
         SubmissionSectionContainerComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SubmissionSectionContainerComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
 
   }));
 

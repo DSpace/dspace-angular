@@ -198,7 +198,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         SubmissionSectionLicenseComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(SubmissionSectionLicenseComponent, { remove: { imports: [FormComponent] } }).compileComponents().then();
   }));
 
   describe('', () => {

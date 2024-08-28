@@ -30,6 +30,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
+import { CollectionFormComponent } from '../../collection-form/collection-form.component';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 import { CollectionMetadataComponent } from './collection-metadata.component';
 
@@ -90,7 +91,7 @@ describe('CollectionMetadataComponent', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(CollectionMetadataComponent, { remove: { imports: [CollectionFormComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

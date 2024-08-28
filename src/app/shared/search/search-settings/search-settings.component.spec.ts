@@ -18,8 +18,10 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { SidebarService } from '../../sidebar/sidebar.service';
+import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { SearchServiceStub } from '../../testing/search-service.stub';
@@ -87,7 +89,7 @@ describe('SearchSettingsComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SearchSettingsComponent, { remove: { imports: [SidebarDropdownComponent, PageSizeSelectorComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

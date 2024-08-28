@@ -107,7 +107,7 @@ describe('CrisrefComponent', () => {
         { provide: ItemDataService, useValue: itemService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(CrisrefComponent, { remove: { imports: [MetadataLinkViewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

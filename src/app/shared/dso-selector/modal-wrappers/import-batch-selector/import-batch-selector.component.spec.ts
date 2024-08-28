@@ -16,6 +16,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';
 
 describe('ImportBatchSelectorComponent', () => {
@@ -51,7 +52,7 @@ describe('ImportBatchSelectorComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ImportBatchSelectorComponent, { remove: { imports: [DSOSelectorComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

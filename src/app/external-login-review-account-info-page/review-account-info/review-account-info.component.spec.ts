@@ -27,6 +27,7 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { NativeWindowService } from '../../core/services/window.service';
 import { Registration } from '../../core/shared/registration.model';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { NativeWindowMockFactory } from '../../shared/mocks/mock-native-window-ref';
 import { RouterMock } from '../../shared/mocks/router.mock';
@@ -119,7 +120,7 @@ describe('ReviewAccountInfoComponent', () => {
           },
         }),
       ],
-    }).compileComponents();
+    }).overrideComponent(ReviewAccountInfoComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

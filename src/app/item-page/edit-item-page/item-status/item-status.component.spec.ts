@@ -24,6 +24,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
+import { ItemOperationComponent } from '../item-operation/item-operation.component';
 import { ItemStatusComponent } from './item-status.component';
 
 let mockIdentifierDataService: IdentifierDataService;
@@ -88,7 +89,7 @@ describe('ItemStatusComponent', () => {
         { provide: ConfigurationDataService, useValue: mockConfigurationDataService },
         { provide: OrcidAuthService, useValue: orcidAuthService },
       ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ItemStatusComponent, { remove: { imports: [ItemOperationComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

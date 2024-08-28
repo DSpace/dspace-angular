@@ -45,6 +45,7 @@ import { FormFieldModel } from '../../../shared/form/builder/models/form-field.m
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
@@ -217,7 +218,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         SubmissionSectionFormComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(SubmissionSectionFormComponent, { remove: { imports: [FormComponent, ThemedLoadingComponent] } }).compileComponents().then();
   }));
 
   describe('', () => {

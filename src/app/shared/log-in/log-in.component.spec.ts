@@ -25,6 +25,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { NativeWindowService } from '../../core/services/window.service';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
@@ -34,6 +35,7 @@ import {
 } from '../testing/auth-service.stub';
 import { createTestComponent } from '../testing/utils.test';
 import { ThemeService } from '../theme-support/theme.service';
+import { LogInContainerComponent } from './container/log-in-container.component';
 import { LogInComponent } from './log-in.component';
 
 describe('LogInComponent', () => {
@@ -93,7 +95,7 @@ describe('LogInComponent', () => {
         CUSTOM_ELEMENTS_SCHEMA,
       ],
     })
-      .compileComponents();
+      .overrideComponent(LogInComponent, { remove: { imports: [ThemedLoadingComponent, LogInContainerComponent] } }).compileComponents();
 
   }));
 

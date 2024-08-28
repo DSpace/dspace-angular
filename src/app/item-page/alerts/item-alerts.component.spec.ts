@@ -15,6 +15,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { Item } from '../../core/shared/item.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { CorrectionType } from '../../core/submission/models/correctiontype.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,
@@ -55,7 +56,7 @@ describe('ItemAlertsComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(ItemAlertsComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

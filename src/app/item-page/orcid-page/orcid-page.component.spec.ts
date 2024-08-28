@@ -32,6 +32,8 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { Item } from '../../core/shared/item.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
@@ -43,7 +45,10 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';
 import { OrcidPageComponent } from './orcid-page.component';
+import { OrcidQueueComponent } from './orcid-queue/orcid-queue.component';
+import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-settings.component';
 
 describe('OrcidPageComponent test suite', () => {
   let comp: OrcidPageComponent;
@@ -163,7 +168,7 @@ describe('OrcidPageComponent test suite', () => {
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(OrcidPageComponent, { remove: { imports: [ThemedLoadingComponent, AlertComponent, OrcidAuthComponent, OrcidSyncSettingsComponent, OrcidQueueComponent] } }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

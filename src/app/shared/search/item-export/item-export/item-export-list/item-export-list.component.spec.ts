@@ -7,6 +7,9 @@ import { SearchManager } from '../../../../../core/browse/search-manager';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { ErrorComponent } from '../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../object-collection/object-collection.component';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -71,7 +74,7 @@ describe('ItemExportListComponent', () => {
         { provide: SearchManager, useValue: mockSearchManager },
       ],
     })
-      .compileComponents();
+      .overrideComponent(ItemExportListComponent, { remove: { imports: [ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

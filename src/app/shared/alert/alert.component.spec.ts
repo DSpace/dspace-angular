@@ -15,6 +15,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { createTestComponent } from '../testing/utils.test';
+import { TruncatableComponent } from '../truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../truncatable/truncatable-part/truncatable-part.component';
 import { AlertComponent } from './alert.component';
 import { AlertType } from './alert-type';
 
@@ -38,7 +40,7 @@ describe('AlertComponent test suite', () => {
         AlertComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(AlertComponent, { remove: { imports: [TruncatableComponent, TruncatablePartComponent] } }).compileComponents().then();
   }));
 
   describe('', () => {

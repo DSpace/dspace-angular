@@ -139,7 +139,7 @@ describe('SubmissionSectionCustomUrlComponent', () => {
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
       ],
     })
-      .compileComponents();
+      .overrideComponent(SubmissionSectionCustomUrlComponent, { remove: { imports: [FormComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

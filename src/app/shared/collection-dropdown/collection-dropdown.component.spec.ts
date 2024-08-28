@@ -21,6 +21,7 @@ import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
@@ -147,7 +148,7 @@ describe('CollectionDropdownComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(CollectionDropdownComponent, { remove: { imports: [ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

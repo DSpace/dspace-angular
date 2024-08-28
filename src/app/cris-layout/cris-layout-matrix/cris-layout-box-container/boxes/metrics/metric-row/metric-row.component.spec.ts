@@ -11,6 +11,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { MetricLoaderComponent } from '../../../../../../shared/metric/metric-loader/metric-loader.component';
 import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
 import { metricRowsMock } from '../cris-layout-metrics-box.component.spec';
 import { MetricRowComponent } from './metric-row.component';
@@ -28,7 +29,7 @@ describe('MetricRowComponent', () => {
         },
       }), BrowserAnimationsModule, MetricRowComponent],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(MetricRowComponent, { remove: { imports: [MetricLoaderComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -25,6 +25,7 @@ import {
 } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { ItemPublicComponent } from './item-public.component';
 
 let comp: ItemPublicComponent;
@@ -74,7 +75,7 @@ describe('ItemPublicComponent', () => {
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(ItemPublicComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

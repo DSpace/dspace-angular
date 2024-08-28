@@ -27,6 +27,8 @@ import {
 } from '../shared/testing/layout-tab.mocks';
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { CrisLayoutComponent } from './cris-layout.component';
+import { CrisLayoutLeadingComponent } from './cris-layout-leading/cris-layout-leading.component';
+import { CrisLayoutLoaderComponent } from './cris-layout-loader/cris-layout-loader.component';
 
 const mockItem = Object.assign(new Item(), {
   id: 'fake-id',
@@ -73,7 +75,7 @@ describe('CrisLayoutComponent', () => {
         { provide: ActivatedRoute, useValue: route },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(CrisLayoutComponent, { remove: { imports: [CrisLayoutLeadingComponent, CrisLayoutLoaderComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

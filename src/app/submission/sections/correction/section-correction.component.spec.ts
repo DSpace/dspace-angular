@@ -130,7 +130,7 @@ describe('CorrectionComponent', () => {
         SubmissionSectionLicenseComponent,
       ],
     })
-      .compileComponents();
+      .overrideComponent(SubmissionSectionCorrectionComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

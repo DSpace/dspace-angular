@@ -16,6 +16,8 @@ import { of as observableOf } from 'rxjs';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../../../core/data/request.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
+import { AlertComponent } from '../../../../alert/alert.component';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import {
@@ -59,7 +61,7 @@ describe('ComcolRoleComponent', () => {
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents().then(() => {
+    }).overrideComponent(ComcolRoleComponent, { remove: { imports: [ThemedLoadingComponent, AlertComponent] } }).compileComponents().then(() => {
       groupService.findByHref.and.callFake((link) => {
         if (link === 'test role link') {
           if (statusCode === 204) {

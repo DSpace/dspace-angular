@@ -25,6 +25,7 @@ import { NotificationType } from '../models/notification-type';
 import { NotificationComponent } from '../notification/notification.component';
 import { notificationsReducer } from '../notifications.reducers';
 import { NotificationsService } from '../notifications.service';
+import { ProcessNotificationComponent } from '../process-notification/process-notification.component';
 import { NotificationsBoardComponent } from './notifications-board.component';
 
 export const bools = { f: false, t: true };
@@ -50,7 +51,7 @@ describe('NotificationsBoardComponent', () => {
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         ChangeDetectorRef,
       ],
-    }).compileComponents();  // compile template and css
+    }).overrideComponent(NotificationsBoardComponent, { remove: { imports: [NotificationComponent, ProcessNotificationComponent] } }).compileComponents();  // compile template and css
   }));
 
   beforeEach(inject([NotificationsService, Store], (service: NotificationsService, store: Store<AppState>) => {

@@ -19,6 +19,7 @@ import { EntityTypeDataService } from '../../../core/data/entity-type-data.servi
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import {
@@ -102,7 +103,7 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
           MyDSpaceNewExternalDropdownComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(MyDSpaceNewExternalDropdownComponent, { remove: { imports: [EntityDropdownComponent] } }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 

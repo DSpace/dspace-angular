@@ -7,6 +7,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateService } from '@ngx-translate/core';
 
 import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
+import { TruncatableComponent } from '../../../../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { ThemedThumbnailComponent } from '../../../../../../../../thumbnail/themed-thumbnail.component';
+import { AttachmentRenderComponent } from './attachment-render/attachment-render.component';
 import { BitstreamAttachmentComponent } from './bitstream-attachment.component';
 
 describe('BitstreamAttachmentComponent', () => {
@@ -26,7 +30,7 @@ describe('BitstreamAttachmentComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(BitstreamAttachmentComponent, { remove: { imports: [ThemedThumbnailComponent, AttachmentRenderComponent, TruncatableComponent, TruncatablePartComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

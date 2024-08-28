@@ -25,6 +25,7 @@ import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/
 import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { getMockDetectDuplicateService } from '../../../../shared/mocks/mock-detect-duplicate-service';
+import { ThemedItemListPreviewComponent } from '../../../../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { SectionsServiceStub } from '../../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../shared/testing/utils.test';
@@ -323,7 +324,7 @@ describe('DuplicateMatchComponent test suite', () => {
         DuplicateMatchComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(DuplicateMatchComponent, { remove: { imports: [ThemedItemListPreviewComponent] } }).compileComponents().then();
   }));
 
   // First test to check the correct component creation

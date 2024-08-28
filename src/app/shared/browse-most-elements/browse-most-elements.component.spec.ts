@@ -18,7 +18,9 @@ import {
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Item } from '../../core/shared/item.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
@@ -83,7 +85,7 @@ describe('BrowseMostElementsComponent', () => {
         { provide: ChangeDetectorRef, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ignore unknown Angular elements
-    }).compileComponents();
+    }).overrideComponent(BrowseMostElementsComponent, { remove: { imports: [ListableObjectComponentLoaderComponent, ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

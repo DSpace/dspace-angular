@@ -34,8 +34,10 @@ import {
   WorkspaceitemSectionDetectDuplicateObject,
 } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { getMockDetectDuplicateService } from '../../../shared/mocks/mock-detect-duplicate-service';
@@ -44,6 +46,7 @@ import {
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
@@ -58,6 +61,7 @@ import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';
 import { DetectDuplicateService } from './detect-duplicate.service';
+import { DuplicateMatchComponent } from './duplicate-match/duplicate-match.component';
 import { SubmissionSectionDetectDuplicateComponent } from './section-detect-duplicate.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
@@ -190,7 +194,7 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
         SubmissionSectionDetectDuplicateComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(SubmissionSectionDetectDuplicateComponent, { remove: { imports: [ThemedLoadingComponent, AlertComponent, PaginationComponent, DuplicateMatchComponent] } }).compileComponents().then();
   }));
 
   // First test to check the correct component creation

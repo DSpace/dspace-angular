@@ -20,6 +20,7 @@ import { boxMetadata } from '../../../../../../../shared/testing/box.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
 import { FieldRenderingType } from '../../rendering-types/metadata-box.decorator';
 import { MetadataContainerComponent } from './metadata-container.component';
+import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
 
 describe('MetadataContainerComponent', () => {
   let component: MetadataContainerComponent;
@@ -170,7 +171,7 @@ describe('MetadataContainerComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(MetadataContainerComponent, { remove: { imports: [MetadataRenderComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

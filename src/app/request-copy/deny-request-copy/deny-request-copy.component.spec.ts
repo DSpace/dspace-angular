@@ -22,6 +22,7 @@ import { ItemRequestDataService } from '../../core/data/item-request-data.servic
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Item } from '../../core/shared/item.model';
 import { ItemRequest } from '../../core/shared/item-request.model';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -33,6 +34,7 @@ import {
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
+import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';
 import { DenyRequestCopyComponent } from './deny-request-copy.component';
 
 describe('DenyRequestCopyComponent', () => {
@@ -124,7 +126,7 @@ describe('DenyRequestCopyComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(DenyRequestCopyComponent, { remove: { imports: [ThemedEmailRequestCopyComponent, ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

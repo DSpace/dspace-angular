@@ -56,7 +56,7 @@ describe('CrisLayoutMetadataBoxComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(CrisLayoutMetadataBoxComponent, { remove: { imports: [RowComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

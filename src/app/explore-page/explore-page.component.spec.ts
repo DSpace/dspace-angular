@@ -35,6 +35,12 @@ import {
   TopSection,
 } from '../core/layout/models/section.model';
 import { SectionDataService } from '../core/layout/section-data.service';
+import { ThemedBrowseSectionComponent } from '../shared/explore/section-component/browse-section/themed-browse-section.component';
+import { ThemedCountersSectionComponent } from '../shared/explore/section-component/counters-section/themed-counters-section.component';
+import { ThemedFacetSectionComponent } from '../shared/explore/section-component/facet-section/themed-facet-section.component';
+import { ThemedSearchSectionComponent } from '../shared/explore/section-component/search-section/themed-search-section.component';
+import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
+import { ThemedTopSectionComponent } from '../shared/explore/section-component/top-section/themed-top-section.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ExplorePageComponent } from './explore-page.component';
@@ -112,7 +118,7 @@ describe('ExploreComponent', () => {
         { provide: SectionDataService, useValue: sectionDataServiceStub },
         { provide: ActivatedRoute, useValue: route }],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ExplorePageComponent, { remove: { imports: [ThemedTopSectionComponent, ThemedBrowseSectionComponent, ThemedSearchSectionComponent, ThemedFacetSectionComponent, ThemedTextSectionComponent, ThemedCountersSectionComponent] } }).compileComponents();
 
   }));
 
