@@ -11,7 +11,7 @@ import { RemoteData } from './core/data/remote-data';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
 import { MenuService } from './shared/menu/menu.service';
 import { filter, find, map, switchMap, take } from 'rxjs/operators';
-import { hasValue } from './shared/empty.util';
+import { hasValue, isNotEmpty } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import {
   ThemedCreateCommunityParentSelectorComponent
@@ -532,11 +532,11 @@ export class MenuResolver implements Resolve<boolean> {
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
-    observableCombineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
-    ]).pipe(
-      filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      filter((authorized: boolean) => authorized),
+      take(1),
+      switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)),
+      filter((metadataExportScriptExists: boolean) => metadataExportScriptExists),
       take(1)
     ).subscribe(() => {
       // Hides the export menu for unauthorised people
@@ -617,12 +617,16 @@ export class MenuResolver implements Resolve<boolean> {
    * Add the DL Exporter menu item to the admin menu
    */
   createDLExporterMenuItem() {
-    observableCombineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.getDLExporterURL(),
-      this.getDLExporterAccessToken()
-    ]).subscribe(([authorized, url, accesstoken]) => {
-      console.log(accesstoken);
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      filter((authorized: boolean) => authorized),
+      take(1),
+      switchMap(() => observableCombineLatest([
+        this.getDLExporterURL(),
+        this.getDLExporterAccessToken()
+      ])),
+      filter(([url, accesstoken]) => isNotEmpty(url) && isNotEmpty(accesstoken)),
+      take(1)
+    ).subscribe(([url, accesstoken]) => {
       const urlSegments = url.split('?');
       const queryParamSegments = urlSegments[1].split('=');
       this.menuService.addSection(MenuID.ADMIN,
@@ -630,7 +634,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'loginmiur_dlexporter_url',
           index: 15,
           active: false,
-          visible: authorized && (hasValue(url) && url.length > 0) && (hasValue(accesstoken) && accesstoken.length > 0),
+          visible: true,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.loginmiur_dlexporter_url',
@@ -655,11 +659,11 @@ export class MenuResolver implements Resolve<boolean> {
     const menuList = [];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
-    observableCombineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
-    ]).pipe(
-      filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      filter((authorized: boolean) => authorized),
+      take(1),
+      switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)),
+      filter((metadataImportScriptExists: boolean) => metadataImportScriptExists),
       take(1)
     ).subscribe(() => {
       // Hides the import menu for unauthorised people
