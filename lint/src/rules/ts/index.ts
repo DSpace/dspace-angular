@@ -10,11 +10,13 @@ import {
   RuleExports,
 } from '../../util/structure';
 /* eslint-disable import/no-namespace */
+import * as aliasImports from './alias-imports';
 import * as themedComponentClasses from './themed-component-classes';
 import * as themedComponentSelectors from './themed-component-selectors';
 import * as themedComponentUsages from './themed-component-usages';
 
 const index = [
+  aliasImports,
   themedComponentClasses,
   themedComponentSelectors,
   themedComponentUsages,
