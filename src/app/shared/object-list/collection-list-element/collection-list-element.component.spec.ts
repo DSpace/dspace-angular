@@ -64,6 +64,12 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
   }, archivedItemsCount: 1,
 });
 
+const environmentRouteThrough = {
+  routeThrough: {
+    collectionHomePage: true,
+  },
+};
+
 describe('CollectionListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -71,6 +77,7 @@ describe('CollectionListElementComponent', () => {
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],

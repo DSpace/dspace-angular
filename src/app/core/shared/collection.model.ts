@@ -122,7 +122,7 @@ export class Collection extends DSpaceObject implements ChildHALResource, Handle
     return this.firstMetadataValue('dc.rights.license');
   }
 
-    /**
+  /**
   * The header text of this collection
   * Corresponds to the metadata field collection.headertext
   */

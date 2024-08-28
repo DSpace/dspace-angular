@@ -55,9 +55,9 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
-      id: 'customfooter',
-      name: 'collection.customfooter',
-      spellCheck: environment.form.spellCheck,
+    id: 'customfooter',
+    name: 'collection.customfooter',
+    spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
     id: 'headertext',

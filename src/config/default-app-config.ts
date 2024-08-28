@@ -347,8 +347,8 @@ export class DefaultAppConfig implements AppConfig {
       undoTimeout: 10000, // 10 seconds
     },
     routeThrough: {
-      collectionHomePage: false
-    }
+      collectionHomePage: false,
+    },
   };
 
   suggestion: SuggestionConfig[] = [
