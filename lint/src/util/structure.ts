@@ -17,10 +17,10 @@ export type Meta = RuleMetaData<string, unknown[]>;
 export type Valid = ValidTestCase<unknown[]>;
 export type Invalid = InvalidTestCase<string, unknown[]>;
 
-export interface DSpaceESLintRuleInfo {
+export interface DSpaceESLintRuleInfo<T = unknown[]> {
   name: string;
   meta: Meta,
-  defaultOptions: unknown[],
+  defaultOptions: T,
 }
 
 export interface NamedTests {
