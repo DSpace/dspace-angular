@@ -5,7 +5,6 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { LinkService } from '../core/cache/builders/link.service';
-import { resolveRouteMenus } from '../shared/menu/menu.resolver';
 import { DSpaceObjectEditMenuProvider } from '../shared/menu/providers/dso-edit.menu';
 import { ClaimMenuProvider } from '../shared/menu/providers/item-claim.menu';
 import { OrcidMenuProvider } from '../shared/menu/providers/item-orcid.menu';
@@ -35,13 +34,6 @@ import { VersionResolver } from './version-page/version.resolver';
         resolve: {
           dso: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver,
-          menu: resolveRouteMenus(
-            StatisticsMenuProvider,
-            OrcidMenuProvider,
-            DSpaceObjectEditMenuProvider,
-            ClaimMenuProvider,
-            VersioningMenuProvider,
-          ),
         },
         runGuardsAndResolvers: 'always',
         children: [

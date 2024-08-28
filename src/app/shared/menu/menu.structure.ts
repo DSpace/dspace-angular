@@ -17,7 +17,7 @@ import { MenuProviderService } from './menu-provider.service';
 export const MENU_PROVIDER = new InjectionToken<AbstractMenuProvider>('MENU_PROVIDER');
 
 type MenuStructure = {
-  [key in MenuID]: Type<AbstractMenuProvider>[];
+  [key in MenuID]: (Type<AbstractMenuProvider> | {providerType: Type<AbstractMenuProvider>, paths: string[]})[];
 };
 
 export function buildMenuStructure(structure: MenuStructure): Provider[] {
@@ -28,17 +28,38 @@ export function buildMenuStructure(structure: MenuStructure): Provider[] {
   Object.entries(structure).forEach(([menuID, providerTypes]) => {
     for (const [index, providerType] of providerTypes.entries()) {
       // todo: should complain if not injectable!
-      providers.push(providerType);
-      providers.push({
-        provide: MENU_PROVIDER,
-        multi: true,
-        useFactory(provider: AbstractMenuProvider): AbstractMenuProvider {
-          provider.menuID = menuID as MenuID;
-          provider.index = provider.index ?? index;
-          return provider;
-        },
-        deps: [providerType],
-      });
+
+      if (providerType.hasOwnProperty('providerType')) {
+        const providerPart = (providerType as any).providerType;
+        const paths = (providerType as any).paths;
+
+
+        providers.push(providerPart);
+        providers.push({
+          provide: MENU_PROVIDER,
+          multi: true,
+          useFactory(provider: AbstractMenuProvider): AbstractMenuProvider {
+            provider.menuID = menuID as MenuID;
+            provider.index = provider.index ?? index;
+            provider.activePaths = paths;
+            provider.shouldPersistOnRouteChange = false;
+            return provider;
+          },
+          deps: [providerPart],
+        });
+      } else {
+        providers.push(providerType as Type<AbstractMenuProvider> );
+        providers.push({
+          provide: MENU_PROVIDER,
+          multi: true,
+          useFactory(provider: AbstractMenuProvider): AbstractMenuProvider {
+            provider.menuID = menuID as MenuID;
+            provider.index = provider.index ?? index;
+            return provider;
+          },
+          deps: [providerType],
+        });
+      }
     }
   });
 

@@ -55,6 +55,7 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
     ]).pipe(map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit]) => {
+
       return [
         {
           visible: isCollectionAdmin,

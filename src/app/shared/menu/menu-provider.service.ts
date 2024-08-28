@@ -6,31 +6,12 @@
  * http://www.dspace.org/license/
  */
 
-import {
-  Inject,
-  Injectable,
-  Injector,
-  Optional,
-  Type,
-} from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
-import {
-  combineLatest,
-  forkJoin,
-  map,
-  Observable,
-} from 'rxjs';
-import {
-  find,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { Inject, Injectable, Injector, Optional, } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveEnd, Router, RouterStateSnapshot, } from '@angular/router';
+import { combineLatest, map, Observable, } from 'rxjs';
+import { filter, find, switchMap, take, tap, } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
-import { hasValue } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { MenuID } from './menu-id.model';
 import { AbstractMenuProvider } from './menu-provider';
 import { MenuSection } from './menu-section.model';
@@ -46,6 +27,8 @@ export class MenuProviderService {
     @Inject(MENU_PROVIDER) @Optional() protected providers: ReadonlyArray<AbstractMenuProvider>,
     protected menuService: MenuService,
     protected injector: Injector,
+    protected router: Router,
+    protected route: ActivatedRoute,
   ) {
   }
 
@@ -61,14 +44,35 @@ export class MenuProviderService {
     );
   }
 
-  public resolveStaticMenu(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
+  listenForRouteChanges(): Observable<boolean> {
+    return this.router.events.pipe(
+      filter(event => event instanceof ResolveEnd),
+      switchMap((event: ResolveEnd) => {
+
+        const currentRoute = this.getCurrentRoute(event.state.root);
+
+        return this.resolveRouteMenus(currentRoute, event.state);
+      }),
+    );
+  }
+
+  private getCurrentRoute(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+    return route;
+  }
+
+
+  public resolvePersistentMenus(
+    // route: ActivatedRouteSnapshot,
+    // state: RouterStateSnapshot
   ): Observable<boolean> {
-    return combineLatest(
-      this.providers
-          .filter(p => p.allRoutes)
-          .map(provider => provider.getSections(route, state).pipe(
+
+    return combineLatest([
+        ...this.providers
+          .filter(provider => provider.shouldPersistOnRouteChange)
+          .map(provider => provider.getSections().pipe(
             tap((sections) => {
               sections.forEach((section: MenuSection) => {
                 this.menuService.addSection(provider.menuID, {
@@ -81,46 +85,115 @@ export class MenuProviderService {
             }),
             switchMap(() => this.waitForMenu$(provider.menuID)),
           )),
+      // ...this.providers
+      //   .filter(provider => {
+      //     let matchesPath = false;
+      //     if (isNotEmpty(provider.activePaths)) {
+      //       route.url.forEach((urlSegment) => {
+      //         if (provider.activePaths.includes(urlSegment.path)) {
+      //           matchesPath = true;
+      //         }
+      //       })
+      //     }
+      //     return matchesPath;
+      //   })
+      //   .map(provider => provider.getSections(route, state).pipe(
+      //     tap((sections) => {
+      //       sections.forEach((section: MenuSection) => {
+      //         this.menuService.addSection(provider.menuID, {
+      //           ...section,
+      //           id: section.id ?? uuidv4(),
+      //           index: section.index ?? provider.index,
+      //           shouldPersistOnRouteChange: false,
+      //         });
+      //       });
+      //     }),
+      //     switchMap(() => this.waitForMenu$(provider.menuID)),
+      //   ))
+      ]
     ).pipe(
       map(done => done.every(Boolean)),
     );
   }
 
-  public resolveRouteMenu(
+  public resolveRouteMenus(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-    ...providerTypes: Type<AbstractMenuProvider>[]
-  ): Observable<any> {
-    // todo: no why please no
-    return forkJoin(
-      providerTypes.map(pt => this.injector.get(pt))
-                   .map((provider: AbstractMenuProvider) => provider.getSections(route, state).pipe(
-                     map(sections => [
-                       provider.menuID,
-                       sections.map((section: MenuSection) => {
-                         return {
-                           ...section,
-                           id: section.id ?? uuidv4(),
-                           index: section.index ?? provider.index,
-                           shouldPersistOnRouteChange: false,
-                         };
-                       }),
-                     ]),
-                     take(1),
-                   )),
-    ).pipe(
-      map((entries) => {
-        return entries.reduce((all, entry) => {
-          const menuID = entry[0] as unknown as MenuID;
-          const sections = entry[1] as unknown as MenuSection[];
+    state: RouterStateSnapshot
+  ): Observable<boolean> {
+    return combineLatest([
+      ...Object.values(MenuID).map((menuID) => {
+        return this.menuService.getNonPersistentMenuSections(menuID)
+          .pipe(
+            take(1),
+            map((sections) => {
+              return {menuId: menuID, sections: sections};
+            })
+          );
+      })]).pipe(
+      switchMap((menuSectionsPerMenu) => {
+          menuSectionsPerMenu.forEach((menu) => {
+            menu.sections.forEach((section) => {
+              this.menuService.removeSection(menu.menuId, section.id);
+            });
+          });
 
-          if (all[menuID] === undefined) {
-            all[menuID] = [];
-          }
-          all[menuID].push(...sections);
-          return all;
-        }, {});
-      }),
+
+          return combineLatest([
+            // ...this.providers
+            //   .filter(provider => isEmpty(provider.activePaths))
+            //   .map(provider => provider.getSections(route.snapshot, state).pipe(
+
+            //     tap((sections) => {
+
+            //       sections.forEach((section: MenuSection) => {
+            //         this.menuService.addSection(provider.menuID, {
+            //           ...section,
+            //           id: section.id ?? uuidv4(),
+            //           index: section.index ?? provider.index,
+            //           shouldPersistOnRouteChange: true,
+            //         });
+            //       });
+            //     }),
+            //     switchMap(() => this.waitForMenu$(provider.menuID)),
+            //   )),
+            ...this.providers
+              .filter(provider => {
+                let shouldUpdate = false;
+                if (!provider.shouldPersistOnRouteChange && isNotEmpty(provider.activePaths)) {
+
+                  provider.activePaths.forEach((path) => {
+                    if (state.url.includes(path)) {
+                      shouldUpdate = true;
+                    }
+                  });
+                } else {
+                  if (!provider.shouldPersistOnRouteChange) {
+
+                    shouldUpdate = true;
+                  }
+                }
+
+                return shouldUpdate;
+              })
+              .map(provider => provider.getSections(route, state).pipe(
+                tap((sections) => {
+
+                  sections.forEach((section: MenuSection) => {
+                    this.menuService.addSection(provider.menuID, {
+                      ...section,
+                      id: section.id ?? uuidv4(),
+                      index: section.index ?? provider.index,
+                      shouldPersistOnRouteChange: false,
+                    });
+                  });
+                }),
+                switchMap(() => this.waitForMenu$(provider.menuID)),
+              ))]
+          ).pipe(
+            map(done => done.every(Boolean)),
+          );
+        }
+      )
     );
   }
 }

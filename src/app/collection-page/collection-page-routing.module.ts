@@ -5,7 +5,6 @@ import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-bre
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { LinkService } from '../core/cache/builders/link.service';
-import { resolveRouteMenus } from '../shared/menu/menu.resolver';
 import { SubscribeMenuProvider } from '../shared/menu/providers/comcol-subscribe.menu';
 import { DSpaceObjectEditMenuProvider } from '../shared/menu/providers/dso-edit.menu';
 import { StatisticsMenuProvider } from '../shared/menu/providers/statistics.menu';
@@ -37,11 +36,6 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
         resolve: {
           dso: CollectionPageResolver,
           breadcrumb: CollectionBreadcrumbResolver,
-          menu: resolveRouteMenus(
-            StatisticsMenuProvider,
-            DSpaceObjectEditMenuProvider,
-            SubscribeMenuProvider,
-          ),
         },
         runGuardsAndResolvers: 'always',
         children: [

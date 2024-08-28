@@ -32,7 +32,7 @@ export class VersioningMenuProvider extends DSpaceObjectPageMenuProvider<Item> {
   }
 
   public getSectionsForContext(item: Item): Observable<PartialMenuSection[]> {
-    console.log(`VersioningMenuProvider.getSectionsForContext()`, item); // todo: remove this
+
 
     return combineLatest([
       this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, item.self),
@@ -40,6 +40,7 @@ export class VersioningMenuProvider extends DSpaceObjectPageMenuProvider<Item> {
       this.dsoVersioningModalService.getVersioningTooltipMessage(item, 'item.page.version.hasDraft', 'item.page.version.create'),
     ]).pipe(
       map(([canCreateVersion, disableVersioning, versionTooltip]) => {
+
         return [
           {
             visible: canCreateVersion,

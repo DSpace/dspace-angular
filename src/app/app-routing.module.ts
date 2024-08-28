@@ -31,14 +31,14 @@ import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-
 import { ReloadGuard } from './core/reload/reload.guard';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
-import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
+import { ENTITY_MODULE_PATH, ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { MenuProviderService } from './shared/menu/menu-provider.service';
-import { resolveStaticMenus } from './shared/menu/menu.resolver';
+// import { resolveStaticMenus } from './shared/menu/menu.resolver';
 
 @NgModule({
   imports: [
@@ -50,7 +50,7 @@ import { resolveStaticMenus } from './shared/menu/menu.resolver';
         canActivate: [AuthBlockingGuard],
         canActivateChild: [ServerCheckGuard],
         resolve: [
-          resolveStaticMenus(),
+          // resolveStaticMenus(),
           // MenuResolver,
         ],
         children: [
@@ -117,7 +117,7 @@ import { resolveStaticMenus } from './shared/menu/menu.resolver';
             canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
-            path: 'entities/:entity-type',
+            path: `${ENTITY_MODULE_PATH}/:entity-type`,
             loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
             canActivate: [EndUserAgreementCurrentUserGuard]

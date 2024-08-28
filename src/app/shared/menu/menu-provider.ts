@@ -19,11 +19,18 @@ import {
 import { map } from 'rxjs/operators';
 import { MenuID } from './menu-id.model';
 import { MenuSection } from './menu-section.model';
+import { APP_INITIALIZER, Provider, Type } from '@angular/core';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { TransferState } from '@angular/platform-browser';
+import { environment } from '../../../environments/environment';
+import { HOME_PAGE_PATH } from '../../app-routing-paths';
+import { MENU_PROVIDER } from './menu.structure';
 
 export type PartialMenuSection = Omit<MenuSection, 'id' | 'active'>;
 
+
 export interface MenuProvider {
-  allRoutes?: boolean,
+  shouldPersistOnRouteChange?: boolean,
   menuID?: MenuID;
   index?: number;
 
@@ -31,9 +38,10 @@ export interface MenuProvider {
 }
 
 export abstract class AbstractMenuProvider implements MenuProvider {
-  public allRoutes = true;
+  shouldPersistOnRouteChange = true;
   menuID?: MenuID;
   index?: number;
+  activePaths?: string[];
 
   abstract getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
 
@@ -41,6 +49,17 @@ export abstract class AbstractMenuProvider implements MenuProvider {
     return combineLatest(sections$).pipe(
       map(sections => flatten(sections)),
     );
+  }
+
+  public static onRoute(...paths: string[]) {
+    if (!AbstractMenuProvider.isPrototypeOf(this)) {
+      throw new Error(
+        'onRoute should only be called from concrete subclasses of AbstractMenuProvider'
+      );
+    }
+
+    const providerType = this as unknown as Type<AbstractMenuProvider>;
+    return {providerType: providerType, paths: paths};
   }
 }
 

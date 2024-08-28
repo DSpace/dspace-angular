@@ -17,19 +17,10 @@ import { Observable } from 'rxjs';
 import { AbstractMenuProvider } from './menu-provider';
 import { MenuProviderService } from './menu-provider.service';
 
-export function resolveStaticMenus(): (ActivatedRouteSnapshot, RouterStateSnapshot, ProviderMenuService) => Observable<boolean> {
-  return (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-    menuProviderService: MenuProviderService = inject(MenuProviderService),
-  ) => menuProviderService.resolveStaticMenu(route, state);
-}
-
-export function resolveRouteMenus(...providerTypes: Type<AbstractMenuProvider>[]): (ActivatedRouteSnapshot, RouterStateSnapshot, ProviderMenuService) => Observable<boolean> {
-  // todo: runtime error if undeclared should be compile time ideally
-  return (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-    menuProviderService: MenuProviderService = inject(MenuProviderService),
-  ) => menuProviderService.resolveRouteMenu(route, state, ...providerTypes);
-}
+// export function resolveStaticMenus(): (ActivatedRouteSnapshot, RouterStateSnapshot, ProviderMenuService) => Observable<boolean> {
+//   return (
+//     route: ActivatedRouteSnapshot,
+//     state: RouterStateSnapshot,
+//     menuProviderService: MenuProviderService = inject(MenuProviderService),
+//   ) => menuProviderService.resolveStaticMenu();
+// }

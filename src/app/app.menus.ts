@@ -27,6 +27,10 @@ import { RegistriesMenuProvider } from './shared/menu/providers/registries.menu'
 import { StatisticsMenuProvider } from './shared/menu/providers/statistics.menu';
 import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide-alert.menu';
 import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
+import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
+import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
+import { ENTITY_MODULE_PATH, ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
+import { HOME_PAGE_PATH } from './app-routing-paths';
 
 export const MENUS = buildMenuStructure({
   [MenuID.PUBLIC]: [
@@ -49,10 +53,10 @@ export const MENUS = buildMenuStructure({
     SystemWideAlertMenuProvider,
   ],
   [MenuID.DSO_EDIT]: [
-    DSpaceObjectEditMenuProvider,
-    VersioningMenuProvider,
-    OrcidMenuProvider,
-    ClaimMenuProvider,
-    SubscribeMenuProvider,
+    DSpaceObjectEditMenuProvider.onRoute(COMMUNITY_MODULE_PATH, COLLECTION_MODULE_PATH, ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
+    VersioningMenuProvider.onRoute(ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
+    OrcidMenuProvider.onRoute(ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
+    ClaimMenuProvider.onRoute(ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
+    SubscribeMenuProvider.onRoute(COMMUNITY_MODULE_PATH, COLLECTION_MODULE_PATH),
   ],
 });

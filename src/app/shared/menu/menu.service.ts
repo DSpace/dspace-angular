@@ -375,7 +375,8 @@ export class MenuService {
         }
       });
       shouldNotPersistIDs.forEach((id) => {
-        this.removeSection(menuID, id);
+
+        // this.removeSection(menuID, id);
       });
     });
   }

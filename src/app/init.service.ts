@@ -21,9 +21,11 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { distinctUntilChanged, find } from 'rxjs/operators';
+import { distinctUntilChanged, find, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MenuService } from './shared/menu/menu.service';
+import { MenuProviderService } from './shared/menu/menu-provider.service';
+import { MenuID } from './shared/menu/menu-id.model';
 
 /**
  * Performs the initialization of the app.
@@ -53,6 +55,7 @@ export abstract class InitService {
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
+    protected menuProviderService: MenuProviderService,
 
   ) {
   }
@@ -187,7 +190,20 @@ export abstract class InitService {
     this.metadata.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
-    this.menuService.listenForRouteChanges();
+    // this.menuService.listenForRouteChanges();
+    this.menuProviderService.listenForRouteChanges().subscribe((done) => {
+      Object.values(MenuID).forEach((menuID) => {
+        this.menuService.buildRouteMenuSections(menuID);
+      }); 
+    })
+  }
+
+  protected initPersistentMenus(): void {
+      this.menuProviderService.resolvePersistentMenus().subscribe((done) => {
+        Object.values(MenuID).forEach((menuID) => {
+          this.menuService.buildRouteMenuSections(menuID);
+        });
+      });
   }
 
   /**

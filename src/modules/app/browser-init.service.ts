@@ -32,6 +32,7 @@ import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { firstValueFrom, Subscription } from 'rxjs';
+import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 
 /**
  * Performs client-side initialization.
@@ -56,6 +57,7 @@ export class BrowserInitService extends InitService {
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
+    protected menuProviderService: MenuProviderService,
     private rootDataService: RootDataService
   ) {
     super(
@@ -69,6 +71,7 @@ export class BrowserInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      menuProviderService,
     );
   }
 
@@ -99,9 +102,11 @@ export class BrowserInitService extends InitService {
       this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
 
+
       this.initKlaro();
 
       await this.authenticationReady$().toPromise();
+      this.initPersistentMenus();
 
       return true;
     };

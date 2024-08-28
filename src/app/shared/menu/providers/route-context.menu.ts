@@ -13,7 +13,7 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { hasValue } from '../../empty.util';
 import {
   AbstractMenuProvider,
@@ -21,14 +21,18 @@ import {
 } from '../menu-provider';
 
 export abstract class AbstractRouteContextMenuProvider<T> extends AbstractMenuProvider {
+  shouldPersistOnRouteChange = false;
   abstract getRouteContext(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<T | undefined>;
 
   abstract getSectionsForContext(routeContext: T): Observable<PartialMenuSection[]>;
 
   getSections(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PartialMenuSection[]> {
+
     return this.getRouteContext(route, state).pipe(
+
       switchMap((routeContext: T) => {
-        if (hasValue(routeContext) && this.isApplicable(routeContext)) {
+        if (this.isApplicable(routeContext)) {
+
           return this.getSectionsForContext(routeContext);
         } else {
           return observableOf([]);
