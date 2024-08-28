@@ -122,6 +122,38 @@ export class Collection extends DSpaceObject implements ChildHALResource, Handle
     return this.firstMetadataValue('dc.rights.license');
   }
 
+    /**
+  * The header text of this collection
+  * Corresponds to the metadata field collection.headertext
+  */
+  get customHeaderText(): string {
+    return this.firstMetadataValue('collection.headertext');
+  }
+
+  /**
+  * The custom footer of this collection
+  * Corresponds to the metadata field collection.customfooter
+  */
+  get customFooterText(): string {
+    return this.firstMetadataValue('collection.customfooter');
+  }
+
+  /**
+  * The home page intro text of this collection
+  * Corresponds to the metadata field collection.homepageintrotext
+  */
+  get customHomePageIntroText(): string {
+    return this.firstMetadataValue('collection.homepageintrotext');
+  }
+
+  /**
+  * The owner name of this collection
+  * Corresponds to the metadata field collection.introtext
+  */
+  get customOwnerNameText(): string {
+    return this.firstMetadataValue('collection.ownername');
+  }
+
   /**
    * The sidebar text of this Collection
    * Corresponds to the metadata field dc.description.tableofcontents

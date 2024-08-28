@@ -54,4 +54,24 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     name: 'dc.rights.license',
     spellCheck: environment.form.spellCheck,
   }),
+  new DynamicTextAreaModel({
+      id: 'customfooter',
+      name: 'collection.customfooter',
+      spellCheck: environment.form.spellCheck,
+  }),
+  new DynamicTextAreaModel({
+    id: 'headertext',
+    name: 'collection.headertext',
+    spellCheck: environment.form.spellCheck,
+  }),
+  new DynamicTextAreaModel({
+    id: 'homepageintrotext',
+    name: 'collection.homepageintrotext',
+    spellCheck: environment.form.spellCheck,
+  }),
+  new DynamicTextAreaModel({
+    id: 'ownername',
+    name: 'collection.ownername',
+    spellCheck: environment.form.spellCheck,
+  }),
 ];
