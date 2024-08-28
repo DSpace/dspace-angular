@@ -40,9 +40,11 @@ export class MetricAltmetricComponent extends BaseEmbeddedMetricComponent implem
   }
 
   ngAfterViewInit(): void {
-    // Show the altmetric label only when the altmetric component is ready
-    this.renderer.listen(this.metricChild.nativeElement, 'altmetric:show', () => {
-      this.showAltmetricLabel$.next(true);
-    });
+    if (hasValue(this.metricChild?.nativeElement)) {
+      // Show the altmetric label only when the altmetric component is ready
+      this.renderer.listen(this.metricChild.nativeElement, 'altmetric:show', () => {
+        this.showAltmetricLabel$.next(true);
+      });
+    }
   }
 }
