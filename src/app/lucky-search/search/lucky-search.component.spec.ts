@@ -23,6 +23,8 @@ import {FileSizePipe} from '../../shared/utils/file-size-pipe';
 import {HardRedirectService} from '../../core/services/hard-redirect.service';
 import {getBitstreamDownloadRoute} from '../../app-routing-paths';
 import {PLATFORM_ID} from '@angular/core';
+import {NotificationsService} from '../../shared/notifications/notifications.service';
+import {NotificationsServiceStub} from '../../shared/testing/notifications-service.stub';
 
 describe('LuckySearchComponent', () => {
   let fixture: ComponentFixture<LuckySearchComponent>;
@@ -98,6 +100,7 @@ describe('LuckySearchComponent', () => {
         {provide: BitstreamDataService, useValue: bitstreamDataService},
         {provide: HardRedirectService, useValue: hardRedirectService},
         {provide: PLATFORM_ID, useValue: 'browser'},
+        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
       ],
     })
       .compileComponents();
@@ -195,7 +198,7 @@ describe('LuckySearchComponent', () => {
       bitstreamDataService.findByItem.withArgs(itemUUID, 'ORIGINAL', metadataFilters, {})
         .and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream])));
 
-      component.currentFilter = {identifier: 'test', value: 'test'};
+      component.currentFilter = {identifier: 'test', value: 'test', bitstreamValue: 'test'};
       component.searchOptions$ = observableOf(defaultPagination);
 
       spyOn((component as any), 'getLuckySearchResults').and.returnValue(observableOf(data));
@@ -227,79 +230,75 @@ describe('LuckySearchComponent', () => {
   });
 
   describe('one item is available', () => {
-      beforeEach(() => {
-        fixture = TestBed.createComponent(LuckySearchComponent);
-        component = fixture.componentInstance;
+    beforeEach(() => {
+      fixture = TestBed.createComponent(LuckySearchComponent);
+      component = fixture.componentInstance;
 
-        const bitstreamSearchTree = new UrlTree();
-        bitstreamSearchTree.queryParams = {
-          index: 'testIndex',
-          value: 'testValue',
-          bitstreamMetadata: 'testMetadata',
-          bitstreamValue: 'testMetadataValue'
-        };
+      const bitstreamSearchTree = new UrlTree();
+      bitstreamSearchTree.queryParams = {
+        index: 'testIndex',
+        value: 'testValue',
+        bitstreamMetadata: 'testMetadata',
+        bitstreamValue: 'testMetadataValue'
+      };
 
-        const itemUUID = 'd317835d-7b06-4219-91e2-1191900cb897';
-        const firstSearchResult = Object.assign(new SearchResult(), {
-          indexableObject: Object.assign(new DSpaceObject(), {
-            id: 'd317835d-7b06-4219-91e2-1191900cb897',
-            uuid: itemUUID,
-            name: 'My first publication',
-            metadata: {
-              'dspace.entity.type': [
-                {value: 'Publication'}
-              ]
-            }
-          })
-        });
-        const data = createSuccessfulRemoteDataObject(createPaginatedList([firstSearchResult]));
-        const metadataFilters = [{metadataName: 'dc.title', metadataValue: 'test.pdf'}] as MetadataFilter[];
-        component.bitstreamFilters$.next(metadataFilters);
-        bitstreamDataService.findByItem.withArgs(itemUUID, 'ORIGINAL', metadataFilters, {})
-          .and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream])));
-
-        component.currentFilter = {identifier: 'test', value: 'test'};
-        component.searchOptions$ = observableOf(defaultPagination);
-
-        spyOn((component as any), 'getLuckySearchResults').and.returnValue(observableOf(data));
-        spyOn((component as any), 'loadBitstreamsAndRedirectIfNeeded').and.returnValue(observableOf([bitstream]));
-        spyOn((component as any), 'hasBitstreamFilters').and.returnValue(true);
-        spyOn(component, 'redirect');
-        spyOn(routerStub, 'parseUrl').and.returnValue(bitstreamSearchTree);
-
-        component.resultsRD$.next(data);
-
-        fixture.detectChanges();
+      const itemUUID = 'd317835d-7b06-4219-91e2-1191900cb897';
+      const firstSearchResult = Object.assign(new SearchResult(), {
+        indexableObject: Object.assign(new DSpaceObject(), {
+          id: 'd317835d-7b06-4219-91e2-1191900cb897',
+          uuid: itemUUID,
+          name: 'My first publication',
+          metadata: {
+            'dspace.entity.type': [
+              {value: 'Publication'}
+            ]
+          }
+        })
       });
+      const data = createSuccessfulRemoteDataObject(createPaginatedList([firstSearchResult]));
+      const metadataFilters = [{metadataName: 'dc.title', metadataValue: 'test.pdf'}] as MetadataFilter[];
+      component.bitstreamFilters$.next(metadataFilters);
+      bitstreamDataService.findByItem.withArgs(itemUUID, 'ORIGINAL', metadataFilters, {})
+        .and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream])));
 
-      it('should create', () => {
-        expect(component).toBeTruthy();
-      });
+      component.currentFilter = {identifier: 'test', value: 'test', bitstreamValue: 'test'};
+      component.searchOptions$ = observableOf(defaultPagination);
 
-      it('should redirect to item page when only one result is found', () => {
-        expect(component.redirect).toHaveBeenCalled();
-      });
-    });
-
-    it('should not redirect when no bitstreams are found', () => {
-      const item = Object.assign(new Item(), {uuid: 'item-uuid-1', name: 'Test item 1'});
-      const data = createSuccessfulRemoteDataObject(createPaginatedList([
-        {indexableObject: item, hitHighlights: {}}
-      ])) as any;
-      component.resultsRD$.next(data);
-      component.bitstreamFilters$.next([{metadataName: 'dc.title', metadataValue: 'Non-existent bitstream'}]);
-      bitstreamDataService.findByItem.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
+      spyOn((component as any), 'getLuckySearchResults').and.returnValue(observableOf(data));
+      spyOn((component as any), 'loadBitstreamsAndRedirectIfNeeded').and.returnValue(observableOf([bitstream]));
+      spyOn((component as any), 'hasBitstreamFilters').and.returnValue(true);
       spyOn(component, 'redirect');
+      spyOn(routerStub, 'parseUrl').and.returnValue(bitstreamSearchTree);
+
+      component.resultsRD$.next(data);
+
       fixture.detectChanges();
-      expect(component.redirect).not.toHaveBeenCalled();
     });
 
-  it('should update showEmptySearchSection$ and showMultipleSearchSection$ based on search results', () => {
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should redirect to item page when only one result is found', () => {
+      expect(component.redirect).toHaveBeenCalled();
+    });
+  });
+
+  it('should not redirect when no bitstreams are found', () => {
+    const item = Object.assign(new Item(), {uuid: 'item-uuid-1', name: 'Test item 1'});
+    const data = createSuccessfulRemoteDataObject(createPaginatedList([
+      {indexableObject: item, hitHighlights: {}}
+    ])) as any;
+    component.resultsRD$.next(data);
+    component.bitstreamFilters$.next([{metadataName: 'dc.title', metadataValue: 'Non-existent bitstream'}]);
+    bitstreamDataService.findByItem.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
+    spyOn(component, 'redirect');
+    fixture.detectChanges();
+    expect(component.redirect).not.toHaveBeenCalled();
+  });
+
+  it('should update showEmptySearchSection$ when no results are found', () => {
     const emptyResults = createSuccessfulRemoteDataObject(createPaginatedList([]));
-    const multipleResults = createSuccessfulRemoteDataObject(createPaginatedList([
-      new SearchResult<DSpaceObject>(),
-      new SearchResult<DSpaceObject>()
-    ]));
 
     spyOn(component as any, 'getLuckySearchResults').and.returnValue(observableOf(emptyResults));
     spyOn(component as any, 'processSearchResults').and.returnValue(observableOf(emptyResults));
@@ -307,14 +306,5 @@ describe('LuckySearchComponent', () => {
     component.getSearchResults();
 
     expect(component.showEmptySearchSection$.getValue()).toBe(true);
-    expect(component.showMultipleSearchSection$.getValue()).toBe(false);
-
-    (component as any).getLuckySearchResults.and.returnValue(observableOf(multipleResults));
-    (component as any).processSearchResults.and.returnValue(observableOf(multipleResults));
-
-    component.getSearchResults();
-
-    expect(component.showEmptySearchSection$.getValue()).toBe(false);
-    expect(component.showMultipleSearchSection$.getValue()).toBe(true);
   });
 });

@@ -18,11 +18,13 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { Item } from '../../core/shared/item.model';
 import { BitstreamDataService, MetadataFilter } from '../../core/data/bitstream-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import {HardRedirectService} from '../../core/services/hard-redirect.service';
 import {isPlatformServer} from '@angular/common';
+import {NotificationsService} from '../../shared/notifications/notifications.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-lucky-search',
@@ -51,7 +53,8 @@ export class LuckySearchComponent implements OnInit {
    */
   currentFilter = {
     identifier: '',
-    value: ''
+    value: '',
+    bitstreamValue: '',
   };
   context: Context = Context.ItemPage;
 
@@ -71,6 +74,8 @@ export class LuckySearchComponent implements OnInit {
     public searchConfigService: SearchConfigurationService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private hardRedirectService: HardRedirectService,
+    private notificationService: NotificationsService,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -105,8 +110,6 @@ export class LuckySearchComponent implements OnInit {
       switchMap(results => this.processSearchResults(results))
     ).subscribe(results => {
       this.resultsRD$.next(results);
-      this.showEmptySearchSection$.next(results?.payload?.page?.length === 0);
-      this.showMultipleSearchSection$.next(results?.payload?.page?.length > 1);
     });
   }
 
@@ -117,12 +120,16 @@ export class LuckySearchComponent implements OnInit {
       return this.bitstreamFilters$.pipe(
         withLatestFrom(of(item)),
         mergeMap(([bitstreamFilters, itemOb]) => this.loadBitstreamsAndRedirectIfNeeded(itemOb, bitstreamFilters)),
-        tap(bitstreams => {
+        tap((bitstreams: Bitstream[]) => {
           this.bitstreams$.next(bitstreams);
-          this.showEmptySearchSection$.next(isEmpty(bitstreams));
-          if (isNotEmpty(bitstreams) && bitstreams.length === 1) {
+          this.showEmptySearchSection$.next(bitstreams.length === 0);
+          if (bitstreams?.length === 1) {
             const bitstreamRoute = getBitstreamDownloadRoute(bitstreams[0]);
             this.redirect(bitstreamRoute);
+          } else if (bitstreams?.length === 0) {
+            const route = getItemPageRoute(item);
+            this.redirect(route);
+            this.notificationService.info(null, this.translateService.get('lucky.search.bitstream.notfound'));
           }
         }),
         map(() => results)
@@ -133,6 +140,13 @@ export class LuckySearchComponent implements OnInit {
       const route = getItemPageRoute(item);
       this.redirect(route);
     }
+
+    if (results?.payload?.totalElements === 0) {
+      this.showEmptySearchSection$.next(true);
+    } else if (results?.payload?.totalElements > 1) {
+      this.showMultipleSearchSection$.next(true);
+    }
+
     return of(results);
   }
 
@@ -179,6 +193,7 @@ export class LuckySearchComponent implements OnInit {
   private parseBitstreamFilters(queryParams: Params): MetadataFilter[] {
     const metadataName = queryParams?.bitstreamMetadata;
     const metadataValue = queryParams?.bitstreamValue;
+    this.currentFilter.bitstreamValue = metadataValue ?? null;
     if (!!metadataName && !!metadataValue) {
 
       const metadataNames = Array.isArray(metadataName) ? metadataName : [metadataName];
