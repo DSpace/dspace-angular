@@ -1,4 +1,4 @@
-<div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
+<div [class.mb-3]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('mb-3')"
      [class.d-none]="model.hidden"
      [formGroup]="group"
      [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
@@ -9,7 +9,7 @@
          [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: { $implicit: model };"></ng-container>
   <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
-  <div [ngClass]="{'form-row': model.hasLanguages || isRelationship,
+  <div [ngClass]="{'row': model.hasLanguages || isRelationship,
                       'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
     <div [ngClass]="getClass('grid', 'control')">
       <div>

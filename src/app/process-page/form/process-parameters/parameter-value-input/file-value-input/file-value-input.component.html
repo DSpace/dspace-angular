@@ -2,7 +2,7 @@
     <span class="btn btn-light">
         {{'process.new.parameter.file.upload-button' | translate}}
     </span>
-    <span class="file-name ml-1">{{fileObject?.name}}</span>
+    <span class="file-name ms-1">{{fileObject?.name}}</span>
 </label>
 <input requireFile #file="ngModel" type="file" name="file-upload-{{index}}" id="file-upload-{{index}}" class="form-control-file d-none" [ngModel]="fileObject" (ngModelChange)="setFile($event)"/>
 <div *ngIf="file.invalid && (file.dirty || file.touched)"

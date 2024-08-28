@@ -1,7 +1,7 @@
 <div class="container">
     <h2 id="header">{{'system-wide-alert.form.header' | translate}}</h2>
     <div [formGroup]="alertForm" [class]="'ng-invalid'">
-        <div class="form-group">
+        <div class="mb-3">
             <div class="row mb-2">
                 <div class="col">
                     <ui-switch [checkedLabel]="'system-wide-alert.form.label.active' | translate"
@@ -32,7 +32,7 @@
             <ui-switch size="small"
                        [checked]="counterEnabled$ |async"
                        (change)="setCounterEnabled($event)"></ui-switch>
-            <span class="ml-2">{{ 'system-wide-alert.form.label.countdownTo.enable' | translate }}</span>
+            <span class="ms-2">{{ 'system-wide-alert.form.label.countdownTo.enable' | translate }}</span>
         </div>
     </div>
     <div *ngIf="counterEnabled$ |async">
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="rounded-0 alert alert-warning">
-            <span class="font-weight-bold">
+            <span class="fw-bold">
         <span *ngIf="previewDays > 0 || previewHours > 0 || previewMinutes > 0 ">
             {{'system-wide-alert-banner.countdown.prefix' | translate }}
         </span>
@@ -101,7 +101,7 @@
         </div>
     </div>
 
-    <div class="btn-row float-right space-children-mr mt-2">
+    <div class="btn-row float-end space-children-mr mt-2">
         <button (click)="back()"
                 class="btn btn-outline-secondary"><i
                 class="fas fa-arrow-left"></i> {{'system-wide-alert.form.cancel' | translate}}</button>

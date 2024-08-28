@@ -51,7 +51,7 @@
             </div>
 
             <div>
-              <button *ngIf="(metadataSchemas | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteSchemas()">{{'admin.registries.metadata.schemas.table.delete' | translate}}</button>
+              <button *ngIf="(metadataSchemas | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-end" (click)="deleteSchemas()">{{'admin.registries.metadata.schemas.table.delete' | translate}}</button>
             </div>
 
         </div>

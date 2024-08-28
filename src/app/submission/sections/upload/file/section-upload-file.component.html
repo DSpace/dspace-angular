@@ -5,10 +5,10 @@
       <ds-themed-thumbnail [thumbnail]="fileData?.thumbnail"></ds-themed-thumbnail>
     </div>
     <div class="col-md-10">
-      <div class="float-left w-75">
+      <div class="float-start w-75">
         <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
       </div>
-      <div class="float-right w-15">
+      <div class="float-end w-15">
         <ng-container>
           <ds-themed-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true" [bitstream]="getBitstream()" [enableRequestACopy]="false">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
@@ -24,8 +24,8 @@
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
                   [disabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">
-            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
-            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
+            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x link-danger"></i>
+            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x link-danger"></i>
           </button>
         </ng-container>
       </div>
@@ -38,7 +38,7 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('cancel')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

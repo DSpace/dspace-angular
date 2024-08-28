@@ -10,7 +10,7 @@
             <ds-comcol-page-logo [logo]="logo"></ds-comcol-page-logo>
           </div>
           <div class="col-4 d-inline-block">
-            <div *ngIf="logo" class="btn-group btn-group-sm float-right" role="group">
+            <div *ngIf="logo" class="btn-group btn-group-sm float-end" role="group">
               <button *ngIf="!markLogoForDeletion" type="button" class="btn btn-danger"
                       title="{{type.value + '.edit.logo.delete.title' | translate}}"
                       (click)="deleteLogo()">

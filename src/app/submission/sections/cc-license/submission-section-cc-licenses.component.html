@@ -40,11 +40,11 @@
        class="mb-4">
 
     <div class="d-flex flex-row">
-      <div class="font-weight-bold {{ field.id }}">
+      <div class="fw-bold {{ field.id }}">
         {{ field.label }}
       </div>
       <button
-        class="btn btn-outline-info btn-sm ml-2"
+        class="btn btn-outline-info btn-sm ms-2"
         (click)="openInfoModal(infoModal)">
         <i class="fas fa-question"></i>
       </button>
@@ -61,7 +61,7 @@
             </h4>
             <div [innerHTML]="field.description"></div>
           </div>
-          <button type="button" class="close"
+          <button type="button" class="btn-close"
                   (click)="closeInfoModal()" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -73,7 +73,7 @@
             <h5>
               {{ value.label }}
             </h5>
-            <div [innerHTML]="value.description" class="font-weight-light"></div>
+            <div [innerHTML]="value.description" class="fw-light"></div>
           </div>
         </div>
 
@@ -107,7 +107,7 @@
         <div (click)="selectOption(getSelectedCcLicense(), field, option)">
           <input type="radio"
                  title="{{ option.label }}"
-                 class="mr-1"
+                 class="me-1"
                  [checked]="isSelectedOption(getSelectedCcLicense(), field, option)">
           <span>{{ option.label }}</span>
         </div>

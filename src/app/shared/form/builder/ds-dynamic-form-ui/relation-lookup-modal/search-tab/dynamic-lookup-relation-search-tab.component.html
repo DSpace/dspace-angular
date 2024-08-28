@@ -14,8 +14,7 @@
            (deselectObject)="deselectObject.emit($event)"
            (selectObject)="selectObject.emit($event)">
   <div additionalSearchOptions *ngIf="repeatable" class="position-absolute">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
+    <div ngbDropdown class="input-group mb-3">
         <div class="input-group-text">
           <!-- In theory we don't need separate checkboxes for this,
                but I wasn't able to get this to work correctly without them.
@@ -34,10 +33,8 @@
                  [checked]="true"
                  (change)="deselectAll()">
         </div>
-      </div>
-      <div ngbDropdown class="input-group-append">
         <button *ngIf="selectAllLoading" type="button"
-                class="btn btn-outline-secondary rounded-right">
+                class="btn btn-outline-secondary rounded-end">
                             <span class="spinner-border spinner-border-sm" role="status"
                                   aria-hidden="true"></span>
           <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.search-tab.loading' | translate) }}</span>
@@ -58,7 +55,6 @@
           <button class="dropdown-item" (click)="selectAll()">{{ ('submission.sections.describe.relationship-lookup.search-tab.select-all' | translate) }}</button>
           <button class="dropdown-item" (click)="deselectAll()">{{ ('submission.sections.describe.relationship-lookup.search-tab.deselect-all' | translate) }}</button>
         </div>
-      </div>
     </div>
   </div>
 

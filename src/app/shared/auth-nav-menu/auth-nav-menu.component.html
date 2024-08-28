@@ -1,11 +1,11 @@
-<ul class="navbar-nav" [ngClass]="{'mr-auto': (isXsOrSm$ | async)}">
+<ul class="navbar-nav" [ngClass]="{'me-auto': (isXsOrSm$ | async)}">
   <li *ngIf="!(isAuthenticated | async) && !(isXsOrSm$ | async) && (showAuth | async)" class="nav-item"
       (click)="$event.stopPropagation();">
     <div ngbDropdown #loginDrop display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
       <a href="javascript:void(0);" class="dropdownLogin px-1" [attr.aria-label]="'nav.login' |translate"
          (click)="$event.preventDefault()" [attr.data-test]="'login-menu' | dsBrowserOnly"
          ngbDropdownToggle>{{ 'nav.login' | translate }}</a>
-      <div class="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu
+      <div class="loginDropdownMenu" [ngClass]="{'ps-3 pe-3': (loading | async)}" ngbDropdownMenu
            [attr.aria-label]="'nav.login' | translate">
         <ds-log-in
           [isStandalonePage]="false"></ds-log-in>

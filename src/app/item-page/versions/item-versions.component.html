@@ -41,11 +41,11 @@
                     </ng-template>
                     <span *ngIf="version?.id === itemVersion?.id">*</span>
 
-                    <span *ngIf="workspaceId$ | async" class="text-light badge badge-primary ml-3">
+                    <span *ngIf="workspaceId$ | async" class="text-light badge bg-primary ms-3">
                       {{ "item.version.history.table.workspaceItem" | translate }}
                     </span>
 
-                    <span *ngIf="workflowId$ | async" class="text-light badge badge-info ml-3">
+                    <span *ngIf="workflowId$ | async" class="text-light badge bg-info ms-3">
                       {{ "item.version.history.table.workflowItem" | translate }}
                     </span>
 
@@ -94,7 +94,7 @@
               {{version?.created | date : 'yyyy-MM-dd HH:mm:ss'}}
             </td>
             <td class="version-row-element-summary">
-              <div class="float-left">
+              <div class="float-start">
                 <ng-container *ngIf="isThisBeingEdited(version); then editSummary else showSummary"></ng-container>
                 <ng-template #showSummary>{{version?.summary}}</ng-template>
                 <ng-template #editSummary>
@@ -103,7 +103,7 @@
                 </ng-template>
               </div>
 
-              <div class="float-right btn-group edit-field space-children-mr" *ngIf="displayActions">
+              <div class="float-end btn-group edit-field space-children-mr" *ngIf="displayActions">
                 <!--DISCARD EDIT -->
                 <ng-container *ngIf="(canEditVersion$(version) | async) && isThisBeingEdited(version)">
                   <button class="btn btn-sm"

@@ -1,14 +1,14 @@
 .ds-form-input-addon {
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  border-right: 0 !important;
+  border-end: 0 !important;
 }
 
 .ds-form-input-btn {
   border: var(--bs-input-btn-border-width) solid var(--bs-input-border-color);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border-left: 0;
+  border-start: 0;
 }
 
 .ds-form-input-btn:focus {

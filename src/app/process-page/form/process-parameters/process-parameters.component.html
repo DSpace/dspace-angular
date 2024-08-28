@@ -1,4 +1,4 @@
-<div class="form-group" *ngIf="script?.parameters?.length" data-testID="parameters-select-container">
+<div class="mb-3" *ngIf="script?.parameters?.length" data-testID="parameters-select-container">
   <label>{{'process.new.select-parameters' | translate}}</label>
   <ds-parameter-select
     *ngFor="let value of parameterValues; let i = index; let last = last"

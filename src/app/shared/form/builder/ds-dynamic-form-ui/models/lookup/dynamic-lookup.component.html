@@ -2,11 +2,11 @@
      (click)="$event.stopPropagation();"
      (openChange)="openChange($event);">
 
-  <div class="form-row align-items-center">
+  <div class="row align-items-center">
     <!--Simple lookup, first field -->
     <div class="col right-addon">
       <i dsAuthorityConfidenceState
-         class="far fa-circle fa-2x fa-fw position-absolute mt-1 p-0 pr-2"
+         class="far fa-circle fa-2x fa-fw position-absolute mt-1 p-0 pe-2"
          aria-hidden="true"
          [authorityValue]="model.value"
          (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted(sdRef, $event)"></i>
@@ -115,7 +115,7 @@
 
 <ng-template #hasInfo let-entry="entry">
   <ul class="list-unstyled mb-0" [attr.aria-labelledby]="'label_' + model.id">
-    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+    <li class="list-item text-truncate text-primary fw-bold">{{entry.value}}</li>
     <li class="list-item text-truncate text-secondary" *ngFor="let item of entry.otherInformation | dsObjNgFor" >
       {{ 'form.other-information.' + item.key | translate }} : {{item.value}}
     </li>
@@ -124,6 +124,6 @@
 
 <ng-template #noInfo let-entry="entry">
   <ul class="list-unstyled mb-0" [attr.aria-labelledby]="'label_' + model.id">
-    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+    <li class="list-item text-truncate text-primary fw-bold">{{entry.value}}</li>
   </ul>
 </ng-template>

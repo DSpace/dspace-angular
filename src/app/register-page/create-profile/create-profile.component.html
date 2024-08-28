@@ -5,13 +5,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-12">
-                    <label class="font-weight-bold"
+                    <label class="fw-bold"
                            for="email">{{'register-page.create-profile.identification.email' | translate}}</label>
                     <span id="email">{{(registration$ |async).email}}</span></div>
             </div>
             <form [class]="'ng-invalid'" [formGroup]="userInfoForm" (ngSubmit)="submitEperson()">
 
-                <div class="form-group">
+                <div class="mb-3">
                     <div class="row">
                         <div class="col-12">
                             <label for="firstName">{{'register-page.create-profile.identification.first-name' | translate}}</label>

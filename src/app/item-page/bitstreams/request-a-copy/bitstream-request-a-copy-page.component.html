@@ -11,7 +11,7 @@
     </div>
     <form [class]="'ng-invalid'" [formGroup]="requestCopyForm" (ngSubmit)="onSubmit()">
 
-        <div class="form-group">
+        <div class="mb-3">
             <div class="row mb-4">
                 <div class="col-12">
                     <label for="name">{{'bitstream-request-a-copy.name.label' | translate}}</label>
@@ -44,13 +44,13 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <div>{{'bitstream-request-a-copy.allfiles.label' |translate}}</div>
-                    <div class="ml-4">
+                    <div class="ms-4">
                         <input [className]="'form-check-input'" type="radio"
                                id="allfiles-true" formControlName="allfiles" value="true">
                         <label class="form-check-label"
                                for="allfiles-true">{{'bitstream-request-a-copy.files-all-true.label' | translate}}</label>
                     </div>
-                    <div class="ml-4">
+                    <div class="ms-4">
                         <input [className]="'form-check-input'" type="radio"
                                id="allfiles-false" formControlName="allfiles" value="false" [attr.disabled]="bitstream === undefined ? true : null ">
                         <label class="form-check-label"
@@ -72,9 +72,9 @@
 
     <hr>
     <div class="row">
-        <div class="col-12 text-right">
+        <div class="col-12 text-end">
 
-            <a (click)="navigateBack()" role="button" class="btn btn-outline-secondary mr-1">
+            <a (click)="navigateBack()" role="button" class="btn btn-outline-secondary me-1">
                 <i class="fas fa-arrow-left"></i> {{'bitstream-request-a-copy.return' | translate}}
             </a>
 

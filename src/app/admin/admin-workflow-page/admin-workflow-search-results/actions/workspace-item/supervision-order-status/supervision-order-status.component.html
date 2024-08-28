@@ -4,7 +4,7 @@
       <span>{{'workflow-item.search.result.list.element.supervised-by' | translate}} </span>
     </div>
     <div>
-      <a class="badge badge-primary mr-1 mb-1 text-capitalize mw-100 text-truncate" *ngFor="let supervisionOrder of supervisionOrders" data-test="soBadge"
+      <a class="badge bg-primary me-1 mb-1 text-capitalize mw-100 text-truncate" *ngFor="let supervisionOrder of supervisionOrders" data-test="soBadge"
          [ngbTooltip]="'workflow-item.search.result.list.element.supervised.remove-tooltip' | translate"
          (click)="$event.preventDefault(); $event.stopImmediatePropagation(); deleteSupervisionOrder(supervisionOrder)" aria-label="Close">
         {{ dsoNameService.getName(supervisionOrder.group) }}

@@ -49,7 +49,7 @@ export class FormatFormComponent implements OnInit {
    */
   arrayElementLayout: DynamicFormControlLayout = {
     grid: {
-      group: 'form-row',
+      group: 'row',
     },
   };
 

@@ -38,8 +38,8 @@
           <a [routerLink]="node.route" class="lead">
             {{ dsoNameService.getName(node.payload) }}
           </a>
-          <span class="pr-2">&nbsp;</span>
-          <span *ngIf="node.payload.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-top archived-items-lead">{{node.payload.archivedItemsCount}}</span>
+          <span class="pe-2">&nbsp;</span>
+          <span *ngIf="node.payload.archivedItemsCount >= 0" class="badge rounded-pill bg-secondary align-top archived-items-lead">{{node.payload.archivedItemsCount}}</span>
         </h5>
       </div>
     </div>

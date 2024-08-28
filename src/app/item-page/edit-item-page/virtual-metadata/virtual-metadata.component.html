@@ -1,6 +1,6 @@
 <div [ngClass]="showThumbnails ? 'hide-modal-thumbnail-column' : ''">
     <div class="modal-header">{{'virtual-metadata.delete-relationship.modal-head' | translate}}
-        <button type="button" class="close" (click)="close.emit()" aria-label="Close">
+        <button type="button" class="btn-close" (click)="close.emit()" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
     </div>
@@ -18,7 +18,7 @@
                     <ds-listable-object-component-loader [object]="item">
                     </ds-listable-object-component-loader>
                     <div *ngFor="let metadata of virtualMetadata.get(item.uuid)">
-                        <div class="font-weight-bold">
+                        <div class="fw-bold">
                             {{metadata.metadataField}}
                         </div>
                         <div>

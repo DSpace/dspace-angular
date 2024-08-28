@@ -1,4 +1,4 @@
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   .container {
     width: 100%;
     max-width: none;
@@ -15,7 +15,7 @@
     display: flex;
   }
 
-  @include media-breakpoint-down(sm) {
+  @include media-breakpoint-down(md) {
     position: relative;
 
     &.row-offcanvas {

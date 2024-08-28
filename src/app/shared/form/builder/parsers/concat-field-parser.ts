@@ -107,7 +107,7 @@ export class ConcatFieldParser extends FieldParser {
 
     clsGroup = {
       element: {
-        control: 'form-row',
+        control: 'row',
       }
     };
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);

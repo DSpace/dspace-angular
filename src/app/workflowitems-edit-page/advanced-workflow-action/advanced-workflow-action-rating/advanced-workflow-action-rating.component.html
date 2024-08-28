@@ -7,7 +7,7 @@
   </p>
 
   <form (ngSubmit)="performAction()" *ngIf="ratingForm" [formGroup]="ratingForm">
-    <div class="form-group">
+    <div class="mb-3">
       <label class="control-label">
         <span>{{ 'advanced-workflow-action.rating.form.review.label' | translate }}</span>
         <span *ngIf="advancedInfo?.descriptionRequired">*</span>
@@ -20,7 +20,7 @@
       </small>
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
       <label class="control-label mb-1">
         {{ 'advanced-workflow-action.rating.form.rating.label' | translate }}*
       </label>
