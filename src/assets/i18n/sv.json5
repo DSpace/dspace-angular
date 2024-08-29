@@ -428,6 +428,15 @@
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.failure": "Misslyckades med att radera EPerson \"{{name}}\"",
 
+  // "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No current active eperson",
+  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "Ingen aktuell aktiv person",
+
+  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Deleted Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.success.deleteMembership": "Raderat medlemskap från grupp: \"{{name}}\"",
+
+  // "admin.access-control.epeople.form.notification.failure.deleteMembership": "Can't Delete Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.failure.deleteMembership": "Kan inte ta bort medlemskap från gruppen: \"{{name}}\"",
+
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Medlem i följande grupper:",
 
@@ -439,6 +448,9 @@
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Samling/Enhet",
+
+  // "admin.access-control.epeople.form.table.remove": "Remove",
+  "admin.access-control.epeople.form.table.remove": "Ta bort",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Denna EPerson är inte medlem i någon grupp",

@@ -404,6 +404,15 @@
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.failure": "E-Kişi \"{{name}}\" silinemedi",
 
+  // "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No current active eperson",
+  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "Şu anda aktif kişi yok",
+
+  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Deleted Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.success.deleteMembership": "Gruptan Üyelik Silindi: \"{{name}}\"",
+
+  // "admin.access-control.epeople.form.notification.failure.deleteMembership": "Can't Delete Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.failure.deleteMembership": "Gruptan Üyelik Silinemiyor: \"{{name}}\"",
+
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Bu grupların üyesi:",
 
@@ -412,6 +421,9 @@
 
   // "admin.access-control.epeople.form.table.name": "Name",
   "admin.access-control.epeople.form.table.name": "İsim",
+
+  // "admin.access-control.epeople.form.table.remove": "Remove",
+  "admin.access-control.epeople.form.table.remove": "Kaldırmak",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Bu E-Kişi herhangi bir grubun üyesi değil",

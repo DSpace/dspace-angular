@@ -459,6 +459,15 @@
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.failure": "Erreur lors de la suppression de l'EPerson \"{{name}}\"",
 
+  // "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No current active eperson",
+  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "Aucune personne active actuellement",
+
+  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Deleted Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.success.deleteMembership": "Adhésion supprimée du groupe : \"{{name}}\"",
+
+  // "admin.access-control.epeople.form.notification.failure.deleteMembership": "Can't Delete Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.failure.deleteMembership": "Impossible de supprimer l'adhésion au groupe : \"{{name}}\"",
+
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membre des groupes suivants :",
 
@@ -470,6 +479,9 @@
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Communauté",
+
+  // "admin.access-control.epeople.form.table.remove": "Remove",
+  "admin.access-control.epeople.form.table.remove": "Retirer",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Cette EPerson n'est membre d'aucun groupe",

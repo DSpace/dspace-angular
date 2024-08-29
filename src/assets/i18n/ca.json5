@@ -454,6 +454,15 @@
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.failure": "No s'ha pogut esborrar l'usuari \"{{ name }}\"",
 
+  // "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No current active eperson",
+  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No hi ha cap persona electrònica activa",
+
+  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Deleted Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.success.deleteMembership": "Membre suprimit del grup: \"{{name}}\"",
+
+  // "admin.access-control.epeople.form.notification.failure.deleteMembership": "Can't Delete Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.failure.deleteMembership": "No es pot suprimir la pertinença del grup: \"{{name}}\"",
+
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membre d'aquests grups:",
 
@@ -465,6 +474,9 @@
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Col·lecció/Comunitat",
+
+  // "admin.access-control.epeople.form.table.remove": "Remove",
+  "admin.access-control.epeople.form.table.remove": "Eliminar",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Aquest usuari no és membre de cap grup",

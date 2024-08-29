@@ -64,6 +64,7 @@
                 <th scope="col" class="align-middle">{{messagePrefix + '.table.id' | translate}}</th>
                 <th scope="col" class="align-middle">{{messagePrefix + '.table.name' | translate}}</th>
                 <th scope="col" class="align-middle">{{messagePrefix + '.table.collectionOrCommunity' | translate}}</th>
+                <th scope="col" class="align-middle">{{messagePrefix + '.table.remove' | translate}}</th>
               </tr>
               </thead>
               <tbody>
@@ -76,6 +77,12 @@
                   </a>
                 </td>
                 <td class="align-middle">{{ dsoNameService.getName(undefined) }}</td>
+                <td class="align-middle">
+                  <button (click)="deleteGroupFromMember(group)"
+                      [ngClass]="['btn btn-sm', 'btn-outline-danger']">
+                      <i class="fas fa-trash-alt fa-fw"></i>
+                  </button>
+                </td>
               </tr>
               </tbody>
             </table>

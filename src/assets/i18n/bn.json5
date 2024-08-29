@@ -425,6 +425,15 @@
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.failure": "ই-পারসন মুছে ফেলতে ব্যর্থ হয়েছে \"{{ name }}\"।",
 
+  // "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No current active eperson",
+  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "বর্তমান সক্রিয় ব্যক্তি নেই",
+
+  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Deleted Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.success.deleteMembership": "গ্রুপ থেকে সদস্যপদ মুছে ফেলা হয়েছে: \"{{name}}\"",
+
+  // "admin.access-control.epeople.form.notification.failure.deleteMembership": "Can't Delete Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.failure.deleteMembership": "গ্রুপ থেকে সদস্যপদ মুছে ফেলা যাবে না: \"{{name}}\"",
+
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "এই দলের সদস্য:",
 
@@ -436,6 +445,9 @@
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "সংগ্রহ / সম্প্রদায়",
+
+  // "admin.access-control.epeople.form.table.remove": "Remove",
+  "admin.access-control.epeople.form.table.remove": "সরান",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "এই ই-পারসন কোন দলের সদস্য নয়",
