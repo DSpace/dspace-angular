@@ -6,3 +6,4 @@ _______
 - [`dspace-angular-ts/themed-component-selectors`](./rules/themed-component-selectors.md): Themeable component selectors should follow the DSpace convention
 - [`dspace-angular-ts/themed-component-usages`](./rules/themed-component-usages.md): Themeable components should be used via their `ThemedComponent` wrapper class
 - [`dspace-angular-ts/themed-wrapper-no-input-defaults`](./rules/themed-wrapper-no-input-defaults.md): ThemedComponent wrappers should not declare input defaults (see [DSpace Angular #2164](https://github.com/DSpace/dspace-angular/pull/2164))
+- [`dspace-angular-ts/unique-decorators`](./rules/unique-decorators.md): Some decorators must be called with unique arguments (e.g. when they construct a mapping based on the argument values)
