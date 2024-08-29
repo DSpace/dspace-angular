@@ -15,6 +15,7 @@ import * as themedComponentClasses from './themed-component-classes';
 import * as themedComponentSelectors from './themed-component-selectors';
 import * as themedComponentUsages from './themed-component-usages';
 import * as themedWrapperNoInputDefaults from './themed-wrapper-no-input-defaults';
+import * as uniqueDecorators from './unique-decorators';
 
 const index = [
   aliasImports,
@@ -22,6 +23,7 @@ const index = [
   themedComponentSelectors,
   themedComponentUsages,
   themedWrapperNoInputDefaults,
+  uniqueDecorators,
 ] as unknown as RuleExports[];
 
 export = {
