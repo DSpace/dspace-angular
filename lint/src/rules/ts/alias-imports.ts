@@ -4,6 +4,7 @@ import {
   TSESLint,
   TSESTree,
 } from '@typescript-eslint/utils';
+import { Scope } from '@typescript-eslint/utils/ts-eslint';
 
 import {
   DSpaceESLintRuleInfo,
@@ -125,16 +126,22 @@ function handleUnaliasedImport(context: TSESLint.RuleContext<Message, unknown[]>
   if (hasAliasedImport) {
     context.report({
       messageId: Message.MULTIPLE_ALIASES,
+      data: { local: option.local },
       node: node,
       fix(fixer: TSESLint.RuleFixer) {
+        const fixes: TSESLint.RuleFix[] = [];
+
         const commaAfter = context.sourceCode.getTokenAfter(node, {
           filter: (token: TSESTree.Token) => token.value === ',',
         });
         if (commaAfter) {
-          return fixer.removeRange([node.range[0], commaAfter.range[1]]);
+          fixes.push(fixer.removeRange([node.range[0], commaAfter.range[1]]));
         } else {
-          return fixer.remove(node);
+          fixes.push(fixer.remove(node));
         }
+        fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
+
+        return fixes;
       },
     });
   } else if (node.local.name === node.imported.name) {
@@ -142,7 +149,12 @@ function handleUnaliasedImport(context: TSESLint.RuleContext<Message, unknown[]>
       messageId: Message.NO_ALIAS,
       node: node,
       fix(fixer: TSESLint.RuleFixer) {
-        return fixer.replaceText(node.local, `${option.imported} as ${option.local}`);
+        const fixes: TSESLint.RuleFix[] = [];
+
+        fixes.push(fixer.replaceText(node.local, `${option.imported} as ${option.local}`));
+        fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
+
+        return fixes;
       },
     });
   } else {
@@ -151,8 +163,25 @@ function handleUnaliasedImport(context: TSESLint.RuleContext<Message, unknown[]>
       data: { local: option.local },
       node: node,
       fix(fixer: TSESLint.RuleFixer) {
-        return fixer.replaceText(node.local, option.local);
+        const fixes: TSESLint.RuleFix[] = [];
+
+        fixes.push(fixer.replaceText(node.local, option.local));
+        fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
+
+        return fixes;
       },
     });
   }
+}
+
+/**
+ * Generates the {@link TSESLint.RuleFix}s for all the usages of the incorrect import.
+ *
+ * @param context The current {@link TSESLint.RuleContext}
+ * @param fixer The instance {@link TSESLint.RuleFixer}
+ * @param node The node which needs to be replaced
+ * @param newAlias The new import name
+ */
+function retrieveUsageReplacementFixes(context: TSESLint.RuleContext<Message, unknown[]>, fixer: TSESLint.RuleFixer, node: TSESTree.ImportSpecifier, newAlias: string): TSESLint.RuleFix[] {
+  return context.sourceCode.getDeclaredVariables(node)[0].references.map((reference: Scope.Reference) => fixer.replaceText(reference.identifier, newAlias));
 }
