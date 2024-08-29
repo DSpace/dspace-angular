@@ -264,7 +264,8 @@
         "dspace-angular-ts/alias-imports": "error",
         "dspace-angular-ts/themed-component-classes": "error",
         "dspace-angular-ts/themed-component-selectors": "error",
-        "dspace-angular-ts/themed-component-usages": "error"
+        "dspace-angular-ts/themed-component-usages": "error",
+        "dspace-angular-ts/themed-wrapper-no-input-defaults": "error"
       }
     },
     {
