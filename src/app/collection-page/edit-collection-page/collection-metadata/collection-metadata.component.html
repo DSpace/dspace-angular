@@ -1,5 +1,5 @@
 <div class="container-fluid mb-2" *ngVar="(itemTemplateRD$ | async) as itemTemplateRD">
-  <label>{{ 'collection.edit.template.label' | translate}}</label>
+  <label class="form-label">{{ 'collection.edit.template.label' | translate}}</label>
   <div class="button-row space-children-mr">
     <button *ngIf="!itemTemplateRD?.payload" class="btn btn-success" (click)="addItemTemplate()">
       <i class="fas fa-plus"></i>

@@ -1,13 +1,13 @@
 <form>
   <div class="mb-3">
-    <label for="subject">{{ 'grant-deny-request-copy.email.subject' | translate }}</label>
+    <label for="subject" class="form-label">{{ 'grant-deny-request-copy.email.subject' | translate }}</label>
     <input type="text" class="form-control" id="subject" [ngClass]="{'is-invalid': !subject || subject.length === 0}" [(ngModel)]="subject" name="subject">
     <div *ngIf="!subject || subject.length === 0" class="invalid-feedback">
       {{ 'grant-deny-request-copy.email.subject.empty' | translate }}
     </div>
   </div>
   <div class="mb-3">
-    <label for="message">{{ 'grant-deny-request-copy.email.message' | translate }}</label>
+    <label for="message" class="form-label">{{ 'grant-deny-request-copy.email.message' | translate }}</label>
     <textarea class="form-control" id="message" rows="8" [(ngModel)]="message" name="message"></textarea>
   </div>
   <ng-content></ng-content>

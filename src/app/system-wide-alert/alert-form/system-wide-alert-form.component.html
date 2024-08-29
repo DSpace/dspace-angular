@@ -12,7 +12,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <label for="formMessage">{{ 'system-wide-alert.form.label.message' | translate }}</label>
+                    <label class="form-label" for="formMessage">{{ 'system-wide-alert.form.label.message' | translate }}</label>
                     <textarea id="formMessage" rows="5"
                               [className]="(formMessage.invalid) && (formMessage.dirty || formMessage.touched) ? 'form-control is-invalid' :'form-control'"
                               formControlName="formMessage">
@@ -73,7 +73,7 @@
     <div *ngIf="formMessage.value">
         <div class="row">
             <div class="col">
-                <label>{{ 'system-wide-alert.form.label.preview' | translate }}</label>
+                <label class="form-label">{{ 'system-wide-alert.form.label.preview' | translate }}</label>
             </div>
         </div>
         <div class="rounded-0 alert alert-warning">

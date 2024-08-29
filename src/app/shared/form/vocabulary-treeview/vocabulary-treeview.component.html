@@ -23,7 +23,7 @@
             <button type="button" class="btn btn-default" cdkTreeNodeToggle>
                 <span class="fas fa-angle-right invisible" aria-hidden="true"></span>
             </button>
-            <label *ngIf="multiSelect" class="d-flex align-items-center m-0 p-0 form-check"
+            <label *ngIf="multiSelect" class="form-label d-flex align-items-center m-0 p-0 form-check"
                    [class.text-success]="node.isSelected"
                    [ngbTooltip]="node.item?.otherInformation?.note"
                    [openDelay]="500"
@@ -57,7 +57,7 @@
                 aria-hidden="true"></span>
             </button>
 
-            <label *ngIf="multiSelect" class="d-flex align-items-center m-0 p-0 form-check"
+            <label *ngIf="multiSelect" class="form-label d-flex align-items-center m-0 p-0 form-check"
                    [class.text-success]="node.isSelected"
                    [ngbTooltip]="node.item?.otherInformation?.note"
                    [openDelay]="500"

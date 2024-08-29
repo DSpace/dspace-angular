@@ -13,6 +13,7 @@ import { MenuModule } from '../shared/menu/menu.module';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ThemedNavbarComponent } from './themed-navbar.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 const effects = [
   NavbarEffects
@@ -32,7 +33,8 @@ const ENTRY_COMPONENTS = [
     MenuModule,
     FormsModule,
     EffectsModule.forFeature(effects),
-    CoreModule.forRoot()
+    CoreModule.forRoot(),
+    NgbDropdownModule,
   ],
   declarations: [
     ...ENTRY_COMPONENTS,

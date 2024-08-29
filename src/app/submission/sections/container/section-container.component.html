@@ -4,11 +4,11 @@
   <ngb-accordion #acc="ngbAccordion" *ngIf="(sectionRef.isEnabled() | async)"
     (panelChange)="sectionRef.sectionChange($event)" activeIds="{{ sectionData.id }}" [destroyOnHide]="false">
     <ngb-panel id="{{ sectionData.id }}" [type]="sectionRef.isInfo() ? 'info' : ''">
-      <ng-template ngbPanelTitle>
-        <span [ngClass]="{ 'text-white' : sectionRef.isInfo()}" class="float-start section-title" tabindex="0">{{
+      <ng-template ngbPanelTitle class="d-flex">
+        <span [ngClass]="{ 'text-white' : sectionRef.isInfo()}" class="flex-grow-1 section-title" tabindex="0">{{
           'submission.sections.'+sectionData.header | translate
           }}</span>
-        <div class="d-inline-block float-end">
+        <div class="d-inline-block">
           <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
             class="fas fa-exclamation-circle text-warning me-3"
             title="{{'submission.sections.status.warnings.title' | translate}}" role="img"
@@ -24,14 +24,7 @@
           <i *ngIf="sectionRef.isInfo()" class="fas fa-info-circle me-3 text-white"
             title="{{'submission.sections.status.info.title' | translate}}" role="img"
             [attr.aria-label]="'submission.sections.status.info.aria' | translate"></i>
-          <a class="btn-close" tabindex="0" role="button"
-            [attr.aria-label]="(sectionRef.isOpen() ? 'submission.sections.toggle.aria.close' : 'submission.sections.toggle.aria.open') | translate: {sectionHeader: ('submission.sections.'+sectionData.header | translate)}"
-            [title]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate">
-            <span *ngIf="sectionRef.isOpen()" [ngClass]="{ 'link-white' : sectionRef.isInfo()}"
-              class="fas fa-chevron-up fa-fw"></span>
-            <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"></span>
-          </a>
-          <a href="javascript:void(0);" class="btn-close me-3" *ngIf="!sectionRef.isMandatory()"
+          <a href="javascript:void(0);" class="me-3" *ngIf="!sectionRef.isMandatory()"
             (click)="removeSection($event)">
             <i class="fas fa-trash-o" aria-hidden="true" tabindex="0"></i>
           </a>

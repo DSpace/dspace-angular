@@ -13,7 +13,7 @@
                 </ds-alert>
               </div>
               <div class="mb-3 row">
-                <label for="syncMode">{{ 'person.page.orcid.synchronization-mode.label'| translate }}</label>
+                <label class="form-label" for="syncMode">{{ 'person.page.orcid.synchronization-mode.label'| translate }}</label>
                 <select class="form-control" [(ngModel)]="currentSyncMode" name="syncMode" id="syncMode"
                         required>
                   <option *ngFor="let syncMode of syncModes"
@@ -42,7 +42,7 @@
                          name="syncPublications" id="publicationOption_{{option.value}}" [value]="option.value"
                          required>
                   <label for="publicationOption_{{option.value}}"
-                         class="ms-2">{{option.label | translate}}</label>
+                         class="ms-2 form-label">{{option.label | translate}}</label>
                 </div>
               </div>
             </div>
@@ -64,7 +64,7 @@
                   <input type="radio" [(ngModel)]="currentSyncFunding"
                          name="syncFundings" id="fundingOption_{{option.value}}" [value]="option.value"
                          required>
-                  <label for="fundingOption_{{option.value}}" class="ms-2">{{option.label | translate}}</label>
+                  <label for="fundingOption_{{option.value}}" class="ms-2 form-label">{{option.label | translate}}</label>
                 </div>
               </div>
             </div>
@@ -86,7 +86,7 @@
                   <input type="checkbox" [(ngModel)]="option.checked"
                          name="syncProfile_{{option.value}}" id="profileOption_{{option.value}}"
                          [value]="option.value">
-                  <label for="profileOption_{{option.value}}" class="ms-2">{{option.label | translate}}</label>
+                  <label for="profileOption_{{option.value}}" class="ms-2 form-label">{{option.label | translate}}</label>
                 </div>
               </div>
             </div>

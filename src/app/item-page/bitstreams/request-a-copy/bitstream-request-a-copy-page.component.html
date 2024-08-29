@@ -14,7 +14,7 @@
         <div class="mb-3">
             <div class="row mb-4">
                 <div class="col-12">
-                    <label for="name">{{'bitstream-request-a-copy.name.label' | translate}}</label>
+                    <label for="name" class="form-label">{{'bitstream-request-a-copy.name.label' | translate}}</label>
                     <input [className]="(name.invalid) && (name.dirty || name.touched) ? 'form-control is-invalid' :'form-control'"
                            type="text" id="name" formControlName="name"/>
                     <div *ngIf="name.invalid && (name.dirty || name.touched)"
@@ -28,7 +28,7 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <label
-                            for="email">{{'bitstream-request-a-copy.email.label' | translate}}</label>
+                            for="email" class="form-label">{{'bitstream-request-a-copy.email.label' | translate}}</label>
                     <input
                             [className]="(email.invalid) && (email.dirty || email.touched) ? 'form-control is-invalid' :'form-control'"
                             id="email" formControlName="email">
@@ -61,7 +61,7 @@
             <div class="row mb-4">
                 <div class="col-12">
                     <label
-                            for="message">{{'bitstream-request-a-copy.message.label' | translate}}</label>
+                            for="message" class="form-label">{{'bitstream-request-a-copy.message.label' | translate}}</label>
                     <textarea rows="5"
                               [className]="'form-control'"
                               id="message" formControlName="message"></textarea>

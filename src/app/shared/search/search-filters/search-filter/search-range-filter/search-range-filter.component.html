@@ -3,7 +3,7 @@
         <form #form="ngForm" (ngSubmit)="onSubmit()" class="add-filter row"
               [action]="currentUrl">
             <div class="col-6 mb-3 mb-0">
-                <label>
+                <label class="form-label">
                   <span class="fw-bold">
                     {{'search.filters.filter.' + filterConfig.name + '.min.label' | translate}}
                   </span>
@@ -15,7 +15,7 @@
                 </label>
             </div>
             <div class="col-6">
-                <label>
+                <label class="form-label">
                     <span class="fw-bold">
                       {{'search.filters.filter.' + filterConfig.name + '.max.label' | translate}}
                     </span>

@@ -1,5 +1,5 @@
 <a *ngIf="!(formCollapsed | async)"
-   class="btn-close position-relative"
+   class="close position-relative"
    ngbTooltip="{{'form.group-collapse-help' | translate}}"
    placement="left">
   <span class="fas fa-angle-up fa-fw fa-2x"
@@ -7,7 +7,7 @@
         (click)="collapseForm()"></span>
 </a>
 <a *ngIf="(formCollapsed | async)"
-   class="btn-close position-relative"
+   class="close position-relative"
    ngbTooltip="{{'form.group-expand-help' | translate}}"
    placement="left">
   <span class="fas fa-angle-down fa-fw fa-2x"
