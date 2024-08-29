@@ -311,8 +311,8 @@ describe('DuplicateMatchComponent test suite', () => {
         CommonModule,
         TranslateModule.forRoot(),
         TestComponent,
+        DuplicateMatchComponent,
       ],
-      declarations: [DuplicateMatchComponent],
       providers: [
         { provide: DetectDuplicateService, useClass: getMockDetectDuplicateService },
         FormBuilder,

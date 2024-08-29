@@ -147,8 +147,8 @@ describe('ItemExportComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         ItemExportComponent,
+        ItemExportAlertStubComponent,
       ],
-      declarations: [ItemExportAlertStubComponent],
       providers: [
         { provide: ItemExportService, useValue: itemExportService },
         { provide: NgbActiveModal, useValue: modal },

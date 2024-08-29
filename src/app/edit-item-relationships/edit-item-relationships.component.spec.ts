@@ -87,8 +87,9 @@ describe('EditItemRelationshipsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        EditItemRelationshipsComponent,
+        RelationshipsSortListComponent,
       ],
-      declarations: [EditItemRelationshipsComponent, RelationshipsSortListComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: RelationshipDataService, useValue: relationshipsServiceStub },

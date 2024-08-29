@@ -26,8 +26,7 @@ describe('ClaimItemSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ClaimItemSelectorComponent],
+      imports: [TranslateModule.forRoot(), ClaimItemSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },

@@ -173,8 +173,8 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
         TestComponent,
         ObjNgFor,
         VarDirective,
+        SubmissionSectionDetectDuplicateComponent,
       ],
-      declarations: [SubmissionSectionDetectDuplicateComponent],
       providers: [
         { provide: CollectionDataService, useValue: getMockCollectionDataService() },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },

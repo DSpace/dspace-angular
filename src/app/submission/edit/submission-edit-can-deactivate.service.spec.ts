@@ -17,7 +17,6 @@ describe('SubmissionEditCanDeactivateService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [],
       imports: [],
       providers: [
         { provide: ActivatedRoute, useValue: {} },

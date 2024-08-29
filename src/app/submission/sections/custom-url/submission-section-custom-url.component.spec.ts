@@ -124,8 +124,8 @@ describe('SubmissionSectionCustomUrlComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         FormComponent,
+        SubmissionSectionCustomUrlComponent,
       ],
-      declarations: [SubmissionSectionCustomUrlComponent],
       providers: [
         { provide: SectionsService, useValue: sectionService },
         { provide: SubmissionService, useValue: submissionService },

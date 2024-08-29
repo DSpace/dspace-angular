@@ -158,8 +158,9 @@ describe('AttachmentComponent', () => {
         },
       }),
       RouterTestingModule,
+      AttachmentComponent,
+      FileSizePipe,
       ],
-      declarations: [AttachmentComponent, FileSizePipe],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },

@@ -19,8 +19,8 @@ describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
+        AdminNotificationsSuggestionTargetsPageComponent,
       ],
-      declarations: [AdminNotificationsSuggestionTargetsPageComponent],
       providers: [
         AdminNotificationsSuggestionTargetsPageComponent,
       ],

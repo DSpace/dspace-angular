@@ -64,8 +64,7 @@ describe('ExportExcelSelectorComponent', () => {
 
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ExportExcelSelectorComponent],
+      imports: [TranslateModule.forRoot(), ExportExcelSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {

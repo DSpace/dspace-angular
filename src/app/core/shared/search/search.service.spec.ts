@@ -140,6 +140,7 @@ describe('SearchService', () => {
           { provide: PaginationService, useValue: paginationService },
           { provide: SearchConfigurationService, useValue: searchConfigService },
           { provide: Angulartics2, useValue: {} },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           SearchService,
         ],
       });

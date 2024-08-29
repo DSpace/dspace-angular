@@ -157,9 +157,10 @@ describe('AdvancedAttachmentComponent', () => {
           useClass: TranslateLoaderMock,
         },
       }),
+      AdvancedAttachmentComponent,
       RouterTestingModule,
+      FileSizePipe,
       ],
-      declarations: [AdvancedAttachmentComponent, FileSizePipe],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },

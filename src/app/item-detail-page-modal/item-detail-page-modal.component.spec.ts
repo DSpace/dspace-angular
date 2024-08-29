@@ -62,6 +62,7 @@ describe('ItemDetailPageModalComponent', () => {
         imports: [
           CommonModule,
           NgbModule,
+          ItemDetailPageModalComponent,
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
@@ -69,7 +70,6 @@ describe('ItemDetailPageModalComponent', () => {
             },
           }),
         ],
-        declarations: [ItemDetailPageModalComponent],
         providers: [
           { provide: ComponentFixtureAutoDetect, useValue: true },
           { provide: ItemDataService, useValue: itemDataService },

@@ -118,8 +118,8 @@ describe('CorrectionComponent', () => {
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         AlertComponent,
+        SubmissionSectionCorrectionComponent,
       ],
-      declarations: [SubmissionSectionCorrectionComponent],
       providers: [
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: 'collectionIdProvider', useValue: collectionId },

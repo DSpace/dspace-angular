@@ -101,8 +101,7 @@ xdescribe('SearchChartHorizontalComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchChartBarHorizontalComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchChartBarHorizontalComponent],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },

@@ -32,8 +32,8 @@ describe('RelationshipsSortListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RelationshipsSortListComponent],
       imports: [
+        RelationshipsSortListComponent,
         RouterTestingModule.withRoutes([]),
         NoopAnimationsModule,
         TranslateModule.forRoot({

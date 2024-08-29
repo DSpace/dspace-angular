@@ -42,8 +42,7 @@ describe('AuditOverviewComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [AuditOverviewComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, AuditOverviewComponent],
       providers: [
         { provide: AuditDataService, useValue: auditService },
         { provide: AuthorizationDataService, useValue: authorizationService },

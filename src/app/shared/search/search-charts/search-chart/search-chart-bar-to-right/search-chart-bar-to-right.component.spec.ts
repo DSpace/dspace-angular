@@ -101,8 +101,7 @@ xdescribe('SearchChartBarToRightComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchChartBarToRightComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchChartBarToRightComponent],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },

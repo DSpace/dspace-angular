@@ -53,8 +53,8 @@ xdescribe('BarChartComponent', () => {
         BrowserAnimationsModule,
         NgxChartsModule,
         BarChartComponent,
+        AbstractChartComponent,
       ],
-      declarations: [AbstractChartComponent],
       providers: [
         { provide: 'view', useValue: view },
         { provide: 'results', useValue: results },

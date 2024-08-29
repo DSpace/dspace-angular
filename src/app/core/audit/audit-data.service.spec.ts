@@ -74,7 +74,6 @@ describe('AuditDataService', () => {
           },
         }),
       ],
-      declarations: [],
       providers: [],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });

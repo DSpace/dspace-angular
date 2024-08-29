@@ -103,8 +103,7 @@ xdescribe('SearchChartBarComponent', () => {
   );
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchChartBarComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchChartBarComponent],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },

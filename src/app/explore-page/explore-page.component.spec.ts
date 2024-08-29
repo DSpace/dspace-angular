@@ -105,7 +105,7 @@ describe('ExploreComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
+      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, ExplorePageComponent, BrowserModule, RouterTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -113,7 +113,6 @@ describe('ExploreComponent', () => {
           },
         }),
       ],
-      declarations: [ExplorePageComponent],
       providers: [ExplorePageComponent,
         { provide: SectionDataService, useValue: sectionDataServiceStub },
         { provide: ActivatedRoute, useValue: route }],

@@ -92,8 +92,7 @@ describe('SearchComponent', () => {
   const routerStub = new RouterMock();
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LuckySearchComponent],
-      imports: [TranslateModule.forRoot(), FileSizePipe],
+      imports: [TranslateModule.forRoot(), FileSizePipe, LuckySearchComponent],
       providers: [
         { provide: Router, useValue: routerStub },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },

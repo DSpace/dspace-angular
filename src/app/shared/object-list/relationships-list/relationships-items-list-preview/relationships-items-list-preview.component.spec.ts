@@ -17,8 +17,7 @@ describe('RelationshipsItemsListPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VarDirective],
-      declarations: [RelationshipsItemsListPreviewComponent],
+      imports: [VarDirective, RelationshipsItemsListPreviewComponent],
     })
       .overrideComponent(RelationshipsItemsListPreviewComponent, { remove: { imports: [ThemedTypeBadgeComponent, TruncatableComponent, TruncatablePartComponent, MetadataLinkViewComponent, ItemSubmitterComponent] } }).compileComponents();
   });

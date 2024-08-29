@@ -50,8 +50,8 @@ describe('RelationshipsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RelationshipsListComponent],
       imports: [
+        RelationshipsListComponent,
         NoopAnimationsModule,
         TranslateModule.forRoot({
           loader: {

@@ -107,8 +107,8 @@ describe('ThumbnailComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ThumbnailComponent,
       ],
-      declarations: [ThumbnailComponent, ThumbnailComponent],
       providers: [
         { provide: 'fieldProvider', useValue: fieldProvider },
         { provide: 'itemProvider', useValue: testItem },

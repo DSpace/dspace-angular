@@ -375,8 +375,9 @@ export const getGridElementTestBet = (component) => {
     imports: [
       NoopAnimationsModule,
       TranslateModule.forRoot(),
+      component,
+      TruncatePipe,
     ],
-    declarations: [component, TruncatePipe],
     providers: [
       { provide: TruncatableService, useValue: truncatableServiceStub },
       { provide: ObjectCacheService, useValue: {} },

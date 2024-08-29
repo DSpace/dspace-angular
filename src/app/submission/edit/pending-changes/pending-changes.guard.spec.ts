@@ -36,7 +36,6 @@ describe('PendingChangesGuard', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [],
       imports: [],
       providers: [
         { provide: NgbModal, useValue: modalServiceSpy },

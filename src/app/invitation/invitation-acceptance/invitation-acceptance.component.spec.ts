@@ -61,8 +61,8 @@ describe('InvitationAcceptanceComponent', () => {
   } as AuthService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InvitationAcceptanceComponent],
       imports: [
+        InvitationAcceptanceComponent,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

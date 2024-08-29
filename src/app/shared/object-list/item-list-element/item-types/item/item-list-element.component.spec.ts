@@ -85,8 +85,6 @@ describe('ItemListElementComponent', () => {
         TranslateModule.forRoot(),
         TruncatePipe,
       ],
-      declarations: [
-      ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: APP_CONFIG, useValue: environment },

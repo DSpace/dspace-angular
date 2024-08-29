@@ -96,7 +96,6 @@ describe('ReviewAccountInfoComponent', () => {
     });
     authService = new AuthServiceMock();
     await TestBed.configureTestingModule({
-      declarations: [ReviewAccountInfoComponent, CompareValuesPipe],
       providers: [
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
@@ -112,6 +111,8 @@ describe('ReviewAccountInfoComponent', () => {
         { provide: HardRedirectService, useValue: hardRedirectService },
       ],
       imports: [
+        ReviewAccountInfoComponent,
+        CompareValuesPipe,
         CommonModule,
         TranslateModule.forRoot({
           loader: {
