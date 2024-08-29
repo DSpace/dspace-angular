@@ -25,6 +25,7 @@ import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stu
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { ProjectSearchResultListElementComponent } from '../search-result-list-elements/project/project-search-result-list-element.component';
 import { ProjectListElementComponent } from './project-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -58,6 +59,8 @@ describe('ProjectListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ProjectListElementComponent, {
+      remove: { imports: [ProjectSearchResultListElementComponent] },
     }).compileComponents();
   }));
 

@@ -36,6 +36,7 @@ import { ViewMode } from '../view-mode.model';
 import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
 @Component({
   template: '',
@@ -71,6 +72,7 @@ describe('SearchService', () => {
           { provide: PaginationService, useValue: {} },
           { provide: SearchConfigurationService, useValue: searchConfigService },
           { provide: Angulartics2, useValue: {} },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           SearchService,
         ],
       });

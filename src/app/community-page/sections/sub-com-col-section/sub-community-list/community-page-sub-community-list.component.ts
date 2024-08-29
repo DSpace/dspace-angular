@@ -47,10 +47,6 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     ObjectCollectionComponent,
     AsyncPipe,
     TranslateModule,
-    ObjectCollectionComponent,
-    ErrorComponent,
-    ThemedLoadingComponent,
-    VarDirective,
   ],
   standalone: true,
 })

@@ -9,6 +9,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartComponent } from '@swimlane/ngx-charts';
 import { of as observableOf } from 'rxjs';
@@ -70,7 +71,7 @@ describe('StatisticsChartBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), CommonModule, StatisticsChartBarComponent],
+      imports: [TranslateModule.forRoot(), CommonModule, StatisticsChartBarComponent, NoopAnimationsModule],
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
         { provide: BrowserExportService, useValue: exportServiceStub },
