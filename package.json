@@ -55,6 +55,46 @@
     "https": false
   },
   "private": true,
+  "overrides": {
+    "@kolkov/ngx-gallery": {
+        "@angular/animations": "^17.3.11",
+        "@angular/common": "^17.3.11",
+        "@angular/core": "^17.3.11"
+    },
+    "@ng-bootstrap/ng-bootstrap": {
+        "@angular/common": "^17.3.11",
+        "@angular/core": "^17.3.11",
+        "@angular/forms": "^17.3.11",
+        "@angular/localize": "17.3.11"
+    },
+    "@ng-dynamic-forms/core": {
+        "@angular/common": "^17.3.11",
+        "@angular/core": "^17.3.11",
+        "@angular/forms": "^17.3.11"
+    },
+    "@ng-dynamic-forms/ui-ng-bootstrap": {
+        "ngx-mask": "14.2.4"
+    },
+    "@ngtools/webpack": {
+        "@angular/compiler-cli": "^17.3.11",
+        "typescript": "~5.3.3"
+    },
+    "@nicky-lenaers/ngx-scroll-to": {
+        "@angular/common": "^17.3.11",
+        "@angular/core": "^17.3.11"
+    },
+    "eslint-plugin-unused-imports": {
+        "@typescript-eslint/eslint-plugin": "^7.2.0"
+    },
+    "ng2-file-upload": {
+        "@angular/common": "^17.3.11",
+        "@angular/core": "^17.3.11"
+    },
+    "ngx-infinite-scroll": {
+        "@angular/common": "^17.3.11",
+        "@angular/core": "^17.3.11"
+    }
+  },
   "dependencies": {
     "@angular/animations": "^17.3.11",
     "@angular/cdk": "^17.3.10",
