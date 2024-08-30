@@ -5,6 +5,10 @@
   }
 }
 
+:host {
+    --bs-gutter-x: .75rem;
+}
+
 ::ng-deep .search-controls {
     margin-bottom: var(--bs-spacer);
 }

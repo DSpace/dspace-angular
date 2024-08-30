@@ -17,7 +17,7 @@
             [(ngModel)]="control.itemName"
             (ngModelChange)="accessControlChanged(control, $event)"
             name="itemName-{{control.id}}"
-            class="form-control">
+            class="form-select">
             <option value=""></option>
             <option *ngFor="let option of dropdownOptions" [value]="option.name">
               {{ option.name }}

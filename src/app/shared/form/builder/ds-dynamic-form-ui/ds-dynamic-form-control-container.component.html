@@ -34,7 +34,7 @@
         #language="ngModel"
         [disabled]="model.readOnly"
         [(ngModel)]="model.language"
-        class="form-control"
+        class="form-select"
         (blur)="onBlur($event)"
         (change)="onChangeLanguage($event)"
         [ngModelOptions]="{standalone: true}"

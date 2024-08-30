@@ -3,7 +3,7 @@
         <div class="row mb-2">
             <div class="col-12 col-sm-6">
                 <label class="fw-bold form-label" for="task">{{'curation.form.task-select.label' |translate }}</label>
-                <select id="task" formControlName="task" class="form-control">
+                <select id="task" formControlName="task" class="form-select">
                     <option *ngFor="let task of tasks" [value]="task">
                         {{ 'curation-task.task.' + task + '.label' | translate }}
                     </option>

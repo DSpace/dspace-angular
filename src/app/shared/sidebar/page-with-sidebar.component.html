@@ -3,10 +3,10 @@
     <div class="row-with-sidebar row-offcanvas row-offcanvas-left px-0"
          [@pushInOut]="(isSidebarCollapsed$ | async) ? 'collapsed' : 'expanded'">
       <div id="{{id}}-sidebar-content"
-           class="col-12 col-md-{{sideBarWidth}} px-3 sidebar-content {{sidebarClasses | async}}">
+           class="col-12 col-md-{{sideBarWidth}} sidebar-content {{sidebarClasses | async}}">
         <ng-container *ngTemplateOutlet="sidebarContent"></ng-container>
       </div>
-      <div class="col-12 col-md-{{12 - sideBarWidth}} px-3">
+      <div class="col-12 col-md-{{12 - sideBarWidth}}">
         <ng-content></ng-content>
       </div>
     </div>

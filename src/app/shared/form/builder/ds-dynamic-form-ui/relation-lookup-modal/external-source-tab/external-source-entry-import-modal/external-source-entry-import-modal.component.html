@@ -29,7 +29,7 @@
                        (deselectObject)="deselectEntity()"
                        (selectObject)="selectEntity($event)">
     </ds-search-results>
-    <div class="ms-4">
+    <div class="ms-4 form-check">
       <input class="form-check-input" type="radio" name="new-entity" id="new-entity" value="new-entity" (click)="selectNewEntity()" [checked]="selectedImportType === importType.NewEntity" />
       <label class="form-check-label" for="new-entity">{{ (labelPrefix + 'entities.new' | translate) }}</label>
     </div>
@@ -37,7 +37,7 @@
   <div id="external-source-entry-authority" *ngIf="authorityEnabled">
     <h5 class="fw-bold">{{ (labelPrefix + 'authority' | translate) }}</h5>
 
-    <div class="ms-4">
+    <div class="ms-4 form-check">
       <input class="form-check-input" type="radio" name="new-authority" id="new-authority" value="new-authority" (click)="selectNewAuthority()" [checked]="selectedImportType === importType.NewAuthority" />
       <label class="form-check-label" for="new-authority">{{ (labelPrefix + 'authority.new' | translate) }}</label>
     </div>

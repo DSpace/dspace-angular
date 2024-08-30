@@ -2,7 +2,7 @@
       [formGroup]="searchForm"
       (ngSubmit)="submit(searchForm.value); $event.stopImmediatePropagation();" >
   <div>
-    <select name="scope" id="scope" formControlName="scope" class="form-control" aria-label="Search scope">
+    <select name="scope" id="scope" formControlName="scope" class="form-select" aria-label="Search scope">
       <option value="metadata">{{labelPrefix + 'search.scope.metadata' | translate}}</option>
       <option value="email">{{labelPrefix + 'search.scope.email' | translate}}</option>
     </select>

@@ -53,7 +53,7 @@
                             <label class="form-label"
                                     for="language">{{'register-page.create-profile.identification.language' |translate}}</label>
 
-                            <select id="language" formControlName="language" class="form-control">
+                            <select id="language" formControlName="language" class="form-select">
                                 <option [value]="''"></option>
                                 <option *ngFor="let lang of activeLangs" [value]="lang.code">{{lang.label}}</option>
                             </select>

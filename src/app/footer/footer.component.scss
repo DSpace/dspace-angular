@@ -34,7 +34,7 @@
           &:not(:last-child) {
             &:after {
               content: '';
-              border-end: 1px var(--bs-secondary) solid;
+              border-right: 1px var(--bs-secondary) solid;
             }
 
           }

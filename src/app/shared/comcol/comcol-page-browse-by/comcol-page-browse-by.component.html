@@ -13,7 +13,7 @@
 
   <div class="d-block d-sm-none">
     <select name="browse-type"
-            class="form-control"
+            class="form-select"
             aria-label="Browse Community or Collection"
             (ngModelChange)="onSelectChange($event)" [ngModel]="currentOptionId$ | async">
       <option *ngFor="let option of allOptions"
