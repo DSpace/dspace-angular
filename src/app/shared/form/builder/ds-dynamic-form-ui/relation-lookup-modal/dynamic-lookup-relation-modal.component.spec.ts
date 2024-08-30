@@ -245,7 +245,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       expect(debugElement.queryAll(By.css('.spinner-border')).length).toEqual(1);
       expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
       expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
-      expect(debugElement.query(By.css('.close')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.btn-close')).nativeElement?.disabled).toBeTrue();
     });
 
   });
