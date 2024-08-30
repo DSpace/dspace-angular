@@ -52,6 +52,7 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { ContextMenuComponent } from '../../../../shared/context-menu/context-menu.component';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
@@ -62,6 +63,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { AuthServiceStub } from '../../../../shared/testing/auth-service.stub';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
 import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
@@ -165,10 +167,10 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: RelationshipDataService, useValue: relationshipService },
           { provide: ObjectCacheService, useValue: {} },
-          { provide: UUIDService, useValue: {} },
+          { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: CommunityDataService, useValue: {} },
-          { provide: HALEndpointService, useValue: {} },
+          { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
           { provide: HttpClient, useValue: {} },
           { provide: DSOChangeAnalyzer, useValue: {} },
           { provide: VersionHistoryDataService, useValue: {} },
@@ -200,6 +202,8 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
               RelatedItemsComponent,
               TabbedRelatedEntitiesSearchComponent,
               ThemedMetadataRepresentationListComponent,
+              GenericItemPageFieldComponent,
+              ContextMenuComponent,
             ],
           },
           add: { changeDetection: ChangeDetectionStrategy.Default },
@@ -500,11 +504,11 @@ describe('ItemComponent', () => {
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: RelationshipDataService, useValue: {} },
           { provide: ObjectCacheService, useValue: {} },
-          { provide: UUIDService, useValue: {} },
+          { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
           { provide: Store, useValue: {} },
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: CommunityDataService, useValue: {} },
-          { provide: HALEndpointService, useValue: {} },
+          { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
           { provide: HttpClient, useValue: {} },
           { provide: DSOChangeAnalyzer, useValue: {} },
           { provide: VersionHistoryDataService, useValue: {} },

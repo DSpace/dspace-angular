@@ -110,10 +110,10 @@ describe('SearchHierarchyFilterComponent', () => {
   describe('if the vocabulary doesn\'t exist', () => {
 
     beforeEach(() => {
-      init();
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
         undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404,
       )));
+      init();
       fixture.detectChanges();
       showVocabularyTreeLink = fixture.debugElement.query(By.css('a#show-test-search-filter-tree'));
     });
@@ -126,17 +126,17 @@ describe('SearchHierarchyFilterComponent', () => {
   describe('if the vocabulary exists', () => {
 
     beforeEach(() => {
-      init();
       const pageInfo = new PageInfo({
         elementsPerPage: 1,
         totalElements: 1,
         totalPages: 1,
         currentPage: 1,
       });
-      spyOn(comp, 'getVocabularyEntry').and.returnValue('test');
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
         undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(pageInfo, [new VocabularyEntryDetail()]), 200,
       )));
+      init();
+      spyOn(comp, 'getVocabularyEntry').and.returnValue('test');
       fixture.detectChanges();
       showVocabularyTreeLink = fixture.debugElement.query(By.css('[data-test="btn-more"]'));
     });

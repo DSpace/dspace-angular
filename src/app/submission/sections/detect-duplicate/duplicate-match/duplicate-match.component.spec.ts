@@ -6,15 +6,11 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -307,7 +303,6 @@ describe('DuplicateMatchComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         TranslateModule.forRoot(),
         TestComponent,
@@ -344,9 +339,9 @@ describe('DuplicateMatchComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('Should create DuplicateMatchComponent', inject([DuplicateMatchComponent], (app: DuplicateMatchComponent) => {
-      expect(app).toBeDefined();
-    }));
+    it('Should create DuplicateMatchComponent', () => {
+      expect(testComp).toBeDefined();
+    });
   });
 
   describe('', () => {
@@ -491,7 +486,7 @@ describe('DuplicateMatchComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [BrowserModule,
+  imports: [
     CommonModule],
 })
 class TestComponent {
