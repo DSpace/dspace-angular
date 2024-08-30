@@ -1,5 +1,6 @@
 import {
   AST_NODE_TYPES,
+  ESLintUtils,
   TSESLint,
   TSESTree,
 } from '@typescript-eslint/utils';
@@ -30,6 +31,9 @@ export const info: DSpaceESLintRuleInfo = {
         properties: {
           decorators: {
             type: 'array',
+            items: {
+              type: 'string',
+            },
           },
         },
       },
@@ -44,7 +48,7 @@ export const info: DSpaceESLintRuleInfo = {
   ],
 };
 
-export const rule = {
+export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
   create(context: TSESLint.RuleContext<Message, unknown[]>, options: any) {
     const decoratorCalls: Map<string, Set<string>> = new Map();
@@ -75,7 +79,7 @@ export const rule = {
       },
     };
   },
-};
+});
 
 export const tests: NamedTests = {
   plugin: info.name,
