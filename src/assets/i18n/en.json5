@@ -2278,6 +2278,8 @@
 
   "item.edit.bitstreams.upload-button": "Upload",
 
+  "item.edit.bitstreams.bundle.tooltip": "If you need to move an item to another page you can drop it to the page number",
+
   "item.edit.delete.cancel": "Cancel",
 
   "item.edit.delete.confirm": "Delete",

@@ -211,10 +211,9 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
     const dragPage = this.currentPage$.value.currentPage - 1;
     let dropPage = this.currentPage$.value.currentPage - 1;
 
-    // Check if the user is hovering over any of the pagination's pages at the time of dropping the object
-    const droppedOnElement = this.elRef.nativeElement.querySelector('.page-item:hover');
-    if (hasValue(droppedOnElement) && hasValue(droppedOnElement.textContent)) {
-      // The user is hovering over a page, fetch the page's number from the element
+    // Check if the user is droping a element over any of the pagination's pages based on event's drop point
+    const droppedOnElement = document.elementFromPoint(event.dropPoint.x, event.dropPoint.y);
+    if (hasValue(droppedOnElement) && hasValue(droppedOnElement.textContent) && droppedOnElement.classList.contains('page-link')) {
       const droppedPage = Number(droppedOnElement.textContent);
       if (hasValue(droppedPage) && !Number.isNaN(droppedPage)) {
         dropPage = droppedPage - 1;

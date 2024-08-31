@@ -7,7 +7,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { PaginationService } from 'ngx-pagination';
+import { of } from 'rxjs';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
+import { PaginationServiceStub } from 'src/app/shared/testing/pagination-service.stub';
 
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -38,10 +44,20 @@ describe('ItemEditBitstreamBundleComponent', () => {
       self: { href: 'bundle-1-selflink' },
     },
   });
+  const mockStore = {
+    select: () => of({}),
+    dispatch: jasmine.createSpy('dispatch'),
+  };
+
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), ItemEditBitstreamBundleComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
+        { provide: Store, useValue: mockStore },
+      ],
       schemas: [
         NO_ERRORS_SCHEMA,
       ],

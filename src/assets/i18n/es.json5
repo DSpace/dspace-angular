@@ -3279,6 +3279,9 @@
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "Subir",
 
+  //"item.edit.bitstreams.bundle.tooltip": "If you need to move an item to another page you can drop it to the page number",
+  "item.edit.bitstreams.bundle.tooltip": "Si necesita mover un elemento a otra página, puede soltarlo en el número de la página a donde desea mover",
+
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Cancelar",
 
