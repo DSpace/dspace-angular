@@ -7,6 +7,7 @@ import {
   ElementRef,
   EventEmitter,
   OnDestroy,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -65,7 +66,7 @@ export const compareArraysUsingFieldUuids = () =>
   selector: 'ds-paginated-drag-drop-abstract',
   template: '',
 })
-export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> implements OnDestroy {
+export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> implements OnInit, OnDestroy {
   /**
    * A view on the child pagination component
    */
@@ -142,7 +143,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   /**
    * Initialize the observables
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeObjectsRD();
     this.initializeURL();
     this.initializeUpdates();

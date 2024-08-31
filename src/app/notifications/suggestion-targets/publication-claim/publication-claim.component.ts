@@ -4,8 +4,10 @@ import {
   NgIf,
 } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -50,7 +52,7 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
   ],
   standalone: true,
 })
-export class PublicationClaimComponent implements OnInit {
+export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnInit {
 
   /**
    * The source for which to list targets

@@ -4,6 +4,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
   SimpleChanges,
@@ -36,7 +37,7 @@ import { isEmpty } from '../../empty.util';
   standalone: true,
 })
 
-export class NumberPickerComponent implements OnInit, ControlValueAccessor {
+export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAccessor {
   @Input() id: string;
   @Input() step: number;
   @Input() min: number;
