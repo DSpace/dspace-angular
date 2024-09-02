@@ -126,7 +126,6 @@ describe('App component', () => {
         { provide: DatadogRumService, useValue: datadogRumServiceSpy },
         provideMockStore({ initialState }),
         AppComponent,
-        RouteService,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     };

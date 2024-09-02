@@ -32,4 +32,8 @@ export class ObjectCacheServiceStub {
   removeDependents(_href: string): void {
   }
 
+  getRequestUUIDBySelfLink(_self: string): Observable<string> {
+    return observableOf('');
+  }
+
 }
