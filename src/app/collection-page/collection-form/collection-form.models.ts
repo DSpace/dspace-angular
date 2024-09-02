@@ -56,22 +56,22 @@ export const collectionFormModels: DynamicFormControlModel[] = [
   }),
   new DynamicTextAreaModel({
     id: 'customfooter',
-    name: 'collection.customfooter',
+    name: 'dspace.collection.customfooter',
     spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
     id: 'headertext',
-    name: 'collection.headertext',
+    name: 'dspace.collection.headertext',
     spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
     id: 'homepageintrotext',
-    name: 'collection.homepageintrotext',
+    name: 'dspace.collection.homepageintrotext',
     spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
     id: 'ownername',
-    name: 'collection.ownername',
+    name: 'dspace.collection.ownername',
     spellCheck: environment.form.spellCheck,
   }),
 ];
