@@ -17,16 +17,16 @@ $enable-responsive-font-sizes: true;
 
 /** Bootstrap Variables **/
 /* Colors */
-$gray-700: #495057 !default;  // Bootstrap $gray-700
-$gray-100: #f8f9fa !default;  //           $gray-100
+$gray-700: #495057 !default; // Bootstrap $gray-700
+$gray-100: #f8f9fa !default; //           $gray-100
 
 /* Reassign color vars to semantic color scheme */
-$blue:   #2B4E72 !default;
-$green:  #94BA65 !default;
-$cyan:   #006666 !default;
+$blue: #2B4E72 !default;
+$green: #94BA65 !default;
+$cyan: #006666 !default;
 $yellow: #ec9433 !default;
-$red:    #CF4444 !default;
-$dark:   darken($blue, 17%) !default;
+$red: #CF4444 !default;
+$dark: darken($blue, 17%) !default;
 
 $primary: $blue !default;
 $secondary: $gray-700 !default;
@@ -49,12 +49,9 @@ $enable-shadows: true !default;
 
 $min-contrast-ratio: 2 !default;
 
-$primary-bg: #{lighten($primary, 30%)} !default;
-$secondary-bg: #{lighten($secondary, 30%)} !default;
-$success-bg: #{lighten($success, 30%)} !default;
-$info-bg: #{lighten($info, 30%)} !default;
-$warning-bg: #{lighten($warning, 30%)} !default;
-$danger-bg: #{lighten($danger, 30%)} !default;
 
 $link-decoration: none;
 $link-hover-decoration: underline;
+
+$pagination-disabled-bg: white;
+
