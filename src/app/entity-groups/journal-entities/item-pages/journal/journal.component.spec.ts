@@ -59,6 +59,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
@@ -115,11 +116,11 @@ describe('JournalComponent', () => {
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
+        { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: NotificationsService, useValue: {} },

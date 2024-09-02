@@ -19,6 +19,9 @@ import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucata
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { MetricBadgesComponent } from '../../../../../shared/object-list/metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from '../../../../../shared/object-list/metric-donuts/metric-donuts.component';
+import { AdditionalMetadataComponent } from '../../../../../shared/object-list/search-result-list-element/additional-metadata/additional-metadata.component';
 import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
@@ -94,7 +97,14 @@ describe('ProjectSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [ThemedThumbnailComponent, TruncatableComponent, ThemedBadgesComponent] },
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        ThemedBadgesComponent,
+        AdditionalMetadataComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
+      ] },
     }).compileComponents();
   }));
 

@@ -28,6 +28,7 @@ import {
 } from '../../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { ThumbnailService } from '../../../../shared/thumbnail/thumbnail.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { JournalVolumeGridElementComponent } from './journal-volume-grid-element.component';
@@ -78,6 +79,7 @@ describe('JournalVolumeGridElementComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
+        { provide: ThumbnailService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalVolumeGridElementComponent, {

@@ -21,6 +21,7 @@ import {
   Observable,
   of,
 } from 'rxjs';
+import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
 
 import {
   APP_CONFIG,
@@ -115,11 +116,11 @@ describe('PublicationComponent', () => {
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
+        { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         { provide: NotificationsService, useValue: {} },
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },

@@ -44,7 +44,7 @@ import { MetadataMap } from '../../../../core/shared/metadata.models';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
-import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ContextMenuComponent } from '../../../../shared/context-menu/context-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
@@ -52,6 +52,8 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
+import { StoreMock } from '../../../../shared/testing/store.mock';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
@@ -62,6 +64,7 @@ import { MiradorViewerComponent } from '../../../mirador-viewer/mirador-viewer.c
 import { ItemVersionsSharedService } from '../../../versions/item-versions-shared.service';
 import { ThemedFileSectionComponent } from '../../field-components/file-section/themed-file-section.component';
 import { ItemPageAbstractFieldComponent } from '../../field-components/specific-field/abstract/item-page-abstract-field.component';
+import { ItemPageCcLicenseFieldComponent } from '../../field-components/specific-field/cc-license/item-page-cc-license-field.component';
 import { ItemPageDateFieldComponent } from '../../field-components/specific-field/date/item-page-date-field.component';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
@@ -112,11 +115,11 @@ describe('UntypedItemComponent', () => {
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
+        { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
+        { provide: Store, useValue: StoreMock },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         { provide: NotificationsService, useValue: {} },
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
@@ -140,7 +143,6 @@ describe('UntypedItemComponent', () => {
           ThemedResultsBackButtonComponent,
           MiradorViewerComponent,
           ThemedItemPageTitleFieldComponent,
-          DsoEditMenuComponent,
           MetadataFieldWrapperComponent,
           ThemedThumbnailComponent,
           ThemedMediaViewerComponent,
@@ -151,6 +153,8 @@ describe('UntypedItemComponent', () => {
           ItemPageAbstractFieldComponent,
           ItemPageUriFieldComponent,
           CollectionsComponent,
+          ItemPageCcLicenseFieldComponent,
+          ContextMenuComponent,
         ],
       },
     });

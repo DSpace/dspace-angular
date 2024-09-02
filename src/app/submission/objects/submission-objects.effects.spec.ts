@@ -50,6 +50,7 @@ import {
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject } from '../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
 import { StoreMock } from '../../shared/testing/store.mock';
@@ -134,7 +135,7 @@ describe('SubmissionObjectEffects test suite', () => {
         { provide: WorkspaceitemDataService, useValue: {} },
         { provide: WorkflowItemDataService, useValue: {} },
         { provide: EditItemDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         { provide: SubmissionObjectDataService, useValue: submissionObjectDataServiceStub },
         { provide: WorkspaceitemDataService, useValue: workspaceItemDataService },
       ],

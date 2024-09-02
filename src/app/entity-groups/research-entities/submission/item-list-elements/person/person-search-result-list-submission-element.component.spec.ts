@@ -18,6 +18,7 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
+import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { REQUEST } from '../../../../../../express.tokens';
@@ -138,11 +139,11 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: SelectableListService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
+        { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
         { provide: XSRFService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
@@ -239,10 +240,10 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: SelectableListService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
+        { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },

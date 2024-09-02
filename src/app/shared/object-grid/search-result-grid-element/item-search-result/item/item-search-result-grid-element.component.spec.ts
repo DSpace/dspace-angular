@@ -17,6 +17,7 @@ import {
   of as observableOf,
   of,
 } from 'rxjs';
+import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
@@ -263,11 +264,11 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         providers: [
           { provide: TruncatableService, useValue: truncatableServiceStub },
           { provide: ObjectCacheService, useValue: {} },
-          { provide: UUIDService, useValue: {} },
+          { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
           { provide: Store, useValue: {} },
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: CommunityDataService, useValue: {} },
-          { provide: HALEndpointService, useValue: {} },
+          { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
           { provide: HttpClient, useValue: {} },
           { provide: DSOChangeAnalyzer, useValue: {} },
           { provide: NotificationsService, useValue: {} },
@@ -381,11 +382,11 @@ export const getGridElementTestBet = (component) => {
     providers: [
       { provide: TruncatableService, useValue: truncatableServiceStub },
       { provide: ObjectCacheService, useValue: {} },
-      { provide: UUIDService, useValue: {} },
+      { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
       { provide: Store, useValue: {} },
       { provide: RemoteDataBuildService, useValue: {} },
       { provide: CommunityDataService, useValue: {} },
-      { provide: HALEndpointService, useValue: {} },
+      { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
       { provide: HttpClient, useValue: {} },
       { provide: DSOChangeAnalyzer, useValue: {} },
       { provide: NotificationsService, useValue: {} },

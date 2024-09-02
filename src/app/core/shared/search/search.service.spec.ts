@@ -36,6 +36,8 @@ import { ViewMode } from '../view-mode.model';
 import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
+import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
+
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
 @Component({
@@ -66,7 +68,7 @@ describe('SearchService', () => {
           { provide: RouteService, useValue: routeServiceStub },
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: {} },
-          { provide: HALEndpointService, useValue: {} },
+          { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
           { provide: CommunityDataService, useValue: {} },
           { provide: DSpaceObjectDataService, useValue: {} },
           { provide: PaginationService, useValue: {} },

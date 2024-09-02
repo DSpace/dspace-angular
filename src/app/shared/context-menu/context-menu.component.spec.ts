@@ -10,6 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { ActivatedRoute } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import {
@@ -29,6 +30,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { Item } from '../../core/shared/item.model';
+import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
@@ -126,6 +128,7 @@ describe('ContextMenuComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         Injector,
       ],
       schemas: [NO_ERRORS_SCHEMA],

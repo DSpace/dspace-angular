@@ -6,10 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  NgbCollapse,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -146,7 +143,7 @@ describe('ProcessOverviewTableComponent', () => {
     translateServiceSpy = jasmine.createSpyObj('TranslateService', ['get']);
 
     void TestBed.configureTestingModule({
-      imports: [NgbCollapse, TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, ProcessOverviewTableComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, ProcessOverviewTableComponent],
       providers: [
         { provide: ProcessOverviewService, useValue: processOverviewService },
         { provide: ProcessDataService, useValue: processService },

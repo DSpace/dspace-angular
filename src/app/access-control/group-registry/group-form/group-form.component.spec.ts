@@ -33,6 +33,7 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
+import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
@@ -244,11 +245,11 @@ describe('GroupFormComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: HttpClient, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
+        { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
         { provide: XSRFService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         {
           provide: ActivatedRoute,
           useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) },
