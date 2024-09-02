@@ -47,7 +47,7 @@ $navbar-light-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,<svg+viewBox
 
 $enable-shadows: true !default;
 
-$min-contrast-ratio:  165 !default;
+$min-contrast-ratio: 2 !default;
 
 $primary-bg: #{lighten($primary, 30%)} !default;
 $secondary-bg: #{lighten($secondary, 30%)} !default;
