@@ -24,6 +24,10 @@ import { PaginationComponentOptions } from '../../../../../shared/pagination/pag
  * bitstreams within the paginated list. To drag and drop a bitstream between two pages, drag the row on top of the
  * page number you want the bitstream to end up at. Doing so will add the bitstream to the top of that page.
  */
+// NOTE:
+// This component was used by the item-edit-bitstream-bundle.component, but this is no longer the case. It is left here
+// as a reference for the drag-and-drop functionality. This component (and the abstract version it extends) should be
+// removed once this reference is no longer useful.
 export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginatedDragAndDropListComponent<Bitstream> implements OnInit {
   /**
    * The bundle to display bitstreams for

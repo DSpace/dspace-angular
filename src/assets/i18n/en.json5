@@ -1934,6 +1934,8 @@
 
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
   "item.edit.bitstreams.discard-button": "Discard",
 
   "item.edit.bitstreams.edit.buttons.download": "Download",

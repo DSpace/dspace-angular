@@ -5,10 +5,65 @@ import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { PaginatedList } from 'src/app/core/data/paginated-list.model';
+import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { Observable, BehaviorSubject, switchMap } from 'rxjs';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
+import { PaginatedSearchOptions } from '../../../../shared/search/models/paginated-search-options.model';
+import { BundleDataService } from '../../../../core/data/bundle-data.service';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import {
+  getAllSucceededRemoteData,
+  paginatedListToArray,
+  getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteData
+} from '../../../../core/shared/operators';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { map } from 'rxjs/operators';
+import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+
+/**
+ * Interface storing all the information necessary to create a row in the bitstream edit table
+ */
+export interface BitstreamTableEntry {
+  /**
+   * The bitstream
+   */
+  bitstream: Bitstream,
+  /**
+   * The uuid of the Bitstream
+   */
+  id: string,
+  /**
+   * The name of the Bitstream
+   */
+  name: string,
+  /**
+   * The name of the Bitstream with all whitespace removed
+   */
+  nameStripped: string,
+  /**
+   * The description of the Bitstream
+   */
+  description: string,
+  /**
+   * Observable emitting the Format of the Bitstream
+   */
+  format: Observable<BitstreamFormat>,
+  /**
+   * The download url of the Bitstream
+   */
+  downloadUrl: string,
+}
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
-  styleUrls: ['../item-bitstreams.component.scss'],
+  styleUrls: ['../item-bitstreams.component.scss', './item-edit-bitstream-bundle.component.scss'],
   templateUrl: './item-edit-bitstream-bundle.component.html',
 })
 /**
@@ -17,6 +72,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream-bundle element)
  */
 export class ItemEditBitstreamBundleComponent implements OnInit {
+  protected readonly FieldChangeType = FieldChangeType;
 
   /**
    * The view on the bundle information and bitstreams
@@ -56,9 +112,48 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    */
   itemPageRoute: string;
 
+  /**
+   * The name of the bundle
+   */
+  bundleName: string;
+
+  /**
+   * The bitstreams to show in the table
+   */
+  bitstreamsRD$: Observable<RemoteData<PaginatedList<Bitstream>>>;
+
+  /**
+   * The data to show in the table
+   */
+  tableEntries$: Observable<BitstreamTableEntry[]>;
+
+  /**
+   * The initial page options to use for fetching the bitstreams
+   */
+  paginationOptions: PaginationComponentOptions;
+
+  /**
+   * The current page options
+   */
+  currentPaginationOptions$: BehaviorSubject<PaginationComponentOptions>;
+
+  /**
+   * The self url of the bundle, also used when retrieving fieldUpdates
+   */
+  bundleUrl: string;
+
+  /**
+   * The updates to the current bitstreams
+   */
+  updates$: Observable<FieldUpdates>;
+
+
   constructor(
     protected viewContainerRef: ViewContainerRef,
     public dsoNameService: DSONameService,
+    protected bundleService: BundleDataService,
+    protected objectUpdatesService: ObjectUpdatesService,
+    protected paginationService: PaginationService,
   ) {
   }
 
@@ -66,5 +161,124 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     this.bundleNameColumn = this.columnSizes.combineColumns(0, 2);
     this.viewContainerRef.createEmbeddedView(this.bundleView);
     this.itemPageRoute = getItemPageRoute(this.item);
+    this.bundleName = this.dsoNameService.getName(this.bundle);
+    this.bundleUrl = this.bundle.self;
+
+    this.initializePagination();
+    this.initializeBitstreams();
+
+    // this.bitstreamsRD = this.
+  }
+
+  protected initializePagination() {
+    this.paginationOptions = Object.assign(new PaginationComponentOptions(),{
+      id: this.bundleName, // This might behave unexpectedly if the item contains two bundles with the same name
+      currentPage: 1,
+      pageSize: 10
+    });
+
+    this.currentPaginationOptions$ = new BehaviorSubject(this.paginationOptions);
+
+    this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions)
+      .subscribe((pagination) => {
+        this.currentPaginationOptions$.next(pagination);
+    });
+  }
+
+  protected initializeBitstreams() {
+    this.bitstreamsRD$ = this.currentPaginationOptions$.pipe(
+      switchMap((page: PaginationComponentOptions) => {
+        const paginatedOptions = new PaginatedSearchOptions({ pagination: Object.assign({}, page) });
+        return this.bundleService.getBitstreams(this.bundle.id, paginatedOptions, followLink('format'));
+      }),
+    );
+
+    this.bitstreamsRD$.pipe(
+      getFirstSucceededRemoteData(),
+      paginatedListToArray(),
+    ).subscribe((bitstreams) => {
+      this.objectUpdatesService.initialize(this.bundleUrl, bitstreams, new Date());
+    });
+
+    this.updates$ = this.bitstreamsRD$.pipe(
+      getAllSucceededRemoteData(),
+      paginatedListToArray(),
+      switchMap((bitstreams) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundleUrl, bitstreams))
+    );
+
+    this.tableEntries$ = this.bitstreamsRD$.pipe(
+      getAllSucceededRemoteData(),
+      paginatedListToArray(),
+      map((bitstreams) => {
+        return bitstreams.map((bitstream) => {
+          const name = this.dsoNameService.getName(bitstream);
+
+          return {
+            bitstream: bitstream,
+            id: bitstream.uuid,
+            name: name,
+            nameStripped: this.stripWhiteSpace(name),
+            description: bitstream.firstMetadataValue('dc.description'),
+            format: bitstream.format.pipe(getFirstSucceededRemoteDataPayload()),
+            downloadUrl: getBitstreamDownloadRoute(bitstream),
+          };
+        });
+      }),
+    );
+  }
+
+  /**
+   * Check if a user should be allowed to remove this field
+   */
+  canRemove(fieldUpdate: FieldUpdate): boolean {
+    return fieldUpdate.changeType !== FieldChangeType.REMOVE;
+  }
+
+  /**
+   * Check if a user should be allowed to cancel the update to this field
+   */
+  canUndo(fieldUpdate: FieldUpdate): boolean {
+    return fieldUpdate.changeType >= 0;
+  }
+
+  /**
+   * Sends a new remove update for this field to the object updates service
+   */
+  remove(bitstream: Bitstream): void {
+    this.objectUpdatesService.saveRemoveFieldUpdate(this.bundleUrl, bitstream);
+  }
+
+  /**
+   * Cancels the current update for this field in the object updates service
+   */
+  undo(bitstream: Bitstream): void {
+    this.objectUpdatesService.removeSingleFieldUpdate(this.bundleUrl, bitstream.uuid);
+  }
+
+  getRowClass(update: FieldUpdate): string {
+    switch (update.changeType) {
+      case FieldChangeType.UPDATE:
+        return 'table-warning';
+      case FieldChangeType.ADD:
+        return 'table-success';
+      case FieldChangeType.REMOVE:
+        return 'table-danger';
+      default:
+        return 'bg-white';
+    }
+  }
+
+  /**
+   * Returns a string equal to the input string with all whitespace removed.
+   * @param str
+   */
+  // Whitespace is stripped from the Bitstream names for accessibility reasons.
+  // To make it clear which headers are relevant for a specific field in the table, the 'headers' attribute is used to
+  // refer to specific headers. The Bitstream's name is used as header ID for the row containing information regarding
+  // that bitstream. As the 'headers' attribute contains a space-separated string of header IDs, the Bitstream's header
+  // ID can not contain strings itself.
+  stripWhiteSpace(str: string): string {
+    // '/\s+/g' matches all occurrences of any amount of whitespace characters
+    return str.replace(/\s+/g, '');
   }
 }
