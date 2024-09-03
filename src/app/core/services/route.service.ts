@@ -1,6 +1,6 @@
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } from '@angular/router';
+import {Inject, Injectable} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, ParamMap, Params, Router, RouterStateSnapshot,} from '@angular/router';
 
 import { combineLatest, Observable } from 'rxjs';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
@@ -12,6 +12,7 @@ import { hasValue } from '../../shared/empty.util';
 import { historySelector } from '../history/selectors';
 import { AddUrlToHistoryAction } from '../history/history.actions';
 import { CoreState } from '../core-state.model';
+import {NativeWindowRef, NativeWindowService} from './window.service';
 
 /**
  * Selector to select all route parameters from the store
@@ -63,7 +64,7 @@ export function parameterSelector(key: string, paramsSelector: (state: CoreState
   providedIn: 'root'
 })
 export class RouteService {
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store<CoreState>) {
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<CoreState>, @Inject(NativeWindowService) private _window: NativeWindowRef) {
     this.saveRouting();
   }
 
@@ -141,9 +142,14 @@ export class RouteService {
 
   public getQueryParamMap(): Observable<any> {
     return this.route.queryParamMap.pipe(
-      map((paramMap) => {
+      map((paramMap: ParamMap) => {
         const snapshot: RouterStateSnapshot = this.router.routerState.snapshot;
         // Due to an Angular bug, sometimes change of QueryParam is not detected so double checks with route snapshot
+        if (!(this._window.nativeWindow.location.href || '').includes('?')){
+          // Prevent sending outdated query params
+          const emptyParamMap: ParamMap = { keys: [], has: (name: string) => false, get: (name: string) => null, getAll: (name: string) => [] };
+          return emptyParamMap;
+        }
         if (!isEqual(paramMap, snapshot.root.queryParamMap)) {
           return snapshot.root.queryParamMap;
         } else {

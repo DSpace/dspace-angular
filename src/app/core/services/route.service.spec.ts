@@ -9,6 +9,7 @@ import { RouteService } from './route.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { TestScheduler } from 'rxjs/testing';
 import { AddUrlToHistoryAction } from '../history/history.actions';
+import {NativeWindowRef, NativeWindowService} from './window.service';
 
 describe('RouteService', () => {
   let scheduler: TestScheduler;
@@ -48,12 +49,13 @@ describe('RouteService', () => {
         },
         { provide: Router, useValue: router },
         { provide: Store, useValue: store },
+        { provide: NativeWindowService, useClass: new NativeWindowRef() },
       ]
     });
   }));
 
   beforeEach(() => {
-    service = new RouteService(TestBed.inject(ActivatedRoute), TestBed.inject(Router), TestBed.inject(Store));
+    service = new RouteService(TestBed.inject(ActivatedRoute), TestBed.inject(Router), TestBed.inject(Store), TestBed.inject(NativeWindowRef));
     serviceAsAny = service;
   });
 
