@@ -10,6 +10,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -25,8 +26,10 @@ import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { ThumbnailService } from '../../../../shared/thumbnail/thumbnail.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { OrgUnitSearchResultGridElementComponent } from '../search-result-grid-elements/org-unit/org-unit-search-result-grid-element.component';
 import { OrgUnitGridElementComponent } from './org-unit-grid-element.component';
 
 const mockItem = Object.assign(new Item(), {
@@ -59,6 +62,10 @@ const mockItem = Object.assign(new Item(), {
   },
 });
 
+const mockThumbnailService = jasmine.createSpyObj('ThumbnailService', {
+  getThumbnail: of({}),
+});
+
 describe('OrgUnitGridElementComponent', () => {
   let comp;
   let fixture;
@@ -79,10 +86,13 @@ describe('OrgUnitGridElementComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
+        { provide: ThumbnailService, useValue: mockThumbnailService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrgUnitGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(OrgUnitGridElementComponent, {
+      remove: { imports: [OrgUnitSearchResultGridElementComponent] },
     }).compileComponents();
   }));
 

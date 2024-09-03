@@ -25,13 +25,17 @@ import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { ThemedFileDownloadLinkComponent } from '../../../../../../../shared/file-download-link/themed-file-download-link.component';
 import { attachmentsMock } from '../../../../../../../shared/mocks/attachments.mock';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
+import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../../../../../../../shared/utils/file-size-pipe';
 import { FieldRenderingType } from '../metadata-box.decorator';
 import { AdvancedAttachmentComponent } from './advanced-attachment.component';
+import { BitstreamAttachmentComponent } from './bitstream-attachment/bitstream-attachment.component';
 
 describe('AdvancedAttachmentComponent', () => {
   let component: AdvancedAttachmentComponent;
@@ -177,7 +181,17 @@ describe('AdvancedAttachmentComponent', () => {
 
     describe('and pagination is disabled', () => {
       beforeEach(() => {
-        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.configureTestingModule(getDefaultTestBedConf())
+          .overrideComponent(AdvancedAttachmentComponent, {
+            remove: {
+              imports: [
+                BitstreamAttachmentComponent,
+                TruncatableComponent,
+                ThemedFileDownloadLinkComponent,
+                TruncatablePartComponent,
+              ],
+            },
+          });
         fixture = TestBed.createComponent(AdvancedAttachmentComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
@@ -215,7 +229,17 @@ describe('AdvancedAttachmentComponent', () => {
 
     describe('when pagination is enabled', () => {
       beforeEach(() => {
-        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.configureTestingModule(getDefaultTestBedConf())
+          .overrideComponent(AdvancedAttachmentComponent, {
+            remove: {
+              imports: [
+                BitstreamAttachmentComponent,
+                TruncatableComponent,
+                ThemedFileDownloadLinkComponent,
+                TruncatablePartComponent,
+              ],
+            },
+          });
         fixture = TestBed.createComponent(AdvancedAttachmentComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
@@ -251,7 +275,17 @@ describe('AdvancedAttachmentComponent', () => {
 
     describe('and pagination is disabled', () => {
       beforeEach(() => {
-        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.configureTestingModule(getDefaultTestBedConf())
+          .overrideComponent(AdvancedAttachmentComponent, {
+            remove: {
+              imports: [
+                BitstreamAttachmentComponent,
+                TruncatableComponent,
+                ThemedFileDownloadLinkComponent,
+                TruncatablePartComponent,
+              ],
+            },
+          });
         fixture = TestBed.createComponent(AdvancedAttachmentComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
@@ -289,7 +323,17 @@ describe('AdvancedAttachmentComponent', () => {
 
     describe('when pagination is enabled', () => {
       beforeEach(() => {
-        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.configureTestingModule(getDefaultTestBedConf())
+          .overrideComponent(AdvancedAttachmentComponent, {
+            remove: {
+              imports: [
+                BitstreamAttachmentComponent,
+                TruncatableComponent,
+                ThemedFileDownloadLinkComponent,
+                TruncatablePartComponent,
+              ],
+            },
+          });
         fixture = TestBed.createComponent(AdvancedAttachmentComponent);
         component = fixture.componentInstance;
         component.envMetadata = [];
