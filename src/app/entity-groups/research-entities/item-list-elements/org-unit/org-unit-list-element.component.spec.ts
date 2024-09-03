@@ -25,6 +25,7 @@ import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stu
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { OrgUnitSearchResultListElementComponent } from '../search-result-list-elements/org-unit/org-unit-search-result-list-element.component';
 import { OrgUnitListElementComponent } from './org-unit-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -65,6 +66,8 @@ describe('OrgUnitListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrgUnitListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(OrgUnitListElementComponent, {
+      remove: { imports: [OrgUnitSearchResultListElementComponent] },
     }).compileComponents();
   }));
 

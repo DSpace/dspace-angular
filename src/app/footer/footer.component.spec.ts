@@ -2,7 +2,6 @@ import { DebugElement } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -18,6 +17,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { SiteDataService } from '../core/data/site-data.service';
 import { LocaleService } from '../core/locale/locale.service';
 import { Site } from '../core/shared/site.model';
+import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
 import { FooterComponent } from './footer.component';
@@ -60,7 +60,6 @@ describe('Footer component', () => {
         TranslateModule.forRoot(),
       ],
       providers: [
-        FooterComponent,
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: SiteDataService, useValue: siteService },
@@ -68,6 +67,10 @@ describe('Footer component', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: APP_CONFIG, useValue: environment },
       ],
+    }).overrideComponent(FooterComponent, {
+      remove: {
+        imports: [ThemedTextSectionComponent],
+      },
     });
   }));
 
@@ -77,10 +80,9 @@ describe('Footer component', () => {
     comp = fixture.componentInstance;
   });
 
-  it('should create footer', inject([FooterComponent], (app: FooterComponent) => {
-    // Perform test using fixture and service
-    expect(app).toBeTruthy();
-  }));
+  it('should create footer', () => {
+    expect(comp).toBeDefined();
+  });
 
   it('should render TextSectionComponent', () => {
     comp.showTopFooter = true;
