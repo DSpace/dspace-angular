@@ -4,26 +4,32 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
-  ViewEncapsulation
+  SimpleChanges,
+  ViewEncapsulation,
 } from '@angular/core';
 
-import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { Observable, of as observableOf, Subscription, switchMap } from 'rxjs';
 
 import { HostWindowService } from '../host-window.service';
-import { HostWindowState } from '../search/host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { hasValue } from '../empty.util';
+import { hasValue, hasValueOperator } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map, take } from 'rxjs/operators';
+import { map, take, startWith } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+
+interface PaginationDetails {
+  range: string;
+  total: number;
+}
 
 /**
  * The default pagination controls component.
@@ -36,7 +42,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated
 })
-export class PaginationComponent implements OnDestroy, OnInit {
+export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   /**
    * ViewMode that should be passed to {@link ListableObjectComponentLoaderComponent}.
    */
@@ -144,11 +150,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
   public currentPageState: number = undefined;
 
   /**
-   * An observable of HostWindowState type
-   */
-  public hostWindow: Observable<HostWindowState>;
-
-  /**
    * ID for the pagination instance. This ID is used in the routing to retrieve the pagination options.
    * This ID needs to be unique between different pagination components when more than one will be displayed on the same page.
    */
@@ -186,6 +187,9 @@ export class PaginationComponent implements OnDestroy, OnInit {
   public sortField$;
   public defaultSortField = 'name';
 
+
+  public showingDetails$: Observable<PaginationDetails>;
+
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
@@ -212,6 +216,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
       }));
     this.checkConfig(this.paginationOptions);
     this.initializeConfig();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.collectionSize.currentValue !== changes.collectionSize.previousValue) {
+      this.showingDetails$ = this.getShowingDetails(this.collectionSize);
+    }
   }
 
   /**
@@ -251,19 +261,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
       );
   }
 
-  /**
-   * @param cdRef
-   *    ChangeDetectorRef is a singleton service provided by Angular.
-   * @param route
-   *    Route is a singleton service provided by Angular.
-   * @param router
-   *    Router is a singleton service provided by Angular.
-   * @param hostWindowService
-   *    the HostWindowService singleton.
-   */
-  constructor(private cdRef: ChangeDetectorRef,
-              private paginationService: PaginationService,
-              public hostWindowService: HostWindowService) {
+  constructor(
+    protected cdRef: ChangeDetectorRef,
+    protected paginationService: PaginationService,
+    public hostWindowService: HostWindowService,
+  ) {
   }
 
   /**
@@ -300,17 +302,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to change the route to the given sort field
-   *
-   * @param sortField
-   *    The sort field being navigated to.
-   */
-  public doSortFieldChange(field: string) {
-    this.updateParams({ pageId: this.id, page: 1, sortField: field });
-    this.emitPaginationChange();
-  }
-
-  /**
    * Method to emit a general pagination change event
    */
   private emitPaginationChange() {
@@ -328,26 +319,31 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Method to get pagination details of the current viewed page.
    */
-  public getShowingDetails(collectionSize: number): Observable<any> {
-    let showingDetails = observableOf({ range: null + ' - ' + null, total: null });
-    if (collectionSize) {
-      showingDetails = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
-        map((currentPaginationOptions) => {
-          let firstItem;
-          let lastItem;
-          const pageMax = currentPaginationOptions.pageSize * currentPaginationOptions.currentPage;
+  public getShowingDetails(collectionSize: number): Observable<PaginationDetails> {
+    return observableOf(collectionSize).pipe(
+      hasValueOperator(),
+      switchMap(() => this.paginationService.getCurrentPagination(this.id, this.paginationOptions)),
+      map((currentPaginationOptions) => {
+        let firstItem: number;
+        let lastItem: number;
+        const pageMax = currentPaginationOptions.pageSize * currentPaginationOptions.currentPage;
 
-          firstItem = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
-          if (collectionSize > pageMax) {
-            lastItem = pageMax;
-          } else {
-            lastItem = collectionSize;
-          }
-          return {range: firstItem + ' - ' + lastItem, total: collectionSize};
-        })
-      );
-    }
-    return showingDetails;
+        firstItem = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
+        if (collectionSize > pageMax) {
+          lastItem = pageMax;
+        } else {
+          lastItem = collectionSize;
+        }
+        return {
+          range: `${firstItem} - ${lastItem}`,
+          total: collectionSize,
+        };
+      }),
+      startWith({
+        range: `${null} - ${null}`,
+        total: null,
+      }),
+    );
   }
 
   /**
