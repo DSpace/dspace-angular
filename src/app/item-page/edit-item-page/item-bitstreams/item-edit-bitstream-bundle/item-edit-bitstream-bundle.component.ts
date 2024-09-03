@@ -95,6 +95,11 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   @Input() columnSizes: ResponsiveTableSizes;
 
   /**
+   * Whether to hide the table headers
+   */
+  @Input() hideHeader = false;
+
+  /**
    * Send an event when the user drops an object on the pagination
    * The event contains details about the index the object came from and is dropped to (across the entirety of the list,
    * not just within a single page)

@@ -10,7 +10,7 @@
 
       <table class="table"
              [attr.aria-label]="'item.edit.bitstreams.bundle.table.aria-label' | translate: { bundle: bundleName } ">
-        <thead>
+        <thead *ngIf="!hideHeader">
         <tr class="header-row font-weight-bold">
           <th id="name" scope="col" class="{{ columnSizes.columns[0].buildClasses() }}">
             {{'item.edit.bitstreams.headers.name' | translate}}
@@ -45,16 +45,20 @@
         <ng-container *ngFor="let entry of (tableEntries$ | async)">
           <tr *ngIf="updates[entry.id] as update" [ngClass]="getRowClass(update)" class="bitstream-row">
 
-            <th class="bitstream-name row-element" scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">
+            <th class="bitstream-name row-element {{ columnSizes.columns[0].buildClasses() }}"
+                scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">
               {{ entry.name }}
             </th>
-            <td class="row-element" headers="{{ entry.nameStripped }} {{ bundleName }} description">
+            <td class="row-element {{ columnSizes.columns[1].buildClasses() }}"
+                headers="{{ entry.nameStripped }} {{ bundleName }} description">
               {{ entry.description }}
             </td>
-            <td class="row-element" headers="{{ entry.nameStripped }} {{ bundleName }} format">
+            <td class="row-element {{ columnSizes.columns[2].buildClasses() }}"
+                headers="{{ entry.nameStripped }} {{ bundleName }} format">
               {{ (entry.format | async)?.shortDescription }}
             </td>
-            <td class="row-element" headers="{{ entry.nameStripped }} {{ bundleName }} actions">
+            <td class="row-element {{ columnSizes.columns[3].buildClasses() }}"
+                headers="{{ entry.nameStripped }} {{ bundleName }} actions">
               <div class="text-center w-100">
                 <div class="btn-group relationship-action-buttons">
                   <a [href]="entry.downloadUrl"
