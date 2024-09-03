@@ -1,3 +1,4 @@
+import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import {
   Router,
@@ -5,6 +6,7 @@ import {
 } from '@angular/router';
 import { first } from 'rxjs/operators';
 
+import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { MetadataValueFilter } from '../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
@@ -14,6 +16,10 @@ import { itemPageResolver } from './item-page.resolver';
 describe('itemPageResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      providers: [
+        { provide: PLATFORM_ID, useValue: 'browser' },
+        { provide: HardRedirectService, useValue: {} },
+      ],
       imports: [RouterModule.forRoot([{
         path: 'entities/:entity-type/:id',
         component: {} as any,
@@ -27,6 +33,8 @@ describe('itemPageResolver', () => {
     let store: any;
     let router: Router;
     let authService: AuthServiceStub;
+    let platformId: any;
+    let hardRedirectService: any;
 
     const uuid = '1234-65487-12354-1235';
     let item: DSpaceObject;
@@ -34,6 +42,10 @@ describe('itemPageResolver', () => {
     function runTestsWithEntityType(entityType: string) {
       beforeEach(() => {
         router = TestBed.inject(Router);
+        platformId = TestBed.inject(PLATFORM_ID);
+        hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+          redirect: {},
+        });
         item = Object.assign(new DSpaceObject(), {
           uuid: uuid,
           firstMetadataValue(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): string {
@@ -60,6 +72,8 @@ describe('itemPageResolver', () => {
           itemService,
           store,
           authService,
+          platformId,
+          hardRedirectService,
         ).pipe(first())
           .subscribe(
             () => {
@@ -80,6 +94,8 @@ describe('itemPageResolver', () => {
           itemService,
           store,
           authService,
+          platformId,
+          hardRedirectService,
         ).pipe(first())
           .subscribe(
             () => {
