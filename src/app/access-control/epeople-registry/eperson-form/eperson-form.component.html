@@ -1,4 +1,4 @@
-<div *ngIf="epersonService.getActiveEPerson() | async; then editheader; else createHeader"></div>
+<div *ngIf="activeEPerson$ | async; then editheader; else createHeader"></div>
 
 <ng-template #createHeader>
   <h4>{{messagePrefix + '.create' | translate}}</h4>
@@ -39,7 +39,7 @@
 
 <ds-themed-loading [showMessage]="false" *ngIf="!formGroup"></ds-themed-loading>
 
-<div *ngIf="epersonService.getActiveEPerson() | async">
+<div *ngIf="activeEPerson$ | async">
   <h5>{{messagePrefix + '.groupsEPersonIsMemberOf' | translate}}</h5>
 
   <ds-themed-loading [showMessage]="false" *ngIf="!(groups | async)"></ds-themed-loading>
