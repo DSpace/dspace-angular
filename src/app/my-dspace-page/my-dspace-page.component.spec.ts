@@ -29,6 +29,7 @@ import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-ds
 import { MyDSpacePageComponent } from './my-dspace-page.component';
 import SpyObj = jasmine.SpyObj;
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 
 describe('MyDSpacePageComponent', () => {
@@ -104,6 +105,7 @@ describe('MyDSpacePageComponent', () => {
             MyDSpaceNewSubmissionComponent,
             SuggestionsNotificationComponent,
             MyDspaceQaEventsNotificationsComponent,
+            MyDSpaceNewBulkImportComponent,
           ],
         },
       })

@@ -47,9 +47,9 @@ import { MetadataValuesComponent } from '../../../../item-page/field-components/
 import { GenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { mockRouteService } from '../../../../item-page/simple/item-types/shared/item.component.spec';
-import { ThemedMetadataRepresentationListComponent } from '../../../../item-page/simple/metadata-representation-list/themed-metadata-representation-list.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../../../../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../../../item-page/simple/related-items/related-items-component';
+import { ContextMenuComponent } from '../../../../shared/context-menu/context-menu.component';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
@@ -144,9 +144,10 @@ describe('JournalComponent', () => {
           DsoEditMenuComponent,
           MetadataFieldWrapperComponent,
           ThemedThumbnailComponent,
+          GenericItemPageFieldComponent,
           RelatedItemsComponent,
           TabbedRelatedEntitiesSearchComponent,
-          ThemedMetadataRepresentationListComponent,
+          ContextMenuComponent,
         ],
       },
       add: { changeDetection: ChangeDetectionStrategy.Default },

@@ -38,8 +38,10 @@ import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.ser
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { RequestService } from '../../../../core/data/request.service';
 import { VersionDataService } from '../../../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
+import { ItemExportFormatService } from '../../../../core/itemexportformat/item-export-format.service';
 import { RouteService } from '../../../../core/services/route.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
@@ -48,14 +50,20 @@ import { MetadataMap } from '../../../../core/shared/metadata.models';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { ContextMenuComponent } from '../../../../shared/context-menu/context-menu.component';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
+import { getMockRemoteDataBuildService } from '../../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
+import { ItemExportService } from '../../../../shared/search/item-export/item-export.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { StoreMock } from '../../../../shared/testing/store.mock';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
@@ -99,6 +107,12 @@ describe('PublicationComponent', () => {
         return createSuccessfulRemoteDataObject$(new Bitstream());
       },
     };
+    const itemExportService: any = jasmine.createSpyObj('ItemExportFormatService', {
+      initialItemExportFormConfiguration: of({}),
+      onSelectEntityType: jasmine.createSpy('onSelectEntityType'),
+      submitForm: jasmine.createSpy('submitForm'),
+    });
+
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -117,11 +131,11 @@ describe('PublicationComponent', () => {
         { provide: RelationshipDataService, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
-        { provide: Store, useValue: {} },
-        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: Store, useValue: StoreMock },
+        { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService() },
         { provide: CommunityDataService, useValue: {} },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
-        { provide: NotificationsService, useValue: {} },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
@@ -134,12 +148,15 @@ describe('PublicationComponent', () => {
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {}  },
+        { provide: RequestService, useValue: getMockRequestService() },
+        { provide: ItemExportFormatService, useValue: {} },
+        { provide: ItemExportService, useValue: itemExportService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PublicationComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
-        imports: [ThemedResultsBackButtonComponent, MiradorViewerComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, ThemedMediaViewerComponent, ThemedFileSectionComponent, ItemPageDateFieldComponent, ThemedMetadataRepresentationListComponent, GenericItemPageFieldComponent, RelatedItemsComponent, ItemPageAbstractFieldComponent, ItemPageUriFieldComponent, CollectionsComponent,
+        imports: [ThemedResultsBackButtonComponent, MiradorViewerComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, ThemedMediaViewerComponent, ThemedFileSectionComponent, ItemPageDateFieldComponent, ThemedMetadataRepresentationListComponent, GenericItemPageFieldComponent, RelatedItemsComponent, ItemPageAbstractFieldComponent, ItemPageUriFieldComponent, CollectionsComponent, ContextMenuComponent,
         ],
       },
     });
