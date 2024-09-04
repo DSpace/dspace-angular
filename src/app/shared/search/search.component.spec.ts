@@ -60,11 +60,13 @@ import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component
 import { SidebarService } from '../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
+import { ItemExportModalLauncherComponent } from './item-export/item-export-modal-launcher/item-export-modal-launcher.component';
 import { FilterType } from './models/filter-type.model';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchComponent } from './search.component';
+import { SearchChartsComponent } from './search-charts/search-charts.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
@@ -274,11 +276,13 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     remove: {
       imports: [
         PageWithSidebarComponent,
-        ViewModeSwitchComponent,
+        ThemedSearchFormComponent,
         ThemedSearchResultsComponent,
         ThemedSearchSidebarComponent,
-        ThemedSearchFormComponent,
         SearchLabelsComponent,
+        ViewModeSwitchComponent,
+        ItemExportModalLauncherComponent,
+        SearchChartsComponent,
       ],
     },
 

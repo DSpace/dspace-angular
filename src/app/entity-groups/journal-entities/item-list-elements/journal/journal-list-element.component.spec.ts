@@ -10,7 +10,10 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { APP_CONFIG } from 'src/config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
 import { AuthService } from '../../../../core/auth/auth.service';
@@ -24,6 +27,7 @@ import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stu
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { JournalSearchResultListElementComponent } from '../search-result-list-elements/journal/journal-search-result-list-element.component';
 import { JournalListElementComponent } from './journal-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -65,10 +69,13 @@ describe('JournalListElementComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(JournalListElementComponent, {
+      remove: { imports: [JournalSearchResultListElementComponent] },
     }).compileComponents();
   }));
 

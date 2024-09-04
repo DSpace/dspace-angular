@@ -168,7 +168,15 @@ describe('ProjectSearchResultListElementComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        ThemedBadgesComponent,
+        AdditionalMetadataComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
+      ] },
     }).compileComponents();
   }));
 

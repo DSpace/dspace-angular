@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { ItemExportFormatService } from '../../../core/itemexportformat/item-export-format.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
@@ -104,6 +105,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
+          { provide: ItemExportFormatService, useValue: {} },
           MyDSpaceNewSubmissionDropdownComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
@@ -153,6 +155,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
+          { provide: ItemExportFormatService, useValue: {} },
           MyDSpaceNewSubmissionDropdownComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],

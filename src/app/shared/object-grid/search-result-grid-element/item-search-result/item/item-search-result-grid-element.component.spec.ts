@@ -394,6 +394,7 @@ export const getGridElementTestBet = (component) => {
       { provide: BitstreamDataService, useValue: mockBitstreamDataService },
       { provide: ConfigurationDataService, useValue: {} },
       { provide: ThumbnailService, useValue: defaultThumbnailService },
+      { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA],
   };

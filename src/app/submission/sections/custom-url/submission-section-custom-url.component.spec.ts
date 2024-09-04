@@ -20,7 +20,6 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { WorkspaceitemSectionCustomUrlObject } from '../../../core/submission/models/workspaceitem-section-custom-url.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
@@ -32,6 +31,7 @@ import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';
 import { SubmissionSectionCustomUrlComponent } from './submission-section-custom-url.component';
 import SpyObj = jasmine.SpyObj;
+import { FormComponent } from '../../../shared/form/form.component';
 
 describe('SubmissionSectionCustomUrlComponent', () => {
 
@@ -123,7 +123,6 @@ describe('SubmissionSectionCustomUrlComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        FormComponent,
         SubmissionSectionCustomUrlComponent,
       ],
       providers: [
@@ -139,7 +138,8 @@ describe('SubmissionSectionCustomUrlComponent', () => {
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
       ],
     })
-      .overrideComponent(SubmissionSectionCustomUrlComponent, { remove: { imports: [FormComponent] } }).compileComponents();
+      .overrideComponent(SubmissionSectionCustomUrlComponent, { remove: { imports: [FormComponent] } })
+      .compileComponents();
   }));
 
   beforeEach(() => {

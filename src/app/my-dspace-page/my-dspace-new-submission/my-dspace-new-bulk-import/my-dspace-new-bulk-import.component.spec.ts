@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { ItemExportFormatService } from '../../../core/itemexportformat/item-export-format.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
@@ -104,7 +105,7 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
-          MyDSpaceNewBulkImportComponent,
+          { provide: ItemExportFormatService, useValue: {} },
         ],
         schemas: [NO_ERRORS_SCHEMA],
       }).overrideComponent(MyDSpaceNewBulkImportComponent, { remove: { imports: [EntityDropdownComponent] } }).compileComponents();
@@ -124,9 +125,9 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
       submissionComponentFixture.destroy();
     });
 
-    it('should create MyDSpaceNewBulkImportComponent', inject([MyDSpaceNewBulkImportComponent], (app: MyDSpaceNewBulkImportComponent) => {
-      expect(app).toBeDefined();
-    }));
+    it('should create MyDSpaceNewBulkImportComponent', () => {
+      expect(submissionComponent).toBeDefined();
+    });
 
     it('should be a single button', inject([MyDSpaceNewBulkImportComponent], (app: MyDSpaceNewBulkImportComponent) => {
       submissionComponentFixture.detectChanges();
