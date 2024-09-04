@@ -156,7 +156,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
     this.resetRoute();
     this.entriesRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       switchMap((searchOptions: PaginatedSearchOptions) => {
-        if (searchOptions.query === '') {
+        if (searchOptions.query === '' || (this.query && searchOptions.query !== this.query)) {
           searchOptions.query = this.query;
         }
         return this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions).pipe(startWith(undefined));
