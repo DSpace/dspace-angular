@@ -1,7 +1,7 @@
 <td class="dso-info">
   <ng-container *ngIf="!!dso">
-    <ds-themed-type-badge [object]="dso"></ds-themed-type-badge>
-    <p><a [routerLink]="[getPageRoutePrefix(), dso.id]">{{ dsoNameService.getName(dso) }}</a></p>
+    <ds-type-badge [object]="dso"></ds-type-badge>
+    <p><a [routerLink]="getPageRoute(dso)">{{ dsoNameService.getName(dso) }}</a></p>
   </ng-container>
   <ng-container *ngIf="!dso">
     <p class="my-0">{{ 'subscriptions.table.not-available' | translate }}</p>
@@ -14,7 +14,7 @@
 <td class="subscription-parameters">
   <ng-container *ngIf="!!subscription">
 		<span *ngFor="let parameterList of subscription.subscriptionParameterList; let i = index">
-			{{ 'subscriptions.frequency.' + parameterList.value  | translate}}<span
+			{{ 'subscriptions.frequency.' + parameterList.value | translate}}<span
       *ngIf="i < subscription.subscriptionParameterList.length-1 ">,</span>
 		</span>
   </ng-container>

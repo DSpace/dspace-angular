@@ -1,9 +1,16 @@
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { Observable, of as observableOf } from 'rxjs';
-import { Bitstream } from './bitstream.model';
-import { map, switchMap } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../data/feature-authorization/feature-id';
+import { Bitstream } from './bitstream.model';
 
 /**
  * Operator to check if the given bitstream is downloadable
@@ -20,5 +27,5 @@ export const getDownloadableBitstream = (authService: AuthorizationDataService) 
         } else {
           return observableOf(null);
         }
-      })
+      }),
     );

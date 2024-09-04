@@ -1,16 +1,24 @@
-import { ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { SystemWideAlertBannerComponent } from './system-wide-alert-banner.component';
-import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { SystemWideAlert } from '../system-wide-alert.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { utcToZonedTime } from 'date-fns-tz';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { TestScheduler } from 'rxjs/testing';
-import { getTestScheduler } from 'jasmine-marbles';
+import {
+  ComponentFixture,
+  discardPeriodicTasks,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+import { utcToZonedTime } from 'date-fns-tz';
+import { getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
+
+import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { SystemWideAlert } from '../system-wide-alert.model';
+import { SystemWideAlertBannerComponent } from './system-wide-alert-banner.component';
 
 
 describe('SystemWideAlertBannerComponent', () => {
@@ -33,7 +41,7 @@ describe('SystemWideAlertBannerComponent', () => {
       alertId: 1,
       message: 'Test alert message',
       active: true,
-      countdownTo: utcToZonedTime(countDownDate, 'UTC').toISOString()
+      countdownTo: utcToZonedTime(countDownDate, 'UTC').toISOString(),
     });
 
     systemWideAlertDataService = jasmine.createSpyObj('systemWideAlertDataService', {
@@ -41,12 +49,11 @@ describe('SystemWideAlertBannerComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [SystemWideAlertBannerComponent],
+      imports: [TranslateModule.forRoot(), SystemWideAlertBannerComponent],
       providers: [
-        {provide: SystemWideAlertDataService, useValue: systemWideAlertDataService},
-        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
-      ]
+        { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+      ],
     }).compileComponents();
   }));
 

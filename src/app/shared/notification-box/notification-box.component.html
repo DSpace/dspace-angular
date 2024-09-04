@@ -1,0 +1,12 @@
+<div role="button" *ngIf="boxConfig"
+     class="w-100 h-100 pt-4 pb-3 px-2 box-container"
+     [ngStyle]="{'background-color': boxConfig.color}"
+     [dsHoverClass]="'shadow-lg'"
+     (click)="onClick(boxConfig)"
+     [title]="boxConfig.description | translate"
+>
+  <div [ngStyle]="{'color': boxConfig.textColor}" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="mb-3 font-weight-bold box-counter">{{ boxConfig.count ?? 0 }}</div>
+    <div class="font-weight-bold d-flex justify-content-center w-100">{{ boxConfig.title | translate }}</div>
+  </div>
+</div>

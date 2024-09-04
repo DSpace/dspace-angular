@@ -1,20 +1,27 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DynamicFormControlEvent,
-  DynamicInputModel
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { SectionFormOperationsService } from './section-form-operations.service';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import {
   mockInputWithAuthorityValueModel,
   mockInputWithFormFieldValueModel,
@@ -25,11 +32,10 @@ import {
   mockQualdropInputModel,
   MockQualdropModel,
   MockRelationModel,
-  mockRowGroupModel
+  mockRowGroupModel,
 } from '../../../shared/mocks/form-models.mock';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { SectionFormOperationsService } from './section-form-operations.service';
 
 describe('SectionFormOperationsService test suite', () => {
   let formBuilderService: any;
@@ -37,10 +43,10 @@ describe('SectionFormOperationsService test suite', () => {
   let serviceAsAny: any;
 
   const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
-      add: jasmine.createSpy('add'),
-      replace: jasmine.createSpy('replace'),
-      remove: jasmine.createSpy('remove'),
-    });
+    add: jasmine.createSpy('add'),
+    replace: jasmine.createSpy('replace'),
+    remove: jasmine.createSpy('remove'),
+  });
   const pathCombiner = new JsonPatchOperationPathCombiner('sections', 'test');
 
   const dynamicFormControlChangeEvent: DynamicFormControlEvent = {
@@ -49,7 +55,7 @@ describe('SectionFormOperationsService test suite', () => {
     control: null,
     group: null,
     model: null,
-    type: 'change'
+    type: 'change',
   };
 
   const dynamicFormControlRemoveEvent: DynamicFormControlEvent = {
@@ -58,7 +64,7 @@ describe('SectionFormOperationsService test suite', () => {
     control: null,
     group: null,
     model: null,
-    type: 'remove'
+    type: 'remove',
   };
 
   beforeEach(waitForAsync(() => {
@@ -67,15 +73,16 @@ describe('SectionFormOperationsService test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
-        SectionFormOperationsService
-      ]
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        SectionFormOperationsService,
+      ],
     }).compileComponents().then();
   }));
 
@@ -114,8 +121,8 @@ describe('SectionFormOperationsService test suite', () => {
     it('should return the index of the array to which the element belongs', () => {
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         context: {
-          index: 1
-        }
+          index: 1,
+        },
       });
 
       expect(service.getArrayIndexFromEvent(event)).toBe(1);
@@ -126,10 +133,10 @@ describe('SectionFormOperationsService test suite', () => {
         model: {
           parent: {
             parent: {
-              index: 2
-            }
-          }
-        }
+              index: 2,
+            },
+          },
+        },
       });
       spyOn(serviceAsAny, 'isPartOfArrayOfGroup').and.returnValue(true);
 
@@ -157,10 +164,10 @@ describe('SectionFormOperationsService test suite', () => {
           type: DYNAMIC_FORM_CONTROL_TYPE_GROUP,
           parent: {
             context: {
-              type: DYNAMIC_FORM_CONTROL_TYPE_ARRAY
-            }
-          }
-        }
+              type: DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
+            },
+          },
+        },
       };
 
       expect(service.isPartOfArrayOfGroup(model as any)).toBeTruthy();
@@ -168,7 +175,7 @@ describe('SectionFormOperationsService test suite', () => {
 
     it('should return false when parent element doesn\'t belong to an array group element', () => {
       const model = {
-        parent: null
+        parent: null,
       };
 
       expect(service.isPartOfArrayOfGroup(model as any)).toBeFalsy();
@@ -181,19 +188,19 @@ describe('SectionFormOperationsService test suite', () => {
       const context = {
         groups: [
           {
-            group: [MockQualdropModel]
-          }
-        ]
+            group: [MockQualdropModel],
+          },
+        ],
       };
       const model = {
         parent: {
           parent: {
-            context: context
-          }
-        }
+            context: context,
+          },
+        },
       };
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: model
+        model: model,
       });
       const expectMap = new Map();
       expectMap.set(MockQualdropModel.qualdropId, [MockQualdropModel.value]);
@@ -207,17 +214,17 @@ describe('SectionFormOperationsService test suite', () => {
       const context = {
         groups: [
           {
-            group: [MockQualdropModel]
-          }
-        ]
+            group: [MockQualdropModel],
+          },
+        ],
       };
       const model = {
         parent: {
-          context: context
-        }
+          context: context,
+        },
       };
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: model
+        model: model,
       });
       const expectMap = new Map();
       expectMap.set(MockQualdropModel.qualdropId, [MockQualdropModel.value]);
@@ -247,19 +254,19 @@ describe('SectionFormOperationsService test suite', () => {
       const context = {
         groups: [
           {
-            group: [MockQualdropModel]
-          }
-        ]
+            group: [MockQualdropModel],
+          },
+        ],
       };
       const model = {
         parent: {
           parent: {
-            context: context
-          }
-        }
+            context: context,
+          },
+        },
       };
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: model
+        model: model,
       });
       const expectPath = 'dc.identifier.issn/0';
       spyOn(serviceAsAny, 'getArrayIndexFromEvent').and.returnValue(0);
@@ -273,17 +280,17 @@ describe('SectionFormOperationsService test suite', () => {
       const context = {
         groups: [
           {
-            group: [MockQualdropModel]
-          }
-        ]
+            group: [MockQualdropModel],
+          },
+        ],
       };
       const model = {
         parent: {
-          context: context
-        }
+          context: context,
+        },
       };
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: model
+        model: model,
       });
       const expectPath = 'dc.identifier.issn/0';
       spyOn(serviceAsAny, 'getArrayIndexFromEvent').and.returnValue(0);
@@ -297,7 +304,7 @@ describe('SectionFormOperationsService test suite', () => {
   describe('getFieldPathSegmentedFromChangeEvent', () => {
     it('should return field segmented path properly', () => {
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: mockQualdropInputModel
+        model: mockQualdropInputModel,
       });
       formBuilderService.isQualdropGroup.and.returnValues(false, false);
 
@@ -306,7 +313,7 @@ describe('SectionFormOperationsService test suite', () => {
 
     it('should return field segmented path properly when model is DynamicQualdropModel', () => {
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: MockQualdropModel
+        model: MockQualdropModel,
       });
       formBuilderService.isQualdropGroup.and.returnValue(true);
 
@@ -316,8 +323,8 @@ describe('SectionFormOperationsService test suite', () => {
     it('should return field segmented path properly when model belongs to a DynamicQualdropModel', () => {
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: MockQualdropModel
-        }
+          parent: MockQualdropModel,
+        },
       });
       formBuilderService.isQualdropGroup.and.returnValues(false, true);
 
@@ -330,8 +337,8 @@ describe('SectionFormOperationsService test suite', () => {
     it('should return field value properly when model belongs to a DynamicQualdropModel', () => {
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: MockQualdropModel
-        }
+          parent: MockQualdropModel,
+        },
       });
       formBuilderService.isModelInCustomGroup.and.returnValue(true);
       const expectedValue = 'test';
@@ -341,18 +348,18 @@ describe('SectionFormOperationsService test suite', () => {
 
     it('should return field value properly when model is DynamicRelationGroupModel', () => {
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: MockRelationModel
+        model: MockRelationModel,
       });
       formBuilderService.isModelInCustomGroup.and.returnValue(false);
       formBuilderService.isRelationGroup.and.returnValue(true);
       const expectedValue = {
         journal: [
           'journal test 1',
-          'journal test 2'
+          'journal test 2',
         ],
         issue: [
           'issue test 1',
-          'issue test 2'
+          'issue test 2',
         ],
       };
 
@@ -361,7 +368,7 @@ describe('SectionFormOperationsService test suite', () => {
 
     it('should return field value properly when model has language', () => {
       let event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: mockInputWithLanguageModel
+        model: mockInputWithLanguageModel,
       });
       formBuilderService.isModelInCustomGroup.and.returnValue(false);
       formBuilderService.isRelationGroup.and.returnValue(false);
@@ -370,19 +377,19 @@ describe('SectionFormOperationsService test suite', () => {
       expect(service.getFieldValueFromChangeEvent(event)).toEqual(expectedValue);
 
       event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: mockInputWithLanguageAndAuthorityModel
+        model: mockInputWithLanguageAndAuthorityModel,
       });
-      expectedValue = Object.assign(new VocabularyEntry(), mockInputWithLanguageAndAuthorityModel.value, {language: mockInputWithLanguageAndAuthorityModel.language});
+      expectedValue = Object.assign(new VocabularyEntry(), mockInputWithLanguageAndAuthorityModel.value, { language: mockInputWithLanguageAndAuthorityModel.language });
 
       expect(service.getFieldValueFromChangeEvent(event)).toEqual(expectedValue);
 
       event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: mockInputWithLanguageAndAuthorityArrayModel
+        model: mockInputWithLanguageAndAuthorityArrayModel,
       });
       expectedValue = [
         Object.assign(new VocabularyEntry(), mockInputWithLanguageAndAuthorityArrayModel.value[0],
-        { language: mockInputWithLanguageAndAuthorityArrayModel.language }
-        )
+          { language: mockInputWithLanguageAndAuthorityArrayModel.language },
+        ),
       ];
 
       expect(service.getFieldValueFromChangeEvent(event)).toEqual(expectedValue);
@@ -390,7 +397,7 @@ describe('SectionFormOperationsService test suite', () => {
 
     it('should return field value properly when model has an object as value', () => {
       let event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: mockInputWithFormFieldValueModel
+        model: mockInputWithFormFieldValueModel,
       });
       formBuilderService.isModelInCustomGroup.and.returnValue(false);
       formBuilderService.isRelationGroup.and.returnValue(false);
@@ -399,14 +406,14 @@ describe('SectionFormOperationsService test suite', () => {
       expect(service.getFieldValueFromChangeEvent(event)).toEqual(expectedValue);
 
       event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: mockInputWithAuthorityValueModel
+        model: mockInputWithAuthorityValueModel,
       });
       expectedValue = mockInputWithAuthorityValueModel.value;
 
       expect(service.getFieldValueFromChangeEvent(event)).toEqual(expectedValue);
 
       event = Object.assign({}, dynamicFormControlChangeEvent, {
-        model: mockInputWithObjectValueModel
+        model: mockInputWithObjectValueModel,
       });
       expectedValue = mockInputWithObjectValueModel.value;
 
@@ -461,8 +468,8 @@ describe('SectionFormOperationsService test suite', () => {
       const previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: MockQualdropModel
-        }
+          parent: MockQualdropModel,
+        },
       });
       spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -481,8 +488,8 @@ describe('SectionFormOperationsService test suite', () => {
       const previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: MockRelationModel
-        }
+          parent: MockRelationModel,
+        },
       });
       spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -502,8 +509,8 @@ describe('SectionFormOperationsService test suite', () => {
       const previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: mockRowGroupModel
-        }
+          parent: mockRowGroupModel,
+        },
       });
       spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -523,8 +530,8 @@ describe('SectionFormOperationsService test suite', () => {
       const previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: mockRowGroupModel
-        }
+          parent: mockRowGroupModel,
+        },
       });
       const spyPath = spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -552,8 +559,8 @@ describe('SectionFormOperationsService test suite', () => {
       const previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: mockRowGroupModel
-        }
+          parent: mockRowGroupModel,
+        },
       });
       spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -577,8 +584,8 @@ describe('SectionFormOperationsService test suite', () => {
       let previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: mockRowGroupModel
-        }
+          parent: mockRowGroupModel,
+        },
       });
       const spyPath = spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -607,8 +614,8 @@ describe('SectionFormOperationsService test suite', () => {
       const previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: mockRowGroupModel
-        }
+          parent: mockRowGroupModel,
+        },
       });
       spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -632,8 +639,8 @@ describe('SectionFormOperationsService test suite', () => {
       const previousValue = new FormFieldPreviousValueObject(['path', 'test'], null);
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: mockRowGroupModel
-        }
+          parent: mockRowGroupModel,
+        },
       });
       spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -658,8 +665,8 @@ describe('SectionFormOperationsService test suite', () => {
       const previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: mockRowGroupModel
-        }
+          parent: mockRowGroupModel,
+        },
       });
       const spyPath = spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/0');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -693,8 +700,8 @@ describe('SectionFormOperationsService test suite', () => {
       const previousValue = new FormFieldPreviousValueObject(['path', 'test'], 'value');
       const event = Object.assign({}, dynamicFormControlChangeEvent, {
         model: {
-          parent: mockRowGroupModel
-        }
+          parent: mockRowGroupModel,
+        },
       });
       spyOn(service, 'getFieldPathFromEvent').and.returnValue('path/1');
       spyOn(service, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
@@ -712,7 +719,7 @@ describe('SectionFormOperationsService test suite', () => {
       expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath('path'),
         new FormFieldMetadataValueObject('test'),
-        true
+        true,
       );
     });
   });
@@ -808,7 +815,7 @@ describe('SectionFormOperationsService test suite', () => {
           isDraggable: true,
           groupFactory: () => {
             return [
-              new DynamicInputModel({ id: 'testFormRowArrayGroupInput' })
+              new DynamicInputModel({ id: 'testFormRowArrayGroupInput' }),
             ];
           },
           required: false,
@@ -816,8 +823,8 @@ describe('SectionFormOperationsService test suite', () => {
           metadataFields: ['dc.contributor.author'],
           hasSelectableMetadata: true,
           showButtons: true,
-          typeBindRelations: []
-        }
+          typeBindRelations: [],
+        },
       );
       spyOn(serviceAsAny, 'getFieldPathSegmentedFromChangeEvent').and.returnValue('path');
       previousValue = new FormFieldPreviousValueObject(['path'], null);
@@ -831,7 +838,7 @@ describe('SectionFormOperationsService test suite', () => {
         pathCombiner,
         dynamicFormControlChangeEvent,
         arrayModel,
-        previousValue
+        previousValue,
       );
 
       expect(jsonPatchOpBuilder.add).not.toHaveBeenCalled();
@@ -841,10 +848,10 @@ describe('SectionFormOperationsService test suite', () => {
     it('should dispatch a json-path add operation when a array value is not empty', () => {
       const pathValue = [
         new FormFieldMetadataValueObject('test'),
-        new FormFieldMetadataValueObject('test two')
+        new FormFieldMetadataValueObject('test two'),
       ];
       formBuilderService.getValueFromModel.and.returnValue({
-        path:pathValue
+        path:pathValue,
       });
       spyOn(previousValue, 'isPathEqual').and.returnValue(false);
 
@@ -852,13 +859,13 @@ describe('SectionFormOperationsService test suite', () => {
         pathCombiner,
         dynamicFormControlChangeEvent,
         arrayModel,
-        previousValue
+        previousValue,
       );
 
       expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath('path'),
         pathValue,
-        false
+        false,
       );
       expect(jsonPatchOpBuilder.remove).not.toHaveBeenCalled();
     });
@@ -871,7 +878,7 @@ describe('SectionFormOperationsService test suite', () => {
         pathCombiner,
         dynamicFormControlChangeEvent,
         arrayModel,
-        previousValue
+        previousValue,
       );
 
       expect(jsonPatchOpBuilder.add).not.toHaveBeenCalled();

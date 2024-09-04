@@ -1,0 +1,22 @@
+<a *ngIf="min !== '*'"
+   [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.f.' + appliedFilter.filter + '.min') | translate, value: min }"
+   [routerLink]="searchLink"
+   [queryParams]="(removeParametersMin$ | async)"
+   (click)="searchFilterService.minimizeAll()"
+   class="badge badge-primary">
+  <span class="d-flex">
+    <span class="flex-grow-1 text-left">{{('search.filters.applied.f.' + appliedFilter.filter + '.min') | translate}}: {{ min }}</span>
+    <span class="pl-1" aria-hidden="true">×</span>
+  </span>
+</a>
+<a *ngIf="max !== '*'"
+   [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.f.' + appliedFilter.filter + '.max') | translate, value: max }"
+   [routerLink]="searchLink"
+   [queryParams]="(removeParametersMax$ | async)"
+   (click)="searchFilterService.minimizeAll()"
+   class="badge badge-primary">
+  <span class="d-flex">
+    <span class="flex-grow-1 text-left">{{('search.filters.applied.f.' + appliedFilter.filter + '.max') | translate}}: {{ max }}</span>
+    <span class="pl-1" aria-hidden="true">×</span>
+  </span>
+</a>

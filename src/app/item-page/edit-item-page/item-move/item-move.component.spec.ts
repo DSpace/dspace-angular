@@ -1,28 +1,36 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { ItemMoveComponent } from './item-move.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { ItemMoveComponent } from './item-move.component';
 
 describe('ItemMoveComponent', () => {
   let comp: ItemMoveComponent;
@@ -31,22 +39,22 @@ describe('ItemMoveComponent', () => {
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
     handle: 'fake/handle',
-    lastModified: '2018'
+    lastModified: '2018',
   });
 
   const itemPageUrl = `fake-url/${mockItem.id}`;
   const routerStub = Object.assign(new RouterStub(), {
-    url: `${itemPageUrl}/edit`
+    url: `${itemPageUrl}/edit`,
   });
 
   const collection1 = Object.assign(new Collection(), {
     uuid: 'collection-uuid-1',
-    name: 'Test collection 1'
+    name: 'Test collection 1',
   });
 
   const collection2 = Object.assign(new Collection(), {
     uuid: 'collection-uuid-2',
-    name: 'Test collection 2'
+    name: 'Test collection 2',
   });
 
   let itemDataService;
@@ -67,9 +75,9 @@ describe('ItemMoveComponent', () => {
         id: 'item1',
         owningCollection: createSuccessfulRemoteDataObject$(Object.assign(new Collection(), {
           id: 'originalOwningCollection',
-        }))
-      }))
-    })
+        })),
+      })),
+    }),
   };
 
   const mockSearchService = {
@@ -77,13 +85,13 @@ describe('ItemMoveComponent', () => {
       return createSuccessfulRemoteDataObject$(createPaginatedList([
         {
           indexableObject: collection1,
-          hitHighlights: {}
+          hitHighlights: {},
         }, {
           indexableObject: collection2,
-          hitHighlights: {}
-        }
+          hitHighlights: {},
+        },
       ]));
-    }
+    },
   };
 
   const notificationsServiceStub = new NotificationsServiceStub();
@@ -92,8 +100,7 @@ describe('ItemMoveComponent', () => {
     itemDataService = mockItemDataService;
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemMoveComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemMoveComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
@@ -102,9 +109,15 @@ describe('ItemMoveComponent', () => {
         { provide: SearchService, useValue: mockSearchService },
         { provide: RequestService, useValue: getMockRequestService() },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
-    }).compileComponents();
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
+    })
+      .overrideComponent(ItemMoveComponent, {
+        remove: {
+          imports: [AuthorizedCollectionSelectorComponent],
+        },
+      })
+      .compileComponents();
     fixture = TestBed.createComponent(ItemMoveComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();

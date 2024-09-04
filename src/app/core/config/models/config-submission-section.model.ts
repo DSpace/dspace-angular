@@ -1,4 +1,9 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+
 import { SectionsType } from '../../../submission/sections/sections-type';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';

@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom pb-2">{{'quality-assurance.title'| translate}}</h2>
+      <ds-alert *ngIf="!targetId" [type]="'alert-info'">{{'quality-assurance.topics.description'| translate:{source: sourceId} }}</ds-alert>
+      <ds-alert *ngIf="targetId" [type]="'alert-info'">
+        {{'quality-assurance.topics.description-with-target'| translate:{source: sourceId} }}
+        <a [routerLink]="itemPageUrl">{{(getTargetItemTitle() | async)}}</a>
+      </ds-alert>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h4 class="border-bottom pb-2">{{'quality-assurance.topics'| translate}}</h4>
+
+      <ds-loading class="container" *ngIf="(isTopicsLoading() | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
+      <ds-pagination *ngIf="(isTopicsLoading() | async) !== true"
+                     [paginationOptions]="paginationConfig"
+                     [collectionSize]="(totalElements$ | async)"
+                     [hideGear]="false"
+                     [hideSortOptions]="true"
+                     (paginationChange)="getQualityAssuranceTopics(sourceId, targetId)">
+
+        <ds-loading class="container" *ngIf="(isTopicsProcessing() | async)" message="'quality-assurance.loading' | translate"></ds-loading>
+        <ng-container *ngIf="(isTopicsProcessing() | async) !== true">
+          <div *ngIf="(topics$ | async)?.length === 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
+            {{'quality-assurance.noTopics' | translate}}
+          </div>
+          <div *ngIf="(topics$ | async)?.length !== 0" class="table-responsive mt-2">
+            <table id="epeople" class="table table-striped table-hover table-bordered">
+              <thead>
+              <tr>
+                <th scope="col">{{'quality-assurance.table.topic' | translate}}</th>
+                <th scope="col">{{'quality-assurance.table.last-event' | translate}}</th>
+                <th scope="col">{{'quality-assurance.table.actions' | translate}}</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let topicElement of (topics$ | async); let i = index">
+                  <td>{{topicElement.name}}</td>
+                  <td>{{topicElement.lastEvent | date: 'dd/MM/yyyy hh:mm' }}</td>
+                  <td>
+                    <div class="btn-group edit-field">
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              title="{{'quality-assurance.topics-list.button.detail' | translate : { param: topicElement.name } }}"
+                              [routerLink]="[getQualityAssuranceRoute(), sourceId, topicElement.id]">
+                        <span class="badge badge-info">{{topicElement.totalEvents}}</span>
+                        <i class="fas fa-info fa-fw"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </ds-pagination>
+    </div>
+  </div>
+</div>
