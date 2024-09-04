@@ -33,12 +33,34 @@
             {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundleName } }}
           </th>
           <td class="text-center">
-            <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
-                    [queryParams]="{bundle: bundle.id}"
-                    class="btn btn-outline-success btn-sm"
-                    title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
-              <i class="fas fa-upload fa-fw"></i>
-            </button>
+
+            <div class="btn-group">
+              <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
+                      [queryParams]="{bundle: bundle.id}"
+                      class="btn btn-outline-success btn-sm"
+                      title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
+                <i class="fas fa-upload fa-fw"></i>
+              </button>
+              <div ngbDropdown #paginationControls="ngbDropdown" class="btn btn-outline-secondary btn-sm p-0 pagination-control-container" placement="bottom-right">
+                <button class="btn pagination-control" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-cog" aria-hidden="true"></i>
+                </button>
+
+                <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu" ngbDropdownMenu>
+                  <li role="menuitem">
+                    <span class="dropdown-header" id="pagination-control_results-per-page" role="heading">{{ 'pagination.results-per-page' | translate}}</span>
+                    <ul aria-labelledby="pagination-control_results-per-page" class="list-unstyled" role="listbox">
+                      <li *ngFor="let size of pageSizeOptions" role="option" [attr.aria-selected]="size === (pageSize$ | async)">
+                        <button (click)="doPageSizeChange(size)" class="dropdown-item">
+                          <i [ngClass]="{'invisible': size !== (pageSize$ | async) }" class="fas fa-check" aria-hidden="true"></i> {{size}}
+                        </button>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
           </td>
         </tr>
 

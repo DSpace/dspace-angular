@@ -26,6 +26,8 @@ import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { SortDirection } from '../../../../core/cache/models/sort-options.model';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**
  * Interface storing all the information necessary to create a row in the bitstream edit table
@@ -78,6 +80,8 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    * The view on the bundle information and bitstreams
    */
   @ViewChild('bundleView', {static: true}) bundleView;
+
+  @ViewChild(PaginationComponent) paginationComponent: PaginationComponent;
 
   /**
    * The bundle to display bitstreams for
@@ -143,6 +147,16 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   currentPaginationOptions$: BehaviorSubject<PaginationComponentOptions>;
 
   /**
+   * The available page size options
+   */
+  pageSizeOptions: number[];
+
+  /**
+   * The currently selected page size
+   */
+  pageSize$: BehaviorSubject<number>;
+
+  /**
    * The self url of the bundle, also used when retrieving fieldUpdates
    */
   bundleUrl: string;
@@ -182,11 +196,15 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
       pageSize: 10
     });
 
+    this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
+
     this.currentPaginationOptions$ = new BehaviorSubject(this.paginationOptions);
+    this.pageSize$ = new BehaviorSubject(this.paginationOptions.pageSize);
 
     this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions)
       .subscribe((pagination) => {
         this.currentPaginationOptions$.next(pagination);
+        this.pageSize$.next(pagination.pageSize);
     });
   }
 
@@ -286,4 +304,9 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     // '/\s+/g' matches all occurrences of any amount of whitespace characters
     return str.replace(/\s+/g, '');
   }
+
+  public doPageSizeChange(pageSize: number) {
+    this.paginationComponent.doPageSizeChange(pageSize);
+  }
+
 }
