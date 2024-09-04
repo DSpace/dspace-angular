@@ -17,6 +17,8 @@ import { AuthService } from '../../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../../../../core/shared/item.model';
+import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
+import { MetadataLinkViewComponent } from '../../../../../metadata-link-view/metadata-link-view.component';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
@@ -27,8 +29,13 @@ import { ItemSearchResult } from '../../../../../object-collection/shared/item-s
 import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
 import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
 import { ThemeService } from '../../../../../theme-support/theme.service';
+import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
+import { MetricBadgesComponent } from '../../../../metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from '../../../../metric-donuts/metric-donuts.component';
+import { AdditionalMetadataComponent } from '../../../additional-metadata/additional-metadata.component';
 import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
@@ -229,6 +236,16 @@ describe('ItemSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        AdditionalMetadataComponent,
+        MetadataLinkViewComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -413,6 +430,16 @@ describe('ItemSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        AdditionalMetadataComponent,
+        MetadataLinkViewComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
+      ] },
     }).compileComponents();
   }));
 

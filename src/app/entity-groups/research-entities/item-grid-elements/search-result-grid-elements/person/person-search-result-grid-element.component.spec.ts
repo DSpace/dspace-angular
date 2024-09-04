@@ -14,6 +14,7 @@ import {
   bitstreamWithoutThumbnail,
   mockThumbnail,
 } from '../../../../../shared/mocks/bitstreams.mock';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import {
   getEntityGridElementTestComponent,
@@ -23,6 +24,9 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../../../shared/remote-data.utils';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { PersonSearchResultGridElementComponent } from './person-search-result-grid-element.component';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
@@ -100,7 +104,17 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
-    return TestBed.configureTestingModule(getGridElementTestBet(PersonSearchResultGridElementComponent));
+    return TestBed.configureTestingModule(getGridElementTestBet(PersonSearchResultGridElementComponent))
+      .overrideComponent(PersonSearchResultGridElementComponent, {
+        remove: {
+          imports: [
+            ThemedThumbnailComponent,
+            ThemedBadgesComponent,
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ],
+        },
+      });
   }));
 
   beforeEach(() => {

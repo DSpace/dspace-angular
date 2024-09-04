@@ -193,6 +193,16 @@ describe('PersonSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(PersonSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        ThemedBadgesComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        AdditionalMetadataComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
+      ] },
     }).compileComponents();
   }));
 

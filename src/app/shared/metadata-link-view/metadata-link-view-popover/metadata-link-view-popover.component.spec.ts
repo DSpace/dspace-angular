@@ -5,6 +5,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { Item } from 'src/app/core/shared/item.model';
@@ -73,6 +74,9 @@ describe('MetadataLinkViewPopoverComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), MetadataLinkViewPopoverComponent],
       schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        { provide: ActivatedRoute, useValue: { snapshot: { data: { dso: itemMock } } } },
+      ],
     })
       .overrideComponent(MetadataLinkViewPopoverComponent, { remove: { imports: [MetadataLinkViewOrcidComponent, MetadataLinkViewAvatarPopoverComponent] } }).compileComponents();
   }));

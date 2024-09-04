@@ -14,7 +14,10 @@ import { of as observableOf } from 'rxjs';
 import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
@@ -93,6 +96,7 @@ describe('JournalSearchResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalSearchResultListElementComponent, {

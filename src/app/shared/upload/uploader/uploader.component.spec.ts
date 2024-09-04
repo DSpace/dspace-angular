@@ -7,11 +7,11 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { AuthService } from '../../../core/auth/auth.service';
@@ -42,11 +42,11 @@ describe('UploaderComponent test', () => {
       ],
       providers: [
         ChangeDetectorRef,
-        UploaderComponent,
         DragService,
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: ScrollToService, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -64,10 +64,9 @@ describe('UploaderComponent test', () => {
     testComp = testFixture.componentInstance;
   });
 
-  it('should create Uploader Component', inject([UploaderComponent], (app: UploaderComponent) => {
-
-    expect(app).toBeDefined();
-  }));
+  it('should create Uploader Component', () => {
+    expect(testComp).toBeDefined();
+  });
 
 });
 

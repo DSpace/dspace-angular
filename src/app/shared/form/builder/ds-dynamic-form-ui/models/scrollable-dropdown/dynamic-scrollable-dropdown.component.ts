@@ -26,7 +26,7 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import {
   Observable,
   of as observableOf,
@@ -68,7 +68,7 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
     NgbDropdownModule,
     NgIf,
     AsyncPipe,
-    InfiniteScrollModule,
+    InfiniteScrollDirective,
     NgForOf,
     TranslateModule,
   ],

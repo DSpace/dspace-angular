@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -14,13 +12,14 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { of as observableOf } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -38,6 +37,7 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { getMockDetectDuplicateService } from '../../../shared/mocks/mock-detect-duplicate-service';
@@ -163,7 +163,6 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -189,9 +188,9 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: DetectDuplicateService, useValue: mockDetectDuplicateService },
         { provide: PaginationService, useValue: paginationService },
-        ChangeDetectorRef,
-        FormBuilderService,
-        SubmissionSectionDetectDuplicateComponent,
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
+        provideMockStore(),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SubmissionSectionDetectDuplicateComponent, { remove: { imports: [ThemedLoadingComponent, AlertComponent, PaginationComponent, DuplicateMatchComponent] } }).compileComponents().then();
@@ -215,9 +214,9 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create SubmissionSectionDetectDuplicateComponent', inject([SubmissionSectionDetectDuplicateComponent], (app: SubmissionSectionDetectDuplicateComponent) => {
-      expect(app).toBeDefined();
-    }));
+    it('should create SubmissionSectionDetectDuplicateComponent', () => {
+      expect(testComp).toBeDefined();
+    });
   });
 
   describe('', () => {
@@ -303,11 +302,12 @@ describe('SubmissionSectionDetectDuplicateComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [BrowserModule,
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule],
+    NgxPaginationModule,
+  ],
 })
 class TestComponent {
 
