@@ -45,6 +45,7 @@ import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/subm
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
 import { SubmissionVisibilityValue } from '../core/config/models/config-submission-section.model';
+import {NativeWindowRef, NativeWindowService} from '../core/services/window.service';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -402,6 +403,7 @@ describe('SubmissionService test suite', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
+        { provide: NativeWindowService, useValue: new NativeWindowRef() },
         ScrollToService,
         NotificationsService,
         RouteService,
