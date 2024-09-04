@@ -64,9 +64,19 @@ export class SearchResultsComponent {
   @Input() showCsvExport = false;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * The current sorting configuration of the search

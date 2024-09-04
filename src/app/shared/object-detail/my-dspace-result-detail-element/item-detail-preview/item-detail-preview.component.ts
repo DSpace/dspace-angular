@@ -40,6 +40,16 @@ export class ItemDetailPreviewComponent {
   @Input() badgeContext: Context;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * A boolean representing if to show submitter information
    */
   @Input() showSubmitter = false;

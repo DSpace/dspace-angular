@@ -5,6 +5,7 @@
        [attr.aria-labelledby]="'sidebarName-' + section.id"
        [title]="('menu.section.icon.' + section.id) | translate"
        [routerLink]="itemModel.link"
+       [queryParams]="itemModel.queryParams"
        (keyup.space)="navigate($event)"
        (keyup.enter)="navigate($event)"
        href="javascript:void(0);"
@@ -21,3 +22,4 @@
       </div>
     </a>
 </div>
+

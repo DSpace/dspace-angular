@@ -176,6 +176,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showExport = true;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics: boolean;
+
+  /**
    * A boolean representing if show search result notice
    */
   @Input() showSearchResultNotice = false;
@@ -226,9 +236,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showFilterToggle = false;
 
   /**
-   * Defines whether to show the toggle button to Show/Hide filter
+   * Defines whether to fetch search results during SSR execution
    */
-  @Input() renderOnServerSide = true;
+  @Input() renderOnServerSide = false;
 
   /**
    * Defines whether to show the toggle button to Show/Hide chart
@@ -438,7 +448,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         {
           configuration: searchOptionsConfiguration,
           sort: sortOption || searchOptions.sort,
-          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration)
+          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration) || this.forcedEmbeddedKeys.get('default')
         });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;

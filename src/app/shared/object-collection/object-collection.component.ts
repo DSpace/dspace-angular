@@ -111,6 +111,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() hidePaginationDetail = false;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
    * Whether to show the metrics badges
    */
   @Input() showMetrics = true;
@@ -123,7 +128,7 @@ export class ObjectCollectionComponent implements OnInit {
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * Whether or not to show an alert for hidden related items
