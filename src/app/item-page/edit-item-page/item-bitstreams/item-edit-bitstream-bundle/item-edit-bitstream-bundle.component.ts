@@ -17,17 +17,17 @@ import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import {
   getAllSucceededRemoteData,
   paginatedListToArray,
-  getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteData
+  getFirstSucceededRemoteData
 } from '../../../../core/shared/operators';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { map } from 'rxjs/operators';
-import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { RequestService } from '../../../../core/data/request.service';
+import { ItemBitstreamsService } from '../item-bitstreams.service';
 
 /**
  * Interface storing all the information necessary to create a row in the bitstream edit table
@@ -174,6 +174,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     protected objectUpdatesService: ObjectUpdatesService,
     protected paginationService: PaginationService,
     protected requestService: RequestService,
+    protected itemBitstreamsService: ItemBitstreamsService,
   ) {
   }
 
@@ -191,11 +192,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   }
 
   protected initializePagination() {
-    this.paginationOptions = Object.assign(new PaginationComponentOptions(),{
-      id: this.bundleName, // This might behave unexpectedly if the item contains two bundles with the same name
-      currentPage: 1,
-      pageSize: 10
-    });
+    this.paginationOptions = this.itemBitstreamsService.getInitialBitstreamsPaginationOptions(this.bundleName);
 
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
 
@@ -240,21 +237,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     this.tableEntries$ = this.bitstreamsRD$.pipe(
       getAllSucceededRemoteData(),
       paginatedListToArray(),
-      map((bitstreams) => {
-        return bitstreams.map((bitstream) => {
-          const name = this.dsoNameService.getName(bitstream);
-
-          return {
-            bitstream: bitstream,
-            id: bitstream.uuid,
-            name: name,
-            nameStripped: this.stripWhiteSpace(name),
-            description: bitstream.firstMetadataValue('dc.description'),
-            format: bitstream.format.pipe(getFirstSucceededRemoteDataPayload()),
-            downloadUrl: getBitstreamDownloadRoute(bitstream),
-          };
-        });
-      }),
+      map((bitstreams) => this.itemBitstreamsService.mapBitstreamsToTableEntries(bitstreams)),
     );
   }
 
@@ -297,20 +280,6 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
       default:
         return 'bg-white';
     }
-  }
-
-  /**
-   * Returns a string equal to the input string with all whitespace removed.
-   * @param str
-   */
-  // Whitespace is stripped from the Bitstream names for accessibility reasons.
-  // To make it clear which headers are relevant for a specific field in the table, the 'headers' attribute is used to
-  // refer to specific headers. The Bitstream's name is used as header ID for the row containing information regarding
-  // that bitstream. As the 'headers' attribute contains a space-separated string of header IDs, the Bitstream's header
-  // ID can not contain strings itself.
-  stripWhiteSpace(str: string): string {
-    // '/\s+/g' matches all occurrences of any amount of whitespace characters
-    return str.replace(/\s+/g, '');
   }
 
   public doPageSizeChange(pageSize: number) {
