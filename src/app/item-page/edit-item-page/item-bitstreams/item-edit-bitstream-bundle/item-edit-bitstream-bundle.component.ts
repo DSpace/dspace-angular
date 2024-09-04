@@ -26,8 +26,8 @@ import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { SortDirection } from '../../../../core/cache/models/sort-options.model';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { RequestService } from '../../../../core/data/request.service';
 
 /**
  * Interface storing all the information necessary to create a row in the bitstream edit table
@@ -173,6 +173,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     protected bundleService: BundleDataService,
     protected objectUpdatesService: ObjectUpdatesService,
     protected paginationService: PaginationService,
+    protected requestService: RequestService,
   ) {
   }
 
@@ -212,7 +213,14 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     this.bitstreamsRD$ = this.currentPaginationOptions$.pipe(
       switchMap((page: PaginationComponentOptions) => {
         const paginatedOptions = new PaginatedSearchOptions({ pagination: Object.assign({}, page) });
-        return this.bundleService.getBitstreams(this.bundle.id, paginatedOptions, followLink('format'));
+        return this.bundleService.getBitstreamsEndpoint(this.bundle.id, paginatedOptions).pipe(
+          switchMap((href) => this.requestService.hasByHref$(href)),
+          switchMap(() => this.bundleService.getBitstreams(
+            this.bundle.id,
+            paginatedOptions,
+            followLink('format')
+          ))
+        );
       }),
     );
 
