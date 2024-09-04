@@ -1,6 +1,5 @@
 // Load the implementations that should be tested
 import {
-  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
@@ -30,11 +29,13 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../../../config/app-config.interface';
 import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
@@ -226,14 +227,14 @@ describe('Dynamic Lookup component', () => {
         ObjNgFor,
       ],
       providers: [
-        ChangeDetectorRef,
-        DsDynamicLookupComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: FormBuilderService },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         NgbModal,
+        provideMockStore(),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -264,9 +265,9 @@ describe('Dynamic Lookup component', () => {
         testFixture.destroy();
         testComp = null;
       });
-      it('should create DsDynamicLookupComponent', inject([DsDynamicLookupComponent], (app: DsDynamicLookupComponent) => {
-        expect(app).toBeDefined();
-      }));
+      it('should create DsDynamicLookupComponent', () => {
+        expect(testComp).toBeTruthy();
+      });
     });
 
     describe('when model is DynamicLookupModel', () => {

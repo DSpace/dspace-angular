@@ -1,6 +1,5 @@
 // Load the implementations that should be tested
 import {
-  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
@@ -31,6 +30,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../../../config/app-config.interface';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { SubmissionService } from '../../../../../../submission/submission.service';
@@ -159,8 +159,6 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         TestComponent,
       ], // declare the test component
       providers: [
-        ChangeDetectorRef,
-        DsDynamicRelationInlineGroupComponent,
         DynamicFormValidationService,
         DynamicFormLayoutService,
         FormBuilderService,
@@ -168,6 +166,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         FormService,
         { provide: Store, useClass: StoreMock },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -195,10 +194,9 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
       testComp = null;
     });
 
-    it('should create DsDynamicRelationGroupComponent', inject([DsDynamicRelationInlineGroupComponent], (app: DsDynamicRelationInlineGroupComponent) => {
-
-      expect(app).toBeDefined();
-    }));
+    it('should create DsDynamicRelationGroupComponent', () => {
+      expect(testComp).toBeDefined();
+    });
   });
 
   describe('when init model value is empty', () => {
