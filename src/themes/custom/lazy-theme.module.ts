@@ -159,6 +159,7 @@ import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 import {
   AuthorizedCollectionSelectorComponent
 } from './app/shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { DSOSelectorComponent } from './app/shared/dso-selector/dso-selector/dso-selector.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -243,6 +244,7 @@ const DECLARATIONS = [
   ItemStatusComponent,
   EditBitstreamPageComponent,
   AuthorizedCollectionSelectorComponent,
+  DSOSelectorComponent,
 ];
 
 @NgModule({

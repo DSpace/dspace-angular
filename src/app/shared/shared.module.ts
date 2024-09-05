@@ -101,6 +101,7 @@ import { AutoFocusDirective } from './utils/auto-focus.directive';
 import { StartsWithDateComponent } from './starts-with/date/starts-with-date.component';
 import { StartsWithTextComponent } from './starts-with/text/starts-with-text.component';
 import { DSOSelectorComponent } from './dso-selector/dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from './dso-selector/dso-selector/themed-dso-selector.component';
 import {
   CreateCommunityParentSelectorComponent
 } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
@@ -366,6 +367,7 @@ const COMPONENTS = [
   ValidationSuggestionsComponent,
   DsoInputSuggestionsComponent,
   DSOSelectorComponent,
+  ThemedDSOSelectorComponent,
   SearchExportCsvComponent,
   PageSizeSelectorComponent,
   ListableObjectComponentLoaderComponent,

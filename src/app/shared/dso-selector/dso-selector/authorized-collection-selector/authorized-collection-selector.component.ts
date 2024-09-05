@@ -35,11 +35,11 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
   constructor(
     protected searchService: SearchService,
     protected collectionDataService: CollectionDataService,
-    protected notifcationsService: NotificationsService,
+    protected notificationService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
   ) {
-    super(searchService, notifcationsService, translate, dsoNameService);
+    super(searchService, notificationService, translate, dsoNameService);
   }
 
   /**

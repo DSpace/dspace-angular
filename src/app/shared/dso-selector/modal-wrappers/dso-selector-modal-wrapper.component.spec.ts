@@ -8,7 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { By } from '@angular/platform-browser';
-import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../dso-selector/themed-dso-selector.component';
 import { MockComponent } from 'ng-mocks';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
@@ -33,7 +33,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [TestComponent, MockComponent(DSOSelectorComponent)],
+      declarations: [TestComponent, MockComponent(ThemedDSOSelectorComponent)],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -95,7 +95,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
   describe('when the onSelect method emits on the child component', () => {
     beforeEach(() => {
       spyOn(component, 'selectObject');
-      debugElement.query(By.css('ds-dso-selector')).componentInstance.onSelect.emit(item);
+      debugElement.query(By.css('ds-themed-dso-selector')).componentInstance.onSelect.emit(item);
       fixture.detectChanges();
     });
     it('should call the selectObject method on the component with the correct object', () => {
