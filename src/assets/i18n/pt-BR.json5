@@ -10250,6 +10250,9 @@
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
 
-  // "register-email.aria.label": "Enter your e-mail address",
-  "register-email.aria.label": "Digite seu e-mail",
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  "register-page.registration.aria.label": "Digite seu e-mail",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  "forgot-email.form.aria.label": "Digite seu e-mail",
 }
