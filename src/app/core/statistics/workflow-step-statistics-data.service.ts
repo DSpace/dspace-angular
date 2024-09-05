@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
 import { PaginatedList } from '../data/paginated-list.model';

@@ -4,11 +4,15 @@ import { collectionPageResolver } from '../collection-page/collection-page.resol
 import { communityPageResolver } from '../community-page/community-page.resolver';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { statisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { statisticsLoginGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-login.guard';
+import { statisticsWorkflowGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-workflow.guard';
 import { itemResolver } from '../item-page/item.resolver';
 import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
+import { LoginStatisticsPageComponent } from './login-statistics-page/login-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
+import { WorkflowStatisticsPageComponent } from './workflow-statistics-page/workflow-statistics-page.component';
 
 export const ROUTES: Route[] = [
   {
@@ -27,6 +31,40 @@ export const ROUTES: Route[] = [
       },
     ],
     canActivate: [statisticsAdministratorGuard],
+  },
+  {
+    path: 'login',
+    resolve: {
+      breadcrumb: i18nBreadcrumbResolver,
+    },
+    data: {
+      title: 'statistics.login.title',
+      breadcrumbKey: 'statistics.login',
+    },
+    children: [
+      {
+        path: '',
+        component: LoginStatisticsPageComponent,
+      },
+    ],
+    canActivate: [statisticsLoginGuard],
+  },
+  {
+    path: 'workflow',
+    resolve: {
+      breadcrumb: i18nBreadcrumbResolver,
+    },
+    data: {
+      title: 'statistics.workflow.title',
+      breadcrumbKey: 'statistics.workflow',
+    },
+    children: [
+      {
+        path: '',
+        component: WorkflowStatisticsPageComponent,
+      },
+    ],
+    canActivate: [statisticsWorkflowGuard],
   },
   {
     path: `items/:id`,

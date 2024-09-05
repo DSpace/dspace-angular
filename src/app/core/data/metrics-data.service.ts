@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Metric } from '../shared/metric.model';
 import { METRIC } from '../shared/metric.resource-type';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RequestService } from './request.service';
 

@@ -8,6 +8,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
+import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { itemPageResolver } from './item-page.resolver';
 import {
@@ -58,6 +59,13 @@ export const ROUTES: Route[] = [
         path: ORCID_PATH,
         component: OrcidPageComponent,
         canActivate: [authenticatedGuard, orcidPageGuard],
+      },
+      {
+        path: ':tab',
+        component: ThemedItemPageComponent,
+        resolve: {
+          tabs: CrisItemPageTabResolver,
+        },
       },
     ],
     data: {

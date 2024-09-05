@@ -15,6 +15,7 @@ import {
   ITEM_EDIT_PUBLIC_PATH,
   ITEM_EDIT_REGISTER_DOI_PATH,
   ITEM_EDIT_REINSTATE_PATH,
+  ITEM_EDIT_UNLINK_ORCID,
   ITEM_EDIT_WITHDRAW_PATH,
 } from './edit-item-page.routing-paths';
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
@@ -37,6 +38,7 @@ import { itemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { itemPageReinstateGuard } from './item-page-reinstate.guard';
 import { itemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { itemPageStatusGuard } from './item-page-status.guard';
+import { itemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
 import { itemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { itemPageWithdrawGuard } from './item-page-withdraw.guard';
 import { ItemPrivateComponent } from './item-private/item-private.component';
@@ -45,6 +47,7 @@ import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.
 import { ItemReinstateComponent } from './item-reinstate/item-reinstate.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
+import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemWithdrawComponent } from './item-withdraw/item-withdraw.component';
 
@@ -170,6 +173,11 @@ export const ROUTES: Route[] = [
         component: ItemRegisterDoiComponent,
         canActivate: [itemPageRegisterDoiGuard],
         data: { title: 'item.edit.register-doi.title' },
+      },
+      {
+        path: ITEM_EDIT_UNLINK_ORCID,
+        component: ItemUnlinkOrcidComponent,
+        canActivate: [itemPageUnlinkOrcidGuard],
       },
       {
         path: ITEM_EDIT_AUTHORIZATIONS_PATH,

@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
+import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { ThemedMetadataImportPageComponent } from './admin-import-metadata-page/themed-metadata-import-page.component';
 import {
@@ -13,6 +14,7 @@ import {
 } from './admin-routing-paths';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
+import { EditCmsMetadataComponent } from './edit-cms-metadata/edit-cms-metadata.component';
 
 export const ROUTES: Route[] = [
   {
@@ -60,6 +62,18 @@ export const ROUTES: Route[] = [
     resolve: { breadcrumb: i18nBreadcrumbResolver },
     loadChildren: () => import('../system-wide-alert/system-wide-alert-routes').then((m) => m.ROUTES),
     data: { title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert' },
+  },
+  {
+    path: 'edit-user-agreement',
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
+    component: AdminEditUserAgreementComponent,
+    data: { title: 'admin.edit-user-agreement.title', breadcrumbKey: 'admin.edit-user-agreement' },
+  },
+  {
+    path: 'edit-cms-metadata',
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
+    component: EditCmsMetadataComponent,
+    data: { title: 'admin.edit-cms-metadata.title', breadcrumbKey: 'admin.edit-cms-metadata' },
   },
   {
     path: LDN_PATH,
