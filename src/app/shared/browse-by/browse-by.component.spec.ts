@@ -34,12 +34,9 @@ import { ITEM } from '../../core/shared/item.resource-type';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { ErrorComponent } from '../error/error.component';
 import { HostWindowService } from '../host-window.service';
-import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { ObjectCollectionComponent } from '../object-collection/object-collection.component';
 import {
   DEFAULT_CONTEXT,
   listableObjectComponent,
@@ -49,8 +46,6 @@ import { BrowseEntryListElementComponent } from '../object-list/browse-entry-lis
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { ThemedResultsBackButtonComponent } from '../results-back-button/themed-results-back-button.component';
-import { StartsWithLoaderComponent } from '../starts-with/starts-with-loader.component';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { routeServiceStub } from '../testing/route-service.stub';
@@ -131,7 +126,9 @@ describe('BrowseByComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(BrowseByComponent, { remove: { imports: [ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, StartsWithLoaderComponent] } }).compileComponents();
+    })
+      // .overrideComponent(BrowseByComponent, { remove: { imports: [ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, StartsWithLoaderComponent] } })
+      .compileComponents();
     fixture = TestBed.createComponent(BrowseByComponent);
     comp = fixture.componentInstance;
     comp.paginationConfig = paginationConfig;

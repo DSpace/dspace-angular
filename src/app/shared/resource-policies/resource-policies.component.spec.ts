@@ -246,7 +246,7 @@ describe('ResourcePoliciesComponent test suite', () => {
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).overrideComponent(ResourcePoliciesComponent, { remove: { imports: [ResourcePolicyEntryComponent] } }).compileComponents();
+    }).compileComponents();
   }));
 
   describe('', () => {

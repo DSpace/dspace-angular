@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
@@ -24,6 +28,7 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../../../../../../shared/empty.util';
+import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 import {
   FieldRenderingType,
@@ -36,6 +41,11 @@ import {
   templateUrl: './thumbnail.component.html',
   styleUrls: ['./thumbnail.component.scss'],
   standalone: true,
+  imports: [
+    ThemedThumbnailComponent,
+    AsyncPipe,
+    NgIf,
+  ],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
 /**

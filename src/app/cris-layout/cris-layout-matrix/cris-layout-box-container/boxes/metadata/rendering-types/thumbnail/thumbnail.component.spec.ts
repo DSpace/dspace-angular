@@ -34,6 +34,7 @@ import {
 import { TranslateLoaderMock } from '../../../../../../../shared/testing/translate-loader.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
 import { ThumbnailService } from '../../../../../../../shared/thumbnail/thumbnail.service';
+import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
 import { FieldRenderingType } from '../metadata-box.decorator';
 import { ThumbnailComponent } from './thumbnail.component';
 
@@ -127,7 +128,14 @@ describe('ThumbnailComponent', () => {
 
     // waitForAsync beforeEach
     beforeEach(waitForAsync(() => {
-      return TestBed.configureTestingModule(getDefaultTestBedConf(mockField));
+      return TestBed.configureTestingModule(getDefaultTestBedConf(mockField))
+        .overrideComponent(ThumbnailComponent, {
+          remove: {
+            imports: [
+              ThemedThumbnailComponent,
+            ],
+          },
+        });
     }));
 
     beforeEach(() => {
@@ -214,7 +222,14 @@ describe('ThumbnailComponent', () => {
 
     // waitForAsync beforeEach
     beforeEach(waitForAsync(() => {
-      return TestBed.configureTestingModule(getDefaultTestBedConf(mockField1));
+      return TestBed.configureTestingModule(getDefaultTestBedConf(mockField1))
+        .overrideComponent(ThumbnailComponent, {
+          remove: {
+            imports: [
+              ThemedThumbnailComponent,
+            ],
+          },
+        });
     }));
 
     beforeEach(() => {

@@ -49,7 +49,7 @@ describe('ProcessParametersComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(ProcessParametersComponent, { remove: { imports: [ParameterSelectComponent] } }).compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
