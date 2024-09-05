@@ -32,11 +32,11 @@
               </thead>
               <tbody>
               <tr *ngFor="let field of fields?.page"
-                  [ngClass]="{'table-primary' : isActive(field) | async}">
+                  [ngClass]="{'table-primary' : (activeField$ | async)?.id === field.id}">
                 <td>
                   <label class="mb-0">
                     <input type="checkbox"
-                           [checked]="isSelected(field) | async"
+                           [checked]="(selectedMetadataFieldIDs$ | async)?.includes(field.id)"
                            (change)="selectMetadataField(field, $event)">
                   </label>
                 </td>

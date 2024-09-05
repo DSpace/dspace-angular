@@ -9,14 +9,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { RegistryServiceStub } from '../../../../shared/testing/registry.service.stub';
 
 describe('MetadataFieldFormComponent', () => {
   let component: MetadataFieldFormComponent;
   let fixture: ComponentFixture<MetadataFieldFormComponent>;
-  let registryService: RegistryService;
+
+  let registryService: RegistryServiceStub;
 
   const metadataSchema = Object.assign(new MetadataSchema(), {
     id: 1,
@@ -24,38 +27,17 @@ describe('MetadataFieldFormComponent', () => {
     prefix: 'fake'
   });
 
-  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-  const registryServiceStub = {
-    getActiveMetadataField: () => observableOf(undefined),
-    createMetadataField: (field: MetadataField) => observableOf(field),
-    updateMetadataField: (field: MetadataField) => observableOf(field),
-    cancelEditMetadataField: () => {
-    },
-    cancelEditMetadataSchema: () => {
-    },
-    clearMetadataFieldRequests: () => observableOf(undefined)
-  };
-  const formBuilderServiceStub = {
-    createFormGroup: () => {
-      return {
-        patchValue: () => {
-        },
-        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void {
-        },
-      };
-    }
-  };
-  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-
   beforeEach(waitForAsync(() => {
+    registryService = new RegistryServiceStub();
+
     return TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [MetadataFieldFormComponent, EnumKeysPipe],
       providers: [
-        { provide: RegistryService, useValue: registryServiceStub },
-        { provide: FormBuilderService, useValue: formBuilderServiceStub }
+        { provide: RegistryService, useValue: registryService },
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() }
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

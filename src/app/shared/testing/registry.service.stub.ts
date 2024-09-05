@@ -85,12 +85,12 @@ export class RegistryServiceStub {
     return observableOf('');
   }
 
-  createMetadataField(_field: MetadataField, _schema: MetadataSchema): Observable<MetadataField> {
-    return observableOf(undefined);
+  createMetadataField(field: MetadataField, _schema: MetadataSchema): Observable<MetadataField> {
+    return observableOf(field);
   }
 
-  updateMetadataField(_field: MetadataField): Observable<MetadataField> {
-    return observableOf(undefined);
+  updateMetadataField(field: MetadataField): Observable<MetadataField> {
+    return observableOf(field);
   }
 
   deleteMetadataField(_id: number): Observable<RemoteData<NoContent>> {
