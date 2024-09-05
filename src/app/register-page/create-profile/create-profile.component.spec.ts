@@ -12,6 +12,7 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   Router,
@@ -155,7 +156,7 @@ describe('CreateProfileComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, CreateProfileComponent],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, CreateProfileComponent, NoopAnimationsModule],
       providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },

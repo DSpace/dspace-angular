@@ -202,6 +202,9 @@ describe('AuthorityConfidenceStateDirective', () => {
                 aria-hidden="true"
                 [authorityValue]="authorityValue"></i>`,
   standalone: true,
+  imports: [
+    AuthorityConfidenceStateDirective,
+  ],
 })
 class TestComponent {
 

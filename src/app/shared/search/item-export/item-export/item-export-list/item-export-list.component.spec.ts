@@ -2,6 +2,7 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SearchManager } from '../../../../../core/browse/search-manager';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
@@ -68,7 +69,7 @@ describe('ItemExportListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ItemExportListComponent],
+      imports: [ItemExportListComponent, NoopAnimationsModule],
       providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchManager, useValue: mockSearchManager },

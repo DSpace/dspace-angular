@@ -70,6 +70,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import { ItemPageImgFieldComponent } from '../../field-components/specific-field/img/item-page-img-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedMetadataRepresentationListComponent } from '../../metadata-representation-list/themed-metadata-representation-list.component';
 import { TabbedRelatedEntitiesSearchComponent } from '../../related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
@@ -204,6 +205,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
               ThemedMetadataRepresentationListComponent,
               GenericItemPageFieldComponent,
               ContextMenuComponent,
+              ItemPageImgFieldComponent,
             ],
           },
           add: { changeDetection: ChangeDetectionStrategy.Default },

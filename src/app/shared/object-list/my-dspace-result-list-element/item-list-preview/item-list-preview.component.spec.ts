@@ -18,13 +18,16 @@ import { of as observableOf } from 'rxjs';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { Item } from '../../../../core/shared/item.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
+import { ItemCorrectionComponent } from '../../../object-collection/shared/mydspace-item-correction/item-correction.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
+import { AdditionalMetadataComponent } from '../../search-result-list-element/additional-metadata/additional-metadata.component';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 
 let component: ItemListPreviewComponent;
@@ -116,9 +119,15 @@ describe('ItemListPreviewComponent', () => {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
-          ThemedThumbnailComponent, ThemedBadgesComponent,
-          TruncatableComponent, TruncatablePartComponent,
-          ItemSubmitterComponent, ItemCollectionComponent,
+          ItemCollectionComponent,
+          ItemSubmitterComponent,
+          ThemedBadgesComponent,
+          ThemedThumbnailComponent,
+          TruncatableComponent,
+          TruncatablePartComponent,
+          MetadataLinkViewComponent,
+          AdditionalMetadataComponent,
+          ItemCorrectionComponent,
         ],
       },
     }).compileComponents();
@@ -228,9 +237,15 @@ describe('ItemListPreviewComponent', () => {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
-          ThemedThumbnailComponent, ThemedBadgesComponent,
-          TruncatableComponent, TruncatablePartComponent,
-          ItemSubmitterComponent, ItemCollectionComponent,
+          ItemCollectionComponent,
+          ItemSubmitterComponent,
+          ThemedBadgesComponent,
+          ThemedThumbnailComponent,
+          TruncatableComponent,
+          TruncatablePartComponent,
+          MetadataLinkViewComponent,
+          AdditionalMetadataComponent,
+          ItemCorrectionComponent,
         ],
       },
     }).compileComponents();

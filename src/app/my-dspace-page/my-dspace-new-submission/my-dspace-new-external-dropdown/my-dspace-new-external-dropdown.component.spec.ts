@@ -103,7 +103,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
           MyDSpaceNewExternalDropdownComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).overrideComponent(MyDSpaceNewExternalDropdownComponent, { remove: { imports: [EntityDropdownComponent] } }).compileComponents();
+      }).overrideComponent(MyDSpaceNewExternalDropdownComponent, { remove: { imports: [EntityDropdownComponent] } })
+        .compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 
@@ -152,7 +153,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
           MyDSpaceNewExternalDropdownComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(MyDSpaceNewExternalDropdownComponent, { remove: { imports: [EntityDropdownComponent] } })
+        .compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 

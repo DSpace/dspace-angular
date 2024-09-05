@@ -25,6 +25,8 @@ import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucata
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { MetricBadgesComponent } from '../../../../../shared/object-list/metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from '../../../../../shared/object-list/metric-donuts/metric-donuts.component';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
@@ -101,14 +103,15 @@ describe('JournalSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: {
-        imports: [
-          ThemedThumbnailComponent,
-          ThemedBadgesComponent,
-          TruncatableComponent,
-          TruncatablePartComponent,
-        ],
-      },
+    }).overrideComponent(JournalSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        ThemedBadgesComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        MetricDonutsComponent,
+        MetricBadgesComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -169,10 +172,20 @@ describe('JournalSearchResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(JournalSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        ThemedBadgesComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        MetricDonutsComponent,
+        MetricBadgesComponent,
+      ] },
     }).compileComponents();
   }));
 
