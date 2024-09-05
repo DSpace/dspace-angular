@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
+import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
 import { itemFromWorkflowResolver } from './item-from-workflow.resolver';
@@ -28,6 +29,7 @@ export const ROUTES: Routes = [
     children: [
       {
         canActivate: [authenticatedGuard],
+        canDeactivate: [PendingChangesGuard],
         path: WORKFLOW_ITEM_EDIT_PATH,
         component: ThemedSubmissionEditComponent,
         resolve: {

@@ -6,6 +6,7 @@ import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { collectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
 import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
@@ -63,6 +64,9 @@ export const ROUTES: Route[] = [
         loadChildren: () => import('./edit-collection-page/edit-collection-page-routes')
           .then((m) => m.ROUTES),
         canActivate: [collectionPageAdministratorGuard],
+        resolve: {
+          dso: EditCollectionResolver,
+        },
       },
       {
         path: 'delete',
