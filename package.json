@@ -65,7 +65,7 @@
         "@angular/common": "^17.3.11",
         "@angular/core": "^17.3.11",
         "@angular/forms": "^17.3.11",
-        "@angular/localize": "17.3.11"
+        "@angular/localize": "^17.3.11"
     },
     "@ng-dynamic-forms/core": {
         "@angular/common": "^17.3.11",
@@ -102,7 +102,7 @@
     "@angular/compiler": "^17.3.11",
     "@angular/core": "^17.3.11",
     "@angular/forms": "^17.3.11",
-    "@angular/localize": "17.3.11",
+    "@angular/localize": "^17.3.11",
     "@angular/platform-browser": "^17.3.11",
     "@angular/platform-browser-dynamic": "^17.3.11",
     "@angular/platform-server": "^17.3.11",
