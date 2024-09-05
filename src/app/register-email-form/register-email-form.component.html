@@ -15,9 +15,9 @@
                            for="email">{{MESSAGE_PREFIX + '.email' | translate}}</label>
                     <input [className]="(email.invalid) && (email.dirty || email.touched) ? 'form-control is-invalid' :'form-control'"
                            type="text" id="email" formControlName="email"
-                           [attr.aria-label]="'register-email.aria.label'|translate"
+                           [attr.aria-label]="MESSAGE_PREFIX + '.aria.label' | translate"
                            aria-describedby="email-errors-required email-error-not-valid"
-                           [attr.aria-invalid]="form.get('email')?.invalid"/>
+                           [attr.aria-invalid]="email.invalid"/>
                     <div *ngIf="email.invalid && (email.dirty || email.touched)"
                          class="invalid-feedback show-feedback">
                     <span *ngIf="email.errors && email.errors.required" id="email-errors-required">
