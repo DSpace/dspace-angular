@@ -5,27 +5,28 @@ import {
   Params,
   Router,
 } from '@angular/router';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { Registration } from '../core/shared/registration.model';
 import { RouterMock } from '../shared/mocks/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { ValidTokenGuard } from './valid-token.guard';
+import { validTokenGuard } from './valid-token.guard';
 import createSpyObj = jasmine.createSpyObj;
 
-describe('DirectAccessGuard', () => {
-  let guard: ValidTokenGuard;
+describe('validTokenGuard', () => {
   const route = new RouterMock();
 
-  const epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
+  const epersonRegistrationService = createSpyObj('epersonRegistrationService', {
     searchRegistrationByToken: jasmine.createSpy('searchRegistrationByToken'),
   });
 
   beforeEach(() => {
     const paramObject: Params = {};
-    paramObject.token = '1234';
+    paramObject.registrationToken = '1234';
     TestBed.configureTestingModule({
       providers: [{ provide: Router, useValue: route },
         {
@@ -37,13 +38,13 @@ describe('DirectAccessGuard', () => {
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
       ],
     });
-    guard = TestBed.get(ValidTokenGuard);
   });
 
   it('should be created', () => {
-    expect(guard).toBeTruthy();
+    expect(validTokenGuard).toBeTruthy();
   });
-  describe('based on the response of "searchByToken have', () => {
+
+  describe('based on the response of "searchByToken"', () => {
 
     it('can activate must return true when registration data includes groups', () => {
       const registrationWithGroups = Object.assign(new Registration(),
@@ -56,30 +57,31 @@ describe('DirectAccessGuard', () => {
       const registrationWithGroupsRD$ = createSuccessfulRemoteDataObject$(registrationWithGroups);
       epersonRegistrationService.searchRegistrationByToken.and.returnValue(registrationWithGroupsRD$);
 
-      const result = cold('(a|)', {
-        a: true,
+      const obs = TestBed.runInInjectionContext(() => {
+        return validTokenGuard({ params: { registrationToken: '123456789' } } as any, {} as any);
+      }) as Observable<boolean>;
+      obs.subscribe((res) => {
+        expect(res).toBe(true);
       });
-      const canActivate = guard.canActivate({ params: { registrationToken: '123456789' } } as any, {} as any);
-      expect(canActivate).toBeObservable(result);
-
     });
 
-    it('can activate must return false when registration data includes groups', () => {
-      const registrationWithDifferentUsedFromLoggedInt = Object.assign(new Registration(),
+    it('can activate must return false when registration data does not include groups', () => {
+      const registrationWithoutGroups = Object.assign(new Registration(),
         {
           email: 'alba@email.org',
           token: 'test-token',
           groups: [],
           groupNames: [],
         });
-      const registrationWithDifferentUsedFromLoggedIntRD$ = createSuccessfulRemoteDataObject$(registrationWithDifferentUsedFromLoggedInt);
-      epersonRegistrationService.searchRegistrationByToken.and.returnValue(registrationWithDifferentUsedFromLoggedIntRD$);
-      const result = cold('(a|)', {
-        a: false,
-      });
-      const canActivate = guard.canActivate({ params: { registrationToken: '123456789' } } as any, {} as any);
+      const registrationWithoutGroupsRD$ = createSuccessfulRemoteDataObject$(registrationWithoutGroups);
+      epersonRegistrationService.searchRegistrationByToken.and.returnValue(registrationWithoutGroupsRD$);
 
-      expect(canActivate).toBeObservable(result);
+      const obs = TestBed.runInInjectionContext(() => {
+        return validTokenGuard({ params: { registrationToken: '123456789' } } as any, {} as any);
+      }) as Observable<boolean>;
+      obs.subscribe((res) => {
+        expect(res).toBe(false);
+      });
     });
 
   });
