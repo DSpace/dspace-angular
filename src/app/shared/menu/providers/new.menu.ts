@@ -57,7 +57,7 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
     ]).pipe(map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit]) => {
       return [
         {
-          visible: isCollectionAdmin,
+          visible: isCommunityAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_community',
@@ -67,7 +67,7 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
           },
         },
         {
-          visible: isCommunityAdmin,
+          visible: isCollectionAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_collection',
