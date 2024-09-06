@@ -206,7 +206,7 @@
     "compression-webpack-plugin": "^9.2.0",
     "copy-webpack-plugin": "^6.4.1",
     "cross-env": "^7.0.3",
-    "cypress": "12.17.4",
+    "cypress": "13.14.2",
     "cypress-axe": "^1.4.0",
     "deep-freeze": "0.0.1",
     "eslint": "^8.39.0",
