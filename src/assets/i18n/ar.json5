@@ -2837,6 +2837,9 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "حدث خطأ أثناء جلب الكائنات",
 
+  //"error.profile-groups": "Error retrieving profile groups"
+  "error.profile-groups": "خطأ في استرداد مجموعات ملفات التعريف",
+
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "حدث خطأ أثناء جلب أحدث التقديمات",
 

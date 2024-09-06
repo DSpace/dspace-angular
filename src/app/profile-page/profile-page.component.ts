@@ -1,5 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable
+} from 'rxjs';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -7,10 +14,22 @@ import { TranslateService } from '@ngx-translate/core';
 import { Group } from '../core/eperson/models/group.model';
 import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list.model';
-import {filter, switchMap, tap} from 'rxjs/operators';
+import {
+  filter,
+  switchMap,
+  tap
+} from 'rxjs/operators';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../core/shared/operators';
-import {hasValue, isNotEmpty} from '../shared/empty.util';
+import {
+  getAllCompletedRemoteData,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload
+} from '../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty
+} from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { AuthService } from '../core/auth/auth.service';
 import { Operation } from 'fast-json-patch';
@@ -118,9 +137,9 @@ export class ProfilePageComponent implements OnInit {
             currentPage: pageOptions.currentPage
           }}));
       }),
-      getAllSucceededRemoteData(),
+      getAllCompletedRemoteData(),
       getRemoteDataPayload(),
-      switchMap((user: EPerson) => user.groups)
+      switchMap((user: EPerson) => user?.groups),
     );
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
     this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();

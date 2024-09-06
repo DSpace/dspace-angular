@@ -2319,6 +2319,9 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Virhe kohteita noudettaessa",
 
+  //"error.profile-groups": "Error retrieving profile groups",
+  "error.profile-groups": "Virhe noudettaessa profiiliryhmiä",
+
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Virhe viimeksi lisättyjä julkaisuja noudettaessa",
 
