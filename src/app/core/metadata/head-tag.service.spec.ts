@@ -1,5 +1,7 @@
+import { DOCUMENT } from '@angular/common';
 import {
   fakeAsync,
+  TestBed,
   tick,
 } from '@angular/core/testing';
 import {
@@ -46,8 +48,15 @@ import {
   AddMetaTagAction,
   ClearMetaTagAction,
 } from './meta-tag.actions';
+import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 
 describe('HeadTagService', () => {
+
+  const createSuccessfulRemoteDataObjectAndAssignThumbnail = (dso: Item) => {
+    const dsoWithThumbnail = Object.assign(dso, { thumbnail: of('thumbnail-url') });
+    return createSuccessfulRemoteDataObject(dsoWithThumbnail);
+  };
+
   let headTagService: HeadTagService;
 
   let meta: Meta;
@@ -61,6 +70,10 @@ describe('HeadTagService', () => {
   let translateService: TranslateService;
   let hardRedirectService: HardRedirectService;
   let authorizationService: AuthorizationDataService;
+
+  let schemaJsonLDService: SchemaJsonLDService;
+  let platformId: string;
+  let _document: any;
 
   let router: Router;
   let store;
@@ -113,6 +126,12 @@ describe('HeadTagService', () => {
       },
     } as any;
 
+    schemaJsonLDService = jasmine.createSpyObj('schemaJsonLDService', {
+      insertSchema: {},
+    });
+    platformId = 'browser';
+    _document = TestBed.inject(DOCUMENT);
+
     headTagService = new HeadTagService(
       router,
       translateService,
@@ -125,6 +144,9 @@ describe('HeadTagService', () => {
       hardRedirectService,
       appConfig,
       authorizationService,
+      schemaJsonLDService,
+      platformId,
+      _document,
     );
   });
 
@@ -132,7 +154,7 @@ describe('HeadTagService', () => {
     (headTagService as any).processRouteChange({
       data: {
         value: {
-          dso: createSuccessfulRemoteDataObject(ItemMock),
+          dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(ItemMock),
         },
       },
     });
@@ -159,7 +181,7 @@ describe('HeadTagService', () => {
     (headTagService as any).processRouteChange({
       data: {
         value: {
-          dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Thesis'))),
+          dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(mockPublisher(mockType(ItemMock, 'Thesis'))),
         },
       },
     });
@@ -178,7 +200,7 @@ describe('HeadTagService', () => {
     (headTagService as any).processRouteChange({
       data: {
         value: {
-          dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Technical Report'))),
+          dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(mockPublisher(mockType(ItemMock, 'Technical Report'))),
         },
       },
     });
@@ -194,7 +216,7 @@ describe('HeadTagService', () => {
     (headTagService as any).processRouteChange({
       data: {
         value: {
-          dso: createSuccessfulRemoteDataObject(ItemMock),
+          dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(ItemMock),
           title: 'route.title.key',
         },
       },
@@ -250,7 +272,7 @@ describe('HeadTagService', () => {
       (headTagService as any).processRouteChange({
         data: {
           value: {
-            dso: createSuccessfulRemoteDataObject(mockUri(ItemMock, 'https://ddg.gg')),
+            dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(mockUri(ItemMock, 'https://ddg.gg')),
           },
         },
       });
@@ -265,7 +287,7 @@ describe('HeadTagService', () => {
       (headTagService as any).processRouteChange({
         data: {
           value: {
-            dso: createSuccessfulRemoteDataObject(mockUri(ItemMock)),
+            dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(mockUri(ItemMock)),
           },
         },
       });
@@ -282,7 +304,7 @@ describe('HeadTagService', () => {
       (headTagService as any).processRouteChange({
         data: {
           value: {
-            dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Thesis'))),
+            dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(mockPublisher(mockType(ItemMock, 'Thesis'))),
           },
         },
       });
@@ -299,7 +321,7 @@ describe('HeadTagService', () => {
       (headTagService as any).processRouteChange({
         data: {
           value: {
-            dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Technical Report'))),
+            dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(mockPublisher(mockType(ItemMock, 'Technical Report'))),
           },
         },
       });
@@ -316,7 +338,7 @@ describe('HeadTagService', () => {
       (headTagService as any).processRouteChange({
         data: {
           value: {
-            dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Some Other Type'))),
+            dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(mockPublisher(mockType(ItemMock, 'Some Other Type'))),
           },
         },
       });
@@ -337,7 +359,7 @@ describe('HeadTagService', () => {
       (headTagService as any).processRouteChange({
         data: {
           value: {
-            dso: createSuccessfulRemoteDataObject(ItemMock),
+            dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(ItemMock),
           },
         },
       });
@@ -356,7 +378,7 @@ describe('HeadTagService', () => {
         (headTagService as any).processRouteChange({
           data: {
             value: {
-              dso: createSuccessfulRemoteDataObject(ItemMock),
+              dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(ItemMock),
             },
           },
         });
@@ -373,7 +395,7 @@ describe('HeadTagService', () => {
         (headTagService as any).processRouteChange({
           data: {
             value: {
-              dso: createSuccessfulRemoteDataObject(ItemMock),
+              dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(ItemMock),
             },
           },
         });
@@ -396,7 +418,7 @@ describe('HeadTagService', () => {
           (headTagService as any).processRouteChange({
             data: {
               value: {
-                dso: createSuccessfulRemoteDataObject(ItemMock),
+                dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(ItemMock),
               },
             },
           });
@@ -424,7 +446,7 @@ describe('HeadTagService', () => {
       (headTagService as any).processRouteChange({
         data: {
           value: {
-            dso: createSuccessfulRemoteDataObject(ItemMock),
+            dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(ItemMock),
           },
         },
       });
@@ -443,7 +465,7 @@ describe('HeadTagService', () => {
       (headTagService as any).processRouteChange({
         data: {
           value: {
-            dso: createSuccessfulRemoteDataObject(ItemMock),
+            dso: createSuccessfulRemoteDataObjectAndAssignThumbnail(ItemMock),
           },
         },
       });

@@ -1,6 +1,11 @@
 import {
+  DOCUMENT,
+  isPlatformServer,
+} from '@angular/common';
+import {
   Inject,
   Injectable,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   Meta,
@@ -38,6 +43,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import {
   hasNoValue,
@@ -52,6 +58,7 @@ import { BundleDataService } from '../data/bundle-data.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
+import { Root } from '../data/root.model';
 import { RootDataService } from '../data/root-data.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { Bitstream } from '../shared/bitstream.model';
@@ -60,6 +67,7 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bundle } from '../shared/bundle.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
+import { ITEM } from '../shared/item.resource-type';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -70,6 +78,7 @@ import {
   ClearMetaTagAction,
 } from './meta-tag.actions';
 import { MetaTagState } from './meta-tag.reducer';
+import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -110,6 +119,9 @@ export class HeadTagService {
     'application/epub+zip',                                                     // .epub
   ];
 
+  private fallbackImagePath = environment.metaTags.defaultLogo;
+  private defaultPageDescription = environment.metaTags.defaultDescription;
+
   constructor(
     protected router: Router,
     protected translate: TranslateService,
@@ -122,6 +134,9 @@ export class HeadTagService {
     protected hardRedirectService: HardRedirectService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected authorizationService: AuthorizationDataService,
+    protected schemaJsonLDService: SchemaJsonLDService,
+    @Inject(PLATFORM_ID) protected platformId: string,
+    @Inject(DOCUMENT) protected _document: Document,
   ) {
   }
 
@@ -140,7 +155,7 @@ export class HeadTagService {
     });
   }
 
-  protected processRouteChange(routeInfo: any): void {
+  private processRouteChange(routeInfo: any): void {
     this.clearMetaTags();
 
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
@@ -149,7 +164,13 @@ export class HeadTagService {
     }
 
     if (routeInfo.data.value.title) {
-      const titlePrefix = this.translate.get('repository.title.prefix');
+      const repositoryName$ = this.rootService.findRoot(true).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        map((payload: Root) => payload.dspaceName),
+      );
+      const titlePrefix = repositoryName$.pipe(
+        switchMap((repositoryName) => this.translate.get('repository.title.prefix', { repositoryName })),
+      );
       const title = this.translate.get(routeInfo.data.value.title, routeInfo.data.value);
       combineLatest([titlePrefix, title]).pipe(take(1)).subscribe(([translatedTitlePrefix, translatedTitle]: [string, string]) => {
         this.addMetaTag('title', translatedTitlePrefix + translatedTitle);
@@ -161,8 +182,20 @@ export class HeadTagService {
         this.addMetaTag('description', translatedDescription);
       });
     }
-  }
 
+    if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
+      this.currentObject.next(routeInfo.data.value.dso.payload);
+      this.setDSOMetaTags();
+      if (routeInfo.data.value.dso.payload.type === ITEM.value && isPlatformServer(this.platformId)) {
+        this.schemaJsonLDService.insertSchema(routeInfo.data.value.dso.payload);
+      }
+    }
+
+    if (!hasValue(routeInfo.data.value.dso)) {
+      this.setGenericPageMetaTags();
+    }
+
+  }
   protected getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
     while (route.firstChild) {
       route = route.firstChild;
@@ -171,10 +204,28 @@ export class HeadTagService {
   }
 
   protected setDSOMetaTags(): void {
+    const openGraphType = this.getOpenGraphType();
 
     this.setTitleTag();
     this.setDescriptionTag();
 
+    this.setOpenGraphTitleTag();
+    this.setOpenGraphDescriptionTag();
+    this.setOpenGraphImageTag();
+    this.setOpenGraphUrlTag();
+
+    if (openGraphType) {
+      this.setOpenGraphTypeTag(openGraphType);
+    }
+
+    this.setTwitterTitleTag();
+    this.setTwitterDescriptionTag();
+    this.setTwitterImageTag();
+    this.setTwitterSummaryCardTag();
+
+    if (!this.isResearchOutput()) {
+      return;
+    }
     this.setCitationTitleTag();
     this.setCitationAuthorTags();
     this.setCitationPublicationDateTag();
@@ -192,28 +243,26 @@ export class HeadTagService {
       this.setCitationDissertationNameTag();
     }
 
-    // this.setCitationJournalTitleTag();
-    // this.setCitationVolumeTag();
-    // this.setCitationIssueTag();
-    // this.setCitationFirstPageTag();
-    // this.setCitationLastPageTag();
-    // this.setCitationDOITag();
-    // this.setCitationPMIDTag();
+    this.setCitationJournalTitleTag();
+    this.setCitationVolumeTag();
+    this.setCitationIssueTag();
+    this.setCitationFirstPageTag();
+    this.setCitationLastPageTag();
+    this.setCitationDOITag();
+    this.setCitationPMIDTag();
+    this.setCitationArxivIdTag();
+    this.setCitationConferenceTag();
 
-    // this.setCitationFullTextTag();
-
-    // this.setCitationConferenceTag();
-
-    // this.setCitationPatentCountryTag();
-    // this.setCitationPatentNumberTag();
-
+    if (this.isTechReport()) {
+      this.setCitationTechnicalReportNumberTag();
+    }
   }
 
   /**
    * Add <meta name="title" ... >  to the <head>
    */
-  protected setTitleTag(): void {
-    const value = this.dsoNameService.getName(this.currentObject.getValue());
+  private setTitleTag(title?: string): void {
+    const value = title ?? this.dsoNameService.getName(this.currentObject.getValue());
     this.addMetaTag('title', value);
     this.title.setTitle(value);
   }
@@ -221,9 +270,9 @@ export class HeadTagService {
   /**
    * Add <meta name="description" ... >  to the <head>
    */
-  protected setDescriptionTag(): void {
+  private setDescriptionTag(description?: string): void {
     // TODO: truncate abstract
-    const value = this.getMetaTagValue('dc.description.abstract');
+    const value = description ?? this.getMetaTagValue('dc.description.abstract');
     this.addMetaTag('description', value);
   }
 
@@ -304,6 +353,87 @@ export class HeadTagService {
     const value = this.getMetaTagValuesAndCombine('dc.subject');
     this.addMetaTag('citation_keywords', value);
   }
+
+  /**
+   * Add <meta name="citation_journal_title" ... >  to the <head>
+   */
+  private setCitationJournalTitleTag(): void {
+    const value = this.getMetaTagValue('dc.relation.ispartof');
+    this.addMetaTag('citation_journal_title', value);
+  }
+
+  /**
+   * Add <meta name="citation_volume" ... >  to the <head>
+   */
+  private setCitationVolumeTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.volume');
+    this.addMetaTag('citation_volume', value);
+  }
+
+  /**
+   * Add <meta name="citation_issue" ... >  to the <head>
+   */
+  private setCitationIssueTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.issue');
+    this.addMetaTag('citation_issue', value);
+  }
+
+  /**
+   * Add <meta name="citation_firstpage" ... >  to the <head>
+   */
+  private setCitationFirstPageTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.startPage');
+    this.addMetaTag('citation_firstpage', value);
+  }
+
+  /**
+   * Add <meta name="citation_firstpage" ... >  to the <head>
+   */
+  private setCitationLastPageTag(): void {
+    const value = this.getMetaTagValue('oaire.citation.endPage');
+    this.addMetaTag('citation_lastpage', value);
+  }
+
+  /**
+   * Add <meta name="citation_doi" ... >  to the <head>
+   */
+  private setCitationDOITag(): void {
+    const value = this.getMetaTagValue('dc.identifier.doi');
+    this.addMetaTag('citation_doi', value);
+  }
+
+  /**
+   * Add <meta name="citation_pmid" ... >  to the <head>
+   */
+  private setCitationPMIDTag(): void {
+    const value = this.getMetaTagValue('dc.identifier.pmid');
+    this.addMetaTag('citation_pmid', value);
+  }
+
+  /**
+   * Add <meta name="citation_arxiv_id" ... >  to the <head>
+   */
+  private setCitationArxivIdTag(): void {
+    const value = this.getMetaTagValue('dc.identifier.arxiv');
+    this.addMetaTag('citation_arxiv_id', value);
+  }
+
+  /**
+   * Add <meta name="citation_conference_title" ... >  to the <head>
+   */
+  private setCitationConferenceTag(): void {
+    const value = this.getMetaTagValue('dc.relation.conference');
+    this.addMetaTag('citation_conference_title', value);
+  }
+
+  /**
+   * Add <meta name="citation_technical_report_number" ... >  to the <head>
+   */
+  private setCitationTechnicalReportNumberTag(): void {
+    const value = this.getMetaTagValue('dc.relation.ispartofseries');
+    this.addMetaTag('citation_technical_report_number', value);
+  }
+
 
   /**
    * Add <meta name="citation_abstract_html_url" ... >  to the <head>
@@ -388,6 +518,125 @@ export class HeadTagService {
     }
   }
 
+  /**
+   * Add <meta name="og:type" ... >  to the <head>
+   */
+  private setOpenGraphTypeTag(type: string): void {
+    this.addMetaTag('og:type', type);
+  }
+
+  /**
+   * Add <meta name="og:title" ... >  to the <head>
+   */
+  private setOpenGraphTitleTag(title?: string): void {
+    const value = title ?? this.getMetaTagValue('dc.title');
+    this.addMetaTag('og:title', value);
+  }
+
+  /**
+   * Add <meta name="og:description" ... >  to the <head>
+   */
+  private setOpenGraphDescriptionTag(description?: string): void {
+    // TODO: truncate abstract
+    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
+    this.addMetaTag('og:description', value);
+  }
+
+  /**
+   * Add <meta name="og:image" ... >  to the <head>
+   */
+  private setOpenGraphImageTag(): void {
+    this.setPrimaryBitstreamInBundleTag('og:image');
+  }
+
+  /**
+   * Add <meta name="og:url" ... >  to the <head>
+   */
+  private setOpenGraphUrlTag(url?: string): void {
+    const value = url ?? this.getMetaTagValue('dc.identifier.uri');
+    this.addMetaTag('og:url', value);
+  }
+
+
+  /**
+   * Add <meta name="twitter:title" ... >  to the <head>
+   */
+  private setTwitterTitleTag(title?: string): void {
+    const value = title ?? this.getMetaTagValue('dc.title');
+    this.addMetaTag('twitter:title', value);
+  }
+
+  /**
+   * Add <meta name="twitter:description" ... >  to the <head>
+   */
+  private setTwitterDescriptionTag(description?: string): void {
+    // TODO: truncate abstract
+    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
+    this.addMetaTag('twitter:description', value);
+  }
+
+  /**
+   * Add <meta name="twitter:image" ... >  to the <head>
+   */
+  private setTwitterImageTag(): void {
+    this.setPrimaryBitstreamInBundleTag('twitter:image');
+  }
+
+  /**
+   * Add <meta name="twitter:card" ... >  to the <head>
+   */
+  private setTwitterSummaryCardTag(): void {
+    this.addMetaTag('twitter:card', 'summary');
+  }
+
+  /**
+   * Get bitstream from item thumbnail link
+   *
+   * @param item
+   * @private
+   */
+  private getBitstreamFromThumbnail(item: Item): Observable<Bitstream> {
+    return item.thumbnail.pipe(
+      getFirstCompletedRemoteData(),
+      map((thumbnailRD) => {
+        if (thumbnailRD.hasSucceeded && isNotEmpty(thumbnailRD.payload)) {
+          return thumbnailRD.payload;
+        } else {
+          return null;
+        }
+      }),
+      getDownloadableBitstream(this.authorizationService),
+    );
+  }
+
+  private setPrimaryBitstreamInBundleTag(tag: string): void {
+    if (this.currentObject.value instanceof Item) {
+      const item = this.currentObject.value as Item;
+      this.getBitstreamFromThumbnail(item).pipe(
+        map((bitstream) => {
+          if (hasValue(bitstream)) {
+            return getBitstreamDownloadRoute(bitstream);
+          } else {
+            return null;
+          }
+        }),
+        take(1),
+      ).subscribe((link) => {
+        if (hasValue(link)) {
+          // Use the found link to set the <meta> tag
+          this.addMetaTag(
+            tag,
+            new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
+          );
+        } else {
+          this.addFallbackImageToTag(tag);
+        }
+      });
+    } else {
+      this.addFallbackImageToTag(tag);
+    }
+  }
+
   getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
     return observableOf(bitstream).pipe(
       getDownloadableBitstream(this.authorizationService),
@@ -457,6 +706,10 @@ export class HeadTagService {
     return this.currentObject.value.hasMetadata('dc.type', { value: value, ignoreCase: true });
   }
 
+  private hasEntityType(value: string): boolean {
+    return this.currentObject.value.hasMetadata('dspace.entity.type', { value: value, ignoreCase: true });
+  }
+
   /**
    * Returns true if this._item is a dissertation
    *
@@ -465,6 +718,26 @@ export class HeadTagService {
    */
   protected isDissertation(): boolean {
     return this.hasType('thesis');
+  }
+
+  /**
+   * Returns true if this._item is a research output (publication, patent or product)
+   *
+   * @returns {boolean}
+   *      true if this._item has a dc.type equal to 'Thesis'
+   */
+  private isResearchOutput(): boolean {
+    return this.hasEntityType('publication') || this.hasEntityType('product') || this.hasEntityType('patent');
+  }
+
+  /**
+   * Returns true if this._item is a research output (publication, patent or product)
+   *
+   * @returns {boolean}
+   *      true if this._item has a dc.type equal to 'Thesis'
+   */
+  private isPatent(): boolean {
+    return this.hasEntityType('patent');
   }
 
   /**
@@ -524,4 +797,63 @@ export class HeadTagService {
   }
 
 
+
+  private addFallbackImageToTag(tag: string) {
+    this.addMetaTag(
+      tag,
+      new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.fallbackImagePath).toString(),
+    );
+  }
+
+  private getOpenGraphType(): string {
+    let type = '';
+    if (this.currentObject.value instanceof Item) {
+      const item = this.currentObject.value as Item;
+      switch (item.entityType) {
+        case 'News':
+          type = 'article';
+          break;
+        case 'Publication':
+          type =  'article';
+          break;
+        case 'Book':
+          type =  'book';
+          break;
+        case 'Person':
+          type =  'profile';
+          break;
+        case 'Audio':
+          type =  'music';
+          break;
+        case 'Video':
+          type =  'video';
+          break;
+        default:
+          break;
+      }
+    }
+    return type;
+  }
+
+
+  private setGenericPageMetaTags() {
+    const pageDocumentTitle = this._document.getElementsByTagName('title')[0].innerText;
+    const pageUrl = new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.router.url).toString();
+    const genericPageOpenGraphType = 'website';
+
+    this.setTitleTag(pageDocumentTitle);
+    this.setDescriptionTag(this.defaultPageDescription);
+
+    this.setOpenGraphTitleTag(pageDocumentTitle);
+    this.setOpenGraphDescriptionTag(this.defaultPageDescription);
+    this.setOpenGraphUrlTag(pageUrl);
+    this.setOpenGraphImageTag();
+    this.setOpenGraphTypeTag(genericPageOpenGraphType);
+
+
+    this.setTwitterTitleTag(pageDocumentTitle);
+    this.setTwitterDescriptionTag(this.defaultPageDescription);
+    this.setTwitterImageTag();
+    this.setTwitterSummaryCardTag();
+  }
 }

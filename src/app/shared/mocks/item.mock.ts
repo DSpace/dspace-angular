@@ -276,6 +276,12 @@ export const ItemMock: Item = Object.assign(new Item(), {
         value: 'text',
       },
     ],
+    'dspace.entity.type': [
+      {
+        language: 'en',
+        value: 'Publication',
+      },
+    ],
   },
   owningCollection: observableOf({
     _links: {
