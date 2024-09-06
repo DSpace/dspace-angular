@@ -31,7 +31,6 @@ describe('NumberValueInputComponent', () => {
         }),
         NumberValueInputComponent,
       ],
-      providers: [],
     })
       .compileComponents();
   }));

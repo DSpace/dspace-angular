@@ -134,7 +134,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           provideMockStore({}),
         ],
       })
-        .overrideComponent(SubmissionSectionAccessesComponent, { remove: { imports: [FormComponent] } }).compileComponents();
+        .compileComponents();
     });
 
     describe('when singleAccessCondition is false', () => {

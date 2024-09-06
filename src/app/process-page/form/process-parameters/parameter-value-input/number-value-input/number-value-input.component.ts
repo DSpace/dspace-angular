@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
@@ -29,6 +30,7 @@ import { ValueInputComponent } from '../value-input.component';
   imports: [
     FormsModule,
     TranslateModule,
+    NgIf,
   ],
 })
 export class NumberValueInputComponent extends ValueInputComponent<string> {

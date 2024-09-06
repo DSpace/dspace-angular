@@ -14,6 +14,7 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { MockComponent } from 'ng-mocks';
 import { of as observableOf } from 'rxjs';
 
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -118,12 +119,12 @@ describe('SubmissionSectionCustomUrlComponent', () => {
     type: 'change',
   };
 
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         SubmissionSectionCustomUrlComponent,
+        MockComponent(FormComponent),
       ],
       providers: [
         { provide: SectionsService, useValue: sectionService },
@@ -138,7 +139,6 @@ describe('SubmissionSectionCustomUrlComponent', () => {
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
       ],
     })
-      .overrideComponent(SubmissionSectionCustomUrlComponent, { remove: { imports: [FormComponent] } })
       .compileComponents();
   }));
 
