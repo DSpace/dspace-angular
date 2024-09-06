@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
 import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
+import { editItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
@@ -61,7 +61,7 @@ export const ROUTES: Route[] = [
     path: '',
     resolve: {
       breadcrumb: i18nBreadcrumbResolver,
-      dso: EditItemResolver,
+      dso: editItemResolver,
     },
     data: { breadcrumbKey: 'item.edit' },
     children: [
