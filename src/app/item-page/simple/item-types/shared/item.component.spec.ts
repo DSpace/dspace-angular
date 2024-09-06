@@ -203,7 +203,6 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
               RelatedItemsComponent,
               TabbedRelatedEntitiesSearchComponent,
               ThemedMetadataRepresentationListComponent,
-              GenericItemPageFieldComponent,
               ContextMenuComponent,
               ItemPageImgFieldComponent,
             ],
