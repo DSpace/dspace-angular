@@ -19,10 +19,9 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { ReviewAccountGuard } from './review-account.guard';
+import { reviewAccountGuard } from './review-account.guard';
 
-describe('ReviewAccountGuard', () => {
-  let guard: ReviewAccountGuard;
+describe('reviewAccountGuard', () => {
   let epersonRegistrationService: any;
   let authService: any;
 
@@ -31,7 +30,6 @@ describe('ReviewAccountGuard', () => {
     {
       email: 'test@email.org',
       registrationType: AuthRegistrationType.Validation,
-
     });
 
   beforeEach(() => {
@@ -44,7 +42,8 @@ describe('ReviewAccountGuard', () => {
       isAuthenticated: () => observableOf(true),
     } as any;
     TestBed.configureTestingModule({
-      providers: [{ provide: Router, useValue: route },
+      providers: [
+        { provide: Router, useValue: route },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -55,27 +54,30 @@ describe('ReviewAccountGuard', () => {
         { provide: AuthService, useValue: authService },
       ],
     });
-    guard = TestBed.inject(ReviewAccountGuard);
   });
 
   it('should be created', () => {
-    expect(guard).toBeTruthy();
+    expect(reviewAccountGuard).toBeTruthy();
   });
 
   it('can activate must return true when registration type is validation', () => {
-    (guard.canActivate({ params: { token: 'valid token' } } as any, {} as any) as any)
-      .subscribe(
-        (canActivate) => {
-          expect(canActivate).toEqual(true);
-        },
-      );
+    TestBed.runInInjectionContext(() => {
+      (reviewAccountGuard({ params: { token: 'valid token' } } as any, {} as any) as any)
+        .subscribe(
+          (canActivate) => {
+            expect(canActivate).toEqual(true);
+          },
+        );
+    });
   });
 
   it('should navigate to 404 if the registration search fails', () => {
     epersonRegistrationService.searchRegistrationByToken.and.returnValue(createFailedRemoteDataObject$());
-    (guard.canActivate({ params: { token: 'invalid-token' } } as any, {} as any) as any).subscribe((result) => {
-      expect(result).toBeFalse();
-      expect(route.navigate).toHaveBeenCalledWith(['/404']);
+    TestBed.runInInjectionContext(() => {
+      (reviewAccountGuard({ params: { token: 'invalid-token' } } as any, {} as any) as any).subscribe((result) => {
+        expect(result).toBeFalse();
+        expect(route.navigate).toHaveBeenCalledWith(['/404']);
+      });
     });
   });
 
@@ -83,8 +85,10 @@ describe('ReviewAccountGuard', () => {
     registrationMock.registrationType = AuthRegistrationType.Orcid;
     epersonRegistrationService.searchRegistrationByToken.and.returnValue(createSuccessfulRemoteDataObject$(registrationMock));
     spyOn(authService, 'isAuthenticated').and.returnValue(of(false));
-    (guard.canActivate({ params: { token: 'invalid-token' } } as any, {} as any) as any).subscribe((result) => {
-      expect(route.navigate).toHaveBeenCalledWith(['/404']);
+    TestBed.runInInjectionContext(() => {
+      (reviewAccountGuard({ params: { token: 'invalid-token' } } as any, {} as any) as any).subscribe((result) => {
+        expect(route.navigate).toHaveBeenCalledWith(['/404']);
+      });
     });
   });
 });
