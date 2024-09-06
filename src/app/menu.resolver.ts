@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuState } from './shared/menu/menu-state.model';
 import { MenuItemType } from './shared/menu/menu-item-type.model';
@@ -532,8 +532,14 @@ export class MenuResolver implements Resolve<boolean> {
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
-    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
-      filter((authorized: boolean) => authorized),
+    combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+    ]).pipe(
+      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
+        isAdmin || isCollectionAdmin || isCommunityAdmin
+      ),
       take(1),
       switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)),
       filter((metadataExportScriptExists: boolean) => metadataExportScriptExists),
@@ -659,8 +665,14 @@ export class MenuResolver implements Resolve<boolean> {
     const menuList = [];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
-    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
-      filter((authorized: boolean) => authorized),
+    combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+    ]).pipe(
+      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
+        isAdmin || isCollectionAdmin || isCommunityAdmin
+      ),
       take(1),
       switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)),
       filter((metadataImportScriptExists: boolean) => metadataImportScriptExists),
