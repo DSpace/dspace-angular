@@ -456,7 +456,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'processes',
           active: false,
-          visible: isSiteAdmin,
+          visible: isSiteAdmin || isCommunityAdmin || isCollectionAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.processes',
