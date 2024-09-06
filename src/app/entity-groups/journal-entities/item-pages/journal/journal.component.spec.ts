@@ -144,7 +144,6 @@ describe('JournalComponent', () => {
           DsoEditMenuComponent,
           MetadataFieldWrapperComponent,
           ThemedThumbnailComponent,
-          GenericItemPageFieldComponent,
           RelatedItemsComponent,
           TabbedRelatedEntitiesSearchComponent,
           ContextMenuComponent,
