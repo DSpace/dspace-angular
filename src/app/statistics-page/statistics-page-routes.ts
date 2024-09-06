@@ -6,12 +6,12 @@ import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { statisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 import { statisticsLoginGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-login.guard';
 import { statisticsWorkflowGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-workflow.guard';
-import { itemResolver } from '../item-page/item.resolver';
 import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { LoginStatisticsPageComponent } from './login-statistics-page/login-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
+import { statisticsItemPageResolver } from './statistics-item-page.resolver';
 import { WorkflowStatisticsPageComponent } from './workflow-statistics-page/workflow-statistics-page.component';
 
 export const ROUTES: Route[] = [
@@ -69,7 +69,7 @@ export const ROUTES: Route[] = [
   {
     path: `items/:id`,
     resolve: {
-      scope: itemResolver,
+      scope: statisticsItemPageResolver,
       breadcrumb: i18nBreadcrumbResolver,
     },
     data: {
