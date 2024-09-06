@@ -17,7 +17,6 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../core/data/request.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
@@ -92,7 +91,7 @@ describe('CollectionRolesComponent', () => {
         { provide: NotificationsService, useClass: NotificationsServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(CollectionRolesComponent, { remove: { imports: [ComcolRoleComponent] } }).compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CollectionRolesComponent);
     comp = fixture.componentInstance;
