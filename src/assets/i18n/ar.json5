@@ -5003,67 +5003,85 @@
   // TODO New key - Add a translation
   "relationships.add.error.title": "Unable to add relationship",
 
-  // "relationships.isAuthorOf": "Authors",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
   // TODO New key - Add a translation
-  "relationships.isAuthorOf": "Authors",
+  "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
   // TODO New key - Add a translation
-  "relationships.isAuthorOf.Person": "Authors (persons)",
+  "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
   // TODO New key - Add a translation
-  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
 
-  // "relationships.isIssueOf": "Journal Issues",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
   // TODO New key - Add a translation
-  "relationships.isIssueOf": "Journal Issues",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
   // TODO New key - Add a translation
-  "relationships.isJournalIssueOf": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
 
-  // "relationships.isJournalOf": "Journals",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalOf": "Journals",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
   // TODO New key - Add a translation
-  "relationships.isOrgUnitOf": "Organizational Units",
+  "relationships.Person.isProjectOfPerson.Project": "Research Projects",
 
-  // "relationships.isPersonOf": "Authors",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
   // TODO New key - Add a translation
-  "relationships.isPersonOf": "Authors",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
 
-  // "relationships.isProjectOf": "Research Projects",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
   // TODO New key - Add a translation
-  "relationships.isProjectOf": "Research Projects",
+  "relationships.Project.isPublicationOfProject.Publication": "Publications",
 
-  // "relationships.isPublicationOf": "Publications",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
   // TODO New key - Add a translation
-  "relationships.isPublicationOf": "Publications",
+  "relationships.Project.isPersonOfProject.Person": "Authors",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
   // TODO New key - Add a translation
-  "relationships.isPublicationOfJournalIssue": "Articles",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
 
-  // "relationships.isSingleJournalOf": "Journal",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isSingleJournalOf": "Journal",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
   // TODO New key - Add a translation
-  "relationships.isSingleVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
   // TODO New key - Add a translation
-  "relationships.isVolumeOf": "Journal Volumes",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
 
-  // "relationships.isContributorOf": "Contributors",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isContributorOf": "Contributors",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  // TODO New key - Add a translation
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
 
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  // TODO New key - Add a translation
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  // TODO New key - Add a translation
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  // TODO New key - Add a translation
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  // TODO New key - Add a translation
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
 
   // "resource-policies.add.button": "Add",
   // TODO New key - Add a translation

@@ -4852,59 +4852,67 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "No es pot afegir una relació",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Autors",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Autors (persones)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Autors (persones)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Projectes de recerca",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Autors (unitats organitzatives)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Unitats organitzatives",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Números de revista",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Autors (unitats organitzatives)",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Número de la revista",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Número de la revista",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Revistes",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publicacions",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Unitats organitzatives",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Projectes de recerca",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Autors",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Unitats organitzatives",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Projectes de recerca",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publicacions",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publicacions",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Autors",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Articles",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Unitats organitzatives",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Revista",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Volum de la revista",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autors",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Volums de revistes",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Projectes de recerca",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Col·laboradors",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Col·laborador (Unitat organitzativa)",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Volum de la revista",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Contribuïdor",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publicacions",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Finançador",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Revistes",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Número de la revista",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Volum de la revista",
 
 
   // "repository.image.logo": "Repository logo",

@@ -4784,59 +4784,67 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Байланыс қосу мүмкін емес",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Авторлар",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Авторлар (тұлғалар)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Авторлар (тұлғалар)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Зерттеу жобалары",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Авторлар (ұйымдастыру бөлімшелері)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Ұйымдастыру бөлімшелері",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Журналдың шығарылымдары",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Авторлар (ұйымдастыру бөлімшелері)",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Журнал шығару",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Журнал шығару",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Күнделіктер",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Жарияланымдар",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Ұйымдастыру бөлімшелері",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Зерттеу жобалары",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Авторлары",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Ұйымдастыру бөлімшелері",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Зерттеу жобалары",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Жарияланымдар",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Жарияланымдар",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Авторлар",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Мақалалар",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Ұйымдастыру бөлімшелері",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Күнделік",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Журнал көлемі",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Авторлар",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Журнал томдары",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Зерттеу жобалары",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Қатысушылар",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Қатысушылар (Мекемелер)",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Журнал көлемі",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Қатысушы",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Жарияланымдар",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Жасаушы",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Күнделіктер",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Журнал шығару",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Журнал көлемі",
 
 
   // "repository.image.logo": "Repository logo",

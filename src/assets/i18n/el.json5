@@ -1608,24 +1608,69 @@
   "relationships.add.error.relationship-type.content": "Δεν βρέθηκε κατάλληλη αντιστοίχιση για τον τύπο σχέσης {{ type }} μεταξύ των δύο τεκμηρίων",
   "relationships.add.error.server.content": "Ο διακομιστής επέστρεψε ένα σφάλμα",
   "relationships.add.error.title": "Δεν είναι δυνατή η προσθήκη σχέσης",
-  "relationships.isAuthorOf": "Συγγραφείς",
-  "relationships.isAuthorOf.OrgUnit": "Συγγραφείς (οργανωτικές μονάδες)",
-  "relationships.isAuthorOf.Person": "Συγγραφείς (πρόσωπα)",
-  "relationships.isContributorOf": "Συντελεστής",
-  "relationships.isContributorOf.OrgUnit": "Συντελεστής (Οργανωτική Μονάδα)",
-  "relationships.isContributorOf.Person": "Συντελεστής",
-  "relationships.isFundingAgencyOf.OrgUnit": "Χρηματοδότης",
-  "relationships.isIssueOf": "Θέματα περιοδικών",
-  "relationships.isJournalIssueOf": "Τεύχος περιοδικού",
-  "relationships.isJournalOf": "περιοδικά",
-  "relationships.isOrgUnitOf": "Μονάδες οργανισμού",
-  "relationships.isPersonOf": "Συγγραφείς",
-  "relationships.isProjectOf": "Ερευνητικά έργα",
-  "relationships.isPublicationOf": "Δημοσιεύσεις",
-  "relationships.isPublicationOfJournalIssue": "Άρθρα",
-  "relationships.isSingleJournalOf": "Εφημερίδα",
-  "relationships.isSingleVolumeOf": "Τόμος περιοδικού",
-  "relationships.isVolumeOf": "Τόμοι περιοδικών",
+
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Συγγραφείς (πρόσωπα)",
+
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Ερευνητικά έργα",
+
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Μονάδες οργανισμού",
+
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Συγγραφείς (οργανωτικές μονάδες)",
+
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Τεύχος περιοδικού",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Δημοσιεύσεις",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Ερευνητικά έργα",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Μονάδες οργανισμού",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Δημοσιεύσεις",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Συγγραφείς",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Μονάδες οργανισμού",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Συγγραφείς",
+
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Ερευνητικά έργα",
+
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Τόμος περιοδικού",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Δημοσιεύσεις",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "περιοδικά",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Τεύχος περιοδικού",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Τόμος περιοδικού",
+
   "repository.image.logo": "Λογότυπο αποθετηρίου",
   "repository.title.prefix": "DSpace Angular ::",
   "repository.title.prefixDSpace": "DSpace Angular ::",

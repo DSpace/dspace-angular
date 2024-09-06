@@ -94,6 +94,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
   private relatedEntityType$: Observable<ItemType>;
 
+  currentEntityType$: Observable<ItemType>;
+
   /**
    * The list ID to save selected entities under
    */
@@ -162,22 +164,13 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    * Get the i18n message key for this relationship type
    */
   public getRelationshipMessageKey(): Observable<string> {
-
-    return observableCombineLatest(
+    return observableCombineLatest([
+      this.currentEntityType$,
       this.getLabel(),
       this.relatedEntityType$,
-    ).pipe(
-      map(([label, relatedEntityType]) => {
-        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
-          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
-          if (relationshipLabel !== relatedEntityType.label) {
-            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
-          } else {
-            return `relationships.is${relationshipLabel}Of`;
-          }
-        } else {
-          return label;
-        }
+    ]).pipe(
+      map(([currentEntityType, label, relatedEntityType]: [ItemType, string, ItemType]) => {
+        return `relationships.${currentEntityType.label}.${label}.${relatedEntityType.label}`;
       }),
     );
   }
@@ -453,6 +446,17 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     this.relatedEntityType$ = this.relationshipLeftAndRightType$.pipe(
       map((relatedTypes: ItemType[]) => relatedTypes.find((relatedType) => relatedType.uuid !== this.itemType.uuid)),
       hasValueOperator()
+    );
+
+    this.currentEntityType$ = this.relationshipLeftAndRightType$.pipe(
+      map(([leftType, rightType]: [ItemType, ItemType]) => {
+        if (leftType.uuid === this.itemType.uuid) {
+          return leftType;
+        } else {
+          return rightType;
+        }
+      }),
+      hasValueOperator(),
     );
 
     this.relatedEntityType$.pipe(

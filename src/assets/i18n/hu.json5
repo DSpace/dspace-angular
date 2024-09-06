@@ -5715,60 +5715,67 @@
   // TODO New key - Add a translation
   "relationships.add.error.title": "Unable to add relationship",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Szerzők",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Szerzők (személye)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Szerzők (személye)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Kutatási projektek",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Szerzők (szervezeti egységek)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Szervezeti egységek",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Folyóirat számok",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Szerzők (szervezeti egységek)",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Folyóirat szám",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Folyóirat szám",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Folyóiratok",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publikációk",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Szervezeti egységek",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Kutatási projektek",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Szerzők",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Szervezeti egységek",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Kutatási projektek",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publikációk",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publikációk",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Szerzők",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Cikkek",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Szervezeti egységek",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Folyóirat",
-
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Folyóirat kötet",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Folyóirat kötetek",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Közreműködők",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Hozzájáruló (Szervezet)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Hozzájáruló",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Szerzők",
+
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Kutatási projektek",
+
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Folyóirat kötet",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikációk",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Folyóiratok",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Folyóirat szám",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Folyóirat kötet",
 
 
   // "repository.image.logo": "Repository logo",

@@ -1769,24 +1769,69 @@
   "relationships.add.error.relationship-type.content": "Không có kết quả nào phù hợp cho kiểu quan hệ {{ type }} giữa hai tài liệu",
   "relationships.add.error.server.content": "Máy chủ trả về lỗi",
   "relationships.add.error.title": "Không thể thêm mối quan hệ",
-  "relationships.isAuthorOf": "Tác giả",
-  "relationships.isAuthorOf.OrgUnit": "Tác giả (tổ chức)",
-  "relationships.isAuthorOf.Person": "Tác giả (người)",
-  "relationships.isContributorOf": "Người tham gia",
-  "relationships.isContributorOf.OrgUnit": "Người tham gia (Tổ chức)",
-  "relationships.isContributorOf.Person": "Người tham gia",
-  "relationships.isFundingAgencyOf.OrgUnit": "Nhà tài trợ",
-  "relationships.isIssueOf": "Số kỳ của tạp chí",
-  "relationships.isJournalIssueOf": "Số kỳ của tạp chí",
-  "relationships.isJournalOf": "Tạp chí",
-  "relationships.isOrgUnitOf": "Đơn vị tổ chức",
-  "relationships.isPersonOf": "Tác giả",
-  "relationships.isProjectOf": "Dự án nghiên cứu",
-  "relationships.isPublicationOf": "Ấn phẩm",
-  "relationships.isPublicationOfJournalIssue": "Bài báo",
-  "relationships.isSingleJournalOf": "Tạp chí",
-  "relationships.isSingleVolumeOf": "Số tập của tạp chí",
-  "relationships.isVolumeOf": "Số tập của tạp chí",
+
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Tác giả (người)",
+
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Dự án nghiên cứu",
+
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Đơn vị tổ chức",
+
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Tác giả (tổ chức)",
+
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Số kỳ của tạp chí",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Ấn phẩm",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Dự án nghiên cứu",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Đơn vị tổ chức",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Ấn phẩm",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Tác giả",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Đơn vị tổ chức",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Tác giả",
+
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Dự án nghiên cứu",
+
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Số tập của tạp chí",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Ấn phẩm",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Tạp chí",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Số kỳ của tạp chí",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Số tập của tạp chí",
+
   "repository.image.logo": "Logo lưu trữ",
   "repository.title.prefix": "Digital Library ::",
   "repository.title.prefixDSpace": "Digital Library ::",

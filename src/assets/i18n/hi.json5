@@ -3263,41 +3263,67 @@
 
   "relationships.add.error.title": "संबंध जोड़ने में असमर्थ",
 
-  "relationships.isAuthorOf": "लेखक",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "लेखक (व्यक्ति)",
 
-  "relationships.isAuthorOf.OrgUnit": "लेखक (संगठनात्मक इकाइयां)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "अनुसंधान परियोजना",
 
-  "relationships.isAuthorOf.Person": "लेखक (व्यक्ति)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "संगठनात्मक इकाइयाँ",
 
-  "relationships.isContributorOf": "योगदानकर्ता",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "लेखक (संगठनात्मक इकाइयां)",
 
-  "relationships.isContributorOf.OrgUnit": "योगदानकर्ता (संगठनात्मक इकाई)",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "पत्रिका अंक",
 
-  "relationships.isContributorOf.Person": "योगदान देने वाला",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "प्रकाशन",
 
-  "relationships.isFundingAgencyOf.OrgUnit": "निधिदाता",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "अनुसंधान परियोजना",
 
-  "relationships.isIssueOf": "पत्रिका अंक",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "संगठनात्मक इकाइयाँ",
 
-  "relationships.isJournalIssueOf": "पत्रिका अंक",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "प्रकाशन",
 
-  "relationships.isJournalOf": "पत्रिकाएं",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "लेखक",
 
-  "relationships.isOrgUnitOf": "संगठनात्मक इकाइयाँ",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "संगठनात्मक इकाइयाँ",
 
-  "relationships.isPersonOf": "लेखक",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  "relationships.isProjectOf": "अनुसंधान परियोजना",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "लेखक",
 
-  "relationships.isPublicationOf": "प्रकाशन",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "अनुसंधान परियोजना",
 
-  "relationships.isPublicationOfJournalIssue": "लेख",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  "relationships.isSingleJournalOf": "पत्रिका",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "पत्रिका खंड",
 
-  "relationships.isSingleVolumeOf": "पत्रिका खंड",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "प्रकाशन",
 
-  "relationships.isVolumeOf": "पत्रिका खंड",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "पत्रिकाएं",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "पत्रिका अंक",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "पत्रिका खंड",
 
   "repository.image.logo": "संग्राहलय चिन्ह",
 

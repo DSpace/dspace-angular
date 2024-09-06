@@ -4432,53 +4432,65 @@
   // TODO New key - Add a translation
   "relationships.add.error.title": "Unable to add relationship",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Auteurs",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Auteurs (personen)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  // TODO New key - Add a translation
-  "relationships.isAuthorOf.Person": "Authors (persons)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Onderzoeksprojecten",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  // TODO New key - Add a translation
-  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organisatie-onderdelen",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Tijdschriftafleveringen",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Auteurs (organisatie-onderdelen)",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Tijdschriftaflevering",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Tijdschriftaflevering",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Tijdschriften",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publicaties",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Organisatie-onderdelen",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Onderzoeksprojecten",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Auteurs",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organisatie-onderdelen",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Onderzoeksprojecten",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publicaties",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publicaties",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Auteurs",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Artikelen",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organisatie-onderdelen",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Tijdschrift",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisatie Publicaties",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Tijdschriftjaargang",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Auteurs",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Tijdschriftjaargangen",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Onderzoeksprojecten",
 
-  // "relationships.isContributorOf": "Contributors",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf": "Contributors",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Geschreven Publicaties",
+
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Tijdschriftjaargang",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publicaties",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Tijdschriften",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Tijdschriftaflevering",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Tijdschriftjaargangen",
 
 
 
