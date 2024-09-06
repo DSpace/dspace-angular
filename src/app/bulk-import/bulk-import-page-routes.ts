@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { BulkImportGuard } from './bulk-import.guard';
+import { bulkImportGuard } from './bulk-import.guard';
 import { BulkImportPageComponent } from './bulk-import-page.component';
 import { BulkImportPageResolver } from './bulk-import-page.resolver';
 
@@ -18,7 +18,7 @@ export const ROUTES: Route[] = [
     },
     pathMatch: 'full',
     data: { title: 'bulk-import.title', breadcrumbKey: 'bulk-import' },
-    canActivate: [BulkImportGuard],
+    canActivate: [bulkImportGuard],
     providers: [BulkImportPageResolver],
   },
 ];
