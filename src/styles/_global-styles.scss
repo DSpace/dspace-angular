@@ -271,3 +271,11 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
 .btn {
   --bs-btn-box-shadow: none;
 }
+
+/* form-check-input Changed from Bootstrap 5's form-check-input to ensure that we keep the default checkboxes */
+.form-check-input {
+  border-color: unset;
+}
+.form-check-input.form-check-input {
+  appearance: auto; /* Reset to browser's default appearance */
+}
