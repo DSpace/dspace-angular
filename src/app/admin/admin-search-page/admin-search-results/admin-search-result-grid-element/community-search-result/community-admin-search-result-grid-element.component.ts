@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
@@ -21,10 +24,10 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
 /**
  * The component for displaying a list element for a community search result on the admin search page
  */
-export class CommunityAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<CommunitySearchResult, Community> {
+export class CommunityAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<CommunitySearchResult, Community> implements OnInit {
   editPath: string;
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.editPath = getCommunityEditRoute(this.dso.uuid);
   }
