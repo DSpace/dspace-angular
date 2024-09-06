@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 
 import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { communityAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
-import { EditCommunityResolver } from '../../core/shared/resolvers/edit-community.resolver';
+import { editCommunityResolver } from '../../core/shared/resolvers/edit-community.resolver';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
@@ -23,7 +23,7 @@ export const ROUTES: Route[] = [
     path: '',
     resolve: {
       breadcrumb: i18nBreadcrumbResolver,
-      dso: EditCommunityResolver,
+      dso: editCommunityResolver,
     },
     data: { breadcrumbKey: 'community.edit' },
     component: EditCommunityPageComponent,

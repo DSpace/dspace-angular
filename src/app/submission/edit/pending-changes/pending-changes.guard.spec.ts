@@ -4,17 +4,18 @@ import {
 } from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { cold } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
 import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
-import { PendingChangesGuard } from './pending-changes.guard';
+import { pendingChangesGuard } from './pending-changes.guard';
 import SpyObj = jasmine.SpyObj;
 
-describe('PendingChangesGuard', () => {
+describe('pendingChangesGuard', () => {
 
-  let guard: PendingChangesGuard;
   let modalService: SpyObj<NgbModal>;
-  let canDeactivateService: SubmissionEditCanDeactivateService;
 
   const modalStub: any = {
     componentInstance: {
@@ -42,14 +43,12 @@ describe('PendingChangesGuard', () => {
         { provide: SubmissionEditCanDeactivateService, useValue: canDeactivateServiceSpy },
       ],
     });
-    guard = TestBed.inject(PendingChangesGuard);
     modalService = TestBed.inject(NgbModal) as SpyObj<NgbModal>;
-    canDeactivateService = TestBed.inject(SubmissionEditCanDeactivateService);
     modalService.open.and.returnValue(modalStub);
   }));
 
   it('should be created', () => {
-    expect(guard).toBeTruthy();
+    expect(pendingChangesGuard).toBeTruthy();
   });
 
   describe('when there are unsaved changes', () => {
@@ -57,10 +56,12 @@ describe('PendingChangesGuard', () => {
       canDeactivateServiceSpy.canDeactivate.and.returnValue(of(false));
     });
     it('should open confirmation modal', () => {
-      guard.canDeactivate().subscribe(() => {
+      const result$ = TestBed.runInInjectionContext(() => {
+        return pendingChangesGuard({ params: { id: 'test-id' } } as any, null, null, null);
+      }) as Observable<boolean>;
+      result$.subscribe(() => {
         expect(modalService.open).toHaveBeenCalled();
       });
-
     });
   });
 
@@ -69,11 +70,13 @@ describe('PendingChangesGuard', () => {
       canDeactivateServiceSpy.canDeactivate.and.returnValue(of(true));
     });
     it('should allow navigation', () => {
-      const result = guard.canDeactivate();
-      const expected = cold('(a|)', {
-        a: true,
+      TestBed.runInInjectionContext(() => {
+        const result = pendingChangesGuard({ params: { id: 'test-id' } } as any, null, null, null);
+        const expected = cold('(a|)', {
+          a: true,
+        });
+        expect(result).toBeObservable(expected);
       });
-      expect(result).toBeObservable(expected);
     });
   });
 });

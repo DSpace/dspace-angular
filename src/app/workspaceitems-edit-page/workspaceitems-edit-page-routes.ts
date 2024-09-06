@@ -5,7 +5,7 @@ import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { itemFromWorkspaceResolver } from './item-from-workspace.resolver';
-import { ItemFromWorkspaceBreadcrumbResolver } from './item-from-workspace-breadcrumb.resolver';
+import { itemFromWorkspaceBreadcrumbResolver } from './item-from-workspace-breadcrumb.resolver';
 import { workspaceItemPageResolver } from './workspace-item-page.resolver';
 import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
 
@@ -17,7 +17,7 @@ export const ROUTES: Route[] = [
   {
     path: ':id',
     resolve: {
-      breadcrumb: ItemFromWorkspaceBreadcrumbResolver,
+      breadcrumb: itemFromWorkspaceBreadcrumbResolver,
       wsi: workspaceItemPageResolver,
     },
     children: [
