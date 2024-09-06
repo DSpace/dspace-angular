@@ -5,6 +5,7 @@
         </button>
     </div>
     <div class="modal-body">
+      <div data-test="admin-div" *ngIf="(isAdmin$ | async)">
         <button class="btn btn-outline-primary btn-lg btn-block" (click)="selectObject(undefined)">{{'dso-selector.create.community.top-level' | translate}}</button>
         <div class="h3 position-relative py-1 my-3 font-weight-normal">
             <hr>
@@ -12,7 +13,7 @@
                 <span class="px-4 bg-white">{{'dso-selector.create.community.or-divider' | translate}}</span>
             </div>
         </div>
-
+      </div>
         <span class="h5 px-2">{{'dso-selector.create.community.sub-level' | translate}}</span>
         <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)"></ds-dso-selector>
     </div>
