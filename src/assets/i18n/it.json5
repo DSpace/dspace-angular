@@ -3538,6 +3538,22 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "Riduci",
 
+  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+
+  // "item.qa-event-notification-info.check.button": "View",
+  // TODO New key - Add a translation
+  "item.qa-event-notification-info.check.button": "View",
+
+  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+
+  // "mydspace.qa-event-notification-info.check.button": "View",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification-info.check.button": "View",
+
   // "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
   "workflow-item.search.result.delete-supervision.modal.header": "Elimina l'ordine di supervisione",
 
@@ -3873,7 +3889,6 @@
   "item.version.create.notification.failure": "Non è stata creata una nuova versione",
 
   // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
-  // TODO Source message changed - Revise the translation
   "item.version.create.notification.inProgress": "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
 
 
@@ -6067,8 +6082,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite",

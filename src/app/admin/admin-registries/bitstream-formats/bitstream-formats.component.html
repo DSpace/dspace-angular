@@ -34,7 +34,7 @@
                          [checked]="isSelected(bitstreamFormat) | async"
                          (change)="selectBitStreamFormat(bitstreamFormat, $event)"
                   >
-                  <span class="sr-only">{{'admin.registries.bitstream-formats.select' | translate}}}</span>
+                  <span class="sr-only">{{'admin.registries.bitstream-formats.select' | translate}}&#125;</span>
                 </label>
               </td>
               <td><a [routerLink]="['/admin/registries/bitstream-formats', bitstreamFormat.id, 'edit']">{{bitstreamFormat.id}}</a></td>
@@ -46,7 +46,7 @@
           </table>
         </div>
       </ds-pagination>
-      <div *ngIf="(bitstreamFormats | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
+      <div *ngIf="(bitstreamFormats | async)?.payload?.totalElements === 0" class="alert alert-info" role="alert">
         {{'admin.registries.bitstream-formats.no-items' | translate}}
       </div>
 

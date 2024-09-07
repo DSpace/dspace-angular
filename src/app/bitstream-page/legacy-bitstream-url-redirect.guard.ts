@@ -20,9 +20,10 @@ import { hasNoValue } from '../shared/empty.util';
 /**
  * Redirects to a bitstream based on the handle of the item, and the sequence id or the filename of the
  * bitstream. In production mode the status code will also be set the status code to 301 marking it as a permanent URL
- * redirect for bots.
+ * redirect for bots to the regular bitstream download Page.
  *
- * @returns Observable<UrlTree> Returns a URL to redirect the user to the new URL format
+ * @returns Either a {@link UrlTree} to the 404 page when the url isn't a valid format or false in order to make the
+ * user wait until the {@link HardRedirectService#redirect} was performed
  */
 export const legacyBitstreamURLRedirectGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -30,7 +31,7 @@ export const legacyBitstreamURLRedirectGuard: CanActivateFn = (
   bitstreamDataService: BitstreamDataService = inject(BitstreamDataService),
   serverHardRedirectService: HardRedirectService = inject(HardRedirectService),
   router: Router = inject(Router),
-): Observable<UrlTree | boolean> => {
+): Observable<UrlTree | false> => {
   const prefix = route.params.prefix;
   const suffix = route.params.suffix;
   const filename = route.params.filename;
@@ -51,6 +52,6 @@ export const legacyBitstreamURLRedirectGuard: CanActivateFn = (
       } else {
         return router.createUrlTree([PAGE_NOT_FOUND_PATH]);
       }
-    })
+    }),
   );
 };

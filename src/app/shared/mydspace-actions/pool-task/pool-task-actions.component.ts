@@ -1,23 +1,41 @@
-import { Component, Injector, Input, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
-import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestService } from '../../../core/data/request.service';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { Item } from '../../../core/shared/item.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';
+import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
+import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';
 
 /**
  * This component represents mydspace actions related to PoolTask object.
@@ -26,6 +44,8 @@ import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workf
   selector: 'ds-pool-task-actions',
   styleUrls: ['./pool-task-actions.component.scss'],
   templateUrl: './pool-task-actions.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, NgIf, RouterLink, AsyncPipe, TranslateModule],
 })
 export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent<PoolTask, PoolTaskDataService> implements OnDestroy {
 

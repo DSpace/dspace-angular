@@ -1,24 +1,35 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ClaimedTaskActionsApproveComponent } from './claimed-task-actions-approve.component';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { RequestService } from '../../../../core/data/request.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { WorkflowItemDataService } from '../../../../core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { getMockRequestService } from '../../../mocks/request.service.mock';
+import { getMockSearchService } from '../../../mocks/search-service.mock';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { WorkflowItemDataService } from '../../../../core/submission/workflowitem-data.service';
+import { ClaimedTaskActionsApproveComponent } from './claimed-task-actions-approve.component';
 
 let component: ClaimedTaskActionsApproveComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsApproveComponent>;
@@ -33,7 +44,7 @@ let mockWorkflowItemDataService: WorkflowItemDataService;
 describe('ClaimedTaskActionsApproveComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    submitTask: observableOf(new ProcessTaskResponse(true))
+    submitTask: observableOf(new ProcessTaskResponse(true)),
   });
 
   beforeEach(waitForAsync(() => {
@@ -50,6 +61,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ClaimedTaskActionsApproveComponent,
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
@@ -61,10 +73,9 @@ describe('ClaimedTaskActionsApproveComponent', () => {
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
         { provide: WorkflowItemDataService, useValue: mockWorkflowItemDataService },
       ],
-      declarations: [ClaimedTaskActionsApproveComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsApproveComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -99,7 +110,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
       spyOn(component, 'startActionExecution').and.returnValue(observableOf(null));
 
       expectedBody = {
-        [component.option]: 'true'
+        [component.option]: 'true',
       };
 
       component.submitTask();
@@ -116,7 +127,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
     it('should call claimedTaskService\'s submitTask', (done) => {
 
       const expectedBody = {
-        [component.option]: 'true'
+        [component.option]: 'true',
       };
 
       component.actionExecution().subscribe(() => {

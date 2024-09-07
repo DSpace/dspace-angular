@@ -1,31 +1,49 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { Item } from '../../../core/shared/item.model';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { of as observableOf, EMPTY } from 'rxjs';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ItemDeleteComponent } from './item-delete.component';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { VarDirective } from '../../../shared/utils/var.directive';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  EMPTY,
+  of as observableOf,
+} from 'rxjs';
+
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { getItemEditRoute } from '../../item-page-routing-paths';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
+import { Item } from '../../../core/shared/item.model';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { getItemEditRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
+import { ItemDeleteComponent } from './item-delete.component';
 
 let comp: ItemDeleteComponent;
 let fixture: ComponentFixture<ItemDeleteComponent>;
@@ -58,9 +76,9 @@ describe('ItemDeleteComponent', () => {
       isWithdrawn: true,
       metadata: {
         'dspace.entity.type': [
-          { value: 'Person' }
-        ]
-      }
+          { value: 'Person' },
+        ],
+      },
     });
 
     itemType = Object.assign(new ItemType(), {
@@ -99,17 +117,17 @@ describe('ItemDeleteComponent', () => {
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}/edit`
+      url: `${itemPageUrl}/edit`,
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      delete: createSuccessfulRemoteDataObject$({})
+      delete: createSuccessfulRemoteDataObject$({}),
     });
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject(mockItem)
-      })
+        dso: createSuccessfulRemoteDataObject(mockItem),
+      }),
     };
 
     typesSelection = {
@@ -121,7 +139,7 @@ describe('ItemDeleteComponent', () => {
       {
         getEntityTypeByLabel: createSuccessfulRemoteDataObject$(itemType),
         getEntityTypeRelationships: createSuccessfulRemoteDataObject$(createPaginatedList(types)),
-      }
+      },
     );
 
     objectUpdatesServiceStub = {
@@ -134,20 +152,19 @@ describe('ItemDeleteComponent', () => {
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
         getItemRelationshipsArray: observableOf(relationships),
-      }
+      },
     );
 
     linkService = jasmine.createSpyObj('linkService',
       {
         resolveLinks: relationships[0],
-      }
+      },
     );
 
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemDeleteComponent, VarDirective],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemDeleteComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
@@ -158,10 +175,15 @@ describe('ItemDeleteComponent', () => {
         { provide: EntityTypeDataService, useValue: entityTypeService },
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
-    }).compileComponents();
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
+    })
+      .overrideComponent(ItemDeleteComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent, ModifyItemOverviewComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -210,7 +232,7 @@ describe('ItemDeleteComponent', () => {
         (comp as any).entityTypeService = jasmine.createSpyObj('entityTypeService',
           {
             getEntityTypeByLabel: EMPTY,
-          }
+          },
         );
       });
 

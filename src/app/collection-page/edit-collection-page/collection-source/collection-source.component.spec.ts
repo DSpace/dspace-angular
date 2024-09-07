@@ -1,25 +1,51 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CollectionSourceComponent } from './collection-source.component';
-import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+} from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
+import { RequestService } from '../../../core/data/request.service';
+import { Collection } from '../../../core/shared/collection.model';
+import {
+  ContentSource,
+  ContentSourceHarvestType,
+} from '../../../core/shared/content-source.model';
+import { hasValue } from '../../../shared/empty.util';
+import { FormComponent } from '../../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import {
+  INotification,
+  Notification,
+} from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
-import { hasValue } from '../../../shared/empty.util';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { By } from '@angular/platform-browser';
-import { Collection } from '../../../core/shared/collection.model';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { CollectionSourceComponent } from './collection-source.component';
+import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -50,29 +76,29 @@ describe('CollectionSourceComponent', () => {
         {
           id: 'dc',
           label: 'Simple Dublin Core',
-          nameSpace: 'http://www.openarchives.org/OAI/2.0/oai_dc/'
+          nameSpace: 'http://www.openarchives.org/OAI/2.0/oai_dc/',
         },
         {
           id: 'qdc',
           label: 'Qualified Dublin Core',
-          nameSpace: 'http://purl.org/dc/terms/'
+          nameSpace: 'http://purl.org/dc/terms/',
         },
         {
           id: 'dim',
           label: 'DSpace Intermediate Metadata',
-          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim'
-        }
+          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim',
+        },
       ],
-      _links: { self: { href: 'contentsource-selflink' } }
+      _links: { self: { href: 'contentsource-selflink' } },
     });
     fieldUpdate = {
       field: contentSource,
-      changeType: undefined
+      changeType: undefined,
     };
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         getFieldUpdates: observableOf({
-          [contentSource.uuid]: fieldUpdate
+          [contentSource.uuid]: fieldUpdate,
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
@@ -82,15 +108,15 @@ describe('CollectionSourceComponent', () => {
         getLastModified: observableOf(date),
         hasUpdates: observableOf(true),
         isReinstatable: observableOf(false),
-        isValidPage: observableOf(true)
-      }
+        isValidPage: observableOf(true),
+      },
     );
     notificationsService = jasmine.createSpyObj('notificationsService',
       {
         info: infoNotification,
         warning: warningNotification,
-        success: successNotification
-      }
+        success: successNotification,
+      },
     );
     location = jasmine.createSpyObj('location', ['back']);
     formService = Object.assign({
@@ -103,24 +129,23 @@ describe('CollectionSourceComponent', () => {
           return new UntypedFormGroup(controls);
         }
         return undefined;
-      }
+      },
     });
     router = Object.assign(new RouterStub(), {
-      url: 'http://test-url.com/test-url'
+      url: 'http://test-url.com/test-url',
     });
     collection = Object.assign(new Collection(), {
-      uuid: 'fake-collection-id'
+      uuid: 'fake-collection-id',
     });
     collectionService = jasmine.createSpyObj('collectionService', {
       getContentSource: createSuccessfulRemoteDataObject$(contentSource),
       updateContentSource: observableOf(contentSource),
-      getHarvesterEndpoint: observableOf('harvester-endpoint')
+      getHarvesterEndpoint: observableOf('harvester-endpoint'),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [CollectionSourceComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, CollectionSourceComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
@@ -129,10 +154,18 @@ describe('CollectionSourceComponent', () => {
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: Router, useValue: router },
         { provide: CollectionDataService, useValue: collectionService },
-        { provide: RequestService, useValue: requestService }
+        { provide: RequestService, useValue: requestService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(CollectionSourceComponent, {
+        remove: { imports: [
+          ThemedLoadingComponent,
+          FormComponent,
+          CollectionSourceControlsComponent,
+        ] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

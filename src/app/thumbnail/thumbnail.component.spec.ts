@@ -1,20 +1,37 @@
-import { DebugElement, Pipe, PipeTransform } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ThumbnailComponent } from './thumbnail.component';
-import { RemoteData } from '../core/data/remote-data';
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { AuthService } from '../core/auth/auth.service';
-import { FileService } from '../core/shared/file.service';
-import { VarDirective } from '../shared/utils/var.directive';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { RemoteData } from '../core/data/remote-data';
+import { Bitstream } from '../core/shared/bitstream.model';
+import { FileService } from '../core/shared/file.service';
+import { getMockThemeService } from '../shared/mocks/theme-service.mock';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../shared/remote-data.utils';
+import { ThemeService } from '../shared/theme-support/theme.service';
+import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
+import { VarDirective } from '../shared/utils/var.directive';
+import { ThumbnailComponent } from './thumbnail.component';
 
-// eslint-disable-next-line @angular-eslint/pipe-prefix
-@Pipe({ name: 'translate' })
+@Pipe({
+  // eslint-disable-next-line @angular-eslint/pipe-prefix
+  name: 'translate',
+  standalone: true,
+})
 class MockTranslatePipe implements PipeTransform {
   transform(key: string): string {
     return 'TRANSLATED ' + key;
@@ -40,18 +57,30 @@ describe('ThumbnailComponent', () => {
       isAuthorized: observableOf(true),
     });
     fileService = jasmine.createSpyObj('FileService', {
-      retrieveFileDownloadLink: null
+      retrieveFileDownloadLink: null,
     });
     fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
 
     TestBed.configureTestingModule({
-      declarations: [ThumbnailComponent, SafeUrlPipe, MockTranslatePipe, VarDirective],
+      imports: [
+        TranslateModule.forRoot(),
+        ThumbnailComponent,
+        SafeUrlPipe,
+        MockTranslatePipe,
+        VarDirective,
+      ],
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: FileService, useValue: fileService }
-      ]
-    }).compileComponents();
+        { provide: FileService, useValue: fileService },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
+    }).overrideComponent(ThumbnailComponent, {
+      add: {
+        imports: [MockTranslatePipe],
+      },
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -82,11 +111,11 @@ describe('ThumbnailComponent', () => {
     });
 
     it('should show a loading animation while isLoading$ is true', () => {
-      expect(de.query(By.css('ds-themed-loading'))).toBeTruthy();
+      expect(de.query(By.css('ds-loading'))).toBeTruthy();
 
       comp.isLoading$.next(false);
       fixture.detectChanges();
-      expect(fixture.debugElement.query(By.css('ds-themed-loading'))).toBeFalsy();
+      expect(fixture.debugElement.query(By.css('ds-loading'))).toBeFalsy();
     });
 
     describe('with a thumbnail image', () => {
@@ -290,7 +319,7 @@ describe('ThumbnailComponent', () => {
         bundle: { href: 'bundle.url' },
         format: { href: 'format.url' },
         content: { href: CONTENT },
-        thumbnail: undefined
+        thumbnail: undefined,
       };
     });
 

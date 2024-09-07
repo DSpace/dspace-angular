@@ -1,9 +1,10 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
+import { DsDynamicTextAreaModel } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { TextareaFieldParser } from './textarea-field-parser';
-import { DsDynamicTextAreaModel } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { ParserOptions } from './parser-options';
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+import { TextareaFieldParser } from './textarea-field-parser';
 
 describe('TextareaFieldParser test suite', () => {
   let field: FormFieldModel;
@@ -15,13 +16,13 @@ describe('TextareaFieldParser test suite', () => {
     readOnly: false,
     submissionScope: null,
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'textarea'
+        type: 'textarea',
       },
       label: 'Description',
       mandatory: 'false',
@@ -29,10 +30,10 @@ describe('TextareaFieldParser test suite', () => {
       hints: 'Enter a description.',
       selectableMetadata: [
         {
-          metadata: 'description'
-        }
+          metadata: 'description',
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });

@@ -1,29 +1,33 @@
-import { ItemSelectComponent } from './item-select.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Item } from '../../../core/shared/item.model';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../shared.module';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { ObjectSelectService } from '../object-select.service';
-import { HostWindowService } from '../../host-window.service';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { LinkHeadService } from '../../../core/services/link-head.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { LinkHeadService } from '../../../core/services/link-head.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { Item } from '../../../core/shared/item.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { HostWindowService } from '../../host-window.service';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
+import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../testing/utils.test';
+import { ObjectSelectService } from '../object-select.service';
+import { ItemSelectComponent } from './item-select.component';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
@@ -39,14 +43,14 @@ describe('ItemSelectComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'This is just a title'
+          value: 'This is just a title',
         },
         {
           key: 'dc.type',
           language: null,
-          value: 'Article'
+          value: 'Article',
         }],
-      _links: { self: { href: 'selfId1' } }
+      _links: { self: { href: 'selfId1' } },
     }),
     Object.assign(new Item(), {
       id: 'id2',
@@ -55,21 +59,21 @@ describe('ItemSelectComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'This is just another title'
+          value: 'This is just another title',
         },
         {
           key: 'dc.type',
           language: null,
-          value: 'Article'
+          value: 'Article',
         }],
-      _links: { self: { href: 'selfId2' } }
-    })
+      _links: { self: { href: 'selfId2' } },
+    }),
   ];
   const mockItems = createSuccessfulRemoteDataObject$(createPaginatedList(mockItemList));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   paginationService = new PaginationServiceStub(mockPaginationOptions);
@@ -77,7 +81,7 @@ describe('ItemSelectComponent', () => {
   const authorizationDataService = new AuthorizationDataService(null, null, null, null, null);
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-    addTag: ''
+    addTag: '',
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -90,15 +94,14 @@ describe('ItemSelectComponent', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
-      declarations: [],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -109,7 +112,7 @@ describe('ItemSelectComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

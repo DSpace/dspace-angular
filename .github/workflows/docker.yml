@@ -4,7 +4,7 @@ name: Docker images
 # Run this Build for all pushes to 'main' or maintenance branches, or tagged releases.
 # Also run for PRs to ensure PR doesn't break Docker build process
 # NOTE: uses "reusable-docker-build.yml" in DSpace/DSpace to actually build each of the Docker images
-# https://github.com/DSpace/DSpace/blob/dspace-7_x/.github/workflows/reusable-docker-build.yml
+# https://github.com/DSpace/DSpace/blob/main/.github/workflows/reusable-docker-build.yml
 # 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
     # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
     if: github.repository == 'dspace/dspace-angular'
     # Use the reusable-docker-build.yml script from DSpace/DSpace repo to build our Docker image
-    uses: DSpace/DSpace/.github/workflows/reusable-docker-build.yml@dspace-7_x
+    uses: DSpace/DSpace/.github/workflows/reusable-docker-build.yml@main
     with:
       build_id: dspace-angular-dev
       image_name: dspace/dspace-angular
@@ -42,7 +42,7 @@ jobs:
     # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
     if: github.repository == 'dspace/dspace-angular'
     # Use the reusable-docker-build.yml script from DSpace/DSpace repo to build our Docker image
-    uses: DSpace/DSpace/.github/workflows/reusable-docker-build.yml@dspace-7_x
+    uses: DSpace/DSpace/.github/workflows/reusable-docker-build.yml@main
     with:
       build_id: dspace-angular-dist
       image_name: dspace/dspace-angular

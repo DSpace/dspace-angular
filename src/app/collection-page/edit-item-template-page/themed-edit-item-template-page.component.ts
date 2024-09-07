@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { EditItemTemplatePageComponent } from './edit-item-template-page.component';
 
 @Component({
-  selector: 'ds-themed-edit-item-template-page',
+  selector: 'ds-edit-item-template-page',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [EditItemTemplatePageComponent],
 })
 /**
  * Component for editing the item template of a collection

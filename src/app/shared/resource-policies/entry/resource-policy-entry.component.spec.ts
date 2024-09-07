@@ -6,23 +6,30 @@
  * http://www.dspace.org/license/
  */
 
-import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { GroupMock } from '../../testing/group-mock';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { EPersonMock } from '../../testing/eperson.mock';
-import { ResourcePolicyEntryComponent } from './resource-policy-entry.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { cold } from 'jasmine-marbles';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { ActionType } from '../../../core/resource-policy/models/action-type.model';
+import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
+import { Item } from '../../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { EPersonMock } from '../../testing/eperson.mock';
+import { GroupMock } from '../../testing/group-mock';
+import { RouterStub } from '../../testing/router.stub';
+import { ResourcePolicyEntryComponent } from './resource-policy-entry.component';
 import createSpyObj = jasmine.createSpyObj;
 
 const groupRP: any = {
@@ -37,17 +44,17 @@ const groupRP: any = {
   uuid: 'resource-policy-1',
   _links: {
     eperson: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1/eperson'
+      href: 'https://rest.api/rest/api/resourcepolicies/1/eperson',
     },
     group: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1/group'
+      href: 'https://rest.api/rest/api/resourcepolicies/1/group',
     },
     self: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1'
+      href: 'https://rest.api/rest/api/resourcepolicies/1',
     },
   },
   eperson: observableOf(createSuccessfulRemoteDataObject(undefined)),
-  group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+  group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
 };
 
 const epersonRP: any = {
@@ -62,24 +69,24 @@ const epersonRP: any = {
   uuid: 'resource-policy-1',
   _links: {
     eperson: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1/eperson'
+      href: 'https://rest.api/rest/api/resourcepolicies/1/eperson',
     },
     group: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1/group'
+      href: 'https://rest.api/rest/api/resourcepolicies/1/group',
     },
     self: {
-      href: 'https://rest.api/rest/api/resourcepolicies/1'
+      href: 'https://rest.api/rest/api/resourcepolicies/1',
     },
   },
   eperson: observableOf(createSuccessfulRemoteDataObject(EPersonMock)),
-  group: observableOf(createSuccessfulRemoteDataObject(undefined))
+  group: observableOf(createSuccessfulRemoteDataObject(undefined)),
 };
 
 const item = Object.assign(new Item(), {
   uuid: 'itemUUID',
   id: 'itemUUID',
   _links: {
-    self: { href: 'item-selflink' }
+    self: { href: 'item-selflink' },
   },
 });
 
@@ -99,38 +106,33 @@ describe('ResourcePolicyEntryComponent', () => {
 
   beforeEach(() => {
     dsoNameService = createSpyObj('dsoNameMock', {
-      getName: 'NAME'
+      getName: 'NAME',
     });
     groupService = jasmine.createSpyObj('groupService', {
       findByHref: jasmine.createSpy('findByHref'),
     });
     routeStub = {
       data: observableOf({
-        item: createSuccessfulRemoteDataObject(item)
-      })
+        item: createSuccessfulRemoteDataObject(item),
+      }),
     };
     routerStub = Object.assign(new RouterStub(), {
-      url: `url/edit`
+      url: `url/edit`,
     });
 
 
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         ResourcePolicyEntryComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: GroupDataService, useValue: groupService },
-        { provide: DSONameService, useValue: dsoNameService }
+        { provide: DSONameService, useValue: dsoNameService },
       ],
-      // schemas: [
-      //   NO_ERRORS_SCHEMA
-      // ]
     }).compileComponents();
   });
 

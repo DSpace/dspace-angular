@@ -1,16 +1,33 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { EntityDropdownComponent } from './entity-dropdown.component';
-import { getTestScheduler } from 'jasmine-marbles';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { TestScheduler } from 'rxjs/testing';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createPaginatedList } from '../testing/utils.test';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TestScheduler } from 'rxjs/testing';
 
-// eslint-disable-next-line @angular-eslint/pipe-prefix
-@Pipe({ name: 'translate' })
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createPaginatedList } from '../testing/utils.test';
+import { EntityDropdownComponent } from './entity-dropdown.component';
+
+@Pipe({
+  // eslint-disable-next-line @angular-eslint/pipe-prefix
+  name: 'translate',
+  standalone: true,
+})
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
     return value;
@@ -21,36 +38,36 @@ const entities: ItemType[] = [
   Object.assign(new ItemType(), {
     id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     label: 'Entity_1',
-    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
+    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
   }),
   Object.assign(new ItemType(), {
     id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
     label: 'Entity_2',
-    uuid: 'UUID-59ee713b-ee53-4220-8c3f-9860dc84fe33'
+    uuid: 'UUID-59ee713b-ee53-4220-8c3f-9860dc84fe33',
   }),
   Object.assign(new ItemType(), {
     id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
     label: 'Entity_3',
-    uuid: 'UUID-7127-415f-8919-55be34a6e9ed'
+    uuid: 'UUID-7127-415f-8919-55be34a6e9ed',
   }),
   Object.assign(new ItemType(), {
     id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
     label: 'Entity_4',
-    uuid: 'UUID-59da2ff0-9bf4-45bf-88be-e35abd33f304'
+    uuid: 'UUID-59da2ff0-9bf4-45bf-88be-e35abd33f304',
   }),
   Object.assign(new ItemType(), {
     id: 'a5159760-f362-4659-9e81-e3253ad91ede',
     label: 'Entity_5',
-    uuid: 'UUID-a5159760-f362-4659-9e81-e3253ad91ede'
+    uuid: 'UUID-a5159760-f362-4659-9e81-e3253ad91ede',
   }),
 ];
 
 const listElementMock: ItemType = Object.assign(
   new ItemType(), {
-  id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
-  label: 'Entity_1',
-  uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
-}
+    id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+    label: 'Entity_1',
+    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+  },
 );
 
 describe('EntityDropdownComponent', () => {
@@ -61,7 +78,7 @@ describe('EntityDropdownComponent', () => {
 
   const entityTypeServiceMock: any = jasmine.createSpyObj('EntityTypeService', {
     getAllAuthorizedRelationshipType: jasmine.createSpy('getAllAuthorizedRelationshipType'),
-    getAllAuthorizedRelationshipTypeImport: jasmine.createSpy('getAllAuthorizedRelationshipTypeImport')
+    getAllAuthorizedRelationshipTypeImport: jasmine.createSpy('getAllAuthorizedRelationshipTypeImport'),
   });
 
 
@@ -72,14 +89,25 @@ describe('EntityDropdownComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [EntityDropdownComponent, MockTranslatePipe],
+      imports: [
+        EntityDropdownComponent,
+        MockTranslatePipe,
+        InfiniteScrollModule,
+        ThemedLoadingComponent,
+        AsyncPipe,
+        TranslateModule.forRoot(),
+      ],
       providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
-        ChangeDetectorRef
+        ChangeDetectorRef,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(EntityDropdownComponent, {
+        add: {
+          imports: [MockTranslatePipe],
+        },
+      })
       .compileComponents();
   }));
 

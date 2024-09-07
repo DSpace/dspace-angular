@@ -10,7 +10,7 @@
     </div>
 
     <a
-        *ngIf="!(isLoading$ | async) && (hasMore$ | async)"
+        *ngIf="(isLoading$ | async) !== true && (hasMore$ | async)"
         (click)="$event.preventDefault(); handleLoadMore()"
         class="load-more-btn btn btn-sm btn-outline-secondary"
         role="button"

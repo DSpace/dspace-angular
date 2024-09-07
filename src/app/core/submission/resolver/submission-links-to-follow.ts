@@ -1,4 +1,7 @@
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
 import { WorkflowItem } from '../models/workflowitem.model';
 import { WorkspaceItem } from '../models/workspaceitem.model';
 

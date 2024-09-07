@@ -14,7 +14,7 @@ import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect
 describe('legacyBitstreamURLRedirectGuard', () => {
   let resolver: any;
   let bitstreamDataService: BitstreamDataService;
-  let remoteDataMocks: { [type: string]: RemoteData<any> };
+  let remoteDataMocks: { [type: string]: RemoteData<Bitstream> };
   let route;
   let state;
   let hardRedirectService: HardRedirectService;
@@ -25,7 +25,7 @@ describe('legacyBitstreamURLRedirectGuard', () => {
   beforeEach(() => {
     route = {
       params: {},
-      queryParams: {}
+      queryParams: {},
     };
     router = new RouterStub();
     hardRedirectService = new BrowserHardRedirectService(window.location);
@@ -41,7 +41,7 @@ describe('legacyBitstreamURLRedirectGuard', () => {
       Error: new RemoteData(0, 0, 0, RequestEntryState.Error, 'Internal server error', undefined, 500),
     };
     bitstreamDataService = {
-      findByItemHandle: () => undefined
+      findByItemHandle: () => undefined,
     } as any;
     resolver = legacyBitstreamURLRedirectGuard;
   });
@@ -55,8 +55,8 @@ describe('legacyBitstreamURLRedirectGuard', () => {
             prefix: '123456789',
             suffix: '1234',
             filename: 'some-file.pdf',
-            sequence_id: '5'
-          }
+            sequence_id: '5',
+          },
         });
       });
       it(`should call findByItemHandle with the handle, sequence id, and filename from the route`, () => {
@@ -64,7 +64,7 @@ describe('legacyBitstreamURLRedirectGuard', () => {
         expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
           `${route.params.prefix}/${route.params.suffix}`,
           route.params.sequence_id,
-          route.params.filename
+          route.params.filename,
         );
       });
     });
@@ -80,8 +80,8 @@ describe('legacyBitstreamURLRedirectGuard', () => {
               filename: 'some-file.pdf',
             },
             queryParams: {
-              sequenceId: '5'
-            }
+              sequenceId: '5',
+            },
           });
         });
         it(`should call findByItemHandle with the handle and filename from the route, and the sequence ID from the queryParams`, () => {
@@ -89,7 +89,7 @@ describe('legacyBitstreamURLRedirectGuard', () => {
           expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
             `${route.params.prefix}/${route.params.suffix}`,
             route.queryParams.sequenceId,
-            route.params.filename
+            route.params.filename,
           );
         });
       });
@@ -109,7 +109,7 @@ describe('legacyBitstreamURLRedirectGuard', () => {
           expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
             `${route.params.prefix}/${route.params.suffix}`,
             undefined,
-            route.params.filename
+            route.params.filename,
           );
         });
       });

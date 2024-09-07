@@ -1,12 +1,19 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
 import { Community } from '../../../../core/shared/community.model';
-import { SharedModule } from '../../../shared.module';
-import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { EditComColPageComponent } from './edit-comcol-page.component';
 
@@ -24,37 +31,37 @@ describe('EditComColPageComponent', () => {
       uuid: 'a20da287-e174-466a-9926-f66b9300d347',
       metadata: [{
         key: 'dc.title',
-        value: 'test community'
-      }]
+        value: 'test community',
+      }],
     });
 
     routerStub = {
       navigate: (commands) => commands,
       events: observableOf({}),
-      url: 'mockUrl'
+      url: 'mockUrl',
     };
 
     routeStub = {
       data: observableOf({
-        dso: community
+        dso: community,
       }),
       routeConfig: {
         children: [
           {
             path: 'mockUrl',
             data: {
-              hideReturnButton: false
-            }
-          }
-        ]
+              hideReturnButton: false,
+            },
+          },
+        ],
       },
       snapshot: {
         firstChild: {
           routeConfig: {
-            path: 'mockUrl'
-          }
-        }
-      }
+            path: 'mockUrl',
+          },
+        },
+      },
     };
 
   }
@@ -62,12 +69,12 @@ describe('EditComColPageComponent', () => {
   beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule],
       providers: [
         { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

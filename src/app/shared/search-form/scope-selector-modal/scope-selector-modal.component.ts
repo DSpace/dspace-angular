@@ -1,11 +1,24 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../../dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { environment } from '../../../../environments/environment';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType,
+} from '../../dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 
 /**
  * Component to wrap a button - to select the entire repository -
@@ -17,6 +30,8 @@ import { environment } from '../../../../environments/environment';
   selector: 'ds-scope-selector-modal',
   styleUrls: ['./scope-selector-modal.component.scss'],
   templateUrl: './scope-selector-modal.component.html',
+  standalone: true,
+  imports: [DSOSelectorComponent, TranslateModule],
 })
 export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;
