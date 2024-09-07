@@ -527,7 +527,7 @@ Frequently asked questions
 -	What are the naming conventions for Angular?
 	-	See [the official angular style guide](https://angular.io/styleguide)
 -	Why is the size of my app larger in development?
-	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the intrest of build speed.
+	-	The production build uses a whole host of techniques (ahead-of-time compilation, rollup to remove unreachable code, minification, etc.) to reduce the size, that aren't used during development in the interest of build speed.
 -	node-pre-gyp ERR in npm install (Windows)
 	-	install Python x86 version between 2.5 and 3.0 on windows. See [this issue](https://github.com/AngularClass/angular2-webpack-starter/issues/626)
 -	How do I handle merge conflicts in package-lock.json?
