@@ -32,7 +32,6 @@ import {
 } from 'rxjs';
 import {
   debounceTime,
-  distinctUntilChanged,
   map,
   startWith,
   switchMap,
@@ -51,26 +50,19 @@ import {
   getFirstCompletedRemoteData,
   metadataFieldsToString,
 } from '../../../core/shared/operators';
-import { Observable } from 'rxjs/internal/Observable';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { UntypedFormControl } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { hasValue } from '../../../shared/empty.util';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { of } from 'rxjs';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { ThemedLoadingComponent } from "../../../shared/loading/themed-loading.component";
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
   selector: 'ds-metadata-field-selector',
   styleUrls: ['./metadata-field-selector.component.scss'],
   templateUrl: './metadata-field-selector.component.html',
   standalone: true,
-  imports: [FormsModule, NgClass, ReactiveFormsModule, ClickOutsideDirective, NgIf, NgFor, AsyncPipe, TranslateModule],
+  imports: [FormsModule, NgClass, ReactiveFormsModule, ClickOutsideDirective, NgIf, NgFor, AsyncPipe, TranslateModule, ThemedLoadingComponent, InfiniteScrollModule],
 })
 /**
  * Component displaying a searchable input for metadata-fields
@@ -176,17 +168,17 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * Update the mdFieldOptions$ depending on the query$ fired by querying the server
    */
   ngOnInit(): void {
-    this.input.valueChanges.pipe(
+    this.subs.push(this.input.valueChanges.pipe(
       debounceTime(this.debounceTime),
       startWith(''),
-      tap( () => this.currentPage$.next(1) )
     ).subscribe((valueChange) => {
+      this.currentPage$.next(1);
       if (!this.selectedValueLoading) {
         this.query$.next(valueChange);
       }
       this.mdField = valueChange;
       this.mdFieldChange.emit(this.mdField);
-    });
+    }));
     this.subs.push(
       observableCombineLatest(
           this.query$,
@@ -198,7 +190,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
             if (page === 1) {
               this.mdFieldOptions$.next([]);
             }
-            return this.search(query, page);
+            return this.search(query as string, page as number);
           })
         ).subscribe((rd ) => {
           if (!this.selectedValueLoading) {this.updateList(rd);}
