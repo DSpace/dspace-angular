@@ -1,7 +1,8 @@
 import {
   AsyncPipe,
   NgForOf,
-  NgIf, NgTemplateOutlet,
+  NgIf,
+  NgTemplateOutlet,
 } from '@angular/common';
 import {
   Component,
@@ -33,9 +34,8 @@ import { RemoteData } from '../core/data/remote-data';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { Group } from '../core/eperson/models/group.model';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../core/pagination/pagination.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteData,
@@ -47,15 +47,16 @@ import {
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
-import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { ErrorComponent } from '../shared/error/error.component';
 
 @Component({
   selector: 'ds-base-profile-page',
@@ -133,12 +134,12 @@ export class ProfilePageComponent implements OnInit {
   canChangePassword$: Observable<boolean>;
 
   /**
-  * Default configuration for group pagination
-  **/
+   * Default configuration for group pagination
+   **/
   optionsGroupsPagination = Object.assign(new PaginationComponentOptions(),{
     id: 'page_groups',
     currentPage: 1,
-    pageSize: 20
+    pageSize: 20,
   });
 
   isResearcherProfileEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -164,10 +165,11 @@ export class ProfilePageComponent implements OnInit {
     );
     this.groupsRD$ = this.paginationService.getCurrentPagination(this.optionsGroupsPagination.id, this.optionsGroupsPagination).pipe(
       switchMap((pageOptions: PaginationComponentOptions) => {
-        return this.epersonService.findById(this.currentUser.id, true, true, followLink('groups',{findListOptions: {
+        return this.epersonService.findById(this.currentUser.id, true, true, followLink('groups',{
+          findListOptions: {
             elementsPerPage: pageOptions.pageSize,
-            currentPage: pageOptions.currentPage
-          }}));
+            currentPage: pageOptions.currentPage,
+          } }));
       }),
       getAllCompletedRemoteData(),
       getRemoteDataPayload(),
