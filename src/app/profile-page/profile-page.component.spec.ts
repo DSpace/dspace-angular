@@ -44,6 +44,10 @@ import { ProfilePageComponent } from './profile-page.component';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
+import { NgTemplateOutlet } from '@angular/common';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { ErrorComponent } from '../shared/error/error.component';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -134,6 +138,10 @@ describe('ProfilePageComponent', () => {
             ProfilePageSecurityFormComponent,
             ProfilePageResearcherFormComponent,
             SuggestionsNotificationComponent,
+            NgTemplateOutlet,
+            PaginationComponent,
+            ThemedLoadingComponent,
+            ErrorComponent,
           ],
         },
       })

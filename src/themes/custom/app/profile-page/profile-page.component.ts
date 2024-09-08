@@ -12,6 +12,9 @@ import { ThemedProfilePageMetadataFormComponent } from '../../../../app/profile-
 import { ProfilePageResearcherFormComponent } from '../../../../app/profile-page/profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from '../../../../app/profile-page/profile-page-security-form/profile-page-security-form.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
+import { PaginationComponent } from '../../../../app/shared/pagination/pagination.component';
+import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
+import { ErrorComponent } from '../../../../app/shared/error/error.component';
 
 @Component({
   selector: 'ds-themed-profile-page',
@@ -30,6 +33,9 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
     NgIf,
     NgForOf,
     SuggestionsNotificationComponent,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    ErrorComponent,
   ],
 })
 /**

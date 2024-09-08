@@ -1,7 +1,7 @@
 import {
   AsyncPipe,
   NgForOf,
-  NgIf,
+  NgIf, NgTemplateOutlet,
 } from '@angular/common';
 import {
   Component,
@@ -34,10 +34,10 @@ import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { Group } from '../core/eperson/models/group.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../core/pagination/pagination.service';
 import {
+  getAllCompletedRemoteData,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
@@ -53,6 +53,9 @@ import { VarDirective } from '../shared/utils/var.directive';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { ErrorComponent } from '../shared/error/error.component';
 
 @Component({
   selector: 'ds-base-profile-page',
@@ -68,6 +71,10 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     NgIf,
     NgForOf,
     SuggestionsNotificationComponent,
+    NgTemplateOutlet,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    ErrorComponent,
   ],
   standalone: true,
 })
