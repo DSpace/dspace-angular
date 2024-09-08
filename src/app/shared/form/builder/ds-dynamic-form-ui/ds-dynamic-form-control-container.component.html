@@ -10,7 +10,7 @@
   <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: { $implicit: model };"></ng-container>
   <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
   <div [ngClass]="{'form-row': model.hasLanguages || isRelationship,
-                      'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
+                      'd-none': this.metadataService.isVirtual(value) && (model.hasSelectableMetadata || context?.index > 0)}">
     <div [ngClass]="getClass('grid', 'control')">
       <div>
         <ng-container #componentViewContainer></ng-container>
@@ -53,7 +53,7 @@
     </div>
   </div>
   <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
-  <ng-container *ngIf="value?.isVirtual">
+  <ng-container *ngIf="this.metadataService.isVirtual(value)">
     <ds-existing-metadata-list-element
       *ngIf="model.hasSelectableMetadata"
       [reoRel]="relationshipValue$ | async"

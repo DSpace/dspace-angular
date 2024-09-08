@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   AfterViewInit,
   Component,
   ElementRef,
@@ -7,20 +13,43 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import {
   debounceTime,
-  map, startWith,
+  distinctUntilChanged,
+  map,
+  startWith,
   switchMap,
   take,
-  tap
+  tap,
 } from 'rxjs/operators';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
+import { RegistryService } from '../../../core/registry/registry.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
-  metadataFieldsToString
+  metadataFieldsToString,
 } from '../../../core/shared/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { RegistryService } from '../../../core/registry/registry.service';
@@ -33,11 +62,15 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { combineLatest as observableCombineLatest } from 'rxjs';
+import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-metadata-field-selector',
   styleUrls: ['./metadata-field-selector.component.scss'],
-  templateUrl: './metadata-field-selector.component.html'
+  templateUrl: './metadata-field-selector.component.html',
+  standalone: true,
+  imports: [FormsModule, NgClass, ReactiveFormsModule, ClickOutsideDirective, NgIf, NgFor, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a searchable input for metadata-fields

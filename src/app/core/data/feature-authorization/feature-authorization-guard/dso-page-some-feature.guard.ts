@@ -1,46 +1,60 @@
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { RemoteData } from '../../remote-data';
-import { AuthorizationDataService } from '../authorization-data.service';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
 import { map } from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../../shared/empty.util';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { AuthService } from '../../../auth/auth.service';
-import { hasNoValue, hasValue } from '../../../../shared/empty.util';
-import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guard';
+import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
+import { RemoteData } from '../../remote-data';
+import { FeatureID } from '../feature-id';
+import {
+  someFeatureAuthorizationGuard,
+  SomeFeatureGuardParamFn,
+  StringGuardParamFn,
+} from './some-feature-authorization.guard';
+
+export declare type DSOGetObjectURlFn = <T extends DSpaceObject>(resolve: ResolveFn<RemoteData<T>>) => StringGuardParamFn;
+
 
 /**
- * Abstract Guard for preventing unauthorized access to {@link DSpaceObject} pages that require rights for any specific feature in a list
+ * Method to resolve resolve (parent) route that contains the UUID of the DSO
+ * @param route The current route
+ */
+export const getRouteWithDSOId = (route: ActivatedRouteSnapshot): ActivatedRouteSnapshot => {
+  let routeWithDSOId = route;
+  while (hasNoValue(routeWithDSOId.params.id) && hasValue(routeWithDSOId.parent)) {
+    routeWithDSOId = routeWithDSOId.parent;
+  }
+  return routeWithDSOId;
+};
+
+
+
+export const defaultDSOGetObjectUrl: DSOGetObjectURlFn = <T extends DSpaceObject>(resolve: ResolveFn<RemoteData<T>>): StringGuardParamFn => {
+  return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> => {
+    const routeWithObjectID = getRouteWithDSOId(route);
+    return (resolve(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
+      getAllSucceededRemoteDataPayload(),
+      map((dso) => dso.self),
+    );
+  };
+};
+
+/**
+ * Guard for preventing unauthorized access to {@link DSpaceObject} pages that require rights for any specific feature in a list
  * This guard utilizes a resolver to retrieve the relevant object to check authorizations for
  */
-export abstract class DsoPageSomeFeatureGuard<T extends DSpaceObject> extends SomeFeatureAuthorizationGuard {
-  constructor(protected resolver: Resolve<RemoteData<T>>,
-              protected authorizationService: AuthorizationDataService,
-              protected router: Router,
-              protected authService: AuthService) {
-    super(authorizationService, router, authService);
-  }
-
-  /**
-   * Check authorization rights for the object resolved using the provided resolver
-   */
-  getObjectUrl(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
-    const routeWithObjectID = this.getRouteWithDSOId(route);
-    return (this.resolver.resolve(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
-      getAllSucceededRemoteDataPayload(),
-      map((dso) => dso.self)
-    );
-  }
-
-  /**
-   * Method to resolve resolve (parent) route that contains the UUID of the DSO
-   * @param route The current route
-   */
-  protected getRouteWithDSOId(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
-    let routeWithDSOId = route;
-    while (hasNoValue(routeWithDSOId.params.id) && hasValue(routeWithDSOId.parent)) {
-      routeWithDSOId = routeWithDSOId.parent;
-    }
-    return routeWithDSOId;
-  }
-}
+export const dsoPageSomeFeatureGuard = <T extends DSpaceObject>(
+  getResolveFn: () => ResolveFn<RemoteData<T>>,
+  getFeatureIDs: SomeFeatureGuardParamFn,
+  getObjectUrl: DSOGetObjectURlFn = defaultDSOGetObjectUrl,
+  getEPersonUuid?: StringGuardParamFn,
+): CanActivateFn => someFeatureAuthorizationGuard((route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> => getFeatureIDs(route, state), getObjectUrl(getResolveFn()), getEPersonUuid);

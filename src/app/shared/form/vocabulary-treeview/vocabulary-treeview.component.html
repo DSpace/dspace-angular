@@ -1,8 +1,9 @@
-<ds-alert [content]="'vocabulary-treeview.info' | translate" [type]="AlertType.Info"></ds-alert>
+<ds-alert *ngIf="description" [content]="description" [type]="AlertType.Info"></ds-alert>
 <div class="treeview-header row mb-1">
   <div class="col-12">
     <div class="input-group">
       <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()"
+             [attr.aria-label]="'vocabulary-treeview.search.form.search-placeholder' | translate"
              [placeholder]="'vocabulary-treeview.search.form.search-placeholder' | translate">
       <div class="input-group-append" id="button-addon4">
         <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
@@ -10,6 +11,9 @@
         </button>
         <button class="btn btn-outline-secondary" type="button" (click)="reset()">
           {{'vocabulary-treeview.search.form.reset' | translate}}
+        </button>
+        <button *ngIf="showAdd && this.vocabularyOptions.closed" class="btn btn-outline-primary" type="button" (click)="add()">
+          {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
         <button class="btn btn-outline-primary" type="button" (click)="add()" [disabled]="this.vocabularyOptions.closed">
           {{'vocabulary-treeview.search.form.add' | translate}}
@@ -19,8 +23,8 @@
   </div>
 </div>
 <div class="treeview-container">
-  <ds-themed-loading *ngIf="loading | async" [showMessage]="false"></ds-themed-loading>
-  <h2 *ngIf="!(loading | async) && dataSource.data.length === 0" class="h4 text-center text-muted mt-4" >
+  <ds-loading *ngIf="loading | async" [showMessage]="false"></ds-loading>
+  <h2 *ngIf="(loading | async) !== true && dataSource.data.length === 0" class="h4 text-center text-muted mt-4" >
     <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
   </h2>
   <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">

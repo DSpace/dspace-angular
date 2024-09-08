@@ -1,34 +1,63 @@
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { Operation } from 'fast-json-patch';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { Community } from '../shared/community.model';
-import { HALLink } from '../shared/hal-link.model';
-import { PaginatedList } from './paginated-list.model';
-import { RemoteData } from './remote-data';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Bitstream } from '../shared/bitstream.model';
 import { Collection } from '../shared/collection.model';
-import { BitstreamDataService } from './bitstream-data.service';
+import { Community } from '../shared/community.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { HALLink } from '../shared/hal-link.model';
 import { NoContent } from '../shared/NoContent.model';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { FindListOptions } from './find-list-options.model';
+import {
+  CreateData,
+  CreateDataImpl,
+} from './base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { DeleteData, DeleteDataImpl } from './base/delete-data';
-import { FindAllData, FindAllDataImpl } from './base/find-all-data';
-import { SearchData, SearchDataImpl } from './base/search-data';
-import { RestRequestMethod } from './rest-request-method';
-import { CreateData, CreateDataImpl } from './base/create-data';
-import { RequestParam } from '../cache/models/request-param.model';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
+import { BitstreamDataService } from './bitstream-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { Operation } from 'fast-json-patch';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
+import { RestRequestMethod } from './rest-request-method';
 
 export abstract class ComColDataService<T extends Community | Collection> extends IdentifiableDataService<T> implements CreateData<T>, FindAllData<T>, SearchData<T>, PatchData<T>, DeleteData<T> {
   private createData: CreateData<T>;
@@ -86,7 +115,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
         }),
         filter((halLink: HALLink) => isNotEmpty(halLink)),
         map((halLink: HALLink) => halLink.href),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       );
     }
   }
@@ -97,7 +126,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
 
   public findByParent(parentUUID: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     const href$ = this.getFindByParentHref(parentUUID).pipe(
-      map((href: string) => this.buildHrefFromFindOptions(href, options))
+      map((href: string) => this.buildHrefFromFindOptions(href, options)),
     );
     return this.findListByHref(href$, options, true, true, ...linksToFollow);
   }
@@ -110,7 +139,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
     return this.halService.getEndpoint(this.linkPath).pipe(
       // We can't use HalLinkService to discover the logo link itself, as objects without a logo
       // don't have the link, and this method is also used in the createLogo method.
-      map((href: string) => new URLCombiner(href, id, 'logo').toString())
+      map((href: string) => new URLCombiner(href, id, 'logo').toString()),
     );
   }
 
@@ -132,7 +161,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
           } else {
             return this.bitstreamDataService.deleteByHref(logoRd.payload._links.self.href);
           }
-        })
+        }),
       );
     } else {
       return createFailedRemoteDataObject$(`The given object doesn't have a logo`, 400);
@@ -148,7 +177,7 @@ export abstract class ComColDataService<T extends Community | Collection> extend
       this.findByHref(parentCommunityUrl).pipe(
         getFirstCompletedRemoteData(),
       ),
-      this.halService.getEndpoint('communities/search/top').pipe(take(1))
+      this.halService.getEndpoint('communities/search/top').pipe(take(1)),
     ]).subscribe(([rd, topHref]: [RemoteData<any>, string]) => {
       if (rd.hasSucceeded && isNotEmpty(rd.payload) && isNotEmpty(rd.payload.id)) {
         this.requestService.setStaleByHrefSubstring(rd.payload.id);

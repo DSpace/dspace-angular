@@ -1,15 +1,24 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { environment } from '../../../environments/environment';
-import { AuthService } from '../../core/auth/auth.service';
-import { hasValue } from '../empty.util';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
 import { LogOutAction } from '../../core/auth/auth.actions';
+import { AuthService } from '../../core/auth/auth.service';
+import { hasValue } from '../empty.util';
 
 @Component({
   selector: 'ds-idle-modal',
   templateUrl: 'idle-modal.component.html',
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class IdleModalComponent implements OnInit {
 

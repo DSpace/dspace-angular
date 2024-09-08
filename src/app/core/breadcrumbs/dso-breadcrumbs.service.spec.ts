@@ -1,17 +1,24 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { getMockLinkService } from '../../shared/mocks/link-service.mock';
-import { LinkService } from '../cache/builders/link.service';
-import { Item } from '../shared/item.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { of as observableOf } from 'rxjs';
-import { Community } from '../shared/community.model';
-import { Collection } from '../shared/collection.model';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-import { DSONameService } from './dso-name.service';
+import { of as observableOf } from 'rxjs';
+
 import { getDSORoute } from '../../app-routing-paths';
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import { getMockLinkService } from '../../shared/mocks/link-service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { LinkService } from '../cache/builders/link.service';
+import { Collection } from '../shared/collection.model';
+import { Community } from '../shared/community.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
+import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+import { DSONameService } from './dso-name.service';
 
 describe('DSOBreadcrumbsService', () => {
   let service: DSOBreadcrumbsService;
@@ -43,46 +50,46 @@ describe('DSOBreadcrumbsService', () => {
       {
         type: 'community',
         metadata: {
-          'dc.title': [{ value: 'community' }]
+          'dc.title': [{ value: 'community' }],
         },
         uuid: communityUUID,
         parentCommunity: observableOf(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
 
         _links: {
           parentCommunity: 'site',
-          self: communityPath + communityUUID
-        }
-      }
+          self: communityPath + communityUUID,
+        },
+      },
     );
 
     testCollection = Object.assign(new Collection(),
       {
         type: 'collection',
         metadata: {
-          'dc.title': [{ value: 'collection' }]
+          'dc.title': [{ value: 'collection' }],
         },
         uuid: collectionUUID,
         parentCommunity: createSuccessfulRemoteDataObject$(testCommunity),
         _links: {
           parentCommunity: communityPath + communityUUID,
-          self: communityPath + collectionUUID
-        }
-      }
+          self: communityPath + collectionUUID,
+        },
+      },
     );
 
     testItem = Object.assign(new Item(),
       {
         type: 'item',
         metadata: {
-          'dc.title': [{ value: 'item' }]
+          'dc.title': [{ value: 'item' }],
         },
         uuid: itemUUID,
         owningCollection: createSuccessfulRemoteDataObject$(testCollection),
         _links: {
           owningCollection: collectionPath + collectionUUID,
-          self: itemPath + itemUUID
-        }
-      }
+          self: itemPath + itemUUID,
+        },
+      },
     );
 
     dsoNameService = { getName: (dso) => getName(dso) };
@@ -93,8 +100,8 @@ describe('DSOBreadcrumbsService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: LinkService, useValue: getMockLinkService() },
-        { provide: DSONameService, useValue: dsoNameService }
-      ]
+        { provide: DSONameService, useValue: dsoNameService },
+      ],
     }).compileComponents();
   }));
 

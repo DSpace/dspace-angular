@@ -1,0 +1,5 @@
+<ng-container *ngIf="(requestMap$ | async)?.size > 0">
+  <ng-container *ngFor="let entry of (requestMap$ | async) | keyvalue ">
+    <ds-request-status-alert-box [status]="entry.key" [data]="entry.value"></ds-request-status-alert-box>
+  </ng-container>
+</ng-container>

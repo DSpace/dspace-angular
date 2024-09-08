@@ -1,21 +1,38 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
+import {
+  AsyncPipe,
+  NgFor,
+} from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
 
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RequestService } from '../../../core/data/request.service';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { Item } from '../../../core/shared/item.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { VarDirective } from '../../utils/var.directive';
+import { MyDSpaceActionsComponent } from '../mydspace-actions';
+import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actions-loader.component';
 
 /**
  * This component represents actions related to ClaimedTask object.
@@ -24,6 +41,8 @@ import { Item } from '../../../core/shared/item.model';
   selector: 'ds-claimed-task-actions',
   styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
+  standalone: true,
+  imports: [VarDirective, NgFor, ClaimedTaskActionsLoaderComponent, NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule],
 })
 export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnInit {
 

@@ -1,20 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { SearchExportCsvComponent } from './search-export-csv.component';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { Script } from '../../../process-page/scripts/script.model';
-import { Process } from '../../../process-page/processes/process.model';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
-import { SearchFilter } from '../models/search-filter.model';
+import { Process } from '../../../process-page/processes/process.model';
+import { Script } from '../../../process-page/scripts/script.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../remote-data.utils';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchFilter } from '../models/search-filter.model';
+import { SearchExportCsvComponent } from './search-export-csv.component';
 
 describe('SearchExportCsvComponent', () => {
   let component: SearchExportCsvComponent;
@@ -25,8 +33,8 @@ describe('SearchExportCsvComponent', () => {
   let notificationsService;
   let router;
 
-  const script = Object.assign(new Script(), {id: 'metadata-export-search', name: 'metadata-export-search'});
-  const process = Object.assign(new Process(), {processId: 5, scriptName: 'metadata-export-search'});
+  const script = Object.assign(new Script(), { id: 'metadata-export-search', name: 'metadata-export-search' });
+  const process = Object.assign(new Process(), { processId: 5, scriptName: 'metadata-export-search' });
 
   const searchConfig = new PaginatedSearchOptions({
     configuration: 'test-configuration',
@@ -35,31 +43,30 @@ describe('SearchExportCsvComponent', () => {
     filters: [
       new SearchFilter('f.filter1', ['filter1value1,equals', 'filter1value2,equals']),
       new SearchFilter('f.filter2', ['filter2value1,contains']),
-      new SearchFilter('f.filter3', ['[2000 TO 2001]'], 'equals')
-    ]
+      new SearchFilter('f.filter3', ['[2000 TO 2001]'], 'equals'),
+    ],
   });
 
   function initBeforeEachAsync() {
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
       findById: createSuccessfulRemoteDataObject$(script),
-      invoke: createSuccessfulRemoteDataObject$(process)
+      invoke: createSuccessfulRemoteDataObject$(process),
     });
     authorizationDataService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
 
     notificationsService = new NotificationsServiceStub();
 
     router = jasmine.createSpyObj('authorizationService', ['navigateByUrl']);
     TestBed.configureTestingModule({
-      declarations: [SearchExportCsvComponent],
-      imports: [TranslateModule.forRoot(), NgbModule],
+      imports: [TranslateModule.forRoot(), NgbModule, SearchExportCsvComponent],
       providers: [
-        {provide: ScriptDataService, useValue: scriptDataService},
-        {provide: AuthorizationDataService, useValue: authorizationDataService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: Router, useValue: router},
-      ]
+        { provide: ScriptDataService, useValue: scriptDataService },
+        { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: Router, useValue: router },
+      ],
     }).compileComponents();
   }
 
@@ -132,13 +139,13 @@ describe('SearchExportCsvComponent', () => {
       component.export();
       expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-search',
         [
-          {name: '-q', value: searchConfig.query},
-          {name: '-s', value: searchConfig.scope},
-          {name: '-c', value: searchConfig.configuration},
-          {name: '-f', value: 'filter1,equals=filter1value1'},
-          {name: '-f', value: 'filter1,equals=filter1value2'},
-          {name: '-f', value: 'filter2,contains=filter2value1'},
-          {name: '-f', value: 'filter3,equals=[2000 TO 2001]'},
+          { name: '-q', value: searchConfig.query },
+          { name: '-s', value: searchConfig.scope },
+          { name: '-c', value: searchConfig.configuration },
+          { name: '-f', value: 'filter1,equals=filter1value1' },
+          { name: '-f', value: 'filter1,equals=filter1value2' },
+          { name: '-f', value: 'filter2,contains=filter2value1' },
+          { name: '-f', value: 'filter3,equals=[2000 TO 2001]' },
         ], []);
 
       component.searchConfig = null;

@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 /**

@@ -78,7 +78,8 @@ $ds-expandable-navbar-bg: #fff !default;
 $ds-navbar-link-color: $link-color !default;
 $ds-navbar-link-color-hover: #{darken($ds-navbar-link-color, 15%)} !default;
 
-$ds-slider-color: $success !default;
+$ds-slider-color: darken(#94BA65, 17%) !default;
+$ds-slider-handle-color: darken(#2B4E72, 17%) !default;
 
 $ds-admin-sidebar-bg: darken(#2b4e72, 17%) !default;
 $ds-admin-sidebar-active-bg: darken($ds-admin-sidebar-bg, 3%) !default;

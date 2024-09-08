@@ -1,18 +1,20 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController, } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
-import { AuthInterceptor } from './auth.interceptor';
-import { AuthService } from './auth.service';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { AuthInterceptor } from './auth.interceptor';
+import { AuthService } from './auth.service';
 
 describe(`AuthInterceptor`, () => {
   let service: DspaceRestService;
@@ -20,10 +22,8 @@ describe(`AuthInterceptor`, () => {
 
   const authServiceStub = new AuthServiceStub();
   const store: Store<TruncatablesState> = jasmine.createSpyObj('store', {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true)
+    select: observableOf(true),
   });
 
   beforeEach(() => {
@@ -44,6 +44,10 @@ describe(`AuthInterceptor`, () => {
 
     service = TestBed.inject(DspaceRestService);
     httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   describe('when has a valid token', () => {
@@ -95,14 +99,11 @@ describe(`AuthInterceptor`, () => {
     });
 
     it('should redirect to login', () => {
-
-      service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user').subscribe((response) => {
-        expect(response).toBeTruthy();
-      });
-
       service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user');
 
       httpMock.expectNone('dspace-spring-rest/api/submission/workspaceitems');
+      // HttpTestingController.expectNone will throw an error when a requests is made
+      expect().nothing();
     });
   });
 

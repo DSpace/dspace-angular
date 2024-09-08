@@ -96,6 +96,7 @@
   --ds-footer-padding: 0;
   --ds-footer-padding-bottom: 0;
   --ds-footer-logo-height: 50px;
+  --ds-footer-n-coar-height: 20px;
 
   --ds-home-news-link-color: #{$ds-home-news-link-color};
   --ds-home-news-link-hover-color: #{darken($ds-home-news-link-color, 15%)};
@@ -103,12 +104,12 @@
 
   --ds-breadcrumb-bg: #{$gray-200} !important;
   --ds-breadcrumb-link-color: #{$ds-breadcrumb-link-color};
-  --ds-breadcrumb-link-active-color: #{$ds-breadcrumb-link-active-color};
+  --ds-breadcrumb-link-active-color: #{darken($ds-breadcrumb-link-color, 30%)};
   --ds-breadcrumb-max-length: 200px;
 
   --ds-slider-color: #{$ds-slider-color};
   --ds-slider-handle-width: 18px;
-  --ds-slider-handle-color: #{darken($blue, 17%)};
+  --ds-slider-handle-color: #{$ds-slider-handle-color};
 
   --ds-search-form-scope-max-width: 150px;
 
@@ -134,4 +135,18 @@
   --ds-warning-bg: #{$ds-warning-bg};
   --ds-danger-bg: #{$ds-danger-bg};
 
+
+  --ds-item-page-img-field-default-inline-height: 24px;
+
+  --ds-qa-logo-width: 100px;
+
+  --ds-process-overview-table-nb-processes-badge-size: 0.5em;
+  --ds-process-overview-table-id-column-width: 120px;
+  --ds-process-overview-table-name-column-width: auto;
+  --ds-process-overview-table-user-column-width: 200px;
+  --ds-process-overview-table-info-column-width: 250px;
+  --ds-process-overview-table-actions-column-width: 80px;
+  
+  --green1: #1FB300;  // This variable represents the success color for the Klaro cookie banner
+  --button-text-color-cookie: #333; // This variable represents the text color for buttons in the Klaro cookie banner
 }

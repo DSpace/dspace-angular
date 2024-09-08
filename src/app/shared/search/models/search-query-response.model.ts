@@ -1,6 +1,12 @@
-import { autoserialize } from 'cerialize';
-import { PageInfo } from '../../../core/shared/page-info.model';
+import {
+  autoserialize,
+  autoserializeAs,
+} from 'cerialize';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { AppliedFilter } from './applied-filter.model';
+import { SearchResultSorting } from './search-result-sorting.model';
 
 /**
  * Class representing the response returned by the server when performing a search request
@@ -21,14 +27,14 @@ export abstract class SearchQueryResponse<T> extends PaginatedList<T> {
   /**
    * The currently active filters used in the search request
    */
-  @autoserialize
-  appliedFilters: any[]; // TODO
+  @autoserializeAs(AppliedFilter)
+  appliedFilters: AppliedFilter[];
 
   /**
    * The sort parameters used in the search request
    */
-  @autoserialize
-  sort: any; // TODO
+  @autoserializeAs(SearchResultSorting)
+  sort: SearchResultSorting;
 
   /**
    * The sort parameters used in the search request

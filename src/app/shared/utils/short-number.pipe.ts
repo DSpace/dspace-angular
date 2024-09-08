@@ -1,9 +1,14 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+
 import { isEmpty } from '../empty.util';
 
 
 @Pipe({
-  name: 'dsShortNumber'
+  name: 'dsShortNumber',
+  standalone: true,
 })
 export class ShortNumberPipe implements PipeTransform {
 
@@ -19,11 +24,11 @@ export class ShortNumberPipe implements PipeTransform {
     let key = '';
 
     const powers = [
-      {key: 'Q', value: Math.pow(10, 15)},
-      {key: 'T', value: Math.pow(10, 12)},
-      {key: 'B', value: Math.pow(10, 9)},
-      {key: 'M', value: Math.pow(10, 6)},
-      {key: 'K', value: 1000}
+      { key: 'Q', value: Math.pow(10, 15) },
+      { key: 'T', value: Math.pow(10, 12) },
+      { key: 'B', value: Math.pow(10, 9) },
+      { key: 'M', value: Math.pow(10, 6) },
+      { key: 'K', value: 1000 },
     ];
 
     for (let i = 0; i < powers.length; i++) {

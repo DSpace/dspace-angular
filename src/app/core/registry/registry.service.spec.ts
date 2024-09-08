@@ -1,9 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -14,24 +21,31 @@ import {
   MetadataRegistryEditFieldAction,
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
-  MetadataRegistrySelectSchemaAction
+  MetadataRegistrySelectSchemaAction,
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
+import { storeModuleConfig } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { StoreMock } from '../../shared/testing/store.mock';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { StoreMock } from '../../shared/testing/store.mock';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { FindListOptions } from '../data/find-list-options.model';
+import { MetadataFieldDataService } from '../data/metadata-field-data.service';
+import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
+import { RemoteData } from '../data/remote-data';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { RegistryService } from './registry.service';
-import { storeModuleConfig } from '../../app.reducer';
-import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
-import { MetadataFieldDataService } from '../data/metadata-field-data.service';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { RemoteData } from '../data/remote-data';
 import { NoContent } from '../shared/NoContent.model';
-import { FindListOptions } from '../data/find-list-options.model';
+import { RegistryService } from './registry.service';
 
-@Component({ template: '' })
+@Component({
+  template: '',
+  standalone: true,
+  imports: [CommonModule],
+})
 class DummyComponent {
 }
 
@@ -48,28 +62,28 @@ describe('RegistryService', () => {
   function init() {
     options = Object.assign(new FindListOptions(), {
       currentPage: 1,
-      elementsPerPage: 20
+      elementsPerPage: 20,
     });
 
     mockSchemasList = [
       Object.assign(new MetadataSchema(), {
         id: 1,
         _links: {
-          self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1' }
+          self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1' },
         },
         prefix: 'dc',
         namespace: 'http://dublincore.org/documents/dcmi-terms/',
-        type: MetadataSchema.type
+        type: MetadataSchema.type,
       }),
       Object.assign(new MetadataSchema(), {
         id: 2,
         _links: {
-          self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2' }
+          self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2' },
         },
         prefix: 'mock',
         namespace: 'http://dspace.org/mockschema',
-        type: MetadataSchema.type
-      })
+        type: MetadataSchema.type,
+      }),
     ];
 
     mockFieldsList = [
@@ -77,50 +91,50 @@ describe('RegistryService', () => {
         {
           id: 1,
           _links: {
-            self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8' }
+            self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8' },
           },
           element: 'contributor',
           qualifier: 'advisor',
           scopeNote: null,
           schema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
-          type: MetadataField.type
+          type: MetadataField.type,
         }),
       Object.assign(new MetadataField(),
         {
           id: 2,
           _links: {
-            self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9' }
+            self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9' },
           },
           element: 'contributor',
           qualifier: 'author',
           scopeNote: null,
           schema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
-          type: MetadataField.type
+          type: MetadataField.type,
         }),
       Object.assign(new MetadataField(),
         {
           id: 3,
           _links: {
-            self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10' }
+            self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10' },
           },
           element: 'contributor',
           qualifier: 'editor',
           scopeNote: 'test scope note',
           schema: createSuccessfulRemoteDataObject$(mockSchemasList[1]),
-          type: MetadataField.type
+          type: MetadataField.type,
         }),
       Object.assign(new MetadataField(),
         {
           id: 4,
           _links: {
-            self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11' }
+            self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11' },
           },
           element: 'contributor',
           qualifier: 'illustrator',
           scopeNote: null,
           schema: createSuccessfulRemoteDataObject$(mockSchemasList[1]),
-          type: MetadataField.type
-        })
+          type: MetadataField.type,
+        }),
     ];
 
     metadataSchemaService = jasmine.createSpyObj('metadataSchemaService', {
@@ -128,7 +142,7 @@ describe('RegistryService', () => {
       findById: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
       createOrUpdateMetadataSchema: createSuccessfulRemoteDataObject$(mockSchemasList[0]),
       delete: createNoContentRemoteDataObject$(),
-      clearRequests: observableOf('href')
+      clearRequests: observableOf('href'),
     });
 
     metadataFieldService = jasmine.createSpyObj('metadataFieldService', {
@@ -137,24 +151,22 @@ describe('RegistryService', () => {
       create: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       put: createSuccessfulRemoteDataObject$(mockFieldsList[0]),
       delete: createNoContentRemoteDataObject$(),
-      clearRequests: observableOf('href')
+      clearRequests: observableOf('href'),
     });
   }
 
   beforeEach(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot()],
-      declarations: [
-        DummyComponent
+      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot(), DummyComponent,
       ],
       providers: [
         { provide: Store, useClass: StoreMock },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: MetadataSchemaDataService, useValue: metadataSchemaService },
         { provide: MetadataFieldDataService, useValue: metadataFieldService },
-        RegistryService
-      ]
+        RegistryService,
+      ],
     });
     registryService = TestBed.inject(RegistryService);
     mockStore = TestBed.inject(Store);

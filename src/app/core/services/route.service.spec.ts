@@ -1,14 +1,27 @@
-import { ActivatedRoute, convertToParamMap, NavigationEnd, Params, Router } from '@angular/router';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { of as observableOf } from 'rxjs';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+  NavigationEnd,
+  Params,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
-import { getTestScheduler, hot } from 'jasmine-marbles';
-
-import { RouteService } from './route.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
+import {
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
+
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AddUrlToHistoryAction } from '../history/history.actions';
+import { RouteService } from './route.service';
 
 describe('RouteService', () => {
   let scheduler: TestScheduler;
@@ -26,9 +39,10 @@ describe('RouteService', () => {
 
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
+    select: jasmine.createSpy('select'),
   });
 
+  let route: ActivatedRouteStub;
   const router = new RouterMock();
   router.setParams(convertToParamMap(paramObject));
 
@@ -36,19 +50,14 @@ describe('RouteService', () => {
   paramObject[paramName2] = [paramValue2a, paramValue2b];
 
   beforeEach(waitForAsync(() => {
+    route = new ActivatedRouteStub(paramObject);
+
     return TestBed.configureTestingModule({
       providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            queryParams: observableOf(paramObject),
-            params: observableOf(paramObject),
-            queryParamMap: observableOf(convertToParamMap(paramObject))
-          },
-        },
+        { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
         { provide: Store, useValue: store },
-      ]
+      ],
     });
   }));
 
@@ -129,7 +138,7 @@ describe('RouteService', () => {
 
       serviceAsAny.router.events = hot('a-b', {
         a: new NavigationEnd(0, 'url', 'url'),
-        b: new NavigationEnd(1, 'newurl', 'newurl')
+        b: new NavigationEnd(1, 'newurl', 'newurl'),
       });
 
       scheduler.schedule(() => service.saveRouting());
@@ -144,8 +153,8 @@ describe('RouteService', () => {
     it('should dispatch AddUrlToHistoryAction on NavigationEnd event', () => {
       serviceAsAny.store = observableOf({
         core: {
-          history: ['url', 'newurl']
-        }
+          history: ['url', 'newurl'],
+        },
       });
 
       service.getHistory().subscribe((history) => {
@@ -158,8 +167,8 @@ describe('RouteService', () => {
     it('should return an observable with the current url', () => {
       serviceAsAny.store = observableOf({
         core: {
-          history: ['url', 'newurl']
-        }
+          history: ['url', 'newurl'],
+        },
       });
 
       service.getCurrentUrl().subscribe((history) => {
@@ -172,12 +181,59 @@ describe('RouteService', () => {
     it('should return an observable with the previous url', () => {
       serviceAsAny.store = observableOf({
         core: {
-          history: ['url', 'newurl']
-        }
+          history: ['url', 'newurl'],
+        },
       });
 
       service.getPreviousUrl().subscribe((history) => {
         expect(history).toEqual('url');
+      });
+    });
+  });
+
+  describe('getParamsWithoutAppliedFilter', () => {
+    beforeEach(() => {
+      route.testParams = {
+        'query': '',
+        'spc.page': '1',
+        'f.author': '1282121b-5394-4689-ab93-78d537764052,authority',
+        'f.has_content_in_original_bundle': 'true,equals',
+      };
+    });
+
+    it('should remove the parameter completely if only one value is defined', (done: DoneFn) => {
+      service.getParamsExceptValue('f.author', '1282121b-5394-4689-ab93-78d537764052,authority').pipe(take(1)).subscribe((params: Params) => {
+        expect(params).toEqual({
+          'query': '',
+          'spc.page': '1',
+          'f.has_content_in_original_bundle': 'true,equals',
+        });
+        done();
+      });
+    });
+
+    it('should remove the parameter completely if only one value is defined in an array', (done: DoneFn) => {
+      route.testParams['f.author'] = ['1282121b-5394-4689-ab93-78d537764052,authority'];
+      service.getParamsExceptValue('f.author', '1282121b-5394-4689-ab93-78d537764052,authority').pipe(take(1)).subscribe((params: Params) => {
+        expect(params).toEqual({
+          'query': '',
+          'spc.page': '1',
+          'f.has_content_in_original_bundle': 'true,equals',
+        });
+        done();
+      });
+    });
+
+    it('should return all params except the applied filter even when multiple filters of the same type are selected', (done: DoneFn) => {
+      route.testParams['f.author'] = ['1282121b-5394-4689-ab93-78d537764052,authority', '71b91a28-c280-4352-a199-bd7fc3312501,authority'];
+      service.getParamsExceptValue('f.author', '1282121b-5394-4689-ab93-78d537764052,authority').pipe(take(1)).subscribe((params: Params) => {
+        expect(params).toEqual({
+          'query': '',
+          'spc.page': '1',
+          'f.author': ['71b91a28-c280-4352-a199-bd7fc3312501,authority'],
+          'f.has_content_in_original_bundle': 'true,equals',
+        });
+        done();
       });
     });
   });
