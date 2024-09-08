@@ -24,8 +24,10 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
+  combineLatest as observableCombineLatest,
   Observable,
   of,
   Subscription,
@@ -44,18 +46,16 @@ import {
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   metadataFieldsToString,
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
-import { ThemedLoadingComponent } from "../../../shared/loading/themed-loading.component";
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-metadata-field-selector',
@@ -181,9 +181,9 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
     }));
     this.subs.push(
       observableCombineLatest(
-          this.query$,
-          this.currentPage$
-        )
+        this.query$,
+        this.currentPage$,
+      )
         .pipe(
           switchMap(([query, page]: [string, number]) => {
             this.loading = true;
@@ -191,9 +191,9 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
               this.mdFieldOptions$.next([]);
             }
             return this.search(query as string, page as number);
-          })
+          }),
         ).subscribe((rd ) => {
-          if (!this.selectedValueLoading) {this.updateList(rd);}
+        if (!this.selectedValueLoading) {this.updateList(rd);}
       }));
   }
 
@@ -250,7 +250,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
 
   /**
    * @Description It update the mdFieldOptions$ according the query result page
-  * */
+   * */
   updateList(list: string[]) {
     this.loading = false;
     this.hasNextPage = list.length > 0;
@@ -267,10 +267,10 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
   search(query: string, page: number, useCache: boolean = true)  {
     return this.registryService.queryMetadataFields(query,{
       elementsPerPage: this.pageOptions.elementsPerPage, sort: this.pageOptions.sort,
-      currentPage: page}, useCache, false, followLink('schema'))
+      currentPage: page }, useCache, false, followLink('schema'))
       .pipe(
         getAllSucceededRemoteData(),
-        metadataFieldsToString()
+        metadataFieldsToString(),
       );
   }
   /**
