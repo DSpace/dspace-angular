@@ -67,7 +67,7 @@ describe('Login Modal', () => {
 
         // Login, and the <ds-log-in> tag should no longer exist
         page.submitLoginAndPasswordByPressingEnter(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
-        cy.get('.form-login').should('not.exist');
+        cy.get('ds-log-in').should('not.exist');
 
         // Verify we are still on homepage
         cy.url().should('include', '/home');
