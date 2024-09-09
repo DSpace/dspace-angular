@@ -358,6 +358,7 @@ import { MetadataLinkViewPopoverComponent } from './metadata-link-view/metadata-
 import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view/metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
 import { MetadataLinkViewOrcidComponent } from './metadata-link-view/metadata-link-view-orcid/metadata-link-view-orcid.component';
 import {StickyPopoverDirective} from './metadata-link-view/sticky-popover.directive';
+import { SortPipe } from './utils/sort.pipe';
 
 const MODULES = [
   CommonModule,
@@ -404,7 +405,8 @@ const PIPES = [
   ConsolePipe,
   ObjNgFor,
   BrowserOnlyPipe,
-  ShortNumberPipe
+  ShortNumberPipe,
+  SortPipe,
 ];
 
 const COMPONENTS = [
