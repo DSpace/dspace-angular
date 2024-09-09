@@ -193,8 +193,8 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
             return this.search(query as string, page as number);
           }),
         ).subscribe((rd ) => {
-        if (!this.selectedValueLoading) {this.updateList(rd);}
-      }));
+          if (!this.selectedValueLoading) {this.updateList(rd);}
+        }));
   }
 
   /**

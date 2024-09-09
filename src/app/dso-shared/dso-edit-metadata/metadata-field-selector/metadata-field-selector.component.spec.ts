@@ -40,7 +40,7 @@ describe('MetadataFieldSelectorComponent', () => {
       id: 0,
       prefix: 'dc',
       namespace: 'https://schema.org/CreativeWork',
-      field: '.'
+      field: '.',
     });
     metadataFields = [
       Object.assign(new MetadataField(), {
