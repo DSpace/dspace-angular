@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { BehaviorSubject, combineLatest } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -20,7 +20,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 @rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class AuditItemMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
-  public isAuthorized: BehaviorSubject<boolean> =  new BehaviorSubject<boolean>(false);
+  public isAdmin: BehaviorSubject<boolean> =  new BehaviorSubject<boolean>(false);
 
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
@@ -31,16 +31,8 @@ export class AuditItemMenuComponent extends ContextMenuEntryComponent implements
   }
 
   ngOnInit(): void {
-    combineLatest(
-      [
-        this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-        this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
-        this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
-      ]
-    ).pipe(
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined).pipe(
       take(1)
-    ).subscribe(([isAdmin, isCollectionAdmin, isCommunityAdmin]) => {
-      this.isAuthorized.next(isAdmin || isCommunityAdmin || isCollectionAdmin);
-    });
+    ).subscribe((isAuthorized: boolean) => (this.isAdmin.next(isAuthorized)));
   }
 }
