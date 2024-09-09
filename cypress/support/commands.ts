@@ -94,12 +94,12 @@ Cypress.Commands.add('login', login);
  * @param password password to login as
  */
 function loginViaForm(email: string, password: string): void {
-    // Enter email
-    cy.get('ds-log-in [data-test="email"]').type(email);
-    // Enter password
-    cy.get('ds-log-in [data-test="password"]').type(password);
-    // Click login button
-    cy.get('ds-log-in [data-test="login-button"]').click();
+  // Enter email
+  cy.get('[data-test="email"]').type(email);
+  // Enter password
+  cy.get('[data-test="password"]').type(password);
+  // Click login button
+  cy.get('[data-test="login-button"]').click();
 }
 // Add as a Cypress command (i.e. assign to 'cy.loginViaForm')
 Cypress.Commands.add('loginViaForm', loginViaForm);
