@@ -45,9 +45,8 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
 import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { RedirectService } from './redirect/redirect.service';
-import {
-  GenericAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/generic-administrator-guard';
+
+
 
 @NgModule({
   imports: [
@@ -170,7 +169,7 @@ import {
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
-            canActivate: [GenericAdministratorGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',

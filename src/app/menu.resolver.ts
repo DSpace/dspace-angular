@@ -724,7 +724,15 @@ export class MenuResolver implements Resolve<boolean> {
    * Create menu sections dependent on whether or not the current user is a site administrator
    */
   createSiteAdministratorMenuSections() {
-    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).subscribe((authorized) => {
+    combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+    ]).pipe(
+      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
+        isAdmin || isCollectionAdmin || isCommunityAdmin
+      )
+    ).subscribe(([authorized, isCommunityAdmin, isCollectionAdmin]) => {
       const menuList = [
         /* Communities & Collections */
         {
@@ -777,7 +785,7 @@ export class MenuResolver implements Resolve<boolean> {
         {
           id: 'admin_search',
           active: false,
-          visible: authorized,
+          visible: authorized || isCollectionAdmin || isCommunityAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.admin_search',
