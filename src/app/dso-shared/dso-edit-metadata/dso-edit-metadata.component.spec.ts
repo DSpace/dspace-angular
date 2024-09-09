@@ -229,22 +229,27 @@ describe('DsoEditMetadataComponent', () => {
     describe(`${name} button`, () => {
       let btn: DebugElement;
 
-      beforeEach(() => {
+      beforeEach(waitForAsync(() => {
+        fixture.detectChanges();
         btn = fixture.debugElement.query(By.css(`#dso-${name}-btn`));
-      });
+      }));
 
       if (exists) {
-        it('should exist', () => {
-          expect(btn).toBeTruthy();
-        });
+        it('form should be initialized', waitForAsync(() => {
+          expect(component.isFormInitialized$.value).toBeTrue();
+        }));
 
-        it(`should${disabled ? ' ' : ' not '}be disabled`, () => {
+        it('should exist', waitForAsync(() => {
+          expect(btn).toBeTruthy();
+        }));
+
+        it(`should${disabled ? ' ' : ' not '}be disabled`, waitForAsync(() => {
           expect(btn.nativeElement.disabled).toBe(disabled);
-        });
+        }));
       } else {
-        it('should not exist', () => {
+        it('should not exist', waitForAsync(() => {
           expect(btn).toBeNull();
-        });
+        }));
       }
     });
   }

@@ -18,7 +18,10 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
 import { AppState } from '../../../app.reducer';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -29,7 +32,6 @@ import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ItemInfo } from '../../testing/relationships-mocks';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { RelationshipsItemsActionsComponent } from './relationships-items-actions/relationships-items-actions.component';
-import { RelationshipsItemsListPreviewComponent } from './relationships-items-list-preview/relationships-items-list-preview.component';
 import { RelationshipsListComponent } from './relationships-list.component';
 
 describe('RelationshipsListComponent', () => {
@@ -65,10 +67,11 @@ describe('RelationshipsListComponent', () => {
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(RelationshipsListComponent, { remove: { imports: [RelationshipsItemsListPreviewComponent, RelationshipsItemsActionsComponent] } }).compileComponents();
+      .overrideComponent(RelationshipsListComponent, { remove: { imports: [RelationshipsItemsActionsComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

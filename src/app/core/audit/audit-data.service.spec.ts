@@ -5,6 +5,7 @@ import {
   Store,
   StoreModule,
 } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -74,7 +75,9 @@ describe('AuditDataService', () => {
           },
         }),
       ],
-      providers: [],
+      providers: [
+        provideMockStore(),
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
   }
@@ -82,7 +85,7 @@ describe('AuditDataService', () => {
   beforeEach(() => {
     init();
     requestService = getMockRequestService(createRequestEntry$(audits));
-    store = new Store<CoreState>(undefined, undefined, undefined);
+    store = TestBed.inject(Store); // Use TestBed.inject to get the mock store
     service = initTestService();
     spyOn(store, 'dispatch');
   });
@@ -103,11 +106,13 @@ describe('AuditDataService', () => {
           options,
           true,
           true,
-          followLink('eperson'));
+          followLink('eperson'),
+        );
         done();
       });
     });
   });
+
 
   describe('findById', () => {
     beforeEach(() => {
