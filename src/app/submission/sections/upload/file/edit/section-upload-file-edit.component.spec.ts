@@ -27,6 +27,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { MockComponent } from 'ng-mocks';
 import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 
@@ -140,7 +141,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-        FormComponent,
+        MockComponent(FormComponent),
         SubmissionSectionUploadFileEditComponent,
         TestComponent,
         NgxMaskModule.forRoot(),
