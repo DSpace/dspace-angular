@@ -8,7 +8,7 @@ import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guar
 
 /**
  * Prevent unauthorized activating and loading of routes when the current authenticated user doesn't have administrator
- * rights to the {@link Site}
+ * rights to the {@link Site}, Community or Collection
  */
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class GenericAdministratorGuard extends SomeFeatureAuthorizationGuard {
   }
 
   /**
-   * Check if user does not have administrator rights to Site, Community or Collection
+   * Check if user have administrator rights to Site, Community or Collection
    */
   getFeatureIDs(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> {
     return  observableOf([
