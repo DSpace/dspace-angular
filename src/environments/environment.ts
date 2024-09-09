@@ -12,7 +12,8 @@ export const environment: Partial<BuildConfig> = {
   universal: {
     preboot: false,
     async: true,
-    time: false
+    time: false,
+    inlineCriticalCss: false
   },
 
   // The REST API server settings.
@@ -23,6 +24,8 @@ export const environment: Partial<BuildConfig> = {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/server',
   },
+
+  signpostingEnabled: false
 };
 
 /*

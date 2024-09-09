@@ -9,9 +9,7 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { fadeInOut } from '../../shared/animations/fade';
-import {
-  getAllSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
@@ -26,6 +24,7 @@ import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.s
 import { BehaviorSubject } from 'rxjs';
 import { RegistryService } from '../../core/registry/registry.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { environment } from '../../../environments/environment';
 
 /**
  * This component renders a simple item page.
@@ -136,6 +135,9 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    * @private
    */
   private initPageLinks(): void {
+    if (!environment.signpostingEnabled) {
+      return;
+    }
     this.route.params.subscribe(params => {
       this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
         let links = '';

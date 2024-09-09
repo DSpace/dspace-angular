@@ -313,5 +313,7 @@ export const environment: BuildConfig = {
       vocabulary: 'srsc',
       enabled: true
     }
-  ]
+  ],
+
+  signpostingEnabled: true
 };

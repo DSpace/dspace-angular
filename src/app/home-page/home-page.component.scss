@@ -183,4 +183,9 @@
     }
   }
 
+  @media (max-width: 768px) {
+    .responsive-padding {
+      padding-left: 50px !important;
+    }
+  }
 }
