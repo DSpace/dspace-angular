@@ -185,7 +185,7 @@
     "eslint-plugin-lodash": "^7.4.0",
     "eslint-plugin-rxjs": "^5.0.3",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-unused-imports": "^2.0.0",
+    "eslint-plugin-unused-imports": "^3.2.0",
     "express-static-gzip": "^2.1.7",
     "jasmine": "^3.8.0",
     "jasmine-core": "^3.8.0",
