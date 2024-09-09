@@ -19,7 +19,7 @@ export class GenericAdministratorGuard extends SomeFeatureAuthorizationGuard {
   }
 
   /**
-   * Check administrator authorization rights
+   * Check if user does not have administrator rights to Site, Community or Collection
    */
   getFeatureIDs(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> {
     return  observableOf([

@@ -451,7 +451,19 @@ export class MenuResolver implements Resolve<boolean> {
         //   icon: 'cogs',
         //   index: 9
         // },
-
+        /*  Admin Search */
+        {
+          id: 'admin_search',
+          active: false,
+          visible: isSiteAdmin || isCollectionAdmin || isCommunityAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.admin_search',
+            link: '/admin/search'
+          } as LinkMenuItemModel,
+          index: 5,
+          icon: 'search',
+        },
         /* Processes */
         {
           id: 'processes',
@@ -724,15 +736,11 @@ export class MenuResolver implements Resolve<boolean> {
    * Create menu sections dependent on whether or not the current user is a site administrator
    */
   createSiteAdministratorMenuSections() {
-    combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
-      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
-    ]).pipe(
-      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
-        isAdmin || isCollectionAdmin || isCommunityAdmin
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      filter((isAdmin) =>
+        isAdmin
       )
-    ).subscribe(([authorized, isCommunityAdmin, isCollectionAdmin]) => {
+    ).subscribe((authorized) => {
       const menuList = [
         /* Communities & Collections */
         {
@@ -780,19 +788,6 @@ export class MenuResolver implements Resolve<boolean> {
             text: 'menu.section.notifications_reciter',
             link: '/admin/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
           } as LinkMenuItemModel,
-        },
-        /*  Admin Search */
-        {
-          id: 'admin_search',
-          active: false,
-          visible: authorized || isCollectionAdmin || isCommunityAdmin,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.admin_search',
-            link: '/admin/search'
-          } as LinkMenuItemModel,
-          icon: 'search',
-          index: 5
         },
         /*  Registries */
         {
