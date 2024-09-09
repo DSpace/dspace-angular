@@ -28,6 +28,7 @@ import {
   getRemoteDataPayload,
 } from '../core/shared/operators';
 import { isNotEmpty } from '../shared/empty.util';
+import { VarDirective } from '../shared/utils/var.directive';
 import { PaginatedList } from './../core/data/paginated-list.model';
 import { CrisLayoutLeadingComponent } from './cris-layout-leading/cris-layout-leading.component';
 import { CrisLayoutLoaderComponent } from './cris-layout-loader/cris-layout-loader.component';
@@ -45,6 +46,7 @@ import { CrisLayoutLoaderComponent } from './cris-layout-loader/cris-layout-load
     CrisLayoutLeadingComponent,
     CrisLayoutLoaderComponent,
     AsyncPipe,
+    VarDirective,
   ],
 })
 export class CrisLayoutComponent implements OnInit {
