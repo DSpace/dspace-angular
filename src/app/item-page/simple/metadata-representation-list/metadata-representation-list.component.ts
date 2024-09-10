@@ -6,6 +6,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
+  of,
   zip as observableZip,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -93,14 +94,17 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
    * @param metadata  The list of all metadata values
    * @param page      The page to return representations for
    */
-  resolveMetadataRepresentations(metadata: MetadataValue[], page: number): Observable<MetadataRepresentation[]> {
+  resolveMetadataRepresentations(metadata: MetadataValue[], page: number): Observable<MetadataRepresentation[]|any[]> {
     return observableZip(
       ...metadata
         .slice((this.objects.length * this.incrementBy), (this.objects.length * this.incrementBy) + this.incrementBy)
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
-          if (this.metadataService.isVirtual(metadatum)) {
+          if (this.metadataService.isVirtual(metadatum) && !metadatum.authority.includes('http')) {
             return this.relationshipService.resolveMetadataRepresentation(metadatum, this.parentItem, this.itemType);
+          } else if (this.metadataService.isVirtual(metadatum) && metadatum.authority.includes('http')) {
+            // TODO: we could do authority virtual handling here?
+            return of([]);
           } else {
             // Check for a configured browse link and return a standard metadata representation
             let searchKeyArray: string[] = [];
