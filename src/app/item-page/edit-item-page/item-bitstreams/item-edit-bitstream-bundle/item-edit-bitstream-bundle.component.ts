@@ -99,9 +99,9 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   @Input() columnSizes: ResponsiveTableSizes;
 
   /**
-   * Whether to hide the table headers
+   * Whether this is the first in a series of bundle tables
    */
-  @Input() hideHeader = false;
+  @Input() isFirstTable = false;
 
   /**
    * Send an event when the user drops an object on the pagination

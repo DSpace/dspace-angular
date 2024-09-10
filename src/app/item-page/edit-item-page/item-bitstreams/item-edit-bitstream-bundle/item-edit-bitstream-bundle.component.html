@@ -8,9 +8,9 @@
                  [collectionSize]="bitstreamsList.totalElements">
     <ng-container *ngIf="(updates$ | async) as updates">
 
-      <table class="table"
+      <table class="table" [class.mt-n1]="!isFirstTable"
              [attr.aria-label]="'item.edit.bitstreams.bundle.table.aria-label' | translate: { bundle: bundleName } ">
-        <thead [class.visually-hidden]="hideHeader">
+        <thead [class.visually-hidden]="!isFirstTable">
         <tr class="header-row font-weight-bold">
           <th id="name" scope="col" class="{{ columnSizes.columns[0].buildClasses() }}">
             {{'item.edit.bitstreams.headers.name' | translate}}
