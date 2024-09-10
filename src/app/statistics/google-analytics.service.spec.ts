@@ -49,6 +49,7 @@ describe('GoogleAnalyticsService', () => {
 
     klaroServiceSpy = jasmine.createSpyObj('KlaroService', {
       'getSavedPreferences': jasmine.createSpy('getSavedPreferences'),
+      watchConsentUpdates: jasmine.createSpy('watchConsentUpdates').and.returnValue(null),
     });
 
     configSpy = createConfigSuccessSpy(trackingIdV4TestValue);
