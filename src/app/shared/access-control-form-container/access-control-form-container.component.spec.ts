@@ -17,9 +17,7 @@ import { of } from 'rxjs';
 
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 import { Item } from '../../core/shared/item.model';
-import { AlertComponent } from '../alert/alert.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';
@@ -79,7 +77,7 @@ describe('AccessControlFormContainerComponent', () => {
         { provide: SelectableListService, useValue: mockSelectableListService },
         { provide: NgbModal, useValue: mockNgbModal },
       ],
-    }).overrideComponent(AccessControlFormContainerComponent, { remove: { imports: [AlertComponent, AccessControlArrayFormComponent] } }).compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
