@@ -21,6 +21,7 @@ import {
   hasNoValue,
   hasValue,
 } from '../../empty.util';
+import { VarDirective } from '../../utils/var.directive';
 import { MetadataLinkViewAvatarPopoverComponent } from '../metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
 import { MetadataLinkViewOrcidComponent } from '../metadata-link-view-orcid/metadata-link-view-orcid.component';
 import { IdentifierSubtypesConfig } from './../../../../config/identifier-subtypes-config.interface';
@@ -40,6 +41,7 @@ import { Item } from './../../../core/shared/item.model';
     MetadataLinkViewOrcidComponent,
     MetadataLinkViewAvatarPopoverComponent,
     NgForOf,
+    VarDirective,
   ],
   standalone: true,
 })

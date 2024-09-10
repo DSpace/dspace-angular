@@ -24,6 +24,7 @@ describe('MetadataLinkViewPopoverComponent', () => {
 
   const itemMock = Object.assign(new Item(), {
     uuid: '1234-1234-1234-1234',
+    entityType: 'Publication',
 
     firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
       return itemMock.metadata[keyOrKeys as string][0].value;
@@ -130,7 +131,7 @@ describe('MetadataLinkViewPopoverComponent', () => {
     spyOn(component, 'getItemPageRoute').and.returnValue('/item/' + itemMock.uuid);
     fixture.detectChanges();
     const moreInfoLinkElement = fixture.debugElement.query(By.css('a[data-test="more-info-link"]'));
-    expect(moreInfoLinkElement.nativeElement.routerLink).toContain('/item/' + itemMock.uuid);
+    expect(moreInfoLinkElement.nativeElement.href).toContain('/item/' + itemMock.uuid);
   });
 
   it('should display the avatar popover when item has a thumbnail', () => {

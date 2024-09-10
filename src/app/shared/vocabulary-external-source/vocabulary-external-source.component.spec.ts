@@ -26,7 +26,7 @@ import { Metadata } from '../../core/shared/metadata.utils';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { AlertComponent } from '../alert/alert.component';
-import { CreateItemParentSelectorComponent } from '../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { ThemedCreateItemParentSelectorComponent } from '../dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -180,7 +180,7 @@ describe('VocabularyExternalSourceComponent', () => {
       });
       component.import();
 
-      expect(componentAsAny.modalService.open).toHaveBeenCalledWith(CreateItemParentSelectorComponent, { size: 'lg' });
+      expect(componentAsAny.modalService.open).toHaveBeenCalledWith(ThemedCreateItemParentSelectorComponent, { size: 'lg' });
       expect(componentAsAny.modalRef.componentInstance).toBeDefined();
       expect(componentAsAny.createEntityFromExternalSource).toHaveBeenCalledWith(externalEntry, emittedEvent.uuid);
       done();
