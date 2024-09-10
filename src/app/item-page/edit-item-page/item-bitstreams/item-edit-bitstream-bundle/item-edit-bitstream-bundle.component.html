@@ -10,7 +10,7 @@
 
       <table class="table"
              [attr.aria-label]="'item.edit.bitstreams.bundle.table.aria-label' | translate: { bundle: bundleName } ">
-        <thead *ngIf="!hideHeader">
+        <thead [class.visually-hidden]="hideHeader">
         <tr class="header-row font-weight-bold">
           <th id="name" scope="col" class="{{ columnSizes.columns[0].buildClasses() }}">
             {{'item.edit.bitstreams.headers.name' | translate}}
