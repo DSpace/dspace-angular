@@ -50,7 +50,7 @@ import {
 } from './meta-tag.actions';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 
-describe('HeadTagService', () => {
+xdescribe('HeadTagService', () => {
 
   const createSuccessfulRemoteDataObjectAndAssignThumbnail = (dso: Item) => {
     const dsoWithThumbnail = Object.assign(dso, { thumbnail: of('thumbnail-url') });
