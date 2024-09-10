@@ -10,7 +10,6 @@ import {
   Router,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -74,7 +73,6 @@ describe('EndUserAgreementComponent', () => {
         { provide: Store, useValue: store },
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
-        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
