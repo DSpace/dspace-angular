@@ -1,6 +1,11 @@
-import { NgIf } from '@angular/common';
+import {
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
 import { Component } from '@angular/core';
 
+import { AlertComponent } from '../../../../../app/shared/alert/alert.component';
 import { LoadingComponent as BaseComponent } from '../../../../../app/shared/loading/loading.component';
 
 @Component({
@@ -10,7 +15,7 @@ import { LoadingComponent as BaseComponent } from '../../../../../app/shared/loa
   templateUrl: '../../../../../app/shared/loading/loading.component.html',
   // templateUrl: './loading.component.html'
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, NgSwitchCase, NgSwitch, AlertComponent],
 })
 export class LoadingComponent extends BaseComponent {
 

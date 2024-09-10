@@ -16,7 +16,7 @@ import { ReferrerService } from './referrer.service';
  * The server implementation will get the referrer from the 'Referer' header of the request sent to
  * the express server
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerReferrerService extends ReferrerService {
 
   constructor(

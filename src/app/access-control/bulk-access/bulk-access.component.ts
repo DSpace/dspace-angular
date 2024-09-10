@@ -3,6 +3,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -27,6 +28,7 @@ import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.com
     TranslateModule,
     BulkAccessSettingsComponent,
     BulkAccessBrowseComponent,
+    RouterLink,
   ],
   standalone: true,
 })

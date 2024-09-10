@@ -12,7 +12,7 @@ import { RequestService } from './request.service';
 /**
  * A service responsible for fetching data from the REST API on the metrics endpoint
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(METRIC)
 export class MetricsDataService extends IdentifiableDataService<Metric> {
 

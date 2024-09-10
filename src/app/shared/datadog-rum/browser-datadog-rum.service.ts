@@ -24,7 +24,7 @@ import { setDatadogRumStatusAction } from './datadog-rum.actions';
 import { DatadogRumState } from './datadog-rum.reducer';
 import { DatadogRumService } from './datadog-rum.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowserDatadogRumService extends DatadogRumService {
 
   consentsUpdates$: BehaviorSubject<CookieConsents>;

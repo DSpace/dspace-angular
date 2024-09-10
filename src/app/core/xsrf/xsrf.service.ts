@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
  * from the DSpace REST API. Once it is received, the "tokenInitialized$" flag will
  * be set to "true".
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export abstract class XSRFService {
   public tokenInitialized$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 

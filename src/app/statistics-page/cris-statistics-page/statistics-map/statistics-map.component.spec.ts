@@ -95,6 +95,7 @@ describe('StatisticsMapComponent', () => {
     fixture.detectChanges();
     component.ngOnInit();
     fixture.detectChanges();
+    delete component.geoChart.component;
     expect(component.geoChart).toEqual(geoChartExpected);
   });
 

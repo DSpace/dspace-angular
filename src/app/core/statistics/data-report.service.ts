@@ -12,7 +12,7 @@ import { UsageReport } from './models/usage-report.model';
 export const REPORT_DATA: InjectionToken<UsageReport> = new InjectionToken<UsageReport>('usageReport');
 
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DataReportService {
 
   selectedReport: UsageReport;

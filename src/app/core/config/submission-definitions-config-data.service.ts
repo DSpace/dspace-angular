@@ -18,7 +18,7 @@ import { ConfigDataService } from './config-data.service';
 import { ConfigObject } from './models/config.model';
 import { SUBMISSION_DEFINITION_TYPE } from './models/config-type';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(SUBMISSION_DEFINITION_TYPE)
 export class SubmissionDefinitionsConfigDataService extends ConfigDataService {
   constructor(

@@ -10,7 +10,7 @@ export interface CookieConsents {
 /**
  * Abstract class representing a service for handling Klaro consent preferences and UI
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export abstract class KlaroService {
   /**
    * Initializes the service

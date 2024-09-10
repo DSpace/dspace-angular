@@ -17,7 +17,7 @@ import { STATISTICS_CATEGORY } from './models/statistics-category.resource-type'
 /**
  * A service to retrieve {@link StatisticsCategory}s from the REST API
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(STATISTICS_CATEGORY)
 export class StatisticsCategoriesDataService extends IdentifiableDataService<StatisticsCategory> {
 

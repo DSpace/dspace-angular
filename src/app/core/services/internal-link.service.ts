@@ -12,7 +12,7 @@ import {
  * LinkService provides utility functions for working with links, such as checking if a link is internal
  * and transforming internal links based on the current URL.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class InternalLinkService {
   currentURL = this._window.nativeWindow?.location?.origin;
 

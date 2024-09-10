@@ -48,7 +48,7 @@ export enum ItemExportFormatMolteplicity {
 /**
  * A service that provides methods to make REST requests with item export format endpoint.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(ITEM_EXPORT_FORMAT)
 export class ItemExportFormatService extends IdentifiableDataService<ItemExportFormat> {
 

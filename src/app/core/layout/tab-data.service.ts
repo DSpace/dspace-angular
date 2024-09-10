@@ -29,7 +29,7 @@ import { TAB } from './models/tab.resource-type';
 /**
  * A service responsible for fetching data from the REST API on the tabs endpoint
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(TAB)
 export class TabDataService extends IdentifiableDataService<CrisLayoutTab> {
   protected searchFindByItem = 'findByItem';

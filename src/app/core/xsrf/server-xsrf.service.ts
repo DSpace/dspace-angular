@@ -7,7 +7,7 @@ import { XSRFService } from './xsrf.service';
  * Server (SSR) Service to obtain a new CSRF/XSRF token. Because SSR only triggers GET
  * requests a CSRF token is never needed.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerXSRFService extends XSRFService {
   initXSRFToken(httpClient: HttpClient): () => Promise<any> {
     return () => new Promise<void>((resolve) => {

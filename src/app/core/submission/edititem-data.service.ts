@@ -24,7 +24,7 @@ import { EditItemMode } from './models/edititem-mode.model';
 /**
  * A service that provides methods to make REST requests with edititems endpoint.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(EditItem.type)
 export class EditItemDataService extends IdentifiableDataService<EditItem> {
   protected linkPath = 'edititems';

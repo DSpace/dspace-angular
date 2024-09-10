@@ -33,7 +33,7 @@ import {
   LocaleService,
 } from './locale.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerLocaleService extends LocaleService {
 
   constructor(

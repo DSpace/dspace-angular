@@ -19,7 +19,7 @@ import { RouteService } from './route.service';
  * previous page visited was not an angular URL. If it was, the route history in the store must be
  * used, since document.referrer doesn't get updated on route changes
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowserReferrerService extends ReferrerService {
 
   constructor(

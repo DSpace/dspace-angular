@@ -34,7 +34,7 @@ import { environment } from '../../environments/environment';
 /**
  * Performs server-side initialization.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerInitService extends InitService {
   constructor(
     protected store: Store<AppState>,

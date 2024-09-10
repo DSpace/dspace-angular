@@ -11,7 +11,7 @@ import { XSRFService } from './xsrf.service';
  * NOTE: This is primarily necessary before the *first* modifying request, as the CSRF
  * token may not yet be initialized.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowserXSRFService extends XSRFService {
   initXSRFToken(httpClient: HttpClient): () => Promise<any> {
     return () => new Promise<void>((resolve) => {

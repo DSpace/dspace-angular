@@ -38,7 +38,7 @@ export interface HttpOptions {
 /**
  * Service to access DSpace's REST API
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DspaceRestService {
 
   constructor(protected http: HttpClient) {

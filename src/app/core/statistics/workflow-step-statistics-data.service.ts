@@ -17,7 +17,7 @@ import { WORKFLOW_STEP_STATISTICS } from './models/workflow-step-statistics.reso
 /**
  * A service that provides methods to make REST requests with workflow step statistics endpoint.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(WORKFLOW_STEP_STATISTICS)
 export class WorkflowStepStatisticsDataService extends IdentifiableDataService<WorkflowStepStatistics> {
 

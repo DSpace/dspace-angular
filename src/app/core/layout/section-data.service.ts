@@ -21,7 +21,7 @@ import { SECTION } from './models/section.resource-type';
 /**
  * A service responsible for fetching data from the REST API on the sections endpoint.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(SECTION)
 export class SectionDataService extends IdentifiableDataService<Section> {
 

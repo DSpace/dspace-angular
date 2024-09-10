@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 /**
  * A service to determine the referrer, i.e. the previous URL that led the user to the current one
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export abstract class ReferrerService {
 
   /**

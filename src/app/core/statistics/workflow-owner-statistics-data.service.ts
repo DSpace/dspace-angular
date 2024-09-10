@@ -17,7 +17,7 @@ import { WORKFLOW_OWNER_STATISTICS } from './models/workflow-owner-statistics.re
 /**
  * A service that provides methods to make REST requests with workflow owner statistics endpoint.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(WORKFLOW_OWNER_STATISTICS)
 export class WorkflowOwnerStatisticsDataService extends IdentifiableDataService<WorkflowOwnerStatistics> {
 

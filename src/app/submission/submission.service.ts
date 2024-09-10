@@ -107,7 +107,7 @@ function getSubmissionCollectionIdSelector(submissionId: string): MemoizedSelect
 /**
  * A service that provides methods used in submission process.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SubmissionService {
 
   /**

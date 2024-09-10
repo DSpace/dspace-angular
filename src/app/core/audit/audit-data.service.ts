@@ -42,7 +42,7 @@ export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
 
 export const AUDIT_FIND_BY_OBJECT_SEARCH_METHOD = 'findByObject';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(AUDIT)
 export class AuditDataService extends IdentifiableDataService<Audit>{
 

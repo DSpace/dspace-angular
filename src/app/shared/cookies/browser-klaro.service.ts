@@ -84,7 +84,7 @@ const LAZY_KLARO = new InjectionToken<Promise<any>>(
 /**
  * Browser implementation for the KlaroService, representing a service for handling Klaro consent preferences and UI
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowserKlaroService extends KlaroService {
 
   private readonly GOOGLE_ANALYTICS_KEY = 'google.analytics.key';

@@ -46,7 +46,7 @@ const httpsAgent = new HttpsAgent(agentOptions);
  * Note that this must be provided in ServerAppModule;
  * it doesn't work when added as a Universal engine provider.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerXhrService implements XhrFactory {
   build(): XMLHttpRequest {
     prototype._restrictedHeaders.cookie = false;

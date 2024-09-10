@@ -11,7 +11,7 @@ import { SubmissionService } from './submission.service';
 /**
  * Instance of SubmissionService used on SSR.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerSubmissionService extends SubmissionService {
 
   /**

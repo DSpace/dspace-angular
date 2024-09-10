@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
@@ -23,11 +24,8 @@ import { Community } from '../../core/shared/community.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
@@ -164,9 +162,10 @@ describe('TopLevelCommunityListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(TopLevelCommunityListComponent, { remove: { imports: [ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent] } }).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

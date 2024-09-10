@@ -18,7 +18,7 @@ import { LOGIN_STATISTICS } from './models/login-statistics.resource-type';
 /**
  * A service that provides methods to make REST requests with login statistics endpoint.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(LOGIN_STATISTICS)
 export class LoginStatisticsService extends IdentifiableDataService<LoginStatistics> {
 

@@ -59,7 +59,7 @@ import { environment } from '../../environments/environment';
 /**
  * Performs client-side initialization.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowserInitService extends InitService {
 
   sub: Subscription;
