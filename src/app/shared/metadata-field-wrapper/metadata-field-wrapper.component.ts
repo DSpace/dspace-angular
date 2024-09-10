@@ -1,7 +1,9 @@
 import { NgIf } from '@angular/common';
 import {
   Component,
+  ElementRef,
   Input,
+  ViewChild,
 } from '@angular/core';
 
 /**
@@ -21,6 +23,12 @@ export class MetadataFieldWrapperComponent {
    * The label (title) for the content
    */
   @Input() label: string;
+  @ViewChild('content', { static: true }) contentElementRef: ElementRef;
 
   @Input() hideIfNoTextContent = true;
+
+  get hasNoContent(): boolean{
+    return this.contentElementRef.nativeElement.textContent.trim().length === 0
+    && this.contentElementRef.nativeElement.querySelector('img') === null;
+  }
 }

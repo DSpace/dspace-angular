@@ -1,3 +1,7 @@
+<ds-object-geospatial-map [objects]="objects"
+                          *ngIf="(currentMode$ | async) === viewModeEnum.GeospatialMap">
+</ds-object-geospatial-map>
+
 <ds-object-list [ngClass]="placeholderFontClass"
                 [config]="config"
                 [sortConfig]="sortConfig"
@@ -24,7 +28,8 @@
                 (contentChange)="contentChange.emit($event)"
                 (prev)="goPrev()"
                 (next)="goNext()"
-                *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
+                *ngIf="(currentMode$ | async) === viewModeEnum.ListElement
+                || (currentMode$ | async) === viewModeEnum.GeospatialMap">
 </ds-object-list>
 
 <ds-object-grid [config]="config"
