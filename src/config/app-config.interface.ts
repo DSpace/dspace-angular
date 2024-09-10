@@ -19,6 +19,7 @@ import { Config } from './config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
+import { GeospatialMapConfig } from './geospatial-map-config';
 import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
@@ -68,6 +69,7 @@ interface AppConfig extends Config {
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
   matomo?: MatomoConfig;
+  geospatialMapViewer: GeospatialMapConfig;
 }
 
 /**

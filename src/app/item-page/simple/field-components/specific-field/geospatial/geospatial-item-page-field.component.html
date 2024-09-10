@@ -1,0 +1,10 @@
+<div class="item-page-field" *ngIf="isNotEmpty(points) || isNotEmpty(bboxes)">
+  <ds-metadata-field-wrapper [label]="label | translate">
+      <ds-geospatial-map [coordinates]="this.points"
+                         [bbox]="this.bboxes"
+                         [cluster]="this.cluster"
+                         [layout]="'item'"
+                         style="width: 100%;">
+      </ds-geospatial-map>
+  </ds-metadata-field-wrapper>
+</div>
