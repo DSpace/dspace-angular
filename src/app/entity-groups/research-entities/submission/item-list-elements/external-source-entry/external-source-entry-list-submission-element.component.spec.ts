@@ -5,14 +5,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
 
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment.test';
 import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
-import { ThemedItemListPreviewComponent } from '../../../../../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
-import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { MockActivatedRoute } from '../../../../../shared/mocks/active-router.mock';
 import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {
@@ -122,7 +127,14 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), ExternalSourceEntryListSubmissionElementComponent, NgbCollapseModule],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(ExternalSourceEntryListSubmissionElementComponent, { remove: { imports: [TruncatableComponent, TruncatablePartComponent, ThemedItemListPreviewComponent] } }).compileComponents();
+      providers: [
+        provideMockStore(),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: APP_CONFIG, useValue: environment },
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

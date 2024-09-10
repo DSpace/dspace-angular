@@ -1,4 +1,7 @@
-import { NgFor } from '@angular/common';
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -36,6 +39,7 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
     TranslateModule,
     TruncatablePartComponent,
     TruncatableComponent,
+    NgIf,
   ],
   standalone: true,
 })
