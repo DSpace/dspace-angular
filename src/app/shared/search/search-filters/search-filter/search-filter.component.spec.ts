@@ -155,7 +155,8 @@ describe('SearchFilterComponent', () => {
       } as FacetValues)));
       comp.appliedFilters$ = observableOf([appliedFilter2]);
 
-      expect(comp.isActive()).toBeObservable(cold('(tt)', {
+      expect(comp.isActive()).toBeObservable(cold('(ft)', {
+        f: false,
         t: true,
       }));
     });
@@ -168,8 +169,7 @@ describe('SearchFilterComponent', () => {
       } as FacetValues)));
       comp.appliedFilters$ = observableOf([appliedFilter2]);
 
-      expect(comp.isActive()).toBeObservable(cold('(tf)', {
-        t: true,
+      expect(comp.isActive()).toBeObservable(cold('(ff)', {
         f: false,
       }));
     });
@@ -182,7 +182,8 @@ describe('SearchFilterComponent', () => {
       } as FacetValues)));
       comp.appliedFilters$ = observableOf([appliedFilter1, appliedFilter2]);
 
-      expect(comp.isActive()).toBeObservable(cold('(tt)', {
+      expect(comp.isActive()).toBeObservable(cold('(ft)', {
+        f: false,
         t: true,
       }));
     });
@@ -195,7 +196,8 @@ describe('SearchFilterComponent', () => {
       } as FacetValues)));
       comp.appliedFilters$ = observableOf([appliedFilter1, appliedFilter2]);
 
-      expect(comp.isActive()).toBeObservable(cold('(tt)', {
+      expect(comp.isActive()).toBeObservable(cold('(ft)', {
+        f: false,
         t: true,
       }));
     });
