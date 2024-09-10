@@ -42,3 +42,7 @@
 .table-border {
   border: 1px solid #dee2e6;
 }
+
+:host ::ng-deep .pagination {
+  padding-top: 0.5rem;
+}
