@@ -4,7 +4,4 @@
     <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>
     <div *ngIf="!last" class="dropdown-divider my-2"></div>
   </ng-container>
-  <div class="dropdown-divider"></div>
-  <a class="dropdown-item" *ngIf="(canRegister$ | async) && showRegisterLink" [routerLink]="[getRegisterRoute()]" [attr.data-test]="'register' | dsBrowserOnly">{{"login.form.new-user" | translate}}</a>
-  <a class="dropdown-item" [routerLink]="[getForgotRoute()]" [attr.data-test]="'forgot' | dsBrowserOnly">{{"login.form.forgot-password" | translate}}</a>
 </div>
