@@ -284,3 +284,7 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
 .fas {
   font-family: $icon-font-family !important;
 }
+
+.accordion {
+  --bs-accordion-btn-bg: #{$accordion-btn-bg};
+}
