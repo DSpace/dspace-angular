@@ -297,3 +297,9 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
 .btn-close {
   transform: scale(0.6);
 }
+
+
+/* Changed from Bootstrap 5's legend to ensure that the date issues label is on a different line as it's input */
+#legend_dc_date_issued {
+  float: none !important;
+}
