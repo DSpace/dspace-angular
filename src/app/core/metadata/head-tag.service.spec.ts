@@ -50,7 +50,7 @@ import {
 } from './meta-tag.actions';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 
-xdescribe('HeadTagService', () => {
+describe('HeadTagService', () => {
 
   const createSuccessfulRemoteDataObjectAndAssignThumbnail = (dso: Item) => {
     const dsoWithThumbnail = Object.assign(dso, { thumbnail: of('thumbnail-url') });
@@ -212,7 +212,15 @@ xdescribe('HeadTagService', () => {
   }));
 
   it('route titles should overwrite dso titles', fakeAsync(() => {
-    (translateService.get as jasmine.Spy).and.returnValues(of('DSpace :: '), of('Translated Route Title'));
+    (translateService.get as jasmine.Spy).and.callFake((key: string) => {
+      if (key.includes('route.title.key')) {
+        return of('Translated Route Title');
+      } else if (key.includes('repository.title.prefix')) {
+        return of('DSpace :: ');
+      } else {
+        return of(key);
+      }
+    });
     (headTagService as any).processRouteChange({
       data: {
         value: {
@@ -222,13 +230,24 @@ xdescribe('HeadTagService', () => {
       },
     });
     tick();
-    expect(title.setTitle).toHaveBeenCalledTimes(2);
+    expect(title.setTitle).toHaveBeenCalledTimes(3);
     expect((title.setTitle as jasmine.Spy).calls.argsFor(0)).toEqual(['Test PowerPoint Document']);
     expect((title.setTitle as jasmine.Spy).calls.argsFor(1)).toEqual(['DSpace :: Translated Route Title']);
+    expect((title.setTitle as jasmine.Spy).calls.argsFor(2)).toEqual(['Test PowerPoint Document']);
   }));
 
   it('other navigation should add title and description', fakeAsync(() => {
-    (translateService.get as jasmine.Spy).and.returnValues(of('DSpace :: '), of('Dummy Title'), of('This is a dummy item component for testing!'));
+    (translateService.get as jasmine.Spy).and.callFake((key: string) => {
+      console.warn('key', key);
+      if (key.includes('route.title.key')) {
+        return of('Dummy Title');
+      } else if (key.includes('repository.title.prefix')) {
+        return of('DSpace :: ');
+      } else {
+        return of(key);
+      }
+    });
+
     (headTagService as any).processRouteChange({
       data: {
         value: {
