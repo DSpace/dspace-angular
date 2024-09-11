@@ -28,6 +28,7 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { RequestService } from '../../../../core/data/request.service';
 import { ItemBitstreamsService } from '../item-bitstreams.service';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 /**
  * Interface storing all the information necessary to create a row in the bitstream edit table
@@ -284,6 +285,10 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
 
   public doPageSizeChange(pageSize: number) {
     this.paginationComponent.doPageSizeChange(pageSize);
+  }
+
+  drop(event: CdkDragDrop<any>) {
+    console.log('dropEvent:', event);
   }
 
 }

@@ -1,7 +1,4 @@
-
-
 .drag-handle {
-  visibility: hidden;
   &:hover {
     cursor: move;
   }
@@ -9,10 +6,6 @@
 
 .bitstream-row-drag-handle:hover {
   cursor: move;
-}
-
-:host ::ng-deep .bitstream-row:hover .drag-handle, :host ::ng-deep .bitstream-row-drag-handle:focus .drag-handle {
-  visibility: visible !important;
 }
 
 .cdk-drag-preview {
