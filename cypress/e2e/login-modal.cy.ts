@@ -142,7 +142,7 @@ describe('Login Modal', () => {
     page.submitLoginAndPasswordByPressingButton(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
     cy.get('ds-log-in').should('not.exist');
 
-    // Open user menu, verify user menu accesibility
+    // Open user menu, verify user menu accessibility
     page.openUserMenu();
     cy.get('ds-user-menu').should('be.visible');
     testA11y('ds-user-menu');

@@ -15,8 +15,7 @@
        [attr.aria-expanded]="isActive"
        [attr.aria-controls]="expandableNavbarSectionId(section.id)"
        class="d-flex flex-row flex-nowrap align-items-center gapx-1 ds-menu-toggler-wrapper"
-       [class.disabled]="section.model?.disabled"
-       id="browseDropdown">
+       [class.disabled]="section.model?.disabled">
       <span class="flex-fill">
         <ng-container
           *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>

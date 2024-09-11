@@ -17,7 +17,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 
 /**
- * This componenet render an image gallery for the image viewer
+ * This component render an image gallery for the image viewer
  */
 @Component({
   selector: 'ds-base-media-viewer-image',

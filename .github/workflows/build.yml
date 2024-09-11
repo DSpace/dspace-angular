@@ -69,39 +69,39 @@ jobs:
           fi
           google-chrome --version
 
-      # https://github.com/actions/cache/blob/main/examples.md#node---yarn
-      - name: Get Yarn cache directory
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - name: Cache Yarn dependencies
+      # https://github.com/actions/cache/blob/main/examples.md#node---npm
+      - name: Get NPM cache directory
+        id: npm-cache-dir
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+      - name: Cache NPM dependencies
         uses: actions/cache@v4
         with:
-          # Cache entire Yarn cache directory (see previous step)
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          # Cache key is hash of yarn.lock. Therefore changes to yarn.lock will invalidate cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+          # Cache entire NPM cache directory (see previous step)
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          # Cache key is hash of package-lock.json. Therefore changes to package-lock.json will invalidate cache
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-npm-
 
-      - name: Install Yarn dependencies
-        run: yarn install --frozen-lockfile
+      - name: Install NPM dependencies
+        run: npm clean-install
 
       - name: Build lint plugins
-        run: yarn run build:lint
+        run: npm run build:lint
 
       - name: Run lint plugin tests
-        run: yarn run test:lint:nobuild
+        run: npm run test:lint:nobuild
 
       - name: Run lint
-        run: yarn run lint:nobuild --quiet
+        run: npm run lint:nobuild -- --quiet
 
       - name: Check for circular dependencies
-        run: yarn run check-circ-deps
+        run: npm run check-circ-deps
 
       - name: Run build
-        run: yarn run build:prod
+        run: npm run build:prod
 
       - name: Run specs (unit tests)
-        run: yarn run test:headless
+        run: npm run test:headless
 
       # Upload code coverage report to artifact (for one version of Node only),
       # so that it can be shared with the 'codecov' job (see below)
@@ -131,7 +131,7 @@ jobs:
           # Run tests in Chrome, headless mode (default)
           browser: chrome
           # Start app before running tests (will be stopped automatically after tests finish)
-          start: yarn run serve:ssr
+          start: npm run serve:ssr
           # Wait for backend & frontend to be available
           # NOTE: We use the 'sites' REST endpoint to also ensure the database is ready
           wait-on: http://127.0.0.1:8080/server/api/core/sites, http://127.0.0.1:4000
@@ -167,7 +167,7 @@ jobs:
       # Start up the app with SSR enabled (run in background)
       - name: Start app in SSR (server-side rendering) mode
         run: |
-          nohup yarn run serve:ssr &
+          nohup npm run serve:ssr &
           printf 'Waiting for app to start'
           until curl --output /dev/null --silent --head --fail http://127.0.0.1:4000/home; do
             printf '.'

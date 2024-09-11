@@ -2,7 +2,7 @@
  * List of services statuses
  */
 export enum LdnServiceStatus {
-  UNKOWN,
+  UNKNOWN,
   DISABLED,
   ENABLED,
 }

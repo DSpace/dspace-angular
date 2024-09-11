@@ -118,7 +118,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Deselects all selecetd bitstream formats
+   * Deselects all selected bitstream formats
    */
   deselectAll() {
     this.bitstreamFormatService.deselectAllBitstreamFormats();
