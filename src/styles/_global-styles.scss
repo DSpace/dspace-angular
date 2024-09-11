@@ -279,3 +279,8 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
 .form-check-input.form-check-input {
   appearance: auto; /* Reset to browser's default appearance */
 }
+
+/* Custom fas font-family; Makes it so that BootStrap classes don't override it (Typically used for icons) */
+.fas {
+  font-family: $icon-font-family !important;
+}
