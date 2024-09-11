@@ -139,7 +139,7 @@ export class MetadataValuesComponent implements OnChanges {
    * This method performs a validation and determines the target of the url.
    * @returns - Returns the target url.
    */
- getLinkAttributes(urlValue: string): { target: string, rel: string } {
+  getLinkAttributes(urlValue: string): { target: string, rel: string } {
     if (this.hasInternalLink(urlValue)) {
       return { target: '_self', rel: '' };
     } else {
