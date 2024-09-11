@@ -16,7 +16,9 @@ import { AccessStatusObject } from '../shared/object-collection/shared/badges/ac
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
+import { Audit } from './audit/model/audit.model';
 import { AuthStatus } from './auth/models/auth-status.model';
+import { MachineToken } from './auth/models/machine-token.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
@@ -28,6 +30,11 @@ import { Root } from './data/root.model';
 import { DspaceRestService } from './dspace-rest/dspace-rest.service';
 import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
+import { ItemExportFormat } from './itemexportformat/model/item-export-format.model';
+import { CrisLayoutBox } from './layout/models/box.model';
+import { MetricsComponent } from './layout/models/metrics-component.model';
+import { Section } from './layout/models/section.model';
+import { CrisLayoutTab } from './layout/models/tab.model';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
 import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
@@ -60,6 +67,7 @@ import { Relationship } from './shared/item-relationships/relationship.model';
 import { RelationshipType } from './shared/item-relationships/relationship-type.model';
 import { ItemRequest } from './shared/item-request.model';
 import { License } from './shared/license.model';
+import { Metric } from './shared/metric.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { Registration } from './shared/registration.model';
 import { SearchConfig } from './shared/search/search-filters/search-config.model';
@@ -68,7 +76,13 @@ import { TemplateItem } from './shared/template-item.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { Version } from './shared/version.model';
 import { VersionHistory } from './shared/version-history.model';
+import { LoginStatistics } from './statistics/models/login-statistics.model';
+import { StatisticsCategory } from './statistics/models/statistics-category.model';
 import { UsageReport } from './statistics/models/usage-report.model';
+import { WorkflowOwnerStatistics } from './statistics/models/workflow-owner-statistics.model';
+import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
+import { EditItem } from './submission/models/edititem.model';
+import { EditItemMode } from './submission/models/edititem-mode.model';
 import { SubmissionCcLicence } from './submission/models/submission-cc-license.model';
 import { SubmissionCcLicenceUrl } from './submission/models/submission-cc-license-url.model';
 import { WorkflowItem } from './submission/models/workflowitem.model';
@@ -186,4 +200,19 @@ export const models =
     Itemfilter,
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
+    Section,
+    Audit,
+    CrisLayoutTab,
+    CrisLayoutBox,
+    MetricsComponent,
+    Metric,
+    MachineToken,
+    ItemExportFormat,
+    EditItem,
+    EditItemMode,
+    StatisticsCategory,
+    WorkflowStepStatistics,
+    WorkflowOwnerStatistics,
+    LoginStatistics,
+    Metric,
   ];

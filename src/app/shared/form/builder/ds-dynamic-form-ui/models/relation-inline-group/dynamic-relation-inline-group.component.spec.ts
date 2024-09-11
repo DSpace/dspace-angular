@@ -28,6 +28,7 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { MockComponent } from 'ng-mocks';
 import { of as observableOf } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../../../../config/app-config.interface';
@@ -155,7 +156,7 @@ xdescribe('DsDynamicRelationInlineGroupComponent test suite', () => {
         NgbModule,
         StoreModule.forRoot({}),
         TranslateModule.forRoot(),
-        FormComponent,
+        MockComponent(FormComponent),
         DsDynamicRelationInlineGroupComponent,
         TestComponent,
       ], // declare the test component

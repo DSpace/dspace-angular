@@ -27,6 +27,7 @@ import { GROUP } from './eperson/models/group.resource-type';
 import { WORKFLOWITEM } from './eperson/models/workflowitem.resource-type';
 import { WORKSPACEITEM } from './eperson/models/workspaceitem.resource-type';
 import { FEEDBACK } from './feedback/models/feedback.resource-type';
+import { ITEM_EXPORT_FORMAT } from './itemexportformat/model/item-export-format.resource-type';
 import { SECTION } from './layout/models/section.resource-type';
 import { TAB } from './layout/models/tab.resource-type';
 import { METADATA_FIELD } from './metadata/metadata-field.resource-type';
@@ -60,6 +61,7 @@ import { METRIC } from './shared/metric.resource-type';
 import { SITE } from './shared/site.resource-type';
 import { VERSION } from './shared/version.resource-type';
 import { VERSION_HISTORY } from './shared/version-history.resource-type';
+import { LOGIN_STATISTICS } from './statistics/models/login-statistics.resource-type';
 import { STATISTICS_CATEGORY } from './statistics/models/statistics-category.resource-type';
 import { USAGE_REPORT } from './statistics/models/usage-report.resource-type';
 import { WORKFLOW_OWNER_STATISTICS } from './statistics/models/workflow-owner-statistics.resource-type';
@@ -156,4 +158,6 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [TAB.value, () => import('./layout/tab-data.service').then(m => m.TabDataService)],
   [WORKFLOW_OWNER_STATISTICS.value, () => import('./statistics/workflow-owner-statistics-data.service').then(m => m.WorkflowOwnerStatisticsDataService)],
   [WORKFLOW_STEP_STATISTICS.value, () => import('./statistics/workflow-step-statistics-data.service').then(m => m.WorkflowStepStatisticsDataService)],
+  [ITEM_EXPORT_FORMAT.value, () => import('./itemexportformat/item-export-format.service').then(m => m.ItemExportFormatService)],
+  [LOGIN_STATISTICS.value, () => import('./statistics/login-statistics.service').then(m => m.LoginStatisticsService)],
 ]);

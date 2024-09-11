@@ -49,6 +49,7 @@ import { Vocabulary } from '../../../../../../core/submission/vocabularies/model
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { XSRFService } from '../../../../../../core/xsrf/xsrf.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { createTestComponent } from '../../../../../testing/utils.test';
@@ -189,6 +190,7 @@ function init() {
 
 }
 
+// TODO: fix this test suite (it seems poorly written)
 xdescribe('DsDynamicRelationGroupComponent test suite', () => {
   let testComp: TestComponent;
   let groupComp: DsDynamicRelationGroupComponent;
@@ -256,6 +258,13 @@ xdescribe('DsDynamicRelationGroupComponent test suite', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
+      .overrideComponent(DsDynamicRelationGroupComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+          ],
+        },
+      })
       .compileComponents();
 
   }));
