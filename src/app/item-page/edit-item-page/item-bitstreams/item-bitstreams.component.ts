@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { Observable, Subscription, zip as observableZip } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -11,7 +11,11 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { hasValue } from '../../../shared/empty.util';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  getFirstCompletedRemoteData
+} from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Bundle } from '../../../core/shared/bundle.model';
@@ -127,12 +131,13 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
           from: `/_links/bitstreams/${event.fromIndex}/href`,
           path: `/_links/bitstreams/${event.toIndex}/href`
         } as Operation;
-        this.bundleService.patch(bundle, [moveOperation]).pipe(take(1)).subscribe((response: RemoteData<Bundle>) => {
+        this.bundleService.patch(bundle, [moveOperation]).pipe(
+          getFirstCompletedRemoteData(),
+        ).subscribe((response: RemoteData<Bundle>) => {
           this.zone.run(() => {
             this.itemBitstreamsService.displayNotifications('item.edit.bitstreams.notifications.move', [response]);
             // Remove all cached requests from this bundle and call the event's callback when the requests are cleared
-            this.requestService.removeByHrefSubstring(bundle.self).pipe(
-              filter((isCached) => isCached),
+            this.requestService.setStaleByHrefSubstring(bundle.self).pipe(
               take(1)
             ).subscribe(() => event.finish());
           });

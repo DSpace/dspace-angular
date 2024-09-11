@@ -28,7 +28,8 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { RequestService } from '../../../../core/data/request.service';
 import { ItemBitstreamsService } from '../item-bitstreams.service';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { hasValue } from '../../../../shared/empty.util';
 
 /**
  * Interface storing all the information necessary to create a row in the bitstream edit table
@@ -135,7 +136,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   /**
    * The data to show in the table
    */
-  tableEntries$: Observable<BitstreamTableEntry[]>;
+  tableEntries$: BehaviorSubject<BitstreamTableEntry[]> = new BehaviorSubject(null);
 
   /**
    * The initial page options to use for fetching the bitstreams
@@ -165,7 +166,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   /**
    * The updates to the current bitstreams
    */
-  updates$: Observable<FieldUpdates>;
+  updates$: BehaviorSubject<FieldUpdates> = new BehaviorSubject(null);
 
 
   constructor(
@@ -229,17 +230,17 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
       this.objectUpdatesService.initialize(this.bundleUrl, bitstreams, new Date());
     });
 
-    this.updates$ = this.bitstreamsRD$.pipe(
+    this.bitstreamsRD$.pipe(
       getAllSucceededRemoteData(),
       paginatedListToArray(),
       switchMap((bitstreams) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundleUrl, bitstreams))
-    );
+    ).subscribe((updates) => this.updates$.next(updates));
 
-    this.tableEntries$ = this.bitstreamsRD$.pipe(
+    this.bitstreamsRD$.pipe(
       getAllSucceededRemoteData(),
       paginatedListToArray(),
       map((bitstreams) => this.itemBitstreamsService.mapBitstreamsToTableEntries(bitstreams)),
-    );
+    ).subscribe((tableEntries) => this.tableEntries$.next(tableEntries));
   }
 
   /**
@@ -288,7 +289,50 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<any>) {
-    console.log('dropEvent:', event);
+    const dragIndex = event.previousIndex;
+    let dropIndex = event.currentIndex;
+    const dragPage = this.currentPaginationOptions$.value.currentPage - 1;
+    let dropPage = this.currentPaginationOptions$.value.currentPage - 1;
+
+    // Check if the user is hovering over any of the pagination's pages at the time of dropping the object
+    const droppedOnElement = document.elementFromPoint(event.dropPoint.x, event.dropPoint.y);
+    if (hasValue(droppedOnElement) && hasValue(droppedOnElement.textContent) && droppedOnElement.classList.contains('page-link')) {
+      // The user is hovering over a page, fetch the page's number from the element
+      const droppedPage = Number(droppedOnElement.textContent);
+      if (hasValue(droppedPage) && !Number.isNaN(droppedPage)) {
+        dropPage = droppedPage - 1;
+        dropIndex = 0;
+      }
+    }
+
+    const isNewPage = dragPage !== dropPage;
+    // Move the object in the custom order array if the drop happened within the same page
+    // This allows us to instantly display a change in the order, instead of waiting for the REST API's response first
+    if (!isNewPage && dragIndex !== dropIndex) {
+      const currentEntries = [...this.tableEntries$.value];
+      moveItemInArray(currentEntries, dragIndex, dropIndex);
+      this.tableEntries$.next(currentEntries);
+    }
+
+    const pageSize = this.currentPaginationOptions$.value.pageSize;
+    const redirectPage = dropPage + 1;
+    const fromIndex = (dragPage * pageSize) + dragIndex;
+    const toIndex = (dropPage * pageSize) + dropIndex;
+    // Send out a drop event (and navigate to the new page) when the "from" and "to" indexes are different from each other
+    if (fromIndex !== toIndex) {
+      // if (isNewPage) {
+      //   this.loading$.next(true);
+      // }
+      this.dropObject.emit(Object.assign({
+        fromIndex,
+        toIndex,
+        finish: () => {
+          if (isNewPage) {
+            this.paginationComponent.doPageChange(redirectPage);
+          }
+        }
+      }));
+    }
   }
 
 }
