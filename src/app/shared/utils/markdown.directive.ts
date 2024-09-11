@@ -60,29 +60,37 @@ export class MarkdownDirective implements OnChanges, OnDestroy {
       this.el.innerHTML = value;
       return;
     } else {
-      const MarkdownIt = await this.markdownIt;
-      const md = new MarkdownIt({
-        html: true,
-        linkify: true,
-      });
-
-      const html = this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
-      this.el.innerHTML = html;
-
       if (environment.markdown.mathjax) {
-        this.renderMathjax();
+        this.renderMathjaxThenMarkdown(value);
+      } else {
+        this.renderMarkdown(value);
       }
     }
   }
 
-  private renderMathjax() {
+  private renderMathjaxThenMarkdown(value: string) {
+    const sanitized = this.sanitizer.sanitize(SecurityContext.HTML, value);
+    this.el.innerHTML = sanitized;
     this.mathService.ready().pipe(
       filter((ready) => ready),
       take(1),
       takeUntil(this.alive$)
     ).subscribe(() => {
-      this.mathService.render(this.el);
+      this.mathService.render(this.el)?.then(_ => {
+        this.renderMarkdown(this.el.innerHTML, true);
+      });
     });
+  }
+
+  private async renderMarkdown(value: string, alreadySanitized = false) {
+    const MarkdownIt = await this.markdownIt;
+    const md = new MarkdownIt({
+      html: true,
+      linkify: true,
+    });
+
+    const html = alreadySanitized ? md.render(value) : this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
+    this.el.innerHTML = html;
   }
 
   ngOnDestroy() {
