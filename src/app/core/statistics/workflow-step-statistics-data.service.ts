@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -12,13 +11,11 @@ import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { WorkflowStepStatistics } from './models/workflow-step-statistics.model';
-import { WORKFLOW_STEP_STATISTICS } from './models/workflow-step-statistics.resource-type';
 
 /**
  * A service that provides methods to make REST requests with workflow step statistics endpoint.
  */
 @Injectable({ providedIn: 'root' })
-@dataService(WORKFLOW_STEP_STATISTICS)
 export class WorkflowStepStatisticsDataService extends IdentifiableDataService<WorkflowStepStatistics> {
 
   protected linkPath = 'workflowSteps';

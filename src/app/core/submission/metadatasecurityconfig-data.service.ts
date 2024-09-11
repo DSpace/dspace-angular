@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { METADATA_SECURITY_TYPE } from './models/metadata-security-config.resource-type';
 import { MetadataSecurityConfiguration } from './models/metadata-security-configuration';
 
 /**
@@ -17,7 +15,6 @@ import { MetadataSecurityConfiguration } from './models/metadata-security-config
 @Injectable({
   providedIn: 'root',
 })
-@dataService(METADATA_SECURITY_TYPE)
 export class MetadataSecurityConfigurationService extends IdentifiableDataService<MetadataSecurityConfiguration> {
 
   constructor(

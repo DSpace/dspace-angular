@@ -6,7 +6,6 @@ import {
 } from 'rxjs/operators';
 
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FindListOptions } from '../data/find-list-options.model';
@@ -16,10 +15,8 @@ import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ConfigDataService } from './config-data.service';
 import { ConfigObject } from './models/config.model';
-import { SUBMISSION_DEFINITION_TYPE } from './models/config-type';
 
 @Injectable({ providedIn: 'root' })
-@dataService(SUBMISSION_DEFINITION_TYPE)
 export class SubmissionDefinitionsConfigDataService extends ConfigDataService {
   constructor(
     protected requestService: RequestService,

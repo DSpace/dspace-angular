@@ -13,9 +13,11 @@ import { IDENTIFIERS } from '../shared/object-list/identifier-data/identifier-da
 import { SUBSCRIPTION } from '../shared/subscriptions/models/subscription.resource-type';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from '../submission/sections/section-coar-notify/section-coar-notify-service.resource-type';
 import { SYSTEMWIDEALERT } from '../system-wide-alert/system-wide-alert.resource-type';
+import { AUDIT } from './audit/model/audit.resource-type';
 import {
   BULK_ACCESS_CONDITION_OPTIONS,
   SUBMISSION_ACCESSES_TYPE,
+  SUBMISSION_DEFINITION_TYPE,
   SUBMISSION_FORMS_TYPE,
   SUBMISSION_UPLOADS_TYPE,
 } from './config/models/config-type';
@@ -25,6 +27,8 @@ import { GROUP } from './eperson/models/group.resource-type';
 import { WORKFLOWITEM } from './eperson/models/workflowitem.resource-type';
 import { WORKSPACEITEM } from './eperson/models/workspaceitem.resource-type';
 import { FEEDBACK } from './feedback/models/feedback.resource-type';
+import { SECTION } from './layout/models/section.resource-type';
+import { TAB } from './layout/models/tab.resource-type';
 import { METADATA_FIELD } from './metadata/metadata-field.resource-type';
 import { METADATA_SCHEMA } from './metadata/metadata-schema.resource-type';
 import { QUALITY_ASSURANCE_EVENT_OBJECT } from './notifications/qa/models/quality-assurance-event-object.resource-type';
@@ -52,11 +56,17 @@ import { ITEM_TYPE } from './shared/item-relationships/item-type.resource-type';
 import { RELATIONSHIP } from './shared/item-relationships/relationship.resource-type';
 import { RELATIONSHIP_TYPE } from './shared/item-relationships/relationship-type.resource-type';
 import { LICENSE } from './shared/license.resource-type';
+import { METRIC } from './shared/metric.resource-type';
 import { SITE } from './shared/site.resource-type';
 import { VERSION } from './shared/version.resource-type';
 import { VERSION_HISTORY } from './shared/version-history.resource-type';
+import { STATISTICS_CATEGORY } from './statistics/models/statistics-category.resource-type';
 import { USAGE_REPORT } from './statistics/models/usage-report.resource-type';
+import { WORKFLOW_OWNER_STATISTICS } from './statistics/models/workflow-owner-statistics.resource-type';
+import { WORKFLOW_STEP_STATISTICS } from './statistics/models/workflow-step-statistics.resource-type';
 import { CorrectionType } from './submission/models/correctiontype.model';
+import { EditItem } from './submission/models/edititem.model';
+import { METADATA_SECURITY_TYPE } from './submission/models/metadata-security-config.resource-type';
 import { SUBMISSION_CC_LICENSE } from './submission/models/submission-cc-licence.resource-type';
 import { SUBMISSION_CC_LICENSE_URL } from './submission/models/submission-cc-licence-link.resource-type';
 import {
@@ -136,4 +146,14 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [SUGGESTION_TARGET.value, () => import('./notifications/suggestions/target/suggestion-target-data.service').then(m => m.SuggestionTargetDataService)],
   [DUPLICATE.value, () => import('./submission/submission-duplicate-data.service').then(m => m.SubmissionDuplicateDataService)],
   [CorrectionType.type.value, () => import('./submission/correctiontype-data.service').then(m => m.CorrectionTypeDataService)],
+  [AUDIT.value, () => import('./audit/audit-data.service').then(m => m.AuditDataService)],
+  [EditItem.type.value, () => import('./submission/edititem-data.service').then(m => m.EditItemDataService)],
+  [METADATA_SECURITY_TYPE.value, () => import('./submission/metadatasecurityconfig-data.service').then(m => m.MetadataSecurityConfigurationService)],
+  [METRIC.value, () => import('./data/metrics-data.service').then(m => m.MetricsDataService)],
+  [SECTION.value, () => import('./layout/section-data.service').then(m => m.SectionDataService)],
+  [STATISTICS_CATEGORY.value, () => import('./statistics/statistics-categories-data.service').then(m => m.StatisticsCategoriesDataService)],
+  [SUBMISSION_DEFINITION_TYPE.value, () => import('./config/submission-definitions-config-data.service').then(m => m.SubmissionDefinitionsConfigDataService)],
+  [TAB.value, () => import('./layout/tab-data.service').then(m => m.TabDataService)],
+  [WORKFLOW_OWNER_STATISTICS.value, () => import('./statistics/workflow-owner-statistics-data.service').then(m => m.WorkflowOwnerStatisticsDataService)],
+  [WORKFLOW_STEP_STATISTICS.value, () => import('./statistics/workflow-step-statistics-data.service').then(m => m.WorkflowStepStatisticsDataService)],
 ]);

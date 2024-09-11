@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
@@ -12,13 +11,11 @@ import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { StatisticsCategory } from './models/statistics-category.model';
-import { STATISTICS_CATEGORY } from './models/statistics-category.resource-type';
 
 /**
  * A service to retrieve {@link StatisticsCategory}s from the REST API
  */
 @Injectable({ providedIn: 'root' })
-@dataService(STATISTICS_CATEGORY)
 export class StatisticsCategoriesDataService extends IdentifiableDataService<StatisticsCategory> {
 
   protected linkPath = 'categories';

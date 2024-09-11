@@ -7,7 +7,6 @@ import {
   hasValue,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -24,13 +23,11 @@ import {
   CrisLayoutRow,
   CrisLayoutTab,
 } from './models/tab.model';
-import { TAB } from './models/tab.resource-type';
 
 /**
  * A service responsible for fetching data from the REST API on the tabs endpoint
  */
 @Injectable({ providedIn: 'root' })
-@dataService(TAB)
 export class TabDataService extends IdentifiableDataService<CrisLayoutTab> {
   protected searchFindByItem = 'findByItem';
   protected searchFindByEntityType = 'findByEntityType';

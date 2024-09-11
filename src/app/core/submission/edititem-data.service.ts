@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DeleteDataImpl } from '../data/base/delete-data';
@@ -25,7 +24,6 @@ import { EditItemMode } from './models/edititem-mode.model';
  * A service that provides methods to make REST requests with edititems endpoint.
  */
 @Injectable({ providedIn: 'root' })
-@dataService(EditItem.type)
 export class EditItemDataService extends IdentifiableDataService<EditItem> {
   protected linkPath = 'edititems';
   protected searchById = 'findModesById';
