@@ -1,4 +1,5 @@
 <div dsSection #sectionRef="sectionRef" [attr.id]="'section_' + sectionData.id"
+  class="mb-2"
   [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() }" [mandatory]="sectionData.mandatory"
   [submissionId]="submissionId" [sectionType]="sectionData.sectionType" [sectionId]="sectionData.id">
   <ngb-accordion #acc="ngbAccordion" *ngIf="(sectionRef.isEnabled() | async)"
