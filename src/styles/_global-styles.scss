@@ -292,3 +292,8 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
 .table {
   --bs-table-striped-bg: #{$table-striped-bg};
 }
+
+/* btn-close Changed from Bootstrap 5's .btn-close to ensure the button close button has the original size */
+.btn-close {
+  transform: scale(0.6);
+}
