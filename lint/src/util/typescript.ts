@@ -5,17 +5,18 @@
  *
  * http://www.dspace.org/license/
  */
+import { TSESTree } from '@typescript-eslint/utils';
 import {
-  TSESLint,
-  TSESTree,
-} from '@typescript-eslint/utils';
+  RuleContext,
+  SourceCode,
+} from '@typescript-eslint/utils/ts-eslint';
 
 import {
   match,
   toUnixStylePath,
 } from './misc';
 
-export type AnyRuleContext = TSESLint.RuleContext<string, unknown[]>;
+export type AnyRuleContext = RuleContext<string, unknown[]>;
 
 /**
  * Return the current filename based on the ESLint rule context as a Unix-style path.
@@ -27,7 +28,7 @@ export function getFilename(context: AnyRuleContext): string {
   return toUnixStylePath(context.getFilename());
 }
 
-export function getSourceCode(context: AnyRuleContext): TSESLint.SourceCode {
+export function getSourceCode(context: AnyRuleContext): SourceCode {
   // TSESLint claims this is deprecated, but the suggested alternative is undefined (could be a version mismatch between ESLint and TSESlint?)
   // eslint-disable-next-line deprecation/deprecation
   return context.getSourceCode();

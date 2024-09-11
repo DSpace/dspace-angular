@@ -375,7 +375,7 @@ describe('EditRelationshipListComponent', () => {
 
 
 
-      describe('changes managment for add buttons', () => {
+      describe('changes management for add buttons', () => {
 
         it('should show enabled add buttons', () => {
           const element = de.query(By.css('.btn-success'));

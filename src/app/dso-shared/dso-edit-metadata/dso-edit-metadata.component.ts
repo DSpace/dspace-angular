@@ -244,7 +244,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   /**
    * Submit the current changes to the form by retrieving json PATCH operations from the form and sending it to the
    * DSpaceObject's data-service
-   * Display notificiations and reset the form afterwards if successful
+   * Display notifications and reset the form afterwards if successful
    */
   submit(): void {
     this.saving$.next(true);
