@@ -8,7 +8,6 @@ import { MenuServiceStub } from '../testing/menu-service.stub';
 import { of as observableOf } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
 import { Item } from '../../core/shared/item.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -76,7 +75,7 @@ describe('MenuComponent', () => {
     comp.menuID = mockMenuID;
     menuService = (comp as any).menuService;
     router = TestBed.inject(Router);
-    spyOn(comp as any, 'getSectionDataInjector').and.returnValue(MenuSection);
+    // spyOn(comp as any, 'getSectionDataInjector').and.returnValue(MenuSection);
     spyOn(comp as any, 'getSectionComponent').and.returnValue(observableOf({}));
     fixture.detectChanges();
   });

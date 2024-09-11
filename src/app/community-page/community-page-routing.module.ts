@@ -4,7 +4,6 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
-import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { resolveRouteMenus } from '../shared/menu/menu.resolver';
 import { SubscribeMenuProvider } from '../shared/menu/providers/comcol-subscribe.menu';
 import { DSpaceObjectEditMenuProvider } from '../shared/menu/providers/dso-edit.menu';

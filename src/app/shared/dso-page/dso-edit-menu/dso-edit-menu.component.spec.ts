@@ -10,12 +10,12 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { MenuService } from '../../menu/menu.service';
-import { MenuItemModel } from '../../menu/menu-item/models/menu-item.model';
 import { ThemeService } from '../../theme-support/theme.service';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 
 
 import { DsoPageModule } from '../dso-page.module';
+import { TextMenuItemModel } from '../../menu/menu-item/models/text.model';
 
 describe('DsoEditMenuComponent', () => {
   let comp: DsoEditMenuComponent;
@@ -34,7 +34,8 @@ describe('DsoEditMenuComponent', () => {
     model: {
       type: null,
       disabled: false,
-    } as MenuItemModel,
+      text: 'dummy-text'
+    } as TextMenuItemModel,
     icon: 'pencil-alt',
     index: 1
   };
