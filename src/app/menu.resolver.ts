@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuState } from './shared/menu/menu-state.model';
 import { MenuItemType } from './shared/menu/menu-item-type.model';
@@ -318,7 +318,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'new_item',
           parentID: 'new',
           active: false,
-          visible: isSiteAdmin,
+          visible: isSiteAdmin || isCommunityAdmin || isCollectionAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',
@@ -451,7 +451,19 @@ export class MenuResolver implements Resolve<boolean> {
         //   icon: 'cogs',
         //   index: 9
         // },
-
+        /*  Admin Search */
+        {
+          id: 'admin_search',
+          active: false,
+          visible: isSiteAdmin || isCollectionAdmin || isCommunityAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.admin_search',
+            link: '/admin/search'
+          } as LinkMenuItemModel,
+          index: 5,
+          icon: 'search',
+        },
         /* Processes */
         {
           id: 'processes',
@@ -532,8 +544,14 @@ export class MenuResolver implements Resolve<boolean> {
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
-    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
-      filter((authorized: boolean) => authorized),
+    combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+    ]).pipe(
+      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
+        isAdmin || isCollectionAdmin || isCommunityAdmin
+      ),
       take(1),
       switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)),
       filter((metadataExportScriptExists: boolean) => metadataExportScriptExists),
@@ -659,8 +677,14 @@ export class MenuResolver implements Resolve<boolean> {
     const menuList = [];
     menuList.forEach((menuSection) => this.menuService.addSection(MenuID.ADMIN, menuSection));
 
-    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
-      filter((authorized: boolean) => authorized),
+    combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+    ]).pipe(
+      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
+        isAdmin || isCollectionAdmin || isCommunityAdmin
+      ),
       take(1),
       switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)),
       filter((metadataImportScriptExists: boolean) => metadataImportScriptExists),
@@ -760,19 +784,6 @@ export class MenuResolver implements Resolve<boolean> {
             text: 'menu.section.notifications_reciter',
             link: '/admin/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
           } as LinkMenuItemModel,
-        },
-        /*  Admin Search */
-        {
-          id: 'admin_search',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.admin_search',
-            link: '/admin/search'
-          } as LinkMenuItemModel,
-          icon: 'search',
-          index: 5
         },
         /*  Registries */
         {
