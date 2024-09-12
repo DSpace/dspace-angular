@@ -33,5 +33,5 @@
 
   --bs-primary-bg-subtle: #{$accordion-btn-bg};
 
-  --bs-border-radius: 0.25em;
+  --bs-border-radius: #{$bs-border-radius};
 }
