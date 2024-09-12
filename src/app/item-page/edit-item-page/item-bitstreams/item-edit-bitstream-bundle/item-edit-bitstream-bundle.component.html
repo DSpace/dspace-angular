@@ -27,7 +27,9 @@
         </tr>
         </thead>
 
-        <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+        <tbody cdkDropList (cdkDropListDropped)="drop($event)"
+               [ngbTooltip]="'item.edit.bitstreams.bundle.tooltip' | translate" placement="bottom-left"
+               [autoClose]="false" triggers="manual" #dragTooltip="ngbTooltip">
         <tr class="bundle-row">
           <th id="{{ bundleName }}" class="span" colspan="3" scope="colgroup">
             {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundleName } }}
@@ -65,7 +67,8 @@
         </tr>
 
         <ng-container *ngFor="let entry of (tableEntries$ | async)">
-          <tr *ngIf="updates[entry.id] as update" [ngClass]="getRowClass(update)" class="bitstream-row" cdkDrag>
+          <tr *ngIf="updates[entry.id] as update" [ngClass]="getRowClass(update)" class="bitstream-row" cdkDrag
+          (cdkDragStarted)="dragStart()" (cdkDragEnded)="dragEnd()">
 
             <th class="bitstream-name row-element {{ columnSizes.columns[0].buildClasses() }}"
                 scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">

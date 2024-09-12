@@ -21,7 +21,7 @@ import {
 } from '../../../../core/shared/operators';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { map } from 'rxjs/operators';
+import { map, take, filter } from 'rxjs/operators';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
@@ -83,7 +83,15 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    */
   @ViewChild('bundleView', {static: true}) bundleView;
 
+  /**
+   * The view on the pagination component
+   */
   @ViewChild(PaginationComponent) paginationComponent: PaginationComponent;
+
+  /**
+   * The view on the drag tooltip
+   */
+  @ViewChild('dragTooltip') dragTooltip;
 
   /**
    * The bundle to display bitstreams for
@@ -157,6 +165,11 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    * The currently selected page size
    */
   pageSize$: BehaviorSubject<number>;
+
+  /**
+   * Whether the table has multiple pages
+   */
+  hasMultiplePages = false;
 
   /**
    * The self url of the bundle, also used when retrieving fieldUpdates
@@ -287,6 +300,21 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   public doPageSizeChange(pageSize: number) {
     this.paginationComponent.doPageSizeChange(pageSize);
   }
+
+  dragStart() {
+    // Only open the drag tooltip when there are multiple pages
+    this.paginationComponent.shouldShowBottomPager.pipe(
+      take(1),
+      filter((hasMultiplePages) => hasMultiplePages),
+    ).subscribe(() => {
+      this.dragTooltip.open();
+    });
+  }
+
+  dragEnd() {
+    this.dragTooltip.close();
+  }
+
 
   drop(event: CdkDragDrop<any>) {
     const dragIndex = event.previousIndex;
