@@ -303,3 +303,9 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
 #legend_dc_date_issued {
   float: none;
 }
+
+/* Give custon paddings to the badges */
+.badge {
+  --bs-badge-padding-x: #{$bs-badge-padding-x};
+  --bs-badge-padding-y: #{$bs-badge-padding-y};
+}
