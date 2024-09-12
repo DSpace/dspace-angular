@@ -309,3 +309,8 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
   --bs-badge-padding-x: #{$bs-badge-padding-x};
   --bs-badge-padding-y: #{$bs-badge-padding-y};
 }
+
+/* Make sure every element of a single drag-item is on the same line */
+.drag-item-container > * {
+  width: auto;
+}
