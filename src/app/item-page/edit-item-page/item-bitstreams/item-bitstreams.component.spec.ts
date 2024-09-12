@@ -18,7 +18,6 @@ import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
-import { RestResponse } from '../../../core/cache/response.models';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
@@ -145,7 +144,7 @@ describe('ItemBitstreamsComponent', () => {
       url: url
     });
     bundleService = jasmine.createSpyObj('bundleService', {
-      patch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: createSuccessfulRemoteDataObject$({}),
     });
 
     TestBed.configureTestingModule({
@@ -188,20 +187,6 @@ describe('ItemBitstreamsComponent', () => {
 
     it('should not call removeMultiple on the bitstreamService for the unmarked field', () => {
       expect(bitstreamService.removeMultiple).not.toHaveBeenCalledWith([bitstream1]);
-    });
-  });
-
-  describe('when dropBitstream is called', () => {
-    const event = {
-      fromIndex: 0,
-      toIndex: 50,
-      // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
-      finish: () => {
-      }
-    };
-
-    beforeEach(() => {
-      comp.dropBitstream(bundle, event);
     });
   });
 
