@@ -26,8 +26,6 @@ import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemEditBitstreamBundleComponent } from './item-bitstreams/item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 import { BundleDataService } from '../../core/data/bundle-data.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ItemEditBitstreamDragHandleComponent } from './item-bitstreams/item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
-import { PaginatedDragAndDropBitstreamListComponent } from './item-bitstreams/item-edit-bitstream-bundle/paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
 import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
@@ -82,12 +80,10 @@ import {
     ItemVersionHistoryComponent,
     ItemEditBitstreamComponent,
     ItemEditBitstreamBundleComponent,
-    PaginatedDragAndDropBitstreamListComponent,
     EditRelationshipComponent,
     EditRelationshipListComponent,
     ItemCollectionMapperComponent,
     ItemMoveComponent,
-    ItemEditBitstreamDragHandleComponent,
     VirtualMetadataComponent,
     ItemAuthorizationsComponent,
     IdentifierDataComponent,
