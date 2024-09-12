@@ -286,7 +286,7 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
 }
 
 .accordion {
-  --bs-accordion-btn-bg: #{$accordion-btn-bg};
+  --bs-accordion-btn-bg: var(--bs-primary-bg-subtle);
 }
 
 .table {
