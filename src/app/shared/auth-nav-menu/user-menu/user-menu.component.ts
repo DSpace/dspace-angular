@@ -10,6 +10,7 @@ import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component
 import { AuthService } from '../../../core/auth/auth.service';
 import { getProfileModuleRoute, getSubscriptionsModuleRoute } from '../../../app-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { getProcessListRoute } from '../../../process-page/process-page-routing.paths';
 
 /**
  * This component represents the user nav menu.
@@ -48,6 +49,11 @@ export class UserMenuComponent implements OnInit {
    * The profile page route
    */
   public profileRoute = getProfileModuleRoute();
+
+  /**
+   * The processes page route
+   */
+  public processesRoute = getProcessListRoute();
 
   /**
    * The profile page route
