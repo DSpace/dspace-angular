@@ -92,25 +92,25 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
       }),
     );
   }
-  
+
   getHierarchicalName(): Observable<string> {
     return this.getParentTitle().pipe(
       switchMap((parentTitle: string) => {
-          return this.getParent().pipe(
-            switchMap((parentRD: RemoteData<DSpaceObject>) => {
-              if (hasValue(parentRD) && hasValue(parentRD.payload)) {
-                const parentInstance = this.createInstanceFromDSpaceObject(parentRD.payload);
-                return parentInstance.getHierarchicalName().pipe(
-                  map((ancestorName: string) => ancestorName ? `${ancestorName} > ${parentTitle}` : parentTitle)
-                );
-              }
-              return observableOf(parentTitle);
-            })
-          );
-      })
+        return this.getParent().pipe(
+          switchMap((parentRD: RemoteData<DSpaceObject>) => {
+            if (hasValue(parentRD) && hasValue(parentRD.payload)) {
+              const parentInstance = this.createInstanceFromDSpaceObject(parentRD.payload);
+              return parentInstance.getHierarchicalName().pipe(
+                map((ancestorName: string) => ancestorName ? `${ancestorName} > ${parentTitle}` : parentTitle),
+              );
+            }
+            return observableOf(parentTitle);
+          }),
+        );
+      }),
     );
   }
-  
+
   /**
    * Utility method to create an instance of the current class from a DSpaceObject
    */
