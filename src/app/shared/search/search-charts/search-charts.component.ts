@@ -17,10 +17,12 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest as observableCombineLatest,
   Observable,
   of,
 } from 'rxjs';
 import {
+  distinctUntilChanged,
   filter,
   map,
   mergeMap,
@@ -39,6 +41,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../empty.util';
+import { VarDirective } from '../../utils/var.directive';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchChartComponent } from './search-chart/search-chart.component';
 
@@ -55,6 +58,7 @@ import { SearchChartComponent } from './search-chart/search-chart.component';
     NgIf,
     NgForOf,
     SearchChartComponent,
+    VarDirective,
   ],
   standalone: true,
 })
@@ -94,6 +98,11 @@ export class SearchChartsComponent implements OnInit {
   @Input() showChartsToggle = false;
 
   /**
+   * Scope of the search
+   */
+  @Input() scope: string;
+
+  /**
    * The selected chart to show
    */
   selectedFilter: SearchFilterConfig;
@@ -103,30 +112,54 @@ export class SearchChartsComponent implements OnInit {
    */
   isPlatformBrowser: boolean;
 
+  /**
+   * Array with charts visibility
+   */
+  chartsVisibilityList$: Observable<boolean[]> = of([true]);
+
+  /**
+   *
+   * @param cdr
+   * @param searchService
+   * @param platformId
+   * @param searchConfigService
+   */
+
   constructor(
     private cdr: ChangeDetectorRef,
     private searchService: SearchService,
     @Inject(PLATFORM_ID) protected platformId: any,
-    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
-  }
+    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
+  ) {}
 
   ngOnInit(): void {
     this.isPlatformBrowser = isPlatformBrowser(this.platformId);
+
+    this.chartsVisibilityList$ = this.filters.pipe(
+      filter((rd: RemoteData<SearchFilterConfig[]>) => isNotEmpty(rd)),
+      mergeMap(rd => {
+        const filterGuards = rd.payload.map(filterConfig => this.canShowChart(filterConfig));
+        return observableCombineLatest([...filterGuards]);
+      }),
+      distinctUntilChanged(),
+    );
 
     if (isPlatformBrowser(this.platformId)) {
       this.filters.pipe(
         filter((rd: RemoteData<SearchFilterConfig[]>) => isNotEmpty(rd)),
         take(1),
         mergeMap((rd: RemoteData<SearchFilterConfig[]>) => {
-          return this.hasFacetValues(rd.payload[0]).pipe(
+          const filterConfigs = rd.payload;
+          return this.hasFacetValues(filterConfigs[0]).pipe(
             tap((hasValues) => {
               this.selectedFilter = this.selectedFilter
                 ? this.selectedFilter
-                : rd.hasSucceeded && hasValues ? rd.payload[0] : null;
+                : rd.hasSucceeded && hasValues ? filterConfigs[0] : null;
               this.cdr.detectChanges();
             }),
           );
         }),
+        switchMap(() => this.canShowChart(this.selectedFilter)),
       ).subscribe();
     }
   }

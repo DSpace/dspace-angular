@@ -3,7 +3,7 @@
         <h2 class="flex-grow-1">{{'audit.overview.title' | translate}}</h2>
     </div>
 
-    <ng-container *ngIf="(isCurrentUserAdmin() | async)">
+    <ng-container *ngIf="isAdmin$ | async">
         <div *ngIf="(auditsRD$ | async)?.payload?.totalElements === 0">
             No audits found.
         </div>

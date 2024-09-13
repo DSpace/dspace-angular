@@ -59,6 +59,11 @@ export class SearchChartComponent implements OnInit {
   @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
+   * Scope of the search
+   */
+  @Input() scope: string;
+
+  /**
    * Emits all currently selected values for this filter
    */
   selectedValues$: Observable<string[]>;

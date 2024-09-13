@@ -55,6 +55,11 @@ export class AuditOverviewComponent implements OnInit {
   auditsRD$: Observable<RemoteData<PaginatedList<Audit>>>;
 
   /**
+   * Whether user is admin
+   */
+  isAdmin$: Observable<boolean>;
+
+  /**
    * The current pagination configuration for the page used by the FindAll method
    */
   config: FindListOptions = Object.assign(new FindListOptions(), {
@@ -97,8 +102,8 @@ export class AuditOverviewComponent implements OnInit {
    */
   setAudits() {
     const config$ = this.paginationService.getFindListOptions(this.pageId, this.config);
-    const isAdmin$ = this.isCurrentUserAdmin();
-    this.auditsRD$ = combineLatest([isAdmin$, config$]).pipe(
+    this.isAdmin$ = this.isCurrentUserAdmin();
+    this.auditsRD$ = combineLatest([this.isAdmin$, config$]).pipe(
       mergeMap(([isAdmin, config]) => {
         if (isAdmin) {
           return this.auditService.findAll(config);

@@ -12,6 +12,7 @@
                   [filters]="chartFiltersRD$.asObservable()"
                   [inPlaceSearch]="inPlaceSearch"
                   [refreshFilters]="refreshFilters"
+                  [scope]="scope"
                   [showChartsToggle]="showChartsToggle"></ds-search-charts>
 
 <div *ngIf="!showSidebar && (initialized$ | async)">

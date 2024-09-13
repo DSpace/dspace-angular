@@ -123,6 +123,7 @@ describe('ProcessDetailComponent', () => {
       delete: createSuccessfulRemoteDataObject$(null),
       findById: createSuccessfulRemoteDataObject$(process),
       autoRefreshUntilCompletion: createSuccessfulRemoteDataObject$(process),
+      stopAutoRefreshing: () => null,
     });
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
       findByHref: createSuccessfulRemoteDataObject$(logBitstream),

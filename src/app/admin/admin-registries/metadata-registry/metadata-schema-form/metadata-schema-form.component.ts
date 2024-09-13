@@ -25,6 +25,7 @@ import {
   Observable,
 } from 'rxjs';
 import {
+  map,
   switchMap,
   take,
   tap,
@@ -32,6 +33,7 @@ import {
 
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
+import { hasValue } from '../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 
@@ -98,6 +100,12 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
   formGroup: UntypedFormGroup;
 
   /**
+   * Whether to show the edit header
+   */
+  canShowEditHeader$: Observable<boolean>;
+
+
+  /**
    * An EventEmitter that's fired whenever the form is being submitted
    */
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
@@ -160,6 +168,9 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
         }
       });
     });
+    this.canShowEditHeader$ = this.registryService.getActiveMetadataSchema().pipe(
+      map(field => hasValue(field)),
+    );
   }
 
   /**

@@ -64,6 +64,16 @@ import { ContextMenuEntryType } from './context-menu-entry-type';
 export class ContextMenuComponent implements OnInit {
 
   /**
+   * The context menu entries
+   */
+  menuEntries$: Observable<any[]>;
+
+  /**
+   * The context menu standalone entries
+   */
+  menuStandaloneEntries$: Observable<any[]>;
+
+  /**
    * The related item
    */
   @Input() contextMenuObject: DSpaceObject;
@@ -109,6 +119,9 @@ export class ContextMenuComponent implements OnInit {
       ],
       parent: this.injector,
     });
+
+    this.menuEntries$ = this.getContextMenuEntries();
+    this.menuStandaloneEntries$ = this.getStandAloneMenuEntries();
   }
 
   /**
