@@ -24,7 +24,7 @@ import * as express from 'express';
 import * as ejs from 'ejs';
 import * as compression from 'compression';
 import * as expressStaticGzip from 'express-static-gzip';
-import * as domino from 'domino';
+import * as domino from 'domino-ext';
 /* eslint-enable import/no-namespace */
 import axios from 'axios';
 import LRU from 'lru-cache';

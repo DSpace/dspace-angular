@@ -119,7 +119,7 @@
     "date-fns": "^2.29.3",
     "date-fns-tz": "^1.3.7",
     "deepmerge": "^4.3.1",
-    "domino": "^2.1.6",
+    "domino-ext": "^2.1.4",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-rate-limit": "^5.1.3",

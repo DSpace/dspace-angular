@@ -86,3 +86,8 @@ declare module '*.scss' {
   const content: any;
   export default content;
 }
+
+declare module 'domino-ext' {
+  const dominoExt: any;
+  export = dominoExt;
+}
