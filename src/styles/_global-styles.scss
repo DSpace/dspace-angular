@@ -304,6 +304,11 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
   float: none;
 }
 
+/* Removed the border of the inc/dec buttons on date picker*/
+ds-number-picker > div > .btn:disabled {
+  --bs-btn-disabled-border-color: #{$bs-btn-disabled-border-color};
+}
+
 /* Give custon paddings to the badges */
 .badge {
   --bs-badge-padding-x: #{$bs-badge-padding-x};
