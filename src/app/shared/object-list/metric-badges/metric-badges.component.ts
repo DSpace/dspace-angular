@@ -40,11 +40,14 @@ export class MetricBadgesComponent implements OnInit {
 
   @Input() item: Item;
 
+  metrics$: Observable<Metric[]>;
+
   constructor(private linkService: LinkService) {
   }
 
   ngOnInit() {
     this.linkService.resolveLink(this.item, followLink('metrics'));
+    this.metrics$ = this.metrics();
   }
 
   /**
