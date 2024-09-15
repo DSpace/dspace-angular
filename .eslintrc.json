@@ -8,7 +8,6 @@
     "eslint-plugin-deprecation",
     "unused-imports",
     "eslint-plugin-lodash",
-    "eslint-plugin-jsonc",
     "eslint-plugin-rxjs",
     "eslint-plugin-simple-import-sort",
     "eslint-plugin-import-newlines",
