@@ -4,7 +4,10 @@ import {
   NgForOf,
   NgIf,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+} from '@angular/core';
 import {
   Router,
   RouterLink,
@@ -60,7 +63,7 @@ import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-sch
  * A component used for managing all existing metadata schemas within the repository.
  * The admin can create, edit or delete metadata schemas here.
  */
-export class MetadataRegistryComponent {
+export class MetadataRegistryComponent implements OnDestroy {
 
   /**
    * A list of all the current metadata schemas within the repository
