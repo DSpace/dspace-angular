@@ -13,7 +13,7 @@
           </label>
           <select
             id="accesscontroloption-{{control.id}}"
-            [dsDisabled]="ngForm.disabled"
+            [disabled]="ngForm.disabled"
             [(ngModel)]="control.itemName"
             (ngModelChange)="accessControlChanged(control, $event)"
             name="itemName-{{control.id}}"

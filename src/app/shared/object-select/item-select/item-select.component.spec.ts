@@ -197,8 +197,7 @@ describe('ItemSelectComponent', () => {
 
       const checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
       expect(authorizationDataService.isAuthorized).toHaveBeenCalled();
-      expect(checkbox.getAttribute('aria-disabled')).toBe('true');
-      expect(checkbox.classList.contains('disabled')).toBe(true);
+      expect(checkbox.disabled).toBeTrue();
     }));
   });
 });

@@ -21,7 +21,7 @@
       (change)="update($event); $event.stopPropagation();"
       (focus)="onFocus($event); $event.stopPropagation();"
       [readonly]="disabled"
-      [dsDisabled]="disabled"
+      [disabled]="disabled"
       [ngClass]="{'is-invalid': invalid}"
       title="{{placeholder}}"
       [attr.aria-label]="placeholder"

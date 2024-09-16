@@ -462,8 +462,7 @@ describe('DsoEditMetadataValueComponent', () => {
         fixture.detectChanges();
         fixture.whenStable().then(() => {
           const inputElement = fixture.nativeElement.querySelector('input[data-test="authority-input"]');
-          expect(inputElement.getAttribute('aria-disabled')).toBe('true');
-          expect(inputElement.classList.contains('disabled')).toBeTrue();
+          expect(inputElement.disabled).toBeTruthy();
           done();
         });
       });

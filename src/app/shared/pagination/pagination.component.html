@@ -41,7 +41,7 @@
     <div *ngIf="showPaginator" class="pagination justify-content-center clearfix bottom">
       <ngb-pagination [boundaryLinks]="paginationOptions.boundaryLinks"
                       [collectionSize]="collectionSize"
-                      [dsDisabled]="paginationOptions.disabled"
+                      [disabled]="paginationOptions.disabled"
                       [ellipses]="paginationOptions.ellipses"
                       [maxSize]="(isXs)?5:paginationOptions.maxSize"
                       [page]="(currentPage$|async)"

@@ -39,7 +39,7 @@
                  container="body"
           >
             <input class="mr-2" type="checkbox"
-                   [dsDisabled]="!node.item?.selectable"
+                   [disabled]="!node.item?.selectable"
                    [(ngModel)]="node.isSelected"
                    [checked]="node.isSelected"
                    (change)="onSelect(node.item)"
@@ -71,7 +71,7 @@
                 [openDelay]="500"
                 container="body">
             <input class="mr-2" type="checkbox"
-                   [dsDisabled]="!node.item?.selectable"
+                   [disabled]="!node.item?.selectable"
                    [(ngModel)]="node.isSelected"
                    [checked]="node.isSelected"
                    (change)="onSelect(node.item)"

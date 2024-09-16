@@ -75,7 +75,7 @@ describe('DsDynamicDisabledComponent', () => {
     expect(comp).toBeTruthy();
   });
 
-  xit('should have a disabled input', () => {
+  it('should have a disabled input', () => {
     const input = de.query(By.css('input'));
     expect(input.nativeElement.getAttribute('disabled')).toEqual('');
   });
