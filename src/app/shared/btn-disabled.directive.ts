@@ -12,7 +12,7 @@ import { Directive, Input, HostBinding, HostListener } from '@angular/core';
  */
 export class BtnDisabledDirective {
 
-    @Input() set dsDisabled(value: boolean) {
+    @Input() set dsBtnDisabled(value: boolean) {
         this.isDisabled = !!value;
     }
 
