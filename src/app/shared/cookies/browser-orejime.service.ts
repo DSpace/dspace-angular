@@ -382,9 +382,13 @@ export class BrowserOrejimeService extends OrejimeService {
   }
 
   /**
-   * remove the Google Analytics from the apps
+   * remove apps that should be hidden from the configuration
    */
   private filterConfigApps(appsToHide: string[]) {
+    this.orejimeConfig.categories.forEach((category) => {
+      category.apps = category.apps.filter(service => !appsToHide.some(name => name === service));
+    });
+    this.orejimeConfig.categories = this.orejimeConfig.categories.filter(category => category.apps.length > 0);
     return this.orejimeConfig.apps.filter(service => !appsToHide.some(name => name === service.name));
   }
 
