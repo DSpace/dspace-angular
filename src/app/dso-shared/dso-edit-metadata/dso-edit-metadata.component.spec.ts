@@ -16,7 +16,7 @@ import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorato
 import { Operation } from 'fast-json-patch';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/internal/Observable';
-import {DisabledDirective} from '../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
@@ -72,7 +72,7 @@ describe('DsoEditMetadataComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
 
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataComponent, VarDirective, DisabledDirective],
+      declarations: [DsoEditMetadataComponent, VarDirective, BtnDisabledDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         TestDataService,

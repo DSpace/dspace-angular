@@ -24,7 +24,7 @@ import { WorkspaceItem } from '../../../../../core/submission/models/workspaceit
 import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
-import {DisabledDirective} from '../../../../disabled-directive';
+import {BtnDisabledDirective} from '../../../../btn-disabled.directive';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -104,7 +104,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationModalComponent, DisabledDirective],
+      declarations: [DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
       providers: [
         {

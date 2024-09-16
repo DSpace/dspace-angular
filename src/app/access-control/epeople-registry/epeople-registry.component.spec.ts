@@ -27,7 +27,7 @@ import { RequestService } from '../../core/data/request.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { FindListOptions } from '../../core/data/find-list-options.model';
-import {DisabledDirective} from '../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -132,7 +132,7 @@ describe('EPeopleRegistryComponent', () => {
           }
         }),
       ],
-      declarations: [EPeopleRegistryComponent, DisabledDirective],
+      declarations: [EPeopleRegistryComponent, BtnDisabledDirective],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },

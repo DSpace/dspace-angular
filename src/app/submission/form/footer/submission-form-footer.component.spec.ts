@@ -16,7 +16,7 @@ import { SubmissionFormFooterComponent } from './submission-form-footer.componen
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
-import {DisabledDirective} from '../../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
 
@@ -40,7 +40,7 @@ describe('SubmissionFormFooterComponent', () => {
         SubmissionFormFooterComponent,
         TestComponent,
         BrowserOnlyMockPipe,
-        DisabledDirective
+        BtnDisabledDirective
       ],
       providers: [
         { provide: SubmissionService, useValue: submissionServiceStub },

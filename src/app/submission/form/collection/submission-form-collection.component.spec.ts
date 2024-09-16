@@ -25,7 +25,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import {DisabledDirective} from '../../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 describe('SubmissionFormCollectionComponent Component', () => {
 
@@ -137,7 +137,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
       declarations: [
         SubmissionFormCollectionComponent,
         TestComponent,
-        DisabledDirective
+        BtnDisabledDirective
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },

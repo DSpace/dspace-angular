@@ -34,7 +34,7 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock, UNDEFINED_NAME } from '../../shared/mocks/dso-name.service.mock';
-import {DisabledDirective} from '../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 describe('GroupsRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -172,7 +172,7 @@ describe('GroupsRegistryComponent', () => {
           }
         }),
       ],
-      declarations: [GroupsRegistryComponent, DisabledDirective],
+      declarations: [GroupsRegistryComponent, BtnDisabledDirective],
       providers: [GroupsRegistryComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },

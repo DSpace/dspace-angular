@@ -4,7 +4,7 @@ import { ItemOperationComponent } from './item-operation.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import {DisabledDirective} from '../../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 describe('ItemOperationComponent', () => {
   let itemOperation: ItemOperation;
@@ -15,7 +15,7 @@ describe('ItemOperationComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [ItemOperationComponent, DisabledDirective]
+      declarations: [ItemOperationComponent, BtnDisabledDirective]
     }).compileComponents();
   }));
 

@@ -26,7 +26,7 @@ import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService
 } from '../../../../../testing/dynamic-form-mock-services';
-import {DisabledDirective} from '../../../../../disabled-directive';
+import {BtnDisabledDirective} from '../../../../../btn-disabled.directive';
 
 let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {
@@ -155,7 +155,7 @@ describe('Dynamic Lookup component', () => {
         TestComponent,
         AuthorityConfidenceStateDirective,
         ObjNgFor,
-        DisabledDirective
+        BtnDisabledDirective
       ], // declare the test component
       providers: [
         ChangeDetectorRef,

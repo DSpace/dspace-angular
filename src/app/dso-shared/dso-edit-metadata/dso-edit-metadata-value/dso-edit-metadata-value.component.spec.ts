@@ -11,7 +11,7 @@ import { ItemMetadataRepresentation } from '../../../core/shared/metadata-repres
 import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { By } from '@angular/platform-browser';
-import {DisabledDirective} from '../../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 const EDIT_BTN = 'edit';
 const CONFIRM_BTN = 'confirm';
@@ -50,7 +50,7 @@ describe('DsoEditMetadataValueComponent', () => {
     initServices();
 
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataValueComponent, VarDirective, DisabledDirective],
+      declarations: [DsoEditMetadataValueComponent, VarDirective, BtnDisabledDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },

@@ -35,7 +35,7 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import {DisabledDirective} from '../../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -203,7 +203,7 @@ describe('EPersonFormComponent', () => {
           }
         }),
       ],
-      declarations: [EPersonFormComponent, DisabledDirective],
+      declarations: [EPersonFormComponent, BtnDisabledDirective],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },

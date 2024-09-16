@@ -39,7 +39,7 @@ import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreMock } from '../../testing/store.mock';
-import {DisabledDirective} from '../../disabled-directive';
+import {BtnDisabledDirective} from '../../btn-disabled.directive';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -191,7 +191,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         EpersonGroupListComponent,
         ResourcePolicyFormComponent,
         TestComponent,
-        DisabledDirective
+        BtnDisabledDirective
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },

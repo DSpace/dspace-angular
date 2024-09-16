@@ -29,7 +29,7 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ItemSharedModule } from '../item-shared.module';
-import {DisabledDirective} from '../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -137,7 +137,7 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ItemVersionsComponent, VarDirective, DisabledDirective],
+      declarations: [ItemVersionsComponent, VarDirective, BtnDisabledDirective],
       imports: [TranslateModule.forRoot(), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule],
       providers: [
         {provide: PaginationService, useValue: new PaginationServiceStub()},

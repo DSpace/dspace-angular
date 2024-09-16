@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NativeWindowService } from '../../../core/services/window.service';
 import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
-import {DisabledDirective} from '../../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 
 describe('FeedbackFormComponent', () => {
@@ -39,7 +39,7 @@ describe('FeedbackFormComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [FeedbackFormComponent, DisabledDirective],
+      declarations: [FeedbackFormComponent, BtnDisabledDirective],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },

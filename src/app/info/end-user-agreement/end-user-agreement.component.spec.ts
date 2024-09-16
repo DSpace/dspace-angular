@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { LogOutAction } from '../../core/auth/auth.actions';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import {DisabledDirective} from '../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;
@@ -50,7 +50,7 @@ describe('EndUserAgreementComponent', () => {
     init();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [EndUserAgreementComponent, DisabledDirective],
+      declarations: [EndUserAgreementComponent, BtnDisabledDirective],
       providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },

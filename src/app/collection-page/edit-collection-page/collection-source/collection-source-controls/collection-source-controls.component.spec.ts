@@ -22,7 +22,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
-import {DisabledDirective} from '../../../../shared/disabled-directive';
+import {BtnDisabledDirective} from '../../../../shared/btn-disabled.directive';
 
 describe('CollectionSourceControlsComponent', () => {
   let comp: CollectionSourceControlsComponent;
@@ -101,7 +101,7 @@ describe('CollectionSourceControlsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [CollectionSourceControlsComponent, VarDirective, DisabledDirective],
+      declarations: [CollectionSourceControlsComponent, VarDirective, BtnDisabledDirective],
       providers: [
         {provide: ScriptDataService, useValue: scriptDataService},
         {provide: ProcessDataService, useValue: processDataService},

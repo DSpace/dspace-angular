@@ -1,7 +1,7 @@
 import { Directive, Input, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
-    selector: '[dsDisabled]'
+    selector: '[dsBtnDisabled]'
 })
 
 /**
@@ -10,7 +10,7 @@ import { Directive, Input, HostBinding, HostListener } from '@angular/core';
  *
  * This directive should always be used instead of the HTML disabled attribute as it is more accessible.
  */
-export class DisabledDirective {
+export class BtnDisabledDirective {
 
     @Input() set dsDisabled(value: boolean) {
         this.isDisabled = !!value;
