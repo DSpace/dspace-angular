@@ -47,11 +47,11 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   dateToISOFormat,
   stringToNgbDateStruct,
 } from '../../date.util';
-import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   hasValueOperator,
