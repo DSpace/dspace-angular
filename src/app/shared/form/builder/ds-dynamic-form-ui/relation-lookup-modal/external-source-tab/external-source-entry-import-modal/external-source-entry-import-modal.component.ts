@@ -37,8 +37,8 @@ import {
   getRemoteDataPayload,
 } from '../../../../../../../core/shared/operators';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
-import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
+import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';

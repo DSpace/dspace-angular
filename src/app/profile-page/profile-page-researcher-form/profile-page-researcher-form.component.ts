@@ -36,8 +36,8 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
-import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
