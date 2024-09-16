@@ -30,8 +30,12 @@
 
   --bs-zindex-popover: #{$zindex-popover};
   --bs-zindex-sticky: #{$zindex-sticky};
+}
 
-  --bs-primary-bg-subtle: #{$accordion-btn-bg};
+.accordion {
+  --bs-accordion-btn-bg: #{$light};
+}
 
-  --bs-border-radius: #{$bs-border-radius};
+.table {
+  --bs-table-striped-bg: #{$light};
 }

@@ -36,6 +36,7 @@ input {
   &:disabled,
   &.disabled {
     color: $btn-link-disabled-color;
+    border: transparent;
     pointer-events: none;
   }
 
