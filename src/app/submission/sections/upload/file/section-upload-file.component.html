@@ -7,7 +7,7 @@
         type="checkbox"
         class="custom-control-input"
         id="primaryBitstream{{fileIndex}}"
-        [dsDisabled]="processingSaveStatus$ | async"
+        [disabled]="processingSaveStatus$ | async"
         [checked]="isPrimary"
         (change)="togglePrimaryBitstream($event)">
         <label class="custom-control-label" for="primaryBitstream{{fileIndex}}">

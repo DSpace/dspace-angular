@@ -18,7 +18,7 @@
            [id]="id"
            [name]="model.name"
            [readonly]="true"
-           [dsDisabled]="model.readOnly"
+           [disabled]="model.readOnly"
            [type]="model.inputType"
            [value]="(currentValue | async)"
            (blur)="onBlur($event)"

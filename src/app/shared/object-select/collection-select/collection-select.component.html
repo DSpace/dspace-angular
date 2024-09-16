@@ -16,7 +16,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let selectCollection of selectCollections$ | async">
-            <td><input #selectCollectionBtn [attr.aria-label]="(selectCollectionBtn.checked ? 'collection.select.table.deselect' : 'collection.select.table.select') | translate" [dsDisabled]="(selectCollection.canSelect$ | async) === false" class="collection-checkbox" [ngModel]="selectCollection.selected$ | async" (change)="switch(selectCollection.dso.id)" type="checkbox" name="{{selectCollection.dso.id}}"></td>
+            <td><input #selectCollectionBtn [attr.aria-label]="(selectCollectionBtn.checked ? 'collection.select.table.deselect' : 'collection.select.table.select') | translate" [disabled]="(selectCollection.canSelect$ | async) === false" class="collection-checkbox" [ngModel]="selectCollection.selected$ | async" (change)="switch(selectCollection.dso.id)" type="checkbox" name="{{selectCollection.dso.id}}"></td>
             <td><a [routerLink]="selectCollection.route">{{ dsoNameService.getName(selectCollection.dso) }}</a></td>
           </tr>
         </tbody>

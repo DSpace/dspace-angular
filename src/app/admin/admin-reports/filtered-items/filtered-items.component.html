@@ -12,7 +12,7 @@
                         </ng-template>
                         <ng-template ngbPanelContent>
                             <select id="collSel" name="collSel" class="form-control" multiple="multiple" size="10" formControlName="collections">
-                                <option *ngFor="let item of collections" [value]="item.id" [dsDisabled]="item.disabled">{{item.name$ | async}}</option>
+                                <option *ngFor="let item of collections" [value]="item.id" [disabled]="item.disabled">{{item.name$ | async}}</option>
                             </select>
                             <div class="row">
                                 <span class="col-3"></span>

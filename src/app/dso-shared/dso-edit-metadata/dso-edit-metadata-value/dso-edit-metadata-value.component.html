@@ -36,7 +36,7 @@
           [authorityValue]="mdValue.newValue.confidence"
           [iconMode]="true"
       ></i>
-        <input class="form-control form-outline" data-test="authority-input" [(ngModel)]="mdValue.newValue.authority" [dsDisabled]="!editingAuthority"
+        <input class="form-control form-outline" data-test="authority-input" [(ngModel)]="mdValue.newValue.authority" [disabled]="!editingAuthority"
               [attr.aria-label]="(dsoType + '.edit.metadata.edit.authority.key') | translate"
               (change)="onChangeAuthorityKey()" />
         <button class="btn btn-outline-secondary btn-sm ng-star-inserted" id="metadata-confirm-btn" *ngIf="!editingAuthority"
