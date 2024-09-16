@@ -8,7 +8,7 @@ import {
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DisabledDirective } from '../disabled-directive';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 
 /**
  * Component which represent a DSpace dropdown selector.
@@ -18,7 +18,7 @@ import { DisabledDirective } from '../disabled-directive';
   templateUrl: './ds-select.component.html',
   styleUrls: ['./ds-select.component.scss'],
   standalone: true,
-  imports: [NgbDropdownModule, NgIf, TranslateModule, DisabledDirective],
+  imports: [NgbDropdownModule, NgIf, TranslateModule, BtnDisabledDirective],
 })
 export class DsSelectComponent {
 

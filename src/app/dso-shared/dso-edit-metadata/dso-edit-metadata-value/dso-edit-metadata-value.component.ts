@@ -67,7 +67,7 @@ import {
 import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {
@@ -95,7 +95,7 @@ import {
   styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value.component.html',
   standalone: true,
-  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective, DisabledDirective],
+  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective, BtnDisabledDirective],
 })
 /**
  * Component displaying a single editable row for a metadata value

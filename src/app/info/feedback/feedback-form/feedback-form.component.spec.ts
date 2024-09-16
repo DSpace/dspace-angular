@@ -18,7 +18,7 @@ import { FeedbackDataService } from '../../../core/feedback/feedback-data.servic
 import { Feedback } from '../../../core/feedback/models/feedback.model';
 import { RouteService } from '../../../core/services/route.service';
 import { NativeWindowService } from '../../../core/services/window.service';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -46,7 +46,7 @@ describe('FeedbackFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), FeedbackFormComponent, DisabledDirective],
+      imports: [TranslateModule.forRoot(), FeedbackFormComponent, BtnDisabledDirective],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },

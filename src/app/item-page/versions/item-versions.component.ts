@@ -48,7 +48,7 @@ import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import { DisabledDirective } from '../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   hasValue,
   hasValueOperator,
@@ -86,7 +86,7 @@ interface VersionDTO {
     NgIf,
     PaginationComponent,
     TranslateModule,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
 })
 

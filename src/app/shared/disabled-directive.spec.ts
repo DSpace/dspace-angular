@@ -8,11 +8,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DisabledDirective } from './disabled-directive';
+import { BtnDisabledDirective } from './btn-disabled.directive';
 
 @Component({
   template: `
-    <button [dsDisabled]="isDisabled">Test Button</button>
+    <button [dsBtnDisabled]="isDisabled">Test Button</button>
   `,
 })
 class TestComponent {
@@ -26,7 +26,7 @@ describe('DisabledDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [DisabledDirective],
+      imports: [BtnDisabledDirective],
       declarations: [TestComponent],
     });
     fixture = TestBed.createComponent(TestComponent);

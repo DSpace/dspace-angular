@@ -38,7 +38,7 @@ import {
 } from '../../../../../../../core/shared/operators';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
-import { DisabledDirective } from '../../../../../../disabled-directive';
+import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
@@ -70,7 +70,7 @@ export enum ImportType {
     ThemedSearchResultsComponent,
     NgIf,
     AsyncPipe,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -46,7 +46,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
-import { DisabledDirective } from '../../../../../disabled-directive';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -82,7 +82,7 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
     ThemedLoadingComponent,
     ChipsComponent,
     forwardRef(() => FormComponent),
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

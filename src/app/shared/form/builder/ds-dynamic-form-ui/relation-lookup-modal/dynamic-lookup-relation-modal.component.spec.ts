@@ -33,7 +33,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
-import { DisabledDirective } from '../../../../disabled-directive';
+import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
@@ -124,7 +124,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent, DisabledDirective],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {

@@ -16,7 +16,7 @@ import { of as observableOf } from 'rxjs';
 import { LogOutAction } from '../../core/auth/auth.actions';
 import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
-import { DisabledDirective } from '../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
@@ -58,7 +58,7 @@ describe('EndUserAgreementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), EndUserAgreementComponent, DisabledDirective],
+      imports: [TranslateModule.forRoot(), EndUserAgreementComponent, BtnDisabledDirective],
       providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },

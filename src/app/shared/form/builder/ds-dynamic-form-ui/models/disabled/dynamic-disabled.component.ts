@@ -12,7 +12,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DisabledDirective } from '../../../../../disabled-directive';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { DynamicDisabledModel } from './dynamic-disabled.model';
 
 /**
@@ -23,7 +23,7 @@ import { DynamicDisabledModel } from './dynamic-disabled.model';
   templateUrl: './dynamic-disabled.component.html',
   imports: [
     TranslateModule,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

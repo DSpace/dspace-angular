@@ -31,7 +31,7 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { Collection } from '../../../core/shared/collection.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import {
   mockSubmissionId,
@@ -153,7 +153,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
         TranslateModule.forRoot(),
         SubmissionFormCollectionComponent,
         TestComponent,
-        DisabledDirective,
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },

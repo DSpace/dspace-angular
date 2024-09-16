@@ -65,7 +65,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { DisabledDirective } from '../../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -101,7 +101,7 @@ import { EditRelationshipComponent } from '../edit-relationship/edit-relationshi
     TranslateModule,
     NgClass,
     ThemedLoadingComponent,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

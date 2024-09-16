@@ -40,7 +40,7 @@ import {
 } from '../../../../core/shared/operators';
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
-import { DisabledDirective } from '../../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../../shared/utils/var.directive';
@@ -57,7 +57,7 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     AsyncPipe,
     NgIf,
     VarDirective,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -42,7 +42,7 @@ import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
-import { DisabledDirective } from '../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -159,7 +159,7 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemVersionsComponent, VarDirective, DisabledDirective],
+      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemVersionsComponent, VarDirective, BtnDisabledDirective],
       providers: [
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },

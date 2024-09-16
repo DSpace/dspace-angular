@@ -31,7 +31,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
-import { DisabledDirective } from '../../disabled-directive';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -56,7 +56,7 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
     KeyValuePipe,
     NgForOf,
     TranslateModule,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
 })
 export class AdvancedSearchComponent implements OnInit, OnDestroy {

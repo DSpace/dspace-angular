@@ -50,7 +50,7 @@ import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { DisabledDirective } from '../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
@@ -209,7 +209,7 @@ describe('GroupsRegistryComponent', () => {
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot(),
         GroupsRegistryComponent,
-        DisabledDirective,
+        BtnDisabledDirective,
       ],
       providers: [GroupsRegistryComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },

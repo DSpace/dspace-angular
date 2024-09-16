@@ -66,7 +66,7 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { Registration } from '../../../core/shared/registration.model';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -93,7 +93,7 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     PaginationComponent,
     RouterLink,
     HasNoValuePipe,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -51,7 +51,7 @@ import {
   dateToISOFormat,
   stringToNgbDateStruct,
 } from '../../date.util';
-import { DisabledDirective } from '../../disabled-directive';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   hasValueOperator,
@@ -96,7 +96,7 @@ export interface ResourcePolicyEvent {
     AsyncPipe,
     NgIf,
     NgFor,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

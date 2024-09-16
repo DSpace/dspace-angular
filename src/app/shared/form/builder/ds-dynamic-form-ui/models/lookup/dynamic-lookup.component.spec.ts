@@ -33,7 +33,7 @@ import { of as observableOf } from 'rxjs';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { DisabledDirective } from '../../../../../disabled-directive';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
@@ -175,7 +175,7 @@ describe('Dynamic Lookup component', () => {
         TestComponent,
         AuthorityConfidenceStateDirective,
         ObjNgFor,
-        DisabledDirective,
+        BtnDisabledDirective,
       ],
       providers: [
         ChangeDetectorRef,

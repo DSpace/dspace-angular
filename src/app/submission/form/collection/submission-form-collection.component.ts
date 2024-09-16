@@ -36,7 +36,7 @@ import { SubmissionObject } from '../../../core/submission/models/submission-obj
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -58,7 +58,7 @@ import { SubmissionService } from '../../submission.service';
     TranslateModule,
     NgbDropdownModule,
     ThemedCollectionDropdownComponent,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
 })
 export class SubmissionFormCollectionComponent implements OnDestroy, OnChanges, OnInit {

@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ProfilePageSecurityFormComponent } from '../../../../../app/profile-page/profile-page-security-form/profile-page-security-form.component';
 import { CreateProfileComponent as BaseComponent } from '../../../../../app/register-page/create-profile/create-profile.component';
-import { DisabledDirective } from '../../../../../app/shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.directive';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -28,7 +28,7 @@ import { DisabledDirective } from '../../../../../app/shared/disabled-directive'
     AsyncPipe,
     ReactiveFormsModule,
     NgForOf,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
 })
 export class CreateProfileComponent extends BaseComponent {
