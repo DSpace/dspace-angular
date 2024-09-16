@@ -40,6 +40,14 @@ describe('DisabledDirective', () => {
         expect(button.nativeElement.classList.contains('disabled')).toBeTrue();
     });
 
+  it('should bind aria-disabled to false and not have disabled class when isDisabled is false', () => {
+    component.isDisabled = false;
+    fixture.detectChanges();
+
+    expect(button.nativeElement.getAttribute('aria-disabled')).toBe('false');
+    expect(button.nativeElement.classList.contains('disabled')).toBeFalse();
+  });
+
     it('should prevent click events when disabled', () => {
         component.isDisabled = true;
         fixture.detectChanges();

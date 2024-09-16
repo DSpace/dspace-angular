@@ -31,7 +31,7 @@
     <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2" >
       <select
         #language="ngModel"
-        [dsDisabled]="model.readOnly"
+        [disabled]="model.readOnly"
         [(ngModel)]="model.language"
         class="form-control"
         (blur)="onBlur($event)"
