@@ -16,7 +16,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';
-import { DisabledDirective } from '../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 
@@ -32,7 +32,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
     AsyncPipe,
     NgIf,
     VarDirective,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -25,7 +25,7 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
 import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
@@ -52,7 +52,7 @@ describe('SubmissionFormFooterComponent', () => {
         TranslateModule.forRoot(),
         SubmissionFormFooterComponent,
         TestComponent,
-        DisabledDirective,
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: SubmissionService, useValue: submissionServiceStub },

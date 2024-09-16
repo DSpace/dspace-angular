@@ -5,7 +5,7 @@ import {
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DisabledDirective } from '../../../../../../../../../../app/shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../../../../../../../../app/shared/btn-disabled.directive';
 import { ExternalSourceEntryImportModalComponent as BaseComponent } from '../../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { ThemedSearchResultsComponent } from '../../../../../../../../../../app/shared/search/search-results/themed-search-results.component';
 
@@ -20,7 +20,7 @@ import { ThemedSearchResultsComponent } from '../../../../../../../../../../app/
     ThemedSearchResultsComponent,
     NgIf,
     AsyncPipe,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
 })
 export class ExternalSourceEntryImportModalComponent extends BaseComponent {

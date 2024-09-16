@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[dsDisabled]',
+  selector: '[dsBtnDisabled]',
   standalone: true,
 })
 
@@ -16,7 +16,7 @@ import {
  *
  * This directive should always be used instead of the HTML disabled attribute as it is more accessible.
  */
-export class DisabledDirective {
+export class BtnDisabledDirective {
 
     @Input() set dsDisabled(value: boolean) {
     this.isDisabled = !!value;

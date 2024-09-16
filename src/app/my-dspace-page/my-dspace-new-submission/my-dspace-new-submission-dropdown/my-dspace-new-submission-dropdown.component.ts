@@ -28,7 +28,7 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedCreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import { hasValue } from '../../../shared/empty.util';
 import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
@@ -48,7 +48,7 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     TranslateModule,
     BrowserOnlyPipe,
     NgIf,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -34,7 +34,7 @@ import {
   VIRTUAL_METADATA_PREFIX,
 } from '../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
@@ -189,7 +189,7 @@ describe('DsoEditMetadataValueComponent', () => {
         RouterTestingModule.withRoutes([]),
         DsoEditMetadataValueComponent,
         VarDirective,
-        DisabledDirective,
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },

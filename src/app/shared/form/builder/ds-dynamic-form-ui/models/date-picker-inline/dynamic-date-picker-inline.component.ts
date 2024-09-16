@@ -26,7 +26,7 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 
-import { DisabledDirective } from '../../../../../disabled-directive';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 
 @Component({
   selector: 'ds-dynamic-date-picker-inline',
@@ -36,7 +36,7 @@ import { DisabledDirective } from '../../../../../disabled-directive';
     NgbDatepickerModule,
     ReactiveFormsModule,
     NgIf,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

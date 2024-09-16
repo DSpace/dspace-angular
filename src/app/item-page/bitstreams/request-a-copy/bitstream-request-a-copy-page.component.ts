@@ -55,7 +55,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -72,7 +72,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     AsyncPipe,
     ReactiveFormsModule,
     NgIf,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

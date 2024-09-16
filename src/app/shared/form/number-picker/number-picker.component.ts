@@ -20,7 +20,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { DisabledDirective } from '../../disabled-directive';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { isEmpty } from '../../empty.util';
 
 @Component({
@@ -34,7 +34,7 @@ import { isEmpty } from '../../empty.util';
     NgClass,
     FormsModule,
     TranslateModule,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

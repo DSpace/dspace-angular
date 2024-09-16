@@ -45,7 +45,7 @@ import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { DisabledDirective } from '../../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -228,7 +228,7 @@ describe('EPersonFormComponent', () => {
     route = new ActivatedRouteStub();
     router = new RouterStub();
     TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, DisabledDirective, BrowserModule,
+      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BtnDisabledDirective, BrowserModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

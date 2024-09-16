@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { EndUserAgreementComponent as BaseComponent } from '../../../../../app/info/end-user-agreement/end-user-agreement.component';
 import { EndUserAgreementContentComponent } from '../../../../../app/info/end-user-agreement/end-user-agreement-content/end-user-agreement-content.component';
-import { DisabledDirective } from '../../../../../app/shared/disabled-directive';
+import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.directive';
 
 @Component({
   selector: 'ds-themed-end-user-agreement',
@@ -13,7 +13,7 @@ import { DisabledDirective } from '../../../../../app/shared/disabled-directive'
   // templateUrl: './end-user-agreement.component.html'
   templateUrl: '../../../../../app/info/end-user-agreement/end-user-agreement.component.html',
   standalone: true,
-  imports: [EndUserAgreementContentComponent, FormsModule, TranslateModule, DisabledDirective],
+  imports: [EndUserAgreementContentComponent, FormsModule, TranslateModule, BtnDisabledDirective],
 })
 
 /**

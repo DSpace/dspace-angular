@@ -37,7 +37,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { DisabledDirective } from '../../shared/disabled-directive';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
@@ -54,7 +54,7 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
     TranslateModule,
     UiSwitchModule,
     VarDirective,
-    DisabledDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
