@@ -1604,6 +1604,8 @@
 
   "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
 
+  "cookies.consent.content-modal.no-privacy-policy.text": "",
+
   "cookies.consent.content-modal.title": "Information that we collect",
 
   "cookies.consent.app.title.authentication": "Authentication",
