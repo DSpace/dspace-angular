@@ -1950,6 +1950,10 @@
 
   "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
 
+  "item.edit.bitstreams.edit.live.drag": "{{ bitstream }} grabbed",
+
+  "item.edit.bitstreams.edit.live.drop": "{{ bitstream }} dropped",
+
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
 
   "item.edit.bitstreams.headers.actions": "Actions",

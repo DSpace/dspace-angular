@@ -30,6 +30,8 @@ import { RequestService } from '../../../../core/data/request.service';
 import { ItemBitstreamsService } from '../item-bitstreams.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { hasValue } from '../../../../shared/empty.util';
+import { LiveRegionService } from '../../../../shared/live-region/live-region.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Interface storing all the information necessary to create a row in the bitstream edit table
@@ -167,11 +169,6 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   pageSize$: BehaviorSubject<number>;
 
   /**
-   * Whether the table has multiple pages
-   */
-  hasMultiplePages = false;
-
-  /**
    * The self url of the bundle, also used when retrieving fieldUpdates
    */
   bundleUrl: string;
@@ -190,6 +187,8 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     protected paginationService: PaginationService,
     protected requestService: RequestService,
     protected itemBitstreamsService: ItemBitstreamsService,
+    protected liveRegionService: LiveRegionService,
+    protected translateService: TranslateService,
   ) {
   }
 
@@ -301,7 +300,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     this.paginationComponent.doPageSizeChange(pageSize);
   }
 
-  dragStart() {
+  dragStart(bitstreamName: string) {
     // Only open the drag tooltip when there are multiple pages
     this.paginationComponent.shouldShowBottomPager.pipe(
       take(1),
@@ -309,10 +308,18 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     ).subscribe(() => {
       this.dragTooltip.open();
     });
+
+    const message = this.translateService.instant('item.edit.bitstreams.edit.live.drag',
+      { bitstream: bitstreamName });
+    this.liveRegionService.addMessage(message);
   }
 
-  dragEnd() {
+  dragEnd(bitstreamName: string) {
     this.dragTooltip.close();
+
+    const message = this.translateService.instant('item.edit.bitstreams.edit.live.drop',
+      { bitstream: bitstreamName });
+    this.liveRegionService.addMessage(message);
   }
 
 
