@@ -49,7 +49,7 @@ export class DsoEditMenuSectionComponent extends MenuSectionComponent implements
   }
 
   /**
-   * Activate the section's model funtion
+   * Activate the section's model function
    */
   public activate(event: any) {
     event.preventDefault();

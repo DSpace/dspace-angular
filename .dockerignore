@@ -25,4 +25,6 @@ npm-debug.log.*
 
 # Webpack files
 webpack.records.json
-package-lock.json
+
+# Yarn no longer used
+yarn.lock

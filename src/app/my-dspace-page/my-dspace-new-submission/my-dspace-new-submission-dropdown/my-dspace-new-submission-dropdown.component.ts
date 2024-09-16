@@ -122,7 +122,7 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy
   }
 
   /**
-   * Method called on clicking the button "New Submition", It opens a dialog for
+   * Method called on clicking the button "New Submission", It opens a dialog for
    * select a collection.
    */
   openDialog(entity: ItemType) {

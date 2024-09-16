@@ -255,7 +255,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Retrieves the link to the bistream download page
+   * Retrieves the link to the bitstream download page
    */
   getBitstreamLink() {
     return [getBitstreamDownloadRoute(this.bitstream)];
