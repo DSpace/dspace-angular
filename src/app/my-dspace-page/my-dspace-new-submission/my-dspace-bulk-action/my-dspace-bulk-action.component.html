@@ -1,12 +1,9 @@
-<div
-  *ngIf="!(processing$ | async); else loading"
-  class="w-100 d-flex mt-1 mb-3 align-items-start"
->
+<div class="w-100 d-flex mt-1 mb-3 align-items-start">
   <button
     type="button"
     class="btn btn-info mr-2"
     ngbTooltip="{{'submission.workflow.tasks.pool.claim_selected_help' | translate}}"
-    [disabled]="!(claimEnabled$ | async)"
+    [disabled]="(processing$ | async) || !(claimEnabled$ | async)"
     (click)="claimAllSelectedTask()"
     [attr.data-test-disabled]="!(claimEnabled$ | async) ?? false"
   >
@@ -20,7 +17,7 @@
     type="button"
     class="btn btn-success mr-2"
     ngbTooltip="{{'submission.workflow.tasks.claimed.approve_selected_help' | translate}}"
-    [disabled]="!(claimedTaskActionsEnabled$ | async)"
+    [disabled]="(processing$ | async) || !(claimedTaskActionsEnabled$ | async)"
     (click)="submitAllSelectedTask()"
     [attr.data-test-disabled]="!(claimedTaskActionsEnabled$ | async) ?? false"
   >
@@ -56,16 +53,13 @@
       {{'submission.workflow.tasks.claimed.return.selected' | translate}}
     </span>
   </button>
+
+  <span *ngIf="(processing$ | async)">
+    <i class='fas fa-circle-notch fa-spin'></i>
+    {{'submission.workflow.tasks.generic.processing' | translate}}
+  </span>
 </div>
 
-<ng-template #loading>
-  <div class="w-100 d-flex mt-1 mb-3 justify-content-center align-items-center">
-    <span>
-      <i class='fas fa-circle-notch fa-spin'></i>
-      {{'submission.workflow.tasks.generic.processing' | translate}}
-    </span>
-  </div>
-</ng-template>
 <ng-template #rejectTipContent><p [innerHTML]="'submission.workflow.tasks.claimed.reject_help' | translate"></p></ng-template>
 <ng-template #rejectModal let-c="close" let-d="dismiss">
   <div class="modal-header">
