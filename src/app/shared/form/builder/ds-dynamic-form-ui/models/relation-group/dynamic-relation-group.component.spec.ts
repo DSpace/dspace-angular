@@ -28,13 +28,10 @@ import {
   NgbModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DYNAMIC_FORM_CONTROL_MAP_FN,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-} from '@ng-dynamic-forms/core';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { MockComponent } from 'ng-mocks';
 import { of as observableOf } from 'rxjs';
 import {
   APP_CONFIG,
@@ -54,6 +51,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.ut
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
@@ -182,6 +180,7 @@ function init() {
     repeatable: false,
     metadataFields: [],
     hasSelectableMetadata: false,
+    securityConfigLevel: [],
   } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new UntypedFormGroup({
@@ -190,8 +189,7 @@ function init() {
 
 }
 
-// TODO: fix this test suite (it seems poorly written)
-xdescribe('DsDynamicRelationGroupComponent test suite', () => {
+describe('DsDynamicRelationGroupComponent test suite', () => {
   let testComp: TestComponent;
   let groupComp: DsDynamicRelationGroupComponent;
   let testFixture: ComponentFixture<TestComponent>;
@@ -233,12 +231,11 @@ xdescribe('DsDynamicRelationGroupComponent test suite', () => {
         FormComponent,
         DsDynamicRelationGroupComponent,
         TestComponent,
+        MockComponent(ChipsComponent),
       ],
       providers: [
         ChangeDetectorRef,
         DsDynamicRelationGroupComponent,
-        DynamicFormValidationService,
-        DynamicFormLayoutService,
         FormBuilderService,
         FormComponent,
         FormService,
@@ -250,7 +247,6 @@ xdescribe('DsDynamicRelationGroupComponent test suite', () => {
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: SubmissionObjectDataService, useValue: {} },
-        { provide: SubmissionService, useValue: {} },
         { provide: XSRFService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },

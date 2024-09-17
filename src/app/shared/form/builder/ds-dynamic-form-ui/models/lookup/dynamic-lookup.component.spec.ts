@@ -148,8 +148,8 @@ const vocabularyExternal: any = Object.assign(new Vocabulary(), {
   },
 });
 const validAuthority = uuidv4();
-// TODO: fix this test suite (it causes an error in afterAll)
-xdescribe('Dynamic Lookup component', () => {
+
+describe('Dynamic Lookup component', () => {
   function init() {
     LOOKUP_TEST_MODEL_CONFIG = {
       vocabularyOptions: {
