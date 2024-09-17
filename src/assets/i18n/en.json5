@@ -1956,6 +1956,8 @@
 
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
 
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
+
   "item.edit.bitstreams.headers.actions": "Actions",
 
   "item.edit.bitstreams.headers.bundle": "Bundle",

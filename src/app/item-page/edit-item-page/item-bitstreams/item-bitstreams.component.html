@@ -1,4 +1,8 @@
 <div class="item-bitstreams" *ngVar="(bundles$ | async) as bundles">
+  <div class="mt-2" id="reorder-description">
+    <ds-alert [content]="'item.edit.bitstreams.info-alert'" [type]="AlertType.Info"></ds-alert>
+  </div>
+
   <div class="button-row top d-flex mt-2 space-children-mr">
     <button class="mr-auto btn btn-success"
             [routerLink]="[itemPageRoute, 'bitstreams', 'new']"><i
@@ -29,7 +33,8 @@
                                    [item]="item"
                                    [columnSizes]="columnSizes"
                                    [isFirstTable]="isFirst"
-                                   (dropObject)="dropBitstream(bundle, $event)">
+                                   (dropObject)="dropBitstream(bundle, $event)"
+                                   aria-describedby="reorder-description">
     </ds-item-edit-bitstream-bundle>
   </div>
   <div *ngIf="bundles?.length === 0"

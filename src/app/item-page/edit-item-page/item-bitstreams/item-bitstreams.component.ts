@@ -25,6 +25,7 @@ import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/res
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { Operation } from 'fast-json-patch';
 import { ItemBitstreamsService } from './item-bitstreams.service';
+import { AlertType } from '../../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -35,6 +36,9 @@ import { ItemBitstreamsService } from './item-bitstreams.service';
  * Component for displaying an item's bitstreams edit page
  */
 export class ItemBitstreamsComponent extends AbstractItemUpdateComponent implements OnDestroy {
+
+  // Declared for use in template
+  protected readonly AlertType = AlertType;
 
   /**
    * The currently listed bundles
