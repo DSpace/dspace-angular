@@ -5,7 +5,8 @@
                  [hidePagerWhenSinglePage]="true"
                  [hidePaginationDetail]="true"
                  [paginationOptions]="paginationOptions"
-                 [collectionSize]="bitstreamsList.totalElements">
+                 [collectionSize]="bitstreamsList.totalElements"
+                 [retainScrollPosition]="true">
     <ng-container *ngIf="(updates$ | async) as updates">
 
       <table class="table" [class.mt-n1]="!isFirstTable"
@@ -43,18 +44,26 @@
                       title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
                 <i class="fas fa-upload fa-fw"></i>
               </button>
-              <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group float-right btn-sm p-0" placement="bottom-right">
-                <button class="btn btn-outline-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false">
+              <div ngbDropdown #paginationControls="ngbDropdown" class="btn-group float-right btn-sm p-0"
+                   placement="bottom-right">
+                <button class="btn btn-outline-secondary" id="paginationControls" ngbDropdownToggle
+                        [title]="'pagination.options.description' | translate"
+                        [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true"
+                        aria-expanded="false">
                   <i class="fas fa-cog" aria-hidden="true"></i>
                 </button>
 
-                <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu" ngbDropdownMenu>
+                <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu"
+                    ngbDropdownMenu>
                   <li role="menuitem">
-                    <span class="dropdown-header" id="pagination-control_results-per-page" role="heading">{{ 'pagination.results-per-page' | translate}}</span>
+                    <span class="dropdown-header" id="pagination-control_results-per-page"
+                          role="heading">{{ 'pagination.results-per-page' | translate}}</span>
                     <ul aria-labelledby="pagination-control_results-per-page" class="list-unstyled" role="listbox">
-                      <li *ngFor="let size of pageSizeOptions" role="option" [attr.aria-selected]="size === (pageSize$ | async)">
+                      <li *ngFor="let size of paginationOptions.pageSizeOptions" role="option"
+                          [attr.aria-selected]="size === (pageSize$ | async)">
                         <button (click)="doPageSizeChange(size)" class="dropdown-item">
-                          <i [ngClass]="{'invisible': size !== (pageSize$ | async) }" class="fas fa-check" aria-hidden="true"></i> {{size}}
+                          <i [ngClass]="{'invisible': size !== (pageSize$ | async) }" class="fas fa-check"
+                             aria-hidden="true"></i> {{size}}
                         </button>
                       </li>
                     </ul>
@@ -67,13 +76,15 @@
         </tr>
 
         <ng-container *ngFor="let entry of (tableEntries$ | async)">
-          <tr *ngIf="updates[entry.id] as update" [ngClass]="getRowClass(update)" class="bitstream-row" cdkDrag
-          (cdkDragStarted)="dragStart(entry.name)" (cdkDragEnded)="dragEnd(entry.name)">
+          <tr *ngIf="updates[entry.id] as update" [ngClass]="getRowClass(update, entry)" class="bitstream-row" cdkDrag
+              (cdkDragStarted)="dragStart()" (cdkDragEnded)="dragEnd()">
 
             <th class="bitstream-name row-element {{ columnSizes.columns[0].buildClasses() }}"
                 scope="row" id="{{ entry.nameStripped }}" headers="{{ bundleName }} name">
-              <div class="drag-handle text-muted float-left p-1 mr-2" tabindex="0" cdkDragHandle>
-                <i class="fas fa-grip-vertical fa-fw" [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
+              <div class="drag-handle text-muted float-left p-1 mr-2" tabindex="0" cdkDragHandle
+                   (keyup.enter)="select(entry)" (keyup.space)="select(entry)" (click)="select(entry)">
+                <i class="fas fa-grip-vertical fa-fw"
+                   [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
               </div>
               {{ entry.name }}
             </th>

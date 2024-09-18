@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef, OnDestroy,
+} from '@angular/core';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
@@ -8,7 +14,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from 'src/app/core/data/remote-data';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { Observable, BehaviorSubject, switchMap } from 'rxjs';
+import { Observable, BehaviorSubject, switchMap, shareReplay, Subscription } from 'rxjs';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
 import { PaginatedSearchOptions } from '../../../../shared/search/models/paginated-search-options.model';
@@ -17,55 +23,17 @@ import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import {
   getAllSucceededRemoteData,
   paginatedListToArray,
-  getFirstSucceededRemoteData
 } from '../../../../core/shared/operators';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { map, take, filter } from 'rxjs/operators';
+import { map, take, filter, tap, pairwise } from 'rxjs/operators';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { RequestService } from '../../../../core/data/request.service';
-import { ItemBitstreamsService } from '../item-bitstreams.service';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { hasValue } from '../../../../shared/empty.util';
-import { LiveRegionService } from '../../../../shared/live-region/live-region.service';
-import { TranslateService } from '@ngx-translate/core';
-
-/**
- * Interface storing all the information necessary to create a row in the bitstream edit table
- */
-export interface BitstreamTableEntry {
-  /**
-   * The bitstream
-   */
-  bitstream: Bitstream,
-  /**
-   * The uuid of the Bitstream
-   */
-  id: string,
-  /**
-   * The name of the Bitstream
-   */
-  name: string,
-  /**
-   * The name of the Bitstream with all whitespace removed
-   */
-  nameStripped: string,
-  /**
-   * The description of the Bitstream
-   */
-  description: string,
-  /**
-   * Observable emitting the Format of the Bitstream
-   */
-  format: Observable<BitstreamFormat>,
-  /**
-   * The download url of the Bitstream
-   */
-  downloadUrl: string,
-}
+import { ItemBitstreamsService, BitstreamTableEntry, SelectedBitstreamTableEntry } from '../item-bitstreams.service';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { hasValue, hasNoValue } from '../../../../shared/empty.util';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -77,7 +45,7 @@ export interface BitstreamTableEntry {
  * Creates an embedded view of the contents. This is to ensure the table structure won't break.
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream-bundle element)
  */
-export class ItemEditBitstreamBundleComponent implements OnInit {
+export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   protected readonly FieldChangeType = FieldChangeType;
 
   /**
@@ -116,13 +84,6 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   @Input() isFirstTable = false;
 
   /**
-   * Send an event when the user drops an object on the pagination
-   * The event contains details about the index the object came from and is dropped to (across the entirety of the list,
-   * not just within a single page)
-   */
-  @Output() dropObject: EventEmitter<any> = new EventEmitter<any>();
-
-  /**
    * The bootstrap sizes used for the Bundle Name column
    * This column stretches over the first 3 columns and thus is a combination of their sizes processed in ngOnInit
    */
@@ -139,6 +100,11 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   bundleName: string;
 
   /**
+   * The number of bitstreams in the bundle
+   */
+  bundleSize: number;
+
+  /**
    * The bitstreams to show in the table
    */
   bitstreamsRD$: Observable<RemoteData<PaginatedList<Bitstream>>>;
@@ -146,7 +112,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   /**
    * The data to show in the table
    */
-  tableEntries$: BehaviorSubject<BitstreamTableEntry[]> = new BehaviorSubject(null);
+  tableEntries$: BehaviorSubject<BitstreamTableEntry[]> = new BehaviorSubject([]);
 
   /**
    * The initial page options to use for fetching the bitstreams
@@ -157,11 +123,6 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    * The current page options
    */
   currentPaginationOptions$: BehaviorSubject<PaginationComponentOptions>;
-
-  /**
-   * The available page size options
-   */
-  pageSizeOptions: number[];
 
   /**
    * The currently selected page size
@@ -178,6 +139,11 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    */
   updates$: BehaviorSubject<FieldUpdates> = new BehaviorSubject(null);
 
+  /**
+   * Array containing all subscriptions created by this component
+   */
+  subscriptions: Subscription[] = [];
+
 
   constructor(
     protected viewContainerRef: ViewContainerRef,
@@ -187,8 +153,6 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     protected paginationService: PaginationService,
     protected requestService: RequestService,
     protected itemBitstreamsService: ItemBitstreamsService,
-    protected liveRegionService: LiveRegionService,
-    protected translateService: TranslateService,
   ) {
   }
 
@@ -201,23 +165,27 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
 
     this.initializePagination();
     this.initializeBitstreams();
+    this.initializeSelectionActions();
+  }
 
-    // this.bitstreamsRD = this.
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub?.unsubscribe());
   }
 
   protected initializePagination() {
     this.paginationOptions = this.itemBitstreamsService.getInitialBitstreamsPaginationOptions(this.bundleName);
 
-    this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
-
     this.currentPaginationOptions$ = new BehaviorSubject(this.paginationOptions);
     this.pageSize$ = new BehaviorSubject(this.paginationOptions.pageSize);
 
-    this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions)
-      .subscribe((pagination) => {
-        this.currentPaginationOptions$.next(pagination);
-        this.pageSize$.next(pagination.pageSize);
-    });
+    this.subscriptions.push(
+      this.paginationService.getCurrentPagination(this.paginationOptions.id, this.paginationOptions)
+        .subscribe((pagination) => {
+          this.currentPaginationOptions$.next(pagination);
+          this.pageSize$.next(pagination.pageSize);
+        })
+    );
+
   }
 
   protected initializeBitstreams() {
@@ -233,26 +201,88 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
           ))
         );
       }),
+      getAllSucceededRemoteData(),
+      shareReplay(1),
     );
 
-    this.bitstreamsRD$.pipe(
-      getFirstSucceededRemoteData(),
-      paginatedListToArray(),
-    ).subscribe((bitstreams) => {
-      this.objectUpdatesService.initialize(this.bundleUrl, bitstreams, new Date());
-    });
+    this.subscriptions.push(
+      this.bitstreamsRD$.pipe(
+        take(1),
+        tap(bitstreamsRD => this.bundleSize = bitstreamsRD.payload.totalElements),
+        paginatedListToArray(),
+      ).subscribe((bitstreams) => {
+        this.objectUpdatesService.initialize(this.bundleUrl, bitstreams, new Date());
+      }),
 
-    this.bitstreamsRD$.pipe(
-      getAllSucceededRemoteData(),
-      paginatedListToArray(),
-      switchMap((bitstreams) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundleUrl, bitstreams))
-    ).subscribe((updates) => this.updates$.next(updates));
+      this.bitstreamsRD$.pipe(
+        paginatedListToArray(),
+        switchMap((bitstreams) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundleUrl, bitstreams))
+      ).subscribe((updates) => this.updates$.next(updates)),
 
-    this.bitstreamsRD$.pipe(
-      getAllSucceededRemoteData(),
-      paginatedListToArray(),
-      map((bitstreams) => this.itemBitstreamsService.mapBitstreamsToTableEntries(bitstreams)),
-    ).subscribe((tableEntries) => this.tableEntries$.next(tableEntries));
+      this.bitstreamsRD$.pipe(
+        paginatedListToArray(),
+        map((bitstreams) => this.itemBitstreamsService.mapBitstreamsToTableEntries(bitstreams)),
+      ).subscribe((tableEntries) => this.tableEntries$.next(tableEntries)),
+    );
+  }
+
+  protected initializeSelectionActions() {
+    this.subscriptions.push(
+      this.itemBitstreamsService.getSelectedBitstream$().pipe(pairwise()).subscribe(
+        ([previousSelection, currentSelection]) =>
+          this.handleSelectedEntryChange(previousSelection, currentSelection))
+    );
+  }
+
+  /**
+   * Handles a change in selected bitstream by changing the pagination if the change happened on a different page
+   * @param previousSelectedEntry The previously selected entry
+   * @param currentSelectedEntry  The currently selected entry
+   * @protected
+   */
+  protected handleSelectedEntryChange(
+    previousSelectedEntry: SelectedBitstreamTableEntry,
+    currentSelectedEntry: SelectedBitstreamTableEntry
+  ) {
+    if (hasValue(currentSelectedEntry) && currentSelectedEntry.bundle === this.bundle) {
+      // If the currently selected bitstream belongs to this bundle, it has possibly moved to a different page.
+      // In that case we want to change the pagination to the new page.
+      this.redirectToCurrentPage(currentSelectedEntry);
+    }
+
+    // If the selection is cancelled or cleared, it is possible the selected bitstream is currently on a different page
+    // In that case we want to change the pagination to the place where the bitstream was returned to
+    if (hasNoValue(currentSelectedEntry) && hasValue(previousSelectedEntry) && previousSelectedEntry.bundle === this.bundle) {
+      this.redirectToOriginalPage(previousSelectedEntry);
+    }
+  }
+
+  /**
+   * Redirect the user to the current page of the provided bitstream if it is on a different page.
+   * @param bitstreamEntry The entry that the current position will be taken from to determine the page to move to
+   * @protected
+   */
+  protected redirectToCurrentPage(bitstreamEntry: SelectedBitstreamTableEntry) {
+    const currentPage = this.getCurrentPage();
+    const selectedEntryPage = this.bundleIndexToPage(bitstreamEntry.currentPosition);
+
+    if (currentPage !== selectedEntryPage) {
+      this.changeToPage(selectedEntryPage);
+    }
+  }
+
+  /**
+   * Redirect the user to the original page of the provided bitstream if it is on a different page.
+   * @param bitstreamEntry The entry that the original position will be taken from to determine the page to move to
+   * @protected
+   */
+  protected redirectToOriginalPage(bitstreamEntry: SelectedBitstreamTableEntry) {
+    const currentPage = this.getCurrentPage();
+    const originPage = this.bundleIndexToPage(bitstreamEntry.originalPosition);
+
+    if (currentPage !== originPage) {
+      this.changeToPage(originPage);
+    }
   }
 
   /**
@@ -283,7 +313,18 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     this.objectUpdatesService.removeSingleFieldUpdate(this.bundleUrl, bitstream.uuid);
   }
 
-  getRowClass(update: FieldUpdate): string {
+  /**
+   * Returns the css class for a table row depending on the state of the table entry.
+   * @param update
+   * @param bitstream
+   */
+  getRowClass(update: FieldUpdate, bitstream: BitstreamTableEntry): string {
+    const selected = this.itemBitstreamsService.getSelectedBitstream();
+
+    if (hasValue(selected) && bitstream.id === selected.bitstream.id) {
+      return 'table-info';
+    }
+
     switch (update.changeType) {
       case FieldChangeType.UPDATE:
         return 'table-warning';
@@ -296,11 +337,19 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     }
   }
 
+  /**
+   * Changes the page size to the provided page size.
+   * @param pageSize
+   */
   public doPageSizeChange(pageSize: number) {
     this.paginationComponent.doPageSizeChange(pageSize);
   }
 
-  dragStart(bitstreamName: string) {
+  /**
+   * Handles start of dragging by opening the tooltip mentioning that it is possible to drag a bitstream to a different
+   * page by dropping it on the page number, only if there are multiple pages.
+   */
+  dragStart() {
     // Only open the drag tooltip when there are multiple pages
     this.paginationComponent.shouldShowBottomPager.pipe(
       take(1),
@@ -308,66 +357,170 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     ).subscribe(() => {
       this.dragTooltip.open();
     });
-
-    const message = this.translateService.instant('item.edit.bitstreams.edit.live.drag',
-      { bitstream: bitstreamName });
-    this.liveRegionService.addMessage(message);
   }
 
-  dragEnd(bitstreamName: string) {
+  /**
+   * Handles end of dragging by closing the tooltip.
+   */
+  dragEnd() {
     this.dragTooltip.close();
-
-    const message = this.translateService.instant('item.edit.bitstreams.edit.live.drop',
-      { bitstream: bitstreamName });
-    this.liveRegionService.addMessage(message);
   }
 
-
+  /**
+   * Handles dropping by calculation the target position, and changing the page if the bitstream was dropped on a
+   * different page.
+   * @param event
+   */
   drop(event: CdkDragDrop<any>) {
     const dragIndex = event.previousIndex;
     let dropIndex = event.currentIndex;
-    const dragPage = this.currentPaginationOptions$.value.currentPage - 1;
-    let dropPage = this.currentPaginationOptions$.value.currentPage - 1;
+    const dragPage = this.getCurrentPage();
+    let dropPage = this.getCurrentPage();
 
     // Check if the user is hovering over any of the pagination's pages at the time of dropping the object
     const droppedOnElement = document.elementFromPoint(event.dropPoint.x, event.dropPoint.y);
     if (hasValue(droppedOnElement) && hasValue(droppedOnElement.textContent) && droppedOnElement.classList.contains('page-link')) {
       // The user is hovering over a page, fetch the page's number from the element
-      const droppedPage = Number(droppedOnElement.textContent);
+      let droppedPage = Number(droppedOnElement.textContent);
       if (hasValue(droppedPage) && !Number.isNaN(droppedPage)) {
-        dropPage = droppedPage - 1;
-        dropIndex = 0;
+        droppedPage -= 1;
+
+        if (droppedPage !== dragPage) {
+          dropPage = droppedPage;
+
+          if (dropPage > dragPage) {
+            // When moving to later page, place bitstream at the top
+            dropIndex = 0;
+          } else {
+            // When moving to earlier page, place bitstream at the bottom
+            dropIndex = this.getCurrentPageSize() - 1;
+          }
+        }
       }
     }
 
-    const isNewPage = dragPage !== dropPage;
-    // Move the object in the custom order array if the drop happened within the same page
-    // This allows us to instantly display a change in the order, instead of waiting for the REST API's response first
-    if (!isNewPage && dragIndex !== dropIndex) {
-      const currentEntries = [...this.tableEntries$.value];
-      moveItemInArray(currentEntries, dragIndex, dropIndex);
-      this.tableEntries$.next(currentEntries);
+    const fromIndex = this.pageIndexToBundleIndex(dragIndex, dragPage);
+    const toIndex = this.pageIndexToBundleIndex(dropIndex, dropPage);
+
+    if (fromIndex === toIndex) {
+      return;
     }
 
-    const pageSize = this.currentPaginationOptions$.value.pageSize;
-    const redirectPage = dropPage + 1;
-    const fromIndex = (dragPage * pageSize) + dragIndex;
-    const toIndex = (dropPage * pageSize) + dropIndex;
-    // Send out a drop event (and navigate to the new page) when the "from" and "to" indexes are different from each other
-    if (fromIndex !== toIndex) {
-      // if (isNewPage) {
-      //   this.loading$.next(true);
-      // }
-      this.dropObject.emit(Object.assign({
-        fromIndex,
-        toIndex,
-        finish: () => {
-          if (isNewPage) {
-            this.paginationComponent.doPageChange(redirectPage);
-          }
-        }
-      }));
+    const selectedBitstream = this.tableEntries$.value[dragIndex];
+
+    const finish = () => {
+      this.itemBitstreamsService.announceMove(selectedBitstream.name, toIndex);
+
+      if (dropPage !== this.getCurrentPage()) {
+        this.changeToPage(dropPage);
+      }
+    };
+
+    this.itemBitstreamsService.performBitstreamMoveRequest(this.bundle, fromIndex, toIndex, finish);
+  }
+
+  /**
+   * Handles a select action for the provided bitstream entry.
+   * If the selected bitstream is currently selected, the selection is cleared.
+   * If no, or a different bitstream, is selected, the provided bitstream becomes the selected bitstream.
+   * @param bitstream
+   */
+  select(bitstream: BitstreamTableEntry) {
+    const selectedBitstream = this.itemBitstreamsService.getSelectedBitstream();
+
+    if (hasValue(selectedBitstream) && selectedBitstream.bitstream === bitstream) {
+      this.itemBitstreamsService.cancelSelection();
+    } else {
+      const selectionObject = this.createBitstreamSelectionObject(bitstream);
+
+      if (hasNoValue(selectionObject)) {
+        console.warn('Failed to create selection object');
+        return;
+      }
+
+      this.itemBitstreamsService.selectBitstreamEntry(selectionObject);
     }
   }
 
+  /**
+   * Creates a {@link SelectedBitstreamTableEntry} from the provided {@link BitstreamTableEntry} so it can be given
+   * to the {@link ItemBitstreamsService} to select the table entry.
+   * @param bitstream The table entry to create the selection object from.
+   * @protected
+   */
+  protected createBitstreamSelectionObject(bitstream: BitstreamTableEntry): SelectedBitstreamTableEntry {
+    const pageIndex = this.findBitstreamPageIndex(bitstream);
+
+    if (pageIndex === -1) {
+      return null;
+    }
+
+    const position = this.pageIndexToBundleIndex(pageIndex, this.getCurrentPage());
+
+    return {
+      bitstream: bitstream,
+      bundle: this.bundle,
+      bundleSize: this.bundleSize,
+      currentPosition: position,
+      originalPosition: position,
+    };
+  }
+
+  /**
+   * Returns the index of the provided {@link BitstreamTableEntry} relative to the current page
+   * If the current page size is 10, it will return a value from 0 to 9 (inclusive)
+   * Returns -1 if the provided bitstream could not be found
+   * @protected
+   */
+  protected findBitstreamPageIndex(bitstream: BitstreamTableEntry): number {
+    const entries = this.tableEntries$.value;
+    return entries.findIndex(entry => entry === bitstream);
+  }
+
+  /**
+   * Returns the current zero-indexed page
+   * @protected
+   */
+  protected getCurrentPage(): number {
+    // The pagination component uses one-based numbering while zero-based numbering is more convenient for calculations
+    return this.currentPaginationOptions$.value.currentPage - 1;
+  }
+
+  /**
+   * Returns the current page size
+   * @protected
+   */
+  protected getCurrentPageSize(): number {
+    return this.currentPaginationOptions$.value.pageSize;
+  }
+
+  /**
+   * Converts an index relative to the page to an index relative to the bundle
+   * @param index The index relative to the page
+   * @param page  The zero-indexed page number
+   * @protected
+   */
+  protected pageIndexToBundleIndex(index: number, page: number) {
+    return page * this.getCurrentPageSize() + index;
+  }
+
+  /**
+   * Calculates the zero-indexed page number from the index relative to the bundle
+   * @param index The index relative to the bundle
+   * @protected
+   */
+  protected bundleIndexToPage(index: number) {
+    return Math.floor(index / this.getCurrentPageSize());
+  }
+
+  /**
+   * Change the pagination for this bundle to the provided zero-indexed page
+   * @param page The zero-indexed page to change to
+   * @protected
+   */
+  protected changeToPage(page: number) {
+    // Increments page by one because zero-indexing is way easier for calculations but the pagination component
+    // uses one-indexing.
+    this.paginationComponent.doPageChange(page + 1);
+  }
 }

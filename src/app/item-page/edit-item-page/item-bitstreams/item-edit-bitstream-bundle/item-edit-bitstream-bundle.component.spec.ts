@@ -58,6 +58,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
       currentPage: 1,
       pageSize: 9999
     }),
+    getSelectedBitstream$: observableOf({}),
   });
 
   beforeEach(waitForAsync(() => {

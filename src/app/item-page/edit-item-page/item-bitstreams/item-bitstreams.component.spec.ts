@@ -25,6 +25,10 @@ import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } f
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
+import { ItemBitstreamsService } from './item-bitstreams.service';
+import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -76,6 +80,7 @@ let objectCache: ObjectCacheService;
 let requestService: RequestService;
 let searchConfig: SearchConfigurationService;
 let bundleService: BundleDataService;
+let itemBitstreamsService: ItemBitstreamsService;
 
 describe('ItemBitstreamsComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -147,6 +152,19 @@ describe('ItemBitstreamsComponent', () => {
       patch: createSuccessfulRemoteDataObject$({}),
     });
 
+    itemBitstreamsService = jasmine.createSpyObj('itemBitstreamsService', {
+      getColumnSizes: new ResponsiveTableSizes([
+        new ResponsiveColumnSizes(2, 2, 3, 4, 4),
+        new ResponsiveColumnSizes(2, 3, 3, 3, 3),
+        new ResponsiveColumnSizes(2, 2, 2, 2, 2),
+        new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+      ]),
+      getSelectedBitstream$: observableOf({}),
+      getInitialBundlesPaginationOptions: new PaginationComponentOptions(),
+      removeMarkedBitstreams: createSuccessfulRemoteDataObject$({}),
+      displayNotifications: undefined,
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
@@ -161,6 +179,7 @@ describe('ItemBitstreamsComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: SearchConfigurationService, useValue: searchConfig },
         { provide: BundleDataService, useValue: bundleService },
+        { provide: ItemBitstreamsService, useValue: itemBitstreamsService },
         ChangeDetectorRef
       ], schemas: [
         NO_ERRORS_SCHEMA
@@ -181,28 +200,8 @@ describe('ItemBitstreamsComponent', () => {
       comp.submit();
     });
 
-    it('should call removeMultiple on the bitstreamService for the marked field', () => {
-      expect(bitstreamService.removeMultiple).toHaveBeenCalledWith([bitstream2]);
-    });
-
-    it('should not call removeMultiple on the bitstreamService for the unmarked field', () => {
-      expect(bitstreamService.removeMultiple).not.toHaveBeenCalledWith([bitstream1]);
-    });
-  });
-
-  describe('when dropBitstream is called', () => {
-    beforeEach((done) => {
-      comp.dropBitstream(bundle, {
-        fromIndex: 0,
-        toIndex: 50,
-        finish: () => {
-          done();
-        }
-      });
-    });
-
-    it('should send out a patch for the move operation', () => {
-      expect(bundleService.patch).toHaveBeenCalled();
+    it('should call removeMarkedBitstreams on the itemBitstreamsService', () => {
+      expect(itemBitstreamsService.removeMarkedBitstreams).toHaveBeenCalled();
     });
   });
 

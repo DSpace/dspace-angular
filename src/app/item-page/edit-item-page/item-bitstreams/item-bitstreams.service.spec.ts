@@ -16,6 +16,12 @@ import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject
 } from '../../../shared/remote-data.utils';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { RequestService } from '../../../core/data/request.service';
+import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+import { Bundle } from '../../../core/shared/bundle.model';
+import { of } from 'rxjs';
+import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 
 describe('ItemBitstreamsService', () => {
   let service: ItemBitstreamsService;
@@ -23,21 +29,34 @@ describe('ItemBitstreamsService', () => {
   let translateService: TranslateService;
   let objectUpdatesService: ObjectUpdatesService;
   let bitstreamDataService: BitstreamDataService;
+  let bundleDataService: BundleDataService;
   let dsoNameService: DSONameService;
+  let requestService: RequestService;
+  let liveRegionService: LiveRegionService;
 
   beforeEach(() => {
     notificationsService = new NotificationsServiceStub() as any;
     translateService = getMockTranslateService();
     objectUpdatesService = new ObjectUpdatesServiceStub() as any;
     bitstreamDataService = new BitstreamDataServiceStub() as any;
+    bundleDataService = jasmine.createSpyObj('bundleDataService', {
+      patch: createSuccessfulRemoteDataObject$(new Bundle()),
+    });
     dsoNameService = new DSONameServiceMock() as any;
+    requestService = jasmine.createSpyObj('requestService', {
+      setStaleByHrefSubstring: of(true),
+    });
+    liveRegionService = getLiveRegionServiceStub();
 
     service = new ItemBitstreamsService(
       notificationsService,
       translateService,
       objectUpdatesService,
       bitstreamDataService,
+      bundleDataService,
       dsoNameService,
+      requestService,
+      liveRegionService,
     );
   });
 

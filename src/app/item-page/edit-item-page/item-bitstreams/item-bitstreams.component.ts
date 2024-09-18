@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnDestroy, HostListener } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { map, switchMap, take } from 'rxjs/operators';
 import { Observable, Subscription, zip as observableZip } from 'rxjs';
@@ -8,13 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { hasValue } from '../../../shared/empty.util';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-  getFirstCompletedRemoteData
 } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -23,7 +21,6 @@ import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import { Operation } from 'fast-json-patch';
 import { ItemBitstreamsService } from './item-bitstreams.service';
 import { AlertType } from '../../../shared/alert/aletr-type';
 
@@ -88,11 +85,61 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   postItemInit(): void {
     const bundlesOptions = this.itemBitstreamsService.getInitialBundlesPaginationOptions();
 
-    this. bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: bundlesOptions})).pipe(
+    this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: bundlesOptions})).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       map((bundlePage: PaginatedList<Bundle>) => bundlePage.page)
     );
+  }
+
+  /**
+   * Handles keyboard events that should move the currently selected bitstream up
+   */
+  @HostListener('document:keydown.arrowUp', ['$event'])
+  moveUp(event: KeyboardEvent) {
+    if (this.itemBitstreamsService.hasSelectedBitstream()) {
+      event.preventDefault();
+      this.itemBitstreamsService.moveSelectedBitstreamUp();
+    }
+  }
+
+  /**
+   * Handles keyboard events that should move the currently selected bitstream down
+   */
+  @HostListener('document:keydown.arrowDown', ['$event'])
+  moveDown(event: KeyboardEvent) {
+    if (this.itemBitstreamsService.hasSelectedBitstream()) {
+      event.preventDefault();
+      this.itemBitstreamsService.moveSelectedBitstreamDown();
+    }
+  }
+
+  /**
+   * Handles keyboard events that should cancel the currently selected bitstream.
+   * A cancel means that the selected bitstream is returned to its original position and is no longer selected.
+   * @param event
+   */
+  @HostListener('document:keyup.escape', ['$event'])
+  cancelSelection(event: KeyboardEvent) {
+    if (this.itemBitstreamsService.hasSelectedBitstream()) {
+      event.preventDefault();
+      this.itemBitstreamsService.cancelSelection();
+    }
+  }
+
+  /**
+   * Handles keyboard events that should clear the currently selected bitstream.
+   * A clear means that the selected bitstream remains in its current position but is no longer selected.
+   */
+  @HostListener('document:keydown.enter', ['$event'])
+  @HostListener('document:keydown.space', ['$event'])
+  clearSelection(event: KeyboardEvent) {
+    // Only when no specific element is in focus do we want to clear the currently selected bitstream
+    // Otherwise we might clear the selection when a different action was intended, e.g. clicking a button or selecting
+    // a different bitstream.
+    if (event.target instanceof Element && event.target.tagName === 'BODY') {
+      this.itemBitstreamsService.clearSelection();
+    }
   }
 
   /**
@@ -117,36 +164,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     removedResponses$.subscribe((responses: RemoteData<NoContent>) => {
       this.itemBitstreamsService.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
       this.submitting = false;
-    });
-  }
-
-  /**
-   * A bitstream was dropped in a new location. Send out a Move Patch request to the REST API, display notifications,
-   * refresh the bundle's cache (so the lists can properly reload) and call the event's callback function (which will
-   * navigate the user to the correct page)
-   * @param bundle  The bundle to send patch requests to
-   * @param event   The event containing the index the bitstream came from and was dropped to
-   */
-  dropBitstream(bundle: Bundle, event: any) {
-    this.zone.runOutsideAngular(() => {
-      if (hasValue(event) && hasValue(event.fromIndex) && hasValue(event.toIndex) && hasValue(event.finish)) {
-        const moveOperation = {
-          op: 'move',
-          from: `/_links/bitstreams/${event.fromIndex}/href`,
-          path: `/_links/bitstreams/${event.toIndex}/href`
-        } as Operation;
-        this.bundleService.patch(bundle, [moveOperation]).pipe(
-          getFirstCompletedRemoteData(),
-        ).subscribe((response: RemoteData<Bundle>) => {
-          this.zone.run(() => {
-            this.itemBitstreamsService.displayNotifications('item.edit.bitstreams.notifications.move', [response]);
-            // Remove all cached requests from this bundle and call the event's callback when the requests are cleared
-            this.requestService.setStaleByHrefSubstring(bundle.self).pipe(
-              take(1)
-            ).subscribe(() => event.finish());
-          });
-        });
-      }
     });
   }
 

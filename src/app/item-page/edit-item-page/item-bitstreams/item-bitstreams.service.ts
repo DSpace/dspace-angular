@@ -3,36 +3,275 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { RemoteData } from '../../../core/data/remote-data';
-import { isNotEmpty, hasValue } from '../../../shared/empty.util';
+import { isNotEmpty, hasValue, hasNoValue } from '../../../shared/empty.util';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, zip as observableZip } from 'rxjs';
+import { Observable, zip as observableZip, BehaviorSubject } from 'rxjs';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import { take, switchMap, map } from 'rxjs/operators';
+import { take, switchMap, map, tap } from 'rxjs/operators';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { BitstreamTableEntry } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
+import { MoveOperation } from 'fast-json-patch';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { RequestService } from '../../../core/data/request.service';
+import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 
+/**
+ * Interface storing all the information necessary to create a row in the bitstream edit table
+ */
+export interface BitstreamTableEntry {
+  /**
+   * The bitstream
+   */
+  bitstream: Bitstream,
+  /**
+   * The uuid of the Bitstream
+   */
+  id: string,
+  /**
+   * The name of the Bitstream
+   */
+  name: string,
+  /**
+   * The name of the Bitstream with all whitespace removed
+   */
+  nameStripped: string,
+  /**
+   * The description of the Bitstream
+   */
+  description: string,
+  /**
+   * Observable emitting the Format of the Bitstream
+   */
+  format: Observable<BitstreamFormat>,
+  /**
+   * The download url of the Bitstream
+   */
+  downloadUrl: string,
+}
+
+/**
+ * Interface storing information necessary to highlight and reorder the selected bitstream entry
+ */
+export interface SelectedBitstreamTableEntry {
+  /**
+   * The selected entry
+   */
+  bitstream: BitstreamTableEntry,
+  /**
+   * The bundle the bitstream belongs to
+   */
+  bundle: Bundle,
+  /**
+   * The total number of bitstreams in the bundle
+   */
+  bundleSize: number,
+  /**
+   * The original position of the bitstream within the bundle.
+   */
+  originalPosition: number,
+  /**
+   * The current position of the bitstream within the bundle.
+   */
+  currentPosition: number,
+}
+
+/**
+ * This service handles the selection and updating of the bitstreams and their order on the
+ * 'Edit Item' -> 'Bitstreams' page.
+ */
 @Injectable(
   { providedIn: 'root' },
 )
 export class ItemBitstreamsService {
+
+  /**
+   * BehaviorSubject which emits every time the selected bitstream changes.
+   */
+  protected selectedBitstream$: BehaviorSubject<SelectedBitstreamTableEntry> = new BehaviorSubject(null);
+
+  protected isPerformingMoveRequest = false;
 
   constructor(
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
     protected objectUpdatesService: ObjectUpdatesService,
     protected bitstreamService: BitstreamDataService,
+    protected bundleService: BundleDataService,
     protected dsoNameService: DSONameService,
+    protected requestService: RequestService,
+    protected liveRegionService: LiveRegionService,
   ) {
+  }
+
+  /**
+   * Returns the observable emitting the currently selected bitstream
+   */
+  getSelectedBitstream$(): Observable<SelectedBitstreamTableEntry> {
+    return this.selectedBitstream$;
+  }
+
+  /**
+   * Returns a copy of the currently selected bitstream
+   */
+  getSelectedBitstream(): SelectedBitstreamTableEntry {
+    const selected = this.selectedBitstream$.getValue();
+
+    if (hasNoValue(selected)) {
+      return selected;
+    }
+
+    return Object.assign({}, selected);
+  }
+
+  hasSelectedBitstream(): boolean {
+    return hasValue(this.getSelectedBitstream());
+  }
+
+  /**
+   * Select the provided entry
+   */
+  selectBitstreamEntry(entry: SelectedBitstreamTableEntry) {
+    if (entry !== this.selectedBitstream$.getValue()) {
+      this.announceSelect(entry.bitstream.name);
+      this.updateSelectedBitstream(entry);
+    }
+  }
+
+  /**
+   * Makes the {@link selectedBitstream$} observable emit the provided {@link SelectedBitstreamTableEntry}.
+   * @protected
+   */
+  protected updateSelectedBitstream(entry: SelectedBitstreamTableEntry) {
+    this.selectedBitstream$.next(entry);
+  }
+
+  /**
+   * Unselects the selected bitstream. Does nothing if no bitstream is selected.
+   */
+  clearSelection() {
+    const selected = this.getSelectedBitstream();
+
+    if (hasValue(selected)) {
+      this.updateSelectedBitstream(null);
+      this.announceClear(selected.bitstream.name);
+    }
+  }
+
+  /**
+   * Returns the currently selected bitstream to its original position and unselects the bitstream.
+   * Does nothing if no bitstream is selected.
+   */
+  cancelSelection() {
+    const selected = this.getSelectedBitstream();
+
+    if (hasNoValue(selected) || this.isPerformingMoveRequest) {
+      return;
+    }
+
+    this.selectedBitstream$.next(null);
+
+    const originalPosition = selected.originalPosition;
+    const currentPosition = selected.currentPosition;
+
+    // If the selected bitstream has not moved, there is no need to return it to its original position
+    if (currentPosition === originalPosition) {
+      this.announceClear(selected.bitstream.name);
+    } else {
+      this.announceCancel(selected.bitstream.name, originalPosition);
+      this.performBitstreamMoveRequest(selected.bundle, currentPosition, originalPosition);
+    }
+  }
+
+  /**
+   * Moves the selected bitstream one position up in the bundle. Does nothing if no bitstream is selected or the
+   * selected bitstream already is at the beginning of the bundle.
+   */
+  moveSelectedBitstreamUp() {
+    const selected = this.getSelectedBitstream();
+
+    if (hasNoValue(selected) || this.isPerformingMoveRequest) {
+      return;
+    }
+
+    const originalPosition = selected.currentPosition;
+    if (originalPosition > 0) {
+      const newPosition = originalPosition - 1;
+      selected.currentPosition = newPosition;
+
+      const onRequestCompleted = () => {
+        this.announceMove(selected.bitstream.name, newPosition);
+      };
+
+      this.performBitstreamMoveRequest(selected.bundle, originalPosition, newPosition, onRequestCompleted);
+      this.updateSelectedBitstream(selected);
+    }
+  }
+
+  /**
+   * Moves the selected bitstream one position down in the bundle. Does nothing if no bitstream is selected or the
+   * selected bitstream already is at the end of the bundle.
+   */
+  moveSelectedBitstreamDown() {
+    const selected = this.getSelectedBitstream();
+
+    if (hasNoValue(selected) || this.isPerformingMoveRequest) {
+      return;
+    }
+
+    const originalPosition = selected.currentPosition;
+    if (originalPosition < selected.bundleSize - 1) {
+      const newPosition = originalPosition + 1;
+      selected.currentPosition = newPosition;
+
+      const onRequestCompleted = () => {
+        this.announceMove(selected.bitstream.name, newPosition);
+      };
+
+      this.performBitstreamMoveRequest(selected.bundle, originalPosition, newPosition, onRequestCompleted);
+      this.updateSelectedBitstream(selected);
+    }
+  }
+
+  /**
+   * Sends out a Move Patch request to the REST API, display notifications,
+   * refresh the bundle's cache (so the lists can properly reload)
+   * @param bundle The bundle to send patch requests to
+   * @param fromIndex The index to move from
+   * @param toIndex The index to move to
+   * @param finish Optional: Function to execute once the response has been received
+   */
+  performBitstreamMoveRequest(bundle: Bundle, fromIndex: number, toIndex: number, finish?: () => void) {
+    if (this.isPerformingMoveRequest) {
+      console.warn('Attempted to perform move request while previous request has not completed yet');
+      return;
+    }
+
+    const moveOperation: MoveOperation = {
+      op: 'move',
+      from: `/_links/bitstreams/${fromIndex}/href`,
+      path: `/_links/bitstreams/${toIndex}/href`,
+    };
+
+    this.isPerformingMoveRequest = true;
+    this.bundleService.patch(bundle, [moveOperation]).pipe(
+      getFirstCompletedRemoteData(),
+      tap((response: RemoteData<Bundle>) => this.displayNotifications('item.edit.bitstreams.notifications.move', [response])),
+      switchMap(() => this.requestService.setStaleByHrefSubstring(bundle.self)),
+      take(1),
+    ).subscribe(() => {
+      this.isPerformingMoveRequest = false;
+      finish?.();
+    });
   }
 
   /**
@@ -46,6 +285,10 @@ export class ItemBitstreamsService {
     });
   }
 
+  /**
+   * Returns the initial pagination options to use when fetching the bitstreams
+   * @param bundleName The name of the bundle, will be as pagination id.
+   */
   getInitialBitstreamsPaginationOptions(bundleName: string): PaginationComponentOptions {
     return Object.assign(new PaginationComponentOptions(),{
       id: bundleName, // This might behave unexpectedly if the item contains two bundles with the same name
@@ -118,6 +361,10 @@ export class ItemBitstreamsService {
     );
   }
 
+  /**
+   * Creates an array of {@link BitstreamTableEntry}s from an array of {@link Bitstream}s
+   * @param bitstreams The bitstreams array to map to table entries
+   */
   mapBitstreamsToTableEntries(bitstreams: Bitstream[]): BitstreamTableEntry[] {
     return bitstreams.map((bitstream) => {
       const name = this.dsoNameService.getName(bitstream);
@@ -143,7 +390,7 @@ export class ItemBitstreamsService {
     // To make it clear which headers are relevant for a specific field in the table, the 'headers' attribute is used to
     // refer to specific headers. The Bitstream's name is used as header ID for the row containing information regarding
     // that bitstream. As the 'headers' attribute contains a space-separated string of header IDs, the Bitstream's header
-    // ID can not contain strings itself.
+    // ID can not contain spaces itself.
     return this.stripWhiteSpace(name);
   }
 
@@ -154,5 +401,49 @@ export class ItemBitstreamsService {
   stripWhiteSpace(str: string): string {
     // '/\s+/g' matches all occurrences of any amount of whitespace characters
     return str.replace(/\s+/g, '');
+  }
+
+  /**
+   * Adds a message to the live region mentioning that the bitstream with the provided name was selected.
+   * @param bitstreamName The name of the bitstream that was selected.
+   */
+  announceSelect(bitstreamName: string) {
+    const message = this.translateService.instant('item.edit.bitstreams.edit.live.select',
+      { bitstream: bitstreamName });
+    this.liveRegionService.addMessage(message);
+  }
+
+  /**
+   * Adds a message to the live region mentioning that the bitstream with the provided name was moved to the provided
+   * position.
+   * @param bitstreamName The name of the bitstream that moved.
+   * @param toPosition The zero-indexed position that the bitstream moved to.
+   */
+  announceMove(bitstreamName: string, toPosition: number) {
+    const message = this.translateService.instant('item.edit.bitstreams.edit.live.move',
+      { bitstream: bitstreamName, toIndex: toPosition + 1 });
+    this.liveRegionService.addMessage(message);
+  }
+
+  /**
+   * Adds a message to the live region mentioning that the bitstream with the provided name is no longer selected and
+   * was returned to the provided position.
+   * @param bitstreamName The name of the bitstream that is no longer selected
+   * @param toPosition The zero-indexed position the bitstream returned to.
+   */
+  announceCancel(bitstreamName: string, toPosition: number) {
+    const message = this.translateService.instant('item.edit.bitstreams.edit.live.cancel',
+      { bitstream: bitstreamName, toIndex: toPosition + 1 });
+    this.liveRegionService.addMessage(message);
+  }
+
+  /**
+   * Adds a message to the live region mentioning that the bitstream with the provided name is no longer selected.
+   * @param bitstreamName The name of the bitstream that is no longer selected.
+   */
+  announceClear(bitstreamName: string) {
+    const message = this.translateService.instant('item.edit.bitstreams.edit.live.clear',
+      { bitstream: bitstreamName });
+    this.liveRegionService.addMessage(message);
   }
 }
