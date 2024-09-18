@@ -5,10 +5,10 @@
          [ngClass]="getClass('element', 'control')">
 
       <!-- Draggable Container -->
-      <div cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
+      <div role="listbox" #dropList cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
         <!-- Draggable Items -->
-        <div *ngFor="let groupModel of model.groups; let idx = index"
-             role="group"
+        <div #sortableElement
+             *ngFor="let groupModel of model.groups; let idx = index; let length = count"
              [formGroupName]="idx"
              [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"
              cdkDrag
@@ -16,7 +16,12 @@
              [cdkDragPreviewClass]="'ds-submission-reorder-dragging'"
              [class.grey-background]="model.isInlineGroupArray">
           <!-- Item content -->
-          <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0" cdkDragHandle>
+          <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0" cdkDragHandle
+               (keydown.space)="toggleKeyboardDragAndDrop($event, sortableElement)"
+               (keydown.tab)="stopKeyboardDragAndDrop()"
+               (keydown.escape)="stopKeyboardDragAndDrop()"
+               (keydown.arrowUp)="handleArrowPress($event, dropList, length, idx, 'up')"
+               (keydown.arrowDown)="handleArrowPress($event, dropList, length, idx, 'down')">
             <i class="drag-icon fas fa-grip-vertical fa-fw" [class.drag-disable]="dragDisabled" ></i>
           </div>
           <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>

@@ -64,6 +64,8 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   @Input() model: DynamicRowArrayModel;// DynamicRow?
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
 
+  elementBeingSorted: HTMLElement;
+
   /* eslint-disable @angular-eslint/no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -113,5 +115,73 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
    */
   get dragDisabled(): boolean {
     return this.model.groups.length === 1 || !this.model.isDraggable;
+  }
+
+  toggleKeyboardDragAndDrop(event: KeyboardEvent, sortableElement: HTMLElement) {
+    event.preventDefault();
+    if (this.elementBeingSorted) {
+      this.stopKeyboardDragAndDrop();
+    } else {
+      sortableElement.classList.add('sorting-with-keyboard');
+      this.elementBeingSorted = sortableElement;
+    }
+  }
+
+  stopKeyboardDragAndDrop() {
+    this.elementBeingSorted?.classList.remove('sorting-with-keyboard');
+    this.elementBeingSorted = null;
+  }
+
+  handleArrowPress(event: KeyboardEvent, dropList: HTMLDivElement, length: number, idx: number, direction: 'up' | 'down') {
+    let newIndex = direction === 'up' ? idx - 1 : idx + 1;
+    if (newIndex < 0) {
+      newIndex = length - 1;
+    } else if (newIndex >= length) {
+      newIndex = 0;
+    }
+
+    if (this.elementBeingSorted) {
+      this.model.moveGroup(idx, newIndex - idx);
+      if (hasValue(this.model.groups[newIndex]) && hasValue((this.control as any).controls[newIndex])) {
+        this.onCustomEvent({
+          previousIndex: idx,
+          newIndex,
+          arrayModel: this.model,
+          model: this.model.groups[newIndex].group[0],
+          control: (this.control as any).controls[newIndex],
+        }, 'move');
+      }
+      event.preventDefault();
+      // Set focus back to the moved element
+      setTimeout(() => {
+        const newDragHandle = dropList.querySelectorAll(`[cdkDragHandle]`)[newIndex] as HTMLElement;
+        if (newDragHandle) {
+          newDragHandle.focus();
+        }
+        if (!this.isElementInViewport(newDragHandle)) {
+          newDragHandle.scrollIntoView(direction === 'up');
+        }
+      });
+    } else {
+      const newDragHandle = dropList.querySelectorAll(`[cdkDragHandle]`)[newIndex] as HTMLElement;
+      if (newDragHandle) {
+        newDragHandle.focus();
+        if (!this.isElementInViewport(newDragHandle)) {
+          newDragHandle.scrollIntoView(direction === 'up');
+        }
+        event.preventDefault();
+      }
+    }
+
+  }
+
+  isElementInViewport(el: HTMLElement) {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
   }
 }
