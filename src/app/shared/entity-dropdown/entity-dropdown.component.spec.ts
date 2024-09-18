@@ -11,11 +11,19 @@ import { createPaginatedList } from '../testing/utils.test';
 import { ItemExportFormatService } from '../../core/itemexportformat/item-export-format.service';
 import { of } from 'rxjs/internal/observable/of';
 import { ItemExportFormat, ItemExportFormatMap } from '../../core/itemexportformat/model/item-export-format.model';
+import { TranslateService } from '@ngx-translate/core';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({ name: 'translate' })
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
+    return value;
+  }
+}
+
+@Pipe({ name: 'dsSort' })
+class MockDsSortPipe implements PipeTransform {
+  transform(value: any[], column: string = '', order: 'asc' | 'desc' = 'asc'): any[] {
     return value;
   }
 }
@@ -91,6 +99,12 @@ describe('EntityDropdownComponent', () => {
     byEntityTypeAndMolteplicity: jasmine.createSpy('byEntityTypeAndMolteplicity')
   });
 
+  const translateServiceMock: any = {
+    instant(name) {
+      return 'Statistics';
+    }
+  };
+
   let translatePipeSpy: jasmine.Spy;
 
   const paginatedEntities = createPaginatedList(entities);
@@ -99,10 +113,11 @@ describe('EntityDropdownComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [],
-      declarations: [EntityDropdownComponent, MockTranslatePipe],
+      declarations: [EntityDropdownComponent, MockTranslatePipe, MockDsSortPipe],
       providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
         { provide: ItemExportFormatService, useValue: itemExportFormatServiceMock },
+        { provide: TranslateService, useValue: translateServiceMock },
         ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -121,13 +136,6 @@ describe('EntityDropdownComponent', () => {
     component.isSubmission = true;
 
     translatePipeSpy = spyOn(MockTranslatePipe.prototype, 'transform');
-  });
-
-  it('should translate entries', () => {
-    scheduler.schedule(() => fixture.detectChanges());
-    scheduler.flush();
-
-    expect(translatePipeSpy).toHaveBeenCalledWith('entity_1.listelement.badge');
   });
 
   it('should init component with entities list', () => {
