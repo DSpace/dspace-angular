@@ -1,24 +1,46 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-
-import { TranslateService } from '@ngx-translate/core';
+import { NgForOf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { RemoteData } from '../../../core/data/remote-data';
+import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 
 @Component({
   selector: 'ds-orcid-sync-setting',
   templateUrl: './orcid-sync-settings.component.html',
-  styleUrls: ['./orcid-sync-settings.component.scss']
+  styleUrls: ['./orcid-sync-settings.component.scss'],
+  imports: [
+    AlertComponent,
+    FormsModule,
+    TranslateModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class OrcidSyncSettingsComponent implements OnInit {
+  protected readonly AlertType = AlertType;
 
   /**
    * The item for which showing the orcid settings
@@ -82,12 +104,12 @@ export class OrcidSyncSettingsComponent implements OnInit {
     this.syncModes = [
       {
         label: this.messagePrefix + '.synchronization-mode.batch',
-        value: 'BATCH'
+        value: 'BATCH',
       },
       {
         label: this.messagePrefix + '.synchronization-mode.manual',
-        value: 'MANUAL'
-      }
+        value: 'MANUAL',
+      },
     ];
 
     this.syncPublicationOptions = ['DISABLED', 'ALL']
@@ -113,7 +135,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
         return {
           label: this.messagePrefix + '.sync-profile.' + value.toLowerCase(),
           value: value,
-          checked: syncProfilePreferences.includes(value)
+          checked: syncProfilePreferences.includes(value),
         };
       });
 
@@ -189,7 +211,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
     operations.push({
       path: path,
       op: 'replace',
-      value: currentValue
+      value: currentValue,
     });
   }
 

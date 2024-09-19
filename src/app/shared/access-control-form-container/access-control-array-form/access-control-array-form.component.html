@@ -44,11 +44,13 @@
               placement="top-start top-end bottom-start bottom-end"
               #d="ngbDatepicker"
             />
-          <button
-            class="btn btn-outline-secondary fas fa-calendar"
-            [disabled]="ngForm.disabled"
-            (click)="d.toggle()" type="button">
-          </button>
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary fas fa-calendar"
+                [disabled]="ngForm.disabled"
+                (click)="d.toggle()" type="button">
+              </button>
+            </div>
           </div>
           <small class="form-text text-muted">
             {{'access-control-option-start-date-note' | translate}}
@@ -71,11 +73,13 @@
               placement="top-start top-end bottom-start bottom-end"
               #d1="ngbDatepicker"
             />
-          <button
-            type="button" class="btn btn-outline-secondary fas fa-calendar"
-            [disabled]="ngForm.disabled"
-            (click)="d1.toggle()">
-          </button>
+            <div class="input-group-append">
+              <button
+                type="button" class="btn btn-outline-secondary fas fa-calendar"
+                [disabled]="ngForm.disabled"
+                (click)="d1.toggle()">
+              </button>
+            </div>
           </div>
           <small class="form-text text-muted">
             {{'access-control-option-end-date-note' | translate}}
@@ -84,10 +88,11 @@
       </div>
 
       <div>
-        <label class="form-label">&nbsp;</label>
+        <span aria-hidden="true" class="mb-2 d-inline-block">&nbsp;</span>
         <div class="input-group">
 
           <button type="button" class="btn btn-outline-danger"
+                  [attr.aria-label]="'access-control-remove' | translate"
                   [disabled]="ngForm.disabled || form.accessControls.length === 1"
                   (click)="removeAccessControlItem(control.id)">
             <i class="fas fa-trash"></i>

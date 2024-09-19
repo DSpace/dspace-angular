@@ -1,24 +1,52 @@
-import { Component, HostListener, Injector, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, first, map, withLatestFrom } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  HostListener,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  first,
+  map,
+  withLatestFrom,
+} from 'rxjs/operators';
+
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
-import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { ActivatedRoute } from '@angular/router';
+import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
 /**
  * Component representing the admin sidebar
  */
 @Component({
-  selector: 'ds-admin-sidebar',
+  selector: 'ds-base-admin-sidebar',
   templateUrl: './admin-sidebar.component.html',
   styleUrls: ['./admin-sidebar.component.scss'],
-  animations: [slideSidebar]
+  animations: [slideSidebar],
+  standalone: true,
+  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
 })
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
   /**
@@ -28,9 +56,14 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   menuID = MenuID.ADMIN;
 
   /**
-   * Observable that emits the width of the collapsible menu sections
+   * Observable that emits the width of the sidebar when expanded
    */
-  sidebarWidth: Observable<string>;
+  @Input() expandedSidebarWidth$: Observable<string>;
+
+  /**
+   * Observable that emits the width of the sidebar when collapsed
+   */
+  @Input() collapsedSidebarWidth$: Observable<string>;
 
   /**
    * Is true when the sidebar is open, is false when the sidebar is animating or closed
@@ -43,6 +76,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * @type {boolean}
    */
   sidebarClosed = !this.sidebarOpen; // Closed in UI, animation finished
+
+  /**
+   * Is true when the sidebar is opening or closing
+   * @type {boolean}
+   */
+  sidebarTransitioning = !this.sidebarOpen; // Animation in progress
 
   /**
    * Emits true when either the menu OR the menu's preview is expanded, else emits false
@@ -58,7 +97,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
     public route: ActivatedRoute,
-    protected themeService: ThemeService
+    protected themeService: ThemeService,
   ) {
     super(menuService, injector, authorizationService, route, themeService);
     this.inFocus$ = new BehaviorSubject(false);
@@ -69,7 +108,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.sidebarWidth = this.variableService.getVariable('--ds-sidebar-items-width');
     this.authService.isAuthenticated()
       .subscribe((loggedIn: boolean) => {
         if (loggedIn) {
@@ -83,13 +121,13 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       });
     this.sidebarExpanded = combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
       .pipe(
-        map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
+        map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed)),
       );
     this.inFocus$.pipe(
       debounceTime(50),
       distinctUntilChanged(),  // disregard focusout in situations like --(focusout)-(focusin)--
       withLatestFrom(
-        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed])
+        combineLatest([this.menuCollapsed, this.menuPreviewCollapsed]),
       ),
     ).subscribe(([inFocus, [collapsed, previewCollapsed]]) => {
       if (collapsed) {
@@ -134,6 +172,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * @param event The animation event
    */
   startSlide(event: any): void {
+    this.sidebarTransitioning = true;
     if (event.toState === 'expanded') {
       this.sidebarClosed = false;
     } else if (event.toState === 'collapsed') {
@@ -146,6 +185,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
    * @param event The animation event
    */
   finishSlide(event: any): void {
+    this.sidebarTransitioning = false;
     if (event.fromState === 'expanded') {
       this.sidebarClosed = true;
     } else if (event.fromState === 'collapsed') {

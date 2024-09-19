@@ -1,23 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
-import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submission-cc-licence.resource-type';
-import { of as observableOf } from 'rxjs';
-import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '../../../shared/shared.module';
-import { SectionsService } from '../sections.service';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsType } from '../sections-type';
 import { TranslateModule } from '@ngx-translate/core';
-import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
+
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submission-cc-licence.resource-type';
+import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
+import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
-import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { SectionsType } from '../sections-type';
+import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
 
 describe('SubmissionSectionCcLicensesComponent', () => {
 
@@ -33,7 +39,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
     serverValidationErrors: [],
     header: 'test header',
     id: 'test section id',
-    sectionType: SectionsType.SubmissionForm
+    sectionType: SectionsType.SubmissionForm,
   };
 
   const submissionCcLicenses: SubmissionCcLicence[] = [
@@ -96,12 +102,12 @@ describe('SubmissionSectionCcLicensesComponent', () => {
             {
               id: 'test enum id 2a I',
               label: 'test enum label 2a I',
-              description: 'test enum description 2a I'
+              description: 'test enum description 2a I',
             },
             {
               id: 'test enum id 2a II',
               label: 'test enum label 2a II',
-              description: 'test enum description 2a II'
+              description: 'test enum description 2a II',
             },
           ],
         },
@@ -113,12 +119,12 @@ describe('SubmissionSectionCcLicensesComponent', () => {
             {
               id: 'test enum id 2b I',
               label: 'test enum label 2b I',
-              description: 'test enum description 2b I'
+              description: 'test enum description 2b I',
             },
             {
               id: 'test enum id 2b II',
               label: 'test enum label 2b II',
-              description: 'test enum description 2b II'
+              description: 'test enum description 2b II',
             },
           ],
         },
@@ -139,7 +145,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
     getCcLicenseLink: createSuccessfulRemoteDataObject$(
       {
         url: 'test cc license link',
-      }
+      },
     ),
   });
 
@@ -150,7 +156,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
     setSectionStatus: () => undefined,
     updateSectionData: (submissionId, sectionId, updatedData) => {
       component.sectionData.data = updatedData;
-    }
+    },
   };
 
   const operationsBuilder = jasmine.createSpyObj('operationsBuilder', {
@@ -169,10 +175,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionCcLicensesComponent,
       ],
       providers: [
@@ -184,8 +187,16 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
+        { provide: FormBuilderService, useValue: {} },
       ],
     })
+      .overrideComponent(SubmissionSectionCcLicensesComponent, {
+        remove: {
+          imports:[
+            ThemedLoadingComponent,
+          ],
+        },
+      })
       .compileComponents();
   }));
 
@@ -198,10 +209,10 @@ describe('SubmissionSectionCcLicensesComponent', () => {
 
   it('should display a dropdown with the different cc licenses', () => {
     expect(
-      de.query(By.css('.ccLicense-select ds-select .dropdown-menu button:nth-child(1)')).nativeElement.innerText
+      de.query(By.css('.ccLicense-select ds-select .dropdown-menu button:nth-child(1)')).nativeElement.innerText,
     ).toContain('test license name 1');
     expect(
-      de.query(By.css('.ccLicense-select ds-select .dropdown-menu button:nth-child(2)')).nativeElement.innerText
+      de.query(By.css('.ccLicense-select ds-select .dropdown-menu button:nth-child(2)')).nativeElement.innerText,
     ).toContain('test license name 2');
   });
 
@@ -216,7 +227,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
 
     it('should display the selected cc license', () => {
       expect(
-        de.query(By.css('.ccLicense-select ds-select button.selection')).nativeElement.innerText
+        de.query(By.css('.ccLicense-select ds-select button.selection')).nativeElement.innerText,
       ).toContain('test license name 2');
     });
 
@@ -249,7 +260,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
           new Map([
             [ccLicence.fields[0], ccLicence.fields[0].enums[1]],
             [ccLicence.fields[1], ccLicence.fields[1].enums[0]],
-          ])
+          ]),
         );
       });
 

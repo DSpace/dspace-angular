@@ -6,7 +6,7 @@
       [disabled]="disabled"
       (click)="toggleUp()">
       <span class="chevron"></span>
-      <span class="sr-only">Increment</span>
+      <span class="sr-only">{{'form.number-picker.increment' | translate: {field: name} }}</span>
     </button>
     <input
       id="{{id}}"
@@ -24,6 +24,7 @@
       [disabled]="disabled"
       [ngClass]="{'is-invalid': invalid}"
       title="{{placeholder}}"
+      [attr.aria-label]="placeholder"
     >
     <button
       class="btn btn-link-focus"
@@ -32,6 +33,6 @@
       [disabled]="disabled"
       (click)="toggleDown()">
       <span class="chevron bottom"></span>
-      <span class="sr-only">Decrement</span>
+      <span class="sr-only">{{'form.number-picker.decrement' | translate: {field: name} }}</span>
     </button>
 </div>

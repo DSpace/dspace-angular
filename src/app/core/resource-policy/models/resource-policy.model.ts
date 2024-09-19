@@ -1,19 +1,27 @@
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
-import { link, typedObject } from '../../cache/builders/build-decorators';
-import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { ActionType } from './action-type.model';
-import { HALLink } from '../../shared/hal-link.model';
-import { RESOURCE_POLICY } from './resource-policy.resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { PolicyType } from './policy-type.model';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../data/remote-data';
-import { GROUP } from '../../eperson/models/group.resource-type';
-import { Group } from '../../eperson/models/group.model';
-import { EPERSON } from '../../eperson/models/eperson.resource-type';
-import { EPerson } from '../../eperson/models/eperson.model';
+
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/cacheable-object.model';
+import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
+import { RemoteData } from '../../data/remote-data';
+import { EPerson } from '../../eperson/models/eperson.model';
+import { EPERSON } from '../../eperson/models/eperson.resource-type';
+import { Group } from '../../eperson/models/group.model';
+import { GROUP } from '../../eperson/models/group.resource-type';
+import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { ActionType } from './action-type.model';
+import { PolicyType } from './policy-type.model';
+import { RESOURCE_POLICY } from './resource-policy.resource-type';
 
 /**
  * Model class for a Resource Policy
@@ -77,7 +85,7 @@ export class ResourcePolicy implements CacheableObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer('resource-policy'), 'id')
-  uuid: string;
+    uuid: string;
 
   /**
    * The {@link HALLink}s for this ResourcePolicy

@@ -1,15 +1,29 @@
-import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import cloneDeep from 'lodash/cloneDeep';
+import { of } from 'rxjs';
+
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import cloneDeep from 'lodash/cloneDeep';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.component';
 
 describe('ProfilePageMetadataFormComponent', () => {
   let component: ProfilePageMetadataFormComponent;
@@ -20,6 +34,7 @@ describe('ProfilePageMetadataFormComponent', () => {
   let epersonService;
   let notificationsService;
   let translate;
+  let configurationDataService;
 
   function init() {
     user = Object.assign(new EPerson(), {
@@ -28,52 +43,60 @@ describe('ProfilePageMetadataFormComponent', () => {
         'eperson.firstname': [
           {
             value: 'John',
-            language: null
-          }
+            language: null,
+          },
         ],
         'eperson.lastname': [
           {
             value: 'Doe',
-            language: null
-          }
+            language: null,
+          },
         ],
         'eperson.language': [
           {
             value: 'de',
-            language: null
-          }
-        ]
-      }
+            language: null,
+          },
+        ],
+      },
     });
 
     epersonService = jasmine.createSpyObj('epersonService', {
-      update: createSuccessfulRemoteDataObject$(user)
+      update: createSuccessfulRemoteDataObject$(user),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},
       error: {},
-      warning: {}
+      warning: {},
     });
     translate = {
       instant: () => 'translated',
-      onLangChange: new EventEmitter()
+      onLangChange: new EventEmitter(),
     };
+
+    configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+      findByPropertyName: of({ payload: { value: 'test' } }),
+    });
 
   }
 
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageMetadataFormComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProfilePageMetadataFormComponent, VarDirective],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
         { provide: TranslateService, useValue: translate },
         { provide: NotificationsService, useValue: notificationsService },
-        FormBuilderService
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        FormBuilderService,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ProfilePageMetadataFormComponent, {
+        remove: { imports: [FormComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
