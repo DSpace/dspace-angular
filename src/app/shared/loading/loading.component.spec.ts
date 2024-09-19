@@ -1,11 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-
 import { LoadingComponent } from './loading.component';
 
 describe('LoadingComponent (inline template)', () => {
@@ -18,16 +24,22 @@ describe('LoadingComponent (inline template)', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule.withRoutes([
+          {
+            path: 'fake-url',
+            redirectTo: '/',
+          },
+        ]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [LoadingComponent], // declare the test component
-      providers: [TranslateService]
     }).compileComponents();  // compile template and css
+
   }));
 
   beforeEach(() => {
@@ -73,6 +85,16 @@ describe('LoadingComponent (inline template)', () => {
     fixture.detectChanges();
     de = fixture.debugElement.query(By.css('ds-alert'));
     expect(de).toBeTruthy();
+  });
+
+  it('should add time if the page has been automatically reloaded', () => {
+    comp.pageReloadCount = 1;
+    comp.errorMessageDelay = 1000;
+    comp.warningMessageDelay = 500;
+    comp.numberOfAutomaticPageReloads = 2;
+    comp.ngOnInit();
+
+    expect(comp.errorTimeoutWithRetriesDelay).toBe(1500);
   });
 
 });

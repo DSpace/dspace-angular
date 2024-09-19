@@ -47,6 +47,8 @@ import {
 } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { of } from 'rxjs';
+import { SectionsService } from '../../../sections.service';
+import { SectionsServiceStub } from '../../../../../shared/testing/sections-service.stub';
 
 const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
   add: jasmine.createSpy('add'),
@@ -62,6 +64,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
+  let sectionServiceStub: SectionsServiceStub;
   let formbuilderService: any;
   let operationsBuilder: any;
   let operationsService: any;
@@ -100,6 +103,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        { provide: SectionsService, useClass: SectionsServiceStub },
         FormBuilderService,
         ChangeDetectorRef,
         SubmissionSectionUploadFileEditComponent,
@@ -151,6 +155,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
+      sectionServiceStub = TestBed.inject(SectionsService as any);
       formbuilderService = TestBed.inject(FormBuilderService);
       operationsBuilder = TestBed.inject(JsonPatchOperationsBuilder);
       operationsService = TestBed.inject(SubmissionJsonPatchOperationsService);
@@ -325,7 +330,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(uploadService.updateFileData).not.toHaveBeenCalled();
 
     }));
-
   });
 });
 

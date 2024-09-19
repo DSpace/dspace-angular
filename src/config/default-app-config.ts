@@ -37,6 +37,8 @@ import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
 import { LoaderConfig } from './loader-config.interfaces';
 import { MetaTagsConfig } from './meta-tags.config';
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
+import { IdentifierSubtypesConfig, IdentifierSubtypesIconPositionEnum } from './identifier-subtypes-config.interface';
 import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
@@ -100,7 +102,7 @@ export class DefaultAppConfig implements AppConfig {
       // Defaults to caching 1,000 pages. Each page expires after 1 day
       botCache: {
         // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
-        max: 1000,
+        max: 0, // disabled by default
         // Amount of time after which cached pages are considered stale (in ms)
         timeToLive: 24 * 60 * 60 * 1000, // 1 day
         allowStale: true,
@@ -287,6 +289,10 @@ export class DefaultAppConfig implements AppConfig {
       metadataDetailsList: [
         { label: 'Document type', name: 'dc.type' }
       ]
+    },
+    dropdownHintEnabled: {
+      // NOTE: list of metadata fields for which the dropdown hint is enabled
+      // eg. 'dc.access.rights': true,
     }
   };
 
@@ -331,8 +337,12 @@ export class DefaultAppConfig implements AppConfig {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
+    // Whether to add item badges to BOTH browse and search result lists.
+    showLabels: true,
     // Whether to add item thumbnail images to BOTH browse and search result lists.
     showThumbnails: true,
+    // Whether to add item thumbnail images to BOTH browse and search result lists.
+    showMetrics: false,
     // The number of entries in a paginated browse results list.
     // Rounded to the nearest size in the list of selectable sizes on the
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
@@ -795,6 +805,7 @@ export class DefaultAppConfig implements AppConfig {
     showFallbackMessagesByDefault: false,
     warningMessageDelay: 5000, // 5 seconds
     errorMessageDelay: 15000, // 15 seconds
+    numberOfAutomaticPageReloads: 2,
   };
 
   metaTags: MetaTagsConfig = {
@@ -805,6 +816,43 @@ export class DefaultAppConfig implements AppConfig {
       'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.'
   };
 
+  // Configuration for the metadata link view popover
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig =
+    {
+      fallbackMetdataList: ['dc.description.abstract'],
+
+      entityDataConfig: [
+        {
+          entityType: 'Person',
+          metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract']
+        },
+        {
+          entityType: 'OrgUnit',
+          metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract']
+        },
+        {
+          entityType: 'Project',
+          metadataList: ['oairecerif.project.status', 'dc.description.abstract']
+        },
+        {
+          entityType: 'Funding',
+          metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract']
+        },
+        {
+          entityType: 'Publication',
+          metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract']
+        },
+      ]
+    };
+
+  identifierSubtypes: IdentifierSubtypesConfig[] = [
+    {
+      name: 'ror',
+      icon: 'assets/images/ror.logo.icon.svg',
+      iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+      link: 'https://ror.org'
+    }
+  ];
   datadogRum: DatadogRumConfig = {
     clientToken: undefined,
     applicationId: undefined,

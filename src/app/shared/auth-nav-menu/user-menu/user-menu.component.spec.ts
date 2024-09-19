@@ -170,6 +170,11 @@ describe('UserMenuComponent', () => {
       expect(span.nativeElement.innerHTML).toContain(email);
     });
 
+    it('should display the My Processes link', () => {
+      const link = deUserMenu.query(By.css('a[data-test="my-processes-link"]'));
+      expect(link).toBeDefined();
+    });
+
     it('should create logout component', () => {
       const components = fixture.debugElement.query(By.css('[data-test="log-out-component"]'));
       expect(components).toBeTruthy();

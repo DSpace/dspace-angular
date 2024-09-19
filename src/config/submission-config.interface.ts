@@ -10,7 +10,7 @@ interface TypeBindConfig extends Config {
   field: string;
 }
 
-interface AuthorithyIcon {
+export interface AuthorithyIcon {
   source: string,
   path: string
 }
@@ -38,9 +38,15 @@ interface DetectDuplicateConfig extends Config {
   metadataDetailsList: DuplicateMatchMetadataDetailConfig[];
 }
 
+export interface SubmissionDropdownHintEnabled {
+  [key: string]: boolean
+
+}
+
 export interface SubmissionConfig extends Config {
   autosave: AutosaveConfig;
   typeBind: TypeBindConfig;
   icons: IconsConfig;
   detectDuplicate: DetectDuplicateConfig;
+  dropdownHintEnabled?: SubmissionDropdownHintEnabled;
 }

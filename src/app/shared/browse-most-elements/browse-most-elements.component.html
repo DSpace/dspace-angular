@@ -1,19 +1,14 @@
-<div class="m-2">
-    <ng-container *ngIf="searchResults">
-        <ul *ngIf="searchResults?.hasSucceeded" class="list-unstyled">
-            <li *ngFor="let object of searchResults?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="true && !last">
-                <ds-listable-object-component-loader [context]="context"
-                                                     [index]="i"
-                                                     [listID]="paginatedSearchOptions.configuration"
-                                                     [object]="object"
-                                                     [showMetrics]="showMetrics"
-                                                     [showThumbnails]="showThumbnails"
-                                                     [viewMode]="paginatedSearchOptions.view"></ds-listable-object-component-loader>
-            </li>
-        </ul>
-        <div *ngIf="searchResults?.hasFailed">
-            {{ 'remote.error' | translate }}
-        </div>
-    </ng-container>
-    <ds-loading *ngIf="!searchResults"></ds-loading>
+<div [ngSwitch]="(sectionTemplateType | lowercase)">
+
+  <ng-container *ngSwitchDefault>
+    <ds-themed-default-browse-elements
+      [showMetrics]="showMetrics"
+      [showThumbnails]="topSection.showThumbnails"
+      [topSection]="topSection"
+      [showLabel]="showLabel"
+      [paginatedSearchOptions]="paginatedSearchOptionsBS.asObservable() | async"
+      [context]="context"
+    ></ds-themed-default-browse-elements>
+  </ng-container>
+
 </div>

@@ -51,6 +51,7 @@ import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routi
 import { SearchManager } from '../../core/browse/search-manager';
 import { AlertType } from '../alert/alert-type';
 import { isPlatformServer } from '@angular/common';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
@@ -177,6 +178,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showExport = true;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics: boolean;
+
+  /**
    * A boolean representing if show search result notice
    */
   @Input() showSearchResultNotice = false;
@@ -189,7 +200,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * Whether to show if the item is a correction
@@ -232,9 +243,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showFilterToggle = false;
 
   /**
-   * Defines whether to show the toggle button to Show/Hide filter
+   * Defines whether to fetch search results during SSR execution
    */
-  @Input() renderOnServerSide = true;
+  @Input() renderOnServerSide = false;
 
   /**
    * Defines whether to show the toggle button to Show/Hide chart
@@ -376,7 +387,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
     protected router: Router,
-    protected authorizationService: AuthorizationDataService,) {
+    @Inject(APP_CONFIG) protected appConfig: any,
+    protected authorizationService: AuthorizationDataService,){
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -392,6 +404,8 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.initialized$.next(true);
       return;
     }
+
+    this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
 
     if (this.showCorrection === null || this.showCorrection === undefined) {
       this.subs.push(
@@ -450,7 +464,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         {
           configuration: searchOptionsConfiguration,
           sort: sortOption || searchOptions.sort,
-          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration)
+          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration) || this.forcedEmbeddedKeys.get('default')
         });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;

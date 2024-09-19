@@ -1,4 +1,4 @@
-<div>
+<div class="pb-3">
     <div *ngIf="item && !item.isDiscoverable" class="private-warning">
         <ds-alert [type]="AlertTypeEnum.Warning" [content]="'item.alerts.private' | translate"></ds-alert>
     </div>
@@ -8,7 +8,7 @@
                 <span class="align-self-center">{{'item.alerts.withdrawn' | translate}}</span>
             </div>
         </ds-alert>
-        <p class="text-center">
+        <p class="text-center" *ngIf="!(isAdministrator$ | async)">
           <a routerLink="/home" class="btn btn-primary">{{"410.link.home-page" | translate}}</a>
         </p>
     </div>

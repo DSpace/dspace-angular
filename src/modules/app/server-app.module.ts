@@ -39,6 +39,8 @@ import { ReferrerService } from '../../app/core/services/referrer.service';
 import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
 import { MathService } from '../../app/core/shared/math.service';
 import { ServerMathService } from '../../app/core/shared/server-math.service';
+import { DatadogRumService } from '../../app/shared/datadog-rum/datadog-rum.service';
+import { ServerDatadogRumService } from '../../app/shared/datadog-rum/server-datadog-rum.service';
 
 export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
@@ -121,7 +123,11 @@ export function createTranslateLoader(transferState: TransferState) {
     {
       provide: MathService,
       useClass: ServerMathService
-    }
+    },
+    {
+      provide: DatadogRumService,
+      useClass: ServerDatadogRumService
+    },
   ]
 })
 export class ServerAppModule {

@@ -35,6 +35,8 @@ import { FilterType } from './models/filter-type.model';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -245,6 +247,10 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       {
         provide: SEARCH_CONFIG_SERVICE,
         useValue: searchConfigurationServiceStub
+      },
+      {
+        provide: APP_CONFIG,
+        useValue: environment
       },
       {
         provide: AuthorizationDataService,

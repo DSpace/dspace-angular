@@ -9,6 +9,7 @@ import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { Router } from '@angular/router';
 import { SearchManager } from '../core/browse/search-manager';
+import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 /**
@@ -37,7 +38,8 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
               protected router: Router,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
               protected authorizationService: AuthorizationDataService,) {
-    super(service, searchManager, sidebarService, windowService, searchConfigService, platformId, routeService, router, authorizationService);
+    super(service, searchManager, sidebarService, windowService, searchConfigService, platformId, routeService, router, appConfig, authorizationService);
   }
 }

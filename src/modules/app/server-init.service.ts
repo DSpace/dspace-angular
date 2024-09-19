@@ -21,6 +21,7 @@ import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { take } from 'rxjs/operators';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { isNotEmpty } from '../../app/shared/empty.util';
 
 /**
  * Performs server-side initialization.
@@ -91,6 +92,14 @@ export class ServerInitService extends InitService {
   }
 
   private saveAppConfigForCSR(): void {
-    this.transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);
+    if (isNotEmpty(environment.rest.ssrBaseUrl) && environment.rest.baseUrl !== environment.rest.ssrBaseUrl) {
+      // Avoid to transfer ssrBaseUrl in order to avoid security issues
+      const config: AppConfig = Object.assign({}, environment as AppConfig, {
+        rest: Object.assign({}, environment.rest, { ssrBaseUrl: '', hasSsrBaseUrl: true })
+      });
+      this.transferState.set<AppConfig>(APP_CONFIG_STATE, config);
+    } else {
+      this.transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);
+    }
   }
 }

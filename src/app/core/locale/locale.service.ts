@@ -53,6 +53,7 @@ export class LocaleService {
     this.routeService.getQueryParameterValue('lang').subscribe(lang => {
       if (lang && this.translate.getLangs().includes(lang)) {
         this.setCurrentLanguageCode(lang);
+        this.routeService.removeQueryParam('lang');
       }
     });
   }
