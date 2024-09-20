@@ -3,7 +3,7 @@ import { MetadataBitstream } from 'src/app/core/metadata/metadata-bitstream.mode
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
 import {Router} from '@angular/router';
 
-const allowedPreviewFormats = ['text/plain', 'text/html', 'application/zip'];
+const allowedPreviewFormats = ['text/plain', 'text/html', 'application/zip', 'application/x-tar'];
 @Component({
   selector: 'ds-file-description',
   templateUrl: './file-description.component.html',

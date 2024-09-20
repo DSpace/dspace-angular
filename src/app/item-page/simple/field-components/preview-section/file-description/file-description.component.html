@@ -61,7 +61,7 @@
       </div>
       <div [style]="'max-height: 500px; padding: 0px; overflow: scroll'" class="panel-body">
         <ul class="treeview in collapse show">
-          <ng-container *ngIf="fileInput.format === 'application/zip'">
+          <ng-container *ngIf="fileInput.format === 'application/zip' || fileInput.format === 'application/x-tar'">
             <ds-file-tree-view
               *ngFor="let node of fileInput.fileInfo"
               [node]="node">
