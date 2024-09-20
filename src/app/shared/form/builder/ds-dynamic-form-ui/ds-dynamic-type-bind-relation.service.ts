@@ -67,7 +67,7 @@ export class DsDynamicTypeBindRelationService {
         throw new Error(`FormControl ${model.id} cannot depend on itself`);
       }
 
-      const bindModel: DynamicFormControlModel = this.formBuilderService.getTypeBindModel();
+      const bindModel: DynamicFormControlModel = this.formBuilderService.getTypeBindModel(rel?.id);
 
       if (model && !models.some((modelElement) => modelElement === bindModel)) {
         models.push(bindModel);
@@ -96,7 +96,7 @@ export class DsDynamicTypeBindRelationService {
       // like relation group component and submission section form component).
       // This model (DynamicRelationGroupModel) contains eg. mandatory field, formConfiguration, relationFields,
       // submission scope, form/section type and other high level properties
-      const bindModel: any = this.formBuilderService.getTypeBindModel();
+      const bindModel: any = this.formBuilderService.getTypeBindModel(condition?.id);
 
       let values: string[];
       let bindModelValue = bindModel.value;
