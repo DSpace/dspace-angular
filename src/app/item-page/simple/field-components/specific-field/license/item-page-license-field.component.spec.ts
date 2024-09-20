@@ -27,8 +27,7 @@ import { ItemPageLicenseFieldComponent } from './item-page-license-field.compone
 
 
 interface TestInstance {
-  metadata: {
-  };
+  metadata: any;
 }
 
 
@@ -50,7 +49,7 @@ const ccUriMock = 'https://creativecommons.org/licenses/by/4.0';
 const testCases: TestCase[] = [
   {
     testInstance: {
-      metadata: { 'dc.rights': undefined, 'dc.rights.uri': undefined, },
+      metadata: { 'dc.rights': undefined, 'dc.rights.uri': undefined },
     },
     expected: {
       render: false,
@@ -60,7 +59,7 @@ const testCases: TestCase[] = [
   },
   {
     testInstance: {
-      metadata: { 'dc.rights': [ undefined, undefined ], 'dc.rights.uri': undefined, },
+      metadata: { 'dc.rights': [ undefined, undefined ], 'dc.rights.uri': undefined },
     },
     expected: {
       render: false,
@@ -70,7 +69,7 @@ const testCases: TestCase[] = [
   },
   {
     testInstance: {
-      metadata: { 'dc.rights.license': undefined, 'dc.rights.uri': undefined, },
+      metadata: { 'dc.rights.license': undefined, 'dc.rights.uri': undefined },
     },
     expected: {
       render: false,
@@ -80,7 +79,7 @@ const testCases: TestCase[] = [
   },
   {
     testInstance: {
-      metadata: { 'dc.rights': undefined, 'dc.rights.license': undefined, 'dc.rights.uri': [ undefined, undefined ], },
+      metadata: { 'dc.rights': undefined, 'dc.rights.license': undefined, 'dc.rights.uri': [ undefined, undefined ] },
     },
     expected: {
       render: false,
@@ -90,7 +89,7 @@ const testCases: TestCase[] = [
   },
   {
     testInstance: {
-      metadata: { 'dc.rights': null, 'dc.rights.license': null, 'dc.rights.uri': null, },
+      metadata: { 'dc.rights': null, 'dc.rights.license': null, 'dc.rights.uri': null },
     },
     expected: {
       render: false,
@@ -100,7 +99,7 @@ const testCases: TestCase[] = [
   },
   {
     testInstance: {
-      metadata: { 'dc.rights': null, 'dc.rights.license': null, 'dc.rights.uri': [ null, null ], },
+      metadata: { 'dc.rights': null, 'dc.rights.license': null, 'dc.rights.uri': [ null, null ] },
     },
     expected: {
       render: false,
@@ -110,7 +109,7 @@ const testCases: TestCase[] = [
   },
   {
     testInstance: {
-      metadata: { 'dc.rights.uri': exampleUriMock, },
+      metadata: { 'dc.rights.uri': exampleUriMock },
     },
     expected: {
       render: true,
@@ -120,7 +119,7 @@ const testCases: TestCase[] = [
   },
   {
     testInstance: {
-      metadata: { 'dc.rights': null, 'dc.rights.license': null, 'dc.rights.uri': exampleUriMock, },
+      metadata: { 'dc.rights': null, 'dc.rights.license': null, 'dc.rights.uri': exampleUriMock },
     },
     expected: {
       render: true,
@@ -130,7 +129,7 @@ const testCases: TestCase[] = [
   },
   {
     testInstance: {
-      metadata: { 'dc.rights.uri': ccUriMock, },
+      metadata: { 'dc.rights.uri': ccUriMock },
     },
     expected: {
       render: true,
@@ -150,7 +149,7 @@ const testCases: TestCase[] = [
   },
   {
     testInstance: {
-      metadata: { 'dc.rights': licenseNameMock, 'dc.rights.uri': ccUriMock, },
+      metadata: { 'dc.rights': licenseNameMock, 'dc.rights.uri': ccUriMock },
     },
     expected: {
       render: true,
@@ -257,8 +256,8 @@ describe('ItemPageLicenseFieldComponent', () => {
           const textEl = fixture.debugElement.queryAll(By.css('.license-text'));
           expect(textEl.length).toBe(testCase.expected.textElements.length);
           if (textEl && testCase.expected.textElements.length > 0) {
-            textEl.forEach((elt, idx) => 
-              expect(elt.nativeElement.innerHTML).toContain(testCase.expected.textElements[idx])
+            textEl.forEach((elt, idx) =>
+              expect(elt.nativeElement.innerHTML).toContain(testCase.expected.textElements[idx]),
             );
           }
         },
@@ -269,8 +268,8 @@ describe('ItemPageLicenseFieldComponent', () => {
           const linkEl = fixture.debugElement.queryAll(By.css('.license-link'));
           expect(linkEl.length).toBe(testCase.expected.linkElements.length);
           if (linkEl && testCase.expected.linkElements.length > 0) {
-            linkEl.forEach((elt, idx) => 
-              expect(elt.query(By.css('.license-text')).nativeElement.innerHTML).toContain(testCase.expected.linkElements[idx])
+            linkEl.forEach((elt, idx) =>
+              expect(elt.query(By.css('.license-text')).nativeElement.innerHTML).toContain(testCase.expected.linkElements[idx]),
             );
           }
         },
