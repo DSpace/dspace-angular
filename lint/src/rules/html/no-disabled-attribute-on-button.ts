@@ -1,12 +1,13 @@
 import {
   TmplAstBoundAttribute,
-  TmplAstTextAttribute
+  TmplAstTextAttribute,
 } from '@angular-eslint/bundled-angular-compiler';
 import { TemplateParserServices } from '@angular-eslint/utils';
 import {
   ESLintUtils,
   TSESLint,
 } from '@typescript-eslint/utils';
+
 import {
   DSpaceESLintRuleInfo,
   NamedTests,
@@ -18,10 +19,12 @@ export enum Message {
 }
 
 export const info = {
-  name: 'no-disabled-attr',
+  name: 'no-disabled-attribute-on-button',
   meta: {
     docs: {
-      description: `Buttons should use the \`dsBtnDisabled\` directive instead of the HTML \`disabled\` attribute for accessibility reasons.`,
+      description: `Buttons should use the \`dsBtnDisabled\` directive instead of the HTML \`disabled\` attribute.
+      This should be done to ensure that users with a screen reader are able to understand that the a button button is present, and that it is disabled.
+      The native html disabled attribute does not allow users to navigate to the button by keyboard, and thus they have no way of knowing that the button is present.`,
     },
     type: 'problem',
     fixable: 'code',
@@ -52,7 +55,7 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
      */
     function replaceDisabledText(text: string ): string {
       const hasBrackets = text.includes('[') && text.includes(']');
-      const newDisabledText = hasBrackets ? 'dsBtnDisabled' : '[dsBtnDisabled]';
+      const newDisabledText = hasBrackets ? 'dsBtnDisabled' : '[dsBtnDisabled]="true"';
       return text.replace('disabled', newDisabledText);
     }
 
@@ -101,7 +104,7 @@ export const tests = {
     {
       name: 'disabled attribute is still valid on non-button elements',
       code: `
-<input disabled="true">
+<input disabled>
       `,
     },
     {
@@ -121,7 +124,7 @@ export const tests = {
     {
       name: 'should not use disabled attribute in HTML templates',
       code: `
-<button disabled="true">Submit</button>
+<button disabled>Submit</button>
       `,
       errors: [{ messageId: Message.USE_DSBTN_DISABLED }],
       output: `

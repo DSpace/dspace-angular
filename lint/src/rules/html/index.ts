@@ -10,12 +10,12 @@ import {
   bundle,
   RuleExports,
 } from '../../util/structure';
-import * as noDisabledAttr from './no-disabled-attr';
+import * as noDisabledAttributeOnButton from './no-disabled-attribute-on-button';
 import * as themedComponentUsages from './themed-component-usages';
 
 const index = [
   themedComponentUsages,
-  noDisabledAttr,
+  noDisabledAttributeOnButton,
 
 ] as unknown as RuleExports[];
 
