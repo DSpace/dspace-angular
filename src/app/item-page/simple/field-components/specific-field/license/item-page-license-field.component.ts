@@ -27,7 +27,7 @@ import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wra
  * Displays the item's licenses
  *
  * If the number of 'dc.rights*' values (excepting 'dc.rights.uri') and the number of 'dc.rights.uri'
- * match, they will be printed as a list of links, where the text of the link will be the dc.right*
+ * match, they will be printed as a list of links, where the text of the link will be the 'dc.rights*'
  * value and the link the corresponding 'dc.rights.uri'. The match will be done in the order they
  * appear. In any other case, all the 'dc.rights*' fields will be shown as a list (where the URIs
  * will be rendered as links).
@@ -39,7 +39,7 @@ export class ItemPageLicenseFieldComponent implements OnInit {
   @Input() item: Item;
 
   /**
-   * String to use as a separator if multiple license entries are specified
+   * String to use as a separator if multiple rights entries are specified
    */
   @Input() separator = '•';
 
@@ -75,7 +75,7 @@ export class ItemPageLicenseFieldComponent implements OnInit {
     ccComponentRef.destroy();
 
     // In either case...
-    // get all non-empty dc.rights* values, excepting the URIs...
+    // get all non-empty 'dc.rights*' values, excepting the URIs...
     this.licenses = Metadata
       .all(this.item.metadata, Object.keys(this.item.metadata).filter(key => key !== 'dc.rights.uri' && (key.startsWith('dc.rights') || key.startsWith('dc.rights.'))))
       .map(mdValue => mdValue.value).filter(value => value);
