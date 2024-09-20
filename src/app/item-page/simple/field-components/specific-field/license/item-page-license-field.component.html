@@ -6,7 +6,7 @@
   </ng-template>
   <ng-template #default>
     <ds-metadata-field-wrapper [label]="'item.page.license.title' | translate">
-      <ng-container *ngIf="licenses.length == uris.length; then licensesWithLink; else listOfLicenses">
+      <ng-container *ngIf="licenses.length === uris.length; then licensesWithLink; else listOfLicenses">
       </ng-container>
       <ng-template #licensesWithLink>
         <ng-container *ngFor="let license of licenses; let last=last; let i=index;">
