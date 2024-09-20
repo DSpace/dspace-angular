@@ -26,8 +26,6 @@ $h6-font-size: $font-size-base !default;
 
 /*** BOOTSTRAP OPTIONS ***/
 
-// enable-responsive-font-sizes allows text to scale more naturally across device and viewport sizes
-$enable-responsive-font-sizes: true !default;
 $enable-shadows: true !default;
 
 
@@ -43,22 +41,15 @@ $danger:    #cf4444 !default;               // Red
 $light:     #f8f9fa !default;               // As Bootstrap $gray-100
 $dark:      darken(#2b4e72, 17%) !default;  // Blue gray (darker)
 
-$primary: $blue !default;
-$secondary: $gray-700 !default;
-$success: $green !default;
-$info: $cyan !default;
-$warning: $yellow !default;
-$danger: $red !default;
-$light: $gray-100 !default;
-$dark: $dark !default;
+// Add new semantic colors here (you don't need to add existing semantic colors)
+$global-custom-semantic-colors: (
+);
 
 /*** OTHER BOOTSTRAP VARIABLES ***/
 
 $link-color: $info !default;
 $link-hover-color: darken($link-color, 15%) !default;
 
-// The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
-$yiq-contrasted-threshold: 165 !default;
 
 $navbar-dark-color: rgba(white, .5) !default;
 $navbar-light-color: rgba(black, .5) !default;
@@ -73,6 +64,13 @@ $link-hover-decoration: underline;
 $pagination-disabled-bg: white;
 
 $icon-font-family: "Font Awesome 6 Free"; /* Define the font-family for icons */
+
+$border-radius: 0.25em;
+
+$badge-padding-x: 0.4em;
+$badge-padding-y: 0.25em;
+
+$primary-bg-subtle: $light !default;
 
 /*** CUSTOM DSPACE VARIABLES ***/
 
@@ -117,9 +115,4 @@ $ds-danger-bg: #{lighten($danger, 30%)} !default;
 // Starting this url with a caret (^) allows it to be a relative path based on UI's deployment path
 // See https://github.com/angular/angular-cli/issues/12797#issuecomment-598534241
 $fa-font-path: "^assets/fonts" !default;
-$border-radius: 0.25em;
 
-$badge-padding-x: 0.4em;
-$badge-padding-y: 0.25em;
-
-$primary-bg-subtle: $gray-100;
