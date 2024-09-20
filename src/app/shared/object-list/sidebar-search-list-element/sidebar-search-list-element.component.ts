@@ -13,6 +13,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 import {
+  catchError,
   find,
   map,
   switchMap,
@@ -52,6 +53,11 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   parentTitle$: Observable<string>;
 
   /**
+   * Observable for the hierarchical title i.e community > subcommunity > collection
+   */
+  hierarchicalTitle$: Observable<string>;
+
+  /**
    * A description to display below the title
    */
   description: string;
@@ -69,7 +75,8 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   ngOnInit(): void {
     super.ngOnInit();
     if (hasValue(this.dso)) {
-      this.parentTitle$ = this.getHierarchicalName();
+      this.parentTitle$ = this.getParentTitle();
+      this.hierarchicalTitle$ = this.getHierarchicalName();
       this.description = this.getDescription();
     }
   }
@@ -93,21 +100,26 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     );
   }
 
+  /**
+   * Get the title of the object's parent
+   * keep on Retrieving recursively the parent by using the object's parent link and retrieving its 'dc.title' metadata
+   * and build a heirarchical name by concating the parent's names
+   */
   getHierarchicalName(): Observable<string> {
-    return this.getParentTitle().pipe(
-      switchMap((parentTitle: string) => {
-        return this.getParent().pipe(
-          switchMap((parentRD: RemoteData<DSpaceObject>) => {
-            if (hasValue(parentRD) && hasValue(parentRD.payload)) {
-              const parentInstance = this.createInstanceFromDSpaceObject(parentRD.payload);
-              return parentInstance.getHierarchicalName().pipe(
-                map((ancestorName: string) => ancestorName ? `${ancestorName} > ${parentTitle}` : parentTitle),
-              );
-            }
-            return observableOf(parentTitle);
-          }),
-        );
+    return this.getParent().pipe(
+      switchMap((parentRD: RemoteData<DSpaceObject>) => {
+        if (hasValue(parentRD) && hasValue(parentRD.payload)) {
+          const parentName$: string = this.dsoNameService.getName(parentRD.payload);
+          if (parentName$) {
+            return this.createInstanceFromDSpaceObject(parentRD.payload).getHierarchicalName().pipe(
+              map((ancestorName: string) => ancestorName ? `${ancestorName} > ${parentName$}` : parentName$),
+            );
+          }
+          return observableOf('');
+        }
+        return observableOf('');
       }),
+      catchError(() => observableOf('')),
     );
   }
 
