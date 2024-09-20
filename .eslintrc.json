@@ -294,7 +294,7 @@
       "rules": {
         // Custom DSpace Angular rules
         "dspace-angular-html/themed-component-usages": "error",
-        "dspace-angular-html/no-disabled-attr": "error"
+        "dspace-angular-html/no-disabled-attribute-on-button": "error"
       }
     },
     {
