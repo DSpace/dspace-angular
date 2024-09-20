@@ -126,6 +126,7 @@ describe('BrowserOrejimeService', () => {
     };
 
     service.orejimeConfig = mockConfig;
+    service.createCategories();
   });
 
   it('should be created', () => {
