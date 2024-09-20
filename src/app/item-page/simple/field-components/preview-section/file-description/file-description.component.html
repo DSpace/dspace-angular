@@ -59,7 +59,7 @@
           <i class="fa fa-remove">&nbsp;</i>
         </a>
       </div>
-      <div [style]="'max-height: 500px; padding: 0px; ' + dynamicOverflow()" class="panel-body">
+      <div [style]="'max-height: 500px; padding: 0px; overflow: scroll'" class="panel-body">
         <ul class="treeview in collapse show">
           <ng-container *ngIf="fileInput.format === 'application/zip'">
             <ds-file-tree-view

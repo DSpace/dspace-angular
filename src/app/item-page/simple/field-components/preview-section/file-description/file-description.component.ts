@@ -31,13 +31,6 @@ export class FileDescriptionComponent {
   }
 
   /**
-   * Show scrollbar in the `.txt` preview, but it should be hidden in the other formats.
-   */
-  public dynamicOverflow() {
-    return (this.isTxt() || this.isHtml()) ? 'overflow: scroll' : 'overflow: hidden';
-  }
-
-  /**
    * Supported Preview formats are: `text/plain`, `text/html`, `application/zip`
    */
   public couldPreview() {
