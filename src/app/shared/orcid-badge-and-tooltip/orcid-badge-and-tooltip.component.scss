@@ -1,0 +1,11 @@
+:host {
+  display: inline-block;
+}
+
+.orcid-icon {
+  height: 1.2rem;
+
+  &.not-authenticated {
+    filter: grayscale(100%);
+  }
+}
