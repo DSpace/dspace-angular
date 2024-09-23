@@ -1327,7 +1327,7 @@
 
   "collection.edit.template.breadcrumbs": "Item template",
 
-  "collection.edit.template.cancel": "Cancel",
+  "collection.edit.template.back": "Back",
 
   "collection.edit.template.delete-button": "Delete",
 
@@ -2169,6 +2169,7 @@
 
   "event.listelement.badge": "Event",
 
+  "event.page.titleprefix": "Event:",
 
   "explore.browse-section.title": "Browse",
 
@@ -3617,6 +3618,8 @@
 
   "itemtemplate.edit.metadata.headers.value": "Value",
 
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
+
   "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
 
   "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
@@ -4159,6 +4162,8 @@
   "nav.main.description": "Main navigation bar",
 
   "nav.mydspace": "MyDSpace",
+
+  "nav.processes": "My Processes",
 
   "nav.profile": "Profile",
 

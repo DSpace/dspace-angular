@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { Request, Response } from 'express';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { HardRedirectService } from './hard-redirect.service';
+import { isNotEmpty } from '../../shared/empty.util';
+import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 /**
  * Service for performing hard redirects within the server app module
@@ -10,6 +12,7 @@ import { HardRedirectService } from './hard-redirect.service';
 export class ServerHardRedirectService extends HardRedirectService {
 
   constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(REQUEST) protected req: Request,
     @Inject(RESPONSE) protected res: Response,
   ) {
@@ -25,9 +28,14 @@ export class ServerHardRedirectService extends HardRedirectService {
    *    optional HTTP status code to use for redirect (default = 302, which is a temporary redirect)
    */
   redirect(url: string, statusCode?: number) {
-
     if (url === this.req.url) {
       return;
+    }
+
+    let redirectUrl = url;
+    // If redirect url contains SSR base url then replace with public base url
+    if (isNotEmpty(this.appConfig.rest.ssrBaseUrl) && this.appConfig.rest.baseUrl !== this.appConfig.rest.ssrBaseUrl) {
+      redirectUrl = url.replace(this.appConfig.rest.ssrBaseUrl, this.appConfig.rest.baseUrl);
     }
 
     if (this.res.finished) {
@@ -35,7 +43,7 @@ export class ServerHardRedirectService extends HardRedirectService {
       req._r_count = (req._r_count || 0) + 1;
 
       console.warn('Attempted to redirect on a finished response. From',
-        this.req.url, 'to', url);
+        this.req.url, 'to', redirectUrl);
 
       if (req._r_count > 10) {
         console.error('Detected a redirection loop. killing the nodejs process');
@@ -49,9 +57,9 @@ export class ServerHardRedirectService extends HardRedirectService {
         status = 302;
       }
 
-      console.info(`Redirecting from ${this.req.url} to ${url} with ${status}`);
+      console.info(`Redirecting from ${this.req.url} to ${redirectUrl} with ${status}`);
 
-      this.res.redirect(status, url);
+      this.res.redirect(status, redirectUrl);
       this.res.end();
       // I haven't found a way to correctly stop Angular rendering.
       // So we just let it end its work, though we have already closed

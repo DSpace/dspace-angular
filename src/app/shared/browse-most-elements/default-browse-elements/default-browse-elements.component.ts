@@ -20,5 +20,5 @@ export class DefaultBrowseElementsComponent extends AbstractBrowseElementsCompon
 
   @Input() showLabel: boolean;
 
-  protected followThumbnailLink = true;
+  protected followThumbnailLink = this.appConfig.browseBy.showThumbnails;
 }

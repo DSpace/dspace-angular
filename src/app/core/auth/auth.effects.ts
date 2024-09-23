@@ -8,7 +8,7 @@ import {
   queueScheduler,
   timer
 } from 'rxjs';
-import { catchError, delay, filter, map, observeOn, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, delay, filter, map, observeOn, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 // import @ngrx
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
@@ -19,7 +19,7 @@ import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AppState } from '../../app.reducer';
-import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
+import { getAuthenticatedUser, isAuthenticated, isAuthenticatedLoaded } from './selectors';
 import { StoreActionTypes } from '../../store.actions';
 import { AuthMethod } from './models/auth.method';
 // import actions
@@ -53,7 +53,7 @@ import {
   RetrieveTokenAction,
   SetUserAsIdleAction
 } from './auth.actions';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotNull } from '../../shared/empty.util';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { RequestActionTypes } from '../data/request.actions';
@@ -187,8 +187,9 @@ export class AuthEffects {
   public refreshToken$: Observable<Action> = createEffect(() => this.actions$.pipe(ofType(AuthActionTypes.REFRESH_TOKEN),
     switchMap((action: RefreshTokenAction) => {
       return this.authService.refreshAuthenticationToken(action.payload).pipe(
+        take(1),
         map((token: AuthTokenInfo) => new RefreshTokenSuccessAction(token)),
-        catchError((error) => observableOf(new RefreshTokenErrorAction()))
+        catchError(_ => observableOf(new RefreshTokenErrorAction()))
       );
     })
   ));
@@ -259,7 +260,7 @@ export class AuthEffects {
         return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload)
           .pipe(
             map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
-            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
+            catchError(_ => observableOf(new RetrieveAuthMethodsErrorAction()))
           );
       })
     ));
@@ -268,21 +269,25 @@ export class AuthEffects {
     .pipe(ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT),
       switchMap((action: RefreshTokenAndRedirectAction) => {
         return this.authService.refreshAuthenticationToken(action.payload.token)
-          .pipe(map((token: AuthTokenInfo) => new RefreshTokenAndRedirectSuccessAction(token, action.payload.redirectUrl)),
-            catchError((error) => observableOf(new RefreshTokenAndRedirectErrorAction()))
+          .pipe(
+            take(1),
+            map((token: AuthTokenInfo) => new RefreshTokenAndRedirectSuccessAction(token, action.payload.redirectUrl)),
+            catchError(_ => observableOf(new RefreshTokenAndRedirectErrorAction()))
           );
       }))
   );
 
+
   public refreshStateTokenRedirect$: Observable<Action> = createEffect(() => this.actions$
     .pipe(ofType(AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT),
-      switchMap((action: RefreshEpersonAndTokenRedirectAction) =>
-        this.authService.getAuthenticatedUserFromStore()
-          .pipe(
-            switchMap(user => this.authService.retrieveAuthenticatedUserById(user.id)),
-            map(user => new RefreshEpersonAndTokenRedirectSuccessAction(user, action.payload.token, action.payload.redirectUrl)),
-            catchError((error) => observableOf(new RefreshEpersonAndTokenRedirectErrorAction()))
-          )
+      map(({ payload }: RefreshEpersonAndTokenRedirectAction) => payload),
+      withLatestFrom(this.store.pipe(select(getAuthenticatedUser), filter(isNotNull))),
+      switchMap(([{ token, redirectUrl }, { id }]) =>
+        this.authService.retrieveAuthenticatedUserById(id).pipe(
+          take(1),
+          map(user => new RefreshEpersonAndTokenRedirectSuccessAction(user, token, redirectUrl)),
+          catchError(_ => observableOf(new RefreshEpersonAndTokenRedirectErrorAction()))
+        )
       )
     )
   );

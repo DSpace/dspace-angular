@@ -83,6 +83,9 @@ export class EditCmsMetadataComponent implements OnInit {
           this.notificationsService.error(this.translateService.get('admin.edit-cms-metadata.error'));
         }
         this.siteService.setStale();
+        this.siteService.find().subscribe((site) => {
+          this.site = site;
+        });
       });
   }
 

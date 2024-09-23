@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of } from 'rxjs';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuState } from './shared/menu/menu-state.model';
 import { MenuItemType } from './shared/menu/menu-item-type.model';
@@ -11,7 +11,7 @@ import { RemoteData } from './core/data/remote-data';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
 import { MenuService } from './shared/menu/menu.service';
 import { filter, find, map, switchMap, take } from 'rxjs/operators';
-import { hasValue } from './shared/empty.util';
+import { hasValue, isNotEmpty } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import {
   ThemedCreateCommunityParentSelectorComponent
@@ -52,11 +52,12 @@ import { environment } from '../environments/environment';
 import { SectionDataService } from './core/layout/section-data.service';
 import { Section } from './core/layout/models/section.model';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { isPlatformBrowser } from '@angular/common';
 import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { ConfigurationProperty } from './core/shared/configuration-property.model';
 
 /**
- * Creates all of the app's menus
+ * Creates all the app's menus
  */
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,7 @@ export class MenuResolver implements Resolve<boolean> {
   private activatedRouteLastChild: ActivatedRoute;
 
   constructor(
+    @Inject(PLATFORM_ID) public platformId: any,
     protected route: ActivatedRoute,
     protected menuService: MenuService,
     protected authorizationService: AuthorizationDataService,
@@ -80,6 +82,9 @@ export class MenuResolver implements Resolve<boolean> {
    * Initialize all menus
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return of(true);
+    }
     return observableCombineLatest([
       this.createPublicMenu$(),
       this.createAdminMenu$(),
@@ -318,7 +323,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'new_item',
           parentID: 'new',
           active: false,
-          visible: isSiteAdmin,
+          visible: isSiteAdmin || isCommunityAdmin || isCollectionAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',
@@ -451,12 +456,24 @@ export class MenuResolver implements Resolve<boolean> {
         //   icon: 'cogs',
         //   index: 9
         // },
-
+        /*  Admin Search */
+        {
+          id: 'admin_search',
+          active: false,
+          visible: isSiteAdmin || isCollectionAdmin || isCommunityAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.admin_search',
+            link: '/admin/search'
+          } as LinkMenuItemModel,
+          index: 5,
+          icon: 'search',
+        },
         /* Processes */
         {
           id: 'processes',
           active: false,
-          visible: isSiteAdmin,
+          visible: isSiteAdmin || isCommunityAdmin || isCollectionAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.processes',
@@ -534,9 +551,15 @@ export class MenuResolver implements Resolve<boolean> {
 
     observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
     ]).pipe(
-      filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
+      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
+        isAdmin || isCollectionAdmin || isCommunityAdmin
+      ),
+      take(1),
+      switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)),
+      filter((metadataExportScriptExists: boolean) => metadataExportScriptExists),
       take(1)
     ).subscribe(() => {
       // Hides the export menu for unauthorised people
@@ -617,12 +640,16 @@ export class MenuResolver implements Resolve<boolean> {
    * Add the DL Exporter menu item to the admin menu
    */
   createDLExporterMenuItem() {
-    observableCombineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.getDLExporterURL(),
-      this.getDLExporterAccessToken()
-    ]).subscribe(([authorized, url, accesstoken]) => {
-      console.log(accesstoken);
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      filter((authorized: boolean) => authorized),
+      take(1),
+      switchMap(() => observableCombineLatest([
+        this.getDLExporterURL(),
+        this.getDLExporterAccessToken()
+      ])),
+      filter(([url, accesstoken]) => isNotEmpty(url) && isNotEmpty(accesstoken)),
+      take(1)
+    ).subscribe(([url, accesstoken]) => {
       const urlSegments = url.split('?');
       const queryParamSegments = urlSegments[1].split('=');
       this.menuService.addSection(MenuID.ADMIN,
@@ -630,7 +657,7 @@ export class MenuResolver implements Resolve<boolean> {
           id: 'loginmiur_dlexporter_url',
           index: 15,
           active: false,
-          visible: authorized && (hasValue(url) && url.length > 0) && (hasValue(accesstoken) && accesstoken.length > 0),
+          visible: true,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.loginmiur_dlexporter_url',
@@ -657,9 +684,15 @@ export class MenuResolver implements Resolve<boolean> {
 
     observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
     ]).pipe(
-      filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
+      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
+        isAdmin || isCollectionAdmin || isCommunityAdmin
+      ),
+      take(1),
+      switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)),
+      filter((metadataImportScriptExists: boolean) => metadataImportScriptExists),
       take(1)
     ).subscribe(() => {
       // Hides the import menu for unauthorised people
@@ -756,19 +789,6 @@ export class MenuResolver implements Resolve<boolean> {
             text: 'menu.section.notifications_reciter',
             link: '/admin/notifications/' + NOTIFICATIONS_RECITER_SUGGESTION_PATH
           } as LinkMenuItemModel,
-        },
-        /*  Admin Search */
-        {
-          id: 'admin_search',
-          active: false,
-          visible: authorized,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.admin_search',
-            link: '/admin/search'
-          } as LinkMenuItemModel,
-          icon: 'search',
-          index: 5
         },
         /*  Registries */
         {

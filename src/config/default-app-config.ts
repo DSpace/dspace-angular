@@ -102,7 +102,7 @@ export class DefaultAppConfig implements AppConfig {
       // Defaults to caching 1,000 pages. Each page expires after 1 day
       botCache: {
         // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
-        max: 1000,
+        max: 0, // disabled by default
         // Amount of time after which cached pages are considered stale (in ms)
         timeToLive: 24 * 60 * 60 * 1000, // 1 day
         allowStale: true,

@@ -55,7 +55,7 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
   }
 
   ngOnInit() {
-    const followLinks = this.followThumbnailLink ? [followLink('thumbnail')] : [];
+    const followLinks = this.followThumbnailLink ? [followLink('thumbnail'), followLink('metrics')] : [followLink('metrics')];
     this.paginatedSearchOptionsBS = new BehaviorSubject<PaginatedSearchOptions>(this.paginatedSearchOptions);
     this.searchResults$ = this.paginatedSearchOptionsBS.asObservable().pipe(
       mergeMap((paginatedSearchOptions) =>
