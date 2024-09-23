@@ -15,6 +15,8 @@ export enum Message {
   DUPLICATE_DECORATOR_CALL = 'duplicateDecoratorCall',
 }
 
+const decoratorCalls: Map<string, Set<string>> = new Map();
+
 export const info: DSpaceESLintRuleInfo = {
   name: 'unique-decorators',
   meta: {
@@ -51,10 +53,9 @@ export const info: DSpaceESLintRuleInfo = {
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
   create(context: TSESLint.RuleContext<Message, unknown[]>, options: any) {
-    const decoratorCalls: Map<string, Set<string>> = new Map();
 
     return {
-      'ClassDeclaration > Decorator > CallExpression': (node: TSESTree.CallExpression) => {  // todo: limit to class decorators
+      [`ClassDeclaration > Decorator > CallExpression[callee.name=/^(${options[0].decorators.join('|')})$/]`]: (node: TSESTree.CallExpression) => {
         if (isTestFile(context)) {
           return;
         }
@@ -64,13 +65,7 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
           return;
         }
 
-        // todo: can we fold this into the selector actually?
-        if (!(options[0].decorators as string[]).includes(node.callee.name)) {
-          // We don't care about this decorator
-          return;
-        }
-
-        if (!isUnique(node, decoratorCalls)) {
+        if (!isUnique(node)) {
           context.report({
             messageId: Message.DUPLICATE_DECORATOR_CALL,
             node: node,
@@ -168,7 +163,7 @@ function callKey(node: TSESTree.CallExpression): string {
   return key;
 }
 
-function isUnique(node: TSESTree.CallExpression, decoratorCalls: Map<string, Set<string>>): boolean {
+function isUnique(node: TSESTree.CallExpression): boolean {
   const decorator = (node.callee as TSESTree.Identifier).name;
 
   if (!decoratorCalls.has(decorator)) {
