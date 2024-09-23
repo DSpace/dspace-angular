@@ -180,7 +180,7 @@ class Something {
   selector: 'ds-base-test-themable',
   standalone: true,
 })
-class TestThemeableTomponent {
+class TestThemeableComponent {
 }
       `,
     },
@@ -195,7 +195,7 @@ class TestThemeableTomponent {
     TestThemeableComponent,
   ],
 })
-class ThemedTestThemeableTomponent extends ThemedComponent<TestThemeableComponent> {
+class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
       `,
     },
