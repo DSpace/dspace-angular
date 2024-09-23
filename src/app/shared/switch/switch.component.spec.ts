@@ -45,7 +45,7 @@ describe('SwitchComponent', () => {
 
   it('should select an option and emit selected value', () => {
     component.options = mockOptions;
-    component.selectedValue = mockOptions[0].value;
+    component.onOptionClick(mockOptions[0].value);
     fixture.detectChanges();
 
     spyOn(component.selectedValueChange, 'emit');
@@ -60,7 +60,7 @@ describe('SwitchComponent', () => {
 
   it('should apply the correct background color class', () => {
     component.options = mockOptions;
-    component.selectedValue = mockOptions[1].value;
+    component.onOptionClick(mockOptions[1].value);
     fixture.detectChanges();
 
     const containerElement = fixture.debugElement.query(By.css('.switch-container'));
@@ -69,7 +69,7 @@ describe('SwitchComponent', () => {
 
   it('should apply the correct icon color class for selected option', () => {
     component.options = mockOptions;
-    component.selectedValue = mockOptions[1].value;
+    component.onOptionClick(mockOptions[1].value);
     fixture.detectChanges();
 
     const iconElement = fixture.debugElement.query(By.css('.switch-opt .icon-2'));
@@ -78,7 +78,7 @@ describe('SwitchComponent', () => {
 
   it('should display the correct label with the selected color', () => {
     component.options = mockOptions;
-    component.selectedValue = mockOptions[1].value;
+    component.onOptionClick(mockOptions[1].value);
     fixture.detectChanges();
 
     const labelElement = fixture.debugElement.query(By.css('.visibility-label'));
@@ -88,7 +88,7 @@ describe('SwitchComponent', () => {
 
   it('should apply bg-white class to selected option', () => {
     component.options = mockOptions;
-    component.selectedValue = mockOptions[1].value;
+    component.onOptionClick(mockOptions[1].value);
     fixture.detectChanges();
 
     const selectedOptionElement = fixture.debugElement.query(By.css('.switch-opt.bg-white'));

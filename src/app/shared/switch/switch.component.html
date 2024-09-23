@@ -1,5 +1,5 @@
 <div class="btn-group">
-  <div class="switch-container" [ngClass]="getBackgroundColorClass()">
+  <div class="switch-container" [ngClass]="backgroundClass">
     <div *ngFor="let option of options">
       <div class="switch-opt"
            (click)="onOptionClick(option.value)"

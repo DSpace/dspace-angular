@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { hasValue } from '../empty.util';
 
 export enum SwitchColor {
   Primary = 'primary',
@@ -21,7 +22,7 @@ export interface SwitchOption {
   templateUrl: './switch.component.html',
   styleUrls: ['./switch.component.scss'],
 })
-export class SwitchComponent {
+export class SwitchComponent implements OnInit, OnChanges {
   /**
    * The options available for the switch
    */
@@ -38,6 +39,24 @@ export class SwitchComponent {
   @Output() selectedValueChange = new EventEmitter<any>();
 
   /**
+   * BG style of the currently selected option
+   */
+
+  public backgroundClass: string;
+
+  ngOnInit() {
+    this.backgroundClass = this.getBackgroundColorClass();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // Recalculate BG class if options or current value are changed by parent component
+    if ((hasValue(changes?.selectedValue?.currentValue) && !changes.selectedValue.isFirstChange())
+        || (hasValue(changes?.options?.currentValue) && !changes.options.isFirstChange())) {
+      this.backgroundClass = this.getBackgroundColorClass();
+    }
+  }
+
+  /**
    * Update the selected value and emit the change event
    * @param value The new value to select
    */
@@ -45,6 +64,8 @@ export class SwitchComponent {
 
     this.selectedValue = value;
     this.selectedValueChange.emit(this.selectedValue);
+
+    this.backgroundClass = this.getBackgroundColorClass();
 
   }
 
