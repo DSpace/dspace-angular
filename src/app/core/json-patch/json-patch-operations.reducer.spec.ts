@@ -339,4 +339,384 @@ describe('jsonPatchOperationsReducer test suite', () => {
     });
   });
 
+  describe('dedupeOperationEntries', () => {
+    it('should not remove duplicated keys if operations are not sequential', () => {
+      initState = {
+        sections: {
+          children: {
+            publicationStep: {
+              body: [
+                {
+                  operation: {
+                    op: 'add',
+                    path: '/sections/publicationStep/dc.date.issued',
+                    value: [
+                      {
+                        value: '2024-06',
+                        language: null,
+                        authority: null,
+                        display: '2024-06',
+                        confidence: -1,
+                        place: 0,
+                        otherInformation: null,
+                      },
+                    ],
+                  },
+                  timeCompleted: timestampBeforeStart,
+                },
+                {
+                  operation: {
+                    op: 'replace',
+                    path: '/sections/publicationStep/dc.date.issued/0',
+                    value: {
+                      value: '2023-06-19',
+                      language: null,
+                      authority: null,
+                      display: '2023-06-19',
+                      confidence: -1,
+                      place: 0,
+                      otherInformation: null,
+                    },
+                  },
+                  timeCompleted: timestampBeforeStart,
+                },
+              ],
+            } as JsonPatchOperationsEntry,
+          },
+          transactionStartTime: null,
+          commitPending: false,
+        } as JsonPatchOperationsResourceEntry,
+      };
+
+      const value = [
+        {
+          value: '2024-06-19',
+          language: null,
+          authority: null,
+          display: '2024-06-19',
+          confidence: -1,
+          place: 0,
+          otherInformation: null,
+        },
+      ];
+      const action = new NewPatchAddOperationAction(
+        'sections',
+        'publicationStep',
+        '/sections/publicationStep/dc.date.issued',
+        value);
+      const newState = jsonPatchOperationsReducer(initState, action);
+
+      const expectedBody: any =  [
+        {
+          'operation': {
+            'op': 'add',
+            'path': '/sections/publicationStep/dc.date.issued',
+            'value': [
+              {
+                'value': '2024-06',
+                'language': null,
+                'authority': null,
+                'display': '2024-06',
+                'confidence': -1,
+                'place': 0,
+                'otherInformation': null,
+              },
+            ],
+          },
+          'timeCompleted': timestampBeforeStart,
+        },
+        {
+          'operation': {
+            'op': 'replace',
+            'path': '/sections/publicationStep/dc.date.issued/0',
+            'value': {
+              'value': '2023-06-19',
+              'language': null,
+              'authority': null,
+              'display': '2023-06-19',
+              'confidence': -1,
+              'place': 0,
+              'otherInformation': null,
+            },
+          },
+          'timeCompleted': timestampBeforeStart,
+        },
+        {
+          'operation': {
+            'op': 'add',
+            'path': '/sections/publicationStep/dc.date.issued',
+            'value': [
+              {
+                'value': '2024-06-19',
+                'language': null,
+                'authority': null,
+                'display': '2024-06-19',
+                'confidence': -1,
+                'place': 0,
+                'otherInformation': null,
+              },
+            ],
+          },
+          'timeCompleted': timestampBeforeStart,
+        },
+      ];
+
+      expect(newState.sections.children.publicationStep.body).toEqual(expectedBody);
+
+    });
+
+    it('should remove duplicated keys if operations are sequential', () => {
+      initState = {
+        sections: {
+          children: {
+            publicationStep: {
+              body: [
+                {
+                  operation: {
+                    op: 'add',
+                    path: '/sections/publicationStep/dc.date.issued',
+                    value: [
+                      {
+                        value: '2024-06',
+                        language: null,
+                        authority: null,
+                        display: '2024-06',
+                        confidence: -1,
+                        place: 0,
+                        otherInformation: null,
+                      },
+                    ],
+                  },
+                  timeCompleted: timestampBeforeStart,
+                },
+                {
+                  operation: {
+                    op: 'replace',
+                    path: '/sections/publicationStep/dc.date.issued/0',
+                    value: {
+                      value: '2023-06-19',
+                      language: null,
+                      authority: null,
+                      display: '2023-06-19',
+                      confidence: -1,
+                      place: 0,
+                      otherInformation: null,
+                    },
+                  },
+                  timeCompleted: timestampBeforeStart,
+                },
+                {
+                  'operation': {
+                    'op': 'add',
+                    'path': '/sections/publicationStep/dc.date.issued',
+                    'value': [
+                      {
+                        'value': '2024-06-19',
+                        'language': null,
+                        'authority': null,
+                        'display': '2024-06-19',
+                        'confidence': -1,
+                        'place': 0,
+                        'otherInformation': null,
+                      },
+                    ],
+                  },
+                  'timeCompleted': timestampBeforeStart,
+                },
+              ],
+            } as JsonPatchOperationsEntry,
+          },
+          transactionStartTime: null,
+          commitPending: false,
+        } as JsonPatchOperationsResourceEntry,
+      };
+
+      const value = [
+        {
+          value: '2024-06-20',
+          language: null,
+          authority: null,
+          display: '2024-06-20',
+          confidence: -1,
+          place: 0,
+          otherInformation: null,
+        },
+      ];
+      const action = new NewPatchAddOperationAction(
+        'sections',
+        'publicationStep',
+        '/sections/publicationStep/dc.date.issued',
+        value);
+      const newState = jsonPatchOperationsReducer(initState, action);
+
+      const expectedBody: any =  [
+        {
+          'operation': {
+            'op': 'add',
+            'path': '/sections/publicationStep/dc.date.issued',
+            'value': [
+              {
+                'value': '2024-06',
+                'language': null,
+                'authority': null,
+                'display': '2024-06',
+                'confidence': -1,
+                'place': 0,
+                'otherInformation': null,
+              },
+            ],
+          },
+          'timeCompleted': timestampBeforeStart,
+        },
+        {
+          'operation': {
+            'op': 'replace',
+            'path': '/sections/publicationStep/dc.date.issued/0',
+            'value': {
+              'value': '2023-06-19',
+              'language': null,
+              'authority': null,
+              'display': '2023-06-19',
+              'confidence': -1,
+              'place': 0,
+              'otherInformation': null,
+            },
+          },
+          'timeCompleted': timestampBeforeStart,
+        },
+        {
+          'operation': {
+            'op': 'add',
+            'path': '/sections/publicationStep/dc.date.issued',
+            'value': [
+              {
+                'value': '2024-06-20',
+                'language': null,
+                'authority': null,
+                'display': '2024-06-20',
+                'confidence': -1,
+                'place': 0,
+                'otherInformation': null,
+              },
+            ],
+          },
+          'timeCompleted': timestampBeforeStart,
+        },
+      ];
+
+      expect(newState.sections.children.publicationStep.body).toEqual(expectedBody);
+
+    });
+
+    it('should remove duplicated keys if all operations have same key', () => {
+      initState = {
+        sections: {
+          children: {
+            publicationStep: {
+              body: [
+                {
+                  operation: {
+                    op: 'add',
+                    path: '/sections/publicationStep/dc.date.issued',
+                    value: [
+                      {
+                        value: '2024',
+                        language: null,
+                        authority: null,
+                        display: '2024-06',
+                        confidence: -1,
+                        place: 0,
+                        otherInformation: null,
+                      },
+                    ],
+                  },
+                  timeCompleted: timestampBeforeStart,
+                },
+                {
+                  'operation': {
+                    'op': 'add',
+                    'path': '/sections/publicationStep/dc.date.issued',
+                    'value': [
+                      {
+                        'value': '2024-06',
+                        'language': null,
+                        'authority': null,
+                        'display': '2024-06',
+                        'confidence': -1,
+                        'place': 0,
+                        'otherInformation': null,
+                      },
+                    ],
+                  },
+                  'timeCompleted': timestampBeforeStart,
+                },
+                {
+                  'operation': {
+                    'op': 'add',
+                    'path': '/sections/publicationStep/dc.date.issued',
+                    'value': [
+                      {
+                        'value': '2024-06-19',
+                        'language': null,
+                        'authority': null,
+                        'display': '2024-06-19',
+                        'confidence': -1,
+                        'place': 0,
+                        'otherInformation': null,
+                      },
+                    ],
+                  },
+                  'timeCompleted': timestampBeforeStart,
+                },
+              ],
+            } as JsonPatchOperationsEntry,
+          },
+          transactionStartTime: null,
+          commitPending: false,
+        } as JsonPatchOperationsResourceEntry,
+      };
+
+      const value = [
+        {
+          value: '2024-06-20',
+          language: null,
+          authority: null,
+          display: '2024-06-20',
+          confidence: -1,
+          place: 0,
+          otherInformation: null,
+        },
+      ];
+      const action = new NewPatchAddOperationAction(
+        'sections',
+        'publicationStep',
+        '/sections/publicationStep/dc.date.issued',
+        value);
+      const newState = jsonPatchOperationsReducer(initState, action);
+
+      const expectedBody: any =  [
+        {
+          'operation': {
+            'op': 'add',
+            'path': '/sections/publicationStep/dc.date.issued',
+            'value': [
+              {
+                'value': '2024-06-20',
+                'language': null,
+                'authority': null,
+                'display': '2024-06-20',
+                'confidence': -1,
+                'place': 0,
+                'otherInformation': null,
+              },
+            ],
+          },
+          'timeCompleted': timestampBeforeStart,
+        },
+      ];
+
+      expect(newState.sections.children.publicationStep.body).toEqual(expectedBody);
+
+    });
+  });
 });

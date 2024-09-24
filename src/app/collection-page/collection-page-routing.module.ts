@@ -22,15 +22,33 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection.resolver';
+import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: COLLECTION_CREATE_PATH,
-        component: CreateCollectionPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
+        children: [
+          {
+            path: '',
+            component: CreateCollectionPageComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'collection.create',
+            },
+          },
+        ],
+        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard],
+        data: {
+          breadcrumbQueryParam: 'parent',
+        },
+        resolve: {
+          breadcrumb: CommunityBreadcrumbResolver,
+        },
+        runGuardsAndResolvers: 'always',
       },
       {
         path: ':id',
@@ -42,9 +60,6 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
         runGuardsAndResolvers: 'always',
         children: [
           {
-            resolve: {
-              dso: EditCollectionResolver,
-            },
             path: COLLECTION_EDIT_PATH,
             loadChildren: () => import('./edit-collection-page/edit-collection-page.module')
               .then((m) => m.EditCollectionPageModule),
@@ -77,7 +92,7 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
             public: [{
               id: 'statistics_collection_:id',
               active: true,
-              visible: false,
+              visible: true,
               index: 2,
               model: {
                 type: MenuItemType.LINK,
@@ -98,7 +113,7 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
     LinkService,
     CreateCollectionPageGuard,
     CollectionPageAdministratorGuard,
-    EditCollectionResolver
+    CommunityBreadcrumbResolver,
   ]
 })
 export class CollectionPageRoutingModule {

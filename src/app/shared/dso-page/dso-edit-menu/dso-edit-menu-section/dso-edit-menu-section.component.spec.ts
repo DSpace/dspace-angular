@@ -96,7 +96,7 @@ describe('DsoEditMenuSectionComponent', () => {
     });
     describe('when the section model in a disabled link or text', () => {
       it('should show just the button', () => {
-        const textButton = fixture.debugElement.query(By.css('div div button'));
+        const textButton = fixture.debugElement.query(By.css('div a'));
         expect(textButton.nativeElement.innerHTML).toContain('fa-' + iconString);
       });
     });
@@ -144,7 +144,7 @@ describe('DsoEditMenuSectionComponent', () => {
 
   });
 
-  describe('link model', () => {
+  describe('when the section model in a non disabled link', () => {
     initAsync(dummySectionLink, menuService);
     beforeEach(() => {
       spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
@@ -154,11 +154,8 @@ describe('DsoEditMenuSectionComponent', () => {
       fixture.detectChanges();
     });
 
-    describe('when the section model in a non disabled link', () => {
-      it('should show a link element with the button in it', () => {
-        const link = fixture.debugElement.query(By.css('a'));
-        expect(link.nativeElement.innerHTML).toContain('button');
-      });
+    it('should show the link element', () => {
+      expect(fixture.debugElement.query(By.css('a'))).not.toBeNull();
     });
 
   });

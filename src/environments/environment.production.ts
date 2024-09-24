@@ -7,6 +7,7 @@ export const environment: Partial<BuildConfig> = {
   universal: {
     preboot: true,
     async: true,
-    time: false
+    time: false,
+    inlineCriticalCss: false,
   }
 };

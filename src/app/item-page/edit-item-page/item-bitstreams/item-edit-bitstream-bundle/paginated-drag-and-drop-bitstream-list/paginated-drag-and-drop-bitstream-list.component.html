@@ -3,7 +3,6 @@
                [hidePagerWhenSinglePage]="true"
                [hidePaginationDetail]="true"
                [paginationOptions]="options"
-               [pageInfoState]="(objectsRD$ | async)?.payload"
                [collectionSize]="(objectsRD$ | async)?.payload?.totalElements">
   <ng-container *ngIf="!(loading$ | async)">
     <div [id]="bundle.id" class="bundle-bitstreams-list"

@@ -72,9 +72,6 @@ describe('ReviewersListComponent', () => {
       clearLinkRequests() {
         // empty
       },
-      getEPeoplePageRouterLink(): string {
-        return '/access-control/epeople';
-      }
     };
     groupsDataServiceStub = {
       activeGroup: activeGroup,

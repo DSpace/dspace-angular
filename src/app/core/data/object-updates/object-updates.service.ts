@@ -19,8 +19,14 @@ import {
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction
 } from './object-updates.actions';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { hasNoValue, hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  hasValueOperator
+} from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { Operation } from 'fast-json-patch';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
@@ -133,16 +139,16 @@ export class ObjectUpdatesService {
     return objectUpdates.pipe(
       hasValueOperator(),
       map((objectEntry) => {
-        const fieldUpdates: FieldUpdates = {};
-        for (const object of initialFields) {
-          let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
-          if (isEmpty(fieldUpdate)) {
-            fieldUpdate = {field: object, changeType: undefined};
-          }
-          fieldUpdates[object.uuid] = fieldUpdate;
+      const fieldUpdates: FieldUpdates = {};
+      for (const object of initialFields) {
+        let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
+        if (isEmpty(fieldUpdate)) {
+          fieldUpdate = { field: object, changeType: undefined };
         }
-        return fieldUpdates;
-      }));
+        fieldUpdates[object.uuid] = fieldUpdate;
+      }
+      return fieldUpdates;
+    }));
   }
 
   /**
@@ -192,8 +198,14 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveAddFieldUpdate(url: string, field: Identifiable) {
+  saveAddFieldUpdate(url: string, field: Identifiable): Observable<boolean> {
+    const update$: Observable<boolean> = this.getFieldUpdatesExclusive(url, [field]).pipe(
+      filter((fieldUpdates: FieldUpdates) => fieldUpdates[field.uuid].changeType === FieldChangeType.ADD),
+      take(1),
+      map(() => true),
+    );
     this.saveFieldUpdate(url, field, FieldChangeType.ADD);
+    return update$;
   }
 
   /**
@@ -201,8 +213,14 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveRemoveFieldUpdate(url: string, field: Identifiable) {
+  saveRemoveFieldUpdate(url: string, field: Identifiable): Observable<boolean> {
+    const update$: Observable<boolean> = this.getFieldUpdatesExclusive(url, [field]).pipe(
+      filter((fieldUpdates: FieldUpdates) => fieldUpdates[field.uuid].changeType === FieldChangeType.REMOVE),
+      take(1),
+      map(() => true),
+    );
     this.saveFieldUpdate(url, field, FieldChangeType.REMOVE);
+    return update$;
   }
 
   /**

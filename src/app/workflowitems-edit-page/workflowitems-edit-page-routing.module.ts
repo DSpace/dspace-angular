@@ -19,18 +19,20 @@ import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-
 import {
   AdvancedWorkflowActionPageComponent
 } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
-import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
+import { ItemFromWorkflowBreadcrumbResolver } from './item-from-workflow-breadcrumb.resolver';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: ':id',
-        resolve: { wfi: WorkflowItemPageResolver },
+        resolve: {
+          breadcrumb: ItemFromWorkflowBreadcrumbResolver,
+          wfi: WorkflowItemPageResolver,
+        },
         children: [
           {
             canActivate: [AuthenticatedGuard],
-            canDeactivate: [PendingChangesGuard],
             path: WORKFLOW_ITEM_EDIT_PATH,
             component: ThemedSubmissionEditComponent,
             resolve: {
@@ -83,7 +85,11 @@ import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-
       }]
     )
   ],
-  providers: [WorkflowItemPageResolver, ItemFromWorkflowResolver]
+  providers: [
+    ItemFromWorkflowBreadcrumbResolver,
+    ItemFromWorkflowResolver,
+    WorkflowItemPageResolver,
+  ],
 })
 /**
  * This module defines the default component to load when navigating to the workflowitems edit page path.

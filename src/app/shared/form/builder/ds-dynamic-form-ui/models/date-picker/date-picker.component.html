@@ -1,12 +1,10 @@
 <div>
-  <fieldset class="d-flex flex-wrap justify-content-start">
-    <legend *ngIf="model.legend"
-            [id]="'legend_' + model.id"
-            [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
+  <fieldset class="d-flex">
+    <legend *ngIf="!model.repeatable" [id]="'legend_' + model.id" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
       {{model.placeholder}} <span *ngIf="model.required">*</span>
     </legend>
     <ds-number-picker
-      tabindex="1"
+      tabindex="0"
       [id]="model.id + '_year'"
       [disabled]="model.disabled"
       [min]="minYear"
@@ -17,31 +15,29 @@
       [value]="year"
       [invalid]="showErrorMessages"
       [placeholder]='yearPlaceholder'
-      [widthClass]="'four-digits'"
       (blur)="onBlur($event)"
       (change)="onChange($event)"
       (focus)="onFocus($event)"
     ></ds-number-picker>
 
-  <ds-number-picker class="date-month"
-      tabindex="2"
+    <ds-number-picker
+      tabindex="0"
       [id]="model.id + '_month'"
       [min]="minMonth"
       [max]="maxMonth"
       [name]="'month'"
-      [size]="2"
+      [size]="6"
       [(ngModel)]="initialMonth"
       [value]="month"
       [placeholder]="monthPlaceholder"
       [disabled]="!year || model.disabled"
-      [widthClass]="'two-digits'"
       (blur)="onBlur($event)"
       (change)="onChange($event)"
       (focus)="onFocus($event)"
     ></ds-number-picker>
 
-  <ds-number-picker class="date-day"
-      tabindex="3"
+    <ds-number-picker
+      tabindex="0"
       [id]="model.id + '_day'"
       [min]="minDay"
       [max]="maxDay"
@@ -51,11 +47,11 @@
       [value]="day"
       [placeholder]="dayPlaceholder"
       [disabled]="!month || model.disabled"
-      [widthClass]="'two-digits'"
       (blur)="onBlur($event)"
       (change)="onChange($event)"
       (focus)="onFocus($event)"
     ></ds-number-picker>
   </fieldset>
 </div>
+
 <div class="clearfix"></div>

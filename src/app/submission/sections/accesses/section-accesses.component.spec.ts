@@ -9,8 +9,6 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import {
-  accessConditionSectionConfigRes,
-  accessConditionSectionSingleAccessConfigRes,
   getSubmissionAccessesConfigNotChangeDiscoverableService,
   getSubmissionAccessesConfigService
 } from '../../../shared/mocks/section-accesses-config.service.mock';
@@ -36,14 +34,13 @@ import {
   DynamicCheckboxModel,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
-  DynamicFormGroupModel,
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
 import { AppState } from '../../../app.reducer';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
 import { accessConditionChangeEvent, checkboxChangeEvent } from '../../../shared/testing/form-event.stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 
 describe('SubmissionSectionAccessesComponent', () => {
   let component: SubmissionSectionAccessesComponent;
@@ -51,7 +48,7 @@ describe('SubmissionSectionAccessesComponent', () => {
 
   const sectionsServiceStub = new SectionsServiceStub();
   const builderService: FormBuilderService = getMockFormBuilderService();
-  const submissionAccessesConfigService: jasmine.SpyObj<SubmissionAccessesConfigDataService> = getSubmissionAccessesConfigService();
+  const submissionAccessesConfigService = getSubmissionAccessesConfigService();
   const sectionAccessesService = getSectionAccessesService();
   const sectionFormOperationsService = getMockFormOperationsService();
   const operationsBuilder = jasmine.createSpyObj('operationsBuilder', {
@@ -100,6 +97,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: FormService, useValue: getMockFormService() },
           { provide: Store, useValue: storeStub },
+          { provide: XSRFService, useValue: {} },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
@@ -109,45 +107,43 @@ describe('SubmissionSectionAccessesComponent', () => {
         .compileComponents();
     });
 
-    describe('when singleAccessCondition is false', () => {
-      beforeEach(inject([Store], (store: Store<AppState>) => {
-        fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
-        component = fixture.componentInstance;
-        formService = TestBed.inject(FormService);
+    beforeEach(inject([Store], (store: Store<AppState>) => {
+      fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
+      component = fixture.componentInstance;
+      formService = TestBed.inject(FormService);
       formbuilderService = TestBed.inject(FormBuilderService);
-        formService.validateAllFormFields.and.callFake(() => null);
-        formService.isValid.and.returnValue(observableOf(true));
-        formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
-        submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionConfigRes) as any);
-        fixture.detectChanges();
-      }));
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(observableOf(true));
+      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      fixture.detectChanges();
+    }));
 
 
-      it('should create', () => {
-        expect(component).toBeTruthy();
-      });
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
 
-      it('should have created formModel', () => {
-        expect(component.formModel).toBeTruthy();
-      });
+    it('should have created formModel', () => {
+      expect(component.formModel).toBeTruthy();
+    });
 
-      it('should have formModel length should be 2', () => {
-        expect(component.formModel.length).toEqual(2);
-      });
+    it('should have formModel length should be 2', () => {
+      expect(component.formModel.length).toEqual(2);
+    });
 
-      it('formModel should have 1 model type checkbox and 1 model type array', () => {
-        expect(component.formModel[0] instanceof DynamicCheckboxModel).toBeTrue();
-        expect(component.formModel[1] instanceof DynamicFormArrayModel).toBeTrue();
-      });
+    it('formModel should have 1 model type checkbox and 1 model type array', () => {
+      expect(component.formModel[0] instanceof DynamicCheckboxModel).toBeTrue();
+      expect(component.formModel[1] instanceof DynamicFormArrayModel).toBeTrue();
+    });
 
-      it('formModel type array should have formgroup with 1 input and 2 datepickers', () => {
-        const formModel: any = component.formModel[1];
-        const formGroup = formModel.groupFactory()[0].group;
+    it('formModel type array should have formgroup with 1 input and 2 datepickers', () => {
+      const formModel: any = component.formModel[1];
+      const formGroup = formModel.groupFactory()[0].group;
 
-        expect(formGroup[0] instanceof DynamicSelectModel).toBeTrue();
-        expect(formGroup[1] instanceof DynamicDatePickerModel).toBeTrue();
-        expect(formGroup[2] instanceof DynamicDatePickerModel).toBeTrue();
-      });
+      expect(formGroup[0] instanceof DynamicSelectModel).toBeTrue();
+      expect(formGroup[1] instanceof DynamicDatePickerModel).toBeTrue();
+      expect(formGroup[2] instanceof DynamicDatePickerModel).toBeTrue();
+    });
 
     it('should have set maxStartDate and maxEndDate properly', () => {
       const maxStartDate = {year: 2024, month: 12, day: 20};
@@ -159,69 +155,17 @@ describe('SubmissionSectionAccessesComponent', () => {
       expect(endDateModel.max).toEqual(maxEndDate);
     });
 
-      it('when checkbox changed it should call operationsBuilder replace function', () => {
-        component.onChange(checkboxChangeEvent);
-        fixture.detectChanges();
+    it('when checkbox changed it should call operationsBuilder replace function', () => {
+      component.onChange(checkboxChangeEvent);
+      fixture.detectChanges();
 
-        expect(operationsBuilder.replace).toHaveBeenCalled();
-      });
-
-      it('when dropdown select changed it should call operationsBuilder add function', () => {
-        component.onChange(accessConditionChangeEvent);
-        fixture.detectChanges();
-        expect(operationsBuilder.add).toHaveBeenCalled();
-      });
+      expect(operationsBuilder.replace).toHaveBeenCalled();
     });
 
-    describe('when singleAccessCondition is true', () => {
-      beforeEach(inject([Store], (store: Store<AppState>) => {
-        fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
-        component = fixture.componentInstance;
-        formService = TestBed.inject(FormService);
-        formService.validateAllFormFields.and.callFake(() => null);
-        formService.isValid.and.returnValue(observableOf(true));
-        formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
-        submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionSingleAccessConfigRes) as any);
-        fixture.detectChanges();
-      }));
-
-      it('should create', () => {
-        expect(component).toBeTruthy();
-      });
-
-      it('should have created formModel', () => {
-        expect(component.formModel).toBeTruthy();
-      });
-
-      it('should have formModel length should be 2', () => {
-        expect(component.formModel.length).toEqual(2);
-      });
-
-      it('formModel should have 1 model type checkbox and 1 model type group', () => {
-        expect(component.formModel[0] instanceof DynamicCheckboxModel).toBeTrue();
-        expect(component.formModel[1] instanceof DynamicFormGroupModel).toBeTrue();
-      });
-
-      it('formModel type array should have formgroup with 1 input and 2 datepickers', () => {
-        const formModel: any = component.formModel[1];
-        const formGroup = formModel.group;
-        expect(formGroup[0] instanceof DynamicSelectModel).toBeTrue();
-        expect(formGroup[1] instanceof DynamicDatePickerModel).toBeTrue();
-        expect(formGroup[2] instanceof DynamicDatePickerModel).toBeTrue();
-      });
-
-      it('when checkbox changed it should call operationsBuilder replace function', () => {
-        component.onChange(checkboxChangeEvent);
-        fixture.detectChanges();
-
-        expect(operationsBuilder.replace).toHaveBeenCalled();
-      });
-
-      it('when dropdown select changed it should call operationsBuilder add function', () => {
-        component.onChange(accessConditionChangeEvent);
-        fixture.detectChanges();
-        expect(operationsBuilder.add).toHaveBeenCalled();
-      });
+    it('when dropdown select changed it should call operationsBuilder add function', () => {
+      component.onChange(accessConditionChangeEvent);
+      fixture.detectChanges();
+      expect(operationsBuilder.add).toHaveBeenCalled();
     });
   });
 
@@ -246,6 +190,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: FormService, useValue: getMockFormService() },
           { provide: Store, useValue: storeStub },
+          { provide: XSRFService, useValue: {} },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
