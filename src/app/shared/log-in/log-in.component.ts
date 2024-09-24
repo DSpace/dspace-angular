@@ -13,6 +13,7 @@ import {
   select,
   Store,
 } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqBy from 'lodash/uniqBy';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -38,7 +39,7 @@ import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe],
+  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe, TranslateModule],
 })
 export class LogInComponent implements OnInit {
 

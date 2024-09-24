@@ -4,4 +4,7 @@
     <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>
     <div *ngIf="!last" class="dropdown-divider my-2"></div>
   </ng-container>
+  <ng-container *ngIf="(authMethods | async).length === 0">
+    {{ 'login.no-auth-methods' | translate }}
+  </ng-container>
 </div>

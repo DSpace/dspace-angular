@@ -30,7 +30,10 @@ import {
   isEmpty,
 } from '../../shared/empty.util';
 import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
-import { getExternalLoginConfirmationType } from '../decorators/external-log-in.methods-decorator';
+import {
+  ExternalLoginTypeComponent,
+  getExternalLoginConfirmationType,
+} from '../decorators/external-log-in.methods-decorator';
 import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
 import { ProvideEmailComponent } from '../email-confirmation/provide-email/provide-email.component';
 
@@ -151,7 +154,7 @@ export class ExternalLogInComponent implements OnInit, OnDestroy  {
   /**
    * Get the registration type to be rendered
    */
-  getExternalLoginConfirmationType() {
+  getExternalLoginConfirmationType(): ExternalLoginTypeComponent {
     return getExternalLoginConfirmationType(this.registrationType);
   }
 
