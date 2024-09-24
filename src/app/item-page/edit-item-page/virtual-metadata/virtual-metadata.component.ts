@@ -59,7 +59,14 @@ export class VirtualMetadataComponent implements OnInit, OnChanges, OnDestroy {
    * Indicates when thumbnails are required by configuration and therefore
    * need to be hidden in the modal layout.
    */
-  showThumbnails: boolean;
+  @Input() showThumbnails: boolean;
+
+  /**
+   * Get an array of the left and the right item of the relationship to be deleted.
+   */
+  get items() {
+    return [this.leftItem, this.rightItem];
+  }
 
   /**
    * Get an array of the left and the right item of the relationship to be deleted.
@@ -74,7 +81,7 @@ export class VirtualMetadataComponent implements OnInit, OnChanges, OnDestroy {
     protected objectUpdatesService: ObjectUpdatesService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+    this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
   }
 
   /**

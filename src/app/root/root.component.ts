@@ -1,5 +1,5 @@
 import { first, map, skipWhile, startWith } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
@@ -12,6 +12,7 @@ import { slideSidebarPadding } from '../shared/animations/slide';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ds-root',
@@ -38,13 +39,20 @@ export class RootComponent implements OnInit {
    */
   @Input() shouldShowRouteLoader: boolean;
 
+  /**
+   * In order to show sharing component only in csr
+   */
+  browserPlatform = false;
+
   constructor(
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
+    @Inject(PLATFORM_ID) platformId: any
   ) {
     this.notificationOptions = environment.notifications;
+    this.browserPlatform = isPlatformBrowser(platformId);
   }
 
   ngOnInit() {

@@ -13,6 +13,8 @@ import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -51,6 +53,9 @@ describe('FileDownloadLinkComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+      ],
       declarations: [FileDownloadLinkComponent, RouterLinkDirectiveStub],
       providers: [
         {provide: AuthorizationDataService, useValue: authorizationService},

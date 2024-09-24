@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -109,9 +109,9 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
   value = '';
 
   /**
-   * The authority key (may be undefined) associated with {@link #value}.
-   */
-   authority: string;
+  * The authority key (may be undefined) associated with {@link #value}.
+  */
+  authority: string;
 
   /**
    * The current startsWith option (fetched and updated from query-params)
@@ -122,6 +122,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    * Determines whether to request embedded thumbnail.
    */
   fetchThumbnails: boolean;
+
+  /**
+   * Observable determining if the loading animation needs to be shown
+   */
+  loading$ = observableOf(true);
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
@@ -202,9 +207,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    */
   updatePage(searchOptions: BrowseEntrySearchOptions) {
     this.browseEntries$ = this.browseService.getBrowseEntriesFor(searchOptions);
+    this.loading$ = this.browseEntries$.pipe(
+      map((browseEntriesRD: RemoteData<PaginatedList<BrowseEntry>>) => browseEntriesRD.isLoading),
+    );
     this.items$ = undefined;
   }
-
   /**
    * Updates the current page with searchOptions and display items linked to the given value
    * @param searchOptions   Options to narrow down your search:
@@ -216,8 +223,10 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    * @param authority      The metadata authority of the browse-entry to display items for
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string, authority: string) {
-    const embedMetrics = followLink('metrics');
-    this.items$ = this.searchManager.getBrowseItemsFor(value, authority, searchOptions, embedMetrics);
+    this.items$ = this.browseService.getBrowseItemsFor(value, authority, searchOptions);
+    this.loading$ = this.items$.pipe(
+      map((itemsRD: RemoteData<PaginatedList<Item>>) => itemsRD.isLoading),
+    );
   }
 
   /**

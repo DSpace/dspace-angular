@@ -45,9 +45,19 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
   @Input() selectedItems: string[] = [];
 
   /**
+   * Contain a descriptive message for the tree
+   */
+  @Input() description = '';
+
+  /**
    * Whether to allow selecting multiple values with checkboxes
    */
   @Input() multiSelect = false;
+
+  /**
+   * The vocabulary entries already selected, if any
+   */
+  @Input() showAdd = true;
 
   /**
    * A map containing the current node showed by the tree

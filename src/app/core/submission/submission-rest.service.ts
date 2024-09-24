@@ -22,6 +22,8 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { RemoteData } from '../data/remote-data';
 import { SubmissionResponse } from './submission-response.model';
 import { RestRequest } from '../data/rest-request.model';
+import { ErrorResponse } from "../cache/response.models";
+import { RequestError } from "../data/request-error.model";
 
 /**
  * The service handling all submission REST requests
@@ -49,7 +51,7 @@ export class SubmissionRestService {
       getFirstCompletedRemoteData(),
       map((response: RemoteData<SubmissionResponse>) => {
         if (response.hasFailed) {
-          throw new Error(response.errorMessage);
+          throw new ErrorResponse({ statusText: response.errorMessage, statusCode: response.statusCode } as RequestError);
         } else {
           return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
         }

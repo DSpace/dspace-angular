@@ -20,6 +20,7 @@ import {
   AdvancedWorkflowActionPageComponent
 } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
 import { ItemFromWorkflowBreadcrumbResolver } from './item-from-workflow-breadcrumb.resolver';
+import { PendingChangesGuard } from "../submission/edit/pending-changes/pending-changes.guard";
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { ItemFromWorkflowBreadcrumbResolver } from './item-from-workflow-breadcr
         children: [
           {
             canActivate: [AuthenticatedGuard],
+            canDeactivate: [PendingChangesGuard],
             path: WORKFLOW_ITEM_EDIT_PATH,
             component: ThemedSubmissionEditComponent,
             resolve: {

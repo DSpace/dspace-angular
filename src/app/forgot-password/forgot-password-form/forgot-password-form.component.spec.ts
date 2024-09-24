@@ -22,6 +22,7 @@ import {
 } from '../../shared/remote-data.utils';
 import { CoreState } from '../../core/core-state.model';
 import { AuthService } from '../../core/auth/auth.service';
+import { BrowserOnlyPipe } from "../../shared/utils/browser-only.pipe";
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -58,7 +59,7 @@ describe('ForgotPasswordFormComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [ForgotPasswordFormComponent],
+      declarations: [ForgotPasswordFormComponent, BrowserOnlyPipe],
       providers: [
         {provide: Router, useValue: router},
         {provide: ActivatedRoute, useValue: route},

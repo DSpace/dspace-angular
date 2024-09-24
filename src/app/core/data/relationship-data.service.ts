@@ -226,6 +226,35 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
   }
 
   /**
+   * Get an item's relationships in the form of an array with size 100
+   *
+   * @param item            The {@link Item} to get {@link Relationship}s for
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which {@link HALLink}s
+   *                        should be automatically resolved
+   */
+  getItemRelationshipsAsArrayAll(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
+    // Set the pagination info
+    const findOptions: FindListOptions = {
+      elementsPerPage: 100
+    };
+    return this.findListByHref(item._links.relationships.href, findOptions, false, false, ...linksToFollow).pipe(
+        getFirstSucceededRemoteData(),
+        getRemoteDataPayload(),
+        map((rels: PaginatedList<Relationship>) => rels.page),
+        hasValueOperator(),
+        distinctUntilChanged(compareArraysUsingIds()),
+    );
+  }
+
+  public updateRightPlace(rel: Relationship): Observable<RemoteData<Relationship>> {
+
+    const update$ = this.update(rel);
+
+    return update$;
+  }
+
+
+  /**
    * Get an array of the labels of an item’s unique relationship types
    * The array doesn't contain any duplicate labels
    * @param item

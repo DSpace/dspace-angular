@@ -21,7 +21,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { pushInOut } from '../animations/push';
 import { HostWindowService } from '../host-window.service';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../empty.util';
 import { RouteService } from '../../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
@@ -41,7 +41,6 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
@@ -51,7 +50,7 @@ import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routi
 import { SearchManager } from '../../core/browse/search-manager';
 import { AlertType } from '../alert/alert-type';
 import { isPlatformServer } from '@angular/common';
-import { APP_CONFIG } from '../../../config/app-config.interface';
+import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
@@ -95,6 +94,12 @@ export class SearchComponent implements OnInit, OnDestroy {
    * If empty, the query will be determined by the route parameter called 'filter'
    */
   @Input() fixedFilterQuery: string;
+
+  /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
+
 
   /**
    * Embedded keys to force during the search
@@ -263,6 +268,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() query: string;
 
   /**
+   * The scope for teh search options
+   */
+  @Input() scope: string;
+
+  /**
    * For chart regular expression
    */
   chartReg = new RegExp(/^chart./, 'i');
@@ -379,7 +389,8 @@ export class SearchComponent implements OnInit, OnDestroy {
    */
   @Output() customEvent = new EventEmitter<any>();
 
-  constructor(protected service: SearchService,
+  constructor(
+      protected service: SearchService,
     protected searchManager: SearchManager,
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
@@ -387,8 +398,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
     protected router: Router,
-    @Inject(APP_CONFIG) protected appConfig: any,
-    protected authorizationService: AuthorizationDataService,){
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected authorizationService: AuthorizationDataService
+  ){
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -436,11 +448,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     // Determinate PaginatedSearchOptions and listen to any update on it
     const configuration$: Observable<string> = this.searchConfigService
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
-    const searchSortOptions$: Observable<SortOptions[]> = configuration$.pipe(
-      switchMap((configuration: string) => this.searchConfigService
-        .getConfigurationSearchConfig(configuration)),
-      map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
-      distinctUntilChanged()
+    const searchSortOptions$: Observable<SortOptions[]> = combineLatest([configuration$, this.currentScope$]).pipe(
+        switchMap(([configuration, scope]: [string, string]) => this.searchConfigService.getConfigurationSearchConfig(configuration, scope)),
+        map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
+        distinctUntilChanged()
     );
     const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
       switchMap((searchSortOptions: SortOptions[]) => {
@@ -451,23 +462,24 @@ export class SearchComponent implements OnInit, OnDestroy {
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
-    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$]).pipe(
-      filter(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
-        // filter for search options related to instanced paginated id
-        return searchOptions.pagination.id === this.paginationId;
-      }),
-      debounceTime(100)
-    ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
+    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$, this.currentScope$]).pipe(
+        filter(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
+          // filter for search options related to instanced paginated id
+          return searchOptions.pagination.id === this.paginationId;
+        }),
+        debounceTime(100)
+    ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
       // Build the PaginatedSearchOptions object
-      const searchOptionsConfiguration = searchOptions.configuration || configuration;
       const combinedOptions = Object.assign({}, searchOptions,
-        {
-          configuration: searchOptionsConfiguration,
-          sort: sortOption || searchOptions.sort,
-          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration) || this.forcedEmbeddedKeys.get('default')
-        });
+          {
+            configuration: searchOptions.configuration || configuration,
+            sort: sortOption || searchOptions.sort
+          });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
+      }
+      if (isEmpty(combinedOptions.scope)) {
+        combinedOptions.scope = scope;
       }
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
       // check if search options are changed
@@ -476,13 +488,12 @@ export class SearchComponent implements OnInit, OnDestroy {
         // Initialize variables
         this.currentConfiguration$.next(configuration);
         this.currentSortOptions$.next(newSearchOptions.sort);
-        this.currentScope$.next(newSearchOptions.scope);
         this.sortOptionsList$.next(searchSortOptions);
         this.searchOptions$.next(newSearchOptions);
         this.initialized$.next(true);
         // retrieve results
         this.retrieveSearchResults(newSearchOptions);
-        this.retrieveFilters(searchOptions);
+        this.retrieveFilters(newSearchOptions);
       }
     }));
 
@@ -598,13 +609,13 @@ export class SearchComponent implements OnInit, OnDestroy {
         followLink<Item>('thumbnail', { isOptional: true }),
         followLink<SubmissionObject>('item', { isOptional: true },
           followLink<Item>('thumbnail', { isOptional: true }),
-          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: this.appConfig.item.showAccessStatuses })
         ) as any
       ];
     } else {
       followLinks = [
         followLink<SubmissionObject>('item', { isOptional: true },
-          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: this.appConfig.item.showAccessStatuses })
         ) as any
       ];
     }

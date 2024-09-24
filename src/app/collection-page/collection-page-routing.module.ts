@@ -23,6 +23,7 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
+import { EditCollectionResolver } from "../core/shared/resolvers/edit-collection.resolver";
 
 @NgModule({
   imports: [
@@ -60,6 +61,9 @@ import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
         runGuardsAndResolvers: 'always',
         children: [
           {
+            resolve: {
+              dso: EditCollectionResolver,
+            },
             path: COLLECTION_EDIT_PATH,
             loadChildren: () => import('./edit-collection-page/edit-collection-page.module')
               .then((m) => m.EditCollectionPageModule),
@@ -92,7 +96,7 @@ import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
             public: [{
               id: 'statistics_collection_:id',
               active: true,
-              visible: true,
+              visible: false,
               index: 2,
               model: {
                 type: MenuItemType.LINK,

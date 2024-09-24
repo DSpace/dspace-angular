@@ -1,4 +1,4 @@
-<ds-alert [content]="'vocabulary-treeview.info' | translate" [type]="AlertType.Info"></ds-alert>
+<ds-alert *ngIf="description" [content]="description" [type]="'alert-info'"></ds-alert>
 <div class="treeview-header row mb-1">
   <div class="col-12">
     <div class="input-group">

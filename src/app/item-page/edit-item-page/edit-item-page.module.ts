@@ -49,6 +49,9 @@ import {
 import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-metadata-security.component';
 import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
+import {
+  EditRelationshipListWrapperComponent
+} from "./item-relationships/edit-relationship-list-wrapper/edit-relationship-list-wrapper.component";
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -98,6 +101,7 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     ItemRegisterDoiComponent,
     ItemCurateComponent,
     ItemAccessControlComponent,
+    EditRelationshipListWrapperComponent
   ],
   providers: [
     BundleDataService,
