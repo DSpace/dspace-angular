@@ -52,6 +52,8 @@ import { SearchManager } from '../../core/browse/search-manager';
 import { AlertType } from '../alert/alert-type';
 import { isPlatformServer } from '@angular/common';
 import { APP_CONFIG } from '../../../config/app-config.interface';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 @Component({
   selector: 'ds-search',
@@ -199,6 +201,11 @@ export class SearchComponent implements OnInit, OnDestroy {
    * Whether to show the thumbnail preview
    */
   @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection: boolean;
 
   /**
    * Whether to show the view mode switch
@@ -380,7 +387,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
     protected router: Router,
-    @Inject(APP_CONFIG) protected appConfig: any,){
+    @Inject(APP_CONFIG) protected appConfig: any,
+    protected authorizationService: AuthorizationDataService,){
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -398,6 +406,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
+
+    if (this.showCorrection === null || this.showCorrection === undefined) {
+      this.subs.push(
+        this.authorizationService.isAuthorized(FeatureID.CanCorrectItem, null, null, true)
+        .subscribe((showCorrection) => {
+          this.showCorrection = showCorrection;
+        }));
+    }
 
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent

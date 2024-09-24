@@ -102,6 +102,11 @@ export class ObjectListComponent {
   @Input() showThumbnails: boolean;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();
