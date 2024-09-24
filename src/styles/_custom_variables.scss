@@ -62,11 +62,6 @@
   --ds-notification-bg-info: #{darken(adjust-hue($info, -10), 10%)};
   --ds-notification-bg-warning: #{darken(adjust-hue($warning, -10), 10%)};
 
-  --ds-fa-fixed-width: #{$fa-fixed-width};
-  --ds-icon-padding: #{$icon-padding};
-  --ds-collapsed-sidebar-width: #{$collapsed-sidebar-width};
-  --ds-sidebar-items-width: #{$sidebar-items-width};
-  --ds-total-sidebar-width: #{$total-sidebar-width};
 
   --ds-top-footer-bg: #{$gray-200};
   --ds-footer-bg: #{theme-color('primary')};

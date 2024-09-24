@@ -3,7 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { isEmpty } from '../../../empty.util';
+import { isEmpty, isNotEmpty } from '../../../empty.util';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormFieldModel } from '../models/form-field.model';
 import {
@@ -21,6 +21,9 @@ import { setLayout } from './parser.utils';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
 import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
+import { SubmissionScopeType } from "../../../../core/submission/submission-scope-type";
+import { SubmissionFieldScopeType } from "../../../../core/submission/submission-field-scope-type";
+import { SectionVisibility } from "../../../../submission/objects/section-visibility.model";
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -131,13 +134,30 @@ export class RowParser {
     return parsedResult;
   }
 
+  checksFieldScope(fieldScope, submissionScope, visibility: SectionVisibility) {
+    return (isEmpty(fieldScope) || !this.isHidden(visibility, fieldScope, submissionScope));
+  }
+
   /**
-   * Check if a field is visible with the given scope
-   * @param visibility
-   * @param submissionScope
+   * Check if the field is hidden or not.
+   * It is hidden when we do have the scope,
+   * but we do not have the visibility,
+   * also the field scope should be different from the submissionScope.
+   * @param visibility The visibility of the field
+   * @param scope the scope of the field
+   * @param submissionScope the scope of the submission
+   * @returns If the field is hidden or not
    */
-  checksFieldScope(visibility: SubmissionVisibilityType, submissionScope) {
-    return isEmpty(submissionScope) || !SubmissionVisibility.isHidden(visibility, submissionScope);
+  private isHidden(visibility: SectionVisibility, scope: string, submissionScope: string): boolean {
+    return isNotEmpty(scope)
+      && (
+        isEmpty(visibility)
+        && (
+          submissionScope === SubmissionScopeType.WorkspaceItem.valueOf() && scope !== SubmissionFieldScopeType.WorkspaceItem.valueOf()
+          ||
+          submissionScope === SubmissionScopeType.WorkflowItem.valueOf() && scope !== SubmissionFieldScopeType.WorkflowItem.valueOf()
+        )
+      );
   }
 
   /**
@@ -149,7 +169,7 @@ export class RowParser {
     const filteredFields: FormFieldModel[] = [];
     fields.forEach((field: FormFieldModel) => {
       // Whether field scope doesn't match the submission scope, skip it
-      if (this.checksFieldScope(field.visibility, submissionScope)) {
+      if (this.checksFieldScope(field.scope, submissionScope, field.visibility)) {
         filteredFields.push(field);
       }
     });

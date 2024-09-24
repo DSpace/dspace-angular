@@ -18,6 +18,7 @@ import { IdentifiableDataService } from '../data/base/identifiable-data.service'
 import { SearchDataImpl } from '../data/base/search-data';
 import { DeleteDataImpl } from '../data/base/delete-data';
 import { FindListOptions } from '../data/find-list-options.model';
+import { tr } from "date-fns/locale";
 
 /**
  * A service that provides methods to make REST requests with edititems endpoint.
@@ -58,7 +59,8 @@ export class EditItemDataService extends IdentifiableDataService<EditItem> {
     options.searchParams = [
       {
         fieldName: 'uuid',
-        fieldValue: id
+        fieldValue: id,
+        encodeValue: false
       },
     ];
     return this.searchData.searchBy(this.searchById, options, useCachedVersionIfAvailable, reRequestOnStale);

@@ -113,6 +113,7 @@ export class BrowseService {
   /**
    * Get all items linked to a certain metadata value
    * @param {string} filterValue      metadata value to filter by (e.g. author's name)
+   * @param filterAuthority
    * @param options                   Options to narrow down your search
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */

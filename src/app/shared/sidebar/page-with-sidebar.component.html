@@ -4,7 +4,7 @@
          [@pushInOut]="(isSidebarCollapsed$ | async) ? 'collapsed' : 'expanded'">
       <div id="{{id}}-sidebar-content"
            [class.invisible]="(isSidebarCollapsed$ | async) === true && (isXsOrSm$ | async) === true"
-           class="col-12 col-md-{{sideBarWidth}} sidebar-content {{sidebarClasses | async}}">
+           class="col-12 col-md-{{sideBarWidth}} sidebar-content {{sidebarClasses$ | async}}">
         <ng-container *ngTemplateOutlet="sidebarContent"></ng-container>
       </div>
       <div class="col-12 col-md-{{12 - sideBarWidth}}"

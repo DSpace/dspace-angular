@@ -38,6 +38,16 @@ export class PageWithSidebarComponent implements OnInit {
   @Input()
   sideBarWidth = 3;
 
+  /**
+   * Observable for whether or not the sidebar is currently collapsed
+   */
+  isSidebarCollapsed$: Observable<boolean>;
+
+  /**
+   * Observable for whether or not the sidebar is currently collapsed
+   */
+  isSidebarCollapsedXL$: Observable<boolean>;
+
   sidebarClasses$: Observable<string>;
 
   constructor(protected sidebarService: SidebarService,
@@ -55,8 +65,10 @@ export class PageWithSidebarComponent implements OnInit {
       }
     });
 
-    this.sidebarClasses$ = this.isSidebarCollapsed().pipe(
-      map((isCollapsed) => isCollapsed ? '' : 'active')
+    this.isSidebarCollapsed$ = this.isSidebarCollapsed();
+    this.isSidebarCollapsedXL$ = this.isSidebarCollapsedXL();
+    this.sidebarClasses$ = this.isSidebarCollapsed$.pipe(
+        map((isCollapsed) => isCollapsed ? '' : 'active')
     );
   }
 

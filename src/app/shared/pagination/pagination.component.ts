@@ -115,6 +115,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   @Input() public hideGear = false;
 
+
   /**
    * Option for hiding the pager when there is less than 2 pages
    */

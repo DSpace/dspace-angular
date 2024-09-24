@@ -61,6 +61,10 @@ export class AppComponent implements OnInit, AfterViewInit {
    * Whether or not the idle modal is is currently open
    */
   idleModalOpen: boolean;
+  /**
+   * In order to show sharing component only in csr
+   */
+  browserPlatform = false;
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
@@ -79,8 +83,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     /* Use models object so all decorators are actually called */
     this.models = models;
+    this.browserPlatform = this.platformId;
 
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.browserPlatform) {
       this.trackIdleModal();
     }
 
