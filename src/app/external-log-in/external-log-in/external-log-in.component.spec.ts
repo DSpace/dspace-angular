@@ -1,20 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ExternalLogInComponent } from './external-log-in.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { EventEmitter } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { Registration } from '../../core/shared/registration.model';
-import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
+import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
+import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
+import { ExternalLogInComponent } from './external-log-in.component';
 
 describe('ExternalLogInComponent', () => {
   let component: ExternalLogInComponent;
@@ -37,27 +45,32 @@ describe('ExternalLogInComponent', () => {
           place: -1,
         }),
       ],
-    }
+    },
   };
   const translateServiceStub = {
     get: () => observableOf('Info Text'),
     instant: (key: any) => 'Info Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
 
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot({})],
-      declarations: [BrowserOnlyPipe, ExternalLogInComponent, OrcidConfirmationComponent],
+      imports: [CommonModule, TranslateModule.forRoot({}), BrowserOnlyPipe, ExternalLogInComponent, OrcidConfirmationComponent, BrowserAnimationsModule],
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: NgbModal, useValue: modalService },
-        FormBuilder
-      ]
-    }).compileComponents()
+        FormBuilder,
+      ],
+    })
+      .overrideComponent(ExternalLogInComponent, {
+        remove: {
+          imports: [ConfirmEmailComponent],
+        },
+      })
+      .compileComponents(),
   );
 
   beforeEach(() => {

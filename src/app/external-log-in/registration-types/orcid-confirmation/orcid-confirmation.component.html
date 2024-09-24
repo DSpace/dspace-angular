@@ -1,6 +1,6 @@
 <form class="form-login"
       [formGroup]="form" novalidate>
-  <label class="font-weight-bold mb-0 text-uppercase">{{ registratioData.registrationType }}</label>
+  <label class="font-weight-bold mb-0 text-uppercase">{{ registrationData.registrationType }}</label>
   <input [attr.aria-label]="'netId' | translate"
          autocomplete="off"
          autofocus
@@ -23,7 +23,7 @@
         formControlName="firstname"
         type="text"
         [attr.data-test]="'firstname' | dsBrowserOnly">
-  <ng-container *ngIf="registratioData?.email">
+  <ng-container *ngIf="registrationData?.email">
     <label class="font-weight-bold mb-0">{{"Email" | translate}}</label>
     <input [attr.aria-label]="'Email' | translate"
           autocomplete="off"

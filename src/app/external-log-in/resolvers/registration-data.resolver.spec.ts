@@ -1,16 +1,22 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 
-import { RegistrationDataResolver } from './registration-data.resolver';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { Registration } from '../../core/shared/registration.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { RegistrationDataResolver } from './registration-data.resolver';
 
 describe('RegistrationDataResolver', () => {
   let resolver: RegistrationDataResolver;
   let epersonRegistrationServiceSpy: jasmine.SpyObj<EpersonRegistrationService>;
   const registrationMock = Object.assign(new Registration(), {
-     email: 'test@user.com',
+    email: 'test@user.com',
   });
 
   beforeEach(() => {
@@ -19,8 +25,8 @@ describe('RegistrationDataResolver', () => {
     TestBed.configureTestingModule({
       providers: [
         RegistrationDataResolver,
-        { provide: EpersonRegistrationService, useValue: spy }
-      ]
+        { provide: EpersonRegistrationService, useValue: spy },
+      ],
     });
     resolver = TestBed.inject(RegistrationDataResolver);
     epersonRegistrationServiceSpy = TestBed.inject(EpersonRegistrationService) as jasmine.SpyObj<EpersonRegistrationService>;

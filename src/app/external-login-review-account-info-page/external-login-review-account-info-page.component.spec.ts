@@ -1,8 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-review-account-info-page.component';
+
 import { mockRegistrationDataModel } from '../external-log-in/models/registration-data.mock.model';
+import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-review-account-info-page.component';
+import { ReviewAccountInfoComponent } from './review-account-info/review-account-info.component';
 
 describe('ExternalLoginReviewAccountInfoPageComponent', () => {
   let component: ExternalLoginReviewAccountInfoPageComponent;
@@ -11,21 +18,30 @@ describe('ExternalLoginReviewAccountInfoPageComponent', () => {
   const mockActivatedRoute = {
     snapshot: {
       params: {
-        token: '1234567890'
-      }
+        token: '1234567890',
+      },
     },
     data: of({
-      registrationData: mockRegistrationDataModel
-    })
+      registrationData: mockRegistrationDataModel,
+    }),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExternalLoginReviewAccountInfoPageComponent],
       providers: [
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }
-      ]
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+      ],
+      imports: [
+        ExternalLoginReviewAccountInfoPageComponent,
+        BrowserAnimationsModule,
+        TranslateModule.forRoot({}),
+      ],
     })
+      .overrideComponent(ExternalLoginReviewAccountInfoPageComponent, {
+        remove: {
+          imports: [ReviewAccountInfoComponent],
+        },
+      })
       .compileComponents();
   });
 
