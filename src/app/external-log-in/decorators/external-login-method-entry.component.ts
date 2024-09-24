@@ -1,22 +1,20 @@
-import { Component, Inject } from '@angular/core';
+import { Inject } from '@angular/core';
+
 import { Registration } from '../../core/shared/registration.model';
 
 /**
  * This component renders  a form to complete the registration process
  */
-@Component({
-  template: ''
-})
 export abstract class ExternalLoginMethodEntryComponent {
 
   /**
    * The registration data object
    */
-  public registratioData: Registration;
+  public registrationData: Registration;
 
-  constructor(
+  protected constructor(
     @Inject('registrationDataProvider') protected injectedRegistrationDataObject: Registration,
   ) {
-    this.registratioData = injectedRegistrationDataObject;
+    this.registrationData = injectedRegistrationDataObject;
   }
 }

@@ -1,7 +1,20 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { AuthRegistrationType } from '../../../core/auth/models/auth.registration-type';
 import { Registration } from '../../../core/shared/registration.model';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { renderExternalLoginConfirmationFor } from '../../decorators/external-log-in.methods-decorator';
 import { ExternalLoginMethodEntryComponent } from '../../decorators/external-login-method-entry.component';
 
@@ -9,7 +22,14 @@ import { ExternalLoginMethodEntryComponent } from '../../decorators/external-log
   selector: 'ds-orcid-confirmation',
   templateUrl: './orcid-confirmation.component.html',
   styleUrls: ['./orcid-confirmation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    BrowserOnlyPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 @renderExternalLoginConfirmationFor(AuthRegistrationType.Orcid)
 export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponent implements OnInit  {
@@ -25,7 +45,7 @@ export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponen
    */
   constructor(
     @Inject('registrationDataProvider') protected injectedRegistrationDataObject: Registration,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     super(injectedRegistrationDataObject);
   }
@@ -35,10 +55,10 @@ export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponen
    */
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      netId: [{ value: this.registratioData.netId, disabled: true }],
+      netId: [{ value: this.registrationData.netId, disabled: true }],
       firstname: [{ value: this.getFirstname(), disabled: true }],
       lastname: [{ value: this.getLastname(), disabled: true }],
-      email: [{ value: this.registratioData?.email || '', disabled: true }], // email can be null
+      email: [{ value: this.registrationData?.email || '', disabled: true }], // email can be null
     });
   }
 
@@ -47,7 +67,7 @@ export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponen
    * @returns the firstname of the user
    */
   private getFirstname(): string {
-    return this.registratioData.registrationMetadata?.['eperson.firstname']?.[0]?.value || '';
+    return this.registrationData.registrationMetadata?.['eperson.firstname']?.[0]?.value || '';
   }
 
   /**
@@ -55,6 +75,6 @@ export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponen
    * @returns the lastname of the user
    */
   private getLastname(): string {
-    return this.registratioData.registrationMetadata?.['eperson.lastname']?.[0]?.value || '';
+    return this.registrationData.registrationMetadata?.['eperson.lastname']?.[0]?.value || '';
   }
 }

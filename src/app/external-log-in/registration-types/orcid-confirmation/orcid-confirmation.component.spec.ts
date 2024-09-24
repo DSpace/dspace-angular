@@ -1,14 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { OrcidConfirmationComponent } from './orcid-confirmation.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  FormBuilder,
+  FormGroup,
+} from '@angular/forms';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { Registration } from 'src/app/core/shared/registration.model';
-import { mockRegistrationDataModel } from '../../models/registration-data.mock.model';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
+
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
+import { mockRegistrationDataModel } from '../../models/registration-data.mock.model';
+import { OrcidConfirmationComponent } from './orcid-confirmation.component';
 
 describe('OrcidConfirmationComponent', () => {
   let component: OrcidConfirmationComponent;
@@ -17,24 +26,22 @@ describe('OrcidConfirmationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        OrcidConfirmationComponent,
-        BrowserOnlyMockPipe,
-      ],
       providers: [
         FormBuilder,
         { provide: 'registrationDataProvider', useValue: mockRegistrationDataModel },
       ],
       imports: [
+        OrcidConfirmationComponent,
         CommonModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        BrowserOnlyMockPipe,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   });
@@ -59,7 +66,7 @@ describe('OrcidConfirmationComponent', () => {
 
 
   it('should initialize the form with null email as an empty string', () => {
-    component.registratioData.email = null;
+    component.registrationData.email = null;
     component.ngOnInit();
     fixture.detectChanges();
     const emailFormControl = component.form.get('email');

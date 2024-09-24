@@ -1,5 +1,9 @@
 import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot, } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';

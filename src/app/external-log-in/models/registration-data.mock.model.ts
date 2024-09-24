@@ -1,6 +1,6 @@
-import { Registration } from '../../core/shared/registration.model';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import { Registration } from '../../core/shared/registration.model';
 
 export const mockRegistrationDataModel: Registration = Object.assign(
   new Registration(),
@@ -41,5 +41,5 @@ export const mockRegistrationDataModel: Registration = Object.assign(
         },
       ],
     },
-  }
+  },
 );

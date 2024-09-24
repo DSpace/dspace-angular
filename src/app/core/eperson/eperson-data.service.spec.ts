@@ -1,8 +1,19 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { MockStore, provideMockStore, } from '@ngrx/store/testing';
-import { compare, Operation, } from 'fast-json-patch';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  compare,
+  Operation,
+} from 'fast-json-patch';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
@@ -13,12 +24,21 @@ import {
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$, } from '../../shared/remote-data.utils';
-import { EPersonMock, EPersonMock2, } from '../../shared/testing/eperson.mock';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../shared/testing/eperson.mock';
 import { GroupMock } from '../../shared/testing/group-mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { createPaginatedList, createRequestEntry$, } from '../../shared/testing/utils.test';
+import {
+  createPaginatedList,
+  createRequestEntry$,
+} from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -26,13 +46,19 @@ import { CoreState } from '../core-state.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
-import { PatchRequest, PostRequest, } from '../data/request.models';
+import { RemoteData } from '../data/remote-data';
+import {
+  PatchRequest,
+  PostRequest,
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { editEPersonSelector, EPersonDataService, } from './eperson-data.service';
+import {
+  editEPersonSelector,
+  EPersonDataService,
+} from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
-import { RemoteData } from '../data/remote-data';
 
 describe('EPersonDataService', () => {
   let service: EPersonDataService;

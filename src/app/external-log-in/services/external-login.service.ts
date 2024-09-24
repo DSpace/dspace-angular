@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, map, Observable } from 'rxjs';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  filter,
+  map,
+  Observable,
+} from 'rxjs';
 import { AuthMethod } from 'src/app/core/auth/models/auth.method';
 import { getAuthenticationMethods } from 'src/app/core/auth/selectors';
-import { select, Store } from '@ngrx/store';
 import { CoreState } from 'src/app/core/core-state.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+
+import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { NoContent } from '../../core/shared/NoContent.model';
-import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExternalLoginService {
 
@@ -46,7 +54,7 @@ export class ExternalLoginService {
           this.notificationService.error(this.translate.get('external-login-page.provide-email.notifications.error'));
         }
         return rd;
-      })
+      }),
     );
   }
 

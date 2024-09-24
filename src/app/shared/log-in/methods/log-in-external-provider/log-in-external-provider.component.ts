@@ -1,17 +1,29 @@
-import { Component, Inject, OnInit, } from '@angular/core';
-import { select, Store, } from '@ngrx/store';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-
-import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/selectors';
-import { NativeWindowRef, NativeWindowService } from '../../../../core/services/window.service';
-import { isEmpty } from '../../../empty.util';
 import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core-state.model';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../../core/services/window.service';
+import { isEmpty } from '../../../empty.util';
 
 @Component({
   selector: 'ds-log-in-external-provider',
@@ -91,7 +103,7 @@ export class LogInExternalProviderComponent implements OnInit {
       const externalServerUrl = this.authService.getExternalServerRedirectUrl(
         this._window.nativeWindow.origin,
         redirectRoute,
-        this.location
+        this.location,
       );
       // redirect to shibboleth/orcid/(external) authentication url
       this.hardRedirectService.redirect(externalServerUrl);

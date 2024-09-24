@@ -9,7 +9,7 @@ const authMethodsMap = new Map();
  * @param authMethodType the type of the external login method
  */
 export function renderExternalLoginConfirmationFor(
-  authMethodType: AuthRegistrationType
+  authMethodType: AuthRegistrationType,
 ) {
   return function decorator(objectElement: any) {
     if (!objectElement) {
@@ -23,7 +23,7 @@ export function renderExternalLoginConfirmationFor(
  * @param authMethodType the type of the external login method
  */
 export function getExternalLoginConfirmationType(
-  authMethodType: AuthRegistrationType
+  authMethodType: AuthRegistrationType,
 ) {
   return authMethodsMap.get(authMethodType);
 }

@@ -1,22 +1,36 @@
-import { HttpHeaders, HttpParams, } from '@angular/common/http';
+import {
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { GetRequest, PatchRequest, PostRequest } from './request.models';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { filter, find, map, } from 'rxjs/operators';
+import {
+  filter,
+  find,
+  map,
+} from 'rxjs/operators';
 
-import { hasValue, isNotEmpty, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Registration } from '../shared/registration.model';
 import { ResponseParsingService } from './parsing.service';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
 import { RemoteData } from './remote-data';
-import { Operation } from 'fast-json-patch';
-import { NoContent } from '../shared/NoContent.model';
+import {
+  GetRequest,
+  PatchRequest,
+  PostRequest,
+} from './request.models';
+import { RequestService } from './request.service';
 
 @Injectable({
   providedIn: 'root',
@@ -116,10 +130,10 @@ export class EpersonRegistrationService {
       map((rd) => {
         if (rd.hasSucceeded && hasValue(rd.payload)) {
           return Object.assign(rd, { payload: Object.assign(new Registration(), {
-              email: rd.payload.email,
-              token: token,
-              user: rd.payload.user,
-            }) });
+            email: rd.payload.email,
+            token: token,
+            user: rd.payload.user,
+          }) });
         } else {
           return rd;
         }
@@ -144,7 +158,7 @@ export class EpersonRegistrationService {
       Object.assign(request, {
         getResponseParser(): GenericConstructor<ResponseParsingService> {
           return RegistrationResponseParsingService;
-        }
+        },
       });
       this.requestService.send(request, true);
     });
@@ -186,7 +200,7 @@ export class EpersonRegistrationService {
     let operations = [];
     if (values.length > 0 && hasValue(field) ) {
       operations = [{
-        op: operator, path: `/${field}`, value: values
+        op: operator, path: `/${field}`, value: values,
       }];
     }
 
