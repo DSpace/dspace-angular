@@ -1,0 +1,18 @@
+<div class="btn-group">
+  <div class="switch-container" [ngClass]="backgroundClass">
+    <div *ngFor="let option of options">
+      <div class="switch-opt"
+           (click)="onOptionClick(option.value)"
+           [class.bg-white]="selectedValue === option.value">
+        <i [class]="option.icon + ' ' + (selectedValue === option.value ? 'text-' + option.iconColor : '')"></i>
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let option of options">
+    <span *ngIf="selectedValue === option.value"
+          [class]="selectedValue === option.value ? 'text-' + option.labelColor : ''"
+          class="visibility-label ml-2 font-weight-bold">
+      {{ option.label | translate }}
+    </span>
+  </div>
+</div>
