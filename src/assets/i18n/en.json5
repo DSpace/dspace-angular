@@ -3200,6 +3200,8 @@
 
   "login.breadcrumbs": "Login",
 
+  "login.no-auth-methods": "No other authentication methods are available for this DSpace instance. Please contact your administrator.",
+
   "logout.form.header": "Log out from DSpace",
 
   "logout.form.submit": "Log out",
