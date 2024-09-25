@@ -6,7 +6,7 @@
     </a>
 
     <div id="collapsingNav" class="w-100 h-100">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100 align-items-center">
         <li *ngIf="(isMobile$ | async) && (isAuthenticated$ | async)">
             <ds-user-menu [inExpandableNavbar]="true"></ds-user-menu>
         </li>
