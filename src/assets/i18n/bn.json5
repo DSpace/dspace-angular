@@ -3002,6 +3002,33 @@
   // "item.page.description": "Description",
   "item.page.description": "বর্ণনা",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "সাংগঠনিক ইউনিট",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "গবেষণা প্রকল্পগুলো",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "প্রকাশনা",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "নিবন্ধসমূহ",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "জার্নাল",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "জার্নাল ইস্যু",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "জার্নাল সমস্যা",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "জার্নাল ভলিউম",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "জার্নাল ভলিউম",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "জার্নাল ইশান",
 
@@ -3028,8 +3055,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "বিমূর্ত",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "লেখক",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "লেখক",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "উদ্ধৃতি",

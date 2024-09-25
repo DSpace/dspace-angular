@@ -2789,6 +2789,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Beschreibung",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organisationseinheiten",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Forschungsvorhaben",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikationen",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artikel",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Zeitschrift",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Zeitschriftenheft",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Zeitschriftenhefte",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Zeitschriftenband",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Zeitschriftenbände",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN der Zeitschrift",
 
@@ -2815,8 +2842,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Zusammenfassung",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autor:innen",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autor:innen",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Zitierform",

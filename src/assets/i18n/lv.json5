@@ -2765,6 +2765,33 @@
   // TODO New key - Add a translation
   "item.page.description": "Description",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Struktūrvienības",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Pētniecības Projekti",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikācijas",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Raksti",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Žurnāls",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Žurnāla Izdevums",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Žurnāla Izdevumi",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Žurnāla Sējums",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Žurnāla Sējums",
+
   // "item.page.journal-issn": "Journal ISSN",
   // TODO New key - Add a translation
   "item.page.journal-issn": "Journal ISSN",
@@ -2798,8 +2825,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Kopsavilkums",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autori",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autori",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Citēšana",

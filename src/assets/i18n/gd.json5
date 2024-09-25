@@ -2987,6 +2987,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Cunntas",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Aonadan eagrachaidh",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Pròiseactan Rannsachaidh",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Foillseachaidhean",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artaigilean",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Diornal",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Deasachadh Diornal",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Deasachaidhean Diornal",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Àireamh Diornal",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Àireamhan Diornal",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN Diornal",
 
@@ -3013,8 +3040,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Giorrachadh",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Ùghdaran",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Ùghdaran",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Iomradh",

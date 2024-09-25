@@ -2338,6 +2338,34 @@
 
   "item.page.description": "Description",
 
+  "item.page.org-unit": "Organizational Unit",
+
+  "item.page.org-units": "Organizational Units",
+
+  "item.page.project": "Research Project",
+
+  "item.page.projects": "Research Projects",
+
+  "item.page.publication": "Publications",
+
+  "item.page.publications": "Publications",
+
+  "item.page.article": "Article",
+
+  "item.page.articles": "Articles",
+
+  "item.page.journal": "Journal",
+
+  "item.page.journals": "Journals",
+
+  "item.page.journal-issue": "Journal Issue",
+
+  "item.page.journal-issues": "Journal Issues",
+
+  "item.page.journal-volume": "Journal Volume",
+
+  "item.page.journal-volumes": "Journal Volumes",
+
   "item.page.journal-issn": "Journal ISSN",
 
   "item.page.journal-title": "Journal Title",
@@ -2374,7 +2402,9 @@
 
   "item.page.abstract": "Abstract",
 
-  "item.page.author": "Authors",
+  "item.page.author": "Author",
+
+  "item.page.authors": "Authors",
 
   "item.page.citation": "Citation",
 

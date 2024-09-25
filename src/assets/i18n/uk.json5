@@ -2681,6 +2681,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Опис",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Структурні одиниці",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Дослідницькі проекти",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Публікації",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Публікації",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Видання",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Випуск видання",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Випуски видання",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Том видання",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Томи видання",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Номер ISSN",
 
@@ -2707,8 +2734,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Анотація",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Автори",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Автори",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Бібліографічний опис",

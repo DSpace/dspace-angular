@@ -2563,6 +2563,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Açıklama",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organizasyon Birimleri",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Araştırma Projeleri",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Yayınlar",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Makaleler",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Dergi",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Dergi Sayısı",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Dergi Sayıları",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Dergi Cilti",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Dergi Ciltleri",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Süreli Yayın ISSN",
 
@@ -2588,8 +2615,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Özet",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Yazarlar",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Yazarlar",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Alıntı",

@@ -22,12 +22,12 @@
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isJournalOfVolume'"
-      [label]="'relationships.isSingleJournalOf' | translate">
+      [label]="'item.page.journal' | translate">
     </ds-related-items>
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isIssueOfJournalVolume'"
-      [label]="'relationships.isIssueOf' | translate">
+      [label]="'item.page.journal-issues' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"

@@ -2073,7 +2073,7 @@
 
   "item.page.abstract": "सारांश",
 
-  "item.page.author": "लेखक",
+  "item.page.authors": "लेखक",
 
   "item.page.bitstreams.collapse": "संक्षिप्त करें",
 
@@ -2094,6 +2094,33 @@
   "item.page.date": "दिनांक",
 
   "item.page.description": "विवरण",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "संगठनात्मक इकाइयाँ",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "अनुसंधान परियोजना",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "प्रकाशन",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "लेख",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "पत्रिका",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "पत्रिका अंक",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "पत्रिका अंक",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "पत्रिका खंड",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "पत्रिका खंड",
 
   "item.page.edit": "इस आइटम को संपादित करें",
 

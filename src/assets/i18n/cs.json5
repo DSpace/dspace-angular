@@ -3306,6 +3306,33 @@
   // TODO New key - Add a translation
   "item.page.description": "Description",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organizační jednotky",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Výzkumné projekty",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikace",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Články",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Časopisu",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Číslo časopisu",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Čísla časopisu",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Ročník časopisu",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Ročníky časopisu",
+
   // "item.page.journal-issn": "Journal ISSN",
   // TODO New key - Add a translation
   "item.page.journal-issn": "Journal ISSN",
@@ -3339,8 +3366,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Abstrakt",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autor",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autor",
 
   // "item.page.citation": "Citation",
   // TODO New key - Add a translation

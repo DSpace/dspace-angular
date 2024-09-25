@@ -2566,6 +2566,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Kuvaus",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organisaatioyksiköt",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Tutkimusprojektit",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Julkaisut",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artikkelit",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Kausijulkaisu",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Kausijulkaisun numero",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Kausijulkaisun numerot",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Kausijulkaisun vuosikerta",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Kausijulkaisun vuosikerrat",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Kausijulkaisun ISSN",
 
@@ -2592,8 +2619,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Tiivistelmä",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Tekijät",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Tekijät",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Viittaus",

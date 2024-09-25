@@ -925,6 +925,34 @@
   "item.edit.withdraw.success": "Pozycja została wycofana",
   "item.listelement.badge": "Pozycja",
   "item.page.description": "Opis",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Jednostki organizacyjne",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Projekty badawcze",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikacje",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artykuły",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Czasopismo",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Numer czasopisma",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Numery czasopisma",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Tom czasopisma",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Tomy czasopisma",
+
   "item.page.journal-issn": "ISSN czasopisma",
   "item.page.journal-title": "Tytuł czasopisma",
   "item.page.publisher": "Wydawca",
@@ -933,7 +961,7 @@
   "item.search.results.head": "Wyniki wyszukiwania pozycji",
   "item.search.title": "Wyszukiwanie pozycji",
   "item.page.abstract": "Abstrakt",
-  "item.page.author": "Autorzy",
+  "item.page.authors": "Autorzy",
   "item.page.citation": "Cytowanie",
   "item.page.collections": "Kolekcje",
   "item.page.collections.loading": "Ładowanie...",

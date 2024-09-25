@@ -1120,7 +1120,7 @@
   "item.orcid.return": "Quay lại",
   "item.page.name": "Tên",
   "item.page.abstract": "Tóm tắt",
-  "item.page.author": "Tác giả",
+  "item.page.authors": "Tác giả",
   "item.page.bitstreams.collapse": "Thu hẹp",
   "item.page.bitstreams.view-more": "Hiển thị thêm",
   "item.page.citation": "Trích dẫn",
@@ -1131,6 +1131,34 @@
   "item.page.collections.load-more": "Xem thêm",
   "item.page.date": "Năm xuất bản",
   "item.page.description": "Mô tả",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Đơn vị tổ chức",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Dự án nghiên cứu",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Ấn phẩm",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Bài báo",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Tạp chí",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Số kỳ của tạp chí",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Số kỳ của tạp chí",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Số tập của tạp chí",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Số tập của tạp chí",
+
   "item.page.edit": "Chỉnh sửa tài liệu này",
   "item.page.files": "Tệp tin",
   "item.page.filesection.description": "Mô tả:",

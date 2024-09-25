@@ -3190,6 +3190,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Сипаттама",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Ұйымдастыру бөлімшелері",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Зерттеу жобалары",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Жарияланымдар",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Мақалалар",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Күнделік",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Журнал шығару",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Журналдың шығарылымдары",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Журнал көлемі",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Журнал томдары",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN журналы",
 
@@ -3222,8 +3249,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Дерексіз",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Авторлар",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Авторлар",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Дәйексөз",

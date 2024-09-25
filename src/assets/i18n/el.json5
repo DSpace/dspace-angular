@@ -1025,7 +1025,7 @@
   "item.listelement.badge": "Τεκμήριο",
   "item.orcid.return": "Επιστροφή",
   "item.page.abstract": "Περίληψη",
-  "item.page.author": "Συγγραφείς",
+  "item.page.authors": "Συγγραφείς",
   "item.page.bitstreams.collapse": "Σύμπτηξη",
   "item.page.bitstreams.view-more": "Δείτε περισσότερα",
   "item.page.citation": "Παραπομπή",
@@ -1036,6 +1036,34 @@
   "item.page.collections.loading": "Φόρτωση...",
   "item.page.date": "Ημερομηνία",
   "item.page.description": "Περιγραφή",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Μονάδες οργανισμού",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Ερευνητικά έργα",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Δημοσιεύσεις",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Άρθρα",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Εφημερίδα",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Τεύχος περιοδικού",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Θέματα περιοδικών",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Τόμος περιοδικού",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Τόμοι περιοδικών",
+
   "item.page.edit": "Επεξεργαστείτε αυτό το τεκμήριο",
   "item.page.files": "Αρχεία",
   "item.page.filesection.description": "Περιγραφή:",
