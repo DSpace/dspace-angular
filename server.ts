@@ -27,7 +27,7 @@ import * as expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
 import axios from 'axios';
 import LRU from 'lru-cache';
-import isbot from 'isbot';
+import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
