@@ -177,7 +177,7 @@ jobs:
           echo $RES
           # if last result is not success, return -1 and fail
           if [[ $RES != \"success\" ]]; then
-            echo "playwright tests have failed! check appropriate action run"
+            echo "playwright tests have failed! check appropriate action run in the dspace-ui-tests repository"
             exit 1
           fi;
 
@@ -210,7 +210,7 @@ jobs:
           echo $RES
           # if last result is not success, return -1 and fail
           if [[ $RES != \"success\" ]]; then
-            echo "rest-tests have failed! check appropriate action run"
+            echo "rest-tests have failed! check appropriate action run in the dspace-rest-test repository"
             exit 1
           fi;
 
@@ -249,7 +249,7 @@ jobs:
           # if last result is not success, return -1 and fail
           if [[ $RES != \"success\" ]]; then
 
-            echo "playwright tests have failed! check appropriate action run"
+            echo "playwright tests have failed! check appropriate action run in the dspace-ui-tests repository"
             exit 1
           fi;
 
@@ -282,6 +282,6 @@ jobs:
           echo $RES
           # if last result is not success, return -1 and fail
           if [[ $RES != \"success\" ]]; then
-            echo "rest-tests have failed! check appropriate action run"
+            echo "rest-tests have failed! check appropriate action run in the dspace-rest-test repository"
             exit 1
           fi;
