@@ -7,6 +7,8 @@ _______
 
 [Source code](../../../../lint/src/rules/ts/themed-wrapper-no-input-defaults.ts)
 
+
+
 ### Examples
 
 

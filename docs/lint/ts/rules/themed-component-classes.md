@@ -11,6 +11,8 @@ _______
 
 [Source code](../../../../lint/src/rules/ts/themed-component-classes.ts)
 
+
+
 ### Examples
 
 
