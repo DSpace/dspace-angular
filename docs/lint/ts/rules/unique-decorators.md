@@ -7,6 +7,14 @@ _______
 
 [Source code](../../../../lint/src/rules/ts/unique-decorators.ts)
 
+
+### Options
+
+#### `decorators`
+
+The list of all the decorators for which you want to enforce this behavior.
+
+
 ### Examples
 
 

@@ -9,6 +9,7 @@ import { isTestFile } from '../../util/filter';
 import {
   DSpaceESLintRuleInfo,
   NamedTests,
+  OptionDoc,
 } from '../../util/structure';
 
 export enum Message {
@@ -17,7 +18,15 @@ export enum Message {
 
 const decoratorCalls: Map<string, Set<string>> = new Map();
 
-export const info: DSpaceESLintRuleInfo = {
+export interface UniqueDecoratorsOptions {
+  decorators: string[];
+}
+
+export interface UniqueDecoratorsDocOptions {
+  decorators: OptionDoc;
+}
+
+export const info: DSpaceESLintRuleInfo<[UniqueDecoratorsOptions], [UniqueDecoratorsDocOptions]> = {
   name: 'unique-decorators',
   meta: {
     docs: {
@@ -41,6 +50,14 @@ export const info: DSpaceESLintRuleInfo = {
       },
     ],
   },
+  optionDocs: [
+    {
+      decorators: {
+        title: '`decorators`',
+        description: 'The list of all the decorators for which you want to enforce this behavior.',
+      },
+    },
+  ],
   defaultOptions: [
     {
       decorators: [

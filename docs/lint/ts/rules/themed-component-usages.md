@@ -15,6 +15,8 @@ _______
 
 [Source code](../../../../lint/src/rules/ts/themed-component-usages.ts)
 
+
+
 ### Examples
 
 
