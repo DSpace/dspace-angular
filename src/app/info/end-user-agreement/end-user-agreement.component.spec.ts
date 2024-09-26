@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { LogOutAction } from '../../core/auth/auth.actions';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;
@@ -49,7 +50,7 @@ describe('EndUserAgreementComponent', () => {
     init();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [EndUserAgreementComponent],
+      declarations: [EndUserAgreementComponent, BtnDisabledDirective],
       providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },
@@ -81,7 +82,8 @@ describe('EndUserAgreementComponent', () => {
 
     it('should disable the save button', () => {
       const button = fixture.debugElement.query(By.css('#button-save')).nativeElement;
-      expect(button.disabled).toBeTruthy();
+      expect(button.getAttribute('aria-disabled')).toBe('true');
+      expect(button.classList.contains('disabled')).toBeTrue();
     });
   });
 

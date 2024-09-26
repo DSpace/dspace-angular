@@ -39,6 +39,7 @@ import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreMock } from '../../testing/store.mock';
+import {BtnDisabledDirective} from '../../btn-disabled.directive';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -189,7 +190,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
         FormComponent,
         EpersonGroupListComponent,
         ResourcePolicyFormComponent,
-        TestComponent
+        TestComponent,
+        BtnDisabledDirective
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -389,7 +391,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
-      expect(depositBtn.nativeElement.disabled).toBeFalsy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
     it('should emit submit event', () => {
@@ -443,7 +446,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
-      expect(depositBtn.nativeElement.disabled).toBeTruthy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeTrue();
     });
 
   });

@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="d-inline-block float-right space-children-mr">
         <button class=" btn btn-danger" *ngIf="(isReinstatable$ | async) !== true"
-                [disabled]="(hasChanges$ | async) !== true"
+                [dsBtnDisabled]="(hasChanges$ | async) !== true"
                 (click)="discard()"><i
                 class="fas fa-times"></i>
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
@@ -12,7 +12,7 @@
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.reinstate-button" | translate}}</span>
         </button>
         <button class="btn btn-primary"
-                [disabled]="(hasChanges$ | async) !== true || !isValid() || (initialHarvestType === harvestTypeNone && contentSource.harvestType === initialHarvestType)"
+                [dsBtnDisabled]="(hasChanges$ | async) !== true || !isValid() || (initialHarvestType === harvestTypeNone && contentSource.harvestType === initialHarvestType)"
                 (click)="onSubmit()"><i
                 class="fas fa-save"></i>
             <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>
@@ -45,7 +45,7 @@
         <div class="col-12">
             <div class="d-inline-block float-right ml-1 space-children-mr">
                 <button class=" btn btn-danger" *ngIf="(isReinstatable$ | async) !== true"
-                        [disabled]="(hasChanges$ | async) !== true"
+                        [dsBtnDisabled]="(hasChanges$ | async) !== true"
                         (click)="discard()"><i
                         class="fas fa-times"></i>
                     <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.discard-button" | translate}}</span>
@@ -56,7 +56,7 @@
                     <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.reinstate-button" | translate}}</span>
                 </button>
                 <button class="btn btn-primary"
-                        [disabled]="(hasChanges$ | async) !== true || !isValid() || (initialHarvestType === harvestTypeNone && contentSource.harvestType === initialHarvestType)"
+                        [dsBtnDisabled]="(hasChanges$ | async) !== true || !isValid() || (initialHarvestType === harvestTypeNone && contentSource.harvestType === initialHarvestType)"
                         (click)="onSubmit()"><i
                         class="fas fa-save"></i>
                     <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>

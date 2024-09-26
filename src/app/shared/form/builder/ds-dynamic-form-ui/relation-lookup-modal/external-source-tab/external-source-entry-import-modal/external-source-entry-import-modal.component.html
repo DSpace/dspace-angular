@@ -49,6 +49,6 @@
     <button type="button" class="btn btn-outline-secondary" (click)="close()">{{ (labelPrefix + 'cancel' | translate) }}</button>
   </div>
   <div>
-    <button type="button" class="btn btn-primary" [disabled]="selectedImportType === importType.None" (click)="import()">{{ (labelPrefix + 'import' | translate) }}</button>
+    <button type="button" class="btn btn-primary" [dsBtnDisabled]="selectedImportType === importType.None" (click)="import()">{{ (labelPrefix + 'import' | translate) }}</button>
   </div>
 </div>

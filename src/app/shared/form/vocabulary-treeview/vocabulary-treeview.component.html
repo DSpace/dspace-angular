@@ -6,13 +6,13 @@
              [attr.aria-label]="'vocabulary-treeview.search.form.search-placeholder' | translate"
              [placeholder]="'vocabulary-treeview.search.form.search-placeholder' | translate">
       <div class="input-group-append" id="button-addon4">
-        <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
+        <button class="btn btn-outline-primary" type="button" (click)="search()" [dsBtnDisabled]="!isSearchEnabled()">
           {{'vocabulary-treeview.search.form.search' | translate}}
         </button>
         <button class="btn btn-outline-secondary" type="button" (click)="reset()">
           {{'vocabulary-treeview.search.form.reset' | translate}}
         </button>
-        <button class="btn btn-outline-primary" type="button" (click)="add()" [disabled]="this.vocabularyOptions.closed">
+        <button class="btn btn-outline-primary" type="button" (click)="add()" [dsBtnDisabled]="this.vocabularyOptions.closed">
           {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
       </div>
@@ -46,7 +46,7 @@
           </label>
           <button *ngIf="!multiSelect" class="btn btn-outline-link btn-sm text-left"
                   [class.text-success]="node.isSelected"
-                  [disabled]="!node.item?.selectable"
+                  [dsBtnDisabled]="!node.item?.selectable"
                   [ngbTooltip]="node.item?.otherInformation?.note"
                   [openDelay]="500"
                   container="body"
@@ -78,7 +78,7 @@
           </label>
           <button *ngIf="!multiSelect" class="btn btn-outline-link btn-sm text-left"
                   [class.text-success]="node.isSelected"
-                  [disabled]="!node.item?.selectable"
+                  [dsBtnDisabled]="!node.item?.selectable"
                   [ngbTooltip]="node.item?.otherInformation?.note"
                   [openDelay]="500"
                   container="body"
