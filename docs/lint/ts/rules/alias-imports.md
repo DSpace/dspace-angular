@@ -7,6 +7,21 @@ _______
 
 [Source code](../../../../lint/src/rules/ts/alias-imports.ts)
 
+
+### Options
+
+#### `aliases`
+
+A list of all the imports that you want to alias for clarity. Every alias should be declared in the following format:
+```json
+{
+  "package": "rxjs",
+  "imported": "of",
+  "local": "observableOf"
+}
+```
+
+
 ### Examples
 
 

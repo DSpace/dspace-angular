@@ -52,6 +52,7 @@ export const info = {
       [Message.WRAPPER_IMPORTS_BASE]: 'Themed component wrapper classes must only import the base class',
     },
   },
+  optionDocs: [],
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 

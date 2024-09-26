@@ -26,6 +26,7 @@ export const info: DSpaceESLintRuleInfo = {
     type: 'problem',
     schema: [],
   },
+  optionDocs: [],
   defaultOptions: [],
 };
 

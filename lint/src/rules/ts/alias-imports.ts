@@ -9,6 +9,7 @@ import { Scope } from '@typescript-eslint/utils/ts-eslint';
 import {
   DSpaceESLintRuleInfo,
   NamedTests,
+  OptionDoc,
 } from '../../util/structure';
 
 export enum Message {
@@ -17,13 +18,21 @@ export enum Message {
   MULTIPLE_ALIASES = 'multipleAliases',
 }
 
+interface AliasImportOptions {
+  aliases: AliasImportOption[];
+}
+
 interface AliasImportOption {
   package: string;
   imported: string;
   local: string;
 }
 
-export const info: DSpaceESLintRuleInfo<[[AliasImportOption]]> = {
+interface AliasImportDocOptions {
+  aliases: OptionDoc;
+}
+
+export const info: DSpaceESLintRuleInfo<[AliasImportOptions], [AliasImportDocOptions]> = {
   name: 'alias-imports',
   meta: {
     docs: {
@@ -36,35 +45,50 @@ export const info: DSpaceESLintRuleInfo<[[AliasImportOption]]> = {
     },
     fixable: 'code',
     type: 'problem',
-    schema: [
-      {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            package: { type: 'string' },
-            imported: { type: 'string' },
-            local: { type: 'string' },
-          },
+    schema: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          package: { type: 'string' },
+          imported: { type: 'string' },
+          local: { type: 'string' },
         },
       },
-    ],
+    },
   },
-  defaultOptions: [
-    [
-      {
-        package: 'rxjs',
-        imported: 'of',
-        local: 'observableOf',
+  optionDocs: [
+    {
+      aliases:  {
+        title: '`aliases`',
+        description: `A list of all the imports that you want to alias for clarity. Every alias should be declared in the following format:
+\`\`\`json
+{
+  "package": "rxjs",
+  "imported": "of",
+  "local": "observableOf"
+}
+\`\`\``,
       },
-    ],
+    },
+  ],
+  defaultOptions: [
+    {
+      aliases: [
+        {
+          package: 'rxjs',
+          imported: 'of',
+          local: 'observableOf',
+        },
+      ],
+    },
   ],
 };
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
   create(context: TSESLint.RuleContext<Message, unknown[]>, options: any) {
-    return options[0].reduce((selectors: any, option: AliasImportOption) => {
+    return (options[0] as AliasImportOptions).aliases.reduce((selectors: any, option: AliasImportOption) => {
       selectors[`ImportDeclaration[source.value = "${option.package}"] > ImportSpecifier[imported.name = "${option.imported}"][local.name != "${option.local}"]`] = (node: TSESTree.ImportSpecifier) => handleUnaliasedImport(context, option, node);
       return selectors;
     }, {});

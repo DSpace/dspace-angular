@@ -10,6 +10,7 @@ import { isTestFile } from '../../util/filter';
 import {
   DSpaceESLintRuleInfo,
   NamedTests,
+  OptionDoc,
 } from '../../util/structure';
 import { getFileTheme } from '../../util/theme-support';
 
@@ -23,7 +24,11 @@ interface ThemedDecoratorsOption {
   decorators: { [name: string]: number };
 }
 
-export const info: DSpaceESLintRuleInfo<[ThemedDecoratorsOption]> = {
+interface ThemedDecoratorsDocsOption {
+  decorators: OptionDoc;
+}
+
+export const info: DSpaceESLintRuleInfo<[ThemedDecoratorsOption], [ThemedDecoratorsDocsOption]> = {
   name: 'themed-decorators',
   meta: {
     docs: {
@@ -47,6 +52,14 @@ export const info: DSpaceESLintRuleInfo<[ThemedDecoratorsOption]> = {
       },
     ],
   },
+  optionDocs: [
+    {
+      decorators: {
+        title: '`decorators`',
+        description: 'A mapping for all the existing themeable decorators, with the decorator name as the key and the index of the `theme` argument as the value.',
+      },
+    },
+  ],
   defaultOptions: [
     {
       decorators: {

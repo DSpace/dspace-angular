@@ -7,6 +7,14 @@ _______
 
 [Source code](../../../../lint/src/rules/ts/themed-decorators.ts)
 
+
+### Options
+
+#### `decorators`
+
+A mapping for all the existing themeable decorators, with the decorator name as the key and the index of the `theme` argument as the value.
+
+
 ### Examples
 
 
