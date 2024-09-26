@@ -73,7 +73,9 @@
       "@angular/forms": "^17.3.11"
     },
     "@ng-dynamic-forms/ui-ng-bootstrap": {
-      "ngx-mask": "14.2.4"
+      "ngx-mask": "14.2.4",
+      "@ng-bootstrap/ng-bootstrap": "^12.0.0",
+      "bootstrap": "^5.3"
     },
     "@ngtools/webpack": {
       "@angular/compiler-cli": "^17.3.11",
