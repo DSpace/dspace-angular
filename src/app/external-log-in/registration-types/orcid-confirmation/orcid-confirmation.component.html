@@ -1,0 +1,35 @@
+<form class="form-login"
+      [formGroup]="form" novalidate>
+  <label class="font-weight-bold mb-0 text-uppercase">{{ registratioData.registrationType }}</label>
+  <input [attr.aria-label]="'netId' | translate"
+         autocomplete="off"
+         autofocus
+         class="form-control form-control-lg position-relative mb-2"
+         formControlName="netId"
+         placeholder="xxxx-xxxx-xxxx-xxxx"
+         type="text"
+         [attr.data-test]="'netId' | dsBrowserOnly">
+  <label class="font-weight-bold mb-0">{{"Last name" | translate}}</label>
+  <input [attr.aria-label]="'Last name' | translate"
+         autocomplete="off"
+         class="form-control form-control-lg position-relative mb-2"
+         formControlName="lastname"
+         type="text"
+         [attr.data-test]="'lastname' | dsBrowserOnly">
+  <label class="font-weight-bold mb-0">{{"First name" | translate}}</label>
+  <input [attr.aria-label]="'First name' | translate"
+        autocomplete="off"
+        class="form-control form-control-lg position-relative mb-2"
+        formControlName="firstname"
+        type="text"
+        [attr.data-test]="'firstname' | dsBrowserOnly">
+  <ng-container *ngIf="registratioData?.email">
+    <label class="font-weight-bold mb-0">{{"Email" | translate}}</label>
+    <input [attr.aria-label]="'Email' | translate"
+          autocomplete="off"
+          class="form-control form-control-lg position-relative"
+          formControlName="email"
+          type="email"
+          [attr.data-test]="'email' | dsBrowserOnly">
+  </ng-container>
+</form>

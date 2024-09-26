@@ -13,7 +13,7 @@ describe('RegistrationResolver', () => {
 
   beforeEach(() => {
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      searchByToken: createSuccessfulRemoteDataObject$(registration)
+      searchByTokenAndUpdateData: createSuccessfulRemoteDataObject$(registration)
     });
     resolver = new RegistrationResolver(epersonRegistrationService);
   });

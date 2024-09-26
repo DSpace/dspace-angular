@@ -30,7 +30,7 @@ export class RegistrationGuard implements CanActivate {
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const token = route.params.token;
-    return this.epersonRegistrationService.searchByToken(token).pipe(
+    return this.epersonRegistrationService.searchByTokenAndUpdateData(token).pipe(
       getFirstCompletedRemoteData(),
       redirectOn4xx(this.router, this.authService),
       map((rd) => {

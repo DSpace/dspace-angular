@@ -104,7 +104,7 @@ describe('EpersonRegistrationService', () => {
 
   describe('searchByToken', () => {
     it('should return a registration corresponding to the provided token', () => {
-      const expected = service.searchByToken('test-token');
+      const expected = service.searchByTokenAndUpdateData('test-token');
 
       expect(expected).toBeObservable(cold('(a|)', {
         a: jasmine.objectContaining({
@@ -122,7 +122,7 @@ describe('EpersonRegistrationService', () => {
       testScheduler.run(({ cold, expectObservable }) => {
         rdbService.buildSingle.and.returnValue(cold('a', { a: rd }));
 
-        service.searchByToken('test-token');
+        service.searchByTokenAndUpdateData('test-token');
 
         expect(requestService.send).toHaveBeenCalledWith(
           jasmine.objectContaining({
