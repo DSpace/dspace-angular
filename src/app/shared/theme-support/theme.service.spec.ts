@@ -149,14 +149,13 @@ describe('ThemeService', () => {
       ],
       _links: {
         self: {
-          href: 'https://rest.api/collections/test-collection-1-1',
+          href: 'https://rest.api/collections/test-collection-1-2',
         },
       },
     });
     const dso = Object.assign(new Item(), {
       _links: {
         self: { href: 'fake-item-url/item' },
-        _links: { owningCollection: { href: 'owning-collection-link' }, mappedCollections: { href: 'mapped-collection-link' } },
       },
       id: 'item',
       uuid: 'item',
@@ -295,7 +294,6 @@ describe('ThemeService', () => {
           },
         });
       });
-
       //fails
       it('should match the theme to the dso found through the scope', (done) => {
         themeService.updateThemeOnRouteChange$(url, snapshot).subscribe(() => {

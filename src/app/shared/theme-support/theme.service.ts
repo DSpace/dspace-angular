@@ -357,25 +357,31 @@ export class ThemeService {
               // Fetch the owning collection and all mapped collections
               // We need to add the collection.css styling to the <head>
 
-              // Fetch all mapped collections
-              // Apply collection.css styling to the <head>
-              const MappedCollections =
-                this.collectionService.findMappedCollectionsFor(snapshotWithData.data.dso.payload)
-                  .pipe(getAllSucceededRemoteDataPayload())
-                  .subscribe((collections) => {
-                    collections.page.forEach(function (collection) {
-                      this.addCollectionCSSToHead(collection.cssDisplay);
-                    });
-                  });
+              if (hasValue(snapshotWithData.data.dso.payload) && hasValue(snapshotWithData.data.dso.payload._links)) {
+                if (hasValue(snapshotWithData.data.dso.payload._links.mappedCollections) && hasValue(snapshotWithData.data.dso.payload._links.mappedCollections.href)) {
+                  // Fetch all mapped collections
+                  // Apply collection.css styling to the <head>
+                  const MappedCollections =
+                    this.collectionService.findMappedCollectionsFor(snapshotWithData.data.dso.payload)
+                      .pipe(getAllSucceededRemoteDataPayload())
+                      .subscribe((collections) => {
+                        collections.page.forEach(function (collection) {
+                          this.addCollectionCSSToHead(collection.cssDisplay);
+                        });
+                      });
+                }
 
-              // Fetch owning collection
-              // Apply collection.css styling to the <head>
-              const OwningCollection =
-                this.collectionService.findOwningCollectionFor(snapshotWithData.data.dso.payload)
-                  .pipe(getFirstSucceededRemoteDataPayload())
-                  .subscribe((collection) => {
-                    this.addCollectionCSSToHead(collection.cssDisplay);
-                  });
+                if (hasValue(snapshotWithData.data.dso.payload._links.owningCollection) && hasValue(snapshotWithData.data.dso.payload._links.owningCollection.href)) {
+                  // Fetch owning collection
+                  // Apply collection.css styling to the <head>
+                  const OwningCollection =
+                    this.collectionService.findOwningCollectionFor(snapshotWithData.data.dso.payload)
+                      .pipe(getFirstSucceededRemoteDataPayload())
+                      .subscribe((collection) => {
+                        this.addCollectionCSSToHead(collection.cssDisplay);
+                      });
+                }
+              }
 
               // Start with the resolved dso and go recursively through its parents until you reach the top-level community
               return observableOf(dsoRD.payload).pipe(
