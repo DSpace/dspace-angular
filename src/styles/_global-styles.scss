@@ -509,3 +509,8 @@ ngb-tooltip-window {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.table thead th {
+  border-bottom: 2px solid #{$gray-300};
+  border-top: 1px solid #{$gray-300};
+}
