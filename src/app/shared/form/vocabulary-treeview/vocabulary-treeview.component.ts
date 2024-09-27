@@ -32,7 +32,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
   /**
    * Implemented to manage focus on input
    */
-  @ViewChild('searchInput') searchInput: ElementRef;
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
   /**
    * The {@link VocabularyOptions} object
@@ -299,7 +299,9 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
       this.storedNodeMap = new Map<string, TreeviewFlatNode>();
       this.vocabularyTreeviewService.restoreNodes();
     }
-    this.searchInput.nativeElement.focus();
+    if (this.searchInput) {
+      this.searchInput.nativeElement.focus();
+    }
   }
 
   add() {
