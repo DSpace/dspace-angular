@@ -9,7 +9,6 @@ import { RouteService } from './route.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { TestScheduler } from 'rxjs/testing';
 import { AddUrlToHistoryAction } from '../history/history.actions';
-import { NativeWindowRefMock} from '../../shared/mocks/mock-native-window-ref';
 
 describe('RouteService', () => {
   let scheduler: TestScheduler;
@@ -49,19 +48,17 @@ describe('RouteService', () => {
         },
         { provide: Router, useValue: router },
         { provide: Store, useValue: store },
-        { provide: NativeWindowRefMock, useClass: NativeWindowRefMock }
       ]
     });
   }));
 
   beforeEach(() => {
-    service = new RouteService(TestBed.inject(ActivatedRoute), TestBed.inject(Router), TestBed.inject(Store), TestBed.inject(NativeWindowRefMock));
+    service = new RouteService(TestBed.inject(ActivatedRoute), TestBed.inject(Router), TestBed.inject(Store));
     serviceAsAny = service;
   });
 
   describe('hasQueryParam', () => {
     it('should return true when the parameter name exists', () => {
-      spyOnProperty(serviceAsAny._window.nativeWindow.location, 'href').and.returnValue('http://localhost?name=Test%20Name');
       service.hasQueryParam(paramName1).subscribe((status) => {
         expect(status).toBeTruthy();
       });
@@ -75,7 +72,6 @@ describe('RouteService', () => {
 
   describe('hasQueryParamWithValue', () => {
     it('should return true when the parameter name exists and contains the specified value', () => {
-      spyOnProperty(serviceAsAny._window.nativeWindow.location, 'href').and.returnValue('http://localhost?name=Test%20Name');
       service.hasQueryParamWithValue(paramName2, paramValue2a).subscribe((status) => {
         expect(status).toBeTruthy();
       });
@@ -94,7 +90,6 @@ describe('RouteService', () => {
 
   describe('getQueryParameterValues', () => {
     it('should return a list of values when the parameter exists', () => {
-      spyOnProperty(serviceAsAny._window.nativeWindow.location, 'href').and.returnValue('http://localhost?id=Test%20id&another=another%20id');
       service.getQueryParameterValues(paramName2).subscribe((params) => {
         expect(params).toEqual([paramValue2a, paramValue2b]);
       });
@@ -109,14 +104,12 @@ describe('RouteService', () => {
 
   describe('getQueryParameterValue', () => {
     it('should return a single value when the parameter exists', () => {
-      spyOnProperty(serviceAsAny._window.nativeWindow.location, 'href').and.returnValue('http://localhost?name=Test%20Name');
       service.getQueryParameterValue(paramName1).subscribe((params) => {
         expect(params).toEqual(paramValue1);
       });
     });
 
     it('should return only the first value when the parameter exists', () => {
-      spyOnProperty(serviceAsAny._window.nativeWindow.location, 'href').and.returnValue('http://localhost?id=Test%id');
       service.getQueryParameterValue(paramName2).subscribe((params) => {
         expect(params).toEqual(paramValue2a);
       });

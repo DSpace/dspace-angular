@@ -134,7 +134,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       ))
     ).subscribe(([currentUrl, event]: [string, RouterEvent]) => {
       if (event instanceof NavigationStart) {
-        if (!(currentUrl.startsWith(getEditItemPageRoute()) || currentUrl.startsWith(getWorkspaceItemModuleRoute()) || currentUrl.startsWith(getWorkflowItemModuleRoute()))) {
+        if (!(currentUrl.startsWith('/entities' || getEditItemPageRoute()) || currentUrl.startsWith(getWorkspaceItemModuleRoute()) || currentUrl.startsWith(getWorkflowItemModuleRoute()))) {
           distinctNext(this.isRouteLoading$, true);
         }
         // distinctNext(this.isRouteLoading$, true);
