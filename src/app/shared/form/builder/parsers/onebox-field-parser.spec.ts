@@ -76,13 +76,13 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions, translateService);
+    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions, {}, translateService);
 
     expect(parser instanceof OneboxFieldParser).toBe(true);
   });
 
   it('should return a DynamicQualdropModel object when selectableMetadata is multiple', () => {
-    const parser = new OneboxFieldParser(submissionId, field2, initFormValues, parserOptions, translateService);
+    const parser = new OneboxFieldParser(submissionId, field2, initFormValues, parserOptions, {}, translateService);
 
     const fieldModel = parser.parse();
 
@@ -90,7 +90,7 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should return a DsDynamicInputModel object when selectableMetadata is not multiple', () => {
-    const parser = new OneboxFieldParser(submissionId, field3, initFormValues, parserOptions, translateService);
+    const parser = new OneboxFieldParser(submissionId, field3, initFormValues, parserOptions, {}, translateService);
 
     const fieldModel = parser.parse();
 
@@ -98,7 +98,7 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should return a DynamicOneboxModel object when selectableMetadata has authority', () => {
-    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions, translateService);
+    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions, {}, translateService);
 
     const fieldModel = parser.parse();
 
@@ -127,7 +127,7 @@ describe('OneboxFieldParser test suite', () => {
         languageCodes: []
       } as FormFieldModel;
 
-      parser = new OneboxFieldParser(submissionId, regexField, initFormValues, parserOptions, translateService);
+      parser = new OneboxFieldParser(submissionId, regexField, initFormValues, parserOptions, {}, translateService);
       fieldModel = parser.parse();
     });
 

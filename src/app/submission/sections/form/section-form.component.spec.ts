@@ -44,11 +44,10 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { cold } from 'jasmine-marbles';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import {
-  SubmissionVisibilityType,
-  SubmissionVisibilityValue
-} from '../../../core/config/models/config-submission-section.model';
+
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { SectionVisibility } from '../../objects/section-visibility.model';
+import { SubmissionVisibilityValue } from 'src/app/core/config/models/config-submission-section.model';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -341,8 +340,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow' }],
                   visibility: {
-                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden
-                  } as SubmissionVisibilityType,
+                    main: SubmissionVisibilityValue.Hidden
+                  } as SectionVisibility,
                 } as FormFieldModel
               ]
             },
@@ -351,8 +350,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace' }],
                   visibility: {
-                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden
-                  } as SubmissionVisibilityType,
+                    main: SubmissionVisibilityValue.Hidden
+                  } as SectionVisibility,
                 } as FormFieldModel
               ]
             },
@@ -361,8 +360,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow.relation' }],
                   visibility: {
-                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden
-                  } as SubmissionVisibilityType,
+                   main: SubmissionVisibilityValue.Hidden
+                  } as SectionVisibility,
                 } as FormFieldModel,
               ],
             },
@@ -371,8 +370,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace.relation' }],
                   visibility: {
-                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden
-                  } as SubmissionVisibilityType,
+                    main: SubmissionVisibilityValue.Hidden
+                  } as SectionVisibility,
                 } as FormFieldModel,
               ],
             },

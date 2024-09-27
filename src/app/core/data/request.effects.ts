@@ -9,7 +9,7 @@ import { getClassForType } from '../cache/builders/build-decorators';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { XSRFService } from '../xsrf/xsrf.service';
+//import { XSRFService } from '../xsrf/xsrf.service';
 import {
   RequestActionTypes,
   RequestErrorAction,
@@ -35,11 +35,13 @@ export class RequestEffects {
       );
     }),
     filter((entry: RequestEntry) => hasValue(entry)),
-    withLatestFrom(this.xsrfService.tokenInitialized$),
+     map((entry: RequestEntry) => entry.request),
+    //TODO: test once rest part is aligned
+     //withLatestFrom(this.xsrfService.tokenInitialized$),
     // If it's a GET request, or we have an XSRF token, dispatch it immediately
     // Otherwise wait for the XSRF token first
-    filter(([entry, tokenInitialized]: [RequestEntry, boolean]) => entry.request.method === RestRequestMethod.GET || tokenInitialized === true),
-    map(([entry, tokenInitialized]: [RequestEntry, boolean]) => entry.request),
+    //filter(([entry, tokenInitialized]: [RequestEntry, boolean]) => entry.request.method === RestRequestMethod.GET || tokenInitialized === true),
+    // map(([entry, tokenInitialized]: [RequestEntry, boolean]) => entry.request),
     mergeMap((request: RestRequestWithResponseParser) => {
       let body = request.body;
       if (isNotEmpty(request.body) && !request.isMultipart) {
@@ -80,7 +82,7 @@ export class RequestEffects {
     private restApi: DspaceRestService,
     private injector: Injector,
     protected requestService: RequestService,
-    protected xsrfService: XSRFService,
+    //protected xsrfService: XSRFService,
   ) { }
 
 }

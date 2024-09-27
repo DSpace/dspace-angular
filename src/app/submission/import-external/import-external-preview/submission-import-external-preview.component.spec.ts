@@ -120,7 +120,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     it('Should init component properly', () => {
       comp.externalSourceEntry = externalEntry;
       const expected = [
-        { key: 'dc.identifier.uri', value: uriMetadata }
+        { key: 'dc.identifier.uri', values: [uriMetadata] }
       ];
       fixture.detectChanges();
 

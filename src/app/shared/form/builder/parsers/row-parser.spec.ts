@@ -142,7 +142,7 @@ describe('RowParser test suite', () => {
             }
           ],
           languageCodes: []
-        } as FormFieldModel
+        } as unknown as FormFieldModel
       ]
     } as FormRowModel;
 
