@@ -111,7 +111,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
     );
 
 
-    this.auditsRD$ = combineLatest([isAdmin$, config$, parentCommunity$, this.owningCollection$]).pipe(
+    this.auditsRD$ = combineLatest([isAdmin$, config$, this.owningCollection$, parentCommunity$]).pipe(
       mergeMap(([isAdmin, config,  owningCollection, parentCommunity]) => {
         if (isAdmin) {
           return this.auditService.findByObject(this.object.id, config, owningCollection.id, parentCommunity.id);
