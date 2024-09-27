@@ -27,6 +27,7 @@ import { SearchDataImpl } from '../data/base/search-data';
 import { DeleteDataImpl } from '../data/base/delete-data';
 import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { hasValue } from '../../shared/empty.util';
 
 export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
 
@@ -60,12 +61,23 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    *
    * @param objectId The objectId id
    * @param options The [[FindListOptions]] object
+   * @param collUuid The Uuid of the collection
+   * @param commUuid The Uuid of the community
    * @return Observable<RemoteData<PaginatedList<Audit>>>
    */
-  findByObject(objectId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Audit>>> {
+  findByObject(objectId: string, options: FindListOptions = {}, collUuid?: string, commUuid?: string): Observable<RemoteData<PaginatedList<Audit>>> {
     const searchMethod = AUDIT_FIND_BY_OBJECT_SEARCH_METHOD;
+    const searchParams = [new RequestParam('object', objectId)];
+
+    if (hasValue(commUuid)) {
+      searchParams.push(new RequestParam('commUuid', commUuid));
+    }
+
+    if (hasValue(collUuid)) {
+      searchParams.push(new RequestParam('collUuid', collUuid));
+    }
     const optionsWithObject = Object.assign(new FindListOptions(), options, {
-      searchParams: [new RequestParam('object', objectId)]
+      searchParams
     });
     return this.searchData.searchBy(searchMethod, optionsWithObject, true, true, followLink('eperson'));
   }

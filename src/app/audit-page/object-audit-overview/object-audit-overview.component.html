@@ -61,7 +61,7 @@
 
       </ng-container>
 
-      <h4 class="mt-4 mb-4" *ngIf="(auditsRD$ | async).statusCode === 404">{{'audit.object.overview.disabled.message' | translate}}</h4>
+      <h4 class="mt-4 mb-4" *ngIf="(auditsRD$ | async)?.statusCode === 404">{{'audit.object.overview.disabled.message' | translate}}</h4>
 
     </ng-container>
 
