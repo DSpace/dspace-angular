@@ -4,14 +4,16 @@ import {
   tick,
 } from '@angular/core/testing';
 
+import { UUIDService } from '../../core/shared/uuid.service';
 import { LiveRegionService } from './live-region.service';
 
 describe('liveRegionService', () => {
   let service: LiveRegionService;
 
-
   beforeEach(() => {
-    service = new LiveRegionService();
+    service = new LiveRegionService(
+      new UUIDService(),
+    );
   });
 
   describe('addMessage', () => {
@@ -88,6 +90,34 @@ describe('liveRegionService', () => {
 
       expect(results.length).toEqual(4);
       expect(results[3]).toEqual([]);
+    }));
+
+    it('should not pop messages added after clearing within timeOut period', fakeAsync(() => {
+      const results: string[][] = [];
+
+      service.getMessages$().subscribe((messages) => {
+        results.push(messages);
+      });
+
+      expect(results.length).toEqual(1);
+      expect(results[0]).toEqual([]);
+
+      service.addMessage('Message One');
+      tick(10000);
+      service.clear();
+      tick(15000);
+      service.addMessage('Message Two');
+
+      // Message Two should not be cleared after 5 more seconds
+      tick(5000);
+
+      expect(results.length).toEqual(4);
+      expect(results[3]).toEqual(['Message Two']);
+
+      // But should be cleared 30 seconds after it was added
+      tick(25000);
+      expect(results.length).toEqual(5);
+      expect(results[4]).toEqual([]);
     }));
 
     it('should respect configured timeOut', fakeAsync(() => {

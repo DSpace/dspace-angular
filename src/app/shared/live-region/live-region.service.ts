@@ -2,11 +2,21 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { UUIDService } from '../../core/shared/uuid.service';
 
+/**
+ * The LiveRegionService is responsible for handling the messages that are shown by the {@link LiveRegionComponent}.
+ * Use this service to add or remove messages to the Live Region.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class LiveRegionService {
+
+  constructor(
+    protected uuidService: UUIDService,
+  ) {
+  }
 
   /**
    * The duration after which the messages disappear in milliseconds
@@ -15,10 +25,11 @@ export class LiveRegionService {
   protected messageTimeOutDurationMs: number = environment.liveRegion.messageTimeOutDurationMs;
 
   /**
-   * Array containing the messages that should be shown in the live region
+   * Array containing the messages that should be shown in the live region,
+   * together with a uuid, so they can be uniquely identified
    * @protected
    */
-  protected messages: string[] = [];
+  protected messages: { message: string, uuid: string }[] = [];
 
   /**
    * BehaviorSubject emitting the array with messages every time the array updates
@@ -35,27 +46,28 @@ export class LiveRegionService {
   /**
    * Returns a copy of the array with the current live region messages
    */
-  getMessages() {
-    return [...this.messages];
+  getMessages(): string[] {
+    return this.messages.map(messageObj => messageObj.message);
   }
 
   /**
    * Returns the BehaviorSubject emitting the array with messages every time the array updates
    */
-  getMessages$() {
+  getMessages$(): BehaviorSubject<string[]> {
     return this.messages$;
   }
 
   /**
    * Adds a message to the live-region messages array
    * @param message
+   * @return The uuid of the message
    */
-  addMessage(message: string) {
-    this.messages.push(message);
+  addMessage(message: string): string {
+    const uuid = this.uuidService.generate();
+    this.messages.push({ message, uuid });
+    setTimeout(() => this.clearMessageByUUID(uuid), this.messageTimeOutDurationMs);
     this.emitCurrentMessages();
-
-    // Clear the message once the timeOut has passed
-    setTimeout(() => this.pop(), this.messageTimeOutDurationMs);
+    return uuid;
   }
 
   /**
@@ -67,12 +79,14 @@ export class LiveRegionService {
   }
 
   /**
-   * Removes the longest living message from the array.
-   * @protected
+   * Removes the message with the given UUID from the messages array
+   * @param uuid The uuid of the message to clear
    */
-  protected pop() {
-    if (this.messages.length > 0) {
-      this.messages.shift();
+  clearMessageByUUID(uuid: string) {
+    const index = this.messages.findIndex(messageObj => messageObj.uuid === uuid);
+
+    if (index !== -1) {
+      this.messages.splice(index, 1);
       this.emitCurrentMessages();
     }
   }
