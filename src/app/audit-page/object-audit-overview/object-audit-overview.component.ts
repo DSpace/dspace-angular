@@ -85,19 +85,14 @@ export class ObjectAuditOverviewComponent implements OnInit {
       redirectOn4xx(this.router, this.authService)
     ).subscribe((rd) => {
       this.object = rd.payload;
-      this.owningCollection$ = this.collectionDataService.findOwningCollectionFor(this.object).pipe(
+      this.owningCollection$ = this.collectionDataService.findOwningCollectionFor(
+        this.object,
+        true,
+        false,
+        ...COLLECTION_PAGE_LINKS_TO_FOLLOW
+      ).pipe(
         getFirstCompletedRemoteData(),
-        map(data => data.payload),
-        switchMap((collection) => this.collectionDataService.findById(
-            collection.id,
-          false,
-          false,
-          ...COLLECTION_PAGE_LINKS_TO_FOLLOW
-        ).pipe(
-          getFirstCompletedRemoteData(),
-            map(data => data.payload),
-          )
-        )
+        map(data => data?.payload)
       );
       this.setAudits();
     });
