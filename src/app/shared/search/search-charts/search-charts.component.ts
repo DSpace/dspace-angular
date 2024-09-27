@@ -55,6 +55,11 @@ export class SearchChartsComponent implements OnInit {
   @Input() showChartsToggle = false;
 
   /**
+   * The scope of the search
+   */
+  @Input() scope: string;
+
+  /**
    * The selected chart to show
    */
   selectedFilter: SearchFilterConfig;

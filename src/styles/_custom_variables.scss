@@ -22,6 +22,8 @@
   --ds-sidebar-z-index: 20;
 
   --ds-header-bg: #{$white};
+  --ds-header-logo-height: 50px;
+  --ds-header-logo-height-xs: 50px;
   --ds-header-icon-color: #{$link-color};
   --ds-header-icon-color-hover: #{$link-hover-color};
   --ds-navbar-bg: var(--ds-header-bg);
@@ -62,6 +64,11 @@
   --ds-notification-bg-info: #{darken(adjust-hue($info, -10), 10%)};
   --ds-notification-bg-warning: #{darken(adjust-hue($warning, -10), 10%)};
 
+  --ds-fa-fixed-width: #{$fa-fixed-width};
+  --ds-icon-padding: #{$icon-padding};
+  --ds-collapsed-sidebar-width: #{$collapsed-sidebar-width};
+  --ds-sidebar-items-width: #{$sidebar-items-width};
+  --ds-total-sidebar-width: #{$total-sidebar-width};
 
   --ds-top-footer-bg: #{$gray-200};
   --ds-footer-bg: #{theme-color('primary')};
@@ -165,17 +172,21 @@
   --ds-admin-sidebar-link-hover-color: #{$navbar-dark-hover-color};
   --ds-admin-sidebar-item-padding: 1rem;
   --ds-admin-sidebar-section-indent: .75rem;
+  --ds-admin-sidebar-logo-height: 20px;
+  --ds-admin-sidebar-fixed-element-width: #{$ds-admin-sidebar-fixed-element-width};
+  --ds-admin-sidebar-fixed-element-z-index: 10;
+
 
   --ds-dark-scrollbar-width: 8px;
 
   --ds-slider-handle-color: #{darken($blue, 17%)};
 
-  --ds-primary-bg: #{$ds-primary-bg};
-  --ds-secondary-bg: #{$ds-secondary-bg};
-  --ds-success-bg: #{$ds-success-bg};
-  --ds-info-bg: #{$ds-info-bg};
-  --ds-warning-bg: #{$ds-warning-bg};
-  --ds-danger-bg: #{$ds-danger-bg};
+  --ds-primary-bg: #{$primary-bg};
+  --ds-secondary-bg: #{$secondary-bg};
+  --ds-success-bg: #{$success-bg};
+  --ds-info-bg: #{$info-bg};
+  --ds-warning-bg: #{$warning-bg};
+  --ds-danger-bg: #{$danger-bg};
 
   --green1: #1FB300;  // This variable represents the success color for the Klaro cookie banner
   --button-text-color-cookie: #333; // This variable represents the text color for buttons in the Klaro cookie banner
