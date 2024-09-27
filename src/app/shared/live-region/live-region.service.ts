@@ -3,6 +3,10 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { UUIDService } from '../../core/shared/uuid.service';
 
+/**
+ * The LiveRegionService is responsible for handling the messages that are shown by the {@link LiveRegionComponent}.
+ * Use this service to add or remove messages to the Live Region.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -76,7 +80,6 @@ export class LiveRegionService {
   /**
    * Removes the message with the given UUID from the messages array
    * @param uuid The uuid of the message to clear
-   * @protected
    */
   clearMessageByUUID(uuid: string) {
     const index = this.messages.findIndex(messageObj => messageObj.uuid === uuid);
