@@ -500,3 +500,7 @@ ngb-accordion {
 .table {
   --bs-table-accent-bg: #fff;
 }
+
+ngb-tooltip-window {
+  inset: auto auto 0.25rem 0 !important;
+}
