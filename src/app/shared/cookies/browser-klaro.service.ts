@@ -23,7 +23,10 @@ import { AuthService } from '../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
+import {
+  CAPTCHA_FEEDBACK_NAME,
+  CAPTCHA_NAME,
+} from '../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../core/services/cookie.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import {
@@ -82,6 +85,8 @@ export class BrowserKlaroService extends KlaroService {
   private readonly GOOGLE_ANALYTICS_KEY = 'google.analytics.key';
 
   private readonly REGISTRATION_VERIFICATION_ENABLED_KEY = 'registration.verification.enabled';
+  private readonly FEEDBACK_VERIFICATION_ENABLED_KEY = 'feedback.verification.enabled';
+
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
@@ -126,8 +131,15 @@ export class BrowserKlaroService extends KlaroService {
       ),
     );
 
-    const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
-      map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
+    const hideFeedBackVerification$ = this.configService.findByPropertyName(this.FEEDBACK_VERIFICATION_ENABLED_KEY).pipe(
+      getFirstCompletedRemoteData(),
+      map((remoteData) =>
+        !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true',
+      ),
+    );
+
+    const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$,hideFeedBackVerification$]).pipe(
+      map(([hideGoogleAnalytics, hideRegistrationVerification,hideFeedBackVerification]) => {
         const servicesToHideArray: string[] = [];
         if (hideGoogleAnalytics) {
           servicesToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
@@ -135,6 +147,10 @@ export class BrowserKlaroService extends KlaroService {
         if (hideRegistrationVerification) {
           servicesToHideArray.push(CAPTCHA_NAME);
         }
+        if (hideFeedBackVerification) {
+          servicesToHideArray.push(CAPTCHA_FEEDBACK_NAME);
+        }
+
         return servicesToHideArray;
       }),
     );
