@@ -1622,6 +1622,8 @@
 
   "cookies.consent.app.title.preferences": "Preferences",
 
+  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
+
   "cookies.consent.app.description.preferences": "Required for saving your preferences",
 
   "cookies.consent.app.title.acknowledgement": "Acknowledgement",

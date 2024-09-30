@@ -637,6 +637,7 @@
   "cookies.consent.app.description.authentication": "Bắt buộc để đăng nhập",
   "cookies.consent.app.description.google-recaptcha-feedback": "Chúng tôi sử dụng dịch vụ Google reCAPTCHA để gửi đề xuất",
   "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
+  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
   "cookies.consent.purpose.feedback": "Gửi đề xuất",
   "cookies.consent.app.description.google-analytics": "Cho phép chúng tôi theo dõi dữ liệu thống kê",
   "cookies.consent.app.description.google-recaptcha": "Chúng tôi sử dụng dịch vụ google reCAPTCHA trong quá trình đăng ký và khôi phục mật khẩu",
