@@ -314,5 +314,10 @@ export const environment: BuildConfig = {
       vocabulary: 'srsc',
       enabled: true
     }
-  ]
+  ],
+
+  liveRegion: {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
+  },
 };
