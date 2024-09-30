@@ -6741,4 +6741,12 @@
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
 
   "browse.search-form.placeholder": "Search the repository",
+
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 }

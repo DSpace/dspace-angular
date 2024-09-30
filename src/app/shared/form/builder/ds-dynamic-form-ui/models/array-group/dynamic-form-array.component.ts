@@ -32,9 +32,11 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { hasValue } from '../../../../../empty.util';
+import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 
@@ -76,6 +78,8 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
+              protected liveRegionService: LiveRegionService,
+              protected translateService: TranslateService,
   ) {
     super(layoutService, validationService);
   }
@@ -117,21 +121,56 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     return this.model.groups.length === 1 || !this.model.isDraggable;
   }
 
-  toggleKeyboardDragAndDrop(event: KeyboardEvent, sortableElement: HTMLElement) {
+  /**
+   * Toggles the keyboard drag and drop feature for the given sortable element.
+   * @param event
+   * @param sortableElement
+   * @param index
+   * @param length
+   */
+  toggleKeyboardDragAndDrop(event: KeyboardEvent, sortableElement: HTMLDivElement, index: number, length: number) {
     event.preventDefault();
     if (this.elementBeingSorted) {
-      this.stopKeyboardDragAndDrop();
+      this.stopKeyboardDragAndDrop(sortableElement, index, length);
     } else {
       sortableElement.classList.add('sorting-with-keyboard');
       this.elementBeingSorted = sortableElement;
+      this.liveRegionService.clear();
+      this.liveRegionService.addMessage(this.translateService.instant('live-region.ordering.status', {
+        itemName: sortableElement.querySelector('input')?.value,
+        index: index + 1,
+        length,
+      }));
     }
   }
 
-  stopKeyboardDragAndDrop() {
+  /**
+   * Stops the keyboard drag and drop feature.
+   * @param sortableElement
+   * @param index
+   * @param length
+   */
+  stopKeyboardDragAndDrop(sortableElement: HTMLDivElement, index: number, length: number) {
     this.elementBeingSorted?.classList.remove('sorting-with-keyboard');
-    this.elementBeingSorted = null;
+    this.liveRegionService.clear();
+    if (this.elementBeingSorted) {
+      this.elementBeingSorted = null;
+      this.liveRegionService.addMessage(this.translateService.instant('live-region.ordering.dropped', {
+        itemName: sortableElement.querySelector('input')?.value,
+        index: index + 1,
+        length,
+      }));
+    }
   }
 
+  /**
+   * Handles the keyboard arrow press event to move the element up or down.
+   * @param event
+   * @param dropList
+   * @param length
+   * @param idx
+   * @param direction
+   */
   handleArrowPress(event: KeyboardEvent, dropList: HTMLDivElement, length: number, idx: number, direction: 'up' | 'down') {
     let newIndex = direction === 'up' ? idx - 1 : idx + 1;
     if (newIndex < 0) {
@@ -150,31 +189,44 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
           model: this.model.groups[newIndex].group[0],
           control: (this.control as any).controls[newIndex],
         }, 'move');
+        this.liveRegionService.clear();
+        this.liveRegionService.addMessage(this.translateService.instant('live-region.ordering.moved', {
+          itemName: this.elementBeingSorted.querySelector('input')?.value,
+          index: newIndex + 1,
+          length,
+        }));
       }
       event.preventDefault();
       // Set focus back to the moved element
       setTimeout(() => {
-        const newDragHandle = dropList.querySelectorAll(`[cdkDragHandle]`)[newIndex] as HTMLElement;
-        if (newDragHandle) {
-          newDragHandle.focus();
-        }
-        if (!this.isElementInViewport(newDragHandle)) {
-          newDragHandle.scrollIntoView(direction === 'up');
-        }
+        this.setFocusToDropListElementOfIndex(dropList, newIndex, direction);
       });
     } else {
-      const newDragHandle = dropList.querySelectorAll(`[cdkDragHandle]`)[newIndex] as HTMLElement;
-      if (newDragHandle) {
-        newDragHandle.focus();
-        if (!this.isElementInViewport(newDragHandle)) {
-          newDragHandle.scrollIntoView(direction === 'up');
-        }
-        event.preventDefault();
-      }
+      event.preventDefault();
+      this.setFocusToDropListElementOfIndex(dropList, newIndex, direction);
     }
-
   }
 
+  /**
+   * Sets focus to the drag handle of the drop list element of the given index.
+   * @param dropList
+   * @param index
+   * @param direction
+   */
+  setFocusToDropListElementOfIndex(dropList: HTMLDivElement, index: number, direction: 'up' | 'down') {
+    const newDragHandle = dropList.querySelectorAll(`[cdkDragHandle]`)[index] as HTMLElement;
+    if (newDragHandle) {
+      newDragHandle.focus();
+      if (!this.isElementInViewport(newDragHandle)) {
+        newDragHandle.scrollIntoView(direction === 'up');
+      }
+    }
+  }
+
+  /**
+   * checks if an element is in the viewport
+   * @param el
+   */
   isElementInViewport(el: HTMLElement) {
     const rect = el.getBoundingClientRect();
     return (
@@ -183,5 +235,18 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
+  }
+
+  /**
+   * Adds an instruction message to the live region when the user might want to sort an element.
+   * @param sortableElement
+   */
+  addInstructionMessageToLiveRegion(sortableElement: HTMLDivElement) {
+    if (!this.elementBeingSorted) {
+      this.liveRegionService.clear();
+      this.liveRegionService.addMessage(this.translateService.instant('live-region.ordering.instructions', {
+        itemName: sortableElement.querySelector('input')?.value,
+      }));
+    }
   }
 }
