@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, filter, map, mergeMap, take, withLatestFrom } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, take } from 'rxjs/operators';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { StoreActionTypes } from '../../store.actions';
@@ -20,7 +20,6 @@ import {
 import { RequestService } from './request.service';
 import { ParsedResponse } from '../cache/response.models';
 import { RequestError } from './request-error.model';
-import { RestRequestMethod } from './rest-request-method';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { RequestEntry } from './request-entry.model';
 

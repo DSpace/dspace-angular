@@ -23,7 +23,7 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
-import { EditCollectionResolver } from "../core/shared/resolvers/edit-collection.resolver";
+import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection.resolver';
 
 @NgModule({
   imports: [

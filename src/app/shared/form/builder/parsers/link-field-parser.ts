@@ -12,7 +12,7 @@ import {
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
 import { DynamicLinkModel } from '../ds-dynamic-form-ui/models/ds-dynamic-link.model';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 export class LinkFieldParser extends ConcatFieldParser {
 

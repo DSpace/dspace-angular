@@ -37,12 +37,10 @@ import { SubmissionObject } from '../../../core/submission/models/submission-obj
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { SubmissionVisibility } from '../../utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
-import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
-import { SubmissionScopeType } from "../../../core/submission/submission-scope-type";
-import { WorkspaceItem } from "../../../core/submission/models/workspaceitem.model";
-import { WorkflowItem } from "../../../core/submission/models/workflowitem.model";
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 
 /**
  * This component represents a section that contains a Form.

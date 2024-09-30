@@ -42,13 +42,13 @@ describe('ListFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof ListFieldParser).toBe(true);
   });
 
   it('should return a DynamicListCheckboxGroupModel object when repeatable option is true', () => {
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -57,7 +57,7 @@ describe('ListFieldParser test suite', () => {
 
   it('should return a DynamicListRadioGroupModel object when repeatable option is false', () => {
     field.repeatable = false;
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -70,7 +70,7 @@ describe('ListFieldParser test suite', () => {
     };
     const expectedValue = [new FormFieldMetadataValueObject('test type')];
 
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -84,7 +84,7 @@ describe('ListFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test type');
 
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 

@@ -717,7 +717,7 @@ export class SubmissionService {
    *    observable of RemoteData<SubmissionObject>
    */
   retrieveSubmission(submissionId, projections: string[] = []): Observable<RemoteData<SubmissionObject>> {
-    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId, projections).pipe(
+    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId).pipe(
       find((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
       map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),

@@ -8,7 +8,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { hasValue } from "../../../../../../../shared/empty.util";
+import { hasValue } from '../../../../../../../shared/empty.util';
 
 /**
  * This component renders the links metadata fields.
@@ -42,11 +42,11 @@ export class LinkAuthorityComponent extends RenderingTypeValueModelComponent imp
   }
 
   ngOnInit(): void {
-    if(hasValue(this.metadataValue)) {
+    if (hasValue(this.metadataValue)) {
       this.link = this.getLinkFromValue();
     }
 
-    if(hasValue(this.metadataValue?.authority)) {
+    if (hasValue(this.metadataValue?.authority)) {
       this.iconStyle = this.getWebsiteIcon();
     }
   }

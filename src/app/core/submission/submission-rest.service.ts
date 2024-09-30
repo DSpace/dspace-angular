@@ -19,11 +19,11 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { ErrorResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
 import { SubmissionResponse } from './submission-response.model';
+import { RequestError } from '../data/request-error.model';
 import { RestRequest } from '../data/rest-request.model';
-import { ErrorResponse } from "../cache/response.models";
-import { RequestError } from "../data/request-error.model";
 
 /**
  * The service handling all submission REST requests
@@ -70,14 +70,9 @@ export class SubmissionRestService {
    * @param collectionId
    *    The owning collection for the object
    */
-  protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string, projections: string[] = []): string {
+  protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string): string {
     let url = isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
-    url = new URLCombiner(url, '?projection=full').toString();
-
-    projections.forEach((projection) => {
-      url = new URLCombiner(url, '&projection=' + projection).toString();
-    });
-
+    url = new URLCombiner(url, '?embed=item,sections,collection').toString();
     if (collectionId) {
       url = new URLCombiner(url, `&owningCollection=${collectionId}`).toString();
     }
@@ -116,10 +111,10 @@ export class SubmissionRestService {
    * @return Observable<SubmitDataResponseDefinitionObject>
    *     server response
    */
-  public getDataById(linkName: string, id: string, projections: string[] = []): Observable<SubmitDataResponseDefinitionObject> {
+  public getDataById(linkName: string, id: string): Observable<SubmitDataResponseDefinitionObject> {
     const requestId = this.requestService.generateRequestId();
     return this.halService.getEndpoint(linkName).pipe(
-      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id, null, projections)),
+      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id)),
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => new SubmissionRequest(requestId, endpointURL)),

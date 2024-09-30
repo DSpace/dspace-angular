@@ -3,14 +3,9 @@ import { RowParser } from './row-parser';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
-import {
-  SubmissionVisibilityType,
-  SubmissionVisibilityValue
-} from '../../../../core/config/models/config-submission-section.model';
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
-import { Injector } from '@angular/core';
-import { getMockTranslateService } from "../../../mocks/translate.service.mock";
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 import { TranslateService } from '@ngx-translate/core';
+import { Injector } from '@angular/core';
 
 describe('RowParser test suite', () => {
 
@@ -29,7 +24,7 @@ describe('RowParser test suite', () => {
   const submissionId = '1234';
   const scopeUUID = 'testScopeUUID';
   const initFormValues = {};
-  const submissionScope = SubmissionScopeType.WorkspaceItem;
+  const submissionScope = 'submission';
   const readOnly = false;
   const typeField = 'dc_type';
 
@@ -116,6 +111,7 @@ describe('RowParser test suite', () => {
           mandatory: 'false',
           repeatable: false,
           hints: 'Enter the name of the events, if any.',
+          scope: 'SUBMISSION',
           selectableMetadata: [
             {
               metadata: 'title',
@@ -131,9 +127,7 @@ describe('RowParser test suite', () => {
           mandatory: 'false',
           repeatable: false,
           hints: 'Enter the name of the events, if any.',
-          visibility: {
-            submission: SubmissionVisibilityValue.Hidden
-          } as SubmissionVisibilityType,
+          scope: 'WORKFLOW',
           selectableMetadata: [
             {
               metadata: 'otherTitle',
@@ -142,7 +136,7 @@ describe('RowParser test suite', () => {
             }
           ],
           languageCodes: []
-        } as unknown as FormFieldModel
+        } as FormFieldModel
       ]
     } as FormRowModel;
 

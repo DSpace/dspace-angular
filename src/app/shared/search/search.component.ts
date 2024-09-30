@@ -290,7 +290,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * The current sort options used
    */
-  currentScope$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  currentScope$: Observable<string>;
 
   /**
    * The current sort options used
@@ -417,6 +417,11 @@ export class SearchComponent implements OnInit, OnDestroy {
       return;
     }
 
+
+    this.currentScope$ = this.routeService.getQueryParameterValue('scope').pipe(
+      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope),
+    );
+
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
 
     if (this.showCorrection === null || this.showCorrection === undefined) {
@@ -470,10 +475,12 @@ export class SearchComponent implements OnInit, OnDestroy {
         debounceTime(100)
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
       // Build the PaginatedSearchOptions object
+      const searchOptionsConfiguration = searchOptions.configuration || configuration;
       const combinedOptions = Object.assign({}, searchOptions,
           {
             configuration: searchOptions.configuration || configuration,
-            sort: sortOption || searchOptions.sort
+            sort: sortOption || searchOptions.sort,
+            forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration) || this.forcedEmbeddedKeys.get('default')
           });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;

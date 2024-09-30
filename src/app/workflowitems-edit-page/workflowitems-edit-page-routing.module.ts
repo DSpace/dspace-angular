@@ -20,7 +20,7 @@ import {
   AdvancedWorkflowActionPageComponent
 } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
 import { ItemFromWorkflowBreadcrumbResolver } from './item-from-workflow-breadcrumb.resolver';
-import { PendingChangesGuard } from "../submission/edit/pending-changes/pending-changes.guard";
+import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 
 @NgModule({
   imports: [

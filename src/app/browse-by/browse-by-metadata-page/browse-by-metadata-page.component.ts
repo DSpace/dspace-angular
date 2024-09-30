@@ -22,7 +22,6 @@ import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { SearchManager } from '../../core/browse/search-manager';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -109,8 +108,8 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
   value = '';
 
   /**
-  * The authority key (may be undefined) associated with {@link #value}.
-  */
+   * The authority key (may be undefined) associated with {@link #value}.
+   */
   authority: string;
 
   /**
@@ -130,7 +129,6 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
-                     protected searchManager: SearchManager,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router,
@@ -140,11 +138,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
 
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
-        id: BBM_PAGINATION_ID,
-        currentPage: 1,
-        pageSize: this.appConfig.browseBy.pageSize,
-        });
-    }
+      id: BBM_PAGINATION_ID,
+      currentPage: 1,
+      pageSize: this.appConfig.browseBy.pageSize,
+    });
+  }
 
 
   ngOnInit(): void {
@@ -159,32 +157,32 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
-          this.browseId = params.id || this.defaultBrowseId;
-          this.authority = +params.authority || params.authority || '';
+        this.browseId = params.id || this.defaultBrowseId;
+        this.authority = params.authority;
 
-          if (typeof params.value === 'string'){
-            this.value = params.value.trim();
-          } else {
-            this.value = '';
-          }
+        if (typeof params.value === 'string'){
+          this.value = params.value.trim();
+        } else {
+          this.value = '';
+        }
 
-          if (params.startsWith === undefined || params.startsWith === '') {
-            this.startsWith = undefined;
-          }
+        if (params.startsWith === undefined || params.startsWith === '') {
+          this.startsWith = undefined;
+        }
 
         if (typeof params.startsWith === 'string'){
-            this.startsWith = params.startsWith.trim();
-          }
+          this.startsWith = params.startsWith.trim();
+        }
 
-          if (isNotEmpty(this.value) || isNotEmpty(this.authority)) {
-            this.updatePageWithItems(
-              browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
-          } else {
-            this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
-          }
-          this.updateParent(params.scope);
-          this.updateLogo();
-        }));
+        if (isNotEmpty(this.value)) {
+          this.updatePageWithItems(
+            browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
+        } else {
+          this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
+        }
+        this.updateParent(params.scope);
+        this.updateLogo();
+      }));
     this.updateStartsWithTextOptions();
 
   }

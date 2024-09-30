@@ -22,14 +22,12 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ParserType } from './parser-type';
 import { isNgbDateStruct } from '../../../date.util';
-import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
-import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
 import { Metadata } from '../../../../core/shared/metadata.utils';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { TranslateService } from '@ngx-translate/core';
-import { SectionVisibility } from "../../../../submission/objects/section-visibility.model";
-import { SubmissionScopeType } from "../../../../core/submission/submission-scope-type";
-import { VisibilityType } from "../../../../submission/sections/visibility-type";
+import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
+import { VisibilityType } from '../../../../submission/sections/visibility-type';
 
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');

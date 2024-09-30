@@ -130,7 +130,8 @@ describe('OpenaireBrokerEventRestService', () => {
         searchParams: [
           {
             fieldName: 'topic',
-            fieldValue: topic
+            fieldValue: topic,
+            encodeValue: false
           }
         ]
       };

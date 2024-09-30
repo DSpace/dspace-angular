@@ -19,7 +19,7 @@ import { ServerResponseService } from '../../core/services/server-response.servi
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { AuthService } from "../../core/auth/auth.service";
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * This component renders a full item page.

@@ -68,7 +68,7 @@ import { NotificationOptions } from '../../shared/notifications/models/notificat
 import {
   WorkspaceitemSectionDetectDuplicateObject
 } from '../../core/submission/models/workspaceitem-section-deduplication.model';
-import { WorkspaceitemDataService } from "../../core/submission/workspaceitem-data.service";
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 
 @Injectable()
 export class SubmissionObjectEffects {

@@ -1,5 +1,5 @@
 import { distinctUntilChanged, take, withLatestFrom, delay } from 'rxjs/operators';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,

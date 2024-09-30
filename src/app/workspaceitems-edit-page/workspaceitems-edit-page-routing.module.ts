@@ -10,7 +10,7 @@ import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/workspaceitems-delete-page.component';
 import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
 import { ItemFromWorkspaceBreadcrumbResolver } from './item-from-workspace-breadcrumb.resolver';
-import { PendingChangesGuard } from "../submission/edit/pending-changes/pending-changes.guard";
+import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 
 @NgModule({
   imports: [

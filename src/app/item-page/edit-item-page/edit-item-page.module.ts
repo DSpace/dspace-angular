@@ -51,7 +51,7 @@ import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-met
 import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
 import {
   EditRelationshipListWrapperComponent
-} from "./item-relationships/edit-relationship-list-wrapper/edit-relationship-list-wrapper.component";
+} from './item-relationships/edit-relationship-list-wrapper/edit-relationship-list-wrapper.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality

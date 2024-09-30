@@ -1,3 +1,5 @@
+import { SubmissionFieldScopeType } from './../../../../core/submission/submission-field-scope-type';
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
 import { Injectable, Injector } from '@angular/core';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core';
@@ -19,11 +21,7 @@ import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
 import { setLayout } from './parser.utils';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
-import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
-import { SubmissionScopeType } from "../../../../core/submission/submission-scope-type";
-import { SubmissionFieldScopeType } from "../../../../core/submission/submission-field-scope-type";
-import { SectionVisibility } from "../../../../submission/objects/section-visibility.model";
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -153,9 +151,9 @@ export class RowParser {
       && (
         isEmpty(visibility)
         && (
-          submissionScope === SubmissionScopeType.WorkspaceItem.valueOf() && scope !== SubmissionFieldScopeType.WorkspaceItem.valueOf()
+          submissionScope === SubmissionScopeType.WorkspaceItem && scope !== SubmissionFieldScopeType.WorkspaceItem
           ||
-          submissionScope === SubmissionScopeType.WorkflowItem.valueOf() && scope !== SubmissionFieldScopeType.WorkflowItem.valueOf()
+          submissionScope === SubmissionScopeType.WorkflowItem && scope !== SubmissionFieldScopeType.WorkflowItem
         )
       );
   }

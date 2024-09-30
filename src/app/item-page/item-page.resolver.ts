@@ -11,8 +11,8 @@ import { getItemPageRoute } from './item-page-routing-paths';
 import { ItemResolver } from './item.resolver';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { isPlatformServer } from '@angular/common';
-import { redirectOn4xx } from "../core/shared/authorized.operators";
-import { AuthService } from "../core/auth/auth.service";
+import { redirectOn4xx } from '../core/shared/authorized.operators';
+import { AuthService } from '../core/auth/auth.service';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated and will redirect to the

@@ -19,7 +19,6 @@ import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { SearchManager } from '../../core/browse/search-manager';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -40,7 +39,6 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
-                     protected searchManager: SearchManager,
                      protected dsoService: DSpaceObjectDataService,
                      protected router: Router,
                      protected paginationService: PaginationService,
@@ -48,7 +46,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
   ) {
-    super(route, browseService, searchManager,dsoService, paginationService, router, appConfig, dsoNameService);
+    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
   }
 
   ngOnInit(): void {

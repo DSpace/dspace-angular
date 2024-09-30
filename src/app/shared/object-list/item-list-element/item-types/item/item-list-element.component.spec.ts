@@ -22,9 +22,14 @@ import { AuthorizationDataServiceStub } from '../../../../testing/authorization-
 import { FileService } from '../../../../../core/shared/file.service';
 import { FileServiceStub } from '../../../../testing/file-service.stub';
 import { TruncatableServiceStub } from '../../../../testing/truncatable-service.stub';
+import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { MetricsDataService } from '../../../../../core/data/metrics-data.service';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
+  entityType: 'Publication',
   metadata: {
     'dc.title': [
       {
@@ -69,6 +74,8 @@ describe('ItemListElementComponent', () => {
   let fileService: FileServiceStub;
   let themeService: ThemeService;
   let truncatableService: TruncatableServiceStub;
+  let metricsDataService: MetricsDataService;
+  let linkService:  LinkService;
 
   beforeEach(waitForAsync(() => {
     activatedRoute = new ActivatedRouteStub();
@@ -77,6 +84,10 @@ describe('ItemListElementComponent', () => {
     fileService = new FileServiceStub();
     themeService = getMockThemeService();
     truncatableService = new TruncatableServiceStub();
+    metricsDataService = new MetricsDataService(null, null, null, null);
+    linkService =  jasmine.createSpyObj('LinkService', {
+      resolveLink: () => null
+    });
 
     void TestBed.configureTestingModule({
       imports: [
@@ -96,6 +107,10 @@ describe('ItemListElementComponent', () => {
         { provide: FileService, useValue: fileService },
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
+        { provide: VocabularyService, useValue: {} },
+        { provide: ItemDataService, useValue: {} },
+        { provide: MetricsDataService, useValue: metricsDataService },
+        { provide: LinkService, useValue: linkService },
       ],
     }).overrideComponent(ItemListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
