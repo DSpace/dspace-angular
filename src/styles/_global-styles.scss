@@ -505,12 +505,15 @@ ngb-tooltip-window {
   margin-bottom: 0.25rem !important;
 }
 
-.col-12 {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
 .table thead th {
   border-bottom: 2px solid #{$gray-300};
   border-top: 1px solid #{$gray-300};
+}
+
+.custom-aligning {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
 }
