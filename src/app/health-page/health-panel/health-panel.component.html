@@ -11,11 +11,7 @@
           {{ getPanelLabel(entry.key) | titlecase }}
         </button>
         <div class="text-end d-flex gap-2">
-          <ds-health-status [status]="entry.value?.status"></ds-health-status>
-          <div class="d-flex my-auto">
-            <span *ngIf="acc.isExpanded(entry.key)" class="fas fa-chevron-up fa-fw"></span>
-            <span *ngIf="!acc.isExpanded(entry.key)" class="fas fa-chevron-down fa-fw"></span>
-          </div>
+          <ds-health-status class="me-2" [status]="entry.value?.status"></ds-health-status>
         </div>
       </div>
     </ng-template>
