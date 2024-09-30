@@ -40,7 +40,9 @@
   --bs-zindex-popover: #{$zindex-popover};
   --bs-zindex-sticky: #{$zindex-sticky};
 
-  --bs-border-radius-lg: #{$bs-border-radius-lg}
+  --bs-border-radius-lg: #{$bs-border-radius-lg};
+
+  --bs-table-border-color: #{$gray-300};
 }
 
 // Some Bootstrap CSS variables are tied to classes
