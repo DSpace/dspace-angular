@@ -5,7 +5,7 @@
          [ngClass]="getClass('element', 'control')">
 
       <!-- Draggable Container -->
-      <div role="listbox" #dropList cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
+      <div role="listbox" [attr.aria-label]="'dynamic-form-array.sortable-list.label' | translate" #dropList cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
         <!-- Draggable Items -->
         <div #sortableElement
              *ngFor="let groupModel of model.groups; let idx = index; let length = count"

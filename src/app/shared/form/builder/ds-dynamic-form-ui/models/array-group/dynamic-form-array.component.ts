@@ -32,7 +32,10 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { hasValue } from '../../../../../empty.util';
@@ -53,6 +56,7 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
     CdkDragHandle,
     forwardRef(() => DsDynamicFormControlContainerComponent),
     NgTemplateOutlet,
+    TranslateModule,
   ],
   standalone: true,
 })
