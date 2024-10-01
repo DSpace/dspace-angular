@@ -2,9 +2,10 @@
   <ng-container *ngIf="metadata">
     <ng-container *ngFor="let entry of getAllMetadataValue(fileTitleKey)">
       <ng-container *ngIf="entry.value !== ''">
-        <h5>
+        <h3>
           {{entry.value}}
-        </h5>
+          <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span>
+        </h3>
       </ng-container>
       <ng-container *ngIf="entry.value === ''">
         <h5 *ngIf="metadata[fileTitleKey].indexOf(entry) === 0">

@@ -18,7 +18,7 @@
     </div>
     <div class="col-md-10">
       <div class="float-left w-75">
-        <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
+        <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
       </div>
       <div class="float-right w-15">
         <ng-container>
@@ -43,7 +43,6 @@
         </ng-container>
       </div>
       <div class="clearfix"></div>
-      <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
     </div>
   </div>
 </ng-container>
