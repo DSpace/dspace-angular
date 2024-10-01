@@ -135,7 +135,7 @@ export class Collection extends DSpaceObject implements ChildHALResource, Handle
    * Corresponds to the metadata field collection.css
    */
   get cssDisplay(): string {
-    return this.firstMetadataValue('collection.css');
+    return this.firstMetadataValue('dspace.collection.css');
   }
 
   getParentLinkKey(): keyof this['_links'] {

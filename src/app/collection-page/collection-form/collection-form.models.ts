@@ -20,7 +20,7 @@ export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<s
 export const administratorStyleFormModels: DynamicFormControlModel[] = [
   new DynamicTextAreaModel({
     id: 'css',
-    name: 'dc.collection.css',
+    name: 'dspace.collection.css',
     spellCheck: environment.form.spellCheck,
   }),
 ];
