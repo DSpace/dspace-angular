@@ -18,6 +18,7 @@ import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submis
 import { isNotEmpty } from '../../../../../shared/empty.util';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
+import { FileSizePipe } from "../../../../../shared/utils/file-size-pipe";
 
 /**
  * This component allow to show bitstream's metadata
@@ -31,7 +32,8 @@ import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessCo
     TruncatePipe,
     NgIf,
     NgForOf,
-  ],
+    FileSizePipe
+],
   standalone: true,
 })
 export class SubmissionSectionUploadFileViewComponent implements OnInit {
