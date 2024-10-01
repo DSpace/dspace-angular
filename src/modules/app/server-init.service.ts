@@ -85,7 +85,7 @@ export class ServerInitService extends InitService {
   // Server-only initialization steps
 
   /**
-   * Set the {@link NGRX_STATE} key when state is serialized to be transfered
+   * Set the {@link NGRX_STATE} key when state is serialized to be transferred
    * @private
    */
   private saveAppState() {

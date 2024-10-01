@@ -43,7 +43,7 @@ describe('VocabularyTreeviewModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should init descrption message', () => {
+  it('should init description message', () => {
     expect((component as any).setDescription).toHaveBeenCalled();
   });
 });
