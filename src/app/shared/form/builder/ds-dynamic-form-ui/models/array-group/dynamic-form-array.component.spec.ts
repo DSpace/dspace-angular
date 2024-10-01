@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { EventEmitter } from '@angular/core';
 import {
   ComponentFixture,
   inject,
@@ -14,8 +15,12 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
+import { of } from 'rxjs';
 
 import {
   APP_CONFIG,
@@ -23,13 +28,20 @@ import {
 } from '../../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
-import { getMockTranslateService } from '../../../../../mocks/translate.service.mock';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 import { DsDynamicFormArrayComponent } from './dynamic-form-array.component';
 
 describe('DsDynamicFormArrayComponent', () => {
+  const translateServiceStub = {
+    get: () => of('translated-text'),
+    instant: () => 'translated-text',
+    onLangChange: new EventEmitter(),
+    onTranslationChange: new EventEmitter(),
+    onDefaultLangChange: new EventEmitter(),
+  };
+
   let component: DsDynamicFormArrayComponent;
   let fixture: ComponentFixture<DsDynamicFormArrayComponent>;
 
@@ -39,13 +51,14 @@ describe('DsDynamicFormArrayComponent', () => {
         ReactiveFormsModule,
         DsDynamicFormArrayComponent,
         NgxMaskModule.forRoot(),
+        TranslateModule.forRoot(),
       ],
       providers: [
         DynamicFormLayoutService,
         DynamicFormValidationService,
         provideMockStore(),
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: TranslateService, useValue: translateServiceStub },
         { provide: HttpClient, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
