@@ -1,0 +1,13 @@
+.live-region {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-left: 60px;
+  height: 90px;
+  line-height: 18px;
+  color: var(--bs-white);
+  background-color: var(--bs-dark);
+  opacity: 0.94;
+  z-index: var(--ds-live-region-z-index);
+}

@@ -7,7 +7,7 @@
  */
 
 import { RuleTester as TypeScriptRuleTester } from '@typescript-eslint/rule-tester';
-import { RuleTester } from 'eslint';
+import { RuleTester } from '@typescript-eslint/utils/ts-eslint';
 
 import { themeableComponents } from '../src/util/theme-support';
 import {

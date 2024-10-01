@@ -31,7 +31,7 @@ export class SearchNavbarComponent {
 
   // The search form
   searchForm;
-  // Whether or not the search bar is expanded, boolean for html ngIf, string fo AngularAnimation state change
+  // Whether or not the search bar is expanded, boolean for html ngIf, string for AngularAnimation state change
   searchExpanded = false;
   isExpanded = 'collapsed';
 
