@@ -605,6 +605,7 @@ export class MetadataService {
   private setGenerator(): void {
     this.rootService.findRoot().pipe(getFirstSucceededRemoteDataPayload()).subscribe((root) => {
       this.meta.addTag({ name: 'Generator', content: root.dspaceVersion });
+      this.meta.addTag({ name: 'Generator', content: root.crisVersion });
     });
   }
 
