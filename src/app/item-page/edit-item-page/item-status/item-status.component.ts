@@ -60,6 +60,7 @@ import { ItemOperation } from '../item-operation/itemOperation.model';
 
 @Component({
   selector: 'ds-base-item-status',
+  styleUrls: ['item-status.component.scss'],
   templateUrl: './item-status.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [
