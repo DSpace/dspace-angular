@@ -206,6 +206,6 @@ export const klaroConfiguration: any = {
       onlyOnce: true,
       onAccept: `window.refreshCaptchaScript?.call()`,
       onDecline: `window.refreshCaptchaScript?.call()`,
-    }
+    },
   ],
 };

@@ -2762,16 +2762,12 @@
 
   // "info.feedback.submit": "Send",
   "info.feedback.submit": "পাঠান",
-
   // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
   "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
   // "info.feedback.google-recaptcha.notification.message.error": "reCaptcha যাচাইকরণের সময় একটি ত্রুটি ঘটেছে৷",
   "info.feedback.google-recaptcha.notification.message.error": "reCaptcha যাচাইকরণের সময় একটি ত্রুটি ঘটেছে৷",
-  
   // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
   "info.feedback.google-recaptcha.notification.message.expired": "যাচাইকরণের মেয়াদ শেষ। আবার চেক করুন।",
-
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "প্রতিক্রিয়া",
 
