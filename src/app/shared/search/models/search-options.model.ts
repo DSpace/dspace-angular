@@ -73,7 +73,7 @@ export class SearchOptions {
 
   get encodedFixedFilter(): string {
     // expected format: 'arg=value'
-    //  -> split the query agument into (arg=)(value) and only encode 'value'
+    //  -> split the query argument into (arg=)(value) and only encode 'value'
     const match = this.fixedFilter.match(/^([^=]+=)(.+)$/);
 
     if (hasValue(match)) {
