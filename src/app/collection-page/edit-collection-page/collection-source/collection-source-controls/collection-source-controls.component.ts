@@ -95,7 +95,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // ensure the contentSource gets updated after being set to stale
     this.contentSource$ = this.collectionService.findByHref(this.collection._links.self.href, false).pipe(
       getAllSucceededRemoteDataPayload(),
