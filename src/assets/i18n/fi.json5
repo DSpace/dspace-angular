@@ -2422,10 +2422,10 @@
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
   "cookies.consent.app.description.google-recaptcha": "Käytämme Googlen reCAPTCHA-palvelua rekisteröinnin ja salasanan palauttamisen yhteydessä.",
 
-   //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
+  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
   "cookies.consent.app.description.google-recaptcha-feedback": "Käytämme Googlen reCAPTCHA-palvelua ehdotusten lähettämiseen",
 
-    // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
+  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
   "cookies.consent.app.title.google-recaptcha-feedback": "",
 
   //"cookies.consent.purpose.feedback": "Sending suggestions",

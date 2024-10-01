@@ -2600,7 +2600,7 @@
 
   //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
   "cookies.consent.app.description.google-recaptcha-feedback": "K registraci a obnovení hesla používáme službu Google reCAPTCHA",
-    // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
+  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
   "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
   //"cookies.consent.purpose.feedback": "Sending suggestions",
   "cookies.consent.purpose.feedback": "Odesílání návrhů",
@@ -3394,7 +3394,7 @@
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "Zpětná vazba",
 
-   // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
+  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
   "info.feedback.google-recaptcha.must-accept-cookies": "Chcete-li odeslat, musíte přijmout soubory cookie <b>Návrhy</b> (Google reCaptcha).",
 
   // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
@@ -3408,7 +3408,6 @@
 
   // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
   "info.feedback.google-recaptcha.notification.message.error": "Při ověřování reCaptcha došlo k chybě",
-  
   // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
   "info.feedback.google-recaptcha.notification.message.expired": "Ověření vypršelo. Zopakujte prosím ověření.",
 

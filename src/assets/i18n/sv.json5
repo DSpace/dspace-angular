@@ -2178,10 +2178,10 @@
   // "cookies.consent.decline": "Decline",
   "cookies.consent.decline": "Avböj",
 
-   //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
+  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
   "cookies.consent.app.description.google-recaptcha-feedback": "Vi använder Googles reCAPTCHA-tjänst för att skicka förslag",
 
-    // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
+  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
   "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
 
   //"cookies.consent.purpose.feedback": "Sending suggestions",

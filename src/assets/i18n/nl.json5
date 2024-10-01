@@ -2222,7 +2222,6 @@
   // "cookies.consent.app.title.authentication": "Authentication",
   // TODO New key - Add a translation
   "cookies.consent.app.title.authentication": "Authentication",
-  
   "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
 
   // "cookies.consent.app.description.authentication": "Required for signing you in",

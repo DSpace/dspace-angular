@@ -1639,9 +1639,6 @@
   "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
 
   "cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions",
-
-  "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  
   "cookies.consent.purpose.feedback": "Sending suggestions",
 
   "cookies.consent.purpose.functional": "Functional",
@@ -2162,17 +2159,17 @@
 
   "info.feedback.breadcrumbs": "Feedback",
 
-"info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
+  "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
 
-"info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
+  "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
 
-"info.feedback.submit": "Send",
+  "info.feedback.submit": "Send",
 
-"info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
+  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
 
-"info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
+  "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
 
-"info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
+  "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
 
   "info.feedback.head": "Feedback",
 

@@ -2375,15 +2375,14 @@
   // TODO New key - Add a translation
   "cookies.consent.decline": "Decline",
 
-   //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
+  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
   "cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions",
 
-    // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
+  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
   "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
 
   //"cookies.consent.purpose.feedback": "Sending suggestions",
   "cookies.consent.purpose.feedback": "Sending suggestions",
-  
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   // TODO New key - Add a translation
   "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",

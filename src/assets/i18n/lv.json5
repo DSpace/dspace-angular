@@ -2041,10 +2041,10 @@
   // TODO New key - Add a translation
   "cookies.consent.app.description.authentication": "Required for signing you in",
 
-   //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
+  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
   "cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions",
 
-    // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
+  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
   "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
 
   //"cookies.consent.purpose.feedback": "Sending suggestions",
