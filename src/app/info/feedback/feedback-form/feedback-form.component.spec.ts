@@ -16,7 +16,6 @@ import { of } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
-import { Feedback } from '../../../core/feedback/models/feedback.model';
 import { GoogleRecaptchaService } from '../../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../../core/services/cookie.service';
 import { RouteService } from '../../../core/services/route.service';
