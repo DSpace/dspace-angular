@@ -263,13 +263,39 @@
         "rxjs/no-nested-subscribe": "off",     // todo: go over _all_ cases
 
         // Custom DSpace Angular rules
-        "dspace-angular-ts/alias-imports": "error",
+        "dspace-angular-ts/alias-imports": [
+          "error",
+          {
+            "aliases": [
+              {
+                "package": "rxjs",
+                "imported": "of",
+                "local": "observableOf"
+              }
+            ]
+          }
+        ],
         "dspace-angular-ts/themed-component-classes": "error",
         "dspace-angular-ts/themed-component-selectors": "error",
         "dspace-angular-ts/themed-component-usages": "error",
-        "dspace-angular-ts/themed-decorators": "error",
+        "dspace-angular-ts/themed-decorators": [
+          "error",
+          {
+            "decorators": {
+              "listableObjectComponent": 3,
+              "rendersSectionForMenu": 2
+            }
+          }
+        ],
         "dspace-angular-ts/themed-wrapper-no-input-defaults": "error",
-        "dspace-angular-ts/unique-decorators": "error"
+        "dspace-angular-ts/unique-decorators": [
+          "error",
+          {
+            "decorators": [
+              "listableObjectComponent"
+            ]
+          }
+        ]
       }
     },
     {
