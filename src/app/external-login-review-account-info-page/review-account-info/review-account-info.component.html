@@ -40,13 +40,12 @@
           </span>
         </td>
         <td>
-          <ui-switch
+          <ds-switch
             *ngIf="(data.receivedValue !== data.currentValue) && data.currentValue"
-            [checkedLabel]="'on-label' | translate"
-            [uncheckedLabel]="'off-label' | translate"
-            [checked]="data.overrideValue"
-            (change)="onOverrideChange($event, data.identifier)"
-          ></ui-switch>
+            [options]="switchOptions"
+            [selectedValue]="data.overrideValue"
+            (selectedValueChange)="onOverrideChange($event, data.identifier)">
+          </ds-switch>
         </td>
       </tr>
     </tbody>

@@ -12,7 +12,6 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import { SystemWideAlertModule } from '../system-wide-alert.module';
 
 describe('SystemWideAlertFormComponent', () => {
@@ -52,7 +51,7 @@ describe('SystemWideAlertFormComponent', () => {
     router = new RouterStub();
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, SystemWideAlertModule, UiSwitchModule, TranslateModule.forRoot()],
+      imports: [FormsModule, SystemWideAlertModule, TranslateModule.forRoot()],
       declarations: [SystemWideAlertFormComponent],
       providers: [
         {provide: SystemWideAlertDataService, useValue: systemWideAlertDataService},

@@ -357,6 +357,7 @@ import { ThemedDefaultBrowseElementsComponent } from './browse-most-elements/def
 import { MetadataLinkViewPopoverComponent } from './metadata-link-view/metadata-link-view-popover/metadata-link-view-popover.component';
 import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view/metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
 import { MetadataLinkViewOrcidComponent } from './metadata-link-view/metadata-link-view-orcid/metadata-link-view-orcid.component';
+import { SwitchComponent } from './switch/switch.component';
 import {StickyPopoverDirective} from './metadata-link-view/sticky-popover.directive';
 
 const MODULES = [
@@ -596,6 +597,7 @@ const ENTRY_COMPONENTS = [
   RelationshipsListComponent,
   AdditionalMetadataComponent,
   ThemedDefaultBrowseElementsComponent,
+  SwitchComponent,
 ];
 
 const PROVIDERS = [

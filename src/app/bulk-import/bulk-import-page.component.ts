@@ -92,7 +92,7 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
     ];
 
     if (values.abortOnError) {
-      stringParameters.push( { name: '-e', value: values.abortOnError } );
+      stringParameters.push( { name: '-er', value: values.abortOnError } );
     }
 
     this.scriptService.invoke('bulk-import', stringParameters, [file])
