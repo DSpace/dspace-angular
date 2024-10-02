@@ -54,13 +54,13 @@ export class SubmissionSectionUploadFileViewComponent implements OnInit {
    * The bitstream's title key
    * @type {string}
    */
-  public fileTitleKey = 'Title';
+  public fileTitleKey: string = 'Title';
 
   /**
    * The bitstream's description key
    * @type {string}
    */
-  public fileDescrKey = 'Description';
+  public fileDescrKey: string = 'Description';
 
   public fileFormat!: string;
 
