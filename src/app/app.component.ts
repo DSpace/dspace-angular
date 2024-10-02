@@ -1,5 +1,5 @@
-import { distinctUntilChanged, take, withLatestFrom, delay } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
+import { distinctUntilChanged, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -9,12 +9,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import {
-  NavigationCancel,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
+import { NavigationCancel, NavigationEnd, NavigationStart, Router, RouterEvent, } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -31,6 +26,10 @@ import { models } from './core/core.module';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { distinctNext } from './core/shared/distinct-next';
+import { RouteService } from './core/services/route.service';
+import { getEditItemPageRoute, getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from './app-routing-paths';
+import { SocialService } from './social/social.service';
+import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 
 @Component({
   selector: 'ds-app',
@@ -61,6 +60,8 @@ export class AppComponent implements OnInit, AfterViewInit {
    * Whether or not the idle modal is is currently open
    */
   idleModalOpen: boolean;
+
+
   /**
    * In order to show sharing component only in csr
    */
@@ -75,15 +76,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     private store: Store<HostWindowState>,
     private authService: AuthService,
     private router: Router,
+    private routeService: RouteService,
     private cssService: CSSVariableService,
     private modalService: NgbModal,
     private modalConfig: NgbModalConfig,
+    private socialService: SocialService,
+    private datadogRumService: DatadogRumService
   ) {
     this.notificationOptions = environment.notifications;
+    this.browserPlatform = isPlatformBrowser(this.platformId);
 
     /* Use models object so all decorators are actually called */
     this.models = models;
-    this.browserPlatform = this.platformId;
 
     if (this.browserPlatform) {
       this.trackIdleModal();
@@ -92,6 +96,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.isThemeLoading$ = this.themeService.isThemeLoading$;
 
     this.storeCSSVariables();
+
+    this.socialService.initialize();
   }
 
   ngOnInit() {
@@ -111,6 +117,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     );
 
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
+
+    this.datadogRumService.initDatadogRum();
   }
 
   private storeCSSVariables() {
@@ -120,11 +128,16 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.router.events.pipe(
-      // delay(0) to prevent "Expression has changed after it was checked" errors
-      delay(0)
-    ).subscribe((event) => {
+      switchMap((event: RouterEvent) => this.routeService.getCurrentUrl().pipe(
+        take(1),
+        map((currentUrl) => [currentUrl, event])
+      ))
+    ).subscribe(([currentUrl, event]: [string, RouterEvent]) => {
       if (event instanceof NavigationStart) {
-        distinctNext(this.isRouteLoading$, true);
+        if (!(currentUrl.startsWith(getEditItemPageRoute()) || currentUrl.startsWith(getWorkspaceItemModuleRoute()) || currentUrl.startsWith(getWorkflowItemModuleRoute()))) {
+          distinctNext(this.isRouteLoading$, true);
+        }
+        // distinctNext(this.isRouteLoading$, true);
       } else if (
         event instanceof NavigationEnd ||
         event instanceof NavigationCancel
