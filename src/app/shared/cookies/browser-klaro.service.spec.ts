@@ -362,12 +362,14 @@ describe('BrowserKlaroService', () => {
               name: trackingIdTestValue,
               values: ['false'],
             }),
-          ).withArgs(FEEDBACK_VERIFICATION_ENABLED_KEY)
-            .and.returnValue(createSuccessfulRemoteDataObject$({
+          )
+          .withArgs(FEEDBACK_VERIFICATION_ENABLED_KEY)
+          .and
+          .returnValue(createSuccessfulRemoteDataObject$({
               ...new ConfigurationProperty(),
               name: trackingIdTestValue,
               values: ['false'],
-            }));
+          }));
       service.initialize();
       expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
