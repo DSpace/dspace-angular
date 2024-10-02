@@ -6737,14 +6737,10 @@
   "item.page.cc.license.title": "Creative Commons license",
 
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
-<<<<<<< AlternativeTextsInThumbnails
-  
+
+  "browse.search-form.placeholder": "Search the repository",
+
   "community.form.thumbnail": "Thumbnail Description",
 
   "collection.form.thumbnail": "Thumbnail Description",
-
-=======
-
-  "browse.search-form.placeholder": "Search the repository",
->>>>>>> main
 }
