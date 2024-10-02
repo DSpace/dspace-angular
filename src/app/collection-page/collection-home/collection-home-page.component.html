@@ -12,13 +12,11 @@
             </ds-comcol-page-header>
             <!-- header text -->
             <ds-comcol-page-content
-                [content]="collection.customHeaderText"
-		[hasInnerHtml]="true">
+                [innerHTML]="sanitizeCustomHeaderText(collection.customHeaderText)">
             </ds-comcol-page-content>
 	    <!-- intro text -->
             <ds-comcol-page-content
-                [content]="collection.customHomePageIntroText"
-		[hasInnerHtml]="true">
+                [innerHTML]="sanitizeCustomIntrotext(collection.customHomePageIntroText)">
             </ds-comcol-page-content>
 	    <!-- Collection logo -->
             <ds-comcol-page-logo *ngIf="logoRD$"
@@ -46,13 +44,11 @@
         <footer *ngIf="(collection.copyrightText || collection.customOwnerNameText || collection.customFooterText)" class="border-top my-5 pt-4">
           <!-- owner name -->
           <ds-comcol-page-content
-              [content]="collection.customOwnerNameText"
-	      [hasInnerHtml]="true">
+              [innerHTML]="sanitizeOwnerNameText(collection.customOwnerNameText)">
           </ds-comcol-page-content>
 	  <!-- footer -->
           <ds-comcol-page-content
-              [content]="collection.customFooterText"
-	      [hasInnerHtml]="true">
+              [innerHTML]="sanitizeCustomFootertext(collection.customFooterText)">
           </ds-comcol-page-content>
           <!-- Copyright -->
           <ds-comcol-page-content

@@ -6,7 +6,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  SecurityContext,
 } from '@angular/core';
+import { DomSanitizer} from '@angular/platform-browser';
 import {
   ActivatedRoute,
   Router,
@@ -103,6 +105,7 @@ export class CollectionHomePageComponent implements OnInit {
     protected authService: AuthService,
     protected authorizationDataService: AuthorizationDataService,
     public dsoNameService: DSONameService,
+    protected sanitizer: DomSanitizer,
   ) {
   }
 
@@ -129,5 +132,16 @@ export class CollectionHomePageComponent implements OnInit {
     return isNotEmpty(object);
   }
 
-
+  public sanitizeCustomHeaderText(value) {
+    return this.sanitizer.sanitize(SecurityContext.HTML, value);
+  }
+  public sanitizeCustomIntrotext(value) {
+    return this.sanitizer.sanitize(SecurityContext.HTML, value);
+  }
+  public sanitizeOwnerNameText(value) {
+    return this.sanitizer.sanitize(SecurityContext.HTML, value);
+  }
+  public sanitizeCustomFootertext(value) {
+    return this.sanitizer.sanitize(SecurityContext.HTML, value);
+  }
 }
