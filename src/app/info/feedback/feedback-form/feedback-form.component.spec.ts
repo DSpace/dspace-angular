@@ -14,23 +14,23 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
 import { Feedback } from '../../../core/feedback/models/feedback.model';
+import { GoogleRecaptchaService } from '../../../core/google-recaptcha/google-recaptcha.service';
+import { CookieService } from '../../../core/services/cookie.service';
 import { RouteService } from '../../../core/services/route.service';
 import { NativeWindowService } from '../../../core/services/window.service';
+import { CookieServiceMock } from '../../../shared/mocks/cookie.service.mock';
 import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { EPersonMock } from '../../../shared/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { FeedbackFormComponent } from './feedback-form.component';
-import { GoogleRecaptchaService } from '../../../core/google-recaptcha/google-recaptcha.service';
-import { CookieService } from '../../../core/services/cookie.service';
-import { CookieServiceMock } from '../../../shared/mocks/cookie.service.mock';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 
 describe('FeedbackFormComponent', () => {
@@ -124,7 +124,7 @@ describe('FeedbackFormComponent', () => {
     it('on submit should call createFeedback of feedbackDataServiceStub service', () => {
       component.createFeedback();
       fixture.detectChanges();
-      expect(feedbackDataService.registerFeedback).toHaveBeenCalled()
+      expect(feedbackDataService.registerFeedback).toHaveBeenCalled();
     });
   });
 

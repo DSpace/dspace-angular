@@ -387,10 +387,10 @@ describe('BrowserKlaroService', () => {
             }),
           ).withArgs(FEEDBACK_VERIFICATION_ENABLED_KEY)
           .and.returnValue(createSuccessfulRemoteDataObject$({
-          ...new ConfigurationProperty(),
-          name: trackingIdTestValue,
-          values: ['false'],
-        }));;
+            ...new ConfigurationProperty(),
+            name: trackingIdTestValue,
+            values: ['false'],
+          }));
       service.initialize();
       expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
@@ -411,10 +411,10 @@ describe('BrowserKlaroService', () => {
           )
           .withArgs(FEEDBACK_VERIFICATION_ENABLED_KEY)
           .and.returnValue(createSuccessfulRemoteDataObject$({
-          ...new ConfigurationProperty(),
-          name: trackingIdTestValue,
-          values: ['false'],
-        }));;
+            ...new ConfigurationProperty(),
+            name: trackingIdTestValue,
+            values: ['false'],
+          }));
       service.initialize();
       expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
