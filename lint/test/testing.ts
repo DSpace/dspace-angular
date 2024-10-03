@@ -17,7 +17,7 @@ import {
 
 
 // Register themed components from test fixture
-themeableComponents.initialize(FIXTURE);
+themeableComponents.initialize(FIXTURE, false);
 
 TypeScriptRuleTester.itOnly = fit;
 TypeScriptRuleTester.itSkip = xit;

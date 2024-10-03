@@ -7,6 +7,7 @@
  */
 
 import { TSESTree } from '@typescript-eslint/utils';
+import chokidar from 'chokidar';
 import { readFileSync } from 'fs';
 import { basename } from 'path';
 import ts, { Identifier } from 'typescript';
@@ -87,7 +88,7 @@ class ThemeableComponentRegistry {
     this.byWrapperPath = new Map();
   }
 
-  public initialize(prefix = '') {
+  public initialize(prefix = '', watch = true) {
     if (this.entries.size > 0) {
       return;
     }
@@ -148,6 +149,20 @@ class ThemeableComponentRegistry {
       traverse(source);
     }
 
+    function unregisterWrapper(path: string) {
+      const entry = themeableComponents.byWrapperPath.get(path);
+
+      if (entry === undefined) {
+        return;
+      }
+
+      themeableComponents.entries.delete(entry);
+      themeableComponents.byWrapperPath.delete(entry.wrapperPath);
+      themeableComponents.byWrapperClass.delete(entry.wrapperClass);
+      themeableComponents.byBasePath.delete(entry.basePath);
+      themeableComponents.byBaseClass.delete(entry.baseClass);
+    }
+
     const glob = require('glob');
 
     // note: this outputs Unix-style paths on Windows
@@ -155,6 +170,15 @@ class ThemeableComponentRegistry {
 
     for (const wrapper of wrappers) {
       registerWrapper(wrapper);
+    }
+
+    // Continue watching files for changes
+    if (watch) {
+      chokidar
+        .watch(prefix + 'src/app/**/themed-*.component.ts')
+        .on('add', registerWrapper)
+        .on('change', registerWrapper)
+        .on('unlink', unregisterWrapper);
     }
   }
 
