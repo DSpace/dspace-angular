@@ -31,7 +31,12 @@ import { FieldUpdate } from '../../../../core/data/object-updates/field-update.m
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { RequestService } from '../../../../core/data/request.service';
-import { ItemBitstreamsService, BitstreamTableEntry, SelectedBitstreamTableEntry } from '../item-bitstreams.service';
+import {
+  ItemBitstreamsService,
+  BitstreamTableEntry,
+  SelectedBitstreamTableEntry,
+  MOVE_KEY
+} from '../item-bitstreams.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { hasValue, hasNoValue } from '../../../../shared/empty.util';
 
@@ -414,6 +419,8 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
       if (dropPage !== this.getCurrentPage()) {
         this.changeToPage(dropPage);
       }
+
+      this.itemBitstreamsService.displaySuccessNotification(MOVE_KEY);
     };
 
     this.itemBitstreamsService.performBitstreamMoveRequest(this.bundle, fromIndex, toIndex, finish);

@@ -3,7 +3,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { RemoteData } from '../../../core/data/remote-data';
-import { isNotEmpty, hasValue, hasNoValue } from '../../../shared/empty.util';
+import { hasValue, hasNoValue } from '../../../shared/empty.util';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,6 +24,8 @@ import { MoveOperation } from 'fast-json-patch';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+
+export const MOVE_KEY = 'item.edit.bitstreams.notifications.move';
 
 /**
  * Interface storing all the information necessary to create a row in the bitstream edit table
@@ -164,6 +166,10 @@ export class ItemBitstreamsService {
     if (hasValue(selected)) {
       this.updateSelectedBitstream(null);
       this.announceClear(selected.bitstream.name);
+
+      if (selected.currentPosition !== selected.originalPosition) {
+        this.displaySuccessNotification(MOVE_KEY);
+      }
     }
   }
 
@@ -265,7 +271,7 @@ export class ItemBitstreamsService {
     this.isPerformingMoveRequest = true;
     this.bundleService.patch(bundle, [moveOperation]).pipe(
       getFirstCompletedRemoteData(),
-      tap((response: RemoteData<Bundle>) => this.displayNotifications('item.edit.bitstreams.notifications.move', [response])),
+      tap((response: RemoteData<Bundle>) => this.displayFailedResponseNotifications(MOVE_KEY, [response])),
       switchMap(() => this.requestService.setStaleByHrefSubstring(bundle.self)),
       take(1),
     ).subscribe(() => {
@@ -321,17 +327,49 @@ export class ItemBitstreamsService {
    * @param responses The returned responses to display notifications for
    */
   displayNotifications(key: string, responses: RemoteData<any>[]) {
-    if (isNotEmpty(responses)) {
-      const failedResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasFailed);
-      const successfulResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasSucceeded);
+    this.displayFailedResponseNotifications(key, responses);
+    this.displaySuccessFulResponseNotifications(key, responses);
+  }
 
-      failedResponses.forEach((response: RemoteData<Bundle>) => {
-        this.notificationsService.error(this.translateService.instant(`${key}.failed.title`), response.errorMessage);
-      });
-      if (successfulResponses.length > 0) {
-        this.notificationsService.success(this.translateService.instant(`${key}.saved.title`), this.translateService.instant(`${key}.saved.content`));
-      }
+  /**
+   * Display an error notification for each failed response with their message
+   * @param key       The i18n key for the notification messages
+   * @param responses The returned responses to display notifications for
+   */
+  displayFailedResponseNotifications(key: string, responses: RemoteData<any>[]) {
+    const failedResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasFailed);
+    failedResponses.forEach((response: RemoteData<Bundle>) => {
+      this.displayErrorNotification(key, response.errorMessage);
+    });
+  }
+
+  /**
+   * Display an error notification with the provided key and message
+   * @param key          The i18n key for the notification messages
+   * @param errorMessage The error message to display
+   */
+  displayErrorNotification(key: string, errorMessage: string) {
+    this.notificationsService.error(this.translateService.instant(`${key}.failed.title`), errorMessage);
+  }
+
+  /**
+   * Display a success notification in case there's at least one successful response
+   * @param key       The i18n key for the notification messages
+   * @param responses The returned responses to display notifications for
+   */
+  displaySuccessFulResponseNotifications(key: string, responses: RemoteData<any>[]) {
+    const successfulResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasSucceeded);
+    if (successfulResponses.length > 0) {
+      this.displaySuccessNotification(key);
     }
+  }
+
+  /**
+   * Display a success notification with the provided key
+   * @param key          The i18n key for the notification messages
+   */
+  displaySuccessNotification(key: string) {
+    this.notificationsService.success(this.translateService.instant(`${key}.saved.title`), this.translateService.instant(`${key}.saved.content`));
   }
 
   /**
