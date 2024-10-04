@@ -12,7 +12,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -25,6 +25,7 @@ import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { getFacetValueForType } from '../../../../search.utils';
+import { LiveRegionService } from '../../../../../../shared/live-region/live-region.service';
 
 @Component({
   selector: 'ds-search-facet-option',
@@ -70,11 +71,18 @@ export class SearchFacetOptionComponent implements OnInit {
 
   paginationId: string;
 
+  /**
+   * Stores selected filters
+   */
+  selectedFilters = new Set();
+
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected paginationService: PaginationService,
+              protected liveRegionService: LiveRegionService,
+              private translateService: TranslateService,
   ) {
   }
 
@@ -117,6 +125,27 @@ export class SearchFacetOptionComponent implements OnInit {
    */
   getFacetValue(): string {
     return getFacetValueForType(this.filterValue, this.filterConfig);
+  }
+
+  /**
+   * Announces to the screen reader that the page will be reloaded, which filter has been selected
+   * and then implement “filterService.minimizeAll()”
+   */
+  selectingFilter() {
+    const filterValue = this.filterValue.value;
+    if (!this.selectedFilters.has(filterValue)) {
+      this.translateService.get('search-facet-option.update.announcement')
+        .subscribe(translatedMessage => {
+          const message = `${translatedMessage} ${filterValue}`;
+          this.liveRegionService.addMessage(message);
+
+          setTimeout(() => {
+            this.liveRegionService.clear();
+          }, this.liveRegionService.getMessageTimeOutMs());
+          this.selectedFilters.add(filterValue);
+        });
+    }
+    this.filterService.minimizeAll();
   }
 
 }
