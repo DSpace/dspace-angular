@@ -15,7 +15,6 @@ import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
-import { ItemEditBitstreamComponent } from './item-bitstreams/item-edit-bitstream/item-edit-bitstream.component';
 import { SearchPageModule } from '../../search-page/search-page.module';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
@@ -78,7 +77,6 @@ import {
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
     ItemVersionHistoryComponent,
-    ItemEditBitstreamComponent,
     ItemEditBitstreamBundleComponent,
     EditRelationshipComponent,
     EditRelationshipListComponent,
