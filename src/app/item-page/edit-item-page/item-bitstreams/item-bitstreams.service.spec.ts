@@ -1,4 +1,4 @@
-import { ItemBitstreamsService } from './item-bitstreams.service';
+import { ItemBitstreamsService, SelectedBitstreamTableEntry } from './item-bitstreams.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { ObjectUpdatesServiceStub } from '../../../core/data/object-updates/object-updates.service.stub';
@@ -22,6 +22,9 @@ import { LiveRegionService } from '../../../shared/live-region/live-region.servi
 import { Bundle } from '../../../core/shared/bundle.model';
 import { of } from 'rxjs';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
+import { fakeAsync, tick } from '@angular/core/testing';
+import createSpy = jasmine.createSpy;
+import { MoveOperation } from 'fast-json-patch';
 
 describe('ItemBitstreamsService', () => {
   let service: ItemBitstreamsService;
@@ -58,6 +61,444 @@ describe('ItemBitstreamsService', () => {
       requestService,
       liveRegionService,
     );
+  });
+
+  const defaultEntry: SelectedBitstreamTableEntry = {
+    bitstream: {
+      name: 'bitstream name',
+    } as any,
+    bundle: Object.assign(new Bundle(), {
+      _links: { self: { href: 'self_link' }},
+    }),
+    bundleSize: 10,
+    currentPosition: 0,
+    originalPosition: 0,
+  };
+
+  describe('selectBitstreamEntry', () => {
+    it('should correctly make getSelectedBitstream$ emit', fakeAsync(() => {
+      const emittedEntries = [];
+
+      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+
+      expect(emittedEntries.length).toBe(1);
+      expect(emittedEntries[0]).toBeNull();
+
+      const entry = Object.assign({}, defaultEntry);
+
+      service.selectBitstreamEntry(entry);
+      tick();
+
+      expect(emittedEntries.length).toBe(2);
+      expect(emittedEntries[1]).toEqual(entry);
+    }));
+
+    it('should correctly make getSelectedBitstream return the bitstream', () => {
+      expect(service.getSelectedBitstream()).toBeNull();
+
+      const entry = Object.assign({}, defaultEntry);
+
+      service.selectBitstreamEntry(entry);
+      expect(service.getSelectedBitstream()).toEqual(entry);
+    });
+
+    it('should correctly make hasSelectedBitstream return', () => {
+      expect(service.hasSelectedBitstream()).toBeFalse();
+
+      const entry = Object.assign({}, defaultEntry);
+
+      service.selectBitstreamEntry(entry);
+      expect(service.hasSelectedBitstream()).toBeTrue();
+    });
+
+    it('should do nothing if no entry was provided', fakeAsync(() => {
+      const emittedEntries = [];
+
+      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+
+      expect(emittedEntries.length).toBe(1);
+      expect(emittedEntries[0]).toBeNull();
+
+      const entry = Object.assign({}, defaultEntry);
+
+      service.selectBitstreamEntry(entry);
+      tick();
+
+      expect(emittedEntries.length).toBe(2);
+      expect(emittedEntries[1]).toEqual(entry);
+
+      service.selectBitstreamEntry(null);
+      tick();
+
+      expect(emittedEntries.length).toBe(2);
+      expect(emittedEntries[1]).toEqual(entry);
+    }));
+
+    it('should announce the selected bitstream', () => {
+      const entry = Object.assign({}, defaultEntry);
+
+      spyOn(service, 'announceSelect');
+
+      service.selectBitstreamEntry(entry);
+      expect(service.announceSelect).toHaveBeenCalledWith(entry.bitstream.name);
+    });
+  });
+
+  describe('clearSelection', () => {
+    it('should clear the selected bitstream', fakeAsync(() => {
+      const emittedEntries = [];
+
+      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+
+      expect(emittedEntries.length).toBe(1);
+      expect(emittedEntries[0]).toBeNull();
+
+      const entry = Object.assign({}, defaultEntry);
+
+      service.selectBitstreamEntry(entry);
+      tick();
+
+      expect(emittedEntries.length).toBe(2);
+      expect(emittedEntries[1]).toEqual(entry);
+
+      service.clearSelection();
+      tick();
+
+      expect(emittedEntries.length).toBe(3);
+      expect(emittedEntries[2]).toBeNull();
+    }));
+
+    it('should not do anything if there is no selected bitstream', fakeAsync(() => {
+      const emittedEntries = [];
+
+      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+
+      expect(emittedEntries.length).toBe(1);
+      expect(emittedEntries[0]).toBeNull();
+
+      service.clearSelection();
+      tick();
+
+      expect(emittedEntries.length).toBe(1);
+      expect(emittedEntries[0]).toBeNull();
+    }));
+
+    it('should announce the cleared bitstream', () => {
+      const entry = Object.assign({}, defaultEntry);
+
+      spyOn(service, 'announceClear');
+      service.selectBitstreamEntry(entry);
+      service.clearSelection();
+
+      expect(service.announceClear).toHaveBeenCalledWith(entry.bitstream.name);
+    });
+
+    it('should display a notification if the selected bitstream was moved', () => {
+      const entry = Object.assign({}, defaultEntry,
+        {
+          originalPosition: 5,
+          currentPosition: 7,
+        }
+      );
+
+      spyOn(service, 'displaySuccessNotification');
+      service.selectBitstreamEntry(entry);
+      service.clearSelection();
+
+      expect(service.displaySuccessNotification).toHaveBeenCalled();
+    });
+
+    it('should not display a notification if the selected bitstream is in its original position', () => {
+      const entry = Object.assign({}, defaultEntry,
+        {
+          originalPosition: 7,
+          currentPosition: 7,
+        }
+      );
+
+      spyOn(service, 'displaySuccessNotification');
+      service.selectBitstreamEntry(entry);
+      service.clearSelection();
+
+      expect(service.displaySuccessNotification).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('cancelSelection', () => {
+    it('should clear the selected bitstream', fakeAsync(() => {
+      const emittedEntries = [];
+
+      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+
+      expect(emittedEntries.length).toBe(1);
+      expect(emittedEntries[0]).toBeNull();
+
+      const entry = Object.assign({}, defaultEntry);
+
+      service.selectBitstreamEntry(entry);
+      tick();
+
+      expect(emittedEntries.length).toBe(2);
+      expect(emittedEntries[1]).toEqual(entry);
+
+      service.cancelSelection();
+      tick();
+
+      expect(emittedEntries.length).toBe(3);
+      expect(emittedEntries[2]).toBeNull();
+    }));
+
+    it('should announce a clear if the bitstream has not moved', () => {
+      const entry = Object.assign({}, defaultEntry,
+        {
+          originalPosition: 7,
+          currentPosition: 7,
+        }
+      );
+
+      spyOn(service, 'announceClear');
+      spyOn(service, 'announceCancel');
+
+      service.selectBitstreamEntry(entry);
+      service.cancelSelection();
+
+      expect(service.announceClear).toHaveBeenCalledWith(entry.bitstream.name);
+      expect(service.announceCancel).not.toHaveBeenCalled();
+    });
+
+    it('should announce a cancel if the bitstream has moved', () => {
+      const entry = Object.assign({}, defaultEntry,
+        {
+          originalPosition: 5,
+          currentPosition: 7,
+        }
+      );
+
+      spyOn(service, 'announceClear');
+      spyOn(service, 'announceCancel');
+
+      service.selectBitstreamEntry(entry);
+      service.cancelSelection();
+
+      expect(service.announceClear).not.toHaveBeenCalled();
+      expect(service.announceCancel).toHaveBeenCalledWith(entry.bitstream.name, entry.originalPosition);
+    });
+
+    it('should return the bitstream to its original position if it has moved', () => {
+      const entry = Object.assign({}, defaultEntry,
+        {
+          originalPosition: 5,
+          currentPosition: 7,
+        }
+      );
+
+      spyOn(service, 'performBitstreamMoveRequest');
+
+      service.selectBitstreamEntry(entry);
+      service.cancelSelection();
+
+      expect(service.performBitstreamMoveRequest).toHaveBeenCalledWith(entry.bundle, entry.currentPosition, entry.originalPosition);
+    });
+
+    it('should not move the bitstream if it has not moved', () => {
+      const entry = Object.assign({}, defaultEntry,
+        {
+          originalPosition: 7,
+          currentPosition: 7,
+        }
+      );
+
+      spyOn(service, 'performBitstreamMoveRequest');
+
+      service.selectBitstreamEntry(entry);
+      service.cancelSelection();
+
+      expect(service.performBitstreamMoveRequest).not.toHaveBeenCalled();
+    });
+
+    it('should not do anything if there is no selected bitstream', () => {
+      spyOn(service, 'announceClear');
+      spyOn(service, 'announceCancel');
+      spyOn(service, 'performBitstreamMoveRequest');
+
+      service.cancelSelection();
+
+      expect(service.announceClear).not.toHaveBeenCalled();
+      expect(service.announceCancel).not.toHaveBeenCalled();
+      expect(service.performBitstreamMoveRequest).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('moveSelectedBitstream', () => {
+    beforeEach(() => {
+      spyOn(service, 'performBitstreamMoveRequest').and.callThrough();
+    });
+
+    describe('up', () => {
+      it('should move the selected bitstream one position up', () => {
+        const startPosition = 7;
+        const endPosition = startPosition - 1;
+
+        const entry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: startPosition,
+          }
+        );
+
+        const movedEntry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: endPosition,
+          }
+        );
+
+        service.selectBitstreamEntry(entry);
+        service.moveSelectedBitstreamUp();
+        expect(service.performBitstreamMoveRequest).toHaveBeenCalledWith(entry.bundle, startPosition, endPosition, jasmine.any(Function));
+        expect(service.getSelectedBitstream()).toEqual(movedEntry);
+      });
+
+      it('should announce the move', () => {
+        const startPosition = 7;
+        const endPosition = startPosition - 1;
+
+        spyOn(service, 'announceMove');
+
+        const entry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: startPosition,
+          }
+        );
+
+        service.selectBitstreamEntry(entry);
+        service.moveSelectedBitstreamUp();
+
+        expect(service.announceMove).toHaveBeenCalledWith(entry.bitstream.name, endPosition);
+      });
+
+      it('should not do anything if the bitstream is already at the top', () => {
+        const entry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: 0,
+          }
+        );
+
+        service.selectBitstreamEntry(entry);
+        service.moveSelectedBitstreamUp();
+
+        expect(service.performBitstreamMoveRequest).not.toHaveBeenCalled();
+      });
+
+      it('should not do anything if there is no selected bitstream', () => {
+        service.moveSelectedBitstreamUp();
+
+        expect(service.performBitstreamMoveRequest).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('down', () => {
+      it('should move the selected bitstream one position down', () => {
+        const startPosition = 7;
+        const endPosition = startPosition + 1;
+
+        const entry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: startPosition,
+          }
+        );
+
+        const movedEntry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: endPosition,
+          }
+        );
+
+        service.selectBitstreamEntry(entry);
+        service.moveSelectedBitstreamDown();
+        expect(service.performBitstreamMoveRequest).toHaveBeenCalledWith(entry.bundle, startPosition, endPosition, jasmine.any(Function));
+        expect(service.getSelectedBitstream()).toEqual(movedEntry);
+      });
+
+      it('should announce the move', () => {
+        const startPosition = 7;
+        const endPosition = startPosition + 1;
+
+        spyOn(service, 'announceMove');
+
+        const entry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: startPosition,
+          }
+        );
+
+        service.selectBitstreamEntry(entry);
+        service.moveSelectedBitstreamDown();
+
+        expect(service.announceMove).toHaveBeenCalledWith(entry.bitstream.name, endPosition);
+      });
+
+      it('should not do anything if the bitstream is already at the bottom of the bundle', () => {
+        const entry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: 9,
+          }
+        );
+
+        service.selectBitstreamEntry(entry);
+        service.moveSelectedBitstreamDown();
+
+        expect(service.performBitstreamMoveRequest).not.toHaveBeenCalled();
+      });
+
+      it('should not do anything if there is no selected bitstream', () => {
+        service.moveSelectedBitstreamDown();
+
+        expect(service.performBitstreamMoveRequest).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('performBitstreamMoveRequest', () => {
+    const bundle: Bundle = defaultEntry.bundle;
+    const from = 5;
+    const to = 7;
+    const callback = createSpy('callbackFunction');
+
+    console.log('bundle:', bundle);
+
+    it('should correctly create the Move request', () => {
+      const expectedOperation: MoveOperation = {
+        op: 'move',
+        from: `/_links/bitstreams/${from}/href`,
+        path: `/_links/bitstreams/${to}/href`,
+      };
+
+      service.performBitstreamMoveRequest(bundle, from, to, callback);
+      expect(bundleDataService.patch).toHaveBeenCalledWith(bundle, [expectedOperation]);
+    });
+
+    it('should correctly make the bundle\'s self link stale', () => {
+      service.performBitstreamMoveRequest(bundle, from, to, callback);
+      expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(bundle._links.self.href);
+    });
+
+    it('should attempt to show a message should the request have failed', () => {
+      spyOn(service, 'displayFailedResponseNotifications');
+      service.performBitstreamMoveRequest(bundle, from, to, callback);
+      expect(service.displayFailedResponseNotifications).toHaveBeenCalled();
+    });
+
+    it('should correctly call the provided function once the request has finished', () => {
+      service.performBitstreamMoveRequest(bundle, from, to, callback);
+      expect(callback).toHaveBeenCalled();
+    });
   });
 
   describe('displayNotifications', () => {

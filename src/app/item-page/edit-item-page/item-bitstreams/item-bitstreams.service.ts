@@ -143,7 +143,7 @@ export class ItemBitstreamsService {
    * Select the provided entry
    */
   selectBitstreamEntry(entry: SelectedBitstreamTableEntry) {
-    if (entry !== this.selectedBitstream$.getValue()) {
+    if (hasValue(entry) && entry !== this.selectedBitstream$.getValue()) {
       this.announceSelect(entry.bitstream.name);
       this.updateSelectedBitstream(entry);
     }
@@ -184,7 +184,7 @@ export class ItemBitstreamsService {
       return;
     }
 
-    this.selectedBitstream$.next(null);
+    this.updateSelectedBitstream(null);
 
     const originalPosition = selected.originalPosition;
     const currentPosition = selected.currentPosition;
