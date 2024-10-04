@@ -101,9 +101,11 @@ export class ThumbnailComponent implements OnInit, OnChanges {
    * when rendering the screen.
    */
   ngOnInit(): void{
-    if ('payload' in this.thumbnail) {
-      this.listenThumbnail = this.thumbnail;
-      this.customDescription = this.listenThumbnail.payload.metadata['dc.description'][0].value;
+    if (this.thumbnail){
+      if ('payload' in this.thumbnail) {
+        this.listenThumbnail = this.thumbnail;
+        this.customDescription = this.listenThumbnail.payload.metadata['dc.description'][0].value;
+      }
     }
   }
 
