@@ -6,7 +6,9 @@
                  [hidePaginationDetail]="true"
                  [paginationOptions]="paginationOptions"
                  [collectionSize]="bitstreamsList.totalElements"
-                 [retainScrollPosition]="true">
+                 [retainScrollPosition]="true"
+                 [ngbTooltip]="'item.edit.bitstreams.bundle.tooltip' | translate" placement="bottom"
+                 [autoClose]="false" triggers="manual" #dragTooltip="ngbTooltip">
     <ng-container *ngIf="(updates$ | async) as updates">
 
       <table class="table" [class.mt-n1]="!isFirstTable"
@@ -28,9 +30,7 @@
         </tr>
         </thead>
 
-        <tbody cdkDropList (cdkDropListDropped)="drop($event)"
-               [ngbTooltip]="'item.edit.bitstreams.bundle.tooltip' | translate" placement="bottom-left"
-               [autoClose]="false" triggers="manual" #dragTooltip="ngbTooltip">
+        <tbody cdkDropList (cdkDropListDropped)="drop($event)">
         <tr class="bundle-row">
           <th id="{{ bundleName }}" class="span" colspan="3" scope="colgroup">
             {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundleName } }}
