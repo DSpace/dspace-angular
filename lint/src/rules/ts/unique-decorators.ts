@@ -16,7 +16,16 @@ export enum Message {
   DUPLICATE_DECORATOR_CALL = 'duplicateDecoratorCall',
 }
 
-const decoratorCalls: Map<string, Set<string>> = new Map();
+/**
+ * Saves the decorators by decoratorName → file → Set<String>
+ */
+const decoratorCalls: Map<string, Map<string, Set<string>>> = new Map();
+
+/**
+ * Keep a list of the files wo contain a decorator. This is done in order to prevent the `Program` selector from being
+ * run for every file.
+ */
+const fileWithDecorators: Set<string> = new Set();
 
 export interface UniqueDecoratorsOptions {
   decorators: string[];
@@ -72,6 +81,13 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
   create(context: TSESLint.RuleContext<Message, unknown[]>, options: any) {
 
     return {
+      ['Program']: () => {
+        if (fileWithDecorators.has(context.physicalFilename)) {
+          for (const decorator of options[0].decorators) {
+            decoratorCalls.get(decorator)?.get(context.physicalFilename)?.clear();
+          }
+        }
+      },
       [`ClassDeclaration > Decorator > CallExpression[callee.name=/^(${options[0].decorators.join('|')})$/]`]: (node: TSESTree.CallExpression) => {
         if (isTestFile(context)) {
           return;
@@ -82,7 +98,9 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
           return;
         }
 
-        if (!isUnique(node)) {
+        fileWithDecorators.add(context.physicalFilename);
+
+        if (!isUnique(node, context.physicalFilename)) {
           context.report({
             messageId: Message.DUPLICATE_DECORATOR_CALL,
             node: node,
@@ -180,22 +198,29 @@ function callKey(node: TSESTree.CallExpression): string {
   return key;
 }
 
-function isUnique(node: TSESTree.CallExpression): boolean {
+function isUnique(node: TSESTree.CallExpression, filePath: string): boolean {
   const decorator = (node.callee as TSESTree.Identifier).name;
 
   if (!decoratorCalls.has(decorator)) {
-    decoratorCalls.set(decorator, new Set());
+    decoratorCalls.set(decorator, new Map());
+  }
+
+  if (!decoratorCalls.get(decorator)!.has(filePath)) {
+    decoratorCalls.get(decorator)!.set(filePath, new Set());
   }
 
   const key = callKey(node);
 
   let unique = true;
 
-  if (decoratorCalls.get(decorator)?.has(key)) {
-    unique = !unique;
+  for (const decoratorCallsByFile of decoratorCalls.get(decorator)!.values()) {
+    if (decoratorCallsByFile.has(key)) {
+      unique = !unique;
+      break;
+    }
   }
 
-  decoratorCalls.get(decorator)?.add(key);
+  decoratorCalls.get(decorator)?.get(filePath)?.add(key);
 
   return unique;
 }
