@@ -8152,5 +8152,10 @@
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar en el repositorio",
 
+  // "community.form.thumbnail": "Thumbnail Description",
+  "community.form.thumbnail": "Descripción del logotipo de la comunidad",
+
+  // "collection.form.thumbnail": "Thumbnail Description",
+  "collection.form.thumbnail": "Descripción del logo de la colección",
 
 }
