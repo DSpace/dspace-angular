@@ -423,9 +423,17 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
    * Handles a select action for the provided bitstream entry.
    * If the selected bitstream is currently selected, the selection is cleared.
    * If no, or a different bitstream, is selected, the provided bitstream becomes the selected bitstream.
-   * @param bitstream
+   * @param event The event that triggered the select action
+   * @param bitstream The bitstream that is the target of the select action
    */
-  select(bitstream: BitstreamTableEntry) {
+  select(event: UIEvent, bitstream: BitstreamTableEntry) {
+    event.preventDefault();
+
+    if (event instanceof KeyboardEvent && event.repeat) {
+      // Don't handle hold events, otherwise it would change rapidly between being selected and unselected
+      return;
+    }
+
     const selectedBitstream = this.itemBitstreamsService.getSelectedBitstream();
 
     if (hasValue(selectedBitstream) && selectedBitstream.bitstream === bitstream) {

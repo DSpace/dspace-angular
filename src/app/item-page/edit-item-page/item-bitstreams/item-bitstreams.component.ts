@@ -138,6 +138,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     // Otherwise we might clear the selection when a different action was intended, e.g. clicking a button or selecting
     // a different bitstream.
     if (event.target instanceof Element && event.target.tagName === 'BODY') {
+      event.preventDefault();
       this.itemBitstreamsService.clearSelection();
     }
   }
