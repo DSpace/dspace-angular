@@ -137,7 +137,11 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     // Only when no specific element is in focus do we want to clear the currently selected bitstream
     // Otherwise we might clear the selection when a different action was intended, e.g. clicking a button or selecting
     // a different bitstream.
-    if (event.target instanceof Element && event.target.tagName === 'BODY') {
+    if (
+      this.itemBitstreamsService.hasSelectedBitstream() &&
+      event.target instanceof Element &&
+      event.target.tagName === 'BODY'
+    ) {
       event.preventDefault();
       this.itemBitstreamsService.clearSelection();
     }
