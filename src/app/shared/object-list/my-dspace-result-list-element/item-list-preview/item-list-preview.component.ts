@@ -10,7 +10,7 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import {
   DuplicateMatchMetadataDetailConfig
 } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
-import { parseISO, differenceInDays, differenceInMilliseconds } from "date-fns";
+import { parseISO, differenceInDays, differenceInMilliseconds } from 'date-fns';
 import { environment } from '../../../../../environments/environment';
 
 /**
