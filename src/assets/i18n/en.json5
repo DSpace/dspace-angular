@@ -6825,6 +6825,8 @@
 
   "vocabulary-treeview.info": "Select a subject to add as search filter",
 
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+
   "uploader.browse": "browse",
 
   "uploader.drag-message": "Drag & Drop your files here",
