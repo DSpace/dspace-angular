@@ -243,9 +243,8 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
    * Handles a change in selected bitstream by changing the pagination if the change happened on a different page
    * @param previousSelectedEntry The previously selected entry
    * @param currentSelectedEntry  The currently selected entry
-   * @protected
    */
-  protected handleSelectedEntryChange(
+  handleSelectedEntryChange(
     previousSelectedEntry: SelectedBitstreamTableEntry,
     currentSelectedEntry: SelectedBitstreamTableEntry
   ) {
