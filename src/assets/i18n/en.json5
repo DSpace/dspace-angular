@@ -7243,6 +7243,8 @@
 
   "lucky.search.multiple.records": "may refer to multiple records",
 
+  "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
+
   "invitation.group.msg": "You have been invited to join the following groups",
 
   "invitation.accept-btn": "Accept",
