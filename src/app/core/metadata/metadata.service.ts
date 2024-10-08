@@ -446,23 +446,6 @@ export class MetadataService {
   }
 
   /**
-   * Add <meta name="og:title" ... >  to the <head>
-   */
-  private setOpenGraphTitleTag(title?: string): void {
-    const value = title ?? this.getMetaTagValue('dc.title');
-    this.addMetaTag('og:title', value);
-  }
-
-  /**
-   * Add <meta name="og:description" ... >  to the <head>
-   */
-  private setOpenGraphDescriptionTag(description?: string): void {
-    // TODO: truncate abstract
-    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
-    this.addMetaTag('og:description', value);
-  }
-
-  /**
    * Add <meta name="og:image" ... >  to the <head>
    */
   private setOpenGraphImageTag(): void {
@@ -477,23 +460,6 @@ export class MetadataService {
     this.addMetaTag('og:url', value);
 }
 
-
-  /**
-   * Add <meta name="twitter:title" ... >  to the <head>
-   */
-  private setTwitterTitleTag(title?: string): void {
-    const value = title ?? this.getMetaTagValue('dc.title');
-    this.addMetaTag('twitter:title', value);
-  }
-
-  /**
-   * Add <meta name="twitter:description" ... >  to the <head>
-   */
-  private setTwitterDescriptionTag(description?: string): void {
-    // TODO: truncate abstract
-    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
-    this.addMetaTag('twitter:description', value);
-  }
 
   /**
    * Add <meta name="twitter:image" ... >  to the <head>
@@ -766,15 +732,11 @@ export class MetadataService {
     this.setTitleTags(pageDocumentTitle);
     this.setDescriptionTags(this.defaultPageDescription);
 
-    this.setOpenGraphTitleTag(pageDocumentTitle);
-    this.setOpenGraphDescriptionTag(this.defaultPageDescription);
     this.setOpenGraphUrlTag(pageUrl);
     this.setOpenGraphImageTag();
     this.setOpenGraphTypeTag(genericPageOpenGraphType);
 
 
-    this.setTwitterTitleTag(pageDocumentTitle);
-    this.setTwitterDescriptionTag(this.defaultPageDescription);
     this.setTwitterImageTag();
     this.setTwitterSummaryCardTag();
   }
