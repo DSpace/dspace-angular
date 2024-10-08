@@ -69,13 +69,20 @@ export class SubmissionRestService {
    *    The identifier for the object
    * @param collectionId
    *    The owning collection for the object
+   * @param projections
    */
-  protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string): string {
+  protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string, projections: string[] = []): string {
     let url = isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
-    url = new URLCombiner(url, '?embed=item,sections,collection').toString();
+    url = new URLCombiner(url, '?embed=item,sections,collection&projection=full').toString();
+
+    projections.forEach((projection) => {
+      url = new URLCombiner(url, '&projection=' + projection).toString();
+    });
+
     if (collectionId) {
       url = new URLCombiner(url, `&owningCollection=${collectionId}`).toString();
     }
+
     return url;
   }
 
@@ -108,13 +115,14 @@ export class SubmissionRestService {
    *    The endpoint link name
    * @param id
    *    The submission Object to retrieve
+   * @param projections
    * @return Observable<SubmitDataResponseDefinitionObject>
    *     server response
    */
-  public getDataById(linkName: string, id: string): Observable<SubmitDataResponseDefinitionObject> {
+  public getDataById(linkName: string, id: string, projections: string[] = []): Observable<SubmitDataResponseDefinitionObject> {
     const requestId = this.requestService.generateRequestId();
     return this.halService.getEndpoint(linkName).pipe(
-      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id)),
+      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id, null, projections)),
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => new SubmissionRequest(requestId, endpointURL)),
