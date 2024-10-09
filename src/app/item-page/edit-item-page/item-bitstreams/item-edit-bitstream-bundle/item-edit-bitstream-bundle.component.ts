@@ -25,7 +25,7 @@ import {
   paginatedListToArray,
 } from '../../../../core/shared/operators';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { map, take, filter, tap, pairwise } from 'rxjs/operators';
+import { map, take, filter, tap } from 'rxjs/operators';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
@@ -35,7 +35,7 @@ import {
   ItemBitstreamsService,
   BitstreamTableEntry,
   SelectedBitstreamTableEntry,
-  MOVE_KEY
+  MOVE_KEY, SelectionAction
 } from '../item-bitstreams.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { hasValue, hasNoValue } from '../../../../shared/empty.util';
@@ -233,31 +233,37 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
 
   protected initializeSelectionActions() {
     this.subscriptions.push(
-      this.itemBitstreamsService.getSelectedBitstream$().pipe(pairwise()).subscribe(
-        ([previousSelection, currentSelection]) =>
-          this.handleSelectedEntryChange(previousSelection, currentSelection))
+      this.itemBitstreamsService.getSelectionAction$().subscribe(
+        selectionAction => this.handleSelectionAction(selectionAction))
     );
   }
 
   /**
    * Handles a change in selected bitstream by changing the pagination if the change happened on a different page
-   * @param previousSelectedEntry The previously selected entry
-   * @param currentSelectedEntry  The currently selected entry
+   * @param selectionAction
    */
-  handleSelectedEntryChange(
-    previousSelectedEntry: SelectedBitstreamTableEntry,
-    currentSelectedEntry: SelectedBitstreamTableEntry
-  ) {
-    if (hasValue(currentSelectedEntry) && currentSelectedEntry.bundle === this.bundle) {
-      // If the currently selected bitstream belongs to this bundle, it has possibly moved to a different page.
-      // In that case we want to change the pagination to the new page.
-      this.redirectToCurrentPage(currentSelectedEntry);
+  handleSelectionAction(selectionAction: SelectionAction) {
+    if (hasNoValue(selectionAction) || selectionAction.selectedEntry.bundle !== this.bundle) {
+      return;
     }
 
-    // If the selection is cancelled or cleared, it is possible the selected bitstream is currently on a different page
-    // In that case we want to change the pagination to the place where the bitstream was returned to
-    if (hasNoValue(currentSelectedEntry) && hasValue(previousSelectedEntry) && previousSelectedEntry.bundle === this.bundle) {
-      this.redirectToOriginalPage(previousSelectedEntry);
+    if (selectionAction.action === 'Moved') {
+      // If the currently selected bitstream belongs to this bundle, it has possibly moved to a different page.
+      // In that case we want to change the pagination to the new page.
+      this.redirectToCurrentPage(selectionAction.selectedEntry);
+    }
+
+    if (selectionAction.action === 'Cancelled') {
+      // If the selection is cancelled (and returned to its original position), it is possible the previously selected
+      // bitstream is returned to a different page. In that case we want to change the pagination to the place where
+      // the bitstream was returned to.
+      this.redirectToOriginalPage(selectionAction.selectedEntry);
+    }
+
+    if (selectionAction.action === 'Cleared') {
+      // If the selection is cleared, it is possible the previously selected bitstream is on a different page. In that
+      // case we want to change the pagination to the place where the bitstream is.
+      this.redirectToCurrentPage(selectionAction.selectedEntry);
     }
   }
 

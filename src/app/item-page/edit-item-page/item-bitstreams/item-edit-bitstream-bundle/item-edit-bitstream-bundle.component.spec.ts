@@ -107,15 +107,8 @@ describe('ItemEditBitstreamBundleComponent', () => {
     });
 
     it('should move to the page the selected entry is on if were not on that page', () => {
-      const selectedA: SelectedBitstreamTableEntry = {
-        bitstream: null,
-        bundle: bundle,
-        bundleSize: 5,
-        originalPosition: 1,
-        currentPosition: 1,
-      };
 
-      const selectedB: SelectedBitstreamTableEntry = {
+      const entry: SelectedBitstreamTableEntry = {
         bitstream: null,
         bundle: bundle,
         bundleSize: 5,
@@ -123,20 +116,12 @@ describe('ItemEditBitstreamBundleComponent', () => {
         currentPosition: 2,
       };
 
-      comp.handleSelectedEntryChange(selectedA, selectedB);
+      comp.handleSelectionAction({ action: 'Moved', selectedEntry: entry });
       expect(paginationComponent.doPageChange).toHaveBeenCalledWith(2);
     });
 
     it('should not change page when we are already on the correct page', () => {
-      const selectedA: SelectedBitstreamTableEntry = {
-        bitstream: null,
-        bundle: bundle,
-        bundleSize: 5,
-        originalPosition: 0,
-        currentPosition: 0,
-      };
-
-      const selectedB: SelectedBitstreamTableEntry = {
+      const entry: SelectedBitstreamTableEntry = {
         bitstream: null,
         bundle: bundle,
         bundleSize: 5,
@@ -144,12 +129,12 @@ describe('ItemEditBitstreamBundleComponent', () => {
         currentPosition: 1,
       };
 
-      comp.handleSelectedEntryChange(selectedA, selectedB);
+      comp.handleSelectionAction({ action: 'Moved', selectedEntry: entry });
       expect(paginationComponent.doPageChange).not.toHaveBeenCalled();
     });
 
     it('should change to the original page when cancelling', () => {
-      const selectedA: SelectedBitstreamTableEntry = {
+      const entry: SelectedBitstreamTableEntry = {
         bitstream: null,
         bundle: bundle,
         bundleSize: 5,
@@ -157,14 +142,12 @@ describe('ItemEditBitstreamBundleComponent', () => {
         currentPosition: 0,
       };
 
-      const selectedB = null;
-
-      comp.handleSelectedEntryChange(selectedA, selectedB);
+      comp.handleSelectionAction({ action: 'Cancelled', selectedEntry: entry });
       expect(paginationComponent.doPageChange).toHaveBeenCalledWith(2);
     });
 
     it('should not change page when we are already on the correct page when cancelling', () => {
-      const selectedA: SelectedBitstreamTableEntry = {
+      const entry: SelectedBitstreamTableEntry = {
         bitstream: null,
         bundle: bundle,
         bundleSize: 5,
@@ -172,9 +155,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
         currentPosition: 3,
       };
 
-      const selectedB = null;
-
-      comp.handleSelectedEntryChange(selectedA, selectedB);
+      comp.handleSelectionAction({ action: 'Cancelled', selectedEntry: entry });
       expect(paginationComponent.doPageChange).not.toHaveBeenCalled();
     });
   });

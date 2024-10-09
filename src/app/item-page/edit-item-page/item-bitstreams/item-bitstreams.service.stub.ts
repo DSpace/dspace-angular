@@ -9,7 +9,7 @@ export function getItemBitstreamsServiceStub(): ItemBitstreamsServiceStub {
 }
 
 export class ItemBitstreamsServiceStub {
-  getSelectedBitstream$ = jasmine.createSpy('getSelectedBitstream$').and
+  getSelectionAction$ = jasmine.createSpy('getSelectedBitstream$').and
     .returnValue(of(null));
 
   getSelectedBitstream = jasmine.createSpy('getSelectedBitstream').and

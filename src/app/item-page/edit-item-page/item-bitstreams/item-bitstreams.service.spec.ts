@@ -77,20 +77,20 @@ describe('ItemBitstreamsService', () => {
 
   describe('selectBitstreamEntry', () => {
     it('should correctly make getSelectedBitstream$ emit', fakeAsync(() => {
-      const emittedEntries = [];
+      const emittedActions = [];
 
-      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+      service.getSelectionAction$().subscribe(selected => emittedActions.push(selected));
 
-      expect(emittedEntries.length).toBe(1);
-      expect(emittedEntries[0]).toBeNull();
+      expect(emittedActions.length).toBe(1);
+      expect(emittedActions[0]).toBeNull();
 
       const entry = Object.assign({}, defaultEntry);
 
       service.selectBitstreamEntry(entry);
       tick();
 
-      expect(emittedEntries.length).toBe(2);
-      expect(emittedEntries[1]).toEqual(entry);
+      expect(emittedActions.length).toBe(2);
+      expect(emittedActions[1]).toEqual({ action: 'Selected', selectedEntry: entry });
     }));
 
     it('should correctly make getSelectedBitstream return the bitstream', () => {
@@ -112,26 +112,26 @@ describe('ItemBitstreamsService', () => {
     });
 
     it('should do nothing if no entry was provided', fakeAsync(() => {
-      const emittedEntries = [];
+      const emittedActions = [];
 
-      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+      service.getSelectionAction$().subscribe(selected => emittedActions.push(selected));
 
-      expect(emittedEntries.length).toBe(1);
-      expect(emittedEntries[0]).toBeNull();
+      expect(emittedActions.length).toBe(1);
+      expect(emittedActions[0]).toBeNull();
 
       const entry = Object.assign({}, defaultEntry);
 
       service.selectBitstreamEntry(entry);
       tick();
 
-      expect(emittedEntries.length).toBe(2);
-      expect(emittedEntries[1]).toEqual(entry);
+      expect(emittedActions.length).toBe(2);
+      expect(emittedActions[1]).toEqual({ action: 'Selected', selectedEntry: entry });
 
       service.selectBitstreamEntry(null);
       tick();
 
-      expect(emittedEntries.length).toBe(2);
-      expect(emittedEntries[1]).toEqual(entry);
+      expect(emittedActions.length).toBe(2);
+      expect(emittedActions[1]).toEqual({ action: 'Selected', selectedEntry: entry });
     }));
 
     it('should announce the selected bitstream', () => {
@@ -146,41 +146,41 @@ describe('ItemBitstreamsService', () => {
 
   describe('clearSelection', () => {
     it('should clear the selected bitstream', fakeAsync(() => {
-      const emittedEntries = [];
+      const emittedActions = [];
 
-      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+      service.getSelectionAction$().subscribe(selected => emittedActions.push(selected));
 
-      expect(emittedEntries.length).toBe(1);
-      expect(emittedEntries[0]).toBeNull();
+      expect(emittedActions.length).toBe(1);
+      expect(emittedActions[0]).toBeNull();
 
       const entry = Object.assign({}, defaultEntry);
 
       service.selectBitstreamEntry(entry);
       tick();
 
-      expect(emittedEntries.length).toBe(2);
-      expect(emittedEntries[1]).toEqual(entry);
+      expect(emittedActions.length).toBe(2);
+      expect(emittedActions[1]).toEqual({ action: 'Selected', selectedEntry: entry });
 
       service.clearSelection();
       tick();
 
-      expect(emittedEntries.length).toBe(3);
-      expect(emittedEntries[2]).toBeNull();
+      expect(emittedActions.length).toBe(3);
+      expect(emittedActions[2]).toEqual({ action: 'Cleared', selectedEntry: entry });
     }));
 
     it('should not do anything if there is no selected bitstream', fakeAsync(() => {
-      const emittedEntries = [];
+      const emittedActions = [];
 
-      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+      service.getSelectionAction$().subscribe(selected => emittedActions.push(selected));
 
-      expect(emittedEntries.length).toBe(1);
-      expect(emittedEntries[0]).toBeNull();
+      expect(emittedActions.length).toBe(1);
+      expect(emittedActions[0]).toBeNull();
 
       service.clearSelection();
       tick();
 
-      expect(emittedEntries.length).toBe(1);
-      expect(emittedEntries[0]).toBeNull();
+      expect(emittedActions.length).toBe(1);
+      expect(emittedActions[0]).toBeNull();
     }));
 
     it('should announce the cleared bitstream', () => {
@@ -225,27 +225,53 @@ describe('ItemBitstreamsService', () => {
   });
 
   describe('cancelSelection', () => {
-    it('should clear the selected bitstream', fakeAsync(() => {
-      const emittedEntries = [];
+    it('should clear the selected bitstream if it has not moved', fakeAsync(() => {
+      const emittedActions = [];
 
-      service.getSelectedBitstream$().subscribe(selected => emittedEntries.push(selected));
+      service.getSelectionAction$().subscribe(selected => emittedActions.push(selected));
 
-      expect(emittedEntries.length).toBe(1);
-      expect(emittedEntries[0]).toBeNull();
+      expect(emittedActions.length).toBe(1);
+      expect(emittedActions[0]).toBeNull();
 
       const entry = Object.assign({}, defaultEntry);
 
       service.selectBitstreamEntry(entry);
       tick();
 
-      expect(emittedEntries.length).toBe(2);
-      expect(emittedEntries[1]).toEqual(entry);
+      expect(emittedActions.length).toBe(2);
+      expect(emittedActions[1]).toEqual({ action: 'Selected', selectedEntry: entry });
 
       service.cancelSelection();
       tick();
 
-      expect(emittedEntries.length).toBe(3);
-      expect(emittedEntries[2]).toBeNull();
+      expect(emittedActions.length).toBe(3);
+      expect(emittedActions[2]).toEqual({ action: 'Cleared', selectedEntry: entry });
+    }));
+
+    it('should cancel the selected bitstream if it has moved', fakeAsync(() => {
+      const emittedActions = [];
+
+      service.getSelectionAction$().subscribe(selected => emittedActions.push(selected));
+
+      expect(emittedActions.length).toBe(1);
+      expect(emittedActions[0]).toBeNull();
+
+      const entry = Object.assign({}, defaultEntry, {
+        originalPosition: 0,
+        currentPosition: 3,
+      });
+
+      service.selectBitstreamEntry(entry);
+      tick();
+
+      expect(emittedActions.length).toBe(2);
+      expect(emittedActions[1]).toEqual({ action: 'Selected', selectedEntry: entry });
+
+      service.cancelSelection();
+      tick();
+
+      expect(emittedActions.length).toBe(3);
+      expect(emittedActions[2]).toEqual({ action: 'Cancelled', selectedEntry: entry });
     }));
 
     it('should announce a clear if the bitstream has not moved', () => {
@@ -359,6 +385,44 @@ describe('ItemBitstreamsService', () => {
         expect(service.getSelectedBitstream()).toEqual(movedEntry);
       });
 
+      it('should emit the move', fakeAsync(() => {
+        const emittedActions = [];
+
+        service.getSelectionAction$().subscribe(selected => emittedActions.push(selected));
+
+        expect(emittedActions.length).toBe(1);
+        expect(emittedActions[0]).toBeNull();
+
+        const startPosition = 7;
+        const endPosition = startPosition - 1;
+
+        const entry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: startPosition,
+          }
+        );
+
+        const movedEntry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: endPosition,
+          }
+        );
+
+        service.selectBitstreamEntry(entry);
+        tick();
+
+        expect(emittedActions.length).toBe(2);
+        expect(emittedActions[1]).toEqual({ action: 'Selected', selectedEntry: entry });
+
+        service.moveSelectedBitstreamUp();
+        tick();
+
+        expect(emittedActions.length).toBe(3);
+        expect(emittedActions[2]).toEqual({ action: 'Moved', selectedEntry: movedEntry });
+      }));
+
       it('should announce the move', () => {
         const startPosition = 7;
         const endPosition = startPosition - 1;
@@ -423,6 +487,44 @@ describe('ItemBitstreamsService', () => {
         expect(service.performBitstreamMoveRequest).toHaveBeenCalledWith(entry.bundle, startPosition, endPosition, jasmine.any(Function));
         expect(service.getSelectedBitstream()).toEqual(movedEntry);
       });
+
+      it('should emit the move', fakeAsync(() => {
+        const emittedActions = [];
+
+        service.getSelectionAction$().subscribe(selected => emittedActions.push(selected));
+
+        expect(emittedActions.length).toBe(1);
+        expect(emittedActions[0]).toBeNull();
+
+        const startPosition = 7;
+        const endPosition = startPosition + 1;
+
+        const entry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: startPosition,
+          }
+        );
+
+        const movedEntry = Object.assign({}, defaultEntry,
+          {
+            originalPosition: 5,
+            currentPosition: endPosition,
+          }
+        );
+
+        service.selectBitstreamEntry(entry);
+        tick();
+
+        expect(emittedActions.length).toBe(2);
+        expect(emittedActions[1]).toEqual({ action: 'Selected', selectedEntry: entry });
+
+        service.moveSelectedBitstreamDown();
+        tick();
+
+        expect(emittedActions.length).toBe(3);
+        expect(emittedActions[2]).toEqual({ action: 'Moved', selectedEntry: movedEntry });
+      }));
 
       it('should announce the move', () => {
         const startPosition = 7;

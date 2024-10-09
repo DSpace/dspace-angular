@@ -88,6 +88,24 @@ export interface SelectedBitstreamTableEntry {
 }
 
 /**
+ * Interface storing data regarding a change in selected bitstream
+ */
+export interface SelectionAction {
+  /**
+   * The different types of actions:
+   *  - Selected: Bitstream was selected
+   *  - Moved: Bitstream was moved
+   *  - Cleared: Selection was cleared, bitstream remains at its current position
+   *  - Cancelled: Selection was cancelled, bitstream returns to its original position
+   */
+  action: 'Selected' | 'Moved' | 'Cleared' | 'Cancelled'
+  /**
+   * The table entry to which the selection action applies
+   */
+  selectedEntry: SelectedBitstreamTableEntry,
+}
+
+/**
  * This service handles the selection and updating of the bitstreams and their order on the
  * 'Edit Item' -> 'Bitstreams' page.
  */
@@ -99,7 +117,7 @@ export class ItemBitstreamsService {
   /**
    * BehaviorSubject which emits every time the selected bitstream changes.
    */
-  protected selectedBitstream$: BehaviorSubject<SelectedBitstreamTableEntry> = new BehaviorSubject(null);
+  protected selectionAction$: BehaviorSubject<SelectionAction> = new BehaviorSubject(null);
 
   protected isPerformingMoveRequest = false;
 
@@ -116,45 +134,68 @@ export class ItemBitstreamsService {
   }
 
   /**
-   * Returns the observable emitting the currently selected bitstream
+   * Returns the observable emitting the selection actions
    */
-  getSelectedBitstream$(): Observable<SelectedBitstreamTableEntry> {
-    return this.selectedBitstream$;
+  getSelectionAction$(): Observable<SelectionAction> {
+    return this.selectionAction$;
+  }
+
+  /**
+   * Returns the latest selection action
+   */
+  getSelectionAction(): SelectionAction {
+    const action = this.selectionAction$.value;
+
+    if (hasNoValue(action)) {
+      return null;
+    }
+
+    return Object.assign({}, action);
+  }
+
+  /**
+   * Returns true if there currently is a selected bitstream
+   */
+  hasSelectedBitstream(): boolean {
+    const selectionAction = this.getSelectionAction();
+
+    if (hasNoValue(selectionAction)) {
+      return false;
+    }
+
+    const action = selectionAction.action;
+
+    return action === 'Selected' || action === 'Moved';
   }
 
   /**
    * Returns a copy of the currently selected bitstream
    */
   getSelectedBitstream(): SelectedBitstreamTableEntry {
-    const selected = this.selectedBitstream$.getValue();
-
-    if (hasNoValue(selected)) {
-      return selected;
+    if (!this.hasSelectedBitstream()) {
+      return null;
     }
 
-    return Object.assign({}, selected);
-  }
-
-  hasSelectedBitstream(): boolean {
-    return hasValue(this.getSelectedBitstream());
+    const selectionAction = this.getSelectionAction();
+    return Object.assign({}, selectionAction.selectedEntry);
   }
 
   /**
    * Select the provided entry
    */
   selectBitstreamEntry(entry: SelectedBitstreamTableEntry) {
-    if (hasValue(entry) && entry !== this.selectedBitstream$.getValue()) {
+    if (hasValue(entry) && entry.bitstream !== this.getSelectedBitstream()?.bitstream) {
       this.announceSelect(entry.bitstream.name);
-      this.updateSelectedBitstream(entry);
+      this.updateSelectionAction({ action: 'Selected', selectedEntry: entry });
     }
   }
 
   /**
-   * Makes the {@link selectedBitstream$} observable emit the provided {@link SelectedBitstreamTableEntry}.
+   * Makes the {@link selectionAction$} observable emit the provided {@link SelectedBitstreamTableEntry}.
    * @protected
    */
-  protected updateSelectedBitstream(entry: SelectedBitstreamTableEntry) {
-    this.selectedBitstream$.next(entry);
+  protected updateSelectionAction(action: SelectionAction) {
+    this.selectionAction$.next(action);
   }
 
   /**
@@ -164,7 +205,7 @@ export class ItemBitstreamsService {
     const selected = this.getSelectedBitstream();
 
     if (hasValue(selected)) {
-      this.updateSelectedBitstream(null);
+      this.updateSelectionAction({ action: 'Cleared', selectedEntry: selected });
       this.announceClear(selected.bitstream.name);
 
       if (selected.currentPosition !== selected.originalPosition) {
@@ -184,7 +225,6 @@ export class ItemBitstreamsService {
       return;
     }
 
-    this.updateSelectedBitstream(null);
 
     const originalPosition = selected.originalPosition;
     const currentPosition = selected.currentPosition;
@@ -192,9 +232,11 @@ export class ItemBitstreamsService {
     // If the selected bitstream has not moved, there is no need to return it to its original position
     if (currentPosition === originalPosition) {
       this.announceClear(selected.bitstream.name);
+      this.updateSelectionAction({ action: 'Cleared', selectedEntry: selected });
     } else {
       this.announceCancel(selected.bitstream.name, originalPosition);
       this.performBitstreamMoveRequest(selected.bundle, currentPosition, originalPosition);
+      this.updateSelectionAction({ action: 'Cancelled', selectedEntry: selected });
     }
   }
 
@@ -219,7 +261,7 @@ export class ItemBitstreamsService {
       };
 
       this.performBitstreamMoveRequest(selected.bundle, originalPosition, newPosition, onRequestCompleted);
-      this.updateSelectedBitstream(selected);
+      this.updateSelectionAction({ action: 'Moved', selectedEntry: selected });
     }
   }
 
@@ -244,7 +286,7 @@ export class ItemBitstreamsService {
       };
 
       this.performBitstreamMoveRequest(selected.bundle, originalPosition, newPosition, onRequestCompleted);
-      this.updateSelectedBitstream(selected);
+      this.updateSelectionAction({ action: 'Moved', selectedEntry: selected });
     }
   }
 
