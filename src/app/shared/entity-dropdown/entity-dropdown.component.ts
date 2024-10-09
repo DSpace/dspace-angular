@@ -146,7 +146,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method used from infitity scroll for retrive more data on scroll down
+   * Method used from infitity scroll for retrieve more data on scroll down
    */
   public onScrollDown() {
     if ( this.hasNextPage ) {

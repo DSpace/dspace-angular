@@ -1,5 +1,6 @@
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
+import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { ActuatorsConfig } from './actuators.config';
 import { AppConfig } from './app-config.interface';
@@ -10,7 +11,6 @@ import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
-import { CreativeCommonsLicenseConfig } from './creative-commons-license-config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
@@ -592,12 +592,10 @@ export class DefaultAppConfig implements AppConfig {
       ],
     },
   ];
-  // Metadatafields to determine the CC license variant
-  ccLicense: CreativeCommonsLicenseConfig = {
-    variant: 'small',
-    uriField: 'dc.rights.uri',
-    nameField: 'dc.rights',
-    showName: true,
-    showDisclaimer: true,
+
+  // Live Region configuration, used by the LiveRegionService
+  liveRegion: LiveRegionConfig = {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
   };
 }

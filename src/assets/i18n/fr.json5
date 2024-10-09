@@ -2053,7 +2053,7 @@
   "community.all-lists.head": "Sous-communautés et collections",
 
   // "community.sub-collection-list.head": "Collections of this Community",
-  "community.sub-collection-list.head": "collections au sein de cette communauté",
+  "community.sub-collection-list.head": "Collections au sein de cette communauté",
 
   // "community.sub-community-list.head": "Communities of this Community",
   "community.sub-community-list.head": "Sous-communautés au sein de cette communauté",
@@ -6386,10 +6386,10 @@
   "submission.workflow.tasks.pool.show-detail": "Afficher le détail",
 
   // "submission.workspace.generic.view": "View",
-  "submission.workspace.generic.view": "Voir",
+  "submission.workspace.generic.view": "Afficher",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workspace.generic.view-help": "Sélectionner cette option pour voir les métadonnées de l'item.",
+  "submission.workspace.generic.view-help": "Sélectionner cette option pour afficher les métadonnées de l'item.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Vignette d'image",
