@@ -9,7 +9,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { map } from 'rxjs';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
 import { Item } from 'src/app/core/shared/item.model';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 @Component({
@@ -34,18 +39,6 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   @Input() variant?: 'small' | 'full' = 'small';
 
   /**
-   * Filed name containing the CC license URI, as configured in the back-end, in the 'dspace.cfg' file, property
-   * 'cc.license.uri'
-   */
-  @Input() ccLicenseUriField? = 'dc.rights.uri';
-
-  /**
-   * Filed name containing the CC license name, as configured in the back-end, in the 'dspace.cfg' file, property
-   * 'cc.license.name'
-   */
-  @Input() ccLicenseNameField? = 'dc.rights';
-
-  /**
    * Shows the CC license name with the image. Always show if image fails to load
    */
   @Input() showName? = true;
@@ -55,10 +48,31 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    */
   @Input() showDisclaimer? = true;
 
+  ccLicenseUriField: string;
+  ccLicenseNameField: string;
   uri: string;
   name: string;
   showImage = true;
   imgSrc: string;
+
+  constructor(
+    private configService: ConfigurationDataService,
+  ) {
+    this.configService.findByPropertyName('cc.license.uri').pipe(
+        getFirstCompletedRemoteData(),
+        getRemoteDataPayload()
+      ).subscribe((remoteData) => {
+        this.ccLicenseNameField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
+      }
+    );
+    this.configService.findByPropertyName('dc.rights').pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload()
+    ).subscribe((remoteData) => {
+      this.ccLicenseNameField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights';
+    }
+  );
+  }
 
   ngOnInit() {
     this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
