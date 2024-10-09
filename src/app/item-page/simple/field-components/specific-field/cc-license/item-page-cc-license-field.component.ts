@@ -9,9 +9,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { map } from 'rxjs';
 import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { RemoteData } from 'src/app/core/data/remote-data';
 import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
 import { Item } from 'src/app/core/shared/item.model';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
@@ -61,14 +59,14 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
     this.configService.findByPropertyName('cc.license.uri').pipe(
         getFirstCompletedRemoteData(),
         getRemoteDataPayload()
-      ).subscribe((remoteData) => {
+      ).subscribe((remoteData : ConfigurationProperty) => {
         this.ccLicenseNameField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
       }
     );
     this.configService.findByPropertyName('dc.rights').pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload()
-    ).subscribe((remoteData) => {
+    ).subscribe((remoteData : ConfigurationProperty) => {
       this.ccLicenseNameField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights';
     }
   );
