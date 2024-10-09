@@ -12,7 +12,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
 import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
 import { Item } from 'src/app/core/shared/item.model';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { AppConfig } from 'src/config/app-config.interface';
 
@@ -59,19 +62,19 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
     private configService: ConfigurationDataService,
   ) {
     this.configService.findByPropertyName('cc.license.uri').pipe(
-        getFirstCompletedRemoteData(),
-        getRemoteDataPayload()
-      ).subscribe((remoteData : ConfigurationProperty) => {
-        this.ccLicenseNameField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
-      }
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+    ).subscribe((remoteData: ConfigurationProperty) => {
+      this.ccLicenseNameField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
+    },
     );
     this.configService.findByPropertyName('dc.rights').pipe(
       getFirstCompletedRemoteData(),
-      getRemoteDataPayload()
-    ).subscribe((remoteData : ConfigurationProperty) => {
+      getRemoteDataPayload(),
+    ).subscribe((remoteData: ConfigurationProperty) => {
       this.ccLicenseNameField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights';
-    }
-  );
+    },
+    );
   }
 
   ngOnInit() {

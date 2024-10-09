@@ -16,6 +16,7 @@ import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
 import { Config } from './config.interface';
+import { CreativeCommonsLicenseConfig } from './creative-commons-license-config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
@@ -33,7 +34,6 @@ import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
-import { CreativeCommonsLicenseConfig } from './creative-commons-license-config.interface';
 
 
 interface AppConfig extends Config {
