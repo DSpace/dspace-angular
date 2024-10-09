@@ -39,3 +39,7 @@
 :host ::ng-deep .pagination {
   padding-top: 0.5rem;
 }
+
+.scrollable-table {
+  overflow-x: auto;
+}
