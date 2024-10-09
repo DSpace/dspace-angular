@@ -1475,9 +1475,9 @@
   "auth.messages.token-refresh-failed": "Nepodařilo se obnovit váš přístupový token. Prosím přihlašte se znovu.",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}...",
-  "bitstream.download.page": "Nyní se stahuje {{bitstream}}..." ,
+  "bitstream.download.page": "Nyní se stahuje {{bitstream}}...",
 
-  // "bitstream.download.page.back": "Back" ,
+  // "bitstream.download.page.back": "Back",
   "bitstream.download.page.back": "Zpět",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
@@ -2939,7 +2939,7 @@
   "error.top-level-communities": "Chyba při načítání komunit nejvyšší úrovně",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "Pro dokončení zaslání musíte udělit licenci. Pokud v tuto chvíli tuto licenci nemůžete udělit, můžete svou práci uložit a později se k svému příspěveku vrátit nebo jej smazat.",
+  "error.validation.license.notgranted": "Bez udělení licence nelze záznam dokončit. Pokud v tuto chvíli nemůžete licenci udělit, uložte svou práci a vraťte se k příspěveku později nebo jej smažte.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Toto zadání je omezeno aktuálním vzorcem: {{ pattern }}.",
@@ -4308,7 +4308,7 @@
   "item.page.journal.search.title": "Články v tomto časopise",
 
   // "item.page.link.full": "Full item page",
-  "item.page.link.full": "Zobrazit celý záznam",
+  "item.page.link.full": "Zobrazit úplný záznam",
 
   // "item.page.link.simple": "Simple item page",
   "item.page.link.simple": "Zobrazit minimální záznam",
@@ -4344,7 +4344,7 @@
   "item.page.subject": "Klíčová slova",
 
   // "item.page.uri": "URI",
-  "item.page.uri": "Identifikátor",
+  "item.page.uri": "Permanentní identifikátor",
 
   // "item.page.bitstreams.view-more": "Show more",
   "item.page.bitstreams.view-more": "Zobrazit více",
@@ -4934,7 +4934,7 @@
   "iiif.page.doi": "Trvalý odkaz: ",
 
   // "iiif.page.issue": "Issue: ",
-  "iiif.page.issue": "Problém:",
+  "iiif.page.issue": "Číslo:",
 
   // "iiif.page.description": "Description: ",
   "iiif.page.description": "Popis: ",
@@ -5375,7 +5375,7 @@
   "mydspace.new-submission-external-short": "Importovat metadata",
 
   // "mydspace.results.head": "Your submissions",
-  "mydspace.results.head": "Vaše zázmany",
+  "mydspace.results.head": "Vaše záznamy",
 
   // "mydspace.results.no-abstract": "No Abstract",
   "mydspace.results.no-abstract": "Žádný abstrakt",
@@ -5387,7 +5387,7 @@
   "mydspace.results.no-collections": "Žádné kolekce",
 
   // "mydspace.results.no-date": "No Date",
-  "mydspace.results.no-date": "Žádny datum",
+  "mydspace.results.no-date": "Žádné datum",
 
   // "mydspace.results.no-files": "No Files",
   "mydspace.results.no-files": "Žádné soubory",
@@ -6910,7 +6910,7 @@
   "search.filters.applied.f.subject": "Předmět",
 
   // "search.filters.applied.f.submitter": "Submitter",
-  "search.filters.applied.f.submitter": "Předkladatel",
+  "search.filters.applied.f.submitter": "Odesílatel",
 
   // "search.filters.applied.f.jobTitle": "Job Title",
   "search.filters.applied.f.jobTitle": "Název pracovní pozice",
@@ -7193,13 +7193,13 @@
   "search.filters.filter.subject.label": "Hledat předmět",
 
   // "search.filters.filter.submitter.head": "Submitter",
-  "search.filters.filter.submitter.head": "Předkladatel",
+  "search.filters.filter.submitter.head": "Odesílatel",
 
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  "search.filters.filter.submitter.placeholder": "Předkladatel",
+  "search.filters.filter.submitter.placeholder": "Odesílatel",
 
   // "search.filters.filter.submitter.label": "Search submitter",
-  "search.filters.filter.submitter.label": "Hledat předkladatele",
+  "search.filters.filter.submitter.label": "Hledat odesílatele",
 
   // "search.filters.filter.show-tree": "Browse {{ name }} tree",
   "search.filters.filter.show-tree": "Procházet {{ name }} podle",
@@ -8626,7 +8626,6 @@
   // "submission.submit.title": "New submission",
   "submission.submit.title": "Nový příspěvek",
 
-
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Smazat",
 
@@ -8692,7 +8691,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Odmítnout",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Pokud jste záznam zkontrolovali a zjistili, že <strong>není</strong> vhodný pro zařazení do kolekce, vyberte \"Odmítnout\".  Poté budete vyzváni k zadání zprávy, ve které uvedete, proč je záznam nevhodný, a zda by měl vkladatel něco změnit a znovu předložit.",
+  "submission.workflow.tasks.claimed.reject_help": "Pokud jste záznam zkontrolovali a zjistili, že <strong>není</strong> vhodný pro zařazení do kolekce, vyberte \"Odmítnout\".  Poté budete vyzváni k zadání zprávy, ve které uvedete, proč je záznam nevhodný, a zda by měl vkladatel něco změnit a znovu odeslat.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Vrátit do fondu",
@@ -8707,7 +8706,7 @@
   "submission.workflow.tasks.generic.processing": "Zpracování...",
 
   // "submission.workflow.tasks.generic.submitter": "Submitter",
-  "submission.workflow.tasks.generic.submitter": "Předkladatel",
+  "submission.workflow.tasks.generic.submitter": "Odesílatel",
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
   "submission.workflow.tasks.generic.success": "Operace proběhla úspěšně",
