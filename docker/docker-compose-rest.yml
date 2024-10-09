@@ -10,7 +10,6 @@
 # This is based heavily on the docker-compose.yml that is available in the DSpace/DSpace
 # (Backend) at:
 # https://github.com/DSpace/DSpace/blob/main/docker-compose.yml
-version: '3.7'
 networks:
   dspacenet:
     # Due to the following specification, THIS FILE (docker-compose-rest.yml) must be last (if using several YMLs),

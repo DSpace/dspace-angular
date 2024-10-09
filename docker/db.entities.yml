@@ -12,8 +12,6 @@
 # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
 #
 # # Therefore, it should be kept in sync with that file
-version: "3.7"
-
 services:
   dspacedb:
     image: dspace/dspace-postgres-pgcrypto:loadsql
