@@ -35,17 +35,17 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    * 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
    * 'small' variant shows image and name (optional), better for the item page sidebar
    */
-  @Input() variant?: 'small' | 'full' = this.appConfig.ccLicense.variant;;
+  @Input() variant?: 'small' | 'full' = this.appConfig.ccLicense.variant;
 
   /**
    * Shows the CC license name with the image. Always show if image fails to load
    */
-  @Input() showName? = true;
+  @Input() showName? = this.appConfig.ccLicense.showName;
 
   /**
    * Shows the disclaimer in the 'full' variant of the component
    */
-  @Input() showDisclaimer? = true;
+  @Input() showDisclaimer? = this.appConfig.ccLicense.showDisclaimer;
 
   ccLicenseUriField: string;
   ccLicenseNameField: string;
