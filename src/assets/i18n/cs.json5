@@ -2259,7 +2259,7 @@
   "community.create.notifications.success": "Úspěšně vytvořena komunita",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Vytvořit dílčí komunitu pro komunitu {{ parent }}",
+  "community.create.sub-head": "Vytvořit podkomunitu v komunitě {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
   "community.curate.header": "Spravovat komunitu: {{ community }}",
@@ -2396,7 +2396,7 @@
   "comcol-role.edit.collection-admin.name": "Správci",
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  "comcol-role.edit.community-admin.description": "Administrátoři komunit mohou vytvářet dílčí komunity nebo kolekce a spravovat nebo přidělovat správu těmto dílčím komunitám nebo kolekcím. Kromě toho rozhodují o tom, kdo může odesílat záznamy do všech dílčích kolekcí, upravovat metadata záznamů (po odeslání) a přidávat (mapovat) existující záznamy z jiných kolekcí (na základě oprávnění).",
+  "comcol-role.edit.community-admin.description": "Administrátoři komunit mohou vytvářet podkomunity nebo kolekce a spravovat nebo přidělovat správu těmto podkomunitám nebo kolekcím. Kromě toho rozhodují o tom, kdo může odesílat záznamy do všech podkolekcí, upravovat metadata záznamů (po odeslání) a přidávat (mapovat) existující záznamy z jiných kolekcí (na základě oprávnění).",
 
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
   "comcol-role.edit.collection-admin.description": "Správci kolekcí rozhodují o tom, kdo může do kolekce vkládat záznamy, upravovat metadata záznamů (po vložení) a přidávat (mapovat) existující záznamy z jiných kolekcí do této kolekce (podléhá autorizaci pro danou kolekci).",
@@ -2421,7 +2421,7 @@
 
   // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
   // TODO Source message changed - Revise the translation
-  "comcol-role.edit.bitstream_read.description": "Správci komunit mohou vytvářet dílčí komunity nebo kolekce a spravovat nebo přidělovat správu těmto dílčím komunitám nebo kolekcím. Kromě toho rozhodují o tom, kdo může odesílat záznamy do libovolných dílčích kolekcí, upravovat metadata záznamů (po odeslání) a přidávat (mapovat) existující záznamy z jiných kolekcí (na základě oprávnění).",
+  "comcol-role.edit.bitstream_read.description": "Správci komunit mohou vytvářet podkomunity nebo kolekce a spravovat nebo přidělovat správu těmto podkomunitám nebo kolekcím. Kromě toho rozhodují o tom, kdo může odesílat záznamy do libovolných podkolekcí, upravovat metadata záznamů (po odeslání) a přidávat (mapovat) existující záznamy z jiných kolekcí (na základě oprávnění).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   "comcol-role.edit.bitstream_read.anonymous-group": "Výchozí čtení pro příchozí soubory je v současné době nastaveno na hodnotu Anonymní.",
@@ -2481,7 +2481,7 @@
   "community.page.news": "Novinky",
 
   // "community.all-lists.head": "Subcommunities and Collections",
-  "community.all-lists.head": "Dílčí komunity a kolekce",
+  "community.all-lists.head": "Podkomunity a kolekce",
 
   // "community.search.results.head": "Search Results",
   // TODO New key - Add a translation
@@ -2927,10 +2927,10 @@
   "error.invalid-search-query": "Vyhledávací dotaz není platný. Další informace o této chybě naleznete v osvědčených postupech <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a>.",
 
   // "error.sub-collections": "Error fetching sub-collections",
-  "error.sub-collections": "Chyba při načítání dílčích kolekcí",
+  "error.sub-collections": "Chyba při načítání podkolekcí",
 
   // "error.sub-communities": "Error fetching sub-communities",
-  "error.sub-communities": "Chyba při načítání dílčích komunit",
+  "error.sub-communities": "Chyba při načítání podkomunit",
 
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
   "error.submission.sections.init-form-error": "Při inicializaci sekce došlo k chybě, zkontrolujte prosím konfiguraci vstupního formuláře. Podrobnosti jsou uvedeny níže : <br> <br>",
@@ -4985,10 +4985,10 @@
   "loading.search-results": "Načítají se výsledky vyhledávání...",
 
   // "loading.sub-collections": "Loading sub-collections...",
-  "loading.sub-collections": "Načítají se dílčí kolekce...",
+  "loading.sub-collections": "Načítají se podkolekce...",
 
   // "loading.sub-communities": "Loading sub-communities...",
-  "loading.sub-communities": "Načítají se dílčí komunity...",
+  "loading.sub-communities": "Načítají se podkomunity...",
 
   // "loading.top-level-communities": "Loading top-level communities...",
   "loading.top-level-communities": "Načítají se komunity nejvyšší úrovně...",
