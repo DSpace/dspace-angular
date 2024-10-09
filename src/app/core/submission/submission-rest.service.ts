@@ -73,7 +73,7 @@ export class SubmissionRestService {
    */
   protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string, projections: string[] = []): string {
     let url = isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
-    url = new URLCombiner(url, '?embed=item,sections,collection&projection=full').toString();
+    url = new URLCombiner(url, '?embed=item,collection&projection=full').toString();
 
     projections.forEach((projection) => {
       url = new URLCombiner(url, '&projection=' + projection).toString();
