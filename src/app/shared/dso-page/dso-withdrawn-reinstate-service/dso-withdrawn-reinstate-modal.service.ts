@@ -61,7 +61,7 @@ export class DsoWithdrawnReinstateModalService {
    * @param correctionType - The type of correction.
    * @param reason - The reason for the request.
    * Reloads the current page in order to update the withdrawn/reinstate button.
-   * and desplay a notification box.
+   * and display a notification box.
    */
   sendQARequest(target: string, correctionType: 'request-reinstate' | 'request-withdrawn', reason: string): void {
     this.qaEventDataService.postData(target, correctionType, '', reason)

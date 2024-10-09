@@ -1,7 +1,9 @@
 <ng-container *ngIf="relationTypes.length > 1">
-  <ul ngbNav #tabs="ngbNav" [destroyOnHide]="true" [activeId]="activeTab$ | async" (navChange)="onTabChange($event)" class="nav-tabs">
-    <li *ngFor="let relationType of relationTypes" [ngbNavItem]="relationType.filter" rel="presentation">
-      <a ngbNavLink>{{'item.page.relationships.' + relationType.label | translate}}</a>
+  <ul ngbNav #tabs="ngbNav" [destroyOnHide]="true" [activeId]="activeTab$ | async" (navChange)="onTabChange($event)" class="nav-tabs" role="tablist">
+    <li *ngFor="let relationType of relationTypes" [ngbNavItem]="relationType.filter" role="presentation">
+      <a ngbNavLink role="tab">
+        {{'item.page.relationships.' + relationType.label | translate}}
+      </a>
       <ng-template ngbNavContent>
         <div class="mt-4">
           <ds-related-entities-search [item]="item"

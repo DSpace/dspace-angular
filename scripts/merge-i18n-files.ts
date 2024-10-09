@@ -38,7 +38,7 @@ parseCliInput();
 function parseCliInput() {
   program
     .option('-d, --output-dir <output-dir>', 'output dir when running script on all language files', projectRoot(LANGUAGE_FILES_LOCATION))
-    .option('-s, --source-dir <source-dir>', 'source dir of transalations to be merged')
+    .option('-s, --source-dir <source-dir>', 'source dir of translations to be merged')
     .usage('(-s <source-dir> [-d <output-dir>])')
     .parse(process.argv);
 

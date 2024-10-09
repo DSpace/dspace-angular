@@ -6,6 +6,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -110,7 +111,7 @@ export interface QualityAssuranceEventData {
  * Component to display a modal window for linking a project to an Quality Assurance event
  * Shows information about the selected project and a selectable list.
  */
-export class ProjectEntryImportModalComponent implements OnInit {
+export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
   /**
    * The external source entry
    */
@@ -200,7 +201,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
               private selectService: SelectableListService) { }
 
   /**
-   * Component intitialization.
+   * Component initialization.
    */
   public ngOnInit(): void {
     this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'notifications-project-bound', pageSize: this.pageSize });
