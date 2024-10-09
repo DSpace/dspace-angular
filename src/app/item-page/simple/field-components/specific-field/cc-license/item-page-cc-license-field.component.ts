@@ -5,6 +5,7 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -17,7 +18,10 @@ import {
   getRemoteDataPayload,
 } from 'src/app/core/shared/operators';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { AppConfig } from 'src/config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-item-page-cc-license-field',
@@ -58,7 +62,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   imgSrc: string;
 
   constructor(
-    public appConfig: AppConfig,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
     private configService: ConfigurationDataService,
   ) {
     this.configService.findByPropertyName('cc.license.uri').pipe(
