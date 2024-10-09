@@ -9,18 +9,6 @@ export interface CreativeCommonsLicenseConfig extends Config {
     variant: 'small' | 'full';
 
     /**
-     * Field name containing the CC license URI
-     * Used by {@link ItemPageCcLicenseFieldComponent}.
-     */
-    uriField: string;
-
-    /**
-     * Field name containing the CC license URI
-     * Used by {@link ItemPageCcLicenseFieldComponent}.
-     */
-    nameField: string;
-
-    /**
      * Shows the CC license name with the image. Always show if image fails to load
      * Used by {@link ItemPageCcLicenseFieldComponent}.
      */
