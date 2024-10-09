@@ -14,6 +14,7 @@ import { ConfigurationProperty } from 'src/app/core/shared/configuration-propert
 import { Item } from 'src/app/core/shared/item.model';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { AppConfig } from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-item-page-cc-license-field',
@@ -34,7 +35,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    * 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
    * 'small' variant shows image and name (optional), better for the item page sidebar
    */
-  @Input() variant?: 'small' | 'full' = 'small';
+  @Input() variant?: 'small' | 'full' = this.appConfig.ccLicense.variant;;
 
   /**
    * Shows the CC license name with the image. Always show if image fails to load
@@ -54,6 +55,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   imgSrc: string;
 
   constructor(
+    public appConfig: AppConfig,
     private configService: ConfigurationDataService,
   ) {
     this.configService.findByPropertyName('cc.license.uri').pipe(

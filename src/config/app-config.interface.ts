@@ -33,6 +33,7 @@ import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import { CreativeCommonsLicenseConfig } from './creative-commons-license-config.interface';
 
 
 interface AppConfig extends Config {
@@ -66,6 +67,7 @@ interface AppConfig extends Config {
   search: SearchConfig;
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
+  ccLicense: CreativeCommonsLicenseConfig;
 }
 
 /**

@@ -11,6 +11,7 @@ import { CacheConfig } from './cache-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
+import { CreativeCommonsLicenseConfig } from './creative-commons-license-config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
@@ -597,5 +598,12 @@ export class DefaultAppConfig implements AppConfig {
   liveRegion: LiveRegionConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
+  };
+
+  // Metadatafields to determine the CC license variant
+  ccLicense: CreativeCommonsLicenseConfig = {
+    variant: 'small',
+    showName: true,
+    showDisclaimer: true,
   };
 }
