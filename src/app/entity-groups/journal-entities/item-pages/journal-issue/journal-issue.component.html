@@ -34,13 +34,13 @@
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isJournalVolumeOfIssue'"
-      [label]="'relationships.isSingleVolumeOf' | translate">
+      [label]="'item.page.journal-volume' | translate">
     </ds-related-items>
     <ds-related-items
       class="mb-1 mt-1"
       [parentItem]="object"
       [relationType]="'isPublicationOfJournalIssue'"
-      [label]="'relationships.isPublicationOfJournalIssue' | translate">
+      [label]="'item.page.articles' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"

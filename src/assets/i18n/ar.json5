@@ -1310,6 +1310,34 @@
   "item.orcid.return": "رجوع",
   "item.listelement.badge": "المادة",
   "item.page.description": "الوصف",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "وحدات مؤسسية",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "مشاريع البحث",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "منشورات",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "مقالات",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "الدوري",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "عدد الدوري",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "سجل الدوري",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "سلسلة الدورية",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "سلسلة الدوريات",
+
   "item.page.journal-issn": "ردمد الدورية",
   "item.page.journal-title": "عنوان الدوري",
   "item.page.publisher": "الناشر",
@@ -1341,7 +1369,7 @@
   "confidence.indicator.help-text.unset": "لم يتم تسجيل الثقة بهذه القيمة أبدًا",
   "confidence.indicator.help-text.unknown": "قيمة ثقة غير معروفة",
   "item.page.abstract": "أ",
-  "item.page.author": "المؤلفين",
+  "item.page.authors": "المؤلفين",
   "item.page.citation": "المرسل",
   "item.page.collections": "مقبول",
   "item.page.collections.loading": "جاري التحميل...",
@@ -2050,27 +2078,69 @@
   "relationships.add.error.relationship-type.content": "لا يمكن العثور على تطابق مناسب لنوع التوافق {{ type }} بين المادتين",
   "relationships.add.error.server.content": "لقد ساعدت في خطأ",
   "relationships.add.error.title": "غير قادر على الانضمام إلى إيران",
-  "relationships.isAuthorOf": "المؤلفين",
-  "relationships.isAuthorOf.Person": "المؤلفين (الأشخاص)",
-  "relationships.isAuthorOf.OrgUnit": "المؤلفين (وحدات مؤسسية)",
-  "relationships.isIssueOf": "سجل الدوري",
-  "relationships.isIssueOf.JournalIssue": "عدد الدوري",
-  "relationships.isJournalIssueOf": "عدد الدوري",
-  "relationships.isJournalOf": "الدوريات",
-  "relationships.isJournalVolumeOf": "سلسلة الدورية",
-  "relationships.isOrgUnitOf": "وحدات مؤسسية",
-  "relationships.isPersonOf": "المؤلفين",
-  "relationships.isProjectOf": "مشاريع البحث",
-  "relationships.isPublicationOf": "منشورات",
-  "relationships.isPublicationOfJournalIssue": "مقالات",
-  "relationships.isSingleJournalOf": "الدوري",
-  "relationships.isSingleVolumeOf": "سلسلة الدورية",
-  "relationships.isVolumeOf": "سلسلة الدوريات",
-  "relationships.isVolumeOf.JournalVolume": "سلسلة الدورية",
-  "relationships.isContributorOf": "خذ",
-  "relationships.isContributorOf.OrgUnit": "المساهم (وحدة مؤسسية)",
-  "relationships.isContributorOf.Person": "المساهم",
-  "relationships.isFundingAgencyOf.OrgUnit": "الممول",
+
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "المؤلفين (الأشخاص)",
+
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "مشاريع البحث",
+
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "وحدات مؤسسية",
+
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "المؤلفين (وحدات مؤسسية)",
+
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "عدد الدوري",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "منشورات",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "مشاريع البحث",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "وحدات مؤسسية",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "منشورات",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "المؤلفين",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "وحدات مؤسسية",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "المؤلفين",
+
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "مشاريع البحث",
+
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "سلسلة الدورية",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "منشورات",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "الدوريات",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "عدد الدوري",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "سلسلة الدورية",
+
   "repository.image.logo": "مستودع الشعار",
   "repository.title": "مستودع دي سبيس",
   "repository.title.prefix": "مستودع دي سبيس :: ",

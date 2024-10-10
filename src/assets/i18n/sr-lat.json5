@@ -1169,6 +1169,34 @@
   "item.orcid.return": "Nazad",
   "item.listelement.badge": "Stavka",
   "item.page.description": "Opis",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organizacione jedinice",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Istraživački projekti",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Izdanja",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Članci",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Časopis",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Izdanja časopsa",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Izdanja časopisa",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Sveska časopisa",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Sveske časopisa",
+
   "item.page.journal-issn": "ISSN časopisa",
   "item.page.journal-title": "Naslov časopisa",
   "item.page.publisher": "Izdavač",
