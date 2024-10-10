@@ -1,4 +1,8 @@
-<a [routerLink]="(bitstreamPath$| async)?.routerLink" class="dont-break-out" [queryParams]="(bitstreamPath$| async)?.queryParams" [target]="isBlank ? '_blank': '_self'" [ngClass]="cssClasses">
+<a [routerLink]="(bitstreamPath$| async)?.routerLink" class="dont-break-out"
+   [queryParams]="(bitstreamPath$| async)?.queryParams"
+   [target]="isBlank ? '_blank': '_self'"
+   [ngClass]="cssClasses"
+   [attr.aria-label]="('file-download-link.download' | translate) + dsoNameService.getName(bitstream)">
   <span role="img" *ngIf="(canDownload$ |async) !== true" [attr.aria-label]="'file-download-link.restricted' | translate" class="pr-1"><i class="fas fa-lock"></i></span>
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
