@@ -340,6 +340,12 @@
 
   "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
 
+  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No current active eperson",
+
+  "admin.access-control.epeople.form.notification.success.deleteMembership": "Deleted Membership From Group: \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.failure.deleteMembership": "Can't Delete Membership From Group: \"{{name}}\"",
+
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
 
   "admin.access-control.epeople.form.table.id": "ID",
@@ -347,6 +353,8 @@
   "admin.access-control.epeople.form.table.name": "Name",
 
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
+
+  "admin.access-control.epeople.form.table.remove": "Remove",
 
   "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
 

@@ -89,6 +89,12 @@
 
   "admin.access-control.epeople.form.notification.edited.success": "ई-व्यक्ति \"{{name}}\" को सफलतापूर्वक संपादित किया गया",
 
+  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "कोई वर्तमान सक्रिय व्यक्ति नहीं",
+
+  "admin.access-control.epeople.form.notification.success.deleteMembership": "समूह से हटाई गई सदस्यता: \"{{name}}\"",
+
+  "admin.access-control.epeople.form.notification.failure.deleteMembership": "समूह से सदस्यता नहीं हटाई जा सकती: \"{{name}}\"",
+
   "admin.access-control.epeople.form.requireCertificate": "प्रमाण पत्र की आवश्यकता है",
 
   "admin.access-control.epeople.form.return": "वापस",
@@ -98,6 +104,8 @@
   "admin.access-control.epeople.form.table.id": "पहचान",
 
   "admin.access-control.epeople.form.table.name": "नाम",
+
+  "admin.access-control.epeople.form.table.remove": "निकालना",
 
   "admin.access-control.epeople.head": "ई लोग",
 
