@@ -8,6 +8,8 @@ beforeEach(() => {
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
     cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
+    cy.intercept('/server/api/core/collections/'.concat(Cypress.env('DSPACE_TEST_COLLECTION'))).as('collection');
+    cy.wait('@collection')
 });
 
 describe('Edit Collection > Edit Metadata tab', () => {

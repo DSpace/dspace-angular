@@ -30,6 +30,6 @@ describe('Admin Export Modals', () => {
     cy.get('a[data-test="menu.section.export_batch"]').click();
 
     // Analyze <ds-export-batch-selector> for accessibility
-    testA11y('ds-export-batch-selector');
+    testA11y('ds-export-metadata-selector');
   });
 });
