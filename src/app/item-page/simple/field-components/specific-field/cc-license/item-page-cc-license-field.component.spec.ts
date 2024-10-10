@@ -12,12 +12,14 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
 import { Item } from 'src/app/core/shared/item.model';
 import {
   MetadataMap,
   MetadataValue,
 } from 'src/app/core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
@@ -202,6 +204,7 @@ function configureFixture(
 
 describe('ItemPageCcLicenseFieldComponent', () => {
   let fixture: ComponentFixture<ItemPageCcLicenseFieldComponent>;
+  let configurationDataService = new ConfigurationDataServiceStub();
 
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
@@ -214,7 +217,10 @@ describe('ItemPageCcLicenseFieldComponent', () => {
         }),
         ItemPageCcLicenseFieldComponent,
       ],
-      providers: [{ provide: APP_CONFIG, useValue: environment }],
+      providers: [
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ItemPageCcLicenseFieldComponent, {

@@ -38,6 +38,16 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    */
   @Input() item: Item;
 
+   /**
+   * Field name containing the CC license URI
+   */
+   @Input() ccLicenseUriField?;
+
+   /**
+   * Field name containing the CC license URI
+   */
+   @Input() ccLicenseNameField?;
+
   /**
    * 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
    * 'small' variant shows image and name (optional), better for the item page sidebar
@@ -54,34 +64,37 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    */
   @Input() showDisclaimer? = this.appConfig.ccLicense.showDisclaimer;
 
-  ccLicenseUriField: string;
-  ccLicenseNameField: string;
   uri: string;
   name: string;
   showImage = true;
   imgSrc: string;
 
   constructor(
-    @Inject(APP_CONFIG) private appConfig: AppConfig,
-    private configService: ConfigurationDataService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected configService: ConfigurationDataService,
   ) {
+  }
+
+  ngOnInit() {
     this.configService.findByPropertyName('cc.license.uri').pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
     ).subscribe((remoteData: ConfigurationProperty) => {
-      this.ccLicenseNameField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
-    },
-    );
-    this.configService.findByPropertyName('dc.rights').pipe(
+      if (this.ccLicenseUriField === undefined) {
+        // Set the value only if it has not manually set when declaring this component
+        this.ccLicenseUriField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
+      }
+    });
+    this.configService.findByPropertyName('cc.license.name').pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
     ).subscribe((remoteData: ConfigurationProperty) => {
-      this.ccLicenseNameField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights';
-    },
-    );
-  }
+      if (this.ccLicenseNameField === undefined) {
+        // Set the value only if it has not manually set when declaring this component
+        this.ccLicenseNameField =  remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights';
+      }
+    });
 
-  ngOnInit() {
     this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
     this.name = this.item.firstMetadataValue(this.ccLicenseNameField);
 

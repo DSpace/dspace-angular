@@ -21,6 +21,8 @@ import {
   Observable,
   of,
 } from 'rxjs';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
@@ -88,6 +90,7 @@ function getItem(metadata: MetadataMap) {
 describe('UntypedItemComponent', () => {
   let comp: UntypedItemComponent;
   let fixture: ComponentFixture<UntypedItemComponent>;
+  let configurationDataService = new ConfigurationDataServiceStub();
 
   beforeEach(waitForAsync(() => {
     const mockBitstreamDataService = {
@@ -130,6 +133,7 @@ describe('UntypedItemComponent', () => {
         { provide: ItemVersionsSharedService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
