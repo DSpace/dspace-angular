@@ -7,7 +7,10 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
@@ -45,6 +48,7 @@ export class CommunitySearchResultGridElementComponent extends SearchResultGridE
 
   constructor(
     public dsoNameService: DSONameService,
+    public translateService: TranslateService,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
     protected bitstreamDataService: BitstreamDataService,
