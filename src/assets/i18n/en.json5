@@ -1048,6 +1048,8 @@
 
   "pagination.next.button.disabled.tooltip": "No more pages of results",
 
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+
   "browse.startsWith": ", starting with {{ startsWith }}",
 
   "browse.startsWith.choose_start": "(Choose start)",

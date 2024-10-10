@@ -1,4 +1,4 @@
-<div class="thumbnail" [class.limit-width]="limitWidth" *ngVar="(isLoading$ | async) as isLoading">
+<div class="thumbnail" [class.limit-width]="limitWidth">
   <div *ngIf="isLoading" class="thumbnail-content outer">
     <div class="inner">
       <div class="centered">
@@ -19,5 +19,5 @@
         </div>
       </div>
     </div>
-  </ng-container>
+  </div>
 </div>
