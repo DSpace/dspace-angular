@@ -87,6 +87,11 @@ describe('TruncatablePartComponent', () => {
       const a = fixture.debugElement.query(By.css('.collapseButton'));
       expect(a).toBeNull();
     });
+
+    it('expandButton aria-expanded should be false', () => {
+      const btn = fixture.debugElement.query(By.css('.expandButton'));
+      expect(btn.nativeElement.getAttribute('aria-expanded')).toEqual('false');
+    });
   });
 
   describe('When the item is expanded', () => {
@@ -114,6 +119,14 @@ describe('TruncatablePartComponent', () => {
       fixture.detectChanges();
       const a = fixture.debugElement.query(By.css('.collapseButton'));
       expect(a).not.toBeNull();
+    });
+
+    it('collapseButton aria-expanded should be true', () => {
+      (comp as any).setLines();
+      (comp as any).expandable = true;
+      fixture.detectChanges();
+      const btn = fixture.debugElement.query(By.css('.collapseButton'));
+      expect(btn.nativeElement.getAttribute('aria-expanded')).toEqual('true');
     });
   });
 });
