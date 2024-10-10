@@ -33,6 +33,12 @@ import {
  * Displays the item's Creative Commons license image in it's simple item page
  */
 export class ItemPageCcLicenseFieldComponent implements OnInit {
+  
+  /**
+   * Expression used to detect (and parse) whether a URI denotes a CC license
+   */
+  public static readonly regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
+  
   /**
    * The item to display the CC license image for
    */
@@ -64,11 +70,6 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    */
   @Input() showDisclaimer? = this.appConfig.ccLicense.showDisclaimer;
 
-  /**
-   * Expression used to detect (and parse) whether a URI denotes a CC license
-   */
-  public static readonly regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
-
   uri: string;
   name: string;
   showImage = true;
@@ -92,7 +93,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
       }
       this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
       // Extract the CC license code from the URI
-      const matches = regex.exec(this.uri ?? '') ?? [];
+      const matches = ItemPageCcLicenseFieldComponent.regex.exec(this.uri ?? '') ?? [];
       const ccCode = matches.length > 2 ? matches[2] : null;
       this.imgSrc = ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null;
     });
