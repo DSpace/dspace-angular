@@ -22,6 +22,7 @@ import { Item } from '../../core/shared/item.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { AlertComponent } from '../../shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TestDataService } from '../../shared/testing/test-data-service.mock';
@@ -94,6 +95,7 @@ describe('DsoEditMetadataComponent', () => {
         RouterTestingModule.withRoutes([]),
         DsoEditMetadataComponent,
         VarDirective,
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
@@ -216,7 +218,13 @@ describe('DsoEditMetadataComponent', () => {
         });
 
         it(`should${disabled ? ' ' : ' not '}be disabled`, () => {
-          expect(btn.nativeElement.disabled).toBe(disabled);
+          if (disabled) {
+            expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeTrue();
+          } else {
+            expect(btn.nativeElement.getAttribute('aria-disabled')).not.toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeFalse();
+          }
         });
       } else {
         it('should not exist', () => {

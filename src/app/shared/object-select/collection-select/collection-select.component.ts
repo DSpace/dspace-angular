@@ -20,6 +20,7 @@ import { getCollectionPageRoute } from '../../../collection-page/collection-page
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValueOperator,
   isNotEmpty,
@@ -36,7 +37,7 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
   templateUrl: './collection-select.component.html',
   styleUrls: ['./collection-select.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 
 /**

@@ -29,6 +29,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
 
@@ -43,6 +44,7 @@ import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
     NgbTooltipModule,
     AsyncPipe,
     NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

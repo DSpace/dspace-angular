@@ -30,6 +30,7 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -65,6 +66,7 @@ export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEn
     AsyncPipe,
     ThemedLoadingComponent,
     AlertComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
