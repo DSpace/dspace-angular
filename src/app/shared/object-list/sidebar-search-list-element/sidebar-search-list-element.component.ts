@@ -13,8 +13,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 import {
+  catchError,
   find,
   map,
+  switchMap,
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -51,6 +53,11 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   parentTitle$: Observable<string>;
 
   /**
+   * Observable for the hierarchical title i.e community > subcommunity > collection
+   */
+  hierarchicalTitle$: Observable<string>;
+
+  /**
    * A description to display below the title
    */
   description: string;
@@ -69,6 +76,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     super.ngOnInit();
     if (hasValue(this.dso)) {
       this.parentTitle$ = this.getParentTitle();
+      this.hierarchicalTitle$ = this.getHierarchicalName();
       this.description = this.getDescription();
     }
   }
@@ -90,6 +98,38 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
         return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
       }),
     );
+  }
+
+  /**
+   * Get the title of the object's parent
+   * keep on Retrieving recursively the parent by using the object's parent link and retrieving its 'dc.title' metadata
+   * and build a heirarchical name by concating the parent's names
+   */
+  getHierarchicalName(): Observable<string> {
+    return this.getParent().pipe(
+      switchMap((parentRD: RemoteData<DSpaceObject>) => {
+        if (hasValue(parentRD) && hasValue(parentRD.payload)) {
+          const parentName$: string = this.dsoNameService.getName(parentRD.payload);
+          if (parentName$) {
+            return this.createInstanceFromDSpaceObject(parentRD.payload).getHierarchicalName().pipe(
+              map((ancestorName: string) => ancestorName ? `${ancestorName} > ${parentName$}` : parentName$),
+            );
+          }
+          return observableOf('');
+        }
+        return observableOf('');
+      }),
+      catchError(() => observableOf('')),
+    );
+  }
+
+  /**
+   * Utility method to create an instance of the current class from a DSpaceObject
+   */
+  private createInstanceFromDSpaceObject(dso: DSpaceObject): this {
+    const instance = Object.create(this);
+    instance.dso = dso;
+    return instance;
   }
 
   /**
