@@ -2,7 +2,7 @@
   <div class="col-xs-12 col-sm-12 col-md-9">
     <h1>{{ 'info.feedback.head' | translate }}</h1>
     <p>{{ 'info.feedback.info' | translate }}</p>
-    <form [formGroup]="feedbackForm" (ngSubmit)="createFeedback()" class="col p-0">
+    <form [formGroup]="feedbackForm" (ngSubmit)="send()" class="col p-0">
       <div class="row mt-3">
         <div class="control-group col-sm-12">
           <label class="control-label" for="email">{{ 'info.feedback.email-label' | translate }}&nbsp;</label>
@@ -38,12 +38,30 @@
           <small class="text-muted">{{ 'info.feedback.page_help' | translate }}</small>
         </div>
       </div>
+      <ds-alert [type]="AlertTypeEnum.Warning" *ngIf="registrationVerification && !isRecaptchaCookieAccepted()">
+        <p class="m-0" [innerHTML]="MESSAGE_PREFIX + '.google-recaptcha.must-accept-cookies' | translate"></p>
+        <p class="m-0"><a href="javascript:void(0);" (click)="this.klaroService.showSettings()">{{ MESSAGE_PREFIX + '.google-recaptcha.open-cookie-settings' | translate }}</a></p>
+      </ds-alert>
 
-      <div class="row mt-3">
-        <div class="control-group col-sm-12 text-right">
-          <button [disabled]="!feedbackForm.valid" class="btn btn-primary" name="submit" type="submit">{{ 'info.feedback.send' | translate }}</button>
-        </div>
+      <div class="my-3" *ngIf="isRecaptchaCookieAccepted() && (googleRecaptchaService.captchaVersion() | async) === 'v2'">
+        <ds-google-recaptcha [captchaMode]="(googleRecaptchaService.captchaMode() | async)"
+                             (executeRecaptcha)="send($event)" (checkboxChecked)="onCheckboxChecked($event)"
+                             (showNotification)="showNotification($event)"></ds-google-recaptcha>
       </div>
+
+      <ng-container *ngIf="(!registrationVerification  || ((googleRecaptchaService.captchaVersion() | async) !== 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible')); else v2Invisible">
+        <button type="submit" class="btn btn-primary" [disabled]="feedbackForm.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked">
+          {{ MESSAGE_PREFIX + '.submit' | translate }}
+        </button>
+      </ng-container>
+
+     <ng-template  #v2Invisible>
+       <div class="row mt-3">
+         <div class="control-group col-sm-12 text-right">
+           <button [disabled]="feedbackForm.invalid" (click)="executeRecaptcha()" class="btn btn-primary" name="submit" type="submit">{{ 'info.feedback.send' | translate }}</button>
+         </div>
+       </div>
+     </ng-template>
     </form>
   </div>
 </div>

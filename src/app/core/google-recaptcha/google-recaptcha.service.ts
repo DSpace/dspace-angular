@@ -8,6 +8,7 @@ import {
 import {
   BehaviorSubject,
   combineLatest,
+  combineLatest as observableCombineLatest,
   EMPTY,
   Observable,
   of,
@@ -32,6 +33,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 
 export const CAPTCHA_COOKIE = '_GRECAPTCHA';
 export const CAPTCHA_NAME = 'google-recaptcha';
+export const CAPTCHA_FEEDBACK_NAME = 'google-recaptcha-feedback';
 
 /**
  * A GoogleRecaptchaService used to send action and get a token from REST
@@ -86,8 +88,15 @@ export class GoogleRecaptchaService {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
       }),
     );
-    registrationVerification$.pipe(
-      switchMap((registrationVerification: boolean) => registrationVerification ? this.loadRecaptchaProperties() : EMPTY),
+    const feedBackVerification$ =  this.configService.findByPropertyName('feedback.verification.enabled').pipe(
+      take(1),
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
+      }),
+    );
+    observableCombineLatest([registrationVerification$,feedBackVerification$]).pipe(
+      switchMap(([registrationVerification ,feedBackVerification]) => (registrationVerification || feedBackVerification) ? this.loadRecaptchaProperties() : EMPTY),
     ).subscribe();
   }
 
@@ -105,7 +114,10 @@ export class GoogleRecaptchaService {
       tap(([recaptchaVersionRD, recaptchaModeRD, recaptchaKeyRD]) => {
 
         if (
-          this.cookieService.get('klaro-anonymous') && this.cookieService.get('klaro-anonymous')[CAPTCHA_NAME] &&
+          this.cookieService.get('klaro-anonymous') &&
+          (this.cookieService.get('klaro-anonymous')[CAPTCHA_NAME] || this.cookieService.get('klaro-anonymous')[CAPTCHA_FEEDBACK_NAME])
+          &&
+
           recaptchaKeyRD.hasSucceeded && recaptchaVersionRD.hasSucceeded &&
           isNotEmpty(recaptchaVersionRD.payload?.values) && isNotEmpty(recaptchaKeyRD.payload?.values)
         ) {
