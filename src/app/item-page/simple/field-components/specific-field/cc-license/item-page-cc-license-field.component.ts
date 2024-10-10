@@ -37,7 +37,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   /**
    * Expression used to detect (and parse) whether a URI denotes a CC license
    */
-  public static readonly regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
+  public static readonly CC_URI_REGEX = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
 
   /**
    * The item to display the CC license image for
@@ -53,12 +53,12 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   /**
    * Field name containing the CC license URI
    */
-  @Input() ccLicenseUriField?;
+  @Input() ccLicenseUriField? = 'dc.rights.uri'
 
   /**
-   * Field name containing the CC license URI
+   * Field name containing the CC license name
    */
-  @Input() ccLicenseNameField?;
+  @Input() ccLicenseNameField? = 'dc.rights';
 
   /**
    * Shows the CC license name with the image. Always show if image fails to load
@@ -89,11 +89,11 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
     ).subscribe((remoteData: ConfigurationProperty) => {
       if (this.ccLicenseUriField === undefined) {
         // Set the value only if it has not manually set when declaring this component
-        this.ccLicenseUriField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
+        this.ccLicenseUriField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : this.ccLicenseUriField;
       }
       this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
       // Extract the CC license code from the URI
-      const matches = ItemPageCcLicenseFieldComponent.regex.exec(this.uri ?? '') ?? [];
+      const matches = ItemPageCcLicenseFieldComponent.CC_URI_REGEX.exec(this.uri ?? '') ?? [];
       const ccCode = matches.length > 2 ? matches[2] : null;
       this.imgSrc = ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null;
     });
@@ -104,7 +104,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
     ).subscribe((remoteData: ConfigurationProperty) => {
       if (this.ccLicenseNameField === undefined) {
         // Set the value only if it has not manually set when declaring this component
-        this.ccLicenseNameField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : 'dc.rights';
+        this.ccLicenseNameField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : this.ccLicenseNameField;
       }
       this.name = this.item.firstMetadataValue(this.ccLicenseNameField);
     });
