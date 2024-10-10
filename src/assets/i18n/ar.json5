@@ -386,10 +386,23 @@
   "admin.workflow.item.workflow": "سير العمل",
   "admin.workflow.item.workspace": "مساحة العمل",
   "admin.workflow.item.delete": "حذف",
-  "admin.workflow.item.send-back": "إعادة الإرسال",
-  "admin.workflow.item.policies": "تماما",
-  "admin.workflow.item.supervision": "شاهد",
-  "admin.metadata-import.breadcrumbs": "قم باستيراد الميتاداتا",
+
+  // "admin.workflow.item.send-back": "Send back",
+  "admin.workflow.item.send-back": "إعادة إرسال",
+
+  // "admin.workflow.item.return": "Return to pool",
+  "admin.workflow.item.return": "إعادة إلى الصحن",
+
+  // "admin.workflow.item.policies": "Policies",
+  "admin.workflow.item.policies": "السياسات",
+
+  // "admin.workflow.item.supervision": "Supervision",
+  "admin.workflow.item.supervision": "الإشراف",
+
+  // "admin.metadata-import.breadcrumbs": "Import Metadata",
+  "admin.metadata-import.breadcrumbs": "استيراد الميتاداتا",
+
+  // "admin.batch-import.breadcrumbs": "Import Batch",
   "admin.batch-import.breadcrumbs": "استيراد الدفعة",
   "admin.metadata-import.title": "قم باستيراد الميتاداتا",
   "admin.batch-import.title": "استيراد الدفعة",
