@@ -33,6 +33,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
@@ -44,7 +45,7 @@ export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, NgIf, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component for displaying and processing the reject action on a workflow task item

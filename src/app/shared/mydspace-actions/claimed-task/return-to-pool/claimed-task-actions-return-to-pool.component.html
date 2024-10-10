@@ -1,7 +1,7 @@
 <button type="button"
         [className]="'btn btn-secondary'"
         ngbTooltip="{{'submission.workflow.tasks.claimed.return_help' | translate}}"
-        [disabled]="processing$ | async"
+        [dsBtnDisabled]="processing$ | async"
         (click)="submitTask()">
   <span *ngIf="processing$ | async"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
   <span *ngIf="(processing$ | async) !== true"><i class="fa fa-undo"></i> {{'submission.workflow.tasks.claimed.return' | translate}}</span>

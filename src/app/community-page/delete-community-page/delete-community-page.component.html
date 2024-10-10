@@ -6,10 +6,10 @@
                 <p class="pb-2">{{ 'community.delete.text' | translate:{ dso: dsoNameService.getName(dso) } }}</p>
                 <div class="form-group row">
                     <div class="col text-right space-children-mr">
-                        <button class="btn btn-outline-secondary" (click)="onCancel(dso)" [disabled]="(processing$ | async)">
+                        <button class="btn btn-outline-secondary" (click)="onCancel(dso)" [dsBtnDisabled]="(processing$ | async)">
                             <i class="fas fa-times" aria-hidden="true"></i> {{'community.delete.cancel' | translate}}
                         </button>
-                        <button class="btn btn-danger" (click)="onConfirm(dso)" [disabled]="(processing$ | async)">
+                        <button class="btn btn-danger" (click)="onConfirm(dso)" [dsBtnDisabled]="(processing$ | async)">
                             <span *ngIf="processing$ | async"><i class='fas fa-circle-notch fa-spin' aria-hidden="true"></i> {{'community.delete.processing' | translate}}</span>
                             <span *ngIf="(processing$ | async) !== true"><i class="fas fa-trash" aria-hidden="true"></i> {{'community.delete.confirm' | translate}}</span>
                         </button>

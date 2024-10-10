@@ -65,6 +65,7 @@ import {
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Registration } from '../../../core/shared/registration.model';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -92,6 +93,7 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     PaginationComponent,
     RouterLink,
     HasNoValuePipe,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

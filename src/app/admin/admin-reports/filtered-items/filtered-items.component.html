@@ -54,7 +54,7 @@
                                             <div class="col-auto">
                                                 <button class="btn btn-light" (click)="addQueryPredicate()">+</button>
                                                 &nbsp;
-                                                <button class="btn btn-light" [disabled]="deleteQueryPredicateDisabled()" (click)="deleteQueryPredicate(i)">–</button>
+                                                <button class="btn btn-light" [dsBtnDisabled]="deleteQueryPredicateDisabled()" (click)="deleteQueryPredicate(i)">–</button>
                                             </div>
                                         </div>
                                     </div>
@@ -158,8 +158,8 @@
                                 {{'admin.reports.commons.page' | translate}} {{ currentPage + 1 }} {{'admin.reports.commons.of' | translate}} {{ pageCount() }}
                             </div>
                             <div>
-                                <button id="prev" class="btn btn-light" (click)="prevPage()" [disabled]="!canNavigatePrevious()">{{'admin.reports.commons.previous-page' | translate}}</button>
-                                <button id="next" class="btn btn-light" (click)="nextPage()" [disabled]="!canNavigateNext()">{{'admin.reports.commons.next-page' | translate}}</button>
+                                <button id="prev" class="btn btn-light" (click)="prevPage()" [dsBtnDisabled]="!canNavigatePrevious()">{{'admin.reports.commons.previous-page' | translate}}</button>
+                                <button id="next" class="btn btn-light" (click)="nextPage()" [dsBtnDisabled]="!canNavigateNext()">{{'admin.reports.commons.next-page' | translate}}</button>
 <!--
                                 <button id="export">{{'admin.reports.commons.export' | translate}}</button>
 -->
