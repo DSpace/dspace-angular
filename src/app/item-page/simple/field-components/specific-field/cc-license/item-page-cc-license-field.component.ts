@@ -68,40 +68,40 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   name: string;
   showImage = true;
   imgSrc: string;
-
+  
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected configService: ConfigurationDataService,
   ) {
   }
-
+  
   ngOnInit() {
+    const regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
+
     this.configService.findByPropertyName('cc.license.uri').pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
     ).subscribe((remoteData: ConfigurationProperty) => {
       if (this.ccLicenseUriField === undefined) {
         // Set the value only if it has not manually set when declaring this component
-        this.ccLicenseUriField = remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
+        this.ccLicenseUriField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
       }
+      this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
+      // Extract the CC license code from the URI
+      const matches = regex.exec(this.uri ?? '') ?? [];
+      const ccCode = matches.length > 2 ? matches[2] : null;
+      this.imgSrc = ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null;
     });
+    
     this.configService.findByPropertyName('cc.license.name').pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
     ).subscribe((remoteData: ConfigurationProperty) => {
       if (this.ccLicenseNameField === undefined) {
         // Set the value only if it has not manually set when declaring this component
-        this.ccLicenseNameField =  remoteData.values && remoteData.values.length > 0 ? remoteData.values[0] : 'dc.rights';
+        this.ccLicenseNameField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : 'dc.rights';
       }
+      this.name = this.item.firstMetadataValue(this.ccLicenseNameField);
     });
-
-    this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
-    this.name = this.item.firstMetadataValue(this.ccLicenseNameField);
-
-    // Extracts the CC license code from the URI
-    const regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
-    const matches = regex.exec(this.uri ?? '') ?? [];
-    const ccCode = matches.length > 2 ? matches[2] : null;
-    this.imgSrc = ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null;
   }
 }
