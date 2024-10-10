@@ -9,9 +9,6 @@ beforeEach(() => {
 
   // This page is restricted, so we will be shown the login form. Fill it out & submit.
   cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
-
-  cy.intercept('GET', 'server/api/core/items/'.concat(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION'))).as('item');
-  cy.wait('@item');
 });
 
 describe('Edit Item > Edit Metadata tab', () => {
