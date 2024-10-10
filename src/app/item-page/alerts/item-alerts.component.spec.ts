@@ -4,6 +4,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
+import {AuthorizationDataService} from '../../core/data/feature-authorization/authorization-data.service';
+import {AuthorizationDataServiceStub} from '../../shared/testing/authorization-service.stub';
 
 describe('ItemAlertsComponent', () => {
   let component: ItemAlertsComponent;
@@ -14,7 +16,10 @@ describe('ItemAlertsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ItemAlertsComponent],
       imports: [TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub }
+      ]
     })
       .compileComponents();
   }));

@@ -123,6 +123,8 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { Metadata } from '../../../../core/shared/metadata.utils';
+import { DynamicLinkModel } from './models/ds-dynamic-link.model';
+import { environment } from '../../../../../environments/environment';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -247,6 +249,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     return dsDynamicFormControlMapFn(this.model);
   }
 
+  enabledDropdownHints = environment.submission.dropdownHintEnabled;
+
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected dynamicFormComponentService: DynamicFormComponentService,
@@ -356,7 +360,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     } else {
       this.securityLevel = this.model.securityLevel;
     }
-
  }
 
   get isCheckbox(): boolean {
@@ -497,6 +500,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
+    super.ngOnDestroy();
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
@@ -547,13 +551,13 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   addSecurityLevelToMetadata($event) {
     this.model.securityLevel = $event;
     this.securityLevel = $event;
-    if (this.model.parent && this.model.parent instanceof DynamicConcatModel) {
+    if (this.model.parent && (this.model.parent instanceof DynamicConcatModel || this.model.parent instanceof DynamicLinkModel)) {
       this.model.parent.securityLevel = $event;
     }
     if (this.model.value) {
       this.model.securityLevel = $event;
       this.securityLevel = $event;
-      if (this.model.parent && this.model.parent instanceof DynamicConcatModel) {
+      if (this.model.parent && (this.model.parent instanceof DynamicConcatModel || this.model.parent instanceof DynamicLinkModel)) {
         this.model.parent.securityLevel = $event;
       }
       this.change.emit(
@@ -577,4 +581,20 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     }
    }
 
+  isNotRequiredGroupAndEmpty(): boolean {
+    const parent = this.model.parent;
+
+    if (hasValue(parent) && parent.type === 'GROUP') {
+
+     const groupHasSomeValue = parent.group.some(elem => !!elem.value);
+
+      if (!groupHasSomeValue && !parent.isRequired && parent.group?.length > 1) {
+        this.group.reset();
+      }
+
+      return (groupHasSomeValue && !parent.isRequired) || (hasValue(parent.isRequired) && parent.isRequired);
+    } else {
+      return true;
+    }
+  }
 }

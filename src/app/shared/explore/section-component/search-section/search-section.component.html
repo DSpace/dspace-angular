@@ -20,8 +20,14 @@
             </div>
         </div>
         <div class="d-flex justify-content-end" style="gap: 20px;">
-          <button type="button" id="resetButton" class="btn btn-outline-primary float-right" (click)="onReset()">{{'explore.search-section.reset-button' | translate}}</button>
-          <button type="submit" id="searchButton" class="btn btn-primary float-right">{{'explore.search-section.search-button' | translate}}</button>
+          <button type="button" id="resetButton" class="btn btn-outline-primary float-right" (click)="onReset()">
+            <i class="fas fa-redo mr-1"></i>
+            {{'explore.search-section.reset-button' | translate}}
+          </button>
+          <button type="submit" id="searchButton" class="btn btn-primary float-right">
+            <i class="fas fa-search mr-1"></i>
+            {{'explore.search-section.search-button' | translate}}
+          </button>
         </div>
     </form>
 

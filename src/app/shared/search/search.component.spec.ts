@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of, of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { HostWindowService } from '../host-window.service';
@@ -34,11 +34,19 @@ import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
 let searchServiceObject: SearchService;
 let searchConfigurationServiceObject: SearchConfigurationService;
+
+const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
+  isAuthorized: of(true)
+});
+
 const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   dispatch: {},
@@ -239,6 +247,14 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       {
         provide: SEARCH_CONFIG_SERVICE,
         useValue: searchConfigurationServiceStub
+      },
+      {
+        provide: APP_CONFIG,
+        useValue: environment
+      },
+      {
+        provide: AuthorizationDataService,
+        useValue: authorizationDataService
       }
     ],
     schemas: [NO_ERRORS_SCHEMA]
@@ -327,6 +343,12 @@ describe('SearchComponent', () => {
     fixture.detectChanges();
     tick(100);
     expect(comp.resultFound.emit).toHaveBeenCalledWith(expectedResults);
+  }));
+
+  it('should show correction badge when item is a correction', fakeAsync(() => {
+    comp.ngOnInit();
+    tick(100);
+    expect(comp.showCorrection).toBe(true);
   }));
 
   describe('when the open sidebar button is clicked in mobile view', () => {

@@ -26,6 +26,7 @@ const searchOption = params.get('searchable');
 const query = params.get('query');
 const multi = params.get('multi');
 const notMobile = params.get('notMobile');
+const isDownloadPluginEnabled = (params.get('enableDownloadPlugin') === 'true');
 const canvasId = params.get('canvasId');
 
 let windowSettings = {};
@@ -33,6 +34,9 @@ let sideBarPanel = 'info';
 let defaultView = 'single';
 let multipleItems = false;
 let thumbNavigation = 'off';
+let downloadPluginSettings = {
+  restrictDownloadOnSizeDefinition: false
+};
 
 windowSettings.manifestId = manifest;
 
@@ -61,10 +65,10 @@ windowSettings.manifestId = manifest;
   }
 })();
 
-const miradorConfiguration = {
+let miradorConfiguration = {
   id: 'mirador',
   mainMenuSettings: {
-    show: true,
+    show: true
   },
   thumbnailNavigation: {
     defaultPosition: thumbNavigation, // Which position for the thumbnail navigation to be displayed. Other possible values are "far-bottom" or "far-right"
@@ -117,7 +121,7 @@ const miradorConfiguration = {
   selectedTheme: 'light',
   data: [manifest],
   windows: [
-    windowSettings,
+    windowSettings
   ],
   miradorSharePlugin: {
     dragAndDropInfoLink: 'https://iiif.io',
@@ -125,7 +129,7 @@ const miradorConfiguration = {
       enabled: true,
       embedUrlReplacePattern: [
         /.*/,
-        embedURL,
+        embedURL
       ],
       syncIframeDimensions: {
         height: {param: 'maxheight'},
@@ -139,11 +143,8 @@ const miradorConfiguration = {
       ],
     },
   },
-  miradorDownloadPlugin: {
-    restrictDownloadOnSizeDefinition: false,
-  },
   window: {
-    allowClose: !0,
+    allowClose: false,
     // sideBarOpenByDefault: false,
     allowFullscreen: true,
     allowMaximize: false,
@@ -165,23 +166,29 @@ const miradorConfiguration = {
       search: searchOption,
       layers: false,
     },
-    sideBarPanel: sideBarPanel,
+    sideBarPanel: sideBarPanel
   },
   workspace: {
-    allowNewWindows: !0,
+    allowNewWindows: false,
     showZoomControls: true,
-    type: 'mosaic',
+    type: 'mosaic'
   },
   workspaceControlPanel: {
-    enabled: !0,
+    enabled: false
   }
 };
 
-const miradorPlugins = [
+let miradorPlugins = [
   miradorShareDialogPlugin,
   miradorSharePlugin,
   miradorDownloadDialog,
-  miradorDownloadPlugin,
 ];
+
+(() => {
+  if (isDownloadPluginEnabled) {
+    miradorPlugins = [...miradorPlugins, miradorDownloadPlugin];
+    miradorConfiguration.miradorDownloadPlugin = downloadPluginSettings;
+  }
+})();
 
 Mirador.viewer(miradorConfiguration, miradorPlugins);

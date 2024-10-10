@@ -162,7 +162,7 @@ import { EditItemMode } from './submission/models/edititem-mode.model';
 import { AuditDataService } from './audit/audit-data.service';
 import { Audit } from './audit/model/audit.model';
 import { ItemExportFormat } from './itemexportformat/model/item-export-format.model';
-import { MetricsComponentsDataService } from './layout/metrics-components-data.service';
+import { MetricsComponentsService } from './layout/metrics-components.service';
 import { MetricsComponent } from './layout/models/metrics-component.model';
 import { Metric } from './shared/metric.model';
 import { MetricsDataService } from './data/metrics-data.service';
@@ -354,7 +354,7 @@ const PROVIDERS = [
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   TabDataService,
-  MetricsComponentsDataService,
+  MetricsComponentsService,
   MetricsDataService,
   VocabularyService,
   VocabularyDataService,

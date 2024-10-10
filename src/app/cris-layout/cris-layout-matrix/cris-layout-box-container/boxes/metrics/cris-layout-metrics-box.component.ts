@@ -8,7 +8,7 @@ import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.d
 import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { hasValue } from '../../../../../shared/empty.util';
-import { MetricsComponentsDataService } from '../../../../../core/layout/metrics-components-data.service';
+import { MetricsComponentsService } from '../../../../../core/layout/metrics-components.service';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { CrisLayoutBox, MetricsBoxConfiguration, } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
@@ -51,7 +51,7 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent i
   subs: Subscription[] = [];
 
   constructor(
-    protected metricsComponentService: MetricsComponentsDataService,
+    protected metricsComponentService: MetricsComponentsService,
     protected itemService: ItemDataService,
     protected translateService: TranslateService,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
@@ -67,15 +67,18 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent i
     if (isPlatformBrowser(this.platformId)) {
       this.metricsBoxConfiguration = this.box.configuration as MetricsBoxConfiguration;
       this.subs.push(
-        this.itemService.getMetrics(this.item.uuid).pipe(getFirstSucceededRemoteDataPayload())
-          .subscribe((result) => {
-            const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
-              result.page,
-              this.metricsBoxConfiguration.maxColumns,
-              this.metricsBoxConfiguration.metrics
-            );
-            this.metricRows.next(matchingMetrics);
-          }));
+        this.itemService.getMetrics(this.item.uuid).pipe(
+          getFirstSucceededRemoteDataPayload(),
+        ).subscribe((result) => {
+          const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
+            result.page,
+            this.metricsBoxConfiguration.maxColumns,
+            this.metricsBoxConfiguration.metrics,
+          );
+          this.metricRows.next(matchingMetrics);
+          },
+        ),
+      );
     }
   }
 

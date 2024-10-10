@@ -1533,6 +1533,26 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
+"@datadog/browser-core@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-core/-/browser-core-5.7.0.tgz#ae8cd791626e928a82dfdfb3ccea88778323ddb8"
+  integrity sha512-rNUe3s5XD+9UUe/muYuh/UJzb0YXTRwSP1VevMRZmEpNgkBhurWjqjm3LQphYXMYsmQIgvqDPWm05Z+jOxTzRw==
+
+"@datadog/browser-rum-core@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum-core/-/browser-rum-core-5.7.0.tgz#a13f88ab094fe95fe807292965e031857f06b3e3"
+  integrity sha512-ZWDkyMprM0QBQhKhEZnfux8EE9STPa1wl/rAjY/+dBRqrGi1bEqigSgy7GiwiCag1Wn9GEjLXS5opqmoO/fpQw==
+  dependencies:
+    "@datadog/browser-core" "5.7.0"
+
+"@datadog/browser-rum@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum/-/browser-rum-5.7.0.tgz#5aa157f0f175f8a35675d9c542437b6f7646a667"
+  integrity sha512-I+1QslFl4vteoJQBAtBYPgiWa1rFZ/DoNZsOqsKGJjpql0omv5fvdjwbSTBBT5wfLnzo/FnfHogynFpB+JP0rg==
+  dependencies:
+    "@datadog/browser-core" "5.7.0"
+    "@datadog/browser-rum-core" "5.7.0"
+
 "@discoveryjs/json-ext@0.5.7", "@discoveryjs/json-ext@^0.5.0":
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
@@ -5285,7 +5305,7 @@ domhandler@^5.0.2, domhandler@^5.0.3:
   dependencies:
     domelementtype "^2.3.0"
 
-domino@^2.1.2:
+domino@^2.1.2, domino@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/domino/-/domino-2.1.6.tgz#fe4ace4310526e5e7b9d12c7de01b7f485a57ffe"
   integrity sha512-3VdM/SXBZX2omc9JF9nOPCtDaYQ67BGp5CoLpIQlO2KCAPETs8TcDHacF26jXadGbvUteZzRTeos2fhID5+ucQ==
@@ -8981,20 +9001,6 @@ ngx-pagination@6.0.3:
   dependencies:
     tslib "^2.3.0"
 
-ngx-sortablejs@^11.1.0:
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/ngx-sortablejs/-/ngx-sortablejs-11.1.0.tgz#14e50c48db908c1cb4b37722b28c2d3867c6140a"
-  integrity sha512-eM4dHwWSmXDcvF5gUmyMMQ0qqcqBXWCSZ9IRpqx4UkBKfo4N7pk/QuYh5io2fXVHWVFDaxW1yhn2FNpqxV6Jqw==
-  dependencies:
-    tslib "^2.0.0"
-
-ngx-ui-switch@^14.0.3:
-  version "14.1.0"
-  resolved "https://registry.yarnpkg.com/ngx-ui-switch/-/ngx-ui-switch-14.1.0.tgz#32248361a684257c5ae64cfde61b95de920b901c"
-  integrity sha512-uGGLppBP1FXjyD+x7f8Pm6I3JQTMmsBqPtwERAX27jSZxDWFp/sewnl75fuDvu75qFofJd/BIOtV4xHxzgZOvw==
-  dependencies:
-    tslib "^2.3.0"
-
 nice-napi@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nice-napi/-/nice-napi-1.0.2.tgz#dc0ab5a1eac20ce548802fc5686eaa6bc654927b"
@@ -11324,11 +11330,6 @@ socks@^2.6.2:
   dependencies:
     ip "^2.0.0"
     smart-buffer "^4.2.0"
-
-sortablejs@1.15.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.15.0.tgz#53230b8aa3502bb77a29e2005808ffdb4a5f7e2a"
-  integrity sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==
 
 source-list-map@^2.0.0:
   version "2.0.1"

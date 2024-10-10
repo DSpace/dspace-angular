@@ -31,6 +31,12 @@ import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
+import { MiradorConfig } from './mirador-config.interfaces';
+import { LoaderConfig } from './loader-config.interfaces';
+import { MetaTagsConfig } from './meta-tags.config';
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
+import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface';
+import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -68,6 +74,12 @@ interface AppConfig extends Config {
   attachmentRendering: AttachmentRenderingConfig;
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
   searchResult: SearchResultConfig;
+  mirador: MiradorConfig;
+  loader: LoaderConfig;
+  metaTags: MetaTagsConfig;
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig;
+  identifierSubtypes: IdentifierSubtypesConfig[];
+  datadogRum?: DatadogRumConfig;
 }
 
 /**

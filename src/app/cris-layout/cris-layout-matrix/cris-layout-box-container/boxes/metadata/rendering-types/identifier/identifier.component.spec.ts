@@ -83,6 +83,7 @@ describe('IdentifierComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: doiMetadataValueWithoutSubType },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
         { provide: ResolverStrategyService, useClass: ResolverStrategyService }
       ],
       declarations: [IdentifierComponent]

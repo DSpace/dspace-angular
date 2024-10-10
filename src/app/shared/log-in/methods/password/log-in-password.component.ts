@@ -16,8 +16,8 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { CoreState } from '../../../../core/core-state.model';
 import { getForgotPasswordRoute, getRegisterRoute } from '../../../../app-routing-paths';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 
 /**
  * /users/sign-in
@@ -72,6 +72,7 @@ export class LogInPasswordComponent implements OnInit {
    * Whether the current user (or anonymous) is authorized to register an account
    */
   public canRegister$: Observable<boolean>;
+
 
   constructor(
     @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,

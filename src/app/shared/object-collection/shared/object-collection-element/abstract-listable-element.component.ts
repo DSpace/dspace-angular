@@ -40,7 +40,7 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   /**
    * Whether to show the badge label or not
    */
-  @Input() showLabel = true;
+  @Input() showLabel: boolean;
 
   /**
    * Whether to show the metrics badges
@@ -48,9 +48,14 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() showMetrics = true;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * The context we matched on to get this component

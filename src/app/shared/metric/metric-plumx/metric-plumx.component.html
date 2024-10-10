@@ -1,4 +1,4 @@
-<div class="row d-flex align-items-center justify-content-center" *ngIf="remark && canLoadScript && !(isHidden$ | async)">
+<div class="d-flex flex-nowrap flex-row gapx-3 align-items-center pr-3" *ngIf="remark && canLoadScript && !(isHidden$ | async)">
   <div [ngSwitch]="(remark | dsListMetricProps: 'type':isListElement)" [class.person-type-plumX]="isListElement">
     <ng-container *ngSwitchCase="'Person'">
       <a *ngIf="remark && (remark | dsListMetricProps: 'data-person-badge-enabled':isListElement == true)"
@@ -29,6 +29,9 @@
          [attr.data-detail-same-page]="remark | dsListMetricProps: 'data-detail-same-page':isListElement"
       >{{ remark | dsListMetricProps: "placeholder":isListElement }}</a>
     </ng-container>
+  </div>
+  <div class="font-weight-bold" *ngIf="!hideLabel">
+    {{ "item.page.metric.label." + metric.metricType | translate }}
   </div>
 </div>
 <div class="row d-flex align-items-center justify-content-center m-2 alert-light"  *ngIf="!canLoadScript && !isListElement">

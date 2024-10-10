@@ -3,7 +3,7 @@ import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/t
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
-import { of, of as observableOf } from 'rxjs';
+import { EMPTY, of, of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FormService } from '../../../../shared/form/form.service';
@@ -18,7 +18,7 @@ import { SubmissionSectionUploadFileComponent } from './section-upload-file.comp
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import {
   mockSubmissionCollectionId,
-  mockSubmissionId,
+  mockSubmissionId, mockSubmissionState,
   mockUploadConfigResponse,
   mockUploadFiles
 } from '../../../../shared/mocks/submission.mock';
@@ -32,6 +32,8 @@ import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/buil
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 
 const configMetadataFormMock = {
   rows: [{
@@ -56,6 +58,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   let operationsBuilder: any;
   let operationsService: any;
 
+
   const submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
   const submissionId = mockSubmissionId;
   const sectionId = 'upload';
@@ -74,6 +77,12 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     remove: jasmine.createSpy('remove'),
   });
 
+  const vocabularyServiceSpy =
+    jasmine.createSpyObj(
+      'vocabularyService',
+      { getPublicVocabularyEntryByValue: EMPTY, getPublicVocabularyEntryByID: EMPTY }
+    );
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -85,7 +94,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       declarations: [
         FileSizePipe,
         SubmissionSectionUploadFileComponent,
-        TestComponent
+        TestComponent,
+        VarDirective
       ],
       providers: [
         { provide: FormService, useValue: getMockFormService() },
@@ -98,7 +108,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         NgbModal,
         SubmissionSectionUploadFileComponent,
         SubmissionSectionUploadFileEditComponent,
-        FormBuilderService
+        FormBuilderService,
+        { provide: VocabularyService, useValue: vocabularyServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -183,6 +194,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     it('should not show any buttons when ready-only is true', () => {
       comp.fileData = fileData;
       comp.readOnly = true;
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
 
       fixture.detectChanges();
 
@@ -193,10 +205,11 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
     it('should call deleteFile on delete confirmation', () => {
       spyOn(compAsAny, 'deleteFile');
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
       comp.fileData = fileData;
 
       fixture.detectChanges();
-      const modalBtn = fixture.debugElement.query(By.css('.fa-trash '));
+      const modalBtn = fixture.debugElement.query(By.css('.fa-trash'));
 
       modalBtn.nativeElement.click();
       fixture.detectChanges();
@@ -229,16 +242,38 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
     it('should open edit modal when edit button is clicked', () => {
       spyOn(compAsAny, 'editBitstreamData').and.callThrough();
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
       comp.fileData = fileData;
 
       fixture.detectChanges();
 
-      const modalBtn = fixture.debugElement.query(By.css('.fa-edit '));
+      const modalBtn = fixture.debugElement.query(By.css('.fa-edit'));
 
       modalBtn.nativeElement.click();
       fixture.detectChanges();
 
       expect(compAsAny.editBitstreamData).toHaveBeenCalled();
+    });
+
+    it('should show error message if file upload has errors', () => {
+      const mockSubmission = mockSubmissionState;
+      mockSubmission[submissionId].sections[sectionId].errorsToShow = [
+        {
+          path: '/path/to/file/' + fileIndex,
+          message: 'test'
+        }
+      ];
+
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(mockSubmission));
+      comp.fileData = fileData;
+
+      fixture.detectChanges();
+
+      const errorBorder = fixture.debugElement.query(By.css('.border-danger'));
+      const errorMessage = fixture.debugElement.query(By.css('span.text-danger'));
+
+      expect(errorBorder).toBeDefined();
+      expect(errorMessage).toBeDefined();
     });
 
   });

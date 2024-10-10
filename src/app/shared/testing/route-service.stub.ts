@@ -23,7 +23,7 @@ export const routeServiceStub: any = {
   getQueryParamMap: () => {
     return observableOf(new Map());
   },
-  getQueryParameterValue: () => {
+  getQueryParameterValue: (lang?: string) => {
     return observableOf({});
   },
   getRouteParameterValue: (param) => {
@@ -37,6 +37,9 @@ export const routeServiceStub: any = {
   },
   getPreviousUrl: () => {
     return observableOf('/home');
+  },
+  removeQueryParam: () => {
+    return;
   }
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };

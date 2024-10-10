@@ -7,7 +7,9 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Context } from '../../../../core/shared/context.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { DuplicateMatchMetadataDetailConfig } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
+import {
+  DuplicateMatchMetadataDetailConfig
+} from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 import { environment } from '../../../../../environments/environment';
 
 /**
@@ -37,9 +39,29 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() badgeContext: Context;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * A boolean representing if to show submitter information
    */
   @Input() showSubmitter = false;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
 
   /**
    * An object representing the duplicate match
@@ -50,11 +72,6 @@ export class ItemListPreviewComponent implements OnInit {
    * Represents the workflow of the item
    */
   @Input() workflowItem: WorkflowItem;
-
-  /**
-   * Display thumbnails if required by configuration
-   */
-  showThumbnails: boolean;
 
   dsoTitle: string;
 
@@ -67,9 +84,8 @@ export class ItemListPreviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+    this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item);
   }
-
 
 }

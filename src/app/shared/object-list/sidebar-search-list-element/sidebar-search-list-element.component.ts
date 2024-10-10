@@ -1,7 +1,7 @@
 import { SearchResult } from '../../search/models/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { Observable, of as observableOf } from 'rxjs';
 import { TruncatableService } from '../../truncatable/truncatable.service';
@@ -12,6 +12,7 @@ import { followLink } from '../../utils/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Context } from '../../../core/shared/context.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
@@ -33,11 +34,13 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
    */
   description: string;
 
-  public constructor(protected truncatableService: TruncatableService,
-                     protected linkService: LinkService,
-                     public dsoNameService: DSONameService,
+  public constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected truncatableService: TruncatableService,
+    protected linkService: LinkService,
+    public dsoNameService: DSONameService
   ) {
-    super(truncatableService, dsoNameService, null);
+    super(truncatableService, dsoNameService, appConfig);
   }
 
   /**

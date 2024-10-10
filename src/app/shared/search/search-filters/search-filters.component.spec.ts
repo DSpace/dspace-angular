@@ -76,7 +76,7 @@ describe('SearchFiltersComponent', () => {
     it('should not render component', () => {
       const menu = fixture.debugElement.query(By.css('div.d-none'));
       expect(menu).not.toBeNull();
-      expect(comp.searchFilterCount).toEqual(0);
+      expect(comp.availableFilters).toEqual(false);
     });
 
   });

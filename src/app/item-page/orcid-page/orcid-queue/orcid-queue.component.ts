@@ -18,7 +18,6 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { AlertType } from '../../../shared/alert/alert-type';
 import { Item } from '../../../core/shared/item.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { UUIDService } from '../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-orcid-queue',
@@ -35,10 +34,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   /**
    * Pagination config used to display the list
    */
-  public paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    pageSize: 5
-  });
+  public paginationOptions: PaginationComponentOptions;
 
   /**
    * A boolean representing if results are loading
@@ -68,11 +64,14 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
               private paginationService: PaginationService,
               private notificationsService: NotificationsService,
               private orcidHistoryService: OrcidHistoryDataService,
-              private uuidService: UUIDService
   ) {
   }
 
   ngOnInit(): void {
+    this.paginationOptions = Object.assign(new PaginationComponentOptions(), {
+      id: 'oqp' + this.item?.id,
+      pageSize: 5
+    });
     this.updateList();
   }
 
@@ -120,10 +119,14 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     switch (orcidQueue.recordType.toLowerCase()) {
       case 'publication':
         return 'fas fa-book';
+      case 'product':
+        return 'fas fa-database';
       case 'funding':
         return 'fa fa-wallet';
       case 'project':
         return 'fas fa-wallet';
+      case 'patent':
+        return 'fas fa-file';
       case 'education':
         return 'fas fa-school';
       case 'affiliation':

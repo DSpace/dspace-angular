@@ -92,6 +92,9 @@ export class MiradorViewerComponent implements OnInit {
     if (this.notMobile) {
       viewerPath += '&notMobile=true';
     }
+    if (environment.mirador.enableDownloadPlugin) {
+      viewerPath += '&enableDownloadPlugin=true';
+    }
     if (this.canvasId) {
       viewerPath += `&canvasId=${this.canvasId}`;
     }

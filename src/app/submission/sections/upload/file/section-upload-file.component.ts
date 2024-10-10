@@ -1,16 +1,16 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    SimpleChanges,
-    ViewChild
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -27,6 +27,17 @@ import { SubmissionJsonPatchOperationsService } from '../../../../core/submissio
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload
+} from '../../../../core/shared/operators';
+
+
+import uniqBy from 'lodash/uniqBy';
+import { isNumeric } from '../../../../shared/numeric.util';
+import { AlertType } from '../../../../shared/alert/alert-type';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -137,11 +148,22 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   public formModel: DynamicFormControlModel[];
 
+
+  /**
+   * The translated dc.type of the file
+   */
+  public vocabularyFileType$: Observable<string>;
+
   /**
    * A boolean representing if a submission delete operation is pending
    * @type {BehaviorSubject<boolean>}
    */
   public processingDelete$ = new BehaviorSubject<boolean>(false);
+
+  /**
+   * The Enum for the Alert type to be visualized
+   */
+  public AlertTypeEnum = AlertType;
 
   /**
    * The [JsonPatchOperationPathCombiner] object
@@ -172,6 +194,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SubmissionService} submissionService
    * @param {SectionUploadService} uploadService
+   * @param vocabularyService
    */
   constructor(
     private cdr: ChangeDetectorRef,
@@ -182,6 +205,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private operationsService: SubmissionJsonPatchOperationsService,
     private submissionService: SubmissionService,
     private uploadService: SectionUploadService,
+    private vocabularyService: VocabularyService,
   ) {
     this.readMode = true;
   }
@@ -197,9 +221,17 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           .getFileData(this.submissionId, this.sectionId, this.fileId)
           .pipe(filter((bitstream) => isNotUndefined(bitstream)))
           .subscribe((bitstream) => {
-              this.fileData = bitstream;
-            }
-          )
+            this.fileData = bitstream;
+            const fileType = this.fileData.metadata['dc.type']?.map(data => data.value)[0];
+            this.vocabularyFileType$ = !hasValue(fileType) ? of(null) : this.vocabularyService.getPublicVocabularyEntryByValue(this.getControlledVocabulary(this.configMetadataForm), fileType).pipe(
+              getFirstCompletedRemoteData(),
+              getRemoteDataPayload(),
+              getPaginatedListPayload(),
+              map((res) => res?.length > 0 ? res[0] : null),
+              map((res) => res?.display ?? res?.value),
+              take(1)
+            );
+          })
       );
     }
   }
@@ -270,14 +302,39 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     this.subscriptions.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
+  /**
+   * Get current file errors status
+   *
+   * @public
+   */
+  public getFileHasErrors(): Observable<boolean> {
+    return this.submissionService.getSubmissionObject(this.submissionId).pipe(
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      switchMap((submission) => {
+        const uploadSection =  submission.sections ? submission.sections[this.sectionId] : null;
+        let hasErrors = false;
+
+        if (hasValue(uploadSection)) {
+          const errorList = uniqBy([].concat(uploadSection.errorsToShow ?? []).concat(uploadSection.serverValidationErrors ?? []), 'path');
+          const errorPaths = errorList.map(error => error.path);
+          const errorIndexes = errorPaths.map(path => path.split('/')[path.split('/').length - 1]);
+          //second OR condition is needed in case there is just one file as the index is not added
+          hasErrors = errorIndexes.includes(this.fileIndex.toString()) || (errorPaths.length === 1 && !isNumeric(parseInt(errorIndexes[0], 10)));
+        }
+
+        return of(hasErrors);
+      })
+    );
+  }
+
   protected loadFormMetadata() {
     this.configMetadataForm.rows.forEach((row) => {
-      row.fields.forEach((field) => {
-        field.selectableMetadata.forEach((metadatum) => {
-          this.formMetadata.push(metadatum.metadata);
+        row.fields.forEach((field) => {
+          field.selectableMetadata.forEach((metadatum) => {
+            this.formMetadata.push(metadatum.metadata);
+          });
         });
-      });
-    }
+      }
     );
   }
 
@@ -297,4 +354,18 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
       }));
   }
 
+  /**
+   * Retrieve vocabulary key for dc.type
+   * @param model
+   * @private
+   */
+  private getControlledVocabulary(model: SubmissionFormsModel): string {
+    return  model.rows.filter(row =>
+      hasValue(row.fields) &&
+      hasValue(row.fields[0]) &&
+      hasValue(row.fields[0].selectableMetadata) &&
+      hasValue(row.fields[0].selectableMetadata[0]) &&
+      row.fields[0].selectableMetadata[0].metadata === 'dc.type'
+    ).map((filteredRow) => filteredRow.fields[0].selectableMetadata[0].controlledVocabulary)[0];
+  }
 }
