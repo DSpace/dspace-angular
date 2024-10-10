@@ -13,6 +13,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
 import { Item } from 'src/app/core/shared/item.model';
 import {
   MetadataMap,
@@ -207,6 +208,19 @@ describe('ItemPageCcLicenseFieldComponent', () => {
   let configurationDataService = new ConfigurationDataServiceStub();
 
   beforeEach(waitForAsync(() => {
+    configurationDataService.findByPropertyName = jasmine.createSpy()
+      .withArgs('cc.license.name').and.returnValue(createSuccessfulRemoteDataObject$({
+        ... new ConfigurationProperty(),
+        name: 'cc.license.name',
+        values: [ 'dc.rights' ],
+      },
+      ))
+      .withArgs('cc.license.uri').and.returnValue(createSuccessfulRemoteDataObject$({
+        ... new ConfigurationProperty(),
+        name: 'cc.license.uri',
+        values: [ 'dc.rights.uri' ],
+      },
+      ));
     void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
