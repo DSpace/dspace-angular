@@ -53,7 +53,7 @@ describe('registrationGuard', () => {
     });
 
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      searchByToken: observableOf(registrationRD),
+      searchByTokenAndUpdateData: observableOf(registrationRD),
     });
     router = jasmine.createSpyObj('router', {
       navigateByUrl: Promise.resolve(),
@@ -71,7 +71,7 @@ describe('registrationGuard', () => {
   describe('canActivate', () => {
     describe('when searchByToken returns a successful response', () => {
       beforeEach(() => {
-        (epersonRegistrationService.searchByToken as jasmine.Spy).and.returnValue(observableOf(registrationRD));
+        (epersonRegistrationService.searchByTokenAndUpdateData as jasmine.Spy).and.returnValue(observableOf(registrationRD));
       });
 
       it('should return true', (done) => {
@@ -98,7 +98,7 @@ describe('registrationGuard', () => {
 
     describe('when searchByToken returns a 404 response', () => {
       beforeEach(() => {
-        (epersonRegistrationService.searchByToken as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Not Found', 404));
+        (epersonRegistrationService.searchByTokenAndUpdateData as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Not Found', 404));
       });
 
       it('should redirect', () => {
