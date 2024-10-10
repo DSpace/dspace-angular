@@ -38,21 +38,21 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    */
   @Input() item: Item;
 
-   /**
-   * Field name containing the CC license URI
-   */
-   @Input() ccLicenseUriField?;
-
-   /**
-   * Field name containing the CC license URI
-   */
-   @Input() ccLicenseNameField?;
-
   /**
    * 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
    * 'small' variant shows image and name (optional), better for the item page sidebar
    */
   @Input() variant?: 'small' | 'full' = this.appConfig.ccLicense.variant;
+
+  /**
+   * Field name containing the CC license URI
+   */
+  @Input() ccLicenseUriField?;
+
+  /**
+   * Field name containing the CC license URI
+   */
+  @Input() ccLicenseNameField?;
 
   /**
    * Shows the CC license name with the image. Always show if image fails to load
@@ -63,6 +63,11 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    * Shows the disclaimer in the 'full' variant of the component
    */
   @Input() showDisclaimer? = this.appConfig.ccLicense.showDisclaimer;
+
+  /**
+   * Expression used to detect (and parse) whether a URI denotes a CC license
+   */
+  public static readonly regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
 
   uri: string;
   name: string;
@@ -76,7 +81,6 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   }
   
   ngOnInit() {
-    const regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
 
     this.configService.findByPropertyName('cc.license.uri').pipe(
       getFirstCompletedRemoteData(),
