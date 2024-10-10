@@ -4,3 +4,7 @@
     max-width: none;
   }
 }
+
+.container {
+  margin-top: calc(-1 * var(--ds-content-spacing));
+}
