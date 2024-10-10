@@ -7,6 +7,7 @@ describe('Item  Page', () => {
     // Test that entities will redirect to /entities/[type]/[uuid] when accessed via /items/[uuid]
     it('should redirect to the entity page when navigating to an item page', () => {
         cy.visit(ITEMPAGE);
+        cy.wait(1000);
         cy.location('pathname').should('eq', ENTITYPAGE);
     });
 
