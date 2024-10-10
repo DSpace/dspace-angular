@@ -33,12 +33,12 @@ import {
  * Displays the item's Creative Commons license image in it's simple item page
  */
 export class ItemPageCcLicenseFieldComponent implements OnInit {
-  
+
   /**
    * Expression used to detect (and parse) whether a URI denotes a CC license
    */
   public static readonly regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
-  
+
   /**
    * The item to display the CC license image for
    */
@@ -74,13 +74,13 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   name: string;
   showImage = true;
   imgSrc: string;
-  
+
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected configService: ConfigurationDataService,
   ) {
   }
-  
+
   ngOnInit() {
 
     this.configService.findByPropertyName('cc.license.uri').pipe(
@@ -97,7 +97,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
       const ccCode = matches.length > 2 ? matches[2] : null;
       this.imgSrc = ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null;
     });
-    
+
     this.configService.findByPropertyName('cc.license.name').pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
