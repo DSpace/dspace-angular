@@ -36,5 +36,4 @@ import { SearchResultsSkeletonComponent } from '../../../../../../app/shared/sea
   ],
 })
 export class SearchResultsComponent extends BaseComponent {
-
 }

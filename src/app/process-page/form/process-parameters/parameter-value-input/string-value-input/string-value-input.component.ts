@@ -26,7 +26,10 @@ import { ValueInputComponent } from '../value-input.component';
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [FormsModule, TranslateModule],
+  imports: [
+    FormsModule,
+    TranslateModule,
+  ],
 })
 export class StringValueInputComponent extends ValueInputComponent<string> implements OnInit {
   /**

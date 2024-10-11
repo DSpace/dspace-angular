@@ -16,7 +16,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -38,7 +38,7 @@ let mockObject: Item;
 const mockDataService = {};
 
 mockObject = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {

@@ -11,7 +11,9 @@ import { SiteStatisticsPageComponent } from './site-statistics-page.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [SiteStatisticsPageComponent],
+  imports: [
+    SiteStatisticsPageComponent,
+  ],
 })
 export class ThemedSiteStatisticsPageComponent extends ThemedComponent<SiteStatisticsPageComponent> {
   protected getComponentName(): string {

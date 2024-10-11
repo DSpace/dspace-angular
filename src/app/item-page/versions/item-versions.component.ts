@@ -76,13 +76,13 @@ interface VersionDTO {
   imports: [
     AlertComponent,
     AsyncPipe,
+    BtnDisabledDirective,
     DatePipe,
     FormsModule,
     ItemVersionsRowElementVersionComponent,
     NgClass,
     PaginationComponent,
     TranslateModule,
-    BtnDisabledDirective,
   ],
 })
 

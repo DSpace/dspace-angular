@@ -19,7 +19,9 @@ import { rendersAuthMethodType } from '../methods/log-in.methods-decorator.utils
   templateUrl: './log-in-container.component.html',
   styleUrls: ['./log-in-container.component.scss'],
   standalone: true,
-  imports: [NgComponentOutlet],
+  imports: [
+    NgComponentOutlet,
+  ],
 })
 export class LogInContainerComponent implements OnInit {
 

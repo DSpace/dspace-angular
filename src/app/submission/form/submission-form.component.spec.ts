@@ -14,7 +14,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
@@ -74,7 +74,7 @@ describe('SubmissionFormComponent', () => {
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
-        { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
+        { provide: SectionsService, useValue: { isSectionTypeAvailable: () => of(true) } },
         ChangeDetectorRef,
         SubmissionFormComponent,
       ],
@@ -99,7 +99,7 @@ describe('SubmissionFormComponent', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
+      submissionServiceStub.getSubmissionObject.and.returnValue(of(submissionState));
       const html = `
         <ds-submission-form [collectionId]="collectionId"
                                    [selfUrl]="selfUrl"
@@ -159,8 +159,8 @@ describe('SubmissionFormComponent', () => {
       comp.submissionErrors = null;
       comp.item = new Item();
 
-      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
-      submissionServiceStub.getSubmissionSections.and.returnValue(observableOf(sectionsList));
+      submissionServiceStub.getSubmissionObject.and.returnValue(of(submissionState));
+      submissionServiceStub.getSubmissionSections.and.returnValue(of(sectionsList));
       spyOn(authServiceStub, 'buildAuthHeader').and.returnValue('token');
 
       scheduler.schedule(() => {

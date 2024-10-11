@@ -14,7 +14,7 @@ import {
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { Community } from '../../../../core/shared/community.model';
@@ -42,7 +42,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const createPath = '/communities/create';
   const mockAuthorizationDataService = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -92,7 +92,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
   });
 
   it('should show the div when user is an admin', (waitForAsync(() => {
-    component.isAdmin$ = observableOf(true);
+    component.isAdmin$ = of(true);
     fixture.detectChanges();
 
     const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));
@@ -100,7 +100,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
   })));
 
   it('should hide the div when user is not an admin', (waitForAsync(() => {
-    component.isAdmin$ = observableOf(false);
+    component.isAdmin$ = of(false);
     fixture.detectChanges();
 
     const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));

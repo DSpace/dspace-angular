@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -48,16 +48,16 @@ describe('SearchExportCsvComponent', () => {
   });
 
   configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
-    findByPropertyName: observableOf({ payload: { value: '500' } }),
+    findByPropertyName: of({ payload: { value: '500' } }),
   });
 
   function initBeforeEachAsync() {
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
-      scriptWithNameExistsAndCanExecute: observableOf(true),
+      scriptWithNameExistsAndCanExecute: of(true),
       invoke: createSuccessfulRemoteDataObject$(process),
     });
     authorizationDataService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     notificationsService = new NotificationsServiceStub();
@@ -109,7 +109,7 @@ describe('SearchExportCsvComponent', () => {
     describe('when the user is not an admin', () => {
       beforeEach(waitForAsync(() => {
         initBeforeEachAsync();
-        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
       }));
       beforeEach(() => {
         initBeforeEach();
@@ -122,7 +122,7 @@ describe('SearchExportCsvComponent', () => {
     describe('when the metadata-export-search script is not present', () => {
       beforeEach(waitForAsync(() => {
         initBeforeEachAsync();
-        (scriptDataService.scriptWithNameExistsAndCanExecute as jasmine.Spy).and.returnValue(observableOf(false));
+        (scriptDataService.scriptWithNameExistsAndCanExecute as jasmine.Spy).and.returnValue(of(false));
       }));
 
       it('should should not add the button', () => {
@@ -133,7 +133,7 @@ describe('SearchExportCsvComponent', () => {
       });
 
       it('should not call scriptWithNameExistsAndCanExecute when unauthorized', () => {
-        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
         initBeforeEach();
 
         expect(scriptDataService.scriptWithNameExistsAndCanExecute).not.toHaveBeenCalled();

@@ -26,7 +26,12 @@ import { ValueInputComponent } from '../value-input.component';
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [FileValueAccessorDirective, FormsModule, FileValidator, TranslateModule],
+  imports: [
+    FileValidator,
+    FileValueAccessorDirective,
+    FormsModule,
+    TranslateModule,
+  ],
 })
 export class FileValueInputComponent extends ValueInputComponent<File> {
   /**

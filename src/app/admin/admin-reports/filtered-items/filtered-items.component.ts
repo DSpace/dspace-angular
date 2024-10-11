@@ -61,14 +61,14 @@ import { QueryPredicate } from './query-predicate.model';
   templateUrl: './filtered-items.component.html',
   styleUrls: ['./filtered-items.component.scss'],
   imports: [
-    ReactiveFormsModule,
-    NgbAccordionModule,
-    TranslateModule,
     AsyncPipe,
-    FiltersComponent,
     BtnDisabledDirective,
     FilteredItemsExportCsvComponent,
+    FiltersComponent,
+    NgbAccordionModule,
+    ReactiveFormsModule,
     ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

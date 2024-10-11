@@ -8,7 +8,9 @@ import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [EditBitstreamPageComponent],
+  imports: [
+    EditBitstreamPageComponent,
+  ],
 })
 export class ThemedEditBitstreamPageComponent extends ThemedComponent<EditBitstreamPageComponent> {
   protected getComponentName(): string {

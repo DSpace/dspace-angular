@@ -9,7 +9,9 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './confirmation-sent.component.html',
   styleUrls: ['./confirmation-sent.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
   standalone: true,
 
 })

@@ -37,8 +37,8 @@ import { ThemedSearchComponent } from '../../../search/themed-search.component';
     },
   ],
   imports: [
-    ThemedSearchComponent,
     AsyncPipe,
+    ThemedSearchComponent,
   ],
   standalone: true,
 })

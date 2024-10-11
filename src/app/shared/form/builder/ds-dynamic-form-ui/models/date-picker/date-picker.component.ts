@@ -38,11 +38,11 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
   styleUrls: ['./date-picker.component.scss'],
   templateUrl: './date-picker.component.html',
   imports: [
+    BtnDisabledDirective,
+    FormsModule,
     NgClass,
     NumberPickerComponent,
-    FormsModule,
     TranslateModule,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -24,7 +24,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  of as observableOf,
   of,
 } from 'rxjs';
 
@@ -128,11 +127,11 @@ describe('ItemVersionsComponent', () => {
     getLatestVersionItemFromHistory$: of(item1),  // called when version2 is deleted
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
-    isAuthenticated: observableOf(true),
+    isAuthenticated: of(true),
     setRedirectUrl: {},
   });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,

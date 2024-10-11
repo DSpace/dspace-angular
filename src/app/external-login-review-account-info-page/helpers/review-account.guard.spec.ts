@@ -12,7 +12,6 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
   of,
 } from 'rxjs';
 
@@ -43,7 +42,7 @@ describe('ReviewAccountGuard', () => {
       searchByTokenAndHandleError: createSuccessfulRemoteDataObject$(registrationMock),
     });
     authService = {
-      isAuthenticated: () => observableOf(true),
+      isAuthenticated: () => of(true),
     } as any;
     router = new RouterMock();
 
@@ -53,7 +52,7 @@ describe('ReviewAccountGuard', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParamMap: observableOf(convertToParamMap(paramObject)),
+            queryParamMap: of(convertToParamMap(paramObject)),
             snapshot: {
               params: {
                 token: '1234',

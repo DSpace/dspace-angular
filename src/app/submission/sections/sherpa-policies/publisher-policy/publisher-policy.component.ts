@@ -18,8 +18,8 @@ import { ContentAccordionComponent } from '../content-accordion/content-accordio
   styleUrls: ['./publisher-policy.component.scss'],
   imports: [
     ContentAccordionComponent,
-    TranslateModule,
     KeyValuePipe,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -31,7 +31,9 @@ class BrowseByTestComponent {
   selector: 'ds-browse-by-switcher',
   template: `<ng-template #DynamicComponentLoader dsDynamicComponentLoader></ng-template>`,
   standalone: true,
-  imports: [DynamicComponentLoaderDirective],
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 class TestBrowseBySwitcherComponent extends BrowseBySwitcherComponent {
   getComponent(): GenericConstructor<Component> {

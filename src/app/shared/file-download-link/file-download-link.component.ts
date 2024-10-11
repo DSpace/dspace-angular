@@ -19,7 +19,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -45,7 +45,14 @@ import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/ba
   templateUrl: './file-download-link.component.html',
   styleUrls: ['./file-download-link.component.scss'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgTemplateOutlet, AsyncPipe, TranslateModule, ThemedAccessStatusBadgeComponent],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    NgTemplateOutlet,
+    RouterLink,
+    ThemedAccessStatusBadgeComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Component displaying a download link
@@ -108,15 +115,15 @@ export class FileDownloadLinkComponent implements OnInit {
       this.itemRequest = this.route.snapshot.data.itemRequest;
       // Set up observables to test access rights to a normal bitstream download, a valid token download, and the request-a-copy feature
       this.canDownload$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
-      this.canDownloadWithToken$ = observableOf((this.itemRequest && this.itemRequest.acceptRequest && !this.itemRequest.accessExpired) ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
+      this.canDownloadWithToken$ = of((this.itemRequest && this.itemRequest.acceptRequest && !this.itemRequest.accessExpired) ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
       this.canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
       // Set up observable to determine the path to the bitstream based on the user's access rights and features as above
       this.bitstreamPath$ = observableCombineLatest([this.canDownload$, this.canDownloadWithToken$, this.canRequestACopy$]).pipe(
         map(([canDownload, canDownloadWithToken, canRequestACopy]) => this.getBitstreamPath(canDownload, canDownloadWithToken, canRequestACopy)),
       );
     } else {
-      this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());
-      this.canDownload$ = observableOf(true);
+      this.bitstreamPath$ = of(this.getBitstreamDownloadPath());
+      this.canDownload$ = of(true);
     }
   }
 

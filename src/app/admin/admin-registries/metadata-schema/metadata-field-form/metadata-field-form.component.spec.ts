@@ -9,7 +9,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
@@ -86,7 +86,7 @@ describe('MetadataFieldFormComponent', () => {
 
     describe('without an active field', () => {
       beforeEach(() => {
-        spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(undefined));
+        spyOn(registryService, 'getActiveMetadataField').and.returnValue(of(undefined));
         component.onSubmit();
         fixture.detectChanges();
       });
@@ -107,7 +107,7 @@ describe('MetadataFieldFormComponent', () => {
       });
 
       beforeEach(() => {
-        spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(expectedWithId));
+        spyOn(registryService, 'getActiveMetadataField').and.returnValue(of(expectedWithId));
         component.onSubmit();
         fixture.detectChanges();
       });

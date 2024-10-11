@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { environment } from '../../../../environments/environment.test';
@@ -119,7 +119,7 @@ describe('SearchService', () => {
 
     it('should return ViewMode.List when the viewMode is set to ViewMode.List in the ActivatedRoute', () => {
       testScheduler.run(({ expectObservable }) => {
-        spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
+        spyOn(routeService, 'getQueryParamMap').and.returnValue(of(new Map([
           ['view', ViewMode.ListElement],
         ])));
 
@@ -131,7 +131,7 @@ describe('SearchService', () => {
 
     it('should return ViewMode.Grid when the viewMode is set to ViewMode.Grid in the ActivatedRoute', () => {
       testScheduler.run(({ expectObservable }) => {
-        spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
+        spyOn(routeService, 'getQueryParamMap').and.returnValue(of(new Map([
           ['view', ViewMode.GridElement],
         ])));
 

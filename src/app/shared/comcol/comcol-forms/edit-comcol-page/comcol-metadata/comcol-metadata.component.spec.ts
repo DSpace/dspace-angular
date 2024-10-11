@@ -11,7 +11,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ComColDataService } from '../../../../../core/data/comcol-data.service';
 import { Community } from '../../../../../core/shared/community.model';
@@ -64,7 +64,7 @@ describe('ComColMetadataComponent', () => {
 
     routeStub = {
       parent: {
-        data: observableOf({
+        data: of({
           dso: createSuccessfulRemoteDataObject(community),
         }),
       },

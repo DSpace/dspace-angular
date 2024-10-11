@@ -11,7 +11,7 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -37,7 +37,7 @@ export abstract class AbstractRouteContextMenuProvider<T> extends AbstractMenuPr
         if (this.isApplicable(routeContext)) {
           return this.getSectionsForContext(routeContext);
         } else {
-          return observableOf([]);
+          return of([]);
         }
       }),
     );

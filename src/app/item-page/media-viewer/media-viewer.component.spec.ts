@@ -14,7 +14,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -46,7 +46,7 @@ describe('MediaViewerComponent', () => {
     sizeBytes: 10201,
     content:
       'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-    format: observableOf(MockBitstreamFormat1),
+    format: of(MockBitstreamFormat1),
     bundleName: 'ORIGINAL',
     _links: {
       self: {
@@ -84,10 +84,10 @@ describe('MediaViewerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('AuthService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
     });
     authorizationService = jasmine.createSpyObj('AuthorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     fileService = jasmine.createSpyObj('FileService', {
       retrieveFileDownloadLink: null,

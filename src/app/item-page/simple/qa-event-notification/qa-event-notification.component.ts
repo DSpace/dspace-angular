@@ -34,8 +34,8 @@ import { SplitPipe } from '../../../shared/utils/split.pipe';
   imports: [
     AsyncPipe,
     RouterLink,
-    TranslateModule,
     SplitPipe,
+    TranslateModule,
   ],
   standalone: true,
 })

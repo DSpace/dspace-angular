@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuItemModels } from '../../../shared/menu/menu-section.model';
@@ -39,7 +39,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([{
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([{
         id: 'test',
         visible: true,
         model: {} as MenuItemModels,
@@ -90,7 +90,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(ExpandableAdminSidebarSectionComponent);
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);

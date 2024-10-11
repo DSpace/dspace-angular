@@ -11,7 +11,9 @@ import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [WorkspaceItemsDeletePageComponent],
+  imports: [
+    WorkspaceItemsDeletePageComponent,
+  ],
 })
 export class ThemedWorkspaceItemsDeletePageComponent extends ThemedComponent<WorkspaceItemsDeletePageComponent> {
   protected getComponentName(): string {

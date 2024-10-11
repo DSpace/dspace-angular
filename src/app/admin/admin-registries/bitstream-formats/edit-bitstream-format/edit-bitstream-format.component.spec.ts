@@ -12,7 +12,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -44,7 +44,7 @@ describe('EditBitstreamFormatComponent', () => {
   bitstreamFormat.extensions = null;
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       bitstreamFormat: createSuccessfulRemoteDataObject(bitstreamFormat),
     }),
   };

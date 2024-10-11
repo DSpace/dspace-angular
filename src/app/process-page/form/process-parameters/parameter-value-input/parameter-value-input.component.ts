@@ -31,7 +31,13 @@ import { StringValueInputComponent } from './string-value-input/string-value-inp
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [StringValueInputComponent, DateValueInputComponent, FileValueInputComponent, BooleanValueInputComponent, IntegerValueInputComponent],
+  imports: [
+    BooleanValueInputComponent,
+    DateValueInputComponent,
+    FileValueInputComponent,
+    IntegerValueInputComponent,
+    StringValueInputComponent,
+  ],
 })
 export class ParameterValueInputComponent {
   @Input() index: number;

@@ -21,7 +21,11 @@ import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
   styleUrls: ['./starts-with-date.component.scss'],
   templateUrl: './starts-with-date.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class StartsWithDateComponent extends StartsWithAbstractComponent implements OnInit {
 

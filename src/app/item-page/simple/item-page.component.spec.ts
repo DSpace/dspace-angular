@@ -18,7 +18,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -89,21 +89,21 @@ describe('ItemPageComponent', () => {
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
 
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
+    data: of({ dso: createSuccessfulRemoteDataObject(mockItem) }),
   });
 
   const getCoarLdnLocalInboxUrls = ['http://InboxUrls.org', 'http://InboxUrls2.org'];
 
   beforeEach(waitForAsync(() => {
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(false),
+      isAuthorized: of(false),
     });
     serverResponseService = jasmine.createSpyObj('ServerResponseService', {
       setHeader: jasmine.createSpy('setHeader'),
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink, mocklink2]),
+      getLinks: of([mocklink, mocklink2]),
     });
 
     linkHeadService = jasmine.createSpyObj('LinkHeadService', {
@@ -113,8 +113,8 @@ describe('ItemPageComponent', () => {
 
     notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
       getInboxRelationLink: 'http://www.w3.org/ns/ldp#inbox',
-      isCoarConfigEnabled: observableOf(true),
-      getCoarLdnLocalInboxUrls: observableOf(getCoarLdnLocalInboxUrls),
+      isCoarConfigEnabled: of(true),
+      getCoarLdnLocalInboxUrls: of(getCoarLdnLocalInboxUrls),
     });
 
     TestBed.configureTestingModule({
@@ -184,7 +184,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item is withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = createSuccessfulRemoteDataObject$(mockWithdrawnItem);
       fixture.detectChanges();
     });
@@ -234,7 +234,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item is not withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = createSuccessfulRemoteDataObject$(mockItem);
       fixture.detectChanges();
     });

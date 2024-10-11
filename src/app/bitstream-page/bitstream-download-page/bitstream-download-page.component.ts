@@ -19,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -108,7 +108,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
         const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined);
         const isLoggedIn$ = this.auth.isAuthenticated();
         const isMatomoEnabled$ = this.matomoService.isMatomoEnabled$();
-        return observableCombineLatest([isAuthorized$, isLoggedIn$, isMatomoEnabled$, accessToken$, observableOf(bitstream)]);
+        return observableCombineLatest([isAuthorized$, isLoggedIn$, isMatomoEnabled$, accessToken$, of(bitstream)]);
       }),
       filter(([isAuthorized, isLoggedIn, isMatomoEnabled, accessToken, bitstream]: [boolean, boolean, boolean, string, Bitstream]) => (hasValue(isAuthorized) && hasValue(isLoggedIn)) || hasValue(accessToken)),
       take(1),
@@ -132,7 +132,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
             map((fileLinkWithVisitorId) => [isAuthorized, isLoggedIn, bitstream, fileLinkWithVisitorId, accessToken]),
           );
         }
-        return observableOf([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]);
+        return of([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]);
       }),
     ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]: [boolean, boolean, Bitstream, string, string]) => {
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {

@@ -11,7 +11,9 @@ import { ForgotEmailComponent } from './forgot-email.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ForgotEmailComponent],
+  imports: [
+    ForgotEmailComponent,
+  ],
 })
 export class ThemedForgotEmailComponent extends ThemedComponent<ForgotEmailComponent> {
   protected getComponentName(): string {
