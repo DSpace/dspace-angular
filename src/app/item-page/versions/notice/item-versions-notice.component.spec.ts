@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
@@ -79,10 +79,10 @@ describe('ItemVersionsNoticeComponent', () => {
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
 
-    const isLatestFcn = (version: Version) => of((version.version === latestVersion.version));
+    const isLatestFcn = (version: Version) => observableOf((version.version === latestVersion.version));
 
     versionHistoryServiceSpy.getVersions.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(versions)));
-    versionHistoryServiceSpy.getLatestVersionFromHistory$.and.returnValue(of(latestVersion));
+    versionHistoryServiceSpy.getLatestVersionFromHistory$.and.returnValue(observableOf(latestVersion));
     versionHistoryServiceSpy.isLatest$.and.callFake(isLatestFcn);
   }));
 

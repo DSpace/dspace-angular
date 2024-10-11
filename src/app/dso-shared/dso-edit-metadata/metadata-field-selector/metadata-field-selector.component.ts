@@ -27,7 +27,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of,
+  of as observableOf,
   Subscription,
 } from 'rxjs';
 import {
@@ -213,7 +213,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
       getFirstCompletedRemoteData(),
       switchMap((rd) => {
         if (rd.hasSucceeded) {
-          return of(rd).pipe(
+          return observableOf(rd).pipe(
             metadataFieldsToString(),
             take(1),
             map((fields: string[]) => fields.indexOf(this.mdField) > -1),

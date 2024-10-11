@@ -11,7 +11,7 @@ import {
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../core/shared/item.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
@@ -135,7 +135,7 @@ describe('ProfileClaimItemModalComponent', () => {
   describe('when there are suggestions', () => {
 
     beforeEach(() => {
-      profileClaimService.searchForSuggestions.and.returnValue(of(searchResultRD));
+      profileClaimService.searchForSuggestions.and.returnValue(observableOf(searchResultRD));
       fixture.detectChanges();
     });
 
@@ -184,7 +184,7 @@ describe('ProfileClaimItemModalComponent', () => {
   describe('when there are not suggestions', () => {
 
     beforeEach(() => {
-      profileClaimService.searchForSuggestions.and.returnValue(of(emptySearchResultRD));
+      profileClaimService.searchForSuggestions.and.returnValue(observableOf(emptySearchResultRD));
       fixture.detectChanges();
     });
 

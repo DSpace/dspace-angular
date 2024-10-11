@@ -23,7 +23,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import { LangConfig } from '../../../config/lang-config.interface';
@@ -39,7 +39,7 @@ import { LangSwitchComponent } from './lang-switch.component';
 /* eslint-disable quote-props */
 class CustomLoader implements TranslateLoader {
   getTranslation(lang: string): Observable<any> {
-    return of({
+    return observableOf({
       'footer': {
         'copyright': 'copyright © 2002-{{ year }}',
         'link.dspace': 'DSpace software',

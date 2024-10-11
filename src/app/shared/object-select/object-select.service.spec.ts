@@ -1,5 +1,5 @@
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { AppState } from '../../app.reducer';
 import {
@@ -26,21 +26,21 @@ describe('ObjectSelectService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-    select: of(true),
+    select: observableOf(true),
   });
 
   const store: Store<ObjectSelectionsState> = jasmine.createSpyObj('store', {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-    select: of(true),
+    select: observableOf(true),
   });
 
   const appStore: Store<AppState> = jasmine.createSpyObj('appStore', {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: of(true),
+    select: observableOf(true),
   });
 
   beforeEach(() => {

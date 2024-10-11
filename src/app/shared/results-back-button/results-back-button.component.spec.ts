@@ -9,7 +9,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { ResultsBackButtonComponent } from './results-back-button.component';
 
@@ -19,7 +19,7 @@ describe('ResultsBackButtonComponent', () => {
   let fixture: ComponentFixture<ResultsBackButtonComponent>;
 
   const translate = {
-    get: jasmine.createSpy('get').and.returnValue(of('item button')),
+    get: jasmine.createSpy('get').and.returnValue(observableOf('item button')),
   };
 
   describe('back to results', () => {
@@ -42,7 +42,7 @@ describe('ResultsBackButtonComponent', () => {
         translate.get.calls.reset();
         fixture = TestBed.createComponent(ResultsBackButtonComponent);
         component = fixture.componentInstance;
-        component.buttonLabel = of('browse button');
+        component.buttonLabel = observableOf('browse button');
         component.ngOnInit();
         fixture.detectChanges();
       }));

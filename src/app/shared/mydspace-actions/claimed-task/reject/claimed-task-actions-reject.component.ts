@@ -23,7 +23,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -107,7 +107,7 @@ export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstrac
   }
 
   reloadObjectExecution(): Observable<RemoteData<DSpaceObject> | DSpaceObject> {
-    return of(this.object);
+    return observableOf(this.object);
   }
 
   convertReloadedObject(dso: DSpaceObject): DSpaceObject {

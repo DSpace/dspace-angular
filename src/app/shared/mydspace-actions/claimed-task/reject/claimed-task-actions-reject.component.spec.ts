@@ -23,7 +23,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -52,7 +52,7 @@ const requestService = getMockRequestService();
 const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
 
 const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-  submitTask: of(new ProcessTaskResponse(true)),
+  submitTask: observableOf(new ProcessTaskResponse(true)),
 });
 
 let mockPoolTaskDataService: PoolTaskDataService;
@@ -135,7 +135,7 @@ describe('ClaimedTaskActionsRejectComponent', () => {
 
     beforeEach(() => {
       spyOn(component.processCompleted, 'emit');
-      spyOn(component, 'startActionExecution').and.returnValue(of(null));
+      spyOn(component, 'startActionExecution').and.returnValue(observableOf(null));
 
       expectedBody = {
         [component.option]: 'true',

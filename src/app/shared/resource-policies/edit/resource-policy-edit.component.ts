@@ -14,7 +14,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   map,
@@ -118,7 +118,7 @@ export class ResourcePolicyEditComponent implements OnInit {
     ).pipe(
       getFirstCompletedRemoteData(),
       map((responseRD) => responseRD && responseRD.hasSucceeded),
-    ) : of(true);
+    ) : observableOf(true);
 
     const updateResourcePolicySucceeded$ = this.resourcePolicyService.update(updatedObject).pipe(
       getFirstCompletedRemoteData(),

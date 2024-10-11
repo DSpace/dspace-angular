@@ -21,7 +21,7 @@ import {
   combineLatest,
   from,
   Observable,
-  of,
+  of as observableOf,
   Subscription,
 } from 'rxjs';
 import {
@@ -360,7 +360,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
             this.notificationsService.error(
               this.translateService.instant('quality-assurance.event.action.error'),
             );
-            return of(this.eventsUpdated$.value);
+            return observableOf(this.eventsUpdated$.value);
           }
         }),
       ).subscribe((events: QualityAssuranceEventData[]) => {
@@ -468,7 +468,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
           if (rd.payload?.page?.length > 0) {
             return this.fetchEvents(rd.payload.page);
           } else {
-            return of([]);
+            return observableOf([]);
           }
         } else {
           throw new Error('Can\'t retrieve Quality Assurance events from the Broker events REST service');

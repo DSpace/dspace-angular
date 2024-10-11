@@ -11,7 +11,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of as observableOf,
-  of,
   Subject,
 } from 'rxjs';
 
@@ -76,7 +75,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
   beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService', {
       initialize: undefined,
-      getFieldUpdatesExclusive: of(null),
+      getFieldUpdatesExclusive: observableOf(null),
     });
 
     itemBitstreamsService = getItemBitstreamsServiceStub();
@@ -241,7 +240,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
         paginationComponent = jasmine.createSpyObj('paginationComponent', {
           doPageChange: undefined,
         }, {
-          shouldShowBottomPager: of(true),
+          shouldShowBottomPager: observableOf(true),
         });
         comp.paginationComponent = paginationComponent;
 
@@ -253,7 +252,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
         paginationComponent = jasmine.createSpyObj('paginationComponent', {
           doPageChange: undefined,
         }, {
-          shouldShowBottomPager: of(false),
+          shouldShowBottomPager: observableOf(false),
         });
         comp.paginationComponent = paginationComponent;
 
@@ -267,7 +266,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
         paginationComponent = jasmine.createSpyObj('paginationComponent', {
           doPageChange: undefined,
         }, {
-          shouldShowBottomPager: of(false),
+          shouldShowBottomPager: observableOf(false),
         });
         comp.paginationComponent = paginationComponent;
 

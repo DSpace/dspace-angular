@@ -4,7 +4,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
@@ -17,7 +17,7 @@ describe('NotifyInfoComponent', () => {
 
   beforeEach(async () => {
     notifyInfoServiceSpy = jasmine.createSpyObj('NotifyInfoService', {
-      getCoarLdnLocalInboxUrls: of([]),
+      getCoarLdnLocalInboxUrls: observableOf([]),
     });
 
     await TestBed.configureTestingModule({
@@ -33,7 +33,7 @@ describe('NotifyInfoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NotifyInfoComponent);
     component = fixture.componentInstance;
-    component.coarRestApiUrls$ = of('');
+    component.coarRestApiUrls$ = observableOf('');
     fixture.detectChanges();
   });
 

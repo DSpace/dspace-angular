@@ -17,7 +17,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   map,
@@ -144,7 +144,7 @@ export class MiradorViewerComponent implements OnInit {
       // Set the multi property to 'true' if the item is searchable.
       if (this.searchable) {
         this.multi = true;
-        const observable = of('');
+        const observable = observableOf('');
         this.iframeViewerUrl = observable.pipe(
           map((val) => {
             return this.setURL();

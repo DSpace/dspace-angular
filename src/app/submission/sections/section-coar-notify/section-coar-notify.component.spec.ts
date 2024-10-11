@@ -5,7 +5,7 @@ import {
 } from '@angular/core/testing';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { NotifyServicePattern } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
@@ -87,7 +87,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     component.patterns = patterns[0].patterns;
     coarNotifyConfigDataService.findAll.and.returnValue(coarNotifyConfig);
     sectionService.getSectionServerErrors.and.returnValue(
-      of(
+      observableOf(
         Object.assign([], {
           path: 'sections/sectionId/data/notifyCoar',
           message: 'error',
@@ -264,7 +264,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
       component.patterns = [pattern1, pattern2];
 
       spyOn(component, 'filterServices').and.callFake((pattern) => {
-        return of(services);
+        return observableOf(services);
       });
     });
 
@@ -417,7 +417,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
         { path: 'sections/sectionId/data/notifyCoar', message: 'error' },
       ];
       sectionService.getSectionServerErrors.and.returnValue(
-        of(validationErrors),
+        observableOf(validationErrors),
       );
 
       componentAsAny.getSectionServerErrorsAndSetErrorsToDisplay();
@@ -432,8 +432,8 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
 
   describe('onSectionDestroy', () => {
     it('should unsubscribe from all subscriptions', () => {
-      const sub1 = of(null).subscribe();
-      const sub2 = of(null).subscribe();
+      const sub1 = observableOf(null).subscribe();
+      const sub2 = observableOf(null).subscribe();
       componentAsAny.subs = [sub1, sub2];
       spyOn(sub1, 'unsubscribe');
       spyOn(sub2, 'unsubscribe');

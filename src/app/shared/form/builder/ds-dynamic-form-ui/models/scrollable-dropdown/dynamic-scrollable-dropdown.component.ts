@@ -25,7 +25,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
   of as observableOf,
-  of,
 } from 'rxjs';
 import {
   catchError,
@@ -125,7 +124,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    */
   ngOnInit() {
     const lazyProvider$: Observable<Cache> = hasValue(this.model.resourceType) ?
-      lazyDataService(this.dataServiceMap, this.model.resourceType.value, this.parentInjector) : of(null);
+      lazyDataService(this.dataServiceMap, this.model.resourceType.value, this.parentInjector) : observableOf(null);
 
     lazyProvider$.pipe(take(1)).subscribe((dataService) => {
       this.findAllService = dataService as unknown as FindAllDataImpl<CacheableObject>;
