@@ -23,6 +23,7 @@ export const ROUTES: Route[] = [
     data: {
       title: 'statistics.title',
       breadcrumbKey: 'statistics',
+      type: 'site',
     },
     children: [
       {
