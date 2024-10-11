@@ -200,7 +200,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
       map((item: ItemType) => {
           return {
             ...item,
-            label: this.translate.instant(`${item.label?.toLowerCase()}.listelement.badge`)
+            translatedLabel: this.translate.instant(`${item.label?.toLowerCase()}.listelement.badge`)
           };
         }
       ),
