@@ -109,6 +109,13 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
               if (hasValue(match)) {
                 embedAltUrl = new URLCombiner(embedAltUrl, `?size=${match.size}`).toString();
               }
+              if (data._embedded[property] == null) {
+                // Embedded object is null, meaning it exists (not undefined), but had an empty response (204) -> cache it as null
+                this.addToObjectCache(null, request, data, embedAltUrl);
+              } else if (!isCacheableObject(data._embedded[property])) {
+                // Embedded object exists, but doesn't contain a self link -> cache it using the alternative link instead
+                this.objectCache.add(data._embedded[property], hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, embedAltUrl);
+              }
               this.process<ObjectDomain>(data._embedded[property], request, embedAltUrl);
             });
         }
@@ -226,7 +233,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
    * @param alternativeURL  an alternative url that can be used to retrieve the object
    */
   addToObjectCache(co: CacheableObject, request: RestRequest, data: any, alternativeURL?: string): void {
-    if (!isCacheableObject(co)) {
+    if (hasValue(co) && !isCacheableObject(co)) {
       const type = hasValue(data) && hasValue(data.type) ? data.type : 'object';
       let dataJSON: string;
       if (hasValue(data._embedded)) {
@@ -240,7 +247,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
       return;
     }
 
-    if (alternativeURL === co._links.self.href) {
+    if (hasValue(co) && alternativeURL === co._links.self.href) {
       alternativeURL = undefined;
     }
 
