@@ -2,7 +2,7 @@
   <h2>{{'submission.import-external.preview.title.' + labelPrefix | translate}}</h2>
   <button type="button" class="close"
           (click)="closeMetadataModal()" aria-label="Close">
-      <span aria-hidden="true">×</span>
+    <span aria-hidden="true">×</span>
   </button>
 </div>
 <div class="modal-body">
@@ -18,25 +18,24 @@
       </div>
     </div>
     <div *ngFor="let metadata of metadataList" class="row">
+      <p class="col-md-12">
+        <strong class="">{{'item.preview.' + metadata.key | translate}}</strong><br>
+        <ng-container *ngFor="let metadatum of metadata.values">
+          <span>{{metadatum.value}}</span><br>
+        </ng-container>
+      </p>
+    </div>
+    <div class="row">
       <div class="col-md-12">
-        <strong>{{'item.preview.' + metadata.key | translate}}</strong>
-        <div *ngIf="metadata.key === 'dc.description.abstract'" data-test="abstract" class="mb-2">
-          <ds-truncatable [id]="metadata.key">
-            <ds-truncatable-part [id]="metadata.key" [minLines]="3">
-              <p>{{metadata.value.value}}</p>
-            </ds-truncatable-part>
-          </ds-truncatable>
-        </div>
-        <p *ngIf="metadata.key !== 'dc.description.abstract'">{{metadata.value.value}}</p>
+        <hr>
       </div>
     </div>
-  </div>
-</div>
-<div class="modal-footer">
-  <div class="row"></div>
-  <div class="col-md-12 text-right">
-    <button class="btn btn-success" (click)="import()" role="button">
-      <i class="fa fa-file-import" aria-hidden="true"></i> {{'submission.import-external.preview.button.import' | translate}}
-    </button>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button class="btn btn-success" (click)="import()" role="button">
+          <i class="fa fa-file-import" aria-hidden="true"></i> {{'submission.import-external.preview.button.import' | translate}}
+        </button>
+      </div>
+    </div>
   </div>
 </div>

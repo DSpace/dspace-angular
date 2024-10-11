@@ -13,11 +13,9 @@ import {
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 
 import { HostWindowService } from '../host-window.service';
-import { HostWindowState } from '../search/host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { hasValue } from '../empty.util';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map, take } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
@@ -46,11 +44,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Number of items in collection.
    */
   @Input() collectionSize: number;
-
-  /**
-   * Page state of a Remote paginated objects.
-   */
-  @Input() pageInfoState: Observable<PageInfo> = undefined;
 
   /**
    * Configuration for the NgbPagination component.
@@ -122,10 +115,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   @Input() public hideGear = false;
 
-  /**
-   * Option for hiding the gear
-   */
-  @Input() public hideSortOptions = false;
 
   /**
    * Option for hiding the pager when there is less than 2 pages
@@ -141,17 +130,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Current page.
    */
-  public currentPage$;
+  public currentPage$: Observable<number>;
 
   /**
    * Current page in the state of a Remote paginated objects.
    */
   public currentPageState: number = undefined;
-
-  /**
-   * An observable of HostWindowState type
-   */
-  public hostWindow: Observable<HostWindowState>;
 
   /**
    * ID for the pagination instance. This ID is used in the routing to retrieve the pagination options.
@@ -167,7 +151,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Number of items per page.
    */
-  public pageSize$;
+  public pageSize$: Observable<number>;
 
   /**
    * Declare SortDirection enumeration to use it in the template
@@ -188,7 +172,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Name of the field that's used to sort by
    */
-  public sortField$;
+  public sortField$: Observable<string>;
   public defaultSortField = 'name';
 
   /**
@@ -242,7 +226,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
       map((currentPagination) => currentPagination.pageSize)
     );
 
-    let sortOptions;
+    let sortOptions: SortOptions;
     if (this.sortOptions) {
       sortOptions = this.sortOptions;
     } else {
@@ -256,16 +240,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
       );
   }
 
-  /**
-   * @param cdRef
-   *    ChangeDetectorRef is a singleton service provided by Angular.
-   * @param route
-   *    Route is a singleton service provided by Angular.
-   * @param router
-   *    Router is a singleton service provided by Angular.
-   * @param hostWindowService
-   *    the HostWindowService singleton.
-   */
   constructor(private cdRef: ChangeDetectorRef,
               private paginationService: PaginationService,
               public hostWindowService: HostWindowService) {
@@ -289,7 +263,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page size being navigated to.
    */
   public doPageSizeChange(pageSize: number) {
-    this.updateParams({ pageSize: pageSize });
+    this.updateParams({ pageId: this.id, page: 1, pageSize: pageSize });
     this.emitPaginationChange();
   }
 
@@ -300,18 +274,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort direction being navigated to.
    */
   public doSortDirectionChange(sortDirection: SortDirection) {
-    this.updateParams({ sortDirection: sortDirection });
-    this.emitPaginationChange();
-  }
-
-  /**
-   * Method to change the route to the given sort field
-   *
-   * @param sortField
-   *    The sort field being navigated to.
-   */
-  public doSortFieldChange(field: string) {
-    this.updateParams({ sortField: field });
+    this.updateParams({ pageId: this.id, page: 1, sortDirection: sortDirection });
     this.emitPaginationChange();
   }
 
@@ -338,8 +301,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
     if (collectionSize) {
       showingDetails = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
         map((currentPaginationOptions) => {
-          let firstItem;
-          let lastItem;
+          let firstItem: number;
+          let lastItem: number;
           const pageMax = currentPaginationOptions.pageSize * currentPaginationOptions.currentPage;
 
           firstItem = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;

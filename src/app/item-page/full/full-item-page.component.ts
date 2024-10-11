@@ -13,13 +13,13 @@ import { Item } from '../../core/shared/item.model';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
-import { AuthService } from '../../core/auth/auth.service';
 import { Location } from '@angular/common';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * This component renders a full item page.

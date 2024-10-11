@@ -127,10 +127,10 @@ describe('SearchManager', () => {
       const options: BrowseEntrySearchOptions = { options: null} as any;
       const followLink: FollowLinkConfig<any> = {} as any;
 
-      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options, followLink).subscribe());
+      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options).subscribe());
       scheduler.flush();
 
-      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, null, options, followLink);
+      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, null, options);
       expect(mockItemService.findAllById).toHaveBeenCalledWith([validAuthority, validAuthority2]);
 
     });
@@ -142,10 +142,10 @@ describe('SearchManager', () => {
       const options: BrowseEntrySearchOptions = { options: null} as any;
       const followLink: FollowLinkConfig<any> = {} as any;
 
-      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options, followLink).subscribe());
+      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options).subscribe());
       scheduler.flush();
 
-      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, filterAuthority, options, followLink);
+      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, filterAuthority, options);
       expect(mockItemService.findAllById).toHaveBeenCalledWith([validAuthority, validAuthority2]);
 
     });

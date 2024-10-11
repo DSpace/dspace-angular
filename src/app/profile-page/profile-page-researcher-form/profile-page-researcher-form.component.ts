@@ -19,6 +19,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { NoContent } from '../../core/shared/NoContent.model';
+import { SwitchColor, SwitchOption } from '../../shared/switch/switch.component';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
@@ -55,6 +56,14 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    * If exists The uuid of the item associated to the researcher profile
    */
   researcherProfileItemId: string;
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: 'public', icon: 'fa fa-globe', labelColor: SwitchColor.Success, label: 'researcher.profile.public.visibility', iconColor: SwitchColor.Success },
+    { value: 'private', icon: 'fa fa-lock', labelColor: SwitchColor.Danger, label: 'researcher.profile.private.visibility', iconColor: SwitchColor.Danger },
+  ];
 
   constructor(protected researcherProfileService: ResearcherProfileDataService,
               protected profileClaimService: ProfileClaimService,

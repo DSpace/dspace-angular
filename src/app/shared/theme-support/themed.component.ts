@@ -1,21 +1,20 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  ElementRef,
-  HostBinding,
-  OnChanges,
-  OnDestroy,
-  SimpleChanges,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  ComponentRef,
+  SimpleChanges,
+  OnDestroy,
+  ChangeDetectorRef,
+  OnChanges,
+  HostBinding,
+  ElementRef,
 } from '@angular/core';
 import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
-import { BehaviorSubject, combineLatest, from as fromPromise, Observable, of as observableOf, Subscription } from 'rxjs';
+import { combineLatest, from as fromPromise, Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
 import { ThemeService } from './theme.service';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap, map, tap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { BASE_THEME_NAME } from './theme.constants';
 
@@ -47,7 +46,6 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
   @HostBinding('attr.data-used-theme') usedTheme: string;
 
   constructor(
-    protected resolver: ComponentFactoryResolver,
     protected cdr: ChangeDetectorRef,
     protected themeService: ThemeService,
   ) {
@@ -118,8 +116,9 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
 
     this.lazyLoadSub = this.lazyLoadObs.subscribe(([simpleChanges, constructor]: [SimpleChanges, GenericConstructor<T>]) => {
       this.destroyComponentInstance();
-      const factory = this.resolver.resolveComponentFactory(constructor);
-      this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.childNodes]);
+      this.compRef = this.vcr.createComponent(constructor, {
+        projectableNodes: [this.themedElementContent.nativeElement.childNodes],
+      });
       if (hasValue(simpleChanges)) {
         this.ngOnChanges(simpleChanges);
       } else {

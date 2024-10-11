@@ -125,7 +125,8 @@ describe('RelationshipDataService', () => {
 
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => createSuccessfulRemoteDataObject(relatedItems.find((relatedItem) => relatedItem.id === uuid)),
-    findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
+    findByHref: createSuccessfulRemoteDataObject$(relatedItems[0]),
+    getIDHrefObs: (uuid: string) => observableOf(`https://demo.dspace.org/server/api/core/items/${uuid}`),
   });
 
   function initTestService() {
@@ -237,6 +238,16 @@ describe('RelationshipDataService', () => {
         expect((service as any).paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
         done();
       });
+    });
+  });
+
+  describe('searchByItemsAndType', () => {
+    it('should call addDependency for each item to invalidate the request when one of the items is update', () => {
+      spyOn(service as any, 'addDependency');
+
+      service.searchByItemsAndType(relationshipType.id, item.id, relationshipType.leftwardType, ['item-id-1', 'item-id-2']);
+
+      expect((service as any).addDependency).toHaveBeenCalledTimes(2);
     });
   });
 

@@ -59,6 +59,11 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() showThumbnails: boolean;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * An object representing the duplicate match
    */
   @Input() metadataList: DuplicateMatchMetadataDetailConfig[] = [];

@@ -23,6 +23,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { UUIDService } from '../../../core/shared/uuid.service';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { GroupMock, GroupMock2 } from '../../../shared/testing/group-mock';
@@ -211,6 +212,7 @@ describe('GroupFormComponent', () => {
         { provide: HttpClient, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },

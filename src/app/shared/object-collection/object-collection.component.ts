@@ -131,6 +131,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() showThumbnails: boolean;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * Whether or not to show an alert for hidden related items
    */
   @Input() showHiddenRelatedItemsAlert = false;

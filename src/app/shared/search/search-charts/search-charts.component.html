@@ -24,6 +24,7 @@
         <div *ngIf="(canShowChart(selectedFilter) | async)">
           <ds-search-chart [filter]="selectedFilter"
                            [inPlaceSearch]="inPlaceSearch"
+                           [scope]="scope"
                            [refreshFilters]="refreshFilters"></ds-search-chart>
         </div>
       </div>

@@ -285,7 +285,7 @@ describe('Pagination component', () => {
 
       changePageSize(testFixture, '20');
       tick();
-    expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({pageSize: 20}), {},  false);
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('test', Object.assign({ pageId: 'test', page: 1, pageSize: 20}), {},  false);
     }));
 
     it('should respond to windows resize', () => {

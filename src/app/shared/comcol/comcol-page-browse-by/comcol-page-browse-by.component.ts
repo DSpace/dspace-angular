@@ -121,10 +121,10 @@ export class ComcolPageBrowseByComponent implements OnInit {
       };
     } else if (this.contentType === 'community') {
       return {
-          id: this.id,
-          label: 'community.all-lists.head',
-          routerLink: getCommunityPageRoute(this.id)
-        };
+        id: this.id,
+        label: 'community.all-lists.head',
+        routerLink: getCommunityPageRoute(this.id)
+      };
     }
     return null;
   }

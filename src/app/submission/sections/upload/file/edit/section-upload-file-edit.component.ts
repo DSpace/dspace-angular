@@ -314,7 +314,12 @@ export class SubmissionSectionUploadFileEditComponent
       configForm,
       this.collectionId,
       this.fileData.metadata,
-      this.submissionService.getSubmissionScope()
+      this.submissionService.getSubmissionScope(),
+      false,
+      null,
+      false,
+      null,
+      false
     );
     formModel.push(new DynamicFormGroupModel(metadataGroupModelConfig, BITSTREAM_METADATA_FORM_GROUP_LAYOUT));
     const accessConditionTypeModelConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG);

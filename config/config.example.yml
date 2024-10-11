@@ -17,12 +17,19 @@ ui:
   # Trust X-FORWARDED-* headers from proxies (default = true)
   useProxies: true
 
+universal:
+  # Whether to inline "critical" styles into the server-side rendered HTML.
+  # Determining which styles are critical is a relatively expensive operation;
+  # this option can be disabled to boost server performance at the expense of
+  # loading smoothness. For improved SSR performance, DSpace defaults this to false (disabled).
+  inlineCriticalCss: false
+
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
 # 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
 rest:
   ssl: true
-  host: dspacecris7.4science.cloud
+  host: demo.dspace.org
   port: 443
   # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
   nameSpace: /server
@@ -75,7 +82,7 @@ cache:
     anonymousCache:
       # Maximum number of pages to cache. Default is zero (0) which means anonymous user cache is disabled.
       # As all pages are cached in server memory, increasing this value will increase memory needs.
-      # Individual cached pages are usually small (<100KB), so a value of max=1000 would only require ~100MB of memory.
+      # Individual cached pages are usually small (<100KB), so a value of max=1000 would only require ~100MB of memory. 
       max: 0
       # Amount of time after which cached pages are considered stale (in ms). After becoming stale, the cached
       # copy is automatically refreshed on the next request.
@@ -127,10 +134,10 @@ notifications:
 submission:
   autosave:
     # NOTE: which metadata trigger an autosave
-    metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv', 'dc.identifier.patentno', 'dc.identifier.scopus', 'dc.identifier.isi', 'dcterms.dateSubmitted', 'dc.identifier.applicationnumber']
+    metadata: []
     # NOTE: after how many time (milliseconds) submission is saved automatically
     # eg. timer: 5 * (1000 * 60); // 5 minutes
-    timer: 300000
+    timer: 0
   icons:
     metadata:
       # NOTE: example of configuration
@@ -139,17 +146,7 @@ submission:
       #   # NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
       #   style: fas fa-user
       - name: dc.author
-        style: "fas fa-user"
-      - name: dc.contributor.author
-        style: "fas fa-user"
-      - name: dc.contributor.editor
-        style: "fas fa-user"
-      - name: oairecerif.author.affiliation
-        style: "fas fa-university"
-      - name: oairecerif.editor.affiliation
-        style: "fas fa-university"
-      - name: dc.relation.grantno
-        style: "fas fa-info-circle"
+        style: fas fa-user
       # default configuration
       - name: default
         style: ''
@@ -163,23 +160,12 @@ submission:
         - value: 600
           style: text-success
         - value: 500
-          style: text-warning
+          style: text-info
         - value: 400
-          style: text-danger
-        - value: 300
-          style: text-dark
-        - value: 200
-          style: text-dark
-        - value: 100
-          style: text-dark
+          style: text-warning
         # default configuration
         - value: default
           style: text-muted
-  detectDuplicate:
-    # NOTE: list of additional item metadata to show for duplicate match presentation list
-    metadataDetailsList:
-      - label: 'Document type'
-        name: dc.type
 
 #  Default Language in which the UI will be rendered if the user's browser language is not an active language
 defaultLanguage: en
@@ -190,6 +176,12 @@ languages:
   - code: en
     label: English
     active: true
+  - code: ar
+    label: العربية
+    active: true
+  - code: bn
+    label: বাংলা
+    active: true
   - code: ca
     label: Català
     active: true
@@ -199,8 +191,14 @@ languages:
   - code: de
     label: Deutsch
     active: true
+  - code: el
+    label: Ελληνικά
+    active: true
   - code: es
     label: Español
+    active: true
+  - code: fi
+    label: Suomi
     active: true
   - code: fr
     label: Français
@@ -208,17 +206,20 @@ languages:
   - code: gd
     label: Gàidhlig
     active: true
-  - code: it
-    label: Italiano
-    active: true
-  - code: it
-    label: Italiano
-    active: true
-  - code: lv
-    label: Latviešu
+  - code: hi
+    label: हिंदी
     active: true
   - code: hu
     label: Magyar
+    active: true
+  - code: it
+    label: Italiano
+    active: true
+  - code: kk
+    label: Қазақ
+    active: true
+  - code: lv
+    label: Latviešu
     active: true
   - code: nl
     label: Nederlands
@@ -235,8 +236,8 @@ languages:
   - code: sr-lat
     label: Srpski (lat)
     active: true
-  - code: fi
-    label: Suomi
+  - code: sr-cyr
+    label: Српски
     active: true
   - code: sv
     label: Svenska
@@ -244,26 +245,11 @@ languages:
   - code: tr
     label: Türkçe
     active: true
-  - code: vi
-    label: Tiếng Việt
-    active: true
-  - code: kk
-    label: Қазақ
-    active: true
-  - code: bn
-    label: বাংলা
-    active: true
-  - code: hi
-    label: हिंदी
-    active: true
-  - code: el
-    label: Ελληνικά
-    active: true
-  - code: sr-cyr
-    label: Српски
-    active: true
   - code: uk
     label: Yкраї́нська
+    active: true
+  - code: vi
+    label: Tiếng Việt
     active: true
 
 
@@ -275,12 +261,8 @@ browseBy:
   fiveYearLimit: 30
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
-  # Whether to add item badges to BOTH browse and search result lists.
-  showLabels: true
   # If true, thumbnail images for items will be added to BOTH search and browse result lists.
   showThumbnails: true
-  # Whether to add item thumbnail images to BOTH browse and search result lists.
-  showMetrics: false
   # The number of entries in a paginated browse results list.
   # Rounded to the nearest size in the list of selectable sizes on the
   # settings menu.
@@ -312,19 +294,6 @@ item:
     # Rounded to the nearest size in the list of selectable sizes on the
     # settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
     pageSize: 5
-  # The maximum number of metadata values to add to the metatag list of the item page
-  metatagLimit: 20
-  # The maximum number of values for repeatable metadata to show in the full item
-  metadataLimit: 20
-
-# When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
-# Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
-# to efficiently display the search results.
-followAuthorityMetadata:
-  - type: Publication
-    metadata: dc.contributor.author
-  - type: Product
-    metadata: dc.contributor.author
 
 # Collection Page Config
 collection:
@@ -390,10 +359,6 @@ themes:
       attributes:
         rel: manifest
         href: assets/dspace/images/favicons/manifest.webmanifest
-    - tagName: link
-      attributes:
-        rel: stylesheet
-        href: "https://fonts.googleapis.com/icon?family=Material+Icons"
 
 # The default bundles that should always be displayed as suggestions when you upload a new bundle
 bundle:
@@ -427,87 +392,7 @@ vocabularies:
     vocabulary: 'srsc'
     enabled: true
 
-# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query.
+# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query. 
 comcolSelectionSort:
   sortField: 'dc.title'
   sortDirection: 'ASC'
-
-crisLayout:
-  urn:
-    - name: doi
-      baseUrl: "https://doi.org/"
-    - name: hdl
-      baseUrl: "https://hdl.handle.net/"
-    - name: scopus
-      baseUrl: "https://www.scopus.com/authid/detail.uri?authorId="
-    - name: researcherid
-      baseUrl: "http://www.researcherid.com/rid/"
-    - name: mailto
-      baseUrl: "mailto:"
-  crisRef:
-    - entityType: PRIVATE
-      entityStyle:
-        "dc.contributor.author":
-          icon: fa fa-user
-          style: text-muted
-    - entityType: DEFAULT
-      entityStyle:
-        default:
-          icon: fa fa-user
-          style: text-info
-    - entityType: PERSON
-      entityStyle:
-        person:
-          icon: fa fa-user
-          style: text-success
-        personStaff:
-          icon: fa fa-user
-          style: text-danger
-        default:
-          icon: fa fa-user
-          style: text-info
-    - entityType: ORGUNIT
-      entityStyle:
-        default:
-          icon: fa fa-university
-          style: text-success
-    - entityType: PROJECT
-      entityStyle:
-        default:
-          icon: fas fa-project-diagram
-          style: text-success
-  crisRefStyleMetadata:
-    default: cris.entity.style
-  itemPage:
-    OrgUnit:
-      orientation: vertical
-    Project:
-      orientation: vertical
-    default:
-      orientation: horizontal
-  metadataBox:
-    defaultMetadataLabelColStyle: "col-3"
-    defaultMetadataValueColStyle: "col-9"
-
-layout:
-  navbar:
-    # If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
-    showCommunityCollection: true
-
-cms:
-  metadataList: ['cris.cms.home-header', 'cris.cms.home-news', 'cris.cms.footer']
-
-addToAnyPlugin:
-  scriptUrl: "https://static.addtoany.com/menu/page.js"
-  socialNetworksEnabled: true
-  buttons:
-    - facebook
-    - twitter
-    - linkedin
-    - email
-    - copy_link
-  showPlusButton: true
-  showCounters: true
-  title: DSpace CRIS 7 demo
-  # The link to be shown in the shared post, if different from document.location.origin (optional)
-  # link: https://dspacecris7.4science.cloud/

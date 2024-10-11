@@ -219,7 +219,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    */
   onChange(event: Event) {
     if (!this.previousValue && !isEmpty(this.currentValue)) {
-      if (this.model.securityConfigLevel &&  this.model.securityConfigLevel.length > 0) {
+      if (this.model.securityConfigLevel &&  this.model.securityConfigLevel?.length > 0) {
         this.model.securityLevel = this.model.securityConfigLevel[this.model.securityConfigLevel.length - 1];
       }
     }
