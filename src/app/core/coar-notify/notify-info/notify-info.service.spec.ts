@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
@@ -14,10 +14,10 @@ describe('NotifyInfoService', () => {
   let authorizationDataService: any;
   beforeEach(() => {
     authorizationDataService = {
-      isAuthorized: jasmine.createSpy('isAuthorized').and.returnValue(of(true)),
+      isAuthorized: jasmine.createSpy('isAuthorized').and.returnValue(observableOf(true)),
     };
     configurationDataService = {
-      findByPropertyName: jasmine.createSpy('findByPropertyName').and.returnValue(of({})),
+      findByPropertyName: jasmine.createSpy('findByPropertyName').and.returnValue(observableOf({})),
     };
     TestBed.configureTestingModule({
       providers: [

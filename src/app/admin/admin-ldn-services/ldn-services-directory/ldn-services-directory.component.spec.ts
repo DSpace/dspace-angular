@@ -15,7 +15,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -41,7 +41,7 @@ describe('LdnServicesOverviewComponent', () => {
   let modalService: NgbModal;
 
   const translateServiceStub = {
-    get: () => of('translated-text'),
+    get: () => observableOf('translated-text'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter(),
@@ -96,7 +96,7 @@ describe('LdnServicesOverviewComponent', () => {
     modalService = TestBed.inject(NgbModal);
     component.modalRef = jasmine.createSpyObj({ close: null });
     component.isProcessingSub = jasmine.createSpyObj({ unsubscribe: null });
-    component.ldnServicesRD$ = of({} as RemoteData<PaginatedList<LdnService>>);
+    component.ldnServicesRD$ = observableOf({} as RemoteData<PaginatedList<LdnService>>);
     fixture.detectChanges();
   });
 
@@ -162,7 +162,7 @@ describe('LdnServicesOverviewComponent', () => {
       const serviceId = '123';
       const mockRemoteData = { /* just an empty object to retrieve as as RemoteData<PaginatedList<LdnService>>  */};
       spyOn(component, 'setLdnServices').and.callThrough();
-      const deleteSpy = ldnServicesService.delete.and.returnValue(of(mockRemoteData as RemoteData<PaginatedList<LdnService>>));
+      const deleteSpy = ldnServicesService.delete.and.returnValue(observableOf(mockRemoteData as RemoteData<PaginatedList<LdnService>>));
       component.selectedServiceId = serviceId;
       component.deleteSelected(serviceId, ldnServicesService);
       tick();

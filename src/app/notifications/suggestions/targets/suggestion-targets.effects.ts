@@ -6,7 +6,7 @@ import {
 } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import {
   catchError,
   map,
@@ -59,7 +59,7 @@ export class SuggestionTargetsEffects {
           if (error instanceof Error) {
             console.error(error.message);
           }
-          return of(new RetrieveTargetsBySourceErrorAction(action.payload.source));
+          return observableOf(new RetrieveTargetsBySourceErrorAction(action.payload.source));
         }),
       );
     }),
@@ -89,7 +89,7 @@ export class SuggestionTargetsEffects {
               map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
             );
           } else {
-            return of(new AddUserSuggestionsAction([]));
+            return observableOf(new AddUserSuggestionsAction([]));
           }
         },
         ));
@@ -105,7 +105,7 @@ export class SuggestionTargetsEffects {
         .pipe(
           switchMap((userId: string) => {
             if (!userId) {
-              return of(new AddUserSuggestionsAction([]));
+              return observableOf(new AddUserSuggestionsAction([]));
             }
             return this.configurationService.findByPropertyName('researcher-profile.entity-type').pipe(
               getFirstCompletedRemoteData(),
@@ -118,11 +118,11 @@ export class SuggestionTargetsEffects {
                         if (error instanceof Error) {
                           console.error(error.message);
                         }
-                        return of(new RefreshUserSuggestionsErrorAction());
+                        return observableOf(new RefreshUserSuggestionsErrorAction());
                       }),
                     );
                 } else {
-                  return of(new AddUserSuggestionsAction([]));
+                  return observableOf(new AddUserSuggestionsAction([]));
                 }
               },
               ),
@@ -130,7 +130,7 @@ export class SuggestionTargetsEffects {
                 if (error instanceof Error) {
                   console.error(error.message);
                 }
-                return of(new RefreshUserSuggestionsErrorAction());
+                return observableOf(new RefreshUserSuggestionsErrorAction());
               }),
             );
           }),
@@ -138,7 +138,7 @@ export class SuggestionTargetsEffects {
             if (error instanceof Error) {
               console.error(error.message);
             }
-            return of(new RefreshUserSuggestionsErrorAction());
+            return observableOf(new RefreshUserSuggestionsErrorAction());
           }),
         );
     })),

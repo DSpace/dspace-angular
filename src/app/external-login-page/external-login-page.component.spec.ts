@@ -8,7 +8,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { Registration } from '../core/shared/registration.model';
 import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
@@ -42,7 +42,7 @@ describe('ExternalLoginPageComponent', () => {
                 token: '1234567890',
               },
             },
-            data: of(registrationDataMock),
+            data: observableOf(registrationDataMock),
           },
         },
       ],
@@ -81,7 +81,7 @@ describe('ExternalLoginPageComponent', () => {
 
   it('should display the DsExternalLogIn component when there are no errors', () => {
     const registrationData = Object.assign(new Registration(), registrationDataMock);
-    component.registrationData$ = of(registrationData);
+    component.registrationData$ = observableOf(registrationData);
     component.token = '1234567890';
     component.hasErrors = false;
     fixture.detectChanges();

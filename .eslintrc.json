@@ -295,7 +295,7 @@
           }
         ],
         "dspace-angular-ts/sort-standalone-imports": [
-          "error",
+          "off",// TODO: temporily disabled it in order to prevent continous merge conflicts
           {
             "locale": "en-US",
             "maxItems": 0,

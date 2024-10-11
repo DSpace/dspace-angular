@@ -15,7 +15,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -43,7 +43,7 @@ let mockPoolTaskDataService: PoolTaskDataService;
 describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    returnToPoolTask: of(new ProcessTaskResponse(true)),
+    returnToPoolTask: observableOf(new ProcessTaskResponse(true)),
   });
 
   beforeEach(waitForAsync(() => {
@@ -110,7 +110,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
 
   describe('reloadObjectExecution', () => {
     beforeEach(() => {
-      spyOn(mockPoolTaskDataService, 'findByItem').and.returnValue(of(null));
+      spyOn(mockPoolTaskDataService, 'findByItem').and.returnValue(observableOf(null));
 
       component.itemUuid = 'uuid';
       component.reloadObjectExecution().subscribe();

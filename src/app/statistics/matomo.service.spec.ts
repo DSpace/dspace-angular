@@ -8,7 +8,7 @@ import {
   MatomoTracker,
 } from 'ngx-matomo-client';
 import { MatomoTestingModule } from 'ngx-matomo-client/testing';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -63,7 +63,7 @@ describe('MatomoService', () => {
   });
 
   it('should set changeMatomoConsent on native window', () => {
-    orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
+    orejimeService.getSavedPreferences.and.returnValue(observableOf({ matomo: true }));
     service.init();
     expect(nativeWindowService.nativeWindow.changeMatomoConsent).toBe(service.changeMatomoConsent);
   });
@@ -86,7 +86,7 @@ describe('MatomoService', () => {
     );
     configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
-    orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
+    orejimeService.getSavedPreferences.and.returnValue(observableOf({ matomo: true }));
     service.init();
 
     expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
@@ -104,7 +104,7 @@ describe('MatomoService', () => {
     );
     configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
-    orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
+    orejimeService.getSavedPreferences.and.returnValue(observableOf({ matomo: true }));
 
     service.init();
 

@@ -19,7 +19,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
@@ -46,7 +46,7 @@ describe('UserMenuComponent', () => {
 
   function serviceInit() {
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: of(EPersonMock),
+      getAuthenticatedUserFromStore: observableOf(EPersonMock),
     });
   }
 

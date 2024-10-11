@@ -9,7 +9,7 @@ import {
   catchError,
   mergeMap,
   Observable,
-  of,
+  of as observableOf,
   tap,
 } from 'rxjs';
 
@@ -44,12 +44,12 @@ export const ReviewAccountGuard: CanActivateFn = (
             if (data.hasSucceeded && hasValue(data.payload)) {
               // is the registration type validation (account valid)
               if (hasValue(data.payload.registrationType) && data.payload.registrationType.includes(AuthRegistrationType.Validation)) {
-                return of(true);
+                return observableOf(true);
               } else {
                 return authService.isAuthenticated();
               }
             }
-            return of(false);
+            return observableOf(false);
           },
         ),
         tap((isValid: boolean) => {
@@ -59,11 +59,11 @@ export const ReviewAccountGuard: CanActivateFn = (
         }),
         catchError(() => {
           router.navigate(['/404']);
-          return of(false);
+          return observableOf(false);
         }),
       );
   } else {
     router.navigate(['/404']);
-    return of(false);
+    return observableOf(false);
   }
 };

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import {
@@ -19,7 +19,7 @@ export class MockMathService extends MathService {
   }
 
   ready(): Observable<boolean> {
-    return of(true);
+    return observableOf(true);
   }
 
   render(element: HTMLElement): Promise<any> {

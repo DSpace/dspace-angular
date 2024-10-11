@@ -11,7 +11,7 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -39,9 +39,9 @@ export abstract class DSpaceObjectPageMenuProvider extends AbstractRouteContextM
     }
 
     if (hasValue(dsoRD) && dsoRD.hasSucceeded && hasValue(dsoRD.payload)) {
-      return of(dsoRD.payload);
+      return observableOf(dsoRD.payload);
     } else {
-      return of(undefined);
+      return observableOf(undefined);
     }
   }
 

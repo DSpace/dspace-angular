@@ -10,7 +10,7 @@ import {
   combineLatest,
   from as fromPromise,
   Observable,
-  of,
+  of as observableOf,
   switchMap,
 } from 'rxjs';
 import {
@@ -117,7 +117,7 @@ export class MatomoService {
   getTrackerUrl$() {
 
     if (isNotEmpty(environment.matomo?.trackerUrl)) {
-      return of(environment.matomo.trackerUrl);
+      return observableOf(environment.matomo.trackerUrl);
     }
 
     return this.configService.findByPropertyName(MATOMO_TRACKER_URL)

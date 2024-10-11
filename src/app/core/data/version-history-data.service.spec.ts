@@ -2,7 +2,7 @@ import {
   fakeAsync,
   waitForAsync,
 } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -179,7 +179,7 @@ describe('VersionHistoryDataService', () => {
 
   describe('isLatest$', () => {
     beforeEach(waitForAsync(() => {
-      spyOn(service, 'getLatestVersion$').and.returnValue(of(version2));
+      spyOn(service, 'getLatestVersion$').and.returnValue(observableOf(version2));
     }));
     it('should return false for version1', () => {
       service.isLatest$(version1).subscribe((res) => {

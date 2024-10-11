@@ -2,7 +2,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
@@ -57,12 +57,12 @@ describe('NotifyRequestsStatusDataService test', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: of(responseCacheEntry),
-      getByUUID: of(responseCacheEntry),
+      getByHref: observableOf(responseCacheEntry),
+      getByUUID: observableOf(responseCacheEntry),
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: of(endpointURL),
+      getEndpoint: observableOf(endpointURL),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {

@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   map,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
 import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
@@ -83,7 +83,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
 
   ngOnInit(): void {
     if (hasValue(this.ccLicenseNameField)) {
-      this.name$ = of(this.item.firstMetadataValue(this.ccLicenseNameField));
+      this.name$ = observableOf(this.item.firstMetadataValue(this.ccLicenseNameField));
     } else {
       this.name$ = this.configService.findByPropertyName('cc.license.name').pipe(
         getFirstCompletedRemoteData(),
@@ -95,7 +95,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
     }
 
     if (hasValue(this.ccLicenseUriField)) {
-      this.uri$ = of(this.item.firstMetadataValue(this.ccLicenseUriField));
+      this.uri$ = observableOf(this.item.firstMetadataValue(this.ccLicenseUriField));
     } else {
       this.uri$ = this.configService.findByPropertyName('cc.license.uri').pipe(
         getFirstCompletedRemoteData(),
