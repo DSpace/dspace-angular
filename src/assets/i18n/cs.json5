@@ -2939,7 +2939,7 @@
   "error.top-level-communities": "Chyba při načítání komunit nejvyšší úrovně",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "Bez udělení licence nelze záznam dokončit. Pokud v tuto chvíli nemůžete licenci udělit, uložte svou práci a vraťte se k příspěveku později nebo jej smažte.",
+  "error.validation.license.notgranted": "Bez udělení licence nelze záznam dokončit. Pokud v tuto chvíli nemůžete licenci udělit, uložte svou práci a vraťte se k příspěvku později nebo jej smažte.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Toto zadání je omezeno aktuálním vzorcem: {{ pattern }}.",
@@ -4934,7 +4934,7 @@
   "iiif.page.doi": "Trvalý odkaz: ",
 
   // "iiif.page.issue": "Issue: ",
-  "iiif.page.issue": "Číslo:",
+  "iiif.page.issue": "Číslo: ",
 
   // "iiif.page.description": "Description: ",
   "iiif.page.description": "Popis: ",
