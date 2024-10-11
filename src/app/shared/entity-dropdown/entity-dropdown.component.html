@@ -12,12 +12,12 @@
     <button class="dropdown-item disabled" *ngIf="searchListEntity?.length == 0 && !(isLoadingList | async)">
       {{'submission.sections.general.no-entity' | translate}}
     </button>
-    <button *ngFor="let listItem of searchListEntity | dsSort: 'label'"
+    <button *ngFor="let listItem of searchListEntity | dsSort: 'translatedLabel'"
             class="dropdown-item entity-item"
-            title="{{ listItem.label }}"
+            title="{{ listItem.translatedLabel }}"
             (click)="onSelect(listItem)">
       <ul class="list-unstyled mb-0">
-        <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.label }}</li>
+        <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.translatedLabel }}</li>
       </ul>
     </button>
     <button class="dropdown-item disabled" *ngIf="(isLoadingList | async)" >
