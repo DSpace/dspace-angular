@@ -34,7 +34,10 @@ import { isEmpty } from '../../shared/empty.util';
   templateUrl: './statistics-table.component.html',
   styleUrls: ['./statistics-table.component.scss'],
   standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class StatisticsTableComponent implements OnInit {
 

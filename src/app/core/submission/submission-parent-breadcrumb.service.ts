@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
   switchMap,
 } from 'rxjs';
 
@@ -50,7 +50,7 @@ export class SubmissionParentBreadcrumbsService implements BreadcrumbsProviderSe
    */
   getBreadcrumbs(submissionObject: SubmissionObject): Observable<Breadcrumb[]> {
     if (isEmpty(submissionObject)) {
-      return observableOf([]);
+      return of([]);
     }
 
     return combineLatest([
@@ -67,7 +67,7 @@ export class SubmissionParentBreadcrumbsService implements BreadcrumbsProviderSe
             getRemoteDataPayload(),
           );
         } else {
-          return observableOf(collection);
+          return of(collection);
         }
       }),
       switchMap((collection: Collection) => this.dsoBreadcrumbsService.getBreadcrumbs(collection, getDSORoute(collection))),

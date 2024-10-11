@@ -5,7 +5,7 @@ import {
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
@@ -151,7 +151,7 @@ describe('RemoteDataBuildService', () => {
         statusCode: 500,
       },
     } as RequestEntry;
-    requestEntry$ = observableOf(entrySuccessCacheable);
+    requestEntry$ = of(entrySuccessCacheable);
     linksToFollow = [
       followLink('a'),
       followLink('b'),
@@ -163,8 +163,8 @@ describe('RemoteDataBuildService', () => {
   describe(`buildPayload`, () => {
     beforeEach(() => {
       spyOn(service as any, 'plainObjectToInstance').and.returnValue(unCacheableObject);
-      spyOn(service as any, 'buildPaginatedList').and.returnValue(observableOf(paginatedList));
-      (objectCache.getObjectByHref as jasmine.Spy).and.returnValue(observableOf(array[0]));
+      spyOn(service as any, 'buildPaginatedList').and.returnValue(of(paginatedList));
+      (objectCache.getObjectByHref as jasmine.Spy).and.returnValue(of(array[0]));
       (linkService.resolveLinks as jasmine.Spy).and.returnValue(array[1]);
     });
 
@@ -239,7 +239,7 @@ describe('RemoteDataBuildService', () => {
       });
 
       it(`should call hasExactMatchInObjectCache with that self link and the requestEntry`, (done) => {
-        (service as any).buildPayload(requestEntry$, observableOf(selfLink2), ...linksToFollow)
+        (service as any).buildPayload(requestEntry$, of(selfLink2), ...linksToFollow)
           .pipe(take(1))
           .subscribe(() => {
             expect((service as any).hasExactMatchInObjectCache).toHaveBeenCalledWith(selfLink2, entrySuccessCacheable);
@@ -248,7 +248,7 @@ describe('RemoteDataBuildService', () => {
       });
 
       it(`should call objectCache.getObjectByHref() with that self link`, (done) => {
-        (service as any).buildPayload(requestEntry$, observableOf(selfLink2), ...linksToFollow)
+        (service as any).buildPayload(requestEntry$, of(selfLink2), ...linksToFollow)
           .pipe(take(1))
           .subscribe(() => {
             expect(objectCache.getObjectByHref).toHaveBeenCalledWith(selfLink2);
@@ -277,7 +277,7 @@ describe('RemoteDataBuildService', () => {
 
     describe(`when the entry contains an uncachable payload`, () => {
       beforeEach(() => {
-        requestEntry$ = observableOf(entrySuccessUnCacheable);
+        requestEntry$ = of(entrySuccessUnCacheable);
         spyOn(service as any, 'hasExactMatchInObjectCache').and.returnValue(false);
         spyOn(service as any, 'isCacheablePayload').and.returnValue(false);
         spyOn(service as any, 'isUnCacheablePayload').and.returnValue(true);
@@ -331,14 +331,14 @@ describe('RemoteDataBuildService', () => {
 
     describe(`when the entry contains a 204 response`, () => {
       beforeEach(() => {
-        requestEntry$ = observableOf(entrySuccessNoContent);
+        requestEntry$ = of(entrySuccessNoContent);
         spyOn(service as any, 'hasExactMatchInObjectCache').and.returnValue(false);
         spyOn(service as any, 'isCacheablePayload').and.returnValue(false);
         spyOn(service as any, 'isUnCacheablePayload').and.returnValue(false);
       });
 
       it(`should return null`, (done) => {
-        (service as any).buildPayload(requestEntry$, observableOf(selfLink2), ...linksToFollow)
+        (service as any).buildPayload(requestEntry$, of(selfLink2), ...linksToFollow)
           .pipe(take(1))
           .subscribe((response) => {
             expect(response).toBeNull();
@@ -349,7 +349,7 @@ describe('RemoteDataBuildService', () => {
 
     describe(`when the entry contains an error`, () => {
       beforeEach(() => {
-        requestEntry$ = observableOf(entryError);
+        requestEntry$ = of(entryError);
         spyOn(service as any, 'hasExactMatchInObjectCache').and.returnValue(false);
         spyOn(service as any, 'isCacheablePayload').and.returnValue(false);
         spyOn(service as any, 'isUnCacheablePayload').and.returnValue(false);
@@ -367,8 +367,8 @@ describe('RemoteDataBuildService', () => {
 
     describe(`when the entry contains a link to a paginated list`, () => {
       beforeEach(() => {
-        requestEntry$ = observableOf(entrySuccessCacheable);
-        (objectCache.getObjectByHref as jasmine.Spy).and.returnValue(observableOf(paginatedList));
+        requestEntry$ = of(entrySuccessCacheable);
+        (objectCache.getObjectByHref as jasmine.Spy).and.returnValue(of(paginatedList));
         spyOn(service as any, 'hasExactMatchInObjectCache').and.returnValue(false);
         spyOn(service as any, 'isCacheablePayload').and.returnValue(true);
         spyOn(service as any, 'isUnCacheablePayload').and.returnValue(false);
@@ -536,7 +536,7 @@ describe('RemoteDataBuildService', () => {
 
   describe(`buildPaginatedList`, () => {
     beforeEach(() => {
-      (objectCache.getList as jasmine.Spy).and.returnValue(observableOf(array));
+      (objectCache.getList as jasmine.Spy).and.returnValue(of(array));
       (linkService.resolveLinks as jasmine.Spy).and.callFake((obj) => obj);
       spyOn(service as any, 'plainObjectToInstance').and.callFake((obj) => obj);
     });
@@ -808,18 +808,18 @@ describe('RemoteDataBuildService', () => {
       });
 
       callback = jasmine.createSpy('callback');
-      callback.and.returnValue(observableOf(undefined));
+      callback.and.returnValue(of(undefined));
       buildFromRequestUUIDSpy = spyOn(service, 'buildFromRequestUUID').and.callThrough();
     });
 
     it('should patch through href & followLinks to buildFromRequestUUID', () => {
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+      buildFromRequestUUIDSpy.and.returnValue(of(MOCK_SUCCEEDED_RD));
       service.buildFromRequestUUIDAndAwait('some-href', callback, ...linksToFollow);
       expect(buildFromRequestUUIDSpy).toHaveBeenCalledWith('some-href', ...linksToFollow);
     });
 
     it('should trigger the callback on successful RD', (done) => {
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+      buildFromRequestUUIDSpy.and.returnValue(of(MOCK_SUCCEEDED_RD));
 
       service.buildFromRequestUUIDAndAwait('some-href', callback).subscribe(rd => {
         expect(rd).toBe(MOCK_SUCCEEDED_RD);
@@ -829,7 +829,7 @@ describe('RemoteDataBuildService', () => {
     });
 
     it('should trigger the callback on successful RD even if nothing subscribes to the returned Observable', fakeAsync(() => {
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+      buildFromRequestUUIDSpy.and.returnValue(of(MOCK_SUCCEEDED_RD));
 
       service.buildFromRequestUUIDAndAwait('some-href', callback);
       tick();
@@ -838,7 +838,7 @@ describe('RemoteDataBuildService', () => {
     }));
 
     it('should not trigger the callback on pending RD', (done) => {
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_PENDING_RD));
+      buildFromRequestUUIDSpy.and.returnValue(of(MOCK_PENDING_RD));
 
       service.buildFromRequestUUIDAndAwait('some-href', callback).subscribe(rd => {
         expect(rd).toBe(MOCK_PENDING_RD);
@@ -848,7 +848,7 @@ describe('RemoteDataBuildService', () => {
     });
 
     it('should not trigger the callback on failed RD', (done) => {
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(MOCK_FAILED_RD));
+      buildFromRequestUUIDSpy.and.returnValue(of(MOCK_FAILED_RD));
 
       service.buildFromRequestUUIDAndAwait('some-href', callback).subscribe(rd => {
         expect(rd).toBe(MOCK_FAILED_RD);

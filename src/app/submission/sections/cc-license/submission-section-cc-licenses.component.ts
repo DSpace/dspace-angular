@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -60,15 +60,15 @@ import { SectionsType } from '../sections-type';
   templateUrl: './submission-section-cc-licenses.component.html',
   styleUrls: ['./submission-section-cc-licenses.component.scss'],
   imports: [
-    TranslateModule,
-    ThemedLoadingComponent,
     AsyncPipe,
-    VarDirective,
+    BtnDisabledDirective,
     DsSelectComponent,
-    NgbDropdownModule,
     FormsModule,
     InfiniteScrollModule,
-    BtnDisabledDirective,
+    NgbDropdownModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
   standalone: true,
 })
@@ -252,7 +252,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   getCcLicenseLink$(): Observable<string> {
 
     if (this.storedCcLicenseLink) {
-      return observableOf(this.storedCcLicenseLink);
+      return of(this.storedCcLicenseLink);
     }
     if (!this.getSelectedCcLicense() || this.getSelectedCcLicense().fields.some(
       (field) => !this.getSelectedOption(this.getSelectedCcLicense(), field))) {
@@ -289,7 +289,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    *     the section status
    */
   getSectionStatus(): Observable<boolean> {
-    return observableOf(this.accepted);
+    return of(this.accepted);
   }
 
   /**

@@ -22,7 +22,9 @@ import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-rela
   styleUrls: [],
   templateUrl: '../../../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [DsDynamicLookupRelationSearchTabComponent],
+  imports: [
+    DsDynamicLookupRelationSearchTabComponent,
+  ],
 })
 export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedComponent<DsDynamicLookupRelationSearchTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationSearchTabComponent & keyof this)[] = ['relationship', 'listId',

@@ -8,7 +8,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -30,7 +30,10 @@ import { AccessStatusObject } from './access-status.model';
   templateUrl: './access-status-badge.component.html',
   styleUrls: ['./access-status-badge.component.scss'],
   standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component rendering the access status of an item as a badge
@@ -101,7 +104,7 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
       getFirstSucceededRemoteDataPayload(),
       map((accessStatus: AccessStatusObject) => hasValue(accessStatus.status) ? accessStatus.status : 'unknown'),
       map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
-      catchError(() => observableOf('access-status.unknown.listelement.badge')),
+      catchError(() => of('access-status.unknown.listelement.badge')),
     );
     // stylesheet based on the access status value
     this.subs.push(
@@ -125,12 +128,12 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
     this.embargoDate$ = this.object.accessStatus.pipe(
       getFirstSucceededRemoteDataPayload(),
       map((accessStatus: AccessStatusObject) => hasValue(accessStatus.embargoDate) ? accessStatus.embargoDate : null),
-      catchError(() => observableOf(null)),
+      catchError(() => of(null)),
     );
     this.subs.push(
       this.embargoDate$.pipe().subscribe((embargoDate: string) => {
         if (hasValue(embargoDate)) {
-          this.accessStatus$ = observableOf('embargo.listelement.badge');
+          this.accessStatus$ = of('embargo.listelement.badge');
         }
       }),
     );

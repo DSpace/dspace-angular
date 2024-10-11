@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { FeatureID } from '../feature-id';
 import { singleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
@@ -9,4 +9,4 @@ import { singleFeatureAuthorizationGuard } from './single-feature-authorization.
  * rights to the {@link Site}
  */
 export const siteAdministratorGuard: CanActivateFn =
-  singleFeatureAuthorizationGuard(() => observableOf(FeatureID.AdministratorOf));
+  singleFeatureAuthorizationGuard(() => of(FeatureID.AdministratorOf));

@@ -58,10 +58,10 @@ export interface ReviewAccountInfoData {
   templateUrl: './review-account-info.component.html',
   styleUrls: ['./review-account-info.component.scss'],
   imports: [
+    AlertComponent,
     CompareValuesPipe,
     TitleCasePipe,
     TranslateModule,
-    AlertComponent,
     UiSwitchModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

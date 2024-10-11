@@ -7,7 +7,7 @@
  */
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -86,7 +86,7 @@ class TestService extends DeleteDataImpl<any> {
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
+    return of(endpoint);
   }
 }
 
@@ -169,7 +169,7 @@ describe('DeleteDataImpl', () => {
     let deleteByHrefSpy: jasmine.Spy;
 
     beforeEach(() => {
-      invalidateByHrefSpy = spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
+      invalidateByHrefSpy = spyOn(service, 'invalidateByHref').and.returnValue(of(true));
       buildFromRequestUUIDAndAwaitSpy = spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();
       getIDHrefObsSpy = spyOn(service, 'getIDHrefObs').and.callThrough();
       deleteByHrefSpy = spyOn(service, 'deleteByHref').and.callThrough();
@@ -179,7 +179,7 @@ describe('DeleteDataImpl', () => {
     });
 
     it('should retrieve href by ID and call deleteByHref', () => {
-      getIDHrefObsSpy.and.returnValue(observableOf('some-href'));
+      getIDHrefObsSpy.and.returnValue(of('some-href'));
       buildFromRequestUUIDAndAwaitSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
 
       service.delete('some-id', ['a', 'b', 'c']).subscribe(rd => {
@@ -190,7 +190,7 @@ describe('DeleteDataImpl', () => {
 
     describe('deleteByHref', () => {
       it('should send a DELETE request', (done) => {
-        buildFromRequestUUIDAndAwaitSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(of(MOCK_SUCCEEDED_RD));
 
         service.deleteByHref('some-href').subscribe(() => {
           expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
@@ -202,7 +202,7 @@ describe('DeleteDataImpl', () => {
       });
 
       it('should include the virtual metadata to be copied in the DELETE request', (done) => {
-        buildFromRequestUUIDAndAwaitSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(of(MOCK_SUCCEEDED_RD));
 
         service.deleteByHref('some-href', ['a', 'b', 'c']).subscribe(() => {
           expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
@@ -234,7 +234,7 @@ describe('DeleteDataImpl', () => {
       });
 
       it('should return the RemoteData of the response', (done) => {
-        buildFromRequestUUIDAndAwaitSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(of(MOCK_SUCCEEDED_RD));
 
         service.deleteByHref('some-href').subscribe(rd => {
           expect(rd).toBe(MOCK_SUCCEEDED_RD);

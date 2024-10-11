@@ -65,12 +65,12 @@ export interface ListItem {
   styleUrls: ['./dynamic-list.component.scss'],
   templateUrl: './dynamic-list.component.html',
   imports: [
-    NgClass,
-    NgbButtonsModule,
-    ReactiveFormsModule,
     AsyncPipe,
-    TranslateModule,
+    NgbButtonsModule,
+    NgClass,
+    ReactiveFormsModule,
     ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

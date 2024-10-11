@@ -11,9 +11,6 @@ import { ThemedUserMenuComponent } from 'src/app/shared/auth-nav-menu/user-menu/
 import { NavbarComponent as BaseComponent } from '../../../../app/navbar/navbar.component';
 import { slideMobileNav } from '../../../../app/shared/animations/slide';
 
-/**
- * Component representing the public navbar
- */
 @Component({
   selector: 'ds-themed-navbar',
   // styleUrls: ['./navbar.component.scss'],
@@ -22,7 +19,14 @@ import { slideMobileNav } from '../../../../app/shared/animations/slide';
   templateUrl: '../../../../app/navbar/navbar.component.html',
   animations: [slideMobileNav],
   standalone: true,
-  imports: [NgbDropdownModule, NgClass, ThemedUserMenuComponent, NgComponentOutlet, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgbDropdownModule,
+    NgClass,
+    NgComponentOutlet,
+    ThemedUserMenuComponent,
+    TranslateModule,
+  ],
 })
 export class NavbarComponent extends BaseComponent {
 }

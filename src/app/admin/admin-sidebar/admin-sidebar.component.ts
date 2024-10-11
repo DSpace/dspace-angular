@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -45,7 +45,14 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
   styleUrls: ['./admin-sidebar.component.scss'],
   animations: [slideSidebar],
   standalone: true,
-  imports: [NgbDropdownModule, NgClass, NgComponentOutlet, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    NgbDropdownModule,
+    NgClass,
+    NgComponentOutlet,
+    TranslatePipe,
+  ],
 })
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
   /**

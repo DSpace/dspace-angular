@@ -20,8 +20,8 @@ import { listableObjectComponent } from '../object-collection/shared/listable-ob
   styleUrls: ['./notification-box.component.scss'],
   standalone: true,
   imports: [
-    NgStyle,
     HoverClassDirective,
+    NgStyle,
     TranslateModule,
   ],
 })

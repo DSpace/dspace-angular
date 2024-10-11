@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgComponentOutlet,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -58,7 +54,16 @@ import { VarDirective } from '../utils/var.directive';
     fadeInOut,
   ],
   standalone: true,
-  imports: [VarDirective, NgClass, NgComponentOutlet, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    StartsWithLoaderComponent,
+    ThemedLoadingComponent,
+    ThemedResultsBackButtonComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component to display a browse-by page for any ListableObject

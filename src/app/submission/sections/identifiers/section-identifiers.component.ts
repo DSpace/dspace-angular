@@ -11,7 +11,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 
@@ -35,8 +35,8 @@ import { SectionsService } from '../sections.service';
   templateUrl: './section-identifiers.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
-    TranslateModule,
     AsyncPipe,
+    TranslateModule,
     VarDirective,
   ],
   standalone: true,
@@ -122,7 +122,7 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
    *     the section status
    */
   public getSectionStatus(): Observable<boolean> {
-    return observableOf(!this.isLoading);
+    return of(!this.isLoading);
   }
 
   /**

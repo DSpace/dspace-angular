@@ -58,13 +58,13 @@ import { EditRelationshipListWrapperComponent } from './edit-relationship-list-w
   imports: [
     AlertComponent,
     AsyncPipe,
+    BtnDisabledDirective,
     EditRelationshipListComponent,
+    EditRelationshipListWrapperComponent,
     NgTemplateOutlet,
     ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
-    EditRelationshipListWrapperComponent,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -25,10 +25,10 @@ import { CollectionFormComponent } from '../collection-form/collection-form.comp
   styleUrls: ['./create-collection-page.component.scss'],
   templateUrl: './create-collection-page.component.html',
   imports: [
-    CollectionFormComponent,
-    TranslateModule,
     AsyncPipe,
+    CollectionFormComponent,
     ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

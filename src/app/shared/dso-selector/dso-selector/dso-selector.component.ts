@@ -27,7 +27,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -77,7 +77,17 @@ import { SearchResult } from '../../search/models/search-result.model';
   styleUrls: ['./dso-selector.component.scss'],
   templateUrl: './dso-selector.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    HoverClassDirective,
+    InfiniteScrollModule,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 
 /**
@@ -201,7 +211,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
     if (isNotEmpty(this.currentDSOId)) {
       currentDSOResult$ = this.search(this.getCurrentDSOQuery(), 1).pipe(getFirstSucceededRemoteDataPayload());
     } else {
-      currentDSOResult$ = observableOf(buildPaginatedList(undefined, []));
+      currentDSOResult$ = of(buildPaginatedList(undefined, []));
     }
 
     // Combine current DSO, query and page

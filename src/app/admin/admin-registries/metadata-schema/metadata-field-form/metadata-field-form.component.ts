@@ -32,9 +32,9 @@ import { FormComponent } from '../../../../shared/form/form.component';
   selector: 'ds-metadata-field-form',
   templateUrl: './metadata-field-form.component.html',
   imports: [
+    AsyncPipe,
     FormComponent,
     TranslateModule,
-    AsyncPipe,
   ],
   standalone: true,
 })

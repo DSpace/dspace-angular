@@ -11,7 +11,9 @@ import { GrantRequestCopyComponent } from './grant-request-copy.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [GrantRequestCopyComponent],
+  imports: [
+    GrantRequestCopyComponent,
+  ],
 })
 
 export class ThemedGrantRequestCopyComponent extends ThemedComponent<GrantRequestCopyComponent> {

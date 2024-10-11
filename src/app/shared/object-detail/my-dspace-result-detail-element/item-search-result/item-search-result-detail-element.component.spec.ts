@@ -8,7 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Context } from '../../../../core/shared/context.model';
@@ -28,7 +28,7 @@ const mockResultObject: ItemSearchResult = new ItemSearchResult();
 mockResultObject.hitHighlights = {};
 
 mockResultObject.indexableObject = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {

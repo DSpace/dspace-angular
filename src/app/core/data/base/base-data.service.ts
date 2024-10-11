@@ -10,7 +10,7 @@ import {
   AsyncSubject,
   from as observableFrom,
   Observable,
-  of as observableOf,
+  of,
   shareReplay,
 } from 'rxjs';
 import {
@@ -282,7 +282,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
    */
   findByHref(href$: string | Observable<string>, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
-      href$ = observableOf(href$);
+      href$ = of(href$);
     }
 
     const requestHref$ = href$.pipe(
@@ -341,7 +341,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
    */
   findListByHref(href$: string | Observable<string>, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<PaginatedList<T>>> {
     if (typeof href$ === 'string') {
-      href$ = observableOf(href$);
+      href$ = of(href$);
     }
 
     const requestHref$ = href$.pipe(
@@ -403,7 +403,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
   protected createAndSendGetRequest(href$: string | Observable<string>, useCachedVersionIfAvailable = true): void {
     if (isNotEmpty(href$)) {
       if (typeof href$ === 'string') {
-        href$ = observableOf(href$);
+        href$ = of(href$);
       }
 
       href$.pipe(
@@ -428,7 +428,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
   hasCachedResponse(href$: string | Observable<string>): Observable<boolean> {
     if (isNotEmpty(href$)) {
       if (typeof href$ === 'string') {
-        href$ = observableOf(href$);
+        href$ = of(href$);
       }
       return href$.pipe(
         isNotEmptyOperator(),
@@ -457,7 +457,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
             map((rd => rd.hasFailed)),
           );
         }
-        return observableOf(false);
+        return of(false);
       }),
     );
   }

@@ -15,7 +15,7 @@ import {
 import difference from 'lodash/difference';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -40,7 +40,10 @@ import { notificationsStateSelector } from '../selectors';
   styleUrls: ['./notifications-board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgClass, NotificationComponent],
+  imports: [
+    NgClass,
+    NotificationComponent,
+  ],
 })
 export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
@@ -124,7 +127,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
     }
 
     if (typeof content === 'string') {
-      content = observableOf(content);
+      content = of(content);
     }
 
     content.pipe(

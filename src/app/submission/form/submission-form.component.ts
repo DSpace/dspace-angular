@@ -10,7 +10,7 @@ import {
 import isEqual from 'lodash/isEqual';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -58,12 +58,12 @@ import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/
   templateUrl: './submission-form.component.html',
   imports: [
     CommonModule,
-    ThemedLoadingComponent,
-    SubmissionSectionContainerComponent,
-    SubmissionFormFooterComponent,
-    ThemedSubmissionUploadFilesComponent,
     SubmissionFormCollectionComponent,
+    SubmissionFormFooterComponent,
     SubmissionFormSectionAddComponent,
+    SubmissionSectionContainerComponent,
+    ThemedLoadingComponent,
+    ThemedSubmissionUploadFilesComponent,
   ],
   standalone: true,
 })
@@ -124,7 +124,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * A boolean representing if a submission form is pending
    * @type {Observable<boolean>}
    */
-  public loading: Observable<boolean> = observableOf(true);
+  public loading: Observable<boolean> = of(true);
 
   /**
    * Emits true when the submission config has bitstream uploading enabled in submission
@@ -190,7 +190,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           if (!isLoading) {
             return this.getSectionsList();
           } else {
-            return observableOf([]);
+            return of([]);
           }
         }));
       this.uploadEnabled$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Upload);

@@ -10,7 +10,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { LinkService } from '../../core/cache/builders/link.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
@@ -47,7 +47,7 @@ describe('NewProcessComponent', () => {
     scriptService = jasmine.createSpyObj(
       'scriptService',
       {
-        invoke: observableOf({
+        invoke: of({
           response:
           {
             isSuccessful: true,

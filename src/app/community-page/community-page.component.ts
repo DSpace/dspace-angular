@@ -40,8 +40,6 @@ import { ThemedLoadingComponent } from '../shared/loading/themed-loading.compone
 import { VarDirective } from '../shared/utils/var.directive';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { getCommunityPageRoute } from './community-page-routing-paths';
-import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
-import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
 
 @Component({
   selector: 'ds-base-community-page',
@@ -50,22 +48,20 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
   imports: [
-    ThemedComcolPageContentComponent,
+    AsyncPipe,
+    ComcolPageHeaderComponent,
+    ComcolPageLogoComponent,
+    DsoEditMenuComponent,
     ErrorComponent,
+    RouterModule,
+    RouterOutlet,
+    ThemedComcolPageBrowseByComponent,
+    ThemedComcolPageContentComponent,
+    ThemedComcolPageHandleComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    ThemedCommunityPageSubCommunityListComponent,
-    ThemedCollectionPageSubCollectionListComponent,
-    ThemedComcolPageBrowseByComponent,
-    DsoEditMenuComponent,
-    ThemedComcolPageHandleComponent,
-    ComcolPageLogoComponent,
-    ComcolPageHeaderComponent,
-    AsyncPipe,
-    ViewTrackerComponent,
     VarDirective,
-    RouterOutlet,
-    RouterModule,
+    ViewTrackerComponent,
   ],
   standalone: true,
 })

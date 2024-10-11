@@ -11,7 +11,9 @@ import { FooterComponent } from './footer.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [FooterComponent],
+  imports: [
+    FooterComponent,
+  ],
 })
 export class ThemedFooterComponent extends ThemedComponent<FooterComponent> {
   protected getComponentName(): string {

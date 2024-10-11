@@ -12,7 +12,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -90,7 +90,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         }
       }));
     } else if (isNotEmpty(this.model.value) && (this.model.value instanceof VocabularyEntry)) {
-      initValue$ = observableOf(
+      initValue$ = of(
         new FormFieldMetadataValueObject(
           this.model.value.value,
           null,
@@ -102,7 +102,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         ),
       );
     } else {
-      initValue$ = observableOf(new FormFieldMetadataValueObject(this.model.value));
+      initValue$ = of(new FormFieldMetadataValueObject(this.model.value));
     }
     return initValue$;
   }

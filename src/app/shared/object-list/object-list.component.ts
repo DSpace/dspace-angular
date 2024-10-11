@@ -35,7 +35,14 @@ import { SelectableListService } from './selectable-list/selectable-list.service
   templateUrl: './object-list.component.html',
   animations: [fadeIn],
   standalone: true,
-  imports: [PaginationComponent, NgClass, SelectableListItemControlComponent, ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe],
+  imports: [
+    BrowserOnlyPipe,
+    ImportableListItemControlComponent,
+    ListableObjectComponentLoaderComponent,
+    NgClass,
+    PaginationComponent,
+    SelectableListItemControlComponent,
+  ],
 })
 export class ObjectListComponent {
   /**

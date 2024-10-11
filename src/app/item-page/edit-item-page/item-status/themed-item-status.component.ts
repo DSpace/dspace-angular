@@ -8,7 +8,9 @@ import { ItemStatusComponent } from './item-status.component';
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ItemStatusComponent],
+  imports: [
+    ItemStatusComponent,
+  ],
 })
 export class ThemedItemStatusComponent extends ThemedComponent<ItemStatusComponent> {
   protected getComponentName(): string {

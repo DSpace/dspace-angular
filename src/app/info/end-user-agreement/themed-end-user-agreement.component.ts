@@ -11,7 +11,9 @@ import { EndUserAgreementComponent } from './end-user-agreement.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [EndUserAgreementComponent],
+  imports: [
+    EndUserAgreementComponent,
+  ],
 })
 export class ThemedEndUserAgreementComponent extends ThemedComponent<EndUserAgreementComponent> {
 

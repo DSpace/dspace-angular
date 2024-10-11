@@ -12,7 +12,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
@@ -122,7 +122,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      searchServiceStub.search.and.returnValue(observableOf(paginatedListRD));
+      searchServiceStub.search.and.returnValue(of(paginatedListRD));
       const html = `
         <ds-project-entry-import-modal [externalSourceEntry]="eventData"></ds-project-entry-import-modal>`;
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
@@ -156,7 +156,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
     describe('search', () => {
       it('should call SearchService.search', () => {
 
-        (searchServiceStub as any).search.and.returnValue(observableOf(paginatedListRD));
+        (searchServiceStub as any).search.and.returnValue(of(paginatedListRD));
         comp.pagination = pagination;
 
         comp.search(searchString);

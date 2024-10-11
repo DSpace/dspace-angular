@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
 import { MockBitstream1 } from '../../shared/mocks/item.mock';
@@ -51,7 +51,7 @@ describe('ItemRequestDataService', () => {
 
 
     authorizationDataService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(false),
+      isAuthorized: of(false),
     });
     itemRequest = Object.assign(new ItemRequest(), {
       token: 'item-request-token',
@@ -64,7 +64,7 @@ describe('ItemRequestDataService', () => {
       buildFromRequestUUID: createSuccessfulRemoteDataObject$(itemRequest),
     });
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: observableOf(restApiEndpoint),
+      getEndpoint: of(restApiEndpoint),
     });
 
     service = new ItemRequestDataService(requestService, rdbService, null, halService, configService, authorizationDataService);
@@ -75,7 +75,7 @@ describe('ItemRequestDataService', () => {
       const searchMethod = 'testMethod';
       const options = new FindListOptions();
 
-      const searchDataSpy = spyOn((service as any).searchData, 'searchBy').and.returnValue(observableOf(null));
+      const searchDataSpy = spyOn((service as any).searchData, 'searchBy').and.returnValue(of(null));
 
       service.searchBy(searchMethod, options);
 

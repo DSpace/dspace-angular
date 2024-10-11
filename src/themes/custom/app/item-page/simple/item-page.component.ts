@@ -19,11 +19,6 @@ import { ListableObjectComponentLoaderComponent } from '../../../../../app/share
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
 
-/**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
- */
 @Component({
   selector: 'ds-themed-item-page',
   // styleUrls: ['./item-page.component.scss'],
@@ -34,21 +29,20 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
   animations: [fadeInOut],
   standalone: true,
   imports: [
-    VarDirective,
-    ThemedItemAlertsComponent,
-    ItemVersionsNoticeComponent,
-    ViewTrackerComponent,
-    ListableObjectComponentLoaderComponent,
-    ItemVersionsComponent,
-    ErrorComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
+    AccessByTokenNotificationComponent,
     AsyncPipe,
+    ErrorComponent,
+    ItemVersionsComponent,
+    ItemVersionsNoticeComponent,
+    ListableObjectComponentLoaderComponent,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
-    AccessByTokenNotificationComponent,
+    ThemedItemAlertsComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+    ViewTrackerComponent,
   ],
 })
 export class ItemPageComponent extends BaseComponent {
-
 }

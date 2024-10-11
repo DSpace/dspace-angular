@@ -13,7 +13,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -71,12 +71,12 @@ describe('GrantDenyRequestCopyComponent', () => {
     itemUrl = getItemPageRoute(item);
 
     route = jasmine.createSpyObj('route', {}, {
-      data: observableOf({
+      data: of({
         request: createSuccessfulRemoteDataObject(itemRequest),
       }),
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
     });
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findById: createSuccessfulRemoteDataObject$(item),

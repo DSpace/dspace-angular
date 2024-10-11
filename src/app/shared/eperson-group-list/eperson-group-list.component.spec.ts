@@ -15,7 +15,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   APP_DATA_SERVICES_MAP,
@@ -134,7 +134,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      mockEpersonService.searchByScope.and.returnValue(observableOf(epersonPaginatedListRD));
+      mockEpersonService.searchByScope.and.returnValue(of(epersonPaginatedListRD));
       const html = `
         <ds-eperson-group-list [isListOfEPerson]="isListOfEPerson" [initSelected]="initSelected"></ds-eperson-group-list>`;
 
@@ -194,7 +194,7 @@ describe('EpersonGroupListComponent test suite', () => {
     }));
 
     it('should init the list of eperson', fakeAsync(() => {
-      epersonService.searchByScope.and.returnValue(observableOf(epersonPaginatedListRD));
+      epersonService.searchByScope.and.returnValue(of(epersonPaginatedListRD));
 
       fixture.detectChanges();
 
@@ -272,7 +272,7 @@ describe('EpersonGroupListComponent test suite', () => {
     }));
 
     it('should init the list of group', fakeAsync(() => {
-      groupService.searchGroups.and.returnValue(observableOf(groupPaginatedListRD));
+      groupService.searchGroups.and.returnValue(of(groupPaginatedListRD));
       fixture.detectChanges();
 
       fixture.whenStable().then(() => {

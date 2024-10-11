@@ -23,7 +23,11 @@ import { getItemEditRoute } from '../../../item-page/item-page-routing-paths';
   styleUrls: ['./item-admin-search-result-actions.component.scss'],
   templateUrl: './item-admin-search-result-actions.component.html',
   standalone: true,
-  imports: [NgClass, RouterLink, TranslateModule],
+  imports: [
+    NgClass,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 /**
  * The component for displaying the actions for a list element for an item search result on the admin search page

@@ -21,7 +21,12 @@ import { TruncatablePartComponent } from '../../../../../shared/truncatable/trun
   selector: 'ds-org-unit-sidebar-search-list-element',
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
   standalone: true,
-  imports: [TruncatablePartComponent, NgClass, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    TranslateModule,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * Component displaying a list element for a {@link ItemSearchResult} of type "OrgUnit" within the context of

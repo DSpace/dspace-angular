@@ -23,7 +23,13 @@ import { ToDatePipe } from './to-date.pipe';
   styleUrls: ['./access-control-array-form.component.scss'],
   exportAs: 'accessControlArrayForm',
   standalone: true,
-  imports: [FormsModule, NgbDatepickerModule, TranslateModule, ToDatePipe, BtnDisabledDirective],
+  imports: [
+    BtnDisabledDirective,
+    FormsModule,
+    NgbDatepickerModule,
+    ToDatePipe,
+    TranslateModule,
+  ],
 })
 export class AccessControlArrayFormComponent implements OnInit {
   @Input() dropdownOptions: AccessesConditionOption[] = [];

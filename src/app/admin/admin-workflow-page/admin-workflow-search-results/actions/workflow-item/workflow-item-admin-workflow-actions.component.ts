@@ -17,7 +17,11 @@ import {
   styleUrls: ['./workflow-item-admin-workflow-actions.component.scss'],
   templateUrl: './workflow-item-admin-workflow-actions.component.html',
   standalone: true,
-  imports: [NgClass, RouterLink, TranslateModule],
+  imports: [
+    NgClass,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 /**
  * The component for displaying the actions for a list element for a workflow-item on the admin workflow search page

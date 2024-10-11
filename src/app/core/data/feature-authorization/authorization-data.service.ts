@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
@@ -89,7 +89,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
           return [];
         }
       }),
-      catchError(() => observableOf([])),
+      catchError(() => of([])),
       oneAuthorizationMatchesFeature(featureId),
     );
   }
@@ -111,14 +111,14 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
    *                                    {@link HALLink}s should be automatically resolved
    */
   searchByObject(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string, options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Authorization>[]): Observable<RemoteData<PaginatedList<Authorization>>> {
-    const objectUrl$ = observableOf(objectUrl).pipe(
+    const objectUrl$ = of(objectUrl).pipe(
       switchMap((url) => {
         if (hasNoValue(url)) {
           return this.siteService.find().pipe(
             map((site) => site.self),
           );
         } else {
-          return observableOf(url);
+          return of(url);
         }
       }),
     );

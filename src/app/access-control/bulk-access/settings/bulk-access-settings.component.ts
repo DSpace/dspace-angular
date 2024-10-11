@@ -14,9 +14,9 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
   styleUrls: ['./bulk-access-settings.component.scss'],
   exportAs: 'dsBulkSettings',
   imports: [
+    AccessControlFormContainerComponent,
     NgbAccordionModule,
     TranslateModule,
-    AccessControlFormContainerComponent,
   ],
   standalone: true,
 })

@@ -5,7 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
@@ -143,7 +143,7 @@ describe('IdentifiableDataService', () => {
 
   describe('invalidateById', () => {
     it('should invalidate the correct resource by href', () => {
-      spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
+      spyOn(service, 'invalidateByHref').and.returnValue(of(true));
       service.invalidateById('123');
       expect(service.invalidateByHref).toHaveBeenCalledWith(`${base}/${endpoint}/123`);
     });

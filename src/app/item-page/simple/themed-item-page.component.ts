@@ -11,7 +11,9 @@ import { ItemPageComponent } from './item-page.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ItemPageComponent],
+  imports: [
+    ItemPageComponent,
+  ],
 })
 
 export class ThemedItemPageComponent extends ThemedComponent<ItemPageComponent> {

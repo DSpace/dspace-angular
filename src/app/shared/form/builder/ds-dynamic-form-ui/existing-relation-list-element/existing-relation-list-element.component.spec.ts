@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
@@ -60,7 +60,7 @@ describe('ExistingRelationListElementComponent', () => {
     rightItemRD$ = createSuccessfulRemoteDataObject$(submissionItem);
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
     relationshipService = {
-      updatePlace: () => observableOf({}),
+      updatePlace: () => of({}),
     } as any;
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });

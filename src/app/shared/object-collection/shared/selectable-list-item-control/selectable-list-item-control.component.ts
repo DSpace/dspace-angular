@@ -24,7 +24,12 @@ import { ListableObject } from '../listable-object.model';
   // styleUrls: ['./selectable-list-item-control.component.scss'],
   templateUrl: './selectable-list-item-control.component.html',
   standalone: true,
-  imports: [VarDirective, FormsModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component for rendering list item that has a control (checkbox or radio button) because it's selectable

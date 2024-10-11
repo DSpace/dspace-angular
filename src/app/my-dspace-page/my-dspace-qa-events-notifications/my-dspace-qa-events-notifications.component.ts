@@ -28,8 +28,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
-    TranslateModule,
     RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -11,7 +11,9 @@ import { LogoutPageComponent } from './logout-page.component';
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [LogoutPageComponent],
+  imports: [
+    LogoutPageComponent,
+  ],
 })
 export class ThemedLogoutPageComponent extends ThemedComponent<LogoutPageComponent> {
   protected getComponentName(): string {

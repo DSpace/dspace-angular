@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -29,7 +29,7 @@ describe('MetadataSchemaDataService', () => {
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
       send: {},
-      getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
+      getByUUID: of({ response: new RestResponse(true, 200, 'OK') }),
       removeByHrefSubstring: {},
     });
     halService = Object.assign(new HALEndpointServiceStub(endpoint));

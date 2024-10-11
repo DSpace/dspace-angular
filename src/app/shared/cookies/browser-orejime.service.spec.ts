@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
@@ -61,12 +61,12 @@ describe('BrowserOrejimeService', () => {
 
     translateService = getMockTranslateService();
     ePersonService = jasmine.createSpyObj('ePersonService', {
-      createPatchFromCache: observableOf([]),
-      patch: observableOf(new RestResponse(true, 200, 'Ok')),
+      createPatchFromCache: of([]),
+      patch: of(new RestResponse(true, 200, 'Ok')),
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      getAuthenticatedUserFromStore: observableOf(user),
+      isAuthenticated: of(true),
+      getAuthenticatedUserFromStore: of(user),
     });
     configurationDataService = createConfigSuccessSpy(recaptchaValue);
     findByPropertyName = configurationDataService.findByPropertyName;
@@ -136,8 +136,8 @@ describe('BrowserOrejimeService', () => {
 
   describe('initialize with user', () => {
     beforeEach(() => {
-      spyOn((service as any), 'getUser$').and.returnValue(observableOf(user));
-      translateService.get.and.returnValue(observableOf('loading...'));
+      spyOn((service as any), 'getUser$').and.returnValue(of(user));
+      translateService.get.and.returnValue(of('loading...'));
       spyOn(service, 'addAppMessages');
       spyOn((service as any), 'initializeUser');
       spyOn(service, 'translateConfiguration');
@@ -152,8 +152,8 @@ describe('BrowserOrejimeService', () => {
 
   describe('to not call the initialize user method, but the other methods', () => {
     beforeEach(() => {
-      spyOn((service as any), 'getUser$').and.returnValue(observableOf(undefined));
-      translateService.get.and.returnValue(observableOf('loading...'));
+      spyOn((service as any), 'getUser$').and.returnValue(of(undefined));
+      translateService.get.and.returnValue(of('loading...'));
       spyOn(service, 'addAppMessages');
       spyOn((service as any), 'initializeUser');
       spyOn(service, 'translateConfiguration');
@@ -205,7 +205,7 @@ describe('BrowserOrejimeService', () => {
 
   describe('getUser$ when there is no one authenticated', () => {
     beforeEach(() => {
-      (service as any).authService.isAuthenticated.and.returnValue(observableOf(false));
+      (service as any).authService.isAuthenticated.and.returnValue(of(false));
     });
     it('should return undefined', () => {
       getTestScheduler().expectObservable((service as any).getUser$()).toBe('(a|)', { a: undefined });
@@ -214,8 +214,8 @@ describe('BrowserOrejimeService', () => {
 
   describe('getUser$ when there someone is authenticated', () => {
     beforeEach(() => {
-      (service as any).authService.isAuthenticated.and.returnValue(observableOf(true));
-      (service as any).authService.getAuthenticatedUserFromStore.and.returnValue(observableOf(user));
+      (service as any).authService.isAuthenticated.and.returnValue(of(true));
+      (service as any).authService.getAuthenticatedUserFromStore.and.returnValue(of(user));
     });
     it('should return the user', () => {
       getTestScheduler().expectObservable((service as any).getUser$()).toBe('(a|)', { a: user });
@@ -243,7 +243,7 @@ describe('BrowserOrejimeService', () => {
 
     describe('when no user is autheticated', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getUser$').and.returnValue(observableOf(undefined));
+        spyOn(service as any, 'getUser$').and.returnValue(of(undefined));
       });
 
       it('should return the cookie consents object', () => {
@@ -256,7 +256,7 @@ describe('BrowserOrejimeService', () => {
 
     describe('when user is autheticated', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getUser$').and.returnValue(observableOf(user));
+        spyOn(service as any, 'getUser$').and.returnValue(of(user));
       });
 
       it('should return the cookie consents object', () => {
@@ -280,7 +280,7 @@ describe('BrowserOrejimeService', () => {
 
       spyOn(updatedUser, 'setMetadata');
       spyOn(JSON, 'stringify').and.returnValue(cookieConsentString);
-      ePersonService.createPatchFromCache.and.returnValue(observableOf([operation]));
+      ePersonService.createPatchFromCache.and.returnValue(of([operation]));
     });
     it('should call patch on the data service', () => {
       service.setSettingsForUser(updatedUser, cookieConsent);
@@ -299,7 +299,7 @@ describe('BrowserOrejimeService', () => {
 
       spyOn(updatedUser, 'setMetadata');
       spyOn(JSON, 'stringify').and.returnValue(cookieConsentString);
-      ePersonService.createPatchFromCache.and.returnValue(observableOf([]));
+      ePersonService.createPatchFromCache.and.returnValue(of([]));
     });
     it('should not call patch on the data service', () => {
       service.setSettingsForUser(updatedUser, cookieConsent);
@@ -316,8 +316,8 @@ describe('BrowserOrejimeService', () => {
       GOOGLE_ANALYTICS_KEY = clone((service as any).GOOGLE_ANALYTICS_KEY);
       REGISTRATION_VERIFICATION_ENABLED_KEY = clone((service as any).REGISTRATION_VERIFICATION_ENABLED_KEY);
       MATOMO_ENABLED = clone((service as any).MATOMO_ENABLED);
-      spyOn((service as any), 'getUser$').and.returnValue(observableOf(user));
-      translateService.get.and.returnValue(observableOf('loading...'));
+      spyOn((service as any), 'getUser$').and.returnValue(of(user));
+      translateService.get.and.returnValue(of('loading...'));
       spyOn(service, 'addAppMessages');
       spyOn((service as any), 'initializeUser');
       spyOn(service, 'translateConfiguration');

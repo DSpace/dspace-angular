@@ -10,7 +10,9 @@ import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
   selector: 'ds-admin-workflow-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [AdminWorkflowPageComponent],
+  imports: [
+    AdminWorkflowPageComponent,
+  ],
 })
 export class ThemedAdminWorkflowPageComponent extends ThemedComponent<AdminWorkflowPageComponent> {
 

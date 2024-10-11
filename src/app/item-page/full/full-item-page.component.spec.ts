@@ -19,7 +19,7 @@ import {
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
@@ -105,11 +105,11 @@ describe('FullItemPageComponent', () => {
     };
 
     routeStub = Object.assign(new ActivatedRouteStub(), {
-      data: observableOf(routeData),
+      data: of(routeData),
     });
 
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(false),
+      isAuthorized: of(false),
     });
 
     serverResponseService = jasmine.createSpyObj('ServerResponseService', {
@@ -117,7 +117,7 @@ describe('FullItemPageComponent', () => {
     });
 
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
-      getLinks: observableOf([mocklink, mocklink2]),
+      getLinks: of([mocklink, mocklink2]),
     });
 
     linkHeadService = jasmine.createSpyObj('LinkHeadService', {
@@ -126,9 +126,9 @@ describe('FullItemPageComponent', () => {
     });
 
     notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
-      isCoarConfigEnabled: observableOf(true),
-      getCoarLdnLocalInboxUrls: observableOf(['http://test.org']),
-      getInboxRelationLink: observableOf('http://test.org'),
+      isCoarConfigEnabled: of(true),
+      getCoarLdnLocalInboxUrls: of(['http://test.org']),
+      getInboxRelationLink: of('http://test.org'),
     });
 
     headTagService = new HeadTagServiceMock();
@@ -208,7 +208,7 @@ describe('FullItemPageComponent', () => {
 
   describe('when the item is withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = new BehaviorSubject<RemoteData<Item>>(createSuccessfulRemoteDataObject(mockWithdrawnItem));
       fixture.detectChanges();
     });
@@ -237,7 +237,7 @@ describe('FullItemPageComponent', () => {
 
   describe('when the item is not withdrawn and the user is an admin', () => {
     beforeEach(() => {
-      comp.isAdmin$ = observableOf(true);
+      comp.isAdmin$ = of(true);
       comp.itemRD$ = new BehaviorSubject<RemoteData<Item>>(createSuccessfulRemoteDataObject(mockItem));
       fixture.detectChanges();
     });

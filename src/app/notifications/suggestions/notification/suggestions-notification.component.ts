@@ -19,9 +19,9 @@ import { SuggestionTargetsStateService } from '../targets/suggestion-targets.sta
   templateUrl: './suggestions-notification.component.html',
   standalone: true,
   imports: [
+    AsyncPipe,
     RouterLink,
     TranslateModule,
-    AsyncPipe,
   ],
   styleUrls: ['./suggestions-notification.component.scss'],
 })

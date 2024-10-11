@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { RemoteData } from '../core/data/remote-data';
@@ -21,7 +21,7 @@ export class ServerSubmissionService extends SubmissionService {
    *    observable of SubmissionObject
    */
   createSubmission(): Observable<SubmissionObject> {
-    return observableOf(null);
+    return of(null);
   }
 
   /**
@@ -31,7 +31,7 @@ export class ServerSubmissionService extends SubmissionService {
    *    observable of SubmissionObject
    */
   retrieveSubmission(submissionId): Observable<RemoteData<SubmissionObject>> {
-    return observableOf(null);
+    return of(null);
   }
 
   /**

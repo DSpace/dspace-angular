@@ -8,7 +8,9 @@ import { MetadataRepresentationListElementComponent } from '../metadata-represen
   selector: 'ds-item-metadata-list-element',
   templateUrl: './item-metadata-list-element.component.html',
   standalone: true,
-  imports: [ListableObjectComponentLoaderComponent],
+  imports: [
+    ListableObjectComponentLoaderComponent,
+  ],
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of items

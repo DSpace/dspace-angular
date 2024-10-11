@@ -11,7 +11,9 @@ import { ProfilePageComponent } from './profile-page.component';
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ProfilePageComponent],
+  imports: [
+    ProfilePageComponent,
+  ],
 })
 export class ThemedProfilePageComponent extends ThemedComponent<ProfilePageComponent> {
   protected getComponentName(): string {

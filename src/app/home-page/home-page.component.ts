@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  NgClass,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -21,7 +20,6 @@ import { Site } from '../core/shared/site.model';
 import { SuggestionsPopupComponent } from '../notifications/suggestions/popup/suggestions-popup.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
-import { PageWithSidebarComponent } from '../shared/sidebar/page-with-sidebar.component';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { HomeCoarComponent } from './home-coar/home-coar.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
@@ -33,7 +31,19 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
   standalone: true,
-  imports: [ThemedHomeNewsComponent, NgTemplateOutlet, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
+  imports: [
+    AsyncPipe,
+    HomeCoarComponent,
+    NgTemplateOutlet,
+    RecentItemListComponent,
+    SuggestionsPopupComponent,
+    ThemedConfigurationSearchPageComponent,
+    ThemedHomeNewsComponent,
+    ThemedSearchFormComponent,
+    ThemedTopLevelCommunityListComponent,
+    TranslateModule,
+    ViewTrackerComponent,
+  ],
 })
 export class HomePageComponent implements OnInit {
 

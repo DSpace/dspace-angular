@@ -7,7 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { MenuService } from '../../../menu/menu.service';
 import { MenuItemType } from '../../../menu/menu-item-type.model';
@@ -50,7 +50,7 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([{
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([{
         id: 'test',
         visible: true,
         model: {} as MenuItemModels,
@@ -85,7 +85,7 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
       fixture = TestBed.createComponent(DsoEditMenuExpandableSectionComponent);
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);

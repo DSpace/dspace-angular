@@ -22,10 +22,10 @@ import { ResourcePoliciesComponent } from '../../shared/resource-policies/resour
   selector: 'ds-bitstream-authorizations',
   templateUrl: './bitstream-authorizations.component.html',
   imports: [
-    ResourcePoliciesComponent,
     AsyncPipe,
-    TranslateModule,
+    ResourcePoliciesComponent,
     RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })

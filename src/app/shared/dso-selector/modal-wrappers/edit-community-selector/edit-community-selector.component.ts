@@ -32,7 +32,10 @@ import {
   selector: 'ds-base-edit-community-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule],
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 
 export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {

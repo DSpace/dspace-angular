@@ -7,7 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -51,7 +51,7 @@ describe('CollectionSelectComponent', () => {
   });
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true),
+    isAuthorized: of(true),
   });
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {

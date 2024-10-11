@@ -3,7 +3,7 @@ import { Params } from '@angular/router';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -47,11 +47,11 @@ describe('SearchConfigurationService', () => {
   ];
 
   const routeService = jasmine.createSpyObj('RouteService', {
-    getQueryParameterValue: observableOf(value1),
-    getQueryParamsWithPrefix: observableOf(prefixFilter),
-    getRouteParameterValue: observableOf(''),
-    getParamsExceptValue: observableOf({}),
-    getParamsWithAdditionalValue: observableOf({}),
+    getQueryParameterValue: of(value1),
+    getQueryParamsWithPrefix: of(prefixFilter),
+    getRouteParameterValue: of(''),
+    getParamsExceptValue: of({}),
+    getParamsWithAdditionalValue: of({}),
   });
 
   let paginationService: PaginationServiceStub;
@@ -215,7 +215,7 @@ describe('SearchConfigurationService', () => {
     const scope = 'test';
     const requestUrl = endPoint + '?scope=' + scope;
     beforeEach(() => {
-      spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+      spyOn((service as any).halService, 'getEndpoint').and.returnValue(of(endPoint));
       service.getSearchConfigurationFor(scope).subscribe((t) => {
       }); // subscribe to make sure all methods are called
     });
@@ -236,7 +236,7 @@ describe('SearchConfigurationService', () => {
   describe('when getSearchConfigurationFor is called without a scope', () => {
     const endPoint = 'http://endpoint.com/test/config';
     beforeEach(() => {
-      spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+      spyOn((service as any).halService, 'getEndpoint').and.returnValue(of(endPoint));
       spyOn((service as any).rdb, 'buildFromHref').and.callThrough();
       service.getSearchConfigurationFor(null).subscribe((t) => {
       }); // subscribe to make sure all methods are called
@@ -257,7 +257,7 @@ describe('SearchConfigurationService', () => {
   describe('when getConfig is called without a scope', () => {
     const endPoint = 'http://endpoint.com/test/config';
     beforeEach(() => {
-      spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+      spyOn((service as any).halService, 'getEndpoint').and.returnValue(of(endPoint));
       spyOn((service as any).rdb, 'buildFromHref').and.callThrough();
       service.getConfig(null).subscribe((t) => {
       }); // subscribe to make sure all methods are called
@@ -281,7 +281,7 @@ describe('SearchConfigurationService', () => {
     const scope = 'test';
     const requestUrl = endPoint + '?scope=' + scope;
     beforeEach(() => {
-      spyOn((service as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+      spyOn((service as any).halService, 'getEndpoint').and.returnValue(of(endPoint));
       service.getConfig(scope).subscribe((t) => {
       }); // subscribe to make sure all methods are called
     });

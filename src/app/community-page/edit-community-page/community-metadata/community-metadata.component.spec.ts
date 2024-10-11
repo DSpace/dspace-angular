@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -25,7 +25,7 @@ describe('CommunityMetadataComponent', () => {
       imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, CommunityMetadataComponent],
       providers: [
         { provide: CommunityDataService, useValue: {} },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: { payload: {} } }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: of({ dso: { payload: {} } }) } } },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],

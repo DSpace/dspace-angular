@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -36,7 +36,7 @@ export const createCollectionPageGuard: CanActivateFn = (
   const parentID = route.queryParams.parent;
   if (hasNoValue(parentID)) {
     router.navigate(['/404']);
-    return observableOf(false);
+    return of(false);
   }
   return communityService.findById(parentID)
     .pipe(

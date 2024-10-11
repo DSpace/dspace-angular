@@ -23,11 +23,6 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
 
-/**
- * This component renders a full item page.
- * The route parameter 'id' is used to request the item it represents.
- */
-
 @Component({
   selector: 'ds-themed-full-item-page',
   // styleUrls: ['./full-item-page.component.scss'],
@@ -38,21 +33,21 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
   animations: [fadeInOut],
   standalone: true,
   imports: [
-    ErrorComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
-    ThemedFullFileSectionComponent,
-    CollectionsComponent,
-    ItemVersionsComponent,
     AsyncPipe,
+    CollectionsComponent,
+    DsoEditMenuComponent,
+    ErrorComponent,
+    ItemVersionsComponent,
+    ItemVersionsNoticeComponent,
     KeyValuePipe,
     RouterLink,
-    ThemedItemPageTitleFieldComponent,
-    DsoEditMenuComponent,
-    ItemVersionsNoticeComponent,
-    ViewTrackerComponent,
+    ThemedFullFileSectionComponent,
     ThemedItemAlertsComponent,
+    ThemedItemPageTitleFieldComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
     VarDirective,
+    ViewTrackerComponent,
   ],
 })
 export class FullItemPageComponent extends BaseComponent {

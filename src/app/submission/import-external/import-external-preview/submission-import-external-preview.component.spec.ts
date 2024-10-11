@@ -15,7 +15,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
@@ -147,13 +147,13 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       ];
       comp.externalSourceEntry = externalEntry;
       ngbModal.open.and.returnValue({
-        componentInstance: { selectedEvent: observableOf(emittedEvent) },
+        componentInstance: { selectedEvent: of(emittedEvent) },
         close: () => {
           return;
         },
       });
       spyOn(comp, 'closeMetadataModal');
-      submissionServiceStub.createSubmissionFromExternalSource.and.returnValue(observableOf(submissionObjects));
+      submissionServiceStub.createSubmissionFromExternalSource.and.returnValue(of(submissionObjects));
       spyOn(compAsAny.router, 'navigateByUrl');
       scheduler.schedule(() => comp.import());
       scheduler.flush();

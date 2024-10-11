@@ -11,7 +11,9 @@ import { FeedbackFormComponent } from './feedback-form.component';
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [FeedbackFormComponent],
+  imports: [
+    FeedbackFormComponent,
+  ],
 })
 export class ThemedFeedbackFormComponent extends ThemedComponent<FeedbackFormComponent> {
 

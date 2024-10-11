@@ -14,7 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './name-variant-modal.component.html',
   styleUrls: ['./name-variant-modal.component.scss'],
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * The component for the modal to add a name variant to an item

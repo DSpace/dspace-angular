@@ -45,7 +45,12 @@ type ParsedContent = ({href?: string, text: string})[];
   templateUrl: './context-help-wrapper.component.html',
   styleUrls: ['./context-help-wrapper.component.scss'],
   standalone: true,
-  imports: [NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgbTooltipModule,
+    NgClass,
+    NgTemplateOutlet,
+  ],
 })
 export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**

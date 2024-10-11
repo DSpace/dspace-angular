@@ -11,7 +11,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
@@ -35,7 +35,7 @@ const mockResultObject: ItemSearchResult = new ItemSearchResult();
 mockResultObject.hitHighlights = {};
 
 mockResultObject.indexableObject = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {

@@ -15,7 +15,9 @@ import { ItemAlertsComponent } from './item-alerts.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ItemAlertsComponent],
+  imports: [
+    ItemAlertsComponent,
+  ],
 })
 export class ThemedItemAlertsComponent extends ThemedComponent<ItemAlertsComponent> {
   protected inAndOutputNames: (keyof ItemAlertsComponent & keyof this)[] = ['item'];

@@ -45,7 +45,14 @@ import { VarDirective } from '../../shared/utils/var.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
   standalone: true,
-  imports: [VarDirective, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    ObjectCollectionComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 
 export class TopLevelCommunityListComponent implements OnInit, OnDestroy {

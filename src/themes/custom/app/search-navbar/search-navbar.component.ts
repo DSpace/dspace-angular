@@ -16,8 +16,13 @@ import { ClickOutsideDirective } from '../../../../app/shared/utils/click-outsid
   // templateUrl: './search-navbar.component.html'
   templateUrl: '../../../../app/search-navbar/search-navbar.component.html',
   standalone: true,
-  imports: [ClickOutsideDirective, FormsModule, ReactiveFormsModule, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    BrowserOnlyPipe,
+    ClickOutsideDirective,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class SearchNavbarComponent extends BaseComponent {
-
 }

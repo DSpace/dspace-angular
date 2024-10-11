@@ -26,10 +26,10 @@ import { AUTH_METHOD_FOR_DECORATOR_MAP } from '../shared/log-in/methods/log-in.m
   templateUrl: './external-login-page.component.html',
   styleUrls: ['./external-login-page.component.scss'],
   imports: [
-    TranslateModule,
+    AlertComponent,
     AsyncPipe,
     ExternalLogInComponent,
-    AlertComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

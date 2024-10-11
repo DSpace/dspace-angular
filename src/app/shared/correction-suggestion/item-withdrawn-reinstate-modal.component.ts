@@ -18,10 +18,10 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
   templateUrl: './item-withdrawn-reinstate-modal.component.html',
   styleUrls: ['./item-withdrawn-reinstate-modal.component.scss'],
   imports: [
-    TranslateModule,
-    ThemedLoadingComponent,
-    FormsModule,
     AsyncPipe,
+    FormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

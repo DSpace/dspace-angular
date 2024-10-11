@@ -19,7 +19,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
@@ -79,8 +79,8 @@ describe('ResourcePolicyCreateComponent test suite', () => {
         href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
-    eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
+    eperson: of(createSuccessfulRemoteDataObject({})),
+    group: of(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const item = Object.assign(new Item(), {
@@ -100,7 +100,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
   const resourcePolicyService: any = getMockResourcePolicyService();
   const linkService: any = getMockLinkService();
   const routeStub = {
-    data: observableOf({
+    data: of({
       resourcePolicyTarget: createSuccessfulRemoteDataObject(item),
     }),
   };
@@ -221,7 +221,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify success when creation is successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createSuccessfulRemoteDataObject(resourcePolicy)));
+        compAsAny.resourcePolicyService.create.and.returnValue(of(createSuccessfulRemoteDataObject(resourcePolicy)));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));
@@ -232,7 +232,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify error when creation is not successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject()));
+        compAsAny.resourcePolicyService.create.and.returnValue(of(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));
@@ -259,7 +259,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify success when creation is successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createSuccessfulRemoteDataObject(resourcePolicy)));
+        compAsAny.resourcePolicyService.create.and.returnValue(of(createSuccessfulRemoteDataObject(resourcePolicy)));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));
@@ -270,7 +270,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       });
 
       it('should notify error when creation is not successful', () => {
-        compAsAny.resourcePolicyService.create.and.returnValue(observableOf(createFailedRemoteDataObject()));
+        compAsAny.resourcePolicyService.create.and.returnValue(of(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.createResourcePolicy(eventPayload));

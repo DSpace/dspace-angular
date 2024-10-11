@@ -12,7 +12,9 @@ import { WorkflowItemSendBackComponent } from './workflow-item-send-back.compone
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [WorkflowItemSendBackComponent],
+  imports: [
+    WorkflowItemSendBackComponent,
+  ],
 })
 export class ThemedWorkflowItemSendBackComponent extends ThemedComponent<WorkflowItemSendBackComponent> {
   protected getComponentName(): string {

@@ -47,13 +47,13 @@ import { ProvideEmailComponent } from '../email-confirmation/provide-email/provi
   styleUrls: ['./external-log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    ProvideEmailComponent,
     AlertComponent,
-    TranslateModule,
-    ConfirmEmailComponent,
-    ThemedLogInComponent,
-    NgComponentOutlet,
     AsyncPipe,
+    ConfirmEmailComponent,
+    NgComponentOutlet,
+    ProvideEmailComponent,
+    ThemedLogInComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

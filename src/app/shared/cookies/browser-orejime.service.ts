@@ -10,7 +10,7 @@ import debounce from 'lodash/debounce';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -244,7 +244,7 @@ export class BrowserOrejimeService extends OrejimeService {
           if (loggedIn) {
             return this.authService.getAuthenticatedUserFromStore();
           }
-          return observableOf(undefined);
+          return of(undefined);
         }),
         take(1),
       );
@@ -368,7 +368,7 @@ export class BrowserOrejimeService extends OrejimeService {
           if (isNotEmpty(operations)) {
             return this.ePersonService.patch(user, operations);
           }
-          return observableOf(undefined);
+          return of(undefined);
         },
         ),
       ).subscribe();

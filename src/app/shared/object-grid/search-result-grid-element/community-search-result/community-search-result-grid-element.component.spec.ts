@@ -12,7 +12,7 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
@@ -42,7 +42,7 @@ let communitySearchResultGridElementComponent: CommunitySearchResultGridElementC
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
 
 const truncatableServiceStub: any = {
-  isCollapsed: (id: number) => observableOf(true),
+  isCollapsed: (id: number) => of(true),
 };
 
 const mockCommunityWithAbstract: CommunitySearchResult = new CommunitySearchResult();

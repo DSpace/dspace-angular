@@ -14,7 +14,11 @@ import { StartsWithTextComponent as BaseComponent } from '../../../../../../app/
   // templateUrl: './starts-with-text.component.html',
   templateUrl: '../../../../../../app/shared/starts-with/text/starts-with-text.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 export class StartsWithTextComponent extends BaseComponent {
 }

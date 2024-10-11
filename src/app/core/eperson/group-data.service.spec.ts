@@ -15,7 +15,7 @@ import {
   compare,
   Operation,
 } from 'fast-json-patch';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   GroupRegistryCancelGroupAction,
@@ -159,7 +159,7 @@ describe('GroupDataService', () => {
 
   describe('addSubGroupToGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -189,7 +189,7 @@ describe('GroupDataService', () => {
 
   describe('deleteSubGroupFromGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -215,7 +215,7 @@ describe('GroupDataService', () => {
 
   describe('addMemberToGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));
@@ -244,7 +244,7 @@ describe('GroupDataService', () => {
 
   describe('deleteMemberFromGroup', () => {
     beforeEach(() => {
-      objectCache.getByHref.and.returnValue(observableOf({
+      objectCache.getByHref.and.returnValue(of({
         requestUUIDs: ['request1', 'request2'],
         dependentRequestUUIDs: [],
       } as ObjectCacheEntry));

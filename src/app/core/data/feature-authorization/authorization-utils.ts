@@ -1,7 +1,7 @@
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -35,7 +35,7 @@ export const addSiteObjectUrlIfEmpty = (siteService: SiteDataService) =>
             map((site) => Object.assign({}, params, { objectUrl: site.self })),
           );
         } else {
-          return observableOf(params);
+          return of(params);
         }
       }),
     );
@@ -57,12 +57,12 @@ export const addAuthenticatedUserUuidIfEmpty = (authService: AuthService) =>
                   map((ePerson) => Object.assign({}, params, { ePersonUuid: ePerson.uuid })),
                 );
               } else {
-                return observableOf(params);
+                return of(params);
               }
             }),
           );
         } else {
-          return observableOf(params);
+          return of(params);
         }
       }),
     );
@@ -88,7 +88,7 @@ export const oneAuthorizationMatchesFeature = (featureID: FeatureID) =>
               )),
           ]);
         } else {
-          return observableOf([]);
+          return of([]);
         }
       }),
       map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID.valueOf()).length > 0),

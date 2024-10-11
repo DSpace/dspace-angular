@@ -31,7 +31,10 @@ import { followLink } from '../../../utils/follow-link-config.model';
   styleUrls: ['./item-submitter.component.scss'],
   templateUrl: './item-submitter.component.html',
   standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class ItemSubmitterComponent implements OnInit {
 

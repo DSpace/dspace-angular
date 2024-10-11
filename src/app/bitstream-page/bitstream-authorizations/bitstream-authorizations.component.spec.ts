@@ -14,7 +14,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -45,7 +45,7 @@ describe('BitstreamAuthorizationsComponent', () => {
   const bitstreamRD = createSuccessfulRemoteDataObject(bitstream);
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       bitstream: bitstreamRD,
     }),
   };

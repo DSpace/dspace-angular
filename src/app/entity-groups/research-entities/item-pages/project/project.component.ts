@@ -21,7 +21,19 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
   styleUrls: ['./project.component.scss'],
   templateUrl: './project.component.html',
   standalone: true,
-  imports: [ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, ThemedMetadataRepresentationListComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    DsoEditMenuComponent,
+    GenericItemPageFieldComponent,
+    MetadataFieldWrapperComponent,
+    RelatedItemsComponent,
+    RouterLink,
+    ThemedItemPageTitleFieldComponent,
+    ThemedMetadataRepresentationListComponent,
+    ThemedResultsBackButtonComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+  ],
 })
 /**
  * The component for displaying metadata and relations of an item of the type Project

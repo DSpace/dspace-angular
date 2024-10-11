@@ -38,7 +38,18 @@ import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-fie
   templateUrl: './item-detail-preview.component.html',
   animations: [fadeInOut],
   standalone: true,
-  imports: [ThemedBadgesComponent, ThemedItemPageTitleFieldComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, VarDirective, ThemedItemDetailPreviewFieldComponent, ItemSubmitterComponent, AsyncPipe, FileSizePipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FileSizePipe,
+    ItemSubmitterComponent,
+    MetadataFieldWrapperComponent,
+    ThemedBadgesComponent,
+    ThemedItemDetailPreviewFieldComponent,
+    ThemedItemPageTitleFieldComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class ItemDetailPreviewComponent implements OnChanges {
   /**

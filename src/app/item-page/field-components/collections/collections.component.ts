@@ -45,10 +45,10 @@ import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wr
   selector: 'ds-item-page-collections',
   templateUrl: './collections.component.html',
   imports: [
-    MetadataFieldWrapperComponent,
-    TranslateModule,
     AsyncPipe,
+    MetadataFieldWrapperComponent,
     RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -10,7 +10,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
@@ -27,7 +27,7 @@ describe(`AuthInterceptor`, () => {
   const authServiceStub = new AuthServiceStub();
   const store: Store<TruncatablesState> = jasmine.createSpyObj('store', {
     dispatch: {},
-    select: observableOf(true),
+    select: of(true),
   });
 
   beforeEach(() => {

@@ -11,7 +11,7 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -38,7 +38,7 @@ describe('SiteStatisticsPageComponent', () => {
     };
 
     const usageReportService = {
-      searchStatistics: () => observableOf([
+      searchStatistics: () => of([
         Object.assign(
           new UsageReport(), {
             id: `site_id-TotalVisits-report`,
@@ -49,11 +49,11 @@ describe('SiteStatisticsPageComponent', () => {
     };
 
     const nameService = {
-      getName: () => observableOf('test dso name'),
+      getName: () => of('test dso name'),
     };
 
     const siteService = {
-      find: () => observableOf(Object.assign(new Site(), {
+      find: () => of(Object.assign(new Site(), {
         id: 'site_id',
         _links: {
           self: {
@@ -64,7 +64,7 @@ describe('SiteStatisticsPageComponent', () => {
     };
 
     const authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
       setRedirectUrl: {},
     });
 

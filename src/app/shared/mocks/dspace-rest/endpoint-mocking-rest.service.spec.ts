@@ -2,7 +2,7 @@ import {
   HttpHeaders,
   HttpResponse,
 } from '@angular/common/http';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { EndpointMockingRestService } from './endpoint-mocking-rest.service';
@@ -27,8 +27,8 @@ describe('EndpointMockingRestService', () => {
     ]);
 
     const httpStub = jasmine.createSpyObj('http', {
-      get: observableOf(serverHttpResponse),
-      request: observableOf(serverHttpResponse),
+      get: of(serverHttpResponse),
+      request: of(serverHttpResponse),
     });
 
     service = new EndpointMockingRestService(mockResponseMap, httpStub);

@@ -20,7 +20,14 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
   templateUrl: './search-authority-filter.component.html',
   animations: [facetLoad],
   standalone: true,
-  imports: [SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FilterInputSuggestionsComponent,
+    FormsModule,
+    SearchFacetOptionComponent,
+    SearchFacetSelectedOptionComponent,
+    TranslateModule,
+  ],
 })
 
 /**
