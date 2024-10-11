@@ -7,7 +7,7 @@ import { MenuID } from 'src/app/shared/menu/menu-id.model';
 import { MenuSection } from 'src/app/shared/menu/menu-section.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { hasValue } from '../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../empty.util';
 
 /**
  * Represents an expandable section in the dso edit menus
@@ -21,10 +21,26 @@ import { hasValue } from '../../../empty.util';
 @rendersSectionForMenu(MenuID.DSO_EDIT, true)
 export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionComponent {
 
+  /**
+   * This section resides in the DSO edit menu
+   */
   menuID: MenuID = MenuID.DSO_EDIT;
+
+
+  /**
+   * The MenuItemModel of the top section
+   */
   itemModel;
 
+  /**
+   * Emits whether one of the subsections contains an icon
+   */
   renderIcons$: Observable<boolean>;
+
+  /**
+   * Emits true when the top section has subsections, else emits false
+   */
+  hasSubSections$: Observable<boolean>;
 
   constructor(
     @Inject('sectionDataProvider') protected section: MenuSection,
@@ -45,5 +61,10 @@ export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionCo
         return sections.some(section => hasValue(section.icon));
       }),
     );
+
+    this.hasSubSections$ = this.subSections$.pipe(
+      map((subSections) => isNotEmpty(subSections))
+    );
+    
   }
 }

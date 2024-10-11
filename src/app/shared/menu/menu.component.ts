@@ -218,7 +218,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   private getSectionComponent(section: MenuSection): Observable<GenericConstructor<AbstractMenuSectionComponent>> {
     return this.menuService.hasSubSections(this.menuID, section.id).pipe(
       map((expandable: boolean) => {
-        return getComponentForMenu(this.menuID, expandable, this.themeService.getThemeName());
+        return getComponentForMenu(this.menuID, expandable || section.isExpandable, this.themeService.getThemeName());
       }
       ),
     );

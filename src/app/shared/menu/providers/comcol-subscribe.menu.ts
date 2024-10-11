@@ -35,10 +35,10 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider<Communit
     super(dsoDataService);
   }
 
-  protected isApplicable(dso: Community | Collection): boolean {
-    // @ts-ignore
-    return dso.type === COMMUNITY.value || dso.type.value === COLLECTION;
-  }
+  // protected isApplicable(dso: Community | Collection): boolean {
+  //   // @ts-ignore
+  //   return dso?.type === COMMUNITY.value || dso?.type === COLLECTION.value;
+  // }
 
   public getSectionsForContext(dso: Community | Collection): Observable<PartialMenuSection[]> {
     return combineLatest([

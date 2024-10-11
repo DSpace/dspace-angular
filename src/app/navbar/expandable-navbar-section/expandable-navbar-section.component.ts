@@ -3,10 +3,12 @@ import { MenuSection } from '../../shared/menu/menu-section.model';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { slide } from '../../shared/animations/slide';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { HostWindowService } from '../../shared/host-window.service';
 import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
 import { MenuID } from '../../shared/menu/menu-id.model';
+import { Observable } from 'rxjs';
+import { isNotEmpty } from '../../shared/empty.util';
 
 /**
  * Represents an expandable section in the navbar
@@ -24,6 +26,11 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    */
   menuID = MenuID.PUBLIC;
 
+  /**
+   * Emits true when the top section has subsections, else emits false
+   */
+  hasSubSections$: Observable<boolean>;
+
   constructor(
     @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
@@ -35,6 +42,9 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
 
   ngOnInit() {
     super.ngOnInit();
+    this.hasSubSections$ = this.subSections$.pipe(
+      map((subSections) => isNotEmpty(subSections))
+    );
   }
 
   /**

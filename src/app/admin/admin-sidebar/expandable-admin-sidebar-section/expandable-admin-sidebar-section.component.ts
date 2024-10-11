@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { Router } from '@angular/router';
+import { isNotEmpty } from '../../../shared/empty.util';
 
 /**
  * Represents a expandable section in the sidebar
@@ -51,6 +52,12 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
    */
   expanded: Observable<boolean>;
 
+  /**
+   * Emits true when the top section has subsections, else emits false
+   */
+  hasSubSections$: Observable<boolean>;
+
+
   constructor(
     @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
@@ -66,6 +73,9 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
    */
   ngOnInit(): void {
     super.ngOnInit();
+    this.hasSubSections$ = this.subSections$.pipe(
+      map((subSections) => isNotEmpty(subSections))
+    );
     this.sidebarActiveBg = this.variableService.getVariable('--ds-admin-sidebar-active-bg');
     this.sidebarCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.sidebarPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);

@@ -191,11 +191,7 @@ export abstract class InitService {
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
     // this.menuService.listenForRouteChanges();
-    this.menuProviderService.listenForRouteChanges().subscribe((done) => {
-      Object.values(MenuID).forEach((menuID) => {
-        this.menuService.buildRouteMenuSections(menuID);
-      }); 
-    })
+    this.menuProviderService.listenForRouteChanges();
   }
 
   protected initPersistentMenus(): void {

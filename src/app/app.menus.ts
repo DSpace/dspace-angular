@@ -31,6 +31,7 @@ import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-p
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { ENTITY_MODULE_PATH, ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { HOME_PAGE_PATH } from './app-routing-paths';
+import { DsoOptionMenu } from './shared/menu/providers/dso-option-menu.service';
 
 export const MENUS = buildMenuStructure({
   [MenuID.PUBLIC]: [
@@ -53,10 +54,13 @@ export const MENUS = buildMenuStructure({
     SystemWideAlertMenuProvider,
   ],
   [MenuID.DSO_EDIT]: [
-    DSpaceObjectEditMenuProvider.onRoute(COMMUNITY_MODULE_PATH, COLLECTION_MODULE_PATH, ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
-    VersioningMenuProvider.onRoute(ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
-    OrcidMenuProvider.onRoute(ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
-    ClaimMenuProvider.onRoute(ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
+    DsoOptionMenu.withSubs([
+      DSpaceObjectEditMenuProvider.onRoute(COMMUNITY_MODULE_PATH, COLLECTION_MODULE_PATH, ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
+      VersioningMenuProvider.onRoute(ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
+      OrcidMenuProvider.onRoute(ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
+      ClaimMenuProvider.onRoute(ITEM_MODULE_PATH, ENTITY_MODULE_PATH),
+      // SubscribeMenuProvider,
+    ]),
     SubscribeMenuProvider.onRoute(COMMUNITY_MODULE_PATH, COLLECTION_MODULE_PATH),
   ],
 });

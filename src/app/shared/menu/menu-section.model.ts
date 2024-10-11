@@ -79,4 +79,6 @@ export interface MenuSection {
    * Note that not all menus may render icons.
    */
   icon?: string;
+
+  isExpandable?: boolean;
 }

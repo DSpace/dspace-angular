@@ -17,6 +17,7 @@ import {
   AbstractMenuProvider,
   PartialMenuSection,
 } from '../menu-provider';
+import { Type } from '@angular/core';
 
 export type MenuTopSection = Omit<PartialMenuSection, 'visible'>;
 export type MenuSubSection = Omit<PartialMenuSection, 'parentID'>;
@@ -34,7 +35,6 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
 
   getSections(): Observable<PartialMenuSection[]> {
     const full = this.includeSubSections();
-    const parentID = uuidv4();
 
     return combineLatest([
       this.getTopSection(),
@@ -43,10 +43,11 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
       map((
         [partialTopSection, partialSubSections]: [MenuTopSection, MenuSubSection[]]
       ) => {
-        const subSections = partialSubSections.map(partialSub => {
+        const subSections = partialSubSections.map((partialSub, index) => {
           return {
             ...partialSub,
-            parentID: parentID,
+            id: partialSub.id ?? `${this.menuProviderId}_Sub-${index}`,
+            parentID: this.menuProviderId,
           };
         });
 
@@ -54,7 +55,7 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
           ...subSections,
           {
             ...partialTopSection,
-            id: parentID,
+            id: this.menuProviderId,
             visible: full ? subSections.some(sub => sub.visible) : this.showWithoutSubsections,
           },
         ];

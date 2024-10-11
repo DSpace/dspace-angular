@@ -18,7 +18,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MenuID } from './menu-id.model';
-import { MenuSection } from './menu-section.model';
+import { MenuItemModels, MenuSection } from './menu-section.model';
 import { APP_INITIALIZER, Provider, Type } from '@angular/core';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { TransferState } from '@angular/platform-browser';
@@ -26,7 +26,19 @@ import { environment } from '../../../environments/environment';
 import { HOME_PAGE_PATH } from '../../app-routing-paths';
 import { MENU_PROVIDER } from './menu.structure';
 
-export type PartialMenuSection = Omit<MenuSection, 'id' | 'active'>;
+// export type PartialMenuSection = Omit<MenuSection, 'id' | 'active'>;
+export interface PartialMenuSection {
+  id?: string;
+  visible: boolean;
+  model: MenuItemModels;
+  parentID?: string;
+  index?: number;
+  active?: boolean;
+  shouldPersistOnRouteChange?: boolean;
+  icon?: string;
+  isExpandable?: boolean;
+}
+
 
 
 export interface MenuProvider {
@@ -37,11 +49,25 @@ export interface MenuProvider {
   getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
 }
 
+export class MenuProviderTypeWithPaths {
+  providerType: Type<MenuProvider>;
+  paths:  string[];
+}
+
+export class MenuProviderTypeWithSubs {
+  providerType: Type<MenuProvider>;
+  childProviderTypes:  (Type<MenuProvider> | MenuProviderTypeWithPaths)[];
+}
+
 export abstract class AbstractMenuProvider implements MenuProvider {
   shouldPersistOnRouteChange = true;
   menuID?: MenuID;
+  menuProviderId?: string;
   index?: number;
   activePaths?: string[];
+  parentID?: string;
+  isExpandable = false;
+
 
   abstract getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
 
