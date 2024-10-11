@@ -19,13 +19,14 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
-import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -57,7 +58,6 @@ const mockSignpostingLinks: SignpostingLink[] = [mocklink, mocklink2];
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
-  let authService: AuthService;
   let authorizationDataService: AuthorizationDataService;
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
@@ -74,10 +74,6 @@ describe('ItemPageComponent', () => {
   });
 
   beforeEach(waitForAsync(() => {
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
-    });
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
       isAuthorized: observableOf(false),
     });
@@ -107,11 +103,11 @@ describe('ItemPageComponent', () => {
         { provide: ItemDataService, useValue: {} },
         { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
-        { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: PLATFORM_ID, useValue: 'server' },
       ],
 

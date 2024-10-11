@@ -80,7 +80,8 @@ export class OpenaireBrokerEventRestService extends IdentifiableDataService<Open
     options.searchParams = [
       {
         fieldName: 'topic',
-        fieldValue: topic
+        fieldValue: topic,
+        encodeValue: false
       }
     ];
     return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);

@@ -114,7 +114,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
         component = fixture.componentInstance;
         formService = TestBed.inject(FormService);
-      formbuilderService = TestBed.inject(FormBuilderService);
+        formbuilderService = TestBed.inject(FormBuilderService);
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
@@ -149,15 +149,15 @@ describe('SubmissionSectionAccessesComponent', () => {
         expect(formGroup[2] instanceof DynamicDatePickerModel).toBeTrue();
       });
 
-    it('should have set maxStartDate and maxEndDate properly', () => {
-      const maxStartDate = {year: 2024, month: 12, day: 20};
-      const maxEndDate = {year: 2022, month: 6, day: 20};
+      it('should have set maxStartDate and maxEndDate properly', () => {
+        const maxStartDate = {year: 2024, month: 12, day: 20};
+        const maxEndDate = {year: 2022, month: 6, day: 20};
 
-      const startDateModel = formbuilderService.findById('startDate', component.formModel);
-      expect(startDateModel.max).toEqual(maxStartDate);
-      const endDateModel = formbuilderService.findById('endDate', component.formModel);
-      expect(endDateModel.max).toEqual(maxEndDate);
-    });
+        const startDateModel = formbuilderService.findById('startDate', component.formModel);
+        expect(startDateModel.max).toEqual(maxStartDate);
+        const endDateModel = formbuilderService.findById('endDate', component.formModel);
+        expect(endDateModel.max).toEqual(maxEndDate);
+      });
 
       it('when checkbox changed it should call operationsBuilder replace function', () => {
         component.onChange(checkboxChangeEvent);

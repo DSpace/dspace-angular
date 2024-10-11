@@ -47,9 +47,11 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
       {
           fieldName: `uri`,
           fieldValue: uri,
+          encodeValue: false
       },{
         fieldName: `category`,
         fieldValue: categoryId,
+        encodeValue: false
       }
     ];
 
@@ -57,6 +59,7 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
       params.push({
         fieldName: `startDate`,
         fieldValue: startDate,
+        encodeValue: false
       });
     }
 
@@ -64,6 +67,7 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
       params.push({
         fieldName: `endDate`,
         fieldValue: endDate,
+        encodeValue: false
       });
     }
 

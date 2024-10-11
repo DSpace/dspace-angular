@@ -15,10 +15,11 @@
               <h4 class="mb-0 mr-4">
                 {{ 'access-control-item-header-toggle' | translate }}
               </h4>
-              <ui-switch
-                [(ngModel)]="state.item.toggleStatus"
-                (ngModelChange)="handleStatusChange('item', $event)">
-              </ui-switch>
+              <ds-switch
+                [options]="switchOptions"
+                [(selectedValue)] = "state.item.toggleStatus"
+                (selectedValueChange) = "handleStatusChange('item', $event)">
+              </ds-switch>
             </div>
 
             <div class="row mt-3">
@@ -68,10 +69,11 @@
               <h4 class="mb-0 mr-4">
                 {{'access-control-bitstream-header-toggle' | translate}}
               </h4>
-              <ui-switch
-                [(ngModel)]="state.bitstream.toggleStatus"
-                (ngModelChange)="handleStatusChange('bitstream', $event)">
-              </ui-switch>
+              <ds-switch
+                [options]="switchOptions"
+                [(selectedValue)] = "state.bitstream.toggleStatus"
+                (selectedValueChange) = "handleStatusChange('bitstream', $event)">
+              </ds-switch>
             </div>
 
             <div *ngIf="showLimitToSpecificBitstreams" class="row mt-3">

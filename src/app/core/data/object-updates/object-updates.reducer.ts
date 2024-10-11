@@ -58,6 +58,8 @@ export interface VirtualMetadataSource {
 
 export interface RelationshipIdentifiable extends Identifiable {
   nameVariant?: string;
+  originalItem: Item;
+  originalIsLeft: boolean
   relatedItem: Item;
   relationship: Relationship;
   type: RelationshipType;

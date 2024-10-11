@@ -147,4 +147,48 @@
   --ds-comcol-logo-max-height: 500px;
 
   --ds-identifier-sybetype-icon-height: 24px;
+
+  --ds-navbar-dropdown-item-vertical-padding: 0.5rem;
+  --ds-navbar-dropdown-item-horizontal-padding: 1rem;
+
+  --ds-expandable-navbar-item-vertical-padding: 0.25rem;
+
+
+  --ds-user-menu-item-vertical-padding: 0.25rem;
+  --ds-user-menu-dropdown-padding: 1rem;
+  --ds-user-menu-dropdown-link-color: #{$dark};
+  --ds-user-menu-dropdown-link-background-hover: #{$gray-200};
+
+  @include media-breakpoint-up(md) {
+    --ds-header-logo-height: 50px;
+  }
+  @include media-breakpoint-down(sm) {
+    --ds-header-logo-height: 50px;
+  }
+
+  --ds-admin-sidebar-collapsible-element-width: #{$ds-admin-sidebar-collapsible-element-width};
+  --ds-admin-sidebar-total-width: #{$ds-admin-sidebar-total-width};
+  --ds-admin-sidebar-link-color: #{$navbar-dark-color};
+  --ds-admin-sidebar-link-hover-color: #{$navbar-dark-hover-color};
+  --ds-admin-sidebar-item-padding: 1rem;
+  --ds-admin-sidebar-section-indent: .75rem;
+  --ds-admin-sidebar-logo-height: 20px;
+  --ds-admin-sidebar-fixed-element-width: #{$ds-admin-sidebar-fixed-element-width};
+  --ds-admin-sidebar-fixed-element-z-index: 10;
+
+
+  --ds-dark-scrollbar-width: 8px;
+
+  --ds-slider-handle-color: #{darken($blue, 17%)};
+
+  --ds-primary-bg: #{$primary-bg};
+  --ds-secondary-bg: #{$secondary-bg};
+  --ds-success-bg: #{$success-bg};
+  --ds-info-bg: #{$info-bg};
+  --ds-warning-bg: #{$warning-bg};
+  --ds-danger-bg: #{$danger-bg};
+
+  --green1: #1FB300;  // This variable represents the success color for the Klaro cookie banner
+  --button-text-color-cookie: #333; // This variable represents the text color for buttons in the Klaro cookie banner
+
 }

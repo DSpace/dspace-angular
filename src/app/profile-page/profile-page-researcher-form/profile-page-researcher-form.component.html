@@ -3,10 +3,11 @@
     <p>{{'researcher.profile.associated' | translate}}</p>
     <p class="align-items-center researcher-profile-switch" >
       <span class="mr-3">{{'researcher.profile.status' | translate}}</span>
-      <ui-switch [checkedLabel]="'researcher.profile.public.visibility' | translate"
-                 [uncheckedLabel]="'researcher.profile.private.visibility' | translate"
-                 [checked]="researcherProfile.visible"
-                 (change)="toggleProfileVisibility(researcherProfile)" ></ui-switch>
+      <ds-switch
+        [options]="switchOptions"
+        [selectedValue]="researcherProfile.visible ? 'public' : 'private'"
+        (selectedValueChange)="toggleProfileVisibility(researcherProfile)">
+      </ds-switch>
     </p>
   </div>
   <div *ngIf="!researcherProfile">

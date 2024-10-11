@@ -12,9 +12,9 @@
           <div class="col-4 d-inline-block">
             <div *ngIf="logo" class="float-right">
               <button
-                (click)="confirmLogoDeleteWithModal()"
-                class="btn btn-danger"
-                type="button">{{ 'community.edit.logo.delete.title' | translate }}
+                      (click)="confirmLogoDeleteWithModal()"
+                      class="btn btn-danger"
+                      type="button">{{ 'community.edit.logo.delete.title' | translate }}
               </button>
             </div>
           </div>
@@ -41,4 +41,3 @@
     <i class="fas fa-arrow-left"></i> {{ type.value + '.edit.return' | translate }}
   </button>
 </ds-form>
-

@@ -31,6 +31,11 @@ nav.navbar {
     margin-left: calc(var(--bs-spacer) / -2);
     margin-right: calc(var(--bs-spacer) / -2);
   }
+
+  .navbar-nav .nav-link {
+    padding-right: .5rem;
+    padding-left: .5rem
+  }
 }
 
 /* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
@@ -63,3 +68,4 @@ a.navbar-brand img {
     }
   }
 }
+

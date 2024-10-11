@@ -1,13 +1,13 @@
 <nav [ngClass]="{'open': !(menuCollapsed | async)}" [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
   class="navbar navbar-expand-md navbar-light p-0 navbar-container" role="navigation" [attr.aria-label]="'nav.main.description' | translate">
-  <div class="navbar-inner-container w-100 h-100" [class.container]="!(isXsOrSm$ | async)">
+  <div class="navbar-inner-container w-100 h-100" [class.container]="!(isMobile$ | async)">
     <a class="navbar-brand my-2" routerLink="/home">
       <img src="assets/images/dspace-cris-logo.png" [attr.alt]="'menu.header.image.logo' | translate" />
     </a>
 
     <div id="collapsingNav" class="w-100 h-100">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100">
-        <li *ngIf="(isXsOrSm$ | async) && (isAuthenticated$ | async)">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 h-100 align-items-center">
+        <li *ngIf="(isMobile$ | async) && (isAuthenticated$ | async)">
             <ds-user-menu [inExpandableNavbar]="true"></ds-user-menu>
         </li>
         <li *ngFor="let section of (sections | async)">

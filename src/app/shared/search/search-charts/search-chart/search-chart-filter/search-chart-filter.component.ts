@@ -92,7 +92,7 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
       });
 
       if (this.currentUrl) {
-        const currentQueryParams = this.currentUrl.split('?')[1].split('&');
+        const currentQueryParams = (this.currentUrl.split('?')[1] || '').split('&');
         const pageParam = currentQueryParams.filter((param) => param.includes('page'));
         if (pageParam.length > 0) {
           const paramName = pageParam[0].split('=')[0];

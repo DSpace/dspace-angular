@@ -12,6 +12,7 @@ import {
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
 import { DynamicLinkModel } from '../ds-dynamic-form-ui/models/ds-dynamic-link.model';
+import { TranslateService } from '@ngx-translate/core';
 
 export class LinkFieldParser extends ConcatFieldParser {
 
@@ -20,9 +21,10 @@ export class LinkFieldParser extends ConcatFieldParser {
         @Inject(CONFIG_DATA) configData: FormFieldModel,
         @Inject(INIT_FORM_VALUES) initFormValues,
         @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
-        @Inject(SECURITY_CONFIG) securityConfig: any = null
+        @Inject(SECURITY_CONFIG) securityConfig: any = null,
+        translateService: TranslateService
     ) {
-        super(submissionId, configData, initFormValues, parserOptions, securityConfig, ',', 'Label', 'Value');
+        super(submissionId, configData, initFormValues, parserOptions, securityConfig, translateService, ',', 'Label', 'Value');
     }
 
     public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {

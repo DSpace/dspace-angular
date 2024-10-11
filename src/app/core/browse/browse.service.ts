@@ -105,20 +105,19 @@ export class BrowseService {
       })
     );
     if (options.fetchThumbnail ) {
-      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
 
   /**
    * Get all items linked to a certain metadata value
-   * @param filterValue       metadata value to filter by (e.g. author's name)
-   * @param filterAuthority   metadata authority to filter
-   * @param options           Options to narrow down your search
-   * @param linksToFollow     The array of [[FollowLinkConfig]]
+   * @param {string} filterValue      metadata value to filter by (e.g. author's name)
+   * @param filterAuthority
+   * @param options                   Options to narrow down your search
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
-  getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
+  getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
     const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
@@ -155,9 +154,9 @@ export class BrowseService {
       }),
     );
     if (options.fetchThumbnail) {
-      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, true, false, ...[...linksToFollow, ...BROWSE_LINKS_TO_FOLLOW]);
+      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, undefined, undefined, ...BROWSE_LINKS_TO_FOLLOW);
     }
-    return this.hrefOnlyDataService.findListByHref<Item>(href$,{}, true, false, ...linksToFollow);
+    return this.hrefOnlyDataService.findListByHref<Item>(href$);
   }
 
   /**

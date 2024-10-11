@@ -243,4 +243,17 @@ describe('ItemListPreviewComponent', () => {
       expect(thumbnail).toBeFalsy();
     });
   });
+
+  describe('When showCorrection is false', () => {
+    beforeEach(() => {
+      component.item = mockItemWithAuthorAndDate;
+      component.showCorrection = false;
+      fixture.detectChanges();
+    });
+
+    it('should not show the correction badge', () => {
+      const correctionBadge = fixture.debugElement.query(By.css('ds-item-correction'));
+      expect(correctionBadge).toBeFalsy();
+    });
+  });
 });

@@ -1,3 +1,5 @@
+//TODO: ALIGN TRANSLATIONS
+
 {
 
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
@@ -1327,7 +1329,7 @@
 
   "collection.edit.template.breadcrumbs": "Item template",
 
-  "collection.edit.template.cancel": "Cancel",
+  "collection.edit.template.back": "Back",
 
   "collection.edit.template.delete-button": "Delete",
 
@@ -2169,6 +2171,7 @@
 
   "event.listelement.badge": "Event",
 
+  "event.page.titleprefix": "Event:",
 
   "explore.browse-section.title": "Browse",
 
@@ -3617,6 +3620,8 @@
 
   "itemtemplate.edit.metadata.headers.value": "Value",
 
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
+
   "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
 
   "itemtemplate.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
@@ -4159,6 +4164,8 @@
   "nav.main.description": "Main navigation bar",
 
   "nav.mydspace": "MyDSpace",
+
+  "nav.processes": "My Processes",
 
   "nav.profile": "Profile",
 
@@ -6818,6 +6825,8 @@
 
   "vocabulary-treeview.info": "Select a subject to add as search filter",
 
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+
   "uploader.browse": "browse",
 
   "uploader.drag-message": "Drag & Drop your files here",
@@ -7237,6 +7246,8 @@
   "lucky.search.retry.search": "You can try to search for it in the system with a more general query.",
 
   "lucky.search.multiple.records": "may refer to multiple records",
+
+  "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
 
   "invitation.group.msg": "You have been invited to join the following groups",
 

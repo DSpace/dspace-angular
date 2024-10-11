@@ -59,7 +59,7 @@ xdescribe('MetadataService', () => {
 
   beforeEach(() => {
     rootService = jasmine.createSpyObj({
-      findRoot: createSuccessfulRemoteDataObject$({ dspaceVersion: 'mock-dspace-version' })
+      findRoot: createSuccessfulRemoteDataObject$({ dspaceVersion: 'mock-dspace-version', crisVersion: 'mock-cris-version' }),
     });
     bitstreamDataService = jasmine.createSpyObj({
       findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([MockBitstream3])),
@@ -241,6 +241,10 @@ xdescribe('MetadataService', () => {
       expect(meta.addTag).toHaveBeenCalledWith({
         name: 'Generator',
         content: 'mock-dspace-version'
+      });
+      expect(meta.addTag).toHaveBeenCalledWith({
+        name: 'Generator',
+        content: 'mock-cris-version'
       });
     }));
   });

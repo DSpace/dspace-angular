@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of, of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { HostWindowService } from '../host-window.service';
@@ -20,6 +20,7 @@ import { SidebarService } from '../sidebar/sidebar.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { RouteService } from '../../core/services/route.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
@@ -29,18 +30,24 @@ import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchManager } from '../../core/browse/search-manager';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
+import { environment } from '../../../environments/environment.test';
 import { APP_CONFIG } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment';
+import { SearchManager } from '../../core/browse/search-manager';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
 let searchServiceObject: SearchService;
 let searchConfigurationServiceObject: SearchConfigurationService;
+
+const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
+  isAuthorized: of(true)
+});
+
 const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   dispatch: {},
@@ -130,10 +137,10 @@ const resultFiltersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig
 const filtersConfigRD$ = observableOf(filtersConfigRD);
 
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
+  search: mockResultsRD$,
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope']),
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
-  getConfig: filtersConfigRD$,
   trackSearch: {},
 }) as SearchService;
 const searchManagerStub = jasmine.createSpyObj('SearchManager', {
@@ -141,6 +148,7 @@ const searchManagerStub = jasmine.createSpyObj('SearchManager', {
 });
 const configurationParam = 'default';
 const queryParam = 'test query';
+const hiddenQuery = 'hidden query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 const fixedFilter = 'fixed filter';
 
@@ -238,6 +246,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         provide: SearchFilterService,
         useValue: {}
       },
+      { provide: XSRFService, useValue: {} },
       {
         provide: SEARCH_CONFIG_SERVICE,
         useValue: searchConfigurationServiceStub
@@ -245,6 +254,10 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       {
         provide: APP_CONFIG,
         useValue: environment
+      },
+      {
+        provide: AuthorizationDataService,
+        useValue: authorizationDataService
       }
     ],
     schemas: [NO_ERRORS_SCHEMA]
@@ -270,6 +283,7 @@ describe('SearchComponent', () => {
     comp = fixture.componentInstance; // SearchComponent test instance
     comp.inPlaceSearch = false;
     comp.paginationId = paginationId;
+    comp.hiddenQuery = hiddenQuery;
 
     spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
 
@@ -292,7 +306,8 @@ describe('SearchComponent', () => {
     const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
       configuration: 'default',
       sort: sortOptionsList[0],
-      forcedEmbeddedKeys: ['metrics']
+      forcedEmbeddedKeys: ['metrics'],
+      scope: ''
     });
     expect(comp.currentConfiguration$).toBeObservable(cold('b', {
       b: 'default'
@@ -333,6 +348,12 @@ describe('SearchComponent', () => {
     fixture.detectChanges();
     tick(100);
     expect(comp.resultFound.emit).toHaveBeenCalledWith(expectedResults);
+  }));
+
+  it('should show correction badge when item is a correction', fakeAsync(() => {
+    comp.ngOnInit();
+    tick(100);
+    expect(comp.showCorrection).toBe(true);
   }));
 
   describe('when the open sidebar button is clicked in mobile view', () => {

@@ -58,7 +58,8 @@ export class EditItemDataService extends IdentifiableDataService<EditItem> {
     options.searchParams = [
       {
         fieldName: 'uuid',
-        fieldValue: id
+        fieldValue: id,
+        encodeValue: false
       },
     ];
     return this.searchData.searchBy(this.searchById, options, useCachedVersionIfAvailable, reRequestOnStale);
