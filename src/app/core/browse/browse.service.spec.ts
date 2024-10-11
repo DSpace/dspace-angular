@@ -7,7 +7,6 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import {
   createSuccessfulRemoteDataObject,
@@ -18,7 +17,6 @@ import {
   createPaginatedList,
   getFirstUsedArgumentOfSpyMethod,
 } from '../../shared/testing/utils.test';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
@@ -31,7 +29,6 @@ describe('BrowseService', () => {
   let scheduler: TestScheduler;
   let service: BrowseService;
   let requestService: RequestService;
-  let rdbService: RemoteDataBuildService;
 
   const browsesEndpointURL = 'https://rest.api/browses';
   const halService: any = new HALEndpointServiceStub(browsesEndpointURL);
@@ -129,7 +126,6 @@ describe('BrowseService', () => {
       halService,
       browseDefinitionDataService,
       hrefOnlyDataService,
-      rdbService,
     );
   }
 
@@ -141,11 +137,9 @@ describe('BrowseService', () => {
 
     beforeEach(() => {
       requestService = getMockRequestService(getRequestEntry$(true));
-      rdbService = getMockRemoteDataBuildService();
       service = initTestService();
       spyOn(halService, 'getEndpoint').and
         .returnValue(hot('--a-', { a: browsesEndpointURL }));
-      spyOn(rdbService, 'buildList').and.callThrough();
     });
 
     it('should call BrowseDefinitionDataService to create the RemoteData Observable', () => {
@@ -162,9 +156,7 @@ describe('BrowseService', () => {
 
     beforeEach(() => {
       requestService = getMockRequestService(getRequestEntry$(true));
-      rdbService = getMockRemoteDataBuildService();
       service = initTestService();
-      spyOn(rdbService, 'buildList').and.callThrough();
     });
 
     describe('when getBrowseEntriesFor is called with a valid browse definition id', () => {
@@ -215,7 +207,6 @@ describe('BrowseService', () => {
     describe('if getBrowseDefinitions fires', () => {
       beforeEach(() => {
         requestService = getMockRequestService(getRequestEntry$(true));
-        rdbService = getMockRemoteDataBuildService();
         service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
           .returnValue(hot('--a-', {
@@ -270,7 +261,6 @@ describe('BrowseService', () => {
     describe('if getBrowseDefinitions doesn\'t fire', () => {
       it('should return undefined', () => {
         requestService = getMockRequestService(getRequestEntry$(true));
-        rdbService = getMockRemoteDataBuildService();
         service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
           .returnValue(hot('----'));
@@ -288,9 +278,7 @@ describe('BrowseService', () => {
   describe('getFirstItemFor', () => {
     beforeEach(() => {
       requestService = getMockRequestService();
-      rdbService = getMockRemoteDataBuildService();
       service = initTestService();
-      spyOn(rdbService, 'buildList').and.callThrough();
     });
 
     describe('when getFirstItemFor is called with a valid browse definition id', () => {
