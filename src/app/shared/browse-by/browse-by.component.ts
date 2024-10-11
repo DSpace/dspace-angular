@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output, SimpleChanges, OnChanges } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
@@ -26,7 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
 /**
  * Component to display a browse-by page for any ListableObject
  */
-export class BrowseByComponent implements OnInit, OnDestroy {
+export class BrowseByComponent implements OnInit, OnDestroy, OnChanges {
 
   /**
    * ViewMode that should be passed to {@link ListableObjectComponentLoaderComponent}.
@@ -182,14 +182,7 @@ export class BrowseByComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.objectInjector = Injector.create({
-      providers: [
-        { provide: 'startsWithOptions', useFactory: () => (this.startsWithOptions), deps:[] },
-        { provide: 'paginationId', useFactory: () => (this.paginationConfig?.id), deps:[] }
-      ],
-      parent: this.injector
-    });
-
+    this.generateInjector();
     const startsWith$ = this.routeService.getQueryParameterValue('startsWith');
     const value$ = this.routeService.getQueryParameterValue('value');
 
@@ -199,9 +192,26 @@ export class BrowseByComponent implements OnInit, OnDestroy {
     this.sub = this.routeService.getQueryParameterValue(this.paginationConfig.id + '.return').subscribe(this.previousPage$);
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.startsWithOptions || changes.paginationId) {
+      this.generateInjector();
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.sub) {
       this.sub.unsubscribe();
     }
   }
+
+  generateInjector(): void {
+    this.objectInjector = Injector.create({
+      providers: [
+        { provide: 'startsWithOptions', useFactory: () => (this.startsWithOptions), deps:[] },
+        { provide: 'paginationId', useFactory: () => (this.paginationConfig?.id), deps:[] }
+      ],
+      parent: this.injector
+    });
+  }
+
 }
