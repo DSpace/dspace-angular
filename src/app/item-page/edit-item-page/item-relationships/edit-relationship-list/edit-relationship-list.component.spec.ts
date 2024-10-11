@@ -32,6 +32,7 @@ import { ConfigurationProperty } from '../../../../core/shared/configuration-pro
 import { Router } from '@angular/router';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
@@ -202,11 +203,11 @@ describe('EditRelationshipListComponent', () => {
       }))
     });
 
-    const environmentUseThumbs = {
+    const environmentUseThumbs = Object.assign({}, environment, {
       browseBy: {
         showThumbnails: true
       }
-    };
+    });
 
     TestBed.configureTestingModule({
       imports: [SharedModule, TranslateModule.forRoot()],
