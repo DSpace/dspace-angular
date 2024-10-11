@@ -45,7 +45,7 @@ export class UUIDIndexEffects {
   addObject$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
-      filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache.uuid)),
+      filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache) && hasValue(action.payload.objectToCache.uuid)),
       map((action: AddToObjectCacheAction) => {
         return new AddToIndexAction(
           IndexName.OBJECT,
@@ -64,7 +64,7 @@ export class UUIDIndexEffects {
       ofType(ObjectCacheActionTypes.ADD),
       map((action: AddToObjectCacheAction) => {
         const alternativeLink = action.payload.alternativeLink;
-        const selfLink = action.payload.objectToCache._links.self.href;
+        const selfLink = hasValue(action.payload.objectToCache?._links?.self) ? action.payload.objectToCache._links.self.href : alternativeLink;
         if (hasValue(alternativeLink) && alternativeLink !== selfLink) {
           return new AddToIndexAction(
             IndexName.ALTERNATIVE_OBJECT_LINK,
