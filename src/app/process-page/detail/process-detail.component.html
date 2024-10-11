@@ -1,9 +1,9 @@
 <div class="container" *ngIf="(processRD$ | async)?.payload as process">
     <div class="row">
       <div class="col-10">
-        <h2 class="flex-grow-1">
+        <h1 class="flex-grow-1">
           {{ 'process.detail.title' | translate:{ id: process?.processId, name: process?.scriptName } }}
-        </h2>
+        </h1>
       </div>
       <div *ngIf="refreshCounter$ | async as seconds" class="col-2 refresh-counter">
         Refreshing in {{ seconds }}s <i class="fas fa-sync-alt fa-spin"></i>
@@ -53,7 +53,7 @@
         </button>
         <ds-themed-loading *ngIf="retrievingOutputLogs$ | async" class="ds-themed-loading"
                            message="{{ 'process.detail.logs.loading' | translate }}"></ds-themed-loading>
-        <pre class="font-weight-bold text-secondary bg-light p-3"
+        <pre class="font-weight-bold text-secondary bg-light p-3" tabindex="0"
              *ngIf="showOutputLogs && (outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async) }}</pre>
         <p id="no-output-logs-message" *ngIf="(!(retrievingOutputLogs$ | async) && showOutputLogs)
       && !(outputLogs$ | async) || (outputLogs$ | async)?.length == 0 || !process._links.output">

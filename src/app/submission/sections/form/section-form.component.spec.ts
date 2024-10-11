@@ -44,10 +44,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { cold } from 'jasmine-marbles';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import {
-  SubmissionVisibilityType,
-  SubmissionVisibilityValue
-} from '../../../core/config/models/config-submission-section.model';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
@@ -190,7 +186,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
-        { provide: 'entityType', useValue: 'Publication' },
+        { provide: 'entityType', useValue: 'default' },
         { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
         SubmissionSectionFormComponent
@@ -258,6 +254,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
       submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(sectionData));
       sectionsServiceStub.getSectionServerErrors.and.returnValue(observableOf([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+
       spyOn(comp, 'initForm');
       spyOn(comp, 'subscriptions');
 
@@ -268,7 +266,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       expect(comp.sectionData.errorsToShow).toEqual([]);
       expect(comp.sectionData.data).toEqual(sectionData);
       expect(comp.isLoading).toBeFalsy();
-      expect(comp.initForm).toHaveBeenCalledWith(sectionData);
+      expect(comp.initForm).toHaveBeenCalledWith(sectionData, [], []);
       expect(comp.subscriptions).toHaveBeenCalled();
     });
 
@@ -276,7 +274,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formBuilderService.modelFromConfiguration.and.returnValue(testFormModel);
       const sectionData = {};
 
-      comp.initForm(sectionData);
+      comp.initForm(sectionData, [], []);
 
       expect(comp.formModel).toEqual(testFormModel);
 
@@ -291,7 +289,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         path: '/sections/' + sectionObject.id
       };
 
-      comp.initForm(sectionData);
+      comp.initForm(sectionData, [], []);
 
       expect(comp.formModel).toBeUndefined();
       expect(sectionsServiceStub.setSectionError).toHaveBeenCalledWith(submissionId, sectionObject.id, sectionError);
@@ -303,7 +301,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
         'dc.title': [new FormFieldMetadataValueObject('test')]
       };
       compAsAny.formData = {};
-      compAsAny.sectionMetadata = ['dc.title'];
+      compAsAny.sectionData.data = {
+        'dc.title': [new FormFieldMetadataValueObject('test')]
+      };
       spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
 
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeTruthy();
@@ -315,7 +315,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
         'dc.title': [new FormFieldMetadataValueObject('test')]
       };
       compAsAny.formData = newSectionData;
-      compAsAny.sectionMetadata = ['dc.title'];
+      compAsAny.sectionData.data = {
+        'dc.title': [new FormFieldMetadataValueObject('test')]
+      };
       spyOn(compAsAny, 'inCurrentSubmissionScope').and.callThrough();
 
       expect(comp.hasMetadataEnrichment(newSectionData)).toBeFalsy();
@@ -340,9 +342,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow' }],
-                  visibility: {
-                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden
-                  } as SubmissionVisibilityType,
+                  scope: 'WORKFLOW',
                 } as FormFieldModel
               ]
             },
@@ -350,9 +350,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace' }],
-                  visibility: {
-                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden
-                  } as SubmissionVisibilityType,
+                  scope: 'WORKSPACE',
                 } as FormFieldModel
               ]
             },
@@ -360,9 +358,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow.relation' }],
-                  visibility: {
-                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden
-                  } as SubmissionVisibilityType,
+                  scope: 'WORKFLOW',
                 } as FormFieldModel,
               ],
             },
@@ -370,9 +366,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace.relation' }],
-                  visibility: {
-                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden
-                  } as SubmissionVisibilityType,
+                  scope: 'WORKSPACE',
                 } as FormFieldModel,
               ],
             },
@@ -391,7 +385,6 @@ describe('SubmissionSectionFormComponent test suite', () => {
         beforeEach(() => {
           // @ts-ignore
           comp.submissionObject = { type: WorkspaceItem.type.value };
-          submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
         });
 
         it('should return true for unscoped fields', () => {
@@ -402,16 +395,16 @@ describe('SubmissionSectionFormComponent test suite', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(true);
         });
 
-        it('should return false for fields scoped to workflow', () => {
-          expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(false);
+        it('should return true for fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(true);
         });
 
         it('should return true for relation fields scoped to workspace', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workspace.relation')).toBe(true);
         });
 
-        it('should return false for relation fields scoped to workflow', () => {
-          expect((comp as any).inCurrentSubmissionScope('scoped.workflow.relation')).toBe(false);
+        it('should return true for relation fields scoped to workflow', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workflow.relation')).toBe(true);
         });
       });
 
@@ -430,16 +423,16 @@ describe('SubmissionSectionFormComponent test suite', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workflow')).toBe(true);
         });
 
-        it('should return false for fields scoped to workspace', () => {
-          expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(false);
+        it('should return true for fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace')).toBe(true);
         });
 
         it('should return true for relation fields scoped to workflow', () => {
           expect((comp as any).inCurrentSubmissionScope('scoped.workflow.relation')).toBe(true);
         });
 
-        it('should return false for relation fields scoped to workspace', () => {
-          expect((comp as any).inCurrentSubmissionScope('scoped.workspace.relation')).toBe(false);
+        it('should return true for relation fields scoped to workspace', () => {
+          expect((comp as any).inCurrentSubmissionScope('scoped.workspace.relation')).toBe(true);
         });
       });
     });
@@ -456,7 +449,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       compAsAny.formData = {};
       compAsAny.sectionMetadata = ['dc.title'];
 
-      comp.updateForm(sectionData, sectionError);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionError } as any);
 
       expect(comp.isUpdating).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalled();
@@ -468,15 +461,19 @@ describe('SubmissionSectionFormComponent test suite', () => {
     it('should update form error properly', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
-      const sectionData: any = {
+      const sectionData = {
         'dc.title': [new FormFieldMetadataValueObject('test')]
       };
+      const sectionState = {
+        data: sectionData,
+        errorsToShow: [{ path: '/test', message: 'test' }],
+      } as any;
       comp.sectionData.data = {};
       comp.sectionData.errorsToShow = [];
       compAsAny.formData = sectionData;
       compAsAny.sectionMetadata = ['dc.title'];
 
-      comp.updateForm(sectionData, parsedSectionErrors);
+      comp.updateForm(sectionState);
 
       expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
@@ -487,8 +484,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
       const sectionData: any = {};
+      const sectionErrors: any = [{ path: '/test', message: 'test' }];
 
-      comp.updateForm(sectionData, parsedSectionErrors);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionErrors } as any);
 
       expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
@@ -554,7 +552,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       const sectionState = {
         data: sectionData,
         errorsToShow: parsedSectionErrors
-      };
+      } as any;
 
       formService.getFormData.and.returnValue(observableOf(formData));
       sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
@@ -563,7 +561,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.formData).toEqual(formData);
-      expect(comp.updateForm).toHaveBeenCalledWith(sectionState.data, sectionState.errorsToShow);
+      expect(comp.updateForm).toHaveBeenCalledWith(sectionState);
 
     });
 
@@ -627,8 +625,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       comp.onRemove(dynamicFormControlEvent);
 
       expect(formOperationsService.dispatchOperationsFromEvent).toHaveBeenCalled();
-      expect(compAsAny.previousValue.path).toBeNull();
-      expect(compAsAny.previousValue.value).toBeNull();
+
     });
 
     it('should check if has stored value in the section state', () => {

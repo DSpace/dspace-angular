@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, filter, map, mergeMap, take } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { StoreActionTypes } from '../../store.actions';
@@ -9,6 +9,7 @@ import { getClassForType } from '../cache/builders/build-decorators';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+import { XSRFService } from '../xsrf/xsrf.service';
 import {
   RequestActionTypes,
   RequestErrorAction,
@@ -21,11 +22,12 @@ import { ParsedResponse } from '../cache/response.models';
 import { RequestError } from './request-error.model';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { RequestEntry } from './request-entry.model';
+import { RestRequestMethod } from './rest-request-method';
 
 @Injectable()
 export class RequestEffects {
 
-   execute = createEffect(() => this.actions$.pipe(
+  execute = createEffect(() => this.actions$.pipe(
     ofType(RequestActionTypes.EXECUTE),
     mergeMap((action: RequestExecuteAction) => {
       return this.requestService.getByUUID(action.payload).pipe(
@@ -33,7 +35,12 @@ export class RequestEffects {
       );
     }),
     filter((entry: RequestEntry) => hasValue(entry)),
-    map((entry: RequestEntry) => entry.request),
+    // TODO: test once rest part is aligned
+    withLatestFrom(this.xsrfService.tokenInitialized$),
+    // If it's a GET request, or we have an XSRF token, dispatch it immediately
+    // Otherwise wait for the XSRF token first
+    filter(([entry, tokenInitialized]) => entry?.request?.method === RestRequestMethod.GET || tokenInitialized === true),
+    map(([entry,]) => entry.request),
     mergeMap((request: RestRequestWithResponseParser) => {
       let body = request.body;
       if (isNotEmpty(request.body) && !request.isMultipart) {
@@ -73,7 +80,8 @@ export class RequestEffects {
     private actions$: Actions,
     private restApi: DspaceRestService,
     private injector: Injector,
-    protected requestService: RequestService
+    protected requestService: RequestService,
+    protected xsrfService: XSRFService,
   ) { }
 
 }

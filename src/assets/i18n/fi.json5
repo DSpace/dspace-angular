@@ -6756,7 +6756,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Validointi",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "Odottaa tarkastajaa",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -8096,6 +8096,9 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nimi",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "Enintään 30 merkkiä",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Valitse käytäntötyyppi",
 
@@ -8820,7 +8823,7 @@
   "search.view-switch.show-detail": "Näytä lisätiedot",
 
   // "search.view-switch.show-grid": "Show as grid",
-  "search.view-switch.show-grid": "Näydä ruudukkona",
+  "search.view-switch.show-grid": "Näytä ruudukkona",
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Näytä luettelona",
@@ -9679,8 +9682,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite",

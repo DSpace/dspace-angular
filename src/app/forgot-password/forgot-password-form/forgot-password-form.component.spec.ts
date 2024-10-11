@@ -21,7 +21,9 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
 import { CoreState } from '../../core/core-state.model';
+import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -30,7 +32,6 @@ describe('ForgotPasswordFormComponent', () => {
   let router;
   let route;
   let ePersonDataService: EPersonDataService;
-  let authService: AuthService;
   let notificationsService;
   let store: Store<CoreState>;
 
@@ -50,15 +51,16 @@ describe('ForgotPasswordFormComponent', () => {
       patchPasswordWithToken: createSuccessfulRemoteDataObject$({})
     });
 
-    authService = jasmine.createSpyObj('authService', ['setRedirectUrlIfNotSet']);
-
     store = jasmine.createSpyObj('store', {
       dispatch: {},
     });
 
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [ForgotPasswordFormComponent],
+      declarations: [
+        BrowserOnlyPipe,
+        ForgotPasswordFormComponent,
+      ],
       providers: [
         {provide: Router, useValue: router},
         {provide: ActivatedRoute, useValue: route},
@@ -66,7 +68,7 @@ describe('ForgotPasswordFormComponent', () => {
         {provide: EPersonDataService, useValue: ePersonDataService},
         {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
-        {provide: AuthService, useValue: authService},
+        {provide: AuthService, useClass: AuthServiceStub},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -80,7 +82,7 @@ describe('ForgotPasswordFormComponent', () => {
 
   describe('init', () => {
     it('should initialise mail address', () => {
-      const elem = fixture.debugElement.queryAll(By.css('span#email'))[0].nativeElement;
+      const elem = fixture.debugElement.queryAll(By.css('span[data-test="email"]'))[0].nativeElement;
       expect(elem.innerHTML).toContain('test@email.org');
     });
   });

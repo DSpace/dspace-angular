@@ -8,6 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { PLATFORM_ID } from '@angular/core';
+import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
+import { AuthService } from '../core/auth/auth.service';
 
 describe('ItemPageResolver', () => {
   beforeEach(() => {
@@ -27,6 +29,8 @@ describe('ItemPageResolver', () => {
     let router;
     let hardRedirectService: HardRedirectService ;
     let platformId;
+
+    const authService = new AuthServiceMock() as any as AuthService;
     const uuid = '1234-65487-12354-1235';
     const item = Object.assign(new Item(), {
       id: uuid,
@@ -74,7 +78,7 @@ describe('ItemPageResolver', () => {
         });
 
         spyOn(router, 'navigateByUrl');
-        resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router);
+        resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router, authService);
       });
 
       it('should resolve a an item from from the item with the url redirect', (done) => {
@@ -146,7 +150,7 @@ describe('ItemPageResolver', () => {
 
         beforeEach(() => {
           platformId = 'server';
-          resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router);
+          resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router, authService);
         });
 
         it('should redirect if it has not the new item url', (done) => {
@@ -178,7 +182,7 @@ describe('ItemPageResolver', () => {
 
         beforeEach(() => {
           platformId = 'browser';
-          resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router);
+          resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router, authService);
         });
 
         it('should redirect if it has not the new item url', (done) => {

@@ -22,10 +22,13 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { ParserType } from './parser-type';
 import { isNgbDateStruct } from '../../../date.util';
-import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
-import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
 import { Metadata } from '../../../../core/shared/metadata.utils';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { TranslateService } from '@ngx-translate/core';
+import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
+import { VisibilityType } from '../../../../submission/sections/visibility-type';
+
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -53,7 +56,8 @@ export abstract class FieldParser {
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
-    @Inject(SECURITY_CONFIG) protected securityConfig: any = null
+    @Inject(SECURITY_CONFIG) protected securityConfig: any = null,
+    protected translate: TranslateService
   ) {
   }
 
@@ -314,7 +318,7 @@ export abstract class FieldParser {
 
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly
-      || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
+      || this.isFieldReadOnly(this.configData.visibility, this.configData.scope, this.parserOptions.submissionScope);
     controlModel.disabled = controlModel.readOnly;
     controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
@@ -356,12 +360,26 @@ export abstract class FieldParser {
   }
 
   /**
-   * Check if a field is read-only with the given scope
+   * Checks if a field is read-only with the given scope.
+   * The field is readonly when submissionScope is WORKSPACE and the main visibility is READONLY
+   * or when submissionScope is WORKFLOW and the other visibility is READONLY
    * @param visibility
+   * @param fieldScope
    * @param submissionScope
    */
-  private isFieldReadOnly(visibility: SubmissionVisibilityType, submissionScope) {
-    return isNotEmpty(submissionScope) && SubmissionVisibility.isReadOnly(visibility, submissionScope);
+  private isFieldReadOnly(visibility: SectionVisibility, fieldScope: string, submissionScope: string) {
+    return isNotEmpty(submissionScope)
+      && isNotEmpty(fieldScope)
+      && isNotEmpty(visibility)
+      && ((
+        submissionScope === SubmissionScopeType.WorkspaceItem.valueOf()
+          && visibility.main === VisibilityType.READONLY
+      )
+        ||
+          (visibility.other === VisibilityType.READONLY
+          && submissionScope === SubmissionScopeType.WorkflowItem.valueOf()
+          )
+      );
   }
 
   /**
@@ -415,11 +433,14 @@ export abstract class FieldParser {
     } else {
       regex = new RegExp(this.configData.input.regex);
     }
+    const baseTranslationKey = 'error.validation.pattern';
+    const fieldranslationKey = `${baseTranslationKey}.${controlModel.id}`;
+    const fieldTranslationExists = this.translate.instant(fieldranslationKey) !== fieldranslationKey;
     controlModel.validators = Object.assign({}, controlModel.validators, { pattern: regex });
     controlModel.errorMessages = Object.assign(
       {},
       controlModel.errorMessages,
-      { pattern: 'error.validation.pattern' });
+      { pattern: fieldTranslationExists ? fieldranslationKey : baseTranslationKey });
   }
 
   protected markAsRequired(controlModel) {

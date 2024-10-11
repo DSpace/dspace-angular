@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -22,7 +22,6 @@ import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { SearchManager } from '../../core/browse/search-manager';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -111,7 +110,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
   /**
    * The authority key (may be undefined) associated with {@link #value}.
    */
-   authority: string;
+  authority: string;
 
   /**
    * The current startsWith option (fetched and updated from query-params)
@@ -123,9 +122,13 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    */
   fetchThumbnails: boolean;
 
+  /**
+   * Observable determining if the loading animation needs to be shown
+   */
+  loading$ = observableOf(true);
+
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
-                     protected searchManager: SearchManager,
                      protected dsoService: DSpaceObjectDataService,
                      protected paginationService: PaginationService,
                      protected router: Router,
@@ -135,11 +138,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
 
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
-        id: BBM_PAGINATION_ID,
-        currentPage: 1,
-        pageSize: this.appConfig.browseBy.pageSize,
-        });
-    }
+      id: BBM_PAGINATION_ID,
+      currentPage: 1,
+      pageSize: this.appConfig.browseBy.pageSize,
+    });
+  }
 
 
   ngOnInit(): void {
@@ -154,32 +157,32 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
-          this.browseId = params.id || this.defaultBrowseId;
-          this.authority = +params.authority || params.authority || '';
+        this.browseId = params.id || this.defaultBrowseId;
+        this.authority = params.authority;
 
-          if (typeof params.value === 'string'){
-            this.value = params.value.trim();
-          } else {
-            this.value = '';
-          }
+        if (typeof params.value === 'string'){
+          this.value = params.value.trim();
+        } else {
+          this.value = '';
+        }
 
-          if (params.startsWith === undefined || params.startsWith === '') {
-            this.startsWith = undefined;
-          }
+        if (params.startsWith === undefined || params.startsWith === '') {
+          this.startsWith = undefined;
+        }
 
         if (typeof params.startsWith === 'string'){
-            this.startsWith = params.startsWith.trim();
-          }
+          this.startsWith = params.startsWith.trim();
+        }
 
-          if (isNotEmpty(this.value) || isNotEmpty(this.authority)) {
-            this.updatePageWithItems(
-              browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
-          } else {
-            this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
-          }
-          this.updateParent(params.scope);
-          this.updateLogo();
-        }));
+        if (isNotEmpty(this.value)) {
+          this.updatePageWithItems(
+            browseParamsToOptions(params, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
+        } else {
+          this.updatePage(browseParamsToOptions(params, currentPage, currentSort, this.browseId, false));
+        }
+        this.updateParent(params.scope);
+        this.updateLogo();
+      }));
     this.updateStartsWithTextOptions();
 
   }
@@ -202,9 +205,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    */
   updatePage(searchOptions: BrowseEntrySearchOptions) {
     this.browseEntries$ = this.browseService.getBrowseEntriesFor(searchOptions);
+    this.loading$ = this.browseEntries$.pipe(
+      map((browseEntriesRD: RemoteData<PaginatedList<BrowseEntry>>) => browseEntriesRD.isLoading),
+    );
     this.items$ = undefined;
   }
-
   /**
    * Updates the current page with searchOptions and display items linked to the given value
    * @param searchOptions   Options to narrow down your search:
@@ -216,8 +221,10 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    * @param authority      The metadata authority of the browse-entry to display items for
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string, authority: string) {
-    const embedMetrics = followLink('metrics');
-    this.items$ = this.searchManager.getBrowseItemsFor(value, authority, searchOptions, embedMetrics);
+    this.items$ = this.browseService.getBrowseItemsFor(value, authority, searchOptions);
+    this.loading$ = this.items$.pipe(
+      map((itemsRD: RemoteData<PaginatedList<Item>>) => itemsRD.isLoading),
+    );
   }
 
   /**

@@ -1,3 +1,5 @@
+//TODO: ALIGN TRANSLATIONS
+
 {
 
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
@@ -6822,6 +6824,8 @@
   "vocabulary-treeview.tree.description.publication-coar-types": "Publication types",
 
   "vocabulary-treeview.info": "Select a subject to add as search filter",
+
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
 
   "uploader.browse": "browse",
 

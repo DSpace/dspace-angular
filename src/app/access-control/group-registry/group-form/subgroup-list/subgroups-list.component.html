@@ -5,7 +5,6 @@
 
   <ds-pagination *ngIf="(subGroups$ | async)?.payload?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(subGroups$ | async)?.payload"
                  [collectionSize]="(subGroups$ | async)?.payload?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -84,7 +83,6 @@
 
   <ds-pagination *ngIf="(searchResults$ | async)?.payload?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(searchResults$ | async)?.payload"
                  [collectionSize]="(searchResults$ | async)?.payload?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
