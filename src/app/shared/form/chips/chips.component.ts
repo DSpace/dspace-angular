@@ -10,6 +10,7 @@ import {
   NgClass,
   NgForOf,
   NgIf,
+  NgTemplateOutlet,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -61,6 +62,7 @@ const TOOLTIP_TEXT_LIMIT = 21;
     TranslateModule,
     CdkDrag,
     CdkDropList,
+    NgTemplateOutlet,
   ],
   standalone: true,
 })

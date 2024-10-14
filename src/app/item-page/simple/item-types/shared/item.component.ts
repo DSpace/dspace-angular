@@ -43,6 +43,11 @@ export class ItemComponent implements OnInit {
   @Input() viewMode: ViewMode;
 
   /**
+   * Whether to show the metrics or not
+   */
+  @Input() showMetrics: boolean;
+
+  /**
    * This regex matches previous routes. The button is shown
    * for matching paths and hidden in other cases.
    */
