@@ -14,11 +14,11 @@
   [selectionConfig]="{ repeatable: true, listId: listId }"
   (deselectObject)="onDeselectObject($event)"
   (selectObject)="onSelectObject($event)"
->
-  <ds-my-dspace-bulk-action
+  [showWorkflowStatistics]="true">
+  <!-- Using *ngIf breaks the projection, so we are using hidden instead -->
+  <ds-my-dspace-bulk-action [hidden]="(currentConfiguration$ | async) !== workflowType"
     bulkActions
     [listId]="listId"
-    *ngIf="(currentConfiguration$ | async) === workflowType"
   ></ds-my-dspace-bulk-action>
   <ds-my-dspace-new-bulk-import additionalSearchFormOptions></ds-my-dspace-new-bulk-import>
 </ds-search>

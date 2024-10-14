@@ -91,6 +91,11 @@ export class SearchResultsComponent {
   @Input() showCorrection = false;
 
   /**
+   * A boolean representing if to show workflow statistics
+   */
+  @Input() showWorkflowStatistics: boolean;
+
+  /**
    * The current sorting configuration of the search
    */
   @Input() sortConfig: SortOptions;

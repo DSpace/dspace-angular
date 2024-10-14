@@ -355,6 +355,7 @@ import { ItemCollectionComponent } from './object-collection/shared/mydspace-ite
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
 import { MarkdownDirective } from './utils/markdown.directive';
+import { InWorkflowStatisticsComponent } from './object-collection/shared/in-workflow-statistics/in-workflow-statistics.component';
 import { DefaultBrowseElementsComponent } from './browse-most-elements/default-browse-elements/default-browse-elements.component';
 import { ThemedDefaultBrowseElementsComponent } from './browse-most-elements/default-browse-elements/themed-default-browse-elements.component';
 import { MetadataLinkViewPopoverComponent } from './metadata-link-view/metadata-link-view-popover/metadata-link-view-popover.component';
@@ -523,6 +524,7 @@ const COMPONENTS = [
   SearchChartBarHorizontalComponent,
   ItemListPreviewComponent,
   ThemedItemListPreviewComponent,
+  InWorkflowStatisticsComponent,
   ItemCollectionComponent,
   DefaultBrowseElementsComponent,
   ThemedDefaultBrowseElementsComponent,
