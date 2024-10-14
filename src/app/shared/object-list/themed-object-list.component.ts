@@ -114,6 +114,8 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
    */
   @Input() showCorrection = false;
 
+  @Input() showWorkflowStatistics: boolean;
+
   /**
    * Emit when one of the listed object has changed.
    */
@@ -216,6 +218,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'sortFieldChange',
     'customData',
     'customEvent',
+    'showWorkflowStatistics',
   ];
 
   protected getComponentName(): string {

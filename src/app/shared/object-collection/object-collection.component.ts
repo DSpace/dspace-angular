@@ -155,6 +155,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() showCorrection = false;
 
   /**
+   * A boolean representing if to show workflow statistics
+   */
+  @Input() showWorkflowStatistics;
+
+  /**
    * Whether or not to show an alert for hidden related items
    */
   @Input() showHiddenRelatedItemsAlert = false;
