@@ -104,7 +104,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Embedded keys to force during the search
    */
-  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]);
+  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([
+    ['default', ['metrics']],
+    ['workspace', ['item','metrics']],
+    ['workflow', ['workflowitem', 'item','metrics']]
+  ]);
 
   /**
    * If this is true, the request will only be sent if there's

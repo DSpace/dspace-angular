@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { MetadataValue } from '../shared/metadata.models';
 import { v4 as uuidv4 } from 'uuid';
 import { AUTHORITY_REFERENCE } from '../shared/metadata.utils';
+import { ITEM } from '../shared/item.resource-type';
 
 describe('SearchManager', () => {
   let scheduler: TestScheduler;
@@ -31,7 +32,8 @@ describe('SearchManager', () => {
         })
 
       ]
-    }
+    },
+    type: ITEM.value
   });
 
   const secondPublication = Object.assign(new Item(), {
@@ -44,7 +46,8 @@ describe('SearchManager', () => {
           value: 'author2'
         })
       ]
-    }
+    },
+    type: ITEM.value
   });
 
   const firstProject = Object.assign(new Item(), {
@@ -57,7 +60,8 @@ describe('SearchManager', () => {
           value: 'author3'
         })
       ]
-    }
+    },
+    type: ITEM.value
   });
 
   const thirdPublication = Object.assign(new Item(), {
@@ -70,7 +74,8 @@ describe('SearchManager', () => {
         })
 
       ]
-    }
+    },
+    type: ITEM.value
   });
 
   const invalidAuthorityPublication = Object.assign(new Item(), {
@@ -84,7 +89,8 @@ describe('SearchManager', () => {
         })
 
       ]
-    }
+    },
+    type: ITEM.value
   });
 
   const mockBrowseService: any = {
