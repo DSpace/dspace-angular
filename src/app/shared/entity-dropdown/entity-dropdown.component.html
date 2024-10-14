@@ -13,12 +13,12 @@
       {{'submission.sections.general.no-entity' | translate}}
     </button>
   </li>
-  <li *ngFor="let listItem of searchListEntity" class="entity-item text-primary">
+  <li *ngFor="let listItem of searchListEntity | dsSort: 'translatedLabel'" class="entity-item text-primary">
     <button class="dropdown-item"
             role="menuitem"
-            title="{{ listItem.label }}"
+            title="{{ listItem.translatedLabel }}"
             (click)="onSelect(listItem)">
-      <span class="text-truncate font-weight-bold">{{ listItem.label.toLowerCase() + '.listelement.badge' | translate }}</span>
+      <span class="text-truncate font-weight-bold">{{ listItem.translatedLabel }}</span>
     </button>
   </li>
   <li *ngIf="(isLoadingList | async)">
