@@ -7,41 +7,41 @@ updates:
       interval: "weekly"
     # Allow up to 10 open PRs for dependencies
     open-pull-requests-limit: 10
-# Group together Angular package upgrades
-groups:
-  # Group together all minor/patch version updates for Angular in a single PR
-  angular:
-    applies-to: version-updates
-    patterns:
-    - "@angular*"
-    update-types:
-    - "minor"
-    - "patch"
-  # Group together all security updates for Angular. Only accept minor/patch types.
-  angular-security:
-    applies-to: security-updates
-    patterns:
-    - "@angular*"
-    update-types:
-    - "minor"
-    - "patch"
-  # Group together all minor/patch version updates for NgRx in a single PR
-  ngrx:
-    applies-to: version-updates
-    patterns:
-    - "@ngrx*"
-    update-types:
-    - "minor"
-    - "patch"
-  # Group together all security updates for NgRx. Only accept minor/patch types.
-  ngrx-security:
-    applies-to: security-updates
-    patterns:
-    - "@ngrx*"
-    update-types:
-    - "minor"
-    - "patch"
-ignore:
-  # Ignore all major version updates for all dependencies. We'll only automate minor/patch updates.
-  - dependency-name: "*"
-    update-types: ["version-update:semver-major"]
+    # Group together Angular package upgrades
+    groups:
+      # Group together all minor/patch version updates for Angular in a single PR
+      angular:
+        applies-to: version-updates
+        patterns:
+        - "@angular*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for Angular. Only accept minor/patch types.
+      angular-security:
+        applies-to: security-updates
+        patterns:
+        - "@angular*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all minor/patch version updates for NgRx in a single PR
+      ngrx:
+        applies-to: version-updates
+        patterns:
+        - "@ngrx*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for NgRx. Only accept minor/patch types.
+      ngrx-security:
+        applies-to: security-updates
+        patterns:
+        - "@ngrx*"
+        update-types:
+        - "minor"
+        - "patch"
+    ignore:
+      # Ignore all major version updates for all dependencies. We'll only automate minor/patch updates.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
