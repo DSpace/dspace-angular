@@ -3,7 +3,11 @@
     <div *ngIf="topSection.titleKey" class="card-header">{{ 'explore.index.' + topSection.titleKey | translate }}</div>
     <div *ngIf="!topSection.titleKey" class="card-header">{{ 'explore.index.' + topSection.sortField | translate }}</div>
     <div class="card-body p-0">
-      <ds-themed-browse-most-elements [context]="context" [paginatedSearchOptions]="paginatedSearchOptions" [topSection]="topSection"></ds-themed-browse-most-elements>
+      <ds-themed-browse-most-elements [context]="context"
+                                      [paginatedSearchOptions]="paginatedSearchOptions"
+                                      [showLabel]="true"
+                                      [showMetrics]="true"
+                                      [topSection]="topSection"></ds-themed-browse-most-elements>
     </div>
   </div>
 </div>
