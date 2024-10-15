@@ -1652,7 +1652,9 @@
 
   "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
 
-  "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
+
+  "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
 
   "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
 
