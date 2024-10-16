@@ -1,0 +1,195 @@
+# Enable Dependabot NPM updates for all dependencies on a weekly basis
+version: 2
+updates:
+  ###############
+  ## Main branch
+  ###############
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: main
+    schedule:
+      interval: "weekly"
+    # Allow up to 10 open PRs for dependencies
+    open-pull-requests-limit: 10
+    # Group together Angular package upgrades
+    groups:
+      # Group together all minor/patch version updates for Angular in a single PR
+      angular:
+        applies-to: version-updates
+        patterns:
+        - "@angular*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for Angular. Only accept minor/patch types.
+      angular-security:
+        applies-to: security-updates
+        patterns:
+        - "@angular*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all minor/patch version updates for NgRx in a single PR
+      ngrx:
+        applies-to: version-updates
+        patterns:
+        - "@ngrx*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for NgRx. Only accept minor/patch types.
+      ngrx-security:
+        applies-to: security-updates
+        patterns:
+        - "@ngrx*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all patch version updates for @typescript-eslint in a single PR
+      typescript-eslint:
+        applies-to: version-updates
+        patterns:
+        - "@typescript-eslint*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for @typescript-eslint.
+      typescript-eslint-security:
+        applies-to: security-updates
+        patterns:
+        - "@typescript-eslint*"
+        update-types:
+        - "minor"
+        - "patch"
+    ignore:
+      # Ignore all major version updates for all dependencies. We'll only automate minor/patch updates.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+  #####################
+  ## dspace-8_x branch
+  #####################
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: dspace-8_x
+    schedule:
+      interval: "weekly"
+    # Allow up to 10 open PRs for dependencies
+    open-pull-requests-limit: 10
+    # Group together Angular package upgrades
+    groups:
+      # Group together all patch version updates for Angular in a single PR
+      angular:
+        applies-to: version-updates
+        patterns:
+        - "@angular*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for Angular. Only accept minor/patch types.
+      angular-security:
+        applies-to: security-updates
+        patterns:
+        - "@angular*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all minor/patch version updates for NgRx in a single PR
+      ngrx:
+        applies-to: version-updates
+        patterns:
+        - "@ngrx*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for NgRx. Only accept minor/patch types.
+      ngrx-security:
+        applies-to: security-updates
+        patterns:
+        - "@ngrx*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all patch version updates for @typescript-eslint in a single PR
+      typescript-eslint:
+        applies-to: version-updates
+        patterns:
+        - "@typescript-eslint*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for @typescript-eslint.
+      typescript-eslint-security:
+        applies-to: security-updates
+        patterns:
+        - "@typescript-eslint*"
+        update-types:
+        - "minor"
+        - "patch"
+    ignore:
+      # Ignore all major version updates for all dependencies. We'll only automate minor/patch updates.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+  #####################
+  ## dspace-7_x branch
+  #####################
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: dspace-7_x
+    schedule:
+      interval: "weekly"
+    # Allow up to 10 open PRs for dependencies
+    open-pull-requests-limit: 10
+    # Group together Angular package upgrades
+    groups:
+      # Group together all minor/patch version updates for Angular in a single PR
+      angular:
+        applies-to: version-updates
+        patterns:
+        - "@angular*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for Angular. Only accept minor/patch types.
+      angular-security:
+        applies-to: security-updates
+        patterns:
+        - "@angular*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all minor/patch version updates for NgRx in a single PR
+      ngrx:
+        applies-to: version-updates
+        patterns:
+        - "@ngrx*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for NgRx. Only accept minor/patch types.
+      ngrx-security:
+        applies-to: security-updates
+        patterns:
+        - "@ngrx*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all patch version updates for @typescript-eslint in a single PR
+      typescript-eslint:
+        applies-to: version-updates
+        patterns:
+        - "@typescript-eslint*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all security updates for @typescript-eslint.
+      typescript-eslint-security:
+        applies-to: security-updates
+        patterns:
+        - "@typescript-eslint*"
+        update-types:
+        - "minor"
+        - "patch"
+    ignore:
+      # Ignore all major version updates for all dependencies. We'll only automate minor/patch updates.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]

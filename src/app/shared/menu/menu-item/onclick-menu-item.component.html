@@ -6,5 +6,6 @@
    (click)="activate($event)"
    (keyup.space)="activate($event)"
    (keyup.enter)="activate($event)"
+   [attr.data-test]="item.text"
 >{{item.text | translate}}</a>
-<span *ngIf="item.disabled" class="nav-item nav-link disabled">{{item.text | translate}}</span>
+<span *ngIf="item.disabled" [attr.data-test]="item.text" class="nav-item nav-link disabled">{{item.text | translate}}</span>

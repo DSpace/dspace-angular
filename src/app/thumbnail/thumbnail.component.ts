@@ -6,10 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  of as observableOf,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth/auth.service';
@@ -53,7 +50,7 @@ export class ThumbnailComponent implements OnChanges {
   /**
    * The src attribute used in the template to render the image.
    */
-  src$ = new BehaviorSubject<string>(undefined);
+  src: string = undefined;
 
   retriedWithToken = false;
 
@@ -76,7 +73,7 @@ export class ThumbnailComponent implements OnChanges {
    * Whether the thumbnail is currently loading
    * Start out as true to avoid flashing the alt text while a thumbnail is being loaded.
    */
-  isLoading$ = new BehaviorSubject(true);
+  isLoading = true;
 
   constructor(
     protected auth: AuthService,
@@ -129,7 +126,7 @@ export class ThumbnailComponent implements OnChanges {
    * Otherwise, fall back to the default image or a HTML placeholder
    */
   errorHandler() {
-    const src = this.src$.getValue();
+    const src = this.src;
     const thumbnail = this.bitstream;
     const thumbnailSrc = thumbnail?._links?.content?.href;
 
@@ -181,9 +178,9 @@ export class ThumbnailComponent implements OnChanges {
    * @param src
    */
   setSrc(src: string): void {
-    this.src$.next(src);
+    this.src = src;
     if (src === null) {
-      this.isLoading$.next(false);
+      this.isLoading = false;
     }
   }
 
@@ -191,6 +188,6 @@ export class ThumbnailComponent implements OnChanges {
    * Stop the loading animation once the thumbnail is successfully loaded
    */
   successHandler() {
-    this.isLoading$.next(false);
+    this.isLoading = false;
   }
 }
