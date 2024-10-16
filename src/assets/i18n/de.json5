@@ -9,8 +9,6 @@
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "unautorisiert",
 
-
-
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -20,8 +18,6 @@
   // "403.forbidden": "forbidden",
   "403.forbidden": "verboten",
 
-
-
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Die Seite konnte nicht gefunden werden. Eventuell wurde sie verschoben oder gelöscht. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -30,6 +26,16 @@
 
   // "404.page-not-found": "page not found",
   "404.page-not-found": "Seite nicht gefunden",
+
+  // "500.page-internal-server-error": "Service unavailable",
+  "500.page-internal-server-error": "Dienst nicht verfügbar",
+
+  // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+  "500.help": "Der Dienst steht momentan nicht zur Verfügung. Bitte versuchen Sie es später noch einmal.",
+
+  // "500.link.home-page": "Take me to the home page",
+  "500.link.home-page": "Zur Startseite",
+
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "Personen suchen",
@@ -5226,6 +5232,12 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Zeitschriftenband importieren",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Item importieren",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Metadaten der Publikation importieren",
+
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importiere Autor:innen-Metadaten",
 
@@ -5560,10 +5572,10 @@
   "submission.sections.general.deposit_error_notice": "Beim Einreichen des Items ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht",
+  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht.",
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal",
+  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
   "submission.sections.general.discard_success_notice": "Einreichung erfolgreich verworfen.",

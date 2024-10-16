@@ -1048,6 +1048,8 @@
 
   "pagination.next.button.disabled.tooltip": "No more pages of results",
 
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+
   "browse.startsWith": ", starting with {{ startsWith }}",
 
   "browse.startsWith.choose_start": "(Choose start)",
@@ -1460,7 +1462,7 @@
 
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
 
-  "community.edit.notifications.error": "An error occured while editing the community",
+  "community.edit.notifications.error": "An error occurred while editing the community",
 
   "community.edit.return": "Back",
 
@@ -1670,7 +1672,7 @@
 
   "curation.form.submit.error.head": "Running the curation task failed",
 
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
 
   "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
 
@@ -1934,7 +1936,7 @@
 
   "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   "forgot-password.title": "Forgot Password",
 
@@ -4110,7 +4112,7 @@
 
   "register-page.registration.error.head": "Error when trying to register email",
 
-  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
 
   "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
