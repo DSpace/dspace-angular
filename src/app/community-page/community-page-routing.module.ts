@@ -14,7 +14,6 @@ import { CommunityPageAdministratorGuard } from './community-page-administrator.
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
-import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
@@ -48,7 +47,6 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         resolve: {
           dso: CommunityPageResolver,
           breadcrumb: CommunityBreadcrumbResolver,
-          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
