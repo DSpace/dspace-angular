@@ -174,6 +174,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.viewContainerRef.clear();
     this.subscriptions.forEach(sub => sub?.unsubscribe());
   }
 
