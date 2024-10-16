@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { ItemDataService } from '../core/data/item-data.service';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../item-page/item.resolver';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -25,13 +25,9 @@ export class CrisItemPageResolver implements Resolve<RemoteData<Item>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
-    // TODO temporary disable cache to have always an update item, check if after update with 7.3, it's only necessary to invalidate a cache on edit item saving
     return this.itemService.findById(route.params.id,
-      false, true,
-      followLink('owningCollection'),
-      followLink('bundles'),
-      followLink('relationships'),
-      followLink('version', {}, followLink('versionhistory')),
+      true, true,
+      ...ITEM_PAGE_LINKS_TO_FOLLOW
     ).pipe(
       getFirstCompletedRemoteData()
     );
