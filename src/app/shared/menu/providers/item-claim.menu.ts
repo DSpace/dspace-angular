@@ -8,12 +8,8 @@
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
+import { combineLatest, Observable, } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
@@ -25,26 +21,28 @@ import { MenuItemType } from '../menu-item-type.model';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
 import { PartialMenuSection } from '../menu-provider';
 import { MenuService } from '../menu.service';
-import { DSpaceObjectPageMenuProvider } from './dso.menu';
+import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 @Injectable()
-// todo: the "Item-ness" of this class is basically unenforced though...
-export class ClaimMenuProvider extends DSpaceObjectPageMenuProvider<Item> {
+export class ClaimMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(
     protected authorizationService: AuthorizationDataService,
     protected menuService: MenuService,
-    protected dsoDataService: DSpaceObjectDataService,
     protected translate: TranslateService,
     protected notificationsService: NotificationsService,
     protected researcherProfileService: ResearcherProfileDataService,
     protected modalService: NgbModal,
   ) {
-    super(dsoDataService);
+    super();
   }
 
 
-  protected isApplicable(item: Item): boolean {
-    return this.getDsoType(item) === 'person';
+  protected isApplicable(item: DSpaceObject): boolean {
+    if (item instanceof Item) {
+      return this.getDsoType(item) === 'person';
+    }
+    return false;
   }
 
   public getSectionsForContext(item: Item): Observable<PartialMenuSection[]> {

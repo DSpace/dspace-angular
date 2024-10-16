@@ -6,13 +6,9 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
-import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
+import { combineLatest, Observable, } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getDSORoute } from '../../../app-routing-paths';
-import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { Item } from '../../../core/shared/item.model';
@@ -20,19 +16,21 @@ import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { MenuItemType } from '../menu-item-type.model';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { PartialMenuSection } from '../menu-provider';
-import { DSpaceObjectPageMenuProvider } from './dso.menu';
+import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 @Injectable()
-export class OrcidMenuProvider extends DSpaceObjectPageMenuProvider<Item> {
+export class OrcidMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(
     protected authorizationService: AuthorizationDataService,
-    protected dsoDataService: DSpaceObjectDataService,
   ) {
-    super(dsoDataService);
+    super();
   }
 
   protected isApplicable(item: Item): boolean {
-    return this.getDsoType(item) === 'person';
+    if (item instanceof Item) {
+      return this.getDsoType(item) === 'person';
+    }
+    return false;
   }
 
   public getSectionsForContext(item: Item): Observable<PartialMenuSection[]> {

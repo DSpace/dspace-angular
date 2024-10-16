@@ -8,23 +8,21 @@
 
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest,
-  map,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { combineLatest, map, Observable, of as observableOf, } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ThemedEditCollectionSelectorComponent } from '../../dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
-import { ThemedEditCommunitySelectorComponent } from '../../dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
-import { ThemedEditItemSelectorComponent } from '../../dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
-import { MenuItemType } from '../menu-item-type.model';
 import {
-  AbstractExpandableMenuProvider,
-  MenuSubSection,
-  MenuTopSection,
-} from './expandable-menu-provider';
+  ThemedEditCollectionSelectorComponent
+} from '../../dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
+import {
+  ThemedEditCommunitySelectorComponent
+} from '../../dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
+import {
+  ThemedEditItemSelectorComponent
+} from '../../dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
+import { MenuItemType } from '../menu-item-type.model';
+import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
+import { PartialMenuSection } from '../menu-provider';
 
 @Injectable()
 export class EditMenuProvider extends AbstractExpandableMenuProvider {
@@ -35,7 +33,7 @@ export class EditMenuProvider extends AbstractExpandableMenuProvider {
     super();
   }
 
-  public getTopSection(): Observable<MenuTopSection> {
+  public getTopSection(): Observable<PartialMenuSection> {
     return observableOf(
       {
         model: {
@@ -43,11 +41,12 @@ export class EditMenuProvider extends AbstractExpandableMenuProvider {
           text: 'menu.section.edit',
         },
         icon: 'pencil',
+        visible: true,
       },
     );
   }
 
-  public getSubSections(): Observable<MenuSubSection[]> {
+  public getSubSections(): Observable<PartialMenuSection[]> {
     return combineLatest([
       this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
@@ -85,7 +84,7 @@ export class EditMenuProvider extends AbstractExpandableMenuProvider {
               },
             },
           },
-        ] as MenuSubSection[];
+        ];
       }),
     );
   }

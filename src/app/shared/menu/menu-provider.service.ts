@@ -66,12 +66,8 @@ export class MenuProviderService {
   }
 
 
-  public resolvePersistentMenus(
-    // route: ActivatedRouteSnapshot,
-    // state: RouterStateSnapshot
-  ): Observable<boolean> {
-
-    return combineLatest([
+  public initPersistentMenus() {
+    combineLatest([
       ...this.providers
         .map((provider) => {
           return provider;
@@ -98,63 +94,69 @@ export class MenuProviderService {
           return [waitForMenus];
         }),
         map(done => done.every(Boolean)),
-      );
+      ).subscribe((done) => {
+      Object.values(MenuID).forEach((menuID) => {
+        this.menuService.buildRouteMenuSections(menuID);
+      });
+    });
   }
 
   public resolveRouteMenus(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return combineLatest([
+    const currentNonPersistentMenuSections$ = combineLatest([
       ...Object.values(MenuID).map((menuID) => {
         return this.menuService.getNonPersistentMenuSections(menuID).pipe(
           take(1),
           map((sections) => {
             return {menuId: menuID, sections: sections};
           }));
-      })])
-      .pipe(
-        switchMap((menuSectionsPerMenu) => {
-          this.removeNonPersistentSections(menuSectionsPerMenu);
-          return combineLatest([
-            ...this.providers
-              .filter(provider => {
-                let shouldUpdate = false;
-                if (!provider.shouldPersistOnRouteChange && isNotEmpty(provider.activePaths)) {
-                  provider.activePaths.forEach((path) => {
-                    if (state.url.includes(path)) {
-                      shouldUpdate = true;
-                    }
-                  });
-                } else if (!provider.shouldPersistOnRouteChange) {
-                  shouldUpdate = true;
-                }
-                return shouldUpdate;
-              })
-              .map(provider => provider.getSections(route, state)
-                .pipe(
-                  map((sections) => {
-                    return {provider: provider, sections: sections};
-                  }),
-                )
-              )
-          ]);
-        }),
-        switchMap((providerWithSections: { provider: AbstractMenuProvider, sections: PartialMenuSection[] }[]) => {
-          const waitForMenus = providerWithSections.map((providerWithSection: {
-            provider: AbstractMenuProvider,
-            sections: PartialMenuSection[]
-          }, sectionIndex) => {
-            providerWithSection.sections.forEach((section) => {
-              this.addSection(providerWithSection, section);
+      })]);
+
+    const routeDependentMenuSections$ = combineLatest([
+      ...this.providers
+        .filter(provider => {
+          let shouldUpdate = false;
+          if (!provider.shouldPersistOnRouteChange && isNotEmpty(provider.activePaths)) {
+            provider.activePaths.forEach((path) => {
+              if (state.url.includes(path)) {
+                shouldUpdate = true;
+              }
             });
-            return this.waitForMenu$(providerWithSection.provider.menuID);
+          } else if (!provider.shouldPersistOnRouteChange) {
+            shouldUpdate = true;
+          }
+          return shouldUpdate;
+        })
+        .map(provider => provider.getSections(route, state)
+          .pipe(
+            map((sections) => {
+              return {provider: provider, sections: sections};
+            }),
+          )
+        )
+    ]);
+
+    return combineLatest([
+      currentNonPersistentMenuSections$,
+      routeDependentMenuSections$
+    ]).pipe(
+      switchMap(([currentMenusWithSections, providerWithSections]) => {
+        this.removeNonPersistentSections(currentMenusWithSections);
+        const waitForMenus = providerWithSections.map((providerWithSection: {
+          provider: AbstractMenuProvider,
+          sections: PartialMenuSection[]
+        }) => {
+          providerWithSection.sections.forEach((section) => {
+            this.addSection(providerWithSection, section);
           });
-          return [waitForMenus];
-        }),
-        map(done => done.every(Boolean)),
-      );
-    // }
+          return this.waitForMenu$(providerWithSection.provider.menuID);
+        });
+        return [waitForMenus];
+      }),
+      map(done => done.every(Boolean)),
+    );
   }
 
   private addSection(providerWithSection: {
@@ -167,7 +169,7 @@ export class MenuProviderService {
       parentID: section.parentID ?? providerWithSection.provider.parentID,
       index: section.index ?? providerWithSection.provider.index,
       shouldPersistOnRouteChange: section.shouldPersistOnRouteChange ?? providerWithSection.provider.shouldPersistOnRouteChange,
-      isExpandable: section.isExpandable ?? providerWithSection.provider.isExpandable,
+      alwaysRenderExpandable: section.alwaysRenderExpandable ?? providerWithSection.provider.alwaysRenderExpandable,
     });
   }
 

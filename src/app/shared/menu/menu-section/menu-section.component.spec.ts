@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   ChangeDetectionStrategy,

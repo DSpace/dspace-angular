@@ -3,7 +3,7 @@
        [ngClass]="{ disabled: isDisabled }"
        [attr.aria-disabled]="isDisabled"
        [attr.aria-labelledby]="'sidebarName-' + section.id"
-       [title]="('menu.section.icon.' + section.id) | translate"
+       [title]="itemModel.text | translate"
        [routerLink]="itemModel.link"
        (keyup.space)="navigate($event)"
        (keyup.enter)="navigate($event)"

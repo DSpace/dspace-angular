@@ -9,21 +9,29 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, } from 'rxjs';
 import { MenuItemType } from '../menu-item-type.model';
-import { AbstractExpandableParentMenuProvider } from './expandable-parent-menu-provider';
 import { PartialMenuSection } from '../menu-provider';
+import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
+import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
+import { hasValue } from '../../empty.util';
 
 @Injectable()
-export class DsoOptionMenu extends AbstractExpandableParentMenuProvider {
+export class DsoOptionMenu extends DSpaceObjectPageMenuProvider {
 
-  public getSections(): Observable<PartialMenuSection[]> {
+  alwaysRenderExpandable = true;
+
+  protected isApplicable(dso: DSpaceObject): boolean {
+    return hasValue(dso);
+  }
+
+  getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
     return of([
       {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: `menu.section.browse_global_communities_and_collections`,
+          text: this.getDsoType(dso) + '.page.options',
         },
-        icon: 'diagram-project'
+        icon: 'ellipsis-vertical'
       },
     ] as PartialMenuSection[]);
   }

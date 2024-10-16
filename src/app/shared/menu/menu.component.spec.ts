@@ -15,12 +15,24 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ThemeService } from '../theme-support/theme.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
+import { MenuItemType } from './menu-item-type.model';
+import { TextMenuItemModel } from './menu-item/models/text.model';
 
 describe('MenuComponent', () => {
   let comp: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
   let menuService: MenuService;
   let router: any;
+
+  const menuSection: MenuSection =       {
+    id: 'browse',
+    model: {
+      type: MenuItemType.TEXT,
+      text: 'menu.section.browse_global',
+    } as TextMenuItemModel,
+    icon: 'globe',
+    visible: true,
+  }
 
   const mockMenuID = 'mock-menuID' as MenuID;
 
@@ -76,7 +88,7 @@ describe('MenuComponent', () => {
     comp.menuID = mockMenuID;
     menuService = (comp as any).menuService;
     router = TestBed.inject(Router);
-    spyOn(comp as any, 'getSectionDataInjector').and.returnValue(MenuSection);
+    spyOn(comp as any, 'getSectionDataInjector').and.returnValue(menuSection);
     spyOn(comp as any, 'getSectionComponent').and.returnValue(observableOf({}));
     fixture.detectChanges();
   });

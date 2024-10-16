@@ -7,19 +7,12 @@
  */
 
 import { Injectable } from '@angular/core';
-import {
-  combineLatest,
-  map,
-  Observable,
-} from 'rxjs';
+import { combineLatest, map, Observable, } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { MenuItemType } from '../menu-item-type.model';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
-import {
-  AbstractMenuProvider,
-  PartialMenuSection,
-} from '../menu-provider';
+import { AbstractMenuProvider, PartialMenuSection, } from '../menu-provider';
 
 @Injectable()
 export class CurationMenuProvider extends AbstractMenuProvider {

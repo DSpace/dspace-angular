@@ -8,24 +8,13 @@
 
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest as observableCombineLatest,
-  map,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { combineLatest as observableCombineLatest, map, Observable, of as observableOf, } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import {
-  METADATA_IMPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '../../../core/data/processes/script-data.service';
+import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService, } from '../../../core/data/processes/script-data.service';
 import { MenuItemType } from '../menu-item-type.model';
-import {
-  AbstractExpandableMenuProvider,
-  MenuSubSection,
-  MenuTopSection,
-} from './expandable-menu-provider';
+import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
+import { PartialMenuSection } from '../menu-provider';
 
 @Injectable()
 export class ImportMenuProvider extends AbstractExpandableMenuProvider {
@@ -37,7 +26,7 @@ export class ImportMenuProvider extends AbstractExpandableMenuProvider {
     super();
   }
 
-  public getTopSection(): Observable<MenuTopSection> {
+  public getTopSection(): Observable<PartialMenuSection> {
     return observableOf(
       {
         model: {
@@ -45,12 +34,12 @@ export class ImportMenuProvider extends AbstractExpandableMenuProvider {
           text: 'menu.section.import',
         },
         icon: 'file-import',
-        shouldPersistOnRouteChange: true,
+        visible: true,
       },
     );
   }
 
-  public getSubSections(): Observable<MenuSubSection[]> {
+  public getSubSections(): Observable<PartialMenuSection[]> {
     return observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME),
@@ -73,7 +62,7 @@ export class ImportMenuProvider extends AbstractExpandableMenuProvider {
               link: '/admin/batch-import',
             },
           },
-        ] as MenuSubSection[];
+        ];
       }),
     );
   }

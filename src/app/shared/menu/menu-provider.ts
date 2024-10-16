@@ -5,28 +5,15 @@
  *
  * http://www.dspace.org/license/
  */
-
-import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
-import { Omit } from '@material-ui/core';
+/* eslint-disable max-classes-per-file */
+import { ActivatedRouteSnapshot, RouterStateSnapshot, } from '@angular/router';
 import flatten from 'lodash/flatten';
-import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
+import { combineLatest, Observable, } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MenuID } from './menu-id.model';
-import { MenuItemModels, MenuSection } from './menu-section.model';
-import { APP_INITIALIZER, Provider, Type } from '@angular/core';
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { TransferState } from '@angular/platform-browser';
-import { environment } from '../../../environments/environment';
-import { HOME_PAGE_PATH } from '../../app-routing-paths';
-import { MENU_PROVIDER } from './menu.structure';
+import { MenuItemModels } from './menu-section.model';
+import { Type } from '@angular/core';
 
-// export type PartialMenuSection = Omit<MenuSection, 'id' | 'active'>;
 export interface PartialMenuSection {
   id?: string;
   visible: boolean;
@@ -36,9 +23,8 @@ export interface PartialMenuSection {
   active?: boolean;
   shouldPersistOnRouteChange?: boolean;
   icon?: string;
-  isExpandable?: boolean;
+  alwaysRenderExpandable?: boolean;
 }
-
 
 
 export interface MenuProvider {
@@ -49,35 +35,37 @@ export interface MenuProvider {
   getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
 }
 
-export class MenuProviderTypeWithPaths {
+export class MenuProviderTypeWithOptions {
   providerType: Type<MenuProvider>;
-  paths:  string[];
-}
+  paths?: string[];
+  childProviderTypes?: (Type<MenuProvider> | MenuProviderTypeWithOptions)[];
 
-export class MenuProviderTypeWithSubs {
-  providerType: Type<MenuProvider>;
-  childProviderTypes:  (Type<MenuProvider> | MenuProviderTypeWithPaths)[];
 }
 
 export abstract class AbstractMenuProvider implements MenuProvider {
-  shouldPersistOnRouteChange = true;
+
+  /**
+   * ID of the menu this provider is part of
+   * If not set up, this will be set based on the provider class name
+   */
   menuID?: MenuID;
+
+  /**
+   * Whether the sections of this menu should be set on the
+   */
+  shouldPersistOnRouteChange = true;
   menuProviderId?: string;
   index?: number;
   activePaths?: string[];
   parentID?: string;
-  isExpandable = false;
+
+  /**
+   * Whether the menu section or top section of this provider will always be rendered as expandable and hidden when no children are present
+   */
+  alwaysRenderExpandable? = false;
 
 
-  abstract getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
-
-  protected concat(...sections$: Observable<PartialMenuSection[]>[]): Observable<PartialMenuSection[]> {
-    return combineLatest(sections$).pipe(
-      map(sections => flatten(sections)),
-    );
-  }
-
-  public static onRoute(...paths: string[]) {
+  public static onRoute(...paths: string[]): MenuProviderTypeWithOptions {
     if (!AbstractMenuProvider.isPrototypeOf(this)) {
       throw new Error(
         'onRoute should only be called from concrete subclasses of AbstractMenuProvider'
@@ -86,6 +74,29 @@ export abstract class AbstractMenuProvider implements MenuProvider {
 
     const providerType = this as unknown as Type<AbstractMenuProvider>;
     return {providerType: providerType, paths: paths};
+  }
+
+  /**
+   * Method to add sub menu providers to this top provider
+   * @param childProviders - the list of sub providers that will provide subsections for this provider
+   */
+  public static withSubs(childProviders: (Type<MenuProvider> | MenuProviderTypeWithOptions)[]): MenuProviderTypeWithOptions {
+    if (!AbstractMenuProvider.isPrototypeOf(this)) {
+      throw new Error(
+        'withSubs should only be called from concrete subclasses of AbstractMenuProvider'
+      );
+    }
+
+    const providerType = this as unknown as Type<AbstractMenuProvider>;
+    return {providerType: providerType, childProviderTypes: childProviders};
+  }
+
+  abstract getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
+
+  protected concat(...sections$: Observable<PartialMenuSection[]>[]): Observable<PartialMenuSection[]> {
+    return combineLatest(sections$).pipe(
+      map(sections => flatten(sections)),
+    );
   }
 }
 

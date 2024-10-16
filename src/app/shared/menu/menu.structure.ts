@@ -5,48 +5,22 @@
  *
  * http://www.dspace.org/license/
  */
-import {
-  InjectionToken,
-  Provider,
-  Type,
-} from '@angular/core';
+import { InjectionToken, Provider, Type, } from '@angular/core';
 import { MenuID } from './menu-id.model';
-import { AbstractMenuProvider } from './menu-provider';
+import { AbstractMenuProvider, MenuProviderTypeWithOptions } from './menu-provider';
 import { MenuProviderService } from './menu-provider.service';
 import { hasValue, isNotEmpty } from '../empty.util';
 
 export const MENU_PROVIDER = new InjectionToken<AbstractMenuProvider>('MENU_PROVIDER');
 
 type MenuStructure = {
-  [key in MenuID]: (Type<AbstractMenuProvider> | {providerType: Type<AbstractMenuProvider>, paths: string[]} | {providerType: Type<AbstractMenuProvider>, childProviderTypes: any[]})[];
+  [key in MenuID]: (Type<AbstractMenuProvider> | MenuProviderTypeWithOptions)[];
 };
 
-function resolveProvider(providerType: Type<AbstractMenuProvider> , menuID: string, index: number, paths?: string[], parentID?: string, childProviders? : Type<AbstractMenuProvider>[]) {
-  return {
-    provide: MENU_PROVIDER,
-    multi: true,
-    useFactory(provider: AbstractMenuProvider): AbstractMenuProvider {
-      provider.menuID = menuID as MenuID;
-      provider.index = provider.index ?? index;
-      if (hasValue(parentID)) {
-        provider.menuProviderId = `${parentID}_${provider.constructor.name}-${provider.index}`
-        provider.parentID = parentID;
-      } else {
-        provider.menuProviderId = `${provider.constructor.name}-${provider.index}`;
-      }
-      if (isNotEmpty(paths)) {
-        provider.activePaths = paths;
-        provider.shouldPersistOnRouteChange = false;
-      }
-      if (isNotEmpty(childProviders)) {
-        provider.shouldPersistOnRouteChange = false;
-      }
-      return provider;
-    },
-    deps: [providerType],
-  };
-}
-
+/**
+ * Builds the menu structure by converting the provider types into resolved providers
+ * @param structure - The app menus structure
+ */
 export function buildMenuStructure(structure: MenuStructure): Provider[] {
   const providers: Provider[] = [
     MenuProviderService,
@@ -54,44 +28,77 @@ export function buildMenuStructure(structure: MenuStructure): Provider[] {
 
   Object.entries(structure).forEach(([menuID, providerTypes]) => {
     for (const [index, providerType] of providerTypes.entries()) {
-      // todo: should complain if not injectable!
-
-      if (providerType.hasOwnProperty('providerType') && providerType.hasOwnProperty('paths')) {
-        const providerPart = (providerType as any).providerType;
-        const paths = (providerType as any).paths;
-        providers.push(providerPart);
-        providers.push(resolveProvider(providerPart, menuID, index, paths));
-      } else if (providerType.hasOwnProperty('providerType') && providerType.hasOwnProperty('childProviderTypes')){
-        const providerPart = (providerType as any).providerType;
-
-        const childProviderList = [];
-        const childProviderTypes = (providerType as any).childProviderTypes;
-        childProviderTypes.forEach((childProviderType, childIndex: number) => {
-
-
-          if (childProviderType.hasOwnProperty('providerType') && childProviderType.hasOwnProperty('paths')) {
-            const childProviderTypePart = (childProviderType as any).providerType;
-            const paths = (childProviderType as any).paths;
-            providers.push(childProviderTypePart);
-            providers.push(resolveProvider(childProviderTypePart, menuID, childIndex, paths, `${providerPart.name}-${index}`))
-            childProviderList.push(childProviderTypePart);
-          } else {
-            providers.push(childProviderType)
-            providers.push(resolveProvider(childProviderType, menuID, childIndex, undefined, `${providerPart.name}-${index}`))
-            childProviderList.push(childProviderType);
-          }
-        })
-
-        providers.push(providerPart);
-        providers.push(resolveProvider(providerPart, menuID, index, undefined, undefined, childProviderList));
-
-
-      } else {
-        providers.push(providerType as Type<AbstractMenuProvider> );
-        providers.push(resolveProvider(providerType as Type<AbstractMenuProvider>, menuID, index));
-      }
+      processProviderType(providers, menuID, providerType, index);
     }
   });
 
   return providers;
+}
+
+/**
+ * Process a single provider type and add it to the list of providers
+ * When the provider type contains paths, the paths will be added to resolved provider
+ * When the provider type has sub provider, the sub providers will be processed with the current provider type as parent
+ * @param providers - The list of providers
+ * @param providerType  - The provider to resolve and add to the list
+ * @param menuID  - The ID of the menu to which the provider belongs
+ * @param index - The index of the provider
+ * @param parentID  - The ID of the parent provider if relevant
+ * @param hasSubProviders - Whether this provider has sub providers
+ */
+function processProviderType(providers: Provider[], menuID: string, providerType: Type<AbstractMenuProvider> | MenuProviderTypeWithOptions, index: number, parentID?: string, hasSubProviders?: boolean) {
+  if (providerType.hasOwnProperty('providerType') && providerType.hasOwnProperty('childProviderTypes')) {
+    const providerPart = (providerType as any).providerType;
+    const childProviderTypes = (providerType as any).childProviderTypes;
+
+    childProviderTypes.forEach((childProviderType, childIndex: number) => {
+      processProviderType(providers, menuID, childProviderType, childIndex, `${providerPart.name}`, hasSubProviders);
+    });
+    processProviderType(providers, menuID, providerPart, index, parentID, true);
+
+  } else if (providerType.hasOwnProperty('providerType') && providerType.hasOwnProperty('paths')) {
+    const providerPart = (providerType as any).providerType;
+    const paths = (providerType as any).paths;
+    addProviderToList(providers, providerPart, menuID, index, parentID, hasSubProviders, paths);
+  } else {
+    addProviderToList(providers, providerType as Type<AbstractMenuProvider>, menuID, index, parentID, hasSubProviders);
+  }
+}
+
+/**
+ * Resolves and adds a provider to a list of providers
+ * @param providers - The list of providers
+ * @param providerType  - The provider to resolve and add to the list
+ * @param menuID  - The ID of the menu to which the provider belongs
+ * @param index - The index of the provider
+ * @param parentID  - The ID of the parent provider if relevant
+ * @param hasSubProviders - Whether this provider has sub providers
+ * @param paths - The paths this provider should be active on if relevant
+ */
+function addProviderToList(providers: Provider[], providerType: Type<AbstractMenuProvider>, menuID: string, index: number, parentID?: string, hasSubProviders?: boolean, paths?: string[]) {
+  const resolvedProvider =  {
+    provide: MENU_PROVIDER,
+    multi: true,
+    useFactory(provider: AbstractMenuProvider): AbstractMenuProvider {
+      provider.menuID = menuID as MenuID;
+      provider.index = provider.index ?? index;
+      if (hasValue(parentID)) {
+        provider.menuProviderId = `${parentID}_${provider.constructor.name}`;
+        provider.parentID = parentID;
+      } else {
+        provider.menuProviderId = `${provider.constructor.name}`;
+      }
+      if (isNotEmpty(paths)) {
+        provider.activePaths = paths;
+        provider.shouldPersistOnRouteChange = false;
+      }
+      if (hasSubProviders) {
+        provider.shouldPersistOnRouteChange = false;
+      }
+      return provider;
+    },
+    deps: [providerType],
+  };
+  providers.push(resolvedProvider);
+  providers.push(providerType);
 }

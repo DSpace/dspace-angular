@@ -6,7 +6,7 @@
      role="button" tabindex="0"
      [attr.aria-labelledby]="'sidebarName-' + section.id"
      [attr.aria-expanded]="expanded | async"
-     [title]="('menu.section.icon.' + section.id) | translate"
+       [title]="itemModel.text | translate"
        [class.disabled]="section.model?.disabled"
      (click)="toggleSection($event)"
      (keyup.space)="toggleSection($event)"

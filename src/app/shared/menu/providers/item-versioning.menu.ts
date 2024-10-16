@@ -6,12 +6,8 @@
  * http://www.dspace.org/license/
  */
 import { Injectable } from '@angular/core';
-import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
+import { combineLatest, Observable, } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { Item } from '../../../core/shared/item.model';
@@ -19,16 +15,15 @@ import { DsoVersioningModalService } from '../../dso-page/dso-versioning-modal-s
 import { MenuItemType } from '../menu-item-type.model';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
 import { PartialMenuSection } from '../menu-provider';
-import { DSpaceObjectPageMenuProvider } from './dso.menu';
+import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 @Injectable()
-export class VersioningMenuProvider extends DSpaceObjectPageMenuProvider<Item> {
+export class VersioningMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(
     protected authorizationService: AuthorizationDataService,
     protected dsoVersioningModalService: DsoVersioningModalService,
-    protected dsoDataService: DSpaceObjectDataService,
   ) {
-    super(dsoDataService);
+    super();
   }
 
   public getSectionsForContext(item: Item): Observable<PartialMenuSection[]> {

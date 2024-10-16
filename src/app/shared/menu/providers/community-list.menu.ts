@@ -7,15 +7,9 @@
  */
 
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { Observable, of, } from 'rxjs';
 import { MenuItemType } from '../menu-item-type.model';
-import {
-  AbstractMenuProvider,
-  PartialMenuSection,
-} from '../menu-provider';
+import { AbstractMenuProvider, PartialMenuSection, } from '../menu-provider';
 
 @Injectable()
 export class CommunityListMenuProvider extends AbstractMenuProvider {

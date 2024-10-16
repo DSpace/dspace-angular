@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { AppState, keySelector } from '../../app.reducer';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,

@@ -7,10 +7,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { Observable, of as observableOf, } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -19,11 +16,8 @@ import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { MenuItemType } from '../menu-item-type.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
-import {
-  AbstractExpandableMenuProvider,
-  MenuSubSection,
-  MenuTopSection,
-} from './expandable-menu-provider';
+import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
+import { PartialMenuSection } from '../menu-provider';
 
 @Injectable()
 export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
@@ -33,7 +27,7 @@ export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
     super();
   }
 
-  getTopSection(): Observable<MenuTopSection> {
+  getTopSection(): Observable<PartialMenuSection> {
     return observableOf(
       {
         model: {
@@ -41,11 +35,12 @@ export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
           text: 'menu.section.browse_global',
         } as TextMenuItemModel,
         icon: 'globe',
+        visible: true,
       },
     );
   }
 
-  getSubSections(): Observable<MenuSubSection[]> {
+  getSubSections(): Observable<PartialMenuSection[]> {
     return this.browseService.getBrowseDefinitions().pipe(
       getFirstSucceededRemoteData(),
       map((rd: RemoteData<PaginatedList<BrowseDefinition>>) => {
@@ -60,7 +55,7 @@ export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
               },
             };
           }),
-        ] as MenuSubSection[];
+        ];
       }),
     );
   }

@@ -16,6 +16,7 @@ import { getMockThemeService } from '../../mocks/theme-service.mock';
 
 
 import { DsoPageModule } from '../dso-page.module';
+import { TextMenuItemModel } from '../../menu/menu-item/models/text.model';
 
 describe('DsoEditMenuComponent', () => {
   let comp: DsoEditMenuComponent;
@@ -32,9 +33,10 @@ describe('DsoEditMenuComponent', () => {
     active: false,
     visible: true,
     model: {
+      text: 'section-text',
       type: null,
       disabled: false,
-    } as MenuItemModel,
+    } as TextMenuItemModel,
     icon: 'pencil-alt',
     index: 1
   };

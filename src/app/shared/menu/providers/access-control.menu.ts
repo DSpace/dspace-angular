@@ -8,24 +8,17 @@
 
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest as observableCombineLatest,
-  map,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { combineLatest as observableCombineLatest, map, Observable, of as observableOf, } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { MenuItemType } from '../menu-item-type.model';
-import {
-  AbstractExpandableMenuProvider,
-  MenuSubSection,
-  MenuTopSection,
-} from './expandable-menu-provider';
+import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
+import { PartialMenuSection } from '../menu-provider';
 
 @Injectable()
 export class AccessControlMenuProvider extends AbstractExpandableMenuProvider {
+
   constructor(
     protected authorizationService: AuthorizationDataService,
     protected scriptDataService: ScriptDataService,
@@ -34,17 +27,18 @@ export class AccessControlMenuProvider extends AbstractExpandableMenuProvider {
     super();
   }
 
-  public getTopSection(): Observable<MenuTopSection> {
+  public getTopSection(): Observable<PartialMenuSection> {
     return observableOf({
-        model: {
-          type: MenuItemType.TEXT,
-          text: 'menu.section.access_control',
-        },
-        icon: 'key'
+      model: {
+        type: MenuItemType.TEXT,
+        text: 'menu.section.access_control',
+      },
+      icon: 'key',
+      visible: true,
     });
   }
 
-  public getSubSections(): Observable<MenuSubSection[]> {
+  public getSubSections(): Observable<PartialMenuSection[]> {
     return observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanManageGroups),
@@ -87,7 +81,7 @@ export class AccessControlMenuProvider extends AbstractExpandableMenuProvider {
           //     link: ''
           //   } as LinkMenuItemModel,
           // },
-        ] as MenuSubSection[];
+        ];
       }),
     );
   }

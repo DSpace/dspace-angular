@@ -65,6 +65,6 @@ export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionCo
     this.hasSubSections$ = this.subSections$.pipe(
       map((subSections) => isNotEmpty(subSections))
     );
-    
+
   }
 }

@@ -8,21 +8,13 @@
 
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest,
-  map,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { combineLatest, map, Observable, of as observableOf, } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { MenuItemType } from '../menu-item-type.model';
-import {
-  AbstractExpandableMenuProvider,
-  MenuSubSection,
-  MenuTopSection,
-} from './expandable-menu-provider';
+import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
+import { PartialMenuSection } from '../menu-provider';
 
 @Injectable()
 export class RegistriesMenuProvider extends AbstractExpandableMenuProvider {
@@ -34,7 +26,7 @@ export class RegistriesMenuProvider extends AbstractExpandableMenuProvider {
     super();
   }
 
-  public getTopSection(): Observable<MenuTopSection> {
+  public getTopSection(): Observable<PartialMenuSection> {
     return observableOf(
       {
         model: {
@@ -42,11 +34,12 @@ export class RegistriesMenuProvider extends AbstractExpandableMenuProvider {
           text: 'menu.section.registries',
         },
         icon: 'list',
+        visible: true,
       },
     );
   }
 
-  public getSubSections(): Observable<MenuSubSection[]> {
+  public getSubSections(): Observable<PartialMenuSection[]> {
     return combineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
     ]).pipe(
@@ -68,7 +61,7 @@ export class RegistriesMenuProvider extends AbstractExpandableMenuProvider {
               link: 'admin/registries/bitstream-formats',
             },
           },
-        ] as MenuSubSection[];
+        ];
       }),
     );
   }

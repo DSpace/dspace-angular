@@ -106,7 +106,7 @@ export class BrowserInitService extends InitService {
       this.initKlaro();
 
       await this.authenticationReady$().toPromise();
-      this.initPersistentMenus();
+      this.menuProviderService.initPersistentMenus();
 
       return true;
     };

@@ -5,9 +5,6 @@ import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-bre
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { LinkService } from '../core/cache/builders/link.service';
-import { SubscribeMenuProvider } from '../shared/menu/providers/comcol-subscribe.menu';
-import { DSpaceObjectEditMenuProvider } from '../shared/menu/providers/dso-edit.menu';
-import { StatisticsMenuProvider } from '../shared/menu/providers/statistics.menu';
 import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
   COLLECTION_CREATE_PATH,

@@ -7,40 +7,27 @@
  */
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest,
-  Observable,
-} from 'rxjs';
+import { combineLatest, Observable, } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { Collection } from '../../../core/shared/collection.model';
-import { COLLECTION } from '../../../core/shared/collection.resource-type';
-import { Community } from '../../../core/shared/community.model';
-import { COMMUNITY } from '../../../core/shared/community.resource-type';
 import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
 import { MenuItemType } from '../menu-item-type.model';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
 import { PartialMenuSection } from '../menu-provider';
-import { DSpaceObjectPageMenuProvider } from './dso.menu';
+import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 @Injectable()
-export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider<Community | Collection> {
+export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
-    protected dsoDataService: DSpaceObjectDataService,
   ) {
-    super(dsoDataService);
+    super();
   }
 
-  // protected isApplicable(dso: Community | Collection): boolean {
-  //   // @ts-ignore
-  //   return dso?.type === COMMUNITY.value || dso?.type === COLLECTION.value;
-  // }
-
-  public getSectionsForContext(dso: Community | Collection): Observable<PartialMenuSection[]> {
+  public getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
     return combineLatest([
       this.authorizationService.isAuthorized(FeatureID.CanSubscribe, dso.self),
     ]).pipe(

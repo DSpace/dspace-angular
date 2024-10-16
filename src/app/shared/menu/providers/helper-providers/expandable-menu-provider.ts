@@ -5,29 +5,18 @@
  *
  * http://www.dspace.org/license/
  */
-import { Omit } from '@material-ui/core';
-import {
-  combineLatest,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { combineLatest, Observable, of as observableOf, } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { v4 as uuidv4 } from 'uuid';
-import {
-  AbstractMenuProvider,
-  PartialMenuSection,
-} from '../menu-provider';
-import { Type } from '@angular/core';
-
-export type MenuTopSection = Omit<PartialMenuSection, 'visible'>;
-export type MenuSubSection = Omit<PartialMenuSection, 'parentID'>;
+import { AbstractMenuProvider, PartialMenuSection, } from '../../menu-provider';
 
 export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvider {
-  protected showWithoutSubsections = false;
 
-  abstract getTopSection(): Observable<MenuTopSection>;
+  alwaysRenderExpandable = true;
 
-  abstract getSubSections(): Observable<MenuSubSection[]>;
+
+  abstract getTopSection(): Observable<PartialMenuSection>;
+
+  abstract getSubSections(): Observable<PartialMenuSection[]>;
 
   protected includeSubSections(): boolean {
     return true;
@@ -41,7 +30,7 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
       full ? this.getSubSections() : observableOf([]),
     ]).pipe(
       map((
-        [partialTopSection, partialSubSections]: [MenuTopSection, MenuSubSection[]]
+        [partialTopSection, partialSubSections]: [PartialMenuSection, PartialMenuSection[]]
       ) => {
         const subSections = partialSubSections.map((partialSub, index) => {
           return {
@@ -56,7 +45,6 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
           {
             ...partialTopSection,
             id: this.menuProviderId,
-            visible: full ? subSections.some(sub => sub.visible) : this.showWithoutSubsections,
           },
         ];
       })

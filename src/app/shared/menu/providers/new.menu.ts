@@ -8,24 +8,22 @@
 
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  combineLatest,
-  map,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { combineLatest, map, Observable, of as observableOf, } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ThemedCreateCollectionParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
-import { ThemedCreateCommunityParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
-import { ThemedCreateItemParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import {
+  ThemedCreateCollectionParentSelectorComponent
+} from '../../dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
+import {
+  ThemedCreateCommunityParentSelectorComponent
+} from '../../dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
+import {
+  ThemedCreateItemParentSelectorComponent
+} from '../../dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import { MenuItemType } from '../menu-item-type.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
-import {
-  AbstractExpandableMenuProvider,
-  MenuSubSection,
-  MenuTopSection,
-} from './expandable-menu-provider';
+import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
+import { PartialMenuSection } from '../menu-provider';
 
 @Injectable()
 export class NewMenuProvider extends AbstractExpandableMenuProvider {
@@ -36,7 +34,7 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
     super();
   }
 
-  public getTopSection(): Observable<MenuTopSection> {
+  public getTopSection(): Observable<PartialMenuSection> {
     return observableOf(
       {
         model: {
@@ -44,11 +42,12 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
           text: 'menu.section.new'
         } as TextMenuItemModel,
         icon: 'plus',
+        visible: true,
       },
     );
   }
 
-  public getSubSections(): Observable<MenuSubSection[]> {
+  public getSubSections(): Observable<PartialMenuSection[]> {
     return combineLatest([
       this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
@@ -95,7 +94,7 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
             link: '/processes/new'
           },
         },
-      ] as MenuSubSection[];
+      ];
     }));
   }
 }

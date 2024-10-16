@@ -80,5 +80,5 @@ export interface MenuSection {
    */
   icon?: string;
 
-  isExpandable?: boolean;
+  alwaysRenderExpandable?: boolean;
 }

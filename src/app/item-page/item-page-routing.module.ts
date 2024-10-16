@@ -5,20 +5,13 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { LinkService } from '../core/cache/builders/link.service';
-import { DSpaceObjectEditMenuProvider } from '../shared/menu/providers/dso-edit.menu';
-import { ClaimMenuProvider } from '../shared/menu/providers/item-claim.menu';
-import { OrcidMenuProvider } from '../shared/menu/providers/item-orcid.menu';
-import { VersioningMenuProvider } from '../shared/menu/providers/item-versioning.menu';
-import { StatisticsMenuProvider } from '../shared/menu/providers/statistics.menu';
-import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
+import {
+  BitstreamRequestACopyPageComponent
+} from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
-import {
-  ITEM_EDIT_PATH,
-  ORCID_PATH,
-  UPLOAD_BITSTREAM_PATH,
-} from './item-page-routing-paths';
+import { ITEM_EDIT_PATH, ORCID_PATH, UPLOAD_BITSTREAM_PATH, } from './item-page-routing-paths';
 import { ItemPageResolver } from './item-page.resolver';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';

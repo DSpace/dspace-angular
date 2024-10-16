@@ -11,6 +11,7 @@ import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
 import { ItemResolver } from '../item-page/item.resolver';
 import { StatisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { ENTITY_MODULE_PATH } from '../item-page/item-page-routing-paths';
 
 @NgModule({
   imports: [
@@ -35,6 +36,19 @@ import { StatisticsAdministratorGuard } from '../core/data/feature-authorization
       },
       {
         path: `items/:id`,
+        resolve: {
+          scope: ItemResolver,
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        data: {
+          title: 'statistics.title',
+          breadcrumbKey: 'statistics'
+        },
+        component: ThemedItemStatisticsPageComponent,
+        canActivate: [StatisticsAdministratorGuard]
+      },
+      {
+        path: `${ENTITY_MODULE_PATH}/:entity-type/:id`,
         resolve: {
           scope: ItemResolver,
           breadcrumb: I18nBreadcrumbResolver

@@ -1,4 +1,4 @@
-<div *ngIf="hasSubSections$ | async">
+<ng-container *ngIf="hasSubSections$ | async">
     <div class="nav-item dropdown expandable-navbar-section text-md-center"
          *ngVar="(active | async) as isActive"
          (keyup.enter)="isActive ? deactivateSection($event) : activateSection($event)"
@@ -21,4 +21,4 @@
             </ng-container>
         </ul>
     </div>
-</div>
+</ng-container>
