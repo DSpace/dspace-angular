@@ -67,7 +67,12 @@ export class SupervisionOrderGroupSelectorComponent {
    * Assign the value of group on select
    */
   updateGroupObjectSelected(object) {
-    this.selectedGroup = object;
+    console.log(object);
+    if (object && object !== this.selectedGroup) {
+      this.selectedGroup = object;
+    } else if (object) {
+      this.selectedGroup = null;
+    }
   }
 
   /**
