@@ -14,13 +14,16 @@
                     <label class="font-weight-bold"
                            for="email">{{MESSAGE_PREFIX + '.email' | translate}}</label>
                     <input [className]="(email.invalid) && (email.dirty || email.touched) ? 'form-control is-invalid' :'form-control'"
-                           type="text" id="email" formControlName="email"/>
+                           type="text" id="email" formControlName="email"
+                           [attr.aria-label]="MESSAGE_PREFIX + '.aria.label' | translate"
+                           aria-describedby="email-errors-required email-error-not-valid"
+                           [attr.aria-invalid]="email.invalid"/>
                     <div *ngIf="email.invalid && (email.dirty || email.touched)"
                          class="invalid-feedback show-feedback">
-                    <span *ngIf="email.errors && email.errors.required">
+                    <span *ngIf="email.errors && email.errors.required" id="email-errors-required">
                         {{ MESSAGE_PREFIX + '.email.error.required' | translate }}
                     </span>
-                    <span *ngIf="email.errors && ((email.errors.pattern && this.typeRequest === TYPE_REQUEST_REGISTER) || email.errors.email)">
+                    <span *ngIf="email.errors && ((email.errors.pattern && this.typeRequest === TYPE_REQUEST_REGISTER) || email.errors.email)" id="email-error-not-valid">
                         {{ MESSAGE_PREFIX + '.email.error.not-email-form' | translate }}
                         <ng-container *ngIf="validMailDomains.length > 0">
                           {{ MESSAGE_PREFIX + '.email.error.not-valid-domain' | translate: { domains: validMailDomains.join(', ') } }}
