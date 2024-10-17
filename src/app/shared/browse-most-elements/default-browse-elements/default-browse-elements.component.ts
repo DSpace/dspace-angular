@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { AbstractBrowseElementsComponent } from '../abstract-browse-elements.component';
 
 @Component({
@@ -8,17 +8,12 @@ import { AbstractBrowseElementsComponent } from '../abstract-browse-elements.com
 })
 export class DefaultBrowseElementsComponent extends AbstractBrowseElementsComponent implements OnInit, OnChanges {
 
-  /**
-   * Whether to show the metrics badges
-   */
-  @Input() showMetrics = this.appConfig.browseBy.showMetrics;
+  protected followMetricsLink: boolean;
+  protected followThumbnailLink: boolean;
 
-  /**
-   * Whether to show the thumbnail preview
-   */
-  @Input() showThumbnails = this.appConfig.browseBy.showThumbnails;
-
-  @Input() showLabel: boolean;
-
-  protected followThumbnailLink = this.appConfig.browseBy.showThumbnails;
+  ngOnInit() {
+    this.followMetricsLink = this.showMetrics ?? this.appConfig.browseBy.showMetrics;
+    this.followThumbnailLink = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
+    super.ngOnInit();
+  }
 }
