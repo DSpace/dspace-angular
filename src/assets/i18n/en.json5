@@ -3446,6 +3446,10 @@
 
   "autocomplete.suggestion.sponsor.project-name": "Project name",
 
+  "autocomplete.suggestion.language.iso": "ISO",
+
+  "autocomplete.suggestion.language.title": "Language",
+
   "autocomplete.suggestion.sponsor.empty": "N/A",
 
   "autocomplete.suggestion.sponsor.eu": "EU",

@@ -22,6 +22,10 @@ export class AutocompleteFieldParser extends FieldParser {
       this.setValues(autocompleteModelConfig, fieldValue);
     }
 
+    if (isNotEmpty(this.configData.autocompleteCustom)) {
+      autocompleteModelConfig.autocompleteCustom = this.configData.autocompleteCustom;
+    }
+
     return new DsDynamicAutocompleteModel(autocompleteModelConfig);
   }
 

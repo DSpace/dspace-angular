@@ -1,12 +1,13 @@
 import { take } from 'rxjs/operators';
 import {isEmpty } from '../../../../../empty.util';
+import {TranslateService} from '@ngx-translate/core';
 
 /**
  * Util methods for the DsAutocompleteComponent.
  */
 export class DsDynamicAutocompleteService {
 
-  static pretifySuggestion(fundingProjectCode, fundingName, translateService) {
+  static prettifySponsorSuggestion(fundingProjectCode, fundingName, translateService) {
     if (isEmpty(fundingProjectCode) || isEmpty(fundingName)) {
       throw (new Error('The suggestion returns wrong data!'));
     }
@@ -25,5 +26,15 @@ export class DsDynamicAutocompleteService {
       .subscribe( pn => { projectName = pn; });
 
     return (fundingCode + ': ').bold() + fundingProjectCode + '<br>' + (projectName + ': ').bold() + fundingName;
+  }
+
+  static pretifyLanguageSuggestion(suggestion, translateService: TranslateService) {
+    // fetch ISO message
+    const isoMessage = translateService.instant('autocomplete.suggestion.language.iso');
+    // fetch language message
+    const languageMessage = translateService.instant('autocomplete.suggestion.language.title');
+
+    return (isoMessage + ': ').bold() + suggestion?.value + '<br>' + (languageMessage + ': ').bold() +
+      suggestion?.display;
   }
 }

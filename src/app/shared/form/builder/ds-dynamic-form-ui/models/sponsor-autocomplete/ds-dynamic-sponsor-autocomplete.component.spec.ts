@@ -22,8 +22,15 @@ import { createTestComponent } from '../../../../../testing/utils.test';
 import { TranslateService } from '@ngx-translate/core';
 import { getMockTranslateService } from '../../../../../mocks/translate.service.mock';
 import { DsDynamicSponsorAutocompleteModel } from './ds-dynamic-sponsor-autocomplete.model';
-import { of as observableOf } from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 import { DsDynamicSponsorAutocompleteComponent } from './ds-dynamic-sponsor-autocomplete.component';
+import { getMockRequestService } from '../../../../../mocks/request.service.mock';
+import { HALEndpointServiceStub } from '../../../../../testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../../../../../mocks/remote-data-build.service.mock';
+import { RequestService } from '../../../../../../core/data/request.service';
+import { HALEndpointService } from '../../../../../../core/shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../../../../../../core/cache/builders/remote-data-build.service';
+import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
 
 let AUT_TEST_GROUP;
 let AUT_TEST_MODEL_CONFIG;
@@ -45,7 +52,8 @@ function init() {
     placeholder: 'Keywords',
     readOnly: false,
     required: false,
-    repeatable: false
+    repeatable: false,
+    autocompleteCustom: null
   };
 }
 
@@ -61,6 +69,12 @@ describe('DsDynamicSponsorAutocompleteComponent test suite', () => {
     const vocabularyServiceStub = new VocabularyServiceStub();
     const mockLookupRelationService = new MockLookupRelationService();
     const mockTranslateService = getMockTranslateService();
+    const requestService = getMockRequestService();
+    const halService = Object.assign(new HALEndpointServiceStub('url'));
+    const rdbService = getMockRemoteDataBuildService();
+    const configurationServiceSpy = jasmine.createSpyObj('configurationService', {
+      findByPropertyName: of('hdl'),
+    });
     init();
     TestBed.configureTestingModule({
       imports: [
@@ -77,12 +91,16 @@ describe('DsDynamicSponsorAutocompleteComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         DsDynamicSponsorAutocompleteComponent,
-        {provide: MetadataValueDataService, useValue: mockMetadataValueService},
-        {provide: VocabularyService, useValue: vocabularyServiceStub},
-        {provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService},
-        {provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService},
-        {provide: LookupRelationService, useValue: mockLookupRelationService},
-        {provide: TranslateService, useValue: mockTranslateService}
+        { provide: MetadataValueDataService, useValue: mockMetadataValueService },
+        { provide: VocabularyService, useValue: vocabularyServiceStub },
+        { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
+        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: LookupRelationService, useValue: mockLookupRelationService },
+        { provide: TranslateService, useValue: mockTranslateService },
+        { provide: RequestService, useValue: requestService },
+        { provide: HALEndpointService, useValue: halService },
+        { provide: RemoteDataBuildService, useValue: rdbService },
+        { provide: ConfigurationDataService, useValue: configurationServiceSpy }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
