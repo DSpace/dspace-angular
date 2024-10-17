@@ -47,4 +47,10 @@ export class MetadatumRepresentation extends MetadataValue implements MetadataRe
     return this.value;
   }
 
+  /**
+   * Get the authority key
+   */
+  getAuthority(): string {
+    return this.authority;
+  }
 }
