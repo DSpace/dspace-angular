@@ -8,11 +8,15 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
+import {
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import {
+  DeleteRequest,
   GetRequest,
   PostRequest,
 } from '../data/request.models';
@@ -20,9 +24,12 @@ import { RequestService } from '../data/request.service';
 import { RestRequest } from '../data/rest-request.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { sendRequest } from '../shared/request.operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { AuthStatus } from './models/auth-status.model';
+import { MachineToken } from './models/machine-token.model';
 import { ShortLivedToken } from './models/short-lived-token.model';
 
 /**
@@ -31,6 +38,7 @@ import { ShortLivedToken } from './models/short-lived-token.model';
 export abstract class AuthRequestService {
   protected linkName = 'authn';
   protected shortlivedtokensEndpoint = 'shortlivedtokens';
+  protected machinetokenEndpoint = 'machinetokens';
 
   constructor(protected halService: HALEndpointService,
               protected requestService: RequestService,
@@ -137,6 +145,34 @@ export abstract class AuthRequestService {
           return null;
         }
       }),
+    );
+  }
+
+  /**
+   * Send a post request to create a machine token
+   */
+  public postToMachineTokenEndpoint(): Observable<RemoteData<MachineToken>> {
+    return this.halService.getEndpoint(this.linkName).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((href: string) => new URLCombiner(href, this.machinetokenEndpoint).toString()),
+      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL)),
+      tap((request: RestRequest) => this.requestService.send(request)),
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<MachineToken>(request.uuid)),
+    );
+  }
+
+  /**
+   * Send a delete request to destroy a machine token
+   */
+  public deleteToMachineTokenEndpoint(): Observable<RemoteData<NoContent>> {
+    return this.halService.getEndpoint(this.linkName).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((href: string) => new URLCombiner(href, this.machinetokenEndpoint).toString()),
+      map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
+      sendRequest(this.requestService),
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<MachineToken>(request.uuid)),
     );
   }
 }
