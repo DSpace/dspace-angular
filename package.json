@@ -207,7 +207,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-mocha-reporter": "2.2.5",
     "ngx-export-as": "~1.15.1",
-    "ngx-mask": "^13.1.7",
+    "ngx-mask": "13.1.7",
     "nodemon": "^2.0.22",
     "postcss": "^8.4",
     "postcss-apply": "0.12.0",
