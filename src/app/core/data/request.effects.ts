@@ -35,7 +35,6 @@ export class RequestEffects {
       );
     }),
     filter((entry: RequestEntry) => hasValue(entry)),
-    // TODO: test once rest part is aligned
     withLatestFrom(this.xsrfService.tokenInitialized$),
     // If it's a GET request, or we have an XSRF token, dispatch it immediately
     // Otherwise wait for the XSRF token first

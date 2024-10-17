@@ -26,6 +26,7 @@
                     <ds-error *ngIf="isSubmitted && !selectedGroup" message="{{'supervision-group-selector.select.group.error' | translate}}"></ds-error>
                 </ng-container>
                 <ds-eperson-group-list [isListOfEPerson]="false"
+                                       (deselect)="updateGroupObjectSelected($event)"
                                        (select)="updateGroupObjectSelected($event)"></ds-eperson-group-list>
             </div>
         </div>
