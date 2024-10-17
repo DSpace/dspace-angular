@@ -219,8 +219,7 @@ export class SubmissionService {
     options.params = params;
 
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, options).pipe(
-      map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
-      catchError(() => observableOf({} as SubmissionObject)));
+      map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject));
   }
 
   /**
