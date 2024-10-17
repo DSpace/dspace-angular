@@ -41,6 +41,7 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import isEqual from 'lodash/isEqual';
 import cloneDeep from 'lodash/cloneDeep';
 import { ClarinUserMetadataDataService } from '../../core/data/clarin/clarin-user-metadata.service';
+import { HtmlContentService } from '../../shared/html-content.service';
 
 /**
  * The component shows the user's filled in user metadata and the user can fill in other required user metadata.
@@ -106,6 +107,21 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
    */
   helpDesk$: Observable<RemoteData<ConfigurationProperty>>;
 
+  /**
+   * The Seznam dataset license content. It is shown directly in this approval page.
+   */
+  LICENSE_NAME_SEZNAM = 'Seznam Dataset Licence';
+
+  /**
+   * The path to the Seznam dataset license content.
+   */
+  LICENSE_PATH_SEZNAM_CZ = 'szn-dataset-license.html';
+
+  /**
+   * The content of the Seznam dataset license. Fetch from the static file.
+   */
+  licenseContentSeznam: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   constructor(
     protected clarinLicenseResourceMappingService: ClarinLicenseResourceMappingService,
     protected configurationDataService: ConfigurationDataService,
@@ -121,7 +137,8 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     protected rdbService: RemoteDataBuildService,
     private hardRedirectService: HardRedirectService,
     private requestService: RequestService,
-    private clarinUserMetadataDataService: ClarinUserMetadataDataService) { }
+    private clarinUserMetadataDataService: ClarinUserMetadataDataService,
+    private htmlContentService: HtmlContentService) { }
 
    ngOnInit(): void {
     // Load CurrentItem by bitstreamID to show itemHandle
@@ -143,6 +160,16 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     // The user is signed in and has record in the userRegistration
     // Load userRegistration and userMetadata from userRegistration repository
     this.loadUserRegistrationAndUserMetadata();
+  }
+
+  /**
+   * Load the content for the special license. This content is shown directly in this approval page.
+   */
+  loadLicenseContentSeznam() {
+    this.htmlContentService.getHmtlContentByPathAndLocale(this.LICENSE_PATH_SEZNAM_CZ).then(content => {
+      this.licenseContentSeznam.next(content);
+    });
+    return true;
   }
 
   public accept() {

@@ -14,6 +14,10 @@
       <div class="card bg-clarin-yellow border-clarin-yellow">
         <div class="card-body text-center">
           <a [href]="clarinLicense?.definition">{{clarinLicense?.name}}</a>
+          <div *ngIf="clarinLicense?.name === LICENSE_NAME_SEZNAM && loadLicenseContentSeznam()"
+               class="pt-3"
+               [innerHTML]="(licenseContentSeznam | async) | dsSafeHtml">
+          </div>
         </div>
       </div>
     </div>
