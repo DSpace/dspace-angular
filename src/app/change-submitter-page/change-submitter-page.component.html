@@ -1,0 +1,16 @@
+<div class="container pt-2 pb-4" *ngVar="submitter | async as sub">
+  <h3>{{'share.submission.page.title' | translate}}</h3>
+  <span>{{'change.submitter.page.message' | translate}}</span>
+  <span>{{getSubmitterName(sub)}}</span>
+  <span> ({{sub?.email}})</span>
+  <div class="pt-4">
+    <button class="btn btn-info" (click)="changeSubmitter()">
+        <span *ngIf="changeSubmitterSpinner"
+              class="spinner-border spinner-border-sm spinner-button mr-1" role="status" aria-hidden="true">
+        </span>
+      <span>{{'change.submitter.page.button.take-it' | translate}}</span>
+    </button>
+  </div>
+</div>
+
+

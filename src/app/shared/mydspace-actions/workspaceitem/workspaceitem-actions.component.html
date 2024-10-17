@@ -25,6 +25,20 @@
     <span *ngIf="!(processingDelete$ | async)"><i class="fa fa-trash"></i> {{'submission.workflow.generic.delete' |
       translate}}</span>
   </button>
+
+  <button type="button" id="{{'share_' + object.id}}" class="btn btn-danger mt-1 mb-3"
+          *ngIf="(canEditItem$ | async)"
+          [ngbTooltip]="'submission.workflow.generic.share-submission.tooltip' | translate"
+          [attr.aria-label]="'submission.workflow.generic.delete-help' | translate"
+          (click)="$event.preventDefault();shareSubmission()">
+    <span>
+      <span *ngIf="shareSubmissionSpinner"
+            class="spinner-border spinner-border-sm spinner-button" role="status" aria-hidden="true"></span>
+      <i *ngIf="!shareSubmissionSpinner"
+         class="fa-solid fa-share"></i>
+      {{'submission.workflow.generic.share-submission' | translate}}
+    </span>
+  </button>
 </div>
 
 

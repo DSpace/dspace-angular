@@ -5271,6 +5271,14 @@
 
   "submission.workflow.generic.submit_score-help": "",
 
+  "submission.workflow.generic.share-submission": "Share submission",
+
+  "submission.workflow.generic.share-submission.tooltip": "Share submission",
+
+  "submission.workflow.share-submission.email.successful": "The email with the share link has been sent successfully",
+
+  "submission.workflow.share-submission.email.error": "Cannot send the email with share link",
+
   "submission.workflow.tasks.claimed.approve": "Approve",
 
   "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
@@ -5931,4 +5939,25 @@
   "navbar.about.service-integrations": "Service integrations",
 
   "navbar.about.project-partnership": "Project partnerships",
+
+  "share.submission.breadcrumbs": "Share submission",
+
+  "share.submission.page.title": "Share link",
+
+  "share.submission.page.share-link.message.start": "To pass your submission to another user give them the following link: ",
+
+  "share.submission.page.share-link.message.end": ". You will also receive an email with this link.",
+
+  "change.submitter.breadcrumbs": "Change submitter",
+
+  "change.submitter.page.title": "Change submitter",
+
+  "change.submitter.page.message": "This items currently belongs to: ",
+
+  "change.submitter.page.button.take-it": "Take it",
+
+  "change.submitter.page.changed-successfully": "The submitter has been successfully changed",
+
+  "change.submitter.page.changed-error": "An error occurred while changing the submitter",
+
 }
