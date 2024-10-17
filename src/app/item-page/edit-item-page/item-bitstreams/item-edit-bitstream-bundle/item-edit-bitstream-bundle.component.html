@@ -15,6 +15,21 @@
                 title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
           <i class="fas fa-upload fa-fw"></i>
         </button>
+        <div ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="btn-group float-right">
+          <button class="btn btn-outline-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog" aria-hidden="true"></i></button>
+          <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu" ngbDropdownMenu>
+            <li role="menuitem">
+              <span class="dropdown-header" id="pagination-control_results-per-page" role="heading">{{ 'pagination.results-per-page' | translate}}</span>
+              <ul aria-labelledby="pagination-control_results-per-page" class="list-unstyled" role="listbox">
+                <li *ngFor="let item of pageSizeOptions" role="option" [attr.aria-selected]="item === (pageSize$ | async)">
+                  <button (click)="doPageSizeChange(item)" class="dropdown-item">
+                    <i [ngClass]="{'invisible': item !== (pageSize$ | async) }" class="fas fa-check" aria-hidden="true"></i> {{item}}
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

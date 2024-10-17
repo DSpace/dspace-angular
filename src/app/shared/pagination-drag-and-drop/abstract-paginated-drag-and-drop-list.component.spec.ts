@@ -104,15 +104,21 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
     const event = {
       previousIndex: 0,
       currentIndex: 1,
+      dropPoint: {
+        x: 0,
+        y: 0,
+      },
       item: { element: { nativeElement: { id: object1.uuid } } },
     } as any;
 
     describe('when the user is hovering over a new page', () => {
       const hoverPage = 3;
-      const hoverElement = { textContent: '' + hoverPage };
+      const hoverElement = document.createElement('div');
+      hoverElement.textContent = '' + hoverPage;
+      hoverElement.classList.add('page-link');
 
       beforeEach(() => {
-        elRef.nativeElement.querySelector.and.returnValue(hoverElement);
+        spyOn(document, 'elementFromPoint').and.returnValue(hoverElement);
         spyOn(component.dropObject, 'emit');
         component.drop(event);
       });
