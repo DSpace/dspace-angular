@@ -8,7 +8,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../config/app-config.interface';
 import { environment } from '../../environments/environment.test';
@@ -22,7 +22,7 @@ let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
 
 let notifyInfoService = {
-  isCoarConfigEnabled: () => of(true),
+  isCoarConfigEnabled: () => observableOf(true),
 };
 
 describe('Footer component', () => {
@@ -83,7 +83,7 @@ describe('Footer component', () => {
 
   describe('when coarLdnEnabled is true', () => {
     beforeEach(() => {
-      spyOn(notifyInfoService, 'isCoarConfigEnabled').and.returnValue(of(true));
+      spyOn(notifyInfoService, 'isCoarConfigEnabled').and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
 

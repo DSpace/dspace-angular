@@ -18,7 +18,7 @@ import {
   BehaviorSubject,
   combineLatest as combineLatestObservable,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   first,
@@ -72,7 +72,7 @@ import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banne
   ],
 })
 export class RootComponent implements OnInit {
-  theme: Observable<ThemeConfig> = of({} as any);
+  theme: Observable<ThemeConfig> = observableOf({} as any);
   isSidebarVisible$: Observable<boolean>;
   slideSidebarOver$: Observable<boolean>;
   collapsedSidebarWidth$: Observable<string>;

@@ -17,10 +17,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
@@ -115,10 +112,10 @@ describe('OrcidPageComponent test suite', () => {
     orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
       isLinkedToOrcid: jasmine.createSpy('isLinkedToOrcid'),
       linkOrcidByItem: jasmine.createSpy('linkOrcidByItem'),
-      getOrcidAuthorizationScopes: of([]),
-      getOrcidAuthorizationScopesByItem: of([]),
-      onlyAdminCanDisconnectProfileFromOrcid: of(false),
-      ownerCanDisconnectProfileFromOrcid: of(false),
+      getOrcidAuthorizationScopes: observableOf([]),
+      getOrcidAuthorizationScopesByItem: observableOf([]),
+      onlyAdminCanDisconnectProfileFromOrcid: observableOf(false),
+      ownerCanDisconnectProfileFromOrcid: observableOf(false),
     });
 
     researcherProfileDataService = jasmine.createSpyObj('ResearcherProfileDataService', {

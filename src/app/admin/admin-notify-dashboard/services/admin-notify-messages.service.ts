@@ -3,7 +3,7 @@ import {
   BehaviorSubject,
   from,
   Observable,
-  of,
+  of as observableOf,
   scan,
 } from 'rxjs';
 import {
@@ -64,13 +64,13 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
         message.target || message.origin ? this.ldnServicesService.findById((message.target || message.origin).toString()).pipe(
           getAllSucceededRemoteDataPayload(),
           map(detail => ({ ...message, ldnService: detail.name })),
-        ) : of(message),
+        ) : observableOf(message),
       ),
       mergeMap(message =>
         message.object || message.context  ? this.itemDataService.findById(message.object || message.context).pipe(
           getAllSucceededRemoteDataPayload(),
           map(detail => ({ ...message, relatedItem: detail.name })),
-        ) : of(message),
+        ) : observableOf(message),
       ),
       scan((acc: any, value: any) => [...acc, value], []),
     );

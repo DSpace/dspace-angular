@@ -5,7 +5,7 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { Process } from '../../process-page/processes/process.model';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
@@ -113,7 +113,7 @@ describe('BulkAccessComponent', () => {
 
     beforeEach(() => {
 
-      (component as any).selectableListService.getSelectableList.and.returnValue(of(selectableListStateEmpty));
+      (component as any).selectableListService.getSelectableList.and.returnValue(observableOf(selectableListStateEmpty));
       fixture.detectChanges();
       component.settings = mockSettings;
     });
@@ -136,7 +136,7 @@ describe('BulkAccessComponent', () => {
 
     beforeEach(() => {
 
-      (component as any).selectableListService.getSelectableList.and.returnValue(of(selectableListState));
+      (component as any).selectableListService.getSelectableList.and.returnValue(observableOf(selectableListState));
       fixture.detectChanges();
       component.settings = mockSettings;
     });

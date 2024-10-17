@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
   tap,
 } from 'rxjs';
 import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
@@ -44,7 +44,7 @@ export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
   /**
    * An Observable that emits an array of QualityAssuranceSourceObject.
    */
-  sources$: Observable<QualityAssuranceSourceObject[]> = of([]);
+  sources$: Observable<QualityAssuranceSourceObject[]> = observableOf([]);
 
   constructor(private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService) { }
 

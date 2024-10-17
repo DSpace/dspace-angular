@@ -16,10 +16,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { RestResponse } from '../core/cache/response.models';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -53,8 +50,8 @@ describe('RegisterEmailFormComponent', () => {
     findByPropertyName: jasmine.createSpy('findByPropertyName'),
   });
 
-  const captchaVersion$ = of('v3');
-  const captchaMode$ = of('invisible');
+  const captchaVersion$ = observableOf('v3');
+  const captchaMode$ = observableOf('invisible');
   const confResponse$ = createSuccessfulRemoteDataObject$({ values: ['true'] });
   const confResponseDisabled$ = createSuccessfulRemoteDataObject$({ values: ['false'] });
 

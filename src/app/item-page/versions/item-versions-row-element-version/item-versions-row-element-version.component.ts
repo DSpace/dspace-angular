@@ -23,7 +23,7 @@ import {
   combineLatest,
   concatMap,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   map,
@@ -119,7 +119,7 @@ export class ItemVersionsRowElementVersionComponent implements OnInit {
    */
   getWorkspaceId(versionItem: Observable<RemoteData<Item>>): Observable<string> {
     if (!this.hasDraftVersion) {
-      return of(undefined);
+      return observableOf(undefined);
     }
     return versionItem.pipe(
       getFirstSucceededRemoteDataPayload(),
@@ -138,7 +138,7 @@ export class ItemVersionsRowElementVersionComponent implements OnInit {
     return this.getWorkspaceId(versionItem).pipe(
       concatMap((workspaceId: string) => {
         if (workspaceId) {
-          return of(undefined);
+          return observableOf(undefined);
         }
         return versionItem.pipe(
           getFirstSucceededRemoteDataPayload(),
@@ -191,7 +191,7 @@ export class ItemVersionsRowElementVersionComponent implements OnInit {
     // On createVersionEvent emitted create new version and notify
     activeModal.componentInstance.createVersionEvent.pipe(
       mergeMap((summary: string) => combineLatest([
-        of(summary),
+        observableOf(summary),
         version.item.pipe(getFirstSucceededRemoteDataPayload()),
       ])),
       mergeMap(([summary, item]: [string, Item]) => this.versionHistoryService.createVersion(item._links.self.href, summary)),
@@ -247,20 +247,20 @@ export class ItemVersionsRowElementVersionComponent implements OnInit {
           getFirstSucceededRemoteDataPayload<Item>(),
           // Retrieve version history
           mergeMap((item: Item) => combineLatest([
-            of(item),
+            observableOf(item),
             this.versionHistoryService.getVersionHistoryFromVersion$(version),
           ])),
           // Delete item
           mergeMap(([item, versionHistory]: [Item, VersionHistory]) => combineLatest([
             this.deleteItemAndGetResult$(item),
-            of(versionHistory),
+            observableOf(versionHistory),
           ])),
           // Retrieve new latest version
           mergeMap(([deleteItemResult, versionHistory]: [boolean, VersionHistory]) => combineLatest([
-            of(deleteItemResult),
+            observableOf(deleteItemResult),
             this.versionHistoryService.getLatestVersionItemFromHistory$(versionHistory).pipe(
               tap(() => {
-                this.versionsHistoryChange.emit(of(versionHistory));
+                this.versionsHistoryChange.emit(observableOf(versionHistory));
               }),
             ),
           ])),

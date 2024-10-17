@@ -15,7 +15,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { RemoteData } from '../../../core/data/remote-data';
@@ -174,7 +174,7 @@ export class OrcidSyncSettingsComponent implements OnInit {
             getFirstCompletedRemoteData(),
           );
         } else {
-          return of(profileRD);
+          return observableOf(profileRD);
         }
       }),
     ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {

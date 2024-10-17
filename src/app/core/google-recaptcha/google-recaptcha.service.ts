@@ -10,7 +10,7 @@ import {
   combineLatest,
   EMPTY,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   map,
@@ -153,7 +153,7 @@ export class GoogleRecaptchaService {
    * Returns an observable of string
    */
   public executeRecaptcha() {
-    return of(grecaptcha.execute());
+    return observableOf(grecaptcha.execute());
   }
 
   public getRecaptchaTokenResponse() {

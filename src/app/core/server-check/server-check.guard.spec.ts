@@ -6,7 +6,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import {
-  of,
+  of as observableOf,
   ReplaySubject,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -48,7 +48,7 @@ describe('ServerCheckGuard', () => {
 
   describe('when root endpoint request has succeeded', () => {
     beforeEach(() => {
-      rootDataServiceStub.checkServerAvailability.and.returnValue(of(true));
+      rootDataServiceStub.checkServerAvailability.and.returnValue(observableOf(true));
     });
 
     it('should return true', () => {
@@ -61,7 +61,7 @@ describe('ServerCheckGuard', () => {
 
   describe('when root endpoint request has not succeeded', () => {
     beforeEach(() => {
-      rootDataServiceStub.checkServerAvailability.and.returnValue(of(false));
+      rootDataServiceStub.checkServerAvailability.and.returnValue(observableOf(false));
     });
 
     it('should return a UrlTree with the route to the 500 error page', () => {

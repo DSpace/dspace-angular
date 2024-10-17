@@ -24,7 +24,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
-  of,
+  of as observableOf,
   Subscription,
 } from 'rxjs';
 import {
@@ -309,7 +309,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
    *     the section status
    */
   protected getSectionStatus(): Observable<boolean> {
-    return of(true);
+    return observableOf(true);
   }
 
   /**

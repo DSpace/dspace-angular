@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   startWith,
@@ -140,7 +140,7 @@ export abstract class ObjectSelectComponent<TDomain extends DSpaceObject> implem
    */
   canSelect(item: DSpaceObject): Observable<boolean> {
     if (!this.featureId) {
-      return of(true);
+      return observableOf(true);
     }
     return this.authorizationService.isAuthorized(this.featureId, item.self).pipe(startWith(false));
   }
