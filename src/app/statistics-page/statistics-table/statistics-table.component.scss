@@ -1,8 +1,9 @@
 th, td {
   padding: 0.5rem;
 }
-
-td {
-  width: 50px;
-  max-width: 50px;
+tr th:last-child {
+    text-align: right;
+}
+tr td:last-child {
+    text-align: right;
 }

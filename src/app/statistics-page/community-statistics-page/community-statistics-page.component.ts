@@ -22,6 +22,8 @@ export class CommunityStatisticsPageComponent extends StatisticsPageComponent<Co
   types: string[] = [
     'TotalVisits',
     'TotalVisitsPerMonth',
+    'TopItems',
+    'TotalDownloads',
     'TopCountries',
     'TopCities',
   ];

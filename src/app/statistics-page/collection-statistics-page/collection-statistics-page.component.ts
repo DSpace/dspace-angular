@@ -22,6 +22,8 @@ export class CollectionStatisticsPageComponent extends StatisticsPageComponent<C
   types: string[] = [
     'TotalVisits',
     'TotalVisitsPerMonth',
+    'TopItems',
+    'TotalDownloads',
     'TopCountries',
     'TopCities',
   ];
