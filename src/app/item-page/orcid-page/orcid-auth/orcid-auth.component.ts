@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 import { Item } from '../../../core/shared/item.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -10,6 +10,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { createFailedRemoteDataObject } from '../../../shared/remote-data.utils';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ds-orcid-auth',
@@ -170,14 +172,15 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   unlinkOrcid(): void {
     this.unlinkProcessing.next(true);
     this.orcidAuthService.unlinkOrcidByItem(this.item).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
+      catchError((err: HttpErrorResponse) => of(createFailedRemoteDataObject(err.message, err.status)))
     ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
       this.unlinkProcessing.next(false);
-      if (remoteData.isSuccess) {
+      if (remoteData.hasFailed) {
+        this.notificationsService.error(this.translateService.get('person.page.orcid.unlink.error'));
+      } else {
         this.notificationsService.success(this.translateService.get('person.page.orcid.unlink.success'));
         this.unlink.emit();
-      } else {
-        this.notificationsService.error(this.translateService.get('person.page.orcid.unlink.error'));
       }
     });
   }
