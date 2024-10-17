@@ -308,13 +308,13 @@ export class BrowserKlaroService extends KlaroService {
    * @param user The user to save the settings for
    * @param config The consent settings for the user to save
    */
-  setSettingsForUser(user: EPerson, config: object) {
+  setSettingsForUser(user: EPerson, config: object): Observable<any> {
     if (isNotEmpty(config)) {
       user.setMetadata(COOKIE_MDFIELD, undefined, JSON.stringify(config));
     } else {
       user.removeMetadata(COOKIE_MDFIELD);
     }
-    this.ePersonService.createPatchFromCache(user)
+    return this.ePersonService.createPatchFromCache(user)
       .pipe(
         take(1),
         switchMap((operations: Operation[]) => {
@@ -322,9 +322,8 @@ export class BrowserKlaroService extends KlaroService {
             return this.ePersonService.patch(user, operations);
           }
           return observableOf(undefined);
-        },
-        ),
-      ).subscribe();
+        })
+      );
   }
 
   /**
@@ -340,7 +339,16 @@ export class BrowserKlaroService extends KlaroService {
    * @param user
    */
   updateSettingsForUsers(user: EPerson) {
-    this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)));
+    this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)))
+      .subscribe({
+        next: (response) => {
+          // Settings saved successfully, now reload the page
+          window.location.reload();
+        },
+        error: (err) => {
+          console.error('Error updating user settings', err);
+        },
+      });
   }
 
   /**
