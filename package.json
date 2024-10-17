@@ -122,7 +122,7 @@
     "ngx-pagination": "6.0.3",
     "ngx-sortablejs": "^11.1.0",
     "ngx-ui-switch": "^14.1.0",
-    "nouislider": "^15.7.1",
+    "nouislider": "^15.8.1",
     "pem": "1.14.7",
     "prop-types": "^15.8.1",
     "react-copy-to-clipboard": "^5.1.0",
