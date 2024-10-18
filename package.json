@@ -166,7 +166,7 @@
     "sortablejs": "1.15.0",
     "uuid": "^8.3.2",
     "webfontloader": "1.6.28",
-    "zone.js": "~0.14.4"
+    "zone.js": "~0.14.10"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "~17.0.2",
