@@ -438,6 +438,15 @@
     json5 "^2.2.2"
     semver "^6.3.0"
 
+"@babel/eslint-parser@^7.23.10":
+  version "7.25.8"
+  resolved "https://registry.yarnpkg.com/@babel/eslint-parser/-/eslint-parser-7.25.8.tgz#0119dec46be547d7a339978dedb9d29e517c2443"
+  integrity sha512-Po3VLMN7fJtv0nsOjBDSbO1J71UhzShE9MuOSkWEV9IZQXzhZklYtzKZ8ZD/Ij3a0JBv1AG3Ny2L3jvAHQVOGg==
+  dependencies:
+    "@nicolo-ribaudo/eslint-scope-5-internals" "5.1.1-v1"
+    eslint-visitor-keys "^2.1.0"
+    semver "^6.3.1"
+
 "@babel/generator@7.20.14":
   version "7.20.14"
   resolved "https://registry.npmjs.org/@babel/generator/-/generator-7.20.14.tgz"
@@ -2038,6 +2047,13 @@
   integrity sha512-nORagPmAQYDjB5jyQ3awGhbnKTKVARZUCK8FJIe46XjPQX2CI9+WBYvsdqq0CsNWVzCjhnC0Om6krzjOTrTHYQ==
   dependencies:
     tslib "^2.3.0"
+
+"@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
+  version "5.1.1-v1"
+  resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/eslint-scope-5-internals/-/eslint-scope-5-internals-5.1.1-v1.tgz#dbf733a965ca47b1973177dc0bb6c889edcfb129"
+  integrity sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==
+  dependencies:
+    eslint-scope "5.1.1"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -5448,7 +5464,7 @@ eslint-utils@^3.0.0:
   dependencies:
     eslint-visitor-keys "^2.0.0"
 
-eslint-visitor-keys@^2.0.0:
+eslint-visitor-keys@^2.0.0, eslint-visitor-keys@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz"
   integrity sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==
@@ -5883,6 +5899,11 @@ flat-cache@^3.0.4:
   dependencies:
     flatted "^3.1.0"
     rimraf "^3.0.2"
+
+flat@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/flat/-/flat-5.0.2.tgz#8ca6fe332069ffa9d324c327198c598259ceb241"
+  integrity sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==
 
 flatted@^3.1.0, flatted@^3.2.7:
   version "3.2.7"
@@ -7619,10 +7640,14 @@ kind-of@^6.0.2:
   resolved "https://registry.npmjs.org/kind-of/-/kind-of-6.0.3.tgz"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-klaro@^0.7.18:
-  version "0.7.18"
-  resolved "https://registry.npmjs.org/klaro/-/klaro-0.7.18.tgz"
-  integrity sha512-Q5nehkGeZuFerisW4oeeB1ax6dHDszWckR70EcxKvhFiJQ61CM0WBSo20yLbdvz8N9MFsOFu4RNCO9JsbkCxgQ==
+klaro@^0.7.21:
+  version "0.7.21"
+  resolved "https://registry.yarnpkg.com/klaro/-/klaro-0.7.21.tgz#2ecaccb058ef7660fe21563b80a0c367d80b9c8a"
+  integrity sha512-PbF23xYGPObhg2GL0yqskPqRTziv3RTwVi9QZiBEB/BVulS/e1fFprgRiW6f4utPjb61q/16fWgPwHuuXJZYRA==
+  dependencies:
+    "@babel/eslint-parser" "^7.23.10"
+    sass "^1.25.0"
+    webpack-merge "^5.10.0"
 
 kleur@^3.0.3:
   version "3.0.3"
@@ -10331,7 +10356,7 @@ sass@1.58.1:
     immutable "^4.0.0"
     source-map-js ">=0.6.2 <2.0.0"
 
-sass@~1.80.2:
+sass@^1.25.0, sass@~1.80.2:
   version "1.80.2"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.80.2.tgz#9d13d85a4f81bb17e09d1dc3e1c0944f7fd7315e"
   integrity sha512-9wXY8cGBlUmoUoT+vwOZOFCiS+naiWVjqlreN9ar9PudXbGwlMTFwCR5K9kB4dFumJ6ib98wZyAObJKsWf1nAA==
@@ -10423,7 +10448,7 @@ semver@^5.3.0, semver@^5.6.0, semver@^5.7.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.2.tgz#48d55db737c3287cd4835e17fa13feace1c41ef8"
   integrity sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==
 
-semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.3.0:
+semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.3.0, semver@^6.3.1:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
@@ -11916,12 +11941,21 @@ webpack-dev-server@^4.13.3:
     webpack-dev-middleware "^5.3.1"
     ws "^8.13.0"
 
-webpack-merge@5.8.0, webpack-merge@^5.7.3:
+webpack-merge@5.8.0:
   version "5.8.0"
   resolved "https://registry.npmjs.org/webpack-merge/-/webpack-merge-5.8.0.tgz"
   integrity sha512-/SaI7xY0831XwP6kzuwhKWVKDP9t1QY1h65lAFLbZqMPIuYcD9QAW4u9STIbU9kaJbPBB/geU/gLr1wDjOhQ+Q==
   dependencies:
     clone-deep "^4.0.1"
+    wildcard "^2.0.0"
+
+webpack-merge@^5.10.0, webpack-merge@^5.7.3:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-5.10.0.tgz#a3ad5d773241e9c682803abf628d4cd62b8a4177"
+  integrity sha512-+4zXKdx7UnO+1jaN4l2lHVD+mFvnlZQP/6ljaJVb4SZiwIKeUnrT5l0gkT8z+n4hKpC+jpOv6O9R+gLtag7pSA==
+  dependencies:
+    clone-deep "^4.0.1"
+    flat "^5.0.2"
     wildcard "^2.0.0"
 
 webpack-sources@^1.4.3:
