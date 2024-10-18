@@ -8948,10 +8948,10 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-pem@1.14.7:
-  version "1.14.7"
-  resolved "https://registry.yarnpkg.com/pem/-/pem-1.14.7.tgz#dae9831ee5fa7c88547327fb7738898cd76412c6"
-  integrity sha512-tN5+bp2/Yh/2yuv/JFXXHXrd5RVfsEBwlV7BshuYPX0OJWbR/MeAr89CKWcIp/W0cEnaTPT44haXyaEz1T6XeA==
+pem@1.14.8:
+  version "1.14.8"
+  resolved "https://registry.yarnpkg.com/pem/-/pem-1.14.8.tgz#9c414bee991b138a24617f423059e809d01aa720"
+  integrity sha512-ZpbOf4dj9/fQg5tQzTqv4jSKJQsK7tPl0pm4/pvPcZVjZcJg7TMfr3PBk6gJH97lnpJDu4e4v8UUqEz5daipCg==
   dependencies:
     es6-promisify "^7.0.0"
     md5 "^2.3.0"
