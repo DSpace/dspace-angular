@@ -1,6 +1,6 @@
 <h2 class="h4">
     {{relationshipMessageKey$ | async | translate}}
-    <button class="ml-2 btn btn-success" [disabled]="(hasChanges | async)" (click)="openLookup()">
+    <button class="ml-2 btn btn-success" [dsBtnDisabled]="(hasChanges | async)" (click)="openLookup()">
         <i class="fas fa-plus"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.relationships.edit.buttons.add" | translate}}</span>
     </button>
