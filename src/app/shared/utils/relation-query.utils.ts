@@ -1,3 +1,4 @@
+import { Item } from '../../core/shared/item.model';
 import { Relationship } from '../../core/shared/item-relationships/relationship.model';
 import {
   followLink,
@@ -24,19 +25,22 @@ export function getFilterByRelation(relationType: string, itemUUID: string): str
 }
 
 /**
- * Creates links to follow for the leftItem and rightItem. Links will include
- * @param showThumbnail thumbnail image configuration
- * @returns followLink array
+ * Creates links to follow for the leftItem and rightItem. Optionally additional links for `thumbnail` & `accessStatus`
+ * can be embedded as well.
+ *
+ * @param showThumbnail    Whether the `thumbnail` needs to be embedded on the {@link Item}
+ * @param showAccessStatus Whether the `accessStatus` needs to be embedded on the {@link Item}
  */
-export function itemLinksToFollow(showThumbnail: boolean):  FollowLinkConfig<Relationship>[] {
-  let linksToFollow: FollowLinkConfig<Relationship>[];
+export function itemLinksToFollow(showThumbnail: boolean, showAccessStatus: boolean):  FollowLinkConfig<Relationship>[] {
+  const conditionalLinksToFollow: FollowLinkConfig<Item>[] = [];
   if (showThumbnail) {
-    linksToFollow = [
-      followLink('leftItem',{}, followLink('thumbnail')),
-      followLink('rightItem',{}, followLink('thumbnail')),
-    ];
-  } else {
-    linksToFollow = [followLink('leftItem'), followLink('rightItem')];
+    conditionalLinksToFollow.push(followLink<Item>('thumbnail'));
   }
-  return linksToFollow;
+  if (showAccessStatus) {
+    conditionalLinksToFollow.push(followLink<Item>('accessStatus'));
+  }
+  return [
+    followLink('leftItem', undefined, ...conditionalLinksToFollow),
+    followLink('rightItem', undefined, ...conditionalLinksToFollow),
+  ];
 }
