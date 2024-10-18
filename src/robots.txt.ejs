@@ -18,7 +18,8 @@ Disallow: /profile
 Disallow: /workflowitems
 # Crawlers should be able to access entity pages, but not the facet search links present on entity pages
 Disallow: /entities/*?f
-# do not crawl REST API endpoints and HAL browser
+# do not crawl REST API endpoints and HAL browser (with the exception of the bitstream download endpoint)
+Allow: /server/api/core/bitstreams/*
 Disallow: /server/*
 # do not crawl health status
 Disallow: /app/health
