@@ -556,9 +556,7 @@ export class SearchComponent implements OnDestroy, OnInit {
           if (this.trackStatistics) {
             this.service.trackSearch(searchOptionsWithHidden, results.payload);
           }
-          if (results.payload?.page?.length > 0) {
-            this.resultFound.emit(results.payload);
-          }
+          this.resultFound.emit(results.payload);
         }
         this.resultsRD$.next(results);
       });
