@@ -6,7 +6,7 @@
             *ngIf="(processesRD$ | async) as processesRD">
         {{processesRD?.payload?.totalElements}}
       </span>
-      <span class="ml-2 toggle-icon">
+      <span class="ms-2 toggle-icon">
         <i class="fas" [ngClass]="collapse.collapsed ? 'fa-angle-right' : 'fa-angle-down'"></i>
       </span>
     </h2>
