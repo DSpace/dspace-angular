@@ -13,9 +13,9 @@
 
           <div>
             <div class="d-flex align-items-center">
-              <h4 class="mb-0 me-4">
+              <h2 class="h3 mb-0 mr-4">
                 {{ 'access-control-item-header-toggle' | translate }}
-              </h4>
+              </h2>
               <ui-switch
                 [ariaLabel]="(state.bitstream.toggleStatus ? 'access-control-item-toggle.disable' : 'access-control-item-toggle.enable') | translate"
                 [(ngModel)]="state.item.toggleStatus"
@@ -65,9 +65,9 @@
         <div class="col-12 col-md-6 d-flex flex-column justify-content-between">
           <div>
             <div class="d-flex align-items-center">
-              <h4 class="mb-0 me-4">
+              <h2 class="h3 mb-0 mr-4">
                 {{'access-control-bitstream-header-toggle' | translate}}
-              </h4>
+              </h2>
               <ui-switch
                 [ariaLabel]="(state.bitstream.toggleStatus ? 'access-control-bitstream-toggle.disable' : 'access-control-bitstream-toggle.enable') | translate"
                 [(ngModel)]="state.bitstream.toggleStatus"
