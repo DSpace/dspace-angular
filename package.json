@@ -159,7 +159,7 @@
     "ngx-pagination": "6.0.3",
     "ngx-ui-switch": "^14.1.0",
     "nouislider": "^15.7.1",
-    "pem": "1.14.7",
+    "pem": "1.14.8",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.0",
     "sanitize-html": "^2.12.1",
