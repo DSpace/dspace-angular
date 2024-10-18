@@ -1,19 +1,19 @@
 <header id="main-site-header">
-  <div class="container h-100 d-flex flex-row flex-wrap align-items-center justify-content-between gapx-3 gapy-2" id="main-site-header-container">
+  <div class="container h-100 d-flex flex-row align-items-center justify-content-between gapx-3 gapy-2" id="main-site-header-container">
     <!-- Logo and navbar wrapper -->
     <div id="header-left"
          [attr.role]="(isMobile$ | async) ? 'navigation' : 'presentation'"
          [attr.aria-label]="(isMobile$ | async) ? ('nav.main.description' | translate) : null"
-         class="h-100 flex-fill d-flex flex-row flex-nowrap justify-content-start align-items-center gapx-3">
+         class="h-100 flex-fill d-flex flex-row flex-nowrap justify-content-start align-items-center gapx-3 flex-grow-1">
       <a class="d-block my-2 my-md-0" routerLink="/home" [attr.aria-label]="'home.title' | translate">
         <img id="header-logo" src="assets/images/dspace-cris-logo.png" [attr.alt]="'menu.header.image.logo' | translate"/>
       </a>
-      <nav *ngIf="!(isMobile$ | async)" class="navbar navbar-expand p-0 align-items-stretch align-self-stretch" id="desktop-navbar" [attr.aria-label]="'nav.main.description' | translate">
+      <nav *ngIf="!(isMobile$ | async)" class="navbar navbar-expand p-0 align-items-stretch align-self-stretch flex-grow-1 flex-shrink-1" id="desktop-navbar" [attr.aria-label]="'nav.main.description' | translate">
         <ds-themed-navbar></ds-themed-navbar>
       </nav>
     </div>
     <!-- Search bar and other menus -->
-    <div id="header-right" class="h-100 d-flex flex-row flex-nowrap justify-content-end align-items-center gapx-1 ml-auto">
+    <div id="header-right" class="h-100 d-flex flex-row flex-nowrap flex-shrink-0 justify-content-end align-items-center gapx-1 ml-auto">
       <ds-themed-search-navbar></ds-themed-search-navbar>
       <div role="menubar" class="h-100 d-flex flex-row flex-nowrap align-items-center gapx-1">
         <ds-themed-lang-switch></ds-themed-lang-switch>
