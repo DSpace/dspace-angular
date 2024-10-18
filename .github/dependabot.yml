@@ -45,19 +45,109 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together all patch version updates for @typescript-eslint in a single PR
-      typescript-eslint:
+      # Group together all patch version updates for eslint in a single PR
+      eslint:
         applies-to: version-updates
         patterns:
         - "@typescript-eslint*"
+        - "eslint*"
         update-types:
         - "minor"
         - "patch"
-      # Group together all security updates for @typescript-eslint.
-      typescript-eslint-security:
+      # Group together all security updates for eslint.
+      eslint-security:
         applies-to: security-updates
         patterns:
         - "@typescript-eslint*"
+        - "eslint*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any @types version updates
+      types:
+        applies-to: version-updates
+        patterns:
+        - "@types/*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any @types security updates
+      types:
+        applies-to: security-updates
+        patterns:
+        - "@types/*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any testing related version updates
+      testing:
+        applies-to: version-updates
+        patterns:
+        - "@cypress*"
+        - "cypress*"
+        - "jasmine*"
+        - "karma*"
+        - "ng-mocks"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any testing related security updates
+      testing:
+        applies-to: security-updates
+        patterns:
+        - "@cypress*"
+        - "cypress*"
+        - "jasmine*"
+        - "karma*"
+        - "ng-mocks"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any postcss related version updates
+      postcss:
+        applies-to: version-updates
+        patterns:
+        - "postcss*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any postcss related security updates
+      postcss:
+        applies-to: security-updates
+        patterns:
+        - "postcss*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any sass related version updates
+      sass:
+        applies-to: version-updates
+        patterns:
+        - "sass*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any sass related security updates
+      sass:
+        applies-to: version-updates
+        patterns:
+        - "sass*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any webpack related version updates
+      webpack:
+        applies-to: version-updates
+        patterns:
+        - "webpack*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any webpack related seurity updates
+      webpack:
+        applies-to: security-updates
+        patterns:
+        - "webpack*"
         update-types:
         - "minor"
         - "patch"
@@ -109,19 +199,109 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together all patch version updates for @typescript-eslint in a single PR
-      typescript-eslint:
+      # Group together all patch version updates for eslint in a single PR
+      eslint:
         applies-to: version-updates
         patterns:
         - "@typescript-eslint*"
+        - "eslint*"
         update-types:
         - "minor"
         - "patch"
-      # Group together all security updates for @typescript-eslint.
-      typescript-eslint-security:
+      # Group together all security updates for eslint.
+      eslint-security:
         applies-to: security-updates
         patterns:
         - "@typescript-eslint*"
+        - "eslint*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any @types version updates
+      types:
+        applies-to: version-updates
+        patterns:
+        - "@types/*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any @types security updates
+      types:
+        applies-to: security-updates
+        patterns:
+        - "@types/*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any testing related version updates
+      testing:
+        applies-to: version-updates
+        patterns:
+        - "@cypress*"
+        - "cypress*"
+        - "jasmine*"
+        - "karma*"
+        - "ng-mocks"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any testing related security updates
+      testing:
+        applies-to: security-updates
+        patterns:
+        - "@cypress*"
+        - "cypress*"
+        - "jasmine*"
+        - "karma*"
+        - "ng-mocks"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any postcss related version updates
+      postcss:
+        applies-to: version-updates
+        patterns:
+        - "postcss*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any postcss related security updates
+      postcss:
+        applies-to: security-updates
+        patterns:
+        - "postcss*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any sass related version updates
+      sass:
+        applies-to: version-updates
+        patterns:
+        - "sass*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any sass related security updates
+      sass:
+        applies-to: version-updates
+        patterns:
+        - "sass*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any webpack related version updates
+      webpack:
+        applies-to: version-updates
+        patterns:
+        - "webpack*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any webpack related seurity updates
+      webpack:
+        applies-to: security-updates
+        patterns:
+        - "webpack*"
         update-types:
         - "minor"
         - "patch"
@@ -173,19 +353,109 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together all patch version updates for @typescript-eslint in a single PR
-      typescript-eslint:
+      # Group together all patch version updates for eslint in a single PR
+      eslint:
         applies-to: version-updates
         patterns:
         - "@typescript-eslint*"
+        - "eslint*"
         update-types:
         - "minor"
         - "patch"
-      # Group together all security updates for @typescript-eslint.
-      typescript-eslint-security:
+      # Group together all security updates for eslint.
+      eslint-security:
         applies-to: security-updates
         patterns:
         - "@typescript-eslint*"
+        - "eslint*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any @types version updates
+      types:
+        applies-to: version-updates
+        patterns:
+        - "@types/*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any @types security updates
+      types:
+        applies-to: security-updates
+        patterns:
+        - "@types/*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any testing related version updates
+      testing:
+        applies-to: version-updates
+        patterns:
+        - "@cypress*"
+        - "cypress*"
+        - "jasmine*"
+        - "karma*"
+        - "ng-mocks"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any testing related security updates
+      testing:
+        applies-to: security-updates
+        patterns:
+        - "@cypress*"
+        - "cypress*"
+        - "jasmine*"
+        - "karma*"
+        - "ng-mocks"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any postcss related version updates
+      postcss:
+        applies-to: version-updates
+        patterns:
+        - "postcss*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any postcss related security updates
+      postcss:
+        applies-to: security-updates
+        patterns:
+        - "postcss*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any sass related version updates
+      sass:
+        applies-to: version-updates
+        patterns:
+        - "sass*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any sass related security updates
+      sass:
+        applies-to: version-updates
+        patterns:
+        - "sass*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any webpack related version updates
+      webpack:
+        applies-to: version-updates
+        patterns:
+        - "webpack*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together any webpack related seurity updates
+      webpack:
+        applies-to: security-updates
+        patterns:
+        - "webpack*"
         update-types:
         - "minor"
         - "patch"
