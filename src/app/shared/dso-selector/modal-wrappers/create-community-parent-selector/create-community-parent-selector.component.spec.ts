@@ -7,13 +7,16 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { Community } from '../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
@@ -38,7 +41,9 @@ describe('CreateCommunityParentSelectorComponent', () => {
   const communityRD = createSuccessfulRemoteDataObject(community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const createPath = '/communities/create';
-
+  const mockAuthorizationDataService = jasmine.createSpyObj('authorizationService', {
+    isAuthorized: observableOf(true),
+  });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), CreateCommunityParentSelectorComponent],
@@ -59,6 +64,7 @@ describe('CreateCommunityParentSelectorComponent', () => {
         {
           provide: Router, useValue: router,
         },
+        { provide: AuthorizationDataService, useValue: mockAuthorizationDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -84,5 +90,21 @@ describe('CreateCommunityParentSelectorComponent', () => {
     component.navigate(community);
     expect(router.navigate).toHaveBeenCalledWith([createPath], { queryParams: { parent: community.uuid } });
   });
+
+  it('should show the div when user is an admin', (waitForAsync(() => {
+    component.isAdmin$ = observableOf(true);
+    fixture.detectChanges();
+
+    const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));
+    expect(divElement).toBeTruthy();
+  })));
+
+  it('should hide the div when user is not an admin', (waitForAsync(() => {
+    component.isAdmin$ = observableOf(false);
+    fixture.detectChanges();
+
+    const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));
+    expect(divElement).toBeFalsy();
+  })));
 
 });
