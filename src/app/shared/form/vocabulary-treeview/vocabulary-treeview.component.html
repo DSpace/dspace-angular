@@ -2,20 +2,24 @@
 <div class="treeview-header row mb-1">
   <div class="col-12">
     <div class="input-group">
-      <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()"
+      <input #searchInput type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()"
              [attr.aria-label]="'vocabulary-treeview.search.form.search-placeholder' | translate"
              [placeholder]="'vocabulary-treeview.search.form.search-placeholder' | translate">
       <div class="input-group-append" id="button-addon4">
-        <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
+        <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()"
+                [attr.aria-label]="'vocabulary-treeview.search.form.search' | translate">
           {{'vocabulary-treeview.search.form.search' | translate}}
         </button>
-        <button class="btn btn-outline-secondary" type="button" (click)="reset()">
+        <button class="btn btn-outline-secondary" type="button" (click)="reset()"
+                [attr.aria-label]="'vocabulary-treeview.search.form.reset' | translate">
           {{'vocabulary-treeview.search.form.reset' | translate}}
         </button>
-        <button *ngIf="showAdd && this.vocabularyOptions.closed" class="btn btn-outline-primary" type="button" (click)="add()">
+        <button *ngIf="showAdd && this.vocabularyOptions.closed" class="btn btn-outline-primary" type="button" (click)="add()"
+                [attr.aria-label]="'vocabulary-treeview.search.form.add' | translate">
           {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
-        <button class="btn btn-outline-primary" type="button" (click)="add()" [disabled]="this.vocabularyOptions.closed">
+        <button class="btn btn-outline-primary" type="button" (click)="add()" [disabled]="this.vocabularyOptions.closed"
+                [attr.aria-label]="'vocabulary-treeview.search.form.add' | translate">
           {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
       </div>
@@ -24,9 +28,11 @@
 </div>
 <div class="treeview-container">
   <ds-loading *ngIf="loading | async" [showMessage]="false"></ds-loading>
-  <h2 *ngIf="(loading | async) !== true && dataSource.data.length === 0" class="h4 text-center text-muted mt-4" >
-    <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
-  </h2>
+  <div aria-live="polite">
+    <h2 *ngIf="(loading | async) !== true && dataSource.data.length === 0" class="h4 text-center text-muted mt-4" >
+      <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
+    </h2>
+  </div>
   <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <!-- Leaf node -->
     <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="d-flex">
@@ -91,13 +97,15 @@
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMore" cdkTreeNodePadding>
-      <button class="btn btn-outline-secondary btn-sm" (click)="loadMore(node.loadMoreParentItem)">
+      <button class="btn btn-outline-secondary btn-sm" (click)="loadMore(node.loadMoreParentItem)"
+              [attr.aria-label]="'vocabulary-treeview.load-more' | translate">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
 
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isLoadMoreRoot">
-      <button class="btn btn-outline-secondary btn-sm" (click)="loadMoreRoot(node)">
+      <button class="btn btn-outline-secondary btn-sm" (click)="loadMoreRoot(node)"
+              [attr.aria-label]="'vocabulary-treeview.load-more' | translate">
         {{'vocabulary-treeview.load-more' | translate}}...
       </button>
     </cdk-tree-node>
