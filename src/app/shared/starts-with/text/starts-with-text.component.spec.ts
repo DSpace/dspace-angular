@@ -74,8 +74,8 @@ describe('StartsWithTextComponent', () => {
       expect(comp.startsWith).toEqual(expectedValue);
     });
 
-    it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
+    it('should add a startsWith query parameter and clear all others', () => {
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue }, undefined, { queryParamsHandling: '' });
     });
   });
 
