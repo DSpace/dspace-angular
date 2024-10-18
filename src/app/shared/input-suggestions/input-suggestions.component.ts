@@ -186,7 +186,7 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
    * @param {KeyboardEvent} event The keyboard event
    */
   onKeydown(event: KeyboardEvent) {
-    if (event.key !== 'Enter') {
+    if (event.key !== 'Enter' && event.key !== 'Tab') {
       this.queryInput.nativeElement.focus();
     }
   }
