@@ -79,7 +79,7 @@ export class OpenaireBrokerEventRestService extends IdentifiableDataService<Open
    */
   public getEventsByTopic(topic: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<OpenaireBrokerEventObject>[]): Observable<RemoteData<PaginatedList<OpenaireBrokerEventObject>>> {
     options.searchParams = [
-      new RequestParam('topic', topic),
+      new RequestParam('topic', topic, false),
     ];
     return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);
   }

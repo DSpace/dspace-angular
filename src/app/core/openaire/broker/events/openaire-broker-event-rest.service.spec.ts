@@ -129,7 +129,7 @@ describe('OpenaireBrokerEventRestService', () => {
     it('should proxy the call to dataservice.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
-          new RequestParam('topic', topic)
+          new RequestParam('topic', topic, false)
         ]
       };
       service.getEventsByTopic(topic);

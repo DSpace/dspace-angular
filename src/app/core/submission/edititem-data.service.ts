@@ -57,7 +57,7 @@ export class EditItemDataService extends IdentifiableDataService<EditItem> {
   searchEditModesById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<EditItemMode>>> {
     const options = new FindListOptions();
     options.searchParams = [
-      new RequestParam('uuid', id),
+      new RequestParam('uuid', id, false),
     ];
     return this.searchData.searchBy(this.searchById, options, useCachedVersionIfAvailable, reRequestOnStale);
   }
