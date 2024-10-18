@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Community } from '../../../core/shared/community.model';
@@ -23,6 +24,7 @@ export class CommunityListElementComponent extends AbstractListableElementCompon
 
   constructor(
     public dsoNameService: DSONameService,
+    public translateService: TranslateService,
   ) {
     super(dsoNameService);
   }
