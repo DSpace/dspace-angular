@@ -15,6 +15,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { switchMap } from 'rxjs/operators';
 
@@ -54,6 +55,7 @@ import { ItemEditBitstreamDragHandleComponent } from '../../item-edit-bitstream-
     CdkDragHandle,
     ThemedLoadingComponent,
     TranslateModule,
+    NgbTooltipModule,
   ],
   standalone: true,
 })
