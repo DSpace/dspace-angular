@@ -1,13 +1,13 @@
 <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="border-bottom pb-2">{{'quality-assurance.title'| translate}}</h2>
+        <h1 class="border-bottom pb-2">{{'quality-assurance.title'| translate}}</h1>
         <ds-alert [type]="'alert-info'" [content]="'quality-assurance.source.description'"></ds-alert>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <h3 class="h4 border-bottom pb-2">{{'quality-assurance.source'| translate}}</h3>
+        <h2 class="h4 border-bottom pb-2">{{'quality-assurance.source'| translate}}</h2>
 
         <ds-loading class="container" *ngIf="(isSourceLoading() | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
         <ds-pagination *ngIf="(isSourceLoading() | async) !== true"
