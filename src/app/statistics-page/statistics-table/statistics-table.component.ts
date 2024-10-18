@@ -58,6 +58,11 @@ export class StatisticsTableComponent implements OnInit {
    */
   headers: string[];
 
+  /**
+   * Object header label
+   */
+  objectHeaderLabel: string;
+
   constructor(
     protected dsoService: DSpaceObjectDataService,
     protected nameService: DSONameService,
@@ -71,6 +76,7 @@ export class StatisticsTableComponent implements OnInit {
     if (this.hasData) {
       this.headers = Object.keys(this.report.points[0].values);
     }
+    this.objectHeaderLabel = this.getObjectHeaderLabel(this.report.reportType);
   }
 
   /**
@@ -89,6 +95,27 @@ export class StatisticsTableComponent implements OnInit {
       case 'topCountries':
       default:
         return of(point.label);
+    }
+  }
+
+  /**
+   * Defines a dynamic label for the object column
+   * @param reportType
+   */
+  getObjectHeaderLabel(reportType: string): string {
+    switch (reportType) {
+      case 'TotalVisits':
+        return this.translateService.instant('statistics.table.header.TotalVisits');
+      case 'TotalVisitsPerMonth':
+        return this.translateService.instant('statistics.table.header.TotalVisitsPerMonth');
+      case 'TotalDownloads':
+        return this.translateService.instant('statistics.table.header.TotalDownloads');
+      case 'TopCities':
+        return this.translateService.instant('statistics.table.header.TopCities');
+      case 'topCountries':
+        return this.translateService.instant('statistics.table.header.topCountries');
+      default:
+        return '';
     }
   }
 }
