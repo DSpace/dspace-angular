@@ -30,10 +30,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { PaginationService } from 'ngx-pagination';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { RouteService } from '../../../core/services/route.service';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
@@ -85,7 +82,7 @@ describe('LdnServiceFormEditComponent', () => {
 
 
   const translateServiceStub = {
-    get: () => of('translated-text'),
+    get: () => observableOf('translated-text'),
     instant: () => 'translated-text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
@@ -100,7 +97,7 @@ describe('LdnServiceFormEditComponent', () => {
     });
 
     ldnItemfiltersService = {
-      findAll: () => of(['item1', 'item2']),
+      findAll: () => observableOf(['item1', 'item2']),
     };
     cdRefStub = Object.assign({
       detectChanges: () => fixture.detectChanges(),

@@ -2,7 +2,7 @@ import {
   Angulartics2GoogleAnalytics,
   Angulartics2GoogleGlobalSiteTag,
 } from 'angulartics2';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
@@ -73,7 +73,7 @@ describe('GoogleAnalyticsService', () => {
       body: bodyElementSpy,
     });
 
-    klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+    klaroServiceSpy.getSavedPreferences.and.returnValue(observableOf({
       GOOGLE_ANALYTICS_KLARO_KEY: true,
     }));
 
@@ -97,7 +97,7 @@ describe('GoogleAnalyticsService', () => {
           findByPropertyName: createFailedRemoteDataObject$(),
         });
 
-        klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+        klaroServiceSpy.getSavedPreferences.and.returnValue(observableOf({
           GOOGLE_ANALYTICS_KLARO_KEY: true,
         }));
 
@@ -120,7 +120,7 @@ describe('GoogleAnalyticsService', () => {
       describe('when the tracking id is empty', () => {
         beforeEach(() => {
           configSpy = createConfigSuccessSpy();
-          klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+          klaroServiceSpy.getSavedPreferences.and.returnValue(observableOf({
             [GOOGLE_ANALYTICS_KLARO_KEY]: true,
           }));
           service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);
@@ -141,7 +141,7 @@ describe('GoogleAnalyticsService', () => {
       describe('when google-analytics cookie preferences are not existing', () => {
         beforeEach(() => {
           configSpy = createConfigSuccessSpy(trackingIdV4TestValue);
-          klaroServiceSpy.getSavedPreferences.and.returnValue(of({}));
+          klaroServiceSpy.getSavedPreferences.and.returnValue(observableOf({}));
           service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);
         });
 
@@ -161,7 +161,7 @@ describe('GoogleAnalyticsService', () => {
       describe('when google-analytics cookie preferences are set to false', () => {
         beforeEach(() => {
           configSpy = createConfigSuccessSpy(trackingIdV4TestValue);
-          klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+          klaroServiceSpy.getSavedPreferences.and.returnValue(observableOf({
             [GOOGLE_ANALYTICS_KLARO_KEY]: false,
           }));
           service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);
@@ -183,7 +183,7 @@ describe('GoogleAnalyticsService', () => {
 
         beforeEach(() => {
           configSpy = createConfigSuccessSpy(trackingIdV4TestValue);
-          klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+          klaroServiceSpy.getSavedPreferences.and.returnValue(observableOf({
             [GOOGLE_ANALYTICS_KLARO_KEY]: true,
           }));
           service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);
@@ -220,7 +220,7 @@ describe('GoogleAnalyticsService', () => {
 
         beforeEach(() => {
           configSpy = createConfigSuccessSpy(trackingIdV3TestValue);
-          klaroServiceSpy.getSavedPreferences.and.returnValue(of({
+          klaroServiceSpy.getSavedPreferences.and.returnValue(observableOf({
             [GOOGLE_ANALYTICS_KLARO_KEY]: true,
           }));
           service = new GoogleAnalyticsService(googleAnalyticsSpy, googleTagManagerSpy, klaroServiceSpy, configSpy, documentSpy);

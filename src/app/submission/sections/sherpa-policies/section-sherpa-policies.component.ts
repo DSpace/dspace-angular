@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
-  of,
+  of as observableOf,
   Subscription,
 } from 'rxjs';
 
@@ -136,7 +136,7 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
    *     the section status
    */
   protected getSectionStatus(): Observable<boolean> {
-    return of(true);
+    return observableOf(true);
   }
 
   /**

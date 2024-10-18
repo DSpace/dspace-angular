@@ -28,7 +28,7 @@ import {
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import {
   APP_CONFIG,
@@ -215,7 +215,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.configMetadataForm = configMetadataForm;
       comp.formMetadata = formMetadataMock;
 
-      formService.isValid.and.returnValue(of(true));
+      formService.isValid.and.returnValue(observableOf(true));
     });
 
     afterEach(() => {
@@ -306,8 +306,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny.pathCombiner = pathCombiner;
       compAsAny.isPrimary = null;
       formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(of(true));
-      formService.getFormData.and.returnValue(of(mockFileFormData));
+      formService.isValid.and.returnValue(observableOf(true));
+      formService.getFormData.and.returnValue(observableOf(mockFileFormData));
 
       const response = [
         Object.assign(mockSubmissionObject, {
@@ -319,7 +319,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
           },
         }),
       ];
-      operationsService.jsonPatchByResourceID.and.returnValue(of(response));
+      operationsService.jsonPatchByResourceID.and.returnValue(observableOf(response));
 
       const accessConditionsToSave = [
         { name: 'openaccess' },
@@ -364,8 +364,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny.fileData = fileData;
       compAsAny.pathCombiner = pathCombiner;
       formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(of(true));
-      formService.getFormData.and.returnValue(of(noAccessConditionsMock));
+      formService.isValid.and.returnValue(observableOf(true));
+      formService.getFormData.and.returnValue(observableOf(noAccessConditionsMock));
       const response = [
         Object.assign(mockSubmissionObject, {
           sections: {
@@ -375,7 +375,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
           },
         }),
       ];
-      operationsService.jsonPatchByResourceID.and.returnValue(of(response));
+      operationsService.jsonPatchByResourceID.and.returnValue(observableOf(response));
       comp.saveBitstreamData();
       tick();
       expect(uploadService.updateFileData).toHaveBeenCalled();
@@ -385,7 +385,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny.formRef = { formGroup: null };
       compAsAny.pathCombiner = pathCombiner;
       formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(of(false));
+      formService.isValid.and.returnValue(observableOf(false));
       comp.saveBitstreamData();
       tick();
 

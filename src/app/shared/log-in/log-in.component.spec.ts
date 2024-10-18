@@ -18,7 +18,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
@@ -60,7 +60,7 @@ describe('LogInComponent', () => {
       getCurrentRoute: {},
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: of(true),
+      isAuthorized: observableOf(true),
     });
 
     // refine the test module by declaring the test component

@@ -9,10 +9,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -160,7 +157,7 @@ describe('WorkspaceitemDataService test', () => {
         scheduler.schedule(() => service.findByItem('1234-1234', true, true, pageInfo));
         scheduler.flush();
         const searchUrl$ =
-          of('https://rest.api/rest/api/submission/workspaceitems/search/item')
+          observableOf('https://rest.api/rest/api/submission/workspaceitems/search/item')
             .pipe(map(href => service.buildHrefFromFindOptions(href, { searchParams: [new RequestParam('uuid', '1234-1234')] }, [])));
         searchUrl$.subscribe((url) => {
           expect(url).toEqual('https://rest.api/rest/api/submission/workspaceitems/search/item?uuid=1234-1234');

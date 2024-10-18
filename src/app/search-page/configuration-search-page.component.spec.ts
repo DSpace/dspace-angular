@@ -8,7 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { RouteService } from '../core/services/route.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
@@ -53,7 +53,7 @@ describe('ConfigurationSearchPageComponent', () => {
 
     routeService = TestBed.inject(RouteService);
     routeService.setParameter = createSpy('setParameter');
-    routeService.getRouteParameterValue = createSpy('getRouteParameterValue').and.returnValue(of(CONFIGURATION));
+    routeService.getRouteParameterValue = createSpy('getRouteParameterValue').and.returnValue(observableOf(CONFIGURATION));
 
     fixture.detectChanges();
 

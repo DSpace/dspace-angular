@@ -5,7 +5,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { LiveRegionComponent } from './live-region.component';
 import { LiveRegionService } from './live-region.service';
@@ -16,7 +16,7 @@ describe('liveRegionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     liveRegionService = jasmine.createSpyObj('liveRegionService', {
-      getMessages$: of(['message1', 'message2']),
+      getMessages$: observableOf(['message1', 'message2']),
       getLiveRegionVisibility: false,
       setLiveRegionVisibility: undefined,
     });

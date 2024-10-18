@@ -13,7 +13,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 import { Item } from '../../core/shared/item.model';
@@ -43,21 +43,21 @@ describe('AccessControlFormContainerComponent', () => {
   // Mock dependencies
   const mockBulkAccessControlService = {
     createPayloadFile: jasmine.createSpy('createPayloadFile').and.returnValue({ file: 'mocked-file' }),
-    executeScript: jasmine.createSpy('executeScript').and.returnValue(of('success')),
+    executeScript: jasmine.createSpy('executeScript').and.returnValue(observableOf('success')),
   };
 
   const mockBulkAccessConfigDataService = {
-    findByName: jasmine.createSpy('findByName').and.returnValue(of({ payload: { options: [] } })),
+    findByName: jasmine.createSpy('findByName').and.returnValue(observableOf({ payload: { options: [] } })),
   };
 
   const mockSelectableListService = {
-    getSelectableList: jasmine.createSpy('getSelectableList').and.returnValue(of({ selection: [] })),
+    getSelectableList: jasmine.createSpy('getSelectableList').and.returnValue(observableOf({ selection: [] })),
     deselectAll: jasmine.createSpy('deselectAll'),
   };
 
   const mockNgbModal = {
     open: jasmine.createSpy('open').and.returnValue(
-      { componentInstance: {}, closed: of({}) } as NgbModalRef,
+      { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
     ),
   };
 

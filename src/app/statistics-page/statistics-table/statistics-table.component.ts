@@ -14,7 +14,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -88,7 +88,7 @@ export class StatisticsTableComponent implements OnInit {
       case 'TopCities':
       case 'topCountries':
       default:
-        return of(point.label);
+        return observableOf(point.label);
     }
   }
 }

@@ -21,7 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -140,7 +140,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
   });
 
   const sectionsService: any = jasmine.createSpyObj('sectionsService', {
-    isSectionTypeAvailable: of(true),
+    isSectionTypeAvailable: observableOf(true),
   });
 
   beforeEach(waitForAsync(() => {
@@ -266,7 +266,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
       });
 
       it('the dropdown menu should be disabled', () => {
-        comp.available$ = of(false);
+        comp.available$ = observableOf(false);
         fixture.detectChanges();
         const dropDown = fixture.debugElement.query(By.css('#collectionControlsDropdownMenu'));
         expect(dropDown).toBeFalsy();
@@ -292,7 +292,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
 
       it('should change collection properly', () => {
         spyOn(comp.collectionChange, 'emit').and.callThrough();
-        jsonPatchOpServiceStub.jsonPatchByResourceID.and.returnValue(of(submissionRestResponse));
+        jsonPatchOpServiceStub.jsonPatchByResourceID.and.returnValue(observableOf(submissionRestResponse));
         submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$(submissionRestResponse[0]));
         comp.ngOnInit();
         comp.onSelect(mockCollectionList[1]);

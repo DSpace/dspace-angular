@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   map,
@@ -88,7 +88,7 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
         } else {
           this.processing$.next(false);
           this.handleReloadableActionResponse(res.hasSucceeded, null);
-          return of(null);
+          return observableOf(null);
         }
       }));
   }
@@ -144,9 +144,9 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
     return this.reloadObjectExecution().pipe(
       switchMap((res) => {
         if (res instanceof RemoteData) {
-          return of(res).pipe(getFirstCompletedRemoteData(), map((completed) => completed.payload));
+          return observableOf(res).pipe(getFirstCompletedRemoteData(), map((completed) => completed.payload));
         } else {
-          return of(res);
+          return observableOf(res);
         }
       })).pipe(map((dso) => {
       return dso ? this.convertReloadedObject(dso) : dso;

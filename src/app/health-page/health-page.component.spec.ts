@@ -9,7 +9,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
 import {
@@ -29,13 +29,13 @@ describe('HealthPageComponent', () => {
     getInfo: jasmine.createSpy('getInfo'),
   });
 
-  const healthRestResponse$ = of({
+  const healthRestResponse$ = observableOf({
     payload: HealthResponseObj,
     statusCode: 200,
     statusText: 'OK',
   } as RawRestResponse);
 
-  const healthInfoRestResponse$ = of({
+  const healthInfoRestResponse$ = observableOf({
     payload: HealthInfoResponseObj,
     statusCode: 200,
     statusText: 'OK',

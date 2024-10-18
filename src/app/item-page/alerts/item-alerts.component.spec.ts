@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -137,7 +137,7 @@ describe('ItemAlertsComponent', () => {
     beforeEach(() => {
       item =  itemMock;
       component.item = item;
-      (correctionTypeDataService.findByItem).and.returnValue(of(correctionRD));
+      (correctionTypeDataService.findByItem).and.returnValue(observableOf(correctionRD));
 
       testScheduler = new TestScheduler((actual, expected) => {
         expect(actual).toEqual(expected);

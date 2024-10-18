@@ -11,7 +11,7 @@ import { UntypedFormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
@@ -34,11 +34,11 @@ describe('FeedbackFormComponent', () => {
   let de: DebugElement;
   const notificationService = new NotificationsServiceStub();
   const feedbackDataServiceStub = jasmine.createSpyObj('feedbackDataService', {
-    create: of(new Feedback()),
+    create: observableOf(new Feedback()),
   });
   const authService: AuthServiceStub = Object.assign(new AuthServiceStub(), {
     getAuthenticatedUserFromStore: () => {
-      return of(EPersonMock);
+      return observableOf(EPersonMock);
     },
   });
   const routerStub = new RouterMock();
