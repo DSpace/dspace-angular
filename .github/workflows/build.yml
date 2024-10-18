@@ -33,6 +33,8 @@ jobs:
       CHROME_VERSION: "116.0.5845.187-1"
       # Bump Node heap size (OOM in CI after upgrading to Angular 15)
       NODE_OPTIONS: '--max-old-space-size=4096'
+      # Project name to use when running "docker compose" prior to e2e tests
+      COMPOSE_PROJECT_NAME: 'ci'
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
@@ -43,11 +45,11 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # https://github.com/actions/setup-node
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -72,7 +74,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       - name: Cache Yarn dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           # Cache entire Yarn cache directory (see previous step)
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -99,26 +101,26 @@ jobs:
       # so that it can be shared with the 'codecov' job (see below)
       # NOTE: Angular CLI only supports code coverage for specs. See https://github.com/angular/angular-cli/issues/6286
       - name: Upload code coverage report to Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: matrix.node-version == '18.x'
         with:
-          name: dspace-angular coverage report
+          name: coverage-report-${{ matrix.node-version }}
           path: 'coverage/dspace-angular/lcov.info'
           retention-days: 14
 
-      # Using docker-compose start backend using CI configuration
+      # Using "docker compose" start backend using CI configuration
       # and load assetstore from a cached copy
       - name: Start DSpace REST Backend via Docker (for e2e tests)
         run: |
-          docker-compose -f ./docker/docker-compose-ci.yml up -d
-          docker-compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
+          docker compose -f ./docker/docker-compose-ci.yml up -d
+          docker compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
           docker container ls
 
       # Run integration tests via Cypress.io
       # https://github.com/cypress-io/github-action
       # (NOTE: to run these e2e tests locally, just use 'ng e2e')
       - name: Run e2e tests (integration tests)
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           # Run tests in Chrome, headless mode (default)
           browser: chrome
@@ -133,19 +135,19 @@ jobs:
       # Cypress always creates a video of all e2e tests (whether they succeeded or failed)
       # Save those in an Artifact
       - name: Upload e2e test videos to Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: e2e-test-videos
+          name: e2e-test-videos-${{ matrix.node-version }}
           path: cypress/videos
 
       # If e2e tests fail, Cypress creates a screenshot of what happened
       # Save those in an Artifact
       - name: Upload e2e test failure screenshots to Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: e2e-test-screenshots
+          name: e2e-test-screenshots-${{ matrix.node-version }}
           path: cypress/screenshots
 
       - name: Stop app (in case it stays up after e2e tests)
@@ -180,7 +182,7 @@ jobs:
         run: kill -9 $(lsof -t -i:4000)
 
       - name: Shutdown Docker containers
-        run: docker-compose -f ./docker/docker-compose-ci.yml down
+        run: docker compose -f ./docker/docker-compose-ci.yml down
 
   # Codecov upload is a separate job in order to allow us to restart this separate from the entire build/test
   # job above. This is necessary because Codecov uploads seem to randomly fail at times.
@@ -191,11 +193,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Download artifacts from previous 'tests' job
       - name: Download coverage artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
 
       # Now attempt upload to Codecov using its action.
       # NOTE: We use a retry action to retry the Codecov upload if it fails the first time.
@@ -203,10 +205,15 @@ jobs:
       # Retry action: https://github.com/marketplace/actions/retry-action
       # Codecov action: https://github.com/codecov/codecov-action
       - name: Upload coverage to Codecov.io
-        uses: Wandalen/wretry.action@v1.0.36
+        uses: Wandalen/wretry.action@v1.3.0
         with:
-          action: codecov/codecov-action@v3
-          # Try upload 5 times max
+          action: codecov/codecov-action@v4
+          # Ensure codecov-action throws an error when it fails to upload
+          # This allows us to auto-restart the action if an error is thrown
+          with: |
+            fail_ci_if_error: true
+            token: ${{ secrets.CODECOV_TOKEN }}
+          # Try re-running action 5 times max
           attempt_limit: 5
           # Run again in 30 seconds
           attempt_delay: 30000

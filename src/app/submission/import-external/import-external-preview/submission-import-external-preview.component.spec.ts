@@ -22,6 +22,7 @@ import {
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { By } from '@angular/platform-browser';
+import { Metadata } from '../../../core/shared/metadata.utils';
 
 const uriMetadata = Object.assign(new MetadataValue(), {
   value: 'https://orcid.org/0001-0001-0001-0001'
@@ -120,7 +121,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     it('Should init component properly', () => {
       comp.externalSourceEntry = externalEntry;
       const expected = [
-        { key: 'dc.identifier.uri', value: uriMetadata }
+        { key: 'dc.identifier.uri', values: Metadata.all(comp.externalSourceEntry.metadata, 'dc.identifier.uri') },
       ];
       fixture.detectChanges();
 

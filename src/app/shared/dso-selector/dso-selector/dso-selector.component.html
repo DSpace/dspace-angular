@@ -2,6 +2,7 @@
     <input type="search"
            class="form-control"
            (click)="$event.stopPropagation();"
+           [attr.aria-label]="'dso-selector.placeholder' | translate: { type: typesString }"
            placeholder="{{'dso-selector.placeholder' | translate: { type: typesString } }}"
            [formControl]="input" ngbAutofocus (keyup.enter)="selectSingleResult()">
 </div>

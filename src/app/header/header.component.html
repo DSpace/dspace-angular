@@ -11,11 +11,11 @@
         <ds-context-help-toggle></ds-context-help-toggle>
         <ds-themed-auth-nav-menu></ds-themed-auth-nav-menu>
         <ds-impersonate-navbar></ds-impersonate-navbar>
-        <div *ngIf="isXsOrSm$ | async" class="pl-2">
+        <div *ngIf="isMobile$ | async" class="pl-2">
           <button class="navbar-toggler px-0" type="button" (click)="toggleNavbar()"
                   aria-controls="collapsingNav"
                   aria-expanded="false" [attr.aria-label]="'nav.toggle' | translate">
-            <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
+            <span class="fas fa-bars fa-fw toggler-icon" aria-hidden="true"></span>
           </button>
         </div>
       </nav>

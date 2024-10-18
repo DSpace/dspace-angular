@@ -10,7 +10,6 @@
 
         <ds-pagination *ngIf="(auditsRD$ | async)?.payload?.totalElements > 0"
                        [paginationOptions]="pageConfig"
-                       [pageInfoState]="(auditsRD$ | async)?.payload"
                        [collectionSize]="(auditsRD$ | async)?.payload?.totalElements"
                        [hideGear]="true"
                        [hidePagerWhenSinglePage]="true">

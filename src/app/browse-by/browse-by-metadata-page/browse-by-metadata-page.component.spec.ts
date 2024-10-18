@@ -31,6 +31,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { SearchManager } from '../../core/browse/search-manager';
+import { cold } from 'jasmine-marbles';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -155,9 +156,13 @@ describe('BrowseByMetadataPageComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should fetch items', () => {
+    it('should fetch items', (done: DoneFn) => {
+      expect(comp.loading$).toBeObservable(cold('(a|)', {
+        a: false,
+      }));
       comp.items$.subscribe((result) => {
         expect(result.payload.page).toEqual(mockItems);
+        done();
       });
     });
 

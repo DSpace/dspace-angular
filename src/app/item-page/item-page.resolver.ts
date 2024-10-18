@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { getItemPageRoute } from './item-page-routing-paths';
 import { ItemResolver } from './item.resolver';
+import { redirectOn204, redirectOn4xx } from '../core/shared/authorized.operators';
+import { AuthService } from '../core/auth/auth.service';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { isPlatformServer } from '@angular/common';
 
@@ -23,7 +25,8 @@ export class ItemPageResolver extends ItemResolver {
     protected hardRedirectService: HardRedirectService,
     protected itemService: ItemDataService,
     protected store: Store<any>,
-    protected router: Router
+    protected router: Router,
+    protected authService: AuthService,
   ) {
     super(itemService, store, router);
   }
@@ -37,6 +40,8 @@ export class ItemPageResolver extends ItemResolver {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
     return super.resolve(route, state).pipe(
+      redirectOn204<Item>(this.router, this.authService),
+      redirectOn4xx(this.router, this.authService),
       map((rd: RemoteData<Item>) => {
         if (rd.hasSucceeded && hasValue(rd.payload)) {
           // Check if custom url not empty and if the current id parameter is different from the custom url redirect to custom url
@@ -66,7 +71,7 @@ export class ItemPageResolver extends ItemResolver {
           }
         }
         return rd;
-      })
+      }),
     );
   }
 }

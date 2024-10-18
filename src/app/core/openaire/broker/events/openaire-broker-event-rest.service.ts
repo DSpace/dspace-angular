@@ -27,6 +27,7 @@ import { PatchData, PatchDataImpl } from '../../../data/base/patch-data';
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
 import { DeleteByIDRequest, PostRequest } from '../../../data/request.models';
 import { hasValue } from '../../../../shared/empty.util';
+import { RequestParam } from '../../../cache/models/request-param.model';
 
 /**
  * The service handling all OpenAIRE Broker topic REST requests.
@@ -78,10 +79,7 @@ export class OpenaireBrokerEventRestService extends IdentifiableDataService<Open
    */
   public getEventsByTopic(topic: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<OpenaireBrokerEventObject>[]): Observable<RemoteData<PaginatedList<OpenaireBrokerEventObject>>> {
     options.searchParams = [
-      {
-        fieldName: 'topic',
-        fieldValue: topic
-      }
+      new RequestParam('topic', topic),
     ];
     return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);
   }

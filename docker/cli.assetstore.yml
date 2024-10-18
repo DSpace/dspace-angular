@@ -12,15 +12,8 @@
 # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/cli.assetstore.yml
 #
 # Therefore, it should be kept in sync with that file
-version: "3.7"
-
-networks:
-  dspacenet:
-
 services:
   dspace-cli:
-    networks:
-      dspacenet: {}
     environment:
       # This assetstore zip is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
       - LOADASSETS=https://github.com/DSpace-Labs/AIP-Files/releases/download/demo-entities-data/assetstore.tar.gz

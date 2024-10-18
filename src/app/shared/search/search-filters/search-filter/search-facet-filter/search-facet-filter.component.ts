@@ -22,6 +22,7 @@ import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
+  SCOPE,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
   SearchFilterService
@@ -60,6 +61,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   isLastPage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  /**
+   * Emits true if show the search text
+   */
+  isAvailableForShowSearchText: BehaviorSubject<boolean> = new BehaviorSubject(false);
   /**
    * The value of the input field that is used to query for possible values for this filter
    */
@@ -104,7 +109,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>) {
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(SCOPE) public scope: string,
+  ) {
   }
 
   /**
@@ -114,8 +121,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.currentUrl = this.router.url;
     this.filterValues$ = new BehaviorSubject(createPendingRemoteDataObject());
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
-
-    this.searchOptions$ = this.searchConfigService.searchOptions;
+    this.searchOptions$ = this.searchConfigService.searchOptions.pipe(
+      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign({}, options, {
+        scope: this.scope,
+      })),
+    );
     this.subs.push(
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
       this.refreshFilters.asObservable().pipe(
@@ -291,6 +301,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
             getFirstSucceededRemoteData(),
             tap((rd: RemoteData<FacetValues>) => {
               this.isLastPage$.next(hasNoValue(rd?.payload?.next));
+              const hasLimitFacets =  rd?.payload?.page.length < rd?.payload?.facetLimit;
+              this.isAvailableForShowSearchText.next(hasLimitFacets && hasNoValue(rd?.payload?.next));
             }),
             map((rd: RemoteData<FacetValues>) => ({
                 values: observableOf(rd),

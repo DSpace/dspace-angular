@@ -9,6 +9,7 @@ import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-respon
 import { SubmissionPatchRequest } from '../data/request.models';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 /**
  * A service that provides methods to make JSON Patch requests.
@@ -25,6 +26,22 @@ export class SubmissionJsonPatchOperationsService extends JsonPatchOperationsSer
     protected halService: HALEndpointService) {
 
     super();
+  }
+
+  /**
+   * Return an instance for RestRequest class
+   *
+   * @param uuid
+   *    The request uuid
+   * @param href
+   *    The request href
+   * @param body
+   *    The request body
+   * @return Object<PatchRequestDefinition>
+   *    instance of PatchRequestDefinition
+   */
+  protected getRequestInstance(uuid: string, href: string, body?: any): SubmissionPatchRequest {
+    return new this.patchRequestConstructor(uuid, new URLCombiner(href, '?embed=item').toString(), body);
   }
 
 }
