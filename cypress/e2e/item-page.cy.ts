@@ -12,7 +12,13 @@ describe('Item  Page', () => {
     });
 
     it('should pass accessibility tests', () => {
+        cy.intercept('POST', '/server/api/statistics/viewevents').as('viewevent');
+
         cy.visit(ENTITYPAGE);
+
+        // Wait for the "viewevent" to trigger on the Item page.
+        // This ensures our <ds-item-page> tag  is fully loaded, as the <ds-view-event> tag is contained within it.
+        cy.wait('@viewevent');
 
         // <ds-item-page> tag must be loaded
         cy.get('ds-item-page').should('be.visible');
@@ -22,7 +28,13 @@ describe('Item  Page', () => {
     });
 
     it('should pass accessibility tests on full item page', () => {
+        cy.intercept('POST', '/server/api/statistics/viewevents').as('viewevent');
+
         cy.visit(ENTITYPAGE + '/full');
+
+        // Wait for the "viewevent" to trigger on the Item page.
+        // This ensures our <ds-item-page> tag  is fully loaded, as the <ds-view-event> tag is contained within it.
+        cy.wait('@viewevent');
 
         // <ds-full-item-page> tag must be loaded
         cy.get('ds-full-item-page').should('be.visible');
