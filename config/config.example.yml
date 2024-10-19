@@ -503,6 +503,16 @@ notifyMetrics:
     description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description'
 
 
-
-
-
+# Live Region configuration
+# Live Region as defined by w3c, https://www.w3.org/TR/wai-aria-1.1/#terms:
+# Live regions are perceivable regions of a web page that are typically updated as a
+# result of an external event when user focus may be elsewhere.
+#
+# The DSpace live region is a component present at the bottom of all pages that is invisible by default, but is useful
+# for screen readers. Any message pushed to the live region will be announced by the screen reader. These messages
+# usually contain information about changes on the page that might not be in focus.
+liveRegion:
+  # The duration after which messages disappear from the live region in milliseconds
+  messageTimeOutDurationMs: 30000
+  # The visibility of the live region. Setting this to true is only useful for debugging purposes.
+  isVisible: false
