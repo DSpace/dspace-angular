@@ -48,11 +48,6 @@ import { SearchResultListElementComponent } from '../search-result-list-element/
  */
 export class SidebarSearchListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends SearchResultListElementComponent<T, K> implements OnInit {
   /**
-   * Observable for the title of the parent object (displayed above the object's title)
-   */
-  parentTitle$: Observable<string>;
-
-  /**
    * Observable for the hierarchical title i.e community > subcommunity > collection
    */
   hierarchicalTitle$: Observable<string>;
@@ -75,7 +70,6 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
   ngOnInit(): void {
     super.ngOnInit();
     if (hasValue(this.dso)) {
-      this.parentTitle$ = this.getParentTitle();
       this.hierarchicalTitle$ = this.getHierarchicalName();
       this.description = this.getDescription();
     }
@@ -86,18 +80,6 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
    */
   isCurrent(): boolean {
     return this.context === Context.SideBarSearchModalCurrent;
-  }
-
-  /**
-   * Get the title of the object's parent
-   * Retrieve the parent by using the object's parent link and retrieving its 'dc.title' metadata
-   */
-  getParentTitle(): Observable<string> {
-    return this.getParent().pipe(
-      map((parentRD: RemoteData<DSpaceObject>) => {
-        return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
-      }),
-    );
   }
 
   /**
