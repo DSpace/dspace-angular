@@ -1,5 +1,5 @@
 <div *ngIf="licenses.length > 0 || uris.length > 0" class="item-page-field">
-  <ng-container *ngIf="isCcLicense; then ccLicense; else default">
+  <ng-container *ngIf="(hasCcLicenseName$ | async) && (hasCcLicenseUri$ | async); then ccLicense; else default">
   </ng-container>
   <ng-template #ccLicense>
     <ds-item-page-cc-license-field [item]="item" [variant]="'full'"></ds-item-page-cc-license-field>
