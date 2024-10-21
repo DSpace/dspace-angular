@@ -2114,10 +2114,10 @@
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-17.3.10.tgz#6f077ef3d1fa4363cffcfee66f9b2e52164069b2"
   integrity sha512-yPKmdbTJzxROAl2NS8P8eHB2mU0BqV2I0ZiKmX6oTetY2Ea4i2WzlTK39pPpG7atmdF2NPWYLXdJWAup+JxSyw==
 
-"@ngtools/webpack@^16.2.12":
-  version "16.2.15"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-16.2.15.tgz#5c5c7b123b1e1d7e972a8d13d9ea2d6fc628b909"
-  integrity sha512-rD4IHt3nS6PdIKvmoqwIadMIGKsemBSz412kD8Deetl0TiCVhD/Tn1M00dxXzMSHSFCQcOKxdZAeD53yRwTOOA==
+"@ngtools/webpack@^16.2.16":
+  version "16.2.16"
+  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-16.2.16.tgz#512da8f3459faafd0cc1f7f7cbec96b678377be6"
+  integrity sha512-4gm2allK0Pjy/Lxb9IGRnhEZNEOJSOTWwy09VOdHouV2ODRK7Tto2LgteaFJUUSLkuvWRsI7pfuA6yrz8KDfHw==
 
 "@ngx-translate/core@^14.0.0":
   version "14.0.0"
