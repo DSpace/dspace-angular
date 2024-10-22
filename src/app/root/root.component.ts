@@ -1,7 +1,6 @@
 import { first, map, skipWhile, startWith } from 'rxjs/operators';
 import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
@@ -39,11 +38,6 @@ export class RootComponent implements OnInit {
    */
   @Input() shouldShowRouteLoader: boolean;
 
-  /**
-   * In order to show sharing component only in csr
-   */
-  browserPlatform = false;
-
   constructor(
     private router: Router,
     private cssService: CSSVariableService,
@@ -52,7 +46,6 @@ export class RootComponent implements OnInit {
     @Inject(PLATFORM_ID) platformId: any
   ) {
     this.notificationOptions = environment.notifications;
-    this.browserPlatform = isPlatformBrowser(platformId);
   }
 
   ngOnInit() {
