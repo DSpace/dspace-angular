@@ -1618,6 +1618,8 @@
 
   "footer.copyright": "copyright © 2002-{{ year }}",
 
+  "footer.link.accessibility": "Accessibility settings",
+
   "footer.link.dspace": "DSpace software",
 
   "footer.link.lyrasis": "LYRASIS",
@@ -1839,6 +1841,24 @@
   "home.top-level-communities.head": "Communities in DSpace",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
+
+  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+
+  "info.accessibility-settings.liveRegionTimeOut.label": "Live region time-out",
+
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration in milliseconds after which a message in the live region disappears.",
+
+  "info.accessibility-settings.notificationTimeOut.label": "Notification time-out",
+
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration in milliseconds after which a notification disappears. Set to 0 for notifications to remain indefinitely.",
+
+  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+
+  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  "info.accessibility-settings.submit": "Save accessibility settings",
+
+  "info.accessibility-settings.title": "Accessibility settings",
 
   "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
 
