@@ -164,14 +164,15 @@ describe('ProcessOverviewComponent', () => {
     }).compileComponents();
   }));
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ProcessOverviewComponent);
+    component = fixture.componentInstance;
+  });
+
   describe('if the current user is an admin', () => {
 
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(true));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -241,11 +242,7 @@ describe('ProcessOverviewComponent', () => {
   describe('if the current user is not an admin', () => {
 
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(false));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -330,11 +327,7 @@ describe('ProcessOverviewComponent', () => {
 
   describe('overview buttons', () => {
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(false));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -372,11 +365,7 @@ describe('ProcessOverviewComponent', () => {
 
   describe('openDeleteModal', () => {
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(false));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -388,11 +377,7 @@ describe('ProcessOverviewComponent', () => {
 
   describe('deleteSelected', () => {
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(false));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -409,6 +394,11 @@ describe('ProcessOverviewComponent', () => {
   });
 
   describe('getEPersonName function', () => {
+    beforeEach(() => {
+      authorizationService.isAuthorized.and.callFake(() => of(false));
+      fixture.detectChanges();
+    });
+
     it('should return unknown user when id is null', (done: DoneFn) => {
       const id = null;
       const expectedTranslation = 'process.overview.unknown.user';
