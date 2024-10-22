@@ -1,5 +1,10 @@
-import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
-import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+import {
+  catchError,
+  Observable,
+  of,
+  switchMap,
+} from 'rxjs';
+import { RemoteData } from 'src/app/core/data/remote-data';
 
 import { Community } from '../../../../core/shared/community.model';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
@@ -34,30 +39,45 @@ const parent = Object.assign(new Community(), {
   },
 });
 
-function getExpectedHierarchicalTitle(parentObj: DSpaceObject, obj: CommunitySearchResult): string {
-  let titles: string[] = [obj.indexableObject.metadata['dc.title'][0].value];
-  let currentParent: DSpaceObject = parentObj;
-
-  while (currentParent) {
-    titles.unshift(currentParent.metadata['dc.title'][0].value);
-    currentParent = this.getParent();
+function getExpectedHierarchicalTitle(parentObj: Community, obj: CommunitySearchResult): Observable<string> {
+  let titles: string[] = [];
+  if (obj.indexableObject.metadata['dc.title']) {
+    titles = [obj.indexableObject.metadata['dc.title'][0].value];
   }
+  let currentParent: Community = parentObj;
 
-  return titles.join(' > ');
-}
-
-function getParent(): DSpaceObject {
-  if (this.dso && typeof this.dso.getParentLinkKey === 'function') {
-    const parentLinkKey = this.dso.getParentLinkKey();
-    const parentObj = this.linkService.resolveLink(this.dso, followLink(parentLinkKey))[parentLinkKey];
-    if (parentObj && parentObj.payload) {
-      return parentObj.payload;
+  const fetchParentTitles = (currParent: Community): Observable<string[]> => {
+    if (!currParent) {
+      return of([]);
     }
-  }
-  return undefined;
-}
-const expectedHierarchicalTitle = getExpectedHierarchicalTitle(parent, object);
 
-describe('CommunitySidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(CommunitySidebarSearchListElementComponent, object, parent, expectedHierarchicalTitle, 'title', 'description'),
-);
+    if (currParent.parentCommunity) {
+      return currParent.parentCommunity.pipe(
+        switchMap((remoteData: RemoteData<Community>) => {
+          if (remoteData.hasSucceeded && remoteData.payload) {
+            const parentTitle = remoteData.payload.name;
+            titles.unshift(parentTitle);
+            return fetchParentTitles(remoteData.payload);
+          }
+          return of([]);
+        }),
+        catchError(() => of([])),
+      );
+    } else {
+      return of([]);
+    }
+  };
+
+  return fetchParentTitles(currentParent).pipe(
+    switchMap(() => titles.join(' > ')),
+  );
+}
+
+const expectedHierarchicalTitle = getExpectedHierarchicalTitle(parent, object);
+if (expectedHierarchicalTitle) {
+  expectedHierarchicalTitle.subscribe((hierarchicalTitle: string) => {
+    describe('CommunitySidebarSearchListElementComponent', () => {
+      createSidebarSearchListElementTests(CommunitySidebarSearchListElementComponent, object, parent, hierarchicalTitle, 'title', 'description');
+    });
+  });
+}
