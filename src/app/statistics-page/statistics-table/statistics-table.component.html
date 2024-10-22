@@ -10,7 +10,7 @@
     <tbody>
 
     <tr>
-      <td>{{ objectHeaderLabel }}</td>
+      <th scope="col">{{ objectHeaderLabel }}</th>
       <th scope="col"
           *ngFor="let header of headers"
           class="{{header}}-header">
@@ -20,9 +20,9 @@
 
     <tr *ngFor="let point of report.points"
         class="{{point.id}}-data">
-      <th scope="row" data-test="statistics-label">
+      <td scope="row" data-test="statistics-label">
         {{ getLabel(point) | async }}
-      </th>
+      </td>
       <td *ngFor="let header of headers"
           class="{{point.id}}-{{header}}-data">
         {{ point.values[header] }}

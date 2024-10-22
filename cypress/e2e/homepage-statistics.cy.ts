@@ -22,7 +22,7 @@ describe('Site Statistics Page', () => {
 
     // Verify / wait until "Total Visits" table's *last* label is non-empty
     // (This table loads these labels asynchronously, so we want to wait for them before analyzing page)
-    cy.get('table[data-test="TotalVisits"] th[data-test="statistics-label"]').last().contains(REGEX_MATCH_NON_EMPTY_TEXT);
+    cy.get('table[data-test="TotalVisits"] td[data-test="statistics-label"]').last().contains(REGEX_MATCH_NON_EMPTY_TEXT);
     // Wait an extra 500ms, just so all entries in Total Visits have loaded.
     cy.wait(500);
 
