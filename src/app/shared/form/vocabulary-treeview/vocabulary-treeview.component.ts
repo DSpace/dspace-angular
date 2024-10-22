@@ -2,7 +2,6 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
 
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
@@ -13,7 +12,7 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { AlertType } from '../../alert/alert-type';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEntry | VocabularyEntryDetail;
@@ -110,17 +109,15 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    */
   private subs: Subscription[] = [];
 
+  readonly AlertType = AlertType;
+
   /**
    * Initialize instance variables
    *
    * @param {VocabularyTreeviewService} vocabularyTreeviewService
-   * @param {vocabularyService} vocabularyService
-   * @param {TranslateService} translate
    */
   constructor(
     private vocabularyTreeviewService: VocabularyTreeviewService,
-    private vocabularyService: VocabularyService,
-    private translate: TranslateService
   ) {
     this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);

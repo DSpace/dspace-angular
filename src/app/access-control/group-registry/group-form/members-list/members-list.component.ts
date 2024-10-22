@@ -23,6 +23,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { getEPersonEditRoute } from '../../../access-control-routing-paths';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -130,6 +131,8 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
   // current active group being edited
   groupBeingEdited: Group;
+
+  readonly getEPersonEditRoute = getEPersonEditRoute;
 
   constructor(
     protected groupDataService: GroupDataService,

@@ -21,7 +21,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { pushInOut } from '../animations/push';
 import { HostWindowService } from '../host-window.service';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { hasValue, hasValueOperator, isNotEmpty } from '../empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../empty.util';
 import { RouteService } from '../../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
@@ -41,17 +41,18 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { environment } from 'src/environments/environment';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
+import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { SearchManager } from '../../core/browse/search-manager';
 import { AlertType } from '../alert/alert-type';
 import { isPlatformServer } from '@angular/common';
-import { APP_CONFIG } from '../../../config/app-config.interface';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 @Component({
   selector: 'ds-search',
@@ -97,7 +98,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Embedded keys to force during the search
    */
-  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]);
+  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([
+    ['default', ['metrics']],
+    ['workspace', ['item','metrics']],
+    ['workflow', ['workflowitem', 'item','metrics']]
+  ]);
+
+  /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
 
   /**
    * If this is true, the request will only be sent if there's
@@ -133,7 +143,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Optional projection to use during the search
    */
-  @Input() projection;
+  @Input() projection = 'preventMetadataSecurity';
 
   /**
    * Whether or not the search bar should be visible
@@ -201,6 +211,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showThumbnails: boolean;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection: boolean;
+
+  /**
    * Whether to show the view mode switch
    */
   @Input() showViewModes = true;
@@ -256,6 +271,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() query: string;
 
   /**
+   * The fallback scope when no scope is defined in the url, if this is also undefined no scope will be set
+   */
+  @Input() scope: string;
+
+  /**
    * For chart regular expression
    */
   chartReg = new RegExp(/^chart./, 'i');
@@ -273,7 +293,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * The current sort options used
    */
-  currentScope$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  currentScope$: Observable<string>;
 
   /**
    * The current sort options used
@@ -380,7 +400,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
     protected router: Router,
-    @Inject(APP_CONFIG) protected appConfig: any,){
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected authorizationService: AuthorizationDataService,){
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -399,6 +420,14 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
 
+    if (this.showCorrection === null || this.showCorrection === undefined) {
+      this.subs.push(
+        this.authorizationService.isAuthorized(FeatureID.CanCorrectItem, null, null, true)
+        .subscribe((showCorrection) => {
+          this.showCorrection = showCorrection;
+        }));
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);
@@ -413,6 +442,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
     }
 
+    this.currentScope$ = this.routeService.getQueryParameterValue('scope').pipe(
+      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope),
+    );
+
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
     this.searchLink = this.getSearchLink();
     this.currentContext$.next(this.context);
@@ -420,9 +453,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     // Determinate PaginatedSearchOptions and listen to any update on it
     const configuration$: Observable<string> = this.searchConfigService
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
-    const searchSortOptions$: Observable<SortOptions[]> = configuration$.pipe(
-      switchMap((configuration: string) => this.searchConfigService
-        .getConfigurationSearchConfig(configuration)),
+    const searchSortOptions$: Observable<SortOptions[]> = combineLatest([configuration$, this.currentScope$]).pipe(
+      switchMap(([configuration, scope]: [string, string]) => this.searchConfigService.getConfigurationSearchConfig(configuration, scope)),
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
       distinctUntilChanged()
     );
@@ -435,13 +467,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
-    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$]).pipe(
-      filter(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
+    this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$, this.currentScope$]).pipe(
+      filter(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
       }),
       debounceTime(100)
-    ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
+    ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
       // Build the PaginatedSearchOptions object
       const searchOptionsConfiguration = searchOptions.configuration || configuration;
       const combinedOptions = Object.assign({}, searchOptions,
@@ -453,6 +485,9 @@ export class SearchComponent implements OnInit, OnDestroy {
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
       }
+      if (isEmpty(combinedOptions.scope)) {
+        combinedOptions.scope = scope;
+      }
       const newSearchOptions = new PaginatedSearchOptions(combinedOptions);
       // check if search options are changed
       // if so retrieve new related results otherwise skip it
@@ -460,13 +495,12 @@ export class SearchComponent implements OnInit, OnDestroy {
         // Initialize variables
         this.currentConfiguration$.next(configuration);
         this.currentSortOptions$.next(newSearchOptions.sort);
-        this.currentScope$.next(newSearchOptions.scope);
         this.sortOptionsList$.next(searchSortOptions);
         this.searchOptions$.next(newSearchOptions);
         this.initialized$.next(true);
         // retrieve results
         this.retrieveSearchResults(newSearchOptions);
-        this.retrieveFilters(searchOptions);
+        this.retrieveFilters(newSearchOptions);
       }
     }));
 
@@ -576,19 +610,19 @@ export class SearchComponent implements OnInit, OnDestroy {
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
     this.lastSearchOptions = searchOptions;
-    let followLinks;
+    let followLinks = [];
     if (this.showThumbnails) {
       followLinks = [
         followLink<Item>('thumbnail', { isOptional: true }),
         followLink<SubmissionObject>('item', { isOptional: true },
           followLink<Item>('thumbnail', { isOptional: true }),
-          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: this.appConfig.item.showAccessStatuses })
         ) as any
       ];
     } else {
       followLinks = [
         followLink<SubmissionObject>('item', { isOptional: true },
-          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: this.appConfig.item.showAccessStatuses })
         ) as any
       ];
     }
@@ -603,8 +637,17 @@ export class SearchComponent implements OnInit, OnDestroy {
       });
     }
 
+    const searchOptionsWithHidden = Object.assign (new PaginatedSearchOptions({}), searchOptions);
+    if (isNotEmpty(this.hiddenQuery)) {
+      if (isNotEmpty(searchOptionsWithHidden.query)) {
+        searchOptionsWithHidden.query = searchOptionsWithHidden.query + ' AND ' + this.hiddenQuery;
+      } else {
+        searchOptionsWithHidden.query = this.hiddenQuery;
+      }
+    }
+
     this.searchManager.search(
-      searchOptions,
+      searchOptionsWithHidden,
       undefined,
       this.useCachedVersionIfAvailable,
       true,
@@ -613,7 +656,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {
-            this.service.trackSearch(searchOptions, results.payload);
+            this.service.trackSearch(searchOptionsWithHidden, results.payload);
           }
           if (results.payload?.page?.length > 0) {
             this.resultFound.emit(results.payload);

@@ -46,6 +46,9 @@ import { ResultsBackButtonModule } from '../../shared/results-back-button/result
 import {
   AccessControlFormModule
 } from '../../shared/access-control-form-container/access-control-form.module';
+import {
+  EditRelationshipListWrapperComponent
+} from './item-relationships/edit-relationship-list-wrapper/edit-relationship-list-wrapper.component';
 import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-metadata-security.component';
 import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
@@ -98,6 +101,7 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     ItemRegisterDoiComponent,
     ItemCurateComponent,
     ItemAccessControlComponent,
+    EditRelationshipListWrapperComponent,
   ],
   providers: [
     BundleDataService,

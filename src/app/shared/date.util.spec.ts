@@ -1,4 +1,11 @@
-import { dateToString, dateToNgbDateStruct, dateToISOFormat, isValidDate, yearFromString } from './date.util';
+import {
+  dateToString,
+  dateToNgbDateStruct,
+  dateToISOFormat,
+  isValidDate,
+  yearFromString,
+  localeDate
+} from './date.util';
 
 describe('Date Utils', () => {
 
@@ -103,5 +110,16 @@ describe('Date Utils', () => {
         it('should return null if invalid date', () => {
             expect(yearFromString('test')).toBeNull();
         });
+    });
+
+    describe('localeDate', () => {
+      it('should return the date in the current locale', () => {
+        expect(localeDate('2022-06-03', 'en')).toEqual('June 3, 2022');
+        expect(localeDate('2022-06-03', 'it')).toEqual('3 giugno 2022');
+        expect(localeDate('2022-06', 'en')).toEqual('June 2022');
+        expect(localeDate('2022-06', 'it')).toEqual('giugno 2022');
+        expect(localeDate('2022', 'en')).toEqual('2022');
+        expect(localeDate('2022', 'it')).toEqual('2022');
+      });
     });
 });

@@ -11,6 +11,7 @@ import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
+  SCOPE,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { Router } from '@angular/router';
@@ -24,8 +25,9 @@ import { map, take } from 'rxjs/operators';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { BehaviorSubject } from 'rxjs';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { environment } from '../../../../../../environments/environment';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
 import { isNotEmpty } from '../../../../empty.util';
 import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -50,12 +52,14 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               protected router: Router,
               protected modalService: NgbModal,
               protected vocabularyService: VocabularyService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(SCOPE) public scope: string,
   ) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope);
   }
 
   vocabularyExists$: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -69,11 +73,12 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
     super.onSubmit(addOperatorToFilterValue(data, 'query'));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
-    if (isNotEmpty(this.getVocabularyEntry())) {
+    const vocabularyName: string = this.getVocabularyEntry();
+    if (isNotEmpty(vocabularyName)) {
       this.vocabularyService.searchTopEntries(
-        this.getVocabularyEntry(), new PageInfo(), true, false,
+        vocabularyName, new PageInfo(), true, false,
       ).pipe(
         getFirstCompletedRemoteData(),
         map((rd: RemoteData<PaginatedList<VocabularyEntryDetail>>) => rd.hasSucceeded && rd.payload?.totalElements > 0)
@@ -96,11 +101,11 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       name: this.getVocabularyEntry(),
       closed: true
     };
-    modalRef.result.then((detail: VocabularyEntryDetail) => {
-      this.selectedValues$
+    void modalRef.result.then((detail: VocabularyEntryDetail) => {
+      this.subs.push(this.selectedValues$
         .pipe(take(1))
         .subscribe((selectedValues) => {
-          this.router.navigate(
+          void this.router.navigate(
             [this.searchService.getSearchLink()],
             {
               queryParams: {
@@ -110,16 +115,16 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               queryParamsHandling: 'merge',
             },
           );
-        });
-    }).catch();
+        }));
+    });
   }
 
   /**
    * Returns the matching vocabulary entry for the given search filter.
    * These are configurable in the config file.
    */
-  getVocabularyEntry() {
-    const foundVocabularyConfig = environment.vocabularies.filter((v) => v.filter === this.filterConfig.name);
+  getVocabularyEntry(): string {
+    const foundVocabularyConfig: FilterVocabularyConfig[] = this.appConfig.vocabularies.filter((v: FilterVocabularyConfig) => v.filter === this.filterConfig.name);
     if (foundVocabularyConfig.length > 0 && foundVocabularyConfig[0].enabled === true) {
       return foundVocabularyConfig[0].vocabulary;
     }

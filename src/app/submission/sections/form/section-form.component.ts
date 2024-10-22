@@ -200,7 +200,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
             // this.sectionData.errorsToShow = [];
             this.submissionObject = submissionObject;
             // Is the first loading so init form
-            this.initForm(sectionData);
+          this.initForm(sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors);
             this.sectionData.data = sectionData;
             this.subscriptions();
             this.isLoading = false;
@@ -297,7 +297,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * @param sectionData
    *    the section data retrieved from the server
    */
-  initForm(sectionData: WorkspaceitemSectionFormObject): void {
+  initForm(sectionData: WorkspaceitemSectionFormObject, errorsToShow: SubmissionSectionError[], serverValidationErrors: SubmissionSectionError[]): void {
     try {
       this.formModel = this.formBuilderService.modelFromConfiguration(
         this.submissionId,
@@ -328,12 +328,13 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
   /**
    * Update form model
    *
-   * @param sectionData
-   *    the section data retrieved from the server
-   * @param errors
-   *    the section errors retrieved from the server
+   * @param sectionState
+   *    the section state retrieved from the server
    */
-  updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
+  updateForm(sectionState: SubmissionSectionObject): void {
+
+    const sectionData = sectionState.data as WorkspaceitemSectionFormObject;
+    const errors = sectionState.errorsToShow;
 
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
@@ -341,7 +342,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         this.isUpdating = true;
         this.formModel = null;
         this.cdr.detectChanges();
-        this.initForm(sectionData);
+        this.initForm(sectionData, errors, sectionState.serverValidationErrors);
         this.checksForErrors(errors);
         this.isUpdating = false;
         this.cdr.detectChanges();
@@ -395,7 +396,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         .subscribe((sectionState: SubmissionSectionObject) => {
           this.fieldsOnTheirWayToBeRemoved = new Map();
           this.sectionMetadata = sectionState.metadata;
-          this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errorsToShow);
+          this.updateForm(sectionState);
         })
     );
   }

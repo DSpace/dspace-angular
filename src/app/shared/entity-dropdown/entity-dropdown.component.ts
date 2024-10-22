@@ -23,6 +23,7 @@ import {
 } from '../../core/itemexportformat/item-export-format.service';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-entity-dropdown',
@@ -91,12 +92,14 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    * @param {EntityTypeDataService} entityTypeService
    * @param {ItemExportFormatService} itemExportFormatService
    * @param {ElementRef} el
+   * @param {TranslateService} translate
    */
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private entityTypeService: EntityTypeDataService,
     private itemExportFormatService: ItemExportFormatService,
-    private el: ElementRef
+    private el: ElementRef,
+    private translate: TranslateService
   ) { }
 
   /**
@@ -194,12 +197,21 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
     }
     this.searchListEntity$ = searchListEntity$.pipe(
       switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => entityType.payload.page),
+      map((item: ItemType) => {
+          return {
+            ...item,
+            translatedLabel: this.translate.instant(`${item.label?.toLowerCase()}.listelement.badge`)
+          };
+        }
+      ),
       reduce((acc: any, value: any) => [...acc, value], []),
       startWith([])
     );
     this.subs.push(
       this.searchListEntity$.subscribe({
-        next: (result: ItemType[]) => { this.searchListEntity.push(...result); },
+        next: (result: ItemType[]) => {
+          this.searchListEntity = [...this.searchListEntity, ...result];
+        },
         complete: () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
       })
     );

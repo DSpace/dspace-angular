@@ -190,7 +190,7 @@ describe('ReviewAccountInfoComponent', () => {
     const firstDataRow = dataRows[1];
     const firstDataLabel: HTMLElement = firstDataRow.querySelector('th');
     const firstDataReceivedValue: HTMLElement = firstDataRow.querySelectorAll('td')[0];
-    const firstDataOverrideSwitch: HTMLElement = firstDataRow.querySelector('ui-switch');
+    const firstDataOverrideSwitch: HTMLElement = firstDataRow.querySelector('ds-switch');
     expect(firstDataLabel.textContent.trim()).toBe('Lastname');
     expect(firstDataReceivedValue.textContent.trim()).toBe('Doe');
     expect(firstDataOverrideSwitch).toBeNull();
