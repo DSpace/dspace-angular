@@ -79,7 +79,6 @@ const SCSS_LOADERS = [
 
 export const commonExports = {
   plugins: [
-    // @ts-expect-error: EnvironmentPlugin constructor types are currently to strict see issue https://github.com/webpack/webpack/issues/18719
     new EnvironmentPlugin({
       languageHashes: getFileHashes(path.join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
     }),
