@@ -21,6 +21,7 @@ describe('CrisLayoutNavbarComponent', () => {
   let component: CrisLayoutNavbarComponent;
   let fixture: ComponentFixture<CrisLayoutNavbarComponent>;
   let de: DebugElement;
+  let router: RouterStub;
 
   const windowServiceStub = new HostWindowServiceStub(1000);
 
@@ -62,13 +63,15 @@ describe('CrisLayoutNavbarComponent', () => {
         { provide: HostWindowService, useValue: windowServiceStub },
         { provide: Router, useClass: RouterStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-      ]
+      ],
     })
       .compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisLayoutNavbarComponent);
+    router = TestBed.inject(Router) as unknown as RouterStub;
+    router.setNavigateReturnValue(true);
     component = fixture.componentInstance;
     component.item = mockItem;
     component.tabs = [];
