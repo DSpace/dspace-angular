@@ -3157,10 +3157,10 @@ angular-idle-preload@3.0.0:
   resolved "https://registry.npmjs.org/angular-idle-preload/-/angular-idle-preload-3.0.0.tgz"
   integrity sha512-W3P2m2B6MHdt1DVunH6H3VWkAZrG3ZwxGcPjedVvIyRhg/LmMtILoizHSxTXw3fsKIEdAPwGObXGpML9WD1jJA==
 
-angulartics2@^12.2.0:
-  version "12.2.0"
-  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-12.2.0.tgz#79159693b4436905391e3b1e7d549c900408e175"
-  integrity sha512-1wl/cPA4PGYj42z80VIR+A0Hy3+rt13POzfTfZ83NUDx2KKbHjtTKS0O7u3umi10cqvi5tn4NTSYIFFJ1fI2Tw==
+angulartics2@^12.2.1:
+  version "12.2.1"
+  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-12.2.1.tgz#9a5727aaacafe77b6b912ff5a94532d41377ce51"
+  integrity sha512-+uDXkGGJJzzIITE59z1s3rL5okNyGXZN5mP7m2Ro9gouJF88COeRkhYlXZwIXkdQjBzIyOvUv6UamzgL9NiXLg==
   dependencies:
     tslib "^2.3.0"
 
