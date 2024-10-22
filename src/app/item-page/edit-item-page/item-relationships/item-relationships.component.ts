@@ -1,14 +1,8 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import {
-  map,
-  distinctUntilChanged
-} from 'rxjs/operators';
-import {
-  Observable,
-  BehaviorSubject
-} from 'rxjs';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';

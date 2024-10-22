@@ -5,14 +5,14 @@
 
   .dropdown-menu {
     overflow: hidden;
-    background-color: var(--ds-expandable-navbar-bg);
-
     @include media-breakpoint-down(sm) {
       border: 0;
+      background-color: var(--ds-expandable-navbar-bg);
     }
     @include media-breakpoint-up(md) {
       border-top-left-radius: 0;
       border-top-right-radius: 0;
+      background-color: var(--ds-navbar-dropdown-bg);
     }
   }
 

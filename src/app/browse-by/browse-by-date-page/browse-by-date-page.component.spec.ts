@@ -26,7 +26,6 @@ import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { SearchManager } from '../../core/browse/search-manager';
 import { cold } from 'jasmine-marbles';
 
-
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
   let fixture: ComponentFixture<BrowseByDatePageComponent>;

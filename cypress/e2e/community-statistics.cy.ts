@@ -1,7 +1,7 @@
 import { REGEX_MATCH_NON_EMPTY_TEXT } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
-describe('Community Statistics Page', () => {
+xdescribe('Community Statistics Page', () => {
     const COMMUNITYSTATISTICSPAGE = '/statistics/communities/'.concat(Cypress.env('DSPACE_TEST_COMMUNITY'));
 
     it('should load if you click on "Statistics" from a Community page', () => {

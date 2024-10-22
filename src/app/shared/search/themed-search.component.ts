@@ -36,15 +36,10 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'searchEnabled',
     'sideBarWidth',
     'searchFormPlaceholder',
-    'searchResultNotice',
-    'searchResultNoticeType',
     'selectable',
     'selectionConfig',
     'showCharts',
-    'showCsvExport',
     'showExport',
-    'showLabel',
-    'showMetrics',
     'showSidebar',
     'showThumbnails',
     'showViewModes',
@@ -53,15 +48,20 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'showScopeSelector',
     'showFilterToggle',
     'showChartsToggle',
-    'showSearchResultNotice',
-    'trackStatistics',
-    'query',
-    'scope',
-    'renderOnServerSide',
+    'showCsvExport',
     'resultFound',
     'deselectObject',
     'selectObject',
     'customEvent',
+    'trackStatistics',
+    'query',
+    'scope',
+    'searchResultNotice',
+    'searchResultNoticeType',
+    'showSearchResultNotice',
+    'renderOnServerSide',
+    'showLabel',
+    'showMetrics'
   ];
 
   @Input() configurationList: SearchConfigurationOption[];
@@ -136,9 +136,9 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() query: string;
 
-  @Input() scope: string;
-
   @Input() renderOnServerSide = false;
+
+  @Input() scope: string;
 
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 

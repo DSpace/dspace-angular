@@ -1,20 +1,20 @@
 import {
   AfterViewInit,
-  Component,
-  ViewChild,
-  ViewContainerRef,
-  ComponentRef,
-  SimpleChanges,
-  OnDestroy,
   ChangeDetectorRef,
-  OnChanges,
-  HostBinding,
+  Component,
+  ComponentRef,
   ElementRef,
+  HostBinding,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
-import { combineLatest, from as fromPromise, Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, from as fromPromise, Observable, of as observableOf, Subscription } from 'rxjs';
 import { ThemeService } from './theme.service';
-import { catchError, switchMap, map, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { BASE_THEME_NAME } from './theme.constants';
 

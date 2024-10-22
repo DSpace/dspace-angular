@@ -12,8 +12,9 @@
 
         a.ds-menu-item {
           display: block;
-          color: var(--ds-user-menu-dropdown-link-color);
+          color: var(--ds-expandable-navbar-link-color);
           &:hover {
+            color: var(--ds-expandable-navbar-link-color-hover);
             background-color: var(--ds-user-menu-dropdown-link-background-hover);
           }
         }

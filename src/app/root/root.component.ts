@@ -12,7 +12,6 @@ import { slideSidebarPadding } from '../shared/animations/slide';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ds-root',
@@ -39,11 +38,6 @@ export class RootComponent implements OnInit {
    */
   @Input() shouldShowRouteLoader: boolean;
 
-  /**
-   * In order to show sharing component only in csr
-   */
-  browserPlatform = false;
-
   constructor(
     private router: Router,
     private cssService: CSSVariableService,
@@ -52,7 +46,6 @@ export class RootComponent implements OnInit {
     @Inject(PLATFORM_ID) platformId: any
   ) {
     this.notificationOptions = environment.notifications;
-    this.browserPlatform = isPlatformBrowser(platformId);
   }
 
   ngOnInit() {

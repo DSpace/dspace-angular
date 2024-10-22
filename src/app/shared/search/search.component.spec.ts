@@ -30,13 +30,13 @@ import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { SearchManager } from '../../core/browse/search-manager';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { environment } from '../../../environments/environment.test';
 import { APP_CONFIG } from '../../../config/app-config.interface';
-import { SearchManager } from '../../core/browse/search-manager';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 let comp: SearchComponent;
@@ -103,7 +103,6 @@ const mockDso2 = Object.assign(new Item(), {
     }
   }
 });
-const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
 const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
   page: [mockDso, mockDso2]
 });
@@ -137,10 +136,10 @@ const resultFiltersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig
 const filtersConfigRD$ = observableOf(filtersConfigRD);
 
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
-  search: mockResultsRD$,
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope']),
   getSearchConfigurationFor: createSuccessfulRemoteDataObject$(searchConfig),
+  getConfig: filtersConfigRD$,
   trackSearch: {},
 }) as SearchService;
 const searchManagerStub = jasmine.createSpyObj('SearchManager', {
@@ -150,20 +149,11 @@ const configurationParam = 'default';
 const queryParam = 'test query';
 const hiddenQuery = 'hidden query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-const fixedFilter = 'fixed filter';
 
 const defaultSearchOptions = new PaginatedSearchOptions({ pagination });
 
 const paginatedSearchOptions$ = new BehaviorSubject(defaultSearchOptions);
 
-const paginatedSearchOptions = new PaginatedSearchOptions({
-  configuration: configurationParam,
-  query: queryParam,
-  scope: scopeParam,
-  fixedFilter: fixedFilter,
-  pagination,
-  sort
-});
 const activatedRouteStub = {
   snapshot: {
     queryParamMap: new Map([
@@ -178,14 +168,11 @@ const activatedRouteStub = {
 };
 
 const routeServiceStub = {
-  getRouteParameterValue: () => {
-    return observableOf('');
-  },
   getQueryParameterValue: () => {
-    return observableOf('');
+    return observableOf(null);
   },
   getQueryParamsWithPrefix: () => {
-    return observableOf('');
+    return observableOf(null);
   },
   setParameter: () => {
     return;
@@ -286,16 +273,10 @@ describe('SearchComponent', () => {
     comp.hiddenQuery = hiddenQuery;
 
     spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
-
-    searchServiceObject = TestBed.inject(SearchService);
-    searchConfigurationServiceObject = TestBed.inject(SEARCH_CONFIG_SERVICE);
-
   });
 
   afterEach(() => {
     comp = null;
-    searchServiceObject = null;
-    searchConfigurationServiceObject = null;
   });
 
   it('should init search parameters properly and call retrieveSearchResults', fakeAsync(() => {
@@ -306,8 +287,7 @@ describe('SearchComponent', () => {
     const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
       configuration: 'default',
       sort: sortOptionsList[0],
-      forcedEmbeddedKeys: ['metrics'],
-      scope: ''
+      forcedEmbeddedKeys: ['metrics']
     });
     expect(comp.currentConfiguration$).toBeObservable(cold('b', {
       b: 'default'

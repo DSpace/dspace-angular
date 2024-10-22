@@ -8,8 +8,8 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { Router } from '@angular/router';
-import { SearchManager } from '../core/browse/search-manager';
 import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
+import { SearchManager } from '../core/browse/search-manager';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 /**

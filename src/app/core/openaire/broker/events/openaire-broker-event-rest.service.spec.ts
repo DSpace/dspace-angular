@@ -22,6 +22,7 @@ import {
   openaireBrokerEventObjectMissingProjectFound
 } from '../../../../shared/mocks/openaire.mock';
 import { ReplaceOperation } from 'fast-json-patch';
+import { RequestParam } from '../../../cache/models/request-param.model';
 
 describe('OpenaireBrokerEventRestService', () => {
   let scheduler: TestScheduler;
@@ -128,11 +129,7 @@ describe('OpenaireBrokerEventRestService', () => {
     it('should proxy the call to dataservice.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
-          {
-            fieldName: 'topic',
-            fieldValue: topic,
-            encodeValue: false
-          }
+          new RequestParam('topic', topic, false)
         ]
       };
       service.getEventsByTopic(topic);

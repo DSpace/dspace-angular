@@ -414,7 +414,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
     this.relatedEntityType$ = this.relationshipLeftAndRightType$.pipe(
       map(([leftType, rightType]: [ItemType, ItemType]) => {
-        if (leftType?.uuid !== this.itemType.uuid) {
+        if (leftType.uuid !== this.itemType.uuid) {
           return leftType;
         } else {
           return rightType;

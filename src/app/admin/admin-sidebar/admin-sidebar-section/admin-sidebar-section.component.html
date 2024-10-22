@@ -1,24 +1,23 @@
-<div class="sidebar-section">
-    <a class="nav-item d-flex flex-row flex-nowrap sidebar-section-wrapper"
-       [ngClass]="{ disabled: isDisabled }"
-       role="menuitem"
-       [attr.aria-disabled]="isDisabled"
-       [attr.aria-labelledby]="adminMenuSectionTitleId(section.id)"
-       [title]="('menu.section.icon.' + section.id) | translate"
-       [routerLink]="itemModel.link"
+<div>
+  <a class="sidebar-section-wrapper"
+     [ngClass]="{ disabled: isDisabled }"
+     role="menuitem"
+     [attr.aria-disabled]="isDisabled"
+     [attr.aria-labelledby]="adminMenuSectionTitleId(section.id)"
+     [routerLink]="itemModel.link"
        [queryParams]="itemModel.queryParams"
-       (keyup.space)="navigate($event)"
-       (keyup.enter)="navigate($event)"
-       href="javascript:void(0);"
-    >
-      <div class="sidebar-fixed-element-wrapper" data-test="sidebar-section-icon" aria-hidden="true">
-        <i class="fas fa-{{section.icon}} fa-fw"></i>
+     (keyup.space)="navigate($event)"
+     (keyup.enter)="navigate($event)"
+     href="javascript:void(0);"
+  >
+    <div class="sidebar-fixed-element-wrapper" data-test="sidebar-section-icon" aria-hidden="true">
+      <i class="fas fa-{{section.icon}} fa-fw"></i>
+    </div>
+    <div class="sidebar-collapsible-element-outer-wrapper">
+      <div class="sidebar-collapsible-element-inner-wrapper sidebar-item">
+        <span [id]="adminMenuSectionTitleId(section.id)">{{itemModel.text | translate}}</span>
       </div>
-      <div class="sidebar-collapsible-element-outer-wrapper">
-        <div class="sidebar-collapsible-element-inner-wrapper sidebar-item">
-          <span [id]="adminMenuSectionTitleId(section.id)">{{itemModel.text | translate}}</span>
-        </div>
-      </div>
-    </a>
+    </div>
+  </a>
 </div>
 

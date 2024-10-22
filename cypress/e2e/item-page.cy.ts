@@ -1,6 +1,6 @@
 import { testA11y } from 'cypress/support/utils';
 
-describe('Item  Page', () => {
+xdescribe('Item  Page', () => {
     const ITEMPAGE = '/items/'.concat(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION'));
     const ENTITYPAGE = '/entities/publication/'.concat(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION'));
 

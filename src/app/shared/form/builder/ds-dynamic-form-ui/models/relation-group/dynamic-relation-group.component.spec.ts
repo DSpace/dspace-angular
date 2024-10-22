@@ -23,6 +23,7 @@ import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service
 import { StoreMock } from '../../../../../testing/store.mock';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { storeModuleConfig } from '../../../../../../app.reducer';
+import { XSRFService } from '../../../../../../core/xsrf/xsrf.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
@@ -193,7 +194,8 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         NgbModal,
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: Store, useClass: StoreMock },
-        { provide: SubmissionService, useClass: SubmissionServiceStub }
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

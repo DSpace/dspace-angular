@@ -38,13 +38,13 @@ describe('DisabledFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
+    const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions, undefined, translateService);
 
     expect(parser instanceof DisabledFieldParser).toBe(true);
   });
 
   it('should return a DynamicDisabledModel object when repeatable option is false', () => {
-    const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
+    const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions, undefined, translateService);
 
     const fieldModel = parser.parse();
 
@@ -59,7 +59,7 @@ describe('DisabledFieldParser test suite', () => {
     };
     const expectedValue = 'test description';
 
-    const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
+    const parser = new DisabledFieldParser(submissionId, field, initFormValues, parserOptions, undefined, translateService);
 
     const fieldModel = parser.parse();
     expect(fieldModel.value.value).toEqual(expectedValue);

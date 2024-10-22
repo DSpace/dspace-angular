@@ -96,11 +96,12 @@
         <div class="col text-right space-children-mr">
           <ng-content select="[before]"></ng-content>
             <button *ngIf="displayReset" type="reset" class="btn btn-outline-secondary" (click)="reset()">
-              <i class="fas fa-undo-alt mr-1"></i>{{resetLabel | translate}}
+              <i class="fas fa-undo-alt mr-1" aria-hidden="true"></i>{{resetLabel | translate}}
             </button>
             <ng-content select="[between]"></ng-content>
             <button *ngIf="displaySubmit" type="submit" class="btn btn-primary" (click)="onSubmit()"
-                    [disabled]="!(isValid() | async)"><i class="fas fa-save mr-1"></i> {{submitLabel | translate}}
+                    [disabled]="!(isValid() | async)">
+              <i class="fas fa-save mr-1" aria-hidden="true"></i> {{submitLabel | translate}}
             </button>
             <ng-content select="[after]"></ng-content>
         </div>

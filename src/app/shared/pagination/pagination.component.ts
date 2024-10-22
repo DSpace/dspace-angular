@@ -115,6 +115,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   @Input() public hideGear = false;
 
+  /**
+   * Option for hiding the gear
+   */
+  @Input() public hideSortOptions = false;
 
   /**
    * Option for hiding the pager when there is less than 2 pages
@@ -263,7 +267,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page size being navigated to.
    */
   public doPageSizeChange(pageSize: number) {
-    this.updateParams({ pageId: this.id, page: 1, pageSize: pageSize });
+    this.updateParams({ pageSize: pageSize });
     this.emitPaginationChange();
   }
 
@@ -274,7 +278,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort direction being navigated to.
    */
   public doSortDirectionChange(sortDirection: SortDirection) {
-    this.updateParams({ pageId: this.id, page: 1, sortDirection: sortDirection });
+    this.updateParams({ sortDirection: sortDirection });
     this.emitPaginationChange();
   }
 

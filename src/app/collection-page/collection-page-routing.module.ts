@@ -116,6 +116,7 @@ import { EditCollectionResolver } from '../core/shared/resolvers/edit-collection
     CreateCollectionPageGuard,
     CollectionPageAdministratorGuard,
     CommunityBreadcrumbResolver,
+    EditCollectionResolver
   ]
 })
 export class CollectionPageRoutingModule {

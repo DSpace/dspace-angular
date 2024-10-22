@@ -112,12 +112,13 @@ export class BrowseService {
 
   /**
    * Get all items linked to a certain metadata value
-   * @param {string} filterValue      metadata value to filter by (e.g. author's name)
-   * @param filterAuthority
-   * @param options                   Options to narrow down your search
+   * @param filterValue       metadata value to filter by (e.g. author's name)
+   * @param filterAuthority   metadata authority to filter
+   * @param options           Options to narrow down your search
+   * @param linksToFollow     The array of [[FollowLinkConfig]]
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
-  getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
+  getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
     const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
@@ -154,9 +155,9 @@ export class BrowseService {
       }),
     );
     if (options.fetchThumbnail) {
-      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, undefined, undefined, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, true, false, ...[...linksToFollow, ...BROWSE_LINKS_TO_FOLLOW]);
     }
-    return this.hrefOnlyDataService.findListByHref<Item>(href$);
+    return this.hrefOnlyDataService.findListByHref<Item>(href$,{}, true, false, ...linksToFollow);
   }
 
   /**

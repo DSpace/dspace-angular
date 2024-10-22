@@ -4,7 +4,7 @@
     <div *ngFor="let facet of (facets$ | async)" [class]="getFacetsBoxCol(facet)" class="mb-4" data-test="facet-column">
       <h5>{{'explore.index.' + facet.name | translate}}</h5>
       <div *ngIf="facet.filterType.includes('chart'); else notChartFacet">
-        <ds-search-chart [scope]="''" [filter]="facet" [inPlaceSearch]="false"> </ds-search-chart>
+        <ds-search-chart [filter]="facet" [inPlaceSearch]="false"> </ds-search-chart>
       </div>
       <ng-template #notChartFacet>
         <div *ngFor="let facetValue of facet._embedded.values" class="border p-3">

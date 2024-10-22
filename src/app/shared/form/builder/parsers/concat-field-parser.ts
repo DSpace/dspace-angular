@@ -30,7 +30,7 @@ export class ConcatFieldParser extends FieldParser {
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
     @Inject(SECURITY_CONFIG) securityConfig: any,
-    protected translate: TranslateService,
+    translate: TranslateService,
     protected separator: string,
     protected firstPlaceholder: string = null,
     protected secondPlaceholder: string = null) {

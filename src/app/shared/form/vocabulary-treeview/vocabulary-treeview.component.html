@@ -1,8 +1,9 @@
 <ds-alert *ngIf="description" [content]="description" [type]="AlertType.Info"></ds-alert>
-<div class="treeview-header row">
+<div class="treeview-header row mb-1">
   <div class="col-12 d-flex">
     <div class="input-group">
-      <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()">
+      <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()"
+             [placeholder]="'vocabulary-treeview.search.form.search-placeholder' | translate">
       <div class="input-group-append" id="button-addon4">
         <button class="btn btn-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">
           <span><i class="fas fa-search"></i> {{'vocabulary-treeview.search.form.search' | translate}}</span>
@@ -58,7 +59,7 @@
         <button type="button" class="btn btn-default px-2 mr-1" cdkTreeNodeToggle
                 [attr.aria-label]="'toggle ' + node.name"
                 (click)="loadChildren(node)">
-          <span class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"></span>
+          <i class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"></i>
         </button>
 
           <label *ngIf="multiSelect" class="d-flex align-items-center m-0 p-0 form-check"

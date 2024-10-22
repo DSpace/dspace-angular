@@ -18,7 +18,6 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { ParserOptions } from './parser-options';
 import { TranslateService } from '@ngx-translate/core';
 
-
 export class DropdownFieldParser extends FieldParser {
 
   constructor(
@@ -27,9 +26,9 @@ export class DropdownFieldParser extends FieldParser {
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
     @Inject(SECURITY_CONFIG)  securityConfig: any = null,
-    protected translateService: TranslateService
+    translate: TranslateService
   ) {
-    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translateService);
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translate);
   }
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
@@ -38,9 +37,7 @@ export class DropdownFieldParser extends FieldParser {
 
     if (isNotEmpty(this.configData.selectableMetadata[0].controlledVocabulary)) {
       this.setVocabularyOptions(dropdownModelConfig, this.parserOptions.collectionUUID);
-      if (isNotEmpty(fieldValue)) {
-        this.setValues(dropdownModelConfig, fieldValue, true);
-      }
+      this.setValues(dropdownModelConfig, fieldValue, true);
       layout = {
         element: {
           control: 'col'

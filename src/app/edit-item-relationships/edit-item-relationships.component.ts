@@ -358,7 +358,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    */
   deleteRelationship(relationship: Relationship, objectItem: Item, action: ManageRelationshipEventType): void {
     this.processing$.next(true);
-    this.relationshipService.deleteRelationship(relationship.id, 'none').pipe(take(1)).pipe(
+    this.relationshipService.deleteRelationship(relationship.id).pipe(take(1)).pipe(
       switchMap((rd: RemoteData<Relationship>) => {
         if (rd.hasSucceeded) {
           return this.retrieveRelationships(objectItem);
@@ -381,7 +381,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
    */
   deleteAddRelationship(type: RelationshipType, objectItem: Item, relationship: Relationship, action: ManageRelationshipEventType): Observable<Relationship[]> {
     this.processing$.next(true);
-    return this.relationshipService.deleteRelationship(relationship.id, 'none').pipe(take(1)).pipe(
+    return this.relationshipService.deleteRelationship(relationship.id).pipe(take(1)).pipe(
       switchMap((rd: RemoteData<Relationship>) => {
         if (rd.hasSucceeded) {
           return this.addRelationship(type, objectItem, action);

@@ -30,6 +30,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
+import { SearchManager } from '../../core/browse/search-manager';
 import { cold } from 'jasmine-marbles';
 
 describe('BrowseByMetadataPageComponent', () => {
@@ -88,8 +89,12 @@ describe('BrowseByMetadataPageComponent', () => {
 
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData(mockEntries),
-    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData(mockItems)
   };
+
+  const mockBrowseManager = {
+    getBrowseItemsFor: () => toRemoteData(mockItems),
+  };
+
 
   const mockDsoService = {
     findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
@@ -108,6 +113,7 @@ describe('BrowseByMetadataPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
+        { provide: SearchManager, useValue: mockBrowseManager},
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },

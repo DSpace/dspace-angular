@@ -5,9 +5,9 @@
        [attr.aria-owns]="'combobox_' + id + '_listbox'"
        [attr.aria-expanded]="sdRef.isOpen()"
        [attr.aria-activedescendant]="(currentValue | async) ? 'combobox_' + id + '_selected' : null">
-       <i *ngIf="!model.readOnly" ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
-          aria-hidden="true"></i>
-       <i *ngIf="model.readOnly" class="dropdown-toggle position-absolute toggle-icon"
+    <i *ngIf="!model.readOnly" ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
+       aria-hidden="true"></i>
+    <i *ngIf="model.readOnly" class="dropdown-toggle position-absolute toggle-icon"
           aria-hidden="true"></i>
     <input class="form-control"
            [attr.aria-controls]="'combobox_' + id + '_listbox'"
@@ -33,8 +33,8 @@
 
     <div>
       <input class="form-control scrollable-dropdown-search-input" type="text"
-             [placeholder]="'form.scrollable-input.search' | translate"
-             (input)="filter($event?.target?.value)">
+                    [placeholder]="'form.scrollable-input.search' | translate"
+                    (input)="filter($event?.target?.value)">
     </div>
 
     <div class="scrollable-menu"

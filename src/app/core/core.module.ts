@@ -206,6 +206,7 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
+import { SubmissionParentBreadcrumbsService } from './submission/submission-parent-breadcrumb.service';
 import { WorkflowStepStatisticsDataService } from './statistics/workflow-step-statistics-data.service';
 import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
 import { WorkflowOwnerStatisticsDataService } from './statistics/workflow-owner-statistics-data.service';
@@ -238,8 +239,6 @@ import {
 import { ProductDatasetSchemaType } from './metadata/schema-json-ld/schema-types/product/product-dataset-schema-type';
 import { PersonSchemaType } from './metadata/schema-json-ld/schema-types/Person/person-schema-type';
 import { InternalLinkService } from './services/internal-link.service';
-import { SubmissionParentBreadcrumbsService } from './submission/submission-parent-breadcrumb.service';
-
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -306,6 +305,7 @@ const PROVIDERS = [
   NotificationsService,
   WorkspaceitemDataService,
   WorkflowItemDataService,
+  SubmissionParentBreadcrumbsService,
   DSpaceObjectDataService,
   ConfigurationDataService,
   DSOChangeAnalyzer,
@@ -377,7 +377,6 @@ const PROVIDERS = [
   WorkflowStepStatisticsDataService,
   WorkflowOwnerStatisticsDataService,
   LoginStatisticsService,
-  SubmissionParentBreadcrumbsService
 ];
 
 const SCHEMA_PROVIDERS = [

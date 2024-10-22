@@ -20,13 +20,7 @@ import {
   SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  hasValueOperator
-} from '../../../shared/empty.util';
+import { hasNoValue, hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { Operation } from 'fast-json-patch';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
@@ -139,16 +133,16 @@ export class ObjectUpdatesService {
     return objectUpdates.pipe(
       hasValueOperator(),
       map((objectEntry) => {
-      const fieldUpdates: FieldUpdates = {};
-      for (const object of initialFields) {
-        let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
-        if (isEmpty(fieldUpdate)) {
-          fieldUpdate = { field: object, changeType: undefined };
+        const fieldUpdates: FieldUpdates = {};
+        for (const object of initialFields) {
+          let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
+          if (isEmpty(fieldUpdate)) {
+            fieldUpdate = {field: object, changeType: undefined};
+          }
+          fieldUpdates[object.uuid] = fieldUpdate;
         }
-        fieldUpdates[object.uuid] = fieldUpdate;
-      }
-      return fieldUpdates;
-    }));
+        return fieldUpdates;
+      }));
   }
 
   /**
