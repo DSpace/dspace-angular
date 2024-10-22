@@ -202,6 +202,6 @@
     "webpack": "5.76.1",
     "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^4.2.0",
-    "webpack-dev-server": "^4.13.3"
+    "webpack-dev-server": "^4.15.2"
   }
 }
