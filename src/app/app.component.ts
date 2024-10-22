@@ -1,4 +1,4 @@
-import { delay, distinctUntilChanged, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
@@ -128,8 +128,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.router.events.pipe(
-      // delay(0) to prevent "Expression has changed after it was checked" errors
-      delay(0),
       switchMap((event: RouterEvent) => this.routeService.getCurrentUrl().pipe(
         take(1),
         map((currentUrl) => [currentUrl, event])
