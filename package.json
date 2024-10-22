@@ -126,7 +126,7 @@
     "pem": "1.14.8",
     "prop-types": "^15.8.1",
     "react-copy-to-clipboard": "^5.1.0",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.0",
     "sanitize-html": "^2.13.1",
     "sortablejs": "1.15.3",
