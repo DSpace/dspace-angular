@@ -63,22 +63,6 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together any @types version updates
-      types:
-        applies-to: version-updates
-        patterns:
-        - "@types/*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together any @types security updates
-      types:
-        applies-to: security-updates
-        patterns:
-        - "@types/*"
-        update-types:
-        - "minor"
-        - "patch"
       # Group together any testing related version updates
       testing:
         applies-to: version-updates
@@ -217,22 +201,6 @@ updates:
         update-types:
         - "minor"
         - "patch"
-      # Group together any @types version updates
-      types:
-        applies-to: version-updates
-        patterns:
-        - "@types/*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together any @types security updates
-      types:
-        applies-to: security-updates
-        patterns:
-        - "@types/*"
-        update-types:
-        - "minor"
-        - "patch"
       # Group together any testing related version updates
       testing:
         applies-to: version-updates
@@ -368,22 +336,6 @@ updates:
         patterns:
         - "@typescript-eslint*"
         - "eslint*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together any @types version updates
-      types:
-        applies-to: version-updates
-        patterns:
-        - "@types/*"
-        update-types:
-        - "minor"
-        - "patch"
-      # Group together any @types security updates
-      types:
-        applies-to: security-updates
-        patterns:
-        - "@types/*"
         update-types:
         - "minor"
         - "patch"
