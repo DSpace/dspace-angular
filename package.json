@@ -77,7 +77,7 @@
     },
     "@ngtools/webpack": {
       "@angular/compiler-cli": "^17.3.11",
-      "typescript": "~5.3.3"
+      "typescript": "~5.4.5"
     },
     "@nicky-lenaers/ngx-scroll-to": {
       "@angular/common": "^17.3.11",
