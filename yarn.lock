@@ -4115,7 +4115,7 @@ clone@^1.0.2:
   resolved "https://registry.npmjs.org/clone/-/clone-1.0.4.tgz"
   integrity sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==
 
-clsx@^1.0.4, clsx@^1.1.1:
+clsx@^1.0.4, clsx@^1.1.0, clsx@^1.1.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/clsx/-/clsx-1.2.1.tgz"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
@@ -6331,6 +6331,11 @@ globby@^5.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
+goober@^2.0.33:
+  version "2.1.16"
+  resolved "https://registry.yarnpkg.com/goober/-/goober-2.1.16.tgz#7d548eb9b83ff0988d102be71f271ca8f9c82a95"
+  integrity sha512-erjk19y1U33+XAMe1VTvIONHYoSqE4iS7BYUZfHaqeohLmnC0FdxEh7rQU+6MZ4OajItzjZFSRtVANrQwNq6/g==
+
 gopd@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/gopd/-/gopd-1.0.1.tgz"
@@ -8411,10 +8416,12 @@ mirador-dl-plugin@^0.13.0:
   resolved "https://registry.npmjs.org/mirador-dl-plugin/-/mirador-dl-plugin-0.13.0.tgz"
   integrity sha512-I/6etIvpTtO1zgjxx2uEUFoyB9NxQ43JWg8CMkKmZqblW7AAeFqRn1/zUlQH7N8KFZft9Rah6D8qxtuNAo9jmA==
 
-mirador-share-plugin@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.npmjs.org/mirador-share-plugin/-/mirador-share-plugin-0.11.0.tgz"
-  integrity sha512-fHcdDXyrtfy5pn1zdQNX9BvE5Tjup66eQwyNippE5PMaP8ImUcrFaSL+mStdn+v6agsHcsdRqLhseZ0XWgEuAw==
+mirador-share-plugin@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/mirador-share-plugin/-/mirador-share-plugin-0.16.0.tgz#736c575dea17f0f846a6c6a4770d87a1275557fc"
+  integrity sha512-Rlywq/06nXf4/BUc2LTBD6jf+Q5VO97NK+MTd4VPMfY50Fb8NMr6L0edZXZETcTML1qh11GDEVrHx/csxMSlMA==
+  dependencies:
+    notistack "^3.0.1"
 
 mirador@^3.3.0:
   version "3.3.0"
@@ -8729,6 +8736,14 @@ normalize-url@^4.5.0:
   version "4.5.1"
   resolved "https://registry.npmjs.org/normalize-url/-/normalize-url-4.5.1.tgz"
   integrity sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==
+
+notistack@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/notistack/-/notistack-3.0.1.tgz#daf59888ab7e2c30a1fa8f71f9cba2978773236e"
+  integrity sha512-ntVZXXgSQH5WYfyU+3HfcXuKaapzAJ8fBLQ/G618rn3yvSzEbnOB8ZSOwhX+dAORy/lw+GC2N061JA0+gYWTVA==
+  dependencies:
+    clsx "^1.1.0"
+    goober "^2.0.33"
 
 nouislider@^15.8.1:
   version "15.8.1"
