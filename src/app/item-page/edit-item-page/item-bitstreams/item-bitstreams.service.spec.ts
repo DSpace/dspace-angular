@@ -580,8 +580,6 @@ describe('ItemBitstreamsService', () => {
     const to = 7;
     const callback = createSpy('callbackFunction');
 
-    console.log('bundle:', bundle);
-
     it('should correctly create the Move request', () => {
       const expectedOperation: MoveOperation = {
         op: 'move',
@@ -608,6 +606,22 @@ describe('ItemBitstreamsService', () => {
       service.performBitstreamMoveRequest(bundle, from, to, callback);
       expect(callback).toHaveBeenCalled();
     });
+
+    it('should emit at the start and end of the request', fakeAsync(() => {
+      const emittedActions = [];
+
+      service.getPerformingMoveRequest$().subscribe(selected => emittedActions.push(selected));
+
+      expect(emittedActions.length).toBe(1);
+      expect(emittedActions[0]).toBeFalse();
+
+      service.performBitstreamMoveRequest(bundle, from, to, callback);
+      tick();
+
+      expect(emittedActions.length).toBe(3);
+      expect(emittedActions[1]).toBeTrue();
+      expect(emittedActions[2]).toBeFalse();
+    }));
   });
 
   describe('displayNotifications', () => {
