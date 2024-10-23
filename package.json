@@ -228,8 +228,6 @@
     "postcss-import": "^14.0.0",
     "postcss-loader": "^4.0.3",
     "postcss-preset-env": "^7.4.2",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
     "rimraf": "^3.0.2",
     "rxjs-spy": "^8.0.2",
     "sass": "~1.80.3",
