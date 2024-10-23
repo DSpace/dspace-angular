@@ -119,7 +119,7 @@ export class ItemBitstreamsService {
    */
   protected selectionAction$: BehaviorSubject<SelectionAction> = new BehaviorSubject(null);
 
-  protected isPerformingMoveRequest = false;
+  protected isPerformingMoveRequest: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     protected notificationsService: NotificationsService,
@@ -221,7 +221,7 @@ export class ItemBitstreamsService {
   cancelSelection() {
     const selected = this.getSelectedBitstream();
 
-    if (hasNoValue(selected) || this.isPerformingMoveRequest) {
+    if (hasNoValue(selected) || this.getPerformingMoveRequest()) {
       return;
     }
 
@@ -247,7 +247,7 @@ export class ItemBitstreamsService {
   moveSelectedBitstreamUp() {
     const selected = this.getSelectedBitstream();
 
-    if (hasNoValue(selected) || this.isPerformingMoveRequest) {
+    if (hasNoValue(selected) || this.getPerformingMoveRequest()) {
       return;
     }
 
@@ -272,7 +272,7 @@ export class ItemBitstreamsService {
   moveSelectedBitstreamDown() {
     const selected = this.getSelectedBitstream();
 
-    if (hasNoValue(selected) || this.isPerformingMoveRequest) {
+    if (hasNoValue(selected) || this.getPerformingMoveRequest()) {
       return;
     }
 
@@ -299,7 +299,7 @@ export class ItemBitstreamsService {
    * @param finish Optional: Function to execute once the response has been received
    */
   performBitstreamMoveRequest(bundle: Bundle, fromIndex: number, toIndex: number, finish?: () => void) {
-    if (this.isPerformingMoveRequest) {
+    if (this.getPerformingMoveRequest()) {
       console.warn('Attempted to perform move request while previous request has not completed yet');
       return;
     }
@@ -310,16 +310,32 @@ export class ItemBitstreamsService {
       path: `/_links/bitstreams/${toIndex}/href`,
     };
 
-    this.isPerformingMoveRequest = true;
+    this.announceLoading();
+    this.isPerformingMoveRequest.next(true);
     this.bundleService.patch(bundle, [moveOperation]).pipe(
       getFirstCompletedRemoteData(),
       tap((response: RemoteData<Bundle>) => this.displayFailedResponseNotifications(MOVE_KEY, [response])),
       switchMap(() => this.requestService.setStaleByHrefSubstring(bundle.self)),
       take(1),
     ).subscribe(() => {
-      this.isPerformingMoveRequest = false;
+      console.log('got here!');
+      this.isPerformingMoveRequest.next(false);
       finish?.();
     });
+  }
+
+  /**
+   * Whether the service currently is processing a 'move' request
+   */
+  getPerformingMoveRequest(): boolean {
+    return this.isPerformingMoveRequest.value;
+  }
+
+  /**
+   * Returns an observable which emits when the service starts, or ends, processing a 'move' request
+   */
+  getPerformingMoveRequest$(): Observable<boolean> {
+    return this.isPerformingMoveRequest;
   }
 
   /**
@@ -524,6 +540,14 @@ export class ItemBitstreamsService {
   announceClear(bitstreamName: string) {
     const message = this.translateService.instant('item.edit.bitstreams.edit.live.clear',
       { bitstream: bitstreamName });
+    this.liveRegionService.addMessage(message);
+  }
+
+  /**
+   * Adds a message to the live region mentioning that the
+   */
+  announceLoading() {
+    const message = this.translateService.instant('item.edit.bitstreams.edit.live.loading');
     this.liveRegionService.addMessage(message);
   }
 }

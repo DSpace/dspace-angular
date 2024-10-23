@@ -43,3 +43,13 @@
 .scrollable-table {
   overflow-x: auto;
 }
+
+.disabled-overlay {
+  opacity: 0.6;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
