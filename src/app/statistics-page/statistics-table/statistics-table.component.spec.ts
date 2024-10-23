@@ -99,7 +99,7 @@ describe('StatisticsTableComponent', () => {
   });
 
   describe('getObjectHeaderLabel', () => {
-    
+
     it('should return the correct label for TotalVisits', () => {
       expect(component.getObjectHeaderLabel('TotalVisits')).toEqual('statistics.table.header.TotalVisits');
     });
