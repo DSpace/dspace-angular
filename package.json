@@ -120,8 +120,6 @@
     "@ngrx/store": "^17.1.1",
     "@ngx-translate/core": "^14.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
-    "@popperjs/core": "^2.9.2",
-    "@types/grecaptcha": "^3.0.4",
     "angular-idle-preload": "3.0.0",
     "angulartics2": "^12.2.0",
     "axios": "^1.7.4",
