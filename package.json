@@ -73,7 +73,7 @@
     "@angular/platform-server": "^17.3.11",
     "@angular/router": "^17.3.11",
     "@angular/ssr": "^17.3.10",
-    "@babel/runtime": "7.25.7",
+    "@babel/runtime": "7.25.9",
     "@kolkov/ngx-gallery": "^2.0.1",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.11.3",
