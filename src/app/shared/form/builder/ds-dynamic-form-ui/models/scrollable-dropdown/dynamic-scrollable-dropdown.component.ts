@@ -74,7 +74,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   filterTextChanged: Subject<string> = new Subject<string>();
 
   /**
-   * The subscribtion to be utilized on destroy to remove filterTextChange subscription
+   * The subscription to be utilized on destroy to remove filterTextChange subscription
    */
   subSearch: Subscription;
 
@@ -200,7 +200,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     this.inputText += keyName;
     // When a new key is added, we need to reset the page info
     this.updatePageInfo(this.model.maxOptions, 1);
-    this.retrieveEntries(null, false);
+    this.retrieveEntries(this.inputText, false);
   }
 
   removeKeyFromInput() {
@@ -209,7 +209,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
       if (this.inputText === '') {
         this.inputText = null;
       }
-      this.retrieveEntries(null, false);
+      this.retrieveEntries(this.inputText, false);
     }
   }
 
