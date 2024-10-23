@@ -20,9 +20,9 @@
 
     <tr *ngFor="let point of report.points"
         class="{{point.id}}-data">
-      <td scope="row" data-test="statistics-label">
+      <th scope="row" data-test="statistics-label">
         {{ getLabel(point) | async }}
-      </td>
+      </th>
       <td *ngFor="let header of headers"
           class="{{point.id}}-{{header}}-data">
         {{ point.values[header] }}
