@@ -189,7 +189,7 @@
     "@types/js-cookie": "2.2.6",
     "@types/lodash": "^4.17.12",
     "@types/node": "^14.14.9",
-    "@types/sanitize-html": "^2.9.0",
+    "@types/sanitize-html": "^2.13.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@typescript-eslint/rule-tester": "^7.18.0",
