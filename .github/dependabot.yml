@@ -80,7 +80,7 @@ updates:
         - "minor"
         - "patch"
       # Group together any testing related security updates
-      testing:
+      testing-security:
         applies-to: security-updates
         patterns:
         - "@cypress*"
@@ -100,7 +100,7 @@ updates:
         - "minor"
         - "patch"
       # Group together any postcss related security updates
-      postcss:
+      postcss-security:
         applies-to: security-updates
         patterns:
         - "postcss*"
@@ -116,8 +116,8 @@ updates:
         - "minor"
         - "patch"
       # Group together any sass related security updates
-      sass:
-        applies-to: version-updates
+      sass-security:
+        applies-to: security-updates
         patterns:
         - "sass*"
         update-types:
@@ -132,7 +132,7 @@ updates:
         - "minor"
         - "patch"
       # Group together any webpack related seurity updates
-      webpack:
+      webpack-security:
         applies-to: security-updates
         patterns:
         - "webpack*"
