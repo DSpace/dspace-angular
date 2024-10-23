@@ -59,6 +59,11 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   itemUpdateSubscription: Subscription;
 
+  /**
+   * An observable which emits a boolean which represents whether the service is currently handling a 'move' request
+   */
+  isProcessingMoveRequest: Observable<boolean>;
+
   constructor(
     public itemService: ItemDataService,
     public objectUpdatesService: ObjectUpdatesService,
@@ -84,6 +89,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   postItemInit(): void {
     const bundlesOptions = this.itemBitstreamsService.getInitialBundlesPaginationOptions();
+    this.isProcessingMoveRequest = this.itemBitstreamsService.getPerformingMoveRequest$();
 
     this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: bundlesOptions})).pipe(
       getFirstSucceededRemoteData(),

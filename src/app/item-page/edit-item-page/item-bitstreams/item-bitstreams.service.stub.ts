@@ -30,6 +30,10 @@ export class ItemBitstreamsServiceStub {
 
   performBitstreamMoveRequest = jasmine.createSpy('performBitstreamMoveRequest');
 
+  getPerformingMoveRequest = jasmine.createSpy('getPerformingMoveRequest').and.returnValue(false);
+
+  getPerformingMoveRequest$ = jasmine.createSpy('getPerformingMoveRequest$').and.returnValue(of(false));
+
   getInitialBundlesPaginationOptions = jasmine.createSpy('getInitialBundlesPaginationOptions').and
     .returnValue(new PaginationComponentOptions());
 
