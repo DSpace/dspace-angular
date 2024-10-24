@@ -583,8 +583,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   isNotRequiredGroupAndEmpty(): boolean {
     const parent = this.model.parent;
-
-    if (hasValue(parent) && parent.type === 'GROUP') {
+    // Check if the model is part of a group, the group needs to be an inner form and be in the submission form not in a nested form.
+    // The check hasValue(parent.parent) tells if the parent is in the submission or in a modal (nested cases)
+    if (hasValue(parent) && parent.type === 'GROUP' && this.model.isModelOfInnerForm && hasValue(parent.parent)) {
 
      const groupHasSomeValue = parent.group.some(elem => !!elem.value);
 
