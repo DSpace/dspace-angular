@@ -8152,5 +8152,7 @@
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar en el repositorio",
 
+  // "search-facet-option.update.announcement": "The page will be reloaded. selected filter: ",
+  "search-facet-option.update.announcement": "La página será recargada. filtro seleccionado: ",
 
 }
