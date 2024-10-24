@@ -41,4 +41,11 @@ export class ItemMetadataRepresentation extends Item implements MetadataRepresen
     return this.virtualMetadata.value;
   }
 
+  /**
+   * Get the authority key of the virtual metadata value (which should have virtual:: prefix itself)
+   */
+  getAuthority(): string {
+    return this.virtualMetadata.authority;
+  }
+
 }
