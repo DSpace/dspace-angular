@@ -16,6 +16,7 @@ import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.serv
 import { APP_CONFIG, AppConfig } from '../../../../../../../config/app-config.interface';
 import { getFirstSucceededRemoteListPayload } from '../../../../../../core/shared/operators';
 import { filter, map } from 'rxjs/operators';
+import { isNotEmpty } from '../../../../../empty.util';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -70,7 +71,7 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
 
       this.hasLoadedThirdPartyMetrics$ = combineLatest([
         this.klaroService.consentsUpdates$.pipe(
-          filter(consents => consents != null)
+          filter(consents => isNotEmpty(consents))
         ),
         this.dso.metrics?.pipe(
           getFirstSucceededRemoteListPayload(),
