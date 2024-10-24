@@ -162,7 +162,6 @@
     "@typescript-eslint/rule-tester": "^7.2.0",
     "@typescript-eslint/utils": "^7.2.0",
     "axe-core": "^4.7.2",
-    "browser-sync": "^3.0.3",
     "compression-webpack-plugin": "^9.2.0",
     "copy-webpack-plugin": "^6.4.1",
     "cross-env": "^7.0.3",
