@@ -55,7 +55,7 @@ export class MarkdownDirective implements OnInit, OnDestroy {
 
   async render(value: string, forcePreview = false): Promise<SafeHtml> {
     if (isEmpty(value) || (!environment.markdown.enabled && !forcePreview)) {
-      this.el.innerHTML = value;
+      this.el.innerHTML = this.sanitizer.sanitize(SecurityContext.HTML, value);
       return;
     } else {
       if (environment.markdown.mathjax) {
