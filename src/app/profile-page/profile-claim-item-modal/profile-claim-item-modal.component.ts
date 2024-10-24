@@ -25,6 +25,7 @@ import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DSOSelectorModalWrapperComponent } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -42,6 +43,7 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
     AsyncPipe,
     TranslateModule,
     NgForOf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

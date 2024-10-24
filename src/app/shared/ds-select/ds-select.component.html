@@ -13,7 +13,7 @@
             class="btn btn-outline-primary selection"
             (blur)="close.emit($event)"
             (click)="close.emit($event)"
-            [disabled]="disabled"
+            [dsBtnDisabled]="disabled"
             ngbDropdownToggle>
       <ng-content select=".selection"></ng-content>
     </button>

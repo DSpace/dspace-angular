@@ -35,7 +35,7 @@
 <ng-template #buttons>
   <div class="d-flex space-children-mr justify-content-end">
     <button class="btn btn-danger" *ngIf="(isReinstatable$ | async) !== true"
-            [disabled]="(hasChanges$ | async) !== true"
+            [dsBtnDisabled]="(hasChanges$ | async) !== true"
             (click)="discard()">
       <i aria-hidden="true" class="fas fa-times"></i>
       <span class="d-none d-sm-inline">&nbsp;{{ 'item.edit.metadata.discard-button' | translate }}</span>
@@ -45,7 +45,7 @@
       <span class="d-none d-sm-inline">&nbsp;{{ 'item.edit.metadata.reinstate-button' | translate }}</span>
     </button>
     <button class="btn btn-primary"
-            [disabled]="(hasChanges$ | async) !== true || (isSaving$ | async) === true"
+            [dsBtnDisabled]="(hasChanges$ | async) !== true || (isSaving$ | async) === true"
             (click)="submit()">
       <span *ngIf="isSaving$ | async" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
       <i *ngIf="(isSaving$ | async) !== true" aria-hidden="true" class="fas fa-save"></i>

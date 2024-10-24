@@ -44,6 +44,7 @@ import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.mod
 import { Group } from '../../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -76,6 +77,7 @@ enum SubKey {
     RouterLink,
     NgClass,
     NgForOf,
+    BtnDisabledDirective,
   ],
 })
 export class ReviewersListComponent extends MembersListComponent implements OnInit, OnChanges, OnDestroy {
