@@ -5,3 +5,9 @@ export interface SectionVisibility {
   main: any;
   other: any;
 }
+
+
+export enum SectionScope {
+  Submission = 'SUBMISSION',
+  Workflow = 'WORKFLOW',
+}
