@@ -7,7 +7,7 @@
   <ng-container *ngIf="(loading$ | async) !== true">
     <div [id]="bundle.id" class="bundle-bitstreams-list"
          [ngClass]="{'mb-3': (objectsRD$ | async)?.payload?.totalElements > pageSize}"
-         *ngVar="(updates$ | async) as updates" cdkDropList (cdkDropListDropped)="drop($event)">
+         *ngVar="(updates$ | async) as updates" cdkDropList (cdkDropListDropped)="drop($event)" [ngbTooltip]="'item.edit.bitstreams.bundle.tooltip' | translate">
       <ng-container *ngIf="updates">
         <div class="row bitstream-row" *ngFor="let uuid of customOrder" cdkDrag
              [id]="uuid"
