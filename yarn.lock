@@ -2717,7 +2717,7 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/grecaptcha@^3.0.4":
+"@types/grecaptcha@^3.0.9":
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/@types/grecaptcha/-/grecaptcha-3.0.9.tgz#9f3b07ec06c8fff221aa6fc124fe5b8a0e2c3349"
   integrity sha512-fFxMtjAvXXMYTzDFK5NpcVB7WHnrHVLl00QzEGpuFxSAC789io6M+vjcn+g5FTEamIJtJr/IHkCDsqvJxeWDyw==
