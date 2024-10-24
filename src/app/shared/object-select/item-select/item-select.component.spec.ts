@@ -7,7 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -38,7 +38,7 @@ describe('ItemSelectComponent', () => {
   const mockItemList = [
     Object.assign(new Item(), {
       id: 'id1',
-      bundles: of({}),
+      bundles: observableOf({}),
       metadata: [
         {
           key: 'dc.title',
@@ -54,7 +54,7 @@ describe('ItemSelectComponent', () => {
     }),
     Object.assign(new Item(), {
       id: 'id2',
-      bundles: of({}),
+      bundles: observableOf({}),
       metadata: [
         {
           key: 'dc.title',
@@ -186,7 +186,7 @@ describe('ItemSelectComponent', () => {
 
     beforeEach(() => {
       comp.featureId = FeatureID.CanManageMappings;
-      spyOn(authorizationDataService, 'isAuthorized').and.returnValue(of(false));
+      spyOn(authorizationDataService, 'isAuthorized').and.returnValue(observableOf(false));
       comp.ngOnInit();
     });
 

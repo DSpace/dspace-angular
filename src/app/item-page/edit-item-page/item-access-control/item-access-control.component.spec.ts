@@ -3,7 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { ItemAccessControlComponent } from './item-access-control.component';
@@ -18,7 +18,7 @@ describe('ItemAccessControlComponent', () => {
           pipe: () => {
             return {
               pipe: () => {
-                return of({});
+                return observableOf({});
               },
             };
           },

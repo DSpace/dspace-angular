@@ -6,6 +6,8 @@
  * http://www.dspace.org/license/
  */
 
+import { RuleMetaData } from '@typescript-eslint/utils/ts-eslint';
+
 import { default as html } from '../src/rules/html';
 import { default as ts } from '../src/rules/ts';
 
@@ -68,6 +70,16 @@ describe('plugin structure', () => {
             expect(ruleExports.tests).toBeTruthy();
             expect(ruleExports.tests.valid.length).toBeGreaterThan(0);
             expect(ruleExports.tests.invalid.length).toBeGreaterThan(0);
+          });
+
+          it('should contain a valid ESLint rule', () => {
+            // we don't have a better way to enforce this, but it's something at least
+            expect((ruleExports.rule as any).name).toBeUndefined(
+              'Rules should be passed to RuleCreator, omitting info.name since it is not part of the RuleWithMeta interface',
+            );
+
+            expect(ruleExports.rule.create).toBeTruthy();
+            expect(ruleExports.rule.meta).toEqual(ruleExports.info.meta as RuleMetaData<string, []>);
           });
         });
       }

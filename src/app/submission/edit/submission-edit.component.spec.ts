@@ -12,10 +12,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
@@ -62,7 +59,7 @@ describe('SubmissionEditComponent Component', () => {
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: of('fake-url'),
+      getEndpoint: observableOf('fake-url'),
     });
 
     TestBed.configureTestingModule({

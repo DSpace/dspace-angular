@@ -19,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   map,
@@ -203,7 +203,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
         if (coarLdnEnabled) {
           return this.notifyInfoService.getCoarLdnLocalInboxUrls();
         } else {
-          return of([]);
+          return observableOf([]);
         }
       }),
     );

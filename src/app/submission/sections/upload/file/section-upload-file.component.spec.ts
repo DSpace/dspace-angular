@@ -18,10 +18,7 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -296,7 +293,7 @@ class TestComponent {
   availableAccessConditionOptions;
   collectionId = mockSubmissionCollectionId;
   collectionPolicyType;
-  configMetadataForm$ = of(configMetadataFormMock);
+  configMetadataForm$ = observableOf(configMetadataFormMock);
   fileIndexes = [];
   fileList = [];
   fileNames = [];

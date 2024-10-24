@@ -7,10 +7,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
@@ -87,11 +84,11 @@ describe('AdminNotifySearchResultComponent', () => {
 
   beforeEach(async () => {
     adminNotifyMessageService = jasmine.createSpyObj('adminNotifyMessageService', {
-      getDetailedMessages: of(mockAdminNotifyMessages),
-      reprocessMessage: of(mockAdminNotifyMessages),
+      getDetailedMessages: observableOf(mockAdminNotifyMessages),
+      reprocessMessage: observableOf(mockAdminNotifyMessages),
     });
     searchConfigService = jasmine.createSpyObj('searchConfigService', {
-      getCurrentConfiguration: of('NOTIFY.outgoing'),
+      getCurrentConfiguration: observableOf('NOTIFY.outgoing'),
     });
 
     await TestBed.configureTestingModule({
@@ -150,7 +147,7 @@ describe('AdminNotifySearchResultComponent', () => {
   });
 
   it('should unsubscribe on destroy', () => {
-    (component as any).subs = [of(null).subscribe()];
+    (component as any).subs = [observableOf(null).subscribe()];
 
     spyOn((component as any).subs[0], 'unsubscribe');
     component.ngOnDestroy();

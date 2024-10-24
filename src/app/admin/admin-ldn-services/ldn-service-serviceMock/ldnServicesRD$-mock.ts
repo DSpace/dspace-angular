@@ -1,6 +1,6 @@
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -112,4 +112,4 @@ export const mockLdnServices: LdnService[] = [{
   },
 },
 ];
-export const mockLdnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>> = of((mockLdnServices as unknown) as RemoteData<PaginatedList<LdnService>>);
+export const mockLdnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>> = observableOf((mockLdnServices as unknown) as RemoteData<PaginatedList<LdnService>>);
