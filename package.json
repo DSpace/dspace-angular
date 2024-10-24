@@ -199,7 +199,6 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "rimraf": "^3.0.2",
-    "rxjs-spy": "^8.0.2",
     "sass": "~1.80.3",
     "sass-loader": "^12.6.0",
     "sass-resources-loader": "^2.2.5",
