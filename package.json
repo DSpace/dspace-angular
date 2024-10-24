@@ -12,7 +12,6 @@
     "preserve": "yarn base-href",
     "serve": "ts-node --project ./tsconfig.ts-node.json scripts/serve.ts",
     "serve:ssr": "node dist/server/main",
-    "analyze": "webpack-bundle-analyzer dist/browser/stats.json",
     "build": "ng build --configuration development",
     "build:stats": "ng build --stats-json",
     "build:prod": "cross-env NODE_ENV=production yarn run build:ssr",
@@ -205,7 +204,6 @@
     "ts-node": "^8.10.2",
     "typescript": "~5.4.5",
     "webpack": "5.95.0",
-    "webpack-bundle-analyzer": "^4.8.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
   }
