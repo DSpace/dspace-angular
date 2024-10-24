@@ -8152,5 +8152,20 @@
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar en el repositorio",
 
+  // "statistics.table.header.TotalVisits": "Object",
+  "statistics.table.header.TotalVisits": "Objeto",
+
+  // "statistics.table.header.TotalVisitsMonth": "Month",
+  "statistics.table.header.TotalVisitsMonth": "Mes",
+
+  // "statistics.table.header.TotalDownloads": "Downloads",
+  "statistics.table.header.TotalDownloads": "Descargas",
+
+  // "statistics.table.header.TopCities": "Cities",
+  "statistics.table.header.TopCities": "Ciudades",
+
+  // "statistics.table.header.topCountries": "Countries",
+  "statistics.table.header.topCountries": "Países",
+
 
 }
