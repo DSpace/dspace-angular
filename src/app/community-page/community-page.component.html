@@ -13,10 +13,10 @@
           <ds-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">
           </ds-comcol-page-handle>
           <!-- Introductory text -->
-          <ds-comcol-page-content [content]="communityPayload.introductoryText" [hasInnerHtml]="true">
+          <ds-comcol-page-content [content]="communityPayload.introductoryText(translateService.currentLang)" [hasInnerHtml]="true">
           </ds-comcol-page-content>
           <!-- News -->
-          <ds-comcol-page-content [content]="communityPayload.sidebarText" [hasInnerHtml]="true"
+          <ds-comcol-page-content [content]="communityPayload.sidebarText(translateService.currentLang)" [hasInnerHtml]="true"
                                   [title]="'community.page.news'">
           </ds-comcol-page-content>
         </header>
@@ -32,7 +32,7 @@
       </section>
       <footer *ngIf="communityPayload.copyrightText" class="border-top my-5 pt-4">
         <!-- Copyright -->
-        <ds-comcol-page-content [content]="communityPayload.copyrightText" [hasInnerHtml]="true">
+        <ds-comcol-page-content [content]="communityPayload.copyrightText(translateService.currentLang)" [hasInnerHtml]="true">
         </ds-comcol-page-content>
       </footer>
     </div>

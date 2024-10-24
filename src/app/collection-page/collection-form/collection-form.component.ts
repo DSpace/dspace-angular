@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgForOf,
   NgIf,
 } from '@angular/common';
 import {
@@ -12,6 +13,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -66,7 +68,9 @@ import {
     ComcolPageLogoComponent,
     NgIf,
     NgClass,
+    NgForOf,
     VarDirective,
+    FormsModule,
   ],
 })
 export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
@@ -101,11 +105,14 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef,
-                     protected modalService: NgbModal) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
+                     protected modalService: NgbModal,
+                     protected cdr: ChangeDetectorRef) {
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService, cdr);
   }
 
   ngOnInit(): void {
+    this.initializeLanguage();
+
     if (hasNoValue(this.formModel) && isNotNull(this.dso)) {
       this.initializeForm();
     }
@@ -148,11 +155,23 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
         }
       });
 
-      this.formModel = entityTypes.length === 0 ? collectionFormModels : [...collectionFormModels, this.entityTypeSelection];
+      this.formModels.set(
+        this.defaultLanguageCode,
+        this.getCollectionFormModels(entityTypes, collectionFormModels(this.defaultLanguageCode, true)),
+      );
+      this.languages.forEach(lang => {
+        this.formModels.set(
+          lang.code,
+          this.getCollectionFormModels(entityTypes, collectionFormModels(lang.code, false)),
+        );
+      });
 
       super.ngOnInit();
       this.chd.detectChanges();
     });
+  }
 
+  private getCollectionFormModels(entityTypes: ItemType[],  dynamicCollectionFormModels: DynamicFormControlModel[]): DynamicFormControlModel[] {
+    return entityTypes.length === 0 ? dynamicCollectionFormModels : [...dynamicCollectionFormModels, this.entityTypeSelection];
   }
 }
