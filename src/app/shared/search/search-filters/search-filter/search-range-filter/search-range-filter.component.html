@@ -2,9 +2,9 @@
     <div class="filters py-2">
         <form #form="ngForm" (ngSubmit)="onSubmit()" class="add-filter row"
               [action]="currentUrl">
-            <div class="col-6 form-group mb-0">
-                <label>
-                  <span class="font-weight-bold">
+            <div class="col-6 mb-3 mb-0">
+                <label class="form-label">
+                  <span class="fw-bold">
                     {{'search.filters.filter.' + filterConfig.name + '.min.label' | translate}}
                   </span>
                   <input type="text" [(ngModel)]="range[0]" [name]="filterConfig.paramName + '.min'"
@@ -15,8 +15,8 @@
                 </label>
             </div>
             <div class="col-6">
-                <label>
-                    <span class="font-weight-bold">
+                <label class="form-label">
+                    <span class="fw-bold">
                       {{'search.filters.filter.' + filterConfig.name + '.max.label' | translate}}
                     </span>
                     <input type="text" [(ngModel)]="range[1]" [name]="filterConfig.paramName + '.max'"

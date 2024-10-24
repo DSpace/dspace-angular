@@ -1,5 +1,5 @@
   <div class="card" [@focusShadow]="(isCollapsed$ | async)?'blur':'focus'">
-    <div class="position-absolute ml-1">
+    <div class="position-absolute ms-1">
         <ng-content></ng-content>
     </div>
     <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[itemPageRoute]"
