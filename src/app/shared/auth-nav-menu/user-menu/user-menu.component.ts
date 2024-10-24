@@ -5,8 +5,10 @@ import {
 } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import {
   RouterLink,
@@ -48,6 +50,11 @@ export class UserMenuComponent implements OnInit {
    * The input flag to show user details in navbar expandable menu
    */
   @Input() inExpandableNavbar = false;
+
+  /**
+   * Emits an event when the route changes
+   */
+  @Output() changedRoute: EventEmitter<any> = new EventEmitter<any>();
 
   /**
    * True if the authentication is loading.
@@ -95,5 +102,12 @@ export class UserMenuComponent implements OnInit {
     // set user
     this.user$ = this.authService.getAuthenticatedUserFromStore();
 
+  }
+
+  /**
+   * Emits an event when the menu item is clicked
+   */
+  onMenuItemClick() {
+    this.changedRoute.emit();
   }
 }
