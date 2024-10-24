@@ -3459,11 +3459,6 @@ ajv@^8.0.0, ajv@^8.9.0:
     json-schema-traverse "^1.0.0"
     require-from-string "^2.0.2"
 
-angular-idle-preload@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/angular-idle-preload/-/angular-idle-preload-3.0.0.tgz#decace34d9fac1cb00000727a6dc5caafdb84e4d"
-  integrity sha512-W3P2m2B6MHdt1DVunH6H3VWkAZrG3ZwxGcPjedVvIyRhg/LmMtILoizHSxTXw3fsKIEdAPwGObXGpML9WD1jJA==
-
 angulartics2@^12.2.0:
   version "12.2.1"
   resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-12.2.1.tgz#9a5727aaacafe77b6b912ff5a94532d41377ce51"
