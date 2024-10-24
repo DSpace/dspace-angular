@@ -19,7 +19,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 import {
   distinctUntilChanged,
   map,
@@ -36,6 +39,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../empty.util';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
+import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { ObjectTableComponent } from '../object-table/object-table.component';
@@ -52,13 +56,20 @@ import { ListableObject } from './shared/listable-object.model';
   styleUrls: ['./object-collection.component.scss'],
   templateUrl: './object-collection.component.html',
   standalone: true,
-  imports: [NgIf, ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent],
+  imports: [NgIf, ThemedObjectListComponent, NgClass,
+    ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent,
+    ObjectGeospatialMapComponent],
 })
 export class ObjectCollectionComponent implements OnInit {
   /**
    * The list of listable objects to render in this component
    */
-  @Input() objects: RemoteData<PaginatedList<ListableObject>>;
+
+  private _objects$: BehaviorSubject<RemoteData<PaginatedList<ListableObject>>>;
+
+  @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
+    this._objects$.next(objects);
+  }
 
   /**
    * The current pagination configuration
@@ -212,6 +223,7 @@ export class ObjectCollectionComponent implements OnInit {
     private router: Router,
     private elementRef: ElementRef,
     @Inject(PLATFORM_ID) private platformId: any) {
+    this._objects$ = new BehaviorSubject(undefined);
   }
 
   ngOnInit(): void {
@@ -278,6 +290,11 @@ export class ObjectCollectionComponent implements OnInit {
   */
   goNext() {
     this.next.emit(true);
+  }
+
+  get objects() {
+    // return result;
+    return this._objects$.getValue();
   }
 
 }

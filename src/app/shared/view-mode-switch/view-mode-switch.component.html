@@ -34,5 +34,15 @@
        class="btn btn-secondary"
        [attr.data-test]="'detail-view' | dsBrowserOnly">
       <i class="far fa-square"></i>
+    </button> <button *ngIf="isToShow(viewModeEnum.GeospatialMap)"
+       routerLink="."
+       [queryParams]="{view: 'geospatialMap'}"
+       queryParamsHandling="merge"
+       (click)="switchViewTo(viewModeEnum.GeospatialMap)"
+       routerLinkActive="active"
+       [class.active]="currentMode === viewModeEnum.GeospatialMap"
+       class="btn btn-secondary"
+       [attr.data-test]="'grid-view' | dsBrowserOnly">
+       <span class="fas fa-map"></span><span class="sr-only">{{'search.view-switch.show-geospatialMap' | translate}}</span>
     </button>
 </div>

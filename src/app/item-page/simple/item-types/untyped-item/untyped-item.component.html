@@ -65,6 +65,15 @@
       [fields]="['dc.identifier.citation']"
       [label]="'item.page.citation'">
     </ds-generic-item-page-field>
+    <!-- Below is an example of how to render one or more lat/lng points and/or bounding box rectangles
+         in a tiled map viewer. Set 'cluster' to true for marker clustering -->
+<!--    <ds-geospatial-item-page-field [item]="object"-->
+<!--                                   [label]="'item.page.places'"-->
+<!--                                   [pointFields]="['dcterms.spatial']"-->
+<!--                                   [bboxFields]="['external.spatial.bbox']"-->
+<!--                                   [cluster]="true"-->
+<!--                                >-->
+<!--    </ds-geospatial-item-page-field>-->
     <ds-item-page-uri-field [item]="object"
       [fields]="['dc.identifier.uri']"
       [label]="'item.page.uri'">
