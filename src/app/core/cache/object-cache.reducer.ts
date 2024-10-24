@@ -174,20 +174,25 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
  *    the new state, with the object added, or overwritten.
  */
 function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheAction): ObjectCacheState {
-  const existing = state[action.payload.objectToCache._links.self.href] || {} as any;
+  const cacheLink = hasValue(action.payload.objectToCache?._links?.self) ? action.payload.objectToCache._links.self.href : action.payload.alternativeLink;
+  const existing = state[cacheLink] || {} as any;
   const newAltLinks = hasValue(action.payload.alternativeLink) ? [action.payload.alternativeLink] : [];
-  return Object.assign({}, state, {
-    [action.payload.objectToCache._links.self.href]: {
-      data: action.payload.objectToCache,
-      timeCompleted: action.payload.timeCompleted,
-      msToLive: action.payload.msToLive,
-      requestUUIDs: [action.payload.requestUUID, ...(existing.requestUUIDs || [])],
-      dependentRequestUUIDs: existing.dependentRequestUUIDs || [],
-      isDirty: isNotEmpty(existing.patches),
-      patches: existing.patches || [],
-      alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks],
-    } as ObjectCacheEntry,
-  });
+  if (hasValue(cacheLink)) {
+    return Object.assign({}, state, {
+      [cacheLink]: {
+        data: action.payload.objectToCache,
+        timeCompleted: action.payload.timeCompleted,
+        msToLive: action.payload.msToLive,
+        requestUUIDs: [action.payload.requestUUID, ...(existing.requestUUIDs || [])],
+        dependentRequestUUIDs: existing.dependentRequestUUIDs || [],
+        isDirty: isNotEmpty(existing.patches),
+        patches: existing.patches || [],
+        alternativeLinks: [...(existing.alternativeLinks || []), ...newAltLinks],
+      } as ObjectCacheEntry,
+    });
+  } else {
+    return state;
+  }
 }
 
 /**

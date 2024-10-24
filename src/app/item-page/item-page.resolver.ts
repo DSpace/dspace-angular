@@ -18,7 +18,7 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { hasValue } from '../shared/empty.util';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from './item.resolver';
+import { getItemPageLinksToFollow } from './item.resolver';
 import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
@@ -44,7 +44,7 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
     route.params.id,
     true,
     false,
-    ...ITEM_PAGE_LINKS_TO_FOLLOW,
+    ...getItemPageLinksToFollow(),
   ).pipe(
     getFirstCompletedRemoteData(),
     redirectOn4xx(router, authService),
