@@ -4,7 +4,8 @@ import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import {
-  compareArraysUsingIds, PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
+  compareArraysUsingIds,
+  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems
 } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
@@ -26,10 +27,11 @@ import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
 import {
+  getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../shared/operators';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
@@ -118,14 +120,18 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    *                              it. Disable this if you want to add relationships in bulk, and
    *                              want to refresh the cachemanually at the end
    */
-  deleteRelationship(id: string, copyVirtualMetadata: string, shouldRefresh = true): Observable<RemoteData<NoContent>> {
+  deleteRelationship(id: string, copyVirtualMetadata?: string, shouldRefresh = true): Observable<RemoteData<NoContent>> {
     return this.getRelationshipEndpoint(id).pipe(
       isNotEmptyOperator(),
       take(1),
       distinctUntilChanged(),
-      map((endpointURL: string) =>
-        new DeleteRequest(this.requestService.generateRequestId(), endpointURL + '?copyVirtualMetadata=' + copyVirtualMetadata)
-      ),
+      map( (endpointURL: string) => {
+        if ( !!copyVirtualMetadata ) {
+          return new DeleteRequest(this.requestService.generateRequestId(), endpointURL + '?copyVirtualMetadata=' + copyVirtualMetadata);
+        } else {
+          return new DeleteRequest(this.requestService.generateRequestId(), endpointURL);
+        }
+      }),
       sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
       getFirstCompletedRemoteData(),
@@ -217,8 +223,8 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    */
   getItemRelationshipsArray(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
     return this.findListByHref(item._links.relationships.href, undefined, true, false, ...linksToFollow).pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
+      // getFirstSucceededRemoteData(),
+      getAllSucceededRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),
       hasValueOperator(),
       distinctUntilChanged(compareArraysUsingIds()),
@@ -238,21 +244,13 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
       elementsPerPage: 100
     };
     return this.findListByHref(item._links.relationships.href, findOptions, false, false, ...linksToFollow).pipe(
-        getFirstSucceededRemoteData(),
-        getRemoteDataPayload(),
-        map((rels: PaginatedList<Relationship>) => rels.page),
-        hasValueOperator(),
-        distinctUntilChanged(compareArraysUsingIds()),
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((rels: PaginatedList<Relationship>) => rels.page),
+      hasValueOperator(),
+      distinctUntilChanged(compareArraysUsingIds()),
     );
   }
-
-  public updateRightPlace(rel: Relationship): Observable<RemoteData<Relationship>> {
-
-    const update$ = this.update(rel);
-
-    return update$;
-  }
-
 
   /**
    * Get an array of the labels of an item’s unique relationship types
@@ -525,6 +523,14 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
         this.refreshRelationshipItemsInCacheByRelationship(reoRel.relationship.id);
       }
     });
+
+    return update$;
+  }
+
+
+  public updateRightPlace(rel: Relationship): Observable<RemoteData<Relationship>> {
+
+    const update$ = this.update(rel);
 
     return update$;
   }

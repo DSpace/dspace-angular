@@ -3,12 +3,13 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnDestroy,
   OnInit,
   Output,
   ViewChild,
-  ElementRef
-} from '@angular/core';import { UntypedFormGroup } from '@angular/forms';
+  ElementRef,
+  OnDestroy
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
@@ -43,7 +44,6 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit, OnDestroy {
   @ViewChild('dropdownMenu', { read: ElementRef }) dropdownMenu: ElementRef;
 
-
   @Input() bindId = true;
   @Input() group: UntypedFormGroup;
   @Input() model: DynamicScrollableDropdownModel;
@@ -57,8 +57,8 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: VocabularyEntry[] = [];
-  public selectedIndex = 0;
   public inputText: string = null;
+  public selectedIndex = 0;
   public acceptableKeys = ['Space', 'NumpadMultiply', 'NumpadAdd', 'NumpadSubtract', 'NumpadDecimal', 'Semicolon', 'Equal', 'Comma', 'Minus', 'Period', 'Quote', 'Backquote'];
 
 
@@ -74,7 +74,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   filterTextChanged: Subject<string> = new Subject<string>();
 
   /**
-   * The subscribtion to be utilized on destroy to remove filterTextChange subscription
+   * The subscription to be utilized on destroy to remove filterTextChange subscription
    */
   subSearch: Subscription;
 
@@ -141,6 +141,9 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
       this.group.markAsUntouched();
+      this.inputText = null;
+      this.updatePageInfo(this.model.maxOptions, 1);
+      this.retrieveEntries(null, false);
       sdRef.open();
     }
   }
@@ -190,34 +193,35 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     }
   }
 
-    addKeyToInput(keyName: string) {
-        if (this.inputText === null) {
-            this.inputText = '';
-        }
-        this.inputText += keyName;
-        // When a new key is added, we need to reset the page info
-        this.updatePageInfo(this.model.maxOptions, 1);
-        this.retrieveEntries(this.inputText, false);
+  addKeyToInput(keyName: string) {
+    if (this.inputText === null) {
+      this.inputText = '';
     }
+    this.inputText += keyName;
+    // When a new key is added, we need to reset the page info
+    this.updatePageInfo(this.model.maxOptions, 1);
+    this.retrieveEntries(this.inputText, false);
+  }
 
-    removeKeyFromInput() {
-        if (this.inputText !== null) {
-            this.inputText = this.inputText.slice(0, -1);
-            if (this.inputText === '') {
-                this.inputText = null;
-            }
-            this.retrieveEntries(this.inputText, false);
-        }
+  removeKeyFromInput() {
+    if (this.inputText !== null) {
+      this.inputText = this.inputText.slice(0, -1);
+      if (this.inputText === '') {
+        this.inputText = null;
+      }
+      this.retrieveEntries(this.inputText, false);
     }
+  }
 
-    isAcceptableKey(keyPress: string): boolean {
-        // allow all letters and numbers
-        if (keyPress.length === 1 && keyPress.match(/^[a-zA-Z0-9]*$/)) {
-            return true;
-        }
-        // Some other characters like space, dash, etc should be allowed as well
-        return this.acceptableKeys.includes(keyPress);
+
+  isAcceptableKey(keyPress: string): boolean {
+    // allow all letters and numbers
+    if (keyPress.length === 1 && keyPress.match(/^[a-zA-Z0-9]*$/)) {
+      return true;
     }
+    // Some other characters like space, dash, etc should be allowed as well
+    return this.acceptableKeys.includes(keyPress);
+  }
 
   /**
    * Loads any new entries

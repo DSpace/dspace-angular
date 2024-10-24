@@ -185,11 +185,11 @@ export class EditItemRelationshipsService {
   isProvidedItemTypeLeftType(relationshipType: RelationshipType, itemType: ItemType, item: Item): Observable<boolean> {
     return this.getRelationshipLeftAndRightType(relationshipType).pipe(
       map(([leftType, rightType]: [ItemType, ItemType]) => {
-        if (leftType?.id === itemType.id) {
+        if (leftType.id === itemType.id) {
           return true;
         }
 
-        if (rightType?.id === itemType.id) {
+        if (rightType.id === itemType.id) {
           return false;
         }
 
@@ -209,7 +209,7 @@ export class EditItemRelationshipsService {
   shouldDisplayBothRelationshipSides(relationshipType: RelationshipType, itemType: ItemType): Observable<boolean> {
     return this.getRelationshipLeftAndRightType(relationshipType).pipe(
       map(([leftType, rightType]: [ItemType, ItemType]) => {
-        return leftType?.id === itemType.id && rightType?.id === itemType.id && relationshipType.leftwardType !== relationshipType.rightwardType;
+        return leftType.id === itemType.id && rightType.id === itemType.id && relationshipType.leftwardType !== relationshipType.rightwardType;
       }),
     );
   }

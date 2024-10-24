@@ -1,17 +1,8 @@
-<div class="d-flex flex-column align-items-center justify-content-around mr-3">
-    <button
-      class="btn btn-link-focus"
-      type="button"
-      tabindex="0"
-      [disabled]="disabled"
-      (click)="toggleUp()">
-      <span class="chevron"></span>
-      <span class="sr-only">{{'form.number-picker.increment' | translate: {field: name} }}</span>
-    </button>
+<div class="d-flex align-items-stretch justify-content-around position-relative">
     <input
       id="{{id}}"
       type="text"
-      class="form-control d-inline-block text-center"
+      class="form-control d-inline-block text-center {{ widthClass }}"
       maxlength="{{size}}"
       size="{{size}}"
       placeholder="{{placeholder}}"
@@ -26,13 +17,25 @@
       title="{{placeholder}}"
       [attr.aria-label]="placeholder"
     >
-    <button
-      class="btn btn-link-focus"
-      type="button"
-      tabindex="0"
-      [disabled]="disabled"
-      (click)="toggleDown()">
-      <span class="chevron bottom"></span>
-      <span class="sr-only">{{'form.number-picker.decrement' | translate: {field: name} }}</span>
-    </button>
+    <div class="d-flex flex-column justify-content-between">
+        <button
+                class="btn btn-link-focus btn-date lp-button"
+                type="button"
+                tabindex="0"
+                [disabled]="disabled"
+                (click)="toggleUp()">
+            <span class="chevron"></span>
+            <span class="sr-only">{{'form.number-picker.increment' | translate: {field: name} }}</span>
+        </button>
+        <button
+                class="btn btn-link-focus btn-date lp-button"
+                type="button"
+                tabindex="0"
+                [disabled]="disabled"
+                (click)="toggleDown()">
+            <span class="chevron bottom"></span>
+            <span class="sr-only">{{'form.number-picker.decrement' | translate: {field: name} }}</span>
+        </button>
+    </div>
+
 </div>

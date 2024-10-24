@@ -23,7 +23,6 @@ import {
 import { CoreState } from '../../core/core-state.model';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -32,6 +31,7 @@ describe('ForgotPasswordFormComponent', () => {
   let router;
   let route;
   let ePersonDataService: EPersonDataService;
+  let authService: AuthService;
   let notificationsService;
   let store: Store<CoreState>;
 
@@ -51,6 +51,8 @@ describe('ForgotPasswordFormComponent', () => {
       patchPasswordWithToken: createSuccessfulRemoteDataObject$({})
     });
 
+    authService = jasmine.createSpyObj('authService', ['setRedirectUrlIfNotSet']);
+
     store = jasmine.createSpyObj('store', {
       dispatch: {},
     });
@@ -68,7 +70,7 @@ describe('ForgotPasswordFormComponent', () => {
         {provide: EPersonDataService, useValue: ePersonDataService},
         {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
         {provide: NotificationsService, useValue: notificationsService},
-        {provide: AuthService, useClass: AuthServiceStub},
+        {provide: AuthService, useValue: authService},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();

@@ -17,6 +17,11 @@
        routerLinkActive="active">{{'nav.mydspace' | translate}}</a>
   </li>
   <li class="ds-menu-item-wrapper" role="presentation">
+    <a class="ds-menu-item" role="menuitem" data-test="processes-link"
+       [routerLink]="[processesRoute]"
+       routerLinkActive="active">{{'nav.processes' | translate}}</a>
+  </li>
+  <li class="ds-menu-item-wrapper" role="presentation">
     <a class="ds-menu-item" role="menuitem"
        [routerLink]="[subscriptionsRoute]"
        routerLinkActive="active">{{'nav.subscriptions' | translate}}</a>

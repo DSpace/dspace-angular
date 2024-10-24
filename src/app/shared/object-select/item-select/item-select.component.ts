@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { DSpaceObjectSelect } from '../object-select.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-item-select',
@@ -30,6 +31,8 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> implements 
    * By collecting this data here it doesn't need to be recalculated on evey change detection.
    */
   selectItems$: Observable<DSpaceObjectSelect<Item>[]>;
+
+  authorMetadata = environment.searchResult.authorMetadata;
 
   ngOnInit(): void {
     super.ngOnInit();

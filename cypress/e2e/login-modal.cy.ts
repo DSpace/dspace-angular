@@ -36,8 +36,8 @@ const page = {
 
 describe('Login Modal', () => {
     it('should login when clicking button & stay on same page', () => {
-        const ENTITYPAGE = '/entities/publication/'.concat(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION'));
-        cy.visit(ENTITYPAGE);
+        const COLLECTIONPAGE = '/collections/'.concat(Cypress.env('TEST_COLLECTION'));
+        cy.visit(COLLECTIONPAGE);
 
         // Login menu should exist
         cy.get('ds-log-in').should('exist');
@@ -50,7 +50,7 @@ describe('Login Modal', () => {
         cy.get('ds-log-in').should('not.exist');
 
         // Verify we are still on the same page
-        cy.url().should('include', ENTITYPAGE);
+        cy.url().should('include', COLLECTIONPAGE);
 
         // Open user menu, verify user menu & logout button now available
         page.openUserMenu();

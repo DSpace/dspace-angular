@@ -8,6 +8,7 @@
                      [paginationOptions]="paginationConfig"
                      [collectionSize]="(totalElements$ | async)"
                      [hideGear]="false"
+                     [hideSortOptions]="true"
                      [retainScrollPosition]="false"
                      (paginationChange)="getSuggestionTargets()">
 

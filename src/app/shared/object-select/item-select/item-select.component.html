@@ -26,7 +26,7 @@
               </a>
             </span>
           </td>
-          <td><span *ngIf="selectItem.dso.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])">{{selectItem.dso.firstMetadataValue(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])}}</span></td>
+          <td><span *ngIf="selectItem.dso.hasMetadata(authorMetadata)">{{selectItem.dso.firstMetadataValue(authorMetadata)}}</span></td>
           <td><a [routerLink]="selectItem.route">{{ dsoNameService.getName(selectItem.dso) }}</a></td>
         </tr>
         </tbody>

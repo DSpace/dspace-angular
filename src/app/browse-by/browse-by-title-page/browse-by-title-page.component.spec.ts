@@ -22,7 +22,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-
+import { SearchManager } from '../../core/browse/search-manager';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
@@ -53,6 +53,10 @@ describe('BrowseByTitlePageComponent', () => {
   ];
 
   const mockBrowseService = {
+    getBrowseEntriesFor: () => toRemoteData([])
+  };
+
+  const mockBrowseManager = {
     getBrowseItemsFor: () => toRemoteData(mockItems),
     getBrowseEntriesFor: () => toRemoteData([])
   };
@@ -75,6 +79,7 @@ describe('BrowseByTitlePageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
+        { provide: SearchManager, useValue: mockBrowseManager },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },

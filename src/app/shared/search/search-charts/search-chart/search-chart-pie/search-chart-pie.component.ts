@@ -19,7 +19,9 @@ import { FacetValues } from '../../../models/facet-values.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
-  IN_PLACE_SEARCH, REFRESH_FILTER, SCOPE,
+  IN_PLACE_SEARCH,
+  REFRESH_FILTER,
+  SCOPE,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';

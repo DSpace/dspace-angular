@@ -22,9 +22,8 @@ import { TextareaFieldParser } from './textarea-field-parser';
 import { NumberFieldParser } from './number-field-parser';
 import { CalendarFieldParser } from './calendar-field-parser';
 import { DisabledFieldParser } from './disabled-field-parser';
-import { LinkFieldParser } from './link-field-parser';
 import { TranslateService } from '@ngx-translate/core';
-
+import { LinkFieldParser } from './link-field-parser';
 
 const fieldParserDeps = [
   SUBMISSION_ID,

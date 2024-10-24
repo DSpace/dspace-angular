@@ -46,12 +46,12 @@ import { ResultsBackButtonModule } from '../../shared/results-back-button/result
 import {
   AccessControlFormModule
 } from '../../shared/access-control-form-container/access-control-form.module';
-import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
-import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-metadata-security.component';
-import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
 import {
   EditRelationshipListWrapperComponent
 } from './item-relationships/edit-relationship-list-wrapper/edit-relationship-list-wrapper.component';
+import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
+import { EditMetadataSecurityComponent } from './edit-metadata-security/edit-metadata-security.component';
+import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -101,7 +101,7 @@ import {
     ItemRegisterDoiComponent,
     ItemCurateComponent,
     ItemAccessControlComponent,
-    EditRelationshipListWrapperComponent
+    EditRelationshipListWrapperComponent,
   ],
   providers: [
     BundleDataService,

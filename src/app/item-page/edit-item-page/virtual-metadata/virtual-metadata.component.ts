@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, OnChanges, OnDestroy } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject } from 'rxjs';
-import {Item} from '../../../core/shared/item.model';
-import {MetadataValue} from '../../../core/shared/metadata.models';
-import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { hasValue } from '../../../shared/empty.util';
 
@@ -46,6 +46,11 @@ export class VirtualMetadataComponent implements OnInit, OnChanges, OnDestroy {
   @Input() rightItem: Item;
 
   /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * Emits when the close button is pressed.
    */
   @Output() close = new EventEmitter();
@@ -54,19 +59,6 @@ export class VirtualMetadataComponent implements OnInit, OnChanges, OnDestroy {
    * Emits when the save button is pressed.
    */
   @Output() save = new EventEmitter();
-
-  /**
-   * Indicates when thumbnails are required by configuration and therefore
-   * need to be hidden in the modal layout.
-   */
-  @Input() showThumbnails: boolean;
-
-  /**
-   * Get an array of the left and the right item of the relationship to be deleted.
-   */
-  get items() {
-    return [this.leftItem, this.rightItem];
-  }
 
   /**
    * Get an array of the left and the right item of the relationship to be deleted.

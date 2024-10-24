@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { of as observableOf, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,16 +16,18 @@ import {
   FILTER_CONFIG,
   SCOPE,
   IN_PLACE_SEARCH,
-  SearchFilterService,
-  REFRESH_FILTER
+  REFRESH_FILTER,
+  SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { FacetValue} from '../../../models/facet-value.model';
+import {
+  VocabularyEntryDetail
+} from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
@@ -33,6 +35,7 @@ import { environment } from '../../../../../../environments/environment.test';
 describe('SearchHierarchyFilterComponent', () => {
 
   let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
+  let component: SearchHierarchyFilterComponent;
   let showVocabularyTreeLink: DebugElement;
 
   const testSearchLink = 'test-search';
@@ -58,7 +61,7 @@ describe('SearchHierarchyFilterComponent', () => {
     searchTopEntries: () => undefined,
   };
 
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -84,21 +87,22 @@ describe('SearchHierarchyFilterComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  });
+  }));
 
   function init() {
     fixture = TestBed.createComponent(SearchHierarchyFilterComponent);
-    fixture.detectChanges();
-    showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
+    component = fixture.componentInstance;
   }
 
   describe('if the vocabulary doesn\'t exist', () => {
 
     beforeEach(() => {
+      init();
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
         undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404
       )));
-      init();
+      fixture.detectChanges();
+      showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
     });
 
     it('should not show the vocabulary tree link', () => {
@@ -109,10 +113,19 @@ describe('SearchHierarchyFilterComponent', () => {
   describe('if the vocabulary exists', () => {
 
     beforeEach(() => {
-      spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
-        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200
-      )));
       init();
+      const pageInfo = new PageInfo({
+        elementsPerPage: 1,
+        totalElements: 1,
+        totalPages: 1,
+        currentPage: 1
+      });
+      spyOn(component, 'getVocabularyEntry').and.returnValue('test');
+      spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
+        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(pageInfo, [new VocabularyEntryDetail()]), 200
+      )));
+      fixture.detectChanges();
+      showVocabularyTreeLink = fixture.debugElement.query(By.css('[data-test="btn-more"]'));
     });
 
     it('should show the vocabulary tree link', () => {

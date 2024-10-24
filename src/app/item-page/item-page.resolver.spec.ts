@@ -1,15 +1,14 @@
-import { first } from 'rxjs/operators';
-import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ItemPageResolver } from './item-page.resolver';
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
+import { AuthServiceStub } from '../shared/testing/auth-service.stub';
+import { RouterTestingModule } from '@angular/router/testing';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { PLATFORM_ID } from '@angular/core';
-import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
-import { AuthService } from '../core/auth/auth.service';
+import { ItemDataService } from '../core/data/item-data.service';
 
 describe('ItemPageResolver', () => {
   beforeEach(() => {
@@ -24,13 +23,12 @@ describe('ItemPageResolver', () => {
   describe('resolve', () => {
     let resolver: ItemPageResolver;
     let itemService: ItemDataService;
-
-    let store;
-    let router;
-    let hardRedirectService: HardRedirectService ;
+    let store: any;
+    let router: Router;
+    let authService: any;
+    let hardRedirectService: HardRedirectService;
     let platformId;
 
-    const authService = new AuthServiceMock() as any as AuthService;
     const uuid = '1234-65487-12354-1235';
     const item = Object.assign(new Item(), {
       id: uuid,
@@ -72,6 +70,8 @@ describe('ItemPageResolver', () => {
         store = jasmine.createSpyObj('store', {
           dispatch: {},
         });
+
+        authService = new AuthServiceStub();
 
         hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
           'redirect': jasmine.createSpy('redirect')
@@ -139,6 +139,8 @@ describe('ItemPageResolver', () => {
           dispatch: {},
         });
 
+        authService = new AuthServiceStub();
+
         hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
           'redirect': jasmine.createSpy('redirect')
         });
@@ -182,6 +184,7 @@ describe('ItemPageResolver', () => {
 
         beforeEach(() => {
           platformId = 'browser';
+          authService = new AuthServiceStub();
           resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router, authService);
         });
 
@@ -209,7 +212,6 @@ describe('ItemPageResolver', () => {
             );
         });
       });
-
 
 
     });

@@ -10,7 +10,7 @@ import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 describe('CalendarFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
-  const translateService = getMockTranslateService();
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {

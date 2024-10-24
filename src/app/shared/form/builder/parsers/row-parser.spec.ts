@@ -6,6 +6,11 @@ import { FormRowModel } from '../../../../core/config/models/config-submission-f
 import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 import { TranslateService } from '@ngx-translate/core';
 import { Injector } from '@angular/core';
+import {
+  SubmissionVisibilityType,
+  SubmissionVisibilityValue
+} from '../../../../core/config/models/config-submission-section.model';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 describe('RowParser test suite', () => {
 
@@ -24,7 +29,7 @@ describe('RowParser test suite', () => {
   const submissionId = '1234';
   const scopeUUID = 'testScopeUUID';
   const initFormValues = {};
-  const submissionScope = 'submission';
+  const submissionScope = SubmissionScopeType.WorkspaceItem;
   const readOnly = false;
   const typeField = 'dc_type';
 
@@ -111,7 +116,6 @@ describe('RowParser test suite', () => {
           mandatory: 'false',
           repeatable: false,
           hints: 'Enter the name of the events, if any.',
-          scope: 'SUBMISSION',
           selectableMetadata: [
             {
               metadata: 'title',
@@ -127,7 +131,9 @@ describe('RowParser test suite', () => {
           mandatory: 'false',
           repeatable: false,
           hints: 'Enter the name of the events, if any.',
-          scope: 'WORKFLOW',
+          visibility: {
+            submission: SubmissionVisibilityValue.Hidden
+          } as SubmissionVisibilityType,
           selectableMetadata: [
             {
               metadata: 'otherTitle',

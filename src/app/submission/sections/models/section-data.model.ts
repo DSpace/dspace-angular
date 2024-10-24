@@ -1,6 +1,7 @@
 import { WorkspaceitemSectionDataType } from '../../../core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '../sections-type';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
 
 /**
  * An interface to represent section model
@@ -43,9 +44,19 @@ export interface SectionDataObject {
   mandatory: boolean;
 
   /**
+   * A boolean representing if this section is opened or collapsed by default
+   */
+  opened: boolean;
+
+  /**
    * The section type
    */
   sectionType: SectionsType;
+
+  /**
+   * The section visibility
+   */
+  sectionVisibility: SubmissionVisibilityType;
 
   /**
    * Eventually additional fields

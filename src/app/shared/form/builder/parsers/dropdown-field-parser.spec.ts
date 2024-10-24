@@ -10,7 +10,7 @@ describe('DropdownFieldParser test suite', () => {
 
   const submissionId = '1234';
   const initFormValues = {};
-  const parserOptions:  ParserOptions = {
+  const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,

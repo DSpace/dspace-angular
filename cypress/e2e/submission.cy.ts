@@ -2,7 +2,7 @@ import { testA11y } from 'cypress/support/utils';
 //import { TEST_SUBMIT_USER, TEST_SUBMIT_USER_PASSWORD, TEST_SUBMIT_COLLECTION_NAME, TEST_SUBMIT_COLLECTION_UUID, TEST_ADMIN_USER, TEST_ADMIN_PASSWORD } from 'cypress/support/e2e';
 import { Options } from 'cypress-axe';
 
-describe('New Submission page', () => {
+xdescribe('New Submission page', () => {
 
     // NOTE: We already test that new Item submissions can be started from MyDSpace in my-dspace.spec.ts
     it('should create a new submission when using /submit path & pass accessibility', () => {

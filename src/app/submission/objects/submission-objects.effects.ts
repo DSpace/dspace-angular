@@ -63,12 +63,12 @@ import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionE
 import { FormState } from '../../shared/form/form.reducer';
 import { SubmissionSectionObject } from './submission-section-object.model';
 import { SubmissionSectionError } from './submission-section-error.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import {
   WorkspaceitemSectionDetectDuplicateObject
 } from '../../core/submission/models/workspaceitem-section-deduplication.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -331,11 +331,10 @@ export class SubmissionObjectEffects {
    * Show a notification on success and redirect to MyDSpace page
    */
   depositSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
-      ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS),
-      tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.deposit_success_notice'))),
-      tap((action: DepositSubmissionSuccessAction) => this.workspaceItemDataService.invalidateById(action.payload.submissionId)),
-      tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
-
+    ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS),
+    tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.deposit_success_notice'))),
+    tap((action: DepositSubmissionSuccessAction) => this.workspaceItemDataService.invalidateById(action.payload.submissionId)),
+    tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
 
   /**
    * Show a notification on error
@@ -412,7 +411,7 @@ export class SubmissionObjectEffects {
     private submissionService: SubmissionService,
     private submissionObjectService: SubmissionObjectDataService,
     private translate: TranslateService,
-    private workspaceItemDataService: WorkspaceitemDataService
+    private workspaceItemDataService: WorkspaceitemDataService,
   ) {
   }
 

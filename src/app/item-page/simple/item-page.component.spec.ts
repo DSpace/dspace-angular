@@ -25,8 +25,6 @@ import { ServerResponseService } from '../../core/services/server-response.servi
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -107,7 +105,6 @@ describe('ItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: PLATFORM_ID, useValue: 'server' },
       ],
 

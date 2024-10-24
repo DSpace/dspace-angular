@@ -69,11 +69,10 @@ export class SubmissionRestService {
    *    The identifier for the object
    * @param collectionId
    *    The owning collection for the object
-   * @param projections
    */
   protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string, projections: string[] = []): string {
     let url = isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
-    url = new URLCombiner(url, '?embed=item,collection&projection=full').toString();
+    url = new URLCombiner(url, '?projection=full').toString();
 
     projections.forEach((projection) => {
       url = new URLCombiner(url, '&projection=' + projection).toString();
@@ -82,7 +81,6 @@ export class SubmissionRestService {
     if (collectionId) {
       url = new URLCombiner(url, `&owningCollection=${collectionId}`).toString();
     }
-
     return url;
   }
 
@@ -115,7 +113,6 @@ export class SubmissionRestService {
    *    The endpoint link name
    * @param id
    *    The submission Object to retrieve
-   * @param projections
    * @return Observable<SubmitDataResponseDefinitionObject>
    *     server response
    */
