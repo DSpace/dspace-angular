@@ -159,7 +159,7 @@
     "@types/sanitize-html": "^2.13.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "axe-core": "^4.7.2",
+    "axe-core": "^4.10.2",
     "compression-webpack-plugin": "^9.2.0",
     "copy-webpack-plugin": "^6.4.1",
     "cross-env": "^7.0.3",
