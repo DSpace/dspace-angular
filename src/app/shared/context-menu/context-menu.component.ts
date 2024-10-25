@@ -48,6 +48,9 @@ export class ContextMenuComponent implements OnInit {
    */
   public optionCount = 0;
 
+  public standAloneEntries$: Observable<any>;
+  public contextEntries$: Observable<any>;
+
   /**
    * Initialize instance variables
    *
@@ -71,6 +74,9 @@ export class ContextMenuComponent implements OnInit {
       ],
       parent: this.injector
     });
+
+    this.standAloneEntries$ = this.getStandAloneMenuEntries();
+    this.contextEntries$ = this.getContextMenuEntries();
   }
 
   /**
