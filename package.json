@@ -48,11 +48,6 @@
     "https": false
   },
   "private": true,
-  "resolutions": {
-    "minimist": "^1.2.5",
-    "webdriver-manager": "^12.1.8",
-    "ts-node": "10.2.1"
-  },
   "dependencies": {
     "@angular/animations": "^15.2.10",
     "@angular/cdk": "^15.2.9",
