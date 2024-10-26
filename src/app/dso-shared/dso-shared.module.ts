@@ -10,9 +10,11 @@ import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-e
 import { DsoEditMetadataValueFieldLoaderComponent } from './dso-edit-metadata/dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
 import { DsoEditMetadataTextFieldComponent } from './dso-edit-metadata/dso-edit-metadata-value-field/dso-edit-metadata-text-field/dso-edit-metadata-text-field.component';
 import { DsoEditMetadataValueFieldLoaderDirective } from './dso-edit-metadata/dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.directive';
+import { DsoEditMetadataEntityFieldComponent } from './dso-edit-metadata/dso-edit-metadata-value-field/dso-edit-metadata-entity-field/dso-edit-metadata-entity-field.component';
 
 const ENTRY_COMPONENTS = [
   DsoEditMetadataTextFieldComponent,
+  DsoEditMetadataEntityFieldComponent,
 ];
 
 @NgModule({

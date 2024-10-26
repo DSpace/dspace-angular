@@ -146,6 +146,9 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * Retrieves the {@link EditMetadataValueFieldType} to be displayed for the current field while in edit mode.
    */
   getFieldType(): EditMetadataValueFieldType {
+    if (this.mdField === 'dspace.entity.type') {
+      return EditMetadataValueFieldType.ENTITY_TYPE;
+    }
     return EditMetadataValueFieldType.PLAIN_TEXT;
   }
 

@@ -1,0 +1,5 @@
+<select class="form-control" [(ngModel)]="mdValue?.newValue.value" (ngModelChange)="confirm.emit(false)">
+  <option *ngFor="let entity of (entities$ | async)" [value]="entity.label === 'none' ? undefined : entity.label">
+    {{ entity.label }}
+  </option>
+</select>
