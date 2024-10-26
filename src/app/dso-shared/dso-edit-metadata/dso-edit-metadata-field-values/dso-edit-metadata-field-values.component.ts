@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Context } from '../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-dso-edit-metadata-field-values',
@@ -56,6 +57,8 @@ export class DsoEditMetadataFieldValuesComponent {
    * @type {DsoEditMetadataChangeType}
    */
   public DsoEditMetadataChangeTypeEnum = DsoEditMetadataChangeType;
+
+  public readonly Context = Context;
 
   /**
    * Drop a value into a new position

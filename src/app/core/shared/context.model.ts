@@ -39,4 +39,10 @@ export enum Context {
   MyDSpaceValidation = 'mydspaceValidation',
 
   Bitstream = 'bitstream',
+
+  /**
+   * The Edit Metadata field Context values that are used in the Edit Item Metadata tab.
+   */
+  AddMetadata = 'addMetadata',
+  EditMetadata = 'editMetadata',
 }

@@ -7,12 +7,20 @@ import { DsoEditMetadataValueComponent } from './dso-edit-metadata/dso-edit-meta
 import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata/dso-edit-metadata-headers/dso-edit-metadata-headers.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata/dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-edit-metadata.component';
+import { DsoEditMetadataValueFieldLoaderComponent } from './dso-edit-metadata/dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.component';
+import { DsoEditMetadataTextFieldComponent } from './dso-edit-metadata/dso-edit-metadata-value-field/dso-edit-metadata-text-field/dso-edit-metadata-text-field.component';
+import { DsoEditMetadataValueFieldLoaderDirective } from './dso-edit-metadata/dso-edit-metadata-value-field/dso-edit-metadata-value-field-loader/dso-edit-metadata-value-field-loader.directive';
+
+const ENTRY_COMPONENTS = [
+  DsoEditMetadataTextFieldComponent,
+];
 
 @NgModule({
   imports: [
     SharedModule,
   ],
   declarations: [
+    ...ENTRY_COMPONENTS,
     DsoEditMetadataComponent,
     ThemedDsoEditMetadataComponent,
     MetadataFieldSelectorComponent,
@@ -20,6 +28,8 @@ import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-e
     DsoEditMetadataValueComponent,
     DsoEditMetadataHeadersComponent,
     DsoEditMetadataValueHeadersComponent,
+    DsoEditMetadataValueFieldLoaderComponent,
+    DsoEditMetadataValueFieldLoaderDirective,
   ],
   exports: [
     DsoEditMetadataComponent,
@@ -29,6 +39,9 @@ import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-e
     DsoEditMetadataValueComponent,
     DsoEditMetadataHeadersComponent,
     DsoEditMetadataValueHeadersComponent,
+  ],
+  providers: [
+    ...ENTRY_COMPONENTS,
   ],
 })
 export class DsoSharedModule {

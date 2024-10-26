@@ -1,0 +1,6 @@
+<textarea [(ngModel)]="mdValue?.newValue.value"
+          [dsDebounce]="300"
+          (onDebounce)="confirm.emit(false)"
+          class="form-control"
+          rows="5">
+</textarea>

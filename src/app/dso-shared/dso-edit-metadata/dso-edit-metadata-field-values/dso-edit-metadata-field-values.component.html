@@ -2,6 +2,8 @@
   <ds-dso-edit-metadata-value-headers role="presentation" [dsoType]="dsoType"></ds-dso-edit-metadata-value-headers>
   <ds-dso-edit-metadata-value *ngFor="let mdValue of form.fields[mdField]; let idx = index" role="presentation"
                               [dso]="dso"
+                              [context]="Context.EditMetadata"
+                              [mdField]="mdField"
                               [mdValue]="mdValue"
                               [dsoType]="dsoType"
                               [saving$]="saving$"

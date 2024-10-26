@@ -3,8 +3,15 @@
      [ngClass]="{ 'ds-warning': mdValue.reordered || mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD, 'h-100': isOnlyValue }">
   <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex align-items-center" *ngVar="(mdRepresentation$ | async) as mdRepresentation" role="cell">
     <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing && !mdRepresentation">{{ mdValue.newValue.value }}</div>
-    <textarea class="form-control" rows="5" *ngIf="mdValue.editing && !mdRepresentation" [(ngModel)]="mdValue.newValue.value"
-              [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
+    <ng-container *ngVar="fieldType">
+    <ds-dso-edit-metadata-value-field-loader *ngIf="mdValue.editing && !mdRepresentation"
+                                             [context]="context"
+                                             [mdValue]="mdValue"
+                                             [type]="fieldType"
+                                             (confirm)="confirm.emit($event)"
+                                             class="w-100">
+    </ds-dso-edit-metadata-value-field-loader>
+    </ng-container>
     <div class="d-flex" *ngIf="mdRepresentation">
       <a class="mr-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
       <ds-themed-type-badge [object]="mdRepresentation"></ds-themed-type-badge>

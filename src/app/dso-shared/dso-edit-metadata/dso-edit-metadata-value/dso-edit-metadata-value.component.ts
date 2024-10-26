@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, OnChanges } from '@angular/core';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { Observable } from 'rxjs/internal/Observable';
 import {
@@ -12,6 +12,8 @@ import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { EMPTY } from 'rxjs/internal/observable/empty';
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
+import { Context } from '../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -21,12 +23,20 @@ import { EMPTY } from 'rxjs/internal/observable/empty';
 /**
  * Component displaying a single editable row for a metadata value
  */
-export class DsoEditMetadataValueComponent implements OnInit {
+export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
+
+  @Input() context: Context;
+
   /**
    * The parent {@link DSpaceObject} to display a metadata form for
    * Also used to determine metadata-representations in case of virtual metadata
    */
   @Input() dso: DSpaceObject;
+
+  /**
+   * The metadata field that is being edited
+   */
+  @Input() mdField: string;
 
   /**
    * Editable metadata value to show
@@ -97,12 +107,20 @@ export class DsoEditMetadataValueComponent implements OnInit {
    */
   mdRepresentationName$: Observable<string | null>;
 
+  fieldType: EditMetadataValueFieldType;
+
   constructor(protected relationshipService: RelationshipDataService,
               protected dsoNameService: DSONameService) {
   }
 
   ngOnInit(): void {
     this.initVirtualProperties();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.mdField) {
+      this.fieldType = this.getFieldType();
+    }
   }
 
   /**
@@ -123,4 +141,12 @@ export class DsoEditMetadataValueComponent implements OnInit {
       map((mdRepresentation: ItemMetadataRepresentation) => mdRepresentation ? this.dsoNameService.getName(mdRepresentation) : null),
     );
   }
+
+  /**
+   * Retrieves the {@link EditMetadataValueFieldType} to be displayed for the current field while in edit mode.
+   */
+  getFieldType(): EditMetadataValueFieldType {
+    return EditMetadataValueFieldType.PLAIN_TEXT;
+  }
+
 }

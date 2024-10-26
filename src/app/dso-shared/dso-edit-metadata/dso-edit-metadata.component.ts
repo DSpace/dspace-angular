@@ -22,6 +22,7 @@ import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analy
 import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
+import { Context } from '../../core/shared/context.model';
 
 @Component({
   selector: 'ds-dso-edit-metadata',
@@ -104,6 +105,8 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * Unsubscribed from in ngOnDestroy()
    */
   dsoUpdateSubscription: Subscription;
+
+  public readonly Context = Context;
 
   constructor(protected route: ActivatedRoute,
               protected notificationsService: NotificationsService,
