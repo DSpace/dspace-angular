@@ -9,7 +9,7 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 
 describe('ExpandableNavbarSectionComponent', () => {
   let component: ExpandableNavbarSectionComponent;
@@ -20,7 +20,11 @@ describe('ExpandableNavbarSectionComponent', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+        declarations: [
+          ExpandableNavbarSectionComponent,
+          HoverOutsideDirective,
+          TestComponent,
+        ],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
@@ -41,10 +45,6 @@ describe('ExpandableNavbarSectionComponent', () => {
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
       fixture.detectChanges();
-    });
-
-    it('should create', () => {
-      expect(component).toBeTruthy();
     });
 
     describe('when the mouse enters the section header (while inactive)', () => {
@@ -187,7 +187,11 @@ describe('ExpandableNavbarSectionComponent', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+        declarations: [
+          ExpandableNavbarSectionComponent,
+          HoverOutsideDirective,
+          TestComponent,
+        ],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },

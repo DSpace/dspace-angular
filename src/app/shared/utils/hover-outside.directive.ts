@@ -8,10 +8,11 @@ import {
 } from '@angular/core';
 
 /**
- * Directive to detect when the user hovers outside of the element the directive was put on
+ * Directive to detect when the user hovers outside the element the directive was put on
  *
- * BEWARE: it's probably not good for performance to use this excessively (on {@link ExpandableNavbarSectionComponent}
- * for example, a workaround for this problem was to add an `*ngIf` to prevent this Directive from always being active)
+ * **Performance Consideration**: it's probably not good for performance to use this excessively (on
+ * {@link ExpandableNavbarSectionComponent} for example, a workaround for this problem was to add an `*ngIf` to prevent
+ * this Directive from always being active)
  */
 @Directive({
   selector: '[dsHoverOutside]',
@@ -25,22 +26,23 @@ export class HoverOutsideDirective {
   public dsHoverOutside = new EventEmitter();
 
   /**
-   * The {@link ElementRef} for which this directive should emit when the mouse leaves it. By default this will be the
-   * element the directive was put on.
+   * CSS selector for the parent element to monitor. If set, the directive will use this
+   * selector to determine if the hover event originated within the selected parent element.
+   * If left unset, the directive will monitor mouseover hover events for the element it is applied to.
    */
   @Input()
-  public dsHoverOutsideOfElement: ElementRef;
+  public dsHoverOutsideOfParentSelector: string;
 
   constructor(
     private elementRef: ElementRef,
   ) {
-    this.dsHoverOutsideOfElement = this.elementRef;
   }
 
   @HostListener('document:mouseover', ['$event'])
   public onMouseOver(event: MouseEvent): void {
     const targetElement: HTMLElement = event.target as HTMLElement;
-    const hoveredInside = this.dsHoverOutsideOfElement.nativeElement.contains(targetElement);
+    const element: Element = document.querySelector(this.dsHoverOutsideOfParentSelector);
+    const hoveredInside = (element ? new ElementRef(element) : this.elementRef).nativeElement.contains(targetElement);
 
     if (!hoveredInside) {
       this.dsHoverOutside.emit(null);

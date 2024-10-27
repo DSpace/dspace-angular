@@ -1,4 +1,4 @@
-<div #expandableNavbarSectionContainer class="ds-menu-item-wrapper text-md-center"
+<div class="ds-menu-item-wrapper text-md-center"
      [id]="'expandable-navbar-section-' + section.id"
      (mouseenter)="onMouseEnter($event)"
      (mouseleave)="onMouseLeave($event)"
@@ -23,7 +23,7 @@
   </a>
   <div *ngIf="(active$ | async).valueOf() === true" (click)="deactivateSection($event)"
        [id]="expandableNavbarSectionId()"
-       [dsHoverOutsideOfElement]="expandableNavbarSection"
+       [dsHoverOutsideOfParentSelector]="'#expandable-navbar-section-' + section.id"
        (dsHoverOutside)="deactivateSection($event, false)"
        role="menu"
        class="dropdown-menu show nav-dropdown-menu m-0 shadow-none border-top-0 px-3 px-md-0 pt-0 pt-md-1">

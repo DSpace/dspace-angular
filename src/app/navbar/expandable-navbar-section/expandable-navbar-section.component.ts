@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, Injector, OnInit, ViewChild, AfterViewChecked, ElementRef } from '@angular/core';
+import { Component, HostListener, Inject, Injector, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { slide } from '../../shared/animations/slide';
@@ -17,9 +17,7 @@ import { MenuSection } from '../../shared/menu/menu-section.model';
   styleUrls: ['./expandable-navbar-section.component.scss'],
   animations: [slide]
 })
-export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements AfterViewChecked, OnInit {
-
-  @ViewChild('expandableNavbarSectionContainer') expandableNavbarSection: ElementRef;
+export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements AfterViewChecked, OnInit, OnDestroy {
 
   /**
    * This section resides in the Public Navbar
@@ -47,6 +45,11 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    * performance when not expanded.
    */
   addArrowEventListeners = false;
+
+  /**
+   * List of current dropdown items who have event listeners
+   */
+  private dropdownItems: NodeListOf<HTMLElement>;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -77,20 +80,40 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
     this.subs.push(this.active$.subscribe((active: boolean) => {
       if (active === true) {
         this.addArrowEventListeners = true;
+      } else {
+        this.unsubscribeFromEventListeners();
       }
     }));
   }
 
   ngAfterViewChecked(): void {
     if (this.addArrowEventListeners) {
-      const dropdownItems: NodeListOf<HTMLElement> = document.querySelectorAll(`#${this.expandableNavbarSectionId()} *[role="menuitem"]`);
-      dropdownItems.forEach((item: HTMLElement) => {
+      this.dropdownItems = document.querySelectorAll(`#${this.expandableNavbarSectionId()} *[role="menuitem"]`);
+      this.dropdownItems.forEach((item: HTMLElement) => {
         item.addEventListener('keydown', this.navigateDropdown.bind(this));
       });
-      if (dropdownItems.length > 0) {
-        dropdownItems.item(0).focus();
+      if (this.dropdownItems.length > 0) {
+        this.dropdownItems.item(0).focus();
       }
       this.addArrowEventListeners = false;
+    }
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.unsubscribeFromEventListeners();
+  }
+
+  /**
+   * Removes all the current event listeners on the dropdown items (called when the menu is closed & on component
+   * destruction)
+   */
+  unsubscribeFromEventListeners(): void {
+    if (this.dropdownItems) {
+      this.dropdownItems.forEach((item: HTMLElement) => {
+        item.removeEventListener('keydown', this.navigateDropdown.bind(this));
+      });
+      this.dropdownItems = undefined;
     }
   }
 
