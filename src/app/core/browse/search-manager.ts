@@ -111,7 +111,8 @@ export class SearchManager {
       })
       .filter((item) => hasValue(item));
 
-    const uuidList = this.extractUUID(items, environment.followAuthorityMetadata);
+    const uuidList = this.extractUUID(items, environment.followAuthorityMetadata, 100);
+
     return uuidList.length > 0 ? this.itemService.findAllById(uuidList).pipe(
       getFirstCompletedRemoteData(),
       map(data => {
@@ -124,26 +125,30 @@ export class SearchManager {
     ) : of(null);
   }
 
-  protected extractUUID(items: Item[], metadataToFollow: FollowAuthorityMetadata[]): string[] {
+  protected extractUUID(items: Item[], metadataToFollow: FollowAuthorityMetadata[], numberOfElementsToReturn?: number): string[] {
     const uuidMap = {};
 
     items.forEach((item) => {
       metadataToFollow.forEach((followMetadata: FollowAuthorityMetadata) => {
         if (item.entityType === followMetadata.type) {
           if (isArray(followMetadata.metadata)) {
-            followMetadata.metadata.forEach((metadata) => {
-              Metadata.all(item.metadata, metadata)
+              followMetadata.metadata.forEach((metadata) => {
+              Metadata.all(item.metadata, metadata, null, environment.followAuthorityMetadataValuesLimit)
                 .filter((metadataValue: MetadataValue) => Metadata.hasValidItemAuthority(metadataValue.authority))
                 .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
             });
           } else {
-            Metadata.all(item.metadata, followMetadata.metadata)
+            Metadata.all(item.metadata, followMetadata.metadata, null, environment.followAuthorityMetadataValuesLimit)
               .filter((metadataValue: MetadataValue) => Metadata.hasValidItemAuthority(metadataValue.authority))
               .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
           }
         }
       });
     });
+
+    if (hasValue(numberOfElementsToReturn) && numberOfElementsToReturn > 0) {
+      return Object.keys(uuidMap).slice(0, numberOfElementsToReturn);
+    }
 
     return Object.keys(uuidMap);
   }

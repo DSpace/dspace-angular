@@ -70,6 +70,7 @@ interface AppConfig extends Config {
   suggestion: SuggestionConfig[];
   addToAnyPlugin: AddToAnyPluginConfig;
   followAuthorityMetadata: FollowAuthorityMetadata[];
+  followAuthorityMetadataValuesLimit: number;
   metricVisualizationConfig: MetricVisualizationConfig[];
   attachmentRendering: AttachmentRenderingConfig;
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;

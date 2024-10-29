@@ -77,6 +77,8 @@ export class ItemListPreviewComponent implements OnInit {
 
   authorMetadata = environment.searchResult.authorMetadata;
 
+  authorMetadataLimit = environment.followAuthorityMetadataValuesLimit;
+
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     public dsoNameService: DSONameService,
