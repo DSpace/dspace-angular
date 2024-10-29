@@ -357,6 +357,18 @@
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "EPeople",
 
+  // "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+  "admin.access-control.epeople.edit.breadcrumbs": "Nouvelle EPerson",
+
+  // "admin.access-control.epeople.edit.title": "New EPerson",
+  "admin.access-control.epeople.edit.title": "Nouvelle EPerson",
+
+  // "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+  "admin.access-control.epeople.add.breadcrumbs": "Ajouter EPerson",
+
+  // "admin.access-control.epeople.add.title": "Add EPerson",
+  "admin.access-control.epeople.add.title": "Ajouter EPerson",
+
   // "admin.access-control.epeople.title": "EPeople",
   "admin.access-control.epeople.title": "EPeople",
 
@@ -746,6 +758,30 @@
 
   // "admin.access-control.groups.form.return": "Back",
   "admin.access-control.groups.form.return": "Retour",
+
+  // "admin.quality-assurance.breadcrumbs": "Quality Assurance",
+  "admin.quality-assurance.breadcrumbs": "Assurance qualité",
+
+  // "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
+  "admin.notifications.event.breadcrumbs": "Suggestions d'assurance qualité",
+
+  // "admin.notifications.event.page.title": "Quality Assurance Suggestions",
+  "admin.notifications.event.page.title": "Suggestions d'assurance qualité",
+
+  // "admin.quality-assurance.page.title": "Quality Assurance",
+  "admin.quality-assurance.page.title": "Assurance qualité",
+
+  // "admin.notifications.source.breadcrumbs": "Quality Assurance",
+  "admin.notifications.source.breadcrumbs": "Assurance qualité",
+
+  // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
+  "admin.access-control.groups.form.tooltip.editGroupPage": "Sur cette page, vous pouvez modifier les propriétés et les membres d'un groupe. Dans la section supérieure, vous pouvez éditer le nom et la description du groupe, sauf s'il s'agit d'un groupe d'administrateurs d'une collection ou d'une communauté ; dans ce cas, le nom et la description du groupe sont générés automatiquement et ne peuvent pas être modifiés. Dans les sections suivantes, vous pouvez modifier l'appartenance au groupe. Voir [le wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) pour plus de détails.",
+
+  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Pour ajouter ou retirer une EPerson à/de ce groupe, cliquez sur le bouton « Parcourir tout », ou utilisez la barre de recherche ci-dessous pour rechercher des utilisateurs (utilisez le menu déroulant à gauche de la barre de recherche pour choisir si vous souhaitez effectuer la recherche par métadonnées ou par courriel). Ensuite, cliquez sur l'icône + pour chaque utilisateur que vous souhaitez ajouter dans la liste ci-dessous, ou sur l'icône de la corbeille pour chaque utilisateur que vous souhaitez retirer. La liste ci-dessous peut comporter plusieurs pages : utilisez les contrôles de pagination sous la liste pour naviguer vers les pages suivantes.",
+
+  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Pour ajouter ou retirer un sous-groupe à/de ce groupe, cliquez sur le bouton « Parcourir tout », ou utilisez la barre de recherche ci-dessous pour rechercher des groupes. Ensuite, cliquez sur l'icône + pour chaque groupe que vous souhaitez ajouter dans la liste ci-dessous, ou sur l'icône de la corbeille pour chaque groupe que vous souhaitez retirer. La liste ci-dessous peut comporter plusieurs pages : utilisez les contrôles de pagination sous la liste pour naviguer vers les pages suivantes.",
 
   //"admin.reports.collections.title": "Collection Filter Report",
   "admin.reports.collections.title": "Rapport de collections filtrées",
@@ -1576,6 +1612,12 @@
   // "collection.edit.return": "Back",
   "collection.edit.return": "Retour",
 
+  // "collection.edit.tabs.access-control.head": "Access Control",
+  "collection.edit.tabs.access-control.head": "Contrôle d'accès",
+
+  // "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
+  "collection.edit.tabs.access-control.title": "Édition de Collection - Contrôle d'accès",
+
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Gestion du contenu",
 
@@ -1931,6 +1973,12 @@
 
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
   "community.edit.tabs.curate.title": "Édition de communauté - Gestion du contenu",
+
+  // "community.edit.tabs.access-control.head": "Access Control",
+  "community.edit.tabs.access-control.head": "Contrôle d'accès",
+
+  // "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+  "community.edit.tabs.access-control.title": "Édition de Communauté - Contrôle d'accès",
 
   // "community.edit.tabs.metadata.head": "Edit Metadata",
   "community.edit.tabs.metadata.head": "Éditer Métadonnées",
@@ -3226,6 +3274,15 @@
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
   "item.edit.tabs.curate.title": "Édition d'Item - Gestion de contenu",
+
+  // "item.edit.curate.title": "Curate Item: {{item}}",
+  "item.edit.curate.title": "Gestion de contenu de l'Item: {{item}}",
+
+  // "item.edit.tabs.access-control.head": "Access Control",
+  "item.edit.tabs.access-control.head": "Contrôle d'accès",
+
+  // "item.edit.tabs.access-control.title": "Item Edit - Access Control",
+  "item.edit.tabs.access-control.title": "Édition de l'Item - Contrôle d'accès",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Métadonnées",
@@ -6686,6 +6743,45 @@
 
   //"access-control-cancel": "Cancel",
   "access-control-cancel": "Annuler",
+
+  // "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+  "item-access-control-title": "Ce formulaire vous permet de modifier les conditions d'accès aux métadonnées de l'Item ou à ses Bitstreams.",
+
+  // "access-control-execute": "Execute",
+  "access-control-execute": "Exécuter",
+
+  // "access-control-add-more": "Add more",
+  "access-control-add-more": "Ajouter plus",
+
+  // "access-control-remove": "Remove access condition",
+  "access-control-remove": "Supprimer la condition d'accès",
+
+  // "access-control-select-bitstreams-modal.title": "Select bitstreams",
+  "access-control-select-bitstreams-modal.title": "Sélectionner les Bitstreams",
+
+  // "access-control-select-bitstreams-modal.no-items": "No items to show.",
+  "access-control-select-bitstreams-modal.no-items": "Aucun Item à afficher.",
+
+  // "access-control-select-bitstreams-modal.close": "Close",
+  "access-control-select-bitstreams-modal.close": "Fermer",
+
+  // "access-control-option-label": "Access condition type",
+  "access-control-option-label": "Type de condition d'accès",
+
+  // "access-control-option-note": "Choose an access condition to apply to selected objects.",
+  "access-control-option-note": "Choisissez une condition d'accès à appliquer aux objets sélectionnés.",
+
+  // "access-control-option-start-date": "Grant access from",
+  "access-control-option-start-date": "Accorder l'accès à partir de",
+
+  //"access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+  "access-control-option-start-date-note": "Sélectionnez la date à partir de laquelle la condition d'accès liée est appliquée",
+
+  // "access-control-option-end-date": "Grant access until",
+  "access-control-option-end-date": "Accorder l'accès jusqu'à",
+
+  // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+  "access-control-option-end-date-note": "Sélectionnez la date jusqu'à laquelle la condition d'accès liée est appliquée",
 
 
 }
