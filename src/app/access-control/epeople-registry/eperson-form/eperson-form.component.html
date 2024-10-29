@@ -75,7 +75,9 @@
                     {{ dsoNameService.getName(group) }}
                   </a>
                 </td>
-                <td class="align-middle">{{ dsoNameService.getName(undefined) }}</td>
+                <td class="align-middle">
+                  {{ dsoNameService.getName((group.object | async)?.payload) }}
+                </td>
               </tr>
               </tbody>
             </table>
