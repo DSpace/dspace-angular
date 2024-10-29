@@ -13,7 +13,7 @@ import {
   Observable,
   Subscription, combineLatest,
 } from 'rxjs';
-import { map, switchMap, take, debounceTime, startWith, filter } from 'rxjs/operators';
+import { map, switchMap, take, debounceTime } from 'rxjs/operators';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
@@ -35,7 +35,7 @@ import {
 } from '../../../core/shared/operators';
 import { AlertType } from '../../../shared/alert/aletr-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue, isNotEmpty, hasValueOperator, hasNoValue } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, hasValueOperator } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -164,11 +164,16 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.activeGroupLinkedDSO$ = this.getActiveGroupLinkedDSO();
     this.linkedEditRolesRoute$ = this.getLinkedEditRolesRoute();
     this.canEdit$ = this.activeGroupLinkedDSO$.pipe(
-      filter((dso: DSpaceObject) => hasNoValue(dso)),
-      switchMap(() => this.activeGroup$),
-      hasValueOperator(),
-      switchMap((group: Group) => this.authorizationService.isAuthorized(FeatureID.CanDelete, group.self)),
-      startWith(false),
+      switchMap((dso: DSpaceObject) => {
+        if (hasValue(dso)) {
+          return [false];
+        } else {
+          return this.activeGroup$.pipe(
+            hasValueOperator(),
+            switchMap((group: Group) => this.authorizationService.isAuthorized(FeatureID.CanDelete, group.self)),
+          );
+        }
+      }),
     );
     this.initialisePage();
   }
@@ -216,7 +221,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       combineLatest([
         this.activeGroup$,
         this.canEdit$,
-        this.activeGroupLinkedDSO$.pipe(take(1)),
+        this.activeGroupLinkedDSO$,
       ]).subscribe(([activeGroup, canEdit, linkedObject]) => {
 
         if (activeGroup != null) {
@@ -224,25 +229,31 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           // Disable group name exists validator
           this.formGroup.controls.groupName.clearAsyncValidators();
 
-          if (linkedObject?.name) {
-            this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, groupCommunityModel);
-            this.groupDescription = this.formGroup.get('groupCommunity');
+          if (isNotEmpty(linkedObject?.name)) {
+            if (!this.formGroup.controls.groupCommunity) {
+              this.formBuilderService.insertFormGroupControl(1, this.formGroup, this.formModel, groupCommunityModel);
+              this.groupDescription = this.formGroup.get('groupCommunity');
+            }
             this.formGroup.patchValue({
               groupName: activeGroup.name,
               groupCommunity: linkedObject?.name ?? '',
               groupDescription: activeGroup.firstMetadataValue('dc.description'),
             });
           } else {
+            this.formModel = [
+              groupNameModel,
+              groupDescriptionModel,
+            ];
             this.formGroup.patchValue({
               groupName: activeGroup.name,
               groupDescription: activeGroup.firstMetadataValue('dc.description'),
             });
           }
-          setTimeout(() => {
-            if (!canEdit || activeGroup.permanent) {
-              this.formGroup.disable();
-            }
-          }, 200);
+          if (!canEdit || activeGroup.permanent) {
+            this.formGroup.disable();
+          } else {
+            this.formGroup.enable();
+          }
         }
       })
     );
@@ -471,6 +482,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
    */
   getLinkedEditRolesRoute(): Observable<string> {
     return this.activeGroupLinkedDSO$.pipe(
+      hasValueOperator(),
       map((dso: DSpaceObject) => {
         switch ((dso as any).type) {
           case Community.type.value:
@@ -478,7 +490,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
           case Collection.type.value:
             return getCollectionEditRolesRoute(dso.id);
         }
-      })
+      }),
     );
   }
 }
