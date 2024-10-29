@@ -278,9 +278,11 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * This method will initialise the page
    */
   initialisePage() {
-    this.subs.push(this.epersonService.findById(this.route.snapshot.params.id).subscribe((ePersonRD: RemoteData<EPerson>) => {
-      this.epersonService.editEPerson(ePersonRD.payload);
-    }));
+    if (this.route.snapshot.params.id) {
+      this.subs.push(this.epersonService.findById(this.route.snapshot.params.id).subscribe((ePersonRD: RemoteData<EPerson>) => {
+        this.epersonService.editEPerson(ePersonRD.payload);
+      }));
+    }
     this.firstName = new DynamicInputModel({
       id: 'firstName',
       label: this.translateService.instant(`${this.messagePrefix}.firstName`),
