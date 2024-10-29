@@ -1,0 +1,39 @@
+<ds-dynamic-scrollable-dropdown *ngIf="mdValue.editing && (isScrollableVocabulary$ | async)"
+                                [bindId]="mdField"
+                                [group]="group"
+                                [model]="getModel()"
+                                (change)="onChangeAuthorityField($event)">
+</ds-dynamic-scrollable-dropdown>
+<ds-dynamic-onebox
+  *ngIf="mdValue.editing && ((isHierarchicalVocabulary$ | async) || (isSuggesterVocabulary$ | async))"
+  [group]="group"
+  [model]="getModel()"
+  (change)="onChangeAuthorityField($event)">
+</ds-dynamic-onebox>
+<div class="mt-2" *ngIf=" mdValue.editing && (isAuthorityControlled$ | async) && (isSuggesterVocabulary$ | async)">
+  <div class="btn-group w-75">
+    <i dsAuthorityConfidenceState
+       class="fas fa-fw p-0 mr-1 mt-auto mb-auto"
+       aria-hidden="true"
+       [authorityValue]="mdValue.newValue.confidence"
+       [iconMode]="true"
+    ></i>
+    <input class="form-control form-outline" data-test="authority-input" [(ngModel)]="mdValue.newValue.authority"
+           [disabled]="!editingAuthority"
+           [attr.aria-label]="(dsoType + '.edit.metadata.edit.authority.key') | translate"
+           (change)="onChangeAuthorityKey()"/>
+    <button class="btn btn-outline-secondary btn-sm ng-star-inserted" id="metadata-confirm-btn"
+            *ngIf="!editingAuthority"
+            [title]="dsoType + '.edit.metadata.edit.buttons.open-authority-edition' | translate"
+            ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.open-authority-edition' | translate }}"
+            (click)="onChangeEditingAuthorityStatus(true)">
+      <i class="fas fa-lock fa-fw"></i>
+    </button>
+    <button class="btn btn-outline-success btn-sm ng-star-inserted" id="metadata-confirm-btn" *ngIf="editingAuthority"
+            [title]="dsoType + '.edit.metadata.edit.buttons.close-authority-edition' | translate"
+            ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.close-authority-edition' | translate }}"
+            (click)="onChangeEditingAuthorityStatus(false)">
+      <i class="fas fa-lock-open fa-fw"></i>
+    </button>
+  </div>
+</div>

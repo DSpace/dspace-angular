@@ -2,6 +2,7 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { EntityTypeDataService } from '../../../../core/data/entity-type-data.service';
 import { EntityTypeDataServiceStub } from '../../../../shared/testing/entity-type-data.service.stub';
@@ -17,8 +18,9 @@ describe('DsoEditMetadataEntityFieldComponent', () => {
     entityTypeService = new EntityTypeDataServiceStub();
 
     await TestBed.configureTestingModule({
-      declarations: [
+      imports: [
         DsoEditMetadataEntityFieldComponent,
+        TranslateModule.forRoot(),
       ],
       providers: [
         { provide: EntityTypeDataService, useValue: entityTypeService },

@@ -2,6 +2,7 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DsoEditMetadataTextFieldComponent } from './dso-edit-metadata-text-field.component';
 
@@ -11,8 +12,9 @@ describe('DsoEditMetadataTextFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
+      imports: [
         DsoEditMetadataTextFieldComponent,
+        TranslateModule.forRoot(),
       ],
     }).compileComponents();
 

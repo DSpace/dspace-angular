@@ -1,4 +1,5 @@
-<select class="form-control" [(ngModel)]="mdValue?.newValue.value" (ngModelChange)="confirm.emit(false)">
+<select class="form-control" [(ngModel)]="mdValue?.newValue.value" (ngModelChange)="confirm.emit(false)"
+        [attr.aria-label]="(dsoType + '.edit.metadata.edit.value') | translate">
   <option *ngFor="let entity of (entities$ | async)" [value]="entity.label === 'none' ? undefined : entity.label">
     {{ entity.label }}
   </option>

@@ -1,37 +1,33 @@
 import { Context } from '../../../../core/shared/context.model';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../shared/empty.util';
+import { hasValue } from '../../../../shared/empty.util';
 import {
   DEFAULT_CONTEXT,
   DEFAULT_THEME,
   resolveTheme,
 } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { DsoEditMetadataAuthorityFieldComponent } from '../dso-edit-metadata-authority-field/dso-edit-metadata-authority-field.component';
+import { DsoEditMetadataEntityFieldComponent } from '../dso-edit-metadata-entity-field/dso-edit-metadata-entity-field.component';
 import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
+import { DsoEditMetadataTextFieldComponent } from '../dso-edit-metadata-text-field/dso-edit-metadata-text-field.component';
 
-export const map = new Map();
+export type MetadataValueFieldComponent =
+  typeof DsoEditMetadataTextFieldComponent |
+  typeof DsoEditMetadataEntityFieldComponent |
+  typeof DsoEditMetadataAuthorityFieldComponent;
+
+export const map = new Map<EditMetadataValueFieldType, Map<Context, Map<string, MetadataValueFieldComponent>>>([
+  [EditMetadataValueFieldType.PLAIN_TEXT, new Map([
+    [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, DsoEditMetadataTextFieldComponent]])],
+  ])],
+  [EditMetadataValueFieldType.ENTITY_TYPE, new Map([
+    [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, DsoEditMetadataEntityFieldComponent]])],
+  ])],
+  [EditMetadataValueFieldType.AUTHORITY, new Map([
+    [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, DsoEditMetadataAuthorityFieldComponent]])],
+  ])],
+]);
 
 export const DEFAULT_EDIT_METADATA_FIELD_TYPE = EditMetadataValueFieldType.PLAIN_TEXT;
-
-/**
- * Decorator function to store edit metadata field mapping
- *
- * @param type The edit metadata field type
- * @param context The optional context the component represents
- * @param theme The optional theme for the component
- */
-export function editMetadataValueFieldComponent(type: EditMetadataValueFieldType, context: Context = DEFAULT_CONTEXT, theme = DEFAULT_THEME) {
-  return function decorator(component: any) {
-    if (hasNoValue(map.get(type))) {
-      map.set(type, new Map());
-    }
-    if (hasNoValue(map.get(type).get(context))) {
-      map.get(type).set(context, new Map());
-    }
-    map.get(type).get(context).set(theme, component);
-  };
-}
 
 /**
  * Getter to retrieve a matching component by entity type, metadata representation and context
