@@ -15,6 +15,7 @@ import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.modul
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { FormModule } from '../shared/form/form.module';
 import { SharedModule } from '../shared/shared.module';
+import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -37,6 +38,7 @@ const ENTRY_COMPONENTS = [
     DsoPageModule,
     FormModule,
     SharedModule,
+    ContextMenuModule,
   ],
   declarations: [
     BrowseBySwitcherComponent,
