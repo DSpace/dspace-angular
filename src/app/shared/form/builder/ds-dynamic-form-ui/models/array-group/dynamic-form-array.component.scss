@@ -63,3 +63,10 @@
 .cdk-drag-placeholder {
   opacity: 0;
 }
+
+::ng-deep {
+  .sorting-with-keyboard input {
+    font-style: italic;
+    font-weight: bold;
+  }
+}
