@@ -50,6 +50,7 @@ import { RelationshipDataService } from '../../../core/data/relationship-data.se
 import { MetadataService } from '../../../core/metadata/metadata.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
+import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
@@ -88,6 +89,7 @@ import {
   DsoEditMetadataChangeType,
   DsoEditMetadataValue,
 } from '../dso-edit-metadata-form';
+import { EditMetadataValueFieldType } from '../dso-edit-metadata-value-field/dso-edit-metadata-field-type.enum';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -100,11 +102,19 @@ import {
  * Component displaying a single editable row for a metadata value
  */
 export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
+
+  @Input() context: Context;
+
   /**
    * The parent {@link DSpaceObject} to display a metadata form for
    * Also used to determine metadata-representations in case of virtual metadata
    */
   @Input() dso: DSpaceObject;
+
+  /**
+   * The metadata field that is being edited
+   */
+  @Input() mdField: string;
 
   /**
    * Editable metadata value to show
@@ -128,11 +138,6 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * Will disable certain functionality like dragging (because dragging within a list of 1 is pointless)
    */
   @Input() isOnlyValue = false;
-
-  /**
-   * MetadataField to edit
-   */
-  @Input() mdField?: string;
 
   /**
    * Emits when the user clicked edit
@@ -187,6 +192,11 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   mdRepresentationName$: Observable<string | null>;
 
   /**
+   * The type of edit field that should be displayed
+   */
+  fieldType: EditMetadataValueFieldType;
+
+  /**
    * Whether or not the authority field is currently being edited
    */
   public editingAuthority = false;
@@ -233,6 +243,12 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
     this.initAuthorityProperties();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.mdField) {
+      this.fieldType = this.getFieldType();
+    }
+  }
+
   /**
    * Initialise potential properties of a virtual metadata value
    */
@@ -251,6 +267,17 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
       map((mdRepresentation: ItemMetadataRepresentation) => mdRepresentation ? this.dsoNameService.getName(mdRepresentation) : null),
     );
   }
+
+  /**
+   * Retrieves the {@link EditMetadataValueFieldType} to be displayed for the current field while in edit mode.
+   */
+  getFieldType(): EditMetadataValueFieldType {
+    if (this.mdField === 'dspace.entity.type') {
+      return EditMetadataValueFieldType.ENTITY_TYPE;
+    }
+    return EditMetadataValueFieldType.PLAIN_TEXT;
+  }
+
 
   /**
    * Initialise potential properties of a authority controlled metadata field
