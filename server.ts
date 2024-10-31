@@ -20,6 +20,7 @@ import 'reflect-metadata';
 
 /* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
+import logger from './src/modules/logging/logging.module';
 import * as express from 'express';
 import * as ejs from 'ejs';
 import * as compression from 'compression';
@@ -115,7 +116,12 @@ export function app() {
    * Enable request logging
    * See [morgan](https://github.com/expressjs/morgan)
    */
-  server.use(morgan('dev'));
+  const format = environment.logging.request.format || 'dev';
+  const options = {
+      stream: logger,
+      immediate: environment.logging.request.immediate || false,
+    };
+  server.use(morgan(format, options));
 
   /*
    * Add cookie parser middleware
@@ -223,7 +229,7 @@ function ngApp(req, res, next) {
     serverSideRender(req, res, next);
   } else {
     // If preboot is disabled, just serve the client
-    console.log('Universal off, serving for direct client-side rendering (CSR)');
+    logger.info('Universal off, serving for direct client-side rendering (CSR)');
     clientSideRender(req, res);
   }
 }
@@ -280,14 +286,14 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
         // When this error occurs we can't fall back to CSR because the response has already been
         // sent. These errors occur for various reasons in universal, not all of which are in our
         // control to solve.
-        console.warn('Warning [ERR_HTTP_HEADERS_SENT]: Tried to set headers after they were sent to the client');
+        logger.warn('Warning [ERR_HTTP_HEADERS_SENT]: Tried to set headers after they were sent to the client');
       } else {
-        console.warn('Error in server-side rendering (SSR)');
+        logger.warn('Error in server-side rendering (SSR)');
         if (hasValue(err)) {
-          console.warn('Error details : ', err);
+          logger.warn('Error details : ', err);
         }
         if (sendToUser) {
-          console.warn('Falling back to serving direct client-side rendering (CSR).');
+          logger.warn('Falling back to serving direct client-side rendering (CSR).');
           clientSideRender(req, res);
         }
       }
@@ -383,7 +389,7 @@ function cacheCheck(req, res, next) {
       Object.keys(cachedCopy.headers).forEach((header) => {
         if (cachedCopy.headers[header]) {
           if (environment.cache.serverSide.debug) {
-            console.log(`Restore cached ${header} header`);
+            logger.debug(`Restore cached ${header} header`);
           }
           res.setHeader(header, cachedCopy.headers[header]);
         }
@@ -420,19 +426,19 @@ function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, r
   // Check if this page is in our cache
   const cachedCopy = cache.get(key);
   if (cachedCopy) {
-    if (environment.cache.serverSide.debug) { console.log(`CACHE HIT FOR ${key} in ${cacheName} cache`); }
+    if (environment.cache.serverSide.debug) { logger.debug(`CACHE HIT FOR ${key} in ${cacheName} cache`); }
 
     // Check if cached copy is expired (If expired, the key will now be gone from cache)
     // NOTE: This will only occur when "allowStale=true", as it means the "get(key)" above returned a stale value.
     if (!cache.has(key)) {
-      if (environment.cache.serverSide.debug) { console.log(`CACHE EXPIRED FOR ${key} in ${cacheName} cache. Re-rendering...`); }
+      if (environment.cache.serverSide.debug) { logger.debug(`CACHE EXPIRED FOR ${key} in ${cacheName} cache. Re-rendering...`); }
       // Update cached copy by rerendering server-side
       // NOTE: In this scenario the currently cached copy will be returned to the current user.
       // This re-render is performed behind the scenes to update cached copy for next user.
       serverSideRender(req, res, next, false);
     }
   } else {
-    if (environment.cache.serverSide.debug) { console.log(`CACHE MISS FOR ${key} in ${cacheName} cache.`); }
+    if (environment.cache.serverSide.debug) { logger.debug(`CACHE MISS FOR ${key} in ${cacheName} cache.`); }
   }
 
   // return page from cache
@@ -475,13 +481,13 @@ function saveToCache(req, page: any) {
     // (NOTE: has() will return false if page is expired in cache)
     if (botCacheEnabled() && !botCache.has(key)) {
       botCache.set(key, { page, headers });
-      if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in bot cache.`); }
+      if (environment.cache.serverSide.debug) { logger.debug(`CACHE SAVE FOR ${key} in bot cache.`); }
     }
 
     // If anonymous cache is enabled, save it to that cache if it doesn't exist or is expired
     if (anonymousCacheEnabled() && !anonymousCache.has(key)) {
       anonymousCache.set(key, { page, headers });
-      if (environment.cache.serverSide.debug) { console.log(`CACHE SAVE FOR ${key} in anonymous cache.`); }
+      if (environment.cache.serverSide.debug) { logger.debug(`CACHE SAVE FOR ${key} in anonymous cache.`); }
     }
   }
 }
@@ -501,7 +507,7 @@ function retrieveHeaders(response) {
     environment.cache.serverSide.headers.forEach((header) => {
       if (response.hasHeader(header)) {
         if (environment.cache.serverSide.debug) {
-          console.log(`Save ${header} header to cache`);
+          logger.debug(`Save ${header} header to cache`);
         }
         headers[header] = response.getHeader(header);
       }
@@ -522,7 +528,7 @@ function isUserAuthenticated(req): boolean {
  * Callback function for when the server has started
  */
 function serverStarted() {
-  console.log(`[${new Date().toTimeString()}] Listening at ${environment.ui.baseUrl}`);
+  logger.info(`[${new Date().toTimeString()}] Listening at ${environment.ui.baseUrl}`);
 }
 
 /*
@@ -541,9 +547,9 @@ function createHttpsServer(keys) {
   const terminator = createHttpTerminator({ server: listener });
   process.on('SIGINT', () => {
     void (async ()=> {
-      console.debug('Closing HTTPS server on signal');
-      await terminator.terminate().catch(e => { console.error(e); });
-      console.debug('HTTPS server closed');
+      logger.debug('Closing HTTPS server on signal');
+      await terminator.terminate().catch(e => { logger.error(e); });
+      logger.debug('HTTPS server closed');
     })();
   });
 }
@@ -565,9 +571,9 @@ function run() {
   const terminator = createHttpTerminator({ server: listener });
   process.on('SIGINT', () => {
     void (async () => {
-      console.debug('Closing HTTP server on signal');
-      await terminator.terminate().catch(e => { console.error(e); });
-      console.debug('HTTP server closed.');return undefined;
+      logger.debug('Closing HTTP server on signal');
+      await terminator.terminate().catch(e => { logger.error(e); });
+      logger.debug('HTTP server closed.');return undefined;
     })();
   });
 }
@@ -587,14 +593,14 @@ function start() {
     try {
       serviceKey = readFileSync('./config/ssl/key.pem');
     } catch (e) {
-      console.warn('Service key not found at ./config/ssl/key.pem');
+      logger.warn('Service key not found at ./config/ssl/key.pem');
     }
 
     let certificate;
     try {
       certificate = readFileSync('./config/ssl/cert.pem');
     } catch (e) {
-      console.warn('Certificate not found at ./config/ssl/key.pem');
+      logger.warn('Certificate not found at ./config/ssl/key.pem');
     }
 
     if (serviceKey && certificate) {
@@ -603,7 +609,7 @@ function start() {
         certificate: certificate,
       });
     } else {
-      console.warn('Disabling certificate validation and proceeding with a self-signed certificate. If this is a production server, it is recommended that you configure a valid certificate instead.');
+      logger.warn('Disabling certificate validation and proceeding with a self-signed certificate. If this is a production server, it is recommended that you configure a valid certificate instead.');
 
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // lgtm[js/disabling-certificate-validation]
 
