@@ -247,7 +247,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * Return true if the user has accepted the required cookies for reCaptcha
    */
   isRecaptchaCookieAccepted(): boolean {
-    const orejimeAnonymousCookie = this.cookieService.get('orejime-anonymous');
+    const orejimeAnonymousCookie = this.cookieService.get('orejime');
     return isNotEmpty(orejimeAnonymousCookie) ? orejimeAnonymousCookie[CAPTCHA_NAME] : false;
   }
 

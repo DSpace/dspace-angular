@@ -15,7 +15,7 @@ import { NativeWindowRef } from '../../core/services/window.service';
  */
 export const HAS_AGREED_END_USER = 'dsHasAgreedEndUser';
 
-export const ANONYMOUS_STORAGE_NAME_OREJIME = 'orejime-anonymous';
+export const ANONYMOUS_STORAGE_NAME_OREJIME = 'orejime';
 
 export const GOOGLE_ANALYTICS_OREJIME_KEY = 'google-analytics';
 
