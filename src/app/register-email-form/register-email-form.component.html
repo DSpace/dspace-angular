@@ -16,7 +16,7 @@
                     <input [className]="(email.invalid) && (email.dirty || email.touched) ? 'form-control is-invalid' :'form-control'"
                            type="text" id="email" formControlName="email"
                            [attr.aria-label]="MESSAGE_PREFIX + '.aria.label' | translate"
-                           [attr.aria-describedby]="ariaDescribedby"
+                           [attr.aria-describedby]="(!email.errors) ? '' : (email.errors.required ? 'email-errors-required' : 'email-error-not-valid')"
                            [attr.aria-invalid]="email.invalid"/>
                     <div *ngIf="email.invalid && (email.dirty || email.touched)"
                          class="invalid-feedback show-feedback">
