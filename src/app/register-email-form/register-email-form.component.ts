@@ -112,7 +112,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   /**
    * Stores error messages related to the email field
    */
-  ariaDescribedby: string = '';
+  ariaDescribedby = '';
 
   captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
