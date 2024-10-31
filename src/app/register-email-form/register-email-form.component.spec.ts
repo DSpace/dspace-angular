@@ -192,4 +192,39 @@ describe('RegisterEmailFormComponent', () => {
       expect(router.navigate).not.toHaveBeenCalled();
     }));
   });
+  describe('ariaDescribedby', () => {
+    it('should have required error message when email is empty', () => {
+      comp.form.patchValue({ email: '' });
+      comp.checkEmailValidity();
+
+      expect(comp.ariaDescribedby).toContain('email-errors-required');
+    });
+
+    it('should have invalid email error message when email is invalid', () => {
+      comp.form.patchValue({ email: 'invalid-email' });
+      comp.checkEmailValidity();
+
+      expect(comp.ariaDescribedby).toContain('email-error-not-valid');
+    });
+
+    it('should clear ariaDescribedby when email is valid', () => {
+      comp.form.patchValue({ email: 'valid@email.com' });
+      comp.checkEmailValidity();
+
+      expect(comp.ariaDescribedby).toBe('');
+    });
+
+    it('should update ariaDescribedby on value changes', () => {
+      spyOn(comp, 'checkEmailValidity').and.callThrough();
+
+      comp.form.patchValue({ email: '' });
+      expect(comp.ariaDescribedby).toContain('email-errors-required');
+
+      comp.form.patchValue({ email: 'invalid-email' });
+      expect(comp.ariaDescribedby).toContain('email-error-not-valid');
+
+      comp.form.patchValue({ email: 'valid@email.com' });
+      expect(comp.ariaDescribedby).toBe('');
+    });
+  });
 });

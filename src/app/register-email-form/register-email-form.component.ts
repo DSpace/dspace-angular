@@ -66,6 +66,11 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
 
   subscriptions: Subscription[] = [];
 
+  /**
+   * Stores error messages related to the email field
+   */
+  ariaDescribedby: string = '';
+
   captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
   }
@@ -134,6 +139,13 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     this.subscriptions.push(this.disableUntilCheckedFcn().subscribe((res) => {
       this.disableUntilChecked = res;
       this.changeDetectorRef.detectChanges();
+    }));
+
+    /**
+     * Subscription to email field value changes
+     */
+    this.subscriptions.push(this.email.valueChanges.subscribe(() => {
+      this.checkEmailValidity();
     }));
   }
 
@@ -246,6 +258,20 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
       default:
         console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
     }
+  }
+
+  checkEmailValidity() {
+    const descriptions = [];
+
+    if (this.email.errors?.required) {
+      descriptions.push('email-errors-required');
+    }
+
+    if (this.email.errors?.pattern || this.email.errors?.email) {
+      descriptions.push('email-error-not-valid');
+    }
+
+    this.ariaDescribedby = descriptions.join(' ');
   }
 
 }
