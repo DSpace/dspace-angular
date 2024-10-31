@@ -15,7 +15,7 @@ import { NativeWindowRef } from '../../core/services/window.service';
  */
 export const HAS_AGREED_END_USER = 'dsHasAgreedEndUser';
 
-export const ANONYMOUS_STORAGE_NAME_OREJIME = 'orejime';
+export const ANONYMOUS_STORAGE_NAME_OREJIME = 'orejime-anonymous';
 
 export const GOOGLE_ANALYTICS_OREJIME_KEY = 'google-analytics';
 
@@ -26,7 +26,7 @@ export const GOOGLE_ANALYTICS_OREJIME_KEY = 'google-analytics';
 
 export function getOrejimeConfiguration(_window: NativeWindowRef): any {
   return {
-    storageName: ANONYMOUS_STORAGE_NAME_OREJIME,
+    cookieName: ANONYMOUS_STORAGE_NAME_OREJIME,
 
     privacyPolicy: './info/privacy',
 
