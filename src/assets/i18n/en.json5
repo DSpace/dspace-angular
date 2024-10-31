@@ -2406,6 +2406,10 @@
 
   "item.edit.metadata.edit.authority.key": "Edit authority key",
 
+  "item.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+
+  "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
+
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
   "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
