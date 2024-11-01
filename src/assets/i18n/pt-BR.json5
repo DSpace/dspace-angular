@@ -10249,4 +10249,10 @@
 
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
+
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  "register-page.registration.aria.label": "Digite seu e-mail",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  "forgot-email.form.aria.label": "Digite seu e-mail",
 }
