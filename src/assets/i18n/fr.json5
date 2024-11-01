@@ -6314,7 +6314,7 @@
   "person.page.orcid.link.processing": "Liaison du profil avec ORCID en cours...",
 
   //"person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
-   "person.page.orcid.link.error.message": "Quelque chose a échoué lors de la connection du profil avec ORCID. Si le problème persiste, contacter la personne administratice.",
+  "person.page.orcid.link.error.message": "Quelque chose a échoué lors de la connection du profil avec ORCID. Si le problème persiste, contacter la personne administratice.",
 
   //"person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
   "person.page.orcid.orcid-not-linked-message": "L'identifiant ORCID du profil ({{ orcid }}) n'a pas encore été connecté à une compte du registre ORCID ou la connection a expiré. ",
@@ -6567,7 +6567,7 @@
 
   //"person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
   "person.page.orcid.synchronization-mode-publication-message": "Sélectionnez si vous souhaitez transmettre vos publications vers votre profil ORCID.",
-  
+
   //"person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
   "person.page.orcid.synchronization-mode-profile-message": "Sélectionnez si vous souhaitez transmettre vos données biographiques vers votre profil ORCID.",
 
