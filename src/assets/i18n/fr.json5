@@ -6358,8 +6358,8 @@
   //"person.page.orcid.sync-profile.biographical": "Biographical data",
   "person.page.orcid.sync-profile.biographical": "Données biographiques",
 
-   //"person.page.orcid.sync-profile.education": "Education",
-   "person.page.orcid.sync-profile.education": "Éducation",
+  //"person.page.orcid.sync-profile.education": "Education",
+  "person.page.orcid.sync-profile.education": "Éducation",
 
   //"person.page.orcid.sync-profile.identifiers": "Identifiers",
   "person.page.orcid.sync-profile.identifiers": "Identifiants",
@@ -6490,8 +6490,8 @@
   //"person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
   "person.page.orcid.sync-queue.send.conflict-error": "La transmission à ORCID a échoué en raison du fait que la ressource est déjà présente dans le registre ORCID.",
 
-   //"person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
-   "person.page.orcid.sync-queue.send.not-found-warning": "La ressource n'existe plus dans le registre ORCID.",
+  //"person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
+  "person.page.orcid.sync-queue.send.not-found-warning": "La ressource n'existe plus dans le registre ORCID.",
 
   //"person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
   "person.page.orcid.sync-queue.send.success": "La transmission à ORCID a été effectuée avec succès.",
@@ -6547,7 +6547,7 @@
   //"person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
   "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "La source de l'identifiant de l'organisation est obligatoire.",
 
-   //"person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
+  //"person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
   "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "La source d'un des identifiants d'organisation est invalide. Les sources possibles sont RINGGOLD, GRID, LEI and FUNDREF",
 
   //"person.page.orcid.synchronization-mode": "Synchronization mode",
@@ -6589,7 +6589,7 @@
   //"person.page.orcid.scope.activities-update": "Add/update your research activities",
   "person.page.orcid.scope.activities-update": "Ajouter ou mettre à jour vos activités de recherche",
 
-   //"person.page.orcid.scope.person-update": "Add/update other information about you",
+  //"person.page.orcid.scope.person-update": "Add/update other information about you",
   "person.page.orcid.scope.person-update": "Ajouter ou mettre à jour d'autre information sur vous",
 
   //"person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
