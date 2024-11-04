@@ -70,7 +70,7 @@ describe('BrowserOrejimeService', () => {
     configurationDataService = createConfigSuccessSpy(recaptchaValue);
     findByPropertyName = configurationDataService.findByPropertyName;
     cookieService = jasmine.createSpyObj('cookieService', {
-      get: '{%22token_item%22:true%2C%22impersonation%22:true%2C%22redirect%22:true%2C%22language%22:true%2C%22orejime%22:true%2C%22has_agreed_end_user%22:true%2C%22google-analytics%22:true}',
+      get: '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true}',
       set: () => {
         /* empty */
       },

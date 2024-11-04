@@ -44,6 +44,18 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
      */
     appElement: 'ds-app',
 
+    stringifyCookie: (contents: any) => {
+      return (typeof contents === 'string') ? contents : JSON.stringify(contents);
+    },
+
+    parseCookie: (cookie: string) => {
+      if (typeof cookie === 'string') {
+        cookie = decodeURIComponent(cookie);
+        return JSON.parse(cookie);
+      }
+      return cookie;
+    },
+
     /*
     You can overwrite existing translations and add translations for your app
     descriptions and purposes. See `src/translations/` for a full list of

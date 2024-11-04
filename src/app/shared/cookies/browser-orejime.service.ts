@@ -207,7 +207,7 @@ export class BrowserOrejimeService extends OrejimeService {
    */
   private initializeUser(user: EPerson) {
     this.orejimeConfig.callback = debounce((consent, app) => this.updateSettingsForUsers(user), updateDebounce);
-    this.orejimeConfig.storageName = this.getStorageName(user.uuid);
+    this.orejimeConfig.cookieName = this.getStorageName(user.uuid);
 
     const anonCookie = this.cookieService.get(ANONYMOUS_STORAGE_NAME_OREJIME);
     if (hasValue(this.getSettingsForUser(user))) {
