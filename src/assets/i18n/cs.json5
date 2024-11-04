@@ -4221,10 +4221,10 @@
   "workflow-item.search.result.notification.deleted.failure": "Při mazání příkazu supervize \"{{name}}\" došlo k chybě",
 
   // "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
-  "workflow-item.search.result.list.element.supervised-by": "Supervizován:",
+  "workflow-item.search.result.list.element.supervised-by": "Pod dohledem:",
 
   // "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
-  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Odebrat skupinu supervize",
+  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Odebrat skupinu dohledu",
 
   // "confidence.indicator.help-text.accepted": "This authority value has been confirmed as accurate by an interactive user",
   // TODO New key - Add a translation
@@ -4380,10 +4380,10 @@
   "item.page.version.hasDraft": "Nová verze nemůže být vytvořena, protože v historii verzí už další rozpracovaná verze existuje.",
 
   // "item.page.claim.button": "Claim",
-  "item.page.claim.button": "Prohlásit",
+  "item.page.claim.button": "Převzít",
 
   // "item.page.claim.tooltip": "Claim this item as profile",
-  "item.page.claim.tooltip": "Prohlásit tento záznam za profilovou",
+  "item.page.claim.tooltip": "Prohlásit tento záznam za profil",
 
   // "item.page.image.alt.ROR": "ROR logo",
   // TODO New key - Add a translation
@@ -5414,7 +5414,7 @@
   "mydspace.show.workspace": "Vaše záznamy",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
-  "mydspace.show.supervisedWorkspace": "Zkontrolované záznamy",
+  "mydspace.show.supervisedWorkspace": "Záznamy pod dohledem",
 
   // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "Archivováno",
@@ -6922,7 +6922,7 @@
   "search.filters.applied.f.birthDate.min": "Datum narození od",
 
   // "search.filters.applied.f.supervisedBy": "Supervised by",
-  "search.filters.applied.f.supervisedBy": "Zkontrolováno",
+  "search.filters.applied.f.supervisedBy": "Pod dohledem",
 
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Vyřazeno",
@@ -7221,8 +7221,7 @@
   "search.filters.filter.supervisedBy.placeholder": "Supervised By",
 
   // "search.filters.filter.supervisedBy.label": "Search Supervised By",
-  // TODO New key - Add a translation
-  "search.filters.filter.supervisedBy.label": "Search Supervised By",
+  "search.filters.filter.supervisedBy.label": "Hledat pod dohledem",
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Číslo časopisu",
@@ -8924,7 +8923,7 @@
   "virtual-metadata.delete-relationship.modal-head": "Vyberte záznamy, pro které chcete uložit virtuální metadata jako skutečná metadata",
 
   // "supervisedWorkspace.search.results.head": "Supervised Items",
-  "supervisedWorkspace.search.results.head": "Zkontrolované záznamy",
+  "supervisedWorkspace.search.results.head": "Záznamy pod dohledem",
 
   // "workspace.search.results.head": "Your submissions",
   "workspace.search.results.head": "Moje záznamy",
