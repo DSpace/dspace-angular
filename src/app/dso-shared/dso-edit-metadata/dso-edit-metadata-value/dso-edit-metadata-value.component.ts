@@ -193,7 +193,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
 
 
   /**
-   * Whether or not the free-text editing is enabled when scrollable dropdown vocabulary is used
+   * Whether or not the free-text editing is enabled when scrollable dropdown or hierarchical vocabulary is used
    */
   public enabledFreeTextEditing = false;
 
