@@ -130,13 +130,13 @@ describe('SearchManager', () => {
 
       const filterValue = 'filterValue';
       const filterAuthority = null;
-      const options: BrowseEntrySearchOptions = { options: null} as any;
+      const browseOptions: BrowseEntrySearchOptions = Object.assign({}, { projection: 'preventMetadataSecurity' }) as BrowseEntrySearchOptions;
       const followLink: FollowLinkConfig<any> = {} as any;
 
-      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options, followLink).subscribe());
+      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, browseOptions, followLink).subscribe());
       scheduler.flush();
 
-      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, null, options, followLink);
+      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, null, browseOptions, followLink);
       expect(mockItemService.findAllById).toHaveBeenCalledWith([validAuthority, validAuthority2]);
 
     });
@@ -145,13 +145,13 @@ describe('SearchManager', () => {
 
       const filterValue = 'filterValue';
       const filterAuthority = 'filterAuthority';
-      const options: BrowseEntrySearchOptions = { options: null} as any;
+      const browseOptions: BrowseEntrySearchOptions = Object.assign({}, { projection: 'preventMetadataSecurity' }) as BrowseEntrySearchOptions;
       const followLink: FollowLinkConfig<any> = {} as any;
 
-      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options, followLink).subscribe());
+      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, browseOptions, followLink).subscribe());
       scheduler.flush();
 
-      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, filterAuthority, options, followLink);
+      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, filterAuthority, browseOptions, followLink);
       expect(mockItemService.findAllById).toHaveBeenCalledWith([validAuthority, validAuthority2]);
 
     });

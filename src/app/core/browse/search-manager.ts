@@ -45,7 +45,8 @@ export class SearchManager {
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
   getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.browseService.getBrowseItemsFor(filterValue, filterAuthority, options, ...linksToFollow)
+    const browseOptions = Object.assign({}, options, { projection: 'preventMetadataSecurity' });
+    return this.browseService.getBrowseItemsFor(filterValue, filterAuthority, browseOptions, ...linksToFollow)
       .pipe(this.completeWithExtraData());
   }
 
