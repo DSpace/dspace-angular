@@ -3274,6 +3274,12 @@
 
   "profile.breadcrumbs": "Update Profile",
 
+  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+
+  "profile.card.accessibility.header": "Accessibility",
+
+  "profile.card.accessibility.link": "Accessibility Settings Page",
+
   "profile.card.identify": "Identify",
 
   "profile.card.security": "Security",
