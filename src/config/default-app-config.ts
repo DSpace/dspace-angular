@@ -23,6 +23,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
+import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -438,5 +439,10 @@ export class DefaultAppConfig implements AppConfig {
   liveRegion: LiveRegionConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
+  };
+
+  // Accessibility settings configuration, used by the AccessibilitySettingsService
+  accessibility: AccessibilitySettingsConfig = {
+    cookieExpirationDuration: 7,
   };
 }

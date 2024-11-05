@@ -8,6 +8,7 @@ import { EPerson } from '../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import cloneDeep from 'lodash/cloneDeep';
+import { environment } from '../../environments/environment';
 
 /**
  * Name of the cookie used to store the settings locally
@@ -18,11 +19,6 @@ export const ACCESSIBILITY_COOKIE = 'dsAccessibilityCookie';
  * Name of the metadata field to store settings on the ePerson
  */
 export const ACCESSIBILITY_SETTINGS_METADATA_KEY = 'dspace.accessibility.settings';
-
-/**
- * The duration in days after which the accessibility settings cookie expires
- */
-export const ACCESSIBILITY_SETTINGS_COOKIE_STORAGE_DURATION = 7;
 
 /**
  * Enum containing all possible accessibility settings.
@@ -208,7 +204,7 @@ export class AccessibilitySettingsService {
    */
   setSettingsInCookie(settings: AccessibilitySettings) {
     if (isNotEmpty(settings)) {
-      this.cookieService.set(ACCESSIBILITY_COOKIE, settings, { expires: ACCESSIBILITY_SETTINGS_COOKIE_STORAGE_DURATION });
+      this.cookieService.set(ACCESSIBILITY_COOKIE, settings, { expires: environment.accessibility.cookieExpirationDuration });
     } else {
       this.cookieService.remove(ACCESSIBILITY_COOKIE);
     }
