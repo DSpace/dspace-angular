@@ -6744,6 +6744,10 @@
 
   "browse.search-form.placeholder": "Search the repository",
 
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  "forgot-email.form.aria.label": "Enter your e-mail address",
+  
   "community.form.thumbnail": "Thumbnail Description",
 
   "collection.form.thumbnail": "Thumbnail Description",

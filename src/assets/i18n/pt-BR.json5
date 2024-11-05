@@ -10249,10 +10249,16 @@
 
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
-
+  
   // "community.form.thumbnail": "Thumbnail Description",
   "community.form.thumbnail": "Descrição do logotipo da comunidade",
 
   // "collection.form.thumbnail": "Thumbnail Description",
   "collection.form.thumbnail": "Descrição do logotipo da coleção",
+  
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  "register-page.registration.aria.label": "Digite seu e-mail",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  "forgot-email.form.aria.label": "Digite seu e-mail",
 }
