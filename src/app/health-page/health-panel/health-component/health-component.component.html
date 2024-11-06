@@ -1,16 +1,16 @@
 <ng-container *ngIf="healthComponent?.components">
   <div *ngFor="let entry of healthComponent?.components | dsObjNgFor" class="mb-3 border-bottom" data-test="collapse">
-    <div class="w-100 d-flex justify-content-between collapse-toggle" (click)="collapse.toggle()">
+    <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" (click)="collapse.toggle()">
       <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()" [attr.aria-expanded]="!collapse.collapsed"
-              aria-controls="collapseExample">
+              [attr.aria-controls]="'health-component-' + entry.key + 'content'">
         {{ entry.key | titlecase }}
       </button>
-      <div class="d-inline-block">
+      <div class="d-flex my-auto">
         <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
         <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
       </div>
     </div>
-    <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
+    <div #collapse="ngbCollapse" [id]="'health-component-' + entry.key + 'content'" [ngbCollapse]="isCollapsed">
       <div class="card border-0">
         <div class="card-body">
           <ds-health-component [healthComponent]="entry.value"

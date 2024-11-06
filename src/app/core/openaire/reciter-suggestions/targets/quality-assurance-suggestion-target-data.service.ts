@@ -91,7 +91,7 @@ export class QualityAssuranceSuggestionTargetDataService extends IdentifiableDat
     reRequestOnStale = true,
     ...linksToFollow: FollowLinkConfig<OpenaireSuggestionTarget>[]
   ): Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>> {
-    options.searchParams = [new RequestParam('source', source)];
+    options.searchParams = [new RequestParam('source', source, false)];
 
     return this.searchData.searchBy(this.searchFindBySourceMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
@@ -116,7 +116,7 @@ export class QualityAssuranceSuggestionTargetDataService extends IdentifiableDat
     reRequestOnStale = true,
     ...linksToFollow: FollowLinkConfig<OpenaireSuggestionTarget>[]
   ): Observable<RemoteData<PaginatedList<OpenaireSuggestionTarget>>> {
-    options.searchParams = [new RequestParam('target', userId)];
+    options.searchParams = [new RequestParam('target', userId, false)];
 
     return this.searchData.searchBy(this.searchFindByTargetMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }

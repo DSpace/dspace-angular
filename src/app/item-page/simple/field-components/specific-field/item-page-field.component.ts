@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { getRemoteDataPayload } from '../../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 /**
  * This component can be used to represent metadata on a simple item page.
@@ -57,8 +57,8 @@ export class ItemPageFieldComponent {
      */
     get browseDefinition(): Observable<BrowseDefinition> {
       return this.browseDefinitionDataService.findByFields(this.fields).pipe(
-        getRemoteDataPayload(),
-        map((def) => def)
+        getFirstCompletedRemoteData(),
+        map((def) => def.payload)
       );
     }
 }

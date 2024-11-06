@@ -119,7 +119,8 @@ export class CollectionPageComponent implements OnInit {
               pagination: currentPagination,
               sort: currentSort,
               dsoTypes: [DSpaceObjectType.ITEM],
-              forcedEmbeddedKeys: ['metrics']
+              forcedEmbeddedKeys: ['metrics'],
+              projection: 'preventMetadataSecurity'
             }), null, true, true, ...BROWSE_LINKS_TO_FOLLOW)
             .pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),

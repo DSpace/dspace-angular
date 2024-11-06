@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { datadogRum } from '@datadog/browser-rum';
 import { CookieConsents, KlaroService } from '../cookies/klaro.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { createSelector, Store } from '@ngrx/store';
 import { setDatadogRumStatusAction } from './datadog-rum.actions';
 import { DatadogRumState } from './datadog-rum.reducer';
-import { distinctUntilChanged, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, take, tap } from 'rxjs/operators';
 import { coreSelector } from '../../core/core.selectors';
 import { CoreState } from '../../core/core-state.model';
 import { DatadogRumService } from './datadog-rum.service';
@@ -22,12 +22,18 @@ export class BrowserDatadogRumService extends DatadogRumService {
     private store: Store
   ) {
     super();
+    this.consentsUpdates$ = this.klaroService.consentsUpdates$;
   }
 
   initDatadogRum() {
-    this.klaroService.watchConsentUpdates();
-    this.consentsUpdates$ = this.klaroService.consentsUpdates$;
-    this.consentsUpdates$.subscribe(savedPreferences => {
+    this.klaroService.initialized$.pipe(
+      filter(initalized => initalized),
+      take(1),
+      tap(() => {
+        this.klaroService.watchConsentUpdates();
+      }),
+      switchMap(() => this.consentsUpdates$)
+    ).subscribe(savedPreferences => {
       this.getDatadogRumState().subscribe((state) => {
         if (savedPreferences?.datadog &&
           environment.datadogRum?.clientToken && environment.datadogRum?.applicationId &&

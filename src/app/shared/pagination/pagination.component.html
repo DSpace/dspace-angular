@@ -7,15 +7,29 @@
       </div>
       <div class="col">
         <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
-          <button class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate"><i class="fas fa-cog" aria-hidden="true"></i></button>
-          <div id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" ngbDropdownMenu>
-            <h6 class="dropdown-header">{{ 'pagination.results-per-page' | translate}}</h6>
-            <button class="dropdown-item" *ngFor="let item of pageSizeOptions" (click)="doPageSizeChange(item)"><i [ngClass]="{'invisible': item != (pageSize$|async)}" class="fas fa-check" aria-hidden="true"></i> {{item}} </button>
-            <ng-container *ngIf="!hideSortOptions">
-              <h6 class="dropdown-header">{{ 'pagination.sort-direction' | translate}}</h6>
-              <button class="dropdown-item" *ngFor="let direction of (sortDirections | dsKeys)" (click)="doSortDirectionChange(direction.value)"><i [ngClass]="{'invisible': direction.value !== (sortDirection$ |async)}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}} </button>
-            </ng-container>
-          </div>
+          <button class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog" aria-hidden="true"></i></button>
+          <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu" ngbDropdownMenu>
+            <li role="menuitem">
+              <span class="dropdown-header" id="pagination-control_results-per-page" role="heading">{{ 'pagination.results-per-page' | translate}}</span>
+              <ul aria-labelledby="pagination-control_results-per-page" class="list-unstyled" role="listbox">
+                <li *ngFor="let item of pageSizeOptions" role="option" [attr.aria-selected]="item === (pageSize$ | async)">
+                  <button (click)="doPageSizeChange(item)" class="dropdown-item">
+                    <i [ngClass]="{'invisible': item !== (pageSize$ | async) }" class="fas fa-check" aria-hidden="true"></i> {{item}}
+                  </button>
+                </li>
+              </ul>
+            </li>
+            <li *ngIf="!hideSortOptions" role="menuitem">
+              <span class="dropdown-header" id="pagination-control_sort-direction" role="heading">{{ 'pagination.sort-direction' | translate}}</span>
+              <ul aria-labelledby="pagination-control_sort-direction" class="list-unstyled" role="listbox">
+                <li *ngFor="let direction of (sortDirections | dsKeys)" [attr.aria-selected]="direction.value === (sortDirection$ | async)" role="option">
+                  <button class="dropdown-item" (click)="doSortDirectionChange(direction.value)">
+                    <i [ngClass]="{'invisible': direction.value !== (sortDirection$ |async)}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}}
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
         <ds-rss></ds-rss>
       </div>

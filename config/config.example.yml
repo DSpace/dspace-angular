@@ -17,6 +17,13 @@ ui:
   # Trust X-FORWARDED-* headers from proxies (default = true)
   useProxies: true
 
+universal:
+  # Whether to inline "critical" styles into the server-side rendered HTML.
+  # Determining which styles are critical is a relatively expensive operation;
+  # this option can be disabled to boost server performance at the expense of
+  # loading smoothness. For improved SSR performance, DSpace defaults this to false (disabled).
+  inlineCriticalCss: false
+
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
 # 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
@@ -190,6 +197,12 @@ languages:
   - code: en
     label: English
     active: true
+  - code: ar
+    label: العربية
+    active: true
+  - code: bn
+    label: বাংলা
+    active: true
   - code: ca
     label: Català
     active: true
@@ -199,8 +212,14 @@ languages:
   - code: de
     label: Deutsch
     active: true
+  - code: el
+    label: Ελληνικά
+    active: true
   - code: es
     label: Español
+    active: true
+  - code: fi
+    label: Suomi
     active: true
   - code: fr
     label: Français
@@ -208,17 +227,23 @@ languages:
   - code: gd
     label: Gàidhlig
     active: true
+  - code: hi
+    label: हिंदी
+    active: true
+  - code: hu
+    label: Magyar
+    active: true
   - code: it
     label: Italiano
+    active: true
+  - code: kk
+    label: Қазақ
     active: true
   - code: it
     label: Italiano
     active: true
   - code: lv
     label: Latviešu
-    active: true
-  - code: hu
-    label: Magyar
     active: true
   - code: nl
     label: Nederlands
@@ -235,8 +260,8 @@ languages:
   - code: sr-lat
     label: Srpski (lat)
     active: true
-  - code: fi
-    label: Suomi
+  - code: sr-cyr
+    label: Српски
     active: true
   - code: sv
     label: Svenska
@@ -244,26 +269,11 @@ languages:
   - code: tr
     label: Türkçe
     active: true
-  - code: vi
-    label: Tiếng Việt
-    active: true
-  - code: kk
-    label: Қазақ
-    active: true
-  - code: bn
-    label: বাংলা
-    active: true
-  - code: hi
-    label: हिंदी
-    active: true
-  - code: el
-    label: Ελληνικά
-    active: true
-  - code: sr-cyr
-    label: Српски
-    active: true
   - code: uk
     label: Yкраї́нська
+    active: true
+  - code: vi
+    label: Tiếng Việt
     active: true
 
 
@@ -275,8 +285,12 @@ browseBy:
   fiveYearLimit: 30
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
+  # Whether to add item badges to BOTH browse and search result lists.
+  showLabels: true
   # If true, thumbnail images for items will be added to BOTH search and browse result lists.
   showThumbnails: true
+  # Whether to add item thumbnail images to BOTH browse and search result lists.
+  showMetrics: false
   # The number of entries in a paginated browse results list.
   # Rounded to the nearest size in the list of selectable sizes on the
   # settings menu.

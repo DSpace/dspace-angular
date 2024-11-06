@@ -1,15 +1,15 @@
 <div [ngSwitch]="messageToShow">
   <ng-container *ngSwitchCase="MessageType.LOADING">
-    <label *ngIf="message">{{ message }}</label>
+    <label *ngIf="message" aria-live="polite">{{ message }}</label>
   </ng-container>
   <ng-container *ngSwitchCase="MessageType.WARNING">
-    <label *ngIf="warningMessage">{{ warningMessage }}</label>
+    <label *ngIf="warningMessage" aria-live="polite">{{ warningMessage }}</label>
   </ng-container>
   <ng-container *ngSwitchCase="MessageType.ERROR">
     <ds-alert *ngIf="errorMessage" [type]="AlertTypeEnum.Error" [content]="errorMessage"></ds-alert>
   </ng-container>
   <ng-container *ngIf="!spinner && messageToShow !== MessageType.ERROR">
-    <div class="loader">
+    <div class="loader" aria-hidden="true">
       <span class="l-1"></span>
       <span class="l-2"></span>
       <span class="l-3"></span>
@@ -22,7 +22,7 @@
       <span class="l-10"></span>
     </div>
   </ng-container>
-  <ng-container *ngIf="spinner && messageToShow !== MessageType.ERROR" class="spinner spinner-border" role="status">
+  <ng-container *ngIf="spinner && messageToShow !== MessageType.ERROR" class="spinner spinner-border" role="status" aria-live="polite">
     <span class="sr-only">{{ message }}</span>
   </ng-container>
 </div>

@@ -14,6 +14,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { Router } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SwitchColor, SwitchOption } from '../../shared/switch/switch.component';
 
 
 /**
@@ -76,6 +77,13 @@ export class SystemWideAlertFormComponent implements OnInit {
    */
   previewDays: number;
 
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: true, labelColor: SwitchColor.Success, backgroundColor: SwitchColor.Success ,label: 'system-wide-alert.form.label.active' },
+    { value: false, label: 'system-wide-alert.form.label.inactive' },
+  ];
 
   constructor(
     protected systemWideAlertDataService: SystemWideAlertDataService,
@@ -219,11 +227,13 @@ export class SystemWideAlertFormComponent implements OnInit {
     } else {
       alert.countdownTo = null;
     }
-    if (hasValue(this.currentAlert)) {
-      const updatedAlert = Object.assign(new SystemWideAlert(), this.currentAlert, alert);
-      this.handleResponse(this.systemWideAlertDataService.put(updatedAlert), 'system-wide-alert.form.update', navigateToHomePage);
-    } else {
-      this.handleResponse(this.systemWideAlertDataService.create(alert), 'system-wide-alert.form.create', navigateToHomePage);
+    if (this.alertForm.valid) {
+      if (hasValue(this.currentAlert)) {
+        const updatedAlert = Object.assign(new SystemWideAlert(), this.currentAlert, alert);
+        this.handleResponse(this.systemWideAlertDataService.put(updatedAlert), 'system-wide-alert.form.update', navigateToHomePage);
+      } else {
+        this.handleResponse(this.systemWideAlertDataService.create(alert), 'system-wide-alert.form.create', navigateToHomePage);
+      }
     }
   }
 

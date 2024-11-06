@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subscription, combineLatest } from 'rxjs';
+import { filter, map, shareReplay } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import uniqBy from 'lodash/uniqBy';
 
@@ -68,6 +67,16 @@ export class LogInComponent implements OnInit, OnDestroy {
   canRegister$: Observable<boolean>;
 
   /**
+   * Whether or not the current user (or anonymous) is authorized to register an account
+   */
+  canForgot$: Observable<boolean>;
+
+  /**
+   * Shows the divider only if contains at least one link to show
+   */
+  canShowDivider$: Observable<boolean>;
+
+  /**
    * Track subscription to unsubscribe on destroy
    * @private
    */
@@ -106,6 +115,14 @@ export class LogInComponent implements OnInit, OnDestroy {
     });
 
     this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
+
+    this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay(1));
+    this.canShowDivider$ =
+        combineLatest([this.canRegister$, this.canForgot$])
+            .pipe(
+                map(([canRegister, canForgot]) => canRegister || canForgot),
+                filter(Boolean)
+            );
   }
 
   getRegisterRoute() {

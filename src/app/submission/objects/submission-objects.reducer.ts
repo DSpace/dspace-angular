@@ -927,12 +927,20 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
  */
 function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileAction): SubmissionObjectState {
   const filesData = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data as WorkspaceitemSectionUploadObject;
+  const filesErrorsToShow = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errorsToShow ?? [];
+  const filesSeverValidationErrors = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].serverValidationErrors ?? [];
+
   if (hasValue(filesData.files)) {
     const fileIndex: any = findKey(
       filesData.files,
       {uuid: action.payload.fileId});
     if (isNotNull(fileIndex)) {
       const newData = Array.from(filesData.files);
+      const newErrorsToShow = filesData.files.length > 1  ? filesErrorsToShow
+        .filter(errorToShow => !errorToShow.path.includes(fileIndex)) : [];
+      const newServerErrorsToShow = filesData.files.length > 1  ? filesSeverValidationErrors
+        .filter(serverError => !serverError.path.includes(fileIndex)) : [];
+
       newData.splice(fileIndex, 1);
       return Object.assign({}, state, {
         [ action.payload.submissionId ]: Object.assign({}, state[action.payload.submissionId], {
@@ -941,7 +949,9 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
               [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ], {
                 data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                   files: newData
-                })
+                }),
+                errorsToShow: newErrorsToShow,
+                serverValidationErrors: newServerErrorsToShow,
               })
             })
           )

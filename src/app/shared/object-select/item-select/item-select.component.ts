@@ -1,14 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { ObjectSelectService } from '../object-select.service';
 import { ObjectSelectComponent } from '../object-select/object-select.component';
 import { hasValueOperator, isNotEmpty } from '../../empty.util';
 import { Observable } from 'rxjs';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { DSpaceObjectSelect } from '../object-select.model';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -19,7 +18,7 @@ import { environment } from '../../../../environments/environment';
 /**
  * A component used to select items from a specific list and returning the UUIDs of the selected items
  */
-export class ItemSelectComponent extends ObjectSelectComponent<Item> {
+export class ItemSelectComponent extends ObjectSelectComponent<Item> implements OnInit {
 
   /**
    * Whether or not to hide the collection column
@@ -28,37 +27,27 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
   hideCollection = false;
 
   /**
-   * The routes to the items their pages
-   * Key: Item ID
-   * Value: Route to item page
+   * Collection of all the data that is used to display the {@link Item} in the HTML.
+   * By collecting this data here it doesn't need to be recalculated on evey change detection.
    */
-  itemPageRoutes$: Observable<{
-    [itemId: string]: string
-  }>;
+  selectItems$: Observable<DSpaceObjectSelect<Item>[]>;
 
   authorMetadata = environment.searchResult.authorMetadata;
-
-  constructor(
-    protected objectSelectService: ObjectSelectService,
-    protected authorizationService: AuthorizationDataService,
-    public dsoNameService: DSONameService,
-  ) {
-    super(objectSelectService, authorizationService);
-  }
 
   ngOnInit(): void {
     super.ngOnInit();
     if (!isNotEmpty(this.confirmButton)) {
       this.confirmButton = 'item.select.confirm';
     }
-    this.itemPageRoutes$ = this.dsoRD$.pipe(
+    this.selectItems$ = this.dsoRD$.pipe(
       hasValueOperator(),
       getAllSucceededRemoteDataPayload(),
-      map((items) => {
-        const itemPageRoutes = {};
-        items.page.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
-        return itemPageRoutes;
-      })
+      map((items: PaginatedList<Item>) => items.page.map((item: Item) => Object.assign(new DSpaceObjectSelect<Item>(), {
+        dso: item,
+        canSelect$: this.canSelect(item),
+        selected$: this.getSelected(item.id),
+        route: getItemPageRoute(item),
+      } as DSpaceObjectSelect<Item>))),
     );
   }
 

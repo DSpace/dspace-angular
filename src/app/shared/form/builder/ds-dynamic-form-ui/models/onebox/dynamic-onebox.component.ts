@@ -323,7 +323,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       this.previousValue = result;
       this.cdr.detectChanges();
     }
-    if (hasValue(this.currentValue.otherInformation)) {
+    if (hasValue(this.currentValue?.otherInformation)) {
       const infoKeys = Object.keys(this.currentValue.otherInformation);
       this.setMultipleValuesForOtherInfo(infoKeys, this.currentValue);
     }

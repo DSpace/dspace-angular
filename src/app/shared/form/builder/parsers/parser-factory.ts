@@ -22,6 +22,7 @@ import { TextareaFieldParser } from './textarea-field-parser';
 import { NumberFieldParser } from './number-field-parser';
 import { CalendarFieldParser } from './calendar-field-parser';
 import { DisabledFieldParser } from './disabled-field-parser';
+import { TranslateService } from '@ngx-translate/core';
 import { LinkFieldParser } from './link-field-parser';
 
 const fieldParserDeps = [
@@ -29,7 +30,8 @@ const fieldParserDeps = [
   CONFIG_DATA,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
-  SECURITY_CONFIG
+  SECURITY_CONFIG,
+  TranslateService
 ];
 
 /**

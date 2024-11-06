@@ -8,7 +8,6 @@ import {
   ThemedExternalLoginReviewAccountInfoPageComponent
 } from './themed-external-login-review-account-info-page.component';
 import { ReviewAccountInfoComponent } from './review-account-info/review-account-info.component';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import { SharedModule } from '../shared/shared.module';
 import { ExternalLoginModule } from '../external-log-in/external-login.module';
 
@@ -23,7 +22,6 @@ import { ExternalLoginModule } from '../external-log-in/external-login.module';
     CommonModule,
     ExternalLoginReviewAccountInfoRoutingModule,
     SharedModule,
-    UiSwitchModule,
     ExternalLoginModule
   ]
 })

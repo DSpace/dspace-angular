@@ -173,15 +173,29 @@ describe('ItemListPreviewComponent', () => {
     });
   });
 
-  describe('When the item has an entity type', () => {
+  describe('When the item has an entity type and showLabel is true', () => {
     beforeEach(() => {
       component.item = mockItemWithEntityType;
+      component.showLabel = true;
       fixture.detectChanges();
     });
 
     it('should show the badges', () => {
       const entityField = fixture.debugElement.query(By.css('ds-themed-badges'));
       expect(entityField).not.toBeNull();
+    });
+  });
+
+  describe('When the item has an entity type and showLabel is false', () => {
+    beforeEach(() => {
+      component.item = mockItemWithEntityType;
+      component.showLabel = false;
+      fixture.detectChanges();
+    });
+
+    it('should not show the badges', () => {
+      const entityField = fixture.debugElement.query(By.css('ds-themed-badges'));
+      expect(entityField).toBeNull();
     });
   });
 });
@@ -227,6 +241,19 @@ describe('ItemListPreviewComponent', () => {
     it('should add the ds-thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeFalsy();
+    });
+  });
+
+  describe('When showCorrection is false', () => {
+    beforeEach(() => {
+      component.item = mockItemWithAuthorAndDate;
+      component.showCorrection = false;
+      fixture.detectChanges();
+    });
+
+    it('should not show the correction badge', () => {
+      const correctionBadge = fixture.debugElement.query(By.css('ds-item-correction'));
+      expect(correctionBadge).toBeFalsy();
     });
   });
 });

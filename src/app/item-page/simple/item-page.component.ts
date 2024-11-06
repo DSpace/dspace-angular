@@ -11,9 +11,7 @@ import { Item } from '../../core/shared/item.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
-import { redirectOn204, redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ServerResponseService } from '../../core/services/server-response.service';
@@ -79,7 +77,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
@@ -94,9 +91,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.dso as RemoteData<Item>),
-      redirectOn204<Item>(this.router, this.authService),
-      redirectOn4xx<Item>(this.router, this.authService)
+      map((data) => data.dso as RemoteData<Item>)
     );
     this.tabsRD$ = this.route.data.pipe(
       map((data) => data.tabs as RemoteData<PaginatedList<CrisLayoutTab>>),

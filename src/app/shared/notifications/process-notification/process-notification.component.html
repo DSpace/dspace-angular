@@ -1,4 +1,4 @@
-<div class="notification alert {{notificationType}} alert-dismissible m-3 shadow" role="alert"
+<div class="notification alert {{(notificationType$ | async)}} alert-dismissible m-3 shadow" role="alert"
      [@enterLeave]="animate">
 
     <button *ngIf="notification.options.clickToClose"
@@ -25,8 +25,8 @@
         </strong>
       </div>
 
-      <span  *ngIf="(finished | async)" class="notification-content pl-1">
-        {{process.processStatus.toString() | titlecase}}
+      <span *ngIf="(finished | async)" class="notification-content pl-1">
+        {{(processStatus$ | async) | translate}}
       </span>
       <span *ngIf="!(finished | async)" class="notification-content pl-1">
         {{'process.new.notification.process.processing' | translate}}
@@ -37,17 +37,13 @@
         </div>
       </div>
 
-      <div  *ngIf="(finished | async) && files && files?.length > 0">
+      <div  *ngIf="(finished | async) && (files$ | async)?.length > 0">
           <div class="notification-content pl-1">{{ 'process.new.notification.process.files' | translate}}</div>
+          <ds-file-download-link class="pl-1" *ngFor="let file of (files$ | async); let last=last;" [bitstream]="file">
+            <span>{{getFileName(file)}}</span>
+            <span>({{(file?.sizeBytes) | dsFileSize }})</span>
+          </ds-file-download-link>
       </div>
-
-      <div class="pl-2" *ngIf="(finished | async) && files && files?.length > 0">
-        <ds-file-download-link *ngFor="let file of files; let last=last;" [bitstream]="file">
-          <span>{{getFileName(file)}}</span>
-          <span>({{(file?.sizeBytes) | dsFileSize }})</span>
-        </ds-file-download-link>
-      </div>
-
   </div>
 
 

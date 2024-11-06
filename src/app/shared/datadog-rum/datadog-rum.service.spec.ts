@@ -28,7 +28,8 @@ describe('DatadogRumService', () => {
     getSavedPreferences: jasmine.createSpy('getSavedPreferences'),
     watchConsentUpdates: jasmine.createSpy('watchConsentUpdates')
   }, {
-    consentsUpdates$: of(consentsAccepted)
+    consentsUpdates$: of(consentsAccepted),
+    initialized$: of(true),
   });
 
   const datadogRumEnvironmentOptions = {

@@ -352,11 +352,6 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   formGroup: UntypedFormGroup;
 
   /**
-   * Subscription to update the current form
-   */
-  updateSub: Subscription;
-
-  /**
    * The content harvesting type used when harvesting is disabled
    */
   harvestTypeNone = ContentSourceHarvestType.None;
@@ -375,28 +370,29 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   displayedNotifications: INotification[] = [];
 
-  public constructor(public objectUpdatesService: ObjectUpdatesService,
-                     public notificationsService: NotificationsService,
-                     protected location: Location,
-                     protected formService: DynamicFormService,
-                     protected translate: TranslateService,
-                     protected route: ActivatedRoute,
-                     protected router: Router,
-                     protected collectionService: CollectionDataService,
-                     protected requestService: RequestService) {
-    super(objectUpdatesService, notificationsService, translate);
+  subs: Subscription[] = [];
+
+  public constructor(
+    public objectUpdatesService: ObjectUpdatesService,
+    public notificationsService: NotificationsService,
+    public translateService: TranslateService,
+    public router: Router,
+    protected location: Location,
+    protected formService: DynamicFormService,
+    protected route: ActivatedRoute,
+    protected collectionService: CollectionDataService,
+    protected requestService: RequestService,
+  ) {
+    super(objectUpdatesService, notificationsService, translateService, router);
   }
 
   /**
    * Initialize properties to setup the Field Update and Form
    */
   ngOnInit(): void {
+    super.ngOnInit();
     this.notificationsPrefix = 'collection.edit.tabs.source.notifications.';
     this.discardTimeOut = environment.collection.edit.undoTimeout;
-    this.url = this.router.url;
-    if (this.url.indexOf('?') > 0) {
-      this.url = this.url.substr(0, this.url.indexOf('?'));
-    }
     this.formGroup = this.formService.createFormGroup(this.formModel);
     this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
 
@@ -412,10 +408,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     });
 
     this.updateFieldTranslations();
-    this.translate.onLangChange
-      .subscribe(() => {
-        this.updateFieldTranslations();
-      });
+    this.subs.push(this.translateService.onLangChange.subscribe(() => {
+      this.updateFieldTranslations();
+    }));
   }
 
   initializeEmailAndTransform(collection: Collection) {
@@ -469,7 +464,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.update$ = this.objectUpdatesService.getFieldUpdates(this.url, [initialContentSource]).pipe(
       map((updates: FieldUpdates) => updates[initialContentSource.uuid])
     );
-    this.updateSub = this.update$.subscribe((update: FieldUpdate) => {
+    this.subs.push(this.update$.subscribe((update: FieldUpdate) => {
       if (update) {
         const field = update.field as ContentSource;
         let configId;
@@ -496,7 +491,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
         }
         this.contentSource.metadataConfigId = configId;
       }
-    });
+    }));
   }
 
   /**
@@ -530,18 +525,18 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * @param fieldModel
    */
   private updateFieldTranslation(fieldModel: DynamicFormControlModel) {
-    fieldModel.label = this.translate.instant(this.LABEL_KEY_PREFIX + fieldModel.id);
+    fieldModel.label = this.translateService.instant(this.LABEL_KEY_PREFIX + fieldModel.id);
     if (isNotEmpty(fieldModel.validators)) {
       fieldModel.errorMessages = {};
       Object.keys(fieldModel.validators).forEach((key) => {
-        fieldModel.errorMessages[key] = this.translate.instant(this.ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
+        fieldModel.errorMessages[key] = this.translateService.instant(this.ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
       });
     }
     if (fieldModel instanceof DynamicOptionControlModel) {
       if (isNotEmpty(fieldModel.options)) {
         fieldModel.options.forEach((option) => {
           if (hasNoValue(option.label)) {
-            option.label = this.translate.instant(this.OPTIONS_KEY_PREFIX + fieldModel.id + '.' + option.value);
+            option.label = this.translateService.instant(this.OPTIONS_KEY_PREFIX + fieldModel.id + '.' + option.value);
           }
         });
       }
@@ -710,8 +705,6 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * Make sure open subscriptions are closed
    */
   ngOnDestroy(): void {
-    if (this.updateSub) {
-      this.updateSub.unsubscribe();
-    }
+    this.subs.forEach((sub: Subscription) => sub.unsubscribe());
   }
 }

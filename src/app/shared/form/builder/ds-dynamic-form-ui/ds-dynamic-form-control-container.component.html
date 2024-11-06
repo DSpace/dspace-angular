@@ -41,12 +41,12 @@
           <!-- In case of repeatable fields show empty space for all elements except the first -->
           <!-- In case of not repeatable field with multiple values show empty space for all elements except the last -->
           <div *ngIf="(context?.index !== null && (!showErrorMessages || errorMessages.length === 0)) || (!hasHint && !showErrorMessages) ||
-                  (!model.hideErrorMessages && showErrorMessages && !(!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1))"
+                  (!model.hideErrorMessages && showErrorMessages && !(!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1)) && isNotRequiredGroupAndEmpty()"
                class="clearfix w-100 mb-2"></div>
 
           <!-- In case of not repeatable field with multiple values show error message for the last element only -->
           <div
-            *ngIf="!model.hideErrorMessages && showErrorMessages && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1)"
+            *ngIf="!model.hideErrorMessages && showErrorMessages && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1) && isNotRequiredGroupAndEmpty()"
             [id]="id + '_errors'"
             [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
             <small *ngFor="let message of errorMessages"
@@ -78,7 +78,9 @@
           <button class="btn btn-secondary"
                   type="button"
                   ngbTooltip="{{'form.lookup-help' | translate}}"
+                  [attr.aria-label]="'form.lookup-help' | translate"
                   placement="top"
+                  data-test="lookup-button"
                   (click)="openLookup(); $event.stopPropagation();"><i class="fa fa-search"></i>
           </button>
         </div>

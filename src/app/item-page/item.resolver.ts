@@ -20,6 +20,7 @@ export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
   ),
   followLink('relationships'),
   followLink('version', {}, followLink('versionhistory')),
+  followLink('bundles', {}, followLink('bitstreams')),
   followLink('thumbnail'),
   followLink('metrics')
 ];
@@ -44,9 +45,10 @@ export class ItemResolver implements Resolve<RemoteData<Item>> {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {
+    // Fetch item with cache disabled to have always a fresh item object
     const itemRD$ = this.itemService.findById(route.params.id,
-      true,
       false,
+      true,
       ...ITEM_PAGE_LINKS_TO_FOLLOW
     ).pipe(
       getFirstCompletedRemoteData(),

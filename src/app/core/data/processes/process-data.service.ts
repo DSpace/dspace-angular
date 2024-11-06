@@ -123,8 +123,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    * @param processId The ID of the process
    */
   getProcess(processId: string): Observable<RemoteData<Process>> {
-    const href$ = this.getProcessEndpoint(processId);
-    return this.findByHref(href$,false);
+    return this.findById(processId, false);
   }
 
   /**

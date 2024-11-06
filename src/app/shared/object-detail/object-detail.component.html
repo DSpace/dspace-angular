@@ -1,6 +1,5 @@
 <ds-pagination
   [paginationOptions]="config"
-  [pageInfoState]="objects?.payload"
   [collectionSize]="objects?.payload?.totalElements"
   [sortOptions]="sortConfig"
   [objects]="objects"
@@ -21,6 +20,7 @@
         <ds-listable-object-component-loader [object]="object"
                                              [viewMode]="viewMode"
                                              [context]="context"
+                                             [showLabel]="showLabel"
                                              [showMetrics]="showMetrics"
                                              [showThumbnails]="showThumbnails"
                                              (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>

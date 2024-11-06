@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { hasNoValue, hasValue } from '../shared/empty.util';
 import { RemoteData } from '../core/data/remote-data';
@@ -60,6 +61,7 @@ export class ThumbnailComponent implements OnChanges {
   isLoading$ = new BehaviorSubject(true);
 
   constructor(
+    @Inject(PLATFORM_ID) private platformID: any,
     protected auth: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected fileService: FileService,
@@ -71,16 +73,18 @@ export class ThumbnailComponent implements OnChanges {
    * Use a default image if no actual image is available.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (hasNoValue(this.thumbnail)) {
-      this.setSrc(this.defaultImage);
-      return;
-    }
+    if (isPlatformBrowser(this.platformID)) {
+      if (hasNoValue(this.thumbnail)) {
+        this.setSrc(this.defaultImage);
+        return;
+      }
 
-    const src = this.contentHref;
-    if (hasValue(src)) {
-      this.setSrc(src);
-    } else {
-      this.setSrc(this.defaultImage);
+      const src = this.contentHref;
+      if (hasValue(src)) {
+        this.setSrc(src);
+      } else {
+        this.setSrc(this.defaultImage);
+      }
     }
   }
 

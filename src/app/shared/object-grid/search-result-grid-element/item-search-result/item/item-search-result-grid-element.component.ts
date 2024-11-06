@@ -70,7 +70,7 @@ export class ItemSearchResultGridElementComponent extends SearchResultGridElemen
    * Returns the valid thumbnail or original bitstream depending on item and max size
    */
   getThumbnail(): Observable<Bitstream> {
-    return this.dso.thumbnail.pipe(
+    return this.dso?.thumbnail?.pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       switchMap((thumbnail: Bitstream) => this.thumbnailService.getConfig().pipe(

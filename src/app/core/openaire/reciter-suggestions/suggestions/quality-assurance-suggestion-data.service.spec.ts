@@ -121,8 +121,8 @@ describe('QualityAssuranceSuggestionDataService', () => {
     it('should proxy the call to searchData.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
-          new RequestParam('target', target),
-          new RequestParam('source', source)
+          new RequestParam('target', target, false),
+          new RequestParam('source', source, false)
         ]
       };
 

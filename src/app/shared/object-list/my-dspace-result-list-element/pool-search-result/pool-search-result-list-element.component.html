@@ -1,8 +1,11 @@
 <ng-container *ngIf="(workflowitem$ | async) && (item$ | async)">
   <ds-themed-item-list-preview [item]="item$.value"
                                [object]="object"
+                               [showLabel]="showLabel"
+                               [showMetrics]="showMetrics"
                                [showSubmitter]="showSubmitter"
                                [showThumbnails]="showThumbnails"
+                               [showCorrection]="showCorrection"
                                [badgeContext]="badgeContext"
                                [workflowItem]="workflowitem$.value"></ds-themed-item-list-preview>
   <div class="row">

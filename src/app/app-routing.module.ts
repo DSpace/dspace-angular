@@ -3,9 +3,8 @@ import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
-import {
-  SiteAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+
+
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
@@ -43,8 +42,14 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { RedirectService } from './redirect/redirect.service';
+import {
+  GenericAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/generic-administrator-guard';
+
+
 
 @NgModule({
   imports: [
@@ -99,7 +104,10 @@ import { RedirectService } from './redirect/redirect.service';
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [
+              ForgotPasswordCheckGuard,
+              EndUserAgreementCurrentUserGuard
+            ]
           },
           {
             path: COMMUNITY_MODULE_PATH,
@@ -164,7 +172,7 @@ import { RedirectService } from './redirect/redirect.service';
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
-            canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [GenericAdministratorGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',

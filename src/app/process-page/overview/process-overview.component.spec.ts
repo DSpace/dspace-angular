@@ -1,10 +1,10 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ProcessOverviewComponent } from './process-overview.component';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BehaviorSubject, of, of as observableOf } from 'rxjs';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { NotificationsServiceStub } from 'src/app/shared/testing/notifications-service.stub';
@@ -38,6 +38,8 @@ describe('ProcessOverviewComponent', () => {
   let processBulkDeleteService;
   let modalService;
 
+  let translateServiceSpy: jasmine.SpyObj<TranslateService>;
+
   const pipe = new DatePipe('en-US');
 
   function init() {
@@ -47,21 +49,24 @@ describe('ProcessOverviewComponent', () => {
         scriptName: 'script-name',
         startTime: '2020-03-19 00:30:00',
         endTime: '2020-03-19 23:30:00',
-        processStatus: ProcessStatus.COMPLETED
+        processStatus: ProcessStatus.COMPLETED,
+        userId: 'testid'
       }),
       Object.assign(new Process(), {
         processId: 2,
         scriptName: 'script-name',
         startTime: '2020-03-20 00:30:00',
         endTime: '2020-03-20 23:30:00',
-        processStatus: ProcessStatus.FAILED
+        processStatus: ProcessStatus.FAILED,
+        userId: 'testid'
       }),
       Object.assign(new Process(), {
         processId: 3,
         scriptName: 'another-script-name',
         startTime: '2020-03-21 00:30:00',
         endTime: '2020-03-21 23:30:00',
-        processStatus: ProcessStatus.RUNNING
+        processStatus: ProcessStatus.RUNNING,
+        userId: 'testid'
       })
     ];
     noAdminProcesses = [
@@ -70,17 +75,21 @@ describe('ProcessOverviewComponent', () => {
         scriptName: 'script-name',
         startTime: '2020-03-19',
         endTime: '2020-03-19',
-        processStatus: ProcessStatus.COMPLETED
+        processStatus: ProcessStatus.COMPLETED,
+        userId: 'noadmin'
       }),
       Object.assign(new Process(), {
         processId: 2,
         scriptName: 'another-script-name',
         startTime: '2020-03-21',
         endTime: '2020-03-21',
-        processStatus: ProcessStatus.RUNNING
+        processStatus: ProcessStatus.RUNNING,
+        userId: 'noadmin'
       })
     ];
     ePerson = Object.assign(new EPerson(), {
+      id: 'testid',
+      uuid: 'testid',
       metadata: {
         'eperson.firstname': [
           {
@@ -136,6 +145,9 @@ describe('ProcessOverviewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     init();
+
+    translateServiceSpy = jasmine.createSpyObj('TranslateService', ['get']);
+
     TestBed.configureTestingModule({
       declarations: [ProcessOverviewComponent, VarDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
@@ -152,14 +164,15 @@ describe('ProcessOverviewComponent', () => {
     }).compileComponents();
   }));
 
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ProcessOverviewComponent);
+    component = fixture.componentInstance;
+  });
+
   describe('if the current user is an admin', () => {
 
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(true));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -229,11 +242,7 @@ describe('ProcessOverviewComponent', () => {
   describe('if the current user is not an admin', () => {
 
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(false));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -318,11 +327,7 @@ describe('ProcessOverviewComponent', () => {
 
   describe('overview buttons', () => {
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(false));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -360,11 +365,7 @@ describe('ProcessOverviewComponent', () => {
 
   describe('openDeleteModal', () => {
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(false));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -376,11 +377,7 @@ describe('ProcessOverviewComponent', () => {
 
   describe('deleteSelected', () => {
     beforeEach(() => {
-
       authorizationService.isAuthorized.and.callFake(() => of(false));
-
-      fixture = TestBed.createComponent(ProcessOverviewComponent);
-      component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
@@ -393,6 +390,50 @@ describe('ProcessOverviewComponent', () => {
       expect(processBulkDeleteService.deleteSelectedProcesses).toHaveBeenCalled();
       expect(component.closeModal).toHaveBeenCalled();
       expect(component.setProcesses).toHaveBeenCalled();
+    });
+  });
+
+  describe('getEPersonName function', () => {
+    beforeEach(() => {
+      authorizationService.isAuthorized.and.callFake(() => of(false));
+      fixture.detectChanges();
+    });
+
+    it('should return unknown user when id is null', (done: DoneFn) => {
+      const id = null;
+      const expectedTranslation = 'process.overview.unknown.user';
+
+      translateServiceSpy.get(expectedTranslation);
+
+      component.getEpersonName(id).subscribe((result: string) => {
+        expect(result).toBe(expectedTranslation);
+        done();
+      });
+      expect(translateServiceSpy.get).toHaveBeenCalledWith('process.overview.unknown.user');
+    });
+
+    it('should return unknown user when id is invalid', (done: DoneFn) => {
+      const id = '';
+      const expectedTranslation = 'process.overview.unknown.user';
+
+      translateServiceSpy.get(expectedTranslation);
+
+      component.getEpersonName(id).subscribe((result: string) => {
+        expect(result).toBe(expectedTranslation);
+        done();
+      });
+      expect(translateServiceSpy.get).toHaveBeenCalledWith('process.overview.unknown.user');
+    });
+
+    it('should return EPerson name when id is correct', (done: DoneFn) => {
+      const id = 'testid';
+      const expectedName = 'John Doe';
+
+      component.getEpersonName(id).subscribe((result: string) => {
+        expect(result).toEqual(expectedName);
+        done();
+      });
+      expect(translateServiceSpy.get).not.toHaveBeenCalled();
     });
   });
 });

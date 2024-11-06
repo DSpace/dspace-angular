@@ -39,6 +39,16 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() badgeContext: Context;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = true;
+
+  /**
    * A boolean representing if to show submitter information
    */
   @Input() showSubmitter = false;
@@ -46,7 +56,12 @@ export class ItemListPreviewComponent implements OnInit {
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
 
   /**
    * An object representing the duplicate match

@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {TranslateModule} from '@ngx-translate/core';
-import {UiSwitchModule} from 'ngx-ui-switch';
 
 import {AccessControlArrayFormComponent} from './access-control-array-form/access-control-array-form.component';
 import {SharedModule} from '../shared.module';
@@ -18,7 +17,6 @@ import {ToDatePipe} from './access-control-array-form/to-date.pipe';
     CommonModule,
     SharedModule,
     TranslateModule,
-    UiSwitchModule,
     NgbDatepickerModule
   ],
   declarations: [

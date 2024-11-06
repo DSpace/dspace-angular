@@ -15,6 +15,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import {
@@ -108,7 +109,8 @@ describe('BitstreamFormatsComponent', () => {
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: NotificationsService, useValue: notificationsServiceStub },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: XSRFService, useValue: {} },
       ]
     }).compileComponents();
   };

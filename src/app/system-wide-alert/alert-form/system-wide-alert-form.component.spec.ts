@@ -12,7 +12,6 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import { SystemWideAlertModule } from '../system-wide-alert.module';
 
 describe('SystemWideAlertFormComponent', () => {
@@ -52,7 +51,7 @@ describe('SystemWideAlertFormComponent', () => {
     router = new RouterStub();
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, SystemWideAlertModule, UiSwitchModule, TranslateModule.forRoot()],
+      imports: [FormsModule, SystemWideAlertModule, TranslateModule.forRoot()],
       declarations: [SystemWideAlertFormComponent],
       providers: [
         {provide: SystemWideAlertDataService, useValue: systemWideAlertDataService},
@@ -301,6 +300,14 @@ describe('SystemWideAlertFormComponent', () => {
       expect(requestService.setStaleByHrefSubstring).not.toHaveBeenCalledWith('systemwidealerts');
       expect(comp.back).not.toHaveBeenCalled();
 
+    });
+    it('should not create the new alert when the enable button is clicked on an invalid the form', () => {
+      spyOn(comp as any, 'handleResponse');
+
+      comp.formMessage.patchValue('');
+      comp.save();
+
+      expect((comp as any).handleResponse).not.toHaveBeenCalled();
     });
   });
   describe('back', () => {
