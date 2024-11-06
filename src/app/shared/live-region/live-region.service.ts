@@ -1,8 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject,
+  map,
+  Observable,
+  switchMap,
+  take,
+  timer,
+} from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import {
+  AccessibilitySetting,
+  AccessibilitySettingsService,
+} from '../../accessibility/accessibility-settings.service';
 import { UUIDService } from '../../core/shared/uuid.service';
+
+export const MIN_MESSAGE_DURATION = 200;
 
 /**
  * The LiveRegionService is responsible for handling the messages that are shown by the {@link LiveRegionComponent}.
@@ -15,6 +28,7 @@ export class LiveRegionService {
 
   constructor(
     protected uuidService: UUIDService,
+    protected accessibilitySettingsService: AccessibilitySettingsService,
   ) {
   }
 
@@ -65,7 +79,12 @@ export class LiveRegionService {
   addMessage(message: string): string {
     const uuid = this.uuidService.generate();
     this.messages.push({ message, uuid });
-    setTimeout(() => this.clearMessageByUUID(uuid), this.messageTimeOutDurationMs);
+
+    this.getConfiguredMessageTimeOutMs().pipe(
+      take(1),
+      switchMap(timeOut => timer(timeOut)),
+    ).subscribe(() => this.clearMessageByUUID(uuid));
+
     this.emitCurrentMessages();
     return uuid;
   }
@@ -114,6 +133,17 @@ export class LiveRegionService {
    */
   setLiveRegionVisibility(isVisible: boolean) {
     this.liveRegionIsVisible = isVisible;
+  }
+
+  /**
+   * Gets the user-configured timeOut, or the stored timeOut if the user has not configured a timeOut duration.
+   * Emits {@link MIN_MESSAGE_DURATION} if the configured value is smaller.
+   */
+  getConfiguredMessageTimeOutMs(): Observable<number> {
+    return this.accessibilitySettingsService.getAsNumber(
+      AccessibilitySetting.LiveRegionTimeOut,
+      this.getMessageTimeOutMs(),
+    ).pipe(map(timeOut => Math.max(timeOut, MIN_MESSAGE_DURATION)));
   }
 
   /**
