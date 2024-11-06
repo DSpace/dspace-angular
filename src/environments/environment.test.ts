@@ -427,4 +427,8 @@ export const environment: BuildConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
   },
+
+  accessibility: {
+    cookieExpirationDuration: 7,
+  },
 };

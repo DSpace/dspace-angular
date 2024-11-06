@@ -8,6 +8,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
@@ -65,6 +66,7 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     NgIf,
     NgForOf,
     SuggestionsNotificationComponent,
+    RouterModule,
   ],
   standalone: true,
 })

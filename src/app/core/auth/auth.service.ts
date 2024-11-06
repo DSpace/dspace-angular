@@ -60,6 +60,7 @@ import {
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import {
@@ -258,6 +259,23 @@ export class AuthService {
       hasValueOperator(),
       switchMap((id: string) => this.epersonService.findById(id)),
       getAllSucceededRemoteDataPayload(),
+    );
+  }
+
+  /**
+   * Returns an observable which emits the currently authenticated user from the store,
+   * or null if the user is not authenticated.
+   */
+  public getAuthenticatedUserFromStoreIfAuthenticated(): Observable<EPerson> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+      switchMap((id: string) => {
+        if (hasValue(id)) {
+          return this.epersonService.findById(id).pipe(getFirstSucceededRemoteDataPayload());
+        } else {
+          return observableOf(null);
+        }
+      }),
     );
   }
 

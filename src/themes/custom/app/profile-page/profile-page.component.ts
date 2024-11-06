@@ -4,6 +4,7 @@ import {
   NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions-notification/suggestions-notification.component';
@@ -30,6 +31,7 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
     NgIf,
     NgForOf,
     SuggestionsNotificationComponent,
+    RouterModule,
   ],
 })
 /**
