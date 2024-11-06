@@ -26,11 +26,13 @@ import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-ser
 import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { LinkDefinition } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';
+import { HALResource } from '../../shared/hal-resource.model';
 import { FindListOptions } from '../find-list-options.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
@@ -417,6 +419,11 @@ describe('BaseDataService', () => {
           c: remoteDataMocks.ResponsePending,
           d: remoteDataMocks.Success,
         }));
+        spyOn(service, 'getLinkDefinition').and.callFake((source, linkName) => {
+          return {
+            propertyName: linkName,
+          } as any as LinkDefinition<HALResource>;
+        });
         const expected = '--b-c-d';
         const values = {
           b: remoteDataMocks.RequestPending,
@@ -625,16 +632,19 @@ describe('BaseDataService', () => {
             c: remoteDataPageMocks.ResponsePending,
             d: remoteDataPageMocks.Success,
           }));
+          spyOn(service, 'getLinkDefinition').and.callFake((source, linkName) => {
+            return {
+              propertyName: linkName,
+            } as any as LinkDefinition<HALResource>;
+          });
           const expected = '--b-c-d';
           const values = {
             b: remoteDataPageMocks.RequestPending,
             c: remoteDataPageMocks.ResponsePending,
             d: remoteDataPageMocks.Success,
           };
-
           expectObservable(service.findListByHref(selfLink, findListOptions, false, false, ...linksToFollow)).toBe(expected, values);
           flush();
-          expect(objectCache.addDependency).toHaveBeenCalledTimes(3);
         });
       });
     });

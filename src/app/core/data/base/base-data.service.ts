@@ -28,14 +28,19 @@ import {
   isNotEmptyOperator,
 } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { getLinkDefinition } from '../../cache/builders/build-decorators';
+import {
+  getLinkDefinition,
+  LinkDefinition,
+} from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';
+import { HALResource } from '../../shared/hal-resource.model';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { FindListOptions } from '../find-list-options.model';
@@ -303,7 +308,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
         if (hasValue(remoteDataObject?.payload?._links)) {
           for (const followLinkName of Object.keys(remoteDataObject.payload._links)) {
             // only add the followLinks if they are embedded, and we get only links from the linkMap with the correct name
-            const linkDefinition = getLinkDefinition((remoteDataObject.payload as any).constructor, followLinkName);
+            const linkDefinition = this.getLinkDefinition((remoteDataObject.payload as any).constructor, followLinkName);
             if (linkDefinition?.propertyName && hasValue(remoteDataObject.payload[linkDefinition.propertyName]) && followLinkName !== 'self') {
               // followLink can be either an individual HALLink or a HALLink[]
               const followLinksList: HALLink[] = [].concat(remoteDataObject.payload._links[followLinkName]);
@@ -359,8 +364,8 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
             if (hasValue(object?._links)) {
               for (const followLinkName of Object.keys(object._links)) {
                 // only add the followLinks if they are embedded, and we get only links from the linkMap with the correct name
-                const linkDefinition = getLinkDefinition((remoteDataObject.payload as any).constructor, followLinkName);
-                if (linkDefinition?.propertyName && hasValue(remoteDataObject.payload[linkDefinition.propertyName]) && followLinkName !== 'self') {
+                const linkDefinition = this.getLinkDefinition((remoteDataObject.payload as any).constructor, followLinkName);
+                if (linkDefinition?.propertyName && followLinkName !== 'self' && hasValue(object[linkDefinition.propertyName])) {
                   // followLink can be either an individual HALLink or a HALLink[]
                   const followLinksList: HALLink[] = [].concat(object._links[followLinkName]);
                   for (const individualFollowLink of followLinksList) {
@@ -515,4 +520,9 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
 
     return done$;
   }
+
+  getLinkDefinition<D extends HALResource>(source: GenericConstructor<D>, linkName: keyof D['_links']): LinkDefinition<D> {
+    return getLinkDefinition(source, linkName);
+  }
+
 }
