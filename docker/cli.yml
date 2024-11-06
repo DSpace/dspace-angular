@@ -10,7 +10,7 @@ version: "3.7"
 
 services:
   dspace-cli:
-    image: "${DOCKER_OWNER:-dataquest}/dspace-cli:${DSPACE_VER:-dspace-7_x}"
+    image: "${DOCKER_OWNER:-ufal}/dspace-cli:${DSPACE_VER:-dspace-7_x}"
     container_name: dspace-cli
     environment:
       TZ: ${TIMEZONE:-Europe/Bratislava}

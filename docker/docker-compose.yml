@@ -23,7 +23,7 @@ services:
       DSPACE_REST_HOST: ${DSPACE_HOST:-localhost}
       DSPACE_REST_PORT: ${DSPACE_REST_PORT}
       DSPACE_REST_NAMESPACE: /server
-    image: ${DSPACE_UI_IMAGE:-dataquest/dspace-angular:dspace-7_x}
+    image: ${DSPACE_UI_IMAGE:-ufal/dspace-angular:dspace-7_x}
     volumes:
     - ./config.prod.yml:/app/config/config.prod.yml
 #    - ./dspace-ui.json:/app/docker/dspace-ui.json:rw

@@ -54,7 +54,7 @@ services:
       assetstore__P__s3__P__awsRegionName: ${S3_REGION_NAME:-}
       assetstore__P__s3__P__pathStyleAccessEnabled: ${S3_PATH_STYLE_ACCESS:-false}
       assetstore__P__s3__P__endpoint: ${S3_ENDPOINT:-}
-    image: ${DSPACE_REST_IMAGE:-dataquest/dspace:dtq-dev-7.5}
+    image: ${DSPACE_REST_IMAGE:-ufal/dspace:dspace-7_x}
     depends_on:
     - dspacedb
     networks:
@@ -106,7 +106,7 @@ services:
       TZ: ${TIMEZONE:-Europe/Bratislava}
       PGDATA: /pgdata
       POSTGRES_PASSWORD: dspace
-    image: ${DSPACE_DB_IMAGE:-dataquest/dspace-postgres-pgcrypto:dspace-7_x}
+    image: ${DSPACE_DB_IMAGE:-ufal/dspace-postgres-pgcrypto:dspace-7_x}
     networks:
       dspacenet:
     ports:
@@ -124,7 +124,7 @@ services:
       TZ: ${TIMEZONE:-Europe/Bratislava}
     restart: unless-stopped
     container_name: dspacesolr${INSTANCE}
-    image: ${DSPACE_SOLR_IMAGE:-dataquest/dspace-solr:dspace-7_x}
+    image: ${DSPACE_SOLR_IMAGE:-ufal/dspace-solr:dspace-7_x}
     # Needs main 'dspace' container to start first to guarantee access to solr_configs
     depends_on:
     - dspace
