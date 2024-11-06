@@ -308,6 +308,8 @@ export abstract class FieldParser {
       controlModel.hint = this.configData.hints || '&nbsp;';
     }
     controlModel.placeholder = this.configData.label;
+    // Hide full input field when style is set as `display: none`
+    controlModel.hidden = this.configData.style === 'd-none';
 
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);

@@ -339,7 +339,7 @@ describe('RowParser test suite', () => {
     it('should return a DynamicRowGroupModel object', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row1, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row1, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect(rowModel instanceof DynamicRowGroupModel).toBe(true);
     });
@@ -347,7 +347,7 @@ describe('RowParser test suite', () => {
     it('should return a row with three fields', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row1, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row1, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect((rowModel as DynamicRowGroupModel).group.length).toBe(3);
     });
@@ -355,7 +355,7 @@ describe('RowParser test suite', () => {
     it('should return a DynamicRowArrayModel object', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row2, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row2, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect(rowModel instanceof DynamicRowArrayModel).toBe(true);
     });
@@ -363,7 +363,7 @@ describe('RowParser test suite', () => {
     it('should return a row that contains only scoped fields', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row3, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row3, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect((rowModel as DynamicRowGroupModel).group.length).toBe(1);
     });
@@ -371,7 +371,7 @@ describe('RowParser test suite', () => {
     it('should be able to parse a dropdown combo field', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row4, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row4, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect(rowModel).toBeDefined();
     });
@@ -379,7 +379,7 @@ describe('RowParser test suite', () => {
     it('should be able to parse a lookup-name field', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row5, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row5, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect(rowModel).toBeDefined();
     });
@@ -387,7 +387,7 @@ describe('RowParser test suite', () => {
     it('should be able to parse a list field', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row6, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row6, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect(rowModel).toBeDefined();
     });
@@ -395,7 +395,7 @@ describe('RowParser test suite', () => {
     it('should be able to parse a date field', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row7, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row7, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect(rowModel).toBeDefined();
     });
@@ -403,7 +403,7 @@ describe('RowParser test suite', () => {
     it('should be able to parse a tag field', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row8, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row8, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect(rowModel).toBeDefined();
     });
@@ -411,7 +411,7 @@ describe('RowParser test suite', () => {
     it('should be able to parse a textarea field', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row9, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row9, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect(rowModel).toBeDefined();
     });
@@ -419,7 +419,7 @@ describe('RowParser test suite', () => {
     it('should be able to parse a group field', () => {
       const parser = new RowParser(undefined);
 
-      const rowModel = parser.parse(submissionId, row10, scopeUUID, initFormValues, submissionScope, readOnly, typeField);
+      const rowModel = parser.parse(submissionId, row10, scopeUUID, initFormValues, submissionScope, readOnly);
 
       expect(rowModel).toBeDefined();
     });

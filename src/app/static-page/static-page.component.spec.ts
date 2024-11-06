@@ -4,7 +4,6 @@ import { StaticPageComponent } from './static-page.component';
 import { HtmlContentService } from '../shared/html-content.service';
 import { Router } from '@angular/router';
 import { RouterMock } from '../shared/mocks/router.mock';
-import { LocaleService } from '../core/locale/locale.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { APP_CONFIG } from '../../config/app-config.interface';
@@ -16,15 +15,14 @@ describe('StaticPageComponent', () => {
   let fixture: ComponentFixture<StaticPageComponent>;
 
   let htmlContentService: HtmlContentService;
-  let localeService: any;
   let appConfig: any;
+
+  const htmlContent = '<div id="idShouldNotBeRemoved">TEST MESSAGE</div>';
 
   beforeEach(async () => {
     htmlContentService = jasmine.createSpyObj('htmlContentService', {
-      fetchHtmlContent: of('<div id="idShouldNotBeRemoved">TEST MESSAGE</div>')
-    });
-    localeService = jasmine.createSpyObj('LocaleService', {
-      getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
+      fetchHtmlContent: of(htmlContent),
+      getHmtlContentByPathAndLocale: Promise.resolve(htmlContent)
     });
 
     appConfig = Object.assign(environment, {
@@ -41,13 +39,10 @@ describe('StaticPageComponent', () => {
       providers: [
         { provide: HtmlContentService, useValue: htmlContentService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: LocaleService, useValue: localeService },
         { provide: APP_CONFIG, useValue: appConfig }
       ]
     });
 
-    localeService = TestBed.inject(LocaleService);
-    localeService.getCurrentLanguageCode.and.returnValue('en');
   });
 
   beforeEach(() => {

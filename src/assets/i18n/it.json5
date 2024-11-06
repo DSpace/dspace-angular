@@ -3663,7 +3663,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Crea una nuova versione",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Impossibile creare una nuova versione perché è presente un'submission in corso nella cronologia delle versioni",
 
   // "item.page.claim.button": "Claim",
@@ -3822,7 +3822,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Elimina versione",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
 
 
@@ -3869,7 +3869,8 @@
   // "item.version.create.notification.failure": "New version has not been created",
   "item.version.create.notification.failure": "Non è stata creata una nuova versione",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
+  // TODO Source message changed - Revise the translation
   "item.version.create.notification.inProgress": "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
 
 

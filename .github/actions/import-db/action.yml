@@ -10,6 +10,10 @@ inputs:
     description: 'port suffix'
     required: true
     type: string
+  ASSETSTORE:
+    description: 'location of assetstore folder'
+    required: false
+    type: string
 
 runs:
   using: "composite"
@@ -49,17 +53,39 @@ runs:
           echo "====="
           docker logs $DB5NAME || true
           echo "====="
+          # copy assetstore
+          echo Preparing assetstore
+          if [[ -z ${{ inputs.ASSETSTORE }} ]]; then
+            echo Location of assetstore folder is empty. Not copping assetstore
+          else
+            docker cp ${{ inputs.ASSETSTORE }} dspace${{ inputs.INSTANCE }}:/dspace/
+          fi
+          echo "====="
           cd ../
           pip install -r requirements.txt || true
           echo "====="
           cd ./src
           # cleanup resume
           rm __temp/resume/*.json || true
-          python3 repo_import.py --resume=false --config=backend.endpoint=$BEURL --config=db_dspace_7.port=$DB7PORT --config=db_dspace_5.port=$DB5PORT --config=db_utilities_5.port=$DB5PORT --config=input.datadir=$DATADIR/data/ --config=input.icondir=$DATADIR/icon/
-
+          # arguments of the script
+          # required
+          args=(
+            --resume=false
+            --config=backend.endpoint=$BEURL
+            --config=db_dspace_7.port=$DB7PORT
+            --config=db_dspace_5.port=$DB5PORT
+            --config=db_utilities_5.port=$DB5PORT
+            --config=input.datadir=$DATADIR/data/
+            --config=input.icondir=$DATADIR/icon/
+          )
+          # Add --resume argument if inputs.ASSETSTORE is defined
+          if [ -n "${{ inputs.ASSETSTORE }}" ]; then
+            args+=(--assetstore=${{ inputs.ASSETSTORE }})
+          fi
+          python3 repo_import.py "${args[@]}"
     - name: cleanup
       shell: bash
       run: |
         docker stop ${{ steps.import.outputs.cid }} || true
       if: ${{ always() }}
-          
+

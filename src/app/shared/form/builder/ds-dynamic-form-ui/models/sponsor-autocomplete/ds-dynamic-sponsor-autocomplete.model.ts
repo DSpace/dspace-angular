@@ -17,6 +17,7 @@ export const DEFAULT_EU_FUNDING_TYPES = [DEFAULT_EU_DISPLAY_VALUE, DEFAULT_EU_ST
 export interface DsDynamicSponsorAutocompleteModelConfig extends DsDynamicInputModelConfig {
   minChars?: number;
   value?: any;
+  autocompleteCustom?: string;
 }
 
 /**
@@ -27,6 +28,7 @@ export class DsDynamicSponsorAutocompleteModel extends DsDynamicInputModel {
   @serializable() minChars: number;
   @serializable() maxLength: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_AUTOCOMPLETE;
+  @serializable() autocompleteCustom: string;
 
   constructor(config: DsDynamicSponsorAutocompleteModelConfig, layout?: DynamicFormControlLayout) {
 
@@ -41,5 +43,6 @@ export class DsDynamicSponsorAutocompleteModel extends DsDynamicInputModel {
     this.maxLength = config.maxLength || DEFAULT_MAX_CHARS_TO_AUTOCOMPLETE;
     // if value is not defined in the configuration -> value is empty
     this.value = config.value || [];
+    this.autocompleteCustom = config.autocompleteCustom;
   }
 }

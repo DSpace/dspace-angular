@@ -41,6 +41,7 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import isEqual from 'lodash/isEqual';
 import cloneDeep from 'lodash/cloneDeep';
 import { ClarinUserMetadataDataService } from '../../core/data/clarin/clarin-user-metadata.service';
+import { HtmlContentService } from '../../shared/html-content.service';
 
 /**
  * The component shows the user's filled in user metadata and the user can fill in other required user metadata.
@@ -106,6 +107,21 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
    */
   helpDesk$: Observable<RemoteData<ConfigurationProperty>>;
 
+  /**
+   * The Seznam dataset license content. It is shown directly in this approval page.
+   */
+  LICENSE_NAME_SEZNAM = 'Seznam Dataset Licence';
+
+  /**
+   * The path to the Seznam dataset license content.
+   */
+  LICENSE_PATH_SEZNAM_CZ = 'szn-dataset-license.html';
+
+  /**
+   * The content of the Seznam dataset license. Fetch from the static file.
+   */
+  licenseContentSeznam: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   constructor(
     protected clarinLicenseResourceMappingService: ClarinLicenseResourceMappingService,
     protected configurationDataService: ConfigurationDataService,
@@ -121,7 +137,8 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     protected rdbService: RemoteDataBuildService,
     private hardRedirectService: HardRedirectService,
     private requestService: RequestService,
-    private clarinUserMetadataDataService: ClarinUserMetadataDataService) { }
+    private clarinUserMetadataDataService: ClarinUserMetadataDataService,
+    private htmlContentService: HtmlContentService) { }
 
    ngOnInit(): void {
     // Load CurrentItem by bitstreamID to show itemHandle
@@ -145,6 +162,16 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     this.loadUserRegistrationAndUserMetadata();
   }
 
+  /**
+   * Load the content for the special license. This content is shown directly in this approval page.
+   */
+  loadLicenseContentSeznam() {
+    this.htmlContentService.getHmtlContentByPathAndLocale(this.LICENSE_PATH_SEZNAM_CZ).then(content => {
+      this.licenseContentSeznam.next(content);
+    });
+    return true;
+  }
+
   public accept() {
     // Check if were filled in every required info
     if (!this.checkFilledInRequiredInfo()) {
@@ -165,15 +192,18 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
       CLARIN_USER_METADATA_MANAGE;
     url += this.isDownloadingZIP() ? '/zip?itemUUID=' + this.item$.value.uuid : '?bitstreamUUID=' +
       this.getBitstreamUUID();
-    const postRequest = new PostRequest(requestId, url, this.userMetadata$.value?.page, requestOptions);
-
+    if (this.userMetadata$.value?.page) {
+      // Filter the page array to exclude items with metadataKey "IP"
+      this.userMetadata$.value.page =
+        this.userMetadata$.value.page.filter(item => item.metadataKey !== 'IP');
+    }
     // Add IP address into request. Every restricted download must have stored IP address in the `user_metadata` table.
     this.userMetadata$.value?.page.push(Object.assign(new ClarinUserMetadata(), {
       type: ClarinUserMetadata.type,
       metadataKey: 'IP',
       metadataValue: this.ipAddress$.value
     }));
-
+    const postRequest = new PostRequest(requestId, url, this.userMetadata$.value?.page, requestOptions);
     // Send POST request
     this.requestService.send(postRequest);
     // Get response
@@ -309,6 +339,8 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     let shouldSee = false;
     this.requiredInfo$?.value?.forEach(requiredInfo => {
       if (requiredInfo?.name === 'SEND_TOKEN') {
+        // We don't want to display SEND_TOKEN as an input field
+        this.requiredInfo$.next(this.requiredInfo$.value?.filter(item => item.name !== 'SEND_TOKEN'));
         shouldSee = true;
       }
     });

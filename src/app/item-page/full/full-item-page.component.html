@@ -1,6 +1,14 @@
 <div class="container clarin-shadow remove-padding clarin-home-page-borders clarin-cut-bottom-2 clarin-cut-top-1 pb-2" *ngVar="(itemRD$ | async) as itemRD">
   <div *ngIf="itemRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="itemRD?.payload as item">
+      <div class="card alert-info mb-3" *ngIf="fromSubmissionObject">
+        <div class="card-header font-weight-bold">
+          {{'item.page.users.note' | translate}}
+        </div>
+        <div class="card-body">
+          {{ item?.firstMetadataValue('local.submission.note') }}
+        </div>
+      </div>
       <ds-themed-item-alerts [item]="item"></ds-themed-item-alerts>
       <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
       <ds-view-tracker [object]="item"></ds-view-tracker>

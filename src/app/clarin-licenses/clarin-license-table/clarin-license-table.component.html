@@ -22,32 +22,33 @@
                      [retainScrollPosition]="true">
         <table class="table table-striped table-bordered align-middle my-2">
           <thead>
-          <tr class="col-12">
-            <th class="col-1" style="width: 3.5%; flex: 0 0 3.5%;max-width: 3.5%;"></th>
-            <th class="col-3">{{"clarin-license.table.name" | translate}}</th>
-            <th class="col-2">{{"clarin-license.table.definition" | translate}}</th>
+          <tr>
+            <th class="wm-3p5"></th>
+            <th class="w-25">{{"clarin-license.table.name" | translate}}</th>
+            <th class="w-20">{{"clarin-license.table.definition" | translate}}</th>
             <th>{{"clarin-license.table.confirmation" | translate}}</th>
-            <th>{{"clarin-license.table.required-user-info" | translate}}</th>
+            <th class="w-12">{{"clarin-license.table.required-user-info" | translate}}</th>
             <th>{{"clarin-license.table.label" | translate}}</th>
-            <th >{{"clarin-license.table.extended-labels" | translate}}</th>
-            <th >{{"clarin-license.table.bitstreams" | translate}}</th>
+            <th>{{"clarin-license.table.extended-labels" | translate}}</th>
+            <th>{{"clarin-license.table.bitstreams" | translate}}</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let cLicense of cLicenses?.page" [id]="'clarin-license-row-' + cLicense.id" class="col-12">
-            <td class="col-1" style="width: 3.5%; flex: 0 0 3.5%;max-width: 3.5%;">
+          <tr *ngFor="let cLicense of cLicenses?.page" [id]="'clarin-license-row-' + cLicense.id">
+            <td class="wm-3p5">
               <input class="collection-checkbox"
-                       [ngModel]="selectedLicense?.id === cLicense.id"
-                       (change)="switchSelectedLicense(cLicense)"
-                       type="checkbox"
-                       name="{{cLicense.id}}"></td>
-            <td class="col-3">{{cLicense?.name}}</td>
-            <td class="col-2">{{cLicense?.definition}}</td>
+                     [ngModel]="selectedLicense?.id === cLicense.id"
+                     (change)="switchSelectedLicense(cLicense)"
+                     type="checkbox"
+                     name="{{cLicense.id}}">
+            </td>
+            <td class="w-25">{{cLicense?.name}}</td>
+            <td class="w-20">{{cLicense?.definition}}</td>
             <td>{{cLicense?.confirmation}}</td>
-            <td>{{cLicense?.requiredInfo | dsCLicenseRequiredInfo}}</td>
+            <td class="w-12">{{cLicense?.requiredInfo | dsCLicenseRequiredInfo}}</td>
             <td>{{cLicense?.clarinLicenseLabel?.label}}</td>
-            <td >{{cLicense?.extendedClarinLicenseLabels | dsExtendedCLicense}}</td>
-            <td >{{cLicense?.bitstreams}}</td>
+            <td>{{cLicense?.extendedClarinLicenseLabels | dsExtendedCLicense}}</td>
+            <td>{{cLicense?.bitstreams}}</td>
           </tr>
           </tbody>
         </table>

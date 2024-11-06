@@ -27,6 +27,10 @@ import { getMockSearchService } from '../../mocks/search-service.mock';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { HALEndpointServiceStub } from '../../testing/hal-endpoint-service.stub';
+import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
 
 let component: WorkspaceitemActionsComponent;
 let fixture: ComponentFixture<WorkspaceitemActionsComponent>;
@@ -35,6 +39,8 @@ let mockObject: WorkspaceItem;
 let notificationsServiceStub: NotificationsServiceStub;
 let authorizationService;
 let authService;
+let halService: HALEndpointService;
+let rdbService: RemoteDataBuildService;
 
 const mockDataService = jasmine.createSpyObj('WorkspaceitemDataService', {
   delete: jasmine.createSpy('delete')
@@ -155,6 +161,9 @@ authService = jasmine.createSpyObj('authService', {
   getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore')
 });
 
+halService = Object.assign(new HALEndpointServiceStub('url'));
+rdbService = getMockRemoteDataBuildService();
+
 describe('WorkspaceitemActionsComponent', () => {
   beforeEach(waitForAsync(async () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -180,6 +189,8 @@ describe('WorkspaceitemActionsComponent', () => {
         { provide: RequestService, useValue: requestServce },
         { provide: AuthService, useValue:  authService },
         { provide: AuthorizationDataService, useValue: authorizationService},
+        { provide: HALEndpointService, useValue: halService },
+        { provide: RemoteDataBuildService, useValue: rdbService },
         NgbModal
       ],
       schemas: [NO_ERRORS_SCHEMA]

@@ -19,6 +19,9 @@ import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core
 import { RemoteData } from '../../../core/data/remote-data';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
+import { GetRequest } from '../../../core/data/request.models';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 
 /**
  * This component represents actions related to WorkspaceItem object.
@@ -34,6 +37,11 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
    * The workspaceitem object
    */
   @Input() object: WorkspaceItem;
+
+  /**
+   * A boolean representing if a share operation is pending. It is used to show/hide the spinner.
+   */
+  shareSubmissionSpinner = false;
 
   /**
    * A boolean representing if a delete operation is pending
@@ -69,6 +77,8 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
     protected requestService: RequestService,
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
+    protected halService: HALEndpointService,
+    protected rdbService: RemoteDataBuildService,
     ) {
     super(WorkspaceItem.type, injector, router, notificationsService, translate, searchService, requestService);
 
@@ -124,4 +134,45 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
   getWorkspaceItemViewRoute(workspaceItem: WorkspaceItem): string {
     return getWorkspaceItemViewRoute(workspaceItem?.id);
   }
+
+  /**
+   * Share the submission. This will send a GET request to the backend to get a share link.
+   * When the link is received, the user will be redirected to the share-submission page.
+   */
+  shareSubmission() {
+    const requestId = this.requestService.generateRequestId();
+
+    const url = this.halService.getRootHref() + '/submission/share?workspaceitemid=' + this.object.id;
+    const getRequest = new GetRequest(requestId, url);
+    // Send GET request
+    this.requestService.send(getRequest);
+    // Get response
+    const response = this.rdbService.buildFromRequestUUID(requestId);
+    // Show spinner
+    this.shareSubmissionSpinner = true;
+    response.pipe(getFirstCompletedRemoteData()).subscribe((rd: RemoteData<ShareSubmissionLink>) => {
+      // If the request has succeeded
+      if (rd.hasSucceeded) {
+        // Show success notification
+        this.notificationsService.success(
+          this.translate.instant('submission.workflow.share-submission.email.successful'));
+        // Redirect to share-submission page
+        void this.router.navigate(['/share-submission'], { queryParams: {
+          changeSubmitterLink: rd.payload?.shareLink
+        }});
+      } else {
+        // Show error notification
+        this.notificationsService.error(
+          this.translate.instant('submission.workflow.share-submission.email.error'));
+      }
+      this.shareSubmissionSpinner = false;
+    });
+  }
+}
+
+/**
+ * This interface represents the response of the share submission endpoint. It contains the share link.
+ */
+export interface ShareSubmissionLink {
+  shareLink: string;
 }

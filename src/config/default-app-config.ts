@@ -359,15 +359,6 @@ export class DefaultAppConfig implements AppConfig {
           }
         },
         {
-          // Insert <link rel="icon" href="assets/dspace/images/favicons/favicon.svg" type="image/svg+xml"/> into the <head> of the page.
-          tagName: 'link',
-          attributes: {
-            'rel': 'icon',
-            'href': 'assets/dspace/images/favicons/favicon.svg',
-            'type': 'image/svg+xml',
-          }
-        },
-        {
           // Insert <link rel="apple-touch-icon" href="assets/dspace/images/favicons/apple-touch-icon.png"/> into the <head> of the page.
           tagName: 'link',
           attributes: {
@@ -434,4 +425,7 @@ export class DefaultAppConfig implements AppConfig {
     sortField:'dc.title',
     sortDirection:'ASC',
   };
+
+  // NOTE: you must disable/enable in the backend the signposting feature to make it work `signposting.enabled`
+  signpostingEnabled = false;
 }

@@ -36,7 +36,6 @@ services:
       dspace__P__dir: /dspace
       dspace__P__server__P__url: ${REST_URL:-http://127.0.0.1:8080/server}
       dspace__P__ui__P__url: ${UI_URL:-http://127.0.0.1:4000}
-      dspace__P__name: 'DSpace Started with Docker Compose'
       # db.url: Ensure we are using the 'dspacedb' image for our database
       db__P__url: 'jdbc:postgresql://dspacedb:543${INSTANCE}/dspace'
       # solr.server: Ensure we are using the 'dspacesolr' image for Solr
@@ -61,11 +60,21 @@ services:
     networks:
       dspacenet:
     ports:
+      # BE server port
     - published: 808${INSTANCE}
       target: 8080
       host_ip: 127.0.0.1
+      # original debug port
     - published: 800${INSTANCE}
       target: 8000
+      host_ip: 127.0.0.1
+      # handle binary port as per https://www.handle.net/hnr_support.html (5th paragraph)
+    - published: 264${INSTANCE}
+      target: 2641
+      host_ip: 127.0.0.1
+      # handle http port as per https://www.handle.net/hnr_support.html (5th paragraph)
+    - published: 801${INSTANCE}
+      target: 8010
       host_ip: 127.0.0.1
     stdin_open: true
     tty: true
@@ -74,11 +83,13 @@ services:
     - assetstore:/dspace/assetstore
     # Mount DSpace's solr configs to a volume, so that we can share to 'dspacesolr' container (see below)
     - solr_configs:/dspace/solr
+    - handle_server:/dspace/handle-server
     - ./local.cfg:/dspace/config/local.cfg
     # Ensure that the database is ready BEFORE starting tomcat
     # 1. While a TCP connection to dspacedb port 5432 is not available, continue to sleep
     # 2. Then, run database migration to init database tables
-    # 3. Finally, start Tomcat
+    # 3. Use custom_run script, to enable debugging under certain conditions
+    # 4. Start the Handle server!!!! (please make sure you DO actually want it, otherwise remove last line)
     entrypoint:
     - /bin/bash
     - '-c'
@@ -86,6 +97,7 @@ services:
       while (!</dev/tcp/dspacedb/543${INSTANCE}) > /dev/null 2>&1; do sleep 1; done;
       /dspace/bin/dspace database migrate force
       custom_run.sh
+      /dspace/bin/start-handle-server
   # DSpace database container
   dspacedb:
     restart: unless-stopped
@@ -159,3 +171,4 @@ volumes:
   solr_configs:
   dspace_logs:
   solr_logs:
+  handle_server:

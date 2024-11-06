@@ -15,7 +15,7 @@ import { RequestParam } from '../cache/models/request-param.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { MetadataValue } from '../metadata/metadata-value.model';
 import { VocabularyEntry } from '../submission/vocabularies/models/vocabulary-entry.model';
-import { isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { EMPTY } from 'rxjs';
 import { BaseDataService } from './base/base-data.service';
 import { dataService } from './base/data-service.decorator';
@@ -59,7 +59,7 @@ export class MetadataValueDataService extends BaseDataService<MetadataValue> imp
    * Retrieve the MetadataValue object inside Vocabulary object body
    */
   findByMetadataNameAndByValue(metadataName, term = ''): Observable<PaginatedList<MetadataValue>> {
-      const metadataFields = metadataName.split('.');
+      const metadataFields = metadataName?.split('.');
 
       const schemaRP = new RequestParam('schema', '');
       const elementRP = new RequestParam('element', '');
@@ -67,14 +67,14 @@ export class MetadataValueDataService extends BaseDataService<MetadataValue> imp
       const termRP = new RequestParam('searchValue', term);
 
       // schema and element are mandatory - cannot be empty
-      if (!isNotEmpty(metadataFields[0]) && !isNotEmpty(metadataFields[1])) {
+      if (isEmpty(metadataFields?.[0]) && isEmpty(metadataFields?.[1])) {
         return EMPTY;
       }
 
       // add value to the request params
-      schemaRP.fieldValue = metadataFields[0];
-      elementRP.fieldValue = metadataFields[1];
-      qualifierRP.fieldValue = isNotEmpty(metadataFields[2]) ? metadataFields[2] : null;
+      schemaRP.fieldValue = metadataFields?.[0];
+      elementRP.fieldValue = metadataFields?.[1];
+      qualifierRP.fieldValue = isNotEmpty(metadataFields?.[2]) ? metadataFields?.[2] : null;
 
       const optionParams = Object.assign(new FindListOptions(), {}, {
         searchParams: [

@@ -5,7 +5,9 @@ import { isEmpty } from '../../../../../empty.util';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_AUTOCOMPLETE = 'AUTOCOMPLETE';
 export const AUTOCOMPLETE_COMPLEX_PREFIX = 'autocomplete_in_complex_input';
-export const DEFAULT_MIN_CHARS_TO_AUTOCOMPLETE = 3;
+export const DEFAULT_MIN_CHARS_TO_AUTOCOMPLETE = 1;
+export const AUTOCOMPLETE_CUSTOM_SOLR_PREFIX = 'solr-';
+export const AUTOCOMPLETE_CUSTOM_JSON_PREFIX = 'json_static-';
 
 /**
  * Configuration for the DsDynamicAutocompleteModel.
@@ -13,6 +15,7 @@ export const DEFAULT_MIN_CHARS_TO_AUTOCOMPLETE = 3;
 export interface DsDynamicAutocompleteModelConfig extends DsDynamicInputModelConfig {
   minChars?: number;
   value?: any;
+  autocompleteCustom?: string;
 }
 
 /**
@@ -22,6 +25,7 @@ export class DsDynamicAutocompleteModel extends DsDynamicInputModel {
 
   @serializable() minChars: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_AUTOCOMPLETE;
+  @serializable() autocompleteCustom: string;
 
   constructor(config: DsDynamicAutocompleteModelConfig, layout?: DynamicFormControlLayout) {
 
@@ -35,5 +39,6 @@ export class DsDynamicAutocompleteModel extends DsDynamicInputModel {
     this.minChars = config.minChars || DEFAULT_MIN_CHARS_TO_AUTOCOMPLETE;
     // if value is not defined in the configuration -> value is empty
     this.value = config.value || [];
+    this.autocompleteCustom = config.autocompleteCustom;
   }
 }

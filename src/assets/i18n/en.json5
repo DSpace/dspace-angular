@@ -867,6 +867,8 @@
 
   "browse.metadata.language": "Language",
 
+  "browse.metadata.language.breadcrumbs": "Browse by Language",
+
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
@@ -2709,6 +2711,8 @@
 
   "item.page.link.simple": "Show simple item record",
 
+  "item.page.users.note": "User's note:",
+
   "item.page.orcid.title": "ORCID",
 
   "item.page.orcid.tooltip": "Open ORCID setting page",
@@ -2749,7 +2753,7 @@
 
   "item.page.version.create": "Create new version",
 
-  "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.page.claim.button": "Claim",
 
@@ -2937,7 +2941,7 @@
 
   "item.version.history.table.action.deleteVersion": "Delete version",
 
-  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
 
@@ -2967,7 +2971,7 @@
 
   "item.version.create.notification.failure": "New version has not been created",
 
-  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.version.delete.modal.header": "Delete version",
 
@@ -3304,6 +3308,8 @@
 
   "menu.section.browse_global_by_title": "By Title",
 
+  "menu.section.browse_global_by_language": "By Language",
+
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
 
   "menu.section.control_panel": "Control Panel",
@@ -3439,6 +3445,10 @@
   "autocomplete.suggestion.sponsor.funding-code": "Funding code",
 
   "autocomplete.suggestion.sponsor.project-name": "Project name",
+
+  "autocomplete.suggestion.language.iso": "ISO",
+
+  "autocomplete.suggestion.language.title": "Language",
 
   "autocomplete.suggestion.sponsor.empty": "N/A",
 
@@ -5233,6 +5243,14 @@
 
   "submission.sections.clarin-notice.message": ["The submission process for this collection (\"","\") is still being fine-tuned. If you find yourself unable to continue the submission because you can't provide the required information, because the required format for a field is too strict, because there's no appropriate field for your information, or for any other reason", "let us know"],
 
+  "submission.sections.clarin-notice.toggle.on-text": "Confirmed",
+
+  "submission.sections.clarin-notice.toggle.off-text": "Click to confirm",
+
+  "submission.sections.clarin-notice.toggle.message": "By checking this box, you confirm that you read the text above and that you understand it.",
+
+  "submission.sections.clarin-notice.error": "Please confirm that you have read the Notice.",
+
   "submission.submit.breadcrumbs": "New submission",
 
   "submission.submit.title": "New submission",
@@ -5256,6 +5274,14 @@
   "submission.workflow.generic.submit_score": "Rate",
 
   "submission.workflow.generic.submit_score-help": "",
+
+  "submission.workflow.generic.share-submission": "Share submission",
+
+  "submission.workflow.generic.share-submission.tooltip": "Share submission",
+
+  "submission.workflow.share-submission.email.successful": "The email with the share link has been sent successfully",
+
+  "submission.workflow.share-submission.email.error": "Cannot send the email with share link",
 
   "submission.workflow.tasks.claimed.approve": "Approve",
 
@@ -5917,4 +5943,25 @@
   "navbar.about.service-integrations": "Service integrations",
 
   "navbar.about.project-partnership": "Project partnerships",
+
+  "share.submission.breadcrumbs": "Share submission",
+
+  "share.submission.page.title": "Share link",
+
+  "share.submission.page.share-link.message.start": "To pass your submission to another user give them the following link: ",
+
+  "share.submission.page.share-link.message.end": ". You will also receive an email with this link.",
+
+  "change.submitter.breadcrumbs": "Change submitter",
+
+  "change.submitter.page.title": "Change submitter",
+
+  "change.submitter.page.message": "This items currently belongs to: ",
+
+  "change.submitter.page.button.take-it": "Take it",
+
+  "change.submitter.page.changed-successfully": "The submitter has been successfully changed",
+
+  "change.submitter.page.changed-error": "An error occurred while changing the submitter",
+
 }

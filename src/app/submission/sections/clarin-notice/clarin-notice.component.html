@@ -1,8 +1,20 @@
 <div class="container-fluid">
-  <span>
+  <div class="pb-3">
     {{'submission.sections.clarin-notice.message.0' | translate}}{{collectionName | async}}{{'submission.sections.clarin-notice.message.1' | translate}}
     <a class="helpdesk-tolink" [href]="'mailto:'+(helpDesk$ | async)?.payload?.values[0]">
         {{'submission.sections.clarin-notice.message.2' | translate}}.
     </a>
-  </span>
+  </div>
+  <div class="row pl-3">
+    <ng-toggle class="btn-dark"
+               [onColor]="toggleAcceptation.onColor"
+               [onText]="toggleAcceptation.onText"
+               [offColor]="toggleAcceptation.offColor"
+               [offText]="toggleAcceptation.offText"
+               [size]="toggleAcceptation.size"
+               (valueChange)="onChange()"
+               [(ngModel)]="toggleAcceptation.value">
+    </ng-toggle>
+    <div class="toggle-info-text justify-content-center align-self-center">{{'submission.sections.clarin-notice.toggle.message' | translate}}</div>
+  </div>
 </div>

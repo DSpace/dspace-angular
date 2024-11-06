@@ -3376,7 +3376,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Crear una nova versió",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "No es pot crear una nova versió perquè a l'historial de versions hi ha un enviament en curs",
 
   // "item.page.claim.button": "Claim",
@@ -3535,7 +3535,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Esborrar versió",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "No és possible crear una nova versió ja que existeix a l'historial de versions un enviament pendent",
 
 
@@ -3582,7 +3582,7 @@
   // "item.version.create.notification.failure" : "New version has not been created",
   "item.version.create.notification.failure": "No s'ha creat una nova versió",
 
-  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "No és possible crear una nova versió ja que existeix a l'historial de versions un enviament pendent",
 
 

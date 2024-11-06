@@ -86,6 +86,19 @@ jobs:
           # this is not necessary, since extra.yml doesn't contain any new images that weren't pulled within script above
           # docker compose --env-file $ENVFILE -p dspace-$INSTANCE -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f /opt/dspace-envs/8/extra.yml pull
           docker compose --env-file $ENVFILE -p dspace-$INSTANCE -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f /opt/dspace-envs/8/extra.yml up -d --no-build
+
+          # this must be here and not in the start.sh, because extra.yml replaces dspace container
+          ## !!!!! please remove this section if you do not want handle server !!!!!!!
+          echo "====="
+          echo "installing handle server"
+          docker exec dspace${INSTANCE} apt update
+          docker exec dspace${INSTANCE} apt install host -y
+          echo "installed host from apt"
+          docker exec dspace${INSTANCE} /dspace/bin/make-handle-config
+          echo "made handle config:"
+          docker exec dspace${INSTANCE} cat /dspace/handle-server/config.dct
+          docker exec dspace${INSTANCE} /dspace/bin/start-handle-server
+          echo "started handle server"
           # this seems to be the easiest solution for now
           docker restart dockerized-nginx-with-shibboleth-nginx-1
           /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
@@ -103,6 +116,7 @@ jobs:
         with:
           INSTANCE: ${{ env.INSTANCE }}
           DATADIR: /opt/dspace-data/clarin-dspace/
+          ASSETSTORE: /opt/dspace-data/clarin-dspace/assetstore/
 
       - name: dspace basic command
         run: |
@@ -140,7 +154,7 @@ jobs:
         run: |
           # wait until FE stabilizes a bit
           sleep 3m
-          
+
           curl -H "Accept: application/vnd.github.everest-preview+json" \
           -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
           --request POST \
@@ -163,7 +177,7 @@ jobs:
           echo $RES
           # if last result is not success, return -1 and fail
           if [[ $RES != \"success\" ]]; then
-            echo "playwright tests have failed! check appropriate action run"
+            echo "playwright tests have failed! check appropriate action run in the dspace-ui-tests repository"
             exit 1
           fi;
 
@@ -196,7 +210,7 @@ jobs:
           echo $RES
           # if last result is not success, return -1 and fail
           if [[ $RES != \"success\" ]]; then
-            echo "rest-tests have failed! check appropriate action run"
+            echo "rest-tests have failed! check appropriate action run in the dspace-rest-test repository"
             exit 1
           fi;
 
@@ -211,7 +225,7 @@ jobs:
         run: |
           # wait until FE stabilizes a bit
           sleep 3m
-          
+
           curl -H "Accept: application/vnd.github.everest-preview+json" \
           -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
           --request POST \
@@ -235,7 +249,7 @@ jobs:
           # if last result is not success, return -1 and fail
           if [[ $RES != \"success\" ]]; then
 
-            echo "playwright tests have failed! check appropriate action run"
+            echo "playwright tests have failed! check appropriate action run in the dspace-ui-tests repository"
             exit 1
           fi;
 
@@ -268,6 +282,6 @@ jobs:
           echo $RES
           # if last result is not success, return -1 and fail
           if [[ $RES != \"success\" ]]; then
-            echo "rest-tests have failed! check appropriate action run"
+            echo "rest-tests have failed! check appropriate action run in the dspace-rest-test repository"
             exit 1
           fi;

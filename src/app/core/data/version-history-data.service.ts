@@ -6,23 +6,21 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HttpHeaders } from '@angular/common/http';
 import { PostRequest } from './request.models';
-import { Observable, of } from 'rxjs';
+import { combineLatest, Observable, of as observableOf } from 'rxjs';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list.model';
 import { Version } from '../shared/version.model';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, find, map, switchMap, take } from 'rxjs/operators';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { VersionDataService } from './version-data.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../shared/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { hasValueOperator } from '../../shared/empty.util';
+import { hasValue, hasValueOperator } from '../../shared/empty.util';
 import { Item } from '../shared/item.model';
 import { FindListOptions } from './find-list-options.model';
-import { sendRequest } from '../shared/request.operators';
-import { RestRequest } from './rest-request.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
 
@@ -86,19 +84,31 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
    * @param summary the summary of the new version
    */
   createVersion(itemHref: string, summary: string): Observable<RemoteData<Version>> {
+    const requestId = this.requestService.generateRequestId();
     const requestOptions: HttpOptions = Object.create({});
     let requestHeaders = new HttpHeaders();
     requestHeaders = requestHeaders.append('Content-Type', 'text/uri-list');
     requestOptions.headers = requestHeaders;
 
-    return this.halService.getEndpoint(this.versionsEndpoint).pipe(
+    this.halService.getEndpoint(this.versionsEndpoint).pipe(
       take(1),
       map((endpointUrl: string) => (summary?.length > 0) ? `${endpointUrl}?summary=${summary}` : `${endpointUrl}`),
-      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, itemHref, requestOptions)),
-      sendRequest(this.requestService),
-      switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
-      getFirstCompletedRemoteData()
-    ) as Observable<RemoteData<Version>>;
+      find((href: string) => hasValue(href)),
+    ).subscribe((href) => {
+      const request = new PostRequest(requestId, href, itemHref, requestOptions);
+      if (hasValue(this.responseMsToLive)) {
+        request.responseMsToLive = this.responseMsToLive;
+      }
+
+      this.requestService.send(request);
+    });
+
+    return this.rdbService.buildFromRequestUUIDAndAwait<Version>(requestId, (versionRD) => combineLatest([
+      this.requestService.setStaleByHrefSubstring(versionRD.payload._links.self.href),
+      this.requestService.setStaleByHrefSubstring(versionRD.payload._links.versionhistory.href),
+    ])).pipe(
+      getFirstCompletedRemoteData(),
+    );
   }
 
   /**
@@ -137,7 +147,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
       switchMap((res) => res.versionhistory),
       getFirstSucceededRemoteDataPayload(),
       switchMap((versionHistoryRD) => this.getLatestVersionFromHistory$(versionHistoryRD)),
-    ) : of(null);
+    ) : observableOf(null);
   }
 
   /**
@@ -148,8 +158,8 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
   isLatest$(version: Version): Observable<boolean> {
     return version ? this.getLatestVersion$(version).pipe(
       take(1),
-      switchMap((latestVersion) => of(version.version === latestVersion.version))
-    ) : of(null);
+      switchMap((latestVersion) => observableOf(version.version === latestVersion.version))
+    ) : observableOf(null);
   }
 
   /**
@@ -158,17 +168,22 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
    * @returns `true` if a workspace item exists, `false` otherwise, or `null` if a version history does not exist
    */
   hasDraftVersion$(versionHref: string): Observable<boolean> {
-    return this.versionDataService.findByHref(versionHref, true, true, followLink('versionhistory')).pipe(
+    return this.versionDataService.findByHref(versionHref, false, true, followLink('versionhistory')).pipe(
       getFirstCompletedRemoteData(),
-      switchMap((res) => {
-        if (res.hasSucceeded && !res.hasNoContent) {
-          return of(res).pipe(
-            getFirstSucceededRemoteDataPayload(),
-            switchMap((version) => this.versionDataService.getHistoryFromVersion(version)),
-            map((versionHistory) => versionHistory ? versionHistory.draftVersion : false),
+      switchMap((versionRD: RemoteData<Version>) => {
+        if (versionRD.hasSucceeded && !versionRD.hasNoContent) {
+          return versionRD.payload.versionhistory.pipe(
+            getFirstCompletedRemoteData(),
+            map((versionHistoryRD: RemoteData<VersionHistory>) => {
+              if (versionHistoryRD.hasSucceeded && !versionHistoryRD.hasNoContent) {
+                return versionHistoryRD.payload.draftVersion;
+              } else {
+                return false;
+              }
+            }),
           );
         } else {
-          return of(false);
+          return observableOf(false);
         }
       }),
     );

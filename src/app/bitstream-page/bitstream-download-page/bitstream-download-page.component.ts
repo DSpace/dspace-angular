@@ -18,6 +18,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -101,6 +102,9 @@ export class BitstreamDownloadPageComponent implements OnInit {
    * @private
    */
   private initPageLinks(): void {
+    if (!environment.signpostingEnabled) {
+      return;
+    }
     if (isPlatformServer(this.platformId)) {
       this.route.params.subscribe(params => {
         this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {

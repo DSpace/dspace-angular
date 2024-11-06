@@ -29,7 +29,7 @@ import {
   isNotEmpty,
   isNotNull,
   isNotUndefined,
-  isNull
+  isNull, isUndefined
 } from '../../empty.util';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
@@ -49,11 +49,20 @@ import {
   COMPLEX_GROUP_SUFFIX,
   DynamicComplexModel
 } from './ds-dynamic-form-ui/models/ds-dynamic-complex.model';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+
+/**
+ * The key for the default type bind field. {'default': 'dc_type'}
+ */
+export const TYPE_BIND_DEFAULT = 'default';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
 
-  private typeBindModel: DynamicFormControlModel;
+  /**
+   * This map contains the type bind model
+   */
+  private typeBindModel:  Map<string,DynamicFormControlModel>;
 
   /**
    * This map contains the active forms model
@@ -68,7 +77,7 @@ export class FormBuilderService extends DynamicFormService {
   /**
    * This is the field to use for type binding
    */
-  private typeField: string;
+  private typeFields: Map<string, string>;
 
   constructor(
     componentService: DynamicFormComponentService,
@@ -79,6 +88,10 @@ export class FormBuilderService extends DynamicFormService {
     super(componentService, validationService);
     this.formModels = new Map();
     this.formGroups = new Map();
+    this.typeFields = new Map();
+    this.typeBindModel = new Map();
+
+    this.typeFields.set(TYPE_BIND_DEFAULT, 'dc_type');
     // If optional config service was passed, perform an initial set of type field (default dc_type) for type binds
     if (hasValue(this.configService)) {
       this.setTypeBindFieldFromConfig();
@@ -96,55 +109,76 @@ export class FormBuilderService extends DynamicFormService {
     return {$event, context, control: control, group: group, model: model, type};
   }
 
-  getTypeBindModel() {
-    return this.typeBindModel;
+  /**
+   * Get the type bind model associated to the `type-bind`
+   *
+   * @param typeBingField the special `<type-bind field=..>`
+   * @returns the default (dc_type) type bind model or the one associated to the `type-bind` field
+   */
+  getTypeBindModel(typeBingField: string): DynamicFormControlModel {
+    let typeBModelKey = this.typeFields.get(typeBingField);
+    if (isUndefined(typeBModelKey)) {
+      typeBModelKey = this.typeFields.get(TYPE_BIND_DEFAULT);
+    }
+    return this.typeBindModel.get(typeBModelKey);
   }
 
   setTypeBindModel(model: DynamicFormControlModel) {
-    this.typeBindModel = model;
+    this.typeBindModel.set(model.id, model);
   }
 
-  findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
+  findById(id: string | string[], groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
 
     let result = null;
-    const findByIdFn = (findId: string, findGroupModel: DynamicFormControlModel[], findArrayIndex): void => {
+    const findByIdFn = (findId: string | string [], findGroupModel: DynamicFormControlModel[], findArrayIndex): void => {
 
       for (const controlModel of findGroupModel) {
 
-        if (controlModel.id === findId) {
-
-          if (this.isArrayGroup(controlModel) && isNotNull(findArrayIndex)) {
-            result = (controlModel as DynamicFormArrayModel).get(findArrayIndex);
-          } else {
-            result = controlModel;
-          }
-          break;
+        const findIdArray = [];
+        // If the id is NOT an array, push it into array because we need to iterate over the array
+        if (!Array.isArray(findId)) {
+          findIdArray.push(findId);
+        } else {
+          findIdArray.push(...findId);
         }
 
-        if (this.isConcatGroup(controlModel)) {
-          if (controlModel.id.match(new RegExp(findId + CONCAT_GROUP_SUFFIX))) {
-            result = (controlModel as DynamicConcatModel);
+        for (const findIdIt of findIdArray) {
+          if (controlModel.id === findIdIt) {
+
+            if (this.isArrayGroup(controlModel) && isNotNull(findArrayIndex)) {
+              result = (controlModel as DynamicFormArrayModel).get(findArrayIndex);
+            } else {
+              result = controlModel;
+            }
             break;
           }
-        }
 
-        if (this.isComplexGroup(controlModel)) {
-          const regex = new RegExp(findId + COMPLEX_GROUP_SUFFIX);
-          if (controlModel.id.match(regex)) {
-            result = (controlModel as DynamicComplexModel);
-            break;
+          if (this.isConcatGroup(controlModel)) {
+            if (controlModel.id.match(new RegExp(findIdIt + CONCAT_GROUP_SUFFIX))) {
+              result = (controlModel as DynamicConcatModel);
+              break;
+            }
+          }
+
+          if (this.isComplexGroup(controlModel)) {
+            const regex = new RegExp(findIdIt + COMPLEX_GROUP_SUFFIX);
+            if (controlModel.id.match(regex)) {
+              result = (controlModel as DynamicComplexModel);
+              break;
+            }
+          }
+
+          if (this.isGroup(controlModel)) {
+            findByIdFn(findIdIt, (controlModel as DynamicFormGroupModel).group, findArrayIndex);
+          }
+
+          if (this.isArrayGroup(controlModel)
+            && (isNull(findArrayIndex) || (controlModel as DynamicFormArrayModel).size > (findArrayIndex))) {
+            const index = (isNull(findArrayIndex)) ? 0 : findArrayIndex;
+            findByIdFn(findIdIt, (controlModel as DynamicFormArrayModel).get(index).group, index);
           }
         }
 
-        if (this.isGroup(controlModel)) {
-          findByIdFn(findId, (controlModel as DynamicFormGroupModel).group, findArrayIndex);
-        }
-
-        if (this.isArrayGroup(controlModel)
-          && (isNull(findArrayIndex) || (controlModel as DynamicFormArrayModel).size > (findArrayIndex))) {
-          const index = (isNull(findArrayIndex)) ? 0 : findArrayIndex;
-          findByIdFn(findId, (controlModel as DynamicFormArrayModel).get(index).group, index);
-        }
       }
     };
 
@@ -297,9 +331,9 @@ export class FormBuilderService extends DynamicFormService {
      let rows: DynamicFormControlModel[] = [];
      const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
-      rawData.rows.forEach((currentRow) => {
+      rawData.rows.forEach((currentRow: FormRowModel) => {
         const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope,
-          readOnly, this.getTypeField());
+          readOnly);
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -311,7 +345,7 @@ export class FormBuilderService extends DynamicFormService {
     }
 
     if (hasNoValue(typeBindModel)) {
-      typeBindModel = this.findById(this.typeField, rows);
+      typeBindModel = this.findById(Array.from(this.typeFields.values()), rows);
     }
 
     if (hasValue(typeBindModel)) {
@@ -517,36 +551,59 @@ export class FormBuilderService extends DynamicFormService {
   /**
    * Get the type bind field from config
    */
-  setTypeBindFieldFromConfig(): void {
+  setTypeBindFieldFromConfig(metadataField: string = null): void {
     this.configService.findByPropertyName('submit.type-bind.field').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((remoteData: any) => {
       // make sure we got a success response from the backend
       if (!remoteData.hasSucceeded) {
-        this.typeField = 'dc_type';
         return;
       }
-      // Read type bind value from response and set if non-empty
-      const typeFieldConfig = remoteData.payload.values[0];
-      if (isEmpty(typeFieldConfig)) {
-        this.typeField = 'dc_type';
-      } else {
-        this.typeField = typeFieldConfig.replace(/\./g, '_');
-      }
+
+      // All cfg property values
+      const typeFieldConfigValues = remoteData.payload.values;
+      let typeFieldConfigValue = '';
+      // Iterate over each config property value
+      typeFieldConfigValues.forEach((typeFieldConfig: string) => {
+        // Check if the typeFieldConfig contains the '=>' delimiter
+        if (typeFieldConfig.includes('=>')) {
+          // Split the typeFieldConfig into parts based on the delimiter
+          const [metadataFieldConfigPart, valuePart] = typeFieldConfig.split('=>');
+          // Process only custom type-bind fields
+          if (isNotEmpty(valuePart)) {
+            // Replace '.' with '_' in the valuePart
+            const normalizedValuePart = valuePart.replace(/\./g, '_');
+
+            // Set the value in the typeFields map
+            this.typeFields.set(metadataFieldConfigPart, normalizedValuePart);
+
+            if (metadataFieldConfigPart === metadataField) {
+              typeFieldConfigValue = valuePart;
+            }
+          }
+        } else {
+          // If no delimiter is found, use the entire typeFieldConfig as the default value
+          typeFieldConfigValue = typeFieldConfig;
+        }
+
+        // Always update the typeFields map with the default value, normalized
+        this.typeFields.set(TYPE_BIND_DEFAULT, typeFieldConfigValue.replace(/\./g, '_'));
+      });
     });
   }
 
   /**
    * Get type field. If the type isn't already set, and a ConfigurationDataService is provided, set (with subscribe)
-   * from back end. Otherwise, get/set a default "dc_type" value
+   * from back end. Otherwise, get/set a default "dc_type" value or specific value from the typeFields map.
    */
-  getTypeField(): string {
-    if (hasValue(this.configService) && hasNoValue(this.typeField)) {
-      this.setTypeBindFieldFromConfig();
-    } else if (hasNoValue(this.typeField)) {
-      this.typeField = 'dc_type';
+  getTypeField(metadataField: string): string {
+    if (hasValue(this.configService) && isEmpty(this.typeFields.values())) {
+      this.setTypeBindFieldFromConfig(metadataField);
+    } else if (hasNoValue(this.typeFields.get(TYPE_BIND_DEFAULT))) {
+      this.typeFields.set(TYPE_BIND_DEFAULT, 'dc_type');
     }
-    return this.typeField;
+
+    return this.typeFields.get(metadataField) || this.typeFields.get(TYPE_BIND_DEFAULT);
   }
 
 }
