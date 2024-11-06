@@ -1,0 +1,26 @@
+<div class="container">
+  <h2>{{ 'info.accessibility-settings.title' | translate }}</h2>
+
+  <form>
+    <div *ngFor="let setting of accessibilitySettingsOptions" class="form-group row">
+      <label [for]="setting + 'Input'" class="col-sm-2 col-form-label">
+        {{ 'info.accessibility-settings.' + setting + '.label' | translate }}
+      </label>
+
+      <div class="col-sm-10">
+        <input [type]="getInputType(setting)" [id]="setting + 'Input'" class="form-control"
+               [(ngModel)]="formValues[setting]" [ngModelOptions]="{ standalone: true }"
+               [attr.aria-describedby]="setting + 'Hint'">
+
+        <small [id]="setting + 'Hint'" class="form-text text-muted">
+          {{ 'info.accessibility-settings.' + setting + '.hint' | translate }}
+        </small>
+      </div>
+    </div>
+
+    <button type="submit" (click)="saveSettings()" class="btn btn-primary">
+      {{ 'info.accessibility-settings.submit' | translate }}
+    </button>
+  </form>
+
+</div>

@@ -15,6 +15,8 @@ import uniqueId from 'lodash/uniqueId';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { cold } from 'jasmine-marbles';
+import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
+import { getAccessibilitySettingsServiceStub } from '../../../accessibility/accessibility-settings.service.stub';
 
 export const bools = { f: false, t: true };
 
@@ -36,6 +38,7 @@ describe('NotificationsBoardComponent', () => {
       declarations: [NotificationsBoardComponent, NotificationComponent], // declare the test component
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
+        { provide: AccessibilitySettingsService, useValue: getAccessibilitySettingsServiceStub() },
         ChangeDetectorRef]
     }).compileComponents();  // compile template and css
   }));
