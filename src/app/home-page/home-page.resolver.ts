@@ -20,6 +20,6 @@ export class HomePageResolver implements Resolve<Site> {
    * @returns Observable<Site> Emits the found Site object, or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Site> | Promise<Site> | Site {
-    return this.siteService.find().pipe(take(1));
+    return this.siteService.find(null, false).pipe(take(1));
   }
 }
