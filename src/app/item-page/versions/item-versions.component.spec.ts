@@ -25,7 +25,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
   of as observableOf,
-  of,
 } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
@@ -123,8 +122,8 @@ describe('ItemVersionsComponent', () => {
 
   const versionHistoryServiceSpy = jasmine.createSpyObj('versionHistoryService', {
     getVersions: createSuccessfulRemoteDataObject$(createPaginatedList(versions)),
-    getVersionHistoryFromVersion$: of(versionHistory),
-    getLatestVersionItemFromHistory$: of(item1),  // called when version2 is deleted
+    getVersionHistoryFromVersion$: observableOf(versionHistory),
+    getLatestVersionItemFromHistory$: observableOf(item1),  // called when version2 is deleted
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
     isAuthenticated: observableOf(true),
@@ -144,7 +143,7 @@ describe('ItemVersionsComponent', () => {
   });
 
   const configurationServiceSpy = jasmine.createSpyObj('configurationService', {
-    findByPropertyName: of(true),
+    findByPropertyName: observableOf(true),
   });
 
   const itemDataServiceSpy = jasmine.createSpyObj('itemDataService', {
@@ -228,7 +227,7 @@ describe('ItemVersionsComponent', () => {
 
   describe('when the user can only delete a version', () => {
     beforeAll(waitForAsync(() => {
-      const canDelete = (featureID: FeatureID, url: string ) => of(featureID === FeatureID.CanDeleteVersion);
+      const canDelete = (featureID: FeatureID, url: string ) => observableOf(featureID === FeatureID.CanDeleteVersion);
       authorizationServiceSpy.isAuthorized.and.callFake(canDelete);
     }));
     it('should not disable the delete button', () => {

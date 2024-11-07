@@ -2,7 +2,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
@@ -59,12 +59,12 @@ describe('LdnItemfiltersService test', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: of(responseCacheEntry),
-      getByUUID: of(responseCacheEntry),
+      getByHref: observableOf(responseCacheEntry),
+      getByUUID: observableOf(responseCacheEntry),
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: of(endpointURL),
+      getEndpoint: observableOf(endpointURL),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {

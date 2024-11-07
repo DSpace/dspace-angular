@@ -3,10 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { Community } from '../../../core/shared/community.model';
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
@@ -36,7 +33,7 @@ describe('CommunityAccessControlComponent', () => {
   const routeStub = {
     parent: {
       parent: {
-        data: of({
+        data: observableOf({
           dso: createSuccessfulRemoteDataObject(testCommunity),
         }),
       },

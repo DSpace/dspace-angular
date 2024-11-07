@@ -3,7 +3,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -23,7 +23,7 @@ describe('PublicationClaimBreadcrumbService', () => {
   };
 
   let authorizationService: any = {
-    isAuthorized: (str) => of(true),
+    isAuthorized: (str) => observableOf(true),
   };
 
   let exampleKey;

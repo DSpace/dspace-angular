@@ -9,7 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -79,7 +79,7 @@ describe('DsoEditMetadataFieldValuesComponent', () => {
     component.dso = dso;
     component.form = form;
     component.mdField = mdField;
-    component.saving$ = of(false);
+    component.saving$ = observableOf(false);
     component.draggingMdField$ = draggingMdField$;
     fixture.detectChanges();
   });

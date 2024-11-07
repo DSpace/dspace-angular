@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   map,
@@ -132,7 +132,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
             );
           } else {
             this.dsoDataService.refreshCache(dsoRD);
-            return of(true);
+            return observableOf(true);
           }
         }
       }),

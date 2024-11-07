@@ -19,7 +19,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
@@ -229,7 +229,7 @@ describe('UntypedItemComponent', () => {
   describe('with IIIF viewer and search', () => {
     const localMockRouteService = {
       getPreviousUrl(): Observable<string> {
-        return of('/search?query=test%20query&fakeParam=true');
+        return observableOf('/search?query=test%20query&fakeParam=true');
       },
     };
     beforeEach(waitForAsync(() => {
@@ -260,7 +260,7 @@ describe('UntypedItemComponent', () => {
 
     const localMockRouteService = {
       getPreviousUrl(): Observable<string> {
-        return of('/item');
+        return observableOf('/item');
       },
     };
     beforeEach(waitForAsync(() => {

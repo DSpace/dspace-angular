@@ -21,7 +21,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
   of as observableOf,
-  of,
 } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -82,8 +81,8 @@ describe('ItemVersionsRowElementVersionComponent', () => {
 
   const versionHistoryServiceSpy = jasmine.createSpyObj('versionHistoryService', {
     getVersions: createSuccessfulRemoteDataObject$(createPaginatedList([version])),
-    getVersionHistoryFromVersion$: of(versionHistory),
-    getLatestVersionItemFromHistory$: of(item),
+    getVersionHistoryFromVersion$: observableOf(versionHistory),
+    getLatestVersionItemFromHistory$: observableOf(item),
   });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
     isAuthorized: observableOf(true),

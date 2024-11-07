@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
-  of,
+  of as observableOf,
   Subject,
   Subscription,
 } from 'rxjs';
@@ -77,7 +77,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
       this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
       if (isNotEmpty(suggestions)) {
         if (!visited) {
-          this.suggestionsRD$ = of(suggestions);
+          this.suggestionsRD$ = observableOf(suggestions);
           this.suggestionTargetsStateService.dispatchMarkUserSuggestionsAsVisitedAction();
           notifier.next(null);
           notifier.complete();

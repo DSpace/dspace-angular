@@ -10,7 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import { Collection } from '../../../../core/shared/collection.model';
@@ -53,9 +53,9 @@ export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
   navigate(dso: DSpaceObject): Observable<null> {
     if (dso instanceof Collection) {
       this.response.emit(dso);
-      return of(null);
+      return observableOf(null);
     }
     this.response.emit(null);
-    return of(null);
+    return observableOf(null);
   }
 }
