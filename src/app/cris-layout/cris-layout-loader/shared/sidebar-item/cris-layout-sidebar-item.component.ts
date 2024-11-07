@@ -4,8 +4,6 @@ import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 import { rotate, rotateNavbar } from '../../../../shared/animations/rotate';
 import { slide } from '../../../../shared/animations/slide';
 import { TranslateService } from '@ngx-translate/core';
-import { Item } from '../../../../core/shared/item.model';
-import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
