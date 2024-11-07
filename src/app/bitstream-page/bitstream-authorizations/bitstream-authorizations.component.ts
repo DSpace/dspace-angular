@@ -12,7 +12,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
   templateUrl: './bitstream-authorizations.component.html',
 })
 /**
- * Component that handles the Collection Authorizations
+ * Component that handles the Bitstream Authorizations
  */
 export class BitstreamAuthorizationsComponent<TDomain extends DSpaceObject> implements OnInit {
 
