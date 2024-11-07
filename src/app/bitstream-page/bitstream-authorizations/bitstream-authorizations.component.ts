@@ -30,7 +30,7 @@ import { ResourcePoliciesComponent } from '../../shared/resource-policies/resour
   standalone: true,
 })
 /**
- * Component that handles the Collection Authorizations
+ * Component that handles the Bitstream Authorizations
  */
 export class BitstreamAuthorizationsComponent<TDomain extends DSpaceObject> implements OnInit {
 
