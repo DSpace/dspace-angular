@@ -8,7 +8,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 @Component({
-  selector: 'ds-collection-authorizations',
+  selector: 'ds-bitstream-authorizations',
   templateUrl: './bitstream-authorizations.component.html',
 })
 /**
