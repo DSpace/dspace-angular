@@ -11,7 +11,7 @@
             <div id="collapsingNav">
                 <ul class="navbar-nav mr-auto shadow-none">
                     <ng-container *ngIf="!!(activeTab$ |async)">
-                        <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;" [tab]="tab" [layout]="'horizontal'" [activeTab]="(activeTab$ |async)"
+                        <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;" [itemBaseUrl]="itemBaseUrl" [tab]="tab" [layout]="'horizontal'" [activeTab]="(activeTab$ |async)"
                             (tabSelectedChange)="setActiveTab($event)"></ds-cris-layout-sidebar-item>
                     </ng-container>
                 </ul>
