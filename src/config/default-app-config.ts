@@ -1,5 +1,6 @@
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
+import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { ActuatorsConfig } from './actuators.config';
 import { AppConfig } from './app-config.interface';
@@ -591,4 +592,10 @@ export class DefaultAppConfig implements AppConfig {
       ],
     },
   ];
+
+  // Live Region configuration, used by the LiveRegionService
+  liveRegion: LiveRegionConfig = {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
+  };
 }

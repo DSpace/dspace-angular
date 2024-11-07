@@ -3,7 +3,7 @@
   <div *ngIf="(healthResponse | async) && (healthInfoResponse | async)">
     <ul ngbNav #nav="ngbNav" [activeId]="'status'" class="nav-tabs">
       <li [ngbNavItem]="'status'" role="presentation">
-        <a ngbNavLink>{{'health-page.status-tab' | translate}}</a>
+        <a data-test="health-page.status-tab" ngbNavLink>{{'health-page.status-tab' | translate}}</a>
         <ng-template ngbNavContent>
           <div id="status">
             <ds-health-panel [healthResponse]="(healthResponse | async)"></ds-health-panel>
@@ -11,7 +11,7 @@
         </ng-template>
       </li>
       <li [ngbNavItem]="'info'" role="presentation">
-        <a ngbNavLink>{{'health-page.info-tab' | translate}}</a>
+        <a data-test="health-page.info-tab" ngbNavLink>{{'health-page.info-tab' | translate}}</a>
         <ng-template ngbNavContent>
           <div id="info">
             <ds-health-info [healthInfoResponse]="(healthInfoResponse | async)"></ds-health-info>

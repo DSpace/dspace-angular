@@ -478,7 +478,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     );
 
     // this adds thumbnail images when required by configuration
-    const linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(this.fetchThumbnail);
+    const linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(this.fetchThumbnail, this.appConfig.item.showAccessStatuses);
 
     this.subs.push(
       observableCombineLatest([

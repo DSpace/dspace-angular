@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
 import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
@@ -150,6 +152,7 @@ describe('RelationshipDataService', () => {
         { provide: RequestService, useValue: requestService },
         { provide: PAGINATED_RELATIONS_TO_ITEMS_OPERATOR, useValue: jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v) },
         { provide: Store, useValue: provideMockStore() },
+        { provide: APP_CONFIG, useValue: environment },
         RelationshipDataService,
       ],
     });
@@ -157,7 +160,7 @@ describe('RelationshipDataService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, null);
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, null, environment);
 
     testSearchDataImplementation(initService);
   });
