@@ -20,11 +20,7 @@
            (cdkDropListDropped)="onDrop($event)"
            [ngbTooltip]="tipContent"
            (mouseover)="showTooltip(t, i)"
-           (mouseout)="t.close()"
-           cdkDropList
-           [cdkDropListData]="{item: c, index: i}"
-           cdkDropListOrientation="horizontal"
-           (cdkDropListDropped)="onDrop($event)">
+           (mouseout)="t.close()">
         <a class="flex-sm-fill text-sm-center nav-link active bg-info"
            cdkDrag
            (cdkDragStarted)="onDrag(i)"
