@@ -24,7 +24,7 @@ ENV NODE_OPTIONS="--max_old_space_size=4096"
 # Listen / accept connections from all IP addresses.
 # NOTE: At this time it is only possible to run Docker container in Production mode
 # if you have a public URL. See https://github.com/DSpace/dspace-angular/issues/1485
-ENV NODE_ENV development
+ENV NODE_ENV=development
 RUN apk add tzdata
 RUN yarn build:prod
 RUN npm install pm2 -g

@@ -6,7 +6,6 @@
 # http://www.dspace.org/license/
 #
 
-version: '3.7'
 networks:
   dspacenet:
 services:

@@ -10,7 +10,6 @@
 # This is used by our GitHub CI at .github/workflows/build.yml
 # It is based heavily on the Backend's Docker Compose:
 # https://github.com/DSpace/DSpace/blob/main/docker-compose.yml
-version: '3.7'
 networks:
   dspacenet:
 services:
