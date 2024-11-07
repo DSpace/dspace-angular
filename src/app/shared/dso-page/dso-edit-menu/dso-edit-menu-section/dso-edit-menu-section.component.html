@@ -5,7 +5,7 @@
         <i class="fas fa-{{section.icon}} fa-fw" aria-hidden="true"></i>
         <span class="sr-only">{{itemModel.text | translate}}</span>
     </a>
-    <button *ngIf="section.model.disabled" class="btn btn-dark btn-sm" [disabled]="true">
+    <button *ngIf="section.model.disabled" class="btn btn-dark btn-sm" [dsBtnDisabled]="true">
         <i class="fas fa-{{section.icon}} fa-fw" aria-hidden="true"></i>
         <span class="sr-only">{{itemModel.text | translate}}</span>
     </button>
@@ -13,7 +13,7 @@
 
 <div *ngIf="canActivate" class="dso-button-menu mb-1"
      [ngbTooltip]="itemModel.text | translate">
-    <button class="btn btn-dark btn-sm" [disabled]="section.model.disabled"
+    <button class="btn btn-dark btn-sm" [dsBtnDisabled]="section.model.disabled"
             (click)="activate($event)">
         <i class="fas fa-{{section.icon}} fa-fw" aria-hidden="true"></i>
         <span class="sr-only">{{itemModel.text | translate}}</span>
