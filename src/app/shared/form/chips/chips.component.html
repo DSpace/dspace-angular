@@ -15,7 +15,7 @@
            #t="ngbTooltip"
            triggers="manual"
            cdkDropList
-           [cdkDropListData]="{item: c, index: i}"
+           [cdkDropListData]="{ index: i }"
            cdkDropListOrientation="horizontal"
            (cdkDropListDropped)="onDrop($event)"
            [ngbTooltip]="tipContent"

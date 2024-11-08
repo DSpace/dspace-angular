@@ -83,7 +83,7 @@ export class ChipsComponent implements OnChanges {
     this.dragged = index;
   }
 
-  onDrop(event: CdkDragDrop<{ item: ChipsItem, index: number }>) {
+  onDrop(event: CdkDragDrop<{ index: number }>) {
     const previousContainerIndex = event.previousContainer.data.index;
     const currentContainerIndex = event.container.data.index;
 
