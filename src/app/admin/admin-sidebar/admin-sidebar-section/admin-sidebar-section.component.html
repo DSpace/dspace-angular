@@ -14,7 +14,9 @@
     </div>
     <div class="sidebar-collapsible-element-outer-wrapper">
       <div class="sidebar-collapsible-element-inner-wrapper sidebar-item">
-        <span [id]="adminMenuSectionTitleId(section.id)">{{itemModel.text | translate}}</span>
+        <span [id]="adminMenuSectionTitleId(section.id)" [attr.data-test]="adminMenuSectionTitleId(section.id) | dsBrowserOnly">
+          {{itemModel.text | translate}}
+        </span>
       </div>
     </div>
   </a>

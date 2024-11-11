@@ -8,6 +8,7 @@ import {
   Component,
   Inject,
   Injector,
+  OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -34,7 +35,7 @@ import { MenuService } from '../../../menu/menu.service';
   standalone: true,
   imports: [NgbDropdownModule, NgbTooltipModule, NgFor, NgIf, NgComponentOutlet, TranslateModule, AsyncPipe],
 })
-export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent {
+export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent implements OnInit {
 
   menuID: MenuID = MenuID.DSO_EDIT;
   itemModel;
