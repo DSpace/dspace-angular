@@ -7983,7 +7983,7 @@
   //"search.filters.queue_status.0,authority": "Untrusted Ip"
   "search.filters.queue_status.0,authority": "IP non fiable",
 
-  //"search.filters.queue_status.1,authority": "Queued", 
+  //"search.filters.queue_status.1,authority": "Queued",
   "search.filters.queue_status.1,authority": "Dans la file d'attente",
 
   //"search.filters.queue_status.2,authority": "Processing",
