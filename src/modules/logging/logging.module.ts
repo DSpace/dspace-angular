@@ -1,32 +1,32 @@
-import {
-    createLogger,
-    transports
-    } from 'winston';
-import * as DailyRotateFile from 'winston-daily-rotate-file';
 import { format as logformat } from 'logform';
+import {
+  createLogger,
+  transports,
+} from 'winston';
+import DailyRotateFile from 'winston-daily-rotate-file';
 import { environment } from 'src/environments/environment';
 
 /* See [winston](https://www.npmjs.com/package/winston) */
 
 /* Create transport appropriate to environment. */
-var log_transport;
+let log_transport: any;
 
 if (typeof(window) !== 'undefined') {
-    log_transport = new transports.Console({
-        stderrLevels: ['error', 'warn'],
-        consoleWarnLevels: ['error', 'warn'],
-        });
+  log_transport = new transports.Console({
+    stderrLevels: ['error', 'warn'],
+    consoleWarnLevels: ['error', 'warn'],
+  });
 } else {
-    log_transport = new transports.DailyRotateFile({
-      filename: 'server-%DATE%.log',
-      createSymlink: true,
-      symlinkName: 'server-current.log',
-      maxFiles: environment.logging.main.maxFiles || 10,
-      // maxSize:
-      // utc:
-      // level:
-      // dirname:
-    });
+  log_transport = new DailyRotateFile({
+    filename: 'server-%DATE%.log',
+    createSymlink: true,
+    symlinkName: 'server-current.log',
+    maxFiles: environment.logging.main.maxFiles || 10,
+    // maxSize:
+    // utc:
+    // level:
+    // dirname:
+  });
 }
 
 /**
@@ -37,7 +37,7 @@ const logger = createLogger({
   format: logformat.combine(
     logformat.timestamp(),
     logformat.splat(),
-    logformat.simple()
+    logformat.simple(),
   ),
   transports: [
     log_transport,
