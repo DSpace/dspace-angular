@@ -14,12 +14,13 @@ export class PaginatedSearchOptions extends SearchOptions {
   sort?: SortOptions;
   forcedEmbeddedKeys?: string[];
 
-  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions, view?: ViewMode, forcedEmbeddedKeys?: string[]}) {
+  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions, view?: ViewMode, forcedEmbeddedKeys?: string[], projection?: string}) {
     super(options);
     this.pagination = options.pagination;
     this.sort = options.sort;
     this.view = options.view;
     this.forcedEmbeddedKeys = options.forcedEmbeddedKeys;
+    this.projection = options.projection; // optional projection parameter for the search results
   }
 
   /**

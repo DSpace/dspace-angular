@@ -148,6 +148,9 @@ export class BrowseService {
         if (isNotEmpty(filterAuthority)) {
           args.push(`filterAuthority=${encodeURIComponent(filterAuthority)}`);
         }
+        if (isNotEmpty(options.projection)) {
+          args.push(`projection=${options.projection}`);
+        }
         if (isNotEmpty(args)) {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }

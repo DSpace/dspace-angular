@@ -1,6 +1,6 @@
 <div *ngIf="contextMenuObject">
   <div class="d-flex space-children-mr justify-content-end" *dsRenderOnlyForBrowser="true">
-    <ng-container *ngFor="let entry of (getStandAloneMenuEntries() | async)">
+    <ng-container *ngFor="let entry of (standAloneEntries$ | async)">
       <ng-container *ngComponentOutlet="entry; injector: objectInjector;"></ng-container>
     </ng-container>
     <div ngbDropdown #itemOptions="ngbDropdown" placement="bottom-right"
@@ -10,7 +10,7 @@
       </button>
       <div id="itemOptionsDropdownMenu" aria-labelledby="context-menu" ngbDropdownMenu>
         <h6 class="dropdown-header">{{ 'context-menu.actions.label' | translate }}</h6>
-        <ng-container *ngFor="let entry of (getContextMenuEntries() | async)">
+        <ng-container *ngFor="let entry of (contextEntries$ | async)">
           <ng-container *ngComponentOutlet="entry; injector: objectInjector;"></ng-container>
         </ng-container>
       </div>

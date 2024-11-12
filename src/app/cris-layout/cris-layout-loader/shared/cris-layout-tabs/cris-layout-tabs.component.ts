@@ -47,11 +47,16 @@ export abstract class CrisLayoutTabsComponent {
    */
   @Output() selectedTab = new EventEmitter<CrisLayoutTab>();
 
+  /**
+   * The item base url
+   */
+  itemBaseUrl: string;
 
   constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
   }
 
   init(): void {
+    this.itemBaseUrl = getItemPageRoute(this.item) + '/';
     if (this.tabs && this.tabs.length > 0) {
       if (isNotNull(this.route.snapshot.paramMap.get('tab'))) {
         this.parseTabs(this.route.snapshot.paramMap.get('tab'));
