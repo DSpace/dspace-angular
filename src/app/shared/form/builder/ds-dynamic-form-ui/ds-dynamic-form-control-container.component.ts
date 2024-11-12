@@ -6,11 +6,13 @@ import {
   NgTemplateOutlet,
 } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ContentChildren,
+  DoCheck,
   EventEmitter,
   Inject,
   Input,
@@ -143,7 +145,8 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
   ],
   standalone: true,
 })
-export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges, OnDestroy {
+export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent
+  implements OnInit, OnChanges, OnDestroy, AfterViewInit, DoCheck {
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
@@ -277,7 +280,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         const relationship$ = this.relationshipService.findById(this.metadataService.virtualValue(this.value),
           true,
           true,
-          ... itemLinksToFollow(this.fetchThumbnail)).pipe(
+          ... itemLinksToFollow(this.fetchThumbnail, this.appConfig.item.showAccessStatuses)).pipe(
           getAllSucceededRemoteData(),
           getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(

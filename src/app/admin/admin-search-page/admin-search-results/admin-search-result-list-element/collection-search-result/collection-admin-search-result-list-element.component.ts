@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -22,10 +25,10 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
 /**
  * The component for displaying a list element for a collection search result on the admin search page
  */
-export class CollectionAdminSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {
+export class CollectionAdminSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> implements OnInit {
   editPath: string;
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.editPath = getCollectionEditRoute(this.dso.uuid);
   }

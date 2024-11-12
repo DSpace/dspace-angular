@@ -124,7 +124,7 @@ export class SectionsService {
         });
       });
 
-      // Itereate over the previous error list
+      // Iterate over the previous error list
       prevErrors.forEach((error: SubmissionSectionError) => {
         const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
 

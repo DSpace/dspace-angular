@@ -77,7 +77,7 @@ export class Metadata {
   /**
    * Gets the first matching MetadataValue object in the map(s), or `undefined`.
    *
-   * @param {MetadataMapInterface|MetadataMapInterface[]} mapOrMaps The source map(s).
+   * @param {MetadataMapInterface|MetadataMapInterface[]} mdMapOrMaps The source map(s).
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
    * @returns {MetadataValue} the first matching value, or `undefined`.
@@ -98,7 +98,7 @@ export class Metadata {
   /**
    * Like [[Metadata.first]], but only returns a string value, or `undefined`.
    *
-   * @param {MetadataMapInterface|MetadataMapInterface[]} mapOrMaps The source map(s).
+   * @param {MetadataMapInterface|MetadataMapInterface[]} mdMapOrMaps The source map(s).
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
    * @returns {string} the first matching string value, or `undefined`.
@@ -112,7 +112,7 @@ export class Metadata {
   /**
    * Checks for a matching metadata value in the given map(s).
    *
-   * @param {MetadataMapInterface|MetadataMapInterface[]} mapOrMaps The source map(s).
+   * @param {MetadataMapInterface|MetadataMapInterface[]} mdMapOrMaps The source map(s).
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
    * @returns {boolean} whether a match is found.
@@ -163,7 +163,7 @@ export class Metadata {
     const outputKeys: string[] = [];
     for (const inputKey of inputKeys) {
       if (inputKey.includes('*')) {
-        const inputKeyRegex = new RegExp('^' + inputKey.replace(/\./g, '\\.').replace(/\*/g, '.*') + '$');
+        const inputKeyRegex = new RegExp('^' + inputKey.replace(/\\/g, '\\\\').replace(/\./g, '\\.').replace(/\*/g, '.*') + '$');
         for (const mapKey of Object.keys(mdMap)) {
           if (!outputKeys.includes(mapKey) && inputKeyRegex.test(mapKey)) {
             outputKeys.push(mapKey);

@@ -3,6 +3,7 @@
   <div class="col-12">
     <div class="input-group">
       <input type="text" class="form-control" [(ngModel)]="searchText" (keyup.enter)="search()"
+             [attr.aria-label]="'vocabulary-treeview.search.form.search-placeholder' | translate"
              [placeholder]="'vocabulary-treeview.search.form.search-placeholder' | translate">
       <div class="input-group-append" id="button-addon4">
         <button class="btn btn-outline-primary" type="button" (click)="search()" [disabled]="!isSearchEnabled()">

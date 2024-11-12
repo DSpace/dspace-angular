@@ -165,6 +165,7 @@
         "@angular-eslint/no-output-native": "warn",
         "@angular-eslint/no-output-on-prefix": "warn",
         "@angular-eslint/no-conflicting-lifecycle": "warn",
+        "@angular-eslint/use-lifecycle-interface": "error",
 
         "@typescript-eslint/no-inferrable-types":[
           "error",

@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <h4 class="border-bottom pb-2">{{'quality-assurance.source'| translate}}</h4>
+        <h3 class="h4 border-bottom pb-2">{{'quality-assurance.source'| translate}}</h3>
 
         <ds-loading class="container" *ngIf="(isSourceLoading() | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
         <ds-pagination *ngIf="(isSourceLoading() | async) !== true"
