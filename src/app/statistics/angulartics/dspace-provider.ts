@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Angulartics2 } from 'angulartics2';
+import { Angulartics2, EventTrack } from 'angulartics2';
 import { StatisticsService } from '../statistics.service';
 
 /**
@@ -23,7 +23,7 @@ export class Angulartics2DSpace {
       .subscribe((event) => this.eventTrack(event));
   }
 
-  private eventTrack(event) {
+  private eventTrack(event: Partial<EventTrack>): void {
     if (event.action === 'page_view') {
       this.statisticsService.trackViewEvent(event.properties.object, event.properties.referrer);
     } else if (event.action === 'search') {
@@ -32,7 +32,7 @@ export class Angulartics2DSpace {
         event.properties.page,
         event.properties.sort,
         event.properties.filters,
-        event.properties.clickedObject,
+        event.properties.clickedObject?.split('?')[0],
       );
     }
   }

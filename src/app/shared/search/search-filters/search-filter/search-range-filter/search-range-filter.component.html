@@ -26,10 +26,9 @@
                     />
                 </label>
             </div>
-            <label class="d-none">
-                <input type="submit" class="d-none"/>
-                <span>{{'search.filters.search.submit' | translate}}</span>
-            </label>
+            <button class="sr-only" type="submit">
+                {{'search.filters.search.submit' | translate}}
+            </button>
         </form>
 
         <ng-container *ngIf="shouldShowSlider()">

@@ -1,8 +1,8 @@
-<div class="pb-3">
-    <div *ngIf="item && !item.isDiscoverable" class="private-warning">
+<div *ngIf="item && (!item.isDiscoverable || item.isWithdrawn)" class="pb-3">
+    <div *ngIf="!item.isDiscoverable" class="private-warning">
         <ds-alert [type]="AlertTypeEnum.Warning" [content]="'item.alerts.private' | translate"></ds-alert>
     </div>
-    <div *ngIf="item && item.isWithdrawn" class="withdrawn-warning">
+    <div *ngIf="item.isWithdrawn" class="withdrawn-warning">
         <ds-alert [type]="AlertTypeEnum.Warning">
             <div class="d-flex justify-content-between flex-wrap flex-column">
                 <span class="align-self-center">{{'item.alerts.withdrawn' | translate}}</span>

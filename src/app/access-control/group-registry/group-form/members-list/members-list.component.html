@@ -1,11 +1,10 @@
 <ng-container>
-  <h3 class="border-bottom pb-2">{{messagePrefix + '.head' | translate}}</h3>
+  <h2 class="border-bottom pb-2">{{messagePrefix + '.head' | translate}}</h2>
 
-  <h4>{{messagePrefix + '.headMembers' | translate}}</h4>
+  <h3>{{messagePrefix + '.headMembers' | translate}}</h3>
 
   <ds-pagination *ngIf="(ePeopleMembersOfGroup | async)?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(ePeopleMembersOfGroup | async)"
                  [collectionSize]="(ePeopleMembersOfGroup | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -24,8 +23,7 @@
         <tr *ngFor="let eperson of (ePeopleMembersOfGroup | async)?.page">
           <td class="align-middle">{{eperson.id}}</td>
           <td class="align-middle">
-            <a (click)="ePersonDataService.startEditingNewEPerson(eperson)"
-               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+            <a [routerLink]="getEPersonEditRoute(eperson.id)">
               {{ dsoNameService.getName(eperson) }}
             </a>
           </td>
@@ -55,7 +53,7 @@
     {{messagePrefix + '.no-members-yet' | translate}}
   </div>
 
-  <h4 id="search" class="border-bottom pb-2">
+  <h3 id="search" class="border-bottom pb-2">
     <span
       *dsContextHelp="{
         content: 'admin.access-control.groups.form.tooltip.editGroup.addEpeople',
@@ -66,7 +64,7 @@
     >
       {{messagePrefix + '.search.head' | translate}}
     </span>
-  </h4>
+  </h3>
 
   <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
     <div class="flex-grow-1 mr-3">
@@ -87,7 +85,6 @@
 
   <ds-pagination *ngIf="(ePeopleSearch | async)?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(ePeopleSearch | async)"
                  [collectionSize]="(ePeopleSearch | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -106,8 +103,7 @@
         <tr *ngFor="let eperson of (ePeopleSearch | async)?.page">
           <td class="align-middle">{{eperson.id}}</td>
           <td class="align-middle">
-            <a (click)="ePersonDataService.startEditingNewEPerson(eperson)"
-               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+            <a [routerLink]="getEPersonEditRoute(eperson.id)">
               {{ dsoNameService.getName(eperson) }}
             </a>
           </td>

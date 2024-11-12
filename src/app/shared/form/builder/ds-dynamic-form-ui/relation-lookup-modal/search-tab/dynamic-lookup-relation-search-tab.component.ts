@@ -94,14 +94,19 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Input() isEditRelationship: boolean;
 
   /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
+
+  /**
    * Send an event to deselect an object from the list
    */
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() deselectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   /**
    * Send an event to select an object from the list
    */
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   /**
    * Search results
@@ -178,7 +183,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.selection$
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
-        const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
+        const filteredPage: SearchResult<DSpaceObject>[] = page.filter((pageItem: SearchResult<DSpaceObject>) => selection.findIndex((selected: SearchResult<Item>) => selected.equals(pageItem)) < 0);
         this.selectObject.emit(...filteredPage);
       });
     this.selectableListService.select(this.listId, page);

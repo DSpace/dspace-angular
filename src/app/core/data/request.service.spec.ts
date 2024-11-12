@@ -80,11 +80,11 @@ describe('RequestService', () => {
     store = TestBed.inject(Store);
     mockStore = store as MockStore<CoreState>;
     mockStore.setState(initialState);
+
     service = new RequestService(
       objectCache,
       uuidService,
       store,
-      undefined
     );
     serviceAsAny = service as any;
   });

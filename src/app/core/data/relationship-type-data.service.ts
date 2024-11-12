@@ -17,6 +17,7 @@ import { FindAllDataImpl } from './base/find-all-data';
 import { SearchDataImpl } from './base/search-data';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { dataService } from './base/data-service.decorator';
+import { RequestParam } from '../cache/models/request-param.model';
 
 /**
  * Check if one side of a RelationshipType is the ItemType with the given label
@@ -130,14 +131,8 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
       'byEntityType',
       {
         searchParams: [
-          {
-            fieldName: 'type',
-            fieldValue: type,
-          },
-          {
-            fieldName: 'size',
-            fieldValue: 100,
-          },
+          new RequestParam('type', type),
+          new RequestParam('size', 100),
         ],
       }, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow,
     ).pipe(

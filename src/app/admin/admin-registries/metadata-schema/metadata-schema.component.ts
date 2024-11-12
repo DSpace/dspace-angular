@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -32,7 +32,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
  * A component used for managing all existing metadata fields within the current metadata schema.
  * The admin can create, edit or delete metadata fields here.
  */
-export class MetadataSchemaComponent implements OnInit {
+export class MetadataSchemaComponent implements OnInit, OnDestroy {
   /**
    * The metadata schema
    */
@@ -60,7 +60,6 @@ export class MetadataSchemaComponent implements OnInit {
   constructor(private registryService: RegistryService,
               private route: ActivatedRoute,
               private notificationsService: NotificationsService,
-              private router: Router,
               private paginationService: PaginationService,
               private translateService: TranslateService) {
 
@@ -86,7 +85,7 @@ export class MetadataSchemaComponent implements OnInit {
    */
   private updateFields() {
     this.metadataFields$ = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      switchMap((currentPagination) => combineLatest(this.metadataSchema$, this.needsUpdate$, observableOf(currentPagination))),
+      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, observableOf(currentPagination)])),
       switchMap(([schema, update, currentPagination]: [MetadataSchema, boolean, PaginationComponentOptions]) => {
         if (update) {
           this.needsUpdate$.next(false);
@@ -193,10 +192,10 @@ export class MetadataSchemaComponent implements OnInit {
   showNotification(success: boolean, amount: number) {
     const prefix = 'admin.registries.schema.notification';
     const suffix = success ? 'success' : 'failure';
-    const messages = observableCombineLatest(
+    const messages = observableCombineLatest([
       this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
       this.translateService.get(`${prefix}.field.deleted.${suffix}`, { amount: amount })
-    );
+    ]);
     messages.subscribe(([head, content]) => {
       if (success) {
         this.notificationsService.success(head, content);
@@ -207,6 +206,7 @@ export class MetadataSchemaComponent implements OnInit {
   }
   ngOnDestroy(): void {
     this.paginationService.clearPagination(this.config.id);
+    this.registryService.deselectAllMetadataField();
   }
 
 }

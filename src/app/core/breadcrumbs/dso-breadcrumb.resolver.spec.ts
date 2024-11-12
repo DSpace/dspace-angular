@@ -18,7 +18,10 @@ describe('DSOBreadcrumbResolver', () => {
       uuid = '1234-65487-12354-1235';
       breadcrumbUrl = '/collections/' + uuid;
       currentUrl = breadcrumbUrl + '/edit';
-      testCollection = Object.assign(new Collection(), { uuid });
+      testCollection = Object.assign(new Collection(), {
+        uuid: uuid,
+        type: 'collection',
+      });
       dsoBreadcrumbService = {};
       collectionService = {
         findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection)

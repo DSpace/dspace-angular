@@ -125,13 +125,19 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
       case 403:
         this.notificationService.warning(
           null,
-          this.translate.instant('item.page.context-menu.options.request-correction.error.403')
+          this.translate.instant('context-menu.actions.request-correction.error.403')
+        );
+        break;
+      case 422:
+        this.notificationService.warning(
+          null,
+          this.translate.instant('context-menu.actions.request-correction.error.422')
         );
         break;
       default :
         this.notificationService.error(
           null,
-          this.translate.instant('item.page.context-menu.options.request-correction.error.generic')
+          this.translate.instant('context-menu.actions.request-correction.error.generic')
         );
     }
   }

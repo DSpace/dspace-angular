@@ -15,4 +15,8 @@ export class RouterStub {
   serializeUrl(commands, navExtras = {}) {
     return '/testing-url';
   }
+
+  public setNavigateReturnValue(value = true) {
+    this.navigate.and.returnValue(Promise.resolve(value));
+  }
 }

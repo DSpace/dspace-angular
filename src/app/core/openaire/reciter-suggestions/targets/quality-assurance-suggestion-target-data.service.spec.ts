@@ -118,7 +118,7 @@ describe('QualityAssuranceSuggestionTargetDataService', () => {
     it('should proxy the call to searchData.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
-          new RequestParam('source', openaireSuggestionTargetScopusOne.source)
+          new RequestParam('source', openaireSuggestionTargetScopusOne.source, false)
         ]
       };
       service.getTargetsBySource('scopus');
@@ -145,7 +145,7 @@ describe('QualityAssuranceSuggestionTargetDataService', () => {
     it('should proxy the call to searchData.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
-          new RequestParam('target', 'gf3d657-9d6d-4a87-b905-fef0f8cae26')
+          new RequestParam('target', 'gf3d657-9d6d-4a87-b905-fef0f8cae26', false)
         ]
       };
       service.getTargetsByUser('gf3d657-9d6d-4a87-b905-fef0f8cae26');
