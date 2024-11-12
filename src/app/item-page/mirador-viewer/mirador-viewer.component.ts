@@ -1,4 +1,8 @@
-import { AsyncPipe, isPlatformBrowser, NgIf, } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -9,13 +13,19 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { map, take, } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../core/data/bundle-data.service';
 import { Item } from '../../core/shared/item.model';
-import { HostWindowService, WidthCategory, } from '../../shared/host-window.service';
+import {
+  HostWindowService,
+  WidthCategory,
+} from '../../shared/host-window.service';
 import { SafeUrlPipe } from '../../shared/utils/safe-url-pipe';
 import { MiradorViewerService } from './mirador-viewer.service';
 

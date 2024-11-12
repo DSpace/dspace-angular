@@ -19,7 +19,7 @@ import {
   getDSpaceQuery,
   isIiifEnabled,
   isIiifSearchEnabled,
-} from './item-iiif-utils'
+} from './item-iiif-utils';
 
 @Component({
   selector: 'ds-item',
