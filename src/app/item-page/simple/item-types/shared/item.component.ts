@@ -19,7 +19,7 @@ import {
   getDSpaceQuery,
   isIiifEnabled,
   isIiifSearchEnabled,
-} from './item-iiif-utils';
+} from './item-iiif-utils'
 
 @Component({
   selector: 'ds-item',
@@ -105,7 +105,7 @@ export class ItemComponent implements OnInit {
     this.iiifEnabled = isIiifEnabled(this.object);
     this.iiifSearchEnabled = isIiifSearchEnabled(this.object);
     if (this.iiifSearchEnabled) {
-      this.iiifQuery$ = getDSpaceQuery(this.object, this.routeService);
+      this.iiifQuery$ = getDSpaceQuery(this.routeService);
     }
   }
 }

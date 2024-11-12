@@ -78,9 +78,10 @@ import {
   compareArraysUsingIds,
 } from './item-relationships-utils';
 
+
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
-    'value': enabled,
+    'value': enabled.toString(),
     'language': null,
     'authority': null,
     'confidence': -1,
@@ -90,7 +91,7 @@ export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
 
 export function getIIIFEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
-    'value': enabled,
+    'value': enabled.toString(),
     'language': null,
     'authority': null,
     'confidence': -1,

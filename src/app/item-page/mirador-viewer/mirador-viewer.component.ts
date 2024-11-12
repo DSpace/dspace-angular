@@ -1,38 +1,22 @@
-import {
-  AsyncPipe,
-  isPlatformBrowser,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, NgIf, } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Inject,
   Input,
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import {
-  DomSanitizer,
-  SafeResourceUrl,
-} from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+import { map, take, } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../core/data/bundle-data.service';
 import { Item } from '../../core/shared/item.model';
-import {
-  HostWindowService,
-  WidthCategory,
-} from '../../shared/host-window.service';
+import { HostWindowService, WidthCategory, } from '../../shared/host-window.service';
+import { SafeUrlPipe } from '../../shared/utils/safe-url-pipe';
 import { MiradorViewerService } from './mirador-viewer.service';
 
 @Component({
@@ -44,6 +28,7 @@ import { MiradorViewerService } from './mirador-viewer.service';
     TranslateModule,
     AsyncPipe,
     NgIf,
+    SafeUrlPipe,
   ],
   standalone: true,
 })
@@ -69,7 +54,7 @@ export class MiradorViewerComponent implements OnInit {
   /**
    * The url for the iframe.
    */
-  iframeViewerUrl: Observable<SafeResourceUrl>;
+  iframeViewerUrl: string;
 
   /**
    * Sets the viewer to show or hide thumbnail side navigation menu.
@@ -83,11 +68,11 @@ export class MiradorViewerComponent implements OnInit {
 
   viewerMessage = 'Sorry, the Mirador viewer is not currently available in development mode.';
 
-  constructor(private sanitizer: DomSanitizer,
-              private viewerService: MiradorViewerService,
+  constructor(private viewerService: MiradorViewerService,
               private bitstreamDataService: BitstreamDataService,
               private bundleDataService: BundleDataService,
               private hostWindowService: HostWindowService,
+              private changeDetectorRef: ChangeDetectorRef,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
@@ -96,6 +81,7 @@ export class MiradorViewerComponent implements OnInit {
    * or  multi-page thumbnail navigation.
    */
   setURL() {
+
     // The path to the REST manifest endpoint.
     const manifestApiEndpoint = encodeURIComponent(environment.rest.baseUrl + '/iiif/'
       + this.object.id + '/manifest');
@@ -103,23 +89,24 @@ export class MiradorViewerComponent implements OnInit {
     let viewerPath = `${environment.ui.nameSpace}${environment.ui.nameSpace.length > 1 ? '/' : ''}`
       + `iiif/mirador/index.html?manifest=${manifestApiEndpoint}`;
     if (this.searchable) {
-      // Tell the viewer add search to menu.
+      // Tells the viewer add search to menu.
       viewerPath += '&searchable=' + this.searchable;
     }
     if (this.query) {
-      // Tell the viewer to execute a search for the query term.
+      // Tells the viewer to execute a Content API search for the query term.
+      // The query term was previously obtained from the Angular RouteService.
       viewerPath += '&query=' + this.query;
     }
     if (this.multi) {
-      // Tell the viewer to add thumbnail navigation. If searchable, thumbnail navigation is added by default.
+      // Tells the viewer to add thumbnail navigation. If searchable, thumbnail navigation is added by default.
       viewerPath += '&multi=' + this.multi;
     }
     if (this.notMobile) {
       viewerPath += '&notMobile=true';
     }
+    this.iframeViewerUrl = viewerPath;
+    this.changeDetectorRef.detectChanges();
 
-    // TODO: Should the query term be trusted here?
-    return this.sanitizer.bypassSecurityTrustResourceUrl(viewerPath);
   }
 
   ngOnInit(): void {
@@ -140,22 +127,14 @@ export class MiradorViewerComponent implements OnInit {
           this.notMobile = !(category === WidthCategory.XS || category === WidthCategory.SM);
         });
 
-      // Set the multi property. The default mirador configuration adds a right
-      // thumbnail navigation panel to the viewer when multi is 'true'.
-
       // Set the multi property to 'true' if the item is searchable.
       if (this.searchable) {
         this.multi = true;
-        const observable = of('');
-        this.iframeViewerUrl = observable.pipe(
-          map((val) => {
-            return this.setURL();
-          }),
-        );
+        this.setURL();
       } else {
         // Set the multi property based on the image count in IIIF-eligible bundles.
         // Any count greater than 1 sets the value to 'true'.
-        this.iframeViewerUrl = this.viewerService.getImageCount(
+        this.viewerService.getImageCount(
           this.object,
           this.bitstreamDataService,
           this.bundleDataService).pipe(
@@ -163,9 +142,9 @@ export class MiradorViewerComponent implements OnInit {
             if (c > 1) {
               this.multi = true;
             }
-            return this.setURL();
+            this.setURL();
           }),
-        );
+        ).subscribe();
       }
     }
   }
