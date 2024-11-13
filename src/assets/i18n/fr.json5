@@ -790,11 +790,20 @@
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "En traitement",
 
+  //"admin.workflow.item.workspace": "Workspace",
+  "admin.workflow.item.workspace": "Dépôts en cours",
+
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Supprimer",
 
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Retourner au déposant",
+
+  //"admin.workflow.item.policies": "Policies",
+  "admin.workflow.item.policies": "Politiques",
+
+  // "admin.workflow.item.supervision": "Supervision",
+  "admin.workflow.item.supervision": "Supervision",
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   "admin.metadata-import.breadcrumbs": "Importer Métadonnées",
@@ -1435,6 +1444,12 @@
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Collection",
 
+  // "collection.logo": "Collection logo",
+  "collection.logo": "Logo de la collection",
+
+  // "collection.page.browse.search.head": "Search",
+  "collection.page.browse.search.head": "Chercher",
+
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Dépôts récents",
 
@@ -1452,6 +1467,9 @@
 
   // "collection.page.news": "News",
   "collection.page.news": "Nouvelles",
+
+  // "collection.search.results.head": "Search Results",
+  "collection.search.results.head": "Résultats de recherche",
 
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Confirmer la sélection",
@@ -1755,6 +1773,9 @@
 
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Sous-communautés et collections",
+
+  //"community.search.results.head": "Search Results",
+  "community.search.results.head": "Résultats de recherche",
 
   // "community.sub-collection-list.head": "Collections of this Community",
   "community.sub-collection-list.head": "Collections au sein de cette communauté",
@@ -3169,6 +3190,12 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Créer une nouvelle version",
 
+  //"item.page.withdrawn": "Request a withdrawal for this item",
+  "item.page.withdrawn": "Demander le retrait de cet Item",
+
+  //"item.page.reinstate": "Request reinstatement",
+  "item.page.reinstate": "Demander la réintégration de cet Item",
+
   // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Une nouvelle version ne peut être créée car il y a une soumission en cours dans l'historique des versions",
 
@@ -3729,6 +3756,15 @@
 
   // "menu.section.new_process": "Process",
   "menu.section.new_process": "Processus",
+
+  //"menu.section.notifications": "Notifications",
+  "menu.section.notifications": "Notifications",
+
+  //"menu.section.quality-assurance": "Quality Assurance",
+  "menu.section.quality-assurance": "Assurance qualité",
+
+  //"menu.section.notifications_publication-claim": "Publication Claim",
+  "menu.section.notifications_publication-claim": "Réclamation de publication",
 
   // "menu.section.pin": "Pin sidebar",
   "menu.section.pin": "Épingler le menu latéral",
@@ -6068,8 +6104,89 @@
   // "submission.workspace.generic.view": "View",
   "submission.workspace.generic.view": "Afficher",
 
-  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  //"submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workspace.generic.view-help": "Sélectionner cette option pour afficher les métadonnées de l'item.",
+
+  //"submitter.empty": "N/A",
+  "submitter.empty": "S/O",
+
+  //"subscriptions.modal.title": "Subscriptions",
+  "subscriptions.modal.title": "Abonnements",
+
+  //"subscriptions.modal.type-frequency": "Type and frequency",
+  "subscriptions.modal.type-frequency": "Type et fréquence",
+
+  //"subscriptions.modal.close": "Close",
+  "subscriptions.modal.close": "Fermer",
+
+  //"subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+  "subscriptions.modal.delete-info": "Pour vous désabonner, visitez la page Abonnements dans votre profil utilisateur",
+
+  //"subscriptions.modal.new-subscription-form.type.content": "Content",
+  "subscriptions.modal.new-subscription-form.type.content": "Contenu",
+
+  //"subscriptions.modal.new-subscription-form.frequency.D": "Daily",
+  "subscriptions.modal.new-subscription-form.frequency.D": "Quotidienne",
+
+  //"subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+  "subscriptions.modal.new-subscription-form.frequency.W": "Hebdomadaire",
+
+  //"subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+  "subscriptions.modal.new-subscription-form.frequency.M": "Mensuelle",
+
+  //"subscriptions.tooltip": "Subscribe",
+  "subscriptions.tooltip": "S'abonner",
+
+  //"subscriptions.modal.new-subscription-form.submit": "Submit",
+  "subscriptions.modal.new-subscription-form.submit": "Soumettre",
+
+  //"subscriptions.modal.new-subscription-form.processing": "Processing...",
+  "subscriptions.modal.new-subscription-form.processing": "En traitement...",
+
+  //"subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+  "subscriptions.modal.create.success": "Abonnement à {{ type }} réussi.",
+
+  //"subscriptions.modal.delete.success": "Subscription deleted successfully",
+  "subscriptions.modal.delete.success": "L'abonnement a été résilié avec succès",
+
+  //"subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+  "subscriptions.modal.update.success": "L'abonnement à {{ type }} a été mis à jour avec succès",
+
+  //"subscriptions.modal.create.error": "An error occurs during the subscription creation",
+  "subscriptions.modal.create.error": "Une erreur s'est produite lors de la création de l'abonnement",
+
+  //"subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+  "subscriptions.modal.delete.error": "Une erreur s'est produite lors de la résiliation de l'abonnement",
+
+  //"subscriptions.modal.update.error": "An error occurs during the subscription update",
+  "subscriptions.modal.update.error": "Une erreur s'est produite lors de la mise à jour de l'abonnement",
+
+  //"subscriptions.table.dso": "Subject",
+  "subscriptions.table.dso": "Sujet",
+
+  //"subscriptions.table.subscription_type": "Subscription Type",
+  "subscriptions.table.subscription_type": "Type d'abonnement",
+
+  //"subscriptions.table.subscription_frequency": "Subscription Frequency",
+  "subscriptions.table.subscription_frequency": "Fréquence",
+
+  //"subscriptions.table.action": "Action",
+  "subscriptions.table.action": "Action",
+
+  //"subscriptions.table.edit": "Edit",
+  "subscriptions.table.edit": "Éditer",
+
+  //"subscriptions.table.delete": "Delete",
+  "subscriptions.table.delete": "Supprimer",
+
+  //"subscriptions.table.not-available": "Not available",
+  "subscriptions.table.not-available": "Indisponible",
+
+  //"subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+  "subscriptions.table.not-available-message": "L'Item auquel vous étiez abonné a été supprimé, ou vous n'êtes pas autorisé à le consulter.",
+
+  //"subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  "subscriptions.table.empty.message": "Vous n'avez aucun abonnement. Pour vous abonnez à des mises à jour par courriel pour une commmunauté ou une collection, utilisez le bouton d'abonnement sur la page de l'Item.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Vignette d'image",
@@ -6607,6 +6724,12 @@
   //"person.orcid.registry.auth": "ORCID Authorizations",
   "person.orcid.registry.auth": "Autorisation ORCID",
 
+  //"home.recent-submissions.head": "Recent Submissions",
+  "home.recent-submissions.head": "Dépôts récents",
+
+  //"listable-notification-object.default-message": "This object couldn't be retrieved",
+  "listable-notification-object.default-message": "Cet objet n'a pas été trouvé.",
+
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
   "system-wide-alert-banner.retrieval.error": "Une erreur s'est produite lors de la récupération de la bannière du message d'avertissement",
 
@@ -6621,8 +6744,6 @@
 
   // "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
   "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
-
-
 
   // "menu.section.system-wide-alert": "System-wide Alert",
   "menu.section.system-wide-alert": "Messages d'avertissement",
