@@ -17,6 +17,8 @@ import miradorSharePlugin from 'mirador-share-plugin/es/miradorSharePlugin';
 import miradorDownloadPlugin from 'mirador-dl-plugin/es/miradorDownloadPlugin';
 import miradorDownloadDialog from 'mirador-dl-plugin/es/MiradorDownloadDialog';
 
+const MANIFEST_URL_PART = /\/manifest$/;
+
 const embedURL = location.href;
 const params = new URLSearchParams(location.search);
 const manifest = params.get('manifest');
@@ -25,6 +27,7 @@ const query = params.get('query');
 const multi = params.get('multi');
 const notMobile = params.get('notMobile');
 const isDownloadPluginEnabled = (params.get('enableDownloadPlugin') === 'true');
+const canvasId = params.get('canvasId');
 
 let windowSettings = {};
 let sideBarPanel = 'info';
@@ -56,6 +59,10 @@ windowSettings.manifestId = manifest;
       }
     }
   }
+  if (canvasId && canvasId !== 'null') {
+    windowSettings.canvasId =
+      `${(manifest.replace(MANIFEST_URL_PART, ''))}/canvas/${canvasId}`;
+  }
 })();
 
 let miradorConfiguration = {
@@ -64,7 +71,7 @@ let miradorConfiguration = {
     show: true
   },
   thumbnailNavigation: {
-    defaultPosition: thumbNavigation, // Which position for the thumbnail navigation to be be displayed. Other possible values are "far-bottom" or "far-right"
+    defaultPosition: thumbNavigation, // Which position for the thumbnail navigation to be displayed. Other possible values are "far-bottom" or "far-right"
     displaySettings: true, // Display the settings for this in WindowTopMenu
     height: 120, // height of entire ThumbnailNavigation area when position is "far-bottom"
     width: 100, // width of one canvas (doubled for book view) in ThumbnailNavigation area when position is "far-right"
@@ -89,9 +96,9 @@ let miradorConfiguration = {
           secondary: '#00BFFF',
         },
         search: {
-          default: { fillStyle: '#00BFFF', globalAlpha: 0.3 },
-          hovered: { fillStyle: '#00FFFF', globalAlpha: 0.3 },
-          selected: { fillStyle: '#ff0900', globalAlpha: 0.3 },
+          default: {fillStyle: '#00BFFF', globalAlpha: 0.3},
+          hovered: {fillStyle: '#00FFFF', globalAlpha: 0.3},
+          selected: {fillStyle: '#ff0900', globalAlpha: 0.3},
         },
       },
     },
@@ -147,10 +154,10 @@ let miradorConfiguration = {
     defaultSidebarPanelWidth: 230,
     switchCanvasOnSearch: true,
     views: [
-      { key: 'single', behaviors: ['individuals'] },
-      { key: 'book', behaviors: ['paged'] },
-      { key: 'scroll', behaviors: ['continuous'] },
-      { key: 'gallery' },
+      {key: 'single', behaviors: ['individuals']},
+      {key: 'book', behaviors: ['paged']},
+      {key: 'scroll', behaviors: ['continuous']},
+      {key: 'gallery'},
     ],
     panels: {
       info: true,

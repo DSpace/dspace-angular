@@ -6,7 +6,7 @@
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "मुझे होम पेज पर ले चलो",
 
-  // "401.unauthorized": "unauthorized",
+  // "401.unauthorized": "Unauthorized",
   "401.unauthorized": "अनधिकृत",
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
@@ -15,10 +15,10 @@
   // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "मुझे होम पेज पर ले चलो",
 
-  // "403.forbidden": "forbidden",
+  // "403.forbidden": "Forbidden",
   "403.forbidden": "वर्जित",
 
-  // "500.page-internal-server-error": "Service Unavailable",
+  // "500.page-internal-server-error": "Service unavailable",
   "500.page-internal-server-error": "सेवा उप्लब्ध् नहीं है",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
@@ -33,7 +33,7 @@
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "मुझे होम पेज पर ले जाएं",
 
-  // "404.page-not-found": "page not found",
+  // "404.page-not-found": "Page not found",
   "404.page-not-found": "पृष्ठ नहीं मिला",
 
   // "410.gone-handle": "This object is no longer available",
@@ -44,16 +44,16 @@
   // TODO New key - Add a translation
   "410.link.home-page": "Take me to the home page",
 
-  // "error-page.description.401": "unauthorized",
+  // "error-page.description.401": "Unauthorized",
   "error-page.description.401": "अनधिकृत",
 
-  // "error-page.description.403": "forbidden",
+  // "error-page.description.403": "Forbidden",
   "error-page.description.403": "अनधिकृत",
 
-  // "error-page.description.500": "Service Unavailable",
+  // "error-page.description.500": "Service unavailable",
   "error-page.description.500": "सेवा उप्लब्ध् नहीं है",
 
-  // "error-page.description.404": "page not found",
+  // "error-page.description.404": "Page not found",
   "error-page.description.404": "पृष्ठ नहीं मिला",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
@@ -252,7 +252,7 @@
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "असफलता",
 
-  // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
+  // "admin.registries.bitstream-formats.create.head": "Create bitstream format",
   "admin.registries.bitstream-formats.create.head": "बिटस्ट्रीम प्रारूप बनाएं",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
@@ -358,6 +358,10 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "नाम",
 
+  // "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+
   // "admin.registries.bitstream-formats.table.id": "ID",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.table.id": "ID",
@@ -379,6 +383,14 @@
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.title": "बिटस्ट्रीम प्रारूप रजिस्ट्री",
+
+  // "admin.registries.bitstream-formats.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.select": "Select",
+
+  // "admin.registries.bitstream-formats.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.deselect": "Deselect",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "मेटाडेटा रजिस्ट्री",
@@ -404,8 +416,20 @@
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   "admin.registries.metadata.schemas.no-items": "दिखाने के लिए कोई मेटाडेटा स्कीमा नहीं है।",
 
+  // "admin.registries.metadata.schemas.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.select": "Select",
+
+  // "admin.registries.metadata.schemas.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.deselect": "Deselect",
+
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "चयनित हटाएं",
+
+  // "admin.registries.metadata.schemas.table.selected": "Selected schemas",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "पहचान",
@@ -428,6 +452,14 @@
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "यह \"{{namespace}}\" के लिए मेटाडेटा स्कीमा है।",
 
+  // "admin.registries.schema.fields.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.select": "Select",
+
+  // "admin.registries.schema.fields.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.deselect": "Deselect",
+
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "स्कीमा मेटाडेटा फ़ील्ड",
 
@@ -439,6 +471,10 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": " फील्ड",
+
+  // "admin.registries.schema.fields.table.selected": "Selected metadata fields",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.selected": "Selected metadata fields",
 
   // "admin.registries.schema.fields.table.id": "ID",
   // TODO New key - Add a translation
@@ -579,7 +615,7 @@
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   "admin.access-control.epeople.search.scope.metadata": "मेटाडेटा",
 
-  // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  // "admin.access-control.epeople.search.scope.email": "Email (exact)",
   "admin.access-control.epeople.search.scope.email": "ईमेल (सटीक)",
 
   // "admin.access-control.epeople.search.button": "Search",
@@ -597,7 +633,7 @@
   // "admin.access-control.epeople.table.name": "Name",
   "admin.access-control.epeople.table.name": "नाम",
 
-  // "admin.access-control.epeople.table.email": "E-mail (exact)",
+  // "admin.access-control.epeople.table.email": "Email (exact)",
   "admin.access-control.epeople.table.email": "ईमेल (सटीक)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
@@ -627,10 +663,10 @@
   // "admin.access-control.epeople.form.lastName": "Last name",
   "admin.access-control.epeople.form.lastName": "उपनाम",
 
-  // "admin.access-control.epeople.form.email": "E-mail",
+  // "admin.access-control.epeople.form.email": "Email",
   "admin.access-control.epeople.form.email": "ईमेल",
 
-  // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  // "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
   "admin.access-control.epeople.form.emailHint": "वैध ई-मेल पता होना चाहिए",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
@@ -1197,13 +1233,13 @@
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "पहले फ़ाइल का चयन करें!",
 
-  // "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  // "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
 
-  // "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  // "admin.batch-import.page.error.addFile": "Select ZIP file first!",
   // TODO New key - Add a translation
-  "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  "admin.batch-import.page.error.addFile": "Select ZIP file first!",
 
   // "admin.metadata-import.page.toggle.upload": "Upload",
   // TODO New key - Add a translation
@@ -1456,7 +1492,6 @@
   "auth.messages.token-refresh-failed": "आपका सत्र टोकन रीफ़्रेश करना विफल रहा। कृपया फिर लॉगिन करें।",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}...",
-  // TODO Source message changed - Revise the translation
   "bitstream.download.page": "अब {{bitstream}} डाउनलोड हो रहा है...",
 
   // "bitstream.download.page.back": "Back",
@@ -1597,7 +1632,7 @@
   // "bitstream-request-a-copy.name.error": "The name is required",
   "bitstream-request-a-copy.name.error": "नाम आवश्यक है",
 
-  // "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  // "bitstream-request-a-copy.email.label": "Your email address *",
   "bitstream-request-a-copy.email.label": "आपका ईमेल पता *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
@@ -1878,6 +1913,10 @@
   // TODO New key - Add a translation
   "browse.startsWith.input": "Filter",
 
+  // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+  // TODO New key - Add a translation
+  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+
   // "browse.taxonomy.button": "Browse",
   // TODO New key - Add a translation
   "browse.taxonomy.button": "Browse",
@@ -1956,6 +1995,14 @@
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
   // TODO New key - Add a translation
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
+
+  // "collection.create.breadcrumbs": "Create collection",
+  // TODO New key - Add a translation
+  "collection.create.breadcrumbs": "Create collection",
+
+  // "collection.browse.logo": "Browse for a collection logo",
+  // TODO New key - Add a translation
+  "collection.browse.logo": "Browse for a collection logo",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "एक संग्रह बनाएं",
@@ -2223,8 +2270,9 @@
   // "collection.edit.template.breadcrumbs": "Item template",
   "collection.edit.template.breadcrumbs": "टेम्पलेट आइटम",
 
-  // "collection.edit.template.cancel": "Cancel",
-  "collection.edit.template.cancel": "रद्द करें",
+  // "collection.edit.template.back": "Back",
+  // TODO New key - Add a translation
+  "collection.edit.template.back": "Back",
 
   // "collection.edit.template.delete-button": "Delete",
   "collection.edit.template.delete-button": "हटाएं",
@@ -2315,6 +2363,10 @@
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "संग्रह",
 
+  // "collection.logo": "Collection logo",
+  // TODO New key - Add a translation
+  "collection.logo": "Collection logo",
+
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "हाल की प्रस्तुतियाँ",
 
@@ -2342,6 +2394,18 @@
 
   // "collection.select.empty": "No collections to show",
   "collection.select.empty": "दिखाने के लिए कोई संग्रह नहीं है",
+
+  // "collection.select.table.selected": "Selected collections",
+  // TODO New key - Add a translation
+  "collection.select.table.selected": "Selected collections",
+
+  // "collection.select.table.select": "Select collection",
+  // TODO New key - Add a translation
+  "collection.select.table.select": "Select collection",
+
+  // "collection.select.table.deselect": "Deselect collection",
+  // TODO New key - Add a translation
+  "collection.select.table.deselect": "Deselect collection",
 
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "शीर्षक",
@@ -2436,6 +2500,22 @@
   // "communityList.showMore": "Show More",
   "communityList.showMore": "और दिखाएं",
 
+  // "communityList.expand": "Expand {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.expand": "Expand {{ name }}",
+
+  // "communityList.collapse": "Collapse {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.collapse": "Collapse {{ name }}",
+
+  // "community.browse.logo": "Browse for a community logo",
+  // TODO New key - Add a translation
+  "community.browse.logo": "Browse for a community logo",
+
+  // "community.create.breadcrumbs": "Create Community",
+  // TODO New key - Add a translation
+  "community.create.breadcrumbs": "Create Community",
+
   // "community.create.head": "Create a Community",
   "community.create.head": "समुदाय बनाएं",
 
@@ -2496,10 +2576,10 @@
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "समुदाय चिन्ह",
 
-  // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+  // "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
   "community.edit.logo.notifications.add.error": "समुदाय का लोगो अपलोड करना विफल रहा। कृपया पुनः प्रयास करने से पहले सामग्री को सत्यापित करें।",
 
-  // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+  // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
   "community.edit.logo.notifications.add.success": "समुदाय का चिन्ह अपलोड करना सफल रहा|",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -2511,7 +2591,7 @@
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "community.edit.logo.notifications.delete.error.title": "चिन्ह हटाने में त्रुटि",
 
-  // "community.edit.logo.upload": "Drop a Community Logo to upload",
+  // "community.edit.logo.upload": "Drop a community logo to upload",
   "community.edit.logo.upload": "अपलोड करने के लिए समुदाय का चिन्ह छोड़ें",
 
   // "community.edit.notifications.success": "Successfully edited the Community",
@@ -2520,7 +2600,7 @@
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   "community.edit.notifications.unauthorized": "आपके पास यह परिवर्तन करने के विशेषाधिकार नहीं हैं",
 
-  // "community.edit.notifications.error": "An error occured while editing the Community",
+  // "community.edit.notifications.error": "An error occured while editing the community",
   "community.edit.notifications.error": "समुदाय संपादित करते समय एक त्रुटि हुई",
 
   // "community.edit.return": "Back",
@@ -2560,6 +2640,10 @@
 
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "समुदाय",
+
+  // "community.logo": "Community logo",
+  // TODO New key - Add a translation
+  "community.logo": "Community logo",
 
   // "comcol-role.edit.no-group": "None",
   "comcol-role.edit.no-group": "कोई भी नहीं",
@@ -2609,7 +2693,7 @@
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "डिफ़ॉल्ट बिटस्ट्रीम पठन पहुंच",
 
-  // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
   "comcol-role.edit.bitstream_read.description": "सामुदायिक प्रशासक उप-समुदाय या संग्रह बना सकते हैं, और उन उप-समुदायों या संग्रहों के लिए प्रबंधन या प्रबंधन सौंप सकते हैं। इसके अलावा, वे तय करते हैं कि कौन किसी भी उप-संग्रह में आइटम प्रस्तुत कर सकता है, आइटम मेटाडेटा (प्रस्तुति के बाद) संपादित कर सकता है, और अन्य संग्रहों (प्राधिकरण के अधीन) से मौजूदा आइटम जोड़ सकता है (मैप)।",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
@@ -2675,11 +2759,9 @@
   "community.all-lists.head": "उपसमुदाय और संग्रह",
 
   // "community.sub-collection-list.head": "Collections in this Community",
-  // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "इस समुदाय के संग्रह",
 
   // "community.sub-community-list.head": "Communities in this Community",
-  // TODO Source message changed - Revise the translation
   "community.sub-community-list.head": "इस समुदाय के समुदाय",
 
 
@@ -2739,9 +2821,13 @@
   // TODO New key - Add a translation
   "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
 
-  // "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  // "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
   // TODO New key - Add a translation
-  "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
+
+  // "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
+  // TODO New key - Add a translation
+  "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
 
   // "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
   // TODO New key - Add a translation
@@ -3168,7 +3254,6 @@
   "cris-layout.rendering.collections.load-more": "Load more",
 
   // "curation-task.task.checklinks.label": "Check Links in Metadata",
-  // TODO Source message changed - Revise the translation
   "curation-task.task.checklinks.label": "मेटाडेटा में लिंक जांचें",
 
   // "curation-task.task.noop.label": "NOOP",
@@ -3238,6 +3323,14 @@
 
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "आइटम अनुरोध को सफलतापूर्वक अस्वीकार कर दिया गया",
+
+  // "dropdown.clear": "Clear selection",
+  // TODO New key - Add a translation
+  "dropdown.clear": "Clear selection",
+
+  // "dropdown.clear.tooltip": "Clear the selected option",
+  // TODO New key - Add a translation
+  "dropdown.clear.tooltip": "Clear the selected option",
 
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "शीर्षकहीन",
@@ -3626,10 +3719,10 @@
   // "error.validation.required": "This field is required",
   "error.validation.required": "यह फ़ील्ड आवश्यक है",
 
-  // "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  // "error.validation.NotValidEmail": "This is not a valid email",
   "error.validation.NotValidEmail": "यह ई-मेल वैध ईमेल नहीं है",
 
-  // "error.validation.emailTaken": "This E-mail is already taken",
+  // "error.validation.emailTaken": "This email is already taken",
   "error.validation.emailTaken": "यह ई - मेल पहले ही लिया जा चुका हैं",
 
   // "error.validation.groupExists": "This group already exists",
@@ -3683,6 +3776,9 @@
   // TODO New key - Add a translation
   "event.listelement.badge": "Event",
 
+  // "event.page.titleprefix": "Event:",
+  // TODO New key - Add a translation
+  "event.page.titleprefix": "Event:",
 
   // "explore.browse-section.title": "Browse",
   // TODO New key - Add a translation
@@ -4019,6 +4115,10 @@
   // "feed.description": "Syndication feed",
   "feed.description": "सिंडिकेशन फ़ीड",
 
+  // "file-download-link.restricted": "Restricted bitstream",
+  // TODO New key - Add a translation
+  "file-download-link.restricted": "Restricted bitstream",
+
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "इस मद के लिए फ़ाइलें प्राप्त करने में त्रुटि",
 
@@ -4055,11 +4155,9 @@
   "footer.link.privacy-policy": "गोपनीयता नीति",
 
   // "footer.link.end-user-agreement": "End User Agreement",
-  // TODO Source message changed - Revise the translation
   "footer.link.end-user-agreement": "अंतिम उपयोगकर्ता समझौता",
 
   // "footer.link.feedback": "Send Feedback",
-  // TODO Source message changed - Revise the translation
   "footer.link.feedback": "प्रतिक्रिया भेजें",
 
   // "forgot-email.form.header": "Forgot Password",
@@ -4122,7 +4220,7 @@
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
   "forgot-password.form.label.passwordrepeat": "पुष्टि करने के लिए फिर से लिखें",
 
-  // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  // "forgot-password.form.error.empty-password": "Please enter a password in the boxes above.",
   "forgot-password.form.error.empty-password": "कृपया नीचे दिए गए बॉक्स में पासवर्ड दर्ज करें।",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
@@ -4337,6 +4435,14 @@
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "आइटम को नई स्थिति में छोड़ें",
 
+  // "form.number-picker.decrement": "Decrement {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.decrement": "Decrement {{field}}",
+
+  // "form.number-picker.increment": "Increment {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.increment": "Increment {{field}}",
+
   // "funding.listelement.badge": "Funding",
   // TODO New key - Add a translation
   "funding.listelement.badge": "Funding",
@@ -4354,7 +4460,6 @@
   "grant-deny-request-copy.email.back": "वापस",
 
   // "grant-deny-request-copy.email.message": "Optional additional message",
-  // TODO Source message changed - Revise the translation
   "grant-deny-request-copy.email.message": "संदेश",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
@@ -4403,7 +4508,6 @@
   "grant-request-copy.header": "दस्तावेज़ कॉपी अनुरोध प्रदान करें",
 
   // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
-  // TODO Source message changed - Revise the translation
   "grant-request-copy.intro": "यह संदेश अनुरोध के आवेदक को भेजा जाएगा। अनुरोधित दस्तावेज संलग्न किए जाएंगे।",
 
   // "grant-request-copy.success": "Successfully granted item request",
@@ -4413,16 +4517,13 @@
   "health.breadcrumbs": "स्वास्थ्य",
 
   // "health-page.heading": "Health",
-  // TODO New key - Add a translation
-  "health-page.heading": "Health",
+  "health-page.heading": "स्वास्थ्य",
 
   // "health-page.info-tab": "Info",
-  // TODO New key - Add a translation
-  "health-page.info-tab": "Info",
+  "health-page.info-tab": "जानकारी",
 
   // "health-page.status-tab": "Status",
-  // TODO New key - Add a translation
-  "health-page.status-tab": "Status",
+  "health-page.status-tab": "स्थिति",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   "health-page.error.msg": "स्वास्थ्य जांच सेवा अस्थायी रूप से अनुपलब्ध है",
@@ -4560,24 +4661,19 @@
   "info.feedback.email-label": "तुम्हारा ईमेल",
 
   // "info.feedback.create.success": "Feedback Sent Successfully!",
-  // TODO New key - Add a translation
-  "info.feedback.create.success": "Feedback Sent Successfully!",
+  "info.feedback.create.success": "फ़ीडबैक सफलतापूर्वक भेजा गया!",
 
   // "info.feedback.error.email.required": "A valid email address is required",
-  // TODO New key - Add a translation
-  "info.feedback.error.email.required": "A valid email address is required",
+  "info.feedback.error.email.required": "मान्य ईमेल पता जरूरी है",
 
   // "info.feedback.error.message.required": "A comment is required",
-  // TODO New key - Add a translation
-  "info.feedback.error.message.required": "A comment is required",
+  "info.feedback.error.message.required": "एक टिप्पणी आवश्यक है",
 
   // "info.feedback.page-label": "Page",
-  // TODO New key - Add a translation
-  "info.feedback.page-label": "Page",
+  "info.feedback.page-label": "पृष्ठ",
 
-  // "info.feedback.page_help": "Tha page related to your feedback",
-  // TODO New key - Add a translation
-  "info.feedback.page_help": "Tha page related to your feedback",
+  // "info.feedback.page_help": "The page related to your feedback",
+  "info.feedback.page_help": "आपकी प्रतिक्रिया से संबंधित पेज",
 
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "यह आइटम खोजने योग्य नहीं है",
@@ -4608,7 +4704,6 @@
   "item.bitstreams.upload.bundle.new": "बंडल बनाएं",
 
   // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
-  // TODO Source message changed - Revise the translation
   "item.bitstreams.upload.bundles.empty": "इस आइटम में बिटस्ट्रीम अपलोड करने के लिए कोई बंडल नहीं है।",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -4904,6 +4999,14 @@
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "रद्द करें",
 
+  // "item.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.language": "Edit language",
+
+  // "item.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.value": "Edit value",
+
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   // TODO New key - Add a translation
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
@@ -4950,6 +5053,10 @@
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "मान",
+
+  // "item.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "item.edit.metadata.metadatafield": "Edit field",
 
   // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   // TODO New key - Add a translation
@@ -5583,12 +5690,10 @@
   "item.page.bitstreams.collapse": "संक्षिप्त करें",
 
   // "item.page.filesection.original.bundle": "Original bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.original.bundle": "Original bundle",
+  "item.page.filesection.original.bundle": "मूल बंडल",
 
   // "item.page.filesection.license.bundle": "License bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.license.bundle": "License bundle",
+  "item.page.filesection.license.bundle": "लाइसेंस बंडल",
 
   // "item.page.return": "Back",
   "item.page.return": "वापस",
@@ -5596,7 +5701,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "नया संस्करण बनाएं",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "नया संस्करण नहीं बनाया जा सकता क्योंकि संस्करण इतिहास में एक प्रगतिशील प्रस्तुति है ",
 
   // "item.page.claim.button": "Claim",
@@ -5753,19 +5858,15 @@
   "item.preview.dc.type": "Type:",
 
   // "item.preview.oaire.citation.issue": "Issue",
-  // TODO New key - Add a translation
-  "item.preview.oaire.citation.issue": "Issue",
+  "item.preview.oaire.citation.issue": "अंक",
 
   // "item.preview.oaire.citation.volume": "Volume",
-  // TODO New key - Add a translation
-  "item.preview.oaire.citation.volume": "Volume",
+  "item.preview.oaire.citation.volume": "खंड",
 
   // "item.preview.dc.relation.issn": "ISSN",
-  // TODO New key - Add a translation
   "item.preview.dc.relation.issn": "ISSN",
 
   // "item.preview.dc.identifier.isbn": "ISBN",
-  // TODO New key - Add a translation
   "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
@@ -5773,16 +5874,13 @@
   "item.preview.dc.identifier": "Identifier:",
 
   // "item.preview.dc.relation.ispartof": "Journal or Series",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartof": "Journal or Series",
+  "item.preview.dc.relation.ispartof": "पत्रिका या श्रृंखला",
 
   // "item.preview.dc.identifier.doi": "DOI",
-  // TODO New key - Add a translation
-  "item.preview.dc.identifier.doi": "DOI",
+  "item.preview.dc.identifier.doi": "डीओआई (DOI)",
 
   // "item.preview.dc.title.alternative": "Alternative Title",
-  // TODO New key - Add a translation
-  "item.preview.dc.title.alternative": "Alternative Title",
+  "item.preview.dc.title.alternative": "परिवर्णी शब्द:",
 
   // "item.preview.dc.type.version": "Version",
   // TODO New key - Add a translation
@@ -5917,6 +6015,18 @@
   // "item.select.empty": "No items to show",
   "item.select.empty": "दिखाने के लिए कोई आइटम नहीं है",
 
+  // "item.select.table.selected": "Selected items",
+  // TODO New key - Add a translation
+  "item.select.table.selected": "Selected items",
+
+  // "item.select.table.select": "Select item",
+  // TODO New key - Add a translation
+  "item.select.table.select": "Select item",
+
+  // "item.select.table.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "item.select.table.deselect": "Deselect item",
+
   // "item.select.table.author": "Author",
   "item.select.table.author": "लेखक",
 
@@ -5983,7 +6093,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "संस्करण हटाएं",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "एक नया संस्करण नहीं बनाया जा सकता क्योंकि संस्करण इतिहास में एक प्रगतिशील प्रस्तुति है",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -6023,16 +6133,13 @@
   "item.version.create.modal.submitted.text": "नया संस्करण बनाया जा रहा है। यदि आइटम में बहुत अधिक संबंध हैं तो इसमें कुछ समय लग सकता है।",
 
   // "item.version.create.notification.success": "New version has been created with version number {{version}}",
-  // TODO New key - Add a translation
-  "item.version.create.notification.success": "New version has been created with version number {{version}}",
+  "item.version.create.notification.success": "संस्करण संख्या {{version}} के साथ नया संस्करण बनाया गया है",
 
   // "item.version.create.notification.failure": "New version has not been created",
-  // TODO New key - Add a translation
-  "item.version.create.notification.failure": "New version has not been created",
+  "item.version.create.notification.failure": "नया संस्करण नहीं बनाया गया है",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
-  // TODO New key - Add a translation
-  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
+  "item.version.create.notification.inProgress": "एक नया संस्करण नहीं बनाया जा सकता क्योंकि संस्करण इतिहास में एक प्रगतिशील प्रस्तुति है",
 
   // "item.version.delete.modal.header": "Delete version",
   "item.version.delete.modal.header": "संस्करण हटाएं",
@@ -6053,20 +6160,16 @@
   "item.version.delete.modal.button.cancel.tooltip": "इस संस्करण को न हटाएं",
 
   // "item.version.delete.notification.success": "Version number {{version}} has been deleted",
-  // TODO New key - Add a translation
-  "item.version.delete.notification.success": "Version number {{version}} has been deleted",
+  "item.version.delete.notification.success": "संस्करण संख्या {{version}} हटा दिया गया है",
 
   // "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
-  // TODO New key - Add a translation
-  "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
+  "item.version.delete.notification.failure": "संस्करण संख्या {{version}} को हटाया नहीं गया है",
 
   // "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
-  // TODO New key - Add a translation
-  "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
+  "item.version.edit.notification.success": "संस्करण संख्या {{version}} का सारांश बदल दिया गया है",
 
   // "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
-  // TODO New key - Add a translation
-  "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
+  "item.version.edit.notification.failure": "संस्करण संख्या {{version}} का सारांश नहीं बदला गया है",
 
   // "item-export.modal-launcher.single.btn": "Export",
   // TODO New key - Add a translation
@@ -6148,6 +6251,14 @@
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.discard-button": "Discard",
 
+  // "itemtemplate.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.language": "Edit language",
+
+  // "itemtemplate.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.value": "Edit value",
+
   // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
@@ -6191,6 +6302,14 @@
   // "itemtemplate.edit.metadata.headers.value": "Value",
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.headers.value": "Value",
+
+  // "itemtemplate.edit.metadata.headers.authority": "Authority",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
+
+  // "itemtemplate.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
   // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   // TODO New key - Add a translation
@@ -6528,6 +6647,10 @@
   // TODO New key - Add a translation
   "manage.relationships.hidden-related-items-alert": "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
 
+
+  // "menu.header.nav.description": "Admin navigation bar",
+  // TODO New key - Add a translation
+  "menu.header.nav.description": "Admin navigation bar",
 
   // "menu.header.admin": "Management",
   "menu.header.admin": "प्रबंधन",
@@ -6994,20 +7117,20 @@
   // "mydspace.results.no-title": "No title",
   "mydspace.results.no-title": "कोई शीर्षक नहीं",
 
-  // "mydspace.results.no-uri": "No Uri",
+  // "mydspace.results.no-uri": "No URI",
   "mydspace.results.no-uri": "Uri नहीं है",
 
   // "mydspace.results.is-correction": "Is a request of correction",
   // TODO New key - Add a translation
   "mydspace.results.is-correction": "Is a request of correction",
 
-  // "mydspace.search-form.placeholder": "Search in mydspace...",
+  // "mydspace.search-form.placeholder": "Search in MyDSpace...",
   "mydspace.search-form.placeholder": "मेरे डीस्पेस में खोजें...",
 
   // "mydspace.show.workflow": "Workflow tasks",
   "mydspace.show.workflow": "कार्यप्रवाह कार्य",
 
-  // "mydspace.show.workspace": "Your Submissions",
+  // "mydspace.show.workspace": "Your submissions",
   "mydspace.show.workspace": "आपकी प्रस्तुतियां",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
@@ -7019,23 +7142,18 @@
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
   // "mydspace.status.mydspaceArchived": "Archived",
-  // TODO Source message changed - Revise the translation
   "mydspace.status.mydspaceArchived": "संग्रहीत",
 
   // "mydspace.status.mydspaceValidation": "Validation",
-  // TODO Source message changed - Revise the translation
   "mydspace.status.mydspaceValidation": "सत्यापन",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
-  // TODO Source message changed - Revise the translation
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "नियंत्रक की प्रतीक्षा कर रहा है",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
-  // TODO Source message changed - Revise the translation
   "mydspace.status.mydspaceWorkflow": "कार्यप्रवाह",
 
   // "mydspace.status.mydspaceWorkspace": "Workspace",
-  // TODO Source message changed - Revise the translation
   "mydspace.status.mydspaceWorkspace": "कार्यस्थान",
 
   // "mydspace.title": "MyDSpace",
@@ -7069,6 +7187,10 @@
   "mydspace.notification.suggestion.page": "We found <b>{{count}} {{type}}</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
 
 
+  // "nav.expandable-navbar-section-suffix": "(submenu)",
+  // TODO New key - Add a translation
+  "nav.expandable-navbar-section-suffix": "(submenu)",
+
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "सम्पूर्ण डीस्पेस",
 
@@ -7085,9 +7207,9 @@
   // "nav.login": "Log In",
   "nav.login": "लॉग इन करें",
 
-  // "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  // "nav.user-profile-menu-and-logout": "User profile menu and log out",
   // TODO New key - Add a translation
-  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "User profile menu and log out",
 
   // "nav.logout": "Log Out",
   "nav.logout": "उपयोगकर्ता प्रोफ़ाइल मेनू और लॉग आउट",
@@ -7097,6 +7219,10 @@
 
   // "nav.mydspace": "MyDSpace",
   "nav.mydspace": "मेरा डीस्पेस",
+
+  // "nav.processes": "My Processes",
+  // TODO New key - Add a translation
+  "nav.processes": "My Processes",
 
   // "nav.profile": "Profile",
   "nav.profile": "प्रोफ़ाइल",
@@ -7119,12 +7245,10 @@
   "nav.subscriptions": "Subscriptions",
 
   // "nav.toggle": "Toggle navigation",
-  // TODO New key - Add a translation
-  "nav.toggle": "Toggle navigation",
+  "nav.toggle": "नेविगेशन टॉगल करें",
 
   // "nav.user.description": "User profile bar",
-  // TODO New key - Add a translation
-  "nav.user.description": "User profile bar",
+  "nav.user.description": "उपयोगकर्ता प्रोफ़ाइल बार",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "आइटम",
@@ -7531,6 +7655,10 @@
   // TODO New key - Add a translation
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
+  // "orgunit.search.results.head": "Organizational Unit Search Results",
+  // TODO New key - Add a translation
+  "orgunit.search.results.head": "Organizational Unit Search Results",
+
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "पृष्ठांकन के विकल्प",
 
@@ -7598,6 +7726,22 @@
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "मापदंड",
 
+  // "process.new.select-parameter": "Select parameter",
+  // TODO New key - Add a translation
+  "process.new.select-parameter": "Select parameter",
+
+  // "process.new.add-parameter": "Add a parameter...",
+  // TODO New key - Add a translation
+  "process.new.add-parameter": "Add a parameter...",
+
+  // "process.new.delete-parameter": "Delete parameter",
+  // TODO New key - Add a translation
+  "process.new.delete-parameter": "Delete parameter",
+
+  // "process.new.parameter.label": "Parameter value",
+  // TODO New key - Add a translation
+  "process.new.parameter.label": "Parameter value",
+
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "रद्द करें",
 
@@ -7656,6 +7800,14 @@
   // TODO New key - Add a translation
   "process.new.notification.process.files": "Output Files: ",
 
+  // "process.new.notification.process.status.completed": "Completed",
+  // TODO New key - Add a translation
+  "process.new.notification.process.status.completed": "Completed",
+
+  // "process.new.notification.process.status.failed": "Failed",
+  // TODO New key - Add a translation
+  "process.new.notification.process.status.failed": "Failed",
+
   // "process.new.header": "Create a new process",
   "process.new.header": "नई प्रक्रिया बनाएं",
 
@@ -7666,20 +7818,16 @@
   "process.new.breadcrumbs": "नई प्रक्रिया बनाएं",
 
   // "process.detail.arguments": "Arguments",
-  // TODO New key - Add a translation
-  "process.detail.arguments": "Arguments",
+  "process.detail.arguments": "बहस",
 
   // "process.detail.arguments.empty": "This process doesn't contain any arguments",
-  // TODO New key - Add a translation
-  "process.detail.arguments.empty": "This process doesn't contain any arguments",
+  "process.detail.arguments.empty": "इस प्रक्रिया में कोई तर्क नहीं है",
 
   // "process.detail.back": "Back",
-  // TODO New key - Add a translation
-  "process.detail.back": "Back",
+  "process.detail.back": "वापस",
 
   // "process.detail.output": "Process Output",
-  // TODO New key - Add a translation
-  "process.detail.output": "Process Output",
+  "process.detail.output": "प्रक्रिया उत्पाद",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "प्रक्रिया उत्पाद प्राप्त करें ",
@@ -7691,36 +7839,29 @@
   "process.detail.logs.none": "इस प्रक्रिया का कोई उत्पादन नहीं है",
 
   // "process.detail.output-files": "Output Files",
-  // TODO New key - Add a translation
-  "process.detail.output-files": "Output Files",
+  "process.detail.output-files": "आउटपुट फ़ाइलें",
 
   // "process.detail.output-files.empty": "This process doesn't contain any output files",
-  // TODO New key - Add a translation
-  "process.detail.output-files.empty": "This process doesn't contain any output files",
+  "process.detail.output-files.empty": "इस प्रक्रिया में कोई फाइल उत्पादित नहीं हुई है",
 
   // "process.detail.script": "Script",
-  // TODO New key - Add a translation
-  "process.detail.script": "Script",
+  "process.detail.script": "स्क्रिप्ट",
 
   // "process.detail.title": "Process: {{ id }} - {{ name }}",
   // TODO New key - Add a translation
   "process.detail.title": "Process: {{ id }} - {{ name }}",
 
   // "process.detail.start-time": "Start time",
-  // TODO New key - Add a translation
-  "process.detail.start-time": "Start time",
+  "process.detail.start-time": "प्रारंभ समय",
 
   // "process.detail.end-time": "Finish time",
-  // TODO New key - Add a translation
-  "process.detail.end-time": "Finish time",
+  "process.detail.end-time": "समाप्ति समय",
 
   // "process.detail.status": "Status",
-  // TODO New key - Add a translation
-  "process.detail.status": "Status",
+  "process.detail.status": "स्थिति",
 
   // "process.detail.create": "Create similar process",
-  // TODO New key - Add a translation
-  "process.detail.create": "Create similar process",
+  "process.detail.create": "समान प्रक्रिया बनाएं",
 
   // "process.detail.actions": "Actions",
   // TODO New key - Add a translation
@@ -7763,28 +7904,22 @@
   "process.overview.delete.success": "Process deleted with success",
 
   // "process.overview.table.finish": "Finish time (UTC)",
-  // TODO New key - Add a translation
-  "process.overview.table.finish": "Finish time (UTC)",
+  "process.overview.table.finish": "समाप्ति समय (UTC)",
 
   // "process.overview.table.id": "Process ID",
-  // TODO New key - Add a translation
-  "process.overview.table.id": "Process ID",
+  "process.overview.table.id": "प्रक्रिया पहचान क्रमांक",
 
   // "process.overview.table.name": "Name",
-  // TODO New key - Add a translation
-  "process.overview.table.name": "Name",
+  "process.overview.table.name": "नाम",
 
   // "process.overview.table.start": "Start time (UTC)",
-  // TODO New key - Add a translation
-  "process.overview.table.start": "Start time (UTC)",
+  "process.overview.table.start": "प्रारंभ समय (UTC)",
 
   // "process.overview.table.status": "Status",
-  // TODO New key - Add a translation
-  "process.overview.table.status": "Status",
+  "process.overview.table.status": "स्थिति",
 
   // "process.overview.table.user": "User",
-  // TODO New key - Add a translation
-  "process.overview.table.user": "User",
+  "process.overview.table.user": "उपयोगकर्ता",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "प्रक्रिया अवलोकन",
@@ -7802,6 +7937,10 @@
   // "process.overview.delete": "Delete {{count}} processes",
   // TODO New key - Add a translation
   "process.overview.delete": "Delete {{count}} processes",
+
+  // "process.overview.delete-process": "Delete process",
+  // TODO New key - Add a translation
+  "process.overview.delete-process": "Delete process",
 
   // "process.overview.delete.clear": "Clear delete selection",
   // TODO New key - Add a translation
@@ -7921,9 +8060,6 @@
 
   // "profile.special.groups.head": "Authorization special groups you belong to",
   "profile.special.groups.head": "विशेष समूह प्राधिकरण जिनसे आप संबंधित हैं",
-
-  // "profile.head": "Update Profile",
-  "profile.head": "प्रोफ़ाइल को नवीनतम बनाएं",
 
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   "profile.metadata.form.error.firstname.required": "पहला नाम आवश्यक है",
@@ -8302,9 +8438,11 @@
   "repository.image.logo": "संग्राहलय चिन्ह",
 
   // "repository.title": "{{ repositoryName }}",
+  // TODO New key - Add a translation
   "repository.title": "{{ repositoryName }}",
 
   // "repository.title.prefix": "{{ repositoryName }} Angular :: ",
+  // TODO New key - Add a translation
   "repository.title.prefix": "{{ repositoryName }} Angular :: ",
 
   // "resource-policies.add.button": "Add",
@@ -8428,6 +8566,10 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "नाम",
 
+  // "resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "नीति प्रकार चुनें",
 
@@ -8457,6 +8599,22 @@
 
   // "resource-policies.table.headers.group": "Group",
   "resource-policies.table.headers.group": "समूह",
+
+  // "resource-policies.table.headers.select-all": "Select all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select-all": "Select all",
+
+  // "resource-policies.table.headers.deselect-all": "Deselect all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect-all": "Deselect all",
+
+  // "resource-policies.table.headers.select": "Select",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select": "Select",
+
+  // "resource-policies.table.headers.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect": "Deselect",
 
   // "resource-policies.table.headers.id": "ID",
   "resource-policies.table.headers.id": "पहचान",
@@ -8500,6 +8658,10 @@
 
   // "search.search-form.placeholder": "Search the repository ...",
   "search.search-form.placeholder": "संग्रहालय में खोजें ...",
+
+  // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  // TODO New key - Add a translation
+  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "लेखक",
@@ -9030,9 +9192,9 @@
   // TODO New key - Add a translation
   "search.filters.namedresourcetype.Validation": "Validation",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
   // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
 
   // "search.filters.namedresourcetype.Workflow": "Workflow",
   // TODO New key - Add a translation
@@ -9064,7 +9226,6 @@
   "search.form.search_dspace": "सम्पूर्ण संग्रहालय",
 
   // "search.form.scope.all": "All items",
-  // TODO Source message changed - Revise the translation
   "search.form.scope.all": "सम्पूर्ण डीस्पेस",
 
   // "search.results.head": "Search Results",
@@ -9159,6 +9320,14 @@
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "सूची के रूप में दिखाएं",
+
+  // "selectable-list-item-control.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.deselect": "Deselect item",
+
+  // "selectable-list-item-control.select": "Select item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.select": "Select item",
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "आरोही",
@@ -9259,6 +9428,30 @@
   // "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
   // TODO New key - Add a translation
   "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
+
+  // "sorting.person.familyName.ASC": "Surname Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  // "sorting.person.familyName.DESC": "Surname Descending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  // "sorting.person.givenName.ASC": "Name Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  // "sorting.person.givenName.DESC": "Name Descending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  // "sorting.person.birthDate.ASC": "Birth Date Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  // "sorting.person.birthDate.DESC": "Birth Date Descending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
 
 
   // "statistics": "Statistics",
@@ -9894,7 +10087,6 @@
   "submission.general.cancel": "रद्द करें",
 
   // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
-  // TODO Source message changed - Revise the translation
   "submission.general.cannot_submit": "आपको नई प्रस्तुति करने का विशेषाधिकार नहीं है।",
 
   // "submission.general.deposit": "Deposit",
@@ -10016,8 +10208,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   // TODO New key - Add a translation
@@ -10708,7 +10900,6 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title": "खोज के परिणाम",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
-  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "क्या आप \"{{ value }}\" को इस व्यक्ति के लिए एक नाम प्रकार के रूप में सहेजना चाहते हैं ताकि आप और अन्य इसे भविष्य में प्रस्तुतीकरण के लिए पुन: उपयोग कर सकें? यदि आप नहीं करते हैं तो भी आप इस प्रस्तुतीकरण के लिए इसका उपयोग कर सकते हैं।",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -10773,9 +10964,9 @@
   // "submission.sections.general.no-collection": "No collection found",
   "submission.sections.general.no-collection": "कोई संग्रह नहीं मिला",
 
-  // "submission.sections.general.no-entity": "No entity found",
+  // "submission.sections.general.no-entity": "No entity types found",
   // TODO New key - Add a translation
-  "submission.sections.general.no-entity": "No entity found",
+  "submission.sections.general.no-entity": "No entity types found",
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "कोई विकल्प उपलब्ध नहीं",
@@ -10993,6 +11184,10 @@
   // "submission.sections.upload.delete.confirm.title": "Delete bitstream",
   "submission.sections.upload.delete.confirm.title": "बिटस्ट्रीम हटाएं",
 
+  // "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+  // TODO New key - Add a translation
+  "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+
   // "submission.sections.upload.delete.submit": "Delete",
   "submission.sections.upload.delete.submit": "हटाएं",
 
@@ -11073,6 +11268,10 @@
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "अपलोड सफल",
 
+  // "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
+  // TODO New key - Add a translation
+  "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
+
   // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
   // TODO New key - Add a translation
   "submission.sections.custom-url.label.previous-urls": "Previous Urls",
@@ -11149,7 +11348,6 @@
   "submission.sections.license.required": "आपको लाइसेंस स्वीकार करना होगा",
 
   // "submission.sections.license.notgranted": "You must accept the license",
-  // TODO Source message changed - Revise the translation
   "submission.sections.license.notgranted": "आपको अनुज्ञापत्र स्वीकार करना होगा",
 
   // "submission.sections.sherpa.publication.information": "Publication information",
@@ -11241,21 +11439,18 @@
   "submission.workflow.generic.delete": "हटाएं",
 
   // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.delete-help": "यदि आप इस आइटम को त्यागना चाहते हैं, तो \"हटाएं\" चुनें। फिर आपको इसकी पुष्टि करने के लिए कहा जाएगा।",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "संपादित करें",
 
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.edit-help": "आइटम का मेटाडेटा बदलने के लिए इस विकल्प का चयन करें।",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "देखें",
 
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.view-help": "आइटम का मेटाडेटा देखने के लिए इस विकल्प का चयन करें।",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
@@ -11278,14 +11473,12 @@
   "submission.workflow.tasks.claimed.approve": "स्वीकृत करें",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.approve_help": "यदि आपने आइटम की समीक्षा की है और यह संग्रह में शामिल करने के लिए उपयुक्त है, तो \"स्वीकृत करें\" चुनें।",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "संपादित करें",
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.edit_help": "आइटम का मेटाडेटा बदलने के लिए इस विकल्प का चयन करें।",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
@@ -11312,14 +11505,12 @@
   "submission.workflow.tasks.claimed.reject.submit": "अस्वीकार करें",
 
   // "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "यदि आपने आइटम की समीक्षा की है और पाया है कि यह संग्रह में शामिल करने के लिए उपयुक्त <strong>नहीं</strong> है,  तो \"अस्वीकार करें\" चुनें। फिर आपको एक संदेश दर्ज करने के लिए कहा जाएगा जो यह दर्शाता है कि आइटम अनुपयुक्त क्यों है, और क्या जमाकर्ता को कुछ बदलना चाहिए और फिर से सबमिट करना चाहिए।",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "पूल में वापस करें ",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.return_help": "कार्य को पूल में लौटाएं ताकि कोई अन्य उपयोगकर्ता कार्य कर सके।",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
@@ -11338,7 +11529,6 @@
   "submission.workflow.tasks.pool.claim": "दावा करें",
 
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.pool.claim_help": "यह कार्य स्वयं को सौंपें।",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
@@ -11351,7 +11541,6 @@
   "submission.workspace.generic.view": "देखें",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workspace.generic.view-help": "आइटम का मेटाडेटा देखने के लिए इस विकल्प का चयन करें।",
 
   // "submission.product.roles.info": "<div class='my-2'><b>1. Project Leader:</b><br/> Leader of a research project, Principal Investigator (PI).</div><br/><div class='my-2'><b>2. Project Member:</b><br/> Research fellow, collaborator or other person who works in a research project.</div><br/><div class='my-2'><b>3. Research Group Leader</b></div><br/><div class='my-2'><b>4. Project Manager:</b><br/> Person who manages a research project.</div><br/><div class='my-2'><b>5. Data Manager:</b><br/> Person responsible for maintaining final dataset.</div><br/><div class='my-2'><b>6. Data Collector:</b><br/> Person responsible for finding, gathering, collecting, or otherwise generating data.</div><br/><div class='my-2'><b>7. Data Curator:</b><br/> Person tasked with reviewing, enhancing, cleaning, or standardizing data.</div>",
@@ -11655,6 +11844,10 @@
   // "vocabulary-treeview.search.form.search": "Search",
   "vocabulary-treeview.search.form.search": "खोज",
 
+  // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+  // TODO New key - Add a translation
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   "vocabulary-treeview.search.no-result": "दिखाने के लिए कोई आइटम नहीं थे",
 
@@ -11898,8 +12091,7 @@
   "idle-modal.extend-session": "सत्र बढ़ाएँ",
 
   // "researcher.profile.action.processing": "Processing...",
-  // TODO New key - Add a translation
-  "researcher.profile.action.processing": "Processing...",
+  "researcher.profile.action.processing": "संसाधित किया जा रहा है...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   "researcher.profile.associated": "शोधकर्ता प्रोफ़ाइल संबद्ध",
@@ -11932,12 +12124,10 @@
   "researcher.profile.view": "देखें",
 
   // "researcher.profile.private.visibility": "PRIVATE",
-  // TODO New key - Add a translation
-  "researcher.profile.private.visibility": "PRIVATE",
+  "researcher.profile.private.visibility": "निजी",
 
   // "researcher.profile.public.visibility": "PUBLIC",
-  // TODO New key - Add a translation
-  "researcher.profile.public.visibility": "PUBLIC",
+  "researcher.profile.public.visibility": "सार्वजनिक",
 
   // "researcher.profile.status": "Status:",
   // TODO New key - Add a translation
@@ -11947,20 +12137,16 @@
   "researcherprofile.claim.not-authorized": "आप इस मद पर दावा करने के लिए अधिकृत नहीं हैं। अधिक जानकारी के लिए व्यवस्थापक से संपर्क करें।",
 
   // "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "प्रोफ़ाइल का दावा करते समय एक त्रुटि हुई, कृपया बाद में पुन: प्रयास करें",
 
   // "researcherprofile.error.claim.title": "Error",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.title": "Error",
+  "researcherprofile.error.claim.title": "त्रुटि",
 
   // "researcherprofile.success.claim.body": "Profile claimed with success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.body": "Profile claimed with success",
+  "researcherprofile.success.claim.body": "प्रोफ़ाइल पर सफलतापूर्वक दावा किया गया",
 
   // "researcherprofile.success.claim.title": "Success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.title": "Success",
+  "researcherprofile.success.claim.title": "सफलता",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   "person.page.orcid.create": "एक ORCID आईडी बनाएं",
@@ -11969,8 +12155,7 @@
   "person.page.orcid.granted-authorizations": "स्वीकृत प्राधिकरण",
 
   // "person.page.orcid.grant-authorizations": "Grant authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.grant-authorizations": "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "अनुदान प्राधिकरण",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
   "person.page.orcid.link": "ORCID आईडी से जोड़े",
@@ -12027,36 +12212,28 @@
   "person.page.orcid.save.preference.changes": "सेटिंग अद्यतन करें",
 
   // "person.page.orcid.sync-profile.affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.affiliation": "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "संबद्धता",
 
   // "person.page.orcid.sync-profile.biographical": "Biographical data",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.biographical": "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "जीवनी डेटा",
 
   // "person.page.orcid.sync-profile.education": "Education",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.education": "Education",
+  "person.page.orcid.sync-profile.education": "शिक्षण",
 
   // "person.page.orcid.sync-profile.identifiers": "Identifiers",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.identifiers": "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "पहचानकर्ता",
 
   // "person.page.orcid.sync-fundings.all": "All fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.all": "All fundings",
+  "person.page.orcid.sync-fundings.all": "सारे निधि स्त्रोत ",
 
   // "person.page.orcid.sync-fundings.mine": "My fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.mine": "My fundings",
+  "person.page.orcid.sync-fundings.mine": "मेरे निधि स्त्रोत ",
 
   // "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "चयनित निधि स्त्रोत",
 
   // "person.page.orcid.sync-fundings.disabled": "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.disabled": "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "अक्षम",
 
   // "person.page.orcid.sync-patents.all": "All patents",
   // TODO New key - Add a translation
@@ -12075,20 +12252,16 @@
   "person.page.orcid.sync-patents.disabled": "Disabled",
 
   // "person.page.orcid.sync-publications.all": "All publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.all": "All publications",
+  "person.page.orcid.sync-publications.all": "सभी प्रकाशन",
 
   // "person.page.orcid.sync-publications.mine": "My publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.mine": "My publications",
+  "person.page.orcid.sync-publications.mine": "मेरे प्रकाशन",
 
   // "person.page.orcid.sync-publications.my_selected": "Selected publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.my_selected": "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "चयनित प्रकाशन",
 
   // "person.page.orcid.sync-publications.disabled": "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.disabled": "Disabled",
+  "person.page.orcid.sync-publications.disabled": "निर्योग्य",
 
   // "person.page.orcid.sync-products.all": "All products",
   // TODO New key - Add a translation
@@ -12107,8 +12280,7 @@
   "person.page.orcid.sync-products.disabled": "Disabled",
 
   // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "परिवर्तन छोड़ें और ORCID रजिस्ट्री के साथ सिंक्रनाइज़ न करें",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   "person.page.orcid.sync-queue.discard.error": "ORCID कतार रिकॉर्ड को हटाना विफल रहा",
@@ -12120,16 +12292,13 @@
   "person.page.orcid.sync-queue.empty-message": "ORCID रजिस्ट्री कतार खाली है",
 
   // "person.page.orcid.sync-queue.table.header.type": "Type",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.type": "Type",
+  "person.page.orcid.sync-queue.table.header.type": "प्रकार",
 
   // "person.page.orcid.sync-queue.table.header.description": "Description",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.description": "Description",
+  "person.page.orcid.sync-queue.table.header.description": "विवरण",
 
   // "person.page.orcid.sync-queue.table.header.action": "Action",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.action": "Action",
+  "person.page.orcid.sync-queue.table.header.action": "कार्रवाई",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   "person.page.orcid.sync-queue.description.affiliation": "संबद्धता",
@@ -12203,8 +12372,7 @@
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "अनुसंधानकर्ता url",
 
   // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "ORCID रजिस्ट्री के साथ सिंक्रनाइज़ करें",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "ORCID को प्रस्तुतीकरण अनुपलब्ध प्राधिकरणों के कारण विफल रहा।",
@@ -12258,8 +12426,7 @@
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "संगठन का नाम आवश्यक है",
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "प्रकाशन की तारीख 1900 . के एक साल बाद की होनी चाहिए",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "भेजे जाने वाले संगठन को पते की आवश्यकता है",
@@ -12378,6 +12545,10 @@
   // "lucky.search.multiple.records": "may refer to multiple records",
   // TODO New key - Add a translation
   "lucky.search.multiple.records": "may refer to multiple records",
+
+  // "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
+  // TODO New key - Add a translation
+  "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
 
   // "invitation.group.msg": "You have been invited to join the following groups",
   // TODO New key - Add a translation
@@ -12539,6 +12710,10 @@
   // TODO New key - Add a translation
   "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
 
+  // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+  // TODO New key - Add a translation
+  "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
   // TODO New key - Add a translation
   "system-wide-alert.form.label.preview": "System-wide alert preview",
@@ -12583,9 +12758,25 @@
   // TODO New key - Add a translation
   "access-control-item-header-toggle": "Item's Metadata",
 
+  // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+
+  // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+
   // "access-control-bitstream-header-toggle": "Bitstreams",
   // TODO New key - Add a translation
   "access-control-bitstream-header-toggle": "Bitstreams",
+
+  // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+
+  // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
 
   // "access-control-mode": "Mode",
   // TODO New key - Add a translation
@@ -12619,6 +12810,10 @@
   // TODO New key - Add a translation
   "access-control-bitstreams-selected": "bitstreams selected",
 
+  // "access-control-bitstreams-select": "Select bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstreams-select": "Select bitstreams",
+
   // "access-control-cancel": "Cancel",
   // TODO New key - Add a translation
   "access-control-cancel": "Cancel",
@@ -12638,6 +12833,10 @@
   // "access-control-add-more": "Add more",
   // TODO New key - Add a translation
   "access-control-add-more": "Add more",
+
+  // "access-control-remove": "Remove access condition",
+  // TODO New key - Add a translation
+  "access-control-remove": "Remove access condition",
 
   // "access-control-select-bitstreams-modal.title": "Select bitstreams",
   // TODO New key - Add a translation
@@ -12679,6 +12878,13 @@
   // TODO New key - Add a translation
   "vocabulary-treeview.search.form.add": "Add",
 
+  // "process.overview.unknown.user": "Unknown",
+  // TODO New key - Add a translation
+  "process.overview.unknown.user": "Unknown",
+
+  // "browse.search-form.placeholder": "Search the repository",
+  // TODO New key - Add a translation
+  "browse.search-form.placeholder": "Search the repository",
 
   // "external-login.form.email": "Enter the email",
   // TODO New key - Add a translation

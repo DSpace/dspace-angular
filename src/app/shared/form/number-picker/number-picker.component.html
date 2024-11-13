@@ -15,6 +15,7 @@
       [disabled]="disabled"
       [ngClass]="{'is-invalid': invalid}"
       title="{{placeholder}}"
+      [attr.aria-label]="placeholder"
     >
     <div class="d-flex flex-column justify-content-between">
         <button
@@ -24,7 +25,7 @@
                 [disabled]="disabled"
                 (click)="toggleUp()">
             <span class="chevron"></span>
-            <span class="sr-only">Increment</span>
+            <span class="sr-only">{{'form.number-picker.increment' | translate: {field: name} }}</span>
         </button>
         <button
                 class="btn btn-link-focus btn-date lp-button"
@@ -33,7 +34,7 @@
                 [disabled]="disabled"
                 (click)="toggleDown()">
             <span class="chevron bottom"></span>
-            <span class="sr-only">Decrement</span>
+            <span class="sr-only">{{'form.number-picker.decrement' | translate: {field: name} }}</span>
         </button>
     </div>
 

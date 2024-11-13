@@ -32,7 +32,5 @@
 <ng-template #browselink let-value="value">
   <a class="dont-break-out preserve-line-breaks ds-browse-link"
      [routerLink]="['/browse', browseDefinition.id]"
-     [queryParams]="getQueryParams(value)">
-    {{value}}
-  </a>
+     [queryParams]="getQueryParams(value)">{{value}}</a>
 </ng-template>

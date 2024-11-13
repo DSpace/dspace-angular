@@ -1,6 +1,7 @@
 <div class="w-100 position-relative">
   <input type="text" #mdFieldInput
          class="form-control" [ngClass]="{ 'is-invalid': showInvalid }"
+         [attr.aria-label]="(dsoType + '.edit.metadata.metadatafield') | translate"
          [value]="mdField"
          [formControl]="input"
          (focusin)="query$.next(mdField)"
@@ -10,9 +11,9 @@
   <div class="autocomplete dropdown-menu" [ngClass]="{'show': (mdFieldOptions$ | async)?.length > 0}">
     <div class="dropdown-list">
       <div *ngFor="let mdFieldOption of (mdFieldOptions$ | async)">
-        <a href="javascript:void(0);" class="d-block dropdown-item" (click)="select(mdFieldOption)">
+        <button class="d-block dropdown-item" (click)="select(mdFieldOption)">
           <span [innerHTML]="mdFieldOption"></span>
-        </a>
+        </button>
       </div>
     </div>
   </div>

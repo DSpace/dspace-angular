@@ -15,6 +15,7 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
 import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
+import { SwitchColor, SwitchOption } from '../../shared/switch/switch.component';
 
 export interface ReviewAccountInfoData {
   label: string;
@@ -52,6 +53,14 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
    * List of subscriptions
    */
   subs: Subscription[] = [];
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: true, labelColor: SwitchColor.Success, backgroundColor: SwitchColor.Success ,label: 'on-label' },
+    { value: false, label: 'off-label' },
+  ];
 
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,

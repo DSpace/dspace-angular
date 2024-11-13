@@ -16,6 +16,8 @@ export class BrowseEntrySearchOptions {
               public sort?: SortOptions,
               public startsWith?: string,
               public scope?: string,
-              public fetchThumbnail?: boolean) {
+              public fetchThumbnail?: boolean,
+              public projection?: string,
+  ) {
   }
 }

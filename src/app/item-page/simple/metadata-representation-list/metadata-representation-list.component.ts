@@ -9,7 +9,7 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 import { Item } from '../../../core/shared/item.model';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 import { map } from 'rxjs/operators';
-import { getRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import {
   MetadatumRepresentation
 } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
@@ -96,8 +96,8 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
               searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(field));
             });
             return this.browseDefinitionDataService.findByFields(this.metadataFields).pipe(
-              getRemoteDataPayload(),
-              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def), metadatum))
+              getFirstCompletedRemoteData(),
+              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def.payload), metadatum))
             );
           }
         }),

@@ -11,7 +11,8 @@ import {
   concat as observableConcat,
   EMPTY,
   Observable,
-  of as observableOf
+  of as observableOf,
+  of
 } from 'rxjs';
 import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 
@@ -42,7 +43,7 @@ import { getDownloadableBitstream } from '../shared/bitstream.operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 import { ITEM } from '../shared/item.resource-type';
-import { DOCUMENT, isPlatformServer } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Root } from '../data/root.model';
 import { environment } from '../../../environments/environment';
 
@@ -85,6 +86,7 @@ export class MetadataService {
 
   private fallbackImagePath = environment.metaTags.defaultLogo;
   private defaultPageDescription = environment.metaTags.defaultDescription;
+  private origin: string;
 
   constructor(
     private router: Router,
@@ -122,6 +124,12 @@ export class MetadataService {
   }
 
   private processRouteChange(routeInfo: any): void {
+    this.rootService.findRoot().pipe(
+      getFirstCompletedRemoteData(),
+      filter(data => !!data),
+    map((rootRD: RemoteData<Root>) => rootRD?.payload?.dspaceUI)
+    ).subscribe(uiOrigin => this.origin = uiOrigin);
+
     this.clearMetaTags();
 
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
@@ -174,11 +182,9 @@ export class MetadataService {
   private setDSOMetaTags(): void {
     const openGraphType = this.getOpenGraphType();
 
-    this.setTitleTag();
-    this.setDescriptionTag();
+    this.setTitleTags();
+    this.setDescriptionTags();
 
-    this.setOpenGraphTitleTag();
-    this.setOpenGraphDescriptionTag();
     this.setOpenGraphImageTag();
     this.setOpenGraphUrlTag();
 
@@ -186,8 +192,6 @@ export class MetadataService {
       this.setOpenGraphTypeTag(openGraphType);
     }
 
-    this.setTwitterTitleTag();
-    this.setTwitterDescriptionTag();
     this.setTwitterImageTag();
     this.setTwitterSummaryCardTag();
 
@@ -227,21 +231,31 @@ export class MetadataService {
   }
 
   /**
-   * Add <meta name="title" ... >  to the <head>
+   * Add <meta name="title" ... >  and
+   * <meta name="og:title" ... > and
+   * <meta name="twitter:title" ... >  to the <head>
    */
-  private setTitleTag(title?: string): void {
+  private setTitleTags(title?: string): void {
     const value = title ?? this.dsoNameService.getName(this.currentObject.getValue());
+
     this.addMetaTag('title', value);
+    this.addMetaTag('og:title', value, true);
+    this.addMetaTag('twitter:title', value, true);
+
     this.title.setTitle(value);
   }
 
   /**
-   * Add <meta name="description" ... >  to the <head>
+   * Add <meta name="description" ... > and
+   * <meta name="og:description" ... >  and
+   * <meta name="twitter:description" ... >  to the <head>
    */
-  private setDescriptionTag(description?: string): void {
+  private setDescriptionTags(description?: string): void {
     // TODO: truncate abstract
     const value = description ?? this.getMetaTagValue('dc.description.abstract');
     this.addMetaTag('description', value);
+    this.addMetaTag('og:description', value, true);
+    this.addMetaTag('twitter:description', value, true);
   }
 
   /**
@@ -428,24 +442,7 @@ export class MetadataService {
    * Add <meta name="og:type" ... >  to the <head>
    */
   private setOpenGraphTypeTag(type: string): void {
-    this.addMetaTag('og:type', type);
-  }
-
-  /**
-   * Add <meta name="og:title" ... >  to the <head>
-   */
-  private setOpenGraphTitleTag(title?: string): void {
-    const value = title ?? this.getMetaTagValue('dc.title');
-    this.addMetaTag('og:title', value);
-  }
-
-  /**
-   * Add <meta name="og:description" ... >  to the <head>
-   */
-  private setOpenGraphDescriptionTag(description?: string): void {
-    // TODO: truncate abstract
-    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
-    this.addMetaTag('og:description', value);
+    this.addMetaTag('og:type', type ?? 'website', true);
   }
 
   /**
@@ -463,23 +460,6 @@ export class MetadataService {
     this.addMetaTag('og:url', value);
 }
 
-
-  /**
-   * Add <meta name="twitter:title" ... >  to the <head>
-   */
-  private setTwitterTitleTag(title?: string): void {
-    const value = title ?? this.getMetaTagValue('dc.title');
-    this.addMetaTag('twitter:title', value);
-  }
-
-  /**
-   * Add <meta name="twitter:description" ... >  to the <head>
-   */
-  private setTwitterDescriptionTag(description?: string): void {
-    // TODO: truncate abstract
-    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
-    this.addMetaTag('twitter:description', value);
-  }
 
   /**
    * Add <meta name="twitter:image" ... >  to the <head>
@@ -502,7 +482,7 @@ export class MetadataService {
    * @private
    */
   private getBitstreamFromThumbnail(item: Item): Observable<Bitstream> {
-    return item.thumbnail.pipe(
+    return hasValue(item.thumbnail) ? item.thumbnail.pipe(
       getFirstCompletedRemoteData(),
       map((thumbnailRD) => {
         if (thumbnailRD.hasSucceeded && isNotEmpty(thumbnailRD.payload)) {
@@ -512,7 +492,7 @@ export class MetadataService {
         }
       }),
       getDownloadableBitstream(this.authorizationService)
-    );
+    ) : of(null);
   }
 
   private setPrimaryBitstreamInBundleTag(tag: string): void {
@@ -532,7 +512,8 @@ export class MetadataService {
           // Use the found link to set the <meta> tag
           this.addMetaTag(
             tag,
-            new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
+            new URLCombiner(this.getUrlOrigin(), link).toString(),
+            true
           );
         } else {
           this.addFallbackImageToTag(tag);
@@ -605,6 +586,7 @@ export class MetadataService {
   private setGenerator(): void {
     this.rootService.findRoot().pipe(getFirstSucceededRemoteDataPayload()).subscribe((root) => {
       this.meta.addTag({ name: 'Generator', content: root.dspaceVersion });
+      this.meta.addTag({ name: 'Generator', content: root.crisVersion });
     });
   }
 
@@ -672,10 +654,11 @@ export class MetadataService {
     return this.currentObject.value.allMetadataValues(keys);
   }
 
-  private addMetaTag(name: string, content: string): void {
+  private addMetaTag(name: string, content: string, isProperty = false): void {
     if (content) {
-      const tag = { name, content } as MetaDefinition;
-      this.meta.addTag(tag);
+      const tag = isProperty ? {property: name, content} as MetaDefinition
+        : { name, content } as MetaDefinition;
+      this.meta.updateTag(tag);
       this.storeTag(name);
     }
   }
@@ -697,7 +680,7 @@ export class MetadataService {
       take(1)
     ).subscribe((tagsInUse: string[]) => {
       for (const name of tagsInUse) {
-        this.meta.removeTag('name=\'' + name + '\'');
+        this.meta.updateTag({name, content: ''});
       }
       this.store.dispatch(new ClearMetaTagAction());
     });
@@ -706,7 +689,8 @@ export class MetadataService {
   private addFallbackImageToTag(tag: string) {
     this.addMetaTag(
       tag,
-      new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.fallbackImagePath).toString()
+      new URLCombiner(this.getUrlOrigin(), this.fallbackImagePath).toString(),
+      true
     );
   }
 
@@ -746,19 +730,19 @@ export class MetadataService {
     const pageUrl = new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.router.url).toString();
     const genericPageOpenGraphType = 'website';
 
-    this.setTitleTag(pageDocumentTitle);
-    this.setDescriptionTag(this.defaultPageDescription);
+    this.setTitleTags(pageDocumentTitle);
+    this.setDescriptionTags(this.defaultPageDescription);
 
-    this.setOpenGraphTitleTag(pageDocumentTitle);
-    this.setOpenGraphDescriptionTag(this.defaultPageDescription);
     this.setOpenGraphUrlTag(pageUrl);
     this.setOpenGraphImageTag();
     this.setOpenGraphTypeTag(genericPageOpenGraphType);
 
 
-    this.setTwitterTitleTag(pageDocumentTitle);
-    this.setTwitterDescriptionTag(this.defaultPageDescription);
     this.setTwitterImageTag();
     this.setTwitterSummaryCardTag();
+  }
+
+  private getUrlOrigin(): string {
+    return isPlatformBrowser(this.platformId) ? this.hardRedirectService.getCurrentOrigin() : this.origin;
   }
 }

@@ -1,6 +1,5 @@
 import { followLink } from '../utils/follow-link-config.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { TopSection } from '../../core/layout/models/section.model';
 import { Component, Input, OnChanges, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
@@ -21,6 +20,7 @@ import { APP_CONFIG } from '../../../config/app-config.interface';
 import { BehaviorSubject, Observable, mergeMap } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { TopSection } from '../../core/layout/models/section.model';
 
 @Component({
   template: ''
@@ -31,17 +31,47 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
   protected readonly platformId = inject(PLATFORM_ID);
   protected readonly searchService = inject(SearchService);
 
-  protected followThumbnailLink: boolean; // to be overridden
+  protected abstract followMetricsLink: boolean; // to be overridden
+  protected abstract followThumbnailLink: boolean; // to be overridden
 
-  @Input() paginatedSearchOptions: PaginatedSearchOptions;
-
+  /**
+   * The context of listable object
+   */
   @Input() context: Context;
 
+  /**
+   * The pagination options
+   */
+  @Input() paginatedSearchOptions: PaginatedSearchOptions;
+
+  /**
+   * Optional projection to use during the search
+   */
+  @Input() projection = 'preventMetadataSecurity';
+
+  /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics = this.appConfig.browseBy.showMetrics;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails = this.appConfig.browseBy.showThumbnails;
+
+  /**
+   * TopSection object
+   */
   @Input() topSection: TopSection;
 
   public collectionElementLinkTypeEnum = CollectionElementLinkType;
 
-  paginatedSearchOptionsBS: BehaviorSubject<PaginatedSearchOptions>;
+  paginatedSearchOptions$: BehaviorSubject<PaginatedSearchOptions>;
 
   searchResults$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
 
@@ -51,13 +81,23 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
     if (isPlatformServer(this.platformId)) {
       return;
     }
-    this.paginatedSearchOptionsBS?.next(this.paginatedSearchOptions);
+    this.paginatedSearchOptions$?.next(this.paginatedSearchOptions);
   }
 
   ngOnInit() {
-    const followLinks = this.followThumbnailLink ? [followLink('thumbnail'), followLink('metrics')] : [followLink('metrics')];
-    this.paginatedSearchOptionsBS = new BehaviorSubject<PaginatedSearchOptions>(this.paginatedSearchOptions);
-    this.searchResults$ = this.paginatedSearchOptionsBS.asObservable().pipe(
+    const followLinks = [];
+    if (this.followThumbnailLink) {
+      followLinks.push(followLink('thumbnail'));
+    }
+    if (this.followMetricsLink) {
+      followLinks.push(followLink('metrics'));
+    }
+
+    this.paginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), this.paginatedSearchOptions, {
+      projection: this.projection
+    });
+    this.paginatedSearchOptions$ = new BehaviorSubject<PaginatedSearchOptions>(this.paginatedSearchOptions);
+    this.searchResults$ = this.paginatedSearchOptions$.asObservable().pipe(
       mergeMap((paginatedSearchOptions) =>
         this.searchService.search(paginatedSearchOptions, null, true, true, ...followLinks),
       ),

@@ -1,4 +1,4 @@
-import { TopSection, TopSectionTemplateType } from './../../core/layout/models/section.model';
+import { TopSection, TopSectionTemplateType } from '../../core/layout/models/section.model';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { Context } from '../../core/shared/context.model';
@@ -12,19 +12,42 @@ import { BehaviorSubject } from 'rxjs';
 
 export class BrowseMostElementsComponent implements OnInit, OnChanges {
 
+  /**
+   * The pagination options
+   */
   @Input() paginatedSearchOptions: PaginatedSearchOptions;
 
+  /**
+   * The context of listable object
+   */
   @Input() context: Context;
 
-  showLabel: boolean;
+  /**
+   * Optional projection to use during the search
+   */
+  @Input() projection = 'preventMetadataSecurity';
 
-  showMetrics = true;
+  /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
 
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics: boolean;
+
+  /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails: boolean;
+
+  /*
+   * The top section object
+   */
   @Input() topSection: TopSection;
 
-  paginatedSearchOptionsBS = new BehaviorSubject<PaginatedSearchOptions>(null);
-
-  templateTypeEnum = TopSectionTemplateType;
+  paginatedSearchOptions$ = new BehaviorSubject<PaginatedSearchOptions>(null);
 
   sectionTemplateType: TopSectionTemplateType;
 
@@ -33,6 +56,6 @@ export class BrowseMostElementsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() { // trigger change detection on child components
-    this.paginatedSearchOptionsBS.next(this.paginatedSearchOptions);
+    this.paginatedSearchOptions$.next(this.paginatedSearchOptions);
   }
 }

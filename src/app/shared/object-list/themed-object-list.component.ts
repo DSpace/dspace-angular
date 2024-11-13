@@ -99,6 +99,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() showThumbnails: boolean;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange: EventEmitter<any> = new EventEmitter();
@@ -184,6 +189,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'showMetrics',
     'showPaginator',
     'showThumbnails',
+    'showCorrection',
     'contentChange',
     'prev',
     'next',

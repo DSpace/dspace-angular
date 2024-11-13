@@ -1,4 +1,4 @@
-<div id="search-navbar-container" [title]="'nav.search' | translate" (dsClickOutside)="collapse()">
+<div [title]="'nav.search' | translate" (dsClickOutside)="collapse()">
   <div class="d-inline-block position-relative">
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)" autocomplete="on" class="d-flex">
       <input #searchInput [@toggleAnimation]="isExpanded" [attr.aria-label]="('nav.search' | translate)" name="query"

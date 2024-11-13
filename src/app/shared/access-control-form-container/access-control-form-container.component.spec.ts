@@ -12,7 +12,6 @@ import {CommonModule} from '@angular/common';
 import {SharedBrowseByModule} from '../browse-by/shared-browse-by.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
-import {UiSwitchModule} from 'ngx-ui-switch';
 import {
   ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID
 } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
@@ -60,7 +59,6 @@ describe('AccessControlFormContainerComponent', () => {
         AccessControlFormModule,
         TranslateModule.forRoot(),
         NgbDatepickerModule,
-        UiSwitchModule
       ],
       providers: [
         {provide: BulkAccessControlService, useValue: mockBulkAccessControlService},

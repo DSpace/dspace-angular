@@ -102,7 +102,7 @@ export class DefaultAppConfig implements AppConfig {
       // Defaults to caching 1,000 pages. Each page expires after 1 day
       botCache: {
         // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
-        max: 1000,
+        max: 0, // disabled by default
         // Amount of time after which cached pages are considered stale (in ms)
         timeToLive: 24 * 60 * 60 * 1000, // 1 day
         allowStale: true,
@@ -303,30 +303,31 @@ export class DefaultAppConfig implements AppConfig {
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: LangConfig[] = [
     { code: 'en', label: 'English', active: true },
+    { code: 'ar', label: 'العربية', active: false },
+    { code: 'bn', label: 'বাংলা', active: false },
     { code: 'ca', label: 'Català', active: false },
     { code: 'cs', label: 'Čeština', active: false },
     { code: 'de', label: 'Deutsch', active: true },
+    { code: 'el', label: 'Ελληνικά', active: false },
     { code: 'es', label: 'Español', active: true },
+    { code: 'fi', label: 'Suomi', active: false },
     { code: 'fr', label: 'Français', active: true },
     { code: 'gd', label: 'Gàidhlig', active: false },
-    { code: 'it', label: 'Italiano', active: false },
-    { code: 'lv', label: 'Latviešu', active: false },
+    { code: 'hi', label: 'हिंदी', active: false },
     { code: 'hu', label: 'Magyar', active: false },
+    { code: 'it', label: 'Italiano', active: false },
+    { code: 'kk', label: 'Қазақ', active: false },
+    { code: 'lv', label: 'Latviešu', active: false },
     { code: 'nl', label: 'Nederlands', active: false },
     { code: 'pl', label: 'Polski', active: false },
     { code: 'pt-PT', label: 'Português', active: false },
     { code: 'pt-BR', label: 'Português do Brasil', active: false },
-    { code: 'sr-lat', label: 'Srpski (lat)', active: false},
-    { code: 'fi', label: 'Suomi', active: false },
+    { code: 'sr-lat', label: 'Srpski (lat)', active: false },
+    { code: 'sr-cyr', label: 'Српски', active: false },
     { code: 'sv', label: 'Svenska', active: false },
     { code: 'tr', label: 'Türkçe', active: false },
+    { code: 'uk', label: 'Yкраї́нська', active: false },
     { code: 'vi', label: 'Tiếng Việt', active: false },
-    { code: 'kk', label: 'Қазақ', active: false },
-    { code: 'bn', label: 'বাংলা', active: false },
-    { code: 'hi', label: 'हिंदी', active: false },
-    { code: 'el', label: 'Ελληνικά', active: false },
-    { code: 'sr-cyr', label: 'Српски', active: false },
-    { code: 'uk', label: 'Yкраї́нська', active: false }
   ];
 
   // Browse-By Pages
@@ -395,6 +396,10 @@ export class DefaultAppConfig implements AppConfig {
     },
     {
       type: 'Product',
+      metadata: ['dc.contributor.author']
+    },
+    {
+      type: 'Patent',
       metadata: ['dc.contributor.author']
     }
   ];

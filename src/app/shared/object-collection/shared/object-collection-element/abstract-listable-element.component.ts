@@ -48,6 +48,11 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() showMetrics = true;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * Whether to show the thumbnail preview
    */
   @Input() showThumbnails: boolean;

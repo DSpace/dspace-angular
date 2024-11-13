@@ -105,7 +105,7 @@ export class BrowseService {
       })
     );
     if (options.fetchThumbnail ) {
-      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
@@ -147,6 +147,9 @@ export class BrowseService {
         }
         if (isNotEmpty(filterAuthority)) {
           args.push(`filterAuthority=${encodeURIComponent(filterAuthority)}`);
+        }
+        if (isNotEmpty(options.projection)) {
+          args.push(`projection=${options.projection}`);
         }
         if (isNotEmpty(args)) {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();

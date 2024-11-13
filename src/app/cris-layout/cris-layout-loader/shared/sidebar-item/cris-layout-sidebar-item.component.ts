@@ -18,6 +18,11 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CrisLayoutSidebarItemComponent {
   /**
+   * Contains the items base url
+   */
+  @Input() itemBaseUrl: string;
+
+  /**
    * The tab that will be shown
    */
   @Input() tab: CrisLayoutTab;

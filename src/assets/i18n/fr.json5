@@ -6,7 +6,8 @@
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "Retour à la page d'accueil",
 
-  // "401.unauthorized": "unauthorized",
+  // "401.unauthorized": "Unauthorized",
+  // TODO Source message changed - Revise the translation
   "401.unauthorized": "Accès non autorisé",
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
@@ -15,10 +16,12 @@
   // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "Retour à la page d'accueil",
 
-  // "403.forbidden": "forbidden",
+  // "403.forbidden": "Forbidden",
+  // TODO Source message changed - Revise the translation
   "403.forbidden": "Accès interdit",
 
-  // "500.page-internal-server-error": "Service Unavailable",
+  // "500.page-internal-server-error": "Service unavailable",
+  // TODO Source message changed - Revise the translation
   "500.page-internal-server-error": "Service indisponible",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
@@ -33,7 +36,8 @@
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Retour à la page d'accueil",
 
-  // "404.page-not-found": "page not found",
+  // "404.page-not-found": "Page not found",
+  // TODO Source message changed - Revise the translation
   "404.page-not-found": "Page introuvable",
 
   // "410.gone-handle": "This object is no longer available",
@@ -44,21 +48,21 @@
   // TODO New key - Add a translation
   "410.link.home-page": "Take me to the home page",
 
-  // "error-page.description.401": "unauthorized",
+  // "error-page.description.401": "Unauthorized",
   // TODO New key - Add a translation
-  "error-page.description.401": "unauthorized",
+  "error-page.description.401": "Unauthorized",
 
-  // "error-page.description.403": "forbidden",
+  // "error-page.description.403": "Forbidden",
   // TODO New key - Add a translation
-  "error-page.description.403": "forbidden",
+  "error-page.description.403": "Forbidden",
 
-  // "error-page.description.500": "Service Unavailable",
+  // "error-page.description.500": "Service unavailable",
   // TODO New key - Add a translation
-  "error-page.description.500": "Service Unavailable",
+  "error-page.description.500": "Service unavailable",
 
-  // "error-page.description.404": "page not found",
+  // "error-page.description.404": "Page not found",
   // TODO New key - Add a translation
-  "error-page.description.404": "page not found",
+  "error-page.description.404": "Page not found",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   // TODO New key - Add a translation
@@ -257,7 +261,8 @@
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "Erreur",
 
-  // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
+  // "admin.registries.bitstream-formats.create.head": "Create bitstream format",
+  // TODO Source message changed - Revise the translation
   "admin.registries.bitstream-formats.create.head": "Créer un format Bistream",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
@@ -362,6 +367,10 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nom",
 
+  // "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+
   // "admin.registries.bitstream-formats.table.id": "ID",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.table.id": "ID",
@@ -383,6 +392,14 @@
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.title": "Registre des formats Bitstream",
+
+  // "admin.registries.bitstream-formats.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.select": "Select",
+
+  // "admin.registries.bitstream-formats.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.deselect": "Deselect",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Registre de métadonnées",
@@ -408,8 +425,20 @@
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   "admin.registries.metadata.schemas.no-items": "Aucun schéma de métadonnées disponible.",
 
+  // "admin.registries.metadata.schemas.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.select": "Select",
+
+  // "admin.registries.metadata.schemas.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.deselect": "Deselect",
+
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Supprimer les éléments sélectionnés",
+
+  // "admin.registries.metadata.schemas.table.selected": "Selected schemas",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -432,6 +461,14 @@
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Ceci est le schéma de métadonnées correspondant à l'espace de nommage « {{namespace}} ».",
 
+  // "admin.registries.schema.fields.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.select": "Select",
+
+  // "admin.registries.schema.fields.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.deselect": "Deselect",
+
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Champs de métadonnées du schéma",
 
@@ -443,6 +480,10 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Champ",
+
+  // "admin.registries.schema.fields.table.selected": "Selected metadata fields",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.selected": "Selected metadata fields",
 
   // "admin.registries.schema.fields.table.id": "ID",
   // TODO New key - Add a translation
@@ -506,36 +547,28 @@
   "admin.registries.schema.title": "Registre des schémas de métadonnées",
 
   // "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+  "admin.access-control.bulk-access.breadcrumbs": "Gestion des accès en lot",
 
   // "administrativeBulkAccess.search.results.head": "Search Results",
-  // TODO New key - Add a translation
-  "administrativeBulkAccess.search.results.head": "Search Results",
+  "administrativeBulkAccess.search.results.head": "Résultats de recherche",
 
   // "admin.access-control.bulk-access": "Bulk Access Management",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access": "Bulk Access Management",
+  "admin.access-control.bulk-access": "Gestion des accès en lot",
 
   // "admin.access-control.bulk-access.title": "Bulk Access Management",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access.title": "Bulk Access Management",
+  "admin.access-control.bulk-access.title": "Gestion des accès en lot",
 
   // "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+  "admin.access-control.bulk-access-browse.header": "Étape 1 : Sélectionner les objets",
 
   // "admin.access-control.bulk-access-browse.search.header": "Search",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access-browse.search.header": "Search",
+  "admin.access-control.bulk-access-browse.search.header": "Chercher",
 
   // "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+  "admin.access-control.bulk-access-browse.selected.header": "Sélection actuelle({{number}})",
 
   // "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
-  // TODO New key - Add a translation
-  "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+  "admin.access-control.bulk-access-settings.header": "Étape 2 : Opération à exécuter",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Supprimer un(e) EPerson",
@@ -583,7 +616,8 @@
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   "admin.access-control.epeople.search.scope.metadata": "Métadonnées",
 
-  // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  // "admin.access-control.epeople.search.scope.email": "Email (exact)",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.search.scope.email": "Adresse électronique (exacte)",
 
   // "admin.access-control.epeople.search.button": "Search",
@@ -601,7 +635,8 @@
   // "admin.access-control.epeople.table.name": "Name",
   "admin.access-control.epeople.table.name": "Nom",
 
-  // "admin.access-control.epeople.table.email": "E-mail (exact)",
+  // "admin.access-control.epeople.table.email": "Email (exact)",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.table.email": "Adresse électronique (exacte)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
@@ -631,10 +666,12 @@
   // "admin.access-control.epeople.form.lastName": "Last name",
   "admin.access-control.epeople.form.lastName": "Nom de famille",
 
-  // "admin.access-control.epeople.form.email": "E-mail",
+  // "admin.access-control.epeople.form.email": "Email",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.form.email": "Adresse électronique",
 
-  // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  // "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
+  // TODO Source message changed - Revise the translation
   "admin.access-control.epeople.form.emailHint": "Il doit s'agir d'une adresse électronique valide",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
@@ -1135,8 +1172,7 @@
   "admin.metadata-import.breadcrumbs": "Importer Métadonnées",
 
   // "admin.batch-import.breadcrumbs": "Import Batch",
-  // TODO New key - Add a translation
-  "admin.batch-import.breadcrumbs": "Import Batch",
+  "admin.batch-import.breadcrumbs": "Importation en lots",
 
   // "admin.metadata-import.title": "Import Metadata",
   "admin.metadata-import.title": "Importer Métadonnées",
@@ -1149,26 +1185,22 @@
   "admin.metadata-import.page.header": "Importer Métadonnées",
 
   // "admin.batch-import.page.header": "Import Batch",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.header": "Import Batch",
+  "admin.batch-import.page.header": "Importation en lots",
 
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Vous pouvez glisser-déposer ou rechercher ici des fichiers CSV qui contiennent des opérations en lot sur les métadonnées",
 
   // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  "admin.batch-import.page.help": "Sélectionner la collection dans laquelle importer les données. Ensuite, ajouter le fichier zip Simple Archive Format (SAF) contenant tous les Items à importer.",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  "admin.batch-import.page.toggle.help": "Il est possible d'effectuer l'importation en téléversant un fichier ou en utilisant un URL. Utiliser le bouton à bascule ci-dessus afin de sélectionner la source.",
 
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Déposer un fichier CSV à importer",
 
   // "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+  "admin.batch-import.page.dropMsg": "Glisser/déposer un fichier zip à importer",
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
   "admin.metadata-import.page.dropMsgReplace": "Déposer un nouveau fichier CSV pour remplacer le fichier à importer",
@@ -1184,23 +1216,21 @@
   "admin.metadata-import.page.button.proceed": "Importer",
 
   // "admin.metadata-import.page.button.select-collection": "Select Collection",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.button.select-collection": "Select Collection",
+  "admin.metadata-import.page.button.select-collection": "Sélectionner une collection",
 
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Veuillez d'abord sélectionner un fichier",
 
-  // "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  // "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
 
-  // "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  // "admin.batch-import.page.error.addFile": "Select ZIP file first!",
   // TODO New key - Add a translation
-  "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  "admin.batch-import.page.error.addFile": "Select ZIP file first!",
 
   // "admin.metadata-import.page.toggle.upload": "Upload",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.toggle.upload": "Upload",
+  "admin.metadata-import.page.toggle.upload": "Téléverser",
 
   // "admin.metadata-import.page.toggle.url": "URL",
   // TODO New key - Add a translation
@@ -1211,12 +1241,10 @@
   "admin.metadata-import.page.urlMsg": "Insert the batch ZIP url to import",
 
   // "admin.metadata-import.page.validateOnly": "Validate Only",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly": "Validate Only",
+  "admin.metadata-import.page.validateOnly": "Valider seulement",
 
   // "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  // TODO New key - Add a translation
-  "admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.metadata-import.page.validateOnly.hint": "Si activé, le fichier CSV sera uniquement validé. Vous recevrez un rapport identifiant les changements détectés, mais aucun changement ne sera appliqué aux métadonnées.",
 
   // "advanced-workflow-action.rating.form.rating.label": "Rating",
   // TODO New key - Add a translation
@@ -1335,12 +1363,10 @@
   "advanced-workflow-action.select-reviewer.no-reviewer-selected.error": "No reviewer selected.",
 
   // "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.batch-import.page.validateOnly.hint": "Si activé, le fichier ZIP SAF sera uniquement validé. Vous recevrez un rapport identifiant les changements détectés, mais aucun changement ne sera appliqué aux données.",
 
   // "admin.batch-import.page.remove": "remove",
-  // TODO New key - Add a translation
-  "admin.batch-import.page.remove": "remove",
+  "admin.batch-import.page.remove": "supprimer",
 
 
   // "alert.close.aria": "Close",
@@ -1591,7 +1617,8 @@
   // "bitstream-request-a-copy.name.error": "The name is required",
   "bitstream-request-a-copy.name.error": "Le nom est obligatoire",
 
-  // "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  // "bitstream-request-a-copy.email.label": "Your email address *",
+  // TODO Source message changed - Revise the translation
   "bitstream-request-a-copy.email.label": "Votre adresse électronique *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
@@ -1879,6 +1906,10 @@
   // TODO New key - Add a translation
   "browse.startsWith.input": "Filter",
 
+  // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+  // TODO New key - Add a translation
+  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+
   // "browse.taxonomy.button": "Browse",
   // TODO New key - Add a translation
   "browse.taxonomy.button": "Browse",
@@ -1956,6 +1987,14 @@
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
   // TODO New key - Add a translation
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
+
+  // "collection.create.breadcrumbs": "Create collection",
+  // TODO New key - Add a translation
+  "collection.create.breadcrumbs": "Create collection",
+
+  // "collection.browse.logo": "Browse for a collection logo",
+  // TODO New key - Add a translation
+  "collection.browse.logo": "Browse for a collection logo",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Créer une collection",
@@ -2222,8 +2261,9 @@
   // "collection.edit.template.breadcrumbs": "Item template",
   "collection.edit.template.breadcrumbs": "Modèle d'Item",
 
-  // "collection.edit.template.cancel": "Cancel",
-  "collection.edit.template.cancel": "Annuler",
+  // "collection.edit.template.back": "Back",
+  // TODO New key - Add a translation
+  "collection.edit.template.back": "Back",
 
   // "collection.edit.template.delete-button": "Delete",
   "collection.edit.template.delete-button": "Supprimer",
@@ -2314,6 +2354,10 @@
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Collection",
 
+  // "collection.logo": "Collection logo",
+  // TODO New key - Add a translation
+  "collection.logo": "Collection logo",
+
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Dépôts récents",
 
@@ -2341,6 +2385,18 @@
 
   // "collection.select.empty": "No collections to show",
   "collection.select.empty": "Aucune collection disponible",
+
+  // "collection.select.table.selected": "Selected collections",
+  // TODO New key - Add a translation
+  "collection.select.table.selected": "Selected collections",
+
+  // "collection.select.table.select": "Select collection",
+  // TODO New key - Add a translation
+  "collection.select.table.select": "Select collection",
+
+  // "collection.select.table.deselect": "Deselect collection",
+  // TODO New key - Add a translation
+  "collection.select.table.deselect": "Deselect collection",
 
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Titre",
@@ -2432,6 +2488,22 @@
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Afficher davantage",
 
+  // "communityList.expand": "Expand {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.expand": "Expand {{ name }}",
+
+  // "communityList.collapse": "Collapse {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.collapse": "Collapse {{ name }}",
+
+  // "community.browse.logo": "Browse for a community logo",
+  // TODO New key - Add a translation
+  "community.browse.logo": "Browse for a community logo",
+
+  // "community.create.breadcrumbs": "Create Community",
+  // TODO New key - Add a translation
+  "community.create.breadcrumbs": "Create Community",
+
   // "community.create.head": "Create a Community",
   "community.create.head": "Créer une communauté",
 
@@ -2491,10 +2563,12 @@
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "Logo de la communauté",
 
-  // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+  // "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
+  // TODO Source message changed - Revise the translation
   "community.edit.logo.notifications.add.error": "Erreur lors du chargement du logo de la communauté. Veuillez vérifier le contenu et réessayer.",
 
-  // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+  // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
+  // TODO Source message changed - Revise the translation
   "community.edit.logo.notifications.add.success": "Logo de la communauté chargé avec succès.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -2506,7 +2580,8 @@
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "community.edit.logo.notifications.delete.error.title": "Erreur lors de la suppression du logo de la communauté.",
 
-  // "community.edit.logo.upload": "Drop a Community Logo to upload",
+  // "community.edit.logo.upload": "Drop a community logo to upload",
+  // TODO Source message changed - Revise the translation
   "community.edit.logo.upload": "Glisser-Déposer un logo à charger pour la communauté",
 
   // "community.edit.notifications.success": "Successfully edited the Community",
@@ -2515,7 +2590,8 @@
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   "community.edit.notifications.unauthorized": "Vous n'avez pas les autorisations requises pour réaliser ce changement",
 
-  // "community.edit.notifications.error": "An error occured while editing the Community",
+  // "community.edit.notifications.error": "An error occured while editing the community",
+  // TODO Source message changed - Revise the translation
   "community.edit.notifications.error": "Une erreur s'est produite lors de l'édition de la communauté",
 
   // "community.edit.return": "Back",
@@ -2555,6 +2631,10 @@
 
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "Communauté",
+
+  // "community.logo": "Community logo",
+  // TODO New key - Add a translation
+  "community.logo": "Community logo",
 
   // "comcol-role.edit.no-group": "None",
   "comcol-role.edit.no-group": "Aucun",
@@ -2606,7 +2686,8 @@
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Droits de lecture par défaut des Bitstreams",
 
-  // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
+  // TODO Source message changed - Revise the translation
   "comcol-role.edit.bitstream_read.description": "Les administrateurs de communauté peuvent créer des sous-communautés ou collections et gérer ou assigner la gestion de ces sous-communautés ou collections. De plus, ils peuvent déterminer qui peut déposer des Items dans toutes les collections de la communauté, éditer les métadonnées (après dépôt) et ajouter (associer) les Items existants dans d'autres collections (en fonction des autorisations appropriées).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
@@ -2736,9 +2817,13 @@
   // TODO New key - Add a translation
   "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
 
-  // "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  // "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
   // TODO New key - Add a translation
-  "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
+
+  // "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
+  // TODO New key - Add a translation
+  "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
 
   // "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
   // TODO New key - Add a translation
@@ -3231,6 +3316,14 @@
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "Demande de document refusée avec succès",
 
+  // "dropdown.clear": "Clear selection",
+  // TODO New key - Add a translation
+  "dropdown.clear": "Clear selection",
+
+  // "dropdown.clear.tooltip": "Clear the selected option",
+  // TODO New key - Add a translation
+  "dropdown.clear.tooltip": "Clear the selected option",
+
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Sans titre",
 
@@ -3622,10 +3715,12 @@
   // "error.validation.required": "This field is required",
   "error.validation.required": "Ce champ est obligatoire",
 
-  // "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  // "error.validation.NotValidEmail": "This is not a valid email",
+  // TODO Source message changed - Revise the translation
   "error.validation.NotValidEmail": "Cette adresse électronique n'est pas une adresse valide",
 
-  // "error.validation.emailTaken": "This E-mail is already taken",
+  // "error.validation.emailTaken": "This email is already taken",
+  // TODO Source message changed - Revise the translation
   "error.validation.emailTaken": "Cette adresse électronique est déjà attribuée",
 
   // "error.validation.groupExists": "This group already exists",
@@ -3679,6 +3774,9 @@
   // TODO New key - Add a translation
   "event.listelement.badge": "Event",
 
+  // "event.page.titleprefix": "Event:",
+  // TODO New key - Add a translation
+  "event.page.titleprefix": "Event:",
 
   // "explore.browse-section.title": "Browse",
   // TODO New key - Add a translation
@@ -4016,6 +4114,10 @@
   // TODO New key - Add a translation
   "feed.description": "Syndication feed",
 
+  // "file-download-link.restricted": "Restricted bitstream",
+  // TODO New key - Add a translation
+  "file-download-link.restricted": "Restricted bitstream",
+
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Erreur lors de la récupération des fichiers liés à cet Item",
 
@@ -4124,7 +4226,8 @@
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
   "forgot-password.form.label.passwordrepeat": "Entrer à nouveau pour confirmer",
 
-  // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  // "forgot-password.form.error.empty-password": "Please enter a password in the boxes above.",
+  // TODO Source message changed - Revise the translation
   "forgot-password.form.error.empty-password": "Veuillez entrer un mot de passe dans la case ci-dessous.",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
@@ -4338,6 +4441,14 @@
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Déposer l'objet dans la nouvelle position",
+
+  // "form.number-picker.decrement": "Decrement {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.decrement": "Decrement {{field}}",
+
+  // "form.number-picker.increment": "Increment {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.increment": "Increment {{field}}",
 
   // "funding.listelement.badge": "Funding",
   // TODO New key - Add a translation
@@ -4581,24 +4692,19 @@
   "info.feedback.email-label": "Votre adresse électronique",
 
   // "info.feedback.create.success": "Feedback Sent Successfully!",
-  // TODO New key - Add a translation
-  "info.feedback.create.success": "Feedback Sent Successfully!",
+  "info.feedback.create.success": "Commentaires envoyés avec succès !",
 
   // "info.feedback.error.email.required": "A valid email address is required",
-  // TODO New key - Add a translation
-  "info.feedback.error.email.required": "A valid email address is required",
+  "info.feedback.error.email.required": "Une adresse électronique valide est requise",
 
   // "info.feedback.error.message.required": "A comment is required",
-  // TODO New key - Add a translation
-  "info.feedback.error.message.required": "A comment is required",
+  "info.feedback.error.message.required": "Un contenu est requis",
 
   // "info.feedback.page-label": "Page",
-  // TODO New key - Add a translation
   "info.feedback.page-label": "Page",
 
-  // "info.feedback.page_help": "Tha page related to your feedback",
-  // TODO New key - Add a translation
-  "info.feedback.page_help": "Tha page related to your feedback",
+  // "info.feedback.page_help": "The page related to your feedback",
+  "info.feedback.page_help": "La page relative à vos commentaires",
 
   // "item.alerts.private": "This item is non-discoverable",
   // TODO Source message changed - Revise the translation
@@ -4900,6 +5006,14 @@
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "Rejeter",
 
+  // "item.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.language": "Edit language",
+
+  // "item.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.value": "Edit value",
+
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   // TODO New key - Add a translation
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
@@ -4946,6 +5060,10 @@
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Valeur",
+
+  // "item.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "item.edit.metadata.metadatafield": "Edit field",
 
   // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   // TODO New key - Add a translation
@@ -5588,12 +5706,10 @@
   "item.page.bitstreams.collapse": "Réduire",
 
   // "item.page.filesection.original.bundle": "Original bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.original.bundle": "Original bundle",
+  "item.page.filesection.original.bundle": "Bundle original",
 
   // "item.page.filesection.license.bundle": "License bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.license.bundle": "License bundle",
+  "item.page.filesection.license.bundle": "Bundle de license",
 
   // "item.page.return": "Back",
   "item.page.return": "Retour",
@@ -5601,7 +5717,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Créer une nouvelle version",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Une nouvelle version ne peut être créée car il y a une soumission en cours dans l'historique des versions",
 
   // "item.page.claim.button": "Claim",
@@ -5781,8 +5897,8 @@
   "item.preview.dc.identifier.doi": "DOI",
 
   // "item.preview.dc.title.alternative": "Alternative Title",
-  // TODO New key - Add a translation
-  "item.preview.dc.title.alternative": "Alternative Title",
+  // TODO Source message changed - Revise the translation
+  "item.preview.dc.title.alternative": "Acronyme :",
 
   // "item.preview.dc.type.version": "Version",
   // TODO New key - Add a translation
@@ -5910,6 +6026,18 @@
   // "item.select.empty": "No items to show",
   "item.select.empty": "Aucun Item à afficher",
 
+  // "item.select.table.selected": "Selected items",
+  // TODO New key - Add a translation
+  "item.select.table.selected": "Selected items",
+
+  // "item.select.table.select": "Select item",
+  // TODO New key - Add a translation
+  "item.select.table.select": "Select item",
+
+  // "item.select.table.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "item.select.table.deselect": "Deselect item",
+
   // "item.select.table.author": "Author",
   "item.select.table.author": "Auteur",
 
@@ -5976,7 +6104,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Supprimer la version",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Une nouvelle version ne peut pas être créée parce qu'il y a une soumission en cours dans l'historique des versions.",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -6018,16 +6146,13 @@
   "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
 
   // "item.version.create.notification.success": "New version has been created with version number {{version}}",
-  // TODO New key - Add a translation
-  "item.version.create.notification.success": "New version has been created with version number {{version}}",
+  "item.version.create.notification.success": "Une nouvelle version a été créée avec le numéro de version {{version}}.",
 
   // "item.version.create.notification.failure": "New version has not been created",
-  // TODO New key - Add a translation
-  "item.version.create.notification.failure": "New version has not been created",
+  "item.version.create.notification.failure": "La nouvelle version n'a pas été créée",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
-  // TODO New key - Add a translation
-  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
+  "item.version.create.notification.inProgress": "Une nouvelle version ne peut pas être créée parce qu'il y a une soumission en cours dans l'historique des versions.",
 
   // "item.version.delete.modal.header": "Delete version",
   "item.version.delete.modal.header": "Supprimer la version",
@@ -6048,20 +6173,16 @@
   "item.version.delete.modal.button.cancel.tooltip": "Ne pas supprimer cette version",
 
   // "item.version.delete.notification.success": "Version number {{version}} has been deleted",
-  // TODO New key - Add a translation
-  "item.version.delete.notification.success": "Version number {{version}} has been deleted",
+  "item.version.delete.notification.success": "Le numéro de version {{version}} a été supprimé.",
 
   // "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
-  // TODO New key - Add a translation
-  "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
+  "item.version.delete.notification.failure": "Le numéro de version {{version}} n'a pas été supprimé.",
 
   // "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
-  // TODO New key - Add a translation
-  "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
+  "item.version.edit.notification.success": "Le sommaire du numéro de version {{version}} a été modifié",
 
   // "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
-  // TODO New key - Add a translation
-  "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
+  "item.version.edit.notification.failure": "Le sommaire du numéro de version {{version}} n'a pas été modifié.",
 
   // "item-export.modal-launcher.single.btn": "Export",
   // TODO New key - Add a translation
@@ -6143,6 +6264,14 @@
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.discard-button": "Discard",
 
+  // "itemtemplate.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.language": "Edit language",
+
+  // "itemtemplate.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.value": "Edit value",
+
   // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
@@ -6186,6 +6315,14 @@
   // "itemtemplate.edit.metadata.headers.value": "Value",
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.headers.value": "Value",
+
+  // "itemtemplate.edit.metadata.headers.authority": "Authority",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
+
+  // "itemtemplate.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
   // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   // TODO New key - Add a translation
@@ -6514,6 +6651,10 @@
   // TODO New key - Add a translation
   "manage.relationships.hidden-related-items-alert": "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
 
+
+  // "menu.header.nav.description": "Admin navigation bar",
+  // TODO New key - Add a translation
+  "menu.header.nav.description": "Admin navigation bar",
 
   // "menu.header.admin": "Management",
   "menu.header.admin": "Administration",
@@ -6984,20 +7125,23 @@
   // "mydspace.results.no-title": "No title",
   "mydspace.results.no-title": "Aucun titre",
 
-  // "mydspace.results.no-uri": "No Uri",
+  // "mydspace.results.no-uri": "No URI",
+  // TODO Source message changed - Revise the translation
   "mydspace.results.no-uri": "Aucune URL",
 
   // "mydspace.results.is-correction": "Is a request of correction",
   // TODO New key - Add a translation
   "mydspace.results.is-correction": "Is a request of correction",
 
-  // "mydspace.search-form.placeholder": "Search in mydspace...",
+  // "mydspace.search-form.placeholder": "Search in MyDSpace...",
+  // TODO Source message changed - Revise the translation
   "mydspace.search-form.placeholder": "Rechercher dans mon compte DSpace...",
 
   // "mydspace.show.workflow": "Workflow tasks",
   "mydspace.show.workflow": "Tableau de suivi",
 
-  // "mydspace.show.workspace": "Your Submissions",
+  // "mydspace.show.workspace": "Your submissions",
+  // TODO Source message changed - Revise the translation
   "mydspace.show.workspace": "Vos dépôts",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
@@ -7013,7 +7157,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "En cours de validation",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "En attente d'assignation",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -7053,6 +7197,10 @@
   "mydspace.notification.suggestion.page": "We found <b>{{count}} {{type}}</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
 
 
+  // "nav.expandable-navbar-section-suffix": "(submenu)",
+  // TODO New key - Add a translation
+  "nav.expandable-navbar-section-suffix": "(submenu)",
+
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "Tout Dspace",
 
@@ -7069,9 +7217,9 @@
   // "nav.login": "Log In",
   "nav.login": "Se connecter",
 
-  // "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  // "nav.user-profile-menu-and-logout": "User profile menu and log out",
   // TODO New key - Add a translation
-  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "User profile menu and log out",
 
   // "nav.logout": "Log Out",
   // TODO Source message changed - Revise the translation
@@ -7082,6 +7230,10 @@
 
   // "nav.mydspace": "MyDSpace",
   "nav.mydspace": "Mon compte DSpace",
+
+  // "nav.processes": "My Processes",
+  // TODO New key - Add a translation
+  "nav.processes": "My Processes",
 
   // "nav.profile": "Profile",
   "nav.profile": "Profil",
@@ -7104,12 +7256,10 @@
   "nav.subscriptions": "Abonnements",
 
   // "nav.toggle": "Toggle navigation",
-  // TODO New key - Add a translation
-  "nav.toggle": "Toggle navigation",
+  "nav.toggle": "Basculer la navigation",
 
   // "nav.user.description": "User profile bar",
-  // TODO New key - Add a translation
-  "nav.user.description": "User profile bar",
+  "nav.user.description": "Barre de profil utilisateur",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Item",
@@ -7515,6 +7665,10 @@
   // "orgunit.page.titleprefix": "Organizational Unit: ",
   "orgunit.page.titleprefix": "Structure Organisationnelle: ",
 
+  // "orgunit.search.results.head": "Organizational Unit Search Results",
+  // TODO New key - Add a translation
+  "orgunit.search.results.head": "Organizational Unit Search Results",
+
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "Options de pagination",
 
@@ -7583,6 +7737,22 @@
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Paramètres",
 
+  // "process.new.select-parameter": "Select parameter",
+  // TODO New key - Add a translation
+  "process.new.select-parameter": "Select parameter",
+
+  // "process.new.add-parameter": "Add a parameter...",
+  // TODO New key - Add a translation
+  "process.new.add-parameter": "Add a parameter...",
+
+  // "process.new.delete-parameter": "Delete parameter",
+  // TODO New key - Add a translation
+  "process.new.delete-parameter": "Delete parameter",
+
+  // "process.new.parameter.label": "Parameter value",
+  // TODO New key - Add a translation
+  "process.new.parameter.label": "Parameter value",
+
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Annuler",
 
@@ -7640,6 +7810,14 @@
   // TODO New key - Add a translation
   "process.new.notification.process.files": "Output Files: ",
 
+  // "process.new.notification.process.status.completed": "Completed",
+  // TODO New key - Add a translation
+  "process.new.notification.process.status.completed": "Completed",
+
+  // "process.new.notification.process.status.failed": "Failed",
+  // TODO New key - Add a translation
+  "process.new.notification.process.status.failed": "Failed",
+
   // "process.new.header": "Create a new process",
   "process.new.header": "Créer un nouveau processus",
 
@@ -7650,20 +7828,16 @@
   "process.new.breadcrumbs": "Créer un nouveau processus",
 
   // "process.detail.arguments": "Arguments",
-  // TODO New key - Add a translation
   "process.detail.arguments": "Arguments",
 
   // "process.detail.arguments.empty": "This process doesn't contain any arguments",
-  // TODO New key - Add a translation
-  "process.detail.arguments.empty": "This process doesn't contain any arguments",
+  "process.detail.arguments.empty": "Ce processus ne contient pas d'arguments",
 
   // "process.detail.back": "Back",
-  // TODO New key - Add a translation
-  "process.detail.back": "Back",
+  "process.detail.back": "Retour",
 
   // "process.detail.output": "Process Output",
-  // TODO New key - Add a translation
-  "process.detail.output": "Process Output",
+  "process.detail.output": "Sortie du processus",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Récupérer la sortie du processus",
@@ -7675,36 +7849,28 @@
   "process.detail.logs.none": "Aucun rapport pour ce processus",
 
   // "process.detail.output-files": "Output Files",
-  // TODO New key - Add a translation
-  "process.detail.output-files": "Output Files",
+  "process.detail.output-files": "Fichiers de sortie",
 
   // "process.detail.output-files.empty": "This process doesn't contain any output files",
-  // TODO New key - Add a translation
-  "process.detail.output-files.empty": "This process doesn't contain any output files",
+  "process.detail.output-files.empty": "Ce processus ne contient pas de fichiers de sortie",
 
   // "process.detail.script": "Script",
-  // TODO New key - Add a translation
   "process.detail.script": "Script",
 
   // "process.detail.title": "Process: {{ id }} - {{ name }}",
-  // TODO New key - Add a translation
-  "process.detail.title": "Process: {{ id }} - {{ name }}",
+  "process.detail.title": "Processus : {{ id }} - {{ name }}",
 
   // "process.detail.start-time": "Start time",
-  // TODO New key - Add a translation
-  "process.detail.start-time": "Start time",
+  "process.detail.start-time": "Début",
 
   // "process.detail.end-time": "Finish time",
-  // TODO New key - Add a translation
-  "process.detail.end-time": "Finish time",
+  "process.detail.end-time": "Fin",
 
   // "process.detail.status": "Status",
-  // TODO New key - Add a translation
-  "process.detail.status": "Status",
+  "process.detail.status": "Statut",
 
   // "process.detail.create": "Create similar process",
-  // TODO New key - Add a translation
-  "process.detail.create": "Create similar process",
+  "process.detail.create": "Créer un processus similaire",
 
   // "process.detail.actions": "Actions",
   // TODO New key - Add a translation
@@ -7747,28 +7913,22 @@
   "process.overview.delete.success": "Process deleted with success",
 
   // "process.overview.table.finish": "Finish time (UTC)",
-  // TODO New key - Add a translation
-  "process.overview.table.finish": "Finish time (UTC)",
+  "process.overview.table.finish": "Heure de fin (TUC)",
 
   // "process.overview.table.id": "Process ID",
-  // TODO New key - Add a translation
-  "process.overview.table.id": "Process ID",
+  "process.overview.table.id": "ID du processus",
 
   // "process.overview.table.name": "Name",
-  // TODO New key - Add a translation
-  "process.overview.table.name": "Name",
+  "process.overview.table.name": "Nom",
 
   // "process.overview.table.start": "Start time (UTC)",
-  // TODO New key - Add a translation
-  "process.overview.table.start": "Start time (UTC)",
+  "process.overview.table.start": "Heure de début (TUC)",
 
   // "process.overview.table.status": "Status",
-  // TODO New key - Add a translation
-  "process.overview.table.status": "Status",
+  "process.overview.table.status": "Statut",
 
   // "process.overview.table.user": "User",
-  // TODO New key - Add a translation
-  "process.overview.table.user": "User",
+  "process.overview.table.user": "Utilisateur",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Sommaire des processus",
@@ -7784,6 +7944,10 @@
 
   // "process.overview.delete": "Delete {{count}} processes",
   "process.overview.delete": "Supprimer {{count}} processus",
+
+  // "process.overview.delete-process": "Delete process",
+  // TODO New key - Add a translation
+  "process.overview.delete-process": "Delete process",
 
   // "process.overview.delete.clear": "Clear delete selection",
   // TODO New key - Add a translation
@@ -7899,9 +8063,6 @@
   // "profile.special.groups.head": "Authorization special groups you belong to",
   // TODO New key - Add a translation
   "profile.special.groups.head": "Authorization special groups you belong to",
-
-  // "profile.head": "Update Profile",
-  "profile.head": "Mise à jour du profil",
 
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   "profile.metadata.form.error.firstname.required": "Le prénom est obligatoire",
@@ -8282,9 +8443,11 @@
   "repository.image.logo": "Logo du dépôt",
 
   // "repository.title": "{{ repositoryName }}",
+  // TODO New key - Add a translation
   "repository.title": "{{ repositoryName }}",
 
   // "repository.title.prefix": "{{ repositoryName }} Angular :: ",
+  // TODO New key - Add a translation
   "repository.title.prefix": "{{ repositoryName }} Angular :: ",
 
   // "resource-policies.add.button": "Add",
@@ -8365,7 +8528,8 @@
   "resource-policies.form.eperson-group-list.select.btn": "Sélectionner",
 
   // "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
-  "resource-policies.form.eperson-group-list.deselect.btn": "Désélectionner",
+  // TODO New key - Add a translation
+  "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
 
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
   "resource-policies.form.eperson-group-list.tab.eperson": "Rechercher un.e Eperson",
@@ -8414,6 +8578,9 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nom",
 
+  // "resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "30 caractères maximum",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Sélectionner le type de règle",
 
@@ -8443,6 +8610,22 @@
 
   // "resource-policies.table.headers.group": "Group",
   "resource-policies.table.headers.group": "Groupe",
+
+  // "resource-policies.table.headers.select-all": "Select all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select-all": "Select all",
+
+  // "resource-policies.table.headers.deselect-all": "Deselect all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect-all": "Deselect all",
+
+  // "resource-policies.table.headers.select": "Select",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select": "Select",
+
+  // "resource-policies.table.headers.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect": "Deselect",
 
   // "resource-policies.table.headers.id": "ID",
   "resource-policies.table.headers.id": "ID",
@@ -8486,6 +8669,10 @@
 
   // "search.search-form.placeholder": "Search the repository ...",
   "search.search-form.placeholder": "Rechercher dans le dépôt...",
+
+  // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  // TODO New key - Add a translation
+  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Auteur",
@@ -9018,9 +9205,9 @@
   // TODO New key - Add a translation
   "search.filters.namedresourcetype.Validation": "Validation",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
   // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
 
   // "search.filters.namedresourcetype.Workflow": "Workflow",
   // TODO New key - Add a translation
@@ -9052,7 +9239,8 @@
   "search.form.search_dspace": "Recherche dans DSpace",
 
   // "search.form.scope.all": "All items",
-  "search.form.scope.all": "Tous les Items",
+  // TODO Source message changed - Revise the translation
+  "search.form.scope.all": "Tout le dépôt DSpace",
 
   // "search.results.head": "Search Results",
   "search.results.head": "Résultats de recherche",
@@ -9146,6 +9334,14 @@
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Affichage en mode liste",
+
+  // "selectable-list-item-control.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.deselect": "Deselect item",
+
+  // "selectable-list-item-control.select": "Select item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.select": "Select item",
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Croissant",
@@ -9246,6 +9442,30 @@
   // "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
   // TODO New key - Add a translation
   "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
+
+  // "sorting.person.familyName.ASC": "Surname Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  // "sorting.person.familyName.DESC": "Surname Descending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  // "sorting.person.givenName.ASC": "Name Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  // "sorting.person.givenName.DESC": "Name Descending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  // "sorting.person.birthDate.ASC": "Birth Date Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  // "sorting.person.birthDate.DESC": "Birth Date Descending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
 
 
   // "statistics": "Statistics",
@@ -10003,8 +10223,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef (DOI)",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref (DOI)",
 
   // "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite (DOI)",
@@ -10779,9 +10999,9 @@
   // "submission.sections.general.no-collection": "No collection found",
   "submission.sections.general.no-collection": "Aucune collection disponible",
 
-  // "submission.sections.general.no-entity": "No entity found",
+  // "submission.sections.general.no-entity": "No entity types found",
   // TODO New key - Add a translation
-  "submission.sections.general.no-entity": "No entity found",
+  "submission.sections.general.no-entity": "No entity types found",
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Aucune option disponible",
@@ -11005,6 +11225,10 @@
   // "submission.sections.upload.delete.confirm.title": "Delete bitstream",
   "submission.sections.upload.delete.confirm.title": "Supprimer le Bitstream",
 
+  // "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+  // TODO New key - Add a translation
+  "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+
   // "submission.sections.upload.delete.submit": "Delete",
   "submission.sections.upload.delete.submit": "Supprimer",
 
@@ -11082,6 +11306,10 @@
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Téléchargement réussi",
+
+  // "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
+  // TODO New key - Add a translation
+  "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
 
   // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
   // TODO New key - Add a translation
@@ -11664,6 +11892,10 @@
 
   // "vocabulary-treeview.search.form.search": "Search",
   "vocabulary-treeview.search.form.search": "Rechercher",
+
+  // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+  // TODO New key - Add a translation
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   "vocabulary-treeview.search.no-result": "Aucun résultat à afficher",
@@ -12482,6 +12714,10 @@
   // TODO New key - Add a translation
   "lucky.search.multiple.records": "may refer to multiple records",
 
+  // "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
+  // TODO New key - Add a translation
+  "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
+
   // "invitation.group.msg": "You have been invited to join the following groups",
   // TODO New key - Add a translation
   "invitation.group.msg": "You have been invited to join the following groups",
@@ -12626,6 +12862,10 @@
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
   "system-wide-alert.form.label.countdownTo.hint": "Lorsque cette option est activée, il est possible de fixer une date dans le futur et la bannière du message d'avertissement effectuera un compte à rebours jusqu'à la date fixée. À la fin du compte à rebours, le message d'avertissement disparaîtra mais le serveur ne sera pas arrêté automatiquement.",
 
+  // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+  // TODO New key - Add a translation
+  "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
   "system-wide-alert.form.label.preview": "Aperçu du message d'avertissement",
 
@@ -12648,60 +12888,63 @@
   "admin.system-wide-alert.title": "Messages d'avertissement",
 
   // "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
-  // TODO New key - Add a translation
-  "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+  "item-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès des métadonnées de l'Item et de ses Bitstreams.",
 
   // "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
-  // TODO New key - Add a translation
-  "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  "collection-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès de tous les Items de cette collection. Les changements peuvent être appliqués aux métadonnées des Items ou à leur contenu (Bitstreams).",
 
   // "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
-  // TODO New key - Add a translation
-  "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  "community-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès de tous les Items de toutes les collections de cette communauté. Les changements peuvent être appliqués aux métadonnées des Items ou à leur contenu (Bitstreams).",
 
   // "access-control-item-header-toggle": "Item's Metadata",
-  // TODO New key - Add a translation
-  "access-control-item-header-toggle": "Item's Metadata",
+  "access-control-item-header-toggle": "Métadonnées de l'Item",
+
+  // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  "access-control-item-toggle.enable": "Activer l'option permettant d'effectuer des modifications sur les métadonnées de l'Item",
+
+  // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  "access-control-item-toggle.disable": "Désactiver l'option permettant d'effectuer des modifications sur les métadonnées de l'Item",
 
   // "access-control-bitstream-header-toggle": "Bitstreams",
-  // TODO New key - Add a translation
   "access-control-bitstream-header-toggle": "Bitstreams",
 
+  // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.enable": "Activer l'option permettant d'effectuer des modifications sur les Bitstreams",
+
+  // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.disable": "Désactiver l'option permettant d'effectuer des modifications sur les Bitstreams",
+
   // "access-control-mode": "Mode",
-  // TODO New key - Add a translation
   "access-control-mode": "Mode",
 
   // "access-control-access-conditions": "Access conditions",
-  // TODO New key - Add a translation
-  "access-control-access-conditions": "Access conditions",
+  "access-control-access-conditions": "Conditions d'accès",
 
   // "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
-  // TODO New key - Add a translation
-  "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+  "access-control-replace-all": "Remplacer les conditions d'accès",
 
   // "access-control-replace-all": "Replace access conditions",
-  // TODO New key - Add a translation
-  "access-control-replace-all": "Replace access conditions",
+  // TODO Source message changed - Revise the translation
+  "access-control-replace-all": "Remplacer les conditions d'accès",
 
   // "access-control-add-to-existing": "Add to existing ones",
-  // TODO New key - Add a translation
-  "access-control-add-to-existing": "Add to existing ones",
+  // TODO Source message changed - Revise the translation
+  "access-control-add-to-existing": "Ajouter aux conditions d'accès existantes",
 
   // "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
-  // TODO New key - Add a translation
-  "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+  "access-control-limit-to-specific": "Limiter les modifications à des Bitstreams spécifiques",
 
   // "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
-  // TODO New key - Add a translation
-  "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+  "access-control-process-all-bitstreams": "Mise à jour de tous les Bitstreams de l'Item",
 
   // "access-control-bitstreams-selected": "bitstreams selected",
-  // TODO New key - Add a translation
-  "access-control-bitstreams-selected": "bitstreams selected",
+  "access-control-bitstreams-selected": "Bitstreams sélectionnés",
+
+  // "access-control-bitstreams-select": "Select bitstreams",
+  "access-control-bitstreams-select": "Sélectionner les Bitstreams",
 
   // "access-control-cancel": "Cancel",
-  // TODO New key - Add a translation
-  "access-control-cancel": "Cancel",
+  "access-control-cancel": "Annuler",
 
   // "access-control-reset": "Reset",
   // TODO New key - Add a translation
@@ -12718,6 +12961,10 @@
   // "access-control-add-more": "Add more",
   // TODO New key - Add a translation
   "access-control-add-more": "Add more",
+
+  // "access-control-remove": "Remove access condition",
+  // TODO New key - Add a translation
+  "access-control-remove": "Remove access condition",
 
   // "access-control-select-bitstreams-modal.title": "Select bitstreams",
   // TODO New key - Add a translation
@@ -12759,6 +13006,13 @@
   // TODO New key - Add a translation
   "vocabulary-treeview.search.form.add": "Add",
 
+  // "process.overview.unknown.user": "Unknown",
+  // TODO New key - Add a translation
+  "process.overview.unknown.user": "Unknown",
+
+  // "browse.search-form.placeholder": "Search the repository",
+  // TODO New key - Add a translation
+  "browse.search-form.placeholder": "Search the repository",
 
   // "external-login.form.email": "Enter the email",
   // TODO New key - Add a translation

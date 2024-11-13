@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
@@ -42,6 +42,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
+    protected changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -85,6 +86,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
               }));
           }
           this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
         }));
       }
     }));
