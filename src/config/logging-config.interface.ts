@@ -5,12 +5,12 @@ import { Config } from './config.interface';
  */
 
 export interface LoggingConfig extends Config {
-    request: {
-        format: string;
-        immediate: boolean;
+    request?: {
+        format?: string;
+        immediate?: boolean;
     }
-    main: {
-        level: string;
-        maxFiles: number;
+    main?: {
+        level?: string;
+        maxFiles?: number;
     }
 }
