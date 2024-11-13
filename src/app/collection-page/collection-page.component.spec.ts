@@ -14,7 +14,6 @@ import { RouterStub } from '../shared/testing/router.stub';
 import { environment } from 'src/environments/environment.test';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { Collection } from '../core/shared/collection.model';
-import { SearchService } from '../core/shared/search/search.service';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -22,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../shared/utils/var.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Bitstream } from '../core/shared/bitstream.model';
+import { SearchManager } from '../core/browse/search-manager';
 
 describe('CollectionPageComponent', () => {
   let component: CollectionPageComponent;
@@ -33,7 +33,7 @@ describe('CollectionPageComponent', () => {
   let paginationServiceSpy: jasmine.SpyObj<PaginationService>;
   let authorizationDataServiceSpy: jasmine.SpyObj<AuthorizationDataService>;
   let dsoNameServiceSpy: jasmine.SpyObj<DSONameService>;
-  let searchServiceSpy: jasmine.SpyObj<SearchService>;
+  let searchServiceSpy: jasmine.SpyObj<SearchManager>;
   let aroute = new ActivatedRouteStub();
   let router = new RouterStub();
 
@@ -44,7 +44,7 @@ describe('CollectionPageComponent', () => {
     paginationServiceSpy = jasmine.createSpyObj('PaginationService', ['getCurrentPagination', 'getCurrentSort', 'clearPagination']);
     authorizationDataServiceSpy = jasmine.createSpyObj('AuthorizationDataService', ['isAuthorized']);
     collectionDataServiceSpy = jasmine.createSpyObj('CollectionDataService', ['findById', 'getAuthorizedCollection']);
-    searchServiceSpy = jasmine.createSpyObj('SearchService', ['search']);
+    searchServiceSpy = jasmine.createSpyObj('SearchManager', ['search']);
     dsoNameServiceSpy = jasmine.createSpyObj('DSONameService', ['getName']);
 
     await TestBed.configureTestingModule({
@@ -58,7 +58,7 @@ describe('CollectionPageComponent', () => {
         { provide: PaginationService, useValue: paginationServiceSpy },
         { provide: AuthorizationDataService, useValue: authorizationDataServiceSpy },
         { provide: DSONameService, useValue: dsoNameServiceSpy },
-        { provide: SearchService, useValue: searchServiceSpy },
+        { provide: SearchManager, useValue: searchServiceSpy },
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
       ]
