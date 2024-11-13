@@ -1,7 +1,7 @@
 <ng-container *ngVar="(user$ | async) as user">
   <div class="container" *ngIf="user">
     <h1>{{'profile.title' | translate}}</h1>
-    <ng-container>
+    <ng-container *ngIf="isResearcherProfileEnabled$ | async">
       <div class="card mb-4">
         <div class="card-header">{{'profile.card.researcher' | translate}}</div>
         <div class="card-body">

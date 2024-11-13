@@ -25,6 +25,7 @@ import { slide } from '../../../shared/animations/slide';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
 
 /**
@@ -36,7 +37,7 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor],
   standalone: true,
-  imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule],
+  imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {

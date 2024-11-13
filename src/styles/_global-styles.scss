@@ -37,23 +37,27 @@ body {
     z-index: 0;
 }
 
-.klaro
-.cookie-notice {
-  .cn-buttons {
-    .cm-btn.cm-btn-success {
-      color: var(--button-text-color-cookie);
-      background-color: var(--green1);
-    }
-    .cm-btn.cm-btn-success.cm-btn-accept-all {
-      color: var(--button-text-color-cookie);
-      background-color: var(--green1);
-    }
+.orejime-AppContainer .orejime-Notice-actionItem {
+  &.orejime-Notice-actionItem--save > button {
+    color: var(--button-text-color-cookie);
+    background-color: var(--green1);
   }
 }
 
-.klaro .cookie-modal a, .klaro .context-notice a, .klaro .cookie-notice a
-{
-  color: var(--green1);
+.orejime-ModalPortal {
+  .orejime-Button.orejime-AppToggles-enableAll,
+  .orejime-Modal-saveButton {
+    color: var(--button-text-color-cookie);
+    background-color: var(--green1);
+  }
+
+  .orejime-Modal-closeButton svg {
+    cursor: pointer;
+  }
+
+  a {
+    color: var(--bs-white);
+  }
 }
 
 .media-viewer
