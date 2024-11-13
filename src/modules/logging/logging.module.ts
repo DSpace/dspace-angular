@@ -1,10 +1,10 @@
 import { format as logformat } from 'logform';
+import { environment } from 'src/environments/environment';
 import {
   createLogger,
   transports,
 } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
-import { environment } from 'src/environments/environment';
 
 /* See [winston](https://www.npmjs.com/package/winston) */
 
