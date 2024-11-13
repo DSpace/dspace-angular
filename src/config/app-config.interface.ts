@@ -67,7 +67,7 @@ interface AppConfig extends Config {
   search: SearchConfig;
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
-  logging: LoggingConfig;
+  logging?: LoggingConfig;
 }
 
 /**
