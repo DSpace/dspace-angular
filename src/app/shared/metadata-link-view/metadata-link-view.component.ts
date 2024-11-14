@@ -85,7 +85,7 @@ export class MetadataLinkViewComponent implements OnInit {
     const linksToFollow = [followLink('thumbnail')];
 
     if (Metadata.hasValidAuthority(metadataValue.authority)) {
-      return this.itemService.findById(metadataValue.authority, true, false, ...linksToFollow).pipe(
+      return this.itemService.findByIdWithProjections(metadataValue.authority, ['preventMetadataSecurity'], true, false, ...linksToFollow).pipe(
         getFirstCompletedRemoteData(),
         map((itemRD: RemoteData<Item>) => this.createMetadataView(itemRD, metadataValue))
       );
