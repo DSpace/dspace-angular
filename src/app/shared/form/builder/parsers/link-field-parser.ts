@@ -38,7 +38,7 @@ export class LinkFieldParser extends ConcatFieldParser {
         @Inject(SECURITY_CONFIG) securityConfig: any = null,
         protected translateService: TranslateService,
   ) {
-    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translateService, 'Label', 'Value');
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translateService, ',', 'Label', 'Value');
   }
 
   public modelFactory(fieldValue?: any, label?: boolean): any {

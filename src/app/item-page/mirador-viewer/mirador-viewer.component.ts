@@ -62,6 +62,11 @@ export class MiradorViewerComponent implements OnInit {
   @Input() searchable: boolean;
 
   /**
+   * Is used as canvas identifier of the element to show.
+   */
+  @Input() canvasId: string;
+
+  /**
    * Hides embedded viewer in dev mode.
    */
   isViewerAvailable = true;
@@ -119,6 +124,9 @@ export class MiradorViewerComponent implements OnInit {
     }
     if (environment.mirador.enableDownloadPlugin) {
       viewerPath += '&enableDownloadPlugin=true';
+    }
+    if (this.canvasId) {
+      viewerPath += `&canvasId=${this.canvasId}`;
     }
 
     // TODO: Should the query term be trusted here?

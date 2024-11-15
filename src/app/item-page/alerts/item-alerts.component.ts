@@ -5,6 +5,7 @@ import {
 import {
   Component,
   Input,
+  OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -45,7 +46,7 @@ import {
 /**
  * Component displaying alerts for an item
  */
-export class ItemAlertsComponent {
+export class ItemAlertsComponent implements OnInit {
   /**
    * The Item to display alerts for
    */
@@ -57,11 +58,17 @@ export class ItemAlertsComponent {
    */
   public AlertTypeEnum = AlertType;
 
+  isAdministrator$: Observable<boolean>;
+
   constructor(
     private authService: AuthorizationDataService,
     private dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
     private correctionTypeDataService: CorrectionTypeDataService,
   ) {
+  }
+
+  ngOnInit() {
+    this.isAdministrator$ = this.authService.isAuthorized(FeatureID.AdministratorOf);
   }
 
   /**

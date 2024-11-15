@@ -19,7 +19,10 @@ import { ItemDataService } from '../core/data/item-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
+import {
+  redirectOn4xx,
+  redirectOn204,
+} from '../core/shared/authorized.operators';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import {
@@ -59,6 +62,7 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
     ...ITEM_PAGE_LINKS_TO_FOLLOW,
   ).pipe(
     getFirstCompletedRemoteData(),
+    redirectOn204<Item>(router, authService),
     redirectOn4xx(router, authService),
     map((rd: RemoteData<Item>) => {
       store.dispatch(new ResolvedAction(state.url, rd.payload));

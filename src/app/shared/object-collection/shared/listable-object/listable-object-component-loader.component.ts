@@ -63,7 +63,7 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
   /**
    * Whether to show the badge label or not
    */
-  @Input() showLabel = true;
+  @Input() showLabel: boolean;
 
   /**
    * Whether to show the metrics badges
@@ -74,6 +74,11 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
    * Whether to show the thumbnail preview
    */
   @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
 
   /**
    * The value to display for this element
@@ -124,6 +129,8 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
     'showLabel',
     'showMetrics',
     'showThumbnails',
+    'showCorrection',
+    'context',
     'viewMode',
     'value',
   ];

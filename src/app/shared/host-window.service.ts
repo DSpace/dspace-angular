@@ -5,7 +5,7 @@ import {
   Store,
 } from '@ngrx/store';
 import {
-  combineLatest as observableCombineLatest,
+  combineLatest,
   Observable,
 } from 'rxjs';
 import {
@@ -147,10 +147,10 @@ export class HostWindowService {
   }
 
   isXsOrSm(): Observable<boolean> {
-    return observableCombineLatest(
+    return combineLatest([
       this.isXs(),
       this.isSm(),
-    ).pipe(
+    ]).pipe(
       map(([isXs, isSm]) => isXs || isSm),
       distinctUntilChanged(),
     );

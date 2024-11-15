@@ -22,7 +22,6 @@ import { SectionDataService } from './core/layout/section-data.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/menu-id.model';
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
-import { ConfigurationDataServiceStub } from './shared/testing/configuration-data.service.stub';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { createPaginatedList } from './shared/testing/utils.test';
 import createSpy = jasmine.createSpy;
@@ -98,9 +97,9 @@ describe('menuResolver', () => {
         { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
       ),
     };
-
-    configurationDataService = new ConfigurationDataServiceStub();
-    spyOn(configurationDataService, 'findByPropertyName').and.returnValue(observableOf(true));
+    configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+      findByPropertyName: observableOf({}),
+    });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],

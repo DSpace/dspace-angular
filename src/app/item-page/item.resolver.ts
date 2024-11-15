@@ -29,6 +29,7 @@ export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
   ),
   followLink('relationships'),
   followLink('version', {}, followLink('versionhistory')),
+  followLink('bundles', {}, followLink('bitstreams')),
   followLink('thumbnail'),
   followLink('metrics'),
 ];
@@ -41,8 +42,8 @@ export const itemResolver: ResolveFn<RemoteData<Item>> = (
 ): Observable<RemoteData<Item>> => {
   const itemRD$ = itemService.findById(
     route.params.id,
-    true,
     false,
+    true,
     ...ITEM_PAGE_LINKS_TO_FOLLOW,
   ).pipe(
     getFirstCompletedRemoteData(),

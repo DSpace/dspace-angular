@@ -44,5 +44,8 @@ export const routeServiceStub: any = {
   setParameter: (key: any, value: any) => {
     return;
   },
+  removeQueryParam: () => {
+    return;
+  },
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };

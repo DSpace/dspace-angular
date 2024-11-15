@@ -5,6 +5,7 @@
      [attr.aria-disabled]="isDisabled"
      [attr.aria-labelledby]="adminMenuSectionTitleId(section.id)"
      [routerLink]="itemModel.link"
+     [queryParams]="itemModel.queryParams"
      (keyup.space)="navigate($event)"
      (keyup.enter)="navigate($event)"
      href="javascript:void(0);"

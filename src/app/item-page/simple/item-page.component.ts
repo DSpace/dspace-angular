@@ -29,7 +29,6 @@ import {
 } from 'rxjs/operators';
 import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
 
-import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -43,10 +42,6 @@ import {
   LinkHeadService,
 } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
-import {
-  redirectOn4xx,
-  redirectOn204,
-} from '../../core/shared/authorized.operators';
 import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
@@ -145,7 +140,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
@@ -162,8 +156,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
-      redirectOn204<Item>(this.router, this.authService),
-      redirectOn4xx<Item>(this.router, this.authService),
     );
     this.tabsRD$ = this.route.data.pipe(
       map((data) => data.tabs as RemoteData<PaginatedList<CrisLayoutTab>>),

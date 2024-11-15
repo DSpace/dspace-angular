@@ -10,7 +10,7 @@ import { ItemDataService } from '../core/data/item-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { followLink } from '../shared/utils/follow-link-config.model';
+import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../item-page/item.resolver';
 
 
 /**
@@ -29,12 +29,9 @@ export const crisItemPageResolver: ResolveFn<RemoteData<Item>> = (
 
   return itemService.findById(
     route.params.id,
-    false,
     true,
-    followLink('owningCollection'),
-    followLink('bundles'),
-    followLink('relationships'),
-    followLink('version', {}, followLink('versionhistory')),
+    true,
+    ...ITEM_PAGE_LINKS_TO_FOLLOW,
   ).pipe(
     getFirstCompletedRemoteData(),
   );

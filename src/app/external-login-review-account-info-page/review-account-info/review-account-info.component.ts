@@ -17,7 +17,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   combineLatest,
   filter,
@@ -46,6 +45,11 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../../shared/switch/switch.component';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 
 export interface ReviewAccountInfoData {
@@ -67,8 +71,8 @@ export interface ReviewAccountInfoData {
     TitleCasePipe,
     NgForOf,
     CompareValuesPipe,
-    UiSwitchModule,
     NgIf,
+    SwitchComponent,
   ],
   standalone: true,
 })
@@ -94,6 +98,14 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
    * List of subscriptions
    */
   subs: Subscription[] = [];
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: true, labelColor: SwitchColor.Success, backgroundColor: SwitchColor.Success ,label: 'on-label' },
+    { value: false, label: 'off-label' },
+  ];
 
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,

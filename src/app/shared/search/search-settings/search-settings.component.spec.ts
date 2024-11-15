@@ -5,8 +5,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRoute,
+  provideRouter,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -64,8 +66,14 @@ describe('SearchSettingsComponent', () => {
     paginationService = new PaginationServiceStub(pagination, sort);
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), SearchSettingsComponent, EnumKeysPipe, VarDirective],
+      imports: [
+        TranslateModule.forRoot(),
+        SearchSettingsComponent,
+        EnumKeysPipe,
+        VarDirective,
+      ],
       providers: [
+        provideRouter([]),
         { provide: SearchService, useValue: new SearchServiceStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         {

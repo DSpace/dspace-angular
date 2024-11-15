@@ -12,7 +12,6 @@ import {
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import { of } from 'rxjs';
 
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
@@ -35,7 +34,7 @@ describe('AccessControlFormContainerComponent', () => {
     imports: [CommonModule,
       FormsModule,
       NgbDatepickerModule,
-      UiSwitchModule],
+    ],
   })
   class MockNgbModalComponent {
   }
@@ -68,8 +67,8 @@ describe('AccessControlFormContainerComponent', () => {
         FormsModule,
         TranslateModule.forRoot(),
         NgbDatepickerModule,
-        UiSwitchModule,
-        AccessControlFormContainerComponent, MockNgbModalComponent,
+        AccessControlFormContainerComponent,
+        MockNgbModalComponent,
       ],
       providers: [
         { provide: BulkAccessControlService, useValue: mockBulkAccessControlService },

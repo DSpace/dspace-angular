@@ -31,8 +31,6 @@ import { stripOperatorFromFilterValue } from '../../search.utils';
   imports: [RouterLink, AsyncPipe, TranslateModule],
 })
 export class SearchLabelComponent implements OnInit {
-  @Input() key: string;
-  @Input() value: string;
   @Input() inPlaceSearch: boolean;
   @Input() appliedFilter: AppliedFilter;
   searchLink: string;
@@ -82,12 +80,8 @@ export class SearchLabelComponent implements OnInit {
   normalizeFilterValue(value: string) {
     // const pattern = /,[^,]*$/g;
     const pattern = /,authority*$/g;
-    value = value.replace(pattern, '');
+    value = value?.replace(pattern, '');
     return stripOperatorFromFilterValue(value);
-  }
-
-  private getFilterName(): string {
-    return this.key.startsWith('f.') ? this.key.substring(2) : this.key;
   }
 
   getStrippedValue(val) {

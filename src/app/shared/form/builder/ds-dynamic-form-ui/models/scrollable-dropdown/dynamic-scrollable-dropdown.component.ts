@@ -345,6 +345,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
           list.pageInfo.totalElements,
           list.pageInfo.totalPages,
         );
+        this.selectedIndex = 0;
         this.cdr.detectChanges();
       });
   }

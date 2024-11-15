@@ -323,6 +323,8 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
@@ -353,6 +355,9 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
       bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
+
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));

@@ -12,6 +12,7 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { Item } from '../shared/item.model';
+import { ITEM } from '../shared/item.resource-type';
 import { MetadataValue } from '../shared/metadata.models';
 import { AUTHORITY_REFERENCE } from '../shared/metadata.utils';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
@@ -36,6 +37,7 @@ describe('SearchManager', () => {
 
       ],
     },
+    type: ITEM.value,
   });
 
   const secondPublication = Object.assign(new Item(), {
@@ -49,6 +51,7 @@ describe('SearchManager', () => {
         }),
       ],
     },
+    type: ITEM.value,
   });
 
   const firstProject = Object.assign(new Item(), {
@@ -62,6 +65,7 @@ describe('SearchManager', () => {
         }),
       ],
     },
+    type: ITEM.value,
   });
 
   const thirdPublication = Object.assign(new Item(), {
@@ -75,6 +79,7 @@ describe('SearchManager', () => {
 
       ],
     },
+    type: ITEM.value,
   });
 
   const invalidAuthorityPublication = Object.assign(new Item(), {
@@ -89,6 +94,7 @@ describe('SearchManager', () => {
 
       ],
     },
+    type: ITEM.value,
   });
 
   const mockBrowseService: any = {
@@ -128,13 +134,13 @@ describe('SearchManager', () => {
 
       const filterValue = 'filterValue';
       const filterAuthority = null;
-      const options: BrowseEntrySearchOptions = { options: null } as any;
+      const browseOptions: BrowseEntrySearchOptions = Object.assign({}, { projection: 'preventMetadataSecurity' }) as BrowseEntrySearchOptions;
       const followLink: FollowLinkConfig<any> = {} as any;
 
-      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options, followLink).subscribe());
+      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, browseOptions, followLink).subscribe());
       scheduler.flush();
 
-      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, null, options, followLink);
+      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, null, browseOptions, followLink);
       expect(mockItemService.findAllById).toHaveBeenCalledWith([validAuthority, validAuthority2]);
 
     });
@@ -143,13 +149,13 @@ describe('SearchManager', () => {
 
       const filterValue = 'filterValue';
       const filterAuthority = 'filterAuthority';
-      const options: BrowseEntrySearchOptions = { options: null } as any;
+      const browseOptions: BrowseEntrySearchOptions = Object.assign({}, { projection: 'preventMetadataSecurity' }) as BrowseEntrySearchOptions;
       const followLink: FollowLinkConfig<any> = {} as any;
 
-      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options, followLink).subscribe());
+      scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, browseOptions, followLink).subscribe());
       scheduler.flush();
 
-      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, filterAuthority, options, followLink);
+      expect(mockBrowseService.getBrowseItemsFor).toHaveBeenCalledWith(filterValue, filterAuthority, browseOptions, followLink);
       expect(mockItemService.findAllById).toHaveBeenCalledWith([validAuthority, validAuthority2]);
 
     });

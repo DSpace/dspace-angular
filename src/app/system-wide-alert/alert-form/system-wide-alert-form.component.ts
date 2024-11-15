@@ -28,7 +28,6 @@ import {
   utcToZonedTime,
   zonedTimeToUtc,
 } from 'date-fns-tz';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   BehaviorSubject,
   Observable,
@@ -48,6 +47,11 @@ import {
   isNotEmpty,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../../shared/switch/switch.component';
 import { SystemWideAlert } from '../system-wide-alert.model';
 
 
@@ -59,7 +63,7 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   styleUrls: ['./system-wide-alert-form.component.scss'],
   templateUrl: './system-wide-alert-form.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule, SwitchComponent],
 })
 export class SystemWideAlertFormComponent implements OnInit {
 
@@ -113,6 +117,13 @@ export class SystemWideAlertFormComponent implements OnInit {
    */
   previewDays: number;
 
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: true, labelColor: SwitchColor.Success, backgroundColor: SwitchColor.Success ,label: 'system-wide-alert.form.label.active' },
+    { value: false, label: 'system-wide-alert.form.label.inactive' },
+  ];
 
   constructor(
     protected systemWideAlertDataService: SystemWideAlertDataService,

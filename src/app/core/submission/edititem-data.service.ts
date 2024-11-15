@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DeleteDataImpl } from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
@@ -56,11 +57,7 @@ export class EditItemDataService extends IdentifiableDataService<EditItem> {
   searchEditModesById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<EditItemMode>>> {
     const options = new FindListOptions();
     options.searchParams = [
-      {
-        fieldName: 'uuid',
-        fieldValue: id,
-        encodeValue: true,
-      },
+      new RequestParam('uuid', id, false),
     ];
     return this.searchData.searchBy(this.searchById, options, useCachedVersionIfAvailable, reRequestOnStale);
   }

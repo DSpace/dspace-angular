@@ -29,7 +29,7 @@ export class DropdownFieldParser extends FieldParser {
     @Inject(SECURITY_CONFIG)  securityConfig: any = null,
     translate: TranslateService,
   ) {
-    super(submissionId, configData, initFormValues, parserOptions, translate, securityConfig);
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translate);
   }
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {

@@ -49,6 +49,12 @@ export class Root implements CacheableObject {
   dspaceVersion: string;
 
   /**
+   * The current CRIS version
+   */
+  @autoserialize
+  crisVersion: string;
+
+  /**
    * The {@link HALLink}s for the root object
    */
   @deserialize

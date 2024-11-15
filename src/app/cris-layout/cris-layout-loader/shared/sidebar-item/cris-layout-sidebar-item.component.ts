@@ -17,6 +17,7 @@ import {
   rotateNavbar,
 } from '../../../../shared/animations/rotate';
 import { slide } from '../../../../shared/animations/slide';
+import { RouterLink } from '@angular/router';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.
@@ -33,9 +34,15 @@ import { slide } from '../../../../shared/animations/slide';
     NgClass,
     NgIf,
     NgFor,
+    RouterLink,
   ],
 })
 export class CrisLayoutSidebarItemComponent {
+  /**
+   * Contains the items base url
+   */
+  @Input() itemBaseUrl: string;
+
   /**
    * The tab that will be shown
    */

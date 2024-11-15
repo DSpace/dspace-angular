@@ -11,9 +11,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -27,6 +30,7 @@ import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
+import { SortPipe } from '../utils/sort.pipe';
 import { EntityDropdownComponent } from './entity-dropdown.component';
 
 @Pipe({
@@ -113,6 +117,12 @@ describe('EntityDropdownComponent', () => {
 
   let translatePipeSpy: jasmine.Spy;
 
+  const translateServiceMock: any = {
+    instant(name) {
+      return 'Statistics';
+    },
+  };
+
   const paginatedEntities = createPaginatedList(entities);
   const paginatedEntitiesRD$ = createSuccessfulRemoteDataObject$(paginatedEntities);
 
@@ -121,14 +131,16 @@ describe('EntityDropdownComponent', () => {
       imports: [
         EntityDropdownComponent,
         MockTranslatePipe,
-        InfiniteScrollModule,
+        InfiniteScrollDirective,
         ThemedLoadingComponent,
         AsyncPipe,
         TranslateModule.forRoot(),
+        SortPipe,
       ],
       providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
         { provide: ItemExportFormatService, useValue: itemExportFormatServiceMock },
+        { provide: TranslateService, useValue: translateServiceMock },
         ChangeDetectorRef,
       ],
       schemas: [NO_ERRORS_SCHEMA],

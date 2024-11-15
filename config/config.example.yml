@@ -21,8 +21,8 @@ universal:
   # Whether to inline "critical" styles into the server-side rendered HTML.
   # Determining which styles are critical is a relatively expensive operation;
   # this option can be disabled to boost server performance at the expense of
-  # loading smoothness.
-  inlineCriticalCss: true
+  # loading smoothness. For improved SSR performance, DSpace defaults this to false (disabled).
+  inlineCriticalCss: false
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
@@ -296,8 +296,12 @@ browseBy:
   fiveYearLimit: 30
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
+  # Whether to add item badges to BOTH browse and search result lists.
+  showLabels: true
   # If true, thumbnail images for items will be added to BOTH search and browse result lists.
   showThumbnails: true
+  # Whether to add item thumbnail images to BOTH browse and search result lists.
+  showMetrics: false
   # The number of entries in a paginated browse results list.
   # Rounded to the nearest size in the list of selectable sizes on the
   # settings menu.

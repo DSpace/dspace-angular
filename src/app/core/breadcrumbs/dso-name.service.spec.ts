@@ -64,6 +64,26 @@ describe(`DSONameService`, () => {
       },
     });
 
+    mockEPersonName = 'John Doe';
+    mockEPerson = Object.assign(new DSpaceObject(), {
+      firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+        return mockEPersonName;
+      },
+      getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+        return ['EPerson', Item, DSpaceObject];
+      },
+    });
+
+    mockEPersonNameFirst = 'John';
+    mockEPersonFirst = Object.assign(new DSpaceObject(), {
+      firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+        return mockEPersonNameFirst;
+      },
+      getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+        return ['EPerson', Item, DSpaceObject];
+      },
+    });
+
     mockOrgUnitName = 'Molecular Spectroscopy';
     mockOrgUnit = Object.assign(new DSpaceObject(), {
       firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {

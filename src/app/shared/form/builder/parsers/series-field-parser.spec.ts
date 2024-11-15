@@ -1,5 +1,4 @@
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
-
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -63,7 +62,7 @@ describe('SeriesFieldParser test suite', () => {
     initFormValues = {
       series: [new FormFieldMetadataValueObject('test; series')],
     };
-    const expectedValue = new FormFieldMetadataValueObject('test; series', undefined, null, undefined, 'test');
+    const expectedValue = new FormFieldMetadataValueObject('test; series', undefined, null, null, 'test');
 
     const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 

@@ -9,6 +9,7 @@ import { SubmissionSectionUploadFileComponent as BaseComponent } from 'src/app/s
 import { ThemedFileDownloadLinkComponent } from '../../../../../../../app/shared/file-download-link/themed-file-download-link.component';
 import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pipe';
 import { SubmissionSectionUploadFileViewComponent } from '../../../../../../../app/submission/sections/upload/file/view/section-upload-file-view.component';
+import { AlertComponent } from '../../../../../../../app/shared/alert/alert.component';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -24,6 +25,7 @@ import { SubmissionSectionUploadFileViewComponent } from '../../../../../../../a
     TranslateModule,
     SubmissionSectionUploadFileViewComponent,
     NgIf,
+    AlertComponent,
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,

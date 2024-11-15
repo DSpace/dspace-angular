@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   inject,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import {
   FormsModule,
@@ -33,6 +33,7 @@ import {
   SearchSection,
   Section,
   TopSection,
+  TopSectionTemplateType,
 } from '../core/layout/models/section.model';
 import { SectionDataService } from '../core/layout/section-data.service';
 import { ThemedBrowseSectionComponent } from '../shared/explore/section-component/browse-section/themed-browse-section.component';
@@ -67,6 +68,7 @@ describe('ExploreComponent', () => {
     numberOfItems: 5,
     titleKey: 'lastPublications',
     showThumbnails: false,
+    template: TopSectionTemplateType.DEFAULT,
   };
 
   const searchComponent: SearchSection = {
@@ -85,7 +87,7 @@ describe('ExploreComponent', () => {
     facetsPerRow: 4,
   };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     sectionDataServiceStub = {
       findById(id: string): Observable<RemoteData<Section>> {

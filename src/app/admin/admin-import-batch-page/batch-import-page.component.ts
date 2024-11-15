@@ -10,7 +10,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import { take } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -30,6 +29,11 @@ import {
   isNotEmpty,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../../shared/switch/switch.component';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
@@ -39,8 +43,8 @@ import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzo
     NgIf,
     TranslateModule,
     FormsModule,
-    UiSwitchModule,
     FileDropzoneNoUploaderComponent,
+    SwitchComponent,
   ],
   standalone: true,
 })
@@ -69,6 +73,14 @@ export class BatchImportPageComponent {
    * File URL when flag is for url
    */
   fileURL: string;
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: 'upload', icon: 'fa fa-upload', label: 'admin.metadata-import.page.toggle.upload', iconColor: SwitchColor.Primary },
+    { value: 'url', icon: 'fa fa-link', label: 'admin.metadata-import.page.toggle.url', iconColor: SwitchColor.Primary },
+  ];
 
   public constructor(private location: Location,
                      protected translate: TranslateService,

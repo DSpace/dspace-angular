@@ -46,7 +46,7 @@ import { SearchFilterService } from '../../../../../core/shared/search/search-fi
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../../empty.util';
+import { isNotEmpty } from '../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { addOperatorToFilterValue } from '../../../search.utils';
@@ -102,7 +102,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
   ngOnInit(): void {
     super.ngOnInit();
     const vocabularyName: string = this.getVocabularyEntry();
-    if (hasValue(vocabularyName)) {
+    if (isNotEmpty(vocabularyName)) {
       this.vocabularyService.searchTopEntries(
         vocabularyName, new PageInfo(), true, false,
       ).pipe(

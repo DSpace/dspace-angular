@@ -7,6 +7,7 @@ import {
   NgIf,
 } from '@angular/common';
 import {
+  AfterViewChecked,
   ChangeDetectorRef,
   Component,
   Inject,
@@ -42,6 +43,7 @@ import {
 } from './context-menu.decorator';
 import { ContextMenuEntryComponent } from './context-menu-entry.component';
 import { ContextMenuEntryType } from './context-menu-entry-type';
+import { BrowserOnlyDirective } from '../utils/browser-only.directive';
 
 /**
  * This component renders a context menu for a given DSO.
@@ -59,9 +61,10 @@ import { ContextMenuEntryType } from './context-menu-entry-type';
     NgClass,
     AsyncPipe,
     TranslateModule,
+    BrowserOnlyDirective,
   ],
 })
-export class ContextMenuComponent implements OnInit {
+export class ContextMenuComponent implements OnInit, AfterViewChecked {
 
   /**
    * The context menu entries
@@ -94,6 +97,9 @@ export class ContextMenuComponent implements OnInit {
    * @type {number}
    */
   public optionCount = 0;
+
+  public standAloneEntries$: Observable<any>;
+  public contextEntries$: Observable<any>;
 
   /**
    * Initialize instance variables
@@ -141,7 +147,7 @@ export class ContextMenuComponent implements OnInit {
   private retrieveSelectedContextMenuEntries(isStandAlone: boolean): Observable<any[]> {
     const list = this.contextMenuObjectType ? getContextMenuEntriesForDSOType(this.contextMenuObjectType) : [];
     return from(list).pipe(
-      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions ?.componentRef) && renderOptions ?.isStandAlone === isStandAlone),
+      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions?.componentRef) && renderOptions?.isStandAlone === isStandAlone),
       map((renderOptions: ContextMenuEntryRenderOptions) => renderOptions.componentRef),
       concatMap((constructor: GenericConstructor<ContextMenuEntryComponent>) => {
         const entryComp: ContextMenuEntryComponent = new constructor();
@@ -167,10 +173,6 @@ export class ContextMenuComponent implements OnInit {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'false';
       }),
     );
-  }
-
-  isItem(): boolean {
-    return this.contextMenuObjectType === DSpaceObjectType.ITEM;
   }
 
   ngAfterViewChecked() {

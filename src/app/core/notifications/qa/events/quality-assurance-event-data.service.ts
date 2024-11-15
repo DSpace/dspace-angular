@@ -98,7 +98,7 @@ export class QualityAssuranceEventDataService extends IdentifiableDataService<Qu
    */
   public getEventsByTopic(topic: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<QualityAssuranceEventObject>[]): Observable<RemoteData<PaginatedList<QualityAssuranceEventObject>>> {
     options.searchParams = [
-      new RequestParam('topic', topic),
+      new RequestParam('topic', topic, false),
     ];
     return this.searchData.searchBy('findByTopic', options, true, true, ...linksToFollow);
   }

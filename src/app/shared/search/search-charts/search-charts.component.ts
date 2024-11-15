@@ -98,7 +98,7 @@ export class SearchChartsComponent implements OnInit {
   @Input() showChartsToggle = false;
 
   /**
-   * Scope of the search
+   * The scope of the search
    */
   @Input() scope: string;
 

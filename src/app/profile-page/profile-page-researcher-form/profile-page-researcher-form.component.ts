@@ -13,7 +13,6 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   BehaviorSubject,
   Observable,
@@ -39,6 +38,11 @@ import {
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../../shared/switch/switch.component';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
@@ -51,8 +55,8 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
     NgIf,
     AsyncPipe,
     TranslateModule,
-    UiSwitchModule,
     VarDirective,
+    SwitchComponent,
   ],
   standalone: true,
 })
@@ -87,6 +91,14 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    * If exists The uuid of the item associated to the researcher profile
    */
   researcherProfileItemId: string;
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: 'public', icon: 'fa fa-globe', labelColor: SwitchColor.Success, label: 'researcher.profile.public.visibility', iconColor: SwitchColor.Success },
+    { value: 'private', icon: 'fa fa-lock', labelColor: SwitchColor.Danger, label: 'researcher.profile.private.visibility', iconColor: SwitchColor.Danger },
+  ];
 
   constructor(protected researcherProfileService: ResearcherProfileDataService,
               protected profileClaimService: ProfileClaimService,

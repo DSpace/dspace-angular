@@ -59,7 +59,7 @@ export class SearchChartComponent implements OnInit {
   @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
-   * Scope of the search
+   * The scope of the search
    */
   @Input() scope: string;
 

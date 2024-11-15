@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   KeyValuePipe,
-  Location,
   NgForOf,
   NgIf,
   SlicePipe,
@@ -35,7 +34,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
-import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -116,9 +114,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
-    protected _location: Location,
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
@@ -126,7 +122,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     @Inject(PLATFORM_ID) protected platformId: string,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
-    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
+    super(route, router, items, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
@@ -149,7 +145,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
    * Navigate back in browser history.
    */
   back() {
-    this._location.back();
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnDestroy() {

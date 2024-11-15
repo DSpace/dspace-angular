@@ -18,7 +18,10 @@ import {
   combineLatest,
   Observable,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
 import {
   APP_CONFIG,
@@ -33,6 +36,7 @@ import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
 import { KlaroService } from '../../../../../cookies/klaro.service';
+import { isNotEmpty } from '../../../../../empty.util';
 import { MetadataLinkViewComponent } from '../../../../../metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
@@ -99,7 +103,9 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
       this.klaroService.watchConsentUpdates();
 
       this.hasLoadedThirdPartyMetrics$ = combineLatest([
-        this.klaroService.consentsUpdates$,
+        this.klaroService.consentsUpdates$.pipe(
+          filter(consents => isNotEmpty(consents)),
+        ),
         this.dso.metrics?.pipe(
           getFirstSucceededRemoteListPayload(),
           map(metrics => {

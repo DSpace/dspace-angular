@@ -15,5 +15,5 @@ export const homePageResolver: ResolveFn<Site> = (
   state: RouterStateSnapshot,
   siteService: SiteDataService = inject(SiteDataService),
 ): Observable<Site> => {
-  return siteService.find().pipe(take(1));
+  return siteService.find(null, false).pipe(take(1));
 };

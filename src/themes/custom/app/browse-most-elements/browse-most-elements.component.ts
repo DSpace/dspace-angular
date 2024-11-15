@@ -1,13 +1,11 @@
 import {
-  NgForOf,
-  NgIf,
+  AsyncPipe,
+  LowerCasePipe, NgSwitch,
 } from '@angular/common';
 import { Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowseMostElementsComponent as BaseComponent } from '../../../../app/shared/browse-most-elements/browse-most-elements.component';
-import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ThemedDefaultBrowseElementsComponent } from '../../../../app/shared/browse-most-elements/default-browse-elements/themed-default-browse-elements.component';
 
 /**
  * Component representing the breadcrumbs of a page
@@ -20,11 +18,10 @@ import { ListableObjectComponentLoaderComponent } from '../../../../app/shared/o
   styleUrls: ['../../../../app/shared/browse-most-elements/browse-most-elements.component.scss'],
   standalone: true,
   imports: [
-    ListableObjectComponentLoaderComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
-    NgForOf,
-    NgIf,
+    ThemedDefaultBrowseElementsComponent,
+    AsyncPipe,
+    LowerCasePipe,
+    NgSwitch,
   ],
 })
 export class BrowseMostElementsComponent extends BaseComponent {

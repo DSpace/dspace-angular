@@ -1,5 +1,4 @@
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
-
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DynamicRelationGroupModel } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';

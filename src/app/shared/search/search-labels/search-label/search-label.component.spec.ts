@@ -14,6 +14,7 @@ import {
   RouterModule,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -38,19 +39,41 @@ describe('SearchLabelComponent', () => {
   let searchConfigurationService: SearchConfigurationServiceStub;
   let searchFilterService: SearchFilterServiceStub;
   let paginationService: PaginationServiceStub;
-
-  const searchLink = '/search';
+  let searchService;
   let appliedFilter: AppliedFilter;
   let initialRouteParams: Params;
   let pagination: PaginationComponentOptions;
 
-  function init(): void {
-    appliedFilter = Object.assign(new AppliedFilter(), {
-      filter: 'author',
-      operator: 'authority',
-      value: '1282121b-5394-4689-ab93-78d537764052',
-      label: 'Odinson, Thor',
-    });
+  const searchLink = '/search';
+  const key1 = 'author';
+  const key2 = 'subject';
+  const value1 = 'Test, Author';
+  const normValue1 = 'Test, Author';
+  const value2 = 'TestSubject';
+  const value3 = 'Test, Authority,authority';
+  const normValue3 = 'Test, Authority';
+  // const filter1 = [key1, value1];
+  // const filter2 = [key2, value2];
+
+  const filter1: AppliedFilter = {
+    'filter': 'author',
+    'operator': 'equals',
+    'value': 'Test, Author',
+    'label': 'Test, Author',
+  };
+  const filter2: AppliedFilter = {
+    filter: 'author',
+    operator: 'authority',
+    value: '1282121b-5394-4689-ab93-78d537764052',
+    label: 'Odinson, Thor',
+  };
+  const mockFilters = [
+    filter1,
+    filter2,
+  ];
+
+  function init(filter: AppliedFilter): void {
+    appliedFilter = filter;
     initialRouteParams = {
       'query': '',
       'spc.page': '1',
@@ -65,7 +88,7 @@ describe('SearchLabelComponent', () => {
   }
 
   beforeEach(waitForAsync(async () => {
-    init();
+    init(filter1);
     route = new ActivatedRouteStub(initialRouteParams);
     searchConfigurationService = new SearchConfigurationServiceStub();
     searchFilterService = new SearchFilterServiceStub();
@@ -103,7 +126,30 @@ describe('SearchLabelComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(comp).toBeTruthy();
+  xdescribe('when getRemoveParams is called', () => {
+    let obs: Observable<Params>;
+
+    beforeEach(() => {
+      obs = comp.updateRemoveParams();
+    });
+
+    it('should return all params but the provided filter', () => {
+      obs.subscribe((params) => {
+        // Should contain only filter2 and page: length == 2
+        expect(Object.keys(params).length).toBe(2);
+      });
+    });
+  });
+
+  describe('when normalizeFilterValue is called', () => {
+    it('should return properly filter value', () => {
+      let result: string;
+
+      result = comp.normalizeFilterValue(value1);
+      expect(result).toBe(normValue1);
+
+      result = comp.normalizeFilterValue(value3);
+      expect(result).toBe(normValue3);
+    });
   });
 });

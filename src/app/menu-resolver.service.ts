@@ -1,4 +1,9 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -8,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest as observableCombineLatest,
   Observable,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -42,7 +48,10 @@ import { ThemedEditItemSelectorComponent } from './shared/dso-selector/modal-wra
 import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { ExportMetadataCsvSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-csv-selector/export-metadata-csv-selector.component';
 import { ExportMetadataXlsSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-xls-selector/export-metadata-xls-selector.component';
-import { hasValue } from './shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from './shared/empty.util';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/menu-id.model';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
@@ -52,7 +61,7 @@ import { MenuItemType } from './shared/menu/menu-item-type.model';
 import { MenuState } from './shared/menu/menu-state.model';
 
 /**
- * Creates all of the app's menus
+ * Creates all the app's menus
  */
 @Injectable({
   providedIn: 'root',
@@ -61,6 +70,7 @@ export class MenuResolverService  {
 
   private activatedRouteLastChild: ActivatedRoute;
   constructor(
+    @Inject(PLATFORM_ID) public platformId: any,
     protected route: ActivatedRoute,
     protected menuService: MenuService,
     protected authorizationService: AuthorizationDataService,
@@ -68,6 +78,7 @@ export class MenuResolverService  {
     protected scriptDataService: ScriptDataService,
     protected configurationDataService: ConfigurationDataService,
     protected sectionDataService: SectionDataService,
+    protected configService: ConfigurationDataService,
   ) {
   }
 
@@ -75,6 +86,9 @@ export class MenuResolverService  {
    * Initialize all menus
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return of(true);
+    }
     return observableCombineLatest([
       this.createPublicMenu$(),
       this.createAdminMenu$(),
@@ -253,6 +267,7 @@ export class MenuResolverService  {
     this.createImportMenuSections();
     this.createAccessControlMenuSections();
     this.createReportMenuSections();
+    this.createDLExporterMenuItem();
 
     return this.waitForMenu$(MenuID.ADMIN);
   }
@@ -315,7 +330,7 @@ export class MenuResolverService  {
           id: 'new_item',
           parentID: 'new',
           active: false,
-          visible: isSiteAdmin,
+          visible: isSiteAdmin || isCommunityAdmin || isCollectionAdmin,
           model: {
             type: MenuItemType.ONCLICK,
             text: 'menu.section.new_item',
@@ -460,12 +475,24 @@ export class MenuResolverService  {
         //   icon: 'cogs',
         //   index: 9
         // },
-
+        /*  Admin Search */
+        {
+          id: 'admin_search',
+          active: false,
+          visible: isSiteAdmin || isCollectionAdmin || isCommunityAdmin,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.admin_search',
+            link: '/admin/search',
+          } as LinkMenuItemModel,
+          index: 5,
+          icon: 'search',
+        },
         /* Processes */
         {
           id: 'processes',
           active: false,
-          visible: isSiteAdmin,
+          visible: isSiteAdmin || isCommunityAdmin || isCollectionAdmin,
           model: {
             type: MenuItemType.LINK,
             text: 'menu.section.processes',
@@ -613,9 +640,15 @@ export class MenuResolverService  {
 
     observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
     ]).pipe(
-      filter(([authorized, metadataExportScriptExists]: boolean[]) => authorized && metadataExportScriptExists),
+      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
+        isAdmin || isCollectionAdmin || isCommunityAdmin,
+      ),
+      take(1),
+      switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME)),
+      filter((metadataExportScriptExists: boolean) => metadataExportScriptExists),
       take(1),
     ).subscribe(() => {
       // Hides the export menu for unauthorised people
@@ -693,6 +726,44 @@ export class MenuResolverService  {
   }
 
   /**
+   * Add the DL Exporter menu item to the admin menu
+   */
+  createDLExporterMenuItem() {
+    this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      filter((authorized: boolean) => authorized),
+      take(1),
+      switchMap(() => observableCombineLatest([
+        this.getDLExporterURL(),
+        this.getDLExporterAccessToken(),
+      ])),
+      filter(([url, accesstoken]) => isNotEmpty(url) && isNotEmpty(accesstoken)),
+      take(1),
+    ).subscribe(([url, accesstoken]) => {
+      const urlSegments = url.split('?');
+      const queryParamSegments = urlSegments[1].split('=');
+      this.menuService.addSection(MenuID.ADMIN,
+        {
+          id: 'loginmiur_dlexporter_url',
+          index: 15,
+          active: false,
+          visible: true,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.loginmiur_dlexporter_url',
+            disabled: false,
+            link: urlSegments[0],
+            queryParams: {
+              [queryParamSegments[0]]: queryParamSegments[1],
+            },
+          } as LinkMenuItemModel,
+          icon: 'fa-solid fa-arrows-spin',
+          shouldPersistOnRouteChange: true,
+        },
+      );
+    });
+  }
+
+  /**
    * Create menu sections dependent on whether or not the current user is a site administrator and on whether or not
    * the import scripts exist and the current user is allowed to execute them
    */
@@ -702,9 +773,15 @@ export class MenuResolverService  {
 
     observableCombineLatest([
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-      this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
     ]).pipe(
-      filter(([authorized, metadataImportScriptExists]: boolean[]) => authorized && metadataImportScriptExists),
+      filter(([isAdmin, isCommunityAdmin, isCollectionAdmin]) =>
+        isAdmin || isCollectionAdmin || isCommunityAdmin,
+      ),
+      take(1),
+      switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_IMPORT_SCRIPT_NAME)),
+      filter((metadataImportScriptExists: boolean) => metadataImportScriptExists),
       take(1),
     ).subscribe(() => {
       // Hides the import menu for unauthorised people
@@ -769,6 +846,7 @@ export class MenuResolverService  {
             icon: 'list-alt',
             index: 2,
           },
+          /*  Admin Search */
           {
             id: 'admin_search',
             active: false,
@@ -1079,5 +1157,26 @@ export class MenuResolverService  {
   getObjectUrl(data) {
     const object = data.site ? data.site : data.dso?.payload;
     return object?._links?.self?.href;
+  }
+
+  /**
+   * Get the DL Exporter URL from the configuration
+   */
+  getDLExporterURL(): Observable<string> {
+    return this.configService.findByPropertyName('loginmiur.dlexporter.url').pipe(
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res?.payload?.values[0];
+      }),
+    );
+  }
+
+  private getDLExporterAccessToken() {
+    return this.configService.findByPropertyName('loginmiur.dlexporter.accesstoken').pipe(
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res?.payload?.values[0];
+      }),
+    );
   }
 }

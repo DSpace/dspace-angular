@@ -15,6 +15,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import uniqBy from 'lodash/uniqBy';
 import {
   BehaviorSubject,
   Observable,
@@ -22,8 +23,10 @@ import {
   Subscription,
 } from 'rxjs';
 import {
+  distinctUntilChanged,
   filter,
   map,
+  switchMap,
   take,
 } from 'rxjs/operators';
 
@@ -39,12 +42,15 @@ import {
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
+import { AlertType } from '../../../../shared/alert/alert-type';
 import {
   hasValue,
   isNotUndefined,
 } from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';
+import { isNumeric } from '../../../../shared/numeric.util';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
@@ -65,6 +71,7 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
+    AlertComponent,
   ],
   standalone: true,
 })
@@ -191,6 +198,11 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @type {BehaviorSubject<boolean>}
    */
   public processingDelete$ = new BehaviorSubject<boolean>(false);
+
+  /**
+   * The Enum for the Alert type to be visualized
+   */
+  public AlertTypeEnum = AlertType;
 
   /**
    * The [JsonPatchOperationPathCombiner] object
@@ -338,6 +350,31 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
 
   unsubscribeAll() {
     this.subscriptions.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+  }
+
+  /**
+   * Get current file errors status
+   *
+   * @public
+   */
+  public getFileHasErrors(): Observable<boolean> {
+    return this.submissionService.getSubmissionObject(this.submissionId).pipe(
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      switchMap((submission) => {
+        const uploadSection =  submission.sections ? submission.sections[this.sectionId] : null;
+        let hasErrors = false;
+
+        if (hasValue(uploadSection)) {
+          const errorList = uniqBy([].concat(uploadSection.errorsToShow ?? []).concat(uploadSection.serverValidationErrors ?? []), 'path');
+          const errorPaths = errorList.map(error => error.path);
+          const errorIndexes = errorPaths.map(path => path.split('/')[path.split('/').length - 1]);
+          //second OR condition is needed in case there is just one file as the index is not added
+          hasErrors = errorIndexes.includes(this.fileIndex.toString()) || (errorPaths.length === 1 && !isNumeric(parseInt(errorIndexes[0], 10)));
+        }
+
+        return of(hasErrors);
+      }),
+    );
   }
 
   protected loadFormMetadata() {

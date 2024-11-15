@@ -41,6 +41,7 @@ import { followLink } from '../utils/follow-link-config.model';
 import { VarDirective } from '../utils/var.directive';
 import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/metadata-link-view-popover.component';
 import { MetadataView } from './metadata-view.model';
+import { StickyPopoverDirective } from './sticky-popover.directive';
 
 @Component({
   selector: 'ds-metadata-link-view',
@@ -56,6 +57,7 @@ import { MetadataView } from './metadata-view.model';
     VarDirective,
     NgTemplateOutlet,
     AsyncPipe,
+    StickyPopoverDirective,
   ],
   standalone: true,
 })

@@ -1,30 +1,15 @@
-import {
-  ChangeDetectorRef,
-  CUSTOM_ELEMENTS_SCHEMA,
-} from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { SearchManager } from '../../core/browse/search-manager';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { TopSectionTemplateType } from '../../core/layout/models/section.model';
 import { Item } from '../../core/shared/item.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
-import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { followLink } from '../utils/follow-link-config.model';
 import { BrowseMostElementsComponent } from './browse-most-elements.component';
 
 describe('BrowseMostElementsComponent', () => {
@@ -64,91 +49,60 @@ describe('BrowseMostElementsComponent', () => {
       ],
     },
   });
-  const mockResponse = createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [mockResultObject]));
-
-  const mockSearchService = {
-    search: jasmine.createSpy('search').and.returnValue(of(mockResponse)), // Replace with your desired response
-  };
-
-  const mockConfig = {
-    browseBy: {
-      showThumbnails: true,
-    },
-  };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [BrowseMostElementsComponent],
+      declarations: [BrowseMostElementsComponent],
       providers: [
-        { provide: APP_CONFIG, useValue: mockConfig },
-        { provide: SearchManager, useValue: mockSearchService },
-        { provide: ChangeDetectorRef, useValue: {} },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ignore unknown Angular elements
-    }).overrideComponent(BrowseMostElementsComponent, { remove: { imports: [ListableObjectComponentLoaderComponent, ThemedLoadingComponent] } }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BrowseMostElementsComponent);
     component = fixture.componentInstance;
-    component.paginatedSearchOptions = new PaginatedSearchOptions({
-      configuration: 'test',
-      pagination: Object.assign(new PaginationComponentOptions(), {
-        id: 'search-object-pagination',
-        pageSize: 5,
-        currentPage: 1,
-      }),
-      sort: new SortOptions('dc.title', SortDirection.ASC),
-    });
+    component.topSection = {
+      template: TopSectionTemplateType.DEFAULT,
+    } as any;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    component.showThumbnails = true;
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  it('should call searchService.search on ngOnInit with followLinks', () => {
-    component.showThumbnails = true;
-    fixture.detectChanges();
+  describe('when the templateType is DEFAULT', () => {
+    beforeEach(() => {
+      component.topSection = {
+        template: TopSectionTemplateType.DEFAULT,
+      } as any;
+      fixture.detectChanges();
+    });
 
-    expect(mockSearchService.search).toHaveBeenCalledWith(
-      component.paginatedSearchOptions,
-      null,
-      true,
-      true,
-      followLink('thumbnail'),
-    );
+    it('should display ds-themed-default-browse-elements', () => {
+      const defaultElement = fixture.debugElement.query(By.css('ds-default-browse-elements'));
+      expect(defaultElement).toBeTruthy();
+    });
+
+    it('should not display ds-themed-images-browse-elements', () => {
+      const imageElement = fixture.debugElement.query(By.css('ds-images-browse-elements'));
+      expect(imageElement).toBeNull();
+    });
   });
 
-  it('should call searchService.search on ngOnInit with followLinks', () => {
-    component.showThumbnails = undefined;
-    fixture.detectChanges();
+  describe('when the templateType is not recognized', () => {
+    beforeEach(() => {
+      component.topSection = {
+        template: 'not recognized' as any,
+      } as any;
+      fixture.detectChanges();
+    });
 
-    expect(mockSearchService.search).toHaveBeenCalledWith(
-      component.paginatedSearchOptions,
-      null,
-      true,
-      true,
-      followLink('thumbnail'),
-    );
-  });
-
-  it('should call searchService.search on ngOnInit without followLinks', () => {
-    component.showThumbnails = false;
-    fixture.detectChanges();
-
-    expect(mockSearchService.search).toHaveBeenCalledWith(
-      component.paginatedSearchOptions,
-      null,
-      true,
-      true,
-    );
-  });
-
-  it('should update searchResults after searchService response', () => {
-    component.ngOnInit();
-
-    expect(component.searchResults).toEqual(mockResponse);
+    it('should display ds-themed-default-browse-elements', () => {
+      const defaultElement = fixture.debugElement.query(By.css('ds-default-browse-elements'));
+      expect(defaultElement).toBeTruthy();
+    });
   });
 });

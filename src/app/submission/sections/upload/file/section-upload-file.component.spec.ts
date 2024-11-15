@@ -38,6 +38,7 @@ import { getMockSectionUploadService } from '../../../../shared/mocks/section-up
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
+  mockSubmissionState,
   mockUploadConfigResponse,
   mockUploadFiles,
 } from '../../../../shared/mocks/submission.mock';
@@ -48,6 +49,7 @@ import { SubmissionServiceStub } from '../../../../shared/testing/submission-ser
 import { createTestComponent } from '../../../../shared/testing/utils.test';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
@@ -113,6 +115,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         FileSizePipe,
         SubmissionSectionUploadFileComponent,
         TestComponent,
+        VarDirective,
       ],
       providers: [
         { provide: FormService, useValue: getMockFormService() },
@@ -221,6 +224,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     it('should not show any buttons when ready-only is true', () => {
       comp.fileData = fileData;
       comp.readOnly = true;
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
 
       fixture.detectChanges();
 
@@ -231,10 +235,11 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
     it('should call deleteFile on delete confirmation', async () => {
       spyOn(compAsAny, 'deleteFile');
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
       comp.fileData = fileData;
 
       fixture.detectChanges();
-      const modalBtn = fixture.debugElement.query(By.css('.fa-trash '));
+      const modalBtn = fixture.debugElement.query(By.css('.fa-trash'));
 
       modalBtn.nativeElement.click();
       fixture.detectChanges();
@@ -284,16 +289,38 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
     it('should open edit modal when edit button is clicked', () => {
       spyOn(compAsAny, 'editBitstreamData').and.callThrough();
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
       comp.fileData = fileData;
 
       fixture.detectChanges();
 
-      const modalBtn = fixture.debugElement.query(By.css('.fa-edit '));
+      const modalBtn = fixture.debugElement.query(By.css('.fa-edit'));
 
       modalBtn.nativeElement.click();
       fixture.detectChanges();
 
       expect(compAsAny.editBitstreamData).toHaveBeenCalled();
+    });
+
+    it('should show error message if file upload has errors', () => {
+      const mockSubmission = mockSubmissionState;
+      mockSubmission[submissionId].sections[sectionId].errorsToShow = [
+        {
+          path: '/path/to/file/' + fileIndex,
+          message: 'test',
+        },
+      ];
+
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(mockSubmission));
+      comp.fileData = fileData;
+
+      fixture.detectChanges();
+
+      const errorBorder = fixture.debugElement.query(By.css('.border-danger'));
+      const errorMessage = fixture.debugElement.query(By.css('span.text-danger'));
+
+      expect(errorBorder).toBeDefined();
+      expect(errorMessage).toBeDefined();
     });
 
   });

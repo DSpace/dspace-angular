@@ -28,7 +28,7 @@
 
   "410.link.home-page": "Take me to the home page",
 
-  "error-page.description.401": "unauthorized",
+  "error-page.description.401": "Unauthorized",
 
   "error-page.description.403": "Forbidden",
 
@@ -1345,6 +1345,8 @@
 
   "browse.startsWith.input": "Filter",
 
+  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+
   "browse.taxonomy.button": "Browse",
 
   "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
@@ -1561,7 +1563,7 @@
 
   "collection.edit.template.breadcrumbs": "Item template",
 
-  "collection.edit.template.cancel": "Cancel",
+  "collection.edit.template.back": "Back",
 
   "collection.edit.template.delete-button": "Delete",
 
@@ -1620,6 +1622,8 @@
   "collection.listelement.badge": "Collection",
 
   "collection.logo": "Collection logo",
+
+  "collection.page.browse.recent.head": "Recent Submissions",
 
   "collection.page.browse.search.head": "Search",
 
@@ -1906,7 +1910,9 @@
 
   "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
 
-  "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
+
+  "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
 
   "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
 
@@ -2435,6 +2441,7 @@
 
   "event.listelement.badge": "Event",
 
+  "event.page.titleprefix": "Event:",
 
   "explore.browse-section.title": "Browse",
 
@@ -2796,6 +2803,10 @@
   "form.number-picker.increment": "Increment {{field}}",
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
+
+  "form.number-picker.decrement": "Decrement {{field}}",
+
+  "form.number-picker.increment": "Increment {{field}}",
 
   "funding.listelement.badge": "Funding",
 
@@ -4199,6 +4210,8 @@
   "manage.relationships.hidden-related-items-alert": "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
 
 
+  "menu.header.nav.description": "Admin navigation bar",
+
   "menu.header.admin": "Management",
 
   "menu.header.image.logo": "Repository logo",
@@ -4419,6 +4432,10 @@
 
   "menu.section.workflow": "Administer Workflow",
 
+  "menu.section.loginmiur_dlexporter_url": "DLExporter",
+
+  "menu.section.loginmiur_dlexporter": "DLExporter",
+
   "metadata-export-search.tooltip": "Export search results as CSV",
 
   "metadata-export-search.submit.success": "The export was started successfully",
@@ -4567,6 +4584,8 @@
   "nav.main.description": "Main navigation bar",
 
   "nav.mydspace": "MyDSpace",
+
+  "nav.processes": "My Processes",
 
   "nav.profile": "Profile",
 
@@ -4901,6 +4920,10 @@
   "process.new.notification.process.processing": "Processing...",
 
   "process.new.notification.process.files": "Output Files: ",
+
+  "process.new.notification.process.status.completed": "Completed",
+
+  "process.new.notification.process.status.failed": "Failed",
 
   "process.new.header": "Create a new process",
 
@@ -6054,6 +6077,18 @@
 
   "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
 
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
+
 
   "statistics": "Statistics",
 
@@ -7099,6 +7134,8 @@
 
   "submission.sections.upload.delete.confirm.title": "Delete bitstream",
 
+  "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+
   "submission.sections.upload.delete.submit": "Delete",
 
   "submission.sections.upload.download.title": "Download bitstream",
@@ -7150,6 +7187,8 @@
   "submission.sections.upload.upload-failed": "Upload failed",
 
   "submission.sections.upload.upload-successful": "Upload successful",
+
+  "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
 
   "submission.sections.custom-url.label.previous-urls": "Previous Urls",
 
@@ -7928,6 +7967,8 @@
   "lucky.search.retry.search": "You can try to search for it in the system with a more general query.",
 
   "lucky.search.multiple.records": "may refer to multiple records",
+
+  "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
 
   "invitation.group.msg": "You have been invited to join the following groups",
 

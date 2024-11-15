@@ -58,10 +58,12 @@ import {
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
 } from '../../../../../shared/mocks/submission.mock';
+import { SectionsServiceStub } from '../../../../../shared/testing/sections-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { SubmissionService } from '../../../../submission.service';
+import { SectionsService } from '../../../sections.service';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
@@ -104,6 +106,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
+  let sectionServiceStub: SectionsServiceStub;
   let formbuilderService: any;
   let operationsBuilder: any;
   let operationsService: any;
@@ -152,6 +155,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        { provide: SectionsService, useClass: SectionsServiceStub },
         provideMockStore({ initialState }),
         FormBuilderService,
         { provide: ChangeDetectorRef, useValue: mockCdRef },
@@ -206,6 +210,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
+      sectionServiceStub = TestBed.inject(SectionsService as any);
       formbuilderService = TestBed.inject(FormBuilderService);
       operationsBuilder = TestBed.inject(JsonPatchOperationsBuilder);
       operationsService = TestBed.inject(SubmissionJsonPatchOperationsService);

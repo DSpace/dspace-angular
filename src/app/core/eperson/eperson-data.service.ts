@@ -67,8 +67,6 @@ import {
 import { PageInfo } from '../shared/page-info.model';
 import { EPerson } from './models/eperson.model';
 
-// todo: optimize imports
-
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 export const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
 

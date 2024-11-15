@@ -21,6 +21,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { TopSectionTemplateType } from '../../../../core/layout/models/section.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ThemedBrowseMostElementsComponent } from '../../../browse-most-elements/themed-browse-most-elements.component';
@@ -96,6 +97,7 @@ describe('TopSectionComponent', () => {
       numberOfItems: 5,
       titleKey: undefined,
       showThumbnails: false,
+      template: TopSectionTemplateType.DEFAULT,
     };
 
     fixture.detectChanges();
@@ -136,6 +138,7 @@ describe('TopSectionComponent', () => {
         numberOfItems: 5,
         titleKey: 'lastPublications',
         showThumbnails: false,
+        template: TopSectionTemplateType.DEFAULT,
       };
 
       fixture.detectChanges();

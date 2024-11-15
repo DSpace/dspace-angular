@@ -43,6 +43,7 @@ import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/b
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import { normalizeSectionData } from '../../../../../core/submission/submission-response-parsing.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import {
   hasNoValue,
@@ -55,6 +56,8 @@ import { FormFieldModel } from '../../../../../shared/form/builder/models/form-f
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { SubmissionService } from '../../../../submission.service';
+import parseSectionErrors from '../../../../utils/parseSectionErrors';
+import { SectionsService } from '../../../sections.service';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import {
@@ -206,6 +209,8 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit, OnDestr
    * @param {JsonPatchOperationsBuilder} operationsBuilder
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SectionUploadService} uploadService
+   * @param translate
+   * @param sectionService
    */
   constructor(
     protected activeModal: NgbActiveModal,
@@ -217,6 +222,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit, OnDestr
     private operationsService: SubmissionJsonPatchOperationsService,
     private uploadService: SectionUploadService,
     private translate: TranslateService,
+    private sectionService: SectionsService,
   ) {
   }
 
@@ -341,6 +347,11 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit, OnDestr
       this.collectionId,
       this.fileData.metadata,
       this.submissionService.getSubmissionScope(),
+      false,
+      null,
+      false,
+      null,
+      false,
     );
     formModel.push(new DynamicFormGroupModel(metadataGroupModelConfig, BITSTREAM_METADATA_FORM_GROUP_LAYOUT));
     const accessConditionTypeModelConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG);
@@ -451,8 +462,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit, OnDestr
         if (this.singleAccessCondition) {
           accessConditionsToIterate = [formData[BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG.id]];
         } else {
-          accessConditionsToIterate = formData.accessConditions
-            .map((accessConditions) => accessConditions.accessConditionGroup);
+          accessConditionsToIterate = formData?.accessConditions?.map((accessConditions) => accessConditions.accessConditionGroup) || [];
         }
         accessConditionsToIterate
           .filter((accessCondition) => isNotEmpty(accessCondition))
@@ -514,19 +524,24 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit, OnDestr
           this.pathCombiner.subRootElement);
       }),
     ).subscribe((result: SubmissionObject[]) => {
-      const section = result[0].sections[this.sectionId];
-      if (!section) {
-        return;
+      if (result[0].sections[this.sectionId]) {
+        const resultSection = result[0].sections[this.sectionId];
+        const uploadSection = (resultSection as WorkspaceitemSectionUploadObject);
+        const { errors } = result[0];
+        const errorsList = parseSectionErrors(errors);
+        const sectionData = normalizeSectionData(resultSection);
+        const sectionErrors = errorsList[this.sectionId];
+
+        this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, uploadSection.primary);
+
+        Object.keys(uploadSection.files)
+          .filter((key) => uploadSection.files[key].uuid === this.fileId)
+          .forEach((key) => this.uploadService.updateFileData(
+            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key]),
+          );
+
+        this.sectionService.updateSectionData(this.submissionId, this.sectionId, sectionData, sectionErrors, sectionErrors);
       }
-      const uploadSection = (section as WorkspaceitemSectionUploadObject);
-
-      this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, uploadSection.primary);
-
-      Object.keys(uploadSection.files)
-        .filter((key) => uploadSection.files[key].uuid === this.fileId)
-        .forEach((key) => this.uploadService.updateFileData(
-          this.submissionId, this.sectionId, this.fileId, uploadSection.files[key]),
-        );
       this.isSaving = false;
       this.activeModal.close();
     });

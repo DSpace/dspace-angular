@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  isPlatformBrowser,
   NgClass,
   NgIf,
 } from '@angular/common';
@@ -92,11 +91,6 @@ export class RootComponent implements OnInit {
    */
   @Input() shouldShowRouteLoader: boolean;
 
-  /**
-   * In order to show sharing component only in csr
-   */
-  browserPlatform = false;
-
   constructor(
     private router: Router,
     private cssService: CSSVariableService,
@@ -106,7 +100,6 @@ export class RootComponent implements OnInit {
     @Inject(NativeWindowService) private _window: NativeWindowRef,
   ) {
     this.notificationOptions = environment.notifications;
-    this.browserPlatform = isPlatformBrowser(platformId);
   }
 
   ngOnInit() {

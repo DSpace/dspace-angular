@@ -1,33 +1,23 @@
 import {
-  isPlatformServer,
-  NgForOf,
-  NgIf,
+  AsyncPipe,
+  LowerCasePipe,
+  NgSwitch, NgSwitchDefault,
 } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
-  Inject,
   Input,
+  OnChanges,
   OnInit,
-  PLATFORM_ID,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
 
 import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import { SearchManager } from '../../core/browse/search-manager';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
+  TopSection,
+  TopSectionTemplateType,
+} from '../../core/layout/models/section.model';
 import { Context } from '../../core/shared/context.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ThemedLoadingComponent } from '../loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { SearchResult } from '../search/models/search-result.model';
-import { followLink } from '../utils/follow-link-config.model';
+import { ThemedDefaultBrowseElementsComponent } from './default-browse-elements/themed-default-browse-elements.component';
 
 @Component({
   selector: 'ds-base-browse-most-elements',
@@ -35,53 +25,60 @@ import { followLink } from '../utils/follow-link-config.model';
   templateUrl: './browse-most-elements.component.html',
   standalone: true,
   imports: [
-    ListableObjectComponentLoaderComponent,
-    ThemedLoadingComponent,
-    TranslateModule,
-    NgForOf,
-    NgIf,
+    ThemedDefaultBrowseElementsComponent,
+    AsyncPipe,
+    LowerCasePipe,
+    NgSwitch,
+    NgSwitchDefault,
   ],
 })
 
-export class BrowseMostElementsComponent implements OnInit {
+export class BrowseMostElementsComponent implements OnInit, OnChanges {
 
+  /**
+   * The pagination options
+   */
   @Input() paginatedSearchOptions: PaginatedSearchOptions;
 
+  /**
+   * The context of listable object
+   */
   @Input() context: Context;
+
+  /**
+   * Optional projection to use during the search
+   */
+  @Input() projection = 'preventMetadataSecurity';
+
+  /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
 
   /**
    * Whether to show the metrics badges
    */
-  @Input() showMetrics;
+  @Input() showMetrics: boolean;
 
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
-  searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
+  /*
+   * The top section object
+   */
+  @Input() topSection: TopSection;
 
-  constructor(
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    @Inject(PLATFORM_ID) private platformId: any,
-    private searchService: SearchManager,
-    private cdr: ChangeDetectorRef) {
+  paginatedSearchOptions$ = new BehaviorSubject<PaginatedSearchOptions>(null);
 
+  sectionTemplateType: TopSectionTemplateType;
+
+  ngOnInit(): void {
+    this.sectionTemplateType = this.topSection?.template ?? TopSectionTemplateType.DEFAULT;
   }
 
-  ngOnInit() {
-    if (isPlatformServer(this.platformId)) {
-      return;
-    }
-
-    const showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
-    const followLinks = showThumbnails ? [followLink('thumbnail')] : [];
-    this.searchService.search(this.paginatedSearchOptions, null, true, true, ...followLinks).pipe(
-      getFirstCompletedRemoteData(),
-    ).subscribe((response: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
-      this.searchResults = response as any;
-      this.cdr.detectChanges();
-    });
+  ngOnChanges() { // trigger change detection on child components
+    this.paginatedSearchOptions$.next(this.paginatedSearchOptions);
   }
-
 }

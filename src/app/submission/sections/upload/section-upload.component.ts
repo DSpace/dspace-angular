@@ -44,6 +44,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
+  isObjectEmpty,
   isUndefined,
 } from '../../../shared/empty.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -290,11 +291,12 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    */
   protected getSectionStatus(): Observable<boolean> {
     // if not mandatory, always true
-    // if mandatory, at least one file is required
+    // if mandatory, at least one file is required and no errors are present
     return observableCombineLatest(this.required$,
       this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id),
-      (required,fileList: any[]) => {
-        return (!required || (isNotUndefined(fileList) && fileList.length > 0));
+      this.sectionService.getSectionErrors(this.submissionId,  this.sectionData.id),
+      (required,fileList: any[], errors) => {
+        return (!required || (isNotUndefined(fileList) && fileList.length > 0 && isObjectEmpty(errors)));
       });
   }
 

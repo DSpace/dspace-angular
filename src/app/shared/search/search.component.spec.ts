@@ -21,6 +21,7 @@ import {
   BehaviorSubject,
   Observable,
   of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -36,6 +37,7 @@ import {
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -78,6 +80,9 @@ const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   dispatch: {},
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   select: observableOf(true),
+});
+const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
+  isAuthorized: of(true),
 });
 const sortConfigList: SortConfig[] = [
   { name: 'score', sortOrder: SortDirection.DESC },
@@ -263,6 +268,10 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       },
       { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       { provide: APP_CONFIG, useValue: environment },
+      {
+        provide: AuthorizationDataService,
+        useValue: authorizationDataService,
+      },
     ],
     schemas: [NO_ERRORS_SCHEMA],
   }).overrideComponent(compType, {
@@ -358,6 +367,12 @@ describe('SearchComponent', () => {
     fixture.detectChanges();
     tick(100);
     expect(comp.resultFound.emit).toHaveBeenCalledWith(expectedResults);
+  }));
+
+  it('should show correction badge when item is a correction', fakeAsync(() => {
+    comp.ngOnInit();
+    tick(100);
+    expect(comp.showCorrection).toBe(true);
   }));
 
   describe('when the open sidebar button is clicked in mobile view', () => {

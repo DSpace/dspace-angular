@@ -18,6 +18,7 @@ import {
   AppConfig,
 } from '../../config/app-config.interface';
 import { SearchManager } from '../core/browse/search-manager';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
@@ -78,7 +79,8 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               protected windowService: HostWindowService,
               protected routeService: RouteService,
               protected router: Router,
+              protected authorizationService: AuthorizationDataService,
   ) {
-    super(platformId, searchConfigService, appConfig, service, searchManager, sidebarService, windowService, routeService, router);
+    super(platformId, searchConfigService, appConfig, service, searchManager, sidebarService, windowService, routeService, router, authorizationService);
   }
 }

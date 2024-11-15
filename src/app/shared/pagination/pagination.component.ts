@@ -309,17 +309,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to change the route to the given sort field
-   *
-   * @param sortField
-   *    The sort field being navigated to.
-   */
-  public doSortFieldChange(field: string) {
-    this.updateParams({ sortField: field });
-    this.emitPaginationChange();
-  }
-
-  /**
    * Method to emit a general pagination change event
    */
   private emitPaginationChange() {

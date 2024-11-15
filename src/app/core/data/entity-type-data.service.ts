@@ -97,7 +97,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
    */
   hasMoreThanOneAuthorized(): Observable<boolean> {
     const findListOptions: FindListOptions = {
-      elementsPerPage: 2,
+      elementsPerPage: 10,
       currentPage: 1,
     };
     return this.getAllAuthorizedRelationshipType(findListOptions).pipe(
@@ -130,7 +130,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
    */
   hasMoreThanOneAuthorizedImport(): Observable<boolean> {
     const findListOptions: FindListOptions = {
-      elementsPerPage: 2,
+      elementsPerPage: 10,
       currentPage: 1,
     };
     return this.getAllAuthorizedRelationshipTypeImport(findListOptions).pipe(

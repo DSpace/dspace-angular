@@ -1,5 +1,5 @@
 <div *ngIf="item" class="item-page" @fadeInOut>
-  <ds-badges [object]="item" [context]="badgeContext"></ds-badges>
+  <ds-badges *ngIf="showLabel" [object]="item" [context]="badgeContext"></ds-badges>
   <div *ngIf="item">
     <ds-item-page-title-field [item]="item">
     </ds-item-page-title-field>

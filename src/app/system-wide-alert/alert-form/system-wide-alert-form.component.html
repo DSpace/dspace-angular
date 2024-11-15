@@ -4,9 +4,11 @@
         <div class="form-group">
             <div class="row mb-2">
                 <div class="col">
-                    <ui-switch [checkedLabel]="'system-wide-alert.form.label.active' | translate"
-                        [uncheckedLabel]="'system-wide-alert.form.label.inactive' | translate"
-                        [checked]="formActive.value" (change)="setActive($event)"></ui-switch>
+                  <ds-switch
+                    [options]="switchOptions"
+                    [selectedValue]="formActive.value"
+                    (selectedValueChange)="setActive($event)">
+                  </ds-switch>
                 </div>
             </div>
             <div class="row">
@@ -28,9 +30,16 @@
     </div>
     <div class="row">
         <div class="col mb-2 d-flex align-items-end">
-            <ui-switch size="small" [ariaLabel]="'system-wide-alert.form.label.countdownTo.enable' | translate"
-                [checked]="counterEnabled$ |async" (change)="setCounterEnabled($event)"></ui-switch>
-            <span class="ml-2">{{ 'system-wide-alert.form.label.countdownTo.enable' | translate }}</span>
+          <label class="custom-control custom-switch">
+            <input type="checkbox"
+                   class="custom-control-input"
+                   id="customSwitchBitstream"
+                   [attr.aria-label]="'system-wide-alert.form.label.countdownTo.enable' | translate"
+                   [checked]="counterEnabled$ | async"
+                   (change)="setCounterEnabled($event.target.checked)">
+            <span class="custom-control-label"></span>
+          </label>
+          <span class="ml-2">{{ 'system-wide-alert.form.label.countdownTo.enable' | translate }}</span>
         </div>
     </div>
     <div *ngIf="counterEnabled$ |async">

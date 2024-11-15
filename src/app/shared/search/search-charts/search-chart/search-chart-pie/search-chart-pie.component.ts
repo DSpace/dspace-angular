@@ -59,16 +59,17 @@ import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-
  */
 export class SearchChartPieComponent extends SearchChartFilterComponent {
 
-  constructor(protected searchService: SearchService,
-              protected filterService: SearchFilterService,
-              protected rdbs: RemoteDataBuildService,
-              protected router: Router,
-              protected translate: TranslateService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
-              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
-              @Inject(SCOPE) public scope: string,
+  constructor(
+    protected searchService: SearchService,
+    protected filterService: SearchFilterService,
+    protected rdbs: RemoteDataBuildService,
+    protected router: Router,
+    protected translate: TranslateService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+    @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
+    @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
+    @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+    @Inject(SCOPE) public scope: string,
   ) {
     super(searchService, filterService, rdbs, router, searchConfigService);
   }

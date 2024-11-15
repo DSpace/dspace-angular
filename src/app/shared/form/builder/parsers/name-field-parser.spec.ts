@@ -1,5 +1,4 @@
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
-
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -100,7 +99,7 @@ describe('NameFieldParser test suite', () => {
     initFormValues = {
       name: [new FormFieldMetadataValueObject('test, name')],
     };
-    const expectedValue = new FormFieldMetadataValueObject('test, name', undefined, null, undefined, 'test');
+    const expectedValue = new FormFieldMetadataValueObject('test, name', null, null, null, 'test');
 
     const parser = new NameFieldParser(submissionId, field1, initFormValues, parserOptions, null, translateService);
 

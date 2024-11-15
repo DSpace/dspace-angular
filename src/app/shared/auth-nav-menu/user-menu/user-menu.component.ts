@@ -29,6 +29,7 @@ import { isAuthenticationLoading } from '../../../core/auth/selectors';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-route';
+import { getProcessListRoute } from '../../../process-page/process-page-routing.paths';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { LogOutComponent } from '../../log-out/log-out.component';
 
@@ -71,6 +72,11 @@ export class UserMenuComponent implements OnInit {
    * The profile page route
    */
   public profileRoute = getProfileModuleRoute();
+
+  /**
+   * The processes page route
+   */
+  public processesRoute = getProcessListRoute();
 
   /**
    * The profile page route

@@ -12,7 +12,6 @@ import {
 import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   concatMap,
   Observable,
@@ -32,6 +31,11 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../switch/switch.component';
 import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';
@@ -46,7 +50,7 @@ import {
   styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
   standalone: true,
-  imports: [NgIf, AlertComponent, UiSwitchModule, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, AlertComponent, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule, SwitchComponent],
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
 
@@ -76,6 +80,14 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   @ViewChild('itemAccessCmp', { static: true }) itemAccessCmp: AccessControlArrayFormComponent;
 
   readonly AlertType = AlertType;
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: true, backgroundColor: SwitchColor.Success },
+    { value: false },
+  ];
 
   constructor(
     private bulkAccessConfigService: BulkAccessConfigDataService,

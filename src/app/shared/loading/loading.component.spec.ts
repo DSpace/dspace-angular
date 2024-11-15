@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -27,12 +27,6 @@ describe('LoadingComponent (inline template)', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        RouterTestingModule.withRoutes([
-          {
-            path: 'fake-url',
-            redirectTo: '/',
-          },
-        ]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -41,7 +35,15 @@ describe('LoadingComponent (inline template)', () => {
         }),
         LoadingComponent,
       ],
-      providers: [TranslateService],
+      providers: [
+        provideRouter([
+          {
+            path: 'fake-url',
+            redirectTo: '/',
+          },
+        ]),
+        TranslateService,
+      ],
     }).compileComponents();  // compile template and css
 
   }));

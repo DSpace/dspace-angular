@@ -2,6 +2,7 @@ import {
   Component,
   Injector,
   NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -40,6 +41,7 @@ import {
 } from '../search/item-export/item-export.service';
 import { EPersonMock } from '../testing/eperson.mock';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { BrowserOnlyDirective } from '../utils/browser-only.directive';
 import { ContextMenuComponent } from './context-menu.component';
 import { rendersContextMenuEntriesForType } from './context-menu.decorator';
 import { ExportItemMenuComponent } from './export-item/export-item-menu.component';
@@ -117,7 +119,12 @@ describe('ContextMenuComponent', () => {
           },
         }),
         NgbDropdownModule,
-        ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent,
+        ContextMenuComponent,
+        TestComponent,
+        ExportItemMenuComponent,
+        StatisticsMenuComponent,
+        SubscriptionMenuComponent,
+        BrowserOnlyDirective,
       ],
       providers: [
         provideMockStore({ initialState }),
@@ -129,6 +136,7 @@ describe('ContextMenuComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: PLATFORM_ID, useValue: 'browser' },
         Injector,
       ],
       schemas: [NO_ERRORS_SCHEMA],

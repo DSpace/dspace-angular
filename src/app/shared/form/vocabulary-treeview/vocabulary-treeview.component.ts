@@ -18,10 +18,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
@@ -31,7 +28,6 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
 import {
@@ -162,13 +158,9 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    * Initialize instance variables
    *
    * @param {VocabularyTreeviewService} vocabularyTreeviewService
-   * @param {vocabularyService} vocabularyService
-   * @param {TranslateService} translate
    */
   constructor(
     private vocabularyTreeviewService: VocabularyTreeviewService,
-    private vocabularyService: VocabularyService,
-    private translate: TranslateService,
   ) {
     this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);

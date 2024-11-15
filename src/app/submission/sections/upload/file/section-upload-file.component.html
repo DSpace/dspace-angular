@@ -1,5 +1,5 @@
 <ng-container *ngIf="fileData">
-  <div class="row">
+  <div class="row py-1">
     <!-- Default switch -->
     <div class="col-md-2 d-flex justify-content-center align-items-center" >
       <div class="custom-control custom-switch">
@@ -50,6 +50,12 @@
       <div class="clearfix"></div>
       <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
     </div>
+  </div>
+
+  <div class="pt-4" *ngIf="(getFileHasErrors() | async)">
+    <ds-alert [type]="AlertTypeEnum.Error" [dismissible]="false">
+      <span [innerHTML]="'submission.sections.upload.genericError' | translate"></span>
+    </ds-alert>
   </div>
 </ng-container>
 

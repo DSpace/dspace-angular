@@ -13,9 +13,9 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
+  provideRouter,
   Router,
 } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -73,7 +73,6 @@ describe('ForgotPasswordFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserOnlyPipe,
@@ -81,6 +80,7 @@ describe('ForgotPasswordFormComponent', () => {
         NoopAnimationsModule,
       ],
       providers: [
+        provideRouter([]),
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
         { provide: Store, useValue: store },

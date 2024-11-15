@@ -1,27 +1,29 @@
 import {
   AsyncPipe,
-  NgForOf,
-  NgIf,
+  isPlatformServer, NgForOf, NgIf,
 } from '@angular/common';
 import {
   Component,
-  OnDestroy,
+  Inject,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   Params,
   Router,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   mergeMap,
   Observable,
+  of,
   Subject,
-  Subscription,
 } from 'rxjs';
 import {
-  filter,
   map,
   switchMap,
   tap,
@@ -35,6 +37,7 @@ import {
 } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Context } from '../../core/shared/context.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -47,10 +50,10 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import {
   hasValue,
-  isEmpty,
   isNotEmpty,
 } from '../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../../shared/search/models/search-filter.model';
 import { SearchResult } from '../../shared/search/models/search-result.model';
@@ -66,34 +69,34 @@ import { LuckySearchService } from '../lucky-search.service';
   selector: 'ds-lucky-search',
   templateUrl: './lucky-search.component.html',
   styleUrls: ['./lucky-search.component.scss'],
+  standalone: true,
   imports: [
     PageWithSidebarComponent,
-    NgIf,
     ThemedSearchResultsComponent,
-    AsyncPipe,
-    TranslateModule,
     ThemedSearchFormComponent,
-    NgForOf,
-    ThemedFileDownloadLinkComponent,
+    TranslateModule,
     TruncatableComponent,
-    FileSizePipe,
+    ThemedFileDownloadLinkComponent,
     TruncatablePartComponent,
+    AsyncPipe,
+    FileSizePipe,
+    NgIf,
+    NgForOf,
   ],
-  standalone: true,
 })
-export class LuckySearchComponent implements OnInit, OnDestroy {
+export class LuckySearchComponent implements OnInit {
   /**
    * The current search results
    */
   resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
   /**
-   * boolean to show the result in case of no results from search
+   * flag to show the result in case of no results from search
    */
-  showEmptySearchSection = false;
+  showEmptySearchSection$ = new BehaviorSubject<boolean>(false);
   /**
-   * boolean to show the result in case of no results from multiple search
+   * flag to show the result in case of no results from multiple search
    */
-  showMultipleSearchSection = false;
+  showMultipleSearchSection$ = new BehaviorSubject<boolean>(false);
   /**
    * Search options to use for options of the search
    */
@@ -104,6 +107,7 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
   currentFilter = {
     identifier: '',
     value: '',
+    bitstreamValue: '',
   };
   context: Context = Context.ItemPage;
 
@@ -112,22 +116,23 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
   private DESCRIPTION_METADATA = 'dc.description';
 
   bitstreamFilters$ = new BehaviorSubject<MetadataFilter[]>(null);
-  bitstreams$ = new BehaviorSubject<Bitstream[]>(null);
   item$ = new Subject<Item>();
+  bitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject([]);
 
-  private readonly subscription = new Subscription();
 
   constructor(
     private luckySearchService: LuckySearchService,
     private router: Router,
     private bitstreamDataService: BitstreamDataService,
     public searchConfigService: SearchConfigurationService,
+    @Inject(PLATFORM_ID) private platformId: string,
+    private hardRedirectService: HardRedirectService,
+    private notificationService: NotificationsService,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit(): void {
     this.searchOptions$ = this.getSearchOptions();
-    this.handleBitstreamResults();
-    this.readResult();
     const urlTree = this.router.parseUrl(this.router.url);
     if (isNotEmpty(urlTree?.queryParams)) {
       const { queryParams } = urlTree;
@@ -141,33 +146,69 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
       });
       const value = this.parseBitstreamFilters(queryParams);
       this.bitstreamFilters$.next(value);
+    } else {
+      this.bitstreamFilters$.next([]);
     }
+
     if (!(this.currentFilter.value !== '' && this.currentFilter.identifier !== '')) {
-      this.showEmptySearchSection = true;
-      return;
+      this.showEmptySearchSection$.next(true);
+    } else {
+      this.getSearchResults();
     }
-    this.subscription.add(
-      this.searchOptions$
-        .pipe(switchMap((options: PaginatedSearchOptions) => this.getLuckySearchResults(options)))
-        .subscribe((results) => this.resultsRD$.next(results as any)),
-    );
   }
 
-  private handleBitstreamResults() {
-    this.subscription.add(
-      this.bitstreams$.pipe(
-        filter(bitstreams => isNotEmpty(bitstreams) && bitstreams.length === 1),
-        map(bitstreams => getBitstreamDownloadRoute(bitstreams[0])),
-      ).subscribe(bitstreamRoute => this.redirect(bitstreamRoute)),
-    );
+  getSearchResults(){
+    this.searchOptions$.pipe(
+      switchMap((options: PaginatedSearchOptions) => this.getLuckySearchResults(options)),
+      switchMap(results => this.processSearchResults(results)),
+    ).subscribe(results => {
+      this.resultsRD$.next(results);
+    });
   }
 
-  private getLuckySearchResults(options: PaginatedSearchOptions) {
+  private processSearchResults(results: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    if (this.hasBitstreamFilters() && results?.payload?.totalElements === 1) {
+      const item = results.payload.page[0].indexableObject as Item;
+      this.item$.next(item);
+      return this.bitstreamFilters$.pipe(
+        withLatestFrom(of(item)),
+        mergeMap(([bitstreamFilters, itemOb]) => this.loadBitstreamsAndRedirectIfNeeded(itemOb, bitstreamFilters)),
+        tap((bitstreams: Bitstream[]) => {
+          this.bitstreams$.next(bitstreams);
+          this.showEmptySearchSection$.next(bitstreams.length === 0);
+          if (bitstreams?.length === 1) {
+            const bitstreamRoute = getBitstreamDownloadRoute(bitstreams[0]);
+            this.redirect(bitstreamRoute);
+          } else if (bitstreams?.length === 0) {
+            const route = getItemPageRoute(item);
+            this.redirect(route);
+            this.notificationService.info(null, this.translateService.get('lucky.search.bitstream.notfound'));
+          }
+        }),
+        map(() => results),
+      );
+    } else if (!this.hasBitstreamFilters() && results?.payload?.totalElements === 1) {
+      const item = results.payload.page[0].indexableObject as Item;
+      this.item$.next(item);
+      const route = getItemPageRoute(item);
+      this.redirect(route);
+    }
+
+    if (results?.payload?.totalElements === 0) {
+      this.showEmptySearchSection$.next(true);
+    } else if (results?.payload?.totalElements > 1) {
+      this.showMultipleSearchSection$.next(true);
+    }
+
+    return of(results);
+  }
+
+  private getLuckySearchResults(options: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     options.filters = [new SearchFilter('f.' + this.currentFilter.identifier, [this.currentFilter.value], 'equals')];
     return this.luckySearchService.sendRequest(options).pipe(
-      tap((rd: any) => {
-        if (rd.state && rd.state === 'Error') {
-          this.showEmptySearchSection = true;
+      tap((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
+        if (rd && rd.hasFailed) {
+          this.showEmptySearchSection$.next(true);
         }
       }),
       getFirstSucceededRemoteData());
@@ -186,43 +227,6 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
     return bitstream.sizeBytes;
   }
 
-  private readResult() {
-    this.subscription.add(
-      this.resultsRD$.pipe(
-        filter(results => results?.payload?.totalElements === 0),
-      ).subscribe(_ => this.showEmptySearchSection = true),
-    );
-    this.subscription.add(
-      this.resultsRD$.pipe(
-        filter(results =>
-          this.hasBitstreamFilters() && results?.payload?.totalElements === 1,
-        ),
-        map(results => results.payload.page[0].indexableObject as Item),
-        tap(item => this.item$.next(item)),
-        withLatestFrom(this.bitstreamFilters$),
-        mergeMap(([item, bitstreamFilters]) => this.loadBitstreamsAndRedirectIfNeeded(item, bitstreamFilters)),
-      ).subscribe(results => {
-        this.showEmptySearchSection = isEmpty(results);
-        this.bitstreams$.next(results);
-      }),
-    );
-    this.subscription.add(
-      this.resultsRD$.pipe(
-        filter(results =>
-          !this.hasBitstreamFilters() && results?.payload?.totalElements === 1,
-        ),
-        map(results => results.payload.page[0].indexableObject as Item),
-        tap(item => this.item$.next(item)),
-        map(item => getItemPageRoute(item)),
-      ).subscribe(results => this.redirect(results)),
-    );
-    this.subscription.add(
-      this.resultsRD$.pipe(
-        filter(results => results?.payload?.totalElements > 1),
-      ).subscribe(_ => this.showMultipleSearchSection = true),
-    );
-  }
-
   private hasBitstreamFilters(): boolean {
     return this.bitstreamFilters$.getValue()?.length > 0;
   }
@@ -231,13 +235,18 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
     return this.searchConfigService.paginatedSearchOptions;
   }
 
-  public redirect(url): void {
-    this.router.navigateByUrl(url, { replaceUrl: true });
+  public redirect(url: string): void {
+    if (isPlatformServer(this.platformId)) {
+      this.hardRedirectService.redirect(url, 302);
+    } else {
+      this.router.navigateByUrl(url, { replaceUrl: true });
+    }
   }
 
   private parseBitstreamFilters(queryParams: Params): MetadataFilter[] {
     const metadataName = queryParams?.bitstreamMetadata;
     const metadataValue = queryParams?.bitstreamValue;
+    this.currentFilter.bitstreamValue = metadataValue ?? null;
     if (!!metadataName && !!metadataValue) {
 
       const metadataNames = Array.isArray(metadataName) ? metadataName : [metadataName];
@@ -258,9 +267,4 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
         map(bitstreamsResult => bitstreamsResult.payload?.page),
       );
   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
 }

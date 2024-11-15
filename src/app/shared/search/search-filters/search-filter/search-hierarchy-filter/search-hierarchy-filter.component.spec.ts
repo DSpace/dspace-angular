@@ -48,6 +48,7 @@ describe('SearchHierarchyFilterComponent', () => {
   let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
   let showVocabularyTreeLink: DebugElement;
 
+  const testSearchLink = 'test-search';
   const testSearchFilter = 'subject';
   const VocabularyTreeViewComponent = {
     select: new EventEmitter<VocabularyEntryDetail>(),
@@ -115,7 +116,7 @@ describe('SearchHierarchyFilterComponent', () => {
       )));
       init();
       fixture.detectChanges();
-      showVocabularyTreeLink = fixture.debugElement.query(By.css('a#show-test-search-filter-tree'));
+      showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
     });
 
     it('should not show the vocabulary tree link', () => {

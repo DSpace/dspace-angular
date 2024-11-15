@@ -31,6 +31,7 @@ describe('CrisLayoutNavbarComponent', () => {
   let component: CrisLayoutNavbarComponent;
   let fixture: ComponentFixture<CrisLayoutNavbarComponent>;
   let de: DebugElement;
+  let router: RouterStub;
 
   const windowServiceStub = new HostWindowServiceStub(1000);
 
@@ -79,6 +80,8 @@ describe('CrisLayoutNavbarComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisLayoutNavbarComponent);
+    router = TestBed.inject(Router) as unknown as RouterStub;
+    router.setNavigateReturnValue(true);
     component = fixture.componentInstance;
     component.item = mockItem;
     component.tabs = [];

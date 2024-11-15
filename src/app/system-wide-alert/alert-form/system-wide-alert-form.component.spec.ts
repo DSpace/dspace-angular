@@ -10,7 +10,6 @@ import {
   utcToZonedTime,
   zonedTimeToUtc,
 } from 'date-fns-tz';
-import { UiSwitchModule } from 'ngx-ui-switch';
 
 import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
@@ -62,7 +61,7 @@ describe('SystemWideAlertFormComponent', () => {
     router = new RouterStub();
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, UiSwitchModule, TranslateModule.forRoot(), SystemWideAlertFormComponent],
+      imports: [FormsModule, TranslateModule.forRoot(), SystemWideAlertFormComponent],
       providers: [
         { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
         { provide: NotificationsService, useValue: notificationsService },
