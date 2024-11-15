@@ -7,13 +7,15 @@
  */
 /* eslint-disable max-classes-per-file */
 import { ActivatedRouteSnapshot, RouterStateSnapshot, } from '@angular/router';
-import flatten from 'lodash/flatten';
-import { combineLatest, Observable, } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, } from 'rxjs';
 import { MenuID } from './menu-id.model';
 import { MenuItemModels } from './menu-section.model';
 import { Type } from '@angular/core';
 
+/**
+ * Partial menu section
+ * This object acts like a menu section but with certain properties being optional
+ */
 export interface PartialMenuSection {
   id?: string;
   visible: boolean;
@@ -26,15 +28,28 @@ export interface PartialMenuSection {
   alwaysRenderExpandable?: boolean;
 }
 
-
+/**
+ * Interface to represent a menu provider
+ * Implementations of this provider will contain sections to be added to the menus
+ */
 export interface MenuProvider {
   shouldPersistOnRouteChange?: boolean,
   menuID?: MenuID;
   index?: number;
 
+  /**
+   * Retrieve the sections from the provider. These sections can be route dependent.
+   * @param route - The route on which the menu sections possibly depend
+   * @param state - The router snapshot on which the sections possibly depend
+   */
   getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
 }
 
+/**
+ * Class to represent a Menu Provider together with additional information added through the static methods on
+ * AbstractMenuProvider. This additional information is either the paths on which the sections of this provider should
+ * be present or a list of child providers
+ */
 export class MenuProviderTypeWithOptions {
   providerType: Type<MenuProvider>;
   paths?: string[];
@@ -42,6 +57,9 @@ export class MenuProviderTypeWithOptions {
 
 }
 
+/**
+ * Abstract class to be extended when creating menu providers
+ */
 export abstract class AbstractMenuProvider implements MenuProvider {
 
   /**
@@ -54,17 +72,44 @@ export abstract class AbstractMenuProvider implements MenuProvider {
    * Whether the sections of this menu should be set on the
    */
   shouldPersistOnRouteChange = true;
+
+  /**
+   * The ID of the menu provider.
+   * This will be automatically set based on the menu and the index of the provider in the list
+   */
   menuProviderId?: string;
+
+  /**
+   * The index of the menu provider
+   * This will be automatically set based on the index of the provider in the list
+   */
   index?: number;
+
+  /**
+   * The paths on which the sections of this provider will be active
+   * This will be automatically set based on the paths added based on the paths provided through the 'onRoute' static
+   * method in the app.menus.ts file
+   */
   activePaths?: string[];
+
+  /**
+   * The ID of the parent provider of this provider.
+   * This will be automatically set based on the provider that calls the 'withSubs' static method with this provider
+   * in the list of arguments
+   */
   parentID?: string;
 
   /**
-   * Whether the menu section or top section of this provider will always be rendered as expandable and hidden when no children are present
+   * When true, the sections added by this provider will be assumed to be parent sections with children
+   * The sections will not be rendered when they have no visible children
+   * This can be overwritten on the level of sections
    */
   alwaysRenderExpandable? = false;
 
-
+  /**
+   * Static method to be called from the app.menus.ts file to define paths on which this provider should the active
+   * @param paths - The paths on which the sections of this provider should be active
+   */
   public static onRoute(...paths: string[]): MenuProviderTypeWithOptions {
     if (!AbstractMenuProvider.isPrototypeOf(this)) {
       throw new Error(
@@ -77,7 +122,7 @@ export abstract class AbstractMenuProvider implements MenuProvider {
   }
 
   /**
-   * Method to add sub menu providers to this top provider
+   * Static method to be called from the app.menus.ts file to add sub menu providers to this top provider
    * @param childProviders - the list of sub providers that will provide subsections for this provider
    */
   public static withSubs(childProviders: (Type<MenuProvider> | MenuProviderTypeWithOptions)[]): MenuProviderTypeWithOptions {
@@ -91,13 +136,13 @@ export abstract class AbstractMenuProvider implements MenuProvider {
     return {providerType: providerType, childProviderTypes: childProviders};
   }
 
+  /**
+   * Retrieve the sections from the provider. These sections can be route dependent.
+   * @param route - The route on which the menu sections possibly depend
+   * @param state - The router snapshot on which the sections possibly depend
+   */
   abstract getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
 
-  protected concat(...sections$: Observable<PartialMenuSection[]>[]): Observable<PartialMenuSection[]> {
-    return combineLatest(sections$).pipe(
-      map(sections => flatten(sections)),
-    );
-  }
 }
 
 

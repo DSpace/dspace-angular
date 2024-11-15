@@ -6,17 +6,21 @@
  * http://www.dspace.org/license/
  */
 
-import { Inject, Injectable, Injector, Optional, } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, ResolveEnd, Router, RouterStateSnapshot, } from '@angular/router';
+import { Inject, Injectable, Optional, } from '@angular/core';
+import { ActivatedRouteSnapshot, ResolveEnd, Router, RouterStateSnapshot, } from '@angular/router';
 import { combineLatest, map, Observable, } from 'rxjs';
 import { filter, find, switchMap, take, } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { MenuID } from './menu-id.model';
-import { AbstractMenuProvider, PartialMenuSection } from './menu-provider';
+import { AbstractMenuProvider, PartialMenuSection } from './menu-provider.model';
 import { MenuState } from './menu-state.model';
 import { MenuService } from './menu.service';
 import { MENU_PROVIDER } from './menu.structure';
 
+/**
+ * Service that is responsible for adding and removing the menu sections created by the providers, both for
+ * persistent and non-persistent menu sections
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -24,9 +28,7 @@ export class MenuProviderService {
   constructor(
     @Inject(MENU_PROVIDER) @Optional() protected providers: ReadonlyArray<AbstractMenuProvider>,
     protected menuService: MenuService,
-    protected injector: Injector,
     protected router: Router,
-    protected route: ActivatedRoute,
   ) {
   }
 
@@ -42,22 +44,22 @@ export class MenuProviderService {
     );
   }
 
+  /**
+   * Listen for route changes and resolve the route dependent menu sections on route change
+   */
   listenForRouteChanges() {
     this.router.events.pipe(
       filter(event => event instanceof ResolveEnd),
       switchMap((event: ResolveEnd) => {
-
         const currentRoute = this.getCurrentRoute(event.state.root);
-
         return this.resolveRouteMenus(currentRoute, event.state);
       }),
-    ).subscribe((done) => {
-      Object.values(MenuID).forEach((menuID) => {
-        this.menuService.buildRouteMenuSections(menuID);
-      });
-    });
+    ).subscribe();
   }
 
+  /**
+   * Get the full current route
+   */
   private getCurrentRoute(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
     while (route.firstChild) {
       route = route.firstChild;
@@ -66,6 +68,9 @@ export class MenuProviderService {
   }
 
 
+  /**
+   * Initialise the persistent menu sections
+   */
   public initPersistentMenus() {
     combineLatest([
       ...this.providers
@@ -87,20 +92,22 @@ export class MenuProviderService {
             sections: PartialMenuSection[]
           }, sectionIndex) => {
             providerWithSection.sections.forEach((section) => {
-              this.addSection(providerWithSection, section);
+              this.addSection(providerWithSection.provider, section);
             });
             return this.waitForMenu$(providerWithSection.provider.menuID);
           });
           return [waitForMenus];
         }),
         map(done => done.every(Boolean)),
-      ).subscribe((done) => {
-      Object.values(MenuID).forEach((menuID) => {
-        this.menuService.buildRouteMenuSections(menuID);
-      });
-    });
+        take(1),
+      ).subscribe();
   }
 
+  /**
+   * Resolve the non-persistent route based menu sections
+   * @param route - the current route
+   * @param state - the current router state
+   */
   public resolveRouteMenus(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -149,7 +156,7 @@ export class MenuProviderService {
           sections: PartialMenuSection[]
         }) => {
           providerWithSection.sections.forEach((section) => {
-            this.addSection(providerWithSection, section);
+            this.addSection(providerWithSection.provider, section);
           });
           return this.waitForMenu$(providerWithSection.provider.menuID);
         });
@@ -159,22 +166,28 @@ export class MenuProviderService {
     );
   }
 
-  private addSection(providerWithSection: {
-    provider: AbstractMenuProvider;
-    sections: PartialMenuSection[]
-  }, section: PartialMenuSection) {
-    this.menuService.addSection(providerWithSection.provider.menuID, {
+  /**
+   * Add the provided section combined with information from the menu provider to the menus
+   * @param provider - The provider of the section which will be used to provide extra data to the section
+   * @param section  - The partial section to be added to the menus
+   */
+  private addSection(provider: AbstractMenuProvider, section: PartialMenuSection) {
+    this.menuService.addSection(provider.menuID, {
       ...section,
-      id: section.id ?? `${providerWithSection.provider.menuProviderId}`,
-      parentID: section.parentID ?? providerWithSection.provider.parentID,
-      index: section.index ?? providerWithSection.provider.index,
-      shouldPersistOnRouteChange: section.shouldPersistOnRouteChange ?? providerWithSection.provider.shouldPersistOnRouteChange,
-      alwaysRenderExpandable: section.alwaysRenderExpandable ?? providerWithSection.provider.alwaysRenderExpandable,
+      id: section.id ?? `${provider.menuProviderId}`,
+      parentID: section.parentID ?? provider.parentID,
+      index: section.index ?? provider.index,
+      shouldPersistOnRouteChange: section.shouldPersistOnRouteChange ?? provider.shouldPersistOnRouteChange,
+      alwaysRenderExpandable: section.alwaysRenderExpandable ?? provider.alwaysRenderExpandable,
     });
   }
 
-  private removeNonPersistentSections(menuSectionsPerMenu) {
-    menuSectionsPerMenu.forEach((menu) => {
+  /**
+   * Remove all non-persistent sections from the menus
+   * @param menuWithSections - The menu with its sections to be removed
+   */
+  private removeNonPersistentSections(menuWithSections) {
+    menuWithSections.forEach((menu) => {
       menu.sections.forEach((section) => {
         this.menuService.removeSection(menu.menuId, section.id);
       });

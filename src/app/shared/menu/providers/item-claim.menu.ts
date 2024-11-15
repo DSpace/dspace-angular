@@ -19,11 +19,14 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { MenuID } from '../menu-id.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { MenuService } from '../menu.service';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
+/**
+ * Menu provider to create the menu section on person entity pages to claim a researcher by creating a profile
+ */
 @Injectable()
 export class ClaimMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(

@@ -20,8 +20,11 @@ import {
 } from '../../dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { MenuItemType } from '../menu-item-type.model';
 import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 
+/**
+ * Menu provider to create the export menu sections
+ */
 @Injectable()
 export class ExportMenuProvider extends AbstractExpandableMenuProvider {
   constructor(

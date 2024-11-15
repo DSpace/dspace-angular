@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';
 import { By } from '@angular/platform-browser';
 import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
+import { MenuItemModels } from '../../../menu/menu-section.model';
 
 describe('DsoEditMenuExpandableSectionComponent', () => {
   let component: DsoEditMenuExpandableSectionComponent;
@@ -30,39 +31,82 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
     icon: iconString
   };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [DsoEditMenuExpandableSectionComponent, TestComponent],
-      providers: [
-        {provide: 'sectionDataProvider', useValue: dummySection},
-        {provide: MenuService, useValue: menuService},
-        {provide: CSSVariableService, useClass: CSSVariableServiceStub},
-        {provide: Router, useValue: new RouterStub()},
-      ]
-    }).overrideComponent(DsoEditMenuExpandableSectionComponent, {
-      set: {
-        entryComponents: [TestComponent]
-      }
-    })
-      .compileComponents();
-  }));
+  describe('when there are subsections', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [TranslateModule.forRoot()],
+        declarations: [DsoEditMenuExpandableSectionComponent, TestComponent],
+        providers: [
+          {provide: 'sectionDataProvider', useValue: dummySection},
+          {provide: MenuService, useValue: menuService},
+          {provide: CSSVariableService, useClass: CSSVariableServiceStub},
+          {provide: Router, useValue: new RouterStub()},
+        ]
+      }).overrideComponent(DsoEditMenuExpandableSectionComponent, {
+        set: {
+          entryComponents: [TestComponent]
+        }
+      })
+        .compileComponents();
+    }));
 
-  beforeEach(() => {
-    spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
-    fixture = TestBed.createComponent(DsoEditMenuExpandableSectionComponent);
-    component = fixture.componentInstance;
-    spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
-    fixture.detectChanges();
+    beforeEach(() => {
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([{
+        id: 'test',
+        visible: true,
+        model: {} as MenuItemModels
+      }]));
+      fixture = TestBed.createComponent(DsoEditMenuExpandableSectionComponent);
+      component = fixture.componentInstance;
+      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should show a button with the icon', () => {
+      const button = fixture.debugElement.query(By.css('.btn-dark'));
+      expect(button.nativeElement.innerHTML).toContain('fa-' + iconString);
+    });
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  describe('when there are no subsections', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [TranslateModule.forRoot()],
+        declarations: [DsoEditMenuExpandableSectionComponent, TestComponent],
+        providers: [
+          {provide: 'sectionDataProvider', useValue: dummySection},
+          {provide: MenuService, useValue: menuService},
+          {provide: CSSVariableService, useClass: CSSVariableServiceStub},
+          {provide: Router, useValue: new RouterStub()},
+        ]
+      }).overrideComponent(DsoEditMenuExpandableSectionComponent, {
+        set: {
+          entryComponents: [TestComponent]
+        }
+      })
+        .compileComponents();
+    }));
 
-  it('should show a button with the icon', () => {
-    const button = fixture.debugElement.query(By.css('.btn-dark'));
-    expect(button.nativeElement.innerHTML).toContain('fa-' + iconString);
+    beforeEach(() => {
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      fixture = TestBed.createComponent(DsoEditMenuExpandableSectionComponent);
+      component = fixture.componentInstance;
+      spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should now show a button', () => {
+      const button = fixture.debugElement.query(By.css('.btn-dark'));
+      expect(button).toBeNull();
+    });
   });
 });
 

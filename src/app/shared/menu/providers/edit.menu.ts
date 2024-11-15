@@ -22,8 +22,11 @@ import {
 } from '../../dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import { MenuItemType } from '../menu-item-type.model';
 import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 
+/**
+ * Menu provider to create the admin sidebar edit menu sections
+ */
 @Injectable()
 export class EditMenuProvider extends AbstractExpandableMenuProvider {
   constructor(

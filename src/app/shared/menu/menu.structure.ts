@@ -7,7 +7,7 @@
  */
 import { InjectionToken, Provider, Type, } from '@angular/core';
 import { MenuID } from './menu-id.model';
-import { AbstractMenuProvider, MenuProviderTypeWithOptions } from './menu-provider';
+import { AbstractMenuProvider, MenuProviderTypeWithOptions } from './menu-provider.model';
 import { MenuProviderService } from './menu-provider.service';
 import { hasValue, isNotEmpty } from '../empty.util';
 
@@ -52,7 +52,7 @@ function processProviderType(providers: Provider[], menuID: string, providerType
     const childProviderTypes = (providerType as any).childProviderTypes;
 
     childProviderTypes.forEach((childProviderType, childIndex: number) => {
-      processProviderType(providers, menuID, childProviderType, childIndex, `${providerPart.name}`, hasSubProviders);
+      processProviderType(providers, menuID, childProviderType, childIndex, `${menuID}_${index}`, hasSubProviders);
     });
     processProviderType(providers, menuID, providerPart, index, parentID, true);
 
@@ -83,10 +83,10 @@ function addProviderToList(providers: Provider[], providerType: Type<AbstractMen
       provider.menuID = menuID as MenuID;
       provider.index = provider.index ?? index;
       if (hasValue(parentID)) {
-        provider.menuProviderId = `${parentID}_${provider.constructor.name}`;
-        provider.parentID = parentID;
+        provider.menuProviderId =  provider.menuProviderId ?? `${parentID}_${index}`;
+        provider.parentID = provider.parentID ?? parentID;
       } else {
-        provider.menuProviderId = `${provider.constructor.name}`;
+        provider.menuProviderId = provider.menuProviderId ?? `${menuID}_${index}`;
       }
       if (isNotEmpty(paths)) {
         provider.activePaths = paths;

@@ -1,4 +1,3 @@
-import { MenuItemType } from './menu-item-type.model';
 import { AltmetricMenuItemModel } from './menu-item/models/altmetric.model';
 import { ExternalLinkMenuItemModel } from './menu-item/models/external-link.model';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
@@ -13,26 +12,6 @@ export type MenuItemModels =
   | OnClickMenuItemModel
   | SearchMenuItemModel
   | TextMenuItemModel;
-
-function itemModelFactory(type: MenuItemType): MenuItemModels {
-  switch (type) {
-    case MenuItemType.TEXT:
-      return new TextMenuItemModel();
-    case MenuItemType.LINK:
-      return new LinkMenuItemModel();
-    case MenuItemType.ALTMETRIC:
-      return new AltmetricMenuItemModel();
-    case MenuItemType.SEARCH:
-      return new SearchMenuItemModel();
-    case MenuItemType.ONCLICK:
-      return new OnClickMenuItemModel();
-    case MenuItemType.EXTERNAL:
-      return new ExternalLinkMenuItemModel();
-    default: {
-      throw new Error(`No such menu item type: ${type}`);
-    }
-  }
-}
 
 export interface MenuSection {
   /**
@@ -80,5 +59,9 @@ export interface MenuSection {
    */
   icon?: string;
 
+  /**
+   * When true, the current section will be assumed to be a parent section with children
+   * This section will not be rendered when it has no visible children
+   */
   alwaysRenderExpandable?: boolean;
 }

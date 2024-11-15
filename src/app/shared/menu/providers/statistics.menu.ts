@@ -11,17 +11,18 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, } from '@angular/router';
 import { Observable, of, } from 'rxjs';
 import { hasNoValue, hasValue } from '../../empty.util';
 import { MenuItemType } from '../menu-item-type.model';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { AbstractRouteContextMenuProvider } from './helper-providers/route-context.menu';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { getDSORoute } from '../../../app-routing-paths';
 
-interface StatisticsLink {
-  id: string,
-  link: string,
-}
 
+/**
+ * Menu provider to create the statistics menu section depending on the page it is on
+ * When the user is on a DSO page or a derivative, this menu section will contain a link to the statistics of that DSO
+ * In all other cases the menu section will contain a link to the repository wide statistics
+ */
 @Injectable()
 export class StatisticsMenuProvider extends AbstractRouteContextMenuProvider<DSpaceObject> {
 

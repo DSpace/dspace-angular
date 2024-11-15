@@ -36,7 +36,6 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
-// import { resolveStaticMenus } from './shared/menu/menu.resolver';
 
 @NgModule({
   imports: [
@@ -48,8 +47,6 @@ import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
         canActivate: [AuthBlockingGuard],
         canActivateChild: [ServerCheckGuard],
         resolve: [
-          // resolveStaticMenus(),
-          // MenuResolver,
         ],
         children: [
           { path: '', redirectTo: '/home', pathMatch: 'full' },

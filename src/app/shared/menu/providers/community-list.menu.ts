@@ -9,8 +9,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, } from 'rxjs';
 import { MenuItemType } from '../menu-item-type.model';
-import { AbstractMenuProvider, PartialMenuSection, } from '../menu-provider';
+import { AbstractMenuProvider, PartialMenuSection, } from '../menu-provider.model';
 
+/**
+ * Menu provider to create the community list menu section
+ */
 @Injectable()
 export class CommunityListMenuProvider extends AbstractMenuProvider {
   public getSections(): Observable<PartialMenuSection[]> {

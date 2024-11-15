@@ -10,6 +10,7 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { MenuItemModels } from '../../shared/menu/menu-section.model';
 
 describe('ExpandableNavbarSectionComponent', () => {
   let component: ExpandableNavbarSectionComponent;
@@ -35,7 +36,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([{id: 'test', visible: true, model: {} as MenuItemModels}]));
 
       fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
       component = fixture.componentInstance;
@@ -184,7 +185,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([{id: 'test', visible: true, model: {} as MenuItemModels}]));
 
       fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
       component = fixture.componentInstance;
@@ -195,6 +196,7 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when the mouse enters the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'activateSection');
+        console.log(fixture.nativeElement.innerHTML);
         const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
         sidebarToggler.triggerEventHandler('mouseenter', {
           preventDefault: () => {/**/

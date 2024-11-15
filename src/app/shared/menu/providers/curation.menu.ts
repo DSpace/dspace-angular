@@ -12,8 +12,11 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { MenuItemType } from '../menu-item-type.model';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
-import { AbstractMenuProvider, PartialMenuSection, } from '../menu-provider';
+import { AbstractMenuProvider, PartialMenuSection, } from '../menu-provider.model';
 
+/**
+ * Menu provider to create the curation menu section
+ */
 @Injectable()
 export class CurationMenuProvider extends AbstractMenuProvider {
   constructor(

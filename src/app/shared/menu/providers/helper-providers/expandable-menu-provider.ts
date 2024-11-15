@@ -5,29 +5,35 @@
  *
  * http://www.dspace.org/license/
  */
-import { combineLatest, Observable, of as observableOf, } from 'rxjs';
+import { combineLatest, Observable, } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AbstractMenuProvider, PartialMenuSection, } from '../../menu-provider';
+import { AbstractMenuProvider, PartialMenuSection, } from '../../menu-provider.model';
 
+/**
+ * Helper provider for basic expandable menus
+ */
 export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvider {
 
   alwaysRenderExpandable = true;
 
-
+  /**
+   * Get the top section for this expandable menu
+   */
   abstract getTopSection(): Observable<PartialMenuSection>;
 
+  /**
+   * Get the subsections for this expandable menu
+   */
   abstract getSubSections(): Observable<PartialMenuSection[]>;
 
-  protected includeSubSections(): boolean {
-    return true;
-  }
-
+  /**
+   * Retrieve all sections
+   * This method will combine both the top section and subsections
+   */
   getSections(): Observable<PartialMenuSection[]> {
-    const full = this.includeSubSections();
-
     return combineLatest([
       this.getTopSection(),
-      full ? this.getSubSections() : observableOf([]),
+      this.getSubSections(),
     ]).pipe(
       map((
         [partialTopSection, partialSubSections]: [PartialMenuSection, PartialMenuSection[]]
@@ -35,8 +41,9 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
         const subSections = partialSubSections.map((partialSub, index) => {
           return {
             ...partialSub,
-            id: partialSub.id ?? `${this.menuProviderId}_Sub-${index}`,
+            id: partialSub.id ?? `${this.menuProviderId}_${index}`,
             parentID: this.menuProviderId,
+            alwaysRenderExpandable: false,
           };
         });
 
@@ -45,6 +52,7 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
           {
             ...partialTopSection,
             id: this.menuProviderId,
+            alwaysRenderExpandable: this.alwaysRenderExpandable,
           },
         ];
       })

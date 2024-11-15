@@ -70,7 +70,7 @@ export class ServerInitService extends InitService {
       this.initAngulartics();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
-      // this.initPersistentMenus();
+      this.menuProviderService.initPersistentMenus();
 
       await this.authenticationReady$().toPromise();
 

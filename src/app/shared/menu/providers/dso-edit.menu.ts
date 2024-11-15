@@ -15,9 +15,12 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { MenuItemType } from '../menu-item-type.model';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
+/**
+ * Menu provider to create the DSO edit menu section
+ */
 @Injectable()
 export class DSpaceObjectEditMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(

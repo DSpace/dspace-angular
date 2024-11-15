@@ -9,11 +9,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, } from 'rxjs';
 import { MenuItemType } from '../menu-item-type.model';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
 import { hasValue } from '../../empty.util';
 
+/**
+ * Menu provider to create the parent wrapper menu of the various DSO page menu sections
+ * This section will be rendered as a button on the DSO pages if sub providers have been added
+ */
 @Injectable()
 export class DsoOptionMenu extends DSpaceObjectPageMenuProvider {
 

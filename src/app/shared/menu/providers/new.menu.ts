@@ -23,8 +23,11 @@ import {
 import { MenuItemType } from '../menu-item-type.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 
+/**
+ * Menu provider to create the admin sidebar new menu sections
+ */
 @Injectable()
 export class NewMenuProvider extends AbstractExpandableMenuProvider {
   constructor(

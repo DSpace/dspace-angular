@@ -32,7 +32,7 @@ describe('MenuComponent', () => {
     } as TextMenuItemModel,
     icon: 'globe',
     visible: true,
-  }
+  };
 
   const mockMenuID = 'mock-menuID' as MenuID;
 

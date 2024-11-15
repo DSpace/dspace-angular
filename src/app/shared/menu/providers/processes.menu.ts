@@ -11,8 +11,11 @@ import { combineLatest, map, Observable, } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { MenuItemType } from '../menu-item-type.model';
-import { AbstractMenuProvider, PartialMenuSection, } from '../menu-provider';
+import { AbstractMenuProvider, PartialMenuSection, } from '../menu-provider.model';
 
+/**
+ * Menu provider to create the scripts and processes menu section
+ */
 @Injectable()
 export class ProcessesMenuProvider extends AbstractMenuProvider {
   constructor(

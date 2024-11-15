@@ -273,9 +273,6 @@ import {
   AdvancedClaimedTaskActionRatingComponent
 } from './mydspace-actions/claimed-task/rating/advanced-claimed-task-action-rating.component';
 import { ClaimedTaskActionsDeclineTaskComponent } from './mydspace-actions/claimed-task/decline-task/claimed-task-actions-decline-task.component';
-import {
-  DsoPageSubscriptionButtonComponent
-} from './dso-page/dso-page-subscription-button/dso-page-subscription-button.component';
 import { EpersonGroupListComponent } from './eperson-group-list/eperson-group-list.component';
 import { EpersonSearchBoxComponent } from './eperson-group-list/eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './eperson-group-list/group-search-box/group-search-box.component';
@@ -395,7 +392,6 @@ const COMPONENTS = [
   ItemPageTitleFieldComponent,
   ThemedSearchNavbarComponent,
   ListableNotificationObjectComponent,
-  DsoPageSubscriptionButtonComponent,
   MetadataFieldWrapperComponent,
   ContextHelpWrapperComponent,
   EpersonGroupListComponent,

@@ -15,9 +15,12 @@ import { Item } from '../../../core/shared/item.model';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { MenuItemType } from '../menu-item-type.model';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
+/**
+ * Menu provider to create the Orcid synchronisation menu section on person entity pages
+ */
 @Injectable()
 export class OrcidMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(

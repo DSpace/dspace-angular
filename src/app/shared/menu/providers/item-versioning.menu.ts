@@ -14,9 +14,12 @@ import { Item } from '../../../core/shared/item.model';
 import { DsoVersioningModalService } from '../../dso-page/dso-versioning-modal-service/dso-versioning-modal.service';
 import { MenuItemType } from '../menu-item-type.model';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
+/**
+ * Menu provider to create the versioning menu section on item pages
+ */
 @Injectable()
 export class VersioningMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(

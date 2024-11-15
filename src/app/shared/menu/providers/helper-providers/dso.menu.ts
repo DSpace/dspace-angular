@@ -12,8 +12,14 @@ import { AbstractRouteContextMenuProvider } from './route-context.menu';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { hasValue } from '../../../empty.util';
 
+/**
+ * Helper provider for DSpace object page based menus
+ */
 export abstract class DSpaceObjectPageMenuProvider extends AbstractRouteContextMenuProvider<DSpaceObject> {
 
+  /**
+   * Retrieve the dso from the current route data
+   */
   public getRouteContext(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DSpaceObject | undefined> {
     const dsoRD: RemoteData<DSpaceObject> = route.data.dso;
     if (hasValue(dsoRD) && dsoRD.hasSucceeded && hasValue(dsoRD.payload)) {
@@ -24,7 +30,7 @@ export abstract class DSpaceObjectPageMenuProvider extends AbstractRouteContextM
   }
 
   /**
-   * Retrieve the dso or entity type for an object to be used in generic messages
+   * Retrieve the dso or entity type for an object to be used in section messages
    */
   protected getDsoType(dso: DSpaceObject) {
     const renderType = dso.getRenderTypes()[0];

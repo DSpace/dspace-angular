@@ -17,8 +17,11 @@ import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { MenuItemType } from '../menu-item-type.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 
+/**
+ * Menu provider to create the browse menu sections
+ */
 @Injectable()
 export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
   constructor(

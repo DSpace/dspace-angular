@@ -14,8 +14,11 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService, } from '../../../core/data/processes/script-data.service';
 import { MenuItemType } from '../menu-item-type.model';
 import { AbstractExpandableMenuProvider, } from './helper-providers/expandable-menu-provider';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 
+/**
+ * Menu provider to create the import menu sections
+ */
 @Injectable()
 export class ImportMenuProvider extends AbstractExpandableMenuProvider {
   constructor(

@@ -10,7 +10,6 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { MenuService } from '../../menu/menu.service';
-import { MenuItemModel } from '../../menu/menu-item/models/menu-item.model';
 import { ThemeService } from '../../theme-support/theme.service';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 

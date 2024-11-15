@@ -14,10 +14,13 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
 import { MenuItemType } from '../menu-item-type.model';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
+/**
+ * Menu provider to create the subscribe menu section
+ */
 @Injectable()
 export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
   constructor(

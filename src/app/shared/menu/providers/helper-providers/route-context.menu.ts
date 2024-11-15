@@ -8,8 +8,11 @@
 import { ActivatedRouteSnapshot, RouterStateSnapshot, } from '@angular/router';
 import { Observable, of as observableOf, } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { AbstractMenuProvider, PartialMenuSection, } from '../../menu-provider';
+import { AbstractMenuProvider, PartialMenuSection, } from '../../menu-provider.model';
 
+/**
+ * Helper provider for route dependent menus
+ */
 export abstract class AbstractRouteContextMenuProvider<T> extends AbstractMenuProvider {
   shouldPersistOnRouteChange = false;
 
@@ -21,7 +24,7 @@ export abstract class AbstractRouteContextMenuProvider<T> extends AbstractMenuPr
 
     return this.getRouteContext(route, state).pipe(
       switchMap((routeContext: T) => {
-        if (this.isApplicable(routeContext)) {
+      if (this.isApplicable(routeContext)) {
           return this.getSectionsForContext(routeContext);
         } else {
           return observableOf([]);

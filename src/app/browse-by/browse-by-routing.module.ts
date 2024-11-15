@@ -4,7 +4,6 @@ import { BrowseByGuard } from './browse-by-guard';
 import { BrowseByDSOBreadcrumbResolver } from './browse-by-dso-breadcrumb.resolver';
 import { BrowseByI18nBreadcrumbResolver } from './browse-by-i18n-breadcrumb.resolver';
 import { ThemedBrowseBySwitcherComponent } from './browse-by-switcher/themed-browse-by-switcher.component';
-import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 
 @NgModule({
   imports: [
@@ -13,7 +12,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
         path: '',
         resolve: {
           breadcrumb: BrowseByDSOBreadcrumbResolver,
-          menu: DSOEditMenuResolver
         },
         children: [
           {
