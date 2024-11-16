@@ -369,7 +369,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return true', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: true,
         });
@@ -385,7 +385,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: false,
         });
@@ -401,7 +401,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: false,
         });

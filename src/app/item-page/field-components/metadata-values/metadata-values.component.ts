@@ -51,7 +51,7 @@ export class MetadataValuesComponent implements OnChanges {
   @Input() mdValues: MetadataValue[];
 
   /**
-   * The seperator used to split the metadata values (can contain HTML)
+   * The separator used to split the metadata values (can contain HTML)
    */
   @Input() separator: string;
 

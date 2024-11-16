@@ -100,6 +100,8 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    */
   ePeopleDto$: BehaviorSubject<PaginatedList<EpersonDtoModel>> = new BehaviorSubject<PaginatedList<EpersonDtoModel>>({} as any);
 
+  activeEPerson$: Observable<EPerson>;
+
   /**
    * An observable for the pageInfo, needed to pass to the pagination component
    */
@@ -165,6 +167,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
   initialisePage() {
     this.searching$.next(true);
     this.search({ scope: this.currentSearchScope, query: this.currentSearchQuery });
+    this.activeEPerson$ = this.epersonService.getActiveEPerson();
     this.subs.push(this.ePeople$.pipe(
       switchMap((epeople: PaginatedList<EPerson>) => {
         if (epeople.pageInfo.totalElements > 0) {
@@ -230,23 +233,6 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
       this.pageInfoState$.next(peopleRD.payload.pageInfo);
     },
     );
-  }
-
-  /**
-   * Checks whether the given EPerson is active (being edited)
-   * @param eperson
-   */
-  isActive(eperson: EPerson): Observable<boolean> {
-    return this.getActiveEPerson().pipe(
-      map((activeEPerson) => eperson === activeEPerson),
-    );
-  }
-
-  /**
-   * Gets the active eperson (being edited)
-   */
-  getActiveEPerson(): Observable<EPerson> {
-    return this.epersonService.getActiveEPerson();
   }
 
   /**

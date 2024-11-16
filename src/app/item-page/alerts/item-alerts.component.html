@@ -8,7 +8,7 @@
                 <span class="align-self-center">{{'item.alerts.withdrawn' | translate}}</span>
                 <div class="gap-2 d-flex">
                   <a routerLink="/home" class="btn btn-primary btn-sm">{{"404.link.home-page" | translate}}</a>
-                  <a *ngIf="showReinstateButton$() | async" class="btn btn-primary btn-sm" (click)="openReinstateModal()">{{ 'item.alerts.reinstate-request' | translate}}</a>
+                  <a *ngIf="showReinstateButton$ | async" class="btn btn-primary btn-sm" (click)="openReinstateModal()">{{ 'item.alerts.reinstate-request' | translate}}</a>
                 </div>
             </div>
         </ds-alert>

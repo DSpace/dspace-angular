@@ -14,7 +14,7 @@ import { AlertType } from '../../../../shared/alert/alert-type';
 import { ContentAccordionComponent } from '../content-accordion/content-accordion.component';
 
 /**
- * This component represents a section that contains the publisher policy informations.
+ * This component represents a section that contains the publisher policy information.
  */
 @Component({
   selector: 'ds-publisher-policy',

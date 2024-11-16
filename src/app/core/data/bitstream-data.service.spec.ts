@@ -138,27 +138,27 @@ describe('BitstreamDataService', () => {
 
     describe('findPrimaryBitstreamByItemAndName', () => {
       it('should return primary bitstream', () => {
-        const exprected$ = cold('(a|)', { a: bitstream1 } );
+        const expected$ = cold('(a|)', { a: bitstream1 } );
         const bundle = Object.assign(new Bundle(), {
           primaryBitstream: observableOf(createSuccessfulRemoteDataObject(bitstream1)),
         });
         spyOn(bundleDataService, 'findByItemAndName').and.returnValue(observableOf(createSuccessfulRemoteDataObject(bundle)));
-        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(exprected$);
+        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(expected$);
       });
 
       it('should return null if primary bitstream has not be succeeded ', () => {
-        const exprected$ = cold('(a|)', { a: null } );
+        const expected$ = cold('(a|)', { a: null } );
         const bundle = Object.assign(new Bundle(), {
           primaryBitstream: observableOf(createFailedRemoteDataObject()),
         });
         spyOn(bundleDataService, 'findByItemAndName').and.returnValue(observableOf(createSuccessfulRemoteDataObject(bundle)));
-        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(exprected$);
+        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(expected$);
       });
 
       it('should return EMPTY if nothing where found', () => {
-        const exprected$ = cold('(|)', {} );
+        const expected$ = cold('(|)', {} );
         spyOn(bundleDataService, 'findByItemAndName').and.returnValue(observableOf(createFailedRemoteDataObject<Bundle>()));
-        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(exprected$);
+        expect(service.findPrimaryBitstreamByItemAndName(ItemMock, 'ORIGINAL')).toBeObservable(expected$);
       });
     });
 

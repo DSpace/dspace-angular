@@ -41,6 +41,7 @@ import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { slideSidebarPadding } from '../shared/animations/slide';
 import { HostWindowService } from '../shared/host-window.service';
+import { LiveRegionComponent } from '../shared/live-region/live-region.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
@@ -67,6 +68,7 @@ import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banne
     ThemedFooterComponent,
     NotificationsBoardComponent,
     AsyncPipe,
+    LiveRegionComponent,
   ],
 })
 export class RootComponent implements OnInit {

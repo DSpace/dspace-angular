@@ -23,7 +23,7 @@
             </div>
           </ng-template>
         </li>
-        <li [ngbNavItem]="'mapTab'" role="presentation" data-test="mapTab">
+        <li [ngbNavItem]="'mapTab' | dsBrowserOnly" role="presentation" data-test="mapTab">
           <a ngbNavLink>{{'collection.edit.item-mapper.tabs.map' | translate}}</a>
           <ng-template ngbNavContent>
             <div class="row mt-2">

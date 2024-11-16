@@ -44,7 +44,6 @@
               <td>{{tableEntry.info}}</td>
               <td>
                 <button [attr.aria-label]="'process.overview.delete-process' | translate"
-                        aria-hidden="true"
                         (click)="processBulkDeleteService.toggleDelete(tableEntry.process.processId)"
                         class="btn btn-outline-danger">
                   <i class="fas fa-trash"></i>
