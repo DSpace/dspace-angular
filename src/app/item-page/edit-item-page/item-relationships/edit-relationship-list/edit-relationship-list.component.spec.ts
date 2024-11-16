@@ -36,6 +36,7 @@ import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { EditItemRelationshipsServiceStub } from '../../../../shared/testing/edit-item-relationships.service.stub';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { cold } from 'jasmine-marbles';
+import { environment } from '../../../../../environments/environment.test';
 
 describe('EditRelationshipListComponent', () => {
 
@@ -213,11 +214,11 @@ describe('EditRelationshipListComponent', () => {
 
     editItemRelationshipsService = new EditItemRelationshipsServiceStub();
 
-    const environmentUseThumbs = {
+    const environmentUseThumbs = Object.assign({}, environment, {
       browseBy: {
         showThumbnails: true
       }
-    };
+    });
 
     TestBed.configureTestingModule({
       imports: [SharedModule, TranslateModule.forRoot()],

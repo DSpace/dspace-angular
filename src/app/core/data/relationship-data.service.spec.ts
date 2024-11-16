@@ -23,6 +23,7 @@ import { FindListOptions } from './find-list-options.model';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { MetadataValue } from '../shared/metadata.models';
 import { MetadataRepresentationType } from '../shared/metadata-representation/metadata-representation.model';
+import { environment } from '../../../environments/environment.test';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;
@@ -138,6 +139,7 @@ describe('RelationshipDataService', () => {
       itemService,
       null,
       jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),
+      environment,
     );
   }
 
@@ -153,7 +155,7 @@ describe('RelationshipDataService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null);
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, environment);
 
     testSearchDataImplementation(initService);
   });
