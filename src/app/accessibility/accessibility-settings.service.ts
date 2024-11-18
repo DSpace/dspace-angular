@@ -30,7 +30,7 @@ export enum AccessibilitySetting {
   LiveRegionTimeOut = 'liveRegionTimeOut',
 }
 
-export type AccessibilitySettings = { [key in AccessibilitySetting]?: any };
+export type AccessibilitySettings = { [key in AccessibilitySetting]?: string };
 
 /**
  * Service handling the retrieval and configuration of accessibility settings.
@@ -235,4 +235,107 @@ export class AccessibilitySettingsService {
     }
   }
 
+  /**
+   * Returns the converter method for the provided setting.
+   * The converter methods are used to convert the value entered by the user in the form to the format that is used
+   * to store the setting value.
+   */
+  getFormValueToStoredValueConverterMethod(setting: AccessibilitySetting): (value: string) => string {
+    switch (setting) {
+      case AccessibilitySetting.NotificationTimeOut:
+        return secondsToMilliseconds;
+      case AccessibilitySetting.LiveRegionTimeOut:
+        return secondsToMilliseconds;
+      default:
+        return null;
+    }
+  }
+
+  /**
+   * Convert the user-configured value to the format used to store the setting value.
+   * Returns the provided value without conversion if no converter is configured for the provided setting.
+   */
+  convertFormValueToStoredValue(setting: AccessibilitySetting, value: string): string {
+    const converterMethod = this.getFormValueToStoredValueConverterMethod(setting);
+
+    if (hasValue(converterMethod)) {
+      return converterMethod(value);
+    } else {
+      return value;
+    }
+  }
+
+  /**
+   * Convert all values in the provided accessibility settings object to values ready to be stored.
+   */
+  convertAllFormValuesToStoredValues(settings: AccessibilitySettings): AccessibilitySettings {
+    const convertedSettings = {};
+
+    this.getAllAccessibilitySettingKeys().filter(setting => setting in settings).forEach(setting =>
+      convertedSettings[setting] = this.convertFormValueToStoredValue(setting, settings[setting])
+    );
+
+    return convertedSettings;
+  }
+
+  /**
+   * Returns the converter method for the provided setting.
+   * The converter methods are used to convert the value as it is stored to the format visible by the user in the form.
+   */
+  getStoredValueToFormValueConverterMethod(setting: AccessibilitySetting): (value: string) => string {
+    switch (setting) {
+      case AccessibilitySetting.NotificationTimeOut:
+        return millisecondsToSeconds;
+      case AccessibilitySetting.LiveRegionTimeOut:
+        return millisecondsToSeconds;
+      default:
+        return null;
+    }
+  }
+
+  /**
+   * Convert the stored value to the format used in the form.
+   * Returns the provided value without conversion if no converter is configured for the provided setting.
+   */
+  convertStoredValueToFormValue(setting: AccessibilitySetting, value: string): string {
+    const converterMethod = this.getStoredValueToFormValueConverterMethod(setting);
+
+    if (hasValue(converterMethod)) {
+      return converterMethod(value);
+    } else {
+      return value;
+    }
+  }
+
+  /**
+   * Convert all values in the provided accessibility settings object to values ready to show in the form.
+   */
+  convertAllStoredValuesToFormValues(settings: AccessibilitySettings): AccessibilitySettings {
+    const convertedSettings = {};
+
+    this.getAllAccessibilitySettingKeys().filter(setting => setting in settings).forEach(setting =>
+      convertedSettings[setting] = this.convertStoredValueToFormValue(setting, settings[setting])
+    );
+
+    return convertedSettings;
+  }
+
+}
+
+function secondsToMilliseconds(secondsStr: string): string {
+  const seconds = parseFloat(secondsStr);
+  if (isNaN(seconds)) {
+    return null;
+  } else {
+    return (seconds * 1000).toString();
+  }
+}
+
+function millisecondsToSeconds(millisecondsStr: string): string {
+  const milliseconds = parseFloat(millisecondsStr);
+  if (isNaN(milliseconds)) {
+    return null;
+  } else {
+    return (milliseconds / 1000).toString();
+  }
 }

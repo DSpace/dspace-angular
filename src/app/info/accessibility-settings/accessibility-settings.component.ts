@@ -29,9 +29,7 @@ export class AccessibilitySettingsComponent implements OnInit {
 
   ngOnInit() {
     this.accessibilitySettingsOptions = this.settingsService.getAllAccessibilitySettingKeys();
-    this.settingsService.getAll().pipe(take(1)).subscribe(currentSettings => {
-      this.formValues = currentSettings;
-    });
+    this.updateFormValues();
   }
 
   getInputType(setting: AccessibilitySetting): string {
@@ -42,9 +40,25 @@ export class AccessibilitySettingsComponent implements OnInit {
     return this.settingsService.getPlaceholder(setting);
   }
 
+  /**
+   * Saves the user-configured settings
+   */
   saveSettings() {
-    this.settingsService.setSettings(this.formValues).pipe(take(1)).subscribe(location => {
+    const formValues = this.formValues;
+    const convertedValues = this.settingsService.convertAllFormValuesToStoredValues(formValues);
+    this.settingsService.setSettings(convertedValues).pipe(take(1)).subscribe(location => {
       this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));
+    });
+
+    this.updateFormValues();
+  }
+
+  /**
+   * Updates the form values with the currently stored accessibility settings
+   */
+  updateFormValues() {
+    this.settingsService.getAll().pipe(take(1)).subscribe(storedSettings => {
+      this.formValues = this.settingsService.convertAllStoredValuesToFormValues(storedSettings);
     });
   }
 
