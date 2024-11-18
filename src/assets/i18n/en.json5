@@ -1846,11 +1846,11 @@
 
   "info.accessibility-settings.liveRegionTimeOut.label": "Live region time-out",
 
-  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration in milliseconds after which a message in the live region disappears.",
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration in seconds after which a message in the live region disappears.",
 
   "info.accessibility-settings.notificationTimeOut.label": "Notification time-out",
 
-  "info.accessibility-settings.notificationTimeOut.hint": "The duration in milliseconds after which a notification disappears. Set to 0 for notifications to remain indefinitely.",
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration in seconds after which a notification disappears. Set to 0 for notifications to remain indefinitely.",
 
   "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
 
