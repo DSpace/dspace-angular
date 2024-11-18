@@ -18,7 +18,6 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
-import { stripOperatorFromFilterValue } from '../../search.utils';
 
 /**
  * Component that represents the label containing the currently active filters
@@ -49,6 +48,7 @@ export class SearchLabelComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.appliedFilter);
     this.searchLink = this.getSearchLink();
     this.removeParameters$ = this.updateRemoveParams();
   }
@@ -70,21 +70,4 @@ export class SearchLabelComponent implements OnInit {
     return this.searchService.getSearchLink();
   }
 
-  /**
-   * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
-   * Strips authority operator from filter value
-   * e.g. 'test ,authority' => 'test'
-   *
-   * @param value
-   */
-  normalizeFilterValue(value: string) {
-    // const pattern = /,[^,]*$/g;
-    const pattern = /,authority*$/g;
-    value = value?.replace(pattern, '');
-    return stripOperatorFromFilterValue(value);
-  }
-
-  getStrippedValue(val) {
-    return stripOperatorFromFilterValue(val);
-  }
 }
