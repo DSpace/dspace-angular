@@ -38,6 +38,10 @@ export class AccessibilitySettingsComponent implements OnInit {
     return this.settingsService.getInputType(setting);
   }
 
+  getPlaceholder(setting: AccessibilitySetting): string {
+    return this.settingsService.getPlaceholder(setting);
+  }
+
   saveSettings() {
     this.settingsService.setSettings(this.formValues).pipe(take(1)).subscribe(location => {
       this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));

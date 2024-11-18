@@ -224,4 +224,15 @@ export class AccessibilitySettingsService {
     }
   }
 
+  getPlaceholder(setting: AccessibilitySetting): string {
+    switch (setting) {
+      case AccessibilitySetting.NotificationTimeOut:
+        return environment.notifications.timeOut.toString();
+      case AccessibilitySetting.LiveRegionTimeOut:
+        return environment.liveRegion.messageTimeOutDurationMs.toString();
+      default:
+        return '';
+    }
+  }
+
 }
