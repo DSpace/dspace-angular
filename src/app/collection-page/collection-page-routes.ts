@@ -9,7 +9,6 @@ import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { editCollectionResolver } from '../core/shared/resolvers/edit-collection.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
-import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { collectionPageResolver } from './collection-page.resolver';
@@ -55,7 +54,6 @@ export const ROUTES: Route[] = [
     resolve: {
       dso: collectionPageResolver,
       breadcrumb: collectionBreadcrumbResolver,
-      menu: dsoEditMenuResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [
@@ -111,7 +109,7 @@ export const ROUTES: Route[] = [
         public: [{
           id: 'statistics_collection_:id',
           active: true,
-          visible: true,
+          visible: false,
           index: 2,
           model: {
             type: MenuItemType.LINK,

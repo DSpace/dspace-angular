@@ -7,7 +7,6 @@ import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
-import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { communityPageResolver } from './community-page.resolver';
@@ -51,7 +50,6 @@ export const ROUTES: Route[] = [
     resolve: {
       dso: communityPageResolver,
       breadcrumb: communityBreadcrumbResolver,
-      menu: dsoEditMenuResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [
@@ -103,7 +101,7 @@ export const ROUTES: Route[] = [
         public: [{
           id: 'statistics_community_:id',
           active: true,
-          visible: true,
+          visible: false,
           index: 2,
           model: {
             type: MenuItemType.LINK,

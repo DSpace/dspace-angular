@@ -3,7 +3,6 @@ import { Route } from '@angular/router';
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
-import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
@@ -28,7 +27,6 @@ export const ROUTES: Route[] = [
     resolve: {
       dso: itemPageResolver,
       breadcrumb: itemBreadcrumbResolver,
-      menu: dsoEditMenuResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [
