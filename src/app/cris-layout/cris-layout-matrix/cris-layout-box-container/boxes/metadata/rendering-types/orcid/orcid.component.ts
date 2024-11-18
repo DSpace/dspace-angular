@@ -21,10 +21,6 @@ import { ConfigurationProperty } from '../../../../../../../core/shared/configur
 import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/shared/operators';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -43,7 +39,6 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
     TranslateModule,
   ],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.ORCID)
 export class OrcidComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   orcidUrl$: Observable<string>;

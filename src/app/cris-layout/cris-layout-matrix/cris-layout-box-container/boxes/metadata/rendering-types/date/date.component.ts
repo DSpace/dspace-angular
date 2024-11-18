@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -18,7 +14,6 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   standalone: true,
   imports: [DsDatePipe],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.DATE)
 export class DateComponent extends RenderingTypeValueModelComponent {
 
 }

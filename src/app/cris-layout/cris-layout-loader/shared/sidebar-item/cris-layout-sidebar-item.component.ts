@@ -9,6 +9,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
@@ -17,7 +18,6 @@ import {
   rotateNavbar,
 } from '../../../../shared/animations/rotate';
 import { slide } from '../../../../shared/animations/slide';
-import { RouterLink } from '@angular/router';
 
 /**
  * This component defines the default layout for all tabs of DSpace Items.

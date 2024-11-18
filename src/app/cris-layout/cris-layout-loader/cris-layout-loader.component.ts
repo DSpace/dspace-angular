@@ -15,6 +15,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
 import { getCrisLayoutPage } from '../decorators/cris-layout-page.decorator';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
+import { LayoutPage } from '../enums/layout-page.enum';
 
 @Component({
   selector: 'ds-cris-layout-loader',
@@ -100,7 +101,7 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {
-    return getCrisLayoutPage(this.layoutConfiguration.orientation);
+    return getCrisLayoutPage(LayoutPage[this.layoutConfiguration.orientation]);
   }
 
   /**

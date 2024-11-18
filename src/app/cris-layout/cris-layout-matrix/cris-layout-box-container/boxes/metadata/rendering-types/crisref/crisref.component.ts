@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 
 import { MetadataLinkViewComponent } from '../../../../../../../shared/metadata-link-view/metadata-link-view.component';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -18,7 +14,6 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   standalone: true,
   imports: [MetadataLinkViewComponent],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.CRISREF)
 export class CrisrefComponent extends RenderingTypeValueModelComponent {
 
 }

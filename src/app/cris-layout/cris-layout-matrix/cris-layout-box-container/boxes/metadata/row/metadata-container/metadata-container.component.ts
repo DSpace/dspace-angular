@@ -214,7 +214,7 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   getMetadataBoxFieldRenderOptions(fieldRenderingType: string): MetadataBoxFieldRenderOptions {
-    let renderOptions = getMetadataBoxFieldRendering(fieldRenderingType);
+    let renderOptions = getMetadataBoxFieldRendering(FieldRenderingType[fieldRenderingType]);
     // If the rendering type not exists will use TEXT type rendering
     if (isEmpty(renderOptions)) {
       renderOptions = getMetadataBoxFieldRendering(FieldRenderingType.TEXT);

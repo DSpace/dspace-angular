@@ -29,10 +29,6 @@ import { Item } from '../../../../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
 import { followLink } from '../../../../../../../shared/utils/follow-link-config.model';
 import { AttachmentComponent } from '../attachment/attachment.component';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { BitstreamAttachmentComponent } from './bitstream-attachment/bitstream-attachment.component';
 
 @Component({
@@ -51,7 +47,6 @@ import { BitstreamAttachmentComponent } from './bitstream-attachment/bitstream-a
 /**
  * This component renders the attachment with an advanced layout.
  */
-@MetadataBoxFieldRendering(FieldRenderingType.ADVANCEDATTACHMENT, true)
 export class AdvancedAttachmentComponent extends AttachmentComponent implements OnInit {
 
   /**

@@ -21,10 +21,6 @@ import {
   getRemoteDataPayload,
 } from '../../../../../../../core/shared/operators';
 import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -38,7 +34,6 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   standalone: true,
   imports: [AsyncPipe],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.VALUEPAIR)
 export class ValuepairComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**

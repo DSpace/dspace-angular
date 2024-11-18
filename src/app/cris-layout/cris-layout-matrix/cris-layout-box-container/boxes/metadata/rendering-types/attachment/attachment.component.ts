@@ -30,10 +30,6 @@ import { ThemedFileDownloadLinkComponent } from '../../../../../../../shared/fil
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../../../../../../../shared/utils/file-size-pipe';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { BitstreamAttachmentRenderingModelComponent } from './bitstream-attachment-rendering.model';
 
 @Component({
@@ -53,7 +49,6 @@ import { BitstreamAttachmentRenderingModelComponent } from './bitstream-attachme
     FileSizePipe,
   ],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.ATTACHMENT, true)
 /**
  * The component for displaying a thumbnail rendered metadata box
  */

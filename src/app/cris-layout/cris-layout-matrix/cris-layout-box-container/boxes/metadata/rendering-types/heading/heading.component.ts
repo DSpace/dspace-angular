@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 
 import { ComcolPageHeaderComponent } from '../../../../../../../shared/comcol/comcol-page-header/comcol-page-header.component';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -17,7 +13,6 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   standalone: true,
   imports: [ComcolPageHeaderComponent],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.HEADING)
 export class HeadingComponent extends RenderingTypeValueModelComponent {
 
 }

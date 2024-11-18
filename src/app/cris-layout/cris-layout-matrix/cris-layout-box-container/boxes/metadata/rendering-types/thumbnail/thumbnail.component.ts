@@ -30,10 +30,6 @@ import {
 } from '../../../../../../../shared/empty.util';
 import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector, dspace-angular-ts/themed-component-selectors
@@ -47,11 +43,10 @@ import {
     NgIf,
   ],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
 /**
  * The component for displaying a thumbnail rendered metadata box
  */
-export class ThumbnailComponent extends BitstreamRenderingModelComponent implements OnInit {
+export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponent implements OnInit {
 
   /**
    * The bitstream to be rendered

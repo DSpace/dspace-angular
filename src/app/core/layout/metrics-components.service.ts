@@ -1,6 +1,11 @@
+import { Injectable } from '@angular/core';
+
 import { Metric } from '../shared/metric.model';
 import { CrisLayoutMetricRow } from './models/tab.model';
 
+@Injectable({
+  providedIn: 'root',
+})
 /**
  * A service responsible for managing metrics objects
  */

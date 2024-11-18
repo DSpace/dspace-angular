@@ -6,10 +6,6 @@ import {
 import { Component } from '@angular/core';
 
 import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../../metadata-box.decorator';
 import { MetadataGroupComponent } from '../metadata-group.component';
 
 /**
@@ -27,7 +23,6 @@ import { MetadataGroupComponent } from '../metadata-group.component';
     AsyncPipe,
   ],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.TABLE, true)
 export class TableComponent extends MetadataGroupComponent {
 
 }

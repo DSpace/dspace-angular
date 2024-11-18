@@ -14,10 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../../core/shared/item.model';
 import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../../metadata-box.decorator';
 import { MetadataGroupComponent } from '../metadata-group.component';
 
 /**
@@ -36,7 +32,6 @@ import { MetadataGroupComponent } from '../metadata-group.component';
     AsyncPipe,
   ],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.INLINE, true)
 export class InlineComponent extends MetadataGroupComponent implements OnInit {
 
   constructor(

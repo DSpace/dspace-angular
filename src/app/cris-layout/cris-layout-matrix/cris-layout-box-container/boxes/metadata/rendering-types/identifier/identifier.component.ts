@@ -18,10 +18,6 @@ import {
 } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 import {
   IdentifierSubtypesConfig,
@@ -38,7 +34,6 @@ import {
   standalone: true,
   imports: [NgIf, NgbTooltipModule],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.IDENTIFIER)
 export class IdentifierComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**
