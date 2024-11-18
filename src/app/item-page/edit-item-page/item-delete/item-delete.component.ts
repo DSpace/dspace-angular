@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
 import {
@@ -37,6 +38,34 @@ import { getItemEditRoute } from '../../item-page-routing-paths';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NoContent } from '../../../core/shared/NoContent.model';
 
+/**
+ * Data Transfer Object used to prevent the HTML template to call function returning Observables
+ */
+class RelationshipTypeDTO {
+
+  relationshipType: RelationshipType;
+
+  isSelected$: Observable<boolean>;
+
+  label$: Observable<string>;
+
+  relationshipDTOs$: Observable<RelationshipDTO[]>;
+
+}
+
+/**
+ * Data Transfer Object used to prevent the HTML template to call function returning Observables
+ */
+class RelationshipDTO {
+
+  relationship: Relationship;
+
+  relatedItem$: Observable<Item>;
+
+  virtualMetadata$: Observable<VirtualMetadata[]>;
+
+}
+
 @Component({
   selector: 'ds-item-delete',
   templateUrl: '../item-delete/item-delete.component.html'
@@ -64,7 +93,7 @@ export class ItemDeleteComponent
    * A list of the relationship types for which this item has relations as an observable.
    * The list doesn't contain duplicates.
    */
-  types$: BehaviorSubject<RelationshipType[]> = new BehaviorSubject([]);
+  typeDTOs$: BehaviorSubject<RelationshipTypeDTO[]> = new BehaviorSubject([]);
 
   /**
    * A map which stores the relationships of this item for each type as observable lists
@@ -92,6 +121,8 @@ export class ItemDeleteComponent
    * Array to track all subscriptions and unsubscribe them onDestroy
    */
   private subs: Subscription[] = [];
+
+  public isDeleting$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(protected route: ActivatedRoute,
               protected router: Router,
@@ -146,14 +177,25 @@ export class ItemDeleteComponent
               }, [])
             ),
           );
-        })
-      ).subscribe((types: RelationshipType[]) => this.types$.next(types)));
+        }),
+      ).subscribe((types: RelationshipType[]) => this.typeDTOs$.next(types.map((relationshipType: RelationshipType) => Object.assign(new RelationshipTypeDTO(), {
+        relationshipType: relationshipType,
+        isSelected$: this.isSelected(relationshipType),
+        label$: this.getLabel(relationshipType),
+        relationshipDTOs$: this.getRelationships(relationshipType).pipe(
+          map((relationships: Relationship[]) => relationships.map((relationship: Relationship) => Object.assign(new RelationshipDTO(), {
+            relationship: relationship,
+            relatedItem$: this.getRelatedItem(relationship),
+            virtualMetadata$: this.getVirtualMetadata(relationship),
+          } as RelationshipDTO))),
+        ),
+      })))));
     }
 
-    this.subs.push(this.types$.pipe(
+    this.subs.push(this.typeDTOs$.pipe(
       take(1),
-    ).subscribe((types) =>
-      this.objectUpdatesService.initialize(this.url, types, this.item.lastModified)
+    ).subscribe((types: RelationshipTypeDTO[]) =>
+      this.objectUpdatesService.initialize(this.url, types.map((relationshipTypeDto: RelationshipTypeDTO) => relationshipTypeDto.relationshipType), this.item.lastModified),
     ));
   }
 
@@ -326,34 +368,33 @@ export class ItemDeleteComponent
    * @param selected  whether the type should be selected
    */
   setSelected(type: RelationshipType, selected: boolean): void {
-    this.objectUpdatesService.setSelectedVirtualMetadata(this.url, this.item.uuid, type.uuid, selected);
+    if (this.isDeleting$.value === false) {
+      this.objectUpdatesService.setSelectedVirtualMetadata(this.url, this.item.uuid, type.uuid, selected);
+    }
   }
 
   /**
    * Perform the delete operation
    */
-  performAction() {
-
-    this.subs.push(this.types$.pipe(
-      switchMap((types) =>
+  performAction(): void {
+    this.isDeleting$.next(true);
+    this.subs.push(this.typeDTOs$.pipe(
+      switchMap((types: RelationshipTypeDTO[]) =>
         combineLatest(
-          types.map((type) => this.isSelected(type))
+          types.map((type: RelationshipTypeDTO) => type.isSelected$),
         ).pipe(
           defaultIfEmpty([]),
-          map((selection) => types.filter(
-            (type, index) => selection[index]
+          map((selection: boolean[]) => types.filter(
+            (type: RelationshipTypeDTO, index: number) => selection[index],
           )),
-          map((selectedTypes) => selectedTypes.map((type) => type.id)),
-        )
+          map((selectedDtoTypes: RelationshipTypeDTO[]) => selectedDtoTypes.map((typeDto: RelationshipTypeDTO) => typeDto.relationshipType.id)),
+        ),
       ),
-      switchMap((types) =>
-        this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData())
-      )
-    ).subscribe(
-      (rd: RemoteData<NoContent>) => {
-        this.notify(rd.hasSucceeded);
-      }
-    ));
+      switchMap((types: string[]) => this.itemDataService.delete(this.item.id, types)),
+      getFirstCompletedRemoteData(),
+    ).subscribe((rd: RemoteData<NoContent>) => {
+      this.notify(rd.hasSucceeded);
+    }));
   }
 
   /**
@@ -363,10 +404,10 @@ export class ItemDeleteComponent
   notify(succeeded: boolean) {
     if (succeeded) {
       this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
-      this.router.navigate(['']);
+      void this.router.navigate(['']);
     } else {
       this.notificationsService.error(this.translateService.get('item.edit.' + this.messageKey + '.error'));
-      this.router.navigate([getItemEditRoute(this.item)]);
+      void this.router.navigate([getItemEditRoute(this.item)]);
     }
   }
 

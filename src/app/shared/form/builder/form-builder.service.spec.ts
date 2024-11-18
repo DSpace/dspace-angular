@@ -53,6 +53,8 @@ import { FormRowModel } from '../../../core/config/models/config-submission-form
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { getMockTranslateService } from '../../mocks/translate.service.mock';
+import { TranslateService } from '@ngx-translate/core';
 
 describe('FormBuilderService test suite', () => {
 
@@ -83,6 +85,7 @@ describe('FormBuilderService test suite', () => {
 
   beforeEach(() => {
     configSpy = createConfigSuccessSpy(typeFieldTestValue);
+    let translateService = getMockTranslateService();
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
@@ -90,7 +93,8 @@ describe('FormBuilderService test suite', () => {
         { provide: DynamicFormValidationService, useValue: {} },
         { provide: NG_VALIDATORS, useValue: testValidator, multi: true },
         { provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true },
-        { provide: ConfigurationDataService, useValue: configSpy }
+        { provide: ConfigurationDataService, useValue: configSpy },
+        { provide: TranslateService, useValue: translateService },
       ]
     });
 

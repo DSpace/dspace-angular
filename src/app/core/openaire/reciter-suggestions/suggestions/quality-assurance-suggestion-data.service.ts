@@ -117,8 +117,8 @@ export class QualityAssuranceSuggestionDataService extends IdentifiableDataServi
     ...linksToFollow: FollowLinkConfig<OpenaireSuggestion>[]
   ): Observable<RemoteData<PaginatedList<OpenaireSuggestion>>> {
     options.searchParams = [
-      new RequestParam('target', target),
-      new RequestParam('source', source)
+      new RequestParam('target', target, false),
+      new RequestParam('source', source, false)
     ];
 
     return this.searchData.searchBy(this.searchFindByTargetAndSourceMethod, options, true, true, ...linksToFollow);

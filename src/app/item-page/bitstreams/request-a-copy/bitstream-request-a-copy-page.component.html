@@ -1,5 +1,5 @@
 <div class="container">
-    <h3 class="mb-4">{{'bitstream-request-a-copy.header' | translate}}</h3>
+    <h1 class="mb-4">{{'bitstream-request-a-copy.header' | translate}}</h1>
     <div *ngIf="canDownload$|async" class="alert alert-success">
         <span>{{'bitstream-request-a-copy.alert.canDownload1' | translate}}</span>
         <a [routerLink]="getBitstreamLink()">{{'bitstream-request-a-copy.alert.canDownload2'| translate}}</a>

@@ -10,6 +10,7 @@
       <div class="btn-group bundle-action-buttons">
         <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
                 [queryParams]="{bundle: bundle.id}"
+                [attr.aria-label]="'item.edit.bitstreams.bundle.edit.buttons.upload' | translate"
                 class="btn btn-outline-success btn-sm"
                 title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
           <i class="fas fa-upload fa-fw"></i>

@@ -8,6 +8,7 @@ import { MenuItemType } from '../menu-item-type.model';
  */
 @Component({
   selector: 'ds-text-menu-item',
+  styleUrls: ['./menu-item.component.scss'],
   templateUrl: './text-menu-item.component.html',
 })
 @rendersMenuItemForType(MenuItemType.TEXT)

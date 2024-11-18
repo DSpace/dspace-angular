@@ -14,6 +14,7 @@ import { EPerson } from '../core/eperson/models/eperson.model';
 import { getAllCompletedRemoteData } from '../core/shared/operators';
 import { RemoteData } from '../core/data/remote-data';
 import { hasValue } from '../shared/empty.util';
+import { AlertType } from '../shared/alert/alert-type';
 
 @Component({
   selector: 'ds-subscriptions-page',
@@ -53,6 +54,8 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
    * The rxjs subscription used to retrieve the result list
    */
   sub: rxjsSubscription = null;
+
+  readonly AlertType = AlertType;
 
   constructor(
     private paginationService: PaginationService,

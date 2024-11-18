@@ -26,21 +26,25 @@
     <div class="text-center w-100">
       <div class="btn-group relationship-action-buttons">
         <a *ngIf="bitstreamDownloadUrl != null" [routerLink]="bitstreamDownloadUrl"
-                class="btn btn-outline-primary btn-sm"
-                title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}"
-                [attr.data-test]="'download-button' | dsBrowserOnly">
+           [attr.aria-label]="'item.edit.bitstreams.edit.buttons.download' | translate"
+           class="btn btn-outline-primary btn-sm"
+           title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}"
+           [attr.data-test]="'download-button' | dsBrowserOnly">
           <i class="fas fa-download fa-fw"></i>
         </a>
         <button [routerLink]="['/bitstreams/', bitstream.id, 'edit']" class="btn btn-outline-primary btn-sm"
+                [attr.aria-label]="'item.edit.bitstreams.edit.buttons.edit' | translate"
                 title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
           <i class="fas fa-edit fa-fw"></i>
         </button>
         <button [disabled]="!canRemove()" (click)="remove()"
+                [attr.aria-label]="'item.edit.bitstreams.edit.buttons.remove' | translate"
                 class="btn btn-outline-danger btn-sm"
                 title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
           <i class="fas fa-trash-alt fa-fw"></i>
         </button>
         <button [disabled]="!canUndo()" (click)="undo()"
+                [attr.aria-label]="'item.edit.bitstreams.edit.buttons.undo' | translate"
                 class="btn btn-outline-warning btn-sm"
                 title="{{'item.edit.bitstreams.edit.buttons.undo' | translate}}">
           <i class="fas fa-undo-alt fa-fw"></i>

@@ -6,7 +6,7 @@
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "Μετάβαση στην αρχική σελίδα",
 
-  // "401.unauthorized": "unauthorized",
+  // "401.unauthorized": "Unauthorized",
   "401.unauthorized": "Χωρίς εξουσιοδότηση",
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
@@ -15,10 +15,10 @@
   // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "Μετάβαση στην αρχική σελίδα",
 
-  // "403.forbidden": "forbidden",
+  // "403.forbidden": "Forbidden",
   "403.forbidden": "Απαγορευμένη πρόσβαση",
 
-  // "500.page-internal-server-error": "Service Unavailable",
+  // "500.page-internal-server-error": "Service unavailable",
   "500.page-internal-server-error": "Μη διαθέσιμη υπηρεσία",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
@@ -33,7 +33,7 @@
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Μετάβαση στην αρχική σελίδα",
 
-  // "404.page-not-found": "page not found",
+  // "404.page-not-found": "Page not found",
   "404.page-not-found": "Η σελίδα δεν βρέθηκε",
 
   // "410.gone-handle": "This object is no longer available",
@@ -44,16 +44,16 @@
   // TODO New key - Add a translation
   "410.link.home-page": "Take me to the home page",
 
-  // "error-page.description.401": "unauthorized",
+  // "error-page.description.401": "Unauthorized",
   "error-page.description.401": "ανεξουσιοδότητος",
 
-  // "error-page.description.403": "forbidden",
+  // "error-page.description.403": "Forbidden",
   "error-page.description.403": "απαγορευμένος",
 
-  // "error-page.description.500": "Service Unavailable",
+  // "error-page.description.500": "Service unavailable",
   "error-page.description.500": "Μη διαθέσιμη υπηρεσία",
 
-  // "error-page.description.404": "page not found",
+  // "error-page.description.404": "Page not found",
   "error-page.description.404": "Η σελίδα δεν βρέθηκε",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
@@ -252,7 +252,7 @@
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "Αποτυχία",
 
-  // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
+  // "admin.registries.bitstream-formats.create.head": "Create bitstream format",
   "admin.registries.bitstream-formats.create.head": "Δημιουργήστε μορφότυπο Bitstream",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
@@ -359,6 +359,10 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Ονομα",
 
+  // "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+
   // "admin.registries.bitstream-formats.table.id": "ID",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.table.id": "ID",
@@ -380,6 +384,14 @@
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.title": "Μητρώο μορφότυπων",
+
+  // "admin.registries.bitstream-formats.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.select": "Select",
+
+  // "admin.registries.bitstream-formats.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.deselect": "Deselect",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Μητρώο μεταδεδομένων",
@@ -405,8 +417,20 @@
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   "admin.registries.metadata.schemas.no-items": "Δεν υπάρχουν σχήματα μεταδεδομένων για εμφάνιση.",
 
+  // "admin.registries.metadata.schemas.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.select": "Select",
+
+  // "admin.registries.metadata.schemas.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.deselect": "Deselect",
+
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Διαγραφή επιλεγμένων",
+
+  // "admin.registries.metadata.schemas.table.selected": "Selected schemas",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -429,6 +453,14 @@
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Αυτό είναι το σχήμα μεταδεδομένων για το \"{{namespace}}\".",
 
+  // "admin.registries.schema.fields.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.select": "Select",
+
+  // "admin.registries.schema.fields.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.deselect": "Deselect",
+
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Πεδία μεταδεδομένων σχήματος",
 
@@ -440,6 +472,10 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Πεδίο",
+
+  // "admin.registries.schema.fields.table.selected": "Selected metadata fields",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.selected": "Selected metadata fields",
 
   // "admin.registries.schema.fields.table.id": "ID",
   // TODO New key - Add a translation
@@ -580,7 +616,7 @@
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   "admin.access-control.epeople.search.scope.metadata": "Μεταδεδομένα",
 
-  // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  // "admin.access-control.epeople.search.scope.email": "Email (exact)",
   "admin.access-control.epeople.search.scope.email": "E-mail (ακριβώς)",
 
   // "admin.access-control.epeople.search.button": "Search",
@@ -598,7 +634,7 @@
   // "admin.access-control.epeople.table.name": "Name",
   "admin.access-control.epeople.table.name": "Ονομα",
 
-  // "admin.access-control.epeople.table.email": "E-mail (exact)",
+  // "admin.access-control.epeople.table.email": "Email (exact)",
   "admin.access-control.epeople.table.email": "E-mail (ακριβώς)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
@@ -628,10 +664,10 @@
   // "admin.access-control.epeople.form.lastName": "Last name",
   "admin.access-control.epeople.form.lastName": "Επίθετο",
 
-  // "admin.access-control.epeople.form.email": "E-mail",
+  // "admin.access-control.epeople.form.email": "Email",
   "admin.access-control.epeople.form.email": "Ηλεκτρονική Διεύθυνση",
 
-  // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  // "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
   "admin.access-control.epeople.form.emailHint": "Πρέπει να είναι έγκυρη διεύθυνση e-mail",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
@@ -1198,13 +1234,13 @@
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Επιλέξτε πρώτα το αρχείο!",
 
-  // "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  // "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
   // TODO New key - Add a translation
-  "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
 
-  // "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  // "admin.batch-import.page.error.addFile": "Select ZIP file first!",
   // TODO New key - Add a translation
-  "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  "admin.batch-import.page.error.addFile": "Select ZIP file first!",
 
   // "admin.metadata-import.page.toggle.upload": "Upload",
   // TODO New key - Add a translation
@@ -1458,7 +1494,6 @@
   "auth.messages.token-refresh-failed": "Η ανανέωση της συνεδρίας (session) απέτυχε. Παρακαλούμε συνδεθείτε ξανά.",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}...",
-  // TODO Source message changed - Revise the translation
   "bitstream.download.page": "Τώρα γίνεται λήψη του {{bitstream}}...",
 
   // "bitstream.download.page.back": "Back",
@@ -1600,7 +1635,7 @@
   // "bitstream-request-a-copy.name.error": "The name is required",
   "bitstream-request-a-copy.name.error": "Το όνομα είναι υποχρεωτικό",
 
-  // "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  // "bitstream-request-a-copy.email.label": "Your email address *",
   "bitstream-request-a-copy.email.label": "Η ηλεκτρονική σου διεύθυνση *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
@@ -1881,6 +1916,10 @@
   // TODO New key - Add a translation
   "browse.startsWith.input": "Filter",
 
+  // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+  // TODO New key - Add a translation
+  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+
   // "browse.taxonomy.button": "Browse",
   // TODO New key - Add a translation
   "browse.taxonomy.button": "Browse",
@@ -1959,6 +1998,14 @@
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
   // TODO New key - Add a translation
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
+
+  // "collection.create.breadcrumbs": "Create collection",
+  // TODO New key - Add a translation
+  "collection.create.breadcrumbs": "Create collection",
+
+  // "collection.browse.logo": "Browse for a collection logo",
+  // TODO New key - Add a translation
+  "collection.browse.logo": "Browse for a collection logo",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Δημιουργήστε μια Συλλογή",
@@ -2226,8 +2273,9 @@
   // "collection.edit.template.breadcrumbs": "Item template",
   "collection.edit.template.breadcrumbs": "πρότυπο τεκμηρίου",
 
-  // "collection.edit.template.cancel": "Cancel",
-  "collection.edit.template.cancel": "Ακύρωση",
+  // "collection.edit.template.back": "Back",
+  // TODO New key - Add a translation
+  "collection.edit.template.back": "Back",
 
   // "collection.edit.template.delete-button": "Delete",
   "collection.edit.template.delete-button": "Διαγραφή",
@@ -2318,6 +2366,10 @@
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Συλλογή",
 
+  // "collection.logo": "Collection logo",
+  // TODO New key - Add a translation
+  "collection.logo": "Collection logo",
+
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Πρόσφατες Υποβολές",
 
@@ -2345,6 +2397,18 @@
 
   // "collection.select.empty": "No collections to show",
   "collection.select.empty": "Δεν υπάρχουν συλλογές προς εμφάνιση",
+
+  // "collection.select.table.selected": "Selected collections",
+  // TODO New key - Add a translation
+  "collection.select.table.selected": "Selected collections",
+
+  // "collection.select.table.select": "Select collection",
+  // TODO New key - Add a translation
+  "collection.select.table.select": "Select collection",
+
+  // "collection.select.table.deselect": "Deselect collection",
+  // TODO New key - Add a translation
+  "collection.select.table.deselect": "Deselect collection",
 
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Τίτλος",
@@ -2440,6 +2504,22 @@
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Δείτε περισσότερα",
 
+  // "communityList.expand": "Expand {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.expand": "Expand {{ name }}",
+
+  // "communityList.collapse": "Collapse {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.collapse": "Collapse {{ name }}",
+
+  // "community.browse.logo": "Browse for a community logo",
+  // TODO New key - Add a translation
+  "community.browse.logo": "Browse for a community logo",
+
+  // "community.create.breadcrumbs": "Create Community",
+  // TODO New key - Add a translation
+  "community.create.breadcrumbs": "Create Community",
+
   // "community.create.head": "Create a Community",
   "community.create.head": "Δημιουργήστε μια Κοινότητα",
 
@@ -2500,10 +2580,10 @@
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "Λογότυπο κοινότητας",
 
-  // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+  // "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
   "community.edit.logo.notifications.add.error": "Η μεταφόρτωση του λογότυπου της Κοινότητας απέτυχε. Επαληθεύστε το περιεχόμενο πριν προσπαθήσετε ξανά.",
 
-  // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+  // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
   "community.edit.logo.notifications.add.success": "Επιτυχής μεταφόρτωση λογότυπου Κοινότητας.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -2515,7 +2595,7 @@
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "community.edit.logo.notifications.delete.error.title": "Σφάλμα κατά τη διαγραφή του λογότυπου",
 
-  // "community.edit.logo.upload": "Drop a Community Logo to upload",
+  // "community.edit.logo.upload": "Drop a community logo to upload",
   "community.edit.logo.upload": "Σύρετε ένα λογότυπο κοινότητας για μεταφόρτωση",
 
   // "community.edit.notifications.success": "Successfully edited the Community",
@@ -2524,7 +2604,7 @@
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   "community.edit.notifications.unauthorized": "Δεν έχετε τα προνόμια να κάνετε αυτήν την αλλαγή",
 
-  // "community.edit.notifications.error": "An error occured while editing the Community",
+  // "community.edit.notifications.error": "An error occured while editing the community",
   "community.edit.notifications.error": "Παρουσιάστηκε σφάλμα κατά την επεξεργασία της Κοινότητας",
 
   // "community.edit.return": "Back",
@@ -2564,6 +2644,10 @@
 
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "Κοινότητα",
+
+  // "community.logo": "Community logo",
+  // TODO New key - Add a translation
+  "community.logo": "Community logo",
 
   // "comcol-role.edit.no-group": "None",
   "comcol-role.edit.no-group": "Κανένας",
@@ -2613,7 +2697,7 @@
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Προεπιλεγμένη πρόσβαση ανάγνωσης αρχείου",
 
-  // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
   "comcol-role.edit.bitstream_read.description": "Οι διαχειριστές της κοινότητας μπορούν να δημιουργήσουν υποκοινότητες ή συλλογές και να διαχειρίζονται ή να αναθέτουν διαχείριση για αυτές τις υποκοινότητες ή συλλογές. Επιπλέον, αποφασίζουν ποιος μπορεί να υποβάλει τεκμήρια σε οποιεσδήποτε υποσυλλογές, να επεξεργαστεί τα μεταδεδομένα των τεκμηρίων (μετά την υποβολή) και να προσθέσει (αντιστοιχίσει) υπάρχοντα τεκμήρια από άλλες συλλογές (υπόκειται σε εξουσιοδότηση).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
@@ -2679,11 +2763,9 @@
   "community.all-lists.head": "Υποκοινότητες και Συλλογές",
 
   // "community.sub-collection-list.head": "Collections in this Community",
-  // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "Συλλογές αυτής της Κοινότητας",
 
   // "community.sub-community-list.head": "Communities in this Community",
-  // TODO Source message changed - Revise the translation
   "community.sub-community-list.head": "Κοινότητες αυτής της Κοινότητας",
 
 
@@ -2743,9 +2825,13 @@
   // TODO New key - Add a translation
   "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
 
-  // "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  // "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
   // TODO New key - Add a translation
-  "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
+
+  // "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
+  // TODO New key - Add a translation
+  "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
 
   // "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
   // TODO New key - Add a translation
@@ -3172,7 +3258,6 @@
   "cris-layout.rendering.collections.load-more": "Load more",
 
   // "curation-task.task.checklinks.label": "Check Links in Metadata",
-  // TODO Source message changed - Revise the translation
   "curation-task.task.checklinks.label": "Ελέγξτε τους συνδέσμους στα μεταδεδομένα",
 
   // "curation-task.task.noop.label": "NOOP",
@@ -3241,6 +3326,14 @@
 
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "Απορρίφθηκε επιτυχώς το αίτημα τεκμηρίου",
+
+  // "dropdown.clear": "Clear selection",
+  // TODO New key - Add a translation
+  "dropdown.clear": "Clear selection",
+
+  // "dropdown.clear.tooltip": "Clear the selected option",
+  // TODO New key - Add a translation
+  "dropdown.clear.tooltip": "Clear the selected option",
 
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Χωρίς τίτλο",
@@ -3629,10 +3722,10 @@
   // "error.validation.required": "This field is required",
   "error.validation.required": "Αυτό το πεδίο είναι υποχρεωτικό",
 
-  // "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  // "error.validation.NotValidEmail": "This is not a valid email",
   "error.validation.NotValidEmail": "Αυτό το e-mail δεν είναι έγκυρο email",
 
-  // "error.validation.emailTaken": "This E-mail is already taken",
+  // "error.validation.emailTaken": "This email is already taken",
   "error.validation.emailTaken": "Αυτό το e-mail έχει ήδη ληφθεί",
 
   // "error.validation.groupExists": "This group already exists",
@@ -3686,6 +3779,9 @@
   // TODO New key - Add a translation
   "event.listelement.badge": "Event",
 
+  // "event.page.titleprefix": "Event:",
+  // TODO New key - Add a translation
+  "event.page.titleprefix": "Event:",
 
   // "explore.browse-section.title": "Browse",
   // TODO New key - Add a translation
@@ -4022,6 +4118,10 @@
   // "feed.description": "Syndication feed",
   "feed.description": "Συνδικάτο τροφοδοσία",
 
+  // "file-download-link.restricted": "Restricted bitstream",
+  // TODO New key - Add a translation
+  "file-download-link.restricted": "Restricted bitstream",
+
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Σφάλμα κατά τη λήψη αρχείων για αυτό το τεκμήριο",
 
@@ -4058,11 +4158,9 @@
   "footer.link.privacy-policy": "Πολιτική απορρήτου",
 
   // "footer.link.end-user-agreement": "End User Agreement",
-  // TODO Source message changed - Revise the translation
   "footer.link.end-user-agreement": "Συμφωνία Τελικού Χρήστη",
 
   // "footer.link.feedback": "Send Feedback",
-  // TODO Source message changed - Revise the translation
   "footer.link.feedback": "Στείλετε τα σχόλιά σας",
 
   // "forgot-email.form.header": "Forgot Password",
@@ -4125,7 +4223,7 @@
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
   "forgot-password.form.label.passwordrepeat": "Πληκτρολογήστε ξανά για επιβεβαίωση",
 
-  // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  // "forgot-password.form.error.empty-password": "Please enter a password in the boxes above.",
   "forgot-password.form.error.empty-password": "Εισαγάγετε έναν κωδικό πρόσβασης στο παρακάτω πλαίσιο.",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
@@ -4340,6 +4438,14 @@
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Σύρετε το τεκμήριο στη νέα θέση",
 
+  // "form.number-picker.decrement": "Decrement {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.decrement": "Decrement {{field}}",
+
+  // "form.number-picker.increment": "Increment {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.increment": "Increment {{field}}",
+
   // "funding.listelement.badge": "Funding",
   // TODO New key - Add a translation
   "funding.listelement.badge": "Funding",
@@ -4357,7 +4463,6 @@
   "grant-deny-request-copy.email.back": "Επιστροφή",
 
   // "grant-deny-request-copy.email.message": "Optional additional message",
-  // TODO Source message changed - Revise the translation
   "grant-deny-request-copy.email.message": "Μήνυμα",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
@@ -4406,7 +4511,6 @@
   "grant-request-copy.header": "Αίτημα αντιγραφής παραχώρησης εγγράφου",
 
   // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
-  // TODO Source message changed - Revise the translation
   "grant-request-copy.intro": "Αυτό το μήνυμα θα σταλεί στον αιτούντα του αιτήματος. Το(τα) έγγραφο(α) που ζητήθηκαν θα επισυναφθούν.",
 
   // "grant-request-copy.success": "Successfully granted item request",
@@ -4416,16 +4520,13 @@
   "health.breadcrumbs": "Υγεία",
 
   // "health-page.heading": "Health",
-  // TODO New key - Add a translation
-  "health-page.heading": "Health",
+  "health-page.heading": "Υγεία",
 
   // "health-page.info-tab": "Info",
-  // TODO New key - Add a translation
-  "health-page.info-tab": "Info",
+  "health-page.info-tab": "Πληροφορίες",
 
   // "health-page.status-tab": "Status",
-  // TODO New key - Add a translation
-  "health-page.status-tab": "Status",
+  "health-page.status-tab": "Κατάσταση",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   "health-page.error.msg": "Η υπηρεσία ελέγχου υγείας δεν είναι διαθέσιμη προσωρινά",
@@ -4563,24 +4664,19 @@
   "info.feedback.email-label": "Το ηλεκτρονικό σου ταχυδρομείο",
 
   // "info.feedback.create.success": "Feedback Sent Successfully!",
-  // TODO New key - Add a translation
-  "info.feedback.create.success": "Feedback Sent Successfully!",
+  "info.feedback.create.success": "Τα σχόλια εστάλησαν με επιτυχία!",
 
   // "info.feedback.error.email.required": "A valid email address is required",
-  // TODO New key - Add a translation
-  "info.feedback.error.email.required": "A valid email address is required",
+  "info.feedback.error.email.required": "Μια έγκυρη διεύθυνση email απαιτείται",
 
   // "info.feedback.error.message.required": "A comment is required",
-  // TODO New key - Add a translation
-  "info.feedback.error.message.required": "A comment is required",
+  "info.feedback.error.message.required": "Απαιτείται σχόλιο",
 
   // "info.feedback.page-label": "Page",
-  // TODO New key - Add a translation
-  "info.feedback.page-label": "Page",
+  "info.feedback.page-label": "Σελίδα",
 
-  // "info.feedback.page_help": "Tha page related to your feedback",
-  // TODO New key - Add a translation
-  "info.feedback.page_help": "Tha page related to your feedback",
+  // "info.feedback.page_help": "The page related to your feedback",
+  "info.feedback.page_help": "Αυτή η σελίδα σχετίζεται με τα σχόλιά σας",
 
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "Αυτό το τεκμήριο δεν μπορεί να ανακαλυφθεί",
@@ -4611,7 +4707,6 @@
   "item.bitstreams.upload.bundle.new": "Δημιουργία φακέλου/πακέτου",
 
   // "item.bitstreams.upload.bundles.empty": "This item doesn't contain any bundles to upload a bitstream to.",
-  // TODO Source message changed - Revise the translation
   "item.bitstreams.upload.bundles.empty": "Αυτό το τεκμήριο δεν περιέχει φακέλους/πακέτα για μεταφόρτωση αρχείων.",
 
   // "item.bitstreams.upload.cancel": "Cancel",
@@ -4907,6 +5002,14 @@
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "Απόρριψη",
 
+  // "item.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.language": "Edit language",
+
+  // "item.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.value": "Edit value",
+
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   // TODO New key - Add a translation
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
@@ -4953,6 +5056,10 @@
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Τιμή",
+
+  // "item.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "item.edit.metadata.metadatafield": "Edit field",
 
   // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   // TODO New key - Add a translation
@@ -5586,12 +5693,10 @@
   "item.page.bitstreams.collapse": "Σύμπτηξη",
 
   // "item.page.filesection.original.bundle": "Original bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.original.bundle": "Original bundle",
+  "item.page.filesection.original.bundle": "Πρωτότυπος φάκελος/πακέτο",
 
   // "item.page.filesection.license.bundle": "License bundle",
-  // TODO New key - Add a translation
-  "item.page.filesection.license.bundle": "License bundle",
+  "item.page.filesection.license.bundle": "Φάκελος/Πακέτο αδειών",
 
   // "item.page.return": "Back",
   "item.page.return": "Επιστροφή",
@@ -5599,7 +5704,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Δημιουργία νέας έκδοσης",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Δεν είναι δυνατή η δημιουργία νέας έκδοσης επειδή υπάρχει μια υποβολή σε εξέλιξη στο ιστορικό εκδόσεων",
 
   // "item.page.claim.button": "Claim",
@@ -5757,19 +5862,15 @@
   "item.preview.dc.type": "Type:",
 
   // "item.preview.oaire.citation.issue": "Issue",
-  // TODO New key - Add a translation
-  "item.preview.oaire.citation.issue": "Issue",
+  "item.preview.oaire.citation.issue": "Θέμα",
 
   // "item.preview.oaire.citation.volume": "Volume",
-  // TODO New key - Add a translation
-  "item.preview.oaire.citation.volume": "Volume",
+  "item.preview.oaire.citation.volume": "Τόμος",
 
   // "item.preview.dc.relation.issn": "ISSN",
-  // TODO New key - Add a translation
   "item.preview.dc.relation.issn": "ISSN",
 
   // "item.preview.dc.identifier.isbn": "ISBN",
-  // TODO New key - Add a translation
   "item.preview.dc.identifier.isbn": "ISBN",
 
   // "item.preview.dc.identifier": "Identifier:",
@@ -5777,16 +5878,13 @@
   "item.preview.dc.identifier": "Identifier:",
 
   // "item.preview.dc.relation.ispartof": "Journal or Series",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartof": "Journal or Series",
+  "item.preview.dc.relation.ispartof": "Περιοδικό ή Σειρά",
 
   // "item.preview.dc.identifier.doi": "DOI",
-  // TODO New key - Add a translation
   "item.preview.dc.identifier.doi": "DOI",
 
   // "item.preview.dc.title.alternative": "Alternative Title",
-  // TODO New key - Add a translation
-  "item.preview.dc.title.alternative": "Alternative Title",
+  "item.preview.dc.title.alternative": "Αρκτικόλεξο:",
 
   // "item.preview.dc.type.version": "Version",
   // TODO New key - Add a translation
@@ -5921,6 +6019,18 @@
   // "item.select.empty": "No items to show",
   "item.select.empty": "Δεν υπάρχουν τεκμήρια για εμφάνιση",
 
+  // "item.select.table.selected": "Selected items",
+  // TODO New key - Add a translation
+  "item.select.table.selected": "Selected items",
+
+  // "item.select.table.select": "Select item",
+  // TODO New key - Add a translation
+  "item.select.table.select": "Select item",
+
+  // "item.select.table.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "item.select.table.deselect": "Deselect item",
+
   // "item.select.table.author": "Author",
   "item.select.table.author": "Συγγραφέας",
 
@@ -5987,7 +6097,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Διαγραφή έκδοσης",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Δεν είναι δυνατή η δημιουργία νέας έκδοσης επειδή υπάρχει μια υποβολή σε εξέλιξη στο ιστορικό εκδόσεων",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -6027,16 +6137,13 @@
   "item.version.create.modal.submitted.text": "Η νέα έκδοση δημιουργείται. Αυτό μπορεί να πάρει κάποιο χρόνο εάν το τεκμήριο έχει πολλές σχέσεις.",
 
   // "item.version.create.notification.success": "New version has been created with version number {{version}}",
-  // TODO New key - Add a translation
-  "item.version.create.notification.success": "New version has been created with version number {{version}}",
+  "item.version.create.notification.success": "Δημιουργήθηκε νέα έκδοση με αριθμό έκδοσης {{version}}",
 
   // "item.version.create.notification.failure": "New version has not been created",
-  // TODO New key - Add a translation
-  "item.version.create.notification.failure": "New version has not been created",
+  "item.version.create.notification.failure": "Δεν έχει δημιουργηθεί νέα έκδοση",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
-  // TODO New key - Add a translation
-  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
+  "item.version.create.notification.inProgress": "Δεν είναι δυνατή η δημιουργία νέας έκδοσης επειδή υπάρχει μια υποβολή σε εξέλιξη στο ιστορικό εκδόσεων",
 
   // "item.version.delete.modal.header": "Delete version",
   "item.version.delete.modal.header": "Διαγραφή έκδοσης",
@@ -6057,20 +6164,16 @@
   "item.version.delete.modal.button.cancel.tooltip": "Μην διαγράψετε αυτήν την έκδοση",
 
   // "item.version.delete.notification.success": "Version number {{version}} has been deleted",
-  // TODO New key - Add a translation
-  "item.version.delete.notification.success": "Version number {{version}} has been deleted",
+  "item.version.delete.notification.success": "Ο αριθμός έκδοσης {{version}} έχει διαγραφεί",
 
   // "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
-  // TODO New key - Add a translation
-  "item.version.delete.notification.failure": "Version number {{version}} has not been deleted",
+  "item.version.delete.notification.failure": "Ο αριθμός έκδοσης {{version}} δεν έχει διαγραφεί",
 
   // "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
-  // TODO New key - Add a translation
-  "item.version.edit.notification.success": "The summary of version number {{version}} has been changed",
+  "item.version.edit.notification.success": "Η σύνοψη του αριθμού έκδοσης {{version}} έχει αλλάξει",
 
   // "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
-  // TODO New key - Add a translation
-  "item.version.edit.notification.failure": "The summary of version number {{version}} has not been changed",
+  "item.version.edit.notification.failure": "Η περίληψη του αριθμού έκδοσης {{version}} δεν έχει αλλάξει",
 
   // "item-export.modal-launcher.single.btn": "Export",
   // TODO New key - Add a translation
@@ -6152,6 +6255,14 @@
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.discard-button": "Discard",
 
+  // "itemtemplate.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.language": "Edit language",
+
+  // "itemtemplate.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.value": "Edit value",
+
   // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
@@ -6195,6 +6306,14 @@
   // "itemtemplate.edit.metadata.headers.value": "Value",
   // TODO New key - Add a translation
   "itemtemplate.edit.metadata.headers.value": "Value",
+
+  // "itemtemplate.edit.metadata.headers.authority": "Authority",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
+
+  // "itemtemplate.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
   // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   // TODO New key - Add a translation
@@ -6532,6 +6651,10 @@
   // TODO New key - Add a translation
   "manage.relationships.hidden-related-items-alert": "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
 
+
+  // "menu.header.nav.description": "Admin navigation bar",
+  // TODO New key - Add a translation
+  "menu.header.nav.description": "Admin navigation bar",
 
   // "menu.header.admin": "Management",
   "menu.header.admin": "Διαχείριση",
@@ -6998,20 +7121,20 @@
   // "mydspace.results.no-title": "No title",
   "mydspace.results.no-title": "Χωρίς τίτλο",
 
-  // "mydspace.results.no-uri": "No Uri",
+  // "mydspace.results.no-uri": "No URI",
   "mydspace.results.no-uri": "Χωρίς URI",
 
   // "mydspace.results.is-correction": "Is a request of correction",
   // TODO New key - Add a translation
   "mydspace.results.is-correction": "Is a request of correction",
 
-  // "mydspace.search-form.placeholder": "Search in mydspace...",
+  // "mydspace.search-form.placeholder": "Search in MyDSpace...",
   "mydspace.search-form.placeholder": "Αναζήτηση στο mydspace...",
 
   // "mydspace.show.workflow": "Workflow tasks",
   "mydspace.show.workflow": "Εργασίες ροής εργασιών",
 
-  // "mydspace.show.workspace": "Your Submissions",
+  // "mydspace.show.workspace": "Your submissions",
   "mydspace.show.workspace": "Οι Υποβολές σας",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
@@ -7023,23 +7146,18 @@
   "mydspace.show.otherworkspace": "Other Workspace Submissions",
 
   // "mydspace.status.mydspaceArchived": "Archived",
-  // TODO Source message changed - Revise the translation
   "mydspace.status.mydspaceArchived": "Αρχειοθετημένα",
 
   // "mydspace.status.mydspaceValidation": "Validation",
-  // TODO Source message changed - Revise the translation
   "mydspace.status.mydspaceValidation": "Επικύρωση",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
-  // TODO Source message changed - Revise the translation
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "Αναμονή για τον ελεγκτή",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
-  // TODO Source message changed - Revise the translation
   "mydspace.status.mydspaceWorkflow": "Ροή εργασιών",
 
   // "mydspace.status.mydspaceWorkspace": "Workspace",
-  // TODO Source message changed - Revise the translation
   "mydspace.status.mydspaceWorkspace": "Χώρος εργασίας",
 
   // "mydspace.title": "MyDSpace",
@@ -7073,6 +7191,10 @@
   "mydspace.notification.suggestion.page": "We found <b>{{count}} {{type}}</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
 
 
+  // "nav.expandable-navbar-section-suffix": "(submenu)",
+  // TODO New key - Add a translation
+  "nav.expandable-navbar-section-suffix": "(submenu)",
+
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "Όλο το DSpace",
 
@@ -7089,9 +7211,9 @@
   // "nav.login": "Log In",
   "nav.login": "Σύνδεση",
 
-  // "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  // "nav.user-profile-menu-and-logout": "User profile menu and log out",
   // TODO New key - Add a translation
-  "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  "nav.user-profile-menu-and-logout": "User profile menu and log out",
 
   // "nav.logout": "Log Out",
   "nav.logout": "Μενού προφίλ χρήστη και Αποσύνδεση",
@@ -7101,6 +7223,10 @@
 
   // "nav.mydspace": "MyDSpace",
   "nav.mydspace": "MyDSpace",
+
+  // "nav.processes": "My Processes",
+  // TODO New key - Add a translation
+  "nav.processes": "My Processes",
 
   // "nav.profile": "Profile",
   "nav.profile": "Προφίλ",
@@ -7123,12 +7249,10 @@
   "nav.subscriptions": "Subscriptions",
 
   // "nav.toggle": "Toggle navigation",
-  // TODO New key - Add a translation
-  "nav.toggle": "Toggle navigation",
+  "nav.toggle": "Εναλλαγή πλοήγησης",
 
   // "nav.user.description": "User profile bar",
-  // TODO New key - Add a translation
-  "nav.user.description": "User profile bar",
+  "nav.user.description": "Γραμμή προφίλ χρήστη",
 
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Τεκμήριο",
@@ -7535,6 +7659,10 @@
   // TODO New key - Add a translation
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
+  // "orgunit.search.results.head": "Organizational Unit Search Results",
+  // TODO New key - Add a translation
+  "orgunit.search.results.head": "Organizational Unit Search Results",
+
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "Επιλογές σελιδοποίησης",
 
@@ -7602,6 +7730,22 @@
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Παράμετροι",
 
+  // "process.new.select-parameter": "Select parameter",
+  // TODO New key - Add a translation
+  "process.new.select-parameter": "Select parameter",
+
+  // "process.new.add-parameter": "Add a parameter...",
+  // TODO New key - Add a translation
+  "process.new.add-parameter": "Add a parameter...",
+
+  // "process.new.delete-parameter": "Delete parameter",
+  // TODO New key - Add a translation
+  "process.new.delete-parameter": "Delete parameter",
+
+  // "process.new.parameter.label": "Parameter value",
+  // TODO New key - Add a translation
+  "process.new.parameter.label": "Parameter value",
+
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Ακύρωση",
 
@@ -7660,6 +7804,14 @@
   // TODO New key - Add a translation
   "process.new.notification.process.files": "Output Files: ",
 
+  // "process.new.notification.process.status.completed": "Completed",
+  // TODO New key - Add a translation
+  "process.new.notification.process.status.completed": "Completed",
+
+  // "process.new.notification.process.status.failed": "Failed",
+  // TODO New key - Add a translation
+  "process.new.notification.process.status.failed": "Failed",
+
   // "process.new.header": "Create a new process",
   "process.new.header": "Δημιουργήστε μια νέα διαδικασία",
 
@@ -7670,20 +7822,16 @@
   "process.new.breadcrumbs": "Δημιουργήστε μια νέα διαδικασία",
 
   // "process.detail.arguments": "Arguments",
-  // TODO New key - Add a translation
-  "process.detail.arguments": "Arguments",
+  "process.detail.arguments": "Παράμετροι",
 
   // "process.detail.arguments.empty": "This process doesn't contain any arguments",
-  // TODO New key - Add a translation
-  "process.detail.arguments.empty": "This process doesn't contain any arguments",
+  "process.detail.arguments.empty": "Αυτή η διαδικασία δεν περιέχει παραμέτρους",
 
   // "process.detail.back": "Back",
-  // TODO New key - Add a translation
-  "process.detail.back": "Back",
+  "process.detail.back": "Επιστροφή",
 
   // "process.detail.output": "Process Output",
-  // TODO New key - Add a translation
-  "process.detail.output": "Process Output",
+  "process.detail.output": "Έξοδος διαδικασίας",
 
   // "process.detail.logs.button": "Retrieve process output",
   "process.detail.logs.button": "Ανάκτηση εξόδου διαδικασίας",
@@ -7695,36 +7843,29 @@
   "process.detail.logs.none": "Αυτή η διαδικασία δεν έχει κάποιο αποτέλεσμα εξόδου",
 
   // "process.detail.output-files": "Output Files",
-  // TODO New key - Add a translation
-  "process.detail.output-files": "Output Files",
+  "process.detail.output-files": "Αρχεία εξόδου",
 
   // "process.detail.output-files.empty": "This process doesn't contain any output files",
-  // TODO New key - Add a translation
-  "process.detail.output-files.empty": "This process doesn't contain any output files",
+  "process.detail.output-files.empty": "Αυτή η διαδικασία δεν περιέχει αρχεία εξόδου",
 
   // "process.detail.script": "Script",
-  // TODO New key - Add a translation
-  "process.detail.script": "Script",
+  "process.detail.script": "Γραφή",
 
   // "process.detail.title": "Process: {{ id }} - {{ name }}",
   // TODO New key - Add a translation
   "process.detail.title": "Process: {{ id }} - {{ name }}",
 
   // "process.detail.start-time": "Start time",
-  // TODO New key - Add a translation
-  "process.detail.start-time": "Start time",
+  "process.detail.start-time": "Ωρα έναρξης",
 
   // "process.detail.end-time": "Finish time",
-  // TODO New key - Add a translation
-  "process.detail.end-time": "Finish time",
+  "process.detail.end-time": "Ώρα λήξης",
 
   // "process.detail.status": "Status",
-  // TODO New key - Add a translation
-  "process.detail.status": "Status",
+  "process.detail.status": "Κατάσταση",
 
   // "process.detail.create": "Create similar process",
-  // TODO New key - Add a translation
-  "process.detail.create": "Create similar process",
+  "process.detail.create": "Δημιουργήστε παρόμοια διαδικασία",
 
   // "process.detail.actions": "Actions",
   // TODO New key - Add a translation
@@ -7767,28 +7908,22 @@
   "process.overview.delete.success": "Process deleted with success",
 
   // "process.overview.table.finish": "Finish time (UTC)",
-  // TODO New key - Add a translation
-  "process.overview.table.finish": "Finish time (UTC)",
+  "process.overview.table.finish": "Ώρα λήξης (UTC)",
 
   // "process.overview.table.id": "Process ID",
-  // TODO New key - Add a translation
-  "process.overview.table.id": "Process ID",
+  "process.overview.table.id": "Αναγνωριστικό διαδικασίας",
 
   // "process.overview.table.name": "Name",
-  // TODO New key - Add a translation
-  "process.overview.table.name": "Name",
+  "process.overview.table.name": "Ονομα",
 
   // "process.overview.table.start": "Start time (UTC)",
-  // TODO New key - Add a translation
-  "process.overview.table.start": "Start time (UTC)",
+  "process.overview.table.start": "Ώρα έναρξης (UTC)",
 
   // "process.overview.table.status": "Status",
-  // TODO New key - Add a translation
-  "process.overview.table.status": "Status",
+  "process.overview.table.status": "Κατάσταση",
 
   // "process.overview.table.user": "User",
-  // TODO New key - Add a translation
-  "process.overview.table.user": "User",
+  "process.overview.table.user": "Χρήστης",
 
   // "process.overview.title": "Processes Overview",
   "process.overview.title": "Επισκόπηση διαδικασιών",
@@ -7806,6 +7941,10 @@
   // "process.overview.delete": "Delete {{count}} processes",
   // TODO New key - Add a translation
   "process.overview.delete": "Delete {{count}} processes",
+
+  // "process.overview.delete-process": "Delete process",
+  // TODO New key - Add a translation
+  "process.overview.delete-process": "Delete process",
 
   // "process.overview.delete.clear": "Clear delete selection",
   // TODO New key - Add a translation
@@ -7925,9 +8064,6 @@
 
   // "profile.special.groups.head": "Authorization special groups you belong to",
   "profile.special.groups.head": "Εξουσιοδότηση ειδικών ομάδων στις οποίες ανήκετε",
-
-  // "profile.head": "Update Profile",
-  "profile.head": "Ανανέωση προφίλ",
 
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   "profile.metadata.form.error.firstname.required": "Απαιτείται Όνομα",
@@ -8306,9 +8442,11 @@
   "repository.image.logo": "Λογότυπο αποθετηρίου",
 
   // "repository.title": "{{ repositoryName }}",
+  // TODO New key - Add a translation
   "repository.title": "{{ repositoryName }}",
 
   // "repository.title.prefix": "{{ repositoryName }} Angular :: ",
+  // TODO New key - Add a translation
   "repository.title.prefix": "{{ repositoryName }} Angular :: ",
 
   // "resource-policies.add.button": "Add",
@@ -8432,6 +8570,10 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Ονομα",
 
+  // "resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Επιλέξτε τον τύπο πολιτικής",
 
@@ -8461,6 +8603,22 @@
 
   // "resource-policies.table.headers.group": "Group",
   "resource-policies.table.headers.group": "Ομάδα",
+
+  // "resource-policies.table.headers.select-all": "Select all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select-all": "Select all",
+
+  // "resource-policies.table.headers.deselect-all": "Deselect all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect-all": "Deselect all",
+
+  // "resource-policies.table.headers.select": "Select",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select": "Select",
+
+  // "resource-policies.table.headers.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect": "Deselect",
 
   // "resource-policies.table.headers.id": "ID",
   "resource-policies.table.headers.id": "ID",
@@ -8504,6 +8662,10 @@
 
   // "search.search-form.placeholder": "Search the repository ...",
   "search.search-form.placeholder": "Αναζήτηση στο αποθετήριο...",
+
+  // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  // TODO New key - Add a translation
+  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Συγγραφέας",
@@ -9034,9 +9196,9 @@
   // TODO New key - Add a translation
   "search.filters.namedresourcetype.Validation": "Validation",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
   // TODO New key - Add a translation
-  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
 
   // "search.filters.namedresourcetype.Workflow": "Workflow",
   // TODO New key - Add a translation
@@ -9068,7 +9230,6 @@
   "search.form.search_dspace": "Όλο το αποθετήριο",
 
   // "search.form.scope.all": "All items",
-  // TODO Source message changed - Revise the translation
   "search.form.scope.all": "Όλο το DSpace",
 
   // "search.results.head": "Search Results",
@@ -9163,6 +9324,14 @@
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Εμφάνιση ως λίστα",
+
+  // "selectable-list-item-control.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.deselect": "Deselect item",
+
+  // "selectable-list-item-control.select": "Select item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.select": "Select item",
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Αύξουσα",
@@ -9263,6 +9432,30 @@
   // "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
   // TODO New key - Add a translation
   "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
+
+  // "sorting.person.familyName.ASC": "Surname Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  // "sorting.person.familyName.DESC": "Surname Descending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  // "sorting.person.givenName.ASC": "Name Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  // "sorting.person.givenName.DESC": "Name Descending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  // "sorting.person.birthDate.ASC": "Birth Date Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  // "sorting.person.birthDate.DESC": "Birth Date Descending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
 
 
   // "statistics": "Statistics",
@@ -9898,7 +10091,6 @@
   "submission.general.cancel": "Ακύρωση",
 
   // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
-  // TODO Source message changed - Revise the translation
   "submission.general.cannot_submit": "Δεν έχετε το προνόμιο να υποβάλετε νέα υποβολή.",
 
   // "submission.general.deposit": "Deposit",
@@ -10020,8 +10212,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   // TODO New key - Add a translation
@@ -10712,7 +10904,6 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Αποτελέσματα αναζήτησης",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
-  // TODO Source message changed - Revise the translation
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Θέλετε να αποθηκεύσετε το \"{{ value }}\" ως παραλλαγή ονόματος για αυτό το άτομο, ώστε εσείς και άλλοι να το χρησιμοποιήσετε ξανά για μελλοντικές υποβολές; Εάν δεν το κάνετε, μπορείτε ακόμα να το χρησιμοποιήσετε για αυτήν την υποβολή.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -10777,9 +10968,9 @@
   // "submission.sections.general.no-collection": "No collection found",
   "submission.sections.general.no-collection": "Δεν βρέθηκε συλλογή",
 
-  // "submission.sections.general.no-entity": "No entity found",
+  // "submission.sections.general.no-entity": "No entity types found",
   // TODO New key - Add a translation
-  "submission.sections.general.no-entity": "No entity found",
+  "submission.sections.general.no-entity": "No entity types found",
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Δεν υπάρχουν διαθέσιμες επιλογές",
@@ -10997,6 +11188,10 @@
   // "submission.sections.upload.delete.confirm.title": "Delete bitstream",
   "submission.sections.upload.delete.confirm.title": "Διαγραφή bitstream",
 
+  // "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+  // TODO New key - Add a translation
+  "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+
   // "submission.sections.upload.delete.submit": "Delete",
   "submission.sections.upload.delete.submit": "Διαγραφή",
 
@@ -11077,6 +11272,10 @@
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Επιτυχής μεταφόρτωση",
 
+  // "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
+  // TODO New key - Add a translation
+  "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
+
   // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
   // TODO New key - Add a translation
   "submission.sections.custom-url.label.previous-urls": "Previous Urls",
@@ -11153,7 +11352,6 @@
   "submission.sections.license.required": "Πρέπει να αποδεχτείτε την άδεια",
 
   // "submission.sections.license.notgranted": "You must accept the license",
-  // TODO Source message changed - Revise the translation
   "submission.sections.license.notgranted": "Πρέπει να αποδεχτείτε την άδεια",
 
   // "submission.sections.sherpa.publication.information": "Publication information",
@@ -11245,21 +11443,18 @@
   "submission.workflow.generic.delete": "Διαγραφή",
 
   // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.delete-help": "Εάν θέλετε να απορρίψετε αυτό το τεκμήριο, επιλέξτε \"Διαγραφή\". Στη συνέχεια θα σας ζητηθεί να το επιβεβαιώσετε.",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Επεξεργασία",
 
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.edit-help": "Επιλέξτε αυτήν την επιλογή για να αλλάξετε τα μεταδεδομένα του τεκμηρίου.",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "Προβολή",
 
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.view-help": "Ορίστε αυτήν την επιλογή για να προβάλετε τα μεταδεδομένα του τεκμηρίου.",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
@@ -11282,14 +11477,12 @@
   "submission.workflow.tasks.claimed.approve": "Εγκρίνω",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.approve_help": "Εάν έχετε ελέγξει το τεκμήριο και είναι κατάλληλο για συμπερίληψη στη συλλογή, επιλέξτε \"Έγκριση\".",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Επεξεργασία",
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.edit_help": "Επιλέξτε αυτήν την επιλογή για να αλλάξετε τα μεταδεδομένα του τεκμηρίου.",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
@@ -11316,14 +11509,12 @@
   "submission.workflow.tasks.claimed.reject.submit": "Απορρίπτω",
 
   // "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "Εάν έχετε ελέγξει το τεκμήριο και διαπιστώσατε ότι <strong>δεν</strong> είναι κατάλληλο για συμπερίληψη στη συλλογή, επιλέξτε \"Απόρριψη\". Στη συνέχεια, θα σας ζητηθεί να εισαγάγετε ένα μήνυμα που θα υποδεικνύει γιατί το τεκμήριο είναι ακατάλληλο και εάν ο υποβάλλων πρέπει να αλλάξει κάτι και να το υποβάλει ξανά.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Επιστροφή στο pool",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.return_help": "Επιστρέψτε την εργασία στο pool έτσι ώστε ένας άλλος χρήστης να μπορεί να εκτελέσει την εργασία.",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
@@ -11342,7 +11533,6 @@
   "submission.workflow.tasks.pool.claim": "Απαίτηση",
 
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.pool.claim_help": "Αναθέστε αυτή την εργασία στον εαυτό σας.",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
@@ -11355,7 +11545,6 @@
   "submission.workspace.generic.view": "Προβολή",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workspace.generic.view-help": "Ορίστε αυτήν την επιλογή για να προβάλετε τα μεταδεδομένα του τεκμηρίου.",
 
   // "submission.product.roles.info": "<div class='my-2'><b>1. Project Leader:</b><br/> Leader of a research project, Principal Investigator (PI).</div><br/><div class='my-2'><b>2. Project Member:</b><br/> Research fellow, collaborator or other person who works in a research project.</div><br/><div class='my-2'><b>3. Research Group Leader</b></div><br/><div class='my-2'><b>4. Project Manager:</b><br/> Person who manages a research project.</div><br/><div class='my-2'><b>5. Data Manager:</b><br/> Person responsible for maintaining final dataset.</div><br/><div class='my-2'><b>6. Data Collector:</b><br/> Person responsible for finding, gathering, collecting, or otherwise generating data.</div><br/><div class='my-2'><b>7. Data Curator:</b><br/> Person tasked with reviewing, enhancing, cleaning, or standardizing data.</div>",
@@ -11659,6 +11848,10 @@
   // "vocabulary-treeview.search.form.search": "Search",
   "vocabulary-treeview.search.form.search": "Αναζήτηση",
 
+  // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+  // TODO New key - Add a translation
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   "vocabulary-treeview.search.no-result": "Δεν υπήρχαν τεκμήρια για εμφάνιση",
 
@@ -11903,8 +12096,7 @@
   "idle-modal.extend-session": "Επέκταση συνεδρίας",
 
   // "researcher.profile.action.processing": "Processing...",
-  // TODO New key - Add a translation
-  "researcher.profile.action.processing": "Processing...",
+  "researcher.profile.action.processing": "Επεξεργασία...",
 
   // "researcher.profile.associated": "Researcher profile associated",
   "researcher.profile.associated": "Σχετικό προφίλ ερευνητή",
@@ -11937,12 +12129,10 @@
   "researcher.profile.view": "Προβολή",
 
   // "researcher.profile.private.visibility": "PRIVATE",
-  // TODO New key - Add a translation
-  "researcher.profile.private.visibility": "PRIVATE",
+  "researcher.profile.private.visibility": "ΙΔΙΩΤΙΚΟ",
 
   // "researcher.profile.public.visibility": "PUBLIC",
-  // TODO New key - Add a translation
-  "researcher.profile.public.visibility": "PUBLIC",
+  "researcher.profile.public.visibility": "ΔΗΜΟΣΙΟ",
 
   // "researcher.profile.status": "Status:",
   // TODO New key - Add a translation
@@ -11952,20 +12142,16 @@
   "researcherprofile.claim.not-authorized": "Δεν είστε εξουσιοδοτημένοι να διεκδικήσετε αυτό το τεκμήριο. Για περισσότερες λεπτομέρειες επικοινωνήστε με τους διαχειριστές.",
 
   // "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "Παρουσιάστηκε σφάλμα κατά την αξίωση του προφίλ, δοκιμάστε ξανά αργότερα",
 
   // "researcherprofile.error.claim.title": "Error",
-  // TODO New key - Add a translation
-  "researcherprofile.error.claim.title": "Error",
+  "researcherprofile.error.claim.title": "Λάθος",
 
   // "researcherprofile.success.claim.body": "Profile claimed with success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.body": "Profile claimed with success",
+  "researcherprofile.success.claim.body": "Το προφίλ διεκδικήθηκε με επιτυχία",
 
   // "researcherprofile.success.claim.title": "Success",
-  // TODO New key - Add a translation
-  "researcherprofile.success.claim.title": "Success",
+  "researcherprofile.success.claim.title": "Επιτυχία",
 
   // "person.page.orcid.create": "Create an ORCID ID",
   "person.page.orcid.create": "Δημιουργήστε ένα αναγνωριστικό ORCID",
@@ -11974,8 +12160,7 @@
   "person.page.orcid.granted-authorizations": "Χορηγημένες εξουσιοδοτήσεις",
 
   // "person.page.orcid.grant-authorizations": "Grant authorizations",
-  // TODO New key - Add a translation
-  "person.page.orcid.grant-authorizations": "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Χορήγηση εξουσιοδοτήσεων",
 
   // "person.page.orcid.link": "Connect to ORCID ID",
   "person.page.orcid.link": "Συνδεθείτε στο ORCID ID",
@@ -12032,36 +12217,28 @@
   "person.page.orcid.save.preference.changes": "Ρυθμίσεις ενημέρωσης",
 
   // "person.page.orcid.sync-profile.affiliation": "Affiliation",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.affiliation": "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Δεσμός",
 
   // "person.page.orcid.sync-profile.biographical": "Biographical data",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.biographical": "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Βιογραφικά στοιχεία",
 
   // "person.page.orcid.sync-profile.education": "Education",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.education": "Education",
+  "person.page.orcid.sync-profile.education": "Εκπαίδευση",
 
   // "person.page.orcid.sync-profile.identifiers": "Identifiers",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-profile.identifiers": "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Αναγνωριστικά",
 
   // "person.page.orcid.sync-fundings.all": "All fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.all": "All fundings",
+  "person.page.orcid.sync-fundings.all": "Όλες οι χρηματοδοτήσεις",
 
   // "person.page.orcid.sync-fundings.mine": "My fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.mine": "My fundings",
+  "person.page.orcid.sync-fundings.mine": "Οι χρηματοδοτήσεις μου",
 
   // "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Επιλεγμένες χρηματοδοτήσεις",
 
   // "person.page.orcid.sync-fundings.disabled": "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-fundings.disabled": "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "χρήστες με ειδικές ανάγκες",
 
   // "person.page.orcid.sync-patents.all": "All patents",
   // TODO New key - Add a translation
@@ -12080,20 +12257,16 @@
   "person.page.orcid.sync-patents.disabled": "Disabled",
 
   // "person.page.orcid.sync-publications.all": "All publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.all": "All publications",
+  "person.page.orcid.sync-publications.all": "Όλες οι δημοσιεύσεις",
 
   // "person.page.orcid.sync-publications.mine": "My publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.mine": "My publications",
+  "person.page.orcid.sync-publications.mine": "Οι δημοσιεύσεις μου",
 
   // "person.page.orcid.sync-publications.my_selected": "Selected publications",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.my_selected": "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Επιλεγμένες δημοσιεύσεις",
 
   // "person.page.orcid.sync-publications.disabled": "Disabled",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-publications.disabled": "Disabled",
+  "person.page.orcid.sync-publications.disabled": "χρήστες με ειδικές ανάγκες",
 
   // "person.page.orcid.sync-products.all": "All products",
   // TODO New key - Add a translation
@@ -12112,8 +12285,7 @@
   "person.page.orcid.sync-products.disabled": "Disabled",
 
   // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Απορρίψτε την αλλαγή και μην κάνετε συγχρονισμό με το μητρώο ORCID",
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
   "person.page.orcid.sync-queue.discard.error": "Η απόρριψη της εγγραφής ουράς ORCID απέτυχε",
@@ -12125,16 +12297,13 @@
   "person.page.orcid.sync-queue.empty-message": "Το μητρώο ουράς ORCID είναι κενό",
 
   // "person.page.orcid.sync-queue.table.header.type": "Type",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.type": "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Τύπος",
 
   // "person.page.orcid.sync-queue.table.header.description": "Description",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.description": "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Περιγραφή",
 
   // "person.page.orcid.sync-queue.table.header.action": "Action",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.table.header.action": "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Ενέργεια",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   "person.page.orcid.sync-queue.description.affiliation": "Συνεταιρισμοί",
@@ -12208,8 +12377,7 @@
   "person.page.orcid.sync-queue.tooltip.researcher_urls": "Διεύθυνση URL ερευνητή",
 
   // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Συγχρονισμός με το μητρώο ORCID",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
   "person.page.orcid.sync-queue.send.unauthorized-error.title": "Η υποβολή στο ORCID απέτυχε λόγω έλλειψης εξουσιοδοτήσεων.",
@@ -12263,8 +12431,7 @@
   "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "Το όνομα του οργανισμού είναι υποχρεωτικό",
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
-  // TODO New key - Add a translation
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "Η ημερομηνία δημοσίευσης πρέπει να είναι ένα έτος μετά το 1900",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
   "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "Ο οργανισμός που θα σταλεί απαιτεί διεύθυνση",
@@ -12383,6 +12550,10 @@
   // "lucky.search.multiple.records": "may refer to multiple records",
   // TODO New key - Add a translation
   "lucky.search.multiple.records": "may refer to multiple records",
+
+  // "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
+  // TODO New key - Add a translation
+  "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
 
   // "invitation.group.msg": "You have been invited to join the following groups",
   // TODO New key - Add a translation
@@ -12544,6 +12715,10 @@
   // TODO New key - Add a translation
   "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
 
+  // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+  // TODO New key - Add a translation
+  "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
   // TODO New key - Add a translation
   "system-wide-alert.form.label.preview": "System-wide alert preview",
@@ -12588,9 +12763,25 @@
   // TODO New key - Add a translation
   "access-control-item-header-toggle": "Item's Metadata",
 
+  // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+
+  // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+
   // "access-control-bitstream-header-toggle": "Bitstreams",
   // TODO New key - Add a translation
   "access-control-bitstream-header-toggle": "Bitstreams",
+
+  // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+
+  // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
 
   // "access-control-mode": "Mode",
   // TODO New key - Add a translation
@@ -12624,6 +12815,10 @@
   // TODO New key - Add a translation
   "access-control-bitstreams-selected": "bitstreams selected",
 
+  // "access-control-bitstreams-select": "Select bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstreams-select": "Select bitstreams",
+
   // "access-control-cancel": "Cancel",
   // TODO New key - Add a translation
   "access-control-cancel": "Cancel",
@@ -12643,6 +12838,10 @@
   // "access-control-add-more": "Add more",
   // TODO New key - Add a translation
   "access-control-add-more": "Add more",
+
+  // "access-control-remove": "Remove access condition",
+  // TODO New key - Add a translation
+  "access-control-remove": "Remove access condition",
 
   // "access-control-select-bitstreams-modal.title": "Select bitstreams",
   // TODO New key - Add a translation
@@ -12684,6 +12883,13 @@
   // TODO New key - Add a translation
   "vocabulary-treeview.search.form.add": "Add",
 
+  // "process.overview.unknown.user": "Unknown",
+  // TODO New key - Add a translation
+  "process.overview.unknown.user": "Unknown",
+
+  // "browse.search-form.placeholder": "Search the repository",
+  // TODO New key - Add a translation
+  "browse.search-form.placeholder": "Search the repository",
 
   // "external-login.form.email": "Enter the email",
   // TODO New key - Add a translation

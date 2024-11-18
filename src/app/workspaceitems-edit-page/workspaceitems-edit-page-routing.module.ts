@@ -9,6 +9,7 @@ import { ItemFromWorkspaceResolver } from './item-from-workspace.resolver';
 import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/workspaceitems-delete-page.component';
 import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
+import { ItemFromWorkspaceBreadcrumbResolver } from './item-from-workspace-breadcrumb.resolver';
 import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 
 @NgModule({
@@ -17,7 +18,10 @@ import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       {
         path: ':id',
-        resolve: { wsi: WorkspaceItemPageResolver },
+        resolve: {
+          breadcrumb: ItemFromWorkspaceBreadcrumbResolver,
+          wsi: WorkspaceItemPageResolver,
+        },
         children: [
           {
             canActivate: [AuthenticatedGuard],
@@ -63,7 +67,11 @@ import { PendingChangesGuard } from '../submission/edit/pending-changes/pending-
       }
     ])
   ],
-  providers: [WorkspaceItemPageResolver, ItemFromWorkspaceResolver]
+  providers: [
+    ItemFromWorkspaceBreadcrumbResolver,
+    ItemFromWorkspaceResolver,
+    WorkspaceItemPageResolver,
+  ],
 })
 /**
  * This module defines the default component to load when navigating to the workspaceitems edit page path

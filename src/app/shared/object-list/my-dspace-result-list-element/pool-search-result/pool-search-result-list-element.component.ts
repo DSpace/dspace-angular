@@ -81,7 +81,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
   ngOnInit() {
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso, followLink('workflowitem', {},
-      followLink('item', {}, followLink('bundles')),
+      followLink('item'),
       followLink('submitter')
     ), followLink('action'));
 

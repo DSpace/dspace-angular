@@ -6,7 +6,7 @@
   // "401.link.home-page": "Take me to the home page",
   "401.link.home-page": "Odvedi me na početnu stranicu",
 
-  // "401.unauthorized": "unauthorized",
+  // "401.unauthorized": "Unauthorized",
   "401.unauthorized": "Neovlašćen pristup",
 
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
@@ -15,10 +15,10 @@
   // "403.link.home-page": "Take me to the home page",
   "403.link.home-page": "Odvedi me na početnu stranicu",
 
-  // "403.forbidden": "forbidden",
+  // "403.forbidden": "Forbidden",
   "403.forbidden": "Zabranjen pristup",
 
-  // "500.page-internal-server-error": "Service Unavailable",
+  // "500.page-internal-server-error": "Service unavailable",
   "500.page-internal-server-error": "Usluga nije dostupna",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
@@ -33,7 +33,7 @@
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Odvedi me na početnu stranicu",
 
-  // "404.page-not-found": "page not found",
+  // "404.page-not-found": "Page not found",
   "404.page-not-found": "Stranica nije pronađena",
 
   // "410.gone-handle": "This object is no longer available",
@@ -44,16 +44,16 @@
   // TODO New key - Add a translation
   "410.link.home-page": "Take me to the home page",
 
-  // "error-page.description.401": "unauthorized",
+  // "error-page.description.401": "Unauthorized",
   "error-page.description.401": "Neovlašćen pristup",
 
-  // "error-page.description.403": "forbidden",
+  // "error-page.description.403": "Forbidden",
   "error-page.description.403": "Zabranjen pristup",
 
-  // "error-page.description.500": "Service Unavailable",
+  // "error-page.description.500": "Service unavailable",
   "error-page.description.500": "Usluga nije dostupna",
 
-  // "error-page.description.404": "page not found",
+  // "error-page.description.404": "Page not found",
   "error-page.description.404": "Stranica nije pronađena",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
@@ -252,7 +252,7 @@
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "Neuspešno",
 
-  // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
+  // "admin.registries.bitstream-formats.create.head": "Create bitstream format",
   "admin.registries.bitstream-formats.create.head": "Kreirajte format bitstream-a",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
@@ -358,6 +358,10 @@
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Ime",
 
+  // "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.table.selected": "Selected bitstream formats",
+
   // "admin.registries.bitstream-formats.table.id": "ID",
   "admin.registries.bitstream-formats.table.id": "ID",
 
@@ -378,6 +382,14 @@
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.title": "Registar formata bitstream-a",
+
+  // "admin.registries.bitstream-formats.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.select": "Select",
+
+  // "admin.registries.bitstream-formats.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.deselect": "Deselect",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Registar metapodataka",
@@ -403,8 +415,20 @@
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   "admin.registries.metadata.schemas.no-items": "Nema šema metapodataka za prikaz.",
 
+  // "admin.registries.metadata.schemas.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.select": "Select",
+
+  // "admin.registries.metadata.schemas.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.deselect": "Deselect",
+
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   "admin.registries.metadata.schemas.table.delete": "Izbriši izabrano",
+
+  // "admin.registries.metadata.schemas.table.selected": "Selected schemas",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.selected": "Selected schemas",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -427,6 +451,14 @@
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.description": "Ovo je šema metapodataka za \"{{namespace}}\".",
 
+  // "admin.registries.schema.fields.select": "Select",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.select": "Select",
+
+  // "admin.registries.schema.fields.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.deselect": "Deselect",
+
   // "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.head": "Polja metapodataka šeme",
 
@@ -438,6 +470,10 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Polje",
+
+  // "admin.registries.schema.fields.table.selected": "Selected metadata fields",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.selected": "Selected metadata fields",
 
   // "admin.registries.schema.fields.table.id": "ID",
   "admin.registries.schema.fields.table.id": "ID",
@@ -571,7 +607,7 @@
   // "admin.access-control.epeople.search.scope.metadata": "Metadata",
   "admin.access-control.epeople.search.scope.metadata": "Metapodaci",
 
-  // "admin.access-control.epeople.search.scope.email": "E-mail (exact)",
+  // "admin.access-control.epeople.search.scope.email": "Email (exact)",
   "admin.access-control.epeople.search.scope.email": "E-mail (tačno)",
 
   // "admin.access-control.epeople.search.button": "Search",
@@ -589,7 +625,7 @@
   // "admin.access-control.epeople.table.name": "Name",
   "admin.access-control.epeople.table.name": "Ime",
 
-  // "admin.access-control.epeople.table.email": "E-mail (exact)",
+  // "admin.access-control.epeople.table.email": "Email (exact)",
   "admin.access-control.epeople.table.email": "E-mail (tačno)",
 
   // "admin.access-control.epeople.table.edit": "Edit",
@@ -619,10 +655,10 @@
   // "admin.access-control.epeople.form.lastName": "Last name",
   "admin.access-control.epeople.form.lastName": "Prezime",
 
-  // "admin.access-control.epeople.form.email": "E-mail",
+  // "admin.access-control.epeople.form.email": "Email",
   "admin.access-control.epeople.form.email": "E-mail",
 
-  // "admin.access-control.epeople.form.emailHint": "Must be valid e-mail address",
+  // "admin.access-control.epeople.form.emailHint": "Must be a valid email address",
   "admin.access-control.epeople.form.emailHint": "Mora biti važeća e-mail adresa",
 
   // "admin.access-control.epeople.form.canLogIn": "Can log in",
@@ -1178,10 +1214,10 @@
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Prvo izaberite fajl!",
 
-  // "admin.metadata-import.page.error.addFileUrl": "Insert file url first!",
+  // "admin.metadata-import.page.error.addFileUrl": "Insert file URL first!",
   "admin.metadata-import.page.error.addFileUrl": "Prvo unesite url fajl!",
 
-  // "admin.batch-import.page.error.addFile": "Select Zip file first!",
+  // "admin.batch-import.page.error.addFile": "Select ZIP file first!",
   "admin.batch-import.page.error.addFile": "Prvo izaberite Zip fajl!",
 
   // "admin.metadata-import.page.toggle.upload": "Upload",
@@ -1544,7 +1580,7 @@
   // "bitstream-request-a-copy.name.error": "The name is required",
   "bitstream-request-a-copy.name.error": "Ime je obavezno",
 
-  // "bitstream-request-a-copy.email.label": "Your e-mail address *",
+  // "bitstream-request-a-copy.email.label": "Your email address *",
   "bitstream-request-a-copy.email.label": "Vaša email adresa *",
 
   // "bitstream-request-a-copy.email.hint": "This email address is used for sending the file.",
@@ -1822,6 +1858,10 @@
   // "browse.startsWith.input": "Filter",
   "browse.startsWith.input": "Filter",
 
+  // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+  // TODO New key - Add a translation
+  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+
   // "browse.taxonomy.button": "Browse",
   "browse.taxonomy.button": "Pregledaj",
 
@@ -1895,6 +1935,14 @@
 
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
   "claimed-declined-task-search-result-list-element.title": "Odbijeno, vraćeno menadžeru za pregled",
+
+  // "collection.create.breadcrumbs": "Create collection",
+  // TODO New key - Add a translation
+  "collection.create.breadcrumbs": "Create collection",
+
+  // "collection.browse.logo": "Browse for a collection logo",
+  // TODO New key - Add a translation
+  "collection.browse.logo": "Browse for a collection logo",
 
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Napravite kolekciju",
@@ -2160,8 +2208,9 @@
   // "collection.edit.template.breadcrumbs": "Item template",
   "collection.edit.template.breadcrumbs": "Šablon stavke",
 
-  // "collection.edit.template.cancel": "Cancel",
-  "collection.edit.template.cancel": "Otkazati",
+  // "collection.edit.template.back": "Back",
+  // TODO New key - Add a translation
+  "collection.edit.template.back": "Back",
 
   // "collection.edit.template.delete-button": "Delete",
   "collection.edit.template.delete-button": "Izbrišite",
@@ -2252,6 +2301,10 @@
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Kolekcija",
 
+  // "collection.logo": "Collection logo",
+  // TODO New key - Add a translation
+  "collection.logo": "Collection logo",
+
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Nedavni podnesci",
 
@@ -2279,6 +2332,18 @@
 
   // "collection.select.empty": "No collections to show",
   "collection.select.empty": "Nema kolekcija za prikaz",
+
+  // "collection.select.table.selected": "Selected collections",
+  // TODO New key - Add a translation
+  "collection.select.table.selected": "Selected collections",
+
+  // "collection.select.table.select": "Select collection",
+  // TODO New key - Add a translation
+  "collection.select.table.select": "Select collection",
+
+  // "collection.select.table.deselect": "Deselect collection",
+  // TODO New key - Add a translation
+  "collection.select.table.deselect": "Deselect collection",
 
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Naslov",
@@ -2374,6 +2439,22 @@
   // "communityList.showMore": "Show More",
   "communityList.showMore": "Prikaži više",
 
+  // "communityList.expand": "Expand {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.expand": "Expand {{ name }}",
+
+  // "communityList.collapse": "Collapse {{ name }}",
+  // TODO New key - Add a translation
+  "communityList.collapse": "Collapse {{ name }}",
+
+  // "community.browse.logo": "Browse for a community logo",
+  // TODO New key - Add a translation
+  "community.browse.logo": "Browse for a community logo",
+
+  // "community.create.breadcrumbs": "Create Community",
+  // TODO New key - Add a translation
+  "community.create.breadcrumbs": "Create Community",
+
   // "community.create.head": "Create a Community",
   "community.create.head": "Kreirajte zajednicu",
 
@@ -2434,10 +2515,10 @@
   // "community.edit.logo.label": "Community logo",
   "community.edit.logo.label": "Logo zajednice",
 
-  // "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+  // "community.edit.logo.notifications.add.error": "Uploading community logo failed. Please verify the content before retrying.",
   "community.edit.logo.notifications.add.error": "Otpremanje logoa zajednice nije uspelo. Molimo proverite sadržaj pre ponovnog pokušaja.",
 
-  // "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+  // "community.edit.logo.notifications.add.success": "Upload community logo successful.",
   "community.edit.logo.notifications.add.success": "Uspešno otpremanje logoa zajednice.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -2449,7 +2530,7 @@
   // "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "community.edit.logo.notifications.delete.error.title": "Greška pri brisanju logoa",
 
-  // "community.edit.logo.upload": "Drop a Community Logo to upload",
+  // "community.edit.logo.upload": "Drop a community logo to upload",
   "community.edit.logo.upload": "Unesite logo zajednice da biste ga otpremili",
 
   // "community.edit.notifications.success": "Successfully edited the Community",
@@ -2458,7 +2539,7 @@
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   "community.edit.notifications.unauthorized": "Nemate ovlašćenje da izvršite ovu promenu",
 
-  // "community.edit.notifications.error": "An error occured while editing the Community",
+  // "community.edit.notifications.error": "An error occured while editing the community",
   "community.edit.notifications.error": "Došlo je do greške pri uređivanju zajednice",
 
   // "community.edit.return": "Back",
@@ -2496,6 +2577,10 @@
 
   // "community.listelement.badge": "Community",
   "community.listelement.badge": "Zajednica",
+
+  // "community.logo": "Community logo",
+  // TODO New key - Add a translation
+  "community.logo": "Community logo",
 
   // "comcol-role.edit.no-group": "None",
   "comcol-role.edit.no-group": "Nijedan",
@@ -2545,7 +2630,7 @@
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Podrazumevani pristup za čitanje bitstreamova",
 
-  // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
+  // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
   "comcol-role.edit.bitstream_read.description": "Administratori zajednice mogu da kreiraju podzajednice ili kolekcije i da upravljaju tim podzajednicama ili zbirkama ili da im dodeljuju upravljanje. Pored toga, oni odlučuju ko može da podnese stavke u bilo koju podzbirku, uređuju metapodatke stavki (nakon podnošenja) i dodaju (mapiraju) postojeće stavke iz drugih kolekcija (predmet ovlašćenja).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
@@ -2671,9 +2756,13 @@
   // TODO New key - Add a translation
   "context-menu.actions.request-correction.confirm.submit": "Yes, I'm sure",
 
-  // "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  // "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
   // TODO New key - Add a translation
-  "context-menu.actions.request-correction.error.403": "A request for correction has already been sent, impossible to proceed with the operation.",
+  "context-menu.actions.request-correction.error.403": "You are not authorized, impossible to proceed with the operation.",
+
+  // "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
+  // TODO New key - Add a translation
+  "context-menu.actions.request-correction.error.422": "A correction request for this item is already in progress. Please contact the support if you need to perform urgent changes to this item.",
 
   // "context-menu.actions.request-correction.error.generic": "There was an issue when requesting a correction for the item, please try again later.",
   // TODO New key - Add a translation
@@ -3157,6 +3246,14 @@
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "Zahtev za stavku je odbijen uspešno",
 
+  // "dropdown.clear": "Clear selection",
+  // TODO New key - Add a translation
+  "dropdown.clear": "Clear selection",
+
+  // "dropdown.clear.tooltip": "Clear the selected option",
+  // TODO New key - Add a translation
+  "dropdown.clear.tooltip": "Clear the selected option",
+
   // "dso.name.untitled": "Untitled",
   "dso.name.untitled": "Bez naslova",
 
@@ -3517,10 +3614,10 @@
   // "error.validation.required": "This field is required",
   "error.validation.required": "Ovo polje je obavezno",
 
-  // "error.validation.NotValidEmail": "This E-mail is not a valid email",
+  // "error.validation.NotValidEmail": "This is not a valid email",
   "error.validation.NotValidEmail": "Ovaj e-mail nije važeći e-mail",
 
-  // "error.validation.emailTaken": "This E-mail is already taken",
+  // "error.validation.emailTaken": "This email is already taken",
   "error.validation.emailTaken": "Ova e-mail adresa je već zauzeta",
 
   // "error.validation.groupExists": "This group already exists",
@@ -3567,6 +3664,9 @@
   // TODO New key - Add a translation
   "event.listelement.badge": "Event",
 
+  // "event.page.titleprefix": "Event:",
+  // TODO New key - Add a translation
+  "event.page.titleprefix": "Event:",
 
   // "explore.browse-section.title": "Browse",
   // TODO New key - Add a translation
@@ -3903,6 +4003,10 @@
   // "feed.description": "Syndication feed",
   "feed.description": "Syndication feed",
 
+  // "file-download-link.restricted": "Restricted bitstream",
+  // TODO New key - Add a translation
+  "file-download-link.restricted": "Restricted bitstream",
+
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Greška pri pribavljanju fajlova za ovu stavku",
 
@@ -4003,7 +4107,7 @@
   // "forgot-password.form.label.passwordrepeat": "Retype to confirm",
   "forgot-password.form.label.passwordrepeat": "Ponovo otkucajte da biste potvrdili",
 
-  // "forgot-password.form.error.empty-password": "Please enter a password in the box below.",
+  // "forgot-password.form.error.empty-password": "Please enter a password in the boxes above.",
   "forgot-password.form.error.empty-password": "Unesite lozinku u polje ispod.",
 
   // "forgot-password.form.error.matching-passwords": "The passwords do not match.",
@@ -4210,6 +4314,14 @@
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Spustite stavku na novu poziciju",
+
+  // "form.number-picker.decrement": "Decrement {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.decrement": "Decrement {{field}}",
+
+  // "form.number-picker.increment": "Increment {{field}}",
+  // TODO New key - Add a translation
+  "form.number-picker.increment": "Increment {{field}}",
 
   // "funding.listelement.badge": "Funding",
   // TODO New key - Add a translation
@@ -4439,7 +4551,7 @@
   // "info.feedback.page-label": "Page",
   "info.feedback.page-label": "Strana",
 
-  // "info.feedback.page_help": "Tha page related to your feedback",
+  // "info.feedback.page_help": "The page related to your feedback",
   "info.feedback.page_help": "Stranica je u vezi sa Vašim povratnim informacijama",
 
   // "item.alerts.private": "This item is non-discoverable",
@@ -4745,6 +4857,14 @@
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "Odbaciti",
 
+  // "item.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.language": "Edit language",
+
+  // "item.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "item.edit.metadata.edit.value": "Edit value",
+
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   "item.edit.metadata.edit.buttons.confirm": "Potvrditi",
 
@@ -4788,6 +4908,10 @@
 
   // "item.edit.metadata.headers.value": "Value",
   "item.edit.metadata.headers.value": "Vrednost",
+
+  // "item.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "item.edit.metadata.metadatafield": "Edit field",
 
   // "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   "item.edit.metadata.metadatafield.error": "Došlo je do greške pri proveri polja metapodataka",
@@ -5420,7 +5544,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Kreirajte novu verziju",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Nova verzija se ne može kreirati zato što je u toku podnošenje",
 
   // "item.page.claim.button": "Claim",
@@ -5734,6 +5858,18 @@
   // "item.select.empty": "No items to show",
   "item.select.empty": "Nema stavki za prikaz",
 
+  // "item.select.table.selected": "Selected items",
+  // TODO New key - Add a translation
+  "item.select.table.selected": "Selected items",
+
+  // "item.select.table.select": "Select item",
+  // TODO New key - Add a translation
+  "item.select.table.select": "Select item",
+
+  // "item.select.table.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "item.select.table.deselect": "Deselect item",
+
   // "item.select.table.author": "Author",
   "item.select.table.author": "Autor",
 
@@ -5800,7 +5936,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Izbrišite verziju",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Nova verzija se ne može kreirati zato što je u toku prihvat u istoriji verzija",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -5845,7 +5981,7 @@
   // "item.version.create.notification.failure": "New version has not been created",
   "item.version.create.notification.failure": "Nova verzija nije kreirana",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "Nova verzija se ne može kreirati zato što je u toku prihvat u istoriji verzija",
 
   // "item.version.delete.modal.header": "Delete version",
@@ -5956,6 +6092,14 @@
   // "itemtemplate.edit.metadata.discard-button": "Discard",
   "itemtemplate.edit.metadata.discard-button": "Odbaciti",
 
+  // "itemtemplate.edit.metadata.edit.language": "Edit language",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.language": "Edit language",
+
+  // "itemtemplate.edit.metadata.edit.value": "Edit value",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.edit.value": "Edit value",
+
   // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Potvrditi",
 
@@ -5988,6 +6132,14 @@
 
   // "itemtemplate.edit.metadata.headers.value": "Value",
   "itemtemplate.edit.metadata.headers.value": "Vrednost",
+
+  // "itemtemplate.edit.metadata.headers.authority": "Authority",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.headers.authority": "Authority",
+
+  // "itemtemplate.edit.metadata.metadatafield": "Edit field",
+  // TODO New key - Add a translation
+  "itemtemplate.edit.metadata.metadatafield": "Edit field",
 
   // "itemtemplate.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
   "itemtemplate.edit.metadata.metadatafield.error": "Došlo je do greške prilikom provere polja metapodataka",
@@ -6311,6 +6463,10 @@
   // TODO New key - Add a translation
   "manage.relationships.hidden-related-items-alert": "Please note that hidden related items will always be visible among Item’s relations to administrators and owner of the Item",
 
+
+  // "menu.header.nav.description": "Admin navigation bar",
+  // TODO New key - Add a translation
+  "menu.header.nav.description": "Admin navigation bar",
 
   // "menu.header.admin": "Management",
   "menu.header.admin": "Menadžment",
@@ -6774,20 +6930,20 @@
   // "mydspace.results.no-title": "No title",
   "mydspace.results.no-title": "Bez naslova",
 
-  // "mydspace.results.no-uri": "No Uri",
+  // "mydspace.results.no-uri": "No URI",
   "mydspace.results.no-uri": "Nema URI",
 
   // "mydspace.results.is-correction": "Is a request of correction",
   // TODO New key - Add a translation
   "mydspace.results.is-correction": "Is a request of correction",
 
-  // "mydspace.search-form.placeholder": "Search in mydspace...",
+  // "mydspace.search-form.placeholder": "Search in MyDSpace...",
   "mydspace.search-form.placeholder": "Pretraga u mydspace...",
 
   // "mydspace.show.workflow": "Workflow tasks",
   "mydspace.show.workflow": "Radni zadaci",
 
-  // "mydspace.show.workspace": "Your Submissions",
+  // "mydspace.show.workspace": "Your submissions",
   "mydspace.show.workspace": "Vaši podnesci",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
@@ -6803,7 +6959,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Validacija",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "Čeka se kontroler",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -6843,6 +6999,10 @@
   "mydspace.notification.suggestion.page": "We found <b>{{count}} {{type}}</b> in the {{source}} that seems to be related to your profile. Please <a href='/suggestions/{{suggestionId}}'>review the suggestions.</a>",
 
 
+  // "nav.expandable-navbar-section-suffix": "(submenu)",
+  // TODO New key - Add a translation
+  "nav.expandable-navbar-section-suffix": "(submenu)",
+
   // "nav.browse.header": "All of DSpace",
   "nav.browse.header": "Čitav repozitorijum",
 
@@ -6858,7 +7018,7 @@
   // "nav.login": "Log In",
   "nav.login": "Prijavi se",
 
-  // "nav.user-profile-menu-and-logout": "User profile menu and Log Out",
+  // "nav.user-profile-menu-and-logout": "User profile menu and log out",
   "nav.user-profile-menu-and-logout": "Meni korisničkog profila i odjava",
 
   // "nav.logout": "Log Out",
@@ -6869,6 +7029,10 @@
 
   // "nav.mydspace": "MyDSpace",
   "nav.mydspace": "MyDSpace",
+
+  // "nav.processes": "My Processes",
+  // TODO New key - Add a translation
+  "nav.processes": "My Processes",
 
   // "nav.profile": "Profile",
   "nav.profile": "Profil",
@@ -7298,6 +7462,10 @@
   // TODO New key - Add a translation
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
+  // "orgunit.search.results.head": "Organizational Unit Search Results",
+  // TODO New key - Add a translation
+  "orgunit.search.results.head": "Organizational Unit Search Results",
+
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "Opcije straničenja",
 
@@ -7365,6 +7533,22 @@
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Parametri",
 
+  // "process.new.select-parameter": "Select parameter",
+  // TODO New key - Add a translation
+  "process.new.select-parameter": "Select parameter",
+
+  // "process.new.add-parameter": "Add a parameter...",
+  // TODO New key - Add a translation
+  "process.new.add-parameter": "Add a parameter...",
+
+  // "process.new.delete-parameter": "Delete parameter",
+  // TODO New key - Add a translation
+  "process.new.delete-parameter": "Delete parameter",
+
+  // "process.new.parameter.label": "Parameter value",
+  // TODO New key - Add a translation
+  "process.new.parameter.label": "Parameter value",
+
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Otkazati",
 
@@ -7421,6 +7605,14 @@
   // "process.new.notification.process.files": "Output Files: ",
   // TODO New key - Add a translation
   "process.new.notification.process.files": "Output Files: ",
+
+  // "process.new.notification.process.status.completed": "Completed",
+  // TODO New key - Add a translation
+  "process.new.notification.process.status.completed": "Completed",
+
+  // "process.new.notification.process.status.failed": "Failed",
+  // TODO New key - Add a translation
+  "process.new.notification.process.status.failed": "Failed",
 
   // "process.new.header": "Create a new process",
   "process.new.header": "Kreirajte novi proces",
@@ -7542,6 +7734,10 @@
   // "process.overview.delete": "Delete {{count}} processes",
   "process.overview.delete": "Izbrišite {{count}} procesa",
 
+  // "process.overview.delete-process": "Delete process",
+  // TODO New key - Add a translation
+  "process.overview.delete-process": "Delete process",
+
   // "process.overview.delete.clear": "Clear delete selection",
   "process.overview.delete.clear": "Očistite izbor za brisanje",
 
@@ -7653,9 +7849,6 @@
 
   // "profile.special.groups.head": "Authorization special groups you belong to",
   "profile.special.groups.head": "Autorizacija posebnih grupa kojima pripadate",
-
-  // "profile.head": "Update Profile",
-  "profile.head": "Ažuriranje profil",
 
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   "profile.metadata.form.error.firstname.required": "Ime je obavezno",
@@ -8149,6 +8342,10 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Ime",
 
+  // "resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Izaberite tip polise",
 
@@ -8178,6 +8375,22 @@
 
   // "resource-policies.table.headers.group": "Group",
   "resource-policies.table.headers.group": "Grupa",
+
+  // "resource-policies.table.headers.select-all": "Select all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select-all": "Select all",
+
+  // "resource-policies.table.headers.deselect-all": "Deselect all",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect-all": "Deselect all",
+
+  // "resource-policies.table.headers.select": "Select",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.select": "Select",
+
+  // "resource-policies.table.headers.deselect": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.table.headers.deselect": "Deselect",
 
   // "resource-policies.table.headers.id": "ID",
   "resource-policies.table.headers.id": "ID",
@@ -8221,6 +8434,10 @@
 
   // "search.search-form.placeholder": "Search the repository ...",
   "search.search-form.placeholder": "Pretražite spremište...",
+
+  // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  // TODO New key - Add a translation
+  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Autor",
@@ -8744,7 +8961,7 @@
   // "search.filters.namedresourcetype.Validation": "Validation",
   "search.filters.namedresourcetype.Validation": "Ispravnost",
 
-  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
   "search.filters.namedresourcetype.Waiting for Controller": "Čeka se kontrolor",
 
   // "search.filters.namedresourcetype.Workflow": "Workflow",
@@ -8869,6 +9086,14 @@
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Prikazati kao listu",
 
+  // "selectable-list-item-control.deselect": "Deselect item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.deselect": "Deselect item",
+
+  // "selectable-list-item-control.select": "Select item",
+  // TODO New key - Add a translation
+  "selectable-list-item-control.select": "Select item",
+
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Rastuće",
 
@@ -8968,6 +9193,30 @@
   // "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
   // TODO New key - Add a translation
   "sorting.organisation.address.foundingDate.DESC": "Founding Date Descending",
+
+  // "sorting.person.familyName.ASC": "Surname Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.ASC": "Surname Ascending",
+
+  // "sorting.person.familyName.DESC": "Surname Descending",
+  // TODO New key - Add a translation
+  "sorting.person.familyName.DESC": "Surname Descending",
+
+  // "sorting.person.givenName.ASC": "Name Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.ASC": "Name Ascending",
+
+  // "sorting.person.givenName.DESC": "Name Descending",
+  // TODO New key - Add a translation
+  "sorting.person.givenName.DESC": "Name Descending",
+
+  // "sorting.person.birthDate.ASC": "Birth Date Ascending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.ASC": "Birth Date Ascending",
+
+  // "sorting.person.birthDate.DESC": "Birth Date Descending",
+  // TODO New key - Add a translation
+  "sorting.person.birthDate.DESC": "Birth Date Descending",
 
 
   // "statistics": "Statistics",
@@ -9723,8 +9972,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite",
@@ -10476,9 +10725,9 @@
   // "submission.sections.general.no-collection": "No collection found",
   "submission.sections.general.no-collection": "Nije pronađena kolekcija",
 
-  // "submission.sections.general.no-entity": "No entity found",
+  // "submission.sections.general.no-entity": "No entity types found",
   // TODO New key - Add a translation
-  "submission.sections.general.no-entity": "No entity found",
+  "submission.sections.general.no-entity": "No entity types found",
 
   // "submission.sections.general.no-sections": "No options available",
   "submission.sections.general.no-sections": "Nema dostupnih opcija",
@@ -10691,6 +10940,10 @@
   // "submission.sections.upload.delete.confirm.title": "Delete bitstream",
   "submission.sections.upload.delete.confirm.title": "Izbrišite bitstream",
 
+  // "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+  // TODO New key - Add a translation
+  "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+
   // "submission.sections.upload.delete.submit": "Delete",
   "submission.sections.upload.delete.submit": "Izbrišite",
 
@@ -10770,6 +11023,10 @@
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Otpremanje je uspešno",
+
+  // "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
+  // TODO New key - Add a translation
+  "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
 
   // "submission.sections.custom-url.label.previous-urls": "Previous Urls",
   // TODO New key - Add a translation
@@ -10944,14 +11201,12 @@
   "submission.workflow.generic.edit": "Uredite",
 
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.edit-help": "Izaberite ovu opciju da biste promenili metapodatke stavke.",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "Pogledajte",
 
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.view-help": "Izaberite ovu opciju da biste videli metapodatke stavke.",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
@@ -10970,14 +11225,12 @@
   "submission.workflow.tasks.claimed.approve": "Odobriti",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.approve_help": "Ako ste pregledali stavku i ako je pogodna za pridruživanje kolekciji, izaberite \"Odobriti\".",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Izmeniti",
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.edit_help": "Izaberite ovu opciju da biste promenili metapodatke stavke.",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
@@ -11002,14 +11255,12 @@
   "submission.workflow.tasks.claimed.reject.submit": "Odbiti",
 
   // "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "Ako ste pregledali stavku i utvrdili da <strong>nije</strong> prikladna za pridruživanje kolekciji, izaberite \"Odbij\". Od vas će se zatim tražiti da unesete poruku koja navodi zašto je stavka neprikladna i da li podnosilac treba nešto da promeni i ponovo pošalje.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Povratak u grupu",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.return_help": "Vratite zadatak u grupu tako da drugi korisnik može da izvrši zadatak.",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
@@ -11028,7 +11279,6 @@
   "submission.workflow.tasks.pool.claim": "Potraživanje",
 
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
-  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.pool.claim_help": "Dodelite ovaj zadatak sebi.",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
@@ -11041,7 +11291,6 @@
   "submission.workspace.generic.view": "Pogledati",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
-  // TODO Source message changed - Revise the translation
   "submission.workspace.generic.view-help": "Izaberite ovu opciju da biste videli metapodatke stavke.",
 
   // "submission.product.roles.info": "<div class='my-2'><b>1. Project Leader:</b><br/> Leader of a research project, Principal Investigator (PI).</div><br/><div class='my-2'><b>2. Project Member:</b><br/> Research fellow, collaborator or other person who works in a research project.</div><br/><div class='my-2'><b>3. Research Group Leader</b></div><br/><div class='my-2'><b>4. Project Manager:</b><br/> Person who manages a research project.</div><br/><div class='my-2'><b>5. Data Manager:</b><br/> Person responsible for maintaining final dataset.</div><br/><div class='my-2'><b>6. Data Collector:</b><br/> Person responsible for finding, gathering, collecting, or otherwise generating data.</div><br/><div class='my-2'><b>7. Data Curator:</b><br/> Person tasked with reviewing, enhancing, cleaning, or standardizing data.</div>",
@@ -11308,6 +11557,10 @@
 
   // "vocabulary-treeview.search.form.search": "Search",
   "vocabulary-treeview.search.form.search": "Pretraga",
+
+  // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+  // TODO New key - Add a translation
+  "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   "vocabulary-treeview.search.no-result": "Nije bilo stavki za prikaz",
@@ -11977,6 +12230,10 @@
   // TODO New key - Add a translation
   "lucky.search.multiple.records": "may refer to multiple records",
 
+  // "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
+  // TODO New key - Add a translation
+  "lucky.search.bitstream.notfound": "We are unable to find the file that you have mentioned but it seems to be related to this item.",
+
   // "invitation.group.msg": "You have been invited to join the following groups",
   // TODO New key - Add a translation
   "invitation.group.msg": "You have been invited to join the following groups",
@@ -12122,6 +12379,10 @@
   // TODO New key - Add a translation
   "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
 
+  // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+  // TODO New key - Add a translation
+  "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
   "system-wide-alert.form.label.preview": "Pregled sistemskog upozorenja",
 
@@ -12155,8 +12416,24 @@
   // "access-control-item-header-toggle": "Item's Metadata",
   "access-control-item-header-toggle": "Metapodaci stavke",
 
+  // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+
+  // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  // TODO New key - Add a translation
+  "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+
   // "access-control-bitstream-header-toggle": "Bitstreams",
   "access-control-bitstream-header-toggle": "Bitstream-ovi",
+
+  // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+
+  // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
 
   // "access-control-mode": "Mode",
   "access-control-mode": "Način",
@@ -12182,6 +12459,10 @@
   // "access-control-bitstreams-selected": "bitstreams selected",
   "access-control-bitstreams-selected": "izabrani bitstream-ovi",
 
+  // "access-control-bitstreams-select": "Select bitstreams",
+  // TODO New key - Add a translation
+  "access-control-bitstreams-select": "Select bitstreams",
+
   // "access-control-cancel": "Cancel",
   "access-control-cancel": "Otkazati",
 
@@ -12198,6 +12479,10 @@
 
   // "access-control-add-more": "Add more",
   "access-control-add-more": "Dodati još",
+
+  // "access-control-remove": "Remove access condition",
+  // TODO New key - Add a translation
+  "access-control-remove": "Remove access condition",
 
   // "access-control-select-bitstreams-modal.title": "Select bitstreams",
   "access-control-select-bitstreams-modal.title": "Izaberite bitstream-ove",
@@ -12230,6 +12515,13 @@
   // TODO New key - Add a translation
   "vocabulary-treeview.search.form.add": "Add",
 
+  // "process.overview.unknown.user": "Unknown",
+  // TODO New key - Add a translation
+  "process.overview.unknown.user": "Unknown",
+
+  // "browse.search-form.placeholder": "Search the repository",
+  // TODO New key - Add a translation
+  "browse.search-form.placeholder": "Search the repository",
 
   // "external-login.form.email": "Enter the email",
   // TODO New key - Add a translation

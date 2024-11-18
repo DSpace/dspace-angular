@@ -5,7 +5,7 @@ import { CommunityListService, showMoreFlatNode, toFlatNode } from '../community
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Community } from '../../core/shared/community.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -300,12 +300,14 @@ describe('CommunityListComponent', () => {
 
   describe('second top community node is expanded and has more children (collections) than page size of collection', () => {
     describe('children of second top com are added (page-limited pageSize 2)', () => {
-      let allNodes;
+      let allNodes: DebugElement[];
       beforeEach(fakeAsync(() => {
-        const chevronExpand = fixture.debugElement.queryAll(By.css('.expandable-node button'));
-        const chevronExpandSpan = fixture.debugElement.queryAll(By.css('.expandable-node button span'));
-        if (chevronExpandSpan[1].nativeElement.classList.contains('fa-chevron-right')) {
-          chevronExpand[1].nativeElement.click();
+        const toggleButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.expandable-node button'));
+        const toggleButtonText: DebugElement = toggleButtons[1].query(By.css('span'));
+        expect(toggleButtonText).not.toBeNull();
+
+        if (toggleButtonText.nativeElement.classList.contains('fa-chevron-right')) {
+          toggleButtons[1].nativeElement.click();
           tick();
           fixture.detectChanges();
         }
@@ -315,17 +317,18 @@ describe('CommunityListComponent', () => {
         allNodes = [...expandableNodesFound, ...childlessNodesFound];
       }));
       it('tree contains 2 (page-limited) top com, 2 (page-limited) coll of 2nd top com, a show more for those page-limited coll and show more for page-limited top com', () => {
-        mockTopFlatnodesUnexpanded.slice(0, 2).map((topFlatnode: FlatNode) => {
-          expect(allNodes.find((foundEl) => {
-            return (foundEl.nativeElement.textContent.trim() === topFlatnode.name);
-          })).toBeTruthy();
-        });
-        mockCollectionsPage1.map((coll) => {
-          expect(allNodes.find((foundEl) => {
-            return (foundEl.nativeElement.textContent.trim() === coll.name);
-          })).toBeTruthy();
-        });
+        const allNodeNames: string[] = allNodes.map((node: DebugElement) => node.nativeElement.innerText.trim());
         expect(allNodes.length).toEqual(4);
+        const flatNodes: string[] = mockTopFlatnodesUnexpanded.slice(0, 2).map((flatNode: FlatNode) => flatNode.name);
+        for (const flatNode of flatNodes) {
+          expect(allNodeNames).toContain(flatNode);
+        }
+        expect(flatNodes.length).toBe(2);
+        const page1CollectionNames: string[] = mockCollectionsPage1.map((collection: Collection) => collection.name);
+        for (const collectionName of page1CollectionNames) {
+          expect(allNodeNames).toContain(collectionName);
+        }
+        expect(page1CollectionNames.length).toBe(2);
         const showMoreEl = fixture.debugElement.queryAll(By.css('.show-more-node'));
         expect(showMoreEl.length).toEqual(2);
       });

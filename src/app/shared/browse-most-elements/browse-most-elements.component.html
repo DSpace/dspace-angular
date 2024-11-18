@@ -3,10 +3,10 @@
   <ng-container *ngSwitchDefault>
     <ds-themed-default-browse-elements
       [showMetrics]="showMetrics"
-      [showThumbnails]="topSection.showThumbnails"
+      [showThumbnails]="showThumbnails ?? topSection.showThumbnails"
       [topSection]="topSection"
       [showLabel]="showLabel"
-      [paginatedSearchOptions]="paginatedSearchOptionsBS.asObservable() | async"
+      [paginatedSearchOptions]="paginatedSearchOptions$.asObservable() | async"
       [context]="context"
     ></ds-themed-default-browse-elements>
   </ng-container>

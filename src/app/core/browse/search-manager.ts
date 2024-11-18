@@ -14,13 +14,14 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { SearchService } from '../shared/search/search.service';
-import { WorkspaceItem } from '../submission/models/workspaceitem.model';
-import { WorkflowItem } from '../submission/models/workflowitem.model';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
 import { MetadataValue } from '../shared/metadata.models';
 import { Metadata } from '../shared/metadata.utils';
 import isArray from 'lodash/isArray';
+import { WORKSPACEITEM } from '../eperson/models/workspaceitem.resource-type';
+import { WORKFLOWITEM } from '../eperson/models/workflowitem.resource-type';
+import { ITEM } from '../shared/item.resource-type';
 
 /**
  * The service aims to manage browse requests and subsequent extra fetch requests.
@@ -44,7 +45,8 @@ export class SearchManager {
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
   getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.browseService.getBrowseItemsFor(filterValue, filterAuthority, options, ...linksToFollow)
+    const browseOptions = Object.assign({}, options, { projection: 'preventMetadataSecurity' });
+    return this.browseService.getBrowseItemsFor(filterValue, filterAuthority, browseOptions, ...linksToFollow)
       .pipe(this.completeWithExtraData());
   }
 
@@ -84,7 +86,8 @@ export class SearchManager {
   protected completeSearchObjectsWithExtraData<T extends DSpaceObject>() {
     return switchMap((searchObjectsRD: RemoteData<SearchObjects<T>>) => {
       if (searchObjectsRD.isSuccess) {
-        const items: Item[] = searchObjectsRD.payload.page.map((searchResult) => searchResult.indexableObject) as any;
+        const items: Item[] = searchObjectsRD.payload.page
+          .map((searchResult) => isNotEmpty(searchResult?._embedded?.indexableObject) ? searchResult._embedded.indexableObject : searchResult.indexableObject) as any;
         return this.fetchExtraData(items).pipe(map(() => {
           return searchObjectsRD;
         }));
@@ -96,13 +99,16 @@ export class SearchManager {
   protected fetchExtraData<T extends DSpaceObject>(objects: T[]): Observable<any> {
 
     const items: Item[] = objects
-      .map((object) => {
-        if (object instanceof WorkspaceItem || object instanceof WorkflowItem) {
-          return object.item as Item;
-        }
-        if (object instanceof Item) {
+      .map((object: any) => {
+        if (object.type === ITEM.value) {
           return object as Item;
+        } else if (object.type === WORKSPACEITEM.value || object.type === WORKFLOWITEM.value) {
+          return object?._embedded?.item as Item;
+        } else {
+          // Handle workflow task here, where the item is embedded in a workflowitem
+          return object?._embedded?.workflowitem?._embedded?.item as Item;
         }
+
       })
       .filter((item) => hasValue(item));
 
@@ -127,12 +133,12 @@ export class SearchManager {
         if (item.entityType === followMetadata.type) {
           if (isArray(followMetadata.metadata)) {
             followMetadata.metadata.forEach((metadata) => {
-              item.allMetadata(metadata)
+              Metadata.all(item.metadata, metadata)
                 .filter((metadataValue: MetadataValue) => Metadata.hasValidItemAuthority(metadataValue.authority))
                 .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
             });
           } else {
-            item.allMetadata(followMetadata.metadata)
+            Metadata.all(item.metadata, followMetadata.metadata)
               .filter((metadataValue: MetadataValue) => Metadata.hasValidItemAuthority(metadataValue.authority))
               .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
           }

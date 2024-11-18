@@ -37,4 +37,10 @@ export class MetadataUriValuesComponent extends MetadataValuesComponent {
    * The label for this iteration of metadata values
    */
   @Input() label: string;
+
+  /**
+   * The target attribute for the metadata links.
+   * Defaults to '_blank' to open links in a new window/tab.
+   */
+  @Input() linkTarget = '_blank';
 }
