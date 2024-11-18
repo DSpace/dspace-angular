@@ -4180,6 +4180,10 @@
 
   "mydspace.results.is-correction": "Is a request of correction",
 
+  "mydspace.results.in-workflow-since": "In workflow since:",
+
+  "mydspace.results.in-workflow-for": "In workflow for:",
+
   "mydspace.search-form.placeholder": "Search in MyDSpace...",
 
   "mydspace.show.workflow": "Workflow tasks",
