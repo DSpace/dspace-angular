@@ -1,4 +1,7 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,

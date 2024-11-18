@@ -37,13 +37,13 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { isNotEmpty } from '../empty.util';
+import { BrowserOnlyDirective } from '../utils/browser-only.directive';
 import {
   ContextMenuEntryRenderOptions,
   getContextMenuEntriesForDSOType,
 } from './context-menu.decorator';
 import { ContextMenuEntryComponent } from './context-menu-entry.component';
 import { ContextMenuEntryType } from './context-menu-entry-type';
-import { BrowserOnlyDirective } from '../utils/browser-only.directive';
 
 /**
  * This component renders a context menu for a given DSO.

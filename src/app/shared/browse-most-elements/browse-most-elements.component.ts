@@ -1,7 +1,8 @@
 import {
   AsyncPipe,
   LowerCasePipe,
-  NgSwitch, NgSwitchDefault,
+  NgSwitch,
+  NgSwitchDefault,
 } from '@angular/common';
 import {
   Component,

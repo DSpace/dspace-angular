@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
-  isPlatformServer, NgForOf, NgIf,
+  isPlatformServer,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   Component,

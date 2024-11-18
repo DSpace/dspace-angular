@@ -1,4 +1,8 @@
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import {
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
