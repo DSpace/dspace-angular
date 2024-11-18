@@ -10,6 +10,7 @@ import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.c
 import { crisItemPageTabResolver } from './cris-item-page-tab.resolver';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { itemPageResolver } from './item-page.resolver';
+import { itemPageAdministratorGuard } from './item-page-administrator.guard';
 import {
   ITEM_EDIT_PATH,
   ORCID_PATH,
@@ -34,6 +35,9 @@ export const ROUTES: Route[] = [
         path: '',
         component: ThemedItemPageComponent,
         pathMatch: 'full',
+        resolve: {
+          tabs: crisItemPageTabResolver,
+        },
       },
       {
         path: 'full',
@@ -43,6 +47,7 @@ export const ROUTES: Route[] = [
         path: ITEM_EDIT_PATH,
         loadChildren: () => import('./edit-item-page/edit-item-page-routes')
           .then((m) => m.ROUTES),
+        canActivate: [itemPageAdministratorGuard],
       },
       {
         path: UPLOAD_BITSTREAM_PATH,
@@ -71,7 +76,7 @@ export const ROUTES: Route[] = [
         public: [{
           id: 'statistics_item_:id',
           active: true,
-          visible: true,
+          visible: false,
           index: 2,
           model: {
             type: MenuItemType.LINK,
@@ -80,6 +85,7 @@ export const ROUTES: Route[] = [
           } as LinkMenuItemModel,
         }],
       },
+      showSocialButtons: true,
     },
   },
   {

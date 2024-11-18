@@ -26,6 +26,7 @@ import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
 import { getItemPageRoute } from './item-page-routing-paths';
+import { isEmpty } from '../shared/empty.util';
 
 /**
  * Method for resolving the tabs of item based on the parameters in the current route
@@ -60,7 +61,7 @@ export const crisItemPageTabResolver: ResolveFn<RemoteData<PaginatedList<CrisLay
               const urlSplit = state.url.split(route.params.id);
               const givenTab = urlSplit[1];
               const itemPageRoute = getItemPageRoute(itemRD.payload);
-              const isValidTab = tabsRD.payload.page.some((tab) => !givenTab || `/${tab.shortname}` === givenTab);
+              const isValidTab = isEmpty(givenTab) || tabsRD.payload.page.some((tab) => `/${tab.shortname}` === givenTab);
 
               const mainTab = tabsRD.payload.page.length === 1
                 ? tabsRD.payload.page[0]

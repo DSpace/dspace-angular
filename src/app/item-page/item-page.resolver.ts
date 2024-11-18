@@ -57,8 +57,8 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
 ): Observable<RemoteData<Item>> => {
   return itemService.findById(
     route.params.id,
-    true,
     false,
+    true,
     ...ITEM_PAGE_LINKS_TO_FOLLOW,
   ).pipe(
     getFirstCompletedRemoteData(),

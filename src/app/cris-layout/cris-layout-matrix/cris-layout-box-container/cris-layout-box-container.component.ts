@@ -114,7 +114,7 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
    * Active tab utilized by accordion
    */
   getComponent(): CrisLayoutBoxRenderOptions {
-    return getCrisLayoutBox(LayoutBox[this.box.boxType]);
+    return getCrisLayoutBox(this.box.boxType as LayoutBox);
   }
   /**
    * Get component reference to be inserted in the ngComponentOutlet
