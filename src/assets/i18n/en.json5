@@ -1584,25 +1584,19 @@
 
   "cookies.consent.app.required.title": "(always required)",
 
-  "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-
-  "cookies.consent.app.disable-all.title": "Enable or disable all services",
-
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
 
   "cookies.consent.decline": "Decline",
 
+  "cookies.consent.decline-all": "Decline all",
+
   "cookies.consent.ok": "That's ok",
 
   "cookies.consent.save": "Save",
 
-  "cookies.consent.content-notice.title": "Cookie Consent",
-
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-
-  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
+  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
 
   "cookies.consent.content-notice.learnMore": "Customize",
 
@@ -1612,11 +1606,9 @@
 
   "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
 
+  "cookies.consent.content-modal.no-privacy-policy.text": "",
+
   "cookies.consent.content-modal.title": "Information that we collect",
-
-  "cookies.consent.content-modal.services": "services",
-
-  "cookies.consent.content-modal.service": "service",
 
   "cookies.consent.app.title.authentication": "Authentication",
 
@@ -6743,4 +6735,8 @@
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
 
   "browse.search-form.placeholder": "Search the repository",
+
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  "forgot-email.form.aria.label": "Enter your e-mail address",
 }
