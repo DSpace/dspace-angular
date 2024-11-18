@@ -4144,6 +4144,27 @@
   // "process.detail.back": "Back",
   "process.detail.back": "Retour",
 
+  //"process.detail.delete.body": "Are you sure you want to delete the current process?",
+  "process.detail.delete.body": "Êtes-vous sûr de vouloir supprimer ce processus?",
+
+  //"process.detail.delete.button": "Delete process",
+  "process.detail.delete.button": "Supprimer le processus",
+
+  //"process.detail.delete.cancel": "Cancel",
+  "process.detail.delete.cancel": "",
+
+  //"process.detail.delete.confirm": "Delete process",
+  "process.detail.delete.confirm": "Supprimer le processus",
+
+  //"process.detail.delete.error": "Something went wrong when deleting the process",
+  "process.detail.delete.error": "",
+
+  //"process.detail.delete.header": "Delete process",
+  "process.detail.delete.header": "",
+
+  //"process.detail.delete.success": "The process was successfully deleted.",
+  "process.detail.delete.success": "Le processus était supprimé",
+
   // "process.detail.output": "Process Output",
   "process.detail.output": "Sortie du processus",
 
@@ -4161,6 +4182,9 @@
 
   // "process.detail.output-files.empty": "This process doesn't contain any output files",
   "process.detail.output-files.empty": "Ce processus ne contient pas de fichiers de sortie",
+
+  //"process.detail.refreshing": "Auto-refreshing…",
+  "process.detail.refreshing": "",
 
   // "process.detail.script": "Script",
   "process.detail.script": "Script",
