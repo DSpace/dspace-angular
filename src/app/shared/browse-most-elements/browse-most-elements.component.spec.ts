@@ -11,6 +11,7 @@ import { TopSectionTemplateType } from '../../core/layout/models/section.model';
 import { Item } from '../../core/shared/item.model';
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 import { BrowseMostElementsComponent } from './browse-most-elements.component';
+import { ThemedDefaultBrowseElementsComponent } from './default-browse-elements/themed-default-browse-elements.component';
 
 describe('BrowseMostElementsComponent', () => {
   let component: BrowseMostElementsComponent;
@@ -52,11 +53,10 @@ describe('BrowseMostElementsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [BrowseMostElementsComponent],
-      providers: [
-      ],
+      imports: [BrowseMostElementsComponent],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(BrowseMostElementsComponent, { remove: { imports: [ThemedDefaultBrowseElementsComponent] } })
+      .compileComponents();
   }));
 
   beforeEach(() => {

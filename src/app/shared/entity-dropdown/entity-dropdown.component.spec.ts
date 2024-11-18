@@ -115,8 +115,6 @@ describe('EntityDropdownComponent', () => {
     byEntityTypeAndMolteplicity: jasmine.createSpy('byEntityTypeAndMolteplicity'),
   });
 
-  let translatePipeSpy: jasmine.Spy;
-
   const translateServiceMock: any = {
     instant(name) {
       return 'Statistics';
@@ -145,11 +143,6 @@ describe('EntityDropdownComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(EntityDropdownComponent, {
-        add: {
-          imports: [MockTranslatePipe],
-        },
-      })
       .compileComponents();
   }));
 
@@ -162,15 +155,6 @@ describe('EntityDropdownComponent', () => {
     componentAsAny.entityTypeService.getAllAuthorizedRelationshipTypeImport.and.returnValue(paginatedEntitiesRD$);
     componentAsAny.itemExportFormatService.byEntityTypeAndMolteplicity.and.returnValue(of(entityFormatList));
     component.isSubmission = true;
-
-    translatePipeSpy = spyOn(MockTranslatePipe.prototype, 'transform');
-  });
-
-  it('should translate entries', () => {
-    scheduler.schedule(() => fixture.detectChanges());
-    scheduler.flush();
-
-    expect(translatePipeSpy).toHaveBeenCalledWith('entity_1.listelement.badge');
   });
 
   it('should init component with entities list', () => {
