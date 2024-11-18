@@ -3,6 +3,7 @@ import { Route } from '@angular/router';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
+import { pendingChangesGuard } from '../submission/edit/pending-changes/pending-changes.guard';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { itemFromWorkspaceResolver } from './item-from-workspace.resolver';
 import { itemFromWorkspaceBreadcrumbResolver } from './item-from-workspace-breadcrumb.resolver';
@@ -23,6 +24,7 @@ export const ROUTES: Route[] = [
     children: [
       {
         canActivate: [authenticatedGuard],
+        canDeactivate: [pendingChangesGuard],
         path: 'edit',
         component: ThemedSubmissionEditComponent,
         resolve: {
