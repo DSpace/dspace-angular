@@ -92,7 +92,7 @@ export class SuggestionTargetsEffects {
       return this.store$.select((state: any) => state.core.auth.user)
         .pipe(
           switchMap((user: EPerson) => {
-            return this.suggestionsService.retrieveCurrentUserSuggestions(user.uuid)
+            return this.suggestionsService.retrieveCurrentUserSuggestions(user?.uuid)
               .pipe(
                 map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
                 catchError((error: unknown) => {
