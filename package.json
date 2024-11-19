@@ -88,10 +88,6 @@
     "eslint-plugin-unused-imports": {
       "@typescript-eslint/eslint-plugin": "^7.2.0"
     },
-    "ng2-file-upload": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11"
-    },
     "ngx-infinite-scroll": {
       "@angular/common": "^17.3.11",
       "@angular/core": "^17.3.11"
