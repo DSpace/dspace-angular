@@ -36,11 +36,11 @@ import { createPaginatedList } from '../../../../../../../shared/testing/utils.t
 import { ThumbnailService } from '../../../../../../../shared/thumbnail/thumbnail.service';
 import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
 import { FieldRenderingType } from '../metadata-box.decorator';
-import { ThumbnailComponent } from './thumbnail.component';
+import { ThumbnailRenderingComponent } from './thumbnail.component';
 
-describe('ThumbnailComponent', () => {
-  let component: ThumbnailComponent;
-  let fixture: ComponentFixture<ThumbnailComponent>;
+describe('', () => {
+  let component: ThumbnailRenderingComponent;
+  let fixture: ComponentFixture<ThumbnailRenderingComponent>;
   let de: DebugElement;
 
   const testItem = Object.assign(new Item(), {
@@ -108,7 +108,7 @@ describe('ThumbnailComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        ThumbnailComponent,
+        ThumbnailRenderingComponent,
       ],
       providers: [
         { provide: 'fieldProvider', useValue: fieldProvider },
@@ -129,7 +129,7 @@ describe('ThumbnailComponent', () => {
     // waitForAsync beforeEach
     beforeEach(waitForAsync(() => {
       return TestBed.configureTestingModule(getDefaultTestBedConf(mockField))
-        .overrideComponent(ThumbnailComponent, {
+        .overrideComponent(ThumbnailRenderingComponent, {
           remove: {
             imports: [
               ThemedThumbnailComponent,
@@ -139,7 +139,7 @@ describe('ThumbnailComponent', () => {
     }));
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(ThumbnailComponent);
+      fixture = TestBed.createComponent(ThumbnailRenderingComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
       mockBitstreamDataService.findByItem.and.returnValues(createSuccessfulRemoteDataObject$(createPaginatedList([])));
@@ -223,7 +223,7 @@ describe('ThumbnailComponent', () => {
     // waitForAsync beforeEach
     beforeEach(waitForAsync(() => {
       return TestBed.configureTestingModule(getDefaultTestBedConf(mockField1))
-        .overrideComponent(ThumbnailComponent, {
+        .overrideComponent(ThumbnailRenderingComponent, {
           remove: {
             imports: [
               ThemedThumbnailComponent,
@@ -233,7 +233,7 @@ describe('ThumbnailComponent', () => {
     }));
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(ThumbnailComponent);
+      fixture = TestBed.createComponent(ThumbnailRenderingComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
       mockBitstreamDataService.findByItem.and.returnValue(of([]));
