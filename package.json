@@ -77,10 +77,6 @@
       "@ng-bootstrap/ng-bootstrap": "^12.0.0",
       "bootstrap": "^5.3"
     },
-    "@ngtools/webpack": {
-      "@angular/compiler-cli": "^17.3.11",
-      "typescript": "~5.4.5"
-    },
     "@nicky-lenaers/ngx-scroll-to": {
       "@angular/common": "^17.3.11",
       "@angular/core": "^17.3.11"
