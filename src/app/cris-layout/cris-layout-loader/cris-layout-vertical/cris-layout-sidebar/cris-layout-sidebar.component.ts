@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  Location,
   NgClass,
   NgFor,
   NgIf,
@@ -12,10 +11,6 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
 import {
   BehaviorSubject,
   Observable,
@@ -72,9 +67,6 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
    */
   private sidebarStatus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
-    super(location, router, route);
-  }
 
   ngOnInit(): void {
     this.init();

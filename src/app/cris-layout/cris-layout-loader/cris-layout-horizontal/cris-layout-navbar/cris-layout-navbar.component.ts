@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  Location,
   NgClass,
   NgFor,
   NgIf,
@@ -8,14 +7,11 @@ import {
 import {
   Component,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
@@ -61,13 +57,7 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implement
    */
   @Output() selectedTabChange = new EventEmitter<CrisLayoutTab>();
 
-  constructor(
-    public location: Location,
-    public router: Router,
-    public route: ActivatedRoute,
-    public windowService: HostWindowService) {
-    super(location, router, route);
-  }
+  windowService = inject(HostWindowService);
 
   ngOnInit(): void {
     this.init();
