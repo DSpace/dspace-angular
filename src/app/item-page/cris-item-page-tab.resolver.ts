@@ -24,9 +24,9 @@ import { TabDataService } from '../core/layout/tab-data.service';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { isEmpty } from '../shared/empty.util';
 import { createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
 import { getItemPageRoute } from './item-page-routing-paths';
-import { isEmpty } from '../shared/empty.util';
 
 /**
  * Method for resolving the tabs of item based on the parameters in the current route

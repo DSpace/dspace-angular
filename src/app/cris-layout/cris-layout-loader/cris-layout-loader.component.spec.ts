@@ -8,11 +8,14 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRoute,
+  provideRouter,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { Item } from '../../core/shared/item.model';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
@@ -58,13 +61,13 @@ describe('CrisLayoutLoaderComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        RouterTestingModule,
         CrisLayoutLoaderComponent,
         CrisLayoutLoaderDirective,
         CrisLayoutVerticalComponent,
         CrisLayoutHorizontalComponent,
       ],
       providers: [
+        provideRouter([]),
         { provide: ActivatedRoute, useValue: {  snapshot: {
           paramMap: {
             get: (key: string) => {
@@ -77,6 +80,16 @@ describe('CrisLayoutLoaderComponent', () => {
         } } },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HostWindowService, useValue: windowServiceStub },
+        { provide: APP_CONFIG, useValue: {
+          crisLayout: {
+            itemPage: {
+              default: {
+                orientation: 'horizontal',
+              },
+            },
+          },
+        },
+        },
 
       ],
       schemas: [NO_ERRORS_SCHEMA],
