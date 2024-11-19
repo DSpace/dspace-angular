@@ -20,6 +20,7 @@ import {
 } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
+  BehaviorSubject,
   combineLatest,
   Observable,
   Subscription,
@@ -29,7 +30,7 @@ import {
   filter,
   map,
   switchMap,
-  take,
+  take, tap,
 } from 'rxjs/operators';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -64,6 +65,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -89,18 +91,18 @@ import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag
 export class ItemBitstreamsComponent extends AbstractItemUpdateComponent implements OnDestroy {
 
   /**
-   * The currently listed bundles
+   * All bundles for the current item
    */
-  bundles$: Observable<Bundle[]>;
+  private bundlesSubject = new BehaviorSubject<Bundle[]>([]);
 
   /**
    * The page options to use for fetching the bundles
    */
-  bundlesOptions = {
+  bundlesOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'bundles-pagination-options',
     currentPage: 1,
-    pageSize: 9999,
-  } as any;
+    pageSize: 10,
+  });
 
   /**
    * The bootstrap sizes used for the columns within this table
@@ -128,6 +130,18 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   itemUpdateSubscription: Subscription;
 
+  /**
+   * The flag indicating to show the load more link
+   */
+  showLoadMoreLink$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  /**
+   * The list of bundles for the current item as an observable
+   */
+  get bundles$(): Observable<Bundle[]> {
+    return this.bundlesSubject.asObservable();
+  }
+
   constructor(
     public itemService: ItemDataService,
     public objectUpdatesService: ObjectUpdatesService,
@@ -149,11 +163,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
-    this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({ pagination: this.bundlesOptions })).pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
-    );
+    this.loadBundles(1);
   }
 
   /**
@@ -161,6 +171,26 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   initializeNotificationsPrefix(): void {
     this.notificationsPrefix = 'item.edit.bitstreams.notifications.';
+  }
+
+  /**
+   * Load bundles for the current item
+   * @param currentPage The current page to load
+   */
+  loadBundles(currentPage?: number) {
+    this.bundlesOptions = Object.assign(new PaginationComponentOptions(), this.bundlesOptions, {
+      currentPage: currentPage || this.bundlesOptions.currentPage + 1,
+    });
+    this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+      tap((bundlesPL: PaginatedList<Bundle>) =>
+        this.showLoadMoreLink$.next(bundlesPL.pageInfo.currentPage < bundlesPL.pageInfo.totalPages)
+      ),
+      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
+    ).subscribe((bundles: Bundle[]) => {
+      this.bundlesSubject.next([...this.bundlesSubject.getValue(), ...bundles]);
+    });
   }
 
 
