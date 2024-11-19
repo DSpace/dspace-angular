@@ -1,5 +1,12 @@
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { REQUEST } from '../../../express.tokens';
@@ -18,19 +25,19 @@ describe('ForwardClientIpInterceptor', () => {
     clientIp = '1.2.3.4';
 
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [
+      imports: [],
+      providers: [
         DspaceRestService,
         {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ForwardClientIpInterceptor,
-            multi: true,
+          provide: HTTP_INTERCEPTORS,
+          useClass: ForwardClientIpInterceptor,
+          multi: true,
         },
         { provide: REQUEST, useValue: { get: () => undefined, connection: { remoteAddress: clientIp } } },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
-    ]
-});
+      ],
+    });
 
     service = TestBed.inject(DspaceRestService);
     httpMock = TestBed.inject(HttpTestingController);

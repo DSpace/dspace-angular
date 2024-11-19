@@ -1,4 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
 import { waitForAsync } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import {

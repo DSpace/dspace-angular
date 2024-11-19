@@ -1,6 +1,9 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -203,19 +206,24 @@ const DECLARATIONS = [
   SearchResultsSkeletonComponent,
 ];
 
-@NgModule({ imports: [RootModule,
-        CommonModule,
-        DragDropModule,
-        FormsModule,
-        NgbModule,
-        RouterModule,
-        ScrollToModule,
-        StoreModule,
-        StoreRouterConnectingModule,
-        TranslateModule,
-        FormsModule,
-        NgxGalleryModule,
-        ...DECLARATIONS], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  imports: [RootModule,
+    CommonModule,
+    DragDropModule,
+    FormsModule,
+    NgbModule,
+    RouterModule,
+    ScrollToModule,
+    StoreModule,
+    StoreRouterConnectingModule,
+    TranslateModule,
+    FormsModule,
+    NgxGalleryModule,
+    ...DECLARATIONS],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
+})
 
 /**
    * This module serves as an index for all the components in this theme.

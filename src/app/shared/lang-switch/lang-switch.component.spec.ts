@@ -1,4 +1,11 @@
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import {
   DebugElement,
   NO_ERRORS_SCHEMA,
@@ -22,7 +29,6 @@ import {
 import { LangConfig } from '../../../config/lang-config.interface';
 import { LocaleService } from '../../core/locale/locale.service';
 import { LangSwitchComponent } from './lang-switch.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 // This test is completely independent from any message catalogs or keys in the codebase
 // The translation module is instantiated with these bogus messages that we aren't using anyway.
@@ -81,17 +87,17 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [TranslateModule.forRoot({
-            loader: { provide: TranslateLoader, useClass: CustomLoader },
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: CustomLoader },
         }), LangSwitchComponent],
-    providers: [
-        TranslateService,
-        { provide: LocaleService, useValue: getMockLocaleService() },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
-    ]
-}).compileComponents()
+        providers: [
+          TranslateService,
+          { provide: LocaleService, useValue: getMockLocaleService() },
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
+        ],
+      }).compileComponents()
         .then(() => {
           translate = TestBed.inject(TranslateService);
           translate.addLangs(mockConfig.languages.filter((langConfig: LangConfig) => langConfig.active === true).map((a) => a.code));
@@ -166,17 +172,17 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-    schemas: [NO_ERRORS_SCHEMA],
-    imports: [TranslateModule.forRoot({
-            loader: { provide: TranslateLoader, useClass: CustomLoader },
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: CustomLoader },
         }), LangSwitchComponent],
-    providers: [
-        TranslateService,
-        { provide: LocaleService, useValue: getMockLocaleService() },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
-    ]
-}).compileComponents();
+        providers: [
+          TranslateService,
+          { provide: LocaleService, useValue: getMockLocaleService() },
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
+        ],
+      }).compileComponents();
       translate = TestBed.inject(TranslateService);
       translate.addLangs(mockConfig.languages.filter((MyLangConfig) => MyLangConfig.active === true).map((a) => a.code));
       translate.setDefaultLang('en');

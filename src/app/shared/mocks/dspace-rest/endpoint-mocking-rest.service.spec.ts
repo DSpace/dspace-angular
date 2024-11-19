@@ -1,4 +1,7 @@
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import {
+  HttpHeaders,
+  HttpResponse,
+} from '@angular/common/http';
 import { of as observableOf } from 'rxjs';
 
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
