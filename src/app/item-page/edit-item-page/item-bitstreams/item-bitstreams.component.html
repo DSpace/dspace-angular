@@ -39,6 +39,9 @@
                                    [isFirstTable]="isFirst"
                                    aria-describedby="reorder-description">
     </ds-item-edit-bitstream-bundle>
+    <div class="d-flex justify-content-center" *ngIf="showLoadMoreLink$ | async">
+      <div class="btn btn-link py-3" (click)="loadBundles()"> {{'item.edit.bitstreams.load-more.link' | translate}}</div>
+    </div>
   </div>
   <div *ngIf="bundles?.length === 0"
        class="alert alert-info w-100 d-inline-block mt-4" role="alert">
