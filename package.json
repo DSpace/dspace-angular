@@ -153,7 +153,7 @@
     "ngx-infinite-scroll": "^18.0.0",
     "ngx-pagination": "6.0.3",
     "ngx-skeleton-loader": "^9.0.0",
-    "ngx-ui-switch": "^14.1.0",
+    "ngx-ui-switch": "^15.0.0",
     "nouislider": "^15.7.1",
     "orejime": "^2.3.1",
     "pem": "1.14.8",
