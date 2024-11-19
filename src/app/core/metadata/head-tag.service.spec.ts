@@ -53,7 +53,13 @@ import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 describe('HeadTagService', () => {
 
   const createSuccessfulRemoteDataObjectAndAssignThumbnail = (dso: Item) => {
-    const dsoWithThumbnail = Object.assign(dso, { thumbnail: of('thumbnail-url') });
+    const bitstream = Object.assign(new Bitstream(), {
+      uuid: 'thumbnail-uuid',
+      _links: {
+        self: { href: 'thumbnail-url' },
+      },
+    });
+    const dsoWithThumbnail = Object.assign(dso, { thumbnail: createSuccessfulRemoteDataObject$(MockBitstream3) });
     return createSuccessfulRemoteDataObject(dsoWithThumbnail);
   };
 
@@ -93,7 +99,9 @@ describe('HeadTagService', () => {
     translateService = getMockTranslateService();
     meta = jasmine.createSpyObj('meta', {
       addTag: {},
+      addMetaTag: {},
       removeTag: {},
+      updateTag : {},
     });
     title = jasmine.createSpyObj({
       setTitle: {},
@@ -127,7 +135,8 @@ describe('HeadTagService', () => {
     } as any;
 
     schemaJsonLDService = jasmine.createSpyObj('schemaJsonLDService', {
-      insertSchema: {},
+      insertSchema: jasmine.createSpy('insertSchema'),
+      removeStructuredData: jasmine.createSpy('removeStructuredData'),
     });
     platformId = 'browser';
     _document = TestBed.inject(DOCUMENT);
@@ -160,18 +169,18 @@ describe('HeadTagService', () => {
     });
     tick();
     expect(title.setTitle).toHaveBeenCalledWith('Test PowerPoint Document');
-    expect(meta.addTag).toHaveBeenCalledWith({
+    expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_title',
       content: 'Test PowerPoint Document',
     });
-    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
-    expect(meta.addTag).toHaveBeenCalledWith({
+    expect(meta.updateTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
+    expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_publication_date',
       content: '1650-06-26',
     });
-    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_issn', content: '123456789' });
-    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_language', content: 'en' });
-    expect(meta.addTag).toHaveBeenCalledWith({
+    expect(meta.updateTag).toHaveBeenCalledWith({ name: 'citation_issn', content: '123456789' });
+    expect(meta.updateTag).toHaveBeenCalledWith({ name: 'citation_language', content: 'en' });
+    expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_keywords',
       content: 'keyword1; keyword2; keyword3',
     });
@@ -186,12 +195,13 @@ describe('HeadTagService', () => {
       },
     });
     tick();
-    expect(meta.addTag).toHaveBeenCalledWith({
+    expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_dissertation_name',
       content: 'Test PowerPoint Document',
     });
-    expect(meta.addTag).toHaveBeenCalledWith({
+    expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_pdf_url',
+      property: 'citation_pdf_url',
       content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download',
     });
   }));
@@ -205,7 +215,7 @@ describe('HeadTagService', () => {
       },
     });
     tick();
-    expect(meta.addTag).toHaveBeenCalledWith({
+    expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_technical_report_institution',
       content: 'Mock Publisher',
     });
@@ -258,11 +268,11 @@ describe('HeadTagService', () => {
     });
     tick();
     expect(title.setTitle).toHaveBeenCalledWith('DSpace :: Dummy Title');
-    expect(meta.addTag).toHaveBeenCalledWith({
+    expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'title',
       content: 'DSpace :: Dummy Title',
     });
-    expect(meta.addTag).toHaveBeenCalledWith({
+    expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'description',
       content: 'This is a dummy item component for testing!',
     });
@@ -296,7 +306,7 @@ describe('HeadTagService', () => {
         },
       });
       tick();
-      expect(meta.addTag).toHaveBeenCalledWith({
+      expect(meta.updateTag).toHaveBeenCalledWith({
         name: 'citation_abstract_html_url',
         content: 'https://ddg.gg',
       });
@@ -311,7 +321,7 @@ describe('HeadTagService', () => {
         },
       });
       tick();
-      expect(meta.addTag).toHaveBeenCalledWith({
+      expect(meta.updateTag).toHaveBeenCalledWith({
         name: 'citation_abstract_html_url',
         content: 'https://request.org/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
       });
@@ -328,12 +338,12 @@ describe('HeadTagService', () => {
         },
       });
       tick();
-      expect(meta.addTag).toHaveBeenCalledWith({
+      expect(meta.updateTag).toHaveBeenCalledWith({
         name: 'citation_dissertation_institution',
         content: 'Mock Publisher',
       });
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_technical_report_institution' }));
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_publisher' }));
+      expect(meta.updateTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_technical_report_institution' }));
+      expect(meta.updateTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_publisher' }));
     }));
 
     it('should use citation_tech_report_institution tag for tech reports', fakeAsync(() => {
@@ -345,12 +355,12 @@ describe('HeadTagService', () => {
         },
       });
       tick();
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_dissertation_institution' }));
-      expect(meta.addTag).toHaveBeenCalledWith({
+      expect(meta.updateTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_dissertation_institution' }));
+      expect(meta.updateTag).toHaveBeenCalledWith({
         name: 'citation_technical_report_institution',
         content: 'Mock Publisher',
       });
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_publisher' }));
+      expect(meta.updateTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_publisher' }));
     }));
 
     it('should use citation_publisher for other item types', fakeAsync(() => {
@@ -362,9 +372,9 @@ describe('HeadTagService', () => {
         },
       });
       tick();
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_dissertation_institution' }));
-      expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_technical_report_institution' }));
-      expect(meta.addTag).toHaveBeenCalledWith({
+      expect(meta.updateTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_dissertation_institution' }));
+      expect(meta.updateTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_technical_report_institution' }));
+      expect(meta.updateTag).toHaveBeenCalledWith({
         name: 'citation_publisher',
         content: 'Mock Publisher',
       });
@@ -383,8 +393,9 @@ describe('HeadTagService', () => {
         },
       });
       tick();
-      expect(meta.addTag).toHaveBeenCalledWith({
+      expect(meta.updateTag).toHaveBeenCalledWith({
         name: 'citation_pdf_url',
+        property: 'citation_pdf_url',
         content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download',
       });
     }));
@@ -402,7 +413,7 @@ describe('HeadTagService', () => {
           },
         });
         tick();
-        expect(meta.addTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_pdf_url' }));
+        expect(meta.updateTag).not.toHaveBeenCalledWith(jasmine.objectContaining({ name: 'citation_pdf_url' }));
       }));
 
     });
@@ -419,8 +430,9 @@ describe('HeadTagService', () => {
           },
         });
         tick();
-        expect(meta.addTag).toHaveBeenCalledWith({
+        expect(meta.updateTag).toHaveBeenCalledWith({
           name: 'citation_pdf_url',
+          property: 'citation_pdf_url',
           content: 'https://request.org/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/download',
         });
       }));
@@ -442,8 +454,9 @@ describe('HeadTagService', () => {
             },
           });
           tick();
-          expect(meta.addTag).toHaveBeenCalledWith({
+          expect(meta.updateTag).toHaveBeenCalledWith({
             name: 'citation_pdf_url',
+            property: 'citation_pdf_url',
             content: 'https://request.org/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download',
           });
         }));
@@ -470,8 +483,9 @@ describe('HeadTagService', () => {
         },
       });
       tick();
-      expect(meta.addTag).not.toHaveBeenCalledWith({
+      expect(meta.updateTag).not.toHaveBeenCalledWith({
         name: 'citation_pdf_url',
+        property: 'citation_pdf_url',
         content: 'https://request.org/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/download',
       });
     }));
@@ -492,14 +506,16 @@ describe('HeadTagService', () => {
     }));
 
     it('should remove previous tags on route change', fakeAsync(() => {
-      expect(meta.removeTag).toHaveBeenCalledWith('name=\'title\'');
-      expect(meta.removeTag).toHaveBeenCalledWith('name=\'description\'');
+      expect(meta.updateTag).toHaveBeenCalledWith({ name: 'title', content: '' });
+      expect(meta.updateTag).toHaveBeenCalledWith({ name: 'description', content: '' });
     }));
 
     it('should clear all tags and add new ones on route change', () => {
       expect(store.dispatch.calls.argsFor(0)).toEqual([new ClearMetaTagAction()]);
       expect(store.dispatch.calls.argsFor(1)).toEqual([new AddMetaTagAction('title')]);
-      expect(store.dispatch.calls.argsFor(2)).toEqual([new AddMetaTagAction('description')]);
+      expect(store.dispatch.calls.argsFor(2)).toEqual([new AddMetaTagAction('og:title')]);
+      expect(store.dispatch.calls.argsFor(3)).toEqual([new AddMetaTagAction('twitter:title')]);
+      expect(store.dispatch.calls.argsFor(4)).toEqual([new AddMetaTagAction('description')]);
     });
   });
 

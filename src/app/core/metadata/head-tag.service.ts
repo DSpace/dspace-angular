@@ -1,5 +1,6 @@
 import {
   DOCUMENT,
+  isPlatformBrowser,
   isPlatformServer,
 } from '@angular/common';
 import {
@@ -29,7 +30,7 @@ import {
   concat as observableConcat,
   EMPTY,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -121,6 +122,7 @@ export class HeadTagService {
 
   private fallbackImagePath = environment.metaTags.defaultLogo;
   private defaultPageDescription = environment.metaTags.defaultDescription;
+  private origin: string;
 
   constructor(
     protected router: Router,
@@ -156,6 +158,12 @@ export class HeadTagService {
   }
 
   private processRouteChange(routeInfo: any): void {
+    this.rootService.findRoot().pipe(
+      getFirstCompletedRemoteData(),
+      filter(data => !!data),
+      map((rootRD: RemoteData<Root>) => rootRD?.payload?.dspaceUI),
+    ).subscribe(uiOrigin => this.origin = uiOrigin);
+
     this.clearMetaTags();
 
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
@@ -196,6 +204,7 @@ export class HeadTagService {
     }
 
   }
+
   protected getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
     while (route.firstChild) {
       route = route.firstChild;
@@ -206,11 +215,9 @@ export class HeadTagService {
   protected setDSOMetaTags(): void {
     const openGraphType = this.getOpenGraphType();
 
-    this.setTitleTag();
-    this.setDescriptionTag();
+    this.setTitleTags();
+    this.setDescriptionTags();
 
-    this.setOpenGraphTitleTag();
-    this.setOpenGraphDescriptionTag();
     this.setOpenGraphImageTag();
     this.setOpenGraphUrlTag();
 
@@ -218,8 +225,6 @@ export class HeadTagService {
       this.setOpenGraphTypeTag(openGraphType);
     }
 
-    this.setTwitterTitleTag();
-    this.setTwitterDescriptionTag();
     this.setTwitterImageTag();
     this.setTwitterSummaryCardTag();
 
@@ -259,27 +264,37 @@ export class HeadTagService {
   }
 
   /**
-   * Add <meta name="title" ... >  to the <head>
+   * Add <meta name="title" ... >  and
+   * <meta name="og:title" ... > and
+   * <meta name="twitter:title" ... >  to the <head>
    */
-  private setTitleTag(title?: string): void {
+  private setTitleTags(title?: string): void {
     const value = title ?? this.dsoNameService.getName(this.currentObject.getValue());
+
     this.addMetaTag('title', value);
+    this.addMetaTag('og:title', value, true);
+    this.addMetaTag('twitter:title', value, true);
+
     this.title.setTitle(value);
   }
 
   /**
-   * Add <meta name="description" ... >  to the <head>
+   * Add <meta name="description" ... > and
+   * <meta name="og:description" ... >  and
+   * <meta name="twitter:description" ... >  to the <head>
    */
-  private setDescriptionTag(description?: string): void {
+  private setDescriptionTags(description?: string): void {
     // TODO: truncate abstract
     const value = description ?? this.getMetaTagValue('dc.description.abstract');
     this.addMetaTag('description', value);
+    this.addMetaTag('og:description', value, true);
+    this.addMetaTag('twitter:description', value, true);
   }
 
   /**
    * Add <meta name="citation_title" ... >  to the <head>
    */
-  protected setCitationTitleTag(): void {
+  private setCitationTitleTag(): void {
     const value = this.getMetaTagValue('dc.title');
     this.addMetaTag('citation_title', value);
   }
@@ -288,7 +303,9 @@ export class HeadTagService {
    * Add <meta name="citation_author" ... >  to the <head>
    */
   protected setCitationAuthorTags(): void {
-    const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator']);
+    // limit author to first 20 entries to avoid issue with item page rendering
+    const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator'])
+      .slice(0, this.appConfig.item.metatagLimit);
     this.addMetaTags('citation_author', values);
   }
 
@@ -304,7 +321,7 @@ export class HeadTagService {
    * Add <meta name="citation_issn" ... >  to the <head>
    */
   protected setCitationISSNTag(): void {
-    const value = this.getMetaTagValue('dc.identifier.issn');
+    const value = this.getMetaTagValue('dc.relation.issn');
     this.addMetaTag('citation_issn', value);
   }
 
@@ -434,7 +451,6 @@ export class HeadTagService {
     this.addMetaTag('citation_technical_report_number', value);
   }
 
-
   /**
    * Add <meta name="citation_abstract_html_url" ... >  to the <head>
    */
@@ -451,7 +467,68 @@ export class HeadTagService {
   /**
    * Add <meta name="citation_pdf_url" ... >  to the <head>
    */
-  protected setCitationPdfUrlTag(): void {
+  private setCitationPdfUrlTag(): void {
+    this.setPrimaryBitstreamInBundleTag('citation_pdf_url');
+  }
+
+  /**
+   * Add <meta name="og:type" ... >  to the <head>
+   */
+  private setOpenGraphTypeTag(type: string): void {
+    this.addMetaTag('og:type', type ?? 'website', true);
+  }
+
+  /**
+   * Add <meta name="og:image" ... >  to the <head>
+   */
+  private setOpenGraphImageTag(): void {
+    this.setPrimaryImageInBundleTag('og:image');
+  }
+
+  /**
+   * Add <meta name="og:url" ... >  to the <head>
+   */
+  private setOpenGraphUrlTag(url?: string): void {
+    const value = url ?? this.getMetaTagValue('dc.identifier.uri');
+    this.addMetaTag('og:url', value);
+  }
+
+
+  /**
+   * Add <meta name="twitter:image" ... >  to the <head>
+   */
+  private setTwitterImageTag(): void {
+    this.setPrimaryImageInBundleTag('twitter:image');
+  }
+
+  /**
+   * Add <meta name="twitter:card" ... >  to the <head>
+   */
+  private setTwitterSummaryCardTag(): void {
+    this.addMetaTag('twitter:card', 'summary');
+  }
+
+  /**
+   * Get bitstream from item thumbnail link
+   *
+   * @param item
+   * @private
+   */
+  private getBitstreamFromThumbnail(item: Item): Observable<Bitstream> {
+    return hasValue(item.thumbnail) ? item.thumbnail.pipe(
+      getFirstCompletedRemoteData(),
+      map((thumbnailRD) => {
+        if (thumbnailRD.hasSucceeded && isNotEmpty(thumbnailRD.payload)) {
+          return thumbnailRD.payload;
+        } else {
+          return null;
+        }
+      }),
+      getDownloadableBitstream(this.authorizationService),
+    ) : of(null);
+  }
+
+  private setPrimaryBitstreamInBundleTag(tag: string): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
 
@@ -513,103 +590,13 @@ export class HeadTagService {
         this.addMetaTag(
           'citation_pdf_url',
           new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
+          true,
         );
       });
     }
   }
 
-  /**
-   * Add <meta name="og:type" ... >  to the <head>
-   */
-  private setOpenGraphTypeTag(type: string): void {
-    this.addMetaTag('og:type', type);
-  }
-
-  /**
-   * Add <meta name="og:title" ... >  to the <head>
-   */
-  private setOpenGraphTitleTag(title?: string): void {
-    const value = title ?? this.getMetaTagValue('dc.title');
-    this.addMetaTag('og:title', value);
-  }
-
-  /**
-   * Add <meta name="og:description" ... >  to the <head>
-   */
-  private setOpenGraphDescriptionTag(description?: string): void {
-    // TODO: truncate abstract
-    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
-    this.addMetaTag('og:description', value);
-  }
-
-  /**
-   * Add <meta name="og:image" ... >  to the <head>
-   */
-  private setOpenGraphImageTag(): void {
-    this.setPrimaryBitstreamInBundleTag('og:image');
-  }
-
-  /**
-   * Add <meta name="og:url" ... >  to the <head>
-   */
-  private setOpenGraphUrlTag(url?: string): void {
-    const value = url ?? this.getMetaTagValue('dc.identifier.uri');
-    this.addMetaTag('og:url', value);
-  }
-
-
-  /**
-   * Add <meta name="twitter:title" ... >  to the <head>
-   */
-  private setTwitterTitleTag(title?: string): void {
-    const value = title ?? this.getMetaTagValue('dc.title');
-    this.addMetaTag('twitter:title', value);
-  }
-
-  /**
-   * Add <meta name="twitter:description" ... >  to the <head>
-   */
-  private setTwitterDescriptionTag(description?: string): void {
-    // TODO: truncate abstract
-    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
-    this.addMetaTag('twitter:description', value);
-  }
-
-  /**
-   * Add <meta name="twitter:image" ... >  to the <head>
-   */
-  private setTwitterImageTag(): void {
-    this.setPrimaryBitstreamInBundleTag('twitter:image');
-  }
-
-  /**
-   * Add <meta name="twitter:card" ... >  to the <head>
-   */
-  private setTwitterSummaryCardTag(): void {
-    this.addMetaTag('twitter:card', 'summary');
-  }
-
-  /**
-   * Get bitstream from item thumbnail link
-   *
-   * @param item
-   * @private
-   */
-  private getBitstreamFromThumbnail(item: Item): Observable<Bitstream> {
-    return item.thumbnail.pipe(
-      getFirstCompletedRemoteData(),
-      map((thumbnailRD) => {
-        if (thumbnailRD.hasSucceeded && isNotEmpty(thumbnailRD.payload)) {
-          return thumbnailRD.payload;
-        } else {
-          return null;
-        }
-      }),
-      getDownloadableBitstream(this.authorizationService),
-    );
-  }
-
-  private setPrimaryBitstreamInBundleTag(tag: string): void {
+  private setPrimaryImageInBundleTag(tag: string): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
       this.getBitstreamFromThumbnail(item).pipe(
@@ -626,7 +613,8 @@ export class HeadTagService {
           // Use the found link to set the <meta> tag
           this.addMetaTag(
             tag,
-            new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
+            new URLCombiner(this.getUrlOrigin(), link).toString(),
+            true,
           );
         } else {
           this.addFallbackImageToTag(tag);
@@ -638,7 +626,7 @@ export class HeadTagService {
   }
 
   getBitLinkIfDownloadable(bitstream: Bitstream, bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
-    return observableOf(bitstream).pipe(
+    return of(bitstream).pipe(
       getDownloadableBitstream(this.authorizationService),
       switchMap((bit: Bitstream) => {
         if (hasValue(bit)) {
@@ -675,7 +663,7 @@ export class HeadTagService {
         )),
       ).pipe(
         // Verify that the bitstream is downloadable
-        mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
+        mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => of(bitstream).pipe(
           getDownloadableBitstream(this.authorizationService),
           map((bit: Bitstream) => [bit, format]),
         )),
@@ -699,6 +687,7 @@ export class HeadTagService {
   protected setGenerator(): void {
     this.rootService.findRoot().pipe(getFirstSucceededRemoteDataPayload()).subscribe((root) => {
       this.meta.addTag({ name: 'Generator', content: root.dspaceVersion });
+      this.meta.addTag({ name: 'Generator', content: root.crisVersion });
     });
   }
 
@@ -751,11 +740,11 @@ export class HeadTagService {
   }
 
   protected getMetaTagValue(key: string): string {
-    return this.currentObject.value.firstMetadataValue(key);
+    return this.currentObject?.value?.firstMetadataValue(key);
   }
 
   protected getFirstMetaTagValue(keys: string[]): string {
-    return this.currentObject.value.firstMetadataValue(keys);
+    return this.currentObject?.value?.firstMetadataValue(keys);
   }
 
   protected getMetaTagValuesAndCombine(key: string): string {
@@ -766,10 +755,11 @@ export class HeadTagService {
     return this.currentObject.value.allMetadataValues(keys);
   }
 
-  protected addMetaTag(name: string, content: string): void {
+  protected addMetaTag(name: string, content: string, isProperty = false): void {
     if (content) {
-      const tag = { name, content } as MetaDefinition;
-      this.meta.addTag(tag);
+      const tag = isProperty ? { name, property: name, content } as MetaDefinition
+        : { name, content } as MetaDefinition;
+      this.meta.updateTag(tag);
       this.storeTag(name);
     }
   }
@@ -784,24 +774,25 @@ export class HeadTagService {
     this.store.dispatch(new AddMetaTagAction(key));
   }
 
-  protected clearMetaTags(): void {
+  protected clearMetaTags() {
+    this.schemaJsonLDService.removeStructuredData();
     this.store.pipe(
       select(tagsInUseSelector),
       take(1),
     ).subscribe((tagsInUse: string[]) => {
       for (const name of tagsInUse) {
-        this.meta.removeTag('name=\'' + name + '\'');
+        // updating to empty tag avoid to remove the tag so we don't update the dom
+        this.meta.updateTag({ name, content: '' });
       }
       this.store.dispatch(new ClearMetaTagAction());
     });
   }
 
-
-
   private addFallbackImageToTag(tag: string) {
     this.addMetaTag(
       tag,
-      new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.fallbackImagePath).toString(),
+      new URLCombiner(this.getUrlOrigin(), this.fallbackImagePath).toString(),
+      true,
     );
   }
 
@@ -841,19 +832,19 @@ export class HeadTagService {
     const pageUrl = new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.router.url).toString();
     const genericPageOpenGraphType = 'website';
 
-    this.setTitleTag(pageDocumentTitle);
-    this.setDescriptionTag(this.defaultPageDescription);
+    this.setTitleTags(pageDocumentTitle);
+    this.setDescriptionTags(this.defaultPageDescription);
 
-    this.setOpenGraphTitleTag(pageDocumentTitle);
-    this.setOpenGraphDescriptionTag(this.defaultPageDescription);
     this.setOpenGraphUrlTag(pageUrl);
     this.setOpenGraphImageTag();
     this.setOpenGraphTypeTag(genericPageOpenGraphType);
 
 
-    this.setTwitterTitleTag(pageDocumentTitle);
-    this.setTwitterDescriptionTag(this.defaultPageDescription);
     this.setTwitterImageTag();
     this.setTwitterSummaryCardTag();
+  }
+
+  private getUrlOrigin(): string {
+    return isPlatformBrowser(this.platformId) ? this.hardRedirectService.getCurrentOrigin() : this.origin;
   }
 }
