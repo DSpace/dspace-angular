@@ -29,7 +29,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
         resolve: {
           dso: CommunityPageResolver,
           breadcrumb: CommunityBreadcrumbResolver,
-          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -49,6 +48,9 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: '',
             component: ThemedCommunityPageComponent,
             pathMatch: 'full',
+            resolve: {
+              menu: DSOEditMenuResolver,
+            },
           }
         ],
         data: {
