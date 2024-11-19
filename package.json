@@ -57,20 +57,20 @@
   "private": true,
   "overrides": {
     "@kolkov/ngx-gallery": {
-      "@angular/animations": "^17.3.11",
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11"
+      "@angular/animations": "^18.2.12",
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12"
     },
     "@ng-bootstrap/ng-bootstrap": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11",
-      "@angular/forms": "^17.3.11",
-      "@angular/localize": "^17.3.11"
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12",
+      "@angular/forms": "^18.2.12",
+      "@angular/localize": "^18.2.12"
     },
     "@ng-dynamic-forms/core": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11",
-      "@angular/forms": "^17.3.11"
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12",
+      "@angular/forms": "^18.2.12"
     },
     "@ng-dynamic-forms/ui-ng-bootstrap": {
       "ngx-mask": "14.2.4",
@@ -78,15 +78,15 @@
       "bootstrap": "^5.3"
     },
     "@nicky-lenaers/ngx-scroll-to": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11"
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12"
     },
     "eslint-plugin-unused-imports": {
       "@typescript-eslint/eslint-plugin": "^7.2.0"
     },
     "ngx-infinite-scroll": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11"
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12"
     }
   },
   "dependencies": {
