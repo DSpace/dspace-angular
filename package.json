@@ -115,9 +115,9 @@
     "@ng-bootstrap/ng-bootstrap": "^12.0.0",
     "@ng-dynamic-forms/core": "^16.0.0",
     "@ng-dynamic-forms/ui-ng-bootstrap": "^16.0.0",
-    "@ngrx/effects": "^17.1.1",
-    "@ngrx/router-store": "^17.1.1",
-    "@ngrx/store": "^17.1.1",
+    "@ngrx/effects": "^18.1.1",
+    "@ngrx/router-store": "^18.1.1",
+    "@ngrx/store": "^18.1.1",
     "@ngx-translate/core": "^14.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
     "angulartics2": "^12.2.0",
@@ -164,7 +164,8 @@
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.0",
     "uuid": "^8.3.2",
-    "zone.js": "~0.14.10"
+    "zone.js": "~0.14.10",
+    "@ngrx/operators": "^18.0.0"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "~17.0.2",
@@ -181,7 +182,7 @@
     "@angular/language-service": "^18.2.12",
     "@cypress/schematic": "^1.5.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "@ngrx/store-devtools": "^17.1.1",
+    "@ngrx/store-devtools": "^18.1.1",
     "@ngtools/webpack": "^16.2.16",
     "@types/deep-freeze": "0.1.5",
     "@types/ejs": "^3.1.2",
