@@ -1,6 +1,6 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -15,23 +15,17 @@ import { RootModule } from '../../app/root.module';
 const DECLARATIONS = [
 ];
 
-@NgModule({
-  imports: [
-    RootModule,
-    CommonModule,
-    DragDropModule,
-    FormsModule,
-    HttpClientModule,
-    NgbModule,
-    RouterModule,
-    ScrollToModule,
-    StoreModule,
-    StoreRouterConnectingModule,
-    TranslateModule,
-    FormsModule,
-  ],
-  declarations: DECLARATIONS,
-})
+@NgModule({ declarations: DECLARATIONS, imports: [RootModule,
+        CommonModule,
+        DragDropModule,
+        FormsModule,
+        NgbModule,
+        RouterModule,
+        ScrollToModule,
+        StoreModule,
+        StoreRouterConnectingModule,
+        TranslateModule,
+        FormsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 
 /**
  * This module serves as an index for all the components in this theme.

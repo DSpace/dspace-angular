@@ -1,8 +1,5 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
@@ -39,24 +36,23 @@ describe('LogInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        StoreModule.forRoot(appReducers, storeModuleConfig),
-      ],
-      providers: [
+    imports: [StoreModule.forRoot(appReducers, storeModuleConfig)],
+    providers: [
         DspaceRestService,
         // LogInterceptor,
         {
-          provide: HTTP_INTERCEPTORS,
-          useClass: LogInterceptor,
-          multi: true,
+            provide: HTTP_INTERCEPTORS,
+            useClass: LogInterceptor,
+            multi: true,
         },
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: Router, useValue: router },
         { provide: CorrelationIdService, useClass: CorrelationIdService },
         { provide: UUIDService, useClass: UUIDService },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
 
     service = TestBed.inject(DspaceRestService);
     httpMock = TestBed.inject(HttpTestingController);

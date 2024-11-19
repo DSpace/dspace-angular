@@ -1,7 +1,4 @@
-import {
-  HttpHeaders,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaceOperation } from 'fast-json-patch';
 import { Observable } from 'rxjs';

@@ -1,12 +1,5 @@
-import {
-  HTTP_INTERCEPTORS,
-  HttpHeaders,
-  HttpXsrfTokenExtractor,
-} from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HTTP_INTERCEPTORS, HttpHeaders, HttpXsrfTokenExtractor, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
@@ -35,18 +28,20 @@ describe(`XsrfInterceptor`, () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         DspaceRestService,
         {
-          provide: HTTP_INTERCEPTORS,
-          useClass: XsrfInterceptor,
-          multi: true,
+            provide: HTTP_INTERCEPTORS,
+            useClass: XsrfInterceptor,
+            multi: true,
         },
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock(testToken) },
         { provide: CookieService, useValue: new CookieServiceMock() },
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
 
     service = TestBed.get(DspaceRestService);
     httpMock = TestBed.get(HttpTestingController);

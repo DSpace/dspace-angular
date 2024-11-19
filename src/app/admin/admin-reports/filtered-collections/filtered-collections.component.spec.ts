@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
@@ -20,6 +20,7 @@ import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.mode
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
 import { FilteredCollectionsComponent } from './filtered-collections.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('FiltersComponent', () => {
   let component: FilteredCollectionsComponent;
@@ -39,23 +40,22 @@ describe('FiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NgbAccordionModule,
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [NgbAccordionModule,
         TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+            loader: {
+                provide: TranslateLoader,
+                useClass: TranslateLoaderMock,
+            },
         }),
-        HttpClientTestingModule,
-        FilteredCollectionsComponent,
-      ],
-      providers: [
+        FilteredCollectionsComponent],
+    providers: [
         FormBuilder,
         DspaceRestService,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
   }));
 
   beforeEach(waitForAsync(() => {

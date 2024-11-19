@@ -1,8 +1,4 @@
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import {
   Observable,
   of as observableOf,
