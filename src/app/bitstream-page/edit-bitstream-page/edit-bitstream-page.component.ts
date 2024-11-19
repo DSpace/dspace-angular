@@ -2,7 +2,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import {
+  combineLatest,
+  combineLatest as observableCombineLatest, EMPTY,
+  expand,
+  Observable,
+  of as observableOf, reduce,
+  Subscription
+} from 'rxjs';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -113,7 +120,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * Options for fetching all bitstream formats
    */
-  findAllOptions = { elementsPerPage: 9999 };
+  findAllOptions = {
+    elementsPerPage: 20,
+    currentPage: 1
+  };
 
   /**
    * The Dynamic Input Model for the file's name
@@ -396,14 +406,27 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.itemId = this.route.snapshot.queryParams.itemId;
     this.entityType = this.route.snapshot.queryParams.entityType;
     this.bitstreamRD$ = this.route.data.pipe(map((data: any) => data.bitstream));
-    this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
 
-    const bitstream$ = this.bitstreamRD$.pipe(
+    this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions).pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
+      expand((response: RemoteData<PaginatedList<BitstreamFormat>>) => {
+        const pageInfo = response.payload.pageInfo;
+        if (pageInfo.currentPage < pageInfo.totalPages) {
+          const nextPageOptions = { ...this.findAllOptions, currentPage: pageInfo.currentPage + 1 };
+          return this.bitstreamFormatService.findAll(nextPageOptions).pipe(getFirstSucceededRemoteData());
+        } else {
+          return EMPTY;
+        }
+      }),
     );
 
-    const allFormats$ = this.bitstreamFormatsRD$.pipe(
+    const bitstreamFormats$ = this.bitstreamFormatsRD$.pipe(
+      reduce((acc: BitstreamFormat[], response: RemoteData<PaginatedList<BitstreamFormat>>) => {
+          return acc.concat(response.payload.page);
+        }, [])
+    )
+
+    const bitstream$ = this.bitstreamRD$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
     );
@@ -426,14 +449,14 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.subs.push(
       observableCombineLatest(
         bitstream$,
-        allFormats$,
+        bitstreamFormats$,
         bundle$,
         primaryBitstream$,
         item$,
       ).pipe()
         .subscribe(([bitstream, allFormats, bundle, primaryBitstream, item]) => {
           this.bitstream = bitstream as Bitstream;
-          this.formats = allFormats.page;
+          this.formats = allFormats;
           this.bundle = bundle;
           // hasValue(primaryBitstream) because if there's no primaryBitstream on the bundle it will
           // be a success response, but empty
