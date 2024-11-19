@@ -6,7 +6,7 @@
               <ds-search-filter [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters" [scope]="currentScope"></ds-search-filter>
           </div>
       </div>
-      <button *ngIf="inPlaceSearch" class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" (click)="minimizeFilters()" queryParamsHandling="merge" role="button">
+      <button *ngIf="inPlaceSearch" class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">
   <i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}
 </button>
 </div>
