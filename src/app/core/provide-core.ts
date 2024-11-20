@@ -16,6 +16,7 @@ import { AccessStatusObject } from '../shared/object-collection/shared/badges/ac
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
+import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
@@ -186,4 +187,5 @@ export const models =
     Itemfilter,
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
+    SystemWideAlert,
   ];
