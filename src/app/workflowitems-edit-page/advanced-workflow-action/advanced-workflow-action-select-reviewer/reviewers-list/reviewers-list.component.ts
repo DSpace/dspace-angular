@@ -112,6 +112,10 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
       scope: 'metadata',
       query: '',
     }));
+
+    this.searchCurrentMembersForm = this.formBuilder.group(({
+      queryCurrentMembers: '',
+    }));
   }
 
   ngOnChanges(changes: SimpleChanges): void {

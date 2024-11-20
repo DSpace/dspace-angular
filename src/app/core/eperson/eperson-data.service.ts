@@ -241,7 +241,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     return this.searchBy('isNotMemberOf', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
-    /**
+  /**
    * Searches for all EPerons which are a member of a given group, via a passed in query
    * (searches all EPerson metadata and by exact UUID).
    * Endpoint used: /eperson/epesons/search/isMemberOf?query=<:string>&group=<:uuid>
@@ -255,19 +255,19 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
    */
-    public searchMembers(query: string, group: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
-      const searchParams = [new RequestParam('query', query), new RequestParam('group', group)];
-      let findListOptions = new FindListOptions();
-      if (options) {
-        findListOptions = Object.assign(new FindListOptions(), options);
-      }
-      if (findListOptions.searchParams) {
-        findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
-      } else {
-        findListOptions.searchParams = searchParams;
-      }
-      return this.searchBy('isMemberOf', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  public searchMembers(query: string, group: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
+    const searchParams = [new RequestParam('query', query), new RequestParam('group', group)];
+    let findListOptions = new FindListOptions();
+    if (options) {
+      findListOptions = Object.assign(new FindListOptions(), options);
     }
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
+    } else {
+      findListOptions.searchParams = searchParams;
+    }
+    return this.searchBy('isMemberOf', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
 
   /**
    * Add a new patch to the object cache

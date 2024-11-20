@@ -454,15 +454,6 @@
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.failure": "Пайдаланушыны жою мүмкін емес\"{{name}}\"",
 
-  // "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No current active eperson",
-  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "Ағымдағы белсенді адам жоқ",
-
-  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Deleted Membership From Group: \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.success.deleteMembership": "Топтан жойылған мүшелік: \"{{name}}\"",
-
-  // "admin.access-control.epeople.form.notification.failure.deleteMembership": "Can't Delete Membership From Group: \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.failure.deleteMembership": "Топтан мүшелікті жою мүмкін емес: \"{{name}}\"",
-
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Осы топтардың мүшесі:",
 
@@ -474,9 +465,6 @@
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Жинақ/Қауымдастық",
-
-  // "admin.access-control.epeople.form.table.remove": "Remove",
-  "admin.access-control.epeople.form.table.remove": "Жою",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Бұл адам ешқандай топтың мүшесі емес",
@@ -2258,6 +2246,9 @@
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Біз сіздің жеке ақпаратыңызды келесі мақсаттарда жинаймыз және өңдейміз: <strong>Аутентификация, Параметрлері, Растау және Статистикалар</strong>. <br/> Көбірек білу үшін, біздің  {privacyPolicy} оқуыңызды өтінеміз.",
+
+  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
+  "cookies.consent.content-notice.description.no-privacy": "Біз сіздің жеке мәліметтеріңізді келесі мақсаттар үшін жинаймыз және өңдейміз: <strong>Аутентификация, Қалаулар, Растау және статистикасы</strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Баптау",

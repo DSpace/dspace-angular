@@ -370,9 +370,9 @@ export class MembersListComponent implements OnInit, OnDestroy {
   }
 
   /**
- * Search all EPeople who are a member of the current group by name, email or metadata
- * @param data  Contains query param
- */
+  * Search all EPeople who are a member of the current group by name, email or metadata
+  * @param data  Contains query param
+  */
   searchMembers(data: any) {
     this.unsubFrom(SubKey.Members);
     this.subs.set(SubKey.Members,
@@ -463,6 +463,6 @@ export class MembersListComponent implements OnInit, OnDestroy {
     this.searchCurrentMembersForm.patchValue({
       queryCurrentMembers:'',
     });
-    this.searchMembers({queryCurrentMembers: ''});
+    this.searchMembers({ queryCurrentMembers: '' });
   }
 }
