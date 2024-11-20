@@ -68,7 +68,9 @@ export class ServerInitService extends InitService {
     return async () => {
       this.checkAuthenticationToken();
       this.saveAppConfigForCSR();
-      this.saveAppState();
+      if (this.appConfig.ui.transferState) {
+        this.saveAppState();
+      }
       this.initCorrelationId();
 
       this.checkEnvironment();

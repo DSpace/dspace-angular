@@ -269,6 +269,13 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
     })
     .then((html) => {
       if (hasValue(html)) {
+        // Replace REST URL with UI URL
+        if (environment.ui.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
+          const t0 = Date.now();
+          html = html.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
+          console.log(`Replaced all SSR URLs in HTML in ${Date.now() - t0}ms`); // todo: remove this
+        }
+
         // save server side rendered page to cache (if any are enabled)
         saveToCache(req, html);
         if (sendToUser) {
