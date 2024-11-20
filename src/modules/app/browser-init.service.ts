@@ -90,7 +90,9 @@ export class BrowserInitService extends InitService {
 
   protected init(): () => Promise<boolean> {
     return async () => {
-      await this.loadAppState();
+      if (this.appConfig.ui.transferState) {
+        await this.loadAppState();
+      }
       this.checkAuthenticationToken();
       this.externalAuthCheck();
       this.initCorrelationId();
@@ -122,7 +124,7 @@ export class BrowserInitService extends InitService {
    */
   private async loadAppState(): Promise<boolean> {
     // The app state can be transferred only when SSR and CSR are using the same base url for the REST API
-    if (!this.appConfig.rest.hasSsrBaseUrl) {
+    if (this.appConfig.ui.transferState && (!this.appConfig.rest.hasSsrBaseUrl || this.appConfig.ui.replaceRestUrl)) {
       const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
       this.transferState.remove(InitService.NGRX_STATE);
       this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));

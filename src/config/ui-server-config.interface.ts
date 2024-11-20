@@ -13,4 +13,7 @@ export class UIServerConfig extends ServerConfig {
 
   // Trust X-FORWARDED-* headers from proxies
   useProxies: boolean;
+
+  transferState: boolean;
+  replaceRestUrl: boolean;
 }
