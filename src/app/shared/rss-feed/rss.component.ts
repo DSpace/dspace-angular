@@ -9,7 +9,7 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
@@ -34,6 +34,8 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SearchFilter } from '../search/models/search-filter.model';
+import { hasValue } from '../empty.util';
+import { isUndefined } from 'lodash';
 /**
  * The Rss feed button component.
  */
@@ -53,6 +55,8 @@ export class RSSComponent implements OnInit, OnDestroy  {
 
   isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
+  isActivated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   uuid: string;
 
   subs: Subscription[] = [];
@@ -62,6 +66,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
               private configurationService: ConfigurationDataService,
               private searchConfigurationService: SearchConfigurationService,
               private router: Router,
+              private route: ActivatedRoute,
               protected paginationService: PaginationService,
               protected translateService: TranslateService) {
   }
@@ -80,6 +85,11 @@ export class RSSComponent implements OnInit, OnDestroy  {
    * Generates the link tags and the url to opensearch when the component is loaded.
    */
   ngOnInit(): void {
+    if (hasValue(this.route.snapshot.data?.enableRSS)) {
+      this.isActivated$.next(this.route.snapshot.data.enableRSS);
+    } else if (isUndefined(this.route.snapshot.data?.enableRSS)) {
+      this.isActivated$.next(false);
+    }
     this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((result) => {
