@@ -50,6 +50,7 @@ import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { BundleDataService } from '../data/bundle-data.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RootDataService } from '../data/root-data.service';
@@ -70,7 +71,6 @@ import {
   ClearMetaTagAction,
 } from './meta-tag.actions';
 import { MetaTagState } from './meta-tag.reducer';
-import { FindListOptions } from '../data/find-list-options.model';
 
 /**
  * The base selector function to select the metaTag section in the store
