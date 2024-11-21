@@ -241,35 +241,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   }
 
   /**
-   * Select all items that were found using the current search query
-   */
-  selectAll() {
-    this.allSelected = true;
-    this.selectAllLoading = true;
-    const fullPagination = Object.assign(new PaginationComponentOptions(), {
-      currentPage: 1,
-      pageSize: 9999,
-    });
-    const fullSearchConfig = Object.assign(this.lookupRelationService.searchConfig, { pagination: fullPagination });
-    const results$ = this.searchService.search<Item>(fullSearchConfig);
-    results$.pipe(
-      getFirstSucceededRemoteData(),
-      map((resultsRD) => resultsRD.payload.page),
-      tap(() => this.selectAllLoading = false),
-      switchMap((results) => this.selection$.pipe(
-        take(1),
-        tap((selection: SearchResult<Item>[]) => {
-          const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
-          this.selectObject.emit(...filteredResults);
-        }),
-        mapTo(results),
-      )),
-    ).subscribe((results) => {
-      this.selectableListService.select(this.listId, results);
-    });
-  }
-
-  /**
    * setSelectedIds select all the items from the results that have relationship
    * @param idOfItems the uuid of items that are being checked
    * @param resultListOfItems the list of results of the items
