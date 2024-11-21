@@ -73,7 +73,7 @@ export class MetadataRenderComponent implements OnInit {
 
   ngOnInit(): void {
     this.metadataValueViewRef.clear();
-    this.renderingSubType = computeRenderingFn(this.field.rendering);
+    this.renderingSubType = computeRenderingFn(this.field.rendering, true);
     this.generateComponentRef();
   }
 
