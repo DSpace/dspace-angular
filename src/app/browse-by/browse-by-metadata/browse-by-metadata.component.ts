@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformServer,
   NgIf,
 } from '@angular/common';
 import {
@@ -9,6 +10,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -111,6 +113,11 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Input() displayTitle = true;
 
+  /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide = false;
+
   scope$: BehaviorSubject<string> = new BehaviorSubject(undefined);
 
   /**
@@ -199,6 +206,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
                      protected router: Router,
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
+                     @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
@@ -210,7 +218,10 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
 
   ngOnInit(): void {
-
+    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);

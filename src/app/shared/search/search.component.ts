@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformServer,
   NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
@@ -12,6 +13,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   NavigationStart,
@@ -237,6 +239,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() hideScopeInUrl: boolean;
 
   /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide = false;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -250,6 +257,7 @@ export class SearchComponent implements OnDestroy, OnInit {
    * The current sort options used
    */
   currentScope$: Observable<string>;
+
 
   /**
    * The current sort options used
@@ -345,6 +353,7 @@ export class SearchComponent implements OnDestroy, OnInit {
               protected routeService: RouteService,
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
@@ -357,6 +366,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+      this.initialized$.next(true);
+      return;
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);

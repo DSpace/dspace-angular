@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformServer,
   NgIf,
 } from '@angular/common';
 import {
@@ -8,7 +9,10 @@ import {
 } from '@angular/core';
 import { Params } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
@@ -57,6 +61,10 @@ import {
 export class BrowseByTitleComponent extends BrowseByMetadataComponent implements OnInit {
 
   ngOnInit(): void {
+    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('dc.title', SortDirection.ASC);
     // include the thumbnail configuration in browse search options
     this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, this.fetchThumbnails));
