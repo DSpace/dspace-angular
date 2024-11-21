@@ -10,7 +10,6 @@ import {
   map,
   mergeMap,
   reduce,
-  switchMap,
   toArray,
 } from 'rxjs/operators';
 
@@ -90,7 +89,7 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
           if (currentPage < totalPages) {
             const nextPageInfo = { currentPage: currentPage + 1, elementsPerPage: 20 };
             return this.findAllData.findAll(nextPageInfo, true, true, followLink('leftType'), followLink('rightType')).pipe(
-              getFirstSucceededRemoteData()
+              getFirstSucceededRemoteData(),
             );
           } else {
             return EMPTY;

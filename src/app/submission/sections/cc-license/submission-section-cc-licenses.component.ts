@@ -29,6 +29,8 @@ import {
 } from 'rxjs/operators';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import {
@@ -52,8 +54,6 @@ import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -315,7 +315,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
           if (currentPage < totalPages) {
             const nextPageInfo = { currentPage: currentPage + 1, elementsPerPage: 20 };
             return this.submissionCcLicensesDataService.findAll(nextPageInfo).pipe(
-              getFirstSucceededRemoteData()
+              getFirstSucceededRemoteData(),
             );
           } else {
             return EMPTY;

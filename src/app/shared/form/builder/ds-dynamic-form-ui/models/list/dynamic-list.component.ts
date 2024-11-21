@@ -26,6 +26,11 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import findKey from 'lodash/findKey';
+import {
+  EMPTY,
+  reduce,
+} from 'rxjs';
+import { expand } from 'rxjs/operators';
 
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
@@ -39,8 +44,6 @@ import {
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
-import { EMPTY, reduce } from 'rxjs';
-import { expand } from 'rxjs/operators';
 
 export interface ListItem {
   id: string;
@@ -157,13 +160,13 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
               elementsPerPage: 20, currentPage: entries.pageInfo.currentPage + 1,
             } as PageInfo);
             return this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, nextPageInfo).pipe(
-              getFirstSucceededRemoteDataPayload()
+              getFirstSucceededRemoteDataPayload(),
             );
           } else {
             return EMPTY;
           }
         }),
-        reduce((acc: VocabularyEntry[], entries: PaginatedList<VocabularyEntry>) => acc.concat(entries.page), [])
+        reduce((acc: VocabularyEntry[], entries: PaginatedList<VocabularyEntry>) => acc.concat(entries.page), []),
       ).subscribe((allEntries: VocabularyEntry[]) => {
         let groupCounter = 0;
         let itemsPerGroup = 0;

@@ -30,7 +30,8 @@ import {
   filter,
   map,
   switchMap,
-  take, tap,
+  take,
+  tap,
 } from 'rxjs/operators';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -57,6 +58,7 @@ import {
 } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
@@ -65,7 +67,6 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -181,11 +182,11 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     this.bundlesOptions = Object.assign(new PaginationComponentOptions(), this.bundlesOptions, {
       currentPage: currentPage || this.bundlesOptions.currentPage + 1,
     });
-    this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
+    this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({ pagination: this.bundlesOptions })).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       tap((bundlesPL: PaginatedList<Bundle>) =>
-        this.showLoadMoreLink$.next(bundlesPL.pageInfo.currentPage < bundlesPL.pageInfo.totalPages)
+        this.showLoadMoreLink$.next(bundlesPL.pageInfo.currentPage < bundlesPL.pageInfo.totalPages),
       ),
       map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
     ).subscribe((bundles: Bundle[]) => {

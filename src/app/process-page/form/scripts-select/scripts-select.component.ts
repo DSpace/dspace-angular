@@ -21,7 +21,9 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   Subscription,
@@ -31,21 +33,17 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import {
-  hasValue,
-} from '../../../shared/empty.util';
-import { Script } from '../../scripts/script.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { Script } from '../../scripts/script.model';
 import { controlContainerFactory } from '../process-form-factory';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
 
@@ -103,7 +101,7 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
    * Load the scripts and check if the route contains a script
    */
   loadScripts() {
-    if (this.isLoading$.value) return;
+    if (this.isLoading$.value) {return;}
     this.isLoading$.next(true);
 
     this.subscription = this.scriptService.findAll(this.scriptOptions).pipe(

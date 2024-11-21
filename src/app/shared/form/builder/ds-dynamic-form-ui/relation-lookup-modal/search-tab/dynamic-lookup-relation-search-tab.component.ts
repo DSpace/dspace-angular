@@ -16,13 +16,7 @@ import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import {
-  map,
-  mapTo,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
@@ -44,7 +38,6 @@ import { hasValue } from '../../../../../empty.util';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
 import { SearchResult } from '../../../../../search/models/search-result.model';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
