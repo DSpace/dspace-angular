@@ -3,7 +3,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
