@@ -8,19 +8,23 @@ import {
   Inject,
 } from '@angular/core';
 import {
+  NgbDropdownModule,
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  EMPTY,
   Observable,
   of as observableOf,
   Subscription,
 } from 'rxjs';
 import {
   distinctUntilChanged,
+  expand,
   filter,
   map,
+  reduce,
   take,
 } from 'rxjs/operators';
 
@@ -48,6 +52,8 @@ import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -64,6 +70,7 @@ import { SectionsType } from '../sections-type';
     VarDirective,
     NgForOf,
     DsSelectComponent,
+    NgbDropdownModule,
   ],
   standalone: true,
 })
@@ -300,12 +307,25 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         }
         this.sectionData.data = data;
       }),
-      this.submissionCcLicensesDataService.findAll({ elementsPerPage: 9999 }).pipe(
+      this.submissionCcLicensesDataService.findAll({ currentPage: 1, elementsPerPage: 20 }).pipe(
         getFirstSucceededRemoteData(),
-        getRemoteDataPayload(),
-        map((list) => list.page),
+        expand((typeListRD: RemoteData<PaginatedList<SubmissionCcLicence>>) => {
+          const currentPage = typeListRD.payload.pageInfo.currentPage;
+          const totalPages = typeListRD.payload.pageInfo.totalPages;
+          if (currentPage < totalPages) {
+            const nextPageInfo = { currentPage: currentPage + 1, elementsPerPage: 20 };
+            return this.submissionCcLicensesDataService.findAll(nextPageInfo).pipe(
+              getFirstSucceededRemoteData()
+            );
+          } else {
+            return EMPTY;
+          }
+        }),
+        reduce((acc: SubmissionCcLicence[], typeListRD: RemoteData<PaginatedList<SubmissionCcLicence>>) => acc.concat(typeListRD.payload.page), []),
       ).subscribe(
-        (licenses) => this.submissionCcLicenses = licenses,
+        (licenses) => {
+          this.submissionCcLicenses = licenses;
+        },
       ),
       this.configService.findByPropertyName('cc.license.jurisdiction').pipe(
         getFirstCompletedRemoteData(),
