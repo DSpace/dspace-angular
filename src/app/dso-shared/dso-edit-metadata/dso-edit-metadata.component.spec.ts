@@ -21,6 +21,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import { METRIC } from '../../core/shared/metric.resource-type';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 import { AlertComponent } from '../../shared/alert/alert.component';
@@ -44,6 +45,7 @@ const DISCARD_BTN = 'discard';
 
 const mockDataServiceMap: any = new Map([
   [ITEM.value, () => import('../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [METRIC.value, () => import('../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 
 const metadataSecurityConfigDataServiceSpy = jasmine.createSpyObj('metadataSecurityConfigDataService', {
