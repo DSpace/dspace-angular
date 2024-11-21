@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, Input, PLATFORM_ID } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -37,7 +37,10 @@ export const BBM_PAGINATION_ID = 'bbm';
  * 'dc.contributor.*'
  */
 export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
-
+  /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide = false;
   /**
    * The list of browse-entries to display
    */
@@ -134,6 +137,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
                      protected router: Router,
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
+                     @Inject(PLATFORM_ID) public platformId: any,
   ) {
 
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
@@ -146,7 +150,10 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-
+    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);

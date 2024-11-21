@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../core/shared/item.model';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
@@ -22,6 +22,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
+import { BrowseEntry } from "../../core/shared/browse-entry.model";
 
 
 describe('BrowseByTitlePageComponent', () => {
@@ -96,5 +97,34 @@ describe('BrowseByTitlePageComponent', () => {
     comp.items$.subscribe((result) => {
       expect(result.payload.page).toEqual(mockItems);
     });
+  });
+
+  describe('when rendered in SSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'server';
+      spyOn((comp as any).browseService, 'getBrowseEntriesFor');
+    });
+
+    it('should not call getBrowseEntriesFor on init', (done) => {
+      comp.ngOnInit();
+      expect((comp as any).browseService.getBrowseEntriesFor).not.toHaveBeenCalled();
+      comp.loading$.subscribe((res) => {
+        expect(res).toBeFalsy();
+        done();
+      });
+    });
+  });
+
+  describe('when rendered in CSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'browser';
+      spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+    });
+
+    it('should call getBrowseEntriesFor on init', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(100);
+      expect((comp as any).browseService.getBrowseEntriesFor).toHaveBeenCalled();
+    }));
   });
 });
