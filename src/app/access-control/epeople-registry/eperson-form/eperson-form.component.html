@@ -79,7 +79,7 @@
                 <td class="align-middle">{{ dsoNameService.getName((group.object | async)?.payload) }}</td>
                 <td class="align-middle">
                   <button (click)="deleteGroupFromMember(group)"
-                      [ngClass]="['btn btn-sm', 'btn-outline-danger']">
+                      type="button" [ngClass]="['btn btn-sm', 'btn-outline-danger']">
                       <i class="fas fa-trash-alt fa-fw"></i>
                   </button>
                 </td>
