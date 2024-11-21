@@ -12,6 +12,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { CRIS_FIELD_RENDERING_MAP } from '../../../../../../../../../config/app-config.interface';
 import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../../core/shared/metadata.models';
@@ -19,7 +20,8 @@ import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../../../shared/form
 import { TranslateLoaderMock } from '../../../../../../../../shared/mocks/translate-loader.mock';
 import { boxMetadata } from '../../../../../../../../shared/testing/box.mock';
 import { DsDatePipe } from '../../../../../../../pipes/ds-date.pipe';
-import { FieldRenderingType } from '../../../rendering-types/metadata-box.decorator';
+import { FieldRenderingType } from '../../../rendering-types/field-rendering-type';
+import { layoutBoxesMap } from '../../../rendering-types/metadata-box-rendering-map';
 import { TableComponent } from '../../../rendering-types/metadataGroup/table/table.component';
 import { TextComponent } from '../../../rendering-types/text/text.component';
 import { MetadataRenderComponent } from './metadata-render.component';
@@ -137,6 +139,7 @@ describe('MetadataRenderComponent', () => {
       providers: [
         Injector,
         { provide: 'tabNameProvider', useValue: '' },
+        { provide: CRIS_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(TableComponent, {

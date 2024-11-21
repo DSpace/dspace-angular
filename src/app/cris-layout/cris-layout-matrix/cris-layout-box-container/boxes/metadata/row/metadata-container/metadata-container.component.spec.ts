@@ -9,6 +9,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { CRIS_FIELD_RENDERING_MAP } from '../../../../../../../../config/app-config.interface';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
@@ -18,7 +19,9 @@ import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
 import { boxMetadata } from '../../../../../../../shared/testing/box.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
-import { FieldRenderingType } from '../../rendering-types/metadata-box.decorator';
+import { FieldRenderingType } from '../../rendering-types/field-rendering-type';
+import { layoutBoxesMap } from '../../rendering-types/metadata-box-rendering-map';
+import { TextComponent } from '../../rendering-types/text/text.component';
 import { MetadataContainerComponent } from './metadata-container.component';
 import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
 
@@ -165,9 +168,11 @@ describe('MetadataContainerComponent', () => {
           },
         }),
         MetadataContainerComponent,
+        TextComponent,
       ],
       providers: [
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: CRIS_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

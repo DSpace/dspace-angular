@@ -35,7 +35,7 @@ import { TranslateLoaderMock } from '../../../../../../../shared/testing/transla
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
 import { ThumbnailService } from '../../../../../../../shared/thumbnail/thumbnail.service';
 import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
-import { FieldRenderingType } from '../metadata-box.decorator';
+import { FieldRenderingType } from '../field-rendering-type';
 import { ThumbnailRenderingComponent } from './thumbnail.component';
 
 describe('', () => {

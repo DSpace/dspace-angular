@@ -17,6 +17,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { CRIS_FIELD_RENDERING_MAP } from '../../../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../../../environments/environment';
 import {
   BitstreamDataService,
@@ -35,14 +36,14 @@ import { MetadataValue } from '../../../../../../../core/shared/metadata.models'
 import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
 import {
   hasValue,
-  isEmpty,
   isNotEmpty,
 } from '../../../../../../../shared/empty.util';
+import { FieldRenderingType } from '../../rendering-types/field-rendering-type';
 import {
-  FieldRenderingType,
-  getMetadataBoxFieldRendering,
-  MetadataBoxFieldRenderOptions,
+  computeRenderingFn,
+  getMetadataBoxFieldRenderOptionsFn,
 } from '../../rendering-types/metadata-box.decorator';
+import { MetadataBoxFieldRenderOptions } from '../../rendering-types/rendering-type.model';
 import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
 
 @Component({
@@ -93,6 +94,7 @@ export class MetadataContainerComponent implements OnInit {
   protected readonly bitstreamDataService = inject(BitstreamDataService);
   protected readonly translateService = inject(TranslateService);
   protected readonly cd = inject(ChangeDetectorRef);
+  protected readonly layoutBoxesMap: Map<FieldRenderingType, MetadataBoxFieldRenderOptions> = inject(CRIS_FIELD_RENDERING_MAP);
 
   /**
    * Returns all metadata values in the item
@@ -151,7 +153,7 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    const rendering = this.computeRendering(this.field);
+    const rendering = computeRenderingFn(this.field?.rendering);
     if (this.field.fieldType === LayoutFieldType.BITSTREAM.toString()
       && (rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()
         || rendering.toLocaleLowerCase() === FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase())) {
@@ -166,7 +168,7 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   initRenderOptions(renderingType: string | FieldRenderingType): void {
-    this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(renderingType);
+    this.metadataFieldRenderOptions = getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, renderingType);
     this.isStructured = this.metadataFieldRenderOptions.structured;
     this.cd.detectChanges();
   }
@@ -189,7 +191,7 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   hasFieldMetadataComponent(field: LayoutField) {
-    // if it is metadatagroup and none of the nested metadatas has values then dont generate the component
+    // if it is metadata-group and none of the nested metadata has values then don't generate the component
     let existOneMetadataWithValue = false;
     if (field.fieldType === LayoutFieldType.METADATAGROUP.toString()) {
       field.metadataGroup.elements.forEach(el => {
@@ -203,26 +205,7 @@ export class MetadataContainerComponent implements OnInit {
       (field.fieldType === LayoutFieldType.METADATA.toString() && this.item.firstMetadataValue(field.metadata));
   }
 
-  computeRendering(field: LayoutField): string | FieldRenderingType {
-    let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
-
-    if (rendering.indexOf('.') > -1) {
-      const values = rendering.split('.');
-      rendering = values[0];
-    }
-    return rendering;
-  }
-
-  getMetadataBoxFieldRenderOptions(fieldRenderingType: string): MetadataBoxFieldRenderOptions {
-    let renderOptions = getMetadataBoxFieldRendering(FieldRenderingType[fieldRenderingType]);
-    // If the rendering type not exists will use TEXT type rendering
-    if (isEmpty(renderOptions)) {
-      renderOptions = getMetadataBoxFieldRendering(FieldRenderingType.TEXT);
-    }
-    return renderOptions;
-  }
-
-  trackUpdate(index, value: string) {
+  trackUpdate(index: number, value: string) {
     return value;
   }
 }

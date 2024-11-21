@@ -15,7 +15,7 @@ import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
-import { FieldRenderingType } from '../metadata-box.decorator';
+import { FieldRenderingType } from '../field-rendering-type';
 import { IdentifierComponent } from './identifier.component';
 
 describe('IdentifierComponent', () => {

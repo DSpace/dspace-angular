@@ -16,7 +16,7 @@ import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
-import { FieldRenderingType } from '../metadata-box.decorator';
+import { FieldRenderingType } from '../field-rendering-type';
 import { DateComponent } from './date.component';
 
 describe('DateComponent', () => {

@@ -33,7 +33,7 @@ import { createPaginatedList } from '../../../../../../../shared/testing/utils.t
 import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../../../../../../../shared/utils/file-size-pipe';
-import { FieldRenderingType } from '../metadata-box.decorator';
+import { FieldRenderingType } from '../field-rendering-type';
 import { AdvancedAttachmentComponent } from './advanced-attachment.component';
 import { BitstreamAttachmentComponent } from './bitstream-attachment/bitstream-attachment.component';
 
