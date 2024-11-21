@@ -70,6 +70,7 @@ import {
   ClearMetaTagAction,
 } from './meta-tag.actions';
 import { MetaTagState } from './meta-tag.reducer';
+import { FindListOptions } from '../data/find-list-options.model';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -331,6 +332,7 @@ export class HeadTagService {
         'ORIGINAL',
         true,
         true,
+        new FindListOptions(),
         followLink('primaryBitstream'),
         followLink('bitstreams', {
           findListOptions: {
