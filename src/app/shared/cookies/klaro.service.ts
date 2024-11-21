@@ -36,4 +36,8 @@ export abstract class KlaroService {
    * Subject to emit updates in the consents
    */
   abstract consentsUpdates$:  BehaviorSubject<CookieConsents>;
+  /**
+   * Subject to emit initialization
+   */
+  abstract initialized$:  BehaviorSubject<boolean>;
 }

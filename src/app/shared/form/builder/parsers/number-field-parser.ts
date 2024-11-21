@@ -2,7 +2,6 @@ import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
 
 /**
@@ -20,7 +19,7 @@ export class NumberFieldParser extends FieldParser {
    * @return any
    *    field model instance
    */
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: any, label?: boolean): any {
     const numberModelConfig: DsDynamicInputModelConfig = this.initModel(null, label);
 
     this.setValues(numberModelConfig, fieldValue);

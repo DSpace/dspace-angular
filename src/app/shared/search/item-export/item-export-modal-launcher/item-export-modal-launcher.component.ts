@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
@@ -5,8 +6,12 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -25,6 +30,7 @@ import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { isNotEmpty } from '../../../empty.util';
+import { EntityDropdownComponent } from '../../../entity-dropdown/entity-dropdown.component';
 import { SearchOptions } from '../../models/search-options.model';
 import { ItemExportComponent } from '../item-export/item-export.component';
 
@@ -36,6 +42,13 @@ export const BULK_EXPORT_LIMIT_NOTLOGGEDIN = 'bulk-export.limit.notLoggedIn';
   selector: 'ds-item-export-modal-launcher',
   styleUrls: ['./item-export-modal-launcher.component.scss'],
   templateUrl: './item-export-modal-launcher.component.html',
+  imports: [
+    NgIf,
+    NgbDropdownModule,
+    TranslateModule,
+    EntityDropdownComponent,
+  ],
+  standalone: true,
 })
 export class ItemExportModalLauncherComponent implements OnInit {
 

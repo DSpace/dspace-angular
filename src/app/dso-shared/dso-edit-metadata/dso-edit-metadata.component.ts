@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
   Component,
   Inject,
   Injector,
@@ -11,7 +17,10 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -21,15 +30,21 @@ import {
 } from 'rxjs';
 import {
   map,
-  switchMap,
+  mergeMap,
   tap,
+  withLatestFrom,
 } from 'rxjs/operators';
 
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '../../../config/app-config.interface';
+import { DATA_SERVICE_FACTORY } from '../../core/cache/builders/build-decorators';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
-import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
 import { HALDataService } from '../../core/data/base/hal-data-service.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { UpdateDataService } from '../../core/data/update-data.service';
+import { lazyDataService } from '../../core/lazy-data-service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
@@ -37,22 +52,31 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {
   hasNoValue,
   hasValue,
+  isNotEmpty,
 } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataForm,
 } from './dso-edit-metadata-form';
+import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
+import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
+import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 
 @Component({
-  selector: 'ds-dso-edit-metadata',
+  selector: 'ds-base-dso-edit-metadata',
   styleUrls: ['./dso-edit-metadata.component.scss'],
   templateUrl: './dso-edit-metadata.component.html',
+  standalone: true,
+  imports: [NgIf, DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, NgFor, DsoEditMetadataFieldValuesComponent, AlertComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component showing a table of all metadata on a DSpaceObject and options to modify them
@@ -158,6 +182,8 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
               protected translateService: TranslateService,
               protected parentInjector: Injector,
               protected arrayMoveChangeAnalyser: ArrayMoveChangeAnalyzer<number>,
+              protected cdr: ChangeDetectorRef,
+              @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap,
               protected metadataSecurityConfigurationService: MetadataSecurityConfigurationService,
               @Inject(DATA_SERVICE_FACTORY) protected getDataServiceFor: (resourceType: ResourceType) => GenericConstructor<HALDataService<any>>) {
   }
@@ -170,20 +196,21 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
     if (hasNoValue(this.dso)) {
       this.dsoUpdateSubscription = observableCombineLatest([this.route.data, this.route.parent.data]).pipe(
         map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
-        map((data: any) => data.dso),
-        tap((rd: RemoteData<DSpaceObject>) => this.dso = rd.payload),
-        switchMap(() => this.getSecuritySettings()),
-      ).subscribe((securitySettings: MetadataSecurityConfiguration) => {
+        tap((data: any) => this.initDSO(data.dso.payload)),
+        mergeMap(() => this.retrieveDataService()),
+        withLatestFrom(this.getSecuritySettings()),
+      ).subscribe(([dataService, securitySettings]: [UpdateDataService<DSpaceObject>, MetadataSecurityConfiguration]) => {
         this.securitySettings$.next(securitySettings);
-        this.initDataService();
+        this.initDataService(dataService);
         this.initForm();
         this.isFormInitialized$.next(true);
       });
     } else {
-      this.dsoUpdateSubscription = this.getSecuritySettings()
-        .subscribe((securitySettings: MetadataSecurityConfiguration) => {
+      this.initDSOType(this.dso);
+      observableCombineLatest([this.retrieveDataService(), this.getSecuritySettings()])
+        .subscribe(([dataService, securitySettings]: [UpdateDataService<DSpaceObject>, MetadataSecurityConfiguration]) => {
           this.securitySettings$.next(securitySettings);
-          this.initDataService();
+          this.initDataService(dataService);
           this.initForm();
           this.isFormInitialized$.next(true);
         });
@@ -212,23 +239,45 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialise (resolve) the data-service for the current DSpaceObject
+   * Resolve the data-service for the current DSpaceObject and retrieve its instance
    */
-  initDataService(): void {
-    let type: ResourceType;
-    if (typeof this.dso.type === 'string') {
-      type = new ResourceType(this.dso.type);
-    } else {
-      type = this.dso.type;
-    }
+  retrieveDataService(): Observable<UpdateDataService<DSpaceObject>> {
     if (hasNoValue(this.updateDataService)) {
-      const provider = this.getDataServiceFor(type);
-      this.updateDataService = Injector.create({
-        providers: [],
-        parent: this.parentInjector,
-      }).get(provider);
+      const lazyProvider$: Observable<UpdateDataService<DSpaceObject>> = lazyDataService(this.dataServiceMap, this.dsoType, this.parentInjector);
+      return lazyProvider$;
+    } else {
+      return of(this.updateDataService);
+    }
+  }
+
+  /**
+   * Initialise the current DSpaceObject
+   */
+  initDSO(object: DSpaceObject) {
+    this.dso = object;
+    this.initDSOType(object);
+  }
+
+  /**
+   * Initialise the current DSpaceObject's type
+   */
+  initDSOType(object: DSpaceObject) {
+    let type: ResourceType;
+    if (typeof object.type === 'string') {
+      type = new ResourceType(object.type);
+    } else {
+      type = object.type;
     }
     this.dsoType = type.value;
+  }
+
+  /**
+   * Initialise the data-service for the current DSpaceObject
+   */
+  initDataService(dataService: UpdateDataService<DSpaceObject>): void {
+    if (isNotEmpty(dataService)) {
+      this.updateDataService = dataService;
+    }
   }
 
   /**
@@ -238,6 +287,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   initForm(): void {
     this.form = new DsoEditMetadataForm(this.dso.metadata);
     this.onValueSaved();
+    this.cdr.detectChanges();
   }
 
   /**

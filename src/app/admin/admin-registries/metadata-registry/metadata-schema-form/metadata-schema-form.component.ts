@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   OnDestroy,
@@ -12,12 +16,16 @@ import {
   DynamicFormLayout,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
 } from 'rxjs';
 import {
+  map,
   switchMap,
   take,
   tap,
@@ -25,11 +33,20 @@ import {
 
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
+import { hasValue } from '../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../../shared/form/form.component';
 
 @Component({
   selector: 'ds-metadata-schema-form',
   templateUrl: './metadata-schema-form.component.html',
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    FormComponent,
+  ],
+  standalone: true,
 })
 /**
  * A form used for creating and editing metadata schemas
@@ -81,6 +98,12 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
    * A FormGroup that combines all inputs
    */
   formGroup: UntypedFormGroup;
+
+  /**
+   * Whether to show the edit header
+   */
+  canShowEditHeader$: Observable<boolean>;
+
 
   /**
    * An EventEmitter that's fired whenever the form is being submitted
@@ -145,6 +168,9 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
         }
       });
     });
+    this.canShowEditHeader$ = this.registryService.getActiveMetadataSchema().pipe(
+      map(field => hasValue(field)),
+    );
   }
 
   /**

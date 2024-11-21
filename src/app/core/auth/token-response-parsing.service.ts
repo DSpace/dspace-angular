@@ -9,7 +9,7 @@ import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/rest-request.model';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 /**
  * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a token string
  * wrapped in a TokenResponse

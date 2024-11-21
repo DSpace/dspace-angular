@@ -9,6 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
@@ -16,23 +17,38 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '../../core/orcid/orcid-queue-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { Item } from '../../core/shared/item.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';
 import { OrcidPageComponent } from './orcid-page.component';
+import { OrcidQueueComponent } from './orcid-queue/orcid-queue.component';
+import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-settings.component';
 
 describe('OrcidPageComponent test suite', () => {
   let comp: OrcidPageComponent;
@@ -42,7 +58,10 @@ describe('OrcidPageComponent test suite', () => {
   let routeStub: jasmine.SpyObj<ActivatedRouteStub>;
   let routeData: any;
   let itemDataService: jasmine.SpyObj<ItemDataService>;
+  let researcherProfileDataService: jasmine.SpyObj<ResearcherProfileDataService>;
   let orcidAuthService: jasmine.SpyObj<OrcidAuthService>;
+  let orcidQueueDataService: jasmine.SpyObj<OrcidQueueDataService>;
+  let orcidHistoryDataService: jasmine.SpyObj<OrcidHistoryDataService>;
 
   const mockResearcherProfile: ResearcherProfile = Object.assign(new ResearcherProfile(), {
     id: 'test-id',
@@ -101,6 +120,23 @@ describe('OrcidPageComponent test suite', () => {
     orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
       isLinkedToOrcid: jasmine.createSpy('isLinkedToOrcid'),
       linkOrcidByItem: jasmine.createSpy('linkOrcidByItem'),
+      getOrcidAuthorizationScopes: of([]),
+      getOrcidAuthorizationScopesByItem: of([]),
+      onlyAdminCanDisconnectProfileFromOrcid: of(false),
+      ownerCanDisconnectProfileFromOrcid: of(false),
+    });
+
+    researcherProfileDataService = jasmine.createSpyObj('ResearcherProfileDataService', {
+      findById: createSuccessfulRemoteDataObject$(mockResearcherProfile),
+    });
+
+    orcidQueueDataService = jasmine.createSpyObj('OrcidQueueDataService', {
+      searchByProfileItemId: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      clearFindByProfileItemRequests: jasmine.createSpy('clearFindByProfileItemRequests'),
+    });
+
+    orcidHistoryDataService = jasmine.createSpyObj('OrcidHistoryDataService', {
+      sendToORCID: createSuccessfulRemoteDataObject$(mockItem),
     });
 
     itemDataService = jasmine.createSpyObj('ItemDataService', {
@@ -116,18 +152,23 @@ describe('OrcidPageComponent test suite', () => {
           },
         }),
         RouterTestingModule.withRoutes([]),
+        OrcidPageComponent,
+        NoopAnimationsModule,
       ],
-      declarations: [OrcidPageComponent],
       providers: [
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: OrcidAuthService, useValue: orcidAuthService },
+        { provide: ResearcherProfileDataService, useValue: researcherProfileDataService },
+        { provide: OrcidQueueDataService, useValue: orcidQueueDataService },
+        { provide: OrcidHistoryDataService, useValue: orcidHistoryDataService },
         { provide: AuthService, useValue: authService },
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(OrcidPageComponent, { remove: { imports: [ThemedLoadingComponent, AlertComponent, OrcidAuthComponent, OrcidSyncSettingsComponent, OrcidQueueComponent] } }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

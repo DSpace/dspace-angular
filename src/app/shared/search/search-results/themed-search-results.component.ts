@@ -26,13 +26,15 @@ import {
  * Themed wrapper for SearchResultsComponent
  */
 @Component({
-  selector: 'ds-themed-search-results',
+  selector: 'ds-search-results',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [SearchResultsComponent],
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
 
-  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject', 'customData', 'customEvent', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice'];
+  protected inAndOutputNames: (keyof SearchResultsComponent & keyof this)[] = ['linkType', 'searchResults', 'searchConfig', 'showCsvExport', 'showLabel', 'showMetrics', 'showThumbnails', 'sortConfig', 'viewMode', 'configuration', 'disableHeader', 'selectable', 'context', 'hidePaginationDetail', 'selectionConfig', 'contentChange', 'deselectObject', 'selectObject', 'customData', 'customEvent', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice', 'showCorrection'];
 
   @Input() linkType: CollectionElementLinkType;
 
@@ -46,9 +48,15 @@ export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsC
 
   @Input() showCsvExport: boolean;
 
+  @Input() showLabel: boolean;
+
+  @Input() showMetrics: boolean;
+
   @Input() showThumbnails: boolean;
 
   @Input() showSearchResultNotice = false;
+
+  @Input() showCorrection = false;
 
   @Input() sortConfig: SortOptions;
 

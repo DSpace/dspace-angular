@@ -20,8 +20,7 @@ describe('TruncatableComponent', () => {
   let truncatableService;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [TruncatableComponent],
+      imports: [NoopAnimationsModule, TruncatableComponent],
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
       ],

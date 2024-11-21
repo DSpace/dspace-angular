@@ -70,8 +70,7 @@ describe('SystemWideAlertBannerComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [SystemWideAlertBannerComponent],
+      imports: [TranslateModule.forRoot(), SystemWideAlertBannerComponent],
       providers: [
         { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },

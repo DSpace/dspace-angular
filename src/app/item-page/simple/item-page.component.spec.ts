@@ -14,26 +14,35 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import { REQUEST } from '../../../express.tokens';
+import { AuthRequestService } from '../../core/auth/auth-request.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
-import { MetadataService } from '../../core/metadata/metadata.service';
+import { CookieService } from '../../core/services/cookie.service';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import {
   LinkDefinition,
   LinkHeadService,
 } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
+import { CrisItemPageComponent } from '../../cris-item-page/cris-item-page.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
@@ -41,10 +50,17 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { ItemPageComponent } from './item-page.component';
 import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
+import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -76,19 +92,13 @@ const mockSignpostingLinks: SignpostingLink[] = [mocklink, mocklink2];
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
-  let authService: AuthService;
   let authorizationDataService: AuthorizationDataService;
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
+  let hardRedirectService: HardRedirectService;
 
-  const mockMetadataService = {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    processRemoteData: () => {
-    },
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
   });
@@ -96,10 +106,6 @@ describe('ItemPageComponent', () => {
   const getCoarLdnLocalInboxUrls = ['http://InboxUrls.org', 'http://InboxUrls2.org'];
 
   beforeEach(waitForAsync(() => {
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {},
-    });
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
       isAuthorized: observableOf(false),
     });
@@ -122,31 +128,58 @@ describe('ItemPageComponent', () => {
       getCoarLdnLocalInboxUrls: observableOf(getCoarLdnLocalInboxUrls),
     });
 
+    hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+      redirect: {},
+      getCurrentRoute: {},
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule],
-      declarations: [ItemPageComponent, VarDirective],
+      }), BrowserAnimationsModule, ItemPageComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: mockMetadataService },
-        { provide: Router, useValue: {} },
-        { provide: AuthService, useValue: authService },
+        { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: REQUEST, useValue: {} },
+        { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
+        provideMockStore({
+          initialState: {
+            core: {
+              auth: {
+                loading: false,
+                blocking: true,
+              },
+            },
+          },
+        }),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: HardRedirectService, useValue: hardRedirectService },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [
+        ThemedItemAlertsComponent,
+        ItemVersionsNoticeComponent,
+        ViewTrackerComponent,
+        ListableObjectComponentLoaderComponent,
+        ItemVersionsComponent,
+        ThemedLoadingComponent,
+        NotifyRequestsStatusComponent,
+        QaEventNotificationComponent,
+        CrisItemPageComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -164,7 +197,7 @@ describe('ItemPageComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });

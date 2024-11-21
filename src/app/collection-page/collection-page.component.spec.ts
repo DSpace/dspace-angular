@@ -26,6 +26,16 @@ import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { Collection } from '../core/shared/collection.model';
+import { ThemedComcolPageBrowseByComponent } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ThemedComcolPageContentComponent } from '../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { ContextMenuComponent } from '../shared/context-menu/context-menu.component';
+import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../shared/object-collection/object-collection.component';
 import {
   createNoContentRemoteDataObject,
   createNoContentRemoteDataObject$,
@@ -34,6 +44,7 @@ import {
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { VarDirective } from '../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { CollectionPageComponent } from './collection-page.component';
 
 describe('CollectionPageComponent', () => {
@@ -67,8 +78,7 @@ describe('CollectionPageComponent', () => {
     dsoNameServiceSpy = jasmine.createSpyObj('DSONameService', ['getName']);
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule],
-      declarations: [CollectionPageComponent, VarDirective],
+      imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule, CollectionPageComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: aroute },
         { provide: Router, useValue: router },
@@ -78,9 +88,9 @@ describe('CollectionPageComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(CollectionPageComponent, { remove: { imports: [ThemedComcolPageContentComponent, ErrorComponent, ThemedLoadingComponent, ViewTrackerComponent, ComcolPageHeaderComponent, ComcolPageLogoComponent, ThemedComcolPageHandleComponent, DsoEditMenuComponent, ThemedComcolPageBrowseByComponent, ObjectCollectionComponent, ContextMenuComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

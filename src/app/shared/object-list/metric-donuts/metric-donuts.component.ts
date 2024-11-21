@@ -1,4 +1,9 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,6 +27,7 @@ import { Item } from '../../../core/shared/item.model';
 import { Metric } from '../../../core/shared/metric.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { isEmpty } from '../../empty.util';
+import { MetricLoaderComponent } from '../../metric/metric-loader/metric-loader.component';
 import { followLink } from '../../utils/follow-link-config.model';
 
 export const allowedDonuts = ['altmetric', 'dimensions', 'plumX'];
@@ -31,6 +37,13 @@ export const allowedDonuts = ['altmetric', 'dimensions', 'plumX'];
   templateUrl: './metric-donuts.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MetricLoaderComponent,
+    AsyncPipe,
+  ],
 })
 /**
  * Component rendering the metric badges of a Dspace Object

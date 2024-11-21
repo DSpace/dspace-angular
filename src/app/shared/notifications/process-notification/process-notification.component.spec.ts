@@ -26,6 +26,7 @@ import { AppConfig } from '../../../../config/app-config.interface';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { storeModuleConfig } from '../../../app.reducer';
 import { ProcessDataService } from '../../../core/data/processes/process-data.service';
+import { ThemedFileDownloadLinkComponent } from '../../file-download-link/themed-file-download-link.component';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
@@ -77,8 +78,9 @@ xdescribe('ProcessNotificationComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [ProcessNotificationComponent], // declare the test component
+        }),
+        ProcessNotificationComponent,
+      ], // declare the test component
       providers: [
         { provide: Store, useValue: store },
         { provide: ProcessDataService, useValue: processService },
@@ -86,7 +88,7 @@ xdescribe('ProcessNotificationComponent', () => {
         NotificationsService,
         TranslateService,
       ],
-    }).compileComponents();  // compile template and css
+    }).overrideComponent(ProcessNotificationComponent, { remove: { imports: [ThemedFileDownloadLinkComponent] } }).compileComponents();  // compile template and css
 
   }));
 

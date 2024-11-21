@@ -13,7 +13,7 @@ import { AuthRequestService } from './auth-request.service';
 /**
  * Client side version of the service to send authentication requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowserAuthRequestService extends AuthRequestService {
 
   constructor(

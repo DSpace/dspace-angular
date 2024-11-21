@@ -31,6 +31,7 @@ import {
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { getItemEditRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action.component';
 
 /**
@@ -40,6 +41,8 @@ import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action
 @Component({
   selector: 'ds-simple-action',
   templateUrl: './abstract-simple-item-action.component.html',
+  standalone: true,
+  imports: [CommonModule, FormsModule, NgbModule, TranslateModule],
 })
 export class MySimpleItemActionComponent extends AbstractSimpleItemActionComponent {
 
@@ -94,8 +97,7 @@ describe('AbstractSimpleItemActionComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [MySimpleItemActionComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MySimpleItemActionComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
@@ -104,7 +106,7 @@ describe('AbstractSimpleItemActionComponent', () => {
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(MySimpleItemActionComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,4 +1,9 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -22,9 +27,8 @@ import { CrisLayoutMetricRow } from '../../../../../core/layout/models/tab.model
 import { Item } from '../../../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { hasValue } from '../../../../../shared/empty.util';
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
+import { MetricRowComponent } from './metric-row/metric-row.component';
 
 /**
  * This component renders the metadata boxes of items
@@ -33,12 +37,18 @@ import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-
   selector: 'ds-cris-layout-metrics-box',
   templateUrl: './cris-layout-metrics-box.component.html',
   styleUrls: ['./cris-layout-metrics-box.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MetricRowComponent,
+    AsyncPipe,
+  ],
 })
 /**
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and
  * add the CrisLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
-@RenderCrisLayoutBoxFor(LayoutBox.METRICS, true)
 export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent implements OnInit, OnDestroy {
 
   /**

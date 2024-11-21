@@ -14,17 +14,14 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { BaseDataService } from './base/base-data.service';
-import { dataService } from './base/data-service.decorator';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { Root } from './root.model';
-import { ROOT } from './root.resource-type';
 
 /**
  * A service to retrieve the {@link Root} object from the REST API.
  */
-@Injectable()
-@dataService(ROOT)
+@Injectable({ providedIn: 'root' })
 export class RootDataService extends BaseDataService<Root> {
   constructor(
     protected requestService: RequestService,

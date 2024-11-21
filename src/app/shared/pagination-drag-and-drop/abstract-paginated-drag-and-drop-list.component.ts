@@ -64,6 +64,7 @@ export const compareArraysUsingFieldUuids = () =>
 @Component({
   selector: 'ds-paginated-drag-drop-abstract',
   template: '',
+  standalone: true,
 })
 export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> implements OnDestroy {
   /**

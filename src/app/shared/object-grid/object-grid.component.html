@@ -1,6 +1,5 @@
 <ds-pagination
   [paginationOptions]="config"
-  [pageInfoState]="objects?.payload"
   [collectionSize]="objects?.payload?.totalElements"
   [sortOptions]="sortConfig"
   [hideGear]="hideGear"
@@ -22,6 +21,7 @@
           <ds-listable-object-component-loader [object]="object"
                                                [viewMode]="viewMode"
                                                [context]="context"
+                                               [showLabel]="showLabel"
                                                [showMetrics]="showMetrics"
                                                [showThumbnails]="showThumbnails"
                                                [linkType]="linkType"></ds-listable-object-component-loader>
@@ -29,7 +29,7 @@
       </div>
     </div>
   <ds-error *ngIf="objects.hasFailed" message="{{'error.objects' | translate}}"></ds-error>
-  <ds-themed-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-themed-loading>
+  <ds-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-loading>
 </ds-pagination>
 
 

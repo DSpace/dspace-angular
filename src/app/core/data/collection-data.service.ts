@@ -24,7 +24,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Collection } from '../shared/collection.model';
-import { COLLECTION } from '../shared/collection.resource-type';
 import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -33,7 +32,6 @@ import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
 } from '../shared/operators';
-import { dataService } from './base/data-service.decorator';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
@@ -48,8 +46,7 @@ import {
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
 
-@Injectable()
-@dataService(COLLECTION)
+@Injectable({ providedIn: 'root' })
 export class CollectionDataService extends ComColDataService<Collection> {
   protected errorTitle = 'collection.source.update.notifications.error.title';
   protected contentSourceError = 'collection.source.update.notifications.error.content';

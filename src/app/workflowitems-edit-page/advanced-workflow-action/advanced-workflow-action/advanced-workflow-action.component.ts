@@ -20,7 +20,7 @@ import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.se
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { WorkflowItemActionPageComponent } from '../../workflow-item-action-page.component';
+import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 
 /**
  * Abstract component for rendering an advanced claimed task's workflow page
@@ -31,8 +31,9 @@ import { WorkflowItemActionPageComponent } from '../../workflow-item-action-page
 @Component({
   selector: 'ds-advanced-workflow-action',
   template: '',
+  standalone: true,
 })
-export abstract class AdvancedWorkflowActionComponent extends WorkflowItemActionPageComponent implements OnInit {
+export abstract class AdvancedWorkflowActionComponent extends WorkflowItemActionPageDirective implements OnInit {
 
   workflowAction$: Observable<WorkflowAction>;
 

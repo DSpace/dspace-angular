@@ -1,4 +1,11 @@
 import {
+  AsyncPipe,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+  TitleCasePipe,
+} from '@angular/common';
+import {
   Component,
   Inject,
   Injector,
@@ -6,6 +13,7 @@ import {
   OnInit,
   Renderer2,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   NativeWindowRef,
@@ -14,11 +22,22 @@ import {
 import { hasValue } from '../../empty.util';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { MetricLoadScriptService } from '../metric-loader/metric-load-script.service';
+import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
 
 @Component({
   selector: 'ds-metric-plumx',
   templateUrl: './metric-plumx.component.html',
   styleUrls: ['./metric-plumx.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgSwitch,
+    NgSwitchCase,
+    AsyncPipe,
+    TitleCasePipe,
+    TranslateModule,
+    ListMetricPropsPipe,
+  ],
 })
 export class MetricPlumxComponent extends BaseMetricComponent implements OnInit, OnDestroy {
   remark: JSON;

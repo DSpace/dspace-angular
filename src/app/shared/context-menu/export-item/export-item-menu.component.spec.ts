@@ -49,7 +49,6 @@ describe('ExportItemMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ ExportItemMenuComponent ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
@@ -58,6 +57,7 @@ describe('ExportItemMenuComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ExportItemMenuComponent,
       ],
       providers: [
         { provide: ItemExportService, useValue: itemExportService },

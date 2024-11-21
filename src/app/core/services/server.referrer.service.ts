@@ -2,12 +2,12 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import {
   Observable,
   of as observableOf,
 } from 'rxjs';
 
+import { REQUEST } from '../../../express.tokens';
 import { ReferrerService } from './referrer.service';
 
 /**
@@ -16,7 +16,7 @@ import { ReferrerService } from './referrer.service';
  * The server implementation will get the referrer from the 'Referer' header of the request sent to
  * the express server
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerReferrerService extends ReferrerService {
 
   constructor(

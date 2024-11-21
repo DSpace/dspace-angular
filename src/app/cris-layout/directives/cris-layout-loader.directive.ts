@@ -7,6 +7,7 @@ import {
  */
 @Directive({
   selector: '[dsCrisLayoutLoader]',
+  standalone: true,
 })
 export class CrisLayoutLoaderDirective {
 

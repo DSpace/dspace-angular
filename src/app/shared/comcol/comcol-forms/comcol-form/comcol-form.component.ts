@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -17,7 +22,10 @@ import {
   DynamicFormService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { FileUploader } from 'ng2-file-upload';
 import {
@@ -52,10 +60,13 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../empty.util';
+import { FormComponent } from '../../../form/form.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { VarDirective } from '../../../utils/var.directive';
+import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -64,6 +75,17 @@ import { followLink } from '../../../utils/follow-link-config.model';
   selector: 'ds-comcol-form',
   styleUrls: ['./comcol-form.component.scss'],
   templateUrl: './comcol-form.component.html',
+  imports: [
+    FormComponent,
+    TranslateModule,
+    UploaderComponent,
+    AsyncPipe,
+    ComcolPageLogoComponent,
+    NgIf,
+    NgClass,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {
 
@@ -214,7 +236,6 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * Checks which new fields were added and sends the updated version of the DSO to the parent component
    */
   onSubmit() {
-
     const formMetadata = {}  as MetadataMap;
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {

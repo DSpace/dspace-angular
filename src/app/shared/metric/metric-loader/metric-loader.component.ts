@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   ComponentFactoryResolver,
@@ -22,6 +23,7 @@ import {
   KlaroService,
 } from '../../cookies/klaro.service';
 import { hasValue } from '../../empty.util';
+import { MetricStyleConfigPipe } from '../pipes/metric-style-config/metric-style-config.pipe';
 import { BaseMetricComponent } from './base-metric.component';
 import { MetricLoaderService } from './metric-loader.service';
 
@@ -30,6 +32,8 @@ import { MetricLoaderService } from './metric-loader.service';
   selector: 'ds-metric-loader',
   templateUrl: './metric-loader.component.html',
   styleUrls: ['./metric-loader.component.scss'],
+  standalone: true,
+  imports: [NgClass, MetricStyleConfigPipe],
 })
 export class MetricLoaderComponent implements OnInit, OnDestroy {
 

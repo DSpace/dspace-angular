@@ -11,7 +11,7 @@ import {
   ICookieService,
 } from './cookie.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ClientCookieService extends CookieService implements ICookieService {
 
   public set(name: string, value: any, options?: CookieAttributes): void {

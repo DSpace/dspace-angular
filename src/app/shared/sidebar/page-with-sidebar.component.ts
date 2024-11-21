@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
@@ -16,6 +22,13 @@ import { SidebarService } from './sidebar.service';
   styleUrls: ['./page-with-sidebar.component.scss'],
   templateUrl: './page-with-sidebar.component.html',
   animations: [pushInOut],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgTemplateOutlet,
+    NgIf,
+    NgClass,
+  ],
 })
 /**
  * This component takes care of displaying the sidebar properly on all viewports. It does not
@@ -42,7 +55,7 @@ export class PageWithSidebarComponent implements OnInit {
    * The width of the sidebar (bootstrap columns)
    */
   @Input()
-    sideBarWidth = 3;
+  sideBarWidth = 3;
 
   sidebarClasses$: Observable<string>;
 

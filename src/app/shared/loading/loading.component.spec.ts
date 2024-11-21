@@ -5,10 +5,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
+  TranslateService,
 } from '@ngx-translate/core';
 
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
@@ -24,20 +26,24 @@ describe('LoadingComponent (inline template)', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([
-          {
-            path: 'fake-url',
-            redirectTo: '/',
-          },
-        ]),
+        NoopAnimationsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
+        LoadingComponent,
       ],
-      declarations: [LoadingComponent], // declare the test component
+      providers: [
+        provideRouter([
+          {
+            path: 'fake-url',
+            redirectTo: '/',
+          },
+        ]),
+        TranslateService,
+      ],
     }).compileComponents();  // compile template and css
 
   }));

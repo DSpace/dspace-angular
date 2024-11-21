@@ -68,7 +68,6 @@ describe('ConfirmEmailComponent', () => {
       redirect: {},
     });
     await TestBed.configureTestingModule({
-      declarations: [ConfirmEmailComponent],
       providers: [
         FormBuilder,
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
@@ -88,6 +87,7 @@ describe('ConfirmEmailComponent', () => {
           },
         }),
         ReactiveFormsModule,
+        ConfirmEmailComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

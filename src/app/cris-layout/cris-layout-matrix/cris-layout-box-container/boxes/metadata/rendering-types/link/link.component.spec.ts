@@ -61,7 +61,7 @@ describe('LinkComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule],
+      }), BrowserAnimationsModule, LinkComponent],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
@@ -69,7 +69,6 @@ describe('LinkComponent', () => {
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
       ],
-      declarations: [LinkComponent],
     })
       .compileComponents();
   }));

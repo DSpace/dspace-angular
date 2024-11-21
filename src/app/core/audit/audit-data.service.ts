@@ -17,7 +17,6 @@ import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { DeleteDataImpl } from '../data/base/delete-data';
 import {
   FindAllData,
@@ -36,14 +35,12 @@ import {
   getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../shared/operators';
 import { Audit } from './model/audit.model';
-import { AUDIT } from './model/audit.resource-type';
 
 export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
 
 export const AUDIT_FIND_BY_OBJECT_SEARCH_METHOD = 'findByObject';
 
-@Injectable()
-@dataService(AUDIT)
+@Injectable({ providedIn: 'root' })
 export class AuditDataService extends IdentifiableDataService<Audit>{
 
   private searchData: SearchDataImpl<Audit>;

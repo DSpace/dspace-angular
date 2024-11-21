@@ -8,10 +8,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { Community } from '../../../core/shared/community.model';
+import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { CommunityGridElementComponent } from './community-grid-element.component';
 
 let communityGridElementComponent: CommunityGridElementComponent;
@@ -48,16 +51,19 @@ describe('CommunityGridElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        CommunityGridElementComponent,
       ],
-      declarations: [CommunityGridElementComponent],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
         { provide: LinkService, useValue: linkService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CommunityGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ThemedThumbnailComponent],
+      },
     }).compileComponents();
   }));
 

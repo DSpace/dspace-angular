@@ -1,15 +1,24 @@
+import { NgForOf } from '@angular/common';
 import {
   Component,
   Input,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { NotificationBoxComponent } from '../../../shared/notification-box/notification-box.component';
 import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
 
 @Component({
   selector: 'ds-admin-notify-metrics',
   templateUrl: './admin-notify-metrics.component.html',
+  standalone: true,
+  imports: [
+    NotificationBoxComponent,
+    TranslateModule,
+    NgForOf,
+  ],
 })
 /**
  * Component used to display the number of notification for each configured box in the notifyMetrics section
@@ -18,7 +27,7 @@ import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
 export class AdminNotifyMetricsComponent {
 
   @Input()
-    boxesConfig: AdminNotifyMetricsRow[];
+  boxesConfig: AdminNotifyMetricsRow[];
 
   private incomingConfiguration = 'NOTIFY.incoming';
   private involvedItemsSuffix = 'involvedItems';

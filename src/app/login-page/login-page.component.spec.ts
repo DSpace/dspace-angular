@@ -6,9 +6,15 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
+import { AuthService } from '../core/auth/auth.service';
+import { XSRFService } from '../core/xsrf/xsrf.service';
+import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
+import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LoginPageComponent } from './login-page.component';
 
@@ -30,14 +36,17 @@ describe('LoginPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        LoginPageComponent,
       ],
-      declarations: [LoginPageComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Store, useValue: store },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: XSRFService, useValue: {} },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        provideMockStore({}),
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(LoginPageComponent, { remove: { imports: [ThemedLogInComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

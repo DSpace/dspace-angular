@@ -30,8 +30,8 @@ describe('RelationshipsItemsActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RelationshipsItemsActionsComponent ],
       imports: [
+        RelationshipsItemsActionsComponent,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

@@ -111,7 +111,7 @@ const loadingNodeSelector = createSelector(communityListStateSelector, (communit
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
  *  and connection to the store to retrieve and save the state of the community list
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CommunityListService {
 
   private pageSize: number;

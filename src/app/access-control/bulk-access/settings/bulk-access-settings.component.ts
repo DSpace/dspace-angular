@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   ViewChild,
 } from '@angular/core';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 
@@ -10,6 +13,13 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
   templateUrl: 'bulk-access-settings.component.html',
   styleUrls: ['./bulk-access-settings.component.scss'],
   exportAs: 'dsBulkSettings',
+  imports: [
+    NgbAccordionModule,
+    TranslateModule,
+    NgIf,
+    AccessControlFormContainerComponent,
+  ],
+  standalone: true,
 })
 export class BulkAccessSettingsComponent {
 

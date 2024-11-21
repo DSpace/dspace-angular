@@ -9,6 +9,7 @@ import { of as observableOf } from 'rxjs';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { Item } from '../../../core/shared/item.model';
+import { MetricLoaderComponent } from '../../metric/metric-loader/metric-loader.component';
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { followLink } from '../../utils/follow-link-config.model';
 import { MetricDonutsComponent } from './metric-donuts.component';
@@ -48,13 +49,12 @@ describe('MetricDonutsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [MetricDonutsComponent],
+      imports: [TranslateModule.forRoot(), MetricDonutsComponent],
       providers: [
         { provide: LinkService, useValue: linkService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(MetricDonutsComponent, { remove: { imports: [MetricLoaderComponent] } }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

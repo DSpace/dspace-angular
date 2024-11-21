@@ -1,9 +1,17 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Inject,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -12,12 +20,11 @@ import {
 
 import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 
 /**
  * This simple component displays DOI, handle and other identifiers that are already minted for the item in
@@ -30,9 +37,16 @@ import { SectionsType } from '../sections-type';
   selector: 'ds-submission-section-identifiers',
   templateUrl: './section-identifiers.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    TranslateModule,
+    NgForOf,
+    NgIf,
+    AsyncPipe,
+    VarDirective,
+  ],
+  standalone: true,
 })
 
-@renderSectionFor(SectionsType.Identifiers)
 export class SubmissionSectionIdentifiersComponent extends SectionModelComponent {
   /**
    * The Alert categories.

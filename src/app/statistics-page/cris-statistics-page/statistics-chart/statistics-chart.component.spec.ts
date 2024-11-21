@@ -10,11 +10,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { USAGE_REPORT } from '../../../core/statistics/models/usage-report.resource-type';
-import { StatisticsPipesPageModule } from '../statistics-pipes/statistics-pipes.module';
 import { StatisticsType } from '../statistics-type.model';
 import { StatisticsChartComponent } from './statistics-chart.component';
 
@@ -168,9 +169,10 @@ describe('StatisticsChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), StatisticsPipesPageModule],
-      declarations: [StatisticsChartComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), StatisticsChartComponent],
       providers: [
+        provideMockStore(),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(StatisticsChartComponent, {

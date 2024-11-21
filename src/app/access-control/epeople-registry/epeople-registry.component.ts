@@ -1,12 +1,27 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -40,16 +55,32 @@ import {
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   getEPersonEditRoute,
   getEPersonsRoute,
 } from '../access-control-routing-paths';
+import { EPersonFormComponent } from './eperson-form/eperson-form.component';
 
 @Component({
   selector: 'ds-epeople-registry',
   templateUrl: './epeople-registry.component.html',
+  imports: [
+    TranslateModule,
+    RouterModule,
+    AsyncPipe,
+    NgIf,
+    EPersonFormComponent,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    PaginationComponent,
+    NgClass,
+    NgForOf,
+  ],
+  standalone: true,
 })
 /**
  * A component used for managing all existing epeople within the repository.

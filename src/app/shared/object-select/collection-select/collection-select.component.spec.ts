@@ -17,10 +17,12 @@ import { LinkHeadService } from '../../../core/services/link-head.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { ErrorComponent } from '../../error/error.component';
 import { HostWindowService } from '../../host-window.service';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { SharedModule } from '../../shared.module';
 import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
@@ -77,8 +79,7 @@ describe('CollectionSelectComponent', () => {
   const paginationService = new PaginationServiceStub();
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
-      declarations: [],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockCollectionList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -90,7 +91,7 @@ describe('CollectionSelectComponent', () => {
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(CollectionSelectComponent, { remove: { imports: [PaginationComponent, ErrorComponent, ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

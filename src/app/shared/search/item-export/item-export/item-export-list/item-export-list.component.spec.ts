@@ -2,11 +2,15 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SearchManager } from '../../../../../core/browse/search-manager';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { ErrorComponent } from '../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../object-collection/object-collection.component';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -65,13 +69,13 @@ describe('ItemExportListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemExportListComponent ],
+      imports: [ItemExportListComponent, NoopAnimationsModule],
       providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchManager, useValue: mockSearchManager },
       ],
     })
-      .compileComponents();
+      .overrideComponent(ItemExportListComponent, { remove: { imports: [ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

@@ -34,6 +34,8 @@ import { QualityAssuranceEventDataService } from '../../../core/notifications/qa
 import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   getMockQualityAssuranceEventRestService,
   ItemMockPid8,
@@ -45,6 +47,7 @@ import {
 } from '../../../shared/mocks/notifications.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import {
   createNoContentRemoteDataObject$,
@@ -57,6 +60,7 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
+import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 
 describe('QualityAssuranceEventsComponent test suite', () => {
@@ -122,8 +126,6 @@ describe('QualityAssuranceEventsComponent test suite', () => {
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         QualityAssuranceEventsComponent,
         TestComponent,
       ],
@@ -139,7 +141,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         QualityAssuranceEventsComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(QualityAssuranceEventsComponent, { remove: { imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, EPersonDataComponent] } }).compileComponents().then();
     scheduler = getTestScheduler();
   }));
 
@@ -352,6 +354,8 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
 

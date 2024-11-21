@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
@@ -7,6 +11,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -17,7 +22,6 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -25,10 +29,13 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
   selector: 'ds-subscription-menu',
   templateUrl: './subscription-menu.component.html',
   styleUrls: ['./subscription-menu.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY, true)
-@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION, true)
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM, true)
 /**
  * Display a button linking to the subscription of a DSpaceObject
  */

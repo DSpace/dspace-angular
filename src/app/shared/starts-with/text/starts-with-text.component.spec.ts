@@ -37,8 +37,7 @@ describe('StartsWithTextComponent', () => {
     router = new RouterStub();
 
     await TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [StartsWithTextComponent, EnumKeysPipe],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, StartsWithTextComponent, EnumKeysPipe],
       providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: ActivatedRoute, useValue: route },

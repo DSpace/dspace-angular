@@ -26,8 +26,8 @@ describe('MetricDspacecrisComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        MetricDefaultComponent,
       ],
-      declarations: [MetricDefaultComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));

@@ -14,13 +14,13 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { MockComponent } from 'ng-mocks';
 import { of as observableOf } from 'rxjs';
 
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { WorkspaceitemSectionCustomUrlObject } from '../../../core/submission/models/workspaceitem-section-custom-url.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
@@ -32,6 +32,7 @@ import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';
 import { SubmissionSectionCustomUrlComponent } from './submission-section-custom-url.component';
 import SpyObj = jasmine.SpyObj;
+import { FormComponent } from '../../../shared/form/form.component';
 
 describe('SubmissionSectionCustomUrlComponent', () => {
 
@@ -118,15 +119,12 @@ describe('SubmissionSectionCustomUrlComponent', () => {
     type: 'change',
   };
 
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionCustomUrlComponent,
-        FormComponent,
+        MockComponent(FormComponent),
       ],
       providers: [
         { provide: SectionsService, useValue: sectionService },

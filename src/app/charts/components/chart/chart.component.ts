@@ -1,3 +1,4 @@
+import { NgComponentOutlet } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -19,6 +20,8 @@ import { ChartType } from '../../models/chart-type';
   styleUrls: ['./chart.component.scss'],
   templateUrl: './chart.component.html',
   animations: [fadeIn],
+  standalone: true,
+  imports: [NgComponentOutlet],
 })
 export class ChartComponent implements OnInit {
 

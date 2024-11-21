@@ -55,8 +55,8 @@ describe('SubmissionSubmitComponent Component', () => {
         RouterTestingModule.withRoutes([
           { path: '', component: SubmissionSubmitComponent, pathMatch: 'full' },
         ]),
+        SubmissionSubmitComponent,
       ],
-      declarations: [SubmissionSubmitComponent],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },

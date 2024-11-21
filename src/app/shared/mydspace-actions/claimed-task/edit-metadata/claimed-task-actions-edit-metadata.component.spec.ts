@@ -9,11 +9,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -49,6 +53,7 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ClaimedTaskActionsEditMetadataComponent,
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: {} },
@@ -58,8 +63,8 @@ describe('ClaimedTaskActionsEditMetadataComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      declarations: [ClaimedTaskActionsEditMetadataComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsEditMetadataComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

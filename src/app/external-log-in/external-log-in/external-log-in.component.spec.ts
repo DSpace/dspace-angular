@@ -22,9 +22,13 @@ import { AuthService } from '../../core/auth/auth.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { Registration } from '../../core/shared/registration.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { BrowserOnlyMockPipe } from '../../shared/testing/browser-only-mock.pipe';
+import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
+import { ProvideEmailComponent } from '../email-confirmation/provide-email/provide-email.component';
 import { OrcidConfirmationComponent } from '../registration-types/orcid-confirmation/orcid-confirmation.component';
 import { ExternalLogInComponent } from './external-log-in.component';
 
@@ -63,7 +67,6 @@ describe('ExternalLogInComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ExternalLogInComponent, BrowserOnlyMockPipe ],
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: Injector, useValue: {} },
@@ -79,9 +82,21 @@ describe('ExternalLogInComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        BrowserOnlyMockPipe,
+        ExternalLogInComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(ExternalLogInComponent, {
+        remove: {
+          imports: [
+            AlertComponent,
+            ThemedLogInComponent,
+            ConfirmEmailComponent,
+            ProvideEmailComponent,
+          ],
+        },
+      })
       .compileComponents();
   });
 

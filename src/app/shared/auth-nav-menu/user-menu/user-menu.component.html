@@ -1,4 +1,4 @@
-<ds-themed-loading *ngIf="(loading$ | async)"></ds-themed-loading>
+<ds-loading *ngIf="(loading$ | async)"></ds-loading>
 <ul *ngIf="(loading$ | async) !== true" class="user-menu" role="menu"
     [ngClass]="inExpandableNavbar ? 'user-menu-mobile pb-2 mb-2 border-bottom' : 'user-menu-dropdown'"
     [attr.aria-label]="'nav.user-profile-menu-and-logout' |translate" id="user-menu-dropdown">
@@ -15,6 +15,11 @@
     <a class="ds-menu-item" role="menuitem"
        [routerLink]="[mydspaceRoute]"
        routerLinkActive="active">{{'nav.mydspace' | translate}}</a>
+  </li>
+  <li class="ds-menu-item-wrapper" role="presentation">
+    <a class="ds-menu-item" role="menuitem" data-test="processes-link"
+       [routerLink]="[processesRoute]"
+       routerLinkActive="active">{{'nav.processes' | translate}}</a>
   </li>
   <li class="ds-menu-item-wrapper" role="presentation">
     <a class="ds-menu-item" role="menuitem"

@@ -1,26 +1,27 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  combineLatest,
-  Observable,
-  shareReplay,
-} from 'rxjs';
-import {
-  filter,
-  map,
-} from 'rxjs/operators';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import {
   getForgotPasswordRoute,
@@ -32,7 +33,6 @@ import {
 } from '../../../../core/auth/auth.actions';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import {
   getAuthenticationError,
   getAuthenticationInfo,
@@ -43,7 +43,7 @@ import { FeatureID } from '../../../../core/data/feature-authorization/feature-i
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { fadeOut } from '../../../animations/fade';
 import { isNotEmpty } from '../../../empty.util';
-import { renderAuthMethodFor } from '../log-in.methods-decorator';
+import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 
 /**
  * /users/sign-in
@@ -54,8 +54,9 @@ import { renderAuthMethodFor } from '../log-in.methods-decorator';
   templateUrl: './log-in-password.component.html',
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
-@renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {
 
   /**
@@ -98,16 +99,6 @@ export class LogInPasswordComponent implements OnInit {
    * Whether the current user (or anonymous) is authorized to register an account
    */
   public canRegister$: Observable<boolean>;
-
-  /**
-   * Whether or not the current user (or anonymous) is authorized to register an account
-   */
-  canForgot$: Observable<boolean>;
-
-  /**
-   * Shows the divider only if contains at least one link to show
-   */
-  canShowDivider$: Observable<boolean>;
 
 
   constructor(
@@ -152,18 +143,7 @@ export class LogInPasswordComponent implements OnInit {
       }),
     );
 
-    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration).pipe(
-      shareReplay({ refCount: false, bufferSize: 1 }),
-    );
-    this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(
-      shareReplay({ refCount: false, bufferSize: 1 }),
-    );
-    this.canShowDivider$ =
-        combineLatest([this.canRegister$, this.canForgot$])
-          .pipe(
-            map(([canRegister, canForgot]) => canRegister || canForgot),
-            filter(Boolean),
-          );
+    this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
   }
 
   getRegisterRoute() {

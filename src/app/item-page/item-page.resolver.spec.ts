@@ -1,19 +1,26 @@
 import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { ItemDataService } from '../core/data/item-data.service';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
-import { Item } from '../core/shared/item.model';
+import { DSpaceObject } from '../core/shared/dspace-object.model';
+import { MetadataValueFilter } from '../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { ItemPageResolver } from './item-page.resolver';
+import { AuthServiceStub } from '../shared/testing/auth-service.stub';
+import { itemPageResolver } from './item-page.resolver';
 
-describe('ItemPageResolver', () => {
+describe('itemPageResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([{
+      providers: [
+        { provide: PLATFORM_ID, useValue: 'browser' },
+        { provide: HardRedirectService, useValue: {} },
+      ],
+      imports: [RouterModule.forRoot([{
         path: 'entities/:entity-type/:id',
         component: {} as any,
       }])],
@@ -21,194 +28,92 @@ describe('ItemPageResolver', () => {
   });
 
   describe('resolve', () => {
-    let resolver: ItemPageResolver;
-    let itemService: ItemDataService;
+    let resolver: any;
+    let itemService: any;
+    let store: any;
+    let router: Router;
+    let authService: AuthServiceStub;
+    let platformId: any;
+    let hardRedirectService: any;
 
-    let store;
-    let router;
-    let hardRedirectService: HardRedirectService ;
-    let platformId;
     const uuid = '1234-65487-12354-1235';
-    const item = Object.assign(new Item(), {
-      id: uuid,
-      uuid: uuid,
-      metadata: {
-        'cris.customurl': [
-          {
-            value: 'customurl',
-          },
-        ],
-        'dspace.entity.type': [
-          {
-            value: 'Person',
-          },
-        ],
-      },
-    });
-    const noMetadataItem = Object.assign(new Item(), {
-      id: uuid,
-      uuid: uuid,
-      metadata: {
-        'dspace.entity.type': [
-          {
-            value: 'Person',
-          },
-        ],
-      },
-    });
+    let item: DSpaceObject;
 
-    describe('When item has custom url', () => {
-
+    function runTestsWithEntityType(entityType: string) {
       beforeEach(() => {
         router = TestBed.inject(Router);
         platformId = TestBed.inject(PLATFORM_ID);
+        hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
+          redirect: {},
+        });
+        item = Object.assign(new DSpaceObject(), {
+          uuid: uuid,
+          firstMetadataValue(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): string {
+            return entityType;
+          },
+        });
         itemService = {
-          findById: (id: string) => createSuccessfulRemoteDataObject$(item),
-        } as any;
-
+          findById: (_id: string) => createSuccessfulRemoteDataObject$(item),
+        };
         store = jasmine.createSpyObj('store', {
           dispatch: {},
         });
-
-        hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
-          'redirect': jasmine.createSpy('redirect'),
-        });
-
-        spyOn(router, 'navigateByUrl');
-        resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router);
+        authService = new AuthServiceStub();
+        resolver = itemPageResolver;
       });
 
-      it('should resolve a an item from from the item with the url redirect', (done) => {
-        resolver.resolve({ params: { id: uuid } } as any, { url: 'test-url/1234-65487-12354-1235' } as any)
-          .pipe(first())
+      it('should redirect to the correct route for the entity type', (done) => {
+        spyOn(item, 'firstMetadataValue').and.returnValue(entityType);
+        spyOn(router, 'navigateByUrl').and.callThrough();
+
+        resolver({ params: { id: uuid } } as any,
+          { url: router.parseUrl(`/items/${uuid}`).toString() } as any,
+          router,
+          itemService,
+          store,
+          authService,
+          platformId,
+          hardRedirectService,
+        ).pipe(first())
           .subscribe(
-            (resolved) => {
-              expect(router.navigateByUrl).toHaveBeenCalledWith('test-url/customurl');
+            () => {
+              expect(router.navigateByUrl).toHaveBeenCalledWith(router.parseUrl(`/entities/${entityType}/${uuid}`).toString());
               done();
             },
           );
       });
 
-      it('should resolve a an item from from the item with the url redirect subroute', (done) => {
-        resolver.resolve({ params: { id: uuid } } as any, { url: 'test-url/1234-65487-12354-1235/edit' } as any)
-          .pipe(first())
+      it('should not redirect if we’re already on the correct route', (done) => {
+        spyOn(item, 'firstMetadataValue').and.returnValue(entityType);
+        spyOn(router, 'navigateByUrl').and.callThrough();
+
+        resolver(
+          { params: { id: uuid } } as any,
+          { url: router.parseUrl(`/entities/${entityType}/${uuid}`).toString() } as any,
+          router,
+          itemService,
+          store,
+          authService,
+          platformId,
+          hardRedirectService,
+        ).pipe(first())
           .subscribe(
-            (resolved) => {
-              expect(router.navigateByUrl).toHaveBeenCalledWith('test-url/customurl/edit');
+            () => {
+              expect(router.navigateByUrl).not.toHaveBeenCalled();
               done();
             },
           );
       });
+    }
 
-      it('should resolve a an item from from the item with the url custom url and should not redirect', (done) => {
-        resolver.resolve({ params: { id: 'customurl' } } as any, { url: '/entities/person/customurl' } as any)
-          .pipe(first())
-          .subscribe(
-            (resolved) => {
-              expect(router.navigateByUrl).not.toHaveBeenCalledWith('/entities/person/customurl');
-              done();
-            },
-          );
-      });
-
-      it('should resolve a an item from from the item with the url custom url and should not redirect', (done) => {
-        resolver.resolve({ params: { id: 'customurl' } } as any, { url: '/entities/person/customurl/edit' } as any)
-          .pipe(first())
-          .subscribe(
-            (resolved) => {
-              expect(hardRedirectService.redirect).not.toHaveBeenCalledWith('/entities/person/customurl/edit');
-              done();
-            },
-          );
-      });
-
+    describe('when normal entity type is provided', () => {
+      runTestsWithEntityType('publication');
     });
 
-    describe('When item has no custom url', () => {
-
-      beforeEach(() => {
-        router = TestBed.inject(Router);
-        itemService = {
-          findById: (_id: string) => createSuccessfulRemoteDataObject$(noMetadataItem),
-        } as any;
-
-        store = jasmine.createSpyObj('store', {
-          dispatch: {},
-        });
-
-        hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
-          'redirect': jasmine.createSpy('redirect'),
-        });
-
-        spyOn(router, 'navigateByUrl');
-      });
-
-      describe(' and platform is server', () => {
-
-        beforeEach(() => {
-          platformId = 'server';
-          resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router);
-        });
-
-        it('should redirect if it has not the new item url', (done) => {
-          resolver.resolve({ params: { id: uuid } } as any, { url: '/items/1234-65487-12354-1235/edit' } as any)
-            .pipe(first())
-            .subscribe(
-              (resolved) => {
-                expect(hardRedirectService.redirect).toHaveBeenCalledWith('/entities/person/1234-65487-12354-1235/edit', 301);
-                expect(router.navigateByUrl).not.toHaveBeenCalled();
-                done();
-              },
-            );
-        });
-
-        it('should not redirect if it has the new item url', (done) => {
-          resolver.resolve({ params: { id: uuid } } as any, { url: '/entities/person/1234-65487-12354-1235/edit' } as any)
-            .pipe(first())
-            .subscribe(
-              (resolved) => {
-                expect(hardRedirectService.redirect).not.toHaveBeenCalled();
-                expect(router.navigateByUrl).not.toHaveBeenCalled();
-                done();
-              },
-            );
-        });
-      });
-
-      describe(' and platform is browser', () => {
-
-        beforeEach(() => {
-          platformId = 'browser';
-          resolver = new ItemPageResolver(platformId, hardRedirectService, itemService, store, router);
-        });
-
-        it('should redirect if it has not the new item url', (done) => {
-          resolver.resolve({ params: { id: uuid } } as any, { url: '/items/1234-65487-12354-1235/edit' } as any)
-            .pipe(first())
-            .subscribe(
-              (resolved) => {
-                expect(router.navigateByUrl).toHaveBeenCalledWith('/entities/person/1234-65487-12354-1235/edit');
-                expect(hardRedirectService.redirect).not.toHaveBeenCalled();
-                done();
-              },
-            );
-        });
-
-        it('should not redirect if it has the new item url', (done) => {
-          resolver.resolve({ params: { id: uuid } } as any, { url: '/entities/person/1234-65487-12354-1235/edit' } as any)
-            .pipe(first())
-            .subscribe(
-              (resolved) => {
-                expect(hardRedirectService.redirect).not.toHaveBeenCalled();
-                expect(router.navigateByUrl).not.toHaveBeenCalled();
-                done();
-              },
-            );
-        });
-      });
-
-
-
+    describe('when entity type contains a special character', () => {
+      runTestsWithEntityType('alligator,loki');
+      runTestsWithEntityType('🐊');
+      runTestsWithEntityType(' ');
     });
 
   });

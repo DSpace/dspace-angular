@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -6,10 +10,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   select,
   Store,
 } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -25,7 +31,7 @@ import {
   ManageRelationshipCustomData,
   ManageRelationshipEvent,
   ManageRelationshipEventType,
-} from '../../../../edit-item-relationships/edit-item-relationships.component';
+} from '../../../../edit-item-relationships/edit-item-relationship-types';
 import { getPendingStatus } from '../../../../edit-item-relationships/edit-item-relationships.selectors';
 import { hasValue } from '../../../empty.util';
 
@@ -33,6 +39,13 @@ import { hasValue } from '../../../empty.util';
   selector: 'ds-relationships-items-actions',
   templateUrl: './relationships-items-actions.component.html',
   styleUrls: ['./relationships-items-actions.component.scss'],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class RelationshipsItemsActionsComponent implements OnInit, OnDestroy {
 

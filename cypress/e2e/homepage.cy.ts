@@ -31,9 +31,9 @@ describe('Homepage', () => {
     testA11y('ds-home-page',
       {
         rules: {
-          'heading-order': { enabled: false }
-        }
-      } as Options
+          'heading-order': { enabled: false },
+        },
+      } as Options,
     );
   });
 });

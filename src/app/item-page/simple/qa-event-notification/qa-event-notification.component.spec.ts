@@ -4,11 +4,13 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -17,6 +19,7 @@ import { QualityAssuranceSourceDataService } from '../../../core/notifications/q
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { QaEventNotificationComponent } from './qa-event-notification.component';
@@ -41,9 +44,10 @@ describe('QaEventNotificationComponent', () => {
       getSourcesByTarget: () => objPL,
     };
     await TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot()],
-      declarations: [QaEventNotificationComponent, SplitPipe],
+      imports: [CommonModule, TranslateModule.forRoot(), QaEventNotificationComponent, SplitPipe],
       providers: [
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: QualityAssuranceSourceDataService, useValue: qualityAssuranceSourceDataServiceStub },
         { provide: RequestService, useValue: {} },
         { provide: NotificationsService, useValue: {} },

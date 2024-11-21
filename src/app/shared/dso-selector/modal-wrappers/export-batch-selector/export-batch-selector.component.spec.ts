@@ -31,7 +31,9 @@ import {
 } from '../../../../core/data/processes/script-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
+import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -41,6 +43,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
@@ -51,10 +54,8 @@ import { ExportBatchSelectorComponent } from './export-batch-selector.component'
         provide: TranslateLoader,
         useClass: TranslateLoaderMock,
       },
-    }),
-  ],
+    }), ConfirmationModalComponent],
   exports: [],
-  declarations: [ConfirmationModalComponent],
   providers: [],
 })
 class ModelTestModule {
@@ -108,13 +109,13 @@ describe('ExportBatchSelectorComponent', () => {
       isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
-      declarations: [ExportBatchSelectorComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportBatchSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: SearchService, useValue:  new SearchServiceStub() },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -132,7 +133,7 @@ describe('ExportBatchSelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ExportBatchSelectorComponent, { remove: { imports: [DSOSelectorComponent] } }).compileComponents();
 
   }));
 

@@ -3,6 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -67,12 +68,13 @@ describe('CrisLayoutCollectionBoxComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        CrisLayoutCollectionBoxComponent,
       ],
-      declarations: [CrisLayoutCollectionBoxComponent],
       providers: [
         { provide: 'boxProvider', useValue: testBox },
         { provide: 'itemProvider', useValue: testItem },
         { provide: CollectionDataService, useValue: collectionDataService },
+        { provide: ActivatedRoute, useValue: {} },
       ],
     }).compileComponents();
   });

@@ -1,11 +1,11 @@
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
+import { processBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { Process } from './processes/process.model';
 
-describe('ProcessBreadcrumbResolver', () => {
+describe('processBreadcrumbResolver', () => {
   describe('resolve', () => {
-    let resolver: ProcessBreadcrumbResolver;
+    let resolver: any;
     let processDataService: ProcessDataService;
     let processBreadcrumbService: any;
     let process: Process;
@@ -19,11 +19,16 @@ describe('ProcessBreadcrumbResolver', () => {
       processDataService = {
         findById: () => createSuccessfulRemoteDataObject$(process),
       } as any;
-      resolver = new ProcessBreadcrumbResolver(processBreadcrumbService, processDataService);
+      resolver = processBreadcrumbResolver;
     });
 
     it('should resolve the breadcrumb config', (done) => {
-      const resolvedConfig = resolver.resolve({ data: { breadcrumbKey: process }, params: { id: id } } as any, { url: path } as any);
+      const resolvedConfig = resolver(
+        { data: { breadcrumbKey: process }, params: { id: id } } as any,
+        { url: path } as any,
+        processBreadcrumbService,
+        processDataService,
+      );
       const expectedConfig = { provider: processBreadcrumbService, key: process, url: path };
       resolvedConfig.subscribe((config) => {
         expect(config).toEqual(expectedConfig);
@@ -33,7 +38,7 @@ describe('ProcessBreadcrumbResolver', () => {
 
     it('should resolve throw an error when no breadcrumbKey is defined', () => {
       expect(() => {
-        resolver.resolve({ data: {} } as any, undefined);
+        resolver({ data: {} } as any, undefined, processBreadcrumbService, processDataService);
       }).toThrow();
     });
   });

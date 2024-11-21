@@ -18,8 +18,9 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { Item } from '../../core/shared/item.model';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { SharedModule } from '../../shared/shared.module';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { ItemStatisticsPageComponent } from './item-statistics-page.component';
 
@@ -72,9 +73,6 @@ describe('ItemStatisticsPageComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         CommonModule,
-        SharedModule,
-      ],
-      declarations: [
         ItemStatisticsPageComponent,
         StatisticsTableComponent,
       ],
@@ -87,7 +85,7 @@ describe('ItemStatisticsPageComponent', () => {
         { provide: AuthService, useValue: authService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(ItemStatisticsPageComponent, { remove: { imports: [ThemedLoadingComponent, StatisticsTableComponent, CrisStatisticsPageComponent, CrisStatisticsPageComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

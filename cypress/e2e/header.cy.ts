@@ -1,13 +1,13 @@
 import { testA11y } from 'cypress/support/utils';
 
 describe('Header', () => {
-    it('should pass accessibility tests', () => {
-        cy.visit('/');
+  it('should pass accessibility tests', () => {
+    cy.visit('/');
 
-        // Header must first be visible
-        cy.get('ds-header').should('be.visible');
+    // Header must first be visible
+    cy.get('ds-header').should('be.visible');
 
-        // Analyze <ds-header> for accessibility
-        testA11y('ds-header');
-    });
+    // Analyze <ds-header> for accessibility
+    testA11y('ds-header');
+  });
 });

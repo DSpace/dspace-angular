@@ -1,7 +1,12 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -21,9 +26,11 @@ import { hasValue } from '../../../../empty.util';
 import { AccessStatusObject } from './access-status.model';
 
 @Component({
-  selector: 'ds-access-status-badge',
+  selector: 'ds-base-access-status-badge',
   templateUrl: './access-status-badge.component.html',
   styleUrls: ['./access-status-badge.component.scss'],
+  standalone: true,
+  imports: [NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component rendering the access status of an item as a badge

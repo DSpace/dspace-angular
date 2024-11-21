@@ -6,15 +6,24 @@ import {
   Output,
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
 
 @Component({
   selector: 'ds-vocabulary-treeview-modal',
   templateUrl: './vocabulary-treeview-modal.component.html',
   styleUrls: ['./vocabulary-treeview-modal.component.scss'],
+  imports: [
+    VocabularyTreeviewComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component that contains a modal to display a VocabularyTreeviewComponent
@@ -42,6 +51,11 @@ export class VocabularyTreeviewModalComponent implements OnInit {
   @Input() multiSelect = false;
 
   /**
+   * A boolean representing if to show the add button or not
+   */
+  @Input() showAdd = true;
+
+  /**
    * Contain a descriptive message for this vocabulary retrieved from i18n files
    */
   description: string;
@@ -62,7 +76,6 @@ export class VocabularyTreeviewModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     protected translate: TranslateService,
   ) { }
-
 
   ngOnInit(): void {
     this.setDescription();

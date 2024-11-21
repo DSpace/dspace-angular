@@ -20,6 +20,7 @@ import {
 import { VarDirective } from '../utils/var.directive';
 import { MetadataLinkViewComponent } from './metadata-link-view.component';
 import SpyObj = jasmine.SpyObj;
+import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/metadata-link-view-popover.component';
 
 describe('MetadataLinkViewComponent', () => {
   let component: MetadataLinkViewComponent;
@@ -104,13 +105,13 @@ describe('MetadataLinkViewComponent', () => {
       imports: [
         NgbTooltipModule,
         RouterTestingModule,
+        MetadataLinkViewComponent, EntityIconDirective, VarDirective,
       ],
-      declarations: [MetadataLinkViewComponent, EntityIconDirective, VarDirective],
       providers: [
         { provide: ItemDataService, useValue: itemService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(MetadataLinkViewComponent, { remove: { imports: [MetadataLinkViewPopoverComponent] } }).compileComponents();
   }));
 
   describe('Check metadata without authority', () => {

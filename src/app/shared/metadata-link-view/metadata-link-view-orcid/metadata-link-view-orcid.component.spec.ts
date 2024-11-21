@@ -50,13 +50,12 @@ describe('MetadataLinkViewOrcidComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MetadataLinkViewOrcidComponent ],
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule],
+      }), BrowserAnimationsModule, MetadataLinkViewOrcidComponent],
       providers: [
         { provide: ConfigurationDataService, useValue: configurationDataService },
       ],

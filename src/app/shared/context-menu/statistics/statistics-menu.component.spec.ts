@@ -35,8 +35,7 @@ describe('StatisticsMenuComponent', () => {
       isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-      declarations: [ StatisticsMenuComponent ],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), StatisticsMenuComponent],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: 'contextMenuObjectProvider', useValue: dso },

@@ -23,6 +23,7 @@ import { getListableObjectComponent } from './listable-object.decorator';
   selector: 'ds-listable-object-component-loader',
   styleUrls: ['./listable-object-component-loader.component.scss'],
   templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
+  standalone: true,
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -62,7 +63,7 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
   /**
    * Whether to show the badge label or not
    */
-  @Input() showLabel = true;
+  @Input() showLabel: boolean;
 
   /**
    * Whether to show the metrics badges
@@ -73,6 +74,11 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
    * Whether to show the thumbnail preview
    */
   @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
 
   /**
    * The value to display for this element
@@ -123,6 +129,8 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
     'showLabel',
     'showMetrics',
     'showThumbnails',
+    'showCorrection',
+    'context',
     'viewMode',
     'value',
   ];

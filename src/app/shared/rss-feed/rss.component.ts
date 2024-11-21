@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
@@ -6,6 +10,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -37,6 +42,8 @@ import { PaginatedSearchOptions } from '../search/models/paginated-search-option
   templateUrl: 'rss.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
+  standalone: true,
+  imports: [NgIf, AsyncPipe, TranslateModule],
 })
 export class RSSComponent implements OnInit, OnDestroy  {
 

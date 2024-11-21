@@ -47,7 +47,7 @@
                            (showNotification)="showNotification($event)"></ds-google-recaptcha>
     </div>
 
-    <ng-container *ngIf="((googleRecaptchaService.captchaVersion() | async) !== 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible'); else v2Invisible">
+    <ng-container *ngIf="(!registrationVerification  || ((googleRecaptchaService.captchaVersion() | async) !== 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible')); else v2Invisible">
       <button class="btn btn-primary" [disabled]="form.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked" (click)="register()">
         {{ MESSAGE_PREFIX + '.submit' | translate }}
       </button>

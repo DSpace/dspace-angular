@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
@@ -27,7 +28,6 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { SharedModule } from '../../shared/shared.module';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
@@ -146,12 +146,11 @@ describe('TopLevelCommunityListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        SharedModule,
         RouterTestingModule.withRoutes([]),
         NgbModule,
         NoopAnimationsModule,
+        TopLevelCommunityListComponent,
       ],
-      declarations: [TopLevelCommunityListComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
@@ -163,6 +162,7 @@ describe('TopLevelCommunityListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

@@ -1,8 +1,17 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+  NgOptimizedImage,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { getItemPageRoute } from 'src/app/item-page/item-page-routing-paths';
 import { MetadataLinkViewPopoverDataConfig } from 'src/config/metadata-link-view-popoverdata-config.interface';
 import { AuthorithyIcon } from 'src/config/submission-config.interface';
@@ -12,6 +21,9 @@ import {
   hasNoValue,
   hasValue,
 } from '../../empty.util';
+import { VarDirective } from '../../utils/var.directive';
+import { MetadataLinkViewAvatarPopoverComponent } from '../metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
+import { MetadataLinkViewOrcidComponent } from '../metadata-link-view-orcid/metadata-link-view-orcid.component';
 import { IdentifierSubtypesConfig } from './../../../../config/identifier-subtypes-config.interface';
 import { Item } from './../../../core/shared/item.model';
 
@@ -19,6 +31,19 @@ import { Item } from './../../../core/shared/item.model';
   selector: 'ds-metadata-link-view-popover',
   templateUrl: './metadata-link-view-popover.component.html',
   styleUrls: ['./metadata-link-view-popover.component.scss'],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    NgbTooltipModule,
+    NgOptimizedImage,
+    RouterLink,
+    TranslateModule,
+    MetadataLinkViewOrcidComponent,
+    MetadataLinkViewAvatarPopoverComponent,
+    NgForOf,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class MetadataLinkViewPopoverComponent implements OnInit {
 

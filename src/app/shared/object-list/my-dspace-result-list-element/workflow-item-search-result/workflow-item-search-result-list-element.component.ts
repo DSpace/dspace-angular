@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
 } from '@angular/core';
@@ -15,9 +20,12 @@ import { Item } from '../../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
@@ -30,6 +38,8 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   selector: 'ds-workflow-item-my-dspace-result-list-element',
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './workflow-item-search-result-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, ListableObjectComponentLoaderComponent, NgClass, WorkflowitemActionsComponent, ThemedLoadingComponent, AsyncPipe],
 })
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement)

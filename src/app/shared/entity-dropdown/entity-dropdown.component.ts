@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -9,6 +14,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   Observable,
@@ -40,12 +50,16 @@ import {
   hasValue,
   isNotNull,
 } from '../empty.util';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { SortPipe } from '../utils/sort.pipe';
 
 @Component({
   selector: 'ds-entity-dropdown',
   templateUrl: './entity-dropdown.component.html',
   styleUrls: ['./entity-dropdown.component.scss'],
+  standalone: true,
+  imports: [InfiniteScrollDirective, NgIf, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule, SortPipe],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**
@@ -109,12 +123,14 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    * @param {EntityTypeDataService} entityTypeService
    * @param {ItemExportFormatService} itemExportFormatService
    * @param {ElementRef} el
+   * @param {TranslateService} translate
    */
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private entityTypeService: EntityTypeDataService,
     private itemExportFormatService: ItemExportFormatService,
     private el: ElementRef,
+    private translate: TranslateService,
   ) { }
 
   /**
@@ -212,12 +228,21 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
     }
     this.searchListEntity$ = searchListEntity$.pipe(
       switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => entityType.payload.page),
+      map((item: ItemType) => {
+        return {
+          ...item,
+          translatedLabel: this.translate.instant(`${item.label?.toLowerCase()}.listelement.badge`),
+        };
+      },
+      ),
       reduce((acc: any, value: any) => [...acc, value], []),
       startWith([]),
     );
     this.subs.push(
       this.searchListEntity$.subscribe({
-        next: (result: ItemType[]) => { this.searchListEntity.push(...result); },
+        next: (result: ItemType[]) => {
+          this.searchListEntity = [...this.searchListEntity, ...result];
+        },
         complete: () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); },
       }),
     );

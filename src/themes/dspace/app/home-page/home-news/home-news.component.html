@@ -1,8 +1,8 @@
 <div class="background-image-container mt-ncs">
   <div class="container">
     <div class="jumbotron jumbotron-fluid">
-      <ds-themed-text-section *ngIf="hasHomeNewsMetadata; else dsDefaultHomeNews" [sectionId]="'site'" [textRowSection]="homeNewsSection"
-                              [site]="(site$ | async)"></ds-themed-text-section>
+      <ds-text-section *ngIf="hasHomeNewsMetadata; else dsDefaultHomeNews" [sectionId]="'site'" [textRowSection]="homeNewsSection"
+                              [site]="(site$ | async)"></ds-text-section>
     </div>
   </div>
   <picture class="background-image">
@@ -10,13 +10,13 @@
     <source type="image/jpg" srcset="assets/dspace/images/banner.jpg 2000w, assets/dspace/images/banner-half.jpg 1200w, assets/dspace/images/banner-tall.jpg 768w">
     <img alt="" [src]="'assets/dspace/images/banner.jpg'"/><!-- without the []="''" Firefox downloads both the fallback and the resolved image -->
   </picture>
-  <small class="credits">Photo by <a href="https://www.pexels.com/@inspiredimages">@inspiredimages</a></small>
+  <small class="credits">Photo by <a href="https://www.pexels.com/@inspiredimages">&#64;inspiredimages</a></small>
 </div>
 
 <ng-template #dsDefaultHomeNews>
   <div class="d-flex flex-wrap">
     <div>
-      <h1 class="display-3">DSpace-CRIS 7</h1>
+      <h1 class="display-3">DSpace-CRIS 8</h1>
       <p class="lead">DSpace-CRIS is the first
         <b>free and open-source extension</b> of DSpace for Research Data and Information Management ever developed.</p>
     </div>

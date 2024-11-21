@@ -14,6 +14,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { JournalVolumeSearchResultListElementComponent } from '../search-result-list-elements/journal-volume/journal-volume-search-result-list-element.component';
 import { JournalVolumeListElementComponent } from './journal-volume-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -50,14 +51,15 @@ describe('JournalVolumeListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JournalVolumeListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, JournalVolumeListElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalVolumeListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [JournalVolumeSearchResultListElementComponent] },
     }).compileComponents();
   }));
 

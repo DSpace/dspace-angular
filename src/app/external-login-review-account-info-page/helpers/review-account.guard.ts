@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
+  CanActivateFn,
   Router,
   RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
 import {
   catchError,
@@ -21,57 +22,42 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { hasValue } from '../../shared/empty.util';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class ReviewAccountGuard implements CanActivate {
-  constructor(
-    private router: Router,
-    private epersonRegistrationService: EpersonRegistrationService,
-    private authService: AuthService,
-  ) { }
+export const reviewAccountGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+): Observable<boolean | UrlTree> => {
+  const router = inject(Router);
+  const epersonRegistrationService = inject(EpersonRegistrationService);
+  const authService = inject(AuthService);
 
-  /**
-   * Determines if a user can activate a route based on the registration token.
-   * @param route - The activated route snapshot.
-   * @param state - The router state snapshot.
-   * @returns A value indicating if the user can activate the route.
-   */
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ): Promise<boolean> | boolean | Observable<boolean> {
-    if (route.params.token) {
-      return this.epersonRegistrationService
-        .searchRegistrationByToken(route.params.token)
-        .pipe(
-          getFirstCompletedRemoteData(),
-          mergeMap(
-            (data: RemoteData<Registration>) => {
-              if (data.hasSucceeded && hasValue(data.payload)) {
-                // is the registration type validation (account valid)
-                if (hasValue(data.payload.registrationType) && data.payload.registrationType.includes(AuthRegistrationType.Validation)) {
-                  return of(true);
-                } else {
-                  return this.authService.isAuthenticated();
-                }
-              }
-              return of(false);
-            },
-          ),
-          tap((isValid: boolean) => {
-            if (!isValid) {
-              this.router.navigate(['/404']);
+  if (route.params.token) {
+    return epersonRegistrationService
+      .searchRegistrationByToken(route.params.token)
+      .pipe(
+        getFirstCompletedRemoteData(),
+        mergeMap((data: RemoteData<Registration>) => {
+          if (data.hasSucceeded && hasValue(data.payload)) {
+            // is the registration type validation (account valid)
+            if (hasValue(data.payload.registrationType) && data.payload.registrationType.includes(AuthRegistrationType.Validation)) {
+              return of(true);
+            } else {
+              return authService.isAuthenticated();
             }
-          }),
-          catchError(() => {
-            this.router.navigate(['/404']);
-            return of(false);
-          }),
-        );
-    } else {
-      this.router.navigate(['/404']);
-      return of(false);
-    }
+          }
+          return of(false);
+        }),
+        tap((isValid: boolean) => {
+          if (!isValid) {
+            router.navigate(['/404']);
+          }
+        }),
+        catchError(() => {
+          router.navigate(['/404']);
+          return of(false);
+        }),
+      );
+  } else {
+    router.navigate(['/404']);
+    return of(false);
   }
-}
+};

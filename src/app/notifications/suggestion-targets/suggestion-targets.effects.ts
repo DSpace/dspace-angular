@@ -20,7 +20,7 @@ import {
 } from '../../core/auth/auth.actions';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {
@@ -92,7 +92,7 @@ export class SuggestionTargetsEffects {
       return this.store$.select((state: any) => state.core.auth.user)
         .pipe(
           switchMap((user: EPerson) => {
-            return this.suggestionsService.retrieveCurrentUserSuggestions(user.uuid)
+            return this.suggestionsService.retrieveCurrentUserSuggestions(user?.uuid)
               .pipe(
                 map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
                 catchError((error: unknown) => {

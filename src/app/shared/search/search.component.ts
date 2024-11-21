@@ -1,4 +1,9 @@
-import { isPlatformServer } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformServer,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,6 +19,8 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
@@ -37,6 +44,8 @@ import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-ro
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SearchManager } from '../../core/browse/search-manager';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RouteService } from '../../core/services/route.service';
@@ -51,7 +60,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { AlertType } from '../alert/alert-type';
 import { pushInOut } from '../animations/push';
 import {
@@ -63,22 +72,46 @@ import {
 import { HostWindowService } from '../host-window.service';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
+import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { currentPath } from '../utils/route.utils';
+import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
+import { ItemExportModalLauncherComponent } from './item-export/item-export-modal-launcher/item-export-modal-launcher.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchResult } from './models/search-result.model';
+import { SearchChartsComponent } from './search-charts/search-charts.component';
+import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';
+import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
+import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 @Component({
-  selector: 'ds-search',
+  selector: 'ds-base-search',
   styleUrls: ['./search.component.scss'],
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgIf,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    SearchLabelsComponent,
+    ViewModeSwitchComponent,
+    NgbTooltipModule,
+    ItemExportModalLauncherComponent,
+    SearchChartsComponent,
+  ],
 })
 
 /**
@@ -117,7 +150,16 @@ export class SearchComponent implements OnDestroy, OnInit {
   /**
    * Embedded keys to force during the search
    */
-  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]);
+  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([
+    ['default', ['metrics']],
+    ['workspace', ['item','metrics']],
+    ['workflow', ['workflowitem', 'item','metrics']],
+  ]);
+
+  /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
 
   /**
    * If this is true, the request will only be sent if there's
@@ -153,7 +195,7 @@ export class SearchComponent implements OnDestroy, OnInit {
   /**
    * Optional projection to use during the search
    */
-  @Input() projection;
+  @Input() projection = 'preventMetadataSecurity';
 
   /**
    * Whether or not the search bar should be visible
@@ -196,6 +238,16 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() showExport = true;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
+   * Whether to show the metrics badges
+   */
+  @Input() showMetrics: boolean;
+
+  /**
    * A boolean representing if show search result notice
    */
   @Input() showSearchResultNotice = false;
@@ -209,6 +261,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    * Whether to show the thumbnail preview
    */
   @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection: boolean;
 
   /**
    * Whether to show the view mode switch
@@ -246,9 +303,9 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() showFilterToggle = false;
 
   /**
-   * Defines whether to show the toggle button to Show/Hide filter
+   * Defines whether to fetch search results during SSR execution
    */
-  @Input() renderOnServerSide = true;
+  @Input() renderOnServerSide = false;
 
   /**
    * Defines whether to show the toggle button to Show/Hide chart
@@ -401,7 +458,8 @@ export class SearchComponent implements OnDestroy, OnInit {
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
     protected routeService: RouteService,
-    protected router: Router){
+    protected router: Router,
+    protected authorizationService: AuthorizationDataService){
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -420,6 +478,14 @@ export class SearchComponent implements OnDestroy, OnInit {
 
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
 
+    if (isEmpty(this.showCorrection)) {
+      this.subs.push(
+        this.authorizationService.isAuthorized(FeatureID.CanCorrectItem, null, null, true)
+          .subscribe((showCorrection) => {
+            this.showCorrection = showCorrection;
+          }));
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);
@@ -435,7 +501,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     }
 
     this.currentScope$ = this.routeService.getQueryParameterValue('scope').pipe(
-      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope),
+      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope ?? ''),
     );
 
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
@@ -472,7 +538,7 @@ export class SearchComponent implements OnDestroy, OnInit {
         {
           configuration: searchOptionsConfiguration,
           sort: sortOption || searchOptions.sort,
-          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration),
+          forcedEmbeddedKeys: this.forcedEmbeddedKeys.get(searchOptionsConfiguration) || this.forcedEmbeddedKeys.get('default'),
         });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
@@ -602,7 +668,7 @@ export class SearchComponent implements OnDestroy, OnInit {
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
     this.lastSearchOptions = searchOptions;
-    let followLinks;
+    let followLinks = [];
     if (this.showThumbnails) {
       followLinks = [
         followLink<Item>('thumbnail', { isOptional: true }),
@@ -623,14 +689,31 @@ export class SearchComponent implements OnDestroy, OnInit {
       followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
     }
 
+    searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions);
+
     if (this.projection) {
-      searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
-        projection: this.projection,
-      });
+      searchOptions.projection = this.projection;
+    }
+
+    if (isNotEmpty(this.hiddenQuery)) {
+      if (isNotEmpty(searchOptions.query)) {
+        searchOptions.query = searchOptions.query + ' AND ' + this.hiddenQuery;
+      } else {
+        searchOptions.query = this.hiddenQuery;
+      }
+    }
+
+    const searchOptionsWithHidden = Object.assign (new PaginatedSearchOptions({}), searchOptions);
+    if (isNotEmpty(this.hiddenQuery)) {
+      if (isNotEmpty(searchOptionsWithHidden.query)) {
+        searchOptionsWithHidden.query = searchOptionsWithHidden.query + ' AND ' + this.hiddenQuery;
+      } else {
+        searchOptionsWithHidden.query = this.hiddenQuery;
+      }
     }
 
     this.searchManager.search(
-      searchOptions,
+      searchOptionsWithHidden,
       undefined,
       this.useCachedVersionIfAvailable,
       true,
@@ -639,7 +722,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {
-            this.service.trackSearch(searchOptions, results.payload);
+            this.service.trackSearch(searchOptionsWithHidden, results.payload);
           }
           if (results.payload?.page?.length > 0) {
             this.resultFound.emit(results.payload);

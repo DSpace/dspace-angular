@@ -15,7 +15,10 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { RelationshipsItemsListPreviewComponent } from '../../shared/object-list/relationships-list/relationships-items-list-preview/relationships-items-list-preview.component';
 import {
   ItemInfo,
   RelationshipsData,
@@ -29,8 +32,8 @@ describe('RelationshipsSortListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RelationshipsSortListComponent],
       imports: [
+        RelationshipsSortListComponent,
         RouterTestingModule.withRoutes([]),
         NoopAnimationsModule,
         TranslateModule.forRoot({
@@ -43,7 +46,7 @@ describe('RelationshipsSortListComponent', () => {
       providers: [],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(RelationshipsSortListComponent, { remove: { imports: [ThemedLoadingComponent, RelationshipsItemsListPreviewComponent, AlertComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

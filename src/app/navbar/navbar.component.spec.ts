@@ -34,6 +34,7 @@ import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.mode
 import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
 import { Item } from '../core/shared/item.model';
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import { ThemedUserMenuComponent } from '../shared/auth-nav-menu/user-menu/themed-user-menu.component';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
@@ -134,8 +135,9 @@ describe('NavbarComponent', () => {
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         NoopAnimationsModule,
         ReactiveFormsModule,
-        RouterTestingModule],
-      declarations: [NavbarComponent],
+        RouterTestingModule,
+        NavbarComponent,
+      ],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
@@ -149,7 +151,7 @@ describe('NavbarComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();  // compile template and css
+      .overrideComponent(NavbarComponent, { remove: { imports: [ThemedUserMenuComponent] } }).compileComponents();  // compile template and css
   }));
 
   // synchronous beforeEach

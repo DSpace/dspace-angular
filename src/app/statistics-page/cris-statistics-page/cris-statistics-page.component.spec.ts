@@ -22,14 +22,16 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { StatisticsState } from '../../core/statistics/statistics.reducer';
 import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { SharedModule } from '../../shared/shared.module';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { SiteDataServiceStub } from '../../shared/testing/site-data-service.stub';
 import { StatisticsCategoriesServiceStub } from '../../shared/testing/statistics-category-service.stub';
 import { UsageReportServiceStub } from '../../shared/testing/usage-report-service.stub';
 import { CrisStatisticsPageComponent } from './cris-statistics-page.component';
+import { StatisticsChartComponent } from './statistics-chart/statistics-chart.component';
+import { StatisticsMapComponent } from './statistics-map/statistics-map.component';
 
 describe('CrisStatisticsPageComponent', () => {
 
@@ -63,17 +65,16 @@ describe('CrisStatisticsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports : [
+      imports: [
         RouterTestingModule.withRoutes([]),
-        SharedModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
+        CrisStatisticsPageComponent,
       ],
-      declarations: [ CrisStatisticsPageComponent ],
       providers: [
         provideMockStore({ initialState }),
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -84,7 +85,7 @@ describe('CrisStatisticsPageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(CrisStatisticsPageComponent, { remove: { imports: [ThemedLoadingComponent, StatisticsMapComponent, StatisticsChartComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

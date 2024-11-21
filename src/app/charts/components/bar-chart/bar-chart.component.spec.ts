@@ -52,10 +52,8 @@ xdescribe('BarChartComponent', () => {
       imports: [
         BrowserAnimationsModule,
         NgxChartsModule,
-      ],
-      declarations: [
-        AbstractChartComponent,
         BarChartComponent,
+        AbstractChartComponent,
       ],
       providers: [
         { provide: 'view', useValue: view },

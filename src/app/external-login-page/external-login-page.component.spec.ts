@@ -11,6 +11,8 @@ import {
 import { of } from 'rxjs';
 
 import { Registration } from '../core/shared/registration.model';
+import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
+import { AlertComponent } from '../shared/alert/alert.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { ExternalLoginPageComponent } from './external-login-page.component';
 
@@ -32,7 +34,6 @@ describe('ExternalLoginPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExternalLoginPageComponent ],
       providers: [
         {
           provide: ActivatedRoute,
@@ -54,9 +55,10 @@ describe('ExternalLoginPageComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ExternalLoginPageComponent,
       ],
     })
-      .compileComponents();
+      .overrideComponent(ExternalLoginPageComponent, { remove: { imports: [AlertComponent, ExternalLogInComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

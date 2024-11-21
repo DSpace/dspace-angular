@@ -133,7 +133,7 @@ import { MetadataValue } from '../../../../../../../core/shared/metadata.models'
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
-import { FieldRenderingType } from '../metadata-box.decorator';
+import { FieldRenderingType } from '../field-rendering-type';
 import { OrcidComponent } from './orcid.component';
 
 describe('OrcidComponent', () => {
@@ -187,7 +187,7 @@ describe('OrcidComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule],
+      }), BrowserAnimationsModule, OrcidComponent, DsDatePipe],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
@@ -196,7 +196,6 @@ describe('OrcidComponent', () => {
         { provide: 'tabNameProvider', useValue: '' },
         { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
-      declarations: [OrcidComponent, DsDatePipe],
     })
       .compileComponents();
   }));

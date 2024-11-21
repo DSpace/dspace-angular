@@ -8,6 +8,7 @@ import {
 } from '@ngrx/store';
 import cloneDeep from 'lodash/cloneDeep';
 import {
+  asapScheduler,
   from as observableFrom,
   Observable,
 } from 'rxjs';
@@ -33,10 +34,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import {
-  IndexState,
-  MetaIndexState,
-} from '../index/index.reducer';
+import { IndexState } from '../index/index.reducer';
 import {
   getUrlWithoutEmbedParams,
   requestIndexSelector,
@@ -167,8 +165,7 @@ export class RequestService {
 
   constructor(private objectCache: ObjectCacheService,
               private uuidService: UUIDService,
-              private store: Store<CoreState>,
-              private indexStore: Store<MetaIndexState>) {
+              private store: Store<CoreState>) {
   }
 
   generateRequestId(): string {
@@ -241,7 +238,7 @@ export class RequestService {
       return source.pipe(
         tap((entry: RequestEntry) => {
           if (hasValue(entry) && hasValue(entry.request) && !isStale(entry.state) && !isValid(entry)) {
-            this.store.dispatch(new RequestStaleAction(entry.request.uuid));
+            asapScheduler.schedule(() => this.store.dispatch(new RequestStaleAction(entry.request.uuid)));
           }
         }),
       );
@@ -394,6 +391,7 @@ export class RequestService {
     const requestEntry$ = this.getByHref(href);
 
     requestEntry$.pipe(
+      filter((re: RequestEntry) => isNotEmpty(re)),
       map((re: RequestEntry) => re.request.uuid),
       take(1),
     ).subscribe((uuid: string) => {
@@ -449,8 +447,10 @@ export class RequestService {
    * @param {RestRequest} request to dispatch
    */
   private dispatchRequest(request: RestRequest) {
-    this.store.dispatch(new RequestConfigureAction(request));
-    this.store.dispatch(new RequestExecuteAction(request.uuid));
+    asapScheduler.schedule(() => {
+      this.store.dispatch(new RequestConfigureAction(request));
+      this.store.dispatch(new RequestExecuteAction(request.uuid));
+    });
   }
 
   /**

@@ -45,7 +45,7 @@ export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
 /**
  * The service handling all browse requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowseService {
   protected linkPath = 'browses';
 
@@ -159,6 +159,9 @@ export class BrowseService {
         }
         if (isNotEmpty(filterAuthority)) {
           args.push(`filterAuthority=${encodeURIComponent(filterAuthority)}`);
+        }
+        if (isNotEmpty(options.projection)) {
+          args.push(`projection=${options.projection}`);
         }
         if (isNotEmpty(args)) {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();

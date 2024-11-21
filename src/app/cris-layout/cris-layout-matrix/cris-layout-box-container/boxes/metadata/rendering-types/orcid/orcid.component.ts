@@ -1,9 +1,17 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,10 +21,6 @@ import { ConfigurationProperty } from '../../../../../../../core/shared/configur
 import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/shared/operators';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -27,8 +31,14 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   selector: 'span[ds-orcid]',
   templateUrl: './orcid.component.html',
   styleUrls: ['./orcid.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgbTooltipModule,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.ORCID)
 export class OrcidComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   orcidUrl$: Observable<string>;

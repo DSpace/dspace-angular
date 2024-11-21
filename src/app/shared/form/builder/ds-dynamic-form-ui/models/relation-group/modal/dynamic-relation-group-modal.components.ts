@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -12,6 +17,7 @@ import { FormGroup } from '@angular/forms';
 import {
   NgbActiveModal,
   NgbModal,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -21,6 +27,7 @@ import {
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -65,6 +72,15 @@ import { DynamicRelationGroupModel } from '../dynamic-relation-group.model';
   styleUrls: ['../dynamic-relation-group.component.scss'],
   templateUrl: './dynamic-relation-group-modal.component.html',
   animations: [shrinkInOut],
+  imports: [
+    FormComponent,
+    NgClass,
+    NgIf,
+    NgbTooltipModule,
+    TranslateModule,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class DsDynamicRelationGroupModalComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 

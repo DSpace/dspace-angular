@@ -25,9 +25,12 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
+import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../../../../core/shared/configuration-property.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
@@ -87,6 +90,15 @@ describe('DsDynamicListComponent test suite', () => {
 
   const vocabularyServiceStub = new VocabularyServiceStub();
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
+  });
+
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
 
@@ -97,11 +109,9 @@ describe('DsDynamicListComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-      ],
-      declarations: [
         DsDynamicListComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         DsDynamicListComponent,
@@ -110,6 +120,7 @@ describe('DsDynamicListComponent test suite', () => {
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -301,6 +312,8 @@ describe('DsDynamicListComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [DsDynamicListComponent],
 })
 class TestComponent {
 

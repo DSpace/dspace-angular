@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -16,9 +15,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { ItemExportFormatService } from '../../../core/itemexportformat/item-export-format.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import {
   createPaginatedList,
@@ -97,18 +98,17 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewBulkImportComponent,
           TestComponent,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
-          MyDSpaceNewBulkImportComponent,
+          { provide: ItemExportFormatService, useValue: {} },
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(MyDSpaceNewBulkImportComponent, { remove: { imports: [EntityDropdownComponent] } })
+        .compileComponents();
 
       const html = `<ds-my-dspace-new-bulk-import></ds-my-dspace-new-bulk-import>`;
 
@@ -125,11 +125,11 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
       submissionComponentFixture.destroy();
     });
 
-    it('should create MyDSpaceNewBulkImportComponent', inject([MyDSpaceNewBulkImportComponent], (app: MyDSpaceNewBulkImportComponent) => {
-      expect(app).toBeDefined();
-    }));
+    it('should create MyDSpaceNewBulkImportComponent', () => {
+      expect(submissionComponent).toBeDefined();
+    });
 
-    it('should be a single button', inject([MyDSpaceNewBulkImportComponent], (app: MyDSpaceNewBulkImportComponent) => {
+    it('should be a single button', () => {
       submissionComponentFixture.detectChanges();
       const addDivElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.add'));
       const addDiv = addDivElement.nativeElement;
@@ -139,7 +139,7 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
       expect(button.innerHTML).toBeDefined();
       const dropdownElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.dropdown-menu'));
       expect(dropdownElement).toBeNull();
-    }));
+    });
   });
 
   describe('With more than one Entity', () => {
@@ -148,18 +148,16 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewBulkImportComponent,
           TestComponent,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
-          MyDSpaceNewBulkImportComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(MyDSpaceNewBulkImportComponent, { remove: { imports: [EntityDropdownComponent] } })
+        .compileComponents();
 
       const html = `<ds-my-dspace-new-bulk-import></ds-my-dspace-new-bulk-import>`;
 
@@ -176,15 +174,15 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
       submissionComponentFixture.destroy();
     });
 
-    it('should create MyDSpaceNewBulkImportComponent', inject([MyDSpaceNewBulkImportComponent], (app: MyDSpaceNewBulkImportComponent) => {
-      expect(app).toBeDefined();
-    }));
+    it('should create MyDSpaceNewBulkImportComponent', () => {
+      expect(submissionComponent).toBeDefined();
+    });
 
-    it('should be a dropdown button', inject([MyDSpaceNewBulkImportComponent], (app: MyDSpaceNewBulkImportComponent) => {
+    it('should be a dropdown button', () => {
       const dropdownElement: DebugElement = submissionComponentFixture.debugElement.query(By.css('.dropdown-menu'));
       const dropdown = dropdownElement.nativeElement;
       expect(dropdown.innerHTML).toBeDefined();
-    }));
+    });
 
     it('should invoke modalService.open', () => {
       spyOn((submissionComponent as any).modalService, 'open').and.returnValue({ componentInstance: {  } });
@@ -199,6 +197,8 @@ describe('MyDSpaceNewBulkImportComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

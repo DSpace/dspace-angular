@@ -1,10 +1,18 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   Injector,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as combineLatestObservable,
   Observable,
@@ -16,7 +24,6 @@ import { rotate } from '../../../shared/animations/rotate';
 import { slide } from '../../../shared/animations/slide';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
-import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
 
@@ -28,9 +35,10 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor],
+  standalone: true,
+  imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule],
 })
 
-@rendersSectionForMenu(MenuID.ADMIN, true)
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
   /**
    * This section resides in the Admin Sidebar

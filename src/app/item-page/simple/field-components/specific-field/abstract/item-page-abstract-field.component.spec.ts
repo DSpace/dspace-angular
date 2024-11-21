@@ -16,7 +16,6 @@ import {
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.component';
@@ -34,13 +33,12 @@ describe('ItemPageAbstractFieldComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        SharedModule,
+        ItemPageAbstractFieldComponent,
       ],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
-      declarations: [ItemPageAbstractFieldComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageAbstractFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

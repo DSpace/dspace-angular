@@ -15,22 +15,25 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
@@ -38,10 +41,13 @@ import { PaginatedSearchOptions } from '../../../../search/models/paginated-sear
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
+import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
 } from './relationship.actions';
+import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
+import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -121,8 +127,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
@@ -137,7 +142,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         {
           provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) },
         },
-        { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
           provide: Store, useValue: {
@@ -146,12 +150,15 @@ describe('DsDynamicLookupRelationModalComponent', () => {
             },
           },
         },
+        { provide: XSRFService, useValue: {} },
         { provide: NgZone, useValue: new NgZone({}) },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         NgbActiveModal,
+        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(DsDynamicLookupRelationModalComponent, { remove: { imports: [ThemedDynamicLookupRelationExternalSourceTabComponent, ThemedLoadingComponent, ThemedDynamicLookupRelationSearchTabComponent, DsDynamicLookupRelationSelectionTabComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

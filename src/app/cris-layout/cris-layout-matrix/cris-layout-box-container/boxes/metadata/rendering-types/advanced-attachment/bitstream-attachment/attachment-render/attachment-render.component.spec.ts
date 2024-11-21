@@ -25,12 +25,12 @@ describe('AttachmentRenderComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      declarations: [ AttachmentRenderComponent ],
+      imports: [AttachmentRenderComponent],
       providers: [
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   });

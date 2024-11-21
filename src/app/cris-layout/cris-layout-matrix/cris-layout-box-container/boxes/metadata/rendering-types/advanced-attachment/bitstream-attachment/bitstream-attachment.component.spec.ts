@@ -7,6 +7,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateService } from '@ngx-translate/core';
 
 import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
+import { TruncatableComponent } from '../../../../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { ThemedThumbnailComponent } from '../../../../../../../../thumbnail/themed-thumbnail.component';
+import { AttachmentRenderComponent } from './attachment-render/attachment-render.component';
 import { BitstreamAttachmentComponent } from './bitstream-attachment.component';
 
 describe('BitstreamAttachmentComponent', () => {
@@ -15,8 +19,7 @@ describe('BitstreamAttachmentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BitstreamAttachmentComponent ],
-      imports: [RouterTestingModule.withRoutes([])],
+      imports: [RouterTestingModule.withRoutes([]), BitstreamAttachmentComponent],
       providers: [
         { provide: 'fieldProvider', useValue: {} },
         { provide: 'itemProvider', useValue: {} },
@@ -25,9 +28,9 @@ describe('BitstreamAttachmentComponent', () => {
         { provide: BitstreamDataService, useValue: {} },
         { provide: TranslateService, useValue: {} },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(BitstreamAttachmentComponent, { remove: { imports: [ThemedThumbnailComponent, AttachmentRenderComponent, TruncatableComponent, TruncatablePartComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

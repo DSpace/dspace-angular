@@ -21,12 +21,19 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkspaceItemSearchResultListElementComponent } from './workspace-item-search-result-list-element.component';
+
 
 let component: WorkspaceItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultListElementComponent>;
@@ -78,18 +85,21 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [WorkspaceItemSearchResultListElementComponent],
+      imports: [NoopAnimationsModule, WorkspaceItemSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(WorkspaceItemSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ListableObjectComponentLoaderComponent, WorkspaceitemActionsComponent, ThemedLoadingComponent],
+      },
     }).compileComponents();
   }));
 

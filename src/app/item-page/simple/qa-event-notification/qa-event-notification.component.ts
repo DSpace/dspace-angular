@@ -1,10 +1,17 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   catchError,
@@ -20,6 +27,7 @@ import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/mod
 import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { SplitPipe } from '../../../shared/utils/split.pipe';
 
 @Component({
   selector: 'ds-qa-event-notification',
@@ -27,6 +35,15 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
   styleUrls: ['./qa-event-notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [QualityAssuranceSourceDataService],
+  imports: [
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+    SplitPipe,
+  ],
+  standalone: true,
 })
 /**
  * Component for displaying quality assurance event notifications for an item.

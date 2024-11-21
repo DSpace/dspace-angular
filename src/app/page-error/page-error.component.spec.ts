@@ -26,7 +26,6 @@ describe('PageErrorComponent', () => {
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageErrorComponent ],
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -34,6 +33,7 @@ describe('PageErrorComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        PageErrorComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },

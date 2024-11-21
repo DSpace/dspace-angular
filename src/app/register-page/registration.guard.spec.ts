@@ -13,10 +13,10 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
-import { RegistrationGuard } from './registration.guard';
+import { registrationGuard } from './registration.guard';
 
-describe('RegistrationGuard', () => {
-  let guard: RegistrationGuard;
+describe('registrationGuard', () => {
+  let guard: any;
 
   let epersonRegistrationService: EpersonRegistrationService;
   let router: Router;
@@ -65,7 +65,7 @@ describe('RegistrationGuard', () => {
       setRedirectUrl: {},
     });
 
-    guard = new RegistrationGuard(epersonRegistrationService, router, authService);
+    guard = registrationGuard;
   });
 
   describe('canActivate', () => {
@@ -75,21 +75,21 @@ describe('RegistrationGuard', () => {
       });
 
       it('should return true', (done) => {
-        guard.canActivate(route, state).subscribe((result) => {
+        guard(route, state, authService, epersonRegistrationService, router).subscribe((result) => {
           expect(result).toEqual(true);
           done();
         });
       });
 
       it('should add the response to the route\'s data', (done) => {
-        guard.canActivate(route, state).subscribe(() => {
+        guard(route, state, authService, epersonRegistrationService, router).subscribe(() => {
           expect(route.data).toEqual({ ...startingRouteData, registration: registrationRD });
           done();
         });
       });
 
       it('should not redirect', (done) => {
-        guard.canActivate(route, state).subscribe(() => {
+        guard(route, state, authService, epersonRegistrationService, router).subscribe(() => {
           expect(router.navigateByUrl).not.toHaveBeenCalled();
           done();
         });
@@ -102,7 +102,7 @@ describe('RegistrationGuard', () => {
       });
 
       it('should redirect', () => {
-        guard.canActivate(route, state).subscribe();
+        guard(route, state, authService, epersonRegistrationService, router).subscribe();
         expect(router.navigateByUrl).toHaveBeenCalled();
       });
     });

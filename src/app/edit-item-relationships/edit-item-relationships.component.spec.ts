@@ -19,7 +19,9 @@ import { of as observableOf } from 'rxjs';
 import { EntityTypeDataService } from '../core/data/entity-type-data.service';
 import { RelationshipDataService } from '../core/data/relationship-data.service';
 import { RouteService } from '../core/services/route.service';
+import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { HostWindowService } from '../shared/host-window.service';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
@@ -85,8 +87,9 @@ describe('EditItemRelationshipsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        EditItemRelationshipsComponent,
+        RelationshipsSortListComponent,
       ],
-      declarations: [EditItemRelationshipsComponent, RelationshipsSortListComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: RelationshipDataService, useValue: relationshipsServiceStub },
@@ -94,12 +97,11 @@ describe('EditItemRelationshipsComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Store, useValue: store },
         {
-          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-            {
-              isXs: observableOf(true),
-              isSm: observableOf(false),
-              isXsOrSm: observableOf(true),
-            }),
+          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+            isXs: observableOf(true),
+            isSm: observableOf(false),
+            isXsOrSm: observableOf(true),
+          }),
         },
         {
           provide: SidebarService,
@@ -111,7 +113,7 @@ describe('EditItemRelationshipsComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(EditItemRelationshipsComponent, { remove: { imports: [ThemedLoadingComponent, ThemedConfigurationSearchPageComponent, RelationshipsSortListComponent] } }).compileComponents();
   });
 
 

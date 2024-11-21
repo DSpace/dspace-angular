@@ -14,9 +14,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { SearchService } from '../../../core/shared/search/search.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchServiceStub } from '../../testing/search-service.stub';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
+import { SearchLabelComponent } from './search-label/search-label.component';
 import { SearchLabelsComponent } from './search-labels.component';
 
 describe('SearchLabelsComponent', () => {
@@ -24,7 +25,6 @@ describe('SearchLabelsComponent', () => {
   let fixture: ComponentFixture<SearchLabelsComponent>;
 
   const searchLink = '/search';
-  let searchService;
 
   const field1 = 'author';
   const field2 = 'subject';
@@ -39,31 +39,27 @@ describe('SearchLabelsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RouterTestingModule],
-      declarations: [SearchLabelsComponent, ObjectKeysPipe],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RouterTestingModule, SearchLabelsComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: SEARCH_CONFIG_SERVICE, useValue: { getCurrentFrontendFilters: () => observableOf(mockFilters) } },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchLabelsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [SearchLabelComponent],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchLabelsComponent);
     comp = fixture.componentInstance;
-    searchService = (comp as any).searchService;
-    (comp as any).appliedFilters = observableOf(mockFilters);
     fixture.detectChanges();
   });
 
-  describe('when the component has been initialized', () => {
-    it('should return all params but the provided filter', () => {
-      comp.appliedFilters.subscribe((filters) => {
-        expect(filters).toBe(mockFilters);
-      });
-    });
+  it('should create', () => {
+    expect(comp).toBeTruthy();
   });
 });

@@ -37,6 +37,7 @@ import { RenderingTypeStructuredModelComponent } from './rendering-type-structur
  */
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class BitstreamRenderingModelComponent extends RenderingTypeStructuredModelComponent {
 

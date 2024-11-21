@@ -24,22 +24,20 @@ describe('OrcidConfirmationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        OrcidConfirmationComponent,
-        BrowserOnlyMockPipe,
-      ],
       providers: [
         FormBuilder,
         { provide: 'registrationDataProvider', useValue: mockRegistrationDataModel },
       ],
       imports: [
         CommonModule,
+        OrcidConfirmationComponent,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
+        BrowserOnlyMockPipe,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

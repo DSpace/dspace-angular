@@ -1,4 +1,6 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { Collection } from '../../../../../../app/core/shared/collection.model';
 import { Context } from '../../../../../../app/core/shared/context.model';
@@ -14,6 +16,8 @@ import { CollectionListElementComponent as BaseComponent } from '../../../../../
   styleUrls: ['../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component.scss'],
   // templateUrl: './collection-list-element.component.html'
   templateUrl: '../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink],
 })
 /**
  * Component representing list element for a collection

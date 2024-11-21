@@ -47,8 +47,7 @@ describe('SubscriptionMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [SubscriptionMenuComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), SubscriptionMenuComponent],
       providers: [
         { provide: NgbModal, useValue: ngbModal },
         { provide: 'contextMenuObjectProvider', useValue: dso },

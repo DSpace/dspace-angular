@@ -1,9 +1,17 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -21,20 +29,24 @@ import { Item } from '../../../../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
 import { followLink } from '../../../../../../../shared/utils/follow-link-config.model';
 import { AttachmentComponent } from '../attachment/attachment.component';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
+import { BitstreamAttachmentComponent } from './bitstream-attachment/bitstream-attachment.component';
 
 @Component({
   selector: 'ds-advanced-attachment',
   templateUrl: './advanced-attachment.component.html',
   styleUrls: ['./advanced-attachment.component.scss'],
+  standalone: true,
+  imports: [
+    NgFor,
+    BitstreamAttachmentComponent,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 /**
  * This component renders the attachment with an advanced layout.
  */
-@MetadataBoxFieldRendering(FieldRenderingType.ADVANCEDATTACHMENT, true)
 export class AdvancedAttachmentComponent extends AttachmentComponent implements OnInit {
 
   /**

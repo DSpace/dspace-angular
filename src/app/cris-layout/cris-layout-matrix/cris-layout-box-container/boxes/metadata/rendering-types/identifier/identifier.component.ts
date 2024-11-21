@@ -1,8 +1,10 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 
@@ -16,10 +18,6 @@ import {
 } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 import {
   IdentifierSubtypesConfig,
@@ -33,8 +31,9 @@ import {
   selector: 'ds-identifier',
   templateUrl: './identifier.component.html',
   styleUrls: ['./identifier.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgbTooltipModule],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.IDENTIFIER)
 export class IdentifierComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**

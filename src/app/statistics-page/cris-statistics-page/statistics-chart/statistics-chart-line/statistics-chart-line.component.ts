@@ -1,13 +1,19 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   PLATFORM_ID,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
 } from 'rxjs';
 
+import { ChartComponent } from '../../../../charts/components/chart/chart.component';
 import { ChartData } from '../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../charts/models/chart-series';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
@@ -15,8 +21,7 @@ import {
   Point,
   UsageReport,
 } from '../../../../core/statistics/models/usage-report.model';
-import { renderChartFor } from '../../cris-statistics-element-decorator';
-import { StatisticsType } from '../../statistics-type.model';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 
 /**
@@ -28,11 +33,18 @@ import { StatisticsChartDataComponent } from '../statistics-chart-data/statistic
   selector: 'ds-statistics-chart-line',
   styleUrls: ['./statistics-chart-line.component.scss'],
   templateUrl: './statistics-chart-line.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    ChartComponent,
+    AlertComponent,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component that represents a line chart
  */
-@renderChartFor(StatisticsType['chart.line'])
 export class StatisticsChartLineComponent extends StatisticsChartDataComponent {
 
   constructor(

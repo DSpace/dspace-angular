@@ -48,7 +48,7 @@ export const DEBOUNCE_TIME_OPERATOR = new InjectionToken<<T>(dueTime: number) =>
 
 export const getRemoteDataPayload = <T>() =>
   (source: Observable<RemoteData<T>>): Observable<T> =>
-    source.pipe(map((remoteData: RemoteData<T>) => remoteData.payload));
+    source.pipe(map((remoteData: RemoteData<T>) => remoteData?.payload));
 
 export const getPaginatedListPayload = <T>() =>
   (source: Observable<PaginatedList<T>>): Observable<T[]> =>
@@ -180,11 +180,14 @@ export const getAllSucceededRemoteData = <T>() =>
 export const toDSpaceObjectListRD = <T extends DSpaceObject>() =>
   (source: Observable<RemoteData<PaginatedList<SearchResult<T>>>>): Observable<RemoteData<PaginatedList<T>>> =>
     source.pipe(
-      filter((rd: RemoteData<PaginatedList<SearchResult<T>>>) => rd.hasSucceeded),
       map((rd: RemoteData<PaginatedList<SearchResult<T>>>) => {
-        const dsoPage: T[] = rd.payload.page.filter((result) => hasValue(result)).map((searchResult: SearchResult<T>) => searchResult.indexableObject);
-        const payload = Object.assign(rd.payload, { page: dsoPage }) as PaginatedList<T>;
-        return Object.assign(rd, { payload: payload });
+        if (rd.hasSucceeded) {
+          const dsoPage: T[] = rd.payload.page.filter((result) => hasValue(result)).map((searchResult: SearchResult<T>) => searchResult.indexableObject);
+          const payload = Object.assign(rd.payload, { page: dsoPage }) as PaginatedList<T>;
+          return Object.assign(rd, { payload: payload });
+        } else {
+          return Object.assign(rd, { payload: null });
+        }
       }),
     );
 

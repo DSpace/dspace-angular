@@ -1,22 +1,29 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
+  OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   map,
   Observable,
 } from 'rxjs';
-import {
-  getFirstCompletedRemoteData,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from 'src/app/core/shared/operators';
+import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
+import { CorrectionType } from '../../core/submission/models/correctiontype.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {
   DsoWithdrawnReinstateModalService,
@@ -24,14 +31,22 @@ import {
 } from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
 
 @Component({
-  selector: 'ds-item-alerts',
+  selector: 'ds-base-item-alerts',
   templateUrl: './item-alerts.component.html',
   styleUrls: ['./item-alerts.component.scss'],
+  imports: [
+    AlertComponent,
+    NgIf,
+    TranslateModule,
+    RouterLink,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 /**
  * Component displaying alerts for an item
  */
-export class ItemAlertsComponent {
+export class ItemAlertsComponent implements OnInit {
   /**
    * The Item to display alerts for
    */
@@ -43,11 +58,17 @@ export class ItemAlertsComponent {
    */
   public AlertTypeEnum = AlertType;
 
+  isAdministrator$: Observable<boolean>;
+
   constructor(
     private authService: AuthorizationDataService,
     private dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
     private correctionTypeDataService: CorrectionTypeDataService,
   ) {
+  }
+
+  ngOnInit() {
+    this.isAdministrator$ = this.authService.isAuthorized(FeatureID.AdministratorOf);
   }
 
   /**
@@ -58,8 +79,7 @@ export class ItemAlertsComponent {
   showReinstateButton$(): Observable<boolean>  {
     const correction$ = this.correctionTypeDataService.findByItem(this.item.uuid, true).pipe(
       getFirstCompletedRemoteData(),
-      getRemoteDataPayload(),
-      getPaginatedListPayload(),
+      map((correctionTypeRD: RemoteData<PaginatedList<CorrectionType>>) => correctionTypeRD.hasSucceeded ? correctionTypeRD.payload.page : []),
     );
     const isAdmin$ = this.authService.isAuthorized(FeatureID.AdministratorOf);
     return combineLatest([isAdmin$, correction$]).pipe(

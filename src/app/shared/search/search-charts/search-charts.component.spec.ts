@@ -15,13 +15,14 @@ import {
 } from 'rxjs';
 
 import { SearchService } from '../../../core/shared/search/search.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { FacetValue } from '../models/facet-value.model';
 import { FilterType } from '../models/filter-type.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { RemoteData } from './../../../core/data/remote-data';
+import { SearchChartComponent } from './search-chart/search-chart.component';
 import { SearchChartsComponent } from './search-charts.component';
 
 describe('SearchChartsComponent', () => {
@@ -62,14 +63,13 @@ describe('SearchChartsComponent', () => {
 
   beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [SearchChartsComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, SearchChartsComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SearchChartsComponent, { remove: { imports: [SearchChartComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

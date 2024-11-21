@@ -7,6 +7,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
 import { metricEmbeddedView } from '../../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { MetricEmbeddedViewComponent } from './metric-embedded-view.component';
@@ -21,8 +23,10 @@ describe('MetricEmbeddedViewComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [MetricEmbeddedViewComponent],
+      }), MetricEmbeddedViewComponent],
+      providers: [
+        { provide: APP_CONFIG, useValue: environment },
+      ],
     })
       .compileComponents();
   });

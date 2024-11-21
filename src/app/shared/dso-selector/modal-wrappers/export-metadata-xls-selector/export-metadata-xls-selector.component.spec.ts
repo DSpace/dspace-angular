@@ -40,6 +40,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportMetadataXlsSelectorComponent } from './export-metadata-xls-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
@@ -50,10 +51,8 @@ import { ExportMetadataXlsSelectorComponent } from './export-metadata-xls-select
         provide: TranslateLoader,
         useClass: TranslateLoaderMock,
       },
-    }),
-  ],
+    }), ConfirmationModalComponent],
   exports: [],
-  declarations: [ConfirmationModalComponent],
   providers: [],
 })
 class ModelTestModule {
@@ -104,8 +103,7 @@ describe('ExportMetadataXlsSelectorComponent', () => {
       },
     );
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
-      declarations: [ExportMetadataXlsSelectorComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportMetadataXlsSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
@@ -127,7 +125,7 @@ describe('ExportMetadataXlsSelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ExportMetadataXlsSelectorComponent, { remove: { imports: [DSOSelectorComponent] } }).compileComponents();
 
   }));
 

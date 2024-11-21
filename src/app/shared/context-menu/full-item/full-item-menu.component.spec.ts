@@ -54,7 +54,6 @@ describe('FullItemMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ FullItemMenuComponent ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
@@ -63,6 +62,7 @@ describe('FullItemMenuComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        FullItemMenuComponent,
       ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },

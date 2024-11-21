@@ -23,19 +23,19 @@ export class SubmissionCoarNotifyConfig extends CacheableObject {
 
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   @autoserialize
-    id: string;
+  id: string;
 
   @deserializeAs('id')
-    uuid: string;
+  uuid: string;
 
   @autoserialize
-    patterns: LdnPattern[];
+  patterns: LdnPattern[];
 
   @deserialize
-    _links: {
+  _links: {
     self: {
       href: string;
     };

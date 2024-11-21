@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -26,7 +31,6 @@ import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
-  getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
@@ -35,16 +39,20 @@ import { WorkspaceItem } from '../../../../../core/submission/models/workspaceit
 import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkspaceItemSearchResult } from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @Component({
   selector: 'ds-workflow-item-search-result-admin-workflow-list-element',
   styleUrls: ['./workspace-item-search-result-admin-workflow-list-element.component.scss'],
   templateUrl: './workspace-item-search-result-admin-workflow-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, ListableObjectComponentLoaderComponent, WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule],
 })
 /**
  * The component for displaying a list element for a workflow item on the admin workflow search page
@@ -54,7 +62,7 @@ export class WorkspaceItemSearchResultAdminWorkflowListElementComponent extends 
   /**
    * The item linked to the workflow item
    */
-  public item$: Observable<Item>;
+  public item$: BehaviorSubject<Item> = new BehaviorSubject<Item>(undefined);
 
   /**
    * The id of the item linked to the workflow item
@@ -81,11 +89,14 @@ export class WorkspaceItemSearchResultAdminWorkflowListElementComponent extends 
   ngOnInit(): void {
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
-    this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
+    const item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getFirstCompletedRemoteData(), getRemoteDataPayload());
 
-    this.item$.pipe(
+    item$.pipe(
       take(1),
-      tap((item: Item) => this.itemId = item.id),
+      tap((item: Item) => {
+        this.item$.next(item);
+        this.itemId = item.id;
+      }),
       mergeMap((item: Item) => this.retrieveSupervisorOrders(item.id)),
     ).subscribe((supervisionOrderList: SupervisionOrder[]) => {
       this.supervisionOrder$.next(supervisionOrderList);

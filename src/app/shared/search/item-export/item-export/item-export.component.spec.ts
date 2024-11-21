@@ -31,6 +31,9 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { AlertComponent } from '../../../alert/alert.component';
+import { AdministeredCollectionSelectorComponent } from '../../../dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { RouterMock } from '../../../mocks/router.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -43,11 +46,13 @@ import {
   ItemExportFormConfiguration,
   ItemExportService,
 } from '../item-export.service';
+import { ItemExportAlertComponent } from '../item-export-alert/item-export-alert.component';
 import { ItemExportAlertStubComponent } from '../item-export-alert/item-export-alert.component.spec';
 import {
   ExportSelectionMode,
   ItemExportComponent,
 } from './item-export.component';
+import { ItemExportListComponent } from './item-export-list/item-export-list.component';
 
 describe('ItemExportComponent', () => {
   let component: ItemExportComponent;
@@ -141,8 +146,9 @@ describe('ItemExportComponent', () => {
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateLoaderMock } }),
         FormsModule,
         ReactiveFormsModule,
+        ItemExportComponent,
+        ItemExportAlertStubComponent,
       ],
-      declarations: [ItemExportComponent, ItemExportAlertStubComponent],
       providers: [
         { provide: ItemExportService, useValue: itemExportService },
         { provide: NgbActiveModal, useValue: modal },
@@ -155,7 +161,7 @@ describe('ItemExportComponent', () => {
         NO_ERRORS_SCHEMA,
       ],
     })
-      .compileComponents();
+      .overrideComponent(ItemExportComponent, { remove: { imports: [ThemedLoadingComponent, ItemExportListComponent, ItemExportAlertComponent, AdministeredCollectionSelectorComponent, AlertComponent] } }).compileComponents();
   }));
 
   describe('when cannot export', () => {

@@ -8146,6 +8146,10 @@
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Изаберите тип полисе",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
   "resource-policies.form.policy-type.required": "Морате да изаберете тип полисе ресурса.",
 
@@ -9670,7 +9674,7 @@
   "submission.import-external.source.cinii": "CiNii",
 
   // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite",

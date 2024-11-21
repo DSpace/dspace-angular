@@ -5,7 +5,10 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -16,14 +19,13 @@ import { AuthorizationDataService } from './core/data/feature-authorization/auth
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import { ScriptDataService } from './core/data/processes/script-data.service';
 import { SectionDataService } from './core/layout/section-data.service';
-import { MenuResolver } from './menu.resolver';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/menu-id.model';
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
-import { ConfigurationDataServiceStub } from './shared/testing/configuration-data.service.stub';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { createPaginatedList } from './shared/testing/utils.test';
 import createSpy = jasmine.createSpy;
+import { MenuResolverService } from './menu-resolver.service';
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
@@ -66,13 +68,14 @@ const ALL_NESTED_MENUS = [
 ];
 const NO_MENUS = [];
 
-describe('MenuResolver', () => {
-  let resolver: MenuResolver;
+describe('menuResolver', () => {
+  let resolver: MenuResolverService;
 
   let menuService;
   let sectionsService;
   let authorizationService;
   let scriptService;
+  let mockNgbModal;
   let configurationDataService;
 
   beforeEach(waitForAsync(() => {
@@ -89,29 +92,29 @@ describe('MenuResolver', () => {
     scriptService = jasmine.createSpyObj('scriptService', {
       scriptWithNameExistsAndCanExecute: observableOf(true),
     });
-
-    configurationDataService = new ConfigurationDataServiceStub();
-    spyOn(configurationDataService, 'findByPropertyName').and.returnValue(observableOf(true));
+    mockNgbModal = {
+      open: jasmine.createSpy('open').and.returnValue(
+        { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+      ),
+    };
+    configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+      findByPropertyName: observableOf({}),
+    });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [AdminSidebarComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
       providers: [
         { provide: MenuService, useValue: menuService },
         { provide: SectionDataService, useValue: sectionsService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
-        {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            },
-          },
-        },
+        { provide: NgbModal, useValue: mockNgbModal },
+        MenuResolverService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
-    resolver = TestBed.inject(MenuResolver);
+    resolver = TestBed.inject(MenuResolverService);
   }));
 
   it('should be created', () => {

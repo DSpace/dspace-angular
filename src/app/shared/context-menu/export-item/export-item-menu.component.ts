@@ -1,8 +1,10 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Inject,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
@@ -14,7 +16,6 @@ import {
   ItemExportService,
 } from '../../search/item-export/item-export.service';
 import { ItemExportComponent } from '../../search/item-export/item-export/item-export.component';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -24,8 +25,9 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 @Component({
   selector: 'ds-context-menu-export-item',
   templateUrl: './export-item-menu.component.html',
+  standalone: true,
+  imports: [NgIf, TranslateModule],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM, true)
 export class ExportItemMenuComponent extends ContextMenuEntryComponent {
 
   /**

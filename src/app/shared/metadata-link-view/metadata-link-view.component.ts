@@ -1,8 +1,18 @@
 import {
+  AsyncPipe,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  NgbPopoverModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   Observable,
   of as observableOf,
@@ -25,14 +35,31 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../empty.util';
+import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
 import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { followLink } from '../utils/follow-link-config.model';
+import { VarDirective } from '../utils/var.directive';
+import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/metadata-link-view-popover.component';
 import { MetadataView } from './metadata-view.model';
+import { StickyPopoverDirective } from './sticky-popover.directive';
 
 @Component({
   selector: 'ds-metadata-link-view',
   templateUrl: './metadata-link-view.component.html',
   styleUrls: ['./metadata-link-view.component.scss'],
+  imports: [
+    NgbPopoverModule,
+    RouterLink,
+    EntityIconDirective,
+    NgIf,
+    NgbTooltipModule,
+    MetadataLinkViewPopoverComponent,
+    VarDirective,
+    NgTemplateOutlet,
+    AsyncPipe,
+    StickyPopoverDirective,
+  ],
+  standalone: true,
 })
 export class MetadataLinkViewComponent implements OnInit {
 

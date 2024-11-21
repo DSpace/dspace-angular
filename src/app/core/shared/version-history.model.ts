@@ -27,7 +27,7 @@ export class VersionHistory extends DSpaceObject {
   static type = VERSION_HISTORY;
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     versions: HALLink;
     draftVersion: HALLink;
@@ -37,30 +37,30 @@ export class VersionHistory extends DSpaceObject {
    * The identifier of this Version History
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The summary of this Version History
    */
   @autoserialize
-    summary: string;
+  summary: string;
 
   /**
    * The name of the submitter of this Version History
    */
   @autoserialize
-    submitterName: string;
+  submitterName: string;
 
   /**
    * Whether exist a workspace item
    */
   @autoserialize
-    draftVersion: boolean;
+  draftVersion: boolean;
 
   /**
    * The list of versions within this history
    */
   @excludeFromEquals
   @link(VERSION, true)
-    versions: Observable<RemoteData<PaginatedList<Version>>>;
+  versions: Observable<RemoteData<PaginatedList<Version>>>;
 }

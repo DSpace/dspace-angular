@@ -18,7 +18,7 @@ describe('BaseEmbeddedMetricComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ TestEmbeddedMetricComponent ],
+      imports: [TestEmbeddedMetricComponent],
     })
       .compileComponents();
   }));
@@ -88,6 +88,7 @@ describe('BaseEmbeddedMetricComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestEmbeddedMetricComponent extends BaseEmbeddedMetricComponent {
 

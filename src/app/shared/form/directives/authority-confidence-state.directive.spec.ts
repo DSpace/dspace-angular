@@ -32,8 +32,6 @@ describe('AuthorityConfidenceStateDirective', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-      ],
-      declarations: [
         AuthorityConfidenceStateDirective,
         TestComponent,
       ],
@@ -203,6 +201,10 @@ describe('AuthorityConfidenceStateDirective', () => {
                 class="far fa-circle fa-2x fa-fw"
                 aria-hidden="true"
                 [authorityValue]="authorityValue"></i>`,
+  standalone: true,
+  imports: [
+    AuthorityConfidenceStateDirective,
+  ],
 })
 class TestComponent {
 

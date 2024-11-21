@@ -5,6 +5,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -13,6 +15,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { Item } from '../../core/shared/item.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { CorrectionType } from '../../core/submission/models/correctiontype.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,
@@ -21,6 +24,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ItemAlertsComponent } from './item-alerts.component';
 
@@ -43,16 +47,16 @@ describe('ItemAlertsComponent', () => {
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', ['openCreateWithdrawnReinstateModal']);
     correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  ['findByItem']);
     TestBed.configureTestingModule({
-      declarations: [ItemAlertsComponent],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
       providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
         { provide: CorrectionTypeDataService, useValue: correctionTypeDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(ItemAlertsComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

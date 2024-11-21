@@ -17,7 +17,6 @@ import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
 import { ItemDataService } from '../data/item-data.service';
@@ -38,7 +37,6 @@ import {
   ItemExportFormat,
   ItemExportFormatMap,
 } from './model/item-export-format.model';
-import { ITEM_EXPORT_FORMAT } from './model/item-export-format.resource-type';
 
 export enum ItemExportFormatMolteplicity {
   SINGLE = 'SINGLE',
@@ -48,8 +46,7 @@ export enum ItemExportFormatMolteplicity {
 /**
  * A service that provides methods to make REST requests with item export format endpoint.
  */
-@Injectable()
-@dataService(ITEM_EXPORT_FORMAT)
+@Injectable({ providedIn: 'root' })
 export class ItemExportFormatService extends IdentifiableDataService<ItemExportFormat> {
 
   private searchData: SearchDataImpl<ItemExportFormat>;

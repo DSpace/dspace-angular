@@ -1,3 +1,7 @@
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
@@ -5,18 +9,13 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RemoteData } from '../data/remote-data';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { AuthRequestService } from './auth-request.service';
+import { AuthStatus } from './models/auth-status.model';
 import { ShortLivedToken } from './models/short-lived-token.model';
 import objectContaining = jasmine.objectContaining;
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
-
-import { RestRequestMethod } from '../data/rest-request-method';
-import { AuthStatus } from './models/auth-status.model';
 
 describe(`AuthRequestService`, () => {
   let halService: HALEndpointService;

@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  EventEmitter,
   Renderer2,
 } from '@angular/core';
 import {
@@ -23,6 +24,8 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
 import {
   mockDynamicFormLayoutService,
@@ -65,17 +68,23 @@ describe('DsDatePickerComponent test suite', () => {
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
 
+    const translateServiceStub = {
+      get: () => observableOf('test-message'),
+      onLangChange: new EventEmitter(),
+      onTranslationChange: new EventEmitter(),
+      onDefaultLangChange: new EventEmitter(),
+    };
+
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-      ],
-      declarations: [
         DsDatePickerComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         DsDatePickerComponent,
+        { provide: TranslateService, useValue: translateServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: Renderer2, useValue: renderer2 },
@@ -362,6 +371,8 @@ describe('DsDatePickerComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

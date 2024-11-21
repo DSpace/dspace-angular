@@ -8,9 +8,11 @@ import { ThemedComponent } from '../../../theme-support/themed.component';
 import { SearchSectionComponent } from './search-section.component';
 
 @Component({
-  selector: 'ds-themed-search-section',
+  selector: 'ds-search-section',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [SearchSectionComponent],
 })
 export class ThemedSearchSectionComponent extends ThemedComponent<SearchSectionComponent> {
 

@@ -72,7 +72,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/d
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 import { RowParser } from './parsers/row-parser';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FormBuilderService extends DynamicFormService {
 
   private typeBindModel: BehaviorSubject<DynamicFormControlModel> = new BehaviorSubject<DynamicFormControlModel>(null);
@@ -379,7 +379,7 @@ export class FormBuilderService extends DynamicFormService {
 
   modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
     submissionScope?: string, readOnly = false, typeBindModel = null,
-    isInnerForm = false, securityConfig: any = null): DynamicFormControlModel[] | never {
+    isInnerForm = false, securityConfig: any = null, setTypeBind: boolean = true): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
@@ -396,12 +396,14 @@ export class FormBuilderService extends DynamicFormService {
       });
     }
 
-    if (hasNoValue(typeBindModel)) {
-      typeBindModel = this.findById(this.typeField, rows);
-    }
+    if (setTypeBind) {
+      if (hasNoValue(typeBindModel)) {
+        typeBindModel = this.findById(this.typeField, rows);
+      }
 
-    if (hasValue(typeBindModel)) {
-      this.setTypeBindModel(typeBindModel);
+      if (hasValue(typeBindModel)) {
+        this.setTypeBindModel(typeBindModel);
+      }
     }
     return rows;
   }

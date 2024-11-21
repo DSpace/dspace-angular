@@ -8,14 +8,12 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { METADATA_SCHEMA } from '../metadata/metadata-schema.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import {
   CreateData,
   CreateDataImpl,
 } from './base/create-data';
-import { dataService } from './base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -37,8 +35,7 @@ import { RequestService } from './request.service';
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
-@Injectable()
-@dataService(METADATA_SCHEMA)
+@Injectable({ providedIn: 'root' })
 export class MetadataSchemaDataService extends IdentifiableDataService<MetadataSchema> implements FindAllData<MetadataSchema>, DeleteData<MetadataSchema> {
   private createData: CreateData<MetadataSchema>;
   private findAllData: FindAllData<MetadataSchema>;

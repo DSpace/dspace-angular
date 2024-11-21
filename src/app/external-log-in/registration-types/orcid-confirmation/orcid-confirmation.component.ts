@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,11 +8,12 @@ import {
 import {
   FormBuilder,
   FormGroup,
+  ReactiveFormsModule,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthRegistrationType } from '../../../core/auth/models/auth.registration-type';
 import { Registration } from '../../../core/shared/registration.model';
-import { renderExternalLoginConfirmationFor } from '../../decorators/external-log-in.methods-decorator';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { ExternalLoginMethodEntryComponent } from '../../decorators/external-login-method-entry.component';
 
 @Component({
@@ -19,8 +21,14 @@ import { ExternalLoginMethodEntryComponent } from '../../decorators/external-log
   templateUrl: './orcid-confirmation.component.html',
   styleUrls: ['./orcid-confirmation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    BrowserOnlyPipe,
+    NgIf,
+  ],
 })
-@renderExternalLoginConfirmationFor(AuthRegistrationType.Orcid)
 export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponent implements OnInit  {
 
   /**

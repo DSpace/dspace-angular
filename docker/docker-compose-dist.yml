@@ -8,7 +8,6 @@
 
 # Docker Compose for running the DSpace Angular UI dist build
 # for previewing with the DSpace Demo site backend
-version: '3.7'
 networks:
   dspacenet:
 services:

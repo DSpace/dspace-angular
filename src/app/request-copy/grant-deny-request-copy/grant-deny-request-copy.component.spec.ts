@@ -19,6 +19,7 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { Item } from '../../core/shared/item.model';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -84,8 +85,7 @@ describe('GrantDenyRequestCopyComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [GrantDenyRequestCopyComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), GrantDenyRequestCopyComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: AuthService, useValue: authService },
@@ -93,7 +93,7 @@ describe('GrantDenyRequestCopyComponent', () => {
         { provide: DSONameService, useValue: nameService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(GrantDenyRequestCopyComponent, { remove: { imports: [ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,8 +1,10 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
@@ -26,6 +28,7 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
+import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-unit-input-suggestions.component';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
@@ -33,6 +36,8 @@ import { NameVariantModalComponent } from '../../name-variant-modal/name-variant
   selector: 'ds-person-search-result-list-submission-element',
   styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
   templateUrl: './org-unit-search-result-list-submission-element.component.html',
+  standalone: true,
+  imports: [NgIf, OrgUnitInputSuggestionsComponent, FormsModule],
 })
 
 /**

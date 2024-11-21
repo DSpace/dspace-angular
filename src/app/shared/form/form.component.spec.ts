@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
@@ -14,7 +15,6 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayGroupModel,
@@ -22,6 +22,7 @@ import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
+  DynamicFormsCoreModule,
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
@@ -33,9 +34,12 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { storeModuleConfig } from '../../app.reducer';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { StoreMock } from '../testing/store.mock';
 import { createTestComponent } from '../testing/utils.test';
+import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
@@ -163,29 +167,35 @@ describe('FormComponent test suite', () => {
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
         StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         FormComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ChangeDetectorRef,
         DynamicFormValidationService,
         FormBuilderService,
         FormComponent,
         FormService,
         { provide: Store, useClass: StoreMock },
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    });
-
+    })
+      .overrideComponent(FormComponent, {
+        remove: {
+          imports: [DsDynamicFormComponent],
+        },
+        add: {
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
+      });
   }));
 
   describe('', () => {
@@ -625,8 +635,19 @@ describe('FormComponent test suite', () => {
 
 // declare a test component
 @Component({
+  exportAs: 'formComponent',
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormComponent,
+    DsDynamicFormComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    DynamicFormsCoreModule,
+  ],
 })
 class TestComponent {
 

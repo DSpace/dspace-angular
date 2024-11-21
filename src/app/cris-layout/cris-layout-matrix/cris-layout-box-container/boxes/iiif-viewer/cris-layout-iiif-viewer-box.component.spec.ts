@@ -13,6 +13,7 @@ import {
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { MiradorViewerComponent } from '../../../../../item-page/mirador-viewer/mirador-viewer.component';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { CrisLayoutIIIFViewerBoxComponent } from './cris-layout-iiif-viewer-box.component';
@@ -69,15 +70,15 @@ xdescribe('CrisLayoutIIIFViewerBoxComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        CrisLayoutIIIFViewerBoxComponent,
       ],
-      declarations: [ CrisLayoutIIIFViewerBoxComponent ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: 'boxProvider', useValue: testBox },
         { provide: 'itemProvider', useValue: testItem },
         { provide: AuthService, useValue: new AuthServiceMock() },
       ],
-    }).compileComponents();
+    }).overrideComponent(CrisLayoutIIIFViewerBoxComponent, { remove: { imports: [MiradorViewerComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

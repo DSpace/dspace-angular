@@ -1,10 +1,22 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -32,13 +44,28 @@ import {
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
 
 @Component({
   selector: 'ds-metadata-schema',
   templateUrl: './metadata-schema.component.html',
   styleUrls: ['./metadata-schema.component.scss'],
+  imports: [
+    AsyncPipe,
+    VarDirective,
+    MetadataFieldFormComponent,
+    TranslateModule,
+    PaginationComponent,
+    NgIf,
+    NgForOf,
+    NgClass,
+    RouterLink,
+  ],
+  standalone: true,
 })
 /**
  * A component used for managing all existing metadata fields within the current metadata schema.

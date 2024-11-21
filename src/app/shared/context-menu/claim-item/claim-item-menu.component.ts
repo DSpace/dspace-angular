@@ -1,9 +1,16 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -24,15 +31,19 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { isNotUndefined } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 @Component({
   selector: 'ds-context-menu-claim-item',
   templateUrl: './claim-item-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class ClaimItemMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
   public claimable$: BehaviorSubject<boolean> =  new BehaviorSubject<boolean>(false);

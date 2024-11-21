@@ -13,9 +13,11 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALResource } from '../../../core/shared/hal-resource.model';
+import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { VarDirective } from '../../utils/var.directive';
 
 export function createSidebarSearchListElementTests(
@@ -46,17 +48,16 @@ export function createSidebarSearchListElementTests(
         }),
       });
       TestBed.configureTestingModule({
-        declarations: [componentClass, VarDirective],
-        imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+        imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective],
         providers: [
-          { provide: TruncatableService, useValue: {} },
+          { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: LinkService, useValue: linkService },
           { provide: APP_CONFIG, useValue: environment },
           DSONameService,
           ...extraProviders,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(componentClass, { remove: { imports: [TruncatablePartComponent] } }).compileComponents();
     }));
 
     beforeEach(() => {

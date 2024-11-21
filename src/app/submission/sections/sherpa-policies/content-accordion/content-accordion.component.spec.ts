@@ -29,8 +29,8 @@ describe('ContentAccordionComponent', () => {
           },
         }),
         NgbCollapseModule,
+        ContentAccordionComponent,
       ],
-      declarations: [ContentAccordionComponent],
     })
       .compileComponents();
   });

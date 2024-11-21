@@ -1,10 +1,18 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
   BehaviorSubject,
@@ -31,18 +39,36 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../core/shared/operators';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import {
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
-import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { VarDirective } from '../shared/utils/var.directive';
+import { ProfilePageAccessTokenComponent } from './profile-page-access-token/profile-page-access-token.component';
+import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
+import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
 @Component({
-  selector: 'ds-profile-page',
+  selector: 'ds-base-profile-page',
   styleUrls: ['./profile-page.component.scss'],
   templateUrl: './profile-page.component.html',
+  imports: [
+    ThemedProfilePageMetadataFormComponent,
+    ProfilePageSecurityFormComponent,
+    AsyncPipe,
+    TranslateModule,
+    ProfilePageResearcherFormComponent,
+    VarDirective,
+    NgIf,
+    NgForOf,
+    SuggestionsNotificationComponent,
+    ProfilePageAccessTokenComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component for a user to edit their profile information
@@ -51,7 +77,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   /**
    * A reference to the metadata form component
    */
-  @ViewChild(ProfilePageMetadataFormComponent) metadataForm: ProfilePageMetadataFormComponent;
+  @ViewChild(ThemedProfilePageMetadataFormComponent) metadataForm: ThemedProfilePageMetadataFormComponent;
 
   /**
    * The authenticated user as observable
@@ -133,8 +159,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
    * Fire an update on both the metadata and security forms
    * Show a warning notification when no changes were made in both forms
    */
-  updateProfile() {
-    const metadataChanged = this.metadataForm.updateProfile();
+  updateProfile(): void {
+    const metadataChanged = this.metadataForm.compRef.instance.updateProfile();
     const securityChanged = this.updateSecurity();
     if (!metadataChanged && !securityChanged) {
       this.notificationsService.warning(

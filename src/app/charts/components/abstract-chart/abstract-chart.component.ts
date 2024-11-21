@@ -22,6 +22,7 @@ import { ChartType } from '../../models/chart-type';
 
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class AbstractChartComponent implements OnInit {
 

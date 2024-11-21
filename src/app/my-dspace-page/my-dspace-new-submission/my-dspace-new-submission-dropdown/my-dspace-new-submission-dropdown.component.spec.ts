@@ -16,11 +16,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { ItemExportFormatService } from '../../../core/itemexportformat/item-export-format.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import {
   createPaginatedList,
   createTestComponent,
@@ -98,19 +99,17 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
+          { provide: ItemExportFormatService, useValue: {} },
           MyDSpaceNewSubmissionDropdownComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(MyDSpaceNewSubmissionDropdownComponent, { remove: { imports: [EntityDropdownComponent] } }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 
@@ -150,15 +149,13 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
+          { provide: ItemExportFormatService, useValue: {} },
           MyDSpaceNewSubmissionDropdownComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
@@ -202,6 +199,8 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

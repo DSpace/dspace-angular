@@ -13,9 +13,12 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-result-actions.component';
 import { ItemAdminSearchResultListElementComponent } from './item-admin-search-result-list-element.component';
 
 describe('ItemAdminSearchResultListElementComponent', () => {
@@ -37,13 +40,18 @@ describe('ItemAdminSearchResultListElementComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        ItemAdminSearchResultListElementComponent,
       ],
-      declarations: [ItemAdminSearchResultListElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} },
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }],
+        { provide: APP_CONFIG, useValue: environment },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(ItemAdminSearchResultListElementComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent, ItemAdminSearchResultActionsComponent] },
+      })
       .compileComponents();
   }));
 

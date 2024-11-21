@@ -38,8 +38,7 @@ describe('MetricAltmetricComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [MetricAltmetricComponent, ListMetricPropsPipe],
+      }), MetricAltmetricComponent, ListMetricPropsPipe],
     })
       .compileComponents();
   }));

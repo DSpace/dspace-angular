@@ -1,9 +1,17 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -20,8 +28,10 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { ThemedCreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import { hasValue } from '../../../shared/empty.util';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 /**
  * This component represents the new submission dropdown
@@ -30,6 +40,15 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-my-dspace-new-submission-dropdown',
   styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
   templateUrl: './my-dspace-new-submission-dropdown.component.html',
+  imports: [
+    EntityDropdownComponent,
+    NgbDropdownModule,
+    AsyncPipe,
+    TranslateModule,
+    BrowserOnlyPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy {
 
@@ -105,7 +124,7 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy
    * select a collection.
    */
   openDialog(entity: ItemType) {
-    const modalRef = this.modalService.open(CreateItemParentSelectorComponent);
+    const modalRef = this.modalService.open(ThemedCreateItemParentSelectorComponent);
     modalRef.componentInstance.entityType = entity.label;
   }
 

@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
@@ -24,7 +28,10 @@ import {
   getRemoteDataPayload,
 } from '../core/shared/operators';
 import { isNotEmpty } from '../shared/empty.util';
+import { VarDirective } from '../shared/utils/var.directive';
 import { PaginatedList } from './../core/data/paginated-list.model';
+import { CrisLayoutLeadingComponent } from './cris-layout-leading/cris-layout-leading.component';
+import { CrisLayoutLoaderComponent } from './cris-layout-loader/cris-layout-loader.component';
 
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -33,6 +40,14 @@ import { PaginatedList } from './../core/data/paginated-list.model';
   selector: 'ds-cris-layout',
   templateUrl: './cris-layout.component.html',
   styleUrls: ['./cris-layout.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    CrisLayoutLeadingComponent,
+    CrisLayoutLoaderComponent,
+    AsyncPipe,
+    VarDirective,
+  ],
 })
 export class CrisLayoutComponent implements OnInit {
 

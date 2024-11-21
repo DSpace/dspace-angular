@@ -11,6 +11,8 @@ export const notifyPatterns = [
 
   'request-review',
 
+  'announce-relationship',
+
 ];
 
 

@@ -1,12 +1,26 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
+  Inject,
   OnInit,
   Optional,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
@@ -19,11 +33,14 @@ import {
   hasValue,
   isEmpty,
 } from '../shared/empty.util';
+import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
 
 @Component({
-  selector: 'ds-footer',
+  selector: 'ds-base-footer',
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe, DatePipe, TranslateModule, ThemedTextSectionComponent],
 })
 export class FooterComponent implements OnInit {
   dateObj: number = Date.now();
@@ -44,25 +61,26 @@ export class FooterComponent implements OnInit {
    */
   section: TextRowSection;
 
-  showPrivacyPolicy = environment.info.enablePrivacyStatement;
-  showEndUserAgreement = environment.info.enableEndUserAgreement;
+  showPrivacyPolicy: boolean;
+  showEndUserAgreement: boolean;
   showSendFeedback$: Observable<boolean>;
-  coarLdnEnabled: boolean;
+  coarLdnEnabled$: Observable<boolean>;
 
   constructor(
-    @Optional() private cookies: KlaroService,
-    private authorizationService: AuthorizationDataService,
-    private notifyInfoService: NotifyInfoService,
+    @Optional() public cookies: KlaroService,
+    protected authorizationService: AuthorizationDataService,
+    protected notifyInfoService: NotifyInfoService,
     private locale: LocaleService,
     private siteService: SiteDataService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
   }
-
   ngOnInit() {
+    this.showPrivacyPolicy = this.appConfig.info.enablePrivacyStatement;
+    this.showEndUserAgreement = this.appConfig.info.enableEndUserAgreement;
+    this.coarLdnEnabled$ = this.appConfig.info.enableCOARNotifySupport ? this.notifyInfoService.isCoarConfigEnabled() : observableOf(false);
     this.showSendFeedback$ = this.authorizationService.isAuthorized(FeatureID.CanSendFeedback);
-    this.notifyInfoService.isCoarConfigEnabled().subscribe(coarLdnEnabled => {
-      this.coarLdnEnabled = coarLdnEnabled;
-    });
+
     this.section = {
       content: 'cris.cms.footer',
       contentType: 'text-metadata',
@@ -77,7 +95,6 @@ export class FooterComponent implements OnInit {
       },
     );
   }
-
   showCookieSettings() {
     if (hasValue(this.cookies)) {
       this.cookies.showSettings();

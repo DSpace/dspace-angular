@@ -1,3 +1,4 @@
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -7,6 +8,7 @@ import { SeriesFieldParser } from './series-field-parser';
 describe('SeriesFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {
@@ -35,13 +37,13 @@ describe('SeriesFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof SeriesFieldParser).toBe(true);
   });
 
   it('should return a DynamicConcatModel object when repeatable option is false', () => {
-    const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -49,7 +51,7 @@ describe('SeriesFieldParser test suite', () => {
   });
 
   it('should return a DynamicConcatModel object with the correct separator', () => {
-    const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -60,9 +62,9 @@ describe('SeriesFieldParser test suite', () => {
     initFormValues = {
       series: [new FormFieldMetadataValueObject('test; series')],
     };
-    const expectedValue = new FormFieldMetadataValueObject('test; series', undefined, null, undefined, 'test');
+    const expectedValue = new FormFieldMetadataValueObject('test; series', undefined, null, null, 'test');
 
-    const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 

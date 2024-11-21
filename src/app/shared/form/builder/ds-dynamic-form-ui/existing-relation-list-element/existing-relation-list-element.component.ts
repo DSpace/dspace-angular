@@ -1,5 +1,9 @@
 /* eslint-disable max-classes-per-file */
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -28,7 +32,9 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
@@ -73,6 +79,13 @@ export abstract class Reorderable {
   selector: 'ds-existing-relation-list-element',
   templateUrl: './existing-relation-list-element.component.html',
   styleUrls: ['./existing-relation-list-element.component.scss'],
+  imports: [
+    ThemedLoadingComponent,
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() listId: string;

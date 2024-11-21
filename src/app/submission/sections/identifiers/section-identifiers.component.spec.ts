@@ -14,7 +14,6 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
@@ -23,10 +22,12 @@ import { of as observableOf } from 'rxjs';
 
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Collection } from '../../../core/shared/collection.model';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { Item } from '../../../core/shared/item.model';
 import { License } from '../../../core/shared/license.model';
 import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
@@ -135,6 +136,15 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
     remove: jasmine.createSpy('remove'),
   });
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
+  });
+
   const licenseText = 'License text';
   const mockCollection = Object.assign(new Collection(), {
     name: 'Community 1-Collection 1',
@@ -152,15 +162,12 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         NgxPaginationModule,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionIdentifiersComponent,
         TestComponent,
         ObjNgFor,
@@ -179,6 +186,7 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionIdentifiersComponent,
@@ -266,6 +274,12 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule],
 })
 class TestComponent {
 

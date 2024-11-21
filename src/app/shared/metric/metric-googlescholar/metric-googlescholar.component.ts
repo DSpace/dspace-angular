@@ -1,8 +1,11 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { RedirectWithHrefDirective } from '../../../directives/redirect/redirect-href.directive';
 import { hasValue } from '../../empty.util';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 
@@ -10,6 +13,12 @@ import { BaseMetricComponent } from '../metric-loader/base-metric.component';
   selector: 'ds-metric-googlescholar',
   templateUrl: './metric-googlescholar.component.html',
   styleUrls: ['./metric-googlescholar.component.scss'],
+  standalone: true,
+  imports: [
+    RedirectWithHrefDirective,
+    NgIf,
+    TranslateModule,
+  ],
 })
 export class MetricGooglescholarComponent extends BaseMetricComponent implements OnInit {
 
@@ -23,7 +32,7 @@ export class MetricGooglescholarComponent extends BaseMetricComponent implements
     this.url = this.getDetailUrl();
   }
 
-  getDetailUrl(): null | any {
+  getDetailUrl(): any {
     try {
       const remark = this.parseRemark();
       if (hasValue(remark)) {

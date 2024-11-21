@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -9,10 +10,6 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -24,8 +21,9 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   selector: 'span[ds-link-authority]',
   templateUrl: './link-authority.component.html',
   styleUrls: ['./link-authority.component.scss'],
+  standalone: true,
+  imports: [NgClass],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.AUTHORITYLINK)
 export class LinkAuthorityComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**

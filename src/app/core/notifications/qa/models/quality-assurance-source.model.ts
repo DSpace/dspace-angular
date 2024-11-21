@@ -24,32 +24,32 @@ export class QualityAssuranceSourceObject implements CacheableObject {
    * The Quality Assurance source id
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The date of the last udate from Notifications
    */
   @autoserialize
-    lastEvent: string;
+  lastEvent: string;
 
   /**
    * The total number of suggestions provided by Notifications for this source
    */
   @autoserialize
-    totalEvents: number;
+  totalEvents: number;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
   };
 }

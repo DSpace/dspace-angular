@@ -38,6 +38,7 @@ export enum SelectorActionType {
 @Component({
   selector: 'ds-dso-selector-modal',
   template: '',
+  standalone: true,
 })
 export abstract class DSOSelectorModalWrapperComponent implements OnInit {
 

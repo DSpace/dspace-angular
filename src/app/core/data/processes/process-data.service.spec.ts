@@ -20,6 +20,7 @@ import { Process } from '../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../process-page/processes/process-status.model';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
@@ -70,7 +71,7 @@ describe('ProcessDataService', () => {
           { provide: RemoteDataBuildService, useValue: null },
           { provide: ObjectCacheService, useValue: null },
           { provide: ReducerManager, useValue: null },
-          { provide: HALEndpointService, useValue: null },
+          { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
           { provide: DSOChangeAnalyzer, useValue: null },
           { provide: BitstreamFormatDataService, useValue: null },
           { provide: NotificationsService, useValue: null },
@@ -150,7 +151,7 @@ describe('ProcessDataService', () => {
           { provide: RemoteDataBuildService, useValue: null },
           { provide: ObjectCacheService, useValue: null },
           { provide: ReducerManager, useValue: null },
-          { provide: HALEndpointService, useValue: null },
+          { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
           { provide: DSOChangeAnalyzer, useValue: null },
           { provide: BitstreamFormatDataService, useValue: null },
           { provide: NotificationsService, useValue: null },

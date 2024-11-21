@@ -38,7 +38,9 @@ import { HostWindowServiceStub } from '../../shared/testing/host-window-service.
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.component';
+import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
 import { getMockEntityTypeService } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component.spec';
 
 describe('MyDSpaceNewSubmissionComponent test', () => {
@@ -60,8 +62,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         }),
         NgbModule,
         RouterTestingModule,
-      ],
-      declarations: [
         MyDSpaceNewSubmissionComponent,
         TestComponent,
       ],
@@ -80,7 +80,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(MyDSpaceNewSubmissionComponent, { remove: { imports: [MyDSpaceNewExternalDropdownComponent, MyDSpaceNewSubmissionDropdownComponent, UploaderComponent] } }).compileComponents();
   }));
 
   describe('', () => {
@@ -133,6 +133,9 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [NgbModule,
+    RouterTestingModule],
 })
 class TestComponent {
 

@@ -20,22 +20,20 @@ describe('PageWithSidebarComponent', () => {
   describe('', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
+        imports: [NoopAnimationsModule, PageWithSidebarComponent],
         providers: [
           {
             provide: SidebarService,
             useClass: SidebarServiceStub,
           },
           {
-            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-              {
-                isXs: observableOf(true),
-                isSm: observableOf(false),
-                isXsOrSm: observableOf(true),
-              }),
+            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+              isXs: observableOf(true),
+              isSm: observableOf(false),
+              isXsOrSm: observableOf(true),
+            }),
           },
         ],
-        declarations: [PageWithSidebarComponent],
       }).compileComponents().then(() => {
         fixture = TestBed.createComponent(PageWithSidebarComponent);
         comp = fixture.componentInstance;
@@ -116,22 +114,20 @@ describe('PageWithSidebarComponent', () => {
   describe('', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
+        imports: [NoopAnimationsModule, PageWithSidebarComponent],
         providers: [
           {
             provide: SidebarService,
             useClass: SidebarServiceStub,
           },
           {
-            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-              {
-                isXs: observableOf(false),
-                isSm: observableOf(false),
-                isXsOrSm: observableOf(false),
-              }),
+            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+              isXs: observableOf(false),
+              isSm: observableOf(false),
+              isXsOrSm: observableOf(false),
+            }),
           },
         ],
-        declarations: [PageWithSidebarComponent],
       }).compileComponents().then(() => {
         fixture = TestBed.createComponent(PageWithSidebarComponent);
         comp = fixture.componentInstance;

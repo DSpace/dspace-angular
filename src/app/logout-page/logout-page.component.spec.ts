@@ -4,8 +4,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { LogOutComponent } from '../shared/log-out/log-out.component';
 import { LogoutPageComponent } from './logout-page.component';
 
 describe('LogoutPageComponent', () => {
@@ -16,10 +18,14 @@ describe('LogoutPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        LogoutPageComponent,
       ],
-      declarations: [LogoutPageComponent],
+      providers: [
+        provideMockStore(),
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(LogoutPageComponent, { remove: { imports: [LogOutComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

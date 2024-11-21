@@ -15,7 +15,6 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SharedModule } from '../../shared/shared.module';
 import { DeleteCollectionPageComponent } from './delete-collection-page.component';
 
 describe('DeleteCollectionPageComponent', () => {
@@ -24,8 +23,7 @@ describe('DeleteCollectionPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [DeleteCollectionPageComponent],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, DeleteCollectionPageComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CollectionDataService, useValue: {} },

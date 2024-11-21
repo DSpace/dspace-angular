@@ -28,13 +28,17 @@ import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { AlertComponent } from '../../alert/alert.component';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import {
   subscriptionMock,
   subscriptionMock2,
 } from '../../testing/subscriptions-data.mock';
+import { ThemeService } from '../../theme-support/theme.service';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionModalComponent } from './subscription-modal.component';
 
@@ -106,18 +110,19 @@ describe('SubscriptionModalComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        SubscriptionModalComponent,
       ],
-      declarations: [SubscriptionModalComponent],
       providers: [
         NgbActiveModal,
         { provide: AuthService, useValue: authService },
         { provide: NotificationsService, useValue: notificationServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(SubscriptionModalComponent, { remove: { imports: [ThemedTypeBadgeComponent, AlertComponent] } }).compileComponents();
 
   }));
 

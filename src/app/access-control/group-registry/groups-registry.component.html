@@ -33,11 +33,10 @@
         </div>
       </form>
 
-      <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
+      <ds-loading *ngIf="loading$ | async"></ds-loading>
       <ds-pagination
         *ngIf="(pageInfoState$ | async)?.totalElements > 0 && (loading$ | async) !== true"
         [paginationOptions]="config"
-        [pageInfoState]="pageInfoState$"
         [collectionSize]="(pageInfoState$ | async)?.totalElements"
         [hideGear]="true"
         [hidePagerWhenSinglePage]="true">

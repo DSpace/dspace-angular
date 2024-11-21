@@ -1,12 +1,20 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -17,11 +25,13 @@ import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteData,
 } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   getItemEditRoute,
   getItemPageRoute,
 } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 
 /**
  * Page component for unlink a profile item from ORCID.
@@ -29,6 +39,15 @@ import {
 @Component({
   selector: 'ds-item-unlink-orcid',
   templateUrl: './item-unlink-orcid.component.html',
+  standalone: true,
+  imports: [
+    AlertComponent,
+    TranslateModule,
+    ModifyItemOverviewComponent,
+    NgIf,
+    RouterLink,
+    AsyncPipe,
+  ],
 })
 export class ItemUnlinkOrcidComponent implements OnInit {
 

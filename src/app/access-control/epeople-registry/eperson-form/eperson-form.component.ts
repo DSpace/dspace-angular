@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -10,6 +16,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -18,7 +25,10 @@ import {
   DynamicFormLayout,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -58,15 +68,32 @@ import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
 @Component({
   selector: 'ds-eperson-form',
   templateUrl: './eperson-form.component.html',
+  imports: [
+    FormComponent,
+    NgIf,
+    NgFor,
+    AsyncPipe,
+    TranslateModule,
+    NgClass,
+    ThemedLoadingComponent,
+    PaginationComponent,
+    RouterLink,
+    HasNoValuePipe,
+  ],
+  standalone: true,
 })
 /**
  * A form used for creating and editing EPeople

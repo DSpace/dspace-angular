@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 /**
  * Service to take care of hard redirects
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export abstract class HardRedirectService {
 
   /**

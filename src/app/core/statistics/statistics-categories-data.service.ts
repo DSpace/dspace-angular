@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
 import { FindListOptions } from '../data/find-list-options.model';
@@ -12,13 +11,11 @@ import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { StatisticsCategory } from './models/statistics-category.model';
-import { STATISTICS_CATEGORY } from './models/statistics-category.resource-type';
 
 /**
  * A service to retrieve {@link StatisticsCategory}s from the REST API
  */
-@Injectable()
-@dataService(STATISTICS_CATEGORY)
+@Injectable({ providedIn: 'root' })
 export class StatisticsCategoriesDataService extends IdentifiableDataService<StatisticsCategory> {
 
   protected linkPath = 'categories';

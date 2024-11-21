@@ -1,25 +1,31 @@
 import {
   Component,
-  ComponentFactoryResolver,
   ComponentRef,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { CrisLayoutTypeConfig } from '../../../config/layout-config.interfaces';
-import { environment } from '../../../environments/environment';
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
 import { getCrisLayoutPage } from '../decorators/cris-layout-page.decorator';
 import { CrisLayoutLoaderDirective } from '../directives/cris-layout-loader.directive';
+import { LayoutPage } from '../enums/layout-page.enum';
 
 @Component({
   selector: 'ds-cris-layout-loader',
   templateUrl: './cris-layout-loader.component.html',
   styleUrls: ['./cris-layout-loader.component.scss'],
+  standalone: true,
+  imports: [CrisLayoutLoaderDirective],
 })
 export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
 
@@ -56,7 +62,10 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
    */
   componentRef: ComponentRef<Component>;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
+  }
 
   ngOnInit(): void {
     this.getConfiguration();
@@ -70,22 +79,22 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
     const itemType = this.item ?.firstMetadataValue('dspace.entity.type');
     const def = 'default';
 
-    if (!!environment.crisLayout.itemPage && !!environment.crisLayout.itemPage[itemType]) {
-      this.layoutConfiguration = environment.crisLayout.itemPage[itemType];
+    if (!!this.appConfig.crisLayout.itemPage && !!this.appConfig.crisLayout.itemPage[itemType]) {
+      this.layoutConfiguration = this.appConfig.crisLayout.itemPage[itemType];
     } else {
-      this.layoutConfiguration = environment.crisLayout.itemPage[def];
+      this.layoutConfiguration = this.appConfig.crisLayout.itemPage[def];
     }
   }
 
   /**
-   * Initialize the component depending the layout configuration
+   * Initialize the component depending on the layout configuration
    */
   initComponent(): void {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
+    const component: GenericConstructor<Component> = this.getComponent();
     const viewContainerRef = this.crisLayoutLoader.viewContainerRef;
     viewContainerRef.clear();
 
-    this.componentRef = viewContainerRef.createComponent(componentFactory);
+    this.componentRef = viewContainerRef.createComponent(component);
     (this.componentRef.instance as any).item = this.item;
     (this.componentRef.instance as any).tabs = this.tabs;
     (this.componentRef.instance as any).showContextMenu = this.showContextMenu;
@@ -98,7 +107,7 @@ export class CrisLayoutLoaderComponent implements OnInit, OnDestroy {
    * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {
-    return getCrisLayoutPage(this.layoutConfiguration.orientation);
+    return getCrisLayoutPage(this.layoutConfiguration.orientation as LayoutPage);
   }
 
   /**

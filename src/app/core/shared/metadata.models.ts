@@ -38,26 +38,26 @@ export class MetadataValue implements MetadataValueInterface {
 
   /** The language. */
   @autoserialize
-    language: string;
+  language: string;
 
   /** The string value. */
   @autoserialize
-    value: string;
+  value: string;
 
   /**
    * The place of this MetadataValue within its list of metadata
    * This is used to render metadata in a specific custom order
    */
   @autoserialize
-    place: number;
+  place: number;
 
   /** The authority key used for authority-controlled metadata */
   @autoserialize
-    authority: string;
+  authority: string;
 
   /** The authority confidence value */
   @autoserialize
-    confidence: number;
+  confidence: number;
 
 
   /** The security level value */

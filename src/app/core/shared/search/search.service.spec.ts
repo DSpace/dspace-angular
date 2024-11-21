@@ -36,8 +36,15 @@ import { ViewMode } from '../view-mode.model';
 import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
+import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
 
-@Component({ template: '' })
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+
+@Component({
+  template: '',
+  standalone: true,
+  imports: [CommonModule],
+})
 class DummyComponent {
 }
 
@@ -54,8 +61,6 @@ describe('SearchService', () => {
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
           ]),
-        ],
-        declarations: [
           DummyComponent,
         ],
         providers: [
@@ -63,12 +68,13 @@ describe('SearchService', () => {
           { provide: RouteService, useValue: routeServiceStub },
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: {} },
-          { provide: HALEndpointService, useValue: {} },
+          { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
           { provide: CommunityDataService, useValue: {} },
           { provide: DSpaceObjectDataService, useValue: {} },
           { provide: PaginationService, useValue: {} },
           { provide: SearchConfigurationService, useValue: searchConfigService },
           { provide: Angulartics2, useValue: {} },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           SearchService,
         ],
       });
@@ -123,8 +129,6 @@ describe('SearchService', () => {
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
           ]),
-        ],
-        declarations: [
           DummyComponent,
         ],
         providers: [
@@ -138,6 +142,7 @@ describe('SearchService', () => {
           { provide: PaginationService, useValue: paginationService },
           { provide: SearchConfigurationService, useValue: searchConfigService },
           { provide: Angulartics2, useValue: {} },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           SearchService,
         ],
       });

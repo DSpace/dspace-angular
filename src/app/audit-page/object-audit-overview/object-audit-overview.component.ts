@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -6,7 +12,9 @@ import {
   ActivatedRoute,
   ParamMap,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -26,7 +34,9 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * Component displaying a list of all audit about a object in a paginated table
@@ -34,6 +44,17 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 @Component({
   selector: 'ds-object-audit-overview',
   templateUrl: './object-audit-overview.component.html',
+  imports: [
+    PaginationComponent,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    NgForOf,
+    VarDirective,
+    RouterLink,
+    DatePipe,
+  ],
+  standalone: true,
 })
 export class ObjectAuditOverviewComponent implements OnInit {
 

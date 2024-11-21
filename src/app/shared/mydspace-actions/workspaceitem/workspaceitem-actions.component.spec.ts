@@ -9,7 +9,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   NgbModal,
   NgbModule,
@@ -37,6 +40,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
@@ -182,8 +186,8 @@ describe('WorkspaceitemActionsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        WorkspaceitemActionsComponent,
       ],
-      declarations: [WorkspaceitemActionsComponent],
       providers: [
         Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -191,8 +195,9 @@ describe('WorkspaceitemActionsComponent', () => {
         { provide: WorkspaceitemDataService, useValue: mockDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
-        { provide: AuthService, useValue:  authService },
+        { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         NgbModal,
       ],
       schemas: [NO_ERRORS_SCHEMA],

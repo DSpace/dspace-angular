@@ -23,7 +23,7 @@ import { SubmissionState } from '../../submission.reducers';
 /**
  * A service that provides methods used in the deduplication process.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DetectDuplicateService {
 
   /**

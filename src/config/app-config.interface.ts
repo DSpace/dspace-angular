@@ -1,7 +1,13 @@
-import { InjectionToken } from '@angular/core';
-import { makeStateKey } from '@angular/platform-browser';
+import {
+  InjectionToken,
+  makeStateKey,
+  Type,
+} from '@angular/core';
 
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
+import { FieldRenderingType } from '../app/cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/field-rendering-type';
+import { MetadataBoxFieldRenderOptions } from '../app/cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/rendering-type.model';
 import { ActuatorsConfig } from './actuators.config';
 import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
 import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
@@ -102,6 +108,13 @@ interface AppConfig extends Config {
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
+
+export type LazyDataServicesMap = Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>;
+
+export const APP_DATA_SERVICES_MAP: InjectionToken<LazyDataServicesMap> = new InjectionToken<LazyDataServicesMap>('APP_DATA_SERVICES_MAP');
+
+
+export const CRIS_FIELD_RENDERING_MAP: InjectionToken<Map<FieldRenderingType, MetadataBoxFieldRenderOptions>> = new InjectionToken<Map<FieldRenderingType, MetadataBoxFieldRenderOptions>>('CRIS_FIELD_RENDERING_MAP');
 
 export {
   APP_CONFIG,

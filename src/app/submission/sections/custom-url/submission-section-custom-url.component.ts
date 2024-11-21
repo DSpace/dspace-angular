@@ -1,4 +1,8 @@
 import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
 } from '@angular/core';
@@ -7,6 +11,7 @@ import {
   DynamicFormControlModel,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -29,6 +34,7 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../../shared/empty.util';
+import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
@@ -37,7 +43,6 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 
 /**
@@ -47,8 +52,14 @@ import { SectionsType } from '../sections-type';
   selector: 'ds-submission-section-custom-url',
   templateUrl: './submission-section-custom-url.component.html',
   styleUrls: ['./submission-section-custom-url.component.scss'],
+  imports: [
+    FormComponent,
+    NgIf,
+    TranslateModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.CustomUrl)
 export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
 
   /**

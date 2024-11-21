@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   AfterViewInit,
   Component,
   Inject,
@@ -6,11 +12,16 @@ import {
   OnInit,
   Optional,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
 import {
   APP_CONFIG,
@@ -23,10 +34,19 @@ import { Item } from '../../../../../../core/shared/item.model';
 import { getFirstSucceededRemoteListPayload } from '../../../../../../core/shared/operators';
 import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
+import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
 import { KlaroService } from '../../../../../cookies/klaro.service';
+import { isNotEmpty } from '../../../../../empty.util';
+import { MetadataLinkViewComponent } from '../../../../../metadata-link-view/metadata-link-view.component';
+import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
+import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
+import { MetricBadgesComponent } from '../../../../metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from '../../../../metric-donuts/metric-donuts.component';
+import { AdditionalMetadataComponent } from '../../../additional-metadata/additional-metadata.component';
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
@@ -36,6 +56,8 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
   selector: 'ds-item-search-result-list-element',
   styleUrls: ['./item-search-result-list-element.component.scss'],
   templateUrl: './item-search-result-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule, AdditionalMetadataComponent, MetadataLinkViewComponent, MetricBadgesComponent, MetricDonutsComponent],
 })
 /**
  * The component for displaying a list element for an item search result of the type Publication
@@ -81,7 +103,9 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
       this.klaroService.watchConsentUpdates();
 
       this.hasLoadedThirdPartyMetrics$ = combineLatest([
-        this.klaroService.consentsUpdates$,
+        this.klaroService.consentsUpdates$.pipe(
+          filter(consents => isNotEmpty(consents)),
+        ),
         this.dso.metrics?.pipe(
           getFirstSucceededRemoteListPayload(),
           map(metrics => {

@@ -14,6 +14,8 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
+import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { LongtextComponent } from './longtext.component';
 
 describe('LongtextComponent', () => {
@@ -58,7 +60,7 @@ describe('LongtextComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule],
+      }), BrowserAnimationsModule, LongtextComponent],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
@@ -66,9 +68,8 @@ describe('LongtextComponent', () => {
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
       ],
-      declarations: [LongtextComponent],
     })
-      .compileComponents();
+      .overrideComponent(LongtextComponent, { remove: { imports: [TruncatableComponent, TruncatablePartComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

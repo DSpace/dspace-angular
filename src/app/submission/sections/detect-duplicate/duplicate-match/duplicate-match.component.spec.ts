@@ -6,15 +6,11 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,6 +21,7 @@ import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/
 import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { getMockDetectDuplicateService } from '../../../../shared/mocks/mock-detect-duplicate-service';
+import { ThemedItemListPreviewComponent } from '../../../../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { SectionsServiceStub } from '../../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../shared/testing/utils.test';
@@ -306,13 +303,10 @@ describe('DuplicateMatchComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        DuplicateMatchComponent,
         TestComponent,
+        DuplicateMatchComponent,
       ],
       providers: [
         { provide: DetectDuplicateService, useClass: getMockDetectDuplicateService },
@@ -325,7 +319,7 @@ describe('DuplicateMatchComponent test suite', () => {
         DuplicateMatchComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(DuplicateMatchComponent, { remove: { imports: [ThemedItemListPreviewComponent] } }).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -345,9 +339,9 @@ describe('DuplicateMatchComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('Should create DuplicateMatchComponent', inject([DuplicateMatchComponent], (app: DuplicateMatchComponent) => {
-      expect(app).toBeDefined();
-    }));
+    it('Should create DuplicateMatchComponent', () => {
+      expect(testComp).toBeDefined();
+    });
   });
 
   describe('', () => {
@@ -491,6 +485,9 @@ describe('DuplicateMatchComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [
+    CommonModule],
 })
 class TestComponent {
   match = matchWorkflowMock;

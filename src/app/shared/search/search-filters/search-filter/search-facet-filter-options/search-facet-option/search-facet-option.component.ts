@@ -1,27 +1,32 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
+  Params,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { hasValue } from '../../../../../empty.util';
+import { CapitalizePipe } from '../../../../../utils/capitalize.pipe';
 import { currentPath } from '../../../../../utils/route.utils';
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { getFacetValueForType } from '../../../../search.utils';
@@ -30,12 +35,14 @@ import { getFacetValueForType } from '../../../../search.utils';
   selector: 'ds-search-facet-option',
   styleUrls: ['./search-facet-option.component.scss'],
   templateUrl: './search-facet-option.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe, TranslateModule, ShortNumberPipe, CapitalizePipe],
 })
 
 /**
  * Represents a single option in a filter facet
  */
-export class SearchFacetOptionComponent implements OnInit, OnDestroy {
+export class SearchFacetOptionComponent implements OnInit {
   /**
    * A single value for this component
    */
@@ -47,14 +54,9 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
   @Input() filterConfig: SearchFilterConfig;
 
   /**
-   * Emits the active values for this filter
-   */
-  @Input() selectedValues$: Observable<FacetValue[]>;
-
-  /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * Emits true when this option should be visible and false when it should be invisible
@@ -64,16 +66,12 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
   /**
    * UI parameters when this filter is added
    */
-  addQueryParams;
+  addQueryParams$: Observable<Params>;
 
   /**
    * Link to the search page
    */
   searchLink: string;
-  /**
-   * Subscription to unsubscribe from on destroy
-   */
-  sub: Subscription;
 
   paginationId: string;
 
@@ -101,10 +99,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
     this.paginationId = this.searchConfigService.paginationID;
     this.searchLink = this.getSearchLink();
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
-    this.sub = observableCombineLatest(this.selectedValues$, this.searchConfigService.searchOptions)
-      .subscribe(([selectedValues, searchOptions]) => {
-        this.updateAddParams(selectedValues);
-      });
+    this.addQueryParams$ = this.updateAddParams();
   }
 
   /**
@@ -131,14 +126,14 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
   /**
    * Checks if a value for this filter is currently active
    */
-  private isChecked(): Observable<boolean> {
+  isChecked(): Observable<boolean> {
     return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.getFacetValue());
   }
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  private getSearchLink(): string {
+  getSearchLink(): string {
     if (this.inPlaceSearch) {
       return currentPath(this.router);
     }
@@ -146,31 +141,17 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Calculates the parameters that should change if a given value for this filter would be added to the active filters
-   * @param {string[]} selectedValues The values that are currently selected for this filter
+   * Calculates the parameters that should change if this {@link filterValue} would be added to the active filters
    */
-  private updateAddParams(selectedValues: FacetValue[]): void {
-    const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
-    this.addQueryParams = {
-      [this.filterConfig.paramName]: [...selectedValues.map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)), this.getFacetValue()],
-      [page]: 1,
-    };
+  updateAddParams(): Observable<Params> {
+    return this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, this.getFacetValue());
   }
 
   /**
-   * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
    * Retrieve facet value related to facet type
    */
-  private getFacetValue(): string {
+  getFacetValue(): string {
     return getFacetValueForType(this.filterValue, this.filterConfig);
   }
 
-  /**
-   * Make sure the subscription is unsubscribed from when this component is destroyed
-   */
-  ngOnDestroy(): void {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
-  }
 }

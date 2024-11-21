@@ -20,7 +20,7 @@ export class RouterMock {
   navigateByUrl = jasmine.createSpy('navigateByUrl');
 
   serializeUrl(url: UrlTree): string {
-    return url ? url.toString() : '';
+    return url ? url.toString() : '/testing-url';
   }
 
   setRoute(route) {

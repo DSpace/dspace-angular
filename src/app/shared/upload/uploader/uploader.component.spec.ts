@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -38,19 +37,16 @@ describe('UploaderComponent test', () => {
       imports: [
         FileUploadModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         UploaderComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
-        ScrollToService,
-        UploaderComponent,
         DragService,
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: ScrollToService, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -68,10 +64,9 @@ describe('UploaderComponent test', () => {
     testComp = testFixture.componentInstance;
   });
 
-  it('should create Uploader Component', inject([UploaderComponent], (app: UploaderComponent) => {
-
-    expect(app).toBeDefined();
-  }));
+  it('should create Uploader Component', () => {
+    expect(testComp).toBeDefined();
+  });
 
 });
 
@@ -79,6 +74,8 @@ describe('UploaderComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [FileUploadModule, UploaderComponent],
 })
 class TestComponent {
   public uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {

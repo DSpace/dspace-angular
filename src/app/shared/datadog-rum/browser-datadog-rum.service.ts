@@ -10,7 +10,10 @@ import {
 } from 'rxjs';
 import {
   distinctUntilChanged,
+  filter,
+  switchMap,
   take,
+  tap,
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -24,7 +27,7 @@ import { setDatadogRumStatusAction } from './datadog-rum.actions';
 import { DatadogRumState } from './datadog-rum.reducer';
 import { DatadogRumService } from './datadog-rum.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowserDatadogRumService extends DatadogRumService {
 
   consentsUpdates$: BehaviorSubject<CookieConsents>;
@@ -35,12 +38,18 @@ export class BrowserDatadogRumService extends DatadogRumService {
     private store: Store,
   ) {
     super();
+    this.consentsUpdates$ = this.klaroService.consentsUpdates$;
   }
 
   initDatadogRum() {
-    this.klaroService.watchConsentUpdates();
-    this.consentsUpdates$ = this.klaroService.consentsUpdates$;
-    this.consentsUpdates$.subscribe(savedPreferences => {
+    this.klaroService.initialized$.pipe(
+      filter(initalized => initalized),
+      take(1),
+      tap(() => {
+        this.klaroService.watchConsentUpdates();
+      }),
+      switchMap(() => this.consentsUpdates$),
+    ).subscribe(savedPreferences => {
       this.getDatadogRumState().subscribe((state) => {
         if (savedPreferences?.datadog &&
           environment.datadogRum?.clientToken && environment.datadogRum?.applicationId &&

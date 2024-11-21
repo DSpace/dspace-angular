@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
@@ -5,10 +6,12 @@ import {
 } from '@angular/core';
 import {
   ControlContainer,
+  FormsModule,
   NgForm,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { controlContainerFactory } from '../../../process-form.component';
+import { controlContainerFactory } from '../../../process-form-factory';
 import { ValueInputComponent } from '../value-input.component';
 
 /**
@@ -18,9 +21,11 @@ import { ValueInputComponent } from '../value-input.component';
   selector: 'ds-date-value-input',
   templateUrl: './date-value-input.component.html',
   styleUrls: ['./date-value-input.component.scss'],
-  viewProviders: [ { provide: ControlContainer,
+  viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] } ],
+    deps: [[new Optional(), NgForm]] }],
+  standalone: true,
+  imports: [FormsModule, NgIf, TranslateModule],
 })
 export class DateValueInputComponent extends ValueInputComponent<string> {
   /**

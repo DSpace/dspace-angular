@@ -6,10 +6,12 @@
   top: 0;
   left: 0;
   z-index: -1;
+  pointer-events: none;
 }
 
 .ds-document-drop-zone-active {
   z-index: var(--ds-drop-zone-area-z-index) !important;
+  pointer-events: unset;
 }
 
 .ds-document-drop-zone-inner {

@@ -1,51 +1,36 @@
-<div class="facet-filter d-block mb-3 p-3" [ngClass]="{ 'focus': focusBox }" role="region">
-    <button (click)="toggle()" (focusin)="focusBox = true" (focusout)="focusBox = false" class="filter-name d-flex"
-        [attr.aria-expanded]="false" 
-        [attr.aria-label]="((collapsedSearch ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate) + ' ' + (('search.advanced.filters.head') | translate | lowercase)" 
-        [attr.data-test]="'filter-toggle' | dsBrowserOnly">
-        <span class="h4 d-inline-block text-left mt-auto mb-auto">
-            {{'search.advanced.filters.head' | translate}}
-        </span>
-        <i class="filter-toggle flex-grow-1 fas p-auto" aria-hidden="true" [ngClass]="collapsedSearch ? 'fa-plus' : 'fa-minus'"
-            [title]="(collapsedSearch ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate">
-        </i>
-    </button>
-    <div [@slide]="collapsedSearch ? 'collapsed' : 'expanded'" (@slide.start)="startSlide($event)"
-        (@slide.done)="finishSlide($event)" class="search-filter-wrapper"
-        [ngClass]="{ 'closed' : closed, 'notab': notab }">
-        <form [class]="'ng-invalid'" [formGroup]="advSearchForm" (ngSubmit)="onSubmit(advSearchForm.value)">
-            <div class="row">
-                <div class="col-lg-12">
-                    <select
-                        [className]="(filter.invalid) && (filter.dirty || filter.touched) ? 'form-control is-invalid' :'form-control'"
-                        aria-label="filter" name="filter" id="filter" placeholder="select operator"
-                        formControlName="filter" required>
-                        <ng-container *ngFor="let filter of appConfig.search.advancedFilters.filter;">
-                            <option [value]="filter">
-                                {{'search.filters.filter.' + filter + '.text'| translate}}
-                            </option>
-                        </ng-container>
-                    </select>
-                </div>
-                <div class="col-lg-12 mt-1">
-                    <select
-                        [className]="(operator.invalid) && (operator.dirty || operator.touched) ? 'form-control is-invalid' :'form-control'"
-                        aria-label="operator" name="operator" id="operator" formControlName="operator" required>
-                        <option value="equals">{{'search.filters.operator.equals.text'| translate}}</option>
-                        <option value="notequals">{{'search.filters.operator.notequals.text'| translate}}</option>
-                        <option value="contains">{{'search.filters.operator.contains.text'| translate}}</option>
-                        <option value="notcontains">{{'search.filters.operator.notcontains.text'| translate}}</option>
-                    </select>
-                </div>
-                <div class="col-lg-12 mt-1">
-                    <input type="text" aria-label="textsearch" class="form-control" id="textsearch" name="textsearch"
-                        formControlName="textsearch" #text [placeholder]="('filter.search.text.placeholder' | translate)" required>
-                </div>
-                <div class="col-lg-12 mt-1">
-                    <button class="form-control btn w-50 float-right btn-primary" type="submit"
-                        [disabled]="advSearchForm.invalid">{{'advancesearch.form.submit'| translate}}</button>
-                </div>
-            </div>
-        </form>
-    </div>
+<h3>{{ 'search.sidebar.advanced-search.title' | translate }}</h3>
+<div class="advanced-search b-3 p-3">
+  <h4>{{ 'search.sidebar.advanced-search.filter-by' | translate }}</h4>
+  <label class="sr-only" for="advanced-search-filters">
+    {{ 'search.sidebar.advanced-search.filters' | translate }}
+  </label>
+  <select [(ngModel)]="currentFilter" (keyup.enter)="applyFilter()"
+          (ngModelChange)="currentOperator = advancedFilterMap.get(currentFilter).operators[0].operator"
+          class="form-control mb-2" id="advanced-search-filters">
+    <option *ngFor="let advancedFilter of (advancedFilters$ | async) | keyvalue" [value]="advancedFilter.value.filter">
+      {{ 'search.filters.filter.' + advancedFilter.value.filter + '.head' | translate }}
+    </option>
+  </select>
+  <label class="sr-only" for="advanced-search-operators">
+    {{ 'search.sidebar.advanced-search.operators' | translate }}
+  </label>
+  <select [(ngModel)]="currentOperator" (keyup.enter)="applyFilter()"
+          class="form-control mb-2" id="advanced-search-operators">
+    <option *ngFor="let operator of advancedFilterMap.get(currentFilter)?.operators" [value]="operator.operator">
+      {{ 'search.filters.operator.' + operator.operator + '.text' | translate }}
+    </option>
+  </select>
+  <ds-filter-input-suggestions [suggestions]="(filterSearchResults$ | async)"
+                               [placeholder]="'search.filters.filter.' + currentFilter + '.placeholder' | translate"
+                               [label]="'search.filters.filter.' + currentFilter + '.label' | translate"
+                               [action]="router.url"
+                               [name]="'f.' + currentFilter"
+                               [(ngModel)]="currentValue"
+                               (submitSuggestion)="applyFilter()"
+                               (findSuggestions)="findSuggestions($event)"
+                               ngDefaultControl>
+  </ds-filter-input-suggestions>
+  <button (click)="applyFilter()" [disabled]="currentValue === ''" class="btn btn-primary mt-2">
+    {{ 'search.sidebar.advanced-search.add' | translate }}
+  </button>
 </div>

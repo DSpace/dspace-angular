@@ -1,6 +1,7 @@
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicDatePickerModel } from '@ng-dynamic-forms/core';
 
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { CalendarFieldParser } from './calendar-field-parser';
@@ -18,6 +19,8 @@ describe('CalendarFieldParser test suite', () => {
     typeField: 'type',
     isInnerForm: false,
   };
+
+  const translateService = getMockTranslateService();
 
   beforeEach(() => {
     field = {
@@ -40,13 +43,13 @@ describe('CalendarFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions, null);
+    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof CalendarFieldParser).toBe(true);
   });
 
   it('should return a DynamicDatePickerModel object when repeatable option is false', () => {
-    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions, null);
+    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -59,7 +62,7 @@ describe('CalendarFieldParser test suite', () => {
     };
     const expectedValue = new NgbDate(1983, 11, 18);
 
-    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions, null);
+    const parser = new CalendarFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 

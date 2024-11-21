@@ -1,3 +1,4 @@
+import { NgForOf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -7,6 +8,7 @@ import {
   ParamMap,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   switchMap,
   take,
@@ -26,6 +28,11 @@ import { Registration } from '../../core/shared/registration.model';
   selector: 'ds-invitation-acceptance',
   templateUrl: './invitation-acceptance.component.html',
   styleUrls: ['./invitation-acceptance.component.scss'],
+  standalone: true,
+  imports: [
+    NgForOf,
+    TranslateModule,
+  ],
 })
 export class InvitationAcceptanceComponent implements OnInit {
 

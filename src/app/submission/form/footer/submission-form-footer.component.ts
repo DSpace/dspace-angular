@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
@@ -5,6 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -14,6 +16,7 @@ import { map } from 'rxjs/operators';
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { SubmissionService } from '../../submission.service';
 
 /**
@@ -23,6 +26,8 @@ import { SubmissionService } from '../../submission.service';
   selector: 'ds-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
   templateUrl: './submission-form-footer.component.html',
+  standalone: true,
+  imports: [CommonModule, BrowserOnlyPipe, TranslateModule],
 })
 export class SubmissionFormFooterComponent implements OnChanges {
 

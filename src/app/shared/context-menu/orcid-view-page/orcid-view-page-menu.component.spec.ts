@@ -34,8 +34,7 @@ describe('OrcidViewPageMenuComponent', () => {
       isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-      declarations: [OrcidViewPageMenuComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, OrcidViewPageMenuComponent],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },

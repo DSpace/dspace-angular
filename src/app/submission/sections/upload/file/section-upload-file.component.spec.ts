@@ -1,4 +1,7 @@
-import { CommonModule } from '@angular/common';
+import {
+  AsyncPipe,
+  CommonModule,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -6,14 +9,10 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import {
   NgbModal,
   NgbModule,
@@ -25,11 +24,13 @@ import {
   of,
 } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
+import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
@@ -37,19 +38,25 @@ import { getMockSectionUploadService } from '../../../../shared/mocks/section-up
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
+  mockSubmissionState,
   mockUploadConfigResponse,
   mockUploadFiles,
 } from '../../../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../shared/testing/utils.test';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 import { SubmissionService } from '../../../submission.service';
-import { POLICY_DEFAULT_WITH_LIST } from '../section-upload.component';
 import { SectionUploadService } from '../section-upload.service';
+import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
+import { ThemedSubmissionSectionUploadFileComponent } from './themed-section-upload-file.component';
+import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
 
 const configMetadataFormMock = {
   rows: [{
@@ -102,15 +109,13 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         FileSizePipe,
         SubmissionSectionUploadFileComponent,
         TestComponent,
+        VarDirective,
       ],
       providers: [
         { provide: FormService, useValue: getMockFormService() },
@@ -119,6 +124,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,
@@ -127,7 +134,14 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         { provide: VocabularyService, useValue: vocabularyServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    })
+      .overrideComponent(SubmissionSectionUploadFileComponent, {
+        remove: { imports: [
+          SubmissionSectionUploadFileViewComponent,
+          ThemedFileDownloadLinkComponent,
+        ] },
+      })
+      .compileComponents().then();
   }));
 
   describe('', () => {
@@ -157,9 +171,10 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create SubmissionSectionUploadFileComponent', inject([SubmissionSectionUploadFileComponent], (app: SubmissionSectionUploadFileComponent) => {
+    it('should create SubmissionSectionUploadFileComponent', () => {
+      let app = TestBed.inject(SubmissionSectionUploadFileComponent);
       expect(app).toBeDefined();
-    }));
+    });
   });
 
   describe('', () => {
@@ -209,6 +224,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     it('should not show any buttons when ready-only is true', () => {
       comp.fileData = fileData;
       comp.readOnly = true;
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
 
       fixture.detectChanges();
 
@@ -219,10 +235,11 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
     it('should call deleteFile on delete confirmation', async () => {
       spyOn(compAsAny, 'deleteFile');
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
       comp.fileData = fileData;
 
       fixture.detectChanges();
-      const modalBtn = fixture.debugElement.query(By.css('.fa-trash '));
+      const modalBtn = fixture.debugElement.query(By.css('.fa-trash'));
 
       modalBtn.nativeElement.click();
       fixture.detectChanges();
@@ -272,16 +289,38 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
     it('should open edit modal when edit button is clicked', () => {
       spyOn(compAsAny, 'editBitstreamData').and.callThrough();
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf({}));
       comp.fileData = fileData;
 
       fixture.detectChanges();
 
-      const modalBtn = fixture.debugElement.query(By.css('.fa-edit '));
+      const modalBtn = fixture.debugElement.query(By.css('.fa-edit'));
 
       modalBtn.nativeElement.click();
       fixture.detectChanges();
 
       expect(compAsAny.editBitstreamData).toHaveBeenCalled();
+    });
+
+    it('should show error message if file upload has errors', () => {
+      const mockSubmission = mockSubmissionState;
+      mockSubmission[submissionId].sections[sectionId].errorsToShow = [
+        {
+          path: '/path/to/file/' + fileIndex,
+          message: 'test',
+        },
+      ];
+
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(mockSubmission));
+      comp.fileData = fileData;
+
+      fixture.detectChanges();
+
+      const errorBorder = fixture.debugElement.query(By.css('.border-danger'));
+      const errorMessage = fixture.debugElement.query(By.css('span.text-danger'));
+
+      expect(errorBorder).toBeDefined();
+      expect(errorMessage).toBeDefined();
     });
 
   });
@@ -291,6 +330,12 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [
+    ThemedSubmissionSectionUploadFileComponent,
+    CommonModule,
+    AsyncPipe,
+    NgbModule],
 })
 class TestComponent {
 

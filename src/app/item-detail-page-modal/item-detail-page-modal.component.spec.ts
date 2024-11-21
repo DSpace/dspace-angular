@@ -18,6 +18,7 @@ import { of as observableOf } from 'rxjs';
 import { ItemDataService } from '../core/data/item-data.service';
 import { TabDataService } from '../core/layout/tab-data.service';
 import { Item } from '../core/shared/item.model';
+import { CrisLayoutComponent } from '../cris-layout/cris-layout.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { leadingTabs } from '../shared/testing/layout-tab.mocks';
@@ -61,6 +62,7 @@ describe('ItemDetailPageModalComponent', () => {
         imports: [
           CommonModule,
           NgbModule,
+          ItemDetailPageModalComponent,
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
@@ -68,7 +70,6 @@ describe('ItemDetailPageModalComponent', () => {
             },
           }),
         ],
-        declarations: [ItemDetailPageModalComponent],
         providers: [
           { provide: ComponentFixtureAutoDetect, useValue: true },
           { provide: ItemDataService, useValue: itemDataService },
@@ -76,7 +77,7 @@ describe('ItemDetailPageModalComponent', () => {
           { provide: Router, useValue: new RouterStub() },
         ],
       })
-        .compileComponents();
+        .overrideComponent(ItemDetailPageModalComponent, { remove: { imports: [CrisLayoutComponent] } }).compileComponents();
 
       fixture = TestBed.createComponent(ItemDetailPageModalComponent);
       component = fixture.componentInstance;

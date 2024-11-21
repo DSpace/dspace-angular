@@ -20,7 +20,7 @@ import { MetadataValue } from '../../../../../../../core/shared/metadata.models'
 import { MetadataLinkViewComponent } from '../../../../../../../shared/metadata-link-view/metadata-link-view.component';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
-import { FieldRenderingType } from '../metadata-box.decorator';
+import { FieldRenderingType } from '../field-rendering-type';
 import { CrisrefComponent } from './crisref.component';
 
 describe('CrisrefComponent', () => {
@@ -97,7 +97,7 @@ describe('CrisrefComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule],
+      }), BrowserAnimationsModule, CrisrefComponent, MetadataLinkViewComponent],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
@@ -106,9 +106,8 @@ describe('CrisrefComponent', () => {
         { provide: 'tabNameProvider', useValue: '' },
         { provide: ItemDataService, useValue: itemService },
       ],
-      declarations: [CrisrefComponent, MetadataLinkViewComponent],
     })
-      .compileComponents();
+      .overrideComponent(CrisrefComponent, { remove: { imports: [MetadataLinkViewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -36,12 +36,11 @@ describe('ItemPageUriFieldComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
+      }), ItemPageUriFieldComponent, MetadataUriValuesComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
-      declarations: [ItemPageUriFieldComponent, MetadataUriValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageUriFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

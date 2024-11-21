@@ -22,13 +22,14 @@ import { TestScheduler } from 'rxjs/testing';
 import { AuthService } from '../core/auth/auth.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
+import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 import { SuggestionEvidencesComponent } from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
-import {
-  SuggestionApproveAndImport,
-  SuggestionListElementComponent,
-} from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../notifications/suggestions.service';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import {
   mockSuggestionPublicationOne,
   mockSuggestionPublicationTwo,
@@ -40,6 +41,7 @@ import {
 } from '../shared/mocks/suggestion.mock';
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
@@ -77,8 +79,6 @@ describe('SuggestionPageComponent', () => {
         BrowserModule,
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SuggestionEvidencesComponent,
         SuggestionListElementComponent,
         SuggestionsPageComponent,
@@ -99,7 +99,7 @@ describe('SuggestionPageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents().then();
+      .overrideComponent(SuggestionsPageComponent, { remove: { imports: [SuggestionActionsComponent, ThemedLoadingComponent, PaginationComponent, SuggestionListElementComponent, AlertComponent] } }).compileComponents().then();
   }));
 
   beforeEach(() => {

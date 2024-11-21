@@ -25,6 +25,7 @@ import { AbstractPaginatedDragAndDropListComponent } from './abstract-paginated-
 @Component({
   selector: 'ds-mock-paginated-drag-drop-abstract',
   template: '',
+  standalone: true,
 })
 class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDragAndDropListComponent<DSpaceObject> {
 

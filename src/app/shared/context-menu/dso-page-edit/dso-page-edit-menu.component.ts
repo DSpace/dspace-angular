@@ -1,8 +1,14 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -10,7 +16,6 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -18,10 +23,14 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
   selector: 'ds-dso-page-edit-menu',
   templateUrl: './dso-page-edit-menu.component.html',
   styleUrls: ['./dso-page-edit-menu.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    RouterLink,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY)
-@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 /**
  * Display a button linking to the edit page of a DSpaceObject
  */

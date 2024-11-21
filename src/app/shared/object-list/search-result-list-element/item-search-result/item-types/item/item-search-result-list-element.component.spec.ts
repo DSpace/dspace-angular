@@ -8,20 +8,34 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
+import { AuthService } from '../../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../../../../core/shared/item.model';
+import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
+import { MetadataLinkViewComponent } from '../../../../../metadata-link-view/metadata-link-view.component';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
 } from '../../../../../mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
+import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
+import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
+import { ThemeService } from '../../../../../theme-support/theme.service';
+import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
-import { VarDirective } from '../../../../../utils/var.directive';
+import { MetricBadgesComponent } from '../../../../metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from '../../../../metric-donuts/metric-donuts.component';
+import { AdditionalMetadataComponent } from '../../../additional-metadata/additional-metadata.component';
 import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
@@ -200,16 +214,38 @@ const enviromentNoThumbs = {
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemSearchResultListElementComponent, TruncatePipe, VarDirective],
+      imports: [
+        TranslateModule.forRoot(),
+        TruncatePipe,
+        ItemSearchResultListElementComponent,
+      ],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        {
+          provide: AuthorizationDataService,
+          useValue: jasmine.createSpyObj('AuthorizationDataService', [
+            'invalidateAuthorizationsRequestCache',
+          ]),
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        AdditionalMetadataComponent,
+        MetadataLinkViewComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -228,7 +264,7 @@ describe('ItemSearchResultListElementComponent', () => {
       expect(publicationListElementComponent.showThumbnails).toBeTrue();
     });
 
-    it('should add ds-thumbnail element', () => {
+    it('should add thumbnail element', () => {
       const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnailElement).toBeTruthy();
     });
@@ -383,17 +419,27 @@ describe('ItemSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, TranslateModule.forRoot(), ItemSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        AdditionalMetadataComponent,
+        MetadataLinkViewComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -409,7 +455,7 @@ describe('ItemSearchResultListElementComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not add ds-thumbnail element', () => {
+    it('should not add thumbnail element', () => {
       const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnailElement).toBeFalsy();
     });

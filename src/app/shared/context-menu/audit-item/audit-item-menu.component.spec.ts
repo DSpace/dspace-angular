@@ -40,7 +40,6 @@ describe('AuditItemMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ AuditItemMenuComponent ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
@@ -49,6 +48,7 @@ describe('AuditItemMenuComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        AuditItemMenuComponent,
       ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },

@@ -21,7 +21,7 @@ import { AuthRequestService } from './auth-request.service';
 /**
  * Server side version of the service to send authentication requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerAuthRequestService extends AuthRequestService {
 
   constructor(

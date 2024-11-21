@@ -1,9 +1,10 @@
-<ds-themed-item-list-preview
+<ds-item-list-preview
   [item]="item"
-  [object]="object"
+  [object]="$any(object)"
   [metadataList]="metadataList"
+  [showLabel]="false"
   [showThumbnails]="false"
-></ds-themed-item-list-preview>
+></ds-item-list-preview>
 
 <div *ngIf="isWorkFlow" class="mt-2">
   <form>
