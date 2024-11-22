@@ -3,7 +3,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import {
   AccessibilitySetting,
   AccessibilitySettingsService,
-  AccessibilitySettings
+  AccessibilitySettingsFormValues,
 } from '../../accessibility/accessibility-settings.service';
 import { take } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -15,9 +15,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AccessibilitySettingsComponent implements OnInit {
 
-  protected accessibilitySettingsOptions: AccessibilitySetting[];
+  // Re-export for use in template
+  protected readonly AccessibilitySetting = AccessibilitySetting;
 
-  protected formValues: AccessibilitySettings = { };
+  protected formValues: AccessibilitySettingsFormValues;
 
   constructor(
     protected authService: AuthService,
@@ -28,12 +29,7 @@ export class AccessibilitySettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accessibilitySettingsOptions = this.settingsService.getAllAccessibilitySettingKeys();
     this.updateFormValues();
-  }
-
-  getInputType(setting: AccessibilitySetting): string {
-    return this.settingsService.getInputType(setting);
   }
 
   getPlaceholder(setting: AccessibilitySetting): string {
@@ -45,7 +41,7 @@ export class AccessibilitySettingsComponent implements OnInit {
    */
   saveSettings() {
     const formValues = this.formValues;
-    const convertedValues = this.settingsService.convertAllFormValuesToStoredValues(formValues);
+    const convertedValues = this.settingsService.convertFormValuesToStoredValues(formValues);
     this.settingsService.setSettings(convertedValues).pipe(take(1)).subscribe(location => {
       this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));
     });
@@ -58,7 +54,7 @@ export class AccessibilitySettingsComponent implements OnInit {
    */
   updateFormValues() {
     this.settingsService.getAll().pipe(take(1)).subscribe(storedSettings => {
-      this.formValues = this.settingsService.convertAllStoredValuesToFormValues(storedSettings);
+      this.formValues = this.settingsService.convertStoredValuesToFormValues(storedSettings);
     });
   }
 

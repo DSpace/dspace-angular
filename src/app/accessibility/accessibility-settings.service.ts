@@ -32,6 +32,11 @@ export enum AccessibilitySetting {
 
 export type AccessibilitySettings = { [key in AccessibilitySetting]?: string };
 
+export interface AccessibilitySettingsFormValues {
+  notificationTimeOut: string,
+  liveRegionTimeOut: string,
+}
+
 /**
  * Service handling the retrieval and configuration of accessibility settings.
  *
@@ -210,20 +215,6 @@ export class AccessibilitySettingsService {
     }
   }
 
-  /**
-   * Returns the input type that a form should use for the provided {@link AccessibilitySetting}
-   */
-  getInputType(setting: AccessibilitySetting): string {
-    switch (setting) {
-      case AccessibilitySetting.NotificationTimeOut:
-        return 'number';
-      case AccessibilitySetting.LiveRegionTimeOut:
-        return 'number';
-      default:
-        return 'text';
-    }
-  }
-
   getPlaceholder(setting: AccessibilitySetting): string {
     switch (setting) {
       case AccessibilitySetting.NotificationTimeOut:
@@ -236,88 +227,23 @@ export class AccessibilitySettingsService {
   }
 
   /**
-   * Returns the converter method for the provided setting.
-   * The converter methods are used to convert the value entered by the user in the form to the format that is used
-   * to store the setting value.
+   * Convert values in the provided accessibility settings object to values ready to be stored.
    */
-  getFormValueToStoredValueConverterMethod(setting: AccessibilitySetting): (value: string) => string {
-    switch (setting) {
-      case AccessibilitySetting.NotificationTimeOut:
-        return secondsToMilliseconds;
-      case AccessibilitySetting.LiveRegionTimeOut:
-        return secondsToMilliseconds;
-      default:
-        return null;
-    }
+  convertFormValuesToStoredValues(settings: AccessibilitySettingsFormValues): AccessibilitySettings {
+    return {
+      'notificationTimeOut': secondsToMilliseconds(settings.notificationTimeOut),
+      'liveRegionTimeOut': secondsToMilliseconds(settings.liveRegionTimeOut),
+    };
   }
 
   /**
-   * Convert the user-configured value to the format used to store the setting value.
-   * Returns the provided value without conversion if no converter is configured for the provided setting.
+   * Convert values in the provided accessibility settings object to values ready to show in the form.
    */
-  convertFormValueToStoredValue(setting: AccessibilitySetting, value: string): string {
-    const converterMethod = this.getFormValueToStoredValueConverterMethod(setting);
-
-    if (hasValue(converterMethod)) {
-      return converterMethod(value);
-    } else {
-      return value;
-    }
-  }
-
-  /**
-   * Convert all values in the provided accessibility settings object to values ready to be stored.
-   */
-  convertAllFormValuesToStoredValues(settings: AccessibilitySettings): AccessibilitySettings {
-    const convertedSettings = {};
-
-    this.getAllAccessibilitySettingKeys().filter(setting => setting in settings).forEach(setting =>
-      convertedSettings[setting] = this.convertFormValueToStoredValue(setting, settings[setting])
-    );
-
-    return convertedSettings;
-  }
-
-  /**
-   * Returns the converter method for the provided setting.
-   * The converter methods are used to convert the value as it is stored to the format visible by the user in the form.
-   */
-  getStoredValueToFormValueConverterMethod(setting: AccessibilitySetting): (value: string) => string {
-    switch (setting) {
-      case AccessibilitySetting.NotificationTimeOut:
-        return millisecondsToSeconds;
-      case AccessibilitySetting.LiveRegionTimeOut:
-        return millisecondsToSeconds;
-      default:
-        return null;
-    }
-  }
-
-  /**
-   * Convert the stored value to the format used in the form.
-   * Returns the provided value without conversion if no converter is configured for the provided setting.
-   */
-  convertStoredValueToFormValue(setting: AccessibilitySetting, value: string): string {
-    const converterMethod = this.getStoredValueToFormValueConverterMethod(setting);
-
-    if (hasValue(converterMethod)) {
-      return converterMethod(value);
-    } else {
-      return value;
-    }
-  }
-
-  /**
-   * Convert all values in the provided accessibility settings object to values ready to show in the form.
-   */
-  convertAllStoredValuesToFormValues(settings: AccessibilitySettings): AccessibilitySettings {
-    const convertedSettings = {};
-
-    this.getAllAccessibilitySettingKeys().filter(setting => setting in settings).forEach(setting =>
-      convertedSettings[setting] = this.convertStoredValueToFormValue(setting, settings[setting])
-    );
-
-    return convertedSettings;
+  convertStoredValuesToFormValues(settings: AccessibilitySettings): AccessibilitySettingsFormValues {
+    return {
+      notificationTimeOut: millisecondsToSeconds(settings.notificationTimeOut),
+      liveRegionTimeOut: millisecondsToSeconds(settings.liveRegionTimeOut),
+    };
   }
 
 }
