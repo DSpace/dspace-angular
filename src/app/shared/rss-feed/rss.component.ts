@@ -9,9 +9,9 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { 
+import {
   ActivatedRoute,
-  Router 
+  Router,
 } from '@angular/router';
 import {
   TranslateModule,
@@ -35,12 +35,12 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import {
+  hasValue,
+  isUndefined,
+} from '../empty.util';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SearchFilter } from '../search/models/search-filter.model';
-import { 
-  hasValue,
-  isUndefined
-} from '../empty.util';
 /**
  * The Rss feed button component.
  */
