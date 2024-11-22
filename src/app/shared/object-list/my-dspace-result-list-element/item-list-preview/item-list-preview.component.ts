@@ -10,6 +10,7 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import {
   DuplicateMatchMetadataDetailConfig
 } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
+import { parseISO, differenceInDays, differenceInMilliseconds } from 'date-fns';
 import { environment } from '../../../../../environments/environment';
 
 /**
@@ -81,6 +82,15 @@ export class ItemListPreviewComponent implements OnInit {
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     public dsoNameService: DSONameService,
   ) {
+  }
+
+  getDateForArchivedItem(itemStartDate: string, dateAccessioned: string) {
+    const itemStartDateConverted: Date = parseISO(itemStartDate);
+    const dateAccessionedConverted: Date = parseISO(dateAccessioned);
+    const days: number = Math.floor(differenceInDays(dateAccessionedConverted, itemStartDateConverted));
+    const remainingMilliseconds: number = differenceInMilliseconds(dateAccessionedConverted, itemStartDateConverted) - days * 24 * 60 * 60 * 1000;
+    const hours: number = Math.floor(remainingMilliseconds / (60 * 60 * 1000));
+    return `${days} d ${hours} h`;
   }
 
   ngOnInit(): void {
