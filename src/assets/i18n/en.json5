@@ -1860,6 +1860,10 @@
 
   "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
 
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  "info.accessibility-settings.reset": "Reset accessibility settings",
+
   "info.accessibility-settings.submit": "Save accessibility settings",
 
   "info.accessibility-settings.title": "Accessibility settings",

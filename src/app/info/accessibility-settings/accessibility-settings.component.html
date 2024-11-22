@@ -54,9 +54,15 @@
       </div>
     </div>
 
-    <button type="submit" (click)="saveSettings()" class="btn btn-primary">
-      {{ 'info.accessibility-settings.submit' | translate }}
-    </button>
+    <div role="group">
+      <button type="submit" (click)="saveSettings()" class="btn btn-primary mr-2">
+        {{ 'info.accessibility-settings.submit' | translate }}
+      </button>
+      <button type="reset" (click)="resetSettings()" class="btn btn-warning">
+        {{ 'info.accessibility-settings.reset' | translate }}
+      </button>
+    </div>
+
   </form>
 
 </div>

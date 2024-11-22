@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of, switchMap } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { CookieService } from '../core/services/cookie.service';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../shared/empty.util';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthService } from '../core/auth/auth.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import cloneDeep from 'lodash/cloneDeep';
 import { environment } from '../../environments/environment';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
 /**
  * Name of the cookie used to store the settings locally
@@ -198,8 +199,8 @@ export class AccessibilitySettingsService {
 
     return this.ePersonService.createPatchFromCache(user).pipe(
       take(1),
-      isNotEmptyOperator(),
-      switchMap(operations => this.ePersonService.patch(user, operations)),
+      switchMap(operations =>
+        isNotEmpty(operations) ? this.ePersonService.patch(user, operations) : createSuccessfulRemoteDataObject$({})),
       getFirstCompletedRemoteData(),
       map(rd => rd.hasSucceeded),
     );
@@ -214,6 +215,15 @@ export class AccessibilitySettingsService {
     } else {
       this.cookieService.remove(ACCESSIBILITY_COOKIE);
     }
+  }
+
+  /**
+   * Clears all settings in the cookie and attempts to clear settings in metadata.
+   * Emits true if settings in metadata were cleared and false otherwise.
+   */
+  clearSettings(): Observable<boolean> {
+    this.setSettingsInCookie({});
+    return this.setSettingsInAuthenticatedUserMetadata({});
   }
 
   getPlaceholder(setting: AccessibilitySetting): string {

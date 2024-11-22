@@ -57,4 +57,14 @@ export class AccessibilitySettingsComponent implements OnInit {
     });
   }
 
+  /**
+   * Resets accessibility settings
+   */
+  resetSettings() {
+    this.settingsService.clearSettings().pipe(take(1)).subscribe(() => {
+      this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.reset-notification'));
+      this.updateFormValues();
+    });
+  }
+
 }
