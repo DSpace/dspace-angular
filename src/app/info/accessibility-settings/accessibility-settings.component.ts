@@ -44,9 +44,8 @@ export class AccessibilitySettingsComponent implements OnInit {
     const convertedValues = this.settingsService.convertFormValuesToStoredValues(formValues);
     this.settingsService.setSettings(convertedValues).pipe(take(1)).subscribe(location => {
       this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));
+      this.updateFormValues();
     });
-
-    this.updateFormValues();
   }
 
   /**

@@ -33,6 +33,7 @@ export enum AccessibilitySetting {
 export type AccessibilitySettings = { [key in AccessibilitySetting]?: string };
 
 export interface AccessibilitySettingsFormValues {
+  disableNotificationTimeOut: boolean,
   notificationTimeOut: string,
   liveRegionTimeOut: string,
 }
@@ -231,7 +232,8 @@ export class AccessibilitySettingsService {
    */
   convertFormValuesToStoredValues(settings: AccessibilitySettingsFormValues): AccessibilitySettings {
     return {
-      'notificationTimeOut': secondsToMilliseconds(settings.notificationTimeOut),
+      'notificationTimeOut': settings.disableNotificationTimeOut ? '0'
+        : secondsToMilliseconds(settings.notificationTimeOut),
       'liveRegionTimeOut': secondsToMilliseconds(settings.liveRegionTimeOut),
     };
   }
@@ -241,6 +243,7 @@ export class AccessibilitySettingsService {
    */
   convertStoredValuesToFormValues(settings: AccessibilitySettings): AccessibilitySettingsFormValues {
     return {
+      disableNotificationTimeOut: parseFloat(settings.notificationTimeOut) === 0,
       notificationTimeOut: millisecondsToSeconds(settings.notificationTimeOut),
       liveRegionTimeOut: millisecondsToSeconds(settings.liveRegionTimeOut),
     };
