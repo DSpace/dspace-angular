@@ -7,7 +7,7 @@
         {{ 'info.accessibility-settings.disableNotificationTimeOut.label' | translate }}
       </label>
 
-      <div class="col-sm-10">
+      <div class="col-sm-4">
         <ui-switch [id]="'disableNotificationTimeOutInput'"
                    [(ngModel)]="formValues.disableNotificationTimeOut"
                    [ngModelOptions]="{ standalone: true }"
@@ -24,7 +24,7 @@
         {{ 'info.accessibility-settings.notificationTimeOut.label' | translate }}
       </label>
 
-      <div class="col-sm-10">
+      <div class="col-sm-4">
         <input [type]="'number'" [id]="'notificationTimeOutInput'" class="form-control"
                [placeholder]="getPlaceholder(AccessibilitySetting.NotificationTimeOut)"
                [readOnly]="formValues.disableNotificationTimeOut"
@@ -42,7 +42,7 @@
         {{ 'info.accessibility-settings.liveRegionTimeOut.label' | translate }}
       </label>
 
-      <div class="col-sm-10">
+      <div class="col-sm-4">
         <input [type]="'number'" [id]="'liveRegionTimeOutInput'" class="form-control"
                [placeholder]="getPlaceholder(AccessibilitySetting.LiveRegionTimeOut)"
                [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
