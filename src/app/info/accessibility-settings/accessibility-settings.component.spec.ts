@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
-import { AccessibilitySettingsService, AccessibilitySetting } from '../../accessibility/accessibility-settings.service';
+import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -47,19 +47,8 @@ describe('AccessibilitySettingsComponent', () => {
   });
 
   describe('On Init', () => {
-    it('should retrieve all accessibility settings options', () => {
-      expect(settingsService.getAllAccessibilitySettingKeys).toHaveBeenCalled();
-    });
-
     it('should retrieve the current settings', () => {
       expect(settingsService.getAll).toHaveBeenCalled();
-    });
-  });
-
-  describe('getInputType', () => {
-    it('should retrieve the input type for the setting from the service', () => {
-      component.getInputType(AccessibilitySetting.LiveRegionTimeOut);
-      expect(settingsService.getInputType).toHaveBeenCalledWith(AccessibilitySetting.LiveRegionTimeOut);
     });
   });
 
