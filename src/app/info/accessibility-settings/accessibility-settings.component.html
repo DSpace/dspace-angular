@@ -7,15 +7,19 @@
         {{ 'info.accessibility-settings.disableNotificationTimeOut.label' | translate }}
       </label>
 
-      <div class="col-sm-4">
+      <div class="col-sm-5">
         <ui-switch [id]="'disableNotificationTimeOutInput'"
                    [(ngModel)]="formValues.disableNotificationTimeOut"
                    [ngModelOptions]="{ standalone: true }"
         ></ui-switch>
+      </div>
 
-        <small [id]="'disableNotificationTimeOutHint'" class="form-text text-muted">
-          {{ 'info.accessibility-settings.disableNotificationTimeOut.hint' | translate }}
-        </small>
+      <div class="col-sm-1" *dsContextHelp="{
+            content: 'info.accessibility-settings.disableNotificationTimeOut.hint',
+            id: 'disableNotificationTimeOutHelp',
+            iconPlacement: 'right',
+            tooltipPlacement: 'right'
+          }">
       </div>
     </div>
 
@@ -30,14 +34,18 @@
                [readOnly]="formValues.disableNotificationTimeOut"
                [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'notificationTimeOutHint'">
-
-        <small [id]="'notificationTimeOutHint'" class="form-text text-muted">
-          {{ 'info.accessibility-settings.notificationTimeOut.hint' | translate }}
-        </small>
       </div>
 
-      <div class="col-sm-2 col-form-label">
+      <div class="col-sm-1 col-form-label">
         {{ 'info.accessibility-settings.notificationTimeOut.unit' | translate }}
+      </div>
+
+      <div class="col-sm-1" *dsContextHelp="{
+            content: 'info.accessibility-settings.notificationTimeOut.hint',
+            id: 'notificationTimeOutHelp',
+            iconPlacement: 'right',
+            tooltipPlacement: 'right'
+          }">
       </div>
     </div>
 
@@ -51,14 +59,18 @@
                [placeholder]="getPlaceholder(AccessibilitySetting.LiveRegionTimeOut)"
                [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'liveRegionTimeOutHint'">
-
-        <small [id]="'liveRegionTimeOutHint'" class="form-text text-muted">
-          {{ 'info.accessibility-settings.liveRegionTimeOut.hint' | translate }}
-        </small>
       </div>
 
-      <div class="col-sm-2 col-form-label">
+      <div class="col-sm-1 col-form-label">
         {{ 'info.accessibility-settings.liveRegionTimeOut.unit' | translate }}
+      </div>
+
+      <div class="col-sm-1" *dsContextHelp="{
+            content: 'info.accessibility-settings.liveRegionTimeOut.hint',
+            id: 'liveRegionTimeOutHelp',
+            iconPlacement: 'right',
+            tooltipPlacement: 'right'
+          }">
       </div>
     </div>
 
