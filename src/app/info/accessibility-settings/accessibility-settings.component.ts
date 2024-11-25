@@ -9,6 +9,9 @@ import { take } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 
+/**
+ * Component providing the form where users can update accessibility settings.
+ */
 @Component({
   selector: 'ds-accessibility-settings',
   templateUrl: './accessibility-settings.component.html'

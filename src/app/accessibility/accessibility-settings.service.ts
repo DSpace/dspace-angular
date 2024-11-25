@@ -23,16 +23,22 @@ export const ACCESSIBILITY_SETTINGS_METADATA_KEY = 'dspace.accessibility.setting
 
 /**
  * Enum containing all possible accessibility settings.
- * When adding new settings, the {@link AccessibilitySettingsService#getInputType} method and the i18n keys for the
- * accessibility settings page should be updated.
+ * When adding new settings, make sure to add the new setting to the accessibility-settings component.
+ * The converter methods to convert from stored format to form format (and vice-versa) need to be updated as well.
  */
 export enum AccessibilitySetting {
   NotificationTimeOut = 'notificationTimeOut',
   LiveRegionTimeOut = 'liveRegionTimeOut',
 }
 
+/**
+ * Type representing an object that contains accessibility settings values.
+ */
 export type AccessibilitySettings = { [key in AccessibilitySetting]?: string };
 
+/**
+ * The accessibility settings object format used by the accessibility-settings component form.
+ */
 export interface AccessibilitySettingsFormValues {
   disableNotificationTimeOut: boolean,
   notificationTimeOut: string,
@@ -226,6 +232,10 @@ export class AccessibilitySettingsService {
     return this.setSettingsInAuthenticatedUserMetadata({});
   }
 
+  /**
+   * Retrieve the placeholder to be used for the provided AccessibilitySetting.
+   * Returns an empty string when no placeholder is specified for the provided setting.
+   */
   getPlaceholder(setting: AccessibilitySetting): string {
     switch (setting) {
       case AccessibilitySetting.NotificationTimeOut:
