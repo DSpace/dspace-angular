@@ -50,6 +50,10 @@ describe('AccessibilitySettingsComponent', () => {
     it('should retrieve the current settings', () => {
       expect(settingsService.getAll).toHaveBeenCalled();
     });
+
+    it('should convert retrieved settings to form format', () => {
+      expect(settingsService.convertStoredValuesToFormValues).toHaveBeenCalled();
+    });
   });
 
   describe('saveSettings', () => {
@@ -57,6 +61,12 @@ describe('AccessibilitySettingsComponent', () => {
       settingsService.setSettings = jasmine.createSpy('setSettings').and.returnValue(of('cookie'));
       component.saveSettings();
       expect(settingsService.setSettings).toHaveBeenCalled();
+    });
+
+    it('should convert form settings to stored format', () => {
+      settingsService.setSettings = jasmine.createSpy('setSettings').and.returnValue(of('cookie'));
+      component.saveSettings();
+      expect(settingsService.convertFormValuesToStoredValues).toHaveBeenCalled();
     });
 
     it('should give the user a notification mentioning where the settings were saved', () => {
