@@ -7,7 +7,7 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { AdminSearchMenuProvider } from './admin-search.menu';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';

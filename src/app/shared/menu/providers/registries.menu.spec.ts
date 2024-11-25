@@ -8,7 +8,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { MenuItemType } from '../menu-item-type.model';
-import { MenuSubSection, MenuTopSection } from './expandable-menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -16,7 +16,8 @@ import { ScriptDataService } from '../../../core/data/processes/script-data.serv
 import { ScriptServiceStub } from '../../testing/script-service.stub';
 import { RegistriesMenuProvider } from './registries.menu';
 
-const expectedTopSection: MenuTopSection = {
+const expectedTopSection: PartialMenuSection = {
+  visible: true,
   model: {
     type: MenuItemType.TEXT,
       text: 'menu.section.registries',
@@ -24,7 +25,7 @@ const expectedTopSection: MenuTopSection = {
   icon: 'list',
 };
 
-const expectedSubSections: MenuSubSection[] = [
+const expectedSubSections: PartialMenuSection[] = [
   {
     visible: true,
     model: {

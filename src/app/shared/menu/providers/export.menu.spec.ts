@@ -8,7 +8,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { MenuItemType } from '../menu-item-type.model';
-import { MenuSubSection, MenuTopSection } from './expandable-menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -16,16 +16,16 @@ import { ScriptDataService } from '../../../core/data/processes/script-data.serv
 import { ScriptServiceStub } from '../../testing/script-service.stub';
 import { ExportMenuProvider } from './export.menu';
 
-const expectedTopSection: MenuTopSection = {
+const expectedTopSection: PartialMenuSection = {
+  visible: true,
   model: {
     type: MenuItemType.TEXT,
       text: 'menu.section.export',
   },
   icon: 'file-export',
-  shouldPersistOnRouteChange: true,
 };
 
-const expectedSubSections: MenuSubSection[] = [
+const expectedSubSections: PartialMenuSection[] = [
   {
     visible: true,
     model: {
@@ -33,7 +33,6 @@ const expectedSubSections: MenuSubSection[] = [
       text: 'menu.section.export_metadata',
       function: jasmine.any(Function) as any,
     },
-    shouldPersistOnRouteChange: true,
   },
   {
     visible: true,
@@ -42,7 +41,6 @@ const expectedSubSections: MenuSubSection[] = [
       text: 'menu.section.export_batch',
       function: jasmine.any(Function) as any,
     },
-    shouldPersistOnRouteChange: true,
   }
 ];
 

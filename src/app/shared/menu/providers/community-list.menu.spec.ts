@@ -8,7 +8,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { CommunityListMenuProvider } from './community-list.menu';
-import { PartialMenuSection } from '../menu-provider';
+import { PartialMenuSection } from '../menu-provider.model';
 import { MenuItemType } from '../menu-item-type.model';
 
 const expectedSections: PartialMenuSection[] = [
