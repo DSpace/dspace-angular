@@ -1,0 +1,12 @@
+@for (result of loadingResults; track result) {
+  <div class="row">
+    @if(showThumbnails) {
+      <ngx-skeleton-loader [theme]="{height: '100px', width: '120px', padding: '1em'}" />
+    }
+
+    <div [class.col-9]="showThumbnails" [class.col-md-12]="!showThumbnails">
+      <ngx-skeleton-loader [theme]="{height: '20px', width: '75px'}" />
+      <ngx-skeleton-loader [theme]="{height: '20px'}" count="2"/>
+    </div>
+  </div>
+}

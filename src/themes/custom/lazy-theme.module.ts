@@ -159,6 +159,9 @@ import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 import {UserMenuComponent} from './app/shared/auth-nav-menu/user-menu/user-menu.component';
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
+import {
+  SearchResultsSkeletonComponent
+} from "../../app/shared/search/search-results/search-results-skeleton/search-results-skeleton.component";
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -245,6 +248,7 @@ const DECLARATIONS = [
   UserMenuComponent,
   BrowseByComponent,
   RegisterEmailFormComponent,
+  SearchResultsSkeletonComponent,
 ];
 
 @NgModule({
