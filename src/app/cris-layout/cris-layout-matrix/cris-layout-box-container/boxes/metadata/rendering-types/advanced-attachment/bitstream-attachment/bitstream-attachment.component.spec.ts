@@ -3,13 +3,19 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateService } from '@ngx-translate/core';
+import { provideRouter } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
+import { MockBitstream1 } from '../../../../../../../../shared/mocks/item.mock';
+import { TranslateLoaderMock } from '../../../../../../../../shared/mocks/translate-loader.mock';
 import { TruncatableComponent } from '../../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../../../../thumbnail/themed-thumbnail.component';
+import { BitstreamRenderingModelComponent } from '../../bitstream-rendering-model';
 import { AttachmentRenderComponent } from './attachment-render/attachment-render.component';
 import { BitstreamAttachmentComponent } from './bitstream-attachment.component';
 
@@ -19,14 +25,23 @@ describe('BitstreamAttachmentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([]), BitstreamAttachmentComponent],
+      imports: [
+        BitstreamAttachmentComponent,
+        BitstreamRenderingModelComponent,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+      ],
       providers: [
+        provideRouter([]),
         { provide: 'fieldProvider', useValue: {} },
         { provide: 'itemProvider', useValue: {} },
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
         { provide: BitstreamDataService, useValue: {} },
-        { provide: TranslateService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -36,6 +51,7 @@ describe('BitstreamAttachmentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BitstreamAttachmentComponent);
     component = fixture.componentInstance;
+    component.attachment = MockBitstream1;
     fixture.detectChanges();
   });
 
