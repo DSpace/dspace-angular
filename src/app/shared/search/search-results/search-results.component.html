@@ -19,7 +19,12 @@
             (selectObject)="selectObject.emit($event)">
     </ds-viewable-collection>
 </div>
-<ds-loading *ngIf="isLoading()" message="{{'loading.search-results' | translate}}"></ds-loading>
+<ds-search-results-skeleton
+  *ngIf="isLoading()"
+  [showThumbnails]="showThumbnails"
+  [numberOfResults]="searchConfig.pagination.pageSize"
+></ds-search-results-skeleton>
+
 <ds-error *ngIf="showError()"
           message="{{errorMessageLabel() | translate}}"></ds-error>
 <div *ngIf="searchResults?.payload?.page.length === 0 || searchResults?.statusCode === 400">

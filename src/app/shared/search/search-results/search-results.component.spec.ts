@@ -23,6 +23,7 @@ import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.s
 import { ThemeService } from '../../theme-support/theme.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsComponent } from './search-results.component';
+import { SearchResultsSkeletonComponent } from "./search-results-skeleton/search-results-skeleton.component";
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
@@ -48,8 +49,8 @@ describe('SearchResultsComponent', () => {
           imports: [
             SearchExportCsvComponent,
             ObjectCollectionComponent,
-            ThemedLoadingComponent,
             ErrorComponent,
+            SearchResultsSkeletonComponent
           ],
         },
         add: { imports: [QueryParamsDirectiveStub] },
