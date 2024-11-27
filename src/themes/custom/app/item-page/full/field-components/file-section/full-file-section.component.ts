@@ -10,6 +10,7 @@ import { FullFileSectionComponent as BaseComponent } from '../../../../../../../
 import { ThemedFileDownloadLinkComponent } from '../../../../../../../app/shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../../../../app/shared/pagination/pagination.component';
+import { CanDownloadFilePipe } from '../../../../../../../app/shared/utils/can-download-file.pipe';
 import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../../../../app/shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
@@ -32,6 +33,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
     MetadataFieldWrapperComponent,
+    CanDownloadFilePipe,
   ],
 })
 export class FullFileSectionComponent extends BaseComponent {
