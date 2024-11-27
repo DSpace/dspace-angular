@@ -12,6 +12,7 @@ import { SearchFilterService } from '../../../core/shared/search/search-filter.s
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
+import { APP_CONFIG, AppConfig } from "../../../../config/app-config.interface";
 
 @Component({
   selector: 'ds-search-filters',
@@ -61,6 +62,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   searchLink: string;
 
   subs = [];
+  defaultFilterCount: number;
 
   /**
    * Initialize instance variables
@@ -68,12 +70,16 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * @param {SearchFilterService} filterService
    * @param {Router} router
    * @param {SearchConfigurationService} searchConfigService
+   * @param appConfig
    */
   constructor(
     private searchService: SearchService,
     private filterService: SearchFilterService,
     private router: Router,
-    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
+    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
+    this.defaultFilterCount = this.appConfig.search.defaultFilterCount ?? 5;
   }
 
   ngOnInit(): void {
