@@ -27,13 +27,17 @@
 
             @if (attachmentConf.type === AdvancedAttachmentElementType.Metadata) {
 
-              <p class="text-break m-0" *ngIf="!attachmentConf.truncatable && attachmentConf.name === attachmentTypeMetadata">
-                {{attachment.firstMetadataValue(attachmentConf.name) | titlecase}}
-              </p>
+              @if(!attachmentConf.truncatable && attachmentConf.name === attachmentTypeMetadata) {
+                <p class="text-break m-0">
+                  {{attachment.firstMetadataValue(attachmentConf.name) | titlecase}}
+                </p>
+              }
 
-              <p class="text-break m-0" *ngIf="!attachmentConf.truncatable && attachmentConf.name !== attachmentTypeMetadata">
-                {{attachment.firstMetadataValue(attachmentConf.name)}}
-              </p>
+              @if(!attachmentConf.truncatable && attachmentConf.name !== attachmentTypeMetadata) {
+                <p class="text-break m-0">
+                  {{attachment.firstMetadataValue(attachmentConf.name)}}
+                </p>
+              }
 
               @if (attachmentConf.truncatable) {
                 <ds-truncatable [id]=" attachment.id">
