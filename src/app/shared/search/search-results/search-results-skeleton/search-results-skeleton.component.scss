@@ -1,0 +1,27 @@
+:host ::ng-deep {
+  .info-skeleton, .badge-skeleton, .text-skeleton{
+    ngx-skeleton-loader .skeleton-loader {
+      height: var(--ds-search-skeleton-text-height);
+    }
+  }
+
+  .badge-skeleton, .info-skeleton {
+    ngx-skeleton-loader .skeleton-loader {
+      width: var(--ds-search-skeleton-badge-width);
+    }
+  }
+
+  .info-skeleton {
+    ngx-skeleton-loader .skeleton-loader {
+      width: var(--ds-search-skeleton-info-width);
+    }
+  }
+
+  .thumbnail-skeleton {
+    ngx-skeleton-loader .skeleton-loader {
+      width: var(--ds-search-skeleton-thumbnail-width);
+      height: var(--ds-search-skeleton-thumbnail-height);
+      padding: var(--ds-search-skeleton-thumbnail-padding);
+    }
+  }
+}

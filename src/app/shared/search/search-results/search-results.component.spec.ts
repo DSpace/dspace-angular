@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { Community } from '../../../core/shared/community.model';
 import { ErrorComponent } from '../../error/error.component';
-import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { createFailedRemoteDataObject } from '../../remote-data.utils';
@@ -23,7 +22,7 @@ import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.s
 import { ThemeService } from '../../theme-support/theme.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsComponent } from './search-results.component';
-import { SearchResultsSkeletonComponent } from "./search-results-skeleton/search-results-skeleton.component";
+import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
@@ -50,7 +49,7 @@ describe('SearchResultsComponent', () => {
             SearchExportCsvComponent,
             ObjectCollectionComponent,
             ErrorComponent,
-            SearchResultsSkeletonComponent
+            SearchResultsSkeletonComponent,
           ],
         },
         add: { imports: [QueryParamsDirectiveStub] },

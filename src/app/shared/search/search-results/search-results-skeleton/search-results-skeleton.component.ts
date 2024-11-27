@@ -23,6 +23,9 @@ export class SearchResultsSkeletonComponent implements OnInit {
   @Input()
   numberOfResults = 0;
 
+  @Input()
+  textLineCount = 2;
+
   public loadingResults: number[];
 
   ngOnInit() {

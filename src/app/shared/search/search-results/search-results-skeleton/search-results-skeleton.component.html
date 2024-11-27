@@ -1,12 +1,24 @@
+<div class="row">
+  <div class="info-skeleton mb-2">
+    <ngx-skeleton-loader/>
+  </div>
+</div>
+
 @for (result of loadingResults; track result) {
   <div class="row">
     @if(showThumbnails) {
-      <ngx-skeleton-loader [theme]="{height: '100px', width: '120px', padding: '1em'}" />
+      <div class="thumbnail-skeleton">
+        <ngx-skeleton-loader/>
+      </div>
     }
 
     <div [class.col-9]="showThumbnails" [class.col-md-12]="!showThumbnails">
-      <ngx-skeleton-loader [theme]="{height: '20px', width: '75px'}" />
-      <ngx-skeleton-loader [theme]="{height: '20px'}" count="2"/>
+      <div class="badge-skeleton">
+        <ngx-skeleton-loader/>
+      </div>
+      <div class="text-skeleton">
+        <ngx-skeleton-loader [count]="textLineCount"/>
+      </div>
     </div>
   </div>
 }

@@ -367,6 +367,9 @@ export class SearchComponent implements OnDestroy, OnInit {
    */
   ngOnInit(): void {
     if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+      this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
+        this.searchOptions$.next(options);
+      }));
       this.initialized$.next(true);
       return;
     }
