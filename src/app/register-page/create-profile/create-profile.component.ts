@@ -17,6 +17,7 @@ import {
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
@@ -66,6 +67,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     ReactiveFormsModule,
     NgForOf,
     AlertComponent,
+    RouterLink,
   ],
   standalone: true,
 })
