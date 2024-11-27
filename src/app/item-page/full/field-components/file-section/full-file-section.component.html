@@ -33,7 +33,7 @@
                         </dl>
                     </div>
                     <div *ngIf="!hasNoDownload(file)" class="col-2">
-                        <ds-file-download-link [showIcon]="(canDownload(file) | async) === false" [bitstream]="file" [item]="item">
+                        <ds-file-download-link [showIcon]="(file.self | dsCanDownloadFile | async) === false" [bitstream]="file" [item]="item">
                           {{"item.page.filesection.download" | translate}}
                         </ds-file-download-link>
                     </div>

@@ -42,6 +42,7 @@ import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { CanDownloadFilePipe } from '../../../../shared/utils/can-download-file.pipe';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../../shared/utils/var.directive';
@@ -68,6 +69,7 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
     MetadataFieldWrapperComponent,
+    CanDownloadFilePipe,
   ],
   standalone: true,
 })
