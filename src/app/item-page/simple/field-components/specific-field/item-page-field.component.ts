@@ -1,10 +1,16 @@
 import { Component, Input } from '@angular/core';
+import intersectionWith from 'lodash/intersectionWith';
 import { Item } from '../../../../core/shared/item.model';
-import { map } from 'rxjs/operators';
+import { mergeAll, first, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { getRemoteDataPayload } from '../../../../core/shared/operators';
+import {
+  getRemoteDataPayload,
+  getPaginatedListPayload,
+  getFirstSucceededRemoteData
+} from '../../../../core/shared/operators';
+import { BrowseService } from '../../../../core/browse/browse.service';
 
 /**
  * This component can be used to represent metadata on a simple item page.
@@ -17,7 +23,8 @@ import { getRemoteDataPayload } from '../../../../core/shared/operators';
 })
 export class ItemPageFieldComponent {
 
-    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
+    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService,
+                protected browseService: BrowseService) {
     }
 
     /**
@@ -56,9 +63,20 @@ export class ItemPageFieldComponent {
      * link in dspace.cfg (webui.browse.link.<n>)
      */
     get browseDefinition(): Observable<BrowseDefinition> {
-      return this.browseDefinitionDataService.findByFields(this.fields).pipe(
+      return this.browseService.getBrowseDefinitions().pipe(
+        getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
-        map((def) => def)
+        getPaginatedListPayload(),
+        mergeAll(),
+        filter((def: BrowseDefinition) =>
+          intersectionWith(def.metadataKeys, this.fields, ItemPageFieldComponent.fieldMatch).length > 0
+        ),
+        first()
       );
+    }
+
+    private static fieldMatch(spec: string, field: string): boolean {
+      return field === spec
+        || (spec.endsWith('.*') && field.substring(0, spec.length - 1) === spec.substring(0, spec.length - 1));
     }
 }
