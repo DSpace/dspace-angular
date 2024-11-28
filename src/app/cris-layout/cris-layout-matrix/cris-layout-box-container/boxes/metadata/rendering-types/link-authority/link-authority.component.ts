@@ -8,6 +8,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
 import { Item } from '../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { isEmpty } from '../../../../../../../shared/empty.util';
 
 /**
  * This component renders the links metadata fields.
@@ -56,8 +57,11 @@ export class LinkAuthorityComponent extends RenderingTypeValueModelComponent imp
   }
 
   getWebsiteIcon(): string {
-    const siteUrl = this.metadataValue.authority;
     let iconStyle = '';
+    const siteUrl = this.metadataValue.authority;
+    if (isEmpty(siteUrl)) {
+      return iconStyle;
+    }
 
     if (siteUrl.includes('linkedin')) {
       iconStyle = 'fab fa-linkedin';
