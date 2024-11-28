@@ -65,7 +65,7 @@ describe('SearchResultsComponent', () => {
 
   it('should display link with new search where query is quoted if search return a error 400', () => {
     (comp as any).searchResults = createFailedRemoteDataObject('Error', 400);
-    (comp as any).searchConfig = { query: 'foobar' };
+    (comp as any).searchConfig = { query: 'foobar', pagination: { pageSize: 10 } };
     fixture.detectChanges();
 
     const linkDes = fixture.debugElement.queryAll(By.directive(QueryParamsDirectiveStub));
