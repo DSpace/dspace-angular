@@ -4,9 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subject } from 'rxjs';
 import { filter, map, mergeMap, startWith, switchMap, take } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
-import { SearchService } from '../core/shared/search/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../core/data/collection-data.service';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
@@ -30,6 +28,7 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface';
+import { SearchManager } from '../core/browse/search-manager';
 
 @Component({
   selector: 'ds-collection-page',
@@ -64,8 +63,7 @@ export class CollectionPageComponent implements OnInit {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private collectionDataService: CollectionDataService,
-    private searchService: SearchService,
+    private searchManager: SearchManager,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
@@ -113,14 +111,13 @@ export class CollectionPageComponent implements OnInit {
         getFirstSucceededRemoteData(),
         map((rd) => rd.payload.id),
         switchMap((id: string) => {
-          return this.searchService.search<Item>(
+          return this.searchManager.search<Item>(
             new PaginatedSearchOptions({
               scope: id,
               pagination: currentPagination,
               sort: currentSort,
               dsoTypes: [DSpaceObjectType.ITEM],
               forcedEmbeddedKeys: ['metrics'],
-              projection: 'preventMetadataSecurity'
             }), null, true, true, ...BROWSE_LINKS_TO_FOLLOW)
             .pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),

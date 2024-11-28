@@ -143,7 +143,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Optional projection to use during the search
    */
-  @Input() projection = 'preventMetadataSecurity';
+  @Input() projection;
 
   /**
    * Whether or not the search bar should be visible

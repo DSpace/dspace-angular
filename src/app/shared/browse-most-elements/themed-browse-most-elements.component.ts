@@ -19,7 +19,7 @@ export class ThemedBrowseMostElementsComponent extends ThemedComponent<BrowseMos
 
   @Input() paginatedSearchOptions: PaginatedSearchOptions;
 
-  @Input() projection = 'preventMetadataSecurity';
+  @Input() projection: string;
 
   @Input() showLabel: boolean;
 
