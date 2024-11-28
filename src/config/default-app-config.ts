@@ -445,6 +445,6 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   search: SearchConfig = {
-    defaultFilterCount: 2
+    defaultFilterCount: 5
   }
 }

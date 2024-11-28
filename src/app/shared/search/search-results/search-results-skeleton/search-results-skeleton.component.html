@@ -1,11 +1,11 @@
-<div class="row">
-  <div class="info-skeleton mb-2">
+<div class="row flex-nowrap">
+  <div class="info-skeleton mb-2 col-12">
     <ngx-skeleton-loader/>
   </div>
 </div>
 
 @for (result of loadingResults; track result) {
-  <div class="row">
+  <div class="row flex-nowrap result-row">
     @if(showThumbnails) {
       <div class="thumbnail-skeleton">
         <ngx-skeleton-loader/>
