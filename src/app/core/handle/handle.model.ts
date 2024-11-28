@@ -41,6 +41,9 @@ export class Handle extends ListableObject implements HALResource {
   @autoserialize
   url: string;
 
+  @autoserialize
+  resourceId: string;
+
   /**
    * The element of this metadata field
    */

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, fromEvent } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, fromEvent} from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { HandleDataService } from '../../core/data/handle-data.service';
@@ -28,6 +28,8 @@ import {
   SITE,
   SUCCESSFUL_RESPONSE_START_CHAR
 } from '../../core/handle/handle.resource-type';
+import {getHandlePageRoute } from 'src/app/community-page/community-page-routing-paths';
+
 
 /**
  * Constants for converting the searchQuery for the server
@@ -46,19 +48,23 @@ export const RESOURCE_TYPE_SEARCH_OPTION = 'resourceTypeId';
 })
 export class HandleTableComponent implements OnInit {
 
+ getHandlePageRoute(resourceId: string | undefined): string {
+  return getHandlePageRoute(resourceId ?? '');
+}
+
   constructor(private handleDataService: HandleDataService,
-              private paginationService: PaginationService,
-              public router: Router,
-              private requestService: RequestService,
-              private cdr: ChangeDetectorRef,
-              private translateService: TranslateService,
-              private notificationsService: NotificationsService,) {
+    private paginationService: PaginationService,
+    public router: Router,
+    private requestService: RequestService,
+    private cdr: ChangeDetectorRef,
+    private translateService: TranslateService,
+    private notificationsService: NotificationsService,) {
   }
 
   /**
    * The reference for the input html element
    */
-  @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
+  @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
 
   /**
    * The list of Handle object as BehaviorSubject object
@@ -131,11 +137,13 @@ export class HandleTableComponent implements OnInit {
    */
   selectedHandle = null;
 
+
   ngOnInit(): void {
     this.handleRoute = getHandleTableModulePath();
     this.initializePaginationOptions();
     this.initializeSortingOptions();
     this.getAllHandles();
+
 
     this.handleOption = this.translateService.instant('handle-table.table.handle');
     this.internalOption = this.translateService.instant('handle-table.table.internal');
@@ -156,17 +164,21 @@ export class HandleTableComponent implements OnInit {
     observableCombineLatest([currentPagination$, currentSort$]).pipe(
       switchMap(([currentPagination, currentSort]) => {
         return this.handleDataService.findAll({
-            currentPage: currentPagination.currentPage,
-            elementsPerPage: currentPagination.pageSize,
-            sort: {field: currentSort.field, direction: currentSort.direction}
-          }, false
+          currentPage: currentPagination.currentPage,
+          elementsPerPage: currentPagination.pageSize,
+          sort: { field: currentSort.field, direction: currentSort.direction }
+        }, false
         );
       }),
       getFirstSucceededRemoteData()
     ).subscribe((res: RemoteData<PaginatedList<Handle>>) => {
       this.handlesRD$.next(res);
       this.isLoading = false;
+      console.log(res.payload.page[0]);
+      console.log(res.payload.page);
     });
+
+    
   }
 
   /**
@@ -215,9 +227,13 @@ export class HandleTableComponent implements OnInit {
         if (handle.id === this.selectedHandle) {
           this.switchSelectedHandle(this.selectedHandle);
           this.router.navigate([this.handleRoute, this.editHandlePath],
-            { queryParams: { id: handle.id, _selflink: handle._links.self.href, handle: handle.handle,
+            {
+              queryParams: {
+                id: handle.id, _selflink: handle._links.self.href, handle: handle.handle,
                 url: handle.url, resourceType: handle.resourceTypeID, resourceId: handle.id,
-                currentPage: this.options.currentPage } },
+                currentPage: this.options.currentPage
+              }
+            },
           );
         }
       });
@@ -269,7 +285,7 @@ export class HandleTableComponent implements OnInit {
           let errorMessage = '';
           this.translateService.get('handle-table.delete-handle.notify.error').pipe(
             take(1)
-          ).subscribe( message => {
+          ).subscribe(message => {
             errorMessage = message + ': ' + info.response.errorMessage;
           });
 
@@ -290,13 +306,13 @@ export class HandleTableComponent implements OnInit {
     const refreshTimeout = 20;
 
     this.isLoading = true;
-    const interval = setInterval( () => {
+    const interval = setInterval(() => {
       let isHandleInTable = false;
       // Load handle from the DB
-      this.handleDataService.findAll( {
-          currentPage: this.options.currentPage,
-          elementsPerPage: this.options.pageSize,
-        }, false
+      this.handleDataService.findAll({
+        currentPage: this.options.currentPage,
+        elementsPerPage: this.options.pageSize,
+      }, false
       ).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload()
@@ -316,13 +332,13 @@ export class HandleTableComponent implements OnInit {
       });
 
       // Clear interval after 20s timeout
-      if (counter === ( refreshTimeout * 1000 ) / 250) {
+      if (counter === (refreshTimeout * 1000) / 250) {
         this.isLoading = false;
         this.cdr.detectChanges();
         clearInterval(interval);
       }
       counter++;
-    }, 250 );
+    }, 250);
   }
 
   /**
@@ -333,12 +349,12 @@ export class HandleTableComponent implements OnInit {
       return;
     }
 
-    fromEvent(this.searchInput.nativeElement,'keyup')
+    fromEvent(this.searchInput.nativeElement, 'keyup')
       .pipe(
         debounceTime(300),
         distinctUntilChanged()
       )
-      .subscribe( cc => {
+      .subscribe(cc => {
         this.searchHandles(this.searchInput.nativeElement.value);
         setTimeout(() => {
           // click to refresh table data because without click it still shows wrong data

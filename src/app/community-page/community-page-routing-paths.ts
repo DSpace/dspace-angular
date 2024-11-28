@@ -9,6 +9,7 @@ export function getCommunityModuleRoute() {
   return `/${COMMUNITY_MODULE_PATH}`;
 }
 
+
 export function getCommunityPageRoute(communityId: string) {
   return new URLCombiner(getCommunityModuleRoute(), communityId).toString();
 }
@@ -23,6 +24,13 @@ export function getCommunityCreateRoute() {
 
 export function getCommunityEditRolesRoute(id) {
   return new URLCombiner(getCollectionPageRoute(id), COMMUNITY_EDIT_PATH, COMMUNITY_EDIT_ROLES_PATH).toString();
+}
+
+export function getHandlePageRoute(input: string): string {
+  const x = ['Community', 'Collection', 'Item', 'Site'];
+  const z = ['communities', 'collections', 'items', 'sites'];
+  const index = x.indexOf(input);
+  return new URLCombiner(z[index] || 'pending').toString();
 }
 
 export const COMMUNITY_CREATE_PATH = 'create';
