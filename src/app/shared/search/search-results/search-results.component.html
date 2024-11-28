@@ -20,7 +20,7 @@
     </ds-viewable-collection>
 </div>
 <ds-search-results-skeleton
-  *ngIf="true"
+  *ngIf="isLoading()"
   [showThumbnails]="showThumbnails"
   [numberOfResults]="searchConfig.pagination.pageSize"
 ></ds-search-results-skeleton>
