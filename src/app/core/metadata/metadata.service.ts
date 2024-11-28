@@ -18,8 +18,6 @@ import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
 
 import { RemoteData } from '../data/remote-data';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -46,6 +44,8 @@ import { ITEM } from '../shared/item.resource-type';
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Root } from '../data/root.model';
 import { environment } from '../../../environments/environment';
+import { Bundle } from '../shared/bundle.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -95,8 +95,6 @@ export class MetadataService {
     private title: Title,
     private dsoNameService: DSONameService,
     private bundleDataService: BundleDataService,
-    private bitstreamDataService: BitstreamDataService,
-    private bitstreamFormatDataService: BitstreamFormatDataService,
     private rootService: RootDataService,
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
@@ -449,7 +447,7 @@ export class MetadataService {
    * Add <meta name="og:image" ... >  to the <head>
    */
   private setOpenGraphImageTag(): void {
-    this.setPrimaryBitstreamInBundleTag('og:image');
+    this.setPrimaryImageInBundleTag('og:image');
   }
 
   /**
@@ -465,7 +463,7 @@ export class MetadataService {
    * Add <meta name="twitter:image" ... >  to the <head>
    */
   private setTwitterImageTag(): void {
-    this.setPrimaryBitstreamInBundleTag('twitter:image');
+    this.setPrimaryImageInBundleTag('twitter:image');
   }
 
   /**
@@ -498,6 +496,74 @@ export class MetadataService {
   private setPrimaryBitstreamInBundleTag(tag: string): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
+
+      // Retrieve the ORIGINAL bundle for the item
+      this.bundleDataService.findByItemAndName(
+        item,
+        'ORIGINAL',
+        true,
+        true,
+        followLink('primaryBitstream'),
+        followLink('bitstreams', {
+          findListOptions: {
+            // limit the number of bitstreams used to find the citation pdf url to the number
+            // shown by default on an item page
+            elementsPerPage: this.appConfig.item.bitstream.pageSize,
+          },
+        }, followLink('format')),
+      ).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        switchMap((bundle: Bundle) =>
+          // First try the primary bitstream
+          bundle.primaryBitstream.pipe(
+            getFirstCompletedRemoteData(),
+            map((rd: RemoteData<Bitstream>) => {
+              if (hasValue(rd.payload)) {
+                return rd.payload;
+              } else {
+                return null;
+              }
+            }),
+            getDownloadableBitstream(this.authorizationService),
+            // return the bundle as well so we can use it again if there's no primary bitstream
+            map((bitstream: Bitstream) => [bundle, bitstream]),
+          ),
+        ),
+        switchMap(([bundle, primaryBitstream]: [Bundle, Bitstream]) => {
+          if (hasValue(primaryBitstream)) {
+            // If there was a downloadable primary bitstream, emit its link
+            return [getBitstreamDownloadRoute(primaryBitstream)];
+          } else {
+            // Otherwise consider the regular bitstreams in the bundle
+            return bundle.bitstreams.pipe(
+              getFirstCompletedRemoteData(),
+              switchMap((bitstreamRd: RemoteData<PaginatedList<Bitstream>>) => {
+                if (hasValue(bitstreamRd.payload) && bitstreamRd.payload.totalElements === 1) {
+                  // If there's only one bitstream in the bundle, emit its link if its downloadable
+                  return this.getBitLinkIfDownloadable(bitstreamRd.payload.page[0], bitstreamRd);
+                } else {
+                  // Otherwise check all bitstreams to see if one matches the format whitelist
+                  return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
+                }
+              }),
+            );
+          }
+        }),
+        take(1),
+      ).subscribe((link: string) => {
+        // Use the found link to set the <meta> tag
+        this.addMetaTag(
+          tag,
+          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
+          true,
+        );
+      });
+    }
+  }
+
+  private setPrimaryImageInBundleTag(tag: string): void {
+    if (this.currentObject.value instanceof Item) {
+      const item = this.currentObject.value as Item;
       this.getBitstreamFromThumbnail(item).pipe(
         map((bitstream) => {
           if (hasValue(bitstream)) {
@@ -506,14 +572,14 @@ export class MetadataService {
             return null;
           }
         }),
-        take(1)
+        take(1),
       ).subscribe((link) => {
         if (hasValue(link)) {
           // Use the found link to set the <meta> tag
           this.addMetaTag(
             tag,
             new URLCombiner(this.getUrlOrigin(), link).toString(),
-            true
+            true,
           );
         } else {
           this.addFallbackImageToTag(tag);
@@ -654,9 +720,9 @@ export class MetadataService {
     return this.currentObject.value.allMetadataValues(keys);
   }
 
-  private addMetaTag(name: string, content: string, isProperty = false): void {
+  protected addMetaTag(name: string, content: string, isProperty = false): void {
     if (content) {
-      const tag = isProperty ? {property: name, content} as MetaDefinition
+      const tag = isProperty ? { name, property: name, content } as MetaDefinition
         : { name, content } as MetaDefinition;
       this.meta.updateTag(tag);
       this.storeTag(name);
