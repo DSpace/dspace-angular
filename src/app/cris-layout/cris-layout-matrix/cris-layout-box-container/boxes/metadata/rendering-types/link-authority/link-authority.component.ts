@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { isEmpty } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
@@ -60,8 +61,11 @@ export class LinkAuthorityComponent extends RenderingTypeValueModelComponent imp
   }
 
   getWebsiteIcon(): string {
-    const siteUrl = this.metadataValue.authority;
     let iconStyle = '';
+    const siteUrl = this.metadataValue.authority;
+    if (isEmpty(siteUrl)) {
+      return iconStyle;
+    }
 
     if (siteUrl.includes('linkedin')) {
       iconStyle = 'fab fa-linkedin';
