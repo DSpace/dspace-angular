@@ -71,6 +71,8 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    */
   public processing$ = new BehaviorSubject<boolean>(false);
 
+  isEditAvailable$: Observable<boolean>;
+
   /**
    * Reference to NgbModal
    */
@@ -80,7 +82,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    * List of Edit Modes available on this item
    * for the current user
    */
-  private editModes$: BehaviorSubject<EditItemMode[]> = new BehaviorSubject<EditItemMode[]>([]);
+  editModes$: BehaviorSubject<EditItemMode[]> = new BehaviorSubject<EditItemMode[]>([]);
 
   /**
    * Variable to track subscription and unsubscribe it onDestroy
@@ -109,6 +111,10 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     this.notificationService.claimedProfile.subscribe(() => {
       this.getData();
     });
+
+    this.isEditAvailable$ = this.editModes$.pipe(
+      map((editModes) => isNotEmpty(editModes) && editModes.length > 0),
+    );
   }
 
   /**

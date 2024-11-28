@@ -60,13 +60,14 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
   /**
    * A boolean representing if to render or not the sidebar menu
    */
-  private hasSidebar$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  hasSidebar$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * This parameter define the status of sidebar (hide/show)
    */
   private sidebarStatus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  isSideBarHidden$: Observable<boolean>;
 
   ngOnInit(): void {
     this.init();
@@ -79,6 +80,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
 
     // Init the sidebar status
     this.sidebarStatus$.next(this.hasSidebar$.value);
+    this.isSideBarHidden$ = this.isSideBarHidden();
   }
 
   /**

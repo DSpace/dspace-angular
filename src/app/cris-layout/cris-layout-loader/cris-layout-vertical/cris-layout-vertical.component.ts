@@ -6,7 +6,10 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
 import { CrisLayoutTab } from '../../../core/layout/models/tab.model';
 import { Item } from '../../../core/shared/item.model';
@@ -54,8 +57,10 @@ export class CrisLayoutVerticalComponent {
 
 
   selectedTab$: BehaviorSubject<CrisLayoutTab> = new BehaviorSubject<CrisLayoutTab>(null);
+  isXsOrSm$: Observable<boolean>;
 
   constructor(public windowService: HostWindowService) {
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
   selectedTabChanged(tab: CrisLayoutTab) {

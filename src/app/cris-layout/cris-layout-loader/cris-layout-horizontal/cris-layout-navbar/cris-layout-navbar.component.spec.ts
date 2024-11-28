@@ -13,7 +13,10 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject,
+  of,
+} from 'rxjs';
 
 import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -101,6 +104,7 @@ describe('CrisLayoutNavbarComponent', () => {
       component.tabs = loaderMultilevelTabs;
       component.item = mockItem;
       component.activeTab$ = new BehaviorSubject<CrisLayoutTab>(loaderMultilevelTabs[0]);
+      component.isXsOrSm$ = of(true);
       component.ngOnInit();
       fixture.detectChanges();
     });
@@ -114,6 +118,7 @@ describe('CrisLayoutNavbarComponent', () => {
 
       beforeEach(() => {
         windowServiceStub.setWidth(400);
+        component.ngOnInit();
         fixture.detectChanges();
       });
 

@@ -5,6 +5,7 @@ import {
 import {
   Component,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -43,7 +44,9 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
     TranslateModule,
   ],
 })
-export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
+export class ExportCollectionMenuComponent extends ContextMenuEntryComponent implements OnInit {
+
+  isCollectionAdmin$: Observable<boolean>;
 
   /**
    * Initialize instance variables
@@ -70,6 +73,10 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.ExportCollection);
   }
 
+  ngOnInit() {
+    this.isCollectionAdmin$ = this.isCollectionAdmin(false);
+  }
+
   /**
    * Launch a process to export collection
    */
@@ -88,9 +95,6 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
           this.notificationService.error(this.translationService.get('collection-export.error'));
         }
       });
-    this.notificationService.claimedProfile.subscribe(() => {
-      this.isCollectionAdmin(false);
-    });
   }
 
   /**

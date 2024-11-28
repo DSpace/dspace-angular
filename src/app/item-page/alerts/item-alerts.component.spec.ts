@@ -45,7 +45,9 @@ describe('ItemAlertsComponent', () => {
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', ['openCreateWithdrawnReinstateModal']);
-    correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  ['findByItem']);
+    correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  {
+      findByItem: createSuccessfulRemoteDataObject$([]),
+    });
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
       providers: [
@@ -73,6 +75,7 @@ describe('ItemAlertsComponent', () => {
         isDiscoverable: true,
       });
       component.item = item;
+      (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
       fixture.detectChanges();
     });
 
@@ -87,6 +90,7 @@ describe('ItemAlertsComponent', () => {
       item = Object.assign(new Item(), {
         isDiscoverable: false,
       });
+      (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
       component.item = item;
       fixture.detectChanges();
     });
@@ -146,23 +150,13 @@ describe('ItemAlertsComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should return true when user is not an admin and there is at least one correction with topic REQUEST_REINSTATE', () => {
-      testScheduler.run(({ cold, expectObservable }) => {
-        const isAdminMarble = 'a';
-        const correctionMarble = 'b';
-        const expectedMarble = 'c';
+    it('should return true when user is not an admin and there is at least one correction with topic REQUEST_REINSTATE', (done) => {
 
-        const isAdminValues = { a: false };
-        const correctionValues = { b: correctionRD };
-        const expectedValues = { c: true };
-
-        const isAdmin$ = cold(isAdminMarble, isAdminValues);
-        const correction$ = cold(correctionMarble, correctionValues);
-
-        (authorizationService.isAuthorized).and.returnValue(isAdmin$);
-        (correctionTypeDataService.findByItem).and.returnValue(correction$);
-
-        expectObservable(component.showReinstateButton$()).toBe(expectedMarble, expectedValues);
+      (authorizationService.isAuthorized).and.returnValue(of(false));
+      component.ngOnInit();
+      component.showReinstateButton$.subscribe(value => {
+        expect(value).toBeTruthy();
+        done();
       });
     });
 

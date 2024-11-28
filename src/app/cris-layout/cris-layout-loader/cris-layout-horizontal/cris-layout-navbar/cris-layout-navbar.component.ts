@@ -13,6 +13,7 @@ import {
   Output,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -59,8 +60,11 @@ export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implement
 
   windowService = inject(HostWindowService);
 
+  isXsOrSm$: Observable<boolean>;
+
   ngOnInit(): void {
     this.init();
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
   emitSelected(selectedTab) {

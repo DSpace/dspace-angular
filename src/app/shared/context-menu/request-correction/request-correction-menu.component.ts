@@ -57,6 +57,7 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 })
 export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent implements OnDestroy {
 
+  canCreateCorrection$: Observable<boolean>;
   /**
    * A boolean representing if a request operation is pending
    * @type {BehaviorSubject<boolean>}
@@ -132,9 +133,8 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
         this.router.navigate(['workspaceitems', response.id, 'edit']);
       }
     });
-    this.notificationService.claimedProfile.subscribe(() => {
-      this.canCreateCorrection(false);
-    });
+
+    this.canCreateCorrection$ = this.canCreateCorrection(false);
   }
 
   /**

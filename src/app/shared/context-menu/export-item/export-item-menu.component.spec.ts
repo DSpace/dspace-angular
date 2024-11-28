@@ -11,7 +11,10 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -88,8 +91,8 @@ describe('ExportItemMenuComponent', () => {
 
   it('should render a button', () => {
     fixture.detectChanges();
-    component.configuration = configuration;
-    component.configuration.formats = [{ type: null, id: '1', mimeType: '1', entityType: 'Patent', molteplicity: '1', _links: null }];
+    const testConfig = { ...configuration, formats: [{ type: null, id: '1', mimeType: '1', entityType: 'Patent', molteplicity: '1', _links: null }] };
+    component.configuration = of(testConfig);
     fixture.detectChanges();
     const link = fixture.debugElement.query(By.css('button'));
     expect(link).not.toBeNull();

@@ -27,7 +27,4 @@ export class ComcolPageHandleComponent {
   // The value of "handle"
   @Input() content: string;
 
-  public getHandle(): string {
-    return this.content;
-  }
 }

@@ -51,7 +51,7 @@
 
               <div class="float-right btn-group edit-field space-children-mr" *ngIf="displayActions">
                 <!--DISCARD EDIT -->
-                <ng-container *ngIf="(canEditVersion$(version) | async) && isThisBeingEdited(version)">
+                <ng-container *ngIf="(version.self | dsCanEditVersion | async) && isThisBeingEdited(version)">
                   <button class="btn btn-sm"
                           [ngClass]="isThisBeingEdited(version) ? 'btn-outline-warning' : 'btn-outline-primary'"
                           (click)="disableVersionEditing()"
@@ -60,7 +60,7 @@
                   </button>
                 </ng-container>
                 <!--EDIT / SAVE-->
-                <ng-container *ngIf="canEditVersion$(version) | async">
+                <ng-container *ngIf="(version.self | dsCanEditVersion | async)">
                   <button class="btn btn-outline-primary btn-sm version-row-element-edit"
                           *ngIf="!isThisBeingEdited(version)"
                           [disabled]="isAnyBeingEdited()"

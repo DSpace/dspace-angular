@@ -86,9 +86,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    */
   entityType$: BehaviorSubject<ItemType> = new BehaviorSubject(undefined);
 
-  get isSaving$(): BehaviorSubject<boolean> {
-    return this.editItemRelationshipsService.isSaving$;
-  }
+  isSaving$: BehaviorSubject<boolean>;
 
   readonly AlertType = AlertType;
 
@@ -109,6 +107,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     protected editItemRelationshipsService: EditItemRelationshipsService,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
+    this.isSaving$ = this.editItemRelationshipsService.isSaving$;
   }
 
   /**

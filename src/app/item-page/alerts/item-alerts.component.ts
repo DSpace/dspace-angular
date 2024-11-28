@@ -59,6 +59,7 @@ export class ItemAlertsComponent implements OnInit {
   public AlertTypeEnum = AlertType;
 
   isAdministrator$: Observable<boolean>;
+  showReinstateButton$: Observable<boolean>;
 
   constructor(
     private authService: AuthorizationDataService,
@@ -69,6 +70,7 @@ export class ItemAlertsComponent implements OnInit {
 
   ngOnInit() {
     this.isAdministrator$ = this.authService.isAuthorized(FeatureID.AdministratorOf);
+    this.showReinstateButton$ = this.showReinstateButton();
   }
 
   /**
@@ -76,7 +78,7 @@ export class ItemAlertsComponent implements OnInit {
    * The button is shown if the user is not an admin and the item has a reinstate request.
    * @returns An Observable that emits a boolean value indicating whether to show the reinstate button.
    */
-  showReinstateButton$(): Observable<boolean>  {
+  showReinstateButton(): Observable<boolean>  {
     const correction$ = this.correctionTypeDataService.findByItem(this.item.uuid, true).pipe(
       getFirstCompletedRemoteData(),
       map((correctionTypeRD: RemoteData<PaginatedList<CorrectionType>>) => correctionTypeRD.hasSucceeded ? correctionTypeRD.payload.page : []),
