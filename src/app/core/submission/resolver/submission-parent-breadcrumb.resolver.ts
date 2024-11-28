@@ -28,7 +28,7 @@ export abstract class SubmissionParentBreadcrumbResolver implements Resolve<Brea
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<SubmissionObject>> {
     return this.dataService.findById(route.params.id,
-      true,
+      false,
       false,
       ...SUBMISSION_LINKS_TO_FOLLOW,
     ).pipe(

@@ -20,7 +20,7 @@ describe('CrisrefComponent', () => {
   let fixture: ComponentFixture<CrisrefComponent>;
 
   const itemService = jasmine.createSpyObj('ItemDataService', {
-    findById: jasmine.createSpy('findById')
+    findByIdWithProjections: jasmine.createSpy('findByIdWithProjections')
   });
   const metadataValue = Object.assign(new MetadataValue(), {
     'value': 'test item title',
@@ -106,7 +106,7 @@ describe('CrisrefComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisrefComponent);
     component = fixture.componentInstance;
-    itemService.findById.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
+    itemService.findByIdWithProjections.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
     fixture.detectChanges();
   });
 

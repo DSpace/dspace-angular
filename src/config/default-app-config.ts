@@ -501,15 +501,7 @@ export class DefaultAppConfig implements AppConfig {
             'rel': 'manifest',
             'href': 'assets/dspace/images/favicons/manifest.webmanifest',
           }
-        },
-        {
-          // Insert   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> into the <head> of the page.
-          tagName: 'link',
-          attributes: {
-            'rel': 'stylesheet',
-            'href': 'https://fonts.googleapis.com/icon?family=Material+Icons',
-          }
-        },
+        }
       ]
     },
   ];

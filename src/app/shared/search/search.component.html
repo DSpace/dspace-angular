@@ -31,6 +31,7 @@
         <div class="col-12" *ngIf="!(isXsOrSm$ | async)">
             <ng-template *ngTemplateOutlet="searchForm"></ng-template>
             <ng-content select="[additionalSearchOptions]"></ng-content>
+            <ng-content select="[bulkActions]"></ng-content>
         </div>
         <div id="search-content" class="col-12">
             <div class="d-block d-md-none search-controls clearfix">

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { combineLatest, Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { combineLatest, Observable, of, switchMap } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -18,6 +18,10 @@ import { AuthService } from '../../core/auth/auth.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { Collection } from '../../core/shared/collection.model';
+import { Item } from '../../core/shared/item.model';
+import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
 
 /**
  * Component displaying a list of all audit about a object in a paginated table
@@ -31,7 +35,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
   /**
    * The object extracted from the route.
    */
-  object;
+  object: Item;
 
   /**
    * List of all audits
@@ -62,14 +66,17 @@ export class ObjectAuditOverviewComponent implements OnInit {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
+  owningCollection$: Observable<Collection>;
+
   constructor(protected authService: AuthService,
               protected route: ActivatedRoute,
               protected router: Router,
               protected auditService: AuditDataService,
               protected itemService: ItemDataService,
               protected authorizationService: AuthorizationDataService,
-              protected paginationService: PaginationService) {
-  }
+              protected paginationService: PaginationService,
+              protected collectionDataService: CollectionDataService
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
@@ -78,6 +85,15 @@ export class ObjectAuditOverviewComponent implements OnInit {
       redirectOn4xx(this.router, this.authService)
     ).subscribe((rd) => {
       this.object = rd.payload;
+      this.owningCollection$ = this.collectionDataService.findOwningCollectionFor(
+        this.object,
+        true,
+        false,
+        ...COLLECTION_PAGE_LINKS_TO_FOLLOW
+      ).pipe(
+        getFirstCompletedRemoteData(),
+        map(data => data?.payload)
+      );
       this.setAudits();
     });
   }
@@ -88,17 +104,35 @@ export class ObjectAuditOverviewComponent implements OnInit {
   setAudits() {
     const config$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config, this.pageConfig);
     const isAdmin$ = this.isCurrentUserAdmin();
-    this.auditsRD$ = combineLatest([isAdmin$, config$]).pipe(
-      mergeMap(([isAdmin, config]) => {
+    const parentCommunity$ = this.owningCollection$.pipe(
+      switchMap(collection => collection.parentCommunity),
+      getFirstCompletedRemoteData(),
+      map(data => data?.payload)
+    );
+
+
+    this.auditsRD$ = combineLatest([isAdmin$, config$, this.owningCollection$, parentCommunity$]).pipe(
+      mergeMap(([isAdmin, config,  owningCollection, parentCommunity]) => {
         if (isAdmin) {
-          return this.auditService.findByObject(this.object.id, config);
+          return this.auditService.findByObject(this.object.id, config, owningCollection.id, parentCommunity.id);
         }
+
+        return of(null);
       })
     );
   }
 
   isCurrentUserAdmin(): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined);
+    return combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
+      this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+    ]).pipe(
+      map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin]) => {
+        return isCollectionAdmin || isCommunityAdmin || isSiteAdmin;
+      }),
+      take(1),
+    );
   }
 
   /**
