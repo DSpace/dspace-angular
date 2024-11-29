@@ -186,13 +186,17 @@ const enviromentNoThumbs = {
   }
 };
 
+const truncatableServiceStub = {
+  isCollapsed: (id: number) => observableOf(true),
+};
+
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ItemSearchResultListElementComponent, TruncatePipe, VarDirective],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ],
@@ -244,6 +248,32 @@ describe('ItemSearchResultListElementComponent', () => {
     it('should not show the author paragraph', () => {
       const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
       expect(itemAuthorField).toBeNull();
+    });
+  });
+
+  describe('When the item has authors and isCollapsed is true', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(observableOf(true));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show limitedMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.limitedMetadata(publicationListElementComponent.authorMetadata, publicationListElementComponent.additionalMetadataLimit).length);
+    });
+  });
+
+  describe('When the item has authors and isCollapsed is false', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(observableOf(false));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show allMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.allMetadata(publicationListElementComponent.authorMetadata).length);
     });
   });
 
@@ -375,7 +405,7 @@ describe('ItemSearchResultListElementComponent', () => {
       imports: [TranslateModule.forRoot()],
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
-        {provide: TruncatableService, useValue: {}},
+        {provide: TruncatableService, useValue: truncatableServiceStub},
         {provide: DSONameService, useClass: DSONameServiceMock},
         { provide: APP_CONFIG, useValue: enviromentNoThumbs }
       ],

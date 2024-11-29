@@ -12,6 +12,8 @@ import {
 } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 import { parseISO, differenceInDays, differenceInMilliseconds } from 'date-fns';
 import { environment } from '../../../../../environments/environment';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { Observable } from 'rxjs';
 
 /**
  * This component show metadata for the given item object in the list view.
@@ -78,9 +80,14 @@ export class ItemListPreviewComponent implements OnInit {
 
   authorMetadata = environment.searchResult.authorMetadata;
 
+  authorMetadataLimit = environment.followAuthorityMetadataValuesLimit;
+
+  isCollapsed$: Observable<boolean>;
+
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     public dsoNameService: DSONameService,
+    public truncateService: TruncatableService
   ) {
   }
 
@@ -96,6 +103,6 @@ export class ItemListPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item);
+    this.isCollapsed$ = this.truncateService.isCollapsed(this.item.uuid);
   }
-
 }

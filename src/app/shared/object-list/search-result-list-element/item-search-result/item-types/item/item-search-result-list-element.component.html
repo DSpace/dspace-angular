@@ -39,9 +39,18 @@
                       [innerHTML]="firstMetadataValue('dc.date.issued')"></span>)
               </ng-container>
               <span *ngIf="dso.allMetadataValues(authorMetadata).length > 0" class="item-list-authors">
-                <span *ngFor="let author of dso.allMetadata(authorMetadata); let i=index; let last=last;">
-                  <ds-metadata-link-view [item]="dso" [metadata]="author" [metadataName]="authorMetadata"></ds-metadata-link-view><span *ngIf="!last">; </span>
-                </span>
+                <ng-container *ngVar="(isCollapsed() | async) as isCollapsed">
+                  <ng-container *ngIf="isCollapsed">
+                    <span *ngFor="let author of dso.limitedMetadata(authorMetadata, additionalMetadataLimit); let i=index; let last=last;">
+                      <ds-metadata-link-view [item]="dso" [metadata]="author" [metadataName]="authorMetadata"></ds-metadata-link-view><span *ngIf="!last">; </span>
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="!isCollapsed">
+                     <span *ngFor="let author of dso.allMetadata(authorMetadata); let i=index; let last=last;">
+                      <ds-metadata-link-view [item]="dso" [metadata]="author" [metadataName]="authorMetadata"></ds-metadata-link-view><span *ngIf="!last">; </span>
+                    </span>
+                  </ng-container>
+                </ng-container>
               </span>
             </ds-truncatable-part>
           </span>
