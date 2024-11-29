@@ -16,7 +16,7 @@ import {
   Store,
 } from '@ngrx/store';
 import cloneDeep from 'lodash/cloneDeep';
-import difference from 'lodash/difference';
+import differenceWith from 'lodash/differenceWith';
 import {
   BehaviorSubject,
   Subscription,
@@ -82,13 +82,13 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
           this.notifications = [];
         } else if (state.length > this.notifications.length) {
           // Add
-          const newElem = difference(state, this.notifications);
+          const newElem = differenceWith(state, this.notifications, this.byId);
           newElem.forEach((notification) => {
             this.add(notification);
           });
         } else {
           // Remove
-          const delElem = difference(this.notifications, state);
+          const delElem = differenceWith(this.notifications, state, this.byId);
           delElem.forEach((notification) => {
             this.notifications = this.notifications.filter((item: INotification) => item.id !== notification.id);
 
@@ -97,6 +97,9 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       });
   }
+
+  private byId = (notificationA: INotification, notificationB: INotification) =>
+    notificationA.id === notificationB.id;
 
   // Add the new notification to the notification array
   add(item: INotification): void {

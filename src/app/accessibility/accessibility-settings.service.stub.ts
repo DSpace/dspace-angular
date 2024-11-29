@@ -32,4 +32,10 @@ export class AccessibilitySettingsServiceStub {
   setSettingsInCookie = jasmine.createSpy('setSettingsInCookie');
 
   getInputType = jasmine.createSpy('getInputType').and.returnValue('text');
+
+  convertFormValuesToStoredValues = jasmine.createSpy('convertFormValuesToStoredValues').and.returnValue({});
+
+  convertStoredValuesToFormValues = jasmine.createSpy('convertStoredValuesToFormValues').and.returnValue({});
+
+  getPlaceholder = jasmine.createSpy('getPlaceholder').and.returnValue('placeholder');
 }
