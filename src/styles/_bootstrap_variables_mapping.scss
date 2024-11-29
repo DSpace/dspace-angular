@@ -55,7 +55,9 @@
   --bs-table-striped-bg: #{$light};
 }
 
-cdk-tree-node .btn {
+cdk-tree-node .btn,
+#mobile-navbar-toggler > .btn
+{
   --bs-btn-box-shadow: none;
   --bs-btn-focus-box-shadow: none;
   --bs-btn-active-border-color: transparent;
