@@ -38,7 +38,7 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 })
 export class AuditItemMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
-  public isAuthorized: BehaviorSubject<boolean> =  new BehaviorSubject<boolean>(false);
+  public isAuthorized$: BehaviorSubject<boolean> =  new BehaviorSubject<boolean>(false);
 
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
@@ -58,7 +58,7 @@ export class AuditItemMenuComponent extends ContextMenuEntryComponent implements
     ).pipe(
       take(1),
     ).subscribe(([isAdmin, isCollectionAdmin, isCommunityAdmin]) => {
-      this.isAuthorized.next(isAdmin || isCommunityAdmin || isCollectionAdmin);
+      this.isAuthorized$.next(isAdmin || isCommunityAdmin || isCollectionAdmin);
     });
   }
 }

@@ -127,6 +127,8 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    */
   bitstreamSize = 4;
 
+  itemUuid$: Observable<string>;
+
   /**
    * The size of the loaded bitstremas at a certain moment
    * @private
@@ -152,6 +154,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.getBundlesPerItem();
+    this.itemUuid$ = this.getItemUUID();
   }
 
   /**

@@ -15,7 +15,6 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -53,15 +52,12 @@ export class DsoPageEditMenuComponent extends ContextMenuEntryComponent implemen
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     protected authorizationService: AuthorizationDataService,
-    private notificationService: NotificationsService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditDSO);
   }
 
   ngOnInit() {
-    this.notificationService.claimedProfile.subscribe(() => {
-      this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self, undefined, false);
-    });
+    this.isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanEditMetadata, this.contextMenuObject.self, undefined, false);
   }
 
   /**

@@ -66,6 +66,8 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 })
 export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponent implements OnInit, OnDestroy {
 
+  isEditAvailable$: Observable<boolean>;
+
   /**
    * A boolean representing if a request operation is pending
    * @type {BehaviorSubject<boolean>}
@@ -177,5 +179,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
       this.tabs = tabs;
       this.initBoxes();
     }));
+
+    this.isEditAvailable$ = this.isEditAvailable();
   }
 }

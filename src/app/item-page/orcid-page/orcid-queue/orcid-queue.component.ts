@@ -76,7 +76,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   /**
    * A list of orcid queue records
    */
-  private list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
+  list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
 
   /**
    * The AlertType enumeration

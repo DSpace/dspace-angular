@@ -78,18 +78,29 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   /**
    * A boolean representing if orcid profile is linked
    */
-  private isOrcidLinked$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isOrcidLinked$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * A boolean representing if user has authorizations
+   */
+  hasOrcidAuthorizations$: Observable<boolean>;
+
+  /**
+   * A boolean representing if user has missing authorizations
+   */
+  hasMissingOrcidAuthorizations$: Observable<boolean>;
 
   /**
    * A boolean representing if only admin can disconnect orcid profile
    */
-  private onlyAdminCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  onlyAdminCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * A boolean representing if owner can disconnect orcid profile
    */
-  private ownerCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  ownerCanDisconnectProfileFromOrcid$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  orcidNotLinkedMessage$: Observable<string>;
   /**
    * An event emitted when orcid profile is unliked successfully
    */
@@ -116,44 +127,6 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
     }
   }
 
-  /**
-   * Check if the list of exposed orcid authorization scopes for the orcid profile has values
-   */
-  hasOrcidAuthorizations(): Observable<boolean> {
-    return this.profileAuthorizationScopes.asObservable().pipe(
-      map((scopes: string[]) => scopes.length > 0),
-    );
-  }
-
-  /**
-   * Return the list of exposed orcid authorization scopes for the orcid profile
-   */
-  getOrcidAuthorizations(): Observable<string[]> {
-    return this.profileAuthorizationScopes.asObservable();
-  }
-
-  /**
-   * Check if the list of exposed orcid authorization scopes for the orcid profile has values
-   */
-  hasMissingOrcidAuthorizations(): Observable<boolean> {
-    return this.missingAuthorizationScopes.asObservable().pipe(
-      map((scopes: string[]) => scopes.length > 0),
-    );
-  }
-
-  /**
-   * Return the list of exposed orcid authorization scopes for the orcid profile
-   */
-  getMissingOrcidAuthorizations(): Observable<string[]> {
-    return this.profileAuthorizationScopes.asObservable();
-  }
-
-  /**
-   * Return a boolean representing if orcid profile is linked
-   */
-  isLinkedToOrcid(): Observable<boolean> {
-    return this.isOrcidLinked$.asObservable();
-  }
 
   getOrcidNotLinkedMessage(): Observable<string> {
     const orcid = this.item.firstMetadataValue('person.identifier.orcid');
@@ -233,6 +206,13 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
     });
 
     this.isOrcidLinked$.next(this.orcidAuthService.isLinkedToOrcid(this.item));
+    this.hasOrcidAuthorizations$ =  this.profileAuthorizationScopes.pipe(
+      map((scopes: string[]) => scopes.length > 0),
+    );
+    this.hasMissingOrcidAuthorizations$ = this.missingAuthorizationScopes.pipe(
+      map((scopes: string[]) => scopes.length > 0),
+    );
+    this.orcidNotLinkedMessage$ = this.getOrcidNotLinkedMessage();
   }
 
   private setMissingOrcidAuthorizations(): void {

@@ -10,6 +10,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { getBulkImportRoute } from '../../../app-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -37,6 +38,8 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 })
 export class BulkImportMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
+  isCollectionAdmin$: Observable<boolean>;
+
   /**
    * Initialize instance variables
    *
@@ -54,9 +57,9 @@ export class BulkImportMenuComponent extends ContextMenuEntryComponent implement
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.BulkImport);
   }
   ngOnInit() {
-    this.notificationService.claimedProfile.subscribe(() => {
-      this.isCollectionAdmin(false);
-    });
+    this.isCollectionAdmin$ = this.notificationService.claimedProfile.pipe(
+      switchMap(() => this.isCollectionAdmin(false)),
+    );
   }
 
   /**

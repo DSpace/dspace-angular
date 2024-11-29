@@ -84,6 +84,8 @@ export class ItemVersionsNoticeComponent implements OnInit {
    */
   public AlertTypeEnum = AlertType;
 
+  destinationPage$: Observable<string>;
+
   constructor(private versionHistoryService: VersionHistoryDataService) {
   }
 
@@ -125,6 +127,10 @@ export class ItemVersionsNoticeComponent implements OnInit {
         startWith(false),
       );
     }
+    this.destinationPage$ = this.latestVersion$.pipe(
+      switchMap(version => version.item),
+      map(item => this.getItemPage(item.payload)),
+    );
   }
 
   /**
