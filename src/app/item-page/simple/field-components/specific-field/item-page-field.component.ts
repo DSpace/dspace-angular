@@ -7,8 +7,8 @@ import intersectionWith from 'lodash/intersectionWith';
 import { Observable } from 'rxjs';
 import {
   filter,
-  first,
   mergeAll,
+  take,
 } from 'rxjs/operators';
 
 import { BrowseService } from '../../../../core/browse/browse.service';
@@ -16,7 +16,7 @@ import { BrowseDefinitionDataService } from '../../../../core/browse/browse-defi
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { Item } from '../../../../core/shared/item.model';
 import {
-  getFirstSucceededRemoteData,
+  getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
@@ -85,17 +85,23 @@ export class ItemPageFieldComponent {
      */
     get browseDefinition(): Observable<BrowseDefinition> {
       return this.browseService.getBrowseDefinitions().pipe(
-        getFirstSucceededRemoteData(),
+        getFirstCompletedRemoteData(),
         getRemoteDataPayload(),
         getPaginatedListPayload(),
         mergeAll(),
         filter((def: BrowseDefinition) =>
           intersectionWith(def.metadataKeys, this.fields, ItemPageFieldComponent.fieldMatch).length > 0,
         ),
-        first(),
+        take(1),
       );
     }
 
+    /**
+     * Returns true iff the spec and field match.
+     * @param spec  Specification of a metadata field name: either a metadata field, or a prefix ending in ".*".
+     * @param field A metadata field name.
+     * @private
+     */
     private static fieldMatch(spec: string, field: string): boolean {
       return field === spec
         || (spec.endsWith('.*') && field.substring(0, spec.length - 1) === spec.substring(0, spec.length - 1));
