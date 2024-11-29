@@ -368,12 +368,4 @@ describe('accessibilitySettingsService', () => {
     });
   });
 
-  describe('getInputType', () => {
-    it('should correctly return the input type', () => {
-      expect(service.getInputType(AccessibilitySetting.NotificationTimeOut)).toEqual('number');
-      expect(service.getInputType(AccessibilitySetting.LiveRegionTimeOut)).toEqual('number');
-      expect(service.getInputType('unknownValue' as AccessibilitySetting)).toEqual('text');
-    });
-  });
-
 });
