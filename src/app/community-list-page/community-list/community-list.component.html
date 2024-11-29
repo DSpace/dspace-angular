@@ -24,7 +24,7 @@
   <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
                  class="example-tree-node expandable-node">
     <div class="btn-group">
-      <button *ngIf="hasChild(null, node) | async" type="button" class="btn btn-default" cdkTreeNodeToggle
+      <button *ngIf="hasChild(null, node) | async" type="button" class="btn btn-default btn-transparent" cdkTreeNodeToggle
               [attr.aria-label]="(node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) }"
               (click)="toggleExpanded(node)"
               data-test="expand-button">
