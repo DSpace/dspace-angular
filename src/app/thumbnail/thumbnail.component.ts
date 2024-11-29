@@ -1,13 +1,27 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { hasNoValue, hasValue } from '../shared/empty.util';
-import { RemoteData } from '../core/data/remote-data';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+
 import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { RemoteData } from '../core/data/remote-data';
+import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
+import {
+  hasNoValue,
+  hasValue,
+} from '../shared/empty.util';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
+import { VarDirective } from '../shared/utils/var.directive';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -15,9 +29,11 @@ import { FileService } from '../core/shared/file.service';
  * If no Bitstream is provided, an HTML placeholder will be rendered instead.
  */
 @Component({
-  selector: 'ds-thumbnail',
+  selector: 'ds-base-thumbnail',
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
+  standalone: true,
+  imports: [VarDirective, CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
 })
 export class ThumbnailComponent implements OnChanges {
   /**
@@ -34,7 +50,7 @@ export class ThumbnailComponent implements OnChanges {
   /**
    * The src attribute used in the template to render the image.
    */
-  src$ = new BehaviorSubject<string>(undefined);
+  src: string = undefined;
 
   retriedWithToken = false;
 
@@ -57,7 +73,7 @@ export class ThumbnailComponent implements OnChanges {
    * Whether the thumbnail is currently loading
    * Start out as true to avoid flashing the alt text while a thumbnail is being loaded.
    */
-  isLoading$ = new BehaviorSubject(true);
+  isLoading = true;
 
   constructor(
     protected auth: AuthService,
@@ -110,7 +126,7 @@ export class ThumbnailComponent implements OnChanges {
    * Otherwise, fall back to the default image or a HTML placeholder
    */
   errorHandler() {
-    const src = this.src$.getValue();
+    const src = this.src;
     const thumbnail = this.bitstream;
     const thumbnailSrc = thumbnail?._links?.content?.href;
 
@@ -134,7 +150,7 @@ export class ThumbnailComponent implements OnChanges {
           } else {
             return observableOf(null);
           }
-        })
+        }),
       ).subscribe((url: string) => {
         if (hasValue(url)) {
           // If we got a URL, try to load it
@@ -162,9 +178,9 @@ export class ThumbnailComponent implements OnChanges {
    * @param src
    */
   setSrc(src: string): void {
-    this.src$.next(src);
+    this.src = src;
     if (src === null) {
-      this.isLoading$.next(false);
+      this.isLoading = false;
     }
   }
 
@@ -172,6 +188,6 @@ export class ThumbnailComponent implements OnChanges {
    * Stop the loading animation once the thumbnail is successfully loaded
    */
   successHandler() {
-    this.isLoading$.next(false);
+    this.isLoading = false;
   }
 }

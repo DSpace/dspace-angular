@@ -1,15 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { Item } from '../../../../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
+import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
 
 let component: ItemDetailPreviewFieldComponent;
 let fixture: ComponentFixture<ItemDetailPreviewFieldComponent>;
@@ -20,28 +29,28 @@ const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
-    ]
-  }
+        value: 'Article',
+      },
+    ],
+  },
 });
 
 describe('ItemDetailPreviewFieldComponent', () => {
@@ -52,19 +61,17 @@ describe('ItemDetailPreviewFieldComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        ItemDetailPreviewFieldComponent, TruncatePipe,
       ],
-      declarations: [ItemDetailPreviewFieldComponent, TruncatePipe],
       providers: [
-        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } }
-
+        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemDetailPreviewFieldComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

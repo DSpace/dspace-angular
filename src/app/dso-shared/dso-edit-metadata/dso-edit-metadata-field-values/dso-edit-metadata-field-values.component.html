@@ -3,6 +3,7 @@
   <ds-dso-edit-metadata-value *ngFor="let mdValue of form.fields[mdField]; let idx = index" role="presentation"
                               [dso]="dso"
                               [mdValue]="mdValue"
+                              [mdField]="mdField"
                               [dsoType]="dsoType"
                               [saving$]="saving$"
                               [isOnlyValue]="form.fields[mdField].length === 1"

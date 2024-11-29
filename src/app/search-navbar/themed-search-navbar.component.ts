@@ -1,11 +1,14 @@
-import { ThemedComponent } from '../shared/theme-support/themed.component';
-import { SearchNavbarComponent } from './search-navbar.component';
 import { Component } from '@angular/core';
 
+import { ThemedComponent } from '../shared/theme-support/themed.component';
+import { SearchNavbarComponent } from './search-navbar.component';
+
 @Component({
-  selector: 'ds-themed-search-navbar',
+  selector: 'ds-search-navbar',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [SearchNavbarComponent],
 })
 export class ThemedSearchNavbarComponent extends ThemedComponent<SearchNavbarComponent> {
 

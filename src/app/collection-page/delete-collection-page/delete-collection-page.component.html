@@ -2,7 +2,7 @@
     <div class="row">
         <ng-container *ngVar="(dsoRD$ | async)?.payload as dso">
             <div class="col-12 pb-4">
-                <h2 id="header" class="border-bottom pb-2">{{ 'collection.delete.head' | translate}}</h2>
+                <h1 id="header" class="border-bottom pb-2">{{ 'collection.delete.head' | translate}}</h1>
                 <p class="pb-2">{{ 'collection.delete.text' | translate:{ dso: dsoNameService.getName(dso) } }}</p>
                 <div class="form-group row">
                   <div class="col text-right space-children-mr">
@@ -11,7 +11,7 @@
                     </button>
                     <button class="btn btn-danger" (click)="onConfirm(dso)" [disabled]="(processing$ | async)">
                       <span *ngIf="processing$ | async"><i class='fas fa-circle-notch fa-spin'></i> {{'collection.delete.processing' | translate}}</span>
-                      <span *ngIf="!(processing$ | async)"><i class="fas fa-trash"></i> {{'collection.delete.confirm' | translate}}</span>
+                      <span *ngIf="(processing$ | async) !== true"><i class="fas fa-trash"></i> {{'collection.delete.confirm' | translate}}</span>
                     </button>
                   </div>
                 </div>

@@ -1,19 +1,44 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  tap,
+} from 'rxjs/operators';
 
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
-import { ExternalSource } from '../../../core/shared/external-source.model';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { HostWindowService } from '../../../shared/host-window.service';
-import { hasValue } from '../../../shared/empty.util';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { ExternalSource } from '../../../core/shared/external-source.model';
+import {
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { hasValue } from '../../../shared/empty.util';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 
 /**
  * Interface for the selected external source element.
@@ -38,7 +63,15 @@ export interface ExternalSourceData {
 @Component({
   selector: 'ds-submission-import-external-searchbar',
   styleUrls: ['./submission-import-external-searchbar.component.scss'],
-  templateUrl: './submission-import-external-searchbar.component.html'
+  templateUrl: './submission-import-external-searchbar.component.html',
+  imports: [
+    CommonModule,
+    TranslateModule,
+    InfiniteScrollModule,
+    NgbDropdownModule,
+    FormsModule,
+  ],
+  standalone: true,
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**
@@ -93,7 +126,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
   constructor(
     private externalService: ExternalSourceDataService,
     private cdr: ChangeDetectorRef,
-    protected windowService: HostWindowService
+    protected windowService: HostWindowService,
   ) {
   }
 
@@ -103,7 +136,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
   ngOnInit() {
     this.selectedElement = {
       id: '',
-      name: 'loading'
+      name: 'loading',
     };
     this.searchString = '';
     this.sourceList = [];
@@ -111,8 +144,8 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       elementsPerPage: 5,
       currentPage: 1,
       searchParams: [
-        new RequestParam('entityType', this.initExternalSourceData.entity)
-      ]
+        new RequestParam('entityType', this.initExternalSourceData.entity),
+      ],
     });
     this.externalService.searchBy('findByEntityType', this.findListOptions).pipe(
       catchError(() => {
@@ -156,8 +189,8 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
         elementsPerPage: 5,
         currentPage: this.findListOptions.currentPage + 1,
         searchParams: [
-          new RequestParam('entityType', this.initExternalSourceData.entity)
-        ]
+          new RequestParam('entityType', this.initExternalSourceData.entity),
+        ],
       });
       this.externalService.searchBy('findByEntityType', this.findListOptions).pipe(
         catchError(() => {
@@ -167,7 +200,7 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
           return observableOf(paginatedListRD);
         }),
         getFirstSucceededRemoteData(),
-        tap(() => this.sourceListLoading = false)
+        tap(() => this.sourceListLoading = false),
       ).subscribe((externalSource: RemoteData<PaginatedList<ExternalSource>>) => {
         externalSource.payload.page.forEach((element) => {
           this.sourceList.push({ id: element.id, name: element.name });
@@ -186,8 +219,8 @@ export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDes
       {
         entity: this.initExternalSourceData.entity,
         sourceId: this.selectedElement.id,
-        query: this.searchString
-      }
+        query: this.searchString,
+      },
     );
   }
 

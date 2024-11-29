@@ -41,7 +41,7 @@ export class FormInitAction implements Action {
    *    the Form validation status
    */
   constructor(formId: string, formData: any, valid: boolean) {
-    this.payload = {formId, formData, valid};
+    this.payload = { formId, formData, valid };
   }
 }
 
@@ -61,7 +61,7 @@ export class FormChangeAction implements Action {
    *    the FormGroup Object
    */
   constructor(formId: string, formData: any) {
-    this.payload = {formId, formData};
+    this.payload = { formId, formData };
   }
 }
 
@@ -81,7 +81,7 @@ export class FormAddTouchedAction implements Action {
    *    the array containing new touched fields
    */
   constructor(formId: string, touched: string[]) {
-    this.payload = {formId, touched};
+    this.payload = { formId, touched };
   }
 }
 
@@ -98,7 +98,7 @@ export class FormRemoveAction implements Action {
    *    the Form's ID
    */
   constructor(formId: string) {
-    this.payload = {formId};
+    this.payload = { formId };
   }
 }
 
@@ -118,7 +118,7 @@ export class FormStatusChangeAction implements Action {
    *    the Form validation status
    */
   constructor(formId: string, valid: boolean) {
-    this.payload = {formId, valid};
+    this.payload = { formId, valid };
   }
 }
 
@@ -132,7 +132,7 @@ export class FormAddError implements Action {
   };
 
   constructor(formId: string, fieldId: string, fieldIndex: number, errorMessage: string) {
-    this.payload = {formId, fieldId, fieldIndex, errorMessage};
+    this.payload = { formId, fieldId, fieldIndex, errorMessage };
   }
 }
 
@@ -144,8 +144,8 @@ export class FormRemoveErrorAction implements Action {
     fieldIndex: number,
   };
 
-  constructor(formId: string, fieldId: string, fieldIndex: number,) {
-    this.payload = {formId, fieldId, fieldIndex};
+  constructor(formId: string, fieldId: string, fieldIndex: number) {
+    this.payload = { formId, fieldId, fieldIndex };
   }
 }
 
@@ -156,7 +156,7 @@ export class FormClearErrorsAction implements Action {
   };
 
   constructor(formId: string) {
-    this.payload = {formId};
+    this.payload = { formId };
   }
 }
 

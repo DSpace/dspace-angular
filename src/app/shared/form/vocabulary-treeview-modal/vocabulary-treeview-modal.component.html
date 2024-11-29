@@ -7,9 +7,11 @@
 <div class="modal-body">
   <div class="p-3">
     <ds-vocabulary-treeview [vocabularyOptions]="vocabularyOptions"
+                            [description]="description"
                             [preloadLevel]="preloadLevel"
                             [selectedItems]="selectedItems"
                             [multiSelect]="multiSelect"
+                            [showAdd]="showAdd"
                             (select)="onSelect($event)">
     </ds-vocabulary-treeview>
   </div>

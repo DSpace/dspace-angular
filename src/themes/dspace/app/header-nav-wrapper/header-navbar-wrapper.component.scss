@@ -1,0 +1,81 @@
+:host {
+  --ds-header-navbar-border-bottom-style: solid var(--ds-header-navbar-border-bottom-height) var(--ds-header-navbar-border-bottom-color);
+  --ds-expandable-navbar-border-top-style: solid var(--ds-expandable-navbar-border-top-height) var(--ds-expandable-navbar-border-top-color);
+  --ds-expandable-navbar-height: calc(100vh - var(--ds-header-height));
+
+  div#header-navbar-wrapper {
+    // The header-navbar-wrapper should not have a z-index, otherwise it would cover the media viewer despite its higher z-index
+    position: relative; // required by the mobile collapsible navbar
+    border-bottom: var(--ds-header-navbar-border-bottom-style); // gets covered by mobile navbar wrapper, when open
+
+    div#mobile-navbar-wrapper {
+      width: 100%;
+      background-color: var(--ds-expandable-navbar-bg);
+      position: absolute;
+      z-index: var(--ds-nav-z-index);
+      overflow: hidden;
+
+      nav#collapsible-mobile-navbar {
+        // Following parameters are changed by slideMobileNav animation
+        min-height: var(--ds-expandable-navbar-height);
+        height: auto;
+        border-bottom: var(--ds-header-navbar-border-bottom-style);
+      }
+    }
+  }
+
+  /* MENU ITEMS */
+
+  ::ng-deep {
+    .ds-menu-item, .ds-menu-toggler-wrapper {
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    nav#desktop-navbar { // in header component
+      #main-site-navigation {
+        /* Desktop menu */
+
+        .ds-menu-item-wrapper, .ds-menu-item, .ds-menu-toggler-wrapper {
+          // fill navbar height (required by dropdown menus) and center content
+          display: flex;
+          align-items: center;
+          height: 100%;
+        }
+        .ds-menu-item {
+          // define here the style for top-level navbar menu items
+          padding: var(--ds-navbar-item-vertical-padding) var(--ds-navbar-item-horizontal-padding);
+        }
+        .ds-menu-item, .ds-menu-toggler-wrapper {
+          color: var(--ds-navbar-link-color) !important;
+          &:hover, &:focus {
+            color: var(--ds-navbar-link-color-hover) !important;
+          }
+        }
+
+        /* desktop submenu */
+
+        .dropdown-menu {
+          .ds-menu-item {
+            // define here the style for second-level navbar menu items
+            padding: var(--ds-navbar-dropdown-item-vertical-padding) var(--ds-navbar-dropdown-item-horizontal-padding);
+          }
+        }
+
+      }
+    }
+
+    nav#collapsible-mobile-navbar { // in header-navbar-wrapper component
+
+      border-top: var(--ds-expandable-navbar-border-top-style);
+      padding-top: var(--ds-expandable-navbar-padding-top);
+
+      #main-site-navigation {
+        .ds-menu-item {
+          padding: var(--ds-expandable-navbar-item-vertical-padding) 0;
+        }
+      }
+
+    }
+  }
+}

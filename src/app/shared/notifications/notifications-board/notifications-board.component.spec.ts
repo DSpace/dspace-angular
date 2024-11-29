@@ -1,20 +1,31 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
 import { ChangeDetectorRef } from '@angular/core';
-
-import { NotificationsService } from '../notifications.service';
-import { notificationsReducer } from '../notifications.reducers';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NotificationsBoardComponent } from './notifications-board.component';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { cold } from 'jasmine-marbles';
+import uniqueId from 'lodash/uniqueId';
+
+import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { AppState } from '../../../app.reducer';
-import { NotificationComponent } from '../notification/notification.component';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { Notification } from '../models/notification.model';
 import { NotificationType } from '../models/notification-type';
-import uniqueId from 'lodash/uniqueId';
-import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { cold } from 'jasmine-marbles';
+import { NotificationComponent } from '../notification/notification.component';
+import { notificationsReducer } from '../notifications.reducers';
+import { NotificationsService } from '../notifications.service';
+import { NotificationsBoardComponent } from './notifications-board.component';
 
 export const bools = { f: false, t: true };
 
@@ -30,13 +41,15 @@ describe('NotificationsBoardComponent', () => {
         StoreModule.forRoot({ notificationsReducer }, {
           runtimeChecks: {
             strictStateImmutability: false,
-            strictActionImmutability: false
-          }
-        })],
-      declarations: [NotificationsBoardComponent, NotificationComponent], // declare the test component
+            strictActionImmutability: false,
+          },
+        }),
+        NotificationsBoardComponent, NotificationComponent,
+      ],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        ChangeDetectorRef]
+        ChangeDetectorRef,
+      ],
     }).compileComponents();  // compile template and css
   }));
 
@@ -45,7 +58,7 @@ describe('NotificationsBoardComponent', () => {
       .subscribe((state) => {
         const notifications = [
           new Notification(uniqueId(), NotificationType.Success, 'title1', 'content1'),
-          new Notification(uniqueId(), NotificationType.Info, 'title2', 'content2')
+          new Notification(uniqueId(), NotificationType.Info, 'title2', 'content2'),
         ];
         state.notifications = notifications;
       });
@@ -58,7 +71,7 @@ describe('NotificationsBoardComponent', () => {
       maxStack: 5,
       timeOut: 5000,
       clickToClose: true,
-      animate: 'scale'
+      animate: 'scale',
     } as INotificationBoardOptions;
 
     fixture.detectChanges();
@@ -99,10 +112,10 @@ describe('NotificationsBoardComponent', () => {
 
     it('should be passed to all notifications', () => {
       fixture.debugElement.queryAll(By.css('ds-notification'))
-                          .map(node => node.componentInstance)
-                          .forEach(notification => {
-                            expect(notification.isPaused$).toEqual(comp.isPaused$);
-                          });
+        .map(node => node.componentInstance)
+        .forEach(notification => {
+          expect(notification.isPaused$).toEqual(comp.isPaused$);
+        });
     });
   });
 

@@ -1,24 +1,32 @@
-import {Inject} from '@angular/core';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DynamicFormControlLayout, } from '@ng-dynamic-forms/core';
+import { Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
   CONCAT_SECOND_INPUT_SUFFIX,
   DynamicConcatModel,
-  DynamicConcatModelConfig
+  DynamicConcatModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
-import { ParserOptions } from './parser-options';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { FormFieldModel } from '../models/form-field.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
   CONFIG_DATA,
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
-  SUBMISSION_ID
+  SUBMISSION_ID,
 } from './field-parser';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { ParserOptions } from './parser-options';
 
 export class ConcatFieldParser extends FieldParser {
 
@@ -27,26 +35,24 @@ export class ConcatFieldParser extends FieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
+      translate: TranslateService,
     protected separator: string,
     protected firstPlaceholder: string = null,
     protected secondPlaceholder: string = null) {
-    super(submissionId, configData, initFormValues, parserOptions);
+    super(submissionId, configData, initFormValues, parserOptions, translate);
 
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;
     this.secondPlaceholder = secondPlaceholder;
   }
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
-
-    let clsGroup: DynamicFormControlLayout;
-    let clsInput: DynamicFormControlLayout;
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     const id: string = this.configData.selectableMetadata[0].metadata;
 
-    clsInput = {
+    const clsInput = {
       grid: {
-        host: 'col-sm-6'
-      }
+        host: 'col-sm-6',
+      },
     };
 
     const groupId = id.replace(/\./g, '_') + CONCAT_GROUP_SUFFIX;
@@ -60,14 +66,14 @@ export class ConcatFieldParser extends FieldParser {
       false,
       true,
       true,
-      false
+      false,
     );
     const input2ModelConfig: DsDynamicInputModelConfig = this.initModel(
       id + CONCAT_SECOND_INPUT_SUFFIX,
       false,
       true,
       true,
-      false
+      false,
     );
 
     input1ModelConfig.hideErrorMessages = true;
@@ -105,10 +111,10 @@ export class ConcatFieldParser extends FieldParser {
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 
-    clsGroup = {
+    const clsGroup = {
       element: {
         control: 'form-row',
-      }
+      },
     };
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();

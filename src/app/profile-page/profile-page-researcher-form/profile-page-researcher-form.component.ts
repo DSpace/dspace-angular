@@ -1,28 +1,60 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { AuthService } from '../../core/auth/auth.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { ProfileClaimService } from '../profile-claim/profile-claim.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { isNotEmpty } from '../../shared/empty.util';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { NoContent } from '../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
+import { isNotEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProfileClaimService } from '../profile-claim/profile-claim.service';
+import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
   templateUrl: './profile-page-researcher-form.component.html',
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    UiSwitchModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 /**
  * Component for a user to create/delete or change their researcher profile.
@@ -147,7 +179,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
    */
   toggleProfileVisibility(researcherProfile: ResearcherProfile): void {
     this.researcherProfileService.setVisibility(researcherProfile, !researcherProfile.visible).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<ResearcherProfile>) => {
       if (rd.hasSucceeded) {
         this.researcherProfile$.next(rd.payload);
@@ -181,7 +213,7 @@ export class ProfilePageResearcherFormComponent implements OnInit {
   createProfileFromScratch() {
     this.processingCreate$.next(true);
     this.researcherProfileService.create().pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
       this.processingCreate$.next(false);
       if (remoteData.isSuccess) {

@@ -11,10 +11,10 @@
     </button>
   </div>
   <div class="col text-right d-flex justify-content-end align-items-center">
-    <span *ngIf="!(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async)">
+    <span *ngIf="(hasUnsavedModification | async) !== true && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true">
       <i class="fas fa-check-circle"></i> {{'submission.general.info.saved' | translate}}
     </span>
-    <span *ngIf="(hasUnsavedModification | async) && !(processingSaveStatus | async) && !(processingDepositStatus | async)">
+    <span *ngIf="(hasUnsavedModification | async) && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true">
       <i class="fas fa-exclamation-circle"></i> {{'submission.general.info.pending-changes' | translate}}
     </span>
     <div *ngIf="(processingSaveStatus | async) || (processingDepositStatus | async)" class="col d-flex justify-content-end align-items-center">
@@ -28,12 +28,12 @@
               class="btn btn-secondary"
               id="save"
               [attr.data-test]="'save' | dsBrowserOnly"
-              [disabled]="(processingSaveStatus | async) || !(hasUnsavedModification | async)"
+              [disabled]="(processingSaveStatus | async) || (hasUnsavedModification | async) !== true"
               (click)="save($event)">
         <span><i class="fas fa-save"></i> {{'submission.general.save' | translate}}</span>
       </button>
       <button type="button"
-              [class.btn-primary]="!(showDepositAndDiscard | async)"
+              [class.btn-primary]="(showDepositAndDiscard | async) !== true"
               [class.btn-secondary]="(showDepositAndDiscard | async)"
               class="btn"
               id="saveForLater"

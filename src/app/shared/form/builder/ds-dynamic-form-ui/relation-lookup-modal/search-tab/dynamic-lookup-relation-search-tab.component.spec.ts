@@ -1,26 +1,32 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
+import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
+import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { Item } from '../../../../../../core/shared/item.model';
+import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
+import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
+import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
+import { SearchObjects } from '../../../../../search/models/search-objects.model';
+import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
+import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
+import { relatedRelationships } from '../../../../../testing/related-relationships.mock';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
-import { of as observableOf } from 'rxjs';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
-import { relatedRelationships } from '../../../../../testing/related-relationships.mock';
-import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
-import { SearchObjects } from '../../../../../search/models/search-objects.model';
+import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
 
 
 describe('DsDynamicLookupRelationSearchTabComponent', () => {
@@ -44,19 +50,19 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let selectableListService;
   let lookupRelationService;
   const relationshipService = jasmine.createSpyObj('searchByItemsAndType',{
-    searchByItemsAndType: observableOf(relatedRelationships)
+    searchByItemsAndType: observableOf(relatedRelationships),
   });
 
   const relationshipType = {
-      'type': 'relationshiptype',
-      'id': 1,
-      'uuid': 'relationshiptype-1',
-      'leftwardType': 'isAuthorOfPublication',
-      'leftMaxCardinality': null,
-      'leftMinCardinality': 0,
-      'rightwardType': 'isPublicationOfAuthor',
-      'rightMaxCardinality': null,
-      'rightMinCardinality': 0,
+    'type': 'relationshiptype',
+    'id': 1,
+    'uuid': 'relationshiptype-1',
+    'leftwardType': 'isAuthorOfPublication',
+    'leftMaxCardinality': null,
+    'leftMinCardinality': 0,
+    'rightwardType': 'isPublicationOfAuthor',
+    'rightMaxCardinality': null,
+    'rightMinCardinality': 0,
   };
 
   function init() {
@@ -64,7 +70,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
       filter: 'filter',
       relationshipType: 'isAuthorOfPublication',
       nameVariants: true,
-      searchConfiguration: 'personConfig'
+      searchConfiguration: 'personConfig',
     });
     pSearchOptions = new PaginatedSearchOptions({});
     item1 = Object.assign(new Item(), { uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e' });
@@ -80,11 +86,11 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
 
     results = buildPaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
     searchResult = Object.assign(new SearchObjects(), {
-      page: [searchResult1, searchResult2, searchResult3]
+      page: [searchResult1, searchResult2, searchResult3],
     });
     selectableListService = jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']);
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
-      getLocalResults: createSuccessfulRemoteDataObject$(results)
+      getLocalResults: createSuccessfulRemoteDataObject$(results),
     });
     lookupRelationService.searchConfig = {};
   }
@@ -92,25 +98,28 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationSearchTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsDynamicLookupRelationSearchTabComponent, VarDirective],
       providers: [
         { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
         {
-          provide: SelectableListService, useValue: selectableListService
+          provide: SelectableListService, useValue: selectableListService,
         },
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
-          }
+            paginatedSearchOptions: observableOf(pSearchOptions),
+          },
         },
         { provide: LookupRelationService, useValue: lookupRelationService },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
-        { provide: RelationshipDataService, useValue: relationshipService }
-
+        { provide: RelationshipDataService, useValue: relationshipService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(DsDynamicLookupRelationSearchTabComponent, {
+        remove: {
+          imports: [ThemedSearchComponent],
+        },
+      })
       .compileComponents();
   }));
 

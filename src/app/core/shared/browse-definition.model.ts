@@ -1,4 +1,9 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+} from 'cerialize';
+
+import { BrowseByDataType } from '../../browse-by/browse-by-switcher/browse-by-data-type';
 import { CacheableObject } from '../cache/cacheable-object.model';
 
 /**
@@ -15,5 +20,5 @@ export abstract class BrowseDefinition extends CacheableObject {
   /**
    * Get the render type of the BrowseDefinition model
    */
-  abstract getRenderType(): string;
+  abstract getRenderType(): BrowseByDataType;
 }

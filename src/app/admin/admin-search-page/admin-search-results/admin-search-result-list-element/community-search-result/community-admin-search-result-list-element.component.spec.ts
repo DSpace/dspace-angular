@@ -1,20 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CommunityAdminSearchResultListElementComponent } from './community-admin-search-result-list-element.component';
-import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
-import { Community } from '../../../../../core/shared/community.model';
-import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { Community } from '../../../../../core/shared/community.model';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
+import { CommunitySearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { CommunityAdminSearchResultListElementComponent } from './community-admin-search-result-list-element.component';
 
 describe('CommunityAdminSearchResultListElementComponent', () => {
   let component: CommunityAdminSearchResultListElementComponent;
@@ -34,14 +40,21 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        CommunityAdminSearchResultListElementComponent,
       ],
-      declarations: [CommunityAdminSearchResultListElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} },
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }],
-      schemas: [NO_ERRORS_SCHEMA]
+        { provide: APP_CONFIG, useValue: environment },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(CommunityAdminSearchResultListElementComponent, {
+        remove: {
+          imports: [CommunitySearchResultListElementComponent],
+        },
+      })
       .compileComponents();
   }));
 
@@ -52,6 +65,7 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
     component.linkTypes = CollectionElementLinkType;
     component.index = 0;
     component.viewModes = ViewMode;
+    component.ngOnInit();
     fixture.detectChanges();
   });
 

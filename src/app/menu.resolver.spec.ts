@@ -1,28 +1,36 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
-import { MenuResolver } from './menu.resolver';
-import { of as observableOf } from 'rxjs';
-import { FeatureID } from './core/data/feature-authorization/feature-id';
-import { TranslateModule } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MenuService } from './shared/menu/menu.service';
-import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from './core/data/processes/script-data.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MenuServiceStub } from './shared/testing/menu-service.stub';
-import { MenuID } from './shared/menu/menu-id.model';
-import { BrowseService } from './core/browse/browse.service';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import createSpy = jasmine.createSpy;
+import { of as observableOf } from 'rxjs';
+
+import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
+import { BrowseService } from './core/browse/browse.service';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
+import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from './core/data/feature-authorization/feature-id';
+import { ScriptDataService } from './core/data/processes/script-data.service';
+import { MenuService } from './shared/menu/menu.service';
+import { MenuID } from './shared/menu/menu-id.model';
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
+import { ConfigurationDataServiceStub } from './shared/testing/configuration-data.service.stub';
+import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { createPaginatedList } from './shared/testing/utils.test';
+import createSpy = jasmine.createSpy;
+import { MenuResolverService } from './menu-resolver.service';
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
-  id: 'some menu'
+  id: 'some menu',
 };
 const BROWSE_DEFINITIONS = [
   { id: 'definition1' },
@@ -30,13 +38,15 @@ const BROWSE_DEFINITIONS = [
   { id: 'definition3' },
 ];
 
-describe('MenuResolver', () => {
-  let resolver: MenuResolver;
+describe('menuResolver', () => {
+  let resolver: MenuResolverService;
 
   let menuService;
   let browseService;
   let authorizationService;
   let scriptService;
+  let mockNgbModal;
+  let configurationDataService;
 
   beforeEach(waitForAsync(() => {
     menuService = new MenuServiceStub();
@@ -44,33 +54,37 @@ describe('MenuResolver', () => {
     spyOn(menuService, 'addSection');
 
     browseService = jasmine.createSpyObj('browseService', {
-      getBrowseDefinitions: createSuccessfulRemoteDataObject$(createPaginatedList(BROWSE_DEFINITIONS))
+      getBrowseDefinitions: createSuccessfulRemoteDataObject$(createPaginatedList(BROWSE_DEFINITIONS)),
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     scriptService = jasmine.createSpyObj('scriptService', {
-      scriptWithNameExistsAndCanExecute: observableOf(true)
+      scriptWithNameExistsAndCanExecute: observableOf(true),
     });
+    mockNgbModal = {
+      open: jasmine.createSpy('open').and.returnValue(
+        { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+      ),
+    };
+
+    configurationDataService = new ConfigurationDataServiceStub();
+    spyOn(configurationDataService, 'findByPropertyName').and.returnValue(observableOf(true));
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [AdminSidebarComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
       providers: [
         { provide: MenuService, useValue: menuService },
         { provide: BrowseService, useValue: browseService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
-        {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            }
-          }
-        }
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: NgbModal, useValue: mockNgbModal },
+        MenuResolverService,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
-    resolver = TestBed.inject(MenuResolver);
+    resolver = TestBed.inject(MenuResolverService);
   }));
 
   it('should be created', () => {
