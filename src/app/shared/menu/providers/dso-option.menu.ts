@@ -12,7 +12,6 @@ import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
-import { hasValue } from '../../empty.util';
 
 /**
  * Menu provider to create the parent wrapper menu of the various DSO page menu sections
@@ -22,10 +21,6 @@ import { hasValue } from '../../empty.util';
 export class DsoOptionMenu extends DSpaceObjectPageMenuProvider {
 
   alwaysRenderExpandable = true;
-
-  protected isApplicable(dso: DSpaceObject): boolean {
-    return hasValue(dso);
-  }
 
   getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
     return of([
