@@ -10,13 +10,10 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   combineLatest,
-  Observable,
 } from 'rxjs';
-import {
-  map,
-  take,
-} from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -41,7 +38,7 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 })
 export class AuditItemMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
-  public isAuthorized$: Observable<boolean>;
+  public isAuthorized$: BehaviorSubject<boolean> =  new BehaviorSubject<boolean>(false);
 
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
@@ -52,7 +49,7 @@ export class AuditItemMenuComponent extends ContextMenuEntryComponent implements
   }
 
   ngOnInit(): void {
-    this.isAuthorized$ = combineLatest(
+    combineLatest(
       [
         this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
         this.authorizationService.isAuthorized(FeatureID.IsCollectionAdmin),
@@ -60,7 +57,8 @@ export class AuditItemMenuComponent extends ContextMenuEntryComponent implements
       ],
     ).pipe(
       take(1),
-      map(([isAdmin, isCollectionAdmin, isCommunityAdmin]) => isAdmin || isCollectionAdmin || isCommunityAdmin),
-    );
+    ).subscribe(([isAdmin, isCollectionAdmin, isCommunityAdmin]) => {
+      this.isAuthorized$.next(isAdmin || isCommunityAdmin || isCollectionAdmin);
+    });
   }
 }

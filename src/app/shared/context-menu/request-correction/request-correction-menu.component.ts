@@ -41,6 +41,7 @@ import {
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
 
 /**
  * This component renders a context menu option that provides the request a correction functionality.
@@ -134,7 +135,9 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
       }
     });
 
-    this.canCreateCorrection$ = this.canCreateCorrection(false);
+    this.canCreateCorrection$ = this.notificationService.claimedProfile.pipe(
+      switchMap(() => this.canCreateCorrection(false))
+    );
   }
 
   /**

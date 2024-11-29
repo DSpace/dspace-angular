@@ -13,6 +13,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -74,7 +75,9 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent imp
   }
 
   ngOnInit() {
-    this.isCollectionAdmin$ = this.isCollectionAdmin(false);
+    this.isCollectionAdmin$ = this.notificationService.claimedProfile.pipe(
+      switchMap(() => this.isCollectionAdmin(false)),
+    );
   }
 
   /**

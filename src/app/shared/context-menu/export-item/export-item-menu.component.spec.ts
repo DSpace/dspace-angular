@@ -92,7 +92,7 @@ describe('ExportItemMenuComponent', () => {
   it('should render a button', () => {
     fixture.detectChanges();
     const testConfig = { ...configuration, formats: [{ type: null, id: '1', mimeType: '1', entityType: 'Patent', molteplicity: '1', _links: null }] };
-    component.configuration = of(testConfig);
+    component.configuration$.next(testConfig);
     fixture.detectChanges();
     const link = fixture.debugElement.query(By.css('button'));
     expect(link).not.toBeNull();

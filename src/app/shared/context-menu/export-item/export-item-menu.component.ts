@@ -9,10 +9,7 @@ import {
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { take } from 'rxjs/operators';
 
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';
@@ -50,7 +47,8 @@ export class ExportItemMenuComponent extends ContextMenuEntryComponent implement
   /**
    * Type of configuration in current component
    */
-  configuration: Observable<ItemExportFormConfiguration> = of(null);
+  configuration$: BehaviorSubject<ItemExportFormConfiguration> = new BehaviorSubject<ItemExportFormConfiguration>(null);
+
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
@@ -62,7 +60,8 @@ export class ExportItemMenuComponent extends ContextMenuEntryComponent implement
 
   ngOnInit() {
     if (this.contextMenuObject) {
-      this.configuration =  this.itemExportService.initialItemExportFormConfiguration(this.contextMenuObject as Item).pipe(take(1));
+      this.itemExportService.initialItemExportFormConfiguration(this.contextMenuObject as Item).pipe(take(1))
+        .subscribe((config: ItemExportFormConfiguration) => this.configuration$.next(config));
     }
   }
 
