@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ItemExportFormatMolteplicity } from '../../../core/itemexportformat/item-export-format.service';

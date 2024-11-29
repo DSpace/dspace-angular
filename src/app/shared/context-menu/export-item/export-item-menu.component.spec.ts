@@ -11,10 +11,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
