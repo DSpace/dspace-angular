@@ -404,6 +404,8 @@ export class DefaultAppConfig implements AppConfig {
     }
   ];
 
+  // The maximum number of item to process when following authority metadata values.
+  followAuthorityMaxItemLimit = 100;
   // The maximum number of metadata values to process for each metadata key
   // when following authority metadata values.
   followAuthorityMetadataValuesLimit = 5;

@@ -113,7 +113,7 @@ export class SearchManager {
       })
       .filter((item) => hasValue(item));
 
-    const uuidList = this.extractUUID(items, environment.followAuthorityMetadata, 100);
+    const uuidList = this.extractUUID(items, environment.followAuthorityMetadata, environment.followAuthorityMaxItemLimit);
 
     return uuidList.length > 0 ? this.itemService.findAllById(uuidList).pipe(
       getFirstCompletedRemoteData(),

@@ -276,6 +276,7 @@ export const environment: BuildConfig = {
       metadata: ['dc.contributor.author']
     }
   ],
+  followAuthorityMaxItemLimit: 100,
   followAuthorityMetadataValuesLimit: 5,
   item: {
     edit: {
