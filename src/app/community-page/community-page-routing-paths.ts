@@ -27,10 +27,10 @@ export function getCommunityEditRolesRoute(id) {
 }
 
 export function getHandlePageRoute(input: string): string {
-  const x = ['Community', 'Collection', 'Item', 'Site'];
-  const z = ['communities', 'collections', 'items', 'sites'];
-  const index = x.indexOf(input);
-  return new URLCombiner(z[index] || 'pending').toString();
+  const source_array = ['Community', 'Collection', 'Item', 'Site'];
+  const results_options = ['communities', 'collections', 'items', 'sites'];
+  const index = source_array.indexOf(input);
+  return new URLCombiner(results_options[index] || 'pending').toString();
 }
 
 export const COMMUNITY_CREATE_PATH = 'create';
