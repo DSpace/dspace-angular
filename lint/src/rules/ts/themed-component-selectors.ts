@@ -7,9 +7,9 @@
  */
 import {
   ESLintUtils,
-  TSESLint,
   TSESTree,
 } from '@typescript-eslint/utils';
+import { RuleContext } from '@typescript-eslint/utils/ts-eslint';
 
 import { fixture } from '../../../test/fixture';
 import { getComponentSelectorNode } from '../../util/angular';
@@ -58,7 +58,7 @@ Unit tests are exempt from this rule, because they may redefine components using
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
-  create(context: TSESLint.RuleContext<Message, unknown[]>) {
+  create(context: RuleContext<Message, unknown[]>) {
     const filename = getFilename(context);
 
     if (filename.endsWith('.spec.ts')) {

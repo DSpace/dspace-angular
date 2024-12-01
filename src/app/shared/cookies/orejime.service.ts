@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 /**
- * Abstract class representing a service for handling Klaro consent preferences and UI
+ * Abstract class representing a service for handling Orejime consent preferences and UI
  */
 @Injectable()
-export abstract class KlaroService {
+export abstract class OrejimeService {
   /**
    * Initializes the service
    */
@@ -17,7 +17,7 @@ export abstract class KlaroService {
   abstract showSettings();
 
   /**
-   * Return saved preferences stored in the klaro cookie
+   * Return saved preferences stored in the Orejime cookie
    */
   abstract getSavedPreferences(): Observable<any>;
 }

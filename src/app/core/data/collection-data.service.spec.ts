@@ -151,7 +151,7 @@ describe('CollectionDataService', () => {
         expect(service.getAuthorizedCollection).toHaveBeenCalledWith(queryString);
       });
 
-      it('should return a RemoteData<PaginatedList<Colletion>> for the getAuthorizedCollection', () => {
+      it('should return a RemoteData<PaginatedList<Collection>> for the getAuthorizedCollection', () => {
         const result = service.getAuthorizedCollection(queryString);
         const expected = cold('a|', {
           a: paginatedListRD,
@@ -166,7 +166,7 @@ describe('CollectionDataService', () => {
         expect(service.getAuthorizedCollectionByCommunity).toHaveBeenCalledWith(communityId, queryString);
       });
 
-      it('should return a RemoteData<PaginatedList<Colletion>> for the getAuthorizedCollectionByCommunity', () => {
+      it('should return a RemoteData<PaginatedList<Collection>> for the getAuthorizedCollectionByCommunity', () => {
         const result = service.getAuthorizedCollectionByCommunity(communityId, queryString);
         const expected = cold('a|', {
           a: paginatedListRD,
@@ -206,12 +206,12 @@ describe('CollectionDataService', () => {
 
   /**
    * Create a CollectionDataService used for testing
-   * @param reponse$   Supply a RemoteData to be returned by the REST API (optional)
+   * @param response$   Supply a RemoteData to be returned by the REST API (optional)
    */
-  function createService(reponse$?: Observable<RemoteData<any>>) {
+  function createService(response$?: Observable<RemoteData<any>>) {
     requestService = getMockRequestService();
-    let buildResponse$ = reponse$;
-    if (hasNoValue(reponse$)) {
+    let buildResponse$ = response$;
+    if (hasNoValue(response$)) {
       buildResponse$ = createSuccessfulRemoteDataObject$({});
     }
     rdbService = jasmine.createSpyObj('rdbService', {
