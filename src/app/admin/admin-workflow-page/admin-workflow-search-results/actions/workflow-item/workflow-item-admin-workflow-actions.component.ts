@@ -162,7 +162,7 @@ export class WorkflowItemAdminWorkflowActionsComponent extends MyDSpaceReloadabl
   checkItemStatus(): void {
     this.wfi.item.pipe(
       getFirstSucceededRemoteData(),
-      switchMap((item: any) => this.claimedTaskDataService.findByItem(item.payload.id).pipe(
+      switchMap((item: any) => this.claimedTaskDataService.checkIfClaimedTaskExistForItem(item.payload.id).pipe(
         map((response: RemoteData<ClaimedTask>) => response.hasSucceeded && response.statusCode !== 204),
         catchError(() => of(false)),
       )),
