@@ -47,6 +47,7 @@ import {
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { AuthService } from './core/auth/auth.service';
 
 /**
  * Creates all of the app's menus
@@ -61,6 +62,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
+    protected authService: AuthService,
   ) {
   }
 
@@ -70,7 +72,7 @@ export class MenuResolver implements Resolve<boolean> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return combineLatest([
       this.createPublicMenu$(),
-      this.createAdminMenu$(),
+      this.createAdminMenuIfLoggedIn$(),
     ]).pipe(
       map((menusDone: boolean[]) => menusDone.every(Boolean)),
     );
@@ -144,6 +146,15 @@ export class MenuResolver implements Resolve<boolean> {
       });
 
     return this.waitForMenu$(MenuID.PUBLIC);
+  }
+
+  /**
+   * Initialize all menu sections and items for {@link MenuID.ADMIN}, only if the user is logged in.
+   */
+  createAdminMenuIfLoggedIn$() {
+    return this.authService.isAuthenticated().pipe(
+      mergeMap((isAuthenticated) => isAuthenticated ? this.createAdminMenu$() : observableOf(true)),
+    );
   }
 
   /**

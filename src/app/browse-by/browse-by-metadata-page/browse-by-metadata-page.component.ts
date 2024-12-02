@@ -15,7 +15,7 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import { filter, map, mergeMap, take } from 'rxjs/operators';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Collection } from '../../core/shared/collection.model';
@@ -152,7 +152,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.currentPagination$, this.currentSort$]).pipe(
+      observableCombineLatest(
+        [ this.route.params.pipe(take(1)),
+          this.route.queryParams,
+          this.currentPagination$,
+          this.currentSort$]).pipe(
         map(([routeParams, queryParams, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
         })
