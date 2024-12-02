@@ -357,6 +357,18 @@
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "EPeople",
 
+  // "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+  "admin.access-control.epeople.edit.breadcrumbs": "Nouvelle EPerson",
+
+  // "admin.access-control.epeople.edit.title": "New EPerson",
+  "admin.access-control.epeople.edit.title": "Nouvelle EPerson",
+
+  // "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+  "admin.access-control.epeople.add.breadcrumbs": "Ajouter EPerson",
+
+  // "admin.access-control.epeople.add.title": "Add EPerson",
+  "admin.access-control.epeople.add.title": "Ajouter EPerson",
+
   // "admin.access-control.epeople.title": "EPeople",
   "admin.access-control.epeople.title": "EPeople",
 
@@ -747,6 +759,30 @@
   // "admin.access-control.groups.form.return": "Back",
   "admin.access-control.groups.form.return": "Retour",
 
+  // "admin.quality-assurance.breadcrumbs": "Quality Assurance",
+  "admin.quality-assurance.breadcrumbs": "Assurance qualité",
+
+  // "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
+  "admin.notifications.event.breadcrumbs": "Suggestions d'assurance qualité",
+
+  // "admin.notifications.event.page.title": "Quality Assurance Suggestions",
+  "admin.notifications.event.page.title": "Suggestions d'assurance qualité",
+
+  // "admin.quality-assurance.page.title": "Quality Assurance",
+  "admin.quality-assurance.page.title": "Assurance qualité",
+
+  // "admin.notifications.source.breadcrumbs": "Quality Assurance",
+  "admin.notifications.source.breadcrumbs": "Assurance qualité",
+
+  // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
+  "admin.access-control.groups.form.tooltip.editGroupPage": "Sur cette page, vous pouvez modifier les propriétés et les membres d'un groupe. Dans la section supérieure, vous pouvez éditer le nom et la description du groupe, sauf s'il s'agit d'un groupe d'administrateurs d'une collection ou d'une communauté ; dans ce cas, le nom et la description du groupe sont générés automatiquement et ne peuvent pas être modifiés. Dans les sections suivantes, vous pouvez modifier l'appartenance au groupe. Voir [le wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) pour plus de détails.",
+
+  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Pour ajouter ou retirer une EPerson à/de ce groupe, cliquez sur le bouton « Parcourir tout », ou utilisez la barre de recherche ci-dessous pour rechercher des utilisateurs (utilisez le menu déroulant à gauche de la barre de recherche pour choisir si vous souhaitez effectuer la recherche par métadonnées ou par courriel). Ensuite, cliquez sur l'icône + pour chaque utilisateur que vous souhaitez ajouter dans la liste ci-dessous, ou sur l'icône de la corbeille pour chaque utilisateur que vous souhaitez retirer. La liste ci-dessous peut comporter plusieurs pages : utilisez les contrôles de pagination sous la liste pour naviguer vers les pages suivantes.",
+
+  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Pour ajouter ou retirer un sous-groupe à/de ce groupe, cliquez sur le bouton « Parcourir tout », ou utilisez la barre de recherche ci-dessous pour rechercher des groupes. Ensuite, cliquez sur l'icône + pour chaque groupe que vous souhaitez ajouter dans la liste ci-dessous, ou sur l'icône de la corbeille pour chaque groupe que vous souhaitez retirer. La liste ci-dessous peut comporter plusieurs pages : utilisez les contrôles de pagination sous la liste pour naviguer vers les pages suivantes.",
+
   //"admin.reports.collections.title": "Collection Filter Report",
   "admin.reports.collections.title": "Rapport de collections filtrées",
 
@@ -1086,11 +1122,20 @@
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "En traitement",
 
+  //"admin.workflow.item.workspace": "Workspace",
+  "admin.workflow.item.workspace": "Dépôts en cours",
+
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Supprimer",
 
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Retourner au déposant",
+
+  //"admin.workflow.item.policies": "Policies",
+  "admin.workflow.item.policies": "Politiques",
+
+  // "admin.workflow.item.supervision": "Supervision",
+  "admin.workflow.item.supervision": "Supervision",
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   "admin.metadata-import.breadcrumbs": "Importer Métadonnées",
@@ -1576,6 +1621,12 @@
   // "collection.edit.return": "Back",
   "collection.edit.return": "Retour",
 
+  // "collection.edit.tabs.access-control.head": "Access Control",
+  "collection.edit.tabs.access-control.head": "Contrôle d'accès",
+
+  // "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
+  "collection.edit.tabs.access-control.title": "Édition de Collection - Contrôle d'accès",
+
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Gestion du contenu",
 
@@ -1731,6 +1782,12 @@
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Collection",
 
+  // "collection.logo": "Collection logo",
+  "collection.logo": "Logo de la collection",
+
+  // "collection.page.browse.search.head": "Search",
+  "collection.page.browse.search.head": "Chercher",
+
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Dépôts récents",
 
@@ -1748,6 +1805,9 @@
 
   // "collection.page.news": "News",
   "collection.page.news": "Nouvelles",
+
+  // "collection.search.results.head": "Search Results",
+  "collection.search.results.head": "Résultats de recherche",
 
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Confirmer la sélection",
@@ -1932,6 +1992,12 @@
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
   "community.edit.tabs.curate.title": "Édition de communauté - Gestion du contenu",
 
+  // "community.edit.tabs.access-control.head": "Access Control",
+  "community.edit.tabs.access-control.head": "Contrôle d'accès",
+
+  // "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+  "community.edit.tabs.access-control.title": "Édition de Communauté - Contrôle d'accès",
+
   // "community.edit.tabs.metadata.head": "Edit Metadata",
   "community.edit.tabs.metadata.head": "Éditer Métadonnées",
 
@@ -2051,6 +2117,9 @@
 
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Sous-communautés et collections",
+
+  //"community.search.results.head": "Search Results",
+  "community.search.results.head": "Résultats de recherche",
 
   // "community.sub-collection-list.head": "Collections of this Community",
   "community.sub-collection-list.head": "Collections au sein de cette communauté",
@@ -3227,6 +3296,15 @@
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
   "item.edit.tabs.curate.title": "Édition d'Item - Gestion de contenu",
 
+  // "item.edit.curate.title": "Curate Item: {{item}}",
+  "item.edit.curate.title": "Gestion de contenu de l'Item: {{item}}",
+
+  // "item.edit.tabs.access-control.head": "Access Control",
+  "item.edit.tabs.access-control.head": "Contrôle d'accès",
+
+  // "item.edit.tabs.access-control.title": "Item Edit - Access Control",
+  "item.edit.tabs.access-control.title": "Édition de l'Item - Contrôle d'accès",
+
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Métadonnées",
 
@@ -3473,6 +3551,12 @@
 
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Créer une nouvelle version",
+
+  //"item.page.withdrawn": "Request a withdrawal for this item",
+  "item.page.withdrawn": "Demander le retrait de cet Item",
+
+  //"item.page.reinstate": "Request reinstatement",
+  "item.page.reinstate": "Demander la réintégration de cet Item",
 
   // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Une nouvelle version ne peut être créée car il y a une soumission en cours dans l'historique des versions",
@@ -4046,6 +4130,15 @@
 
   // "menu.section.new_process": "Process",
   "menu.section.new_process": "Processus",
+
+  //"menu.section.notifications": "Notifications",
+  "menu.section.notifications": "Notifications",
+
+  //"menu.section.quality-assurance": "Quality Assurance",
+  "menu.section.quality-assurance": "Assurance qualité",
+
+  //"menu.section.notifications_publication-claim": "Publication Claim",
+  "menu.section.notifications_publication-claim": "Réclamation de publication",
 
   // "menu.section.pin": "Pin sidebar",
   "menu.section.pin": "Épingler le menu latéral",
@@ -6388,8 +6481,89 @@
   // "submission.workspace.generic.view": "View",
   "submission.workspace.generic.view": "Afficher",
 
-  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  //"submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
   "submission.workspace.generic.view-help": "Sélectionner cette option pour afficher les métadonnées de l'item.",
+
+  //"submitter.empty": "N/A",
+  "submitter.empty": "S/O",
+
+  //"subscriptions.modal.title": "Subscriptions",
+  "subscriptions.modal.title": "Abonnements",
+
+  //"subscriptions.modal.type-frequency": "Type and frequency",
+  "subscriptions.modal.type-frequency": "Type et fréquence",
+
+  //"subscriptions.modal.close": "Close",
+  "subscriptions.modal.close": "Fermer",
+
+  //"subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+  "subscriptions.modal.delete-info": "Pour vous désabonner, visitez la page Abonnements dans votre profil utilisateur",
+
+  //"subscriptions.modal.new-subscription-form.type.content": "Content",
+  "subscriptions.modal.new-subscription-form.type.content": "Contenu",
+
+  //"subscriptions.modal.new-subscription-form.frequency.D": "Daily",
+  "subscriptions.modal.new-subscription-form.frequency.D": "Quotidienne",
+
+  //"subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+  "subscriptions.modal.new-subscription-form.frequency.W": "Hebdomadaire",
+
+  //"subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+  "subscriptions.modal.new-subscription-form.frequency.M": "Mensuelle",
+
+  //"subscriptions.tooltip": "Subscribe",
+  "subscriptions.tooltip": "S'abonner",
+
+  //"subscriptions.modal.new-subscription-form.submit": "Submit",
+  "subscriptions.modal.new-subscription-form.submit": "Soumettre",
+
+  //"subscriptions.modal.new-subscription-form.processing": "Processing...",
+  "subscriptions.modal.new-subscription-form.processing": "En traitement...",
+
+  //"subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+  "subscriptions.modal.create.success": "Abonnement à {{ type }} réussi.",
+
+  //"subscriptions.modal.delete.success": "Subscription deleted successfully",
+  "subscriptions.modal.delete.success": "L'abonnement a été résilié avec succès",
+
+  //"subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+  "subscriptions.modal.update.success": "L'abonnement à {{ type }} a été mis à jour avec succès",
+
+  //"subscriptions.modal.create.error": "An error occurs during the subscription creation",
+  "subscriptions.modal.create.error": "Une erreur s'est produite lors de la création de l'abonnement",
+
+  //"subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+  "subscriptions.modal.delete.error": "Une erreur s'est produite lors de la résiliation de l'abonnement",
+
+  //"subscriptions.modal.update.error": "An error occurs during the subscription update",
+  "subscriptions.modal.update.error": "Une erreur s'est produite lors de la mise à jour de l'abonnement",
+
+  //"subscriptions.table.dso": "Subject",
+  "subscriptions.table.dso": "Sujet",
+
+  //"subscriptions.table.subscription_type": "Subscription Type",
+  "subscriptions.table.subscription_type": "Type d'abonnement",
+
+  //"subscriptions.table.subscription_frequency": "Subscription Frequency",
+  "subscriptions.table.subscription_frequency": "Fréquence",
+
+  //"subscriptions.table.action": "Action",
+  "subscriptions.table.action": "Action",
+
+  //"subscriptions.table.edit": "Edit",
+  "subscriptions.table.edit": "Éditer",
+
+  //"subscriptions.table.delete": "Delete",
+  "subscriptions.table.delete": "Supprimer",
+
+  //"subscriptions.table.not-available": "Not available",
+  "subscriptions.table.not-available": "Indisponible",
+
+  //"subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+  "subscriptions.table.not-available-message": "L'Item auquel vous étiez abonné a été supprimé, ou vous n'êtes pas autorisé à le consulter.",
+
+  //"subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  "subscriptions.table.empty.message": "Vous n'avez aucun abonnement. Pour vous abonnez à des mises à jour par courriel pour une commmunauté ou une collection, utilisez le bouton d'abonnement sur la page de l'Item.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Vignette d'image",
@@ -6558,6 +6732,378 @@
   // "idle-modal.extend-session": "Extend session",
   "idle-modal.extend-session": "Prolonger la session",
 
+  //"researcher.profile.action.processing": "Processing...",
+  "researcher.profile.action.processing": "En traitement...",
+
+  //"researcher.profile.associated": "Researcher profile associated",
+  "researcher.profile.associated": "Profil du chercheur associé",
+
+  //"researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
+  "researcher.profile.change-visibility.fail": "Une erreur inattendue s'est produite pendant le changement apporté à la visibilité du profil.",
+
+  //"researcher.profile.create.new": "Create new",
+  "researcher.profile.create.new": "Créer un nouveau",
+
+  //"researcher.profile.create.success": "Researcher profile created successfully",
+  "researcher.profile.create.success": "Profil créé avec succès",
+
+  //"researcher.profile.create.fail": "An error occurs during the researcher profile creation",
+  "researcher.profile.create.fail": "Une erreur s'est produite lors de la création du profil",
+
+  //"researcher.profile.delete": "Delete",
+  "researcher.profile.delete": "Supprimer",
+
+  //"researcher.profile.expose": "Expose",
+  "researcher.profile.expose": "Exposer",
+
+  //"researcher.profile.hide": "Hide",
+  "researcher.profile.hide": "Cacher",
+
+  //"researcher.profile.not.associated": "Researcher profile not yet associated",
+  "researcher.profile.not.associated": "Profil non associé",
+
+  //"researcher.profile.view": "View",
+  "researcher.profile.view": "Voir",
+
+  //"researcher.profile.private.visibility": "PRIVATE",
+  "researcher.profile.private.visibility": "PRIVÉ",
+
+  //"researcher.profile.public.visibility": "PUBLIC",
+  "researcher.profile.public.visibility": "PUBLIC",
+
+  //"researcher.profile.status": "Status:",
+  "researcher.profile.status": "Statut:",
+
+  //"researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
+  "researcherprofile.claim.not-authorized": "Vous n'êtes pas autorisé à réclamer cet item. Pour plus de détails contacter la personne administratrice.",
+
+  //"researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "Une erreur s'est produite lors de la réclamation du profil, veuillez réessayer plus tard.",
+
+  //"researcherprofile.error.claim.title": "Error",
+  "researcherprofile.error.claim.title": "Erreur",
+
+  //"researcherprofile.success.claim.body": "Profile claimed with success",
+  "researcherprofile.success.claim.body": "Profil réclamé avec succès",
+
+  //"researcherprofile.success.claim.title": "Success",
+  "researcherprofile.success.claim.title": "Succès",
+
+  //"person.page.orcid.create": "Create an ORCID ID",
+  "person.page.orcid.create": "Créer un identifiant ORCID",
+
+  //"person.page.orcid.granted-authorizations": "Granted authorizations",
+  "person.page.orcid.granted-authorizations": "Autorisations accordées",
+
+  //"person.page.orcid.grant-authorizations": "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Accorder des autorisations",
+
+  //"person.page.orcid.link": "Connect to ORCID ID",
+  "person.page.orcid.link": "Se connecter à ORCID",
+
+  //"person.page.orcid.link.processing": "Linking profile to ORCID...",
+  "person.page.orcid.link.processing": "Liaison du profil avec ORCID en cours...",
+
+  //"person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
+  "person.page.orcid.link.error.message": "Quelque chose a échoué lors de la connection du profil avec ORCID. Si le problème persiste, contacter la personne administratice.",
+
+  //"person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
+  "person.page.orcid.orcid-not-linked-message": "L'identifiant ORCID du profil ({{ orcid }}) n'a pas encore été connecté à une compte du registre ORCID ou la connection a expiré. ",
+
+  //"person.page.orcid.unlink": "Disconnect from ORCID",
+  "person.page.orcid.unlink": "Déconnecter d'ORCID",
+
+  //"person.page.orcid.unlink.processing": "Processing...",
+  "person.page.orcid.unlink.processing": "Traitement en cours...",
+
+  //"person.page.orcid.missing-authorizations": "Missing authorizations",
+  "person.page.orcid.missing-authorizations": "Autorisations manquantes",
+
+  //"person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
+  "person.page.orcid.missing-authorizations-message": "Les autorisations suivantes sont manquantes :",
+
+  //"person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
+  "person.page.orcid.no-missing-authorizations-message": "Cette boite est vide, vous avez autorisé l'utilisation de toutes les fonctions proposées par votre organisation.",
+
+  //"person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
+  "person.page.orcid.no-orcid-message": "Aucun identifiant ORCID n'est encore associé. En cliquant sur le bouton ci-dessous, il est possible de lier ce profil à un compte ORCID.",
+
+  //"person.page.orcid.profile-preferences": "Profile preferences",
+  "person.page.orcid.profile-preferences": "Préférences du profil",
+
+  //"person.page.orcid.funding-preferences": "Funding preferences",
+  "person.page.orcid.funding-preferences": "Préférence pour la section Financement",
+
+  //"person.page.orcid.publications-preferences": "Publication preferences",
+  "person.page.orcid.publications-preferences": "Préférence pour la section Publication",
+
+  //"person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
+  "person.page.orcid.remove-orcid-message": "Si vous avez besoin de retirer votre ORCID, contacter la personne administratrice du dépôt.",
+
+  //"person.page.orcid.save.preference.changes": "Update settings",
+  "person.page.orcid.save.preference.changes": "Mettre à jour les configurations",
+
+  //"person.page.orcid.sync-profile.affiliation": "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Affiliation",
+
+  //"person.page.orcid.sync-profile.biographical": "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Données biographiques",
+
+  //"person.page.orcid.sync-profile.education": "Education",
+  "person.page.orcid.sync-profile.education": "Éducation",
+
+  //"person.page.orcid.sync-profile.identifiers": "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Identifiants",
+
+  //"person.page.orcid.sync-fundings.all": "All fundings",
+  "person.page.orcid.sync-fundings.all": "Tous les financements",
+
+  //"person.page.orcid.sync-fundings.mine": "My fundings",
+  "person.page.orcid.sync-fundings.mine": "Mes financements",
+
+  //"person.page.orcid.sync-fundings.my_selected": "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Financements sélectionnés",
+
+  //"person.page.orcid.sync-fundings.disabled": "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "Désactivé",
+
+  //"person.page.orcid.sync-publications.all": "All publications",
+  "person.page.orcid.sync-publications.all": "Toutes les publications",
+
+  //"person.page.orcid.sync-publications.mine": "My publications",
+  "person.page.orcid.sync-publications.mine": "Mes publications",
+
+  //"person.page.orcid.sync-publications.my_selected": "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Publications sélectionnées",
+
+  //"person.page.orcid.sync-publications.disabled": "Disabled",
+  "person.page.orcid.sync-publications.disabled": "Désactivé",
+
+  //"person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Ignorer les changements et ne pas synchroniser avec le registre ORCID.",
+
+  //"person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
+  "person.page.orcid.sync-queue.discard.error": "L'annulation de la file d'attente ORCID a échoué.",
+
+  //"person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
+  "person.page.orcid.sync-queue.discard.success": "La file d'attente ORCID a été annulée avec succès.",
+
+  //"person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
+  "person.page.orcid.sync-queue.empty-message": "La file d'attente ORCID est vide.",
+
+  //"person.page.orcid.sync-queue.table.header.type": "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Type",
+
+  //"person.page.orcid.sync-queue.table.header.description": "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Description",
+
+  //"person.page.orcid.sync-queue.table.header.action": "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Action",
+
+  //"person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+  "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+
+  //"person.page.orcid.sync-queue.description.country": "Country",
+  "person.page.orcid.sync-queue.description.country": "Pays",
+
+  //"person.page.orcid.sync-queue.description.education": "Educations",
+  "person.page.orcid.sync-queue.description.education": "Éducation",
+
+  //"person.page.orcid.sync-queue.description.external_ids": "External ids",
+  "person.page.orcid.sync-queue.description.external_ids": "Identifiants externes",
+
+  //"person.page.orcid.sync-queue.description.other_names": "Other names",
+  "person.page.orcid.sync-queue.description.other_names": "Autres noms",
+
+  //"person.page.orcid.sync-queue.description.qualification": "Qualifications",
+  "person.page.orcid.sync-queue.description.qualification": "Qualifications",
+
+  //"person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
+  "person.page.orcid.sync-queue.description.researcher_urls": "URLs du chercheur",
+
+  //"person.page.orcid.sync-queue.description.keywords": "Keywords",
+  "person.page.orcid.sync-queue.description.keywords": "Mots clés",
+
+  //"person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.insert": "Ajouter une nouvelle entrée dans le registre ORCID",
+
+  //"person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.update": "Mettre à jour cette entrée dans le registre ORCID",
+
+  //"person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.delete": "Supprimer cette entrée du registre ORCID",
+
+  //"person.page.orcid.sync-queue.tooltip.publication": "Publication",
+  "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+
+  //"person.page.orcid.sync-queue.tooltip.project": "Project",
+  "person.page.orcid.sync-queue.tooltip.project": "Projet",
+
+  //"person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+  "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+
+  //"person.page.orcid.sync-queue.tooltip.education": "Education",
+  "person.page.orcid.sync-queue.tooltip.education": "Éducation",
+
+  //"person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+  "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+
+  //"person.page.orcid.sync-queue.tooltip.other_names": "Other name",
+  "person.page.orcid.sync-queue.tooltip.other_names": "Autre nom",
+
+  //"person.page.orcid.sync-queue.tooltip.country": "Country",
+  "person.page.orcid.sync-queue.tooltip.country": "Pays",
+
+  //"person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
+  "person.page.orcid.sync-queue.tooltip.keywords": "Mot clé",
+
+  //"person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
+  "person.page.orcid.sync-queue.tooltip.external_ids": "Identifiant externe",
+
+  //"person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
+  "person.page.orcid.sync-queue.tooltip.researcher_urls": "URL du chercheur",
+
+  //"person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Synchroniser avec le registre ORCID",
+
+  //"person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
+  "person.page.orcid.sync-queue.send.unauthorized-error.title": "La transmission à ORCID a échoué en raison d'autorisations manquantes.",
+
+  //"person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Cliquer <a href='{{orcid}}'>ici</a> afin d'accorder à nouveau les permissions nécessaires. Si le problème persiste, contacter l'administrateur.",
+
+  //"person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
+  "person.page.orcid.sync-queue.send.bad-request-error": "La transmission à ORCID a échoué en raison du fait que la ressource envoyée n'est pas valide.",
+
+  //"person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
+  "person.page.orcid.sync-queue.send.error": "La transmission à ORCID a échoué.",
+
+  //"person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
+  "person.page.orcid.sync-queue.send.conflict-error": "La transmission à ORCID a échoué en raison du fait que la ressource est déjà présente dans le registre ORCID.",
+
+  //"person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
+  "person.page.orcid.sync-queue.send.not-found-warning": "La ressource n'existe plus dans le registre ORCID.",
+
+  //"person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
+  "person.page.orcid.sync-queue.send.success": "La transmission à ORCID a été effectuée avec succès.",
+
+  //"person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
+  "person.page.orcid.sync-queue.send.validation-error": "Les données que vous souhaitez synchroniser avec ORCID ne sont pas valides.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
+  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "La devise du montant est requise.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
+  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "La ressource à transmettre doit avoir au moins un identifiant.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
+  "person.page.orcid.sync-queue.send.validation-error.title.required": "Le titre est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "Le type de document est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
+  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "La date de début est obbligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
+  "person.page.orcid.sync-queue.send.validation-error.funder.required": "L'organisme subventionnaire est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Code de pays ISO 3166 à 2 chiffres invalide",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.required": "L'organisation est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "Le nom de l'organisation est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "La date de publication doit être d'au moins un an après 1900.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
+  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "L'organisation a transmettre doit avoir une adresse.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
+  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "L'adresse de l'organisation à transmettre doit mentionner une ville.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "L'adresse de l'organisation à transmettre doit avoir une code de pays ISO 3166 à 2 chiffres valide.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "Un identifiant pour désambiguer l'orgnisation est obligatoire. Les identifiants possibles sont GRID, Ringgold, Legal Entity identifiers (LEIs) et Crossref Funder Registry identifiers",
+
+  //"person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "Une valeur pour l'identifiant de l'organisation est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "La source de l'identifiant de l'organisation est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "La source d'un des identifiants d'organisation est invalide. Les sources possibles sont RINGGOLD, GRID, LEI and FUNDREF",
+
+  //"person.page.orcid.synchronization-mode": "Synchronization mode",
+  "person.page.orcid.synchronization-mode": "Mode de synchronisation",
+
+  //"person.page.orcid.synchronization-mode.batch": "Batch",
+  "person.page.orcid.synchronization-mode.batch": "En lot",
+
+  //"person.page.orcid.synchronization-mode.label": "Synchronization mode",
+  "person.page.orcid.synchronization-mode.label": "Mode de synchronisation",
+
+  //"person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+  "person.page.orcid.synchronization-mode-message": "Sélectionner le mode de synchronisation vers ORCID. Les options sont \"Manuel\" (vous devrez sélectionner les données à transmettre vers ORCID manuellement), ou \"En lot\" (le système transmettra vos données vers ORCID automatiquement).",
+
+  //"person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+  "person.page.orcid.synchronization-mode-funding-message": "Sélectionnez si vous souhaitez transmettre vos projets de recherche vers votre profil ORCID.",
+
+  //"person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+  "person.page.orcid.synchronization-mode-publication-message": "Sélectionnez si vous souhaitez transmettre vos publications vers votre profil ORCID.",
+
+  //"person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
+  "person.page.orcid.synchronization-mode-profile-message": "Sélectionnez si vous souhaitez transmettre vos données biographiques vers votre profil ORCID.",
+
+  //"person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
+  "person.page.orcid.synchronization-settings-update.success": "Les paramètres de synchronisation ont été mis à jour avec succès.",
+
+  //"person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
+  "person.page.orcid.synchronization-settings-update.error": "La mise à jour des paramètres de synchronisation a échoué.",
+
+  //"person.page.orcid.synchronization-mode.manual": "Manual",
+  "person.page.orcid.synchronization-mode.manual": "Manuel",
+
+  //"person.page.orcid.scope.authenticate": "Get your ORCID iD",
+  "person.page.orcid.scope.authenticate": "Obtenez votre identifiant ORCID",
+
+  //"person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
+  "person.page.orcid.scope.read-limited": "Consultez vos informations ayant le paramètre de visibilité réglé sur Parties de confiance.",
+
+  //"person.page.orcid.scope.activities-update": "Add/update your research activities",
+  "person.page.orcid.scope.activities-update": "Ajouter ou mettre à jour vos activités de recherche",
+
+  //"person.page.orcid.scope.person-update": "Add/update other information about you",
+  "person.page.orcid.scope.person-update": "Ajouter ou mettre à jour d'autre information sur vous",
+
+  //"person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+  "person.page.orcid.unlink.success": "La déconnexion entre votre profil et le registre ORCID a été effectuée avec succès.",
+
+  //"person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+  "person.page.orcid.unlink.error": "Une erreur s'est produite lors de la déconnexion entre votre profil et le registre ORCID. Veuillez réessayer.",
+
+  //"person.orcid.sync.setting": "ORCID Synchronization settings",
+  "person.orcid.sync.setting": "Paramètres de synchronisation ORCID",
+
+  //"person.orcid.registry.queue": "ORCID Registry Queue",
+  "person.orcid.registry.queue": "Liste d'attente pour le registre ORCID",
+
+  //"person.orcid.registry.auth": "ORCID Authorizations",
+  "person.orcid.registry.auth": "Autorisation ORCID",
+
+  //"home.recent-submissions.head": "Recent Submissions",
+  "home.recent-submissions.head": "Dépôts récents",
+
+  //"listable-notification-object.default-message": "This object couldn't be retrieved",
+  "listable-notification-object.default-message": "Cet objet n'a pas été trouvé.",
+
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
   "system-wide-alert-banner.retrieval.error": "Une erreur s'est produite lors de la récupération de la bannière du message d'avertissement",
 
@@ -6572,8 +7118,6 @@
 
   // "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
   "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
-
-
 
   // "menu.section.system-wide-alert": "System-wide Alert",
   "menu.section.system-wide-alert": "Messages d'avertissement",
@@ -6687,6 +7231,1177 @@
   //"access-control-cancel": "Cancel",
   "access-control-cancel": "Annuler",
 
+  // "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+  "item-access-control-title": "Ce formulaire vous permet de modifier les conditions d'accès aux métadonnées de l'Item ou à ses Bitstreams.",
 
+  // "access-control-execute": "Execute",
+  "access-control-execute": "Exécuter",
+
+  // "access-control-add-more": "Add more",
+  "access-control-add-more": "Ajouter plus",
+
+  // "access-control-remove": "Remove access condition",
+  "access-control-remove": "Supprimer la condition d'accès",
+
+  // "access-control-select-bitstreams-modal.title": "Select bitstreams",
+  "access-control-select-bitstreams-modal.title": "Sélectionner les Bitstreams",
+
+  // "access-control-select-bitstreams-modal.no-items": "No items to show.",
+  "access-control-select-bitstreams-modal.no-items": "Aucun Item à afficher.",
+
+  // "access-control-select-bitstreams-modal.close": "Close",
+  "access-control-select-bitstreams-modal.close": "Fermer",
+
+  // "access-control-option-label": "Access condition type",
+  "access-control-option-label": "Type de condition d'accès",
+
+  // "access-control-option-note": "Choose an access condition to apply to selected objects.",
+  "access-control-option-note": "Choisissez une condition d'accès à appliquer aux objets sélectionnés.",
+
+  // "access-control-option-start-date": "Grant access from",
+  "access-control-option-start-date": "Accorder l'accès à partir de",
+
+  //"access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+  "access-control-option-start-date-note": "Sélectionnez la date à partir de laquelle la condition d'accès liée est appliquée",
+
+  // "access-control-option-end-date": "Grant access until",
+  "access-control-option-end-date": "Accorder l'accès jusqu'à",
+
+  // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+  "access-control-option-end-date-note": "Sélectionnez la date jusqu'à laquelle la condition d'accès liée est appliquée",
+
+  //"vocabulary-treeview.search.form.add": "Add",
+  "vocabulary-treeview.search.form.add": "Ajouter",
+
+  //"admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
+  "admin.notifications.publicationclaim.breadcrumbs": "Réclamer une publication",
+
+  //"admin.notifications.publicationclaim.page.title": "Publication Claim",
+  "admin.notifications.publicationclaim.page.title": "Réclamer une publication",
+
+  //"coar-notify-support.title": "COAR Notify Protocol",
+  "coar-notify-support.title": "Protocole COAR Notify",
+
+  //"coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
+  "coar-notify-support-title.content": "Le protocole COAR Notify est destiné à améliorer la communication entre dépôts. Afin d'en savoir plus sur ce protocole, consulter le <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">site web COAR Notify</a>.",
+
+  //"coar-notify-support.ldn-inbox.title": "LDN InBox",
+  "coar-notify-support.ldn-inbox.title": "Boîte aux lettres LDN",
+
+  //"coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {{ ldnInboxUrl }}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+  "coar-notify-support.ldn-inbox.content": "La boîte aux lettres LDN (Linked Data Notifications) est accessible à l'adresse {{ ldnInboxUrl }}. La boîte aux lettres LDN permet la communication et l'échange de données afin de garantir une collaboration effective et efficiente.",
+
+  //"coar-notify-support.message-moderation.title": "Message Moderation",
+  "coar-notify-support.message-moderation.title": "Modération des messages",
+
+  //"coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated",
+  "coar-notify-support.message-moderation.content": "Afin d'assurer un environnement sécuritaire et productif, tous les messages LDN entrants font l'objet d'une modération. Si vous envisagez d'échanger de l'information avec nous, veuillez nous contacter en utilisant notre",
+
+  //"coar-notify-support.message-moderation.feedback-form": " Feedback form.",
+  "coar-notify-support.message-moderation.feedback-form": " formulaire.",
+
+  //"service.overview.delete.header": "Delete Service",
+  "service.overview.delete.header": "Supprimer le service",
+
+  //"ldn-registered-services.title": "Registered Services",
+  "ldn-registered-services.title": "Services enregistrés",
+
+  //"ldn-registered-services.table.name": "Name",
+  "ldn-registered-services.table.name": "Nom",
+
+  //"ldn-registered-services.table.description": "Description",
+  "ldn-registered-services.table.description": "Description",
+
+  //"ldn-registered-services.table.status": "Status",
+  "ldn-registered-services.table.status": "Statut",
+
+  //"ldn-registered-services.table.action": "Action",
+  "ldn-registered-services.table.action": "Action",
+
+  //"ldn-registered-services.new": "NEW",
+  "ldn-registered-services.new": "NOUVEAU",
+
+  //"ldn-registered-services.new.breadcrumbs": "Registered Services",
+  "ldn-registered-services.new.breadcrumbs": "Services enregistrés",
+
+  //"ldn-service.overview.table.enabled": "Enabled",
+  "ldn-service.overview.table.enabled": "Activé",
+
+  //"ldn-service.overview.table.disabled": "Disabled",
+  "ldn-service.overview.table.disabled": "Désactivé",
+
+  //"ldn-service.overview.table.clickToEnable": "Click to enable",
+  "ldn-service.overview.table.clickToEnable": "Cliquer pour activer",
+
+  //"ldn-service.overview.table.clickToDisable": "Click to disable",
+  "ldn-service.overview.table.clickToDisable": "Cliquer pour désactiver",
+
+  //"ldn-edit-registered-service.title": "Edit Service",
+  "ldn-edit-registered-service.title": "Éditer le service",
+
+  //"ldn-create-service.title": "Create service",
+  "ldn-create-service.title": "Créer un service",
+
+  //"service.overview.create.modal": "Create Service",
+  "service.overview.create.modal": "Créer un service",
+
+  //"service.overview.create.body": "Please confirm the creation of this service.",
+  "service.overview.create.body": "S'il vous plaît, confirmer la création de ce service.",
+
+  //"ldn-service-status": "Status",
+  "ldn-service-status": "Statut",
+
+  //"service.confirm.create": "Create",
+  "service.confirm.create": "Créer",
+
+  //"service.refuse.create": "Cancel",
+  "service.refuse.create": "Annuler",
+
+  //"ldn-register-new-service.title": "Register a new service",
+  "ldn-register-new-service.title": "Enregistrer un nouveau service",
+
+  //"ldn-new-service.form.label.submit": "Save",
+  "ldn-new-service.form.label.submit": "Sauvegarder",
+
+  //"ldn-new-service.form.label.name": "Name",
+  "ldn-new-service.form.label.name": "Nom",
+
+  //"ldn-new-service.form.label.description": "Description",
+  "ldn-new-service.form.label.description": "Description",
+
+  //"ldn-new-service.form.label.url": "Service URL",
+  "ldn-new-service.form.label.url": "URL du service",
+
+  //"ldn-new-service.form.label.ip-range": "Service IP range",
+  "ldn-new-service.form.label.ip-range": "Intervalle IP du service",
+
+  //"ldn-new-service.form.label.score": "Level of trust",
+  "ldn-new-service.form.label.score": "Niveau de confiance",
+
+  //"ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
+  "ldn-new-service.form.label.ldnUrl": "URL de la boîte aux lettres LDN",
+
+  //"ldn-new-service.form.placeholder.name": "Please provide service name",
+  "ldn-new-service.form.placeholder.name": "S'il vous plaît, fournissez le nom du service",
+
+  //"ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
+  "ldn-new-service.form.placeholder.description": "S'il vous plaît, décrivez votre service",
+
+  //"ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
+  "ldn-new-service.form.placeholder.url": "S'il vous plaît, fournissez l'URL pour les usagers afin qu'ils puissent consulter plus d'information sur le service.",
+
+  //"ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
+  "ldn-new-service.form.placeholder.lowerIp": "Limite inférieure de l'intervalle IPv4",
+
+  //"ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
+  "ldn-new-service.form.placeholder.upperIp": "Limite supérieure de l'intervalle IPv4",
+
+  //"ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
+  "ldn-new-service.form.placeholder.ldnUrl": "S'il vous plaît, spécifiez l'URL de la boîte aux lettres LDN",
+
+  //"ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
+  "ldn-new-service.form.placeholder.score": "S'il vous plaît, saisissez une valeur entre 0 et 1. Utilisez le “.” comme séparateur de décimale.",
+
+  //"ldn-service.form.label.placeholder.default-select": "Select a pattern",
+  "ldn-service.form.label.placeholder.default-select": "Sélectionnez un modèle",
+
+  //"ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
+  "ldn-service.form.pattern.ack-accept.label": "Accuser réception et accepter",
+
+  //"ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
+  "ldn-service.form.pattern.ack-accept.description": "Ce modèle est utilisé pour accuser réception et accepter une requête (offre). Il implique une intention de donner suite à la requête.",
+
+  //"ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
+  "ldn-service.form.pattern.ack-accept.category": "Accusés de réception",
+
+  //"ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
+  "ldn-service.form.pattern.ack-reject.label": "Accuser réception et refuser",
+
+  //"ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
+  "ldn-service.form.pattern.ack-reject.description": "Ce modèle est utilisé pour accuser réception et refuser une requête (offre). Il signifie qu'aucune action supplémentaire n'est nécessaire pour la requête.",
+
+  //"ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
+  "ldn-service.form.pattern.ack-reject.category": "Accusés de réception",
+
+  //"ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
+  "ldn-service.form.pattern.ack-tentative-accept.label": "Accuser réception et accepter provisoirement",
+
+  //"ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
+  "ldn-service.form.pattern.ack-tentative-accept.description": "Ce modèle est utilisé pour accuser réception et accepter provisoirement une requête (offre). Il implique une intention d'agir qui pourrait changer.",
+
+  //"ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
+  "ldn-service.form.pattern.ack-tentative-accept.category": "Accusés de réception",
+
+  //"ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
+  "ldn-service.form.pattern.ack-tentative-reject.label": "Accuser réception et refuser provisoirement",
+
+  //"ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
+  "ldn-service.form.pattern.ack-tentative-reject.description": "Ce modèle est utilisé pour accuser réception et refuser provisoirement une requête (offre). Il implique qu'aucune action supplémentaire n'est nécessaire sous réserve de modification.",
+
+  //"ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
+  "ldn-service.form.pattern.ack-tentative-reject.category": "Accusés de réception",
+
+  //"ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
+  "ldn-service.form.pattern.announce-endorsement.label": "Annocer l'approbation",
+
+  //"ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
+  "ldn-service.form.pattern.announce-endorsement.description": "Ce modèle est utilisé pour annoncer l'existence d'une approbation, référençant la ressource approuvée.",
+
+  //"ldn-service.form.pattern.announce-endorsement.category": "Announcements",
+  "ldn-service.form.pattern.announce-endorsement.category": "Annonces",
+
+  //"ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
+  "ldn-service.form.pattern.announce-ingest.label": "Annoncer l'ingestion",
+
+  //"ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
+  "ldn-service.form.pattern.announce-ingest.description": "Ce modèle est utilisé pour annoncer qu'une ressource a été ingérée.",
+
+  //"ldn-service.form.pattern.announce-ingest.category": "Announcements",
+  "ldn-service.form.pattern.announce-ingest.category": "Annonces",
+
+  //"ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
+  "ldn-service.form.pattern.announce-relationship.label": "Annoncer la relation",
+
+  //"ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
+  "ldn-service.form.pattern.announce-relationship.description": "Ce modèle est utilisé pour annoncer une relation entre 2 ressources.",
+
+  //"ldn-service.form.pattern.announce-relationship.category": "Announcements",
+  "ldn-service.form.pattern.announce-relationship.category": "Annonces",
+
+  //"ldn-service.form.pattern.announce-review.label": "Announce Review",
+  "ldn-service.form.pattern.announce-review.label": "Annoncer l'évaluation",
+
+  //"ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
+  "ldn-service.form.pattern.announce-review.description": "Ce modèle est utilisé pour annoncer l'existence d'une évaluation, référencant la ressource évaluée.",
+
+  //"ldn-service.form.pattern.announce-review.category": "Announcements",
+  "ldn-service.form.pattern.announce-review.category": "Annonces",
+
+  //"ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
+  "ldn-service.form.pattern.announce-service-result.label": "Annoncer le résultat de service",
+
+  //"ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
+  "ldn-service.form.pattern.announce-service-result.description": "Ce modèle est utilisé pour annoncer l'existence d'un 'résultat de service', référençant la ressource pertinente.",
+
+  //"ldn-service.form.pattern.announce-service-result.category": "Announcements",
+  "ldn-service.form.pattern.announce-service-result.category": "Annonces",
+
+  //"ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
+  "ldn-service.form.pattern.request-endorsement.label": "Approbation de la requête",
+
+  //"ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-endorsement.description": "Ce modèle est utilisé pour demander l'approbation d'une ressource appartenant au système d'origine.",
+
+  //"ldn-service.form.pattern.request-endorsement.category": "Requests",
+  "ldn-service.form.pattern.request-endorsement.category": "Requêtes",
+
+  //"ldn-service.form.pattern.request-ingest.label": "Request Ingest",
+  "ldn-service.form.pattern.request-ingest.label": "Demander l'ingestion",
+
+  //"ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
+  "ldn-service.form.pattern.request-ingest.description": "Ce modèle est utilisé pour demander au système cible d'ingérer une ressource.",
+
+  //"ldn-service.form.pattern.request-ingest.category": "Requests",
+  "ldn-service.form.pattern.request-ingest.category": "Requêtes",
+
+  //"ldn-service.form.pattern.request-review.label": "Request Review",
+  "ldn-service.form.pattern.request-review.label": "Requête d'évaluation",
+
+  //"ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-review.description": "Ce modèle est utilisé pour demander l'évaluation d'une ressource appartenant au système d'origine.",
+
+  //"ldn-service.form.pattern.request-review.category": "Requests",
+  "ldn-service.form.pattern.request-review.category": "Requêtes",
+
+  //"ldn-service.form.pattern.undo-offer.label": "Undo Offer",
+  "ldn-service.form.pattern.undo-offer.label": "Retirer l'offre",
+
+  //"ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
+  "ldn-service.form.pattern.undo-offer.description": "Ce modèle est utilisé pour retirer une offre faite précédemment.",
+
+  //"ldn-service.form.pattern.undo-offer.category": "Undo",
+  "ldn-service.form.pattern.undo-offer.category": "Retirer",
+
+  //"ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
+  "ldn-new-service.form.label.placeholder.selectedItemFilter": "Aucun filtre d'Item sélectionné",
+
+  //"ldn-new-service.form.label.ItemFilter": "Item Filter",
+  "ldn-new-service.form.label.ItemFilter": "Filtre d'Item",
+
+  //"ldn-new-service.form.label.automatic": "Automatic",
+  "ldn-new-service.form.label.automatic": "Automatique",
+
+  //"ldn-new-service.form.error.name": "Name is required",
+  "ldn-new-service.form.error.name": "Le nom est obligatoire",
+
+  //"ldn-new-service.form.error.url": "URL is required",
+  "ldn-new-service.form.error.url": "L'URL est obligatoire",
+
+  //"ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
+  "ldn-new-service.form.error.ipRange": "S'il vous plaît, saisissez un intervalle IP valide.",
+
+  //"ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
+  "ldn-new-service.form.hint.ipRange": "S'il vous plaît, saisissez une adresse IpV4 valide pour chaque limite de l'intervalle (note: pour une adresse IP unique, entrez les mêmes valeurs dans les 2 champs).",
+
+  //"ldn-new-service.form.error.ldnurl": "LDN URL is required",
+  "ldn-new-service.form.error.ldnurl": "L'URL LDN est obligatoire.",
+
+  //"ldn-new-service.form.error.patterns": "At least a pattern is required",
+  "ldn-new-service.form.error.patterns": "Au moins un modèle est requis.",
+
+  //"ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
+  "ldn-new-service.form.error.score": "S'il vous plaît, saisissez une note valide (entre 0 et 1). Utilisez le “.” comme séparateur de décimale.",
+
+  //"ldn-new-service.form.label.inboundPattern": "Supported Pattern",
+  "ldn-new-service.form.label.inboundPattern": "Modèle supporté",
+
+  //"ldn-new-service.form.label.addPattern": "+ Add more",
+  "ldn-new-service.form.label.addPattern": "+ Ajouter",
+
+  //"ldn-new-service.form.label.removeItemFilter": "Remove",
+  "ldn-new-service.form.label.removeItemFilter": "Supprimer",
+
+  //"ldn-register-new-service.breadcrumbs": "New Service",
+  "ldn-register-new-service.breadcrumbs": "Nouveau service",
+
+  //"service.overview.delete.body": "Are you sure you want to delete this service?",
+  "service.overview.delete.body": "Êtes-vous sûr de vouloir supprimer ce service ?",
+
+  //"service.overview.edit.body": "Do you confirm the changes?",
+  "service.overview.edit.body": "Confirmez-vous les changements ?",
+
+  //"service.overview.edit.modal": "Edit Service",
+  "service.overview.edit.modal": "Modifier le service",
+
+  //"service.detail.update": "Confirm",
+  "service.detail.update": "Confirmer",
+
+  //"service.detail.return": "Cancel",
+  "service.detail.return": "Annuler",
+
+  //"service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
+  "service.overview.reset-form.body": "Êtes-vous sûr de vouloir ignorer les changements et de quitter ?",
+
+  //"service.overview.reset-form.modal": "Discard Changes",
+  "service.overview.reset-form.modal": "Ignorer les changements",
+
+  //"service.overview.reset-form.reset-confirm": "Discard",
+  "service.overview.reset-form.reset-confirm": "Ignorer",
+
+  //"admin.registries.services-formats.modify.success.head": "Successful Edit",
+  "admin.registries.services-formats.modify.success.head": "Modification réussie",
+
+  //"admin.registries.services-formats.modify.success.content": "The service has been edited",
+  "admin.registries.services-formats.modify.success.content": "Le service a été modifié.",
+
+  //"admin.registries.services-formats.modify.failure.head": "Failed Edit",
+  "admin.registries.services-formats.modify.failure.head": "La modification a échoué.",
+
+  //"admin.registries.services-formats.modify.failure.content": "The service has not been edited",
+  "admin.registries.services-formats.modify.failure.content": "Le service a été modifié.",
+
+  //"ldn-service-notification.created.success.title": "Successful Create",
+  "ldn-service-notification.created.success.title": "Création réussie",
+
+  //"ldn-service-notification.created.success.body": "The service has been created",
+  "ldn-service-notification.created.success.body": "Le service a été crée.",
+
+  //"ldn-service-notification.created.failure.title": "Failed Create",
+  "ldn-service-notification.created.failure.title": "Échec de la création",
+
+  //"ldn-service-notification.created.failure.body": "The service has not been created",
+  "ldn-service-notification.created.failure.body": "Le service n'a pas été crée.",
+
+  //"ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
+  "ldn-service-notification.created.warning.title": "Sélectionnez au moins un modèle entrant.",
+
+  //"ldn-enable-service.notification.success.title": "Successful status updated",
+  "ldn-enable-service.notification.success.title": "Mise à jour du statut réussie",
+
+  //"ldn-enable-service.notification.success.content": "The service status has been updated",
+  "ldn-enable-service.notification.success.content": "Le statut du service a été mis à jour.",
+
+  //"ldn-service-delete.notification.success.title": "Successful Deletion",
+  "ldn-service-delete.notification.success.title": "Suppression réussie",
+
+  //"ldn-service-delete.notification.success.content": "The service has been deleted",
+  "ldn-service-delete.notification.success.content": "Le service a été supprimé.",
+
+  //"ldn-service-delete.notification.error.title": "Failed Deletion",
+  "ldn-service-delete.notification.error.title": "Échec de la suppression",
+
+  //"ldn-service-delete.notification.error.content": "The service has not been deleted",
+  "ldn-service-delete.notification.error.content": "Le service n'a pas été supprimé.",
+
+  //"service.overview.reset-form.reset-return": "Cancel",
+  "service.overview.reset-form.reset-return": "Annuler",
+
+  //"service.overview.delete": "Delete service",
+  "service.overview.delete": "Supprimer le service",
+
+  //"ldn-edit-service.title": "Edit service",
+  "ldn-edit-service.title": "Modifier le service",
+
+  //"ldn-edit-service.form.label.name": "Name",
+  "ldn-edit-service.form.label.name": "Nom",
+
+  //"ldn-edit-service.form.label.description": "Description",
+  "ldn-edit-service.form.label.description": "Description",
+
+  //"ldn-edit-service.form.label.url": "Service URL",
+  "ldn-edit-service.form.label.url": "URL du service",
+
+  //"ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
+  "ldn-edit-service.form.label.ldnUrl": "URL de la boîte aux lettres LDN",
+
+  //"ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-edit-service.form.label.inboundPattern": "Modèle entrant",
+
+  //"ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
+  "ldn-edit-service.form.label.noInboundPatternSelected": "Aucun modèle entrant",
+
+  //"ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
+  "ldn-edit-service.form.label.selectedItemFilter": "Filtre d'Item sélectionné",
+
+  //"ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
+  "ldn-edit-service.form.label.selectItemFilter": "Aucun filtre d'Item",
+
+  //"ldn-edit-service.form.label.automatic": "Automatic",
+  "ldn-edit-service.form.label.automatic": "Automatique",
+
+  //"ldn-edit-service.form.label.addInboundPattern": "+ Add more",
+  "ldn-edit-service.form.label.addInboundPattern": "+ Ajouter",
+
+  //"ldn-edit-service.form.label.submit": "Save",
+  "ldn-edit-service.form.label.submit": "Sauvegarder",
+
+  //"ldn-edit-service.breadcrumbs": "Edit Service",
+  "ldn-edit-service.breadcrumbs": "Éditer le service",
+
+  //"ldn-service.control-constaint-select-none": "Select none",
+  "ldn-service.control-constaint-select-none": "Ne rien sélectionner",
+
+  //"ldn-register-new-service.notification.error.title": "Error",
+  "ldn-register-new-service.notification.error.title": "Erreur",
+
+  //"ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
+  "ldn-register-new-service.notification.error.content": "Une erreur s'est produite lors de la création de ce processus.",
+
+  //"ldn-register-new-service.notification.success.title": "Success",
+  "ldn-register-new-service.notification.success.title": "Succès",
+
+  //"ldn-register-new-service.notification.success.content": "The process was successfully created",
+  "ldn-register-new-service.notification.success.content": "Le processus a été créé.",
+
+  //"submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
+  "submission.sections.notify.info": "Le service sélectionné est compatible avec l'Item d'après son statut actuel. {{ service.name }}: {{ service.description }}",
+
+  //"item.page.endorsement": "Endorsement",
+  "item.page.endorsement": "Approbation",
+
+  //"item.page.review": "Review",
+  "item.page.review": "Évaluation",
+
+  //"item.page.referenced": "Referenced By",
+  "item.page.referenced": "Référencé par",
+
+  //"item.page.supplemented": "Supplemented By",
+  "item.page.supplemented": "Complété par",
+
+  //"menu.section.icon.ldn_services": "LDN Services overview",
+  "menu.section.icon.ldn_services": "Aperçu des services LDN",
+
+  //"menu.section.services": "LDN Services",
+  "menu.section.services": "Services LDN",
+
+  //"menu.section.services_new": "LDN Service",
+  "menu.section.services_new": "Service LDN",
+
+  //"quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
+  "quality-assurance.topics.description-with-target": "Vous pouvez consulter ci-dessous tous les sujets reçus de l'abonnement à {{source}} en ce qui concerne",
+
+  //"quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
+  "quality-assurance.events.description": "En dessous de la liste des suggestions pour le sujet sélectionné <b>{{topic}}</b>, en relation avec <b>{{source}}</b>.",
+
+  //"quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
+  "quality-assurance.events.description-with-topic-and-target": "En dessous de la liste des suggestions pour le sujet sélectionné <b>{{topic}}</b>, en relation avec <b>{{source}}</b> and ",
+
+  //"quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
+  "quality-assurance.event.table.event.message.serviceUrl": "URL du service :",
+
+  //"quality-assurance.event.table.event.message.link": "Link:",
+  "quality-assurance.event.table.event.message.link": "Lien :",
+
+  //"service.detail.delete.cancel": "Cancel",
+  "service.detail.delete.cancel": "Annuler",
+
+  //"service.detail.delete.button": "Delete service",
+  "service.detail.delete.button": "Supprimer le service",
+
+  //"service.detail.delete.header": "Delete service",
+  "service.detail.delete.header": "Supprimer le service",
+
+  //"service.detail.delete.body": "Are you sure you want to delete the current service?",
+  "service.detail.delete.body": "Êtes-vous sûr de vouloir supprimer ce service ?",
+
+  //"service.detail.delete.confirm": "Delete service",
+  "service.detail.delete.confirm": "Supprimer le service",
+
+  //"service.detail.delete.success": "The service was successfully deleted.",
+  "service.detail.delete.success": "Le service a été supprimé.",
+
+  //"service.detail.delete.error": "Something went wrong when deleting the service",
+  "service.detail.delete.error": "Une erreure s'est produite lors de la suppression du service.",
+
+  //"service.overview.table.id": "Services ID",
+  "service.overview.table.id": "Identifiants des services",
+
+  //"service.overview.table.name": "Name",
+  "service.overview.table.name": "Nom",
+
+  //"service.overview.table.start": "Start time (UTC)",
+  "service.overview.table.start": "Heure de début (UTC)",
+
+  //"service.overview.table.status": "Status",
+  "service.overview.table.status": "Statut",
+
+  //"service.overview.table.user": "User",
+  "service.overview.table.user": "Utilisateur",
+
+  //"service.overview.title": "Services Overview",
+  "service.overview.title": "Aperçu des services",
+
+  //"service.overview.breadcrumbs": "Services Overview",
+  "service.overview.breadcrumbs": "Aperçu des services",
+
+  //"service.overview.table.actions": "Actions",
+  "service.overview.table.actions": "Actions",
+
+  //"service.overview.table.description": "Description",
+  "service.overview.table.description": "Description",
+
+  //"submission.sections.submit.progressbar.coarnotify": "COAR Notify",
+  "submission.sections.submit.progressbar.coarnotify": "COAR Notify",
+
+  //"submission.section.section-coar-notify.control.request-review.label": "You can request a review to one of the following services",
+  "submission.section.section-coar-notify.control.request-review.label": "Vous pouvez demander une évaluation à l'un des services suivants",
+
+  //"submission.section.section-coar-notify.control.request-endorsement.label": "You can request an Endorsement to one of the following overlay journals",
+  "submission.section.section-coar-notify.control.request-endorsement.label": "Vous pouvez demander une approbation à l'une des épirevues suivantes",
+
+  //"submission.section.section-coar-notify.control.request-ingest.label": "You can request to ingest a copy of your submission to one of the following services",
+  "submission.section.section-coar-notify.control.request-ingest.label": "Vous pouvez demander à ce qu'une copie de votre soumission soit ingérée par l'un des services suivants",
+
+  //"submission.section.section-coar-notify.dropdown.no-data": "No data available",
+  "submission.section.section-coar-notify.dropdown.no-data": "Aucune donnée disponible",
+
+  //"submission.section.section-coar-notify.dropdown.select-none": "Select none",
+  "submission.section.section-coar-notify.dropdown.select-none": "Ne rien sélectionner",
+
+  //"submission.section.section-coar-notify.small.notification": "Select a service for {{ pattern }} of this item",
+  "submission.section.section-coar-notify.small.notification": "Sélectionner un service pour {{ pattern }} pour cet Item",
+
+  //"submission.section.section-coar-notify.selection.description": "Selected service's description:",
+  "submission.section.section-coar-notify.selection.description": "Description du service sélectionné :",
+
+  //"submission.section.section-coar-notify.selection.no-description": "No further information is available",
+  "submission.section.section-coar-notify.selection.no-description": "Aucune autre information n'est disponible",
+
+  //"submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
+  "submission.section.section-coar-notify.notification.error": "Le service sélectionné n'est pas approprié pour cet Item. Consulter la description afin de savoir quel Item est approprié pour ce service.",
+
+  //"submission.section.section-coar-notify.info.no-pattern": "No configurable patterns found.",
+  "submission.section.section-coar-notify.info.no-pattern": "Aucun modèle configurable n'a été trouvé.",
+
+  //"error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
+  "error.validation.coarnotify.invalidfilter": "Filtre invalide, sélectionnez un autre service ou aucun service.",
+
+  //"request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  "request-status-alert-box.accepted": "Le {{ offerType }} demandé pour <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> a été pris en charge.",
+
+  //"request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  "request-status-alert-box.rejected": "Le {{ offerType }} demandé pour <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> a été rejeté.",
+
+  //"request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  "request-status-alert-box.requested": "Le {{ offerType }} demandé pour <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> est en attente.",
+
+  //"ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
+  "ldn-service-button-mark-inbound-deletion": "Sélectionner le modèle pour suppression",
+
+  //"ldn-service-button-unmark-inbound-deletion": "Unmark supported pattern for deletion",
+  "ldn-service-button-unmark-inbound-deletion": "Désélectionner le modèle pour suppression",
+
+  //"ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for the pattern",
+  "ldn-service-input-inbound-item-filter-dropdown": "Sélectionner le filtre de l'Item pour le modèle",
+
+  //"ldn-service-input-inbound-pattern-dropdown": "Select a pattern for service",
+  "ldn-service-input-inbound-pattern-dropdown": "Sélectionner un modèle pour le service",
+
+  //"ldn-service-overview-select-delete": "Select service for deletion",
+  "ldn-service-overview-select-delete": "Sélectionner le service à supprimer",
+
+  //"ldn-service-overview-select-edit": "Edit LDN service",
+  "ldn-service-overview-select-edit": "Modifier le service LDN",
+
+  //"ldn-service-overview-close-modal": "Close modal",
+  "ldn-service-overview-close-modal": "Fermer la fenêtre",
+
+  //"a-common-or_statement.label": "Item type is Journal Article or Dataset",
+  "a-common-or_statement.label": "Le type de l'Item est Article de revue ou Jeu de donnnées",
+
+  //"always_true_filter.label": "Always true",
+  "always_true_filter.label": "Toujours vrai",
+
+  //"automatic_processing_collection_filter_16.label": "Automatic processing",
+  "automatic_processing_collection_filter_16.label": "Traitement automatique",
+
+  //"dc-identifier-uri-contains-doi_condition.label": "URI contains DOI",
+  "dc-identifier-uri-contains-doi_condition.label": "L'URI contient un DOI",
+
+  //"doi-filter.label": "DOI filter",
+  "doi-filter.label": "Filtre DOI",
+
+  //"driver-document-type_condition.label": "Document type equals driver",
+  "driver-document-type_condition.label": "Le type de document correspond à Driver",
+
+  //"has-at-least-one-bitstream_condition.label": "Has at least one Bitstream",
+  "has-at-least-one-bitstream_condition.label": "A au moins un Bitstream",
+
+  //"has-bitstream_filter.label": "Has Bitstream",
+  "has-bitstream_filter.label": "A un Bitstream",
+
+  //"has-one-bitstream_condition.label": "Has one Bitstream",
+  "has-one-bitstream_condition.label": "A un Bitstream",
+
+  //"is-archived_condition.label": "Is archived",
+  "is-archived_condition.label": "Est archivé",
+
+  //"is-withdrawn_condition.label": "Is withdrawn",
+  "is-withdrawn_condition.label": "Est retiré",
+
+  //"item-is-public_condition.label": "Item is public",
+  "item-is-public_condition.label": "L'Item est public",
+
+  //"journals_ingest_suggestion_collection_filter_18.label": "Journals ingest",
+  "journals_ingest_suggestion_collection_filter_18.label": "Ingestion des revues",
+
+  //"title-starts-with-pattern_condition.label": "Title starts with pattern",
+  "title-starts-with-pattern_condition.label": "Le titre commence par le modèle",
+
+  //"type-equals-dataset_condition.label": "Type equals Dataset",
+  "type-equals-dataset_condition.label": "Le type de document est Jeu de données",
+
+  //"type-equals-journal-article_condition.label": "Type equals Journal Article",
+  "type-equals-journal-article_condition.label": "Le type de document est Article de revue",
+
+  //"ldn.no-filter.label": "None",
+  "ldn.no-filter.label": "Aucun",
+
+  //"admin.notify.dashboard": "Dashboard",
+  "admin.notify.dashboard": "Tableau de bord",
+
+  //"menu.section.notify_dashboard": "Dashboard",
+  "menu.section.notify_dashboard": "Tableau de bord",
+
+  //"menu.section.coar_notify": "COAR Notify",
+  "menu.section.coar_notify": "COAR Notify",
+
+  //"admin-notify-dashboard.title": "Notify Dashboard",
+  "admin-notify-dashboard.title": "Tableau de bord Notify",
+
+  //"admin-notify-dashboard.description": "The Notify dashboard monitor the general usage of the COAR Notify protocol across the repository. In the “Metrics” tab are statistics about usage of the COAR Notify protocol. In the “Logs/Inbound” and “Logs/Outbound” tabs it’s possible to search and check the individual status of each LDN message, either received or sent.",
+  "admin-notify-dashboard.description": "Le tableau de bord Notify surveille l'utilisation générale du protocole COAR Notify dans le dépôt. Les statistiques d'utilisation du protocole COAR Notify sont dans l'onglet “Métrique”. Dans les onglets “Journaux/Entrant” et “Journaux/Sortant” il est possible de rechercher et vérifier le statut de chaque message LDN, qu'il ait été reçu ou envoyé.",
+
+  //"admin-notify-dashboard.metrics": "Metrics",
+  "admin-notify-dashboard.metrics": "Metriques",
+
+  //"admin-notify-dashboard.received-ldn": "Number of received LDN",
+  "admin-notify-dashboard.received-ldn": "Nombre de LDN reçu",
+
+  //"admin-notify-dashboard.generated-ldn": "Number of generated LDN",
+  "admin-notify-dashboard.generated-ldn": "Nombre de LDN généré",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.accepted": "Accepted",
+  "admin-notify-dashboard.NOTIFY.incoming.accepted": "Accepté",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.accepted.description": "Accepted inbound notifications",
+  "admin-notify-dashboard.NOTIFY.incoming.accepted.description": "Avis entrant acceptés",
+
+  //"admin-notify-logs.NOTIFY.incoming.accepted": "Currently displaying: Accepted notifications",
+  "admin-notify-logs.NOTIFY.incoming.accepted": "Affiché actuellement : avis acceptés",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.processed": "Processed LDN",
+  "admin-notify-dashboard.NOTIFY.incoming.processed": "LDN traités",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.processed.description": "Processed inbound notifications",
+  "admin-notify-dashboard.NOTIFY.incoming.processed.description": "Avis entrant traités",
+
+  //"admin-notify-logs.NOTIFY.incoming.processed": "Currently displaying: Processed LDN",
+  "admin-notify-logs.NOTIFY.incoming.processed": "Affiché actuellement : LDN traités",
+
+  //"admin-notify-logs.NOTIFY.incoming.failure": "Currently displaying: Failed notifications",
+  "admin-notify-logs.NOTIFY.incoming.failure": "Affiché actuellement : avis en échec",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.failure": "Failure",
+  "admin-notify-dashboard.NOTIFY.incoming.failure": "Échec",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.failure.description": "Failed inbound notifications",
+  "admin-notify-dashboard.NOTIFY.incoming.failure.description": "Avis entrant en échec",
+
+  //"admin-notify-logs.NOTIFY.outgoing.failure": "Currently displaying: Failed notifications",
+  "admin-notify-logs.NOTIFY.outgoing.failure": "Affiché actuellement : avis en échec",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.failure": "Failure",
+  "admin-notify-dashboard.NOTIFY.outgoing.failure": "Échec",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.failure.description": "Failed outbound notifications",
+  "admin-notify-dashboard.NOTIFY.outgoing.failure.description": "Avis sortant en échec",
+
+  //"admin-notify-logs.NOTIFY.incoming.untrusted": "Currently displaying: Untrusted notifications",
+  "admin-notify-logs.NOTIFY.incoming.untrusted": "Affiché actuellement : avis non fiables",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.untrusted": "Untrusted",
+  "admin-notify-dashboard.NOTIFY.incoming.untrusted": "Non fiable",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.untrusted.description": "Inbound notifications not trusted",
+  "admin-notify-dashboard.NOTIFY.incoming.untrusted.description": "Avis entrant non fiable",
+
+  //"admin-notify-logs.NOTIFY.incoming.delivered": "Currently displaying: Delivered notifications",
+  "admin-notify-logs.NOTIFY.incoming.delivered": "Affiché actuellement : avis livrés",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.delivered.description": "Inbound notifications successfully delivered",
+  "admin-notify-dashboard.NOTIFY.incoming.delivered.description": "Avis entrants livrés avec succès",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.delivered": "Delivered",
+  "admin-notify-dashboard.NOTIFY.outgoing.delivered": "Livrés",
+
+  //"admin-notify-logs.NOTIFY.outgoing.delivered": "Currently displaying: Delivered notifications",
+  "admin-notify-logs.NOTIFY.outgoing.delivered": "Affiché actuellement : avis livrés",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.delivered.description": "Outbound notifications successfully delivered",
+  "admin-notify-dashboard.NOTIFY.outgoing.delivered.description": "Avis sortant livrés avec succès",
+
+  //"admin-notify-logs.NOTIFY.outgoing.queued": "Currently displaying: Queued notifications",
+  "admin-notify-logs.NOTIFY.outgoing.queued": "Affiché actuellement : avis dans la liste d'attente",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.queued.description": "Notifications currently queued",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued.description": "Avis actuellement dans la liste d'attente",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.queued": "Queued",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued": "Ajouter à la liste d'attente",
+
+  //"admin-notify-logs.NOTIFY.outgoing.queued_for_retry": "Currently displaying: Queued for retry notifications",
+  "admin-notify-logs.NOTIFY.outgoing.queued_for_retry": "Affiché actuellement : Avis en attente pour une nouvelle tentative",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry": "Queued for retry",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry": "En file d'attente pour une nouvelle tentative",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description": "Notifications currently queued for retry",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description": "Avis actuellement en attente pour une nouvelle tentative",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Items involved",
+  "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Items impliqués",
+
+  //"admin-notify-dashboard.NOTIFY.incoming.involvedItems.description": "Items related to inbound notifications",
+  "admin-notify-dashboard.NOTIFY.incoming.involvedItems.description": "Items liés aux avis entrants",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Items involved",
+  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Items impliqués",
+
+  //"admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description": "Items related to outbound notifications",
+  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description": "Items liés aux avis sortants",
+
+  //"admin.notify.dashboard.breadcrumbs": "Dashboard",
+  "admin.notify.dashboard.breadcrumbs": "Tableau de bord",
+
+  //"admin.notify.dashboard.inbound": "Inbound messages",
+  "admin.notify.dashboard.inbound": "Messages entrants",
+
+  //"admin.notify.dashboard.inbound-logs": "Logs/Inbound",
+  "admin.notify.dashboard.inbound-logs": "Journaux/Entrant",
+
+  //"admin.notify.dashboard.filter": "Filter: ",
+  "admin.notify.dashboard.filter": "Filtre : ",
+
+  //"search.filters.applied.f.relateditem": "Related items",
+  "search.filters.applied.f.relateditem": "Items liés",
+
+  //"search.filters.applied.f.ldn_service": "LDN Service",
+  "search.filters.applied.f.ldn_service": "Service LDN",
+
+  //"search.filters.applied.f.notifyReview": "Notify Review",
+  "search.filters.applied.f.notifyReview": "Évaluation Notify",
+
+  //"search.filters.applied.f.notifyEndorsement": "Notify Endorsement",
+  "search.filters.applied.f.notifyEndorsement": "Approbation Notify",
+
+  //"search.filters.applied.f.notifyRelation": "Notify Relation",
+  "search.filters.applied.f.notifyRelation": "Relation Notify",
+
+  //"search.filters.filter.queue_last_start_time.head": "Last processing time ",
+  "search.filters.filter.queue_last_start_time.head": "Dernière heure de traitement ",
+
+  //"search.filters.filter.queue_last_start_time.min.label": "Min range",
+  "search.filters.filter.queue_last_start_time.min.label": "Intervalle minimum",
+
+  //"search.filters.filter.queue_last_start_time.max.label": "Max range",
+  "search.filters.filter.queue_last_start_time.max.label": "Intervalle maximum",
+
+  //"search.filters.applied.f.queue_last_start_time.min": "Min range",
+  "search.filters.applied.f.queue_last_start_time.min": "Intervalle minimum",
+
+  //"search.filters.applied.f.queue_last_start_time.max": "Max range",
+  "search.filters.applied.f.queue_last_start_time.max": "Intervalle maximum",
+
+  //"admin.notify.dashboard.outbound": "Outbound messages",
+  "admin.notify.dashboard.outbound": "Messages sortants",
+
+  //"admin.notify.dashboard.outbound-logs": "Logs/Outbound",
+  "admin.notify.dashboard.outbound-logs": "Journaux/Sortant",
+
+  //"NOTIFY.incoming.search.results.head": "Incoming",
+  "NOTIFY.incoming.search.results.head": "À venir",
+
+  //"search.filters.filter.relateditem.head": "Related item",
+  "search.filters.filter.relateditem.head": "Item lié",
+
+  //"search.filters.filter.origin.head": "Origin",
+  "search.filters.filter.origin.head": "Origine",
+
+  //"search.filters.filter.ldn_service.head": "LDN Service",
+  "search.filters.filter.ldn_service.head": "Service LDN",
+
+  //"search.filters.filter.target.head": "Target",
+  "search.filters.filter.target.head": "Cible",
+
+  //"search.filters.filter.queue_status.head": "Queue status",
+  "search.filters.filter.queue_status.head": "Statut de la file d'attente",
+
+  //"search.filters.filter.activity_stream_type.head": "Activity stream type",
+  "search.filters.filter.activity_stream_type.head": "Type de flux d'activité",
+
+  //"search.filters.filter.coar_notify_type.head": "COAR Notify type",
+  "search.filters.filter.coar_notify_type.head": "Type COAR Notify",
+
+  //"search.filters.filter.notification_type.head": "Notification type",
+  "search.filters.filter.notification_type.head": "Type d'avis",
+
+  //"search.filters.filter.relateditem.label": "Search related items",
+  "search.filters.filter.relateditem.label": "Chercher des Items liés",
+
+  //"search.filters.filter.queue_status.label": "Search queue status",
+  "search.filters.filter.queue_status.label": "Chercher le statut de la file d'attente",
+
+  //"search.filters.filter.target.label": "Search target",
+  "search.filters.filter.target.label": "Chercher la cible",
+
+  //"search.filters.filter.activity_stream_type.label": "Search activity stream type",
+  "search.filters.filter.activity_stream_type.label": "Chercheur le type de flux d'activité",
+
+  //"search.filters.applied.f.queue_status": "Queue Status",
+  "search.filters.applied.f.queue_status": "Statut de la file d'attente",
+
+  //"search.filters.queue_status.0,authority": "Untrusted Ip"
+  "search.filters.queue_status.0,authority": "IP non fiable",
+
+  //"search.filters.queue_status.1,authority": "Queued",
+  "search.filters.queue_status.1,authority": "Dans la file d'attente",
+
+  //"search.filters.queue_status.2,authority": "Processing",
+  "search.filters.queue_status.2,authority": "En traitement",
+
+  //"search.filters.queue_status.3,authority": "Processed",
+  "search.filters.queue_status.3,authority": "Traité",
+
+  //"search.filters.queue_status.4,authority": "Failed",
+  "search.filters.queue_status.4,authority": "En échec",
+
+  //"search.filters.queue_status.5,authority": "Untrusted",
+  "search.filters.queue_status.5,authority": "Non fiable",
+
+  //"search.filters.queue_status.6,authority": "Unmapped Action",
+  "search.filters.queue_status.6,authority": "Action non répertoriée",
+
+  //"search.filters.queue_status.7,authority": "Queued for retry",
+  "search.filters.queue_status.7,authority": "En file d'attente pour une nouvelle tentative",
+
+  //"search.filters.applied.f.activity_stream_type": "Activity stream type",
+  "search.filters.applied.f.activity_stream_type": "Type de flux d'activité",
+
+  //"search.filters.applied.f.coar_notify_type": "COAR Notify type",
+  "search.filters.applied.f.coar_notify_type": "Type COAR Notify",
+
+  //"search.filters.applied.f.notification_type": "Notification type",
+  "search.filters.applied.f.notification_type": "Type d'avis",
+
+  //"search.filters.filter.coar_notify_type.label": "Search COAR Notify type",
+  "search.filters.filter.coar_notify_type.label": "Chercher le type COAR Notify",
+
+  //"search.filters.filter.notification_type.label": "Search notification type",
+  "search.filters.filter.notification_type.label": "Chercher le type d'avis",
+
+  //"search.filters.filter.relateditem.placeholder": "Related items",
+  "search.filters.filter.relateditem.placeholder": "Items liés",
+
+  //"search.filters.filter.target.placeholder": "Target",
+  "search.filters.filter.target.placeholder": "Cible",
+
+  //"search.filters.filter.origin.label": "Search source",
+  "search.filters.filter.origin.label": "Chercher la source",
+
+  //"search.filters.filter.origin.placeholder": "Source",
+  "search.filters.filter.origin.placeholder": "Source",
+
+  //"search.filters.filter.ldn_service.label": "Search LDN Service",
+  "search.filters.filter.ldn_service.label": "Chercher le service LDN",
+
+  //"search.filters.filter.ldn_service.placeholder": "LDN Service",
+  "search.filters.filter.ldn_service.placeholder": "Service LDN",
+
+  //"search.filters.filter.queue_status.placeholder": "Queue status",
+  "search.filters.filter.queue_status.placeholder": "Statut de la file d'attente",
+
+  //"search.filters.filter.activity_stream_type.placeholder": "Activity stream type",
+  "search.filters.filter.activity_stream_type.placeholder": "Type de flux d'activité",
+
+  //"search.filters.filter.coar_notify_type.placeholder": "COAR Notify type",
+  "search.filters.filter.coar_notify_type.placeholder": "Type COAR Notify",
+
+  //"search.filters.filter.notification_type.placeholder": "Notification",
+  "search.filters.filter.notification_type.placeholder": "Avis",
+
+  //"search.filters.filter.notifyRelation.head": "Notify Relation",
+  "search.filters.filter.notifyRelation.head": "Relation Notify",
+
+  //"search.filters.filter.notifyRelation.label": "Search Notify Relation",
+  "search.filters.filter.notifyRelation.label": "Chercher une relation Notify",
+
+  //"search.filters.filter.notifyRelation.placeholder": "Notify Relation",
+  "search.filters.filter.notifyRelation.placeholder": "Relation Notify",
+
+  //"search.filters.filter.notifyReview.head": "Notify Review",
+  "search.filters.filter.notifyReview.head": "Évaluation Notify",
+
+  //"search.filters.filter.notifyReview.label": "Search Notify Review",
+  "search.filters.filter.notifyReview.label": "Chercher une évaluation Notify",
+
+  //"search.filters.filter.notifyReview.placeholder": "Notify Review",
+  "search.filters.filter.notifyReview.placeholder": "Évaluation Notify",
+
+  //"search.filters.coar_notify_type.coar-notify:ReviewAction": "Review action",
+  "search.filters.coar_notify_type.coar-notify:ReviewAction": "Action d'évaluation",
+
+  //"search.filters.coar_notify_type.coar-notify:ReviewAction,authority": "Review action",
+  "search.filters.coar_notify_type.coar-notify:ReviewAction,authority": "Action d'évaluation",
+
+  //"notify-detail-modal.coar-notify:ReviewAction": "Review action",
+  "notify-detail-modal.coar-notify:ReviewAction": "Action d'évaluation",
+
+  //"search.filters.coar_notify_type.coar-notify:EndorsementAction": "Endorsement action",
+  "search.filters.coar_notify_type.coar-notify:EndorsementAction": "Action d'approbation",
+
+  //"search.filters.coar_notify_type.coar-notify:EndorsementAction,authority": "Endorsement action",
+  "search.filters.coar_notify_type.coar-notify:EndorsementAction,authority": "Action d'approbation",
+
+  //"notify-detail-modal.coar-notify:EndorsementAction": "Endorsement action",
+  "notify-detail-modal.coar-notify:EndorsementAction": "Action d'approbation",
+
+  //"search.filters.coar_notify_type.coar-notify:IngestAction": "Ingest action",
+  "search.filters.coar_notify_type.coar-notify:IngestAction": "Action d'ingestion",
+
+  //"search.filters.coar_notify_type.coar-notify:IngestAction,authority": "Ingest action",
+  "search.filters.coar_notify_type.coar-notify:IngestAction,authority": "Action d'ingestion",
+
+  //"notify-detail-modal.coar-notify:IngestAction": "Ingest action",
+  "notify-detail-modal.coar-notify:IngestAction": "Action d'ingestion",
+
+  //"search.filters.coar_notify_type.coar-notify:RelationshipAction": "Relationship action",
+  "search.filters.coar_notify_type.coar-notify:RelationshipAction": "Action de relation",
+
+  //"search.filters.coar_notify_type.coar-notify:RelationshipAction,authority": "Relationship action",
+  "search.filters.coar_notify_type.coar-notify:RelationshipAction,authority": "Action de relation",
+
+  //"notify-detail-modal.coar-notify:RelationshipAction": "Relationship action",
+  "notify-detail-modal.coar-notify:RelationshipAction": "Action de relation",
+
+  //"search.filters.queue_status.QUEUE_STATUS_QUEUED": "Queued",
+  "search.filters.queue_status.QUEUE_STATUS_QUEUED": "En file d'attente",
+
+  //"notify-detail-modal.QUEUE_STATUS_QUEUED": "Queued",
+  "notify-detail-modal.QUEUE_STATUS_QUEUED": "En file d'attente",
+
+  //"search.filters.queue_status.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
+  "search.filters.queue_status.QUEUE_STATUS_QUEUED_FOR_RETRY": "En file d'attente pour une nouvelle tentative",
+
+  //"notify-detail-modal.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
+  "notify-detail-modal.QUEUE_STATUS_QUEUED_FOR_RETRY": "En file d'attente pour une nouvelle tentative",
+
+  //"search.filters.queue_status.QUEUE_STATUS_PROCESSING": "Processing",
+  "search.filters.queue_status.QUEUE_STATUS_PROCESSING": "En traitement",
+
+  //"notify-detail-modal.QUEUE_STATUS_PROCESSING": "Processing",
+  "notify-detail-modal.QUEUE_STATUS_PROCESSING": "En traitement",
+
+  //"search.filters.queue_status.QUEUE_STATUS_PROCESSED": "Processed",
+  "search.filters.queue_status.QUEUE_STATUS_PROCESSED": "Traité",
+
+  //"notify-detail-modal.QUEUE_STATUS_PROCESSED": "Processed",
+  "notify-detail-modal.QUEUE_STATUS_PROCESSED": "Traité",
+
+  //"search.filters.queue_status.QUEUE_STATUS_FAILED": "Failed",
+  "search.filters.queue_status.QUEUE_STATUS_FAILED": "En échec",
+
+  //"notify-detail-modal.QUEUE_STATUS_FAILED": "Failed",
+  "notify-detail-modal.QUEUE_STATUS_FAILED": "En échec",
+
+  //"search.filters.queue_status.QUEUE_STATUS_UNTRUSTED": "Untrusted",
+  "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED": "Non fiable",
+
+  //"search.filters.queue_status.QUEUE_STATUS_UNTRUSTED_IP": "Untrusted Ip",
+  "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED_IP": "IP non fiable",
+
+  //"notify-detail-modal.QUEUE_STATUS_UNTRUSTED": "Untrusted",
+  "notify-detail-modal.QUEUE_STATUS_UNTRUSTED": "Non fiable",
+
+  //"notify-detail-modal.QUEUE_STATUS_UNTRUSTED_IP": "Untrusted Ip",
+  "notify-detail-modal.QUEUE_STATUS_UNTRUSTED_IP": "IP non fiable",
+
+  //"search.filters.queue_status.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
+  "search.filters.queue_status.QUEUE_STATUS_UNMAPPED_ACTION": "Action non répertoriée",
+
+  //"notify-detail-modal.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
+  "notify-detail-modal.QUEUE_STATUS_UNMAPPED_ACTION": "Action non répertoriée",
+
+  //"sorting.queue_last_start_time.DESC": "Last started queue Descending",
+  "sorting.queue_last_start_time.DESC": "Dernière file d'attente démarrée Descendant",
+
+  //"sorting.queue_last_start_time.ASC": "Last started queue Ascending",
+  "sorting.queue_last_start_time.ASC": "Dernière file d'attente démarrée Ascendant",
+
+  //"sorting.queue_attempts.DESC": "Queue attempted Descending",
+  "sorting.queue_attempts.DESC": "Tentative de mise en file d'attente Descendant",
+
+  //"sorting.queue_attempts.ASC": "Queue attempted Ascending",
+  "sorting.queue_attempts.ASC": "Tentative de mise en file d'attente Ascendant",
+
+  //"NOTIFY.incoming.involvedItems.search.results.head": "Items involved in incoming LDN",
+  "NOTIFY.incoming.involvedItems.search.results.head": "Items inclus dans le LDN entrant",
+
+  //"NOTIFY.outgoing.involvedItems.search.results.head": "Items involved in outgoing LDN",
+  "NOTIFY.outgoing.involvedItems.search.results.head": "Items inclus dans le LDN en cours",
+
+  //"type.notify-detail-modal": "Type",
+  "type.notify-detail-modal": "Type",
+
+  //"id.notify-detail-modal": "Id",
+  "id.notify-detail-modal": "Identifiant",
+
+  //"coarNotifyType.notify-detail-modal": "COAR Notify type",
+  "coarNotifyType.notify-detail-modal": "Type COAR Notify",
+
+  //"activityStreamType.notify-detail-modal": "Activity stream type",
+  "activityStreamType.notify-detail-modal": "Type de flux d'activité",
+
+  //"inReplyTo.notify-detail-modal": "In reply to",
+  "inReplyTo.notify-detail-modal": "En réponse à",
+
+  //"object.notify-detail-modal": "Repository Item",
+  "object.notify-detail-modal": "Item du dépôt",
+
+  //"context.notify-detail-modal": "Repository Item",
+  "context.notify-detail-modal": "Item du dépôt",
+
+  //"queueAttempts.notify-detail-modal": "Queue attempts",
+  "queueAttempts.notify-detail-modal": "Tentatives de mise en file d'attente",
+
+  //"queueLastStartTime.notify-detail-modal": "Queue last started",
+  "queueLastStartTime.notify-detail-modal": "Dernière file d'attente démarrée",
+
+  //"origin.notify-detail-modal": "LDN Service",
+  "origin.notify-detail-modal": "Service LDN",
+
+  //"target.notify-detail-modal": "LDN Service",
+  "target.notify-detail-modal": "Service LDN",
+
+  //"queueStatusLabel.notify-detail-modal": "Queue status",
+  "queueStatusLabel.notify-detail-modal": "Statut de la file d'attente",
+
+  //"queueTimeout.notify-detail-modal": "Queue timeout",
+  "queueTimeout.notify-detail-modal": "Délai de mise en file d'attente",
+
+  //"notify-message-modal.title": "Message Detail",
+  "notify-message-modal.title": "Détail du message",
+
+  //"notify-message-modal.show-message": "Show message",
+  "notify-message-modal.show-message": "Voir le message",
+
+  //notify-message-result.timestamp": "Timestamp",
+  "notify-message-result.timestamp": "Estampille temporelle",
+
+  //"notify-message-result.repositoryItem": "Repository Item",
+  "notify-message-result.repositoryItem": "Item du dépôt",
+
+  //"notify-message-result.ldnService": "LDN Service",
+  "notify-message-result.ldnService": "Service LDN",
+
+  //"notify-message-result.type": "Type",
+  "notify-message-result.type": "Type",
+
+  //"notify-message-result.status": "Status",
+  "notify-message-result.status": "Statut",
+
+  //"notify-message-result.action": "Action",
+  "notify-message-result.action": "Action",
+
+  //"notify-message-result.detail": "Detail",
+  "notify-message-result.detail": "Détail",
+
+  //"notify-message-result.reprocess": "Reprocess",
+  "notify-message-result.reprocess": "Réexécuter",
+
+  //"notify-queue-status.processed": "Processed",
+  "notify-queue-status.processed": "Traité",
+
+  //"notify-queue-status.failed": "Failed",
+  "notify-queue-status.failed": "En échec",
+
+  //"notify-queue-status.queue_retry": "Queued for retry",
+  "notify-queue-status.queue_retry": "En file d'attente pour une nouvelle tentative",
+
+  //"notify-queue-status.unmapped_action": "Unmapped action",
+  "notify-queue-status.unmapped_action": "Action non répertoriée",
+
+  //"notify-queue-status.processing": "Processing",
+  "notify-queue-status.processing": "En traitement",
+
+  //"notify-queue-status.queued": "Queued",
+  "notify-queue-status.queued": "En file d'attente",
+
+  //"notify-queue-status.untrusted": "Untrusted",
+  "notify-queue-status.untrusted": "Non fiable",
+
+  //"ldnService.notify-detail-modal": "LDN Service",
+  "ldnService.notify-detail-modal": "Service LDN",
+
+  //"relatedItem.notify-detail-modal": "Related Item",
+  "relatedItem.notify-detail-modal": "Item lié",
+
+  //"search.filters.filter.notifyEndorsement.head": "Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.head": "Approbation Notify",
+
+  //"search.filters.filter.notifyEndorsement.placeholder": "Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.placeholder": "Approbation Notify",
+
+  //"search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.label": "Chercher l'approbation Notify",
+
+  //"item.page.cc.license.title": "Creative Commons license",
+  "item.page.cc.license.title": "Licence Creative Commons",
+
+  //"item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  "item.page.cc.license.disclaimer": "Sauf indication contraire, la licence de cet Item est décrite comme",
+
+  //"browse.search-form.placeholder": "Search the repository",
+  "browse.search-form.placeholder": "Chercher dans le dépôt",
 }
 
