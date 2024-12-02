@@ -102,7 +102,7 @@
     "lru-cache": "^7.14.1",
     "markdown-it": "^13.0.2",
     "markdown-it-mathjax3": "^4.3.2",
-    "mirador": "^3.3.0",
+    "mirador": "^3.4.0",
     "mirador-dl-plugin": "^0.13.0",
     "mirador-share-plugin": "^0.16.0",
     "morgan": "^1.10.0",
