@@ -6,6 +6,7 @@ import {
   startWith,
 } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import {
   hasValue,
   hasValueOperator,
@@ -16,7 +17,6 @@ import {
   followLink,
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SortDirection } from '../cache/models/sort-options.model';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
@@ -38,9 +38,15 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
-export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
-  followLink('thumbnail'),
-];
+export function getBrowseLinksToFollow(): FollowLinkConfig<BrowseEntry | Item>[] {
+  const followLinks = [
+    followLink('thumbnail'),
+  ];
+  if (environment.item.showAccessStatuses) {
+    followLinks.push(followLink('accessStatus'));
+  }
+  return followLinks;
+}
 
 /**
  * The service handling all browse requests
@@ -67,7 +73,6 @@ export class BrowseService {
     protected halService: HALEndpointService,
     private browseDefinitionDataService: BrowseDefinitionDataService,
     private hrefOnlyDataService: HrefOnlyDataService,
-    private rdb: RemoteDataBuildService,
   ) {
   }
 
@@ -117,7 +122,7 @@ export class BrowseService {
       }),
     );
     if (options.fetchThumbnail ) {
-      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...getBrowseLinksToFollow());
     }
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
@@ -165,7 +170,7 @@ export class BrowseService {
       }),
     );
     if (options.fetchThumbnail) {
-      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, undefined, undefined, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, undefined, undefined, ...getBrowseLinksToFollow());
     }
     return this.hrefOnlyDataService.findListByHref<Item>(href$);
   }

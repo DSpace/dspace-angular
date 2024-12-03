@@ -68,7 +68,7 @@ describe('BrowseLinkMetadataListElementComponent', () => {
     });
   });
 
-  describe('with metadata wit an url', () => {
+  describe('with metadata with an url', () => {
     beforeEach(() => {
       comp.mdRepresentation = mockMetadataRepresentationWithUrl;
       spyOnProperty(comp.mdRepresentation, 'representationType', 'get').and.returnValue(MetadataRepresentationType.BrowseLink);
