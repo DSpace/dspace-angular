@@ -4,10 +4,12 @@
 
     <div class="list-group list-group-horizontal">
       <a *ngFor="let option of allOptions"
-         class="list-group-item"
+         class="d-flex list-group-item"
          [routerLink]="option.routerLink"
          [queryParams]="option.params"
-         routerLinkActive="active">{{ option.label | translate }}</a>
+         routerLinkActive="active">
+        <span class="my-auto">{{ option.label | translate }}</span>
+      </a>
     </div>
   </div>
 
