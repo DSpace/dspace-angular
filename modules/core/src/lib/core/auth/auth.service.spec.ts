@@ -20,12 +20,11 @@ import {
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache';
-import { CoreState } from '@dspace/core';
+
 import { RemoteData } from '../data';
 import { EPersonDataService } from '../eperson';
 import { EPerson } from '../eperson';
-import { getMockTranslateService } from '../mocks';
-import { NotificationsService } from '@dspace/core';
+
 import { ClientCookieService } from '../services';
 import { CookieService } from '../services';
 import { HardRedirectService } from '../services';
@@ -36,33 +35,25 @@ import {
 } from '../services';
 import { REQUEST } from '../tokens';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { ActivatedRouteStub } from '../utilities';
-import { AuthRequestServiceStub } from '../utilities';
-import { authMethodsMock } from '../utilities';
-import { EPersonMock } from '../utilities';
-import { NotificationsServiceStub } from '../utilities';
-import { routeServiceStub } from '../utilities';
-import { RouterStub } from '../utilities';
-import {
-  SpecialGroupDataMock,
-  SpecialGroupDataMock$,
-} from '../utilities';
-import {
-  SetUserAsIdleAction,
-  UnsetUserAsIdleAction,
-} from '@dspace/core';
-import {
-  authReducer,
-  AuthState,
-} from '@dspace/core';
-import {
-  AuthService,
-  IMPERSONATING_COOKIE,
-} from '@dspace/core';
-import { AuthRequestService } from '@dspace/core';
+
 import { AuthMethod } from './models';
 import { AuthStatus } from './models';
 import { AuthTokenInfo } from './models';
+import { EPersonMock } from '../utilities/testing/eperson.mock';
+import { SpecialGroupDataMock, SpecialGroupDataMock$ } from '../utilities/testing/special-group.mock';
+import { RouterStub } from '../utilities/testing/router.stub';
+import { AuthRequestServiceStub } from '../utilities/testing/auth-request-service.stub';
+import { ActivatedRouteStub } from '../utilities/testing/active-router.stub';
+import { routeServiceStub } from '../utilities/testing/route-service.stub';
+import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+import { getMockTranslateService } from '../mocks/translate.service.mock';
+import { authMethodsMock } from '../utilities/testing/auth-service.stub';
+import { authReducer, AuthState } from './auth.reducer';
+import { AuthService, IMPERSONATING_COOKIE } from './auth.service';
+import { AuthRequestService } from './auth-request.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { SetUserAsIdleAction, UnsetUserAsIdleAction } from './auth.actions';
+import { CoreState } from '../core-state.model';
 
 describe('AuthService test', () => {
 

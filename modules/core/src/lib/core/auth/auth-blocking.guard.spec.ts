@@ -12,10 +12,10 @@ import {
 } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 
-import { CoreState } from '@dspace/core';
-import { mockStoreModuleConfig } from '../utilities';
-import { authReducer } from '@dspace/core';
-import { authBlockingGuard } from '@dspace/core';
+import { CoreState } from '../core-state.model';
+import { authReducer } from './auth.reducer';
+import { authBlockingGuard } from './auth-blocking.guard';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
 
 describe('authBlockingGuard', () => {
   let guard: any;

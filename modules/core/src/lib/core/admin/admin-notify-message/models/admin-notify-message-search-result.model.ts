@@ -1,5 +1,5 @@
-import { SearchResult } from '@dspace/core';
 import { AdminNotifyMessage } from './admin-notify-message.model';
+import { SearchResult } from '../../../shared';
 
 export class AdminNotifySearchResult extends SearchResult<AdminNotifyMessage> {
 }

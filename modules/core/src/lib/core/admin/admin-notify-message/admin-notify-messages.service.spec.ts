@@ -6,20 +6,15 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { RestResponse } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntry } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { LdnServicesService } from '@dspace/core';
-import { AdminNotifyMessage } from '@dspace/core';
-import { AdminNotifyMessagesService } from '@dspace/core';
+import {
+  mockAdminNotifyMessages
+} from '../../../../../../../src/app/admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component.spec';
+import { AdminNotifyMessage, AdminNotifyMessagesService } from './';
+import { ItemDataService, RemoteData, RequestEntry, RequestEntryState, RequestService } from '../../data';
+import { ObjectCacheService, RemoteDataBuildService, RestResponse } from '../../cache';
+import { HALEndpointService } from '../../shared';
+import { LdnServicesService } from '../';
+import { createSuccessfulRemoteDataObject$, NotificationsService } from '../../';
 
 describe('AdminNotifyMessagesService test', () => {
   let service: AdminNotifyMessagesService;

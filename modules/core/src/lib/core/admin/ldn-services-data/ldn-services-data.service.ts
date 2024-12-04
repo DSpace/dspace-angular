@@ -6,42 +6,21 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { RequestParam } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
+
 import {
-  CreateData,
-  CreateDataImpl,
-} from '@dspace/core';
-import {
-  DeleteData,
-  DeleteDataImpl,
-} from '@dspace/core';
-import {
-  FindAllData,
-  FindAllDataImpl,
-} from '@dspace/core';
-import { IdentifiableDataService } from '@dspace/core';
-import {
-  PatchData,
-  PatchDataImpl,
-} from '@dspace/core';
-import { SearchDataImpl } from '@dspace/core';
-import { ChangeAnalyzer } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { FollowLinkConfig } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { MultipartPostRequest } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RestRequest } from '@dspace/core';
-import { RestRequestMethod } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
-import { LdnServiceConstrain } from '../../data';
+  ChangeAnalyzer,
+  CreateData, CreateDataImpl,
+  DeleteData, DeleteDataImpl,
+  FindAllData, FindAllDataImpl, FindListOptions, FollowLinkConfig,
+  IdentifiableDataService,
+  LdnServiceConstrain, MultipartPostRequest, PaginatedList,
+  PatchData, PatchDataImpl, RemoteData, RequestService, RestRequest, RestRequestMethod, SearchDataImpl
+} from '../../data';
 import { LdnService } from '../../data';
+import { ObjectCacheService, RemoteDataBuildService, RequestParam } from '../../cache';
+import { HALEndpointService, NoContent } from '../../shared';
+import { NotificationsService } from '../../notifications';
+import { URLCombiner } from '../../url-combiner';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the ldnservices endpoint.

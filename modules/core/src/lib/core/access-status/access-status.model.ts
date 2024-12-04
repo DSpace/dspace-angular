@@ -2,13 +2,12 @@ import {
   autoserialize,
   deserialize,
 } from 'cerialize';
-import { typedObject } from '@dspace/core';
-import { CacheableObject } from '@dspace/core';
-import { HALLink } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
-import { excludeFromEquals } from '@dspace/core';
+
 
 import { ACCESS_STATUS } from './access-status.resource-type';
+import { CacheableObject, typedObject } from '../cache';
+import { excludeFromEquals } from '../utilities';
+import { HALLink, ResourceType } from '../shared';
 
 @typedObject
 export class AccessStatusObject implements CacheableObject {

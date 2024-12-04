@@ -5,12 +5,11 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { typedObject } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { excludeFromEquals } from '@dspace/core';
 import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
+import { DSpaceObject, GenericConstructor } from '../../../shared';
+import { typedObject } from '../../../cache';
+import { excludeFromEquals } from '../../../utilities';
+import { ListableObject } from '../../../object-collection';
 
 /**
  * A message that includes admin notify info

@@ -9,11 +9,12 @@ import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
 import { RestRequestMethod } from '../data';
-import { DspaceRestService } from '@dspace/core';
-import { AuthServiceStub } from '../utilities';
-import { RouterStub } from '../utilities';
-import { AuthInterceptor } from '@dspace/core';
-import { AuthService } from '@dspace/core';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { AuthServiceStub } from '../utilities/testing/auth-service.stub';
+import { AuthService } from './auth.service';
+import { RouterStub } from '../utilities/testing/router.stub';
+import { AuthInterceptor } from './auth.interceptor';
+
 
 describe(`AuthInterceptor`, () => {
   let service: DspaceRestService;

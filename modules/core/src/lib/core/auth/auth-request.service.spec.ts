@@ -9,13 +9,15 @@ import { RemoteData } from '../data';
 import { PostRequest } from '../data';
 import { RequestService } from '../data';
 import { RestRequestMethod } from '../data';
-import { HttpOptions } from '@dspace/core';
+
 import { HALEndpointService } from '../shared';
 import { createSuccessfulRemoteDataObject } from '../utilities';
-import { AuthRequestService } from '@dspace/core';
+
 import { AuthStatus } from './models';
 import { ShortLivedToken } from './models';
 import objectContaining = jasmine.objectContaining;
+import { AuthRequestService } from './auth-request.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 
 describe(`AuthRequestService`, () => {
   let halService: HALEndpointService;

@@ -13,21 +13,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { IdentifiableDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { PostRequest } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RestRequest } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-} from '@dspace/core';
+
 import { LdnServicesService } from '../ldn-services-data';
 import { AdminNotifyMessage } from './models';
+import { IdentifiableDataService, ItemDataService, PostRequest, RequestService, RestRequest } from '../../data';
+import { ObjectCacheService, RemoteDataBuildService } from '../../cache';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, HALEndpointService } from '../../shared';
+import { NotificationsService } from '../../notifications';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the messages' endpoint.

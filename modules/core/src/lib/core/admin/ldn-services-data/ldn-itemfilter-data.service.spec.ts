@@ -4,20 +4,20 @@ import {
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { LdnItemfiltersService } from './ldn-itemfilters-data.service';
+import { RequestService } from '../../data/request.service';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { RequestEntry } from '../../data/request-entry.model';
+import { RemoteData } from '../../data/remote-data';
+import { RequestEntryState } from '../../data/request-entry-state.model';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
+import { RestResponse } from '../../cache/response.models';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { RestResponse } from '@dspace/core';
-import { FindAllData } from '@dspace/core';
-import { testFindAllDataImplementation } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntry } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { LdnItemfiltersService } from '@dspace/core';
+
 
 describe('LdnItemfiltersService test', () => {
   let scheduler: TestScheduler;

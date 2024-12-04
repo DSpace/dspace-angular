@@ -1,4 +1,4 @@
-import { ResourceType } from '@dspace/core';
+import { ResourceType } from '../shared';
 
 /**
  * The resource type for Access Status

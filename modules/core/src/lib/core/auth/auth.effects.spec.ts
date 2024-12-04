@@ -22,15 +22,21 @@ import {
   throwError as observableThrow,
 } from 'rxjs';
 
-import { CoreState } from '@dspace/core';
 import { AuthorizationDataService } from '../data';
 import { type } from '../shared';
+
+
+
+import { AuthStatus } from './models';
 import {
-  authMethodsMock,
-  AuthServiceStub,
-} from '../utilities';
-import { EPersonMock } from '../utilities';
-import { mockStoreModuleConfig } from '../utilities';
+  isAuthenticated,
+  isAuthenticatedLoaded,
+} from './selectors';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
+import { AuthEffects } from './auth.effects';
+import { CoreState } from '../core-state.model';
+import { authReducer } from './auth.reducer';
+import { AuthService } from './auth.service';
 import {
   AuthActionTypes,
   AuthenticatedAction,
@@ -46,19 +52,11 @@ import {
   RetrieveAuthenticatedEpersonAction,
   RetrieveAuthenticatedEpersonErrorAction,
   RetrieveAuthenticatedEpersonSuccessAction,
-  RetrieveAuthMethodsAction,
-  RetrieveAuthMethodsErrorAction,
-  RetrieveAuthMethodsSuccessAction,
-  RetrieveTokenAction,
-} from '@dspace/core';
-import { AuthEffects } from '@dspace/core';
-import { authReducer } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthStatus } from './models';
-import {
-  isAuthenticated,
-  isAuthenticatedLoaded,
-} from './selectors';
+  RetrieveAuthMethodsAction, RetrieveAuthMethodsErrorAction, RetrieveAuthMethodsSuccessAction,
+  RetrieveTokenAction
+} from './auth.actions';
+import { authMethodsMock, AuthServiceStub } from '../utilities/testing/auth-service.stub';
+import { EPersonMock } from '../utilities/testing/eperson.mock';
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;

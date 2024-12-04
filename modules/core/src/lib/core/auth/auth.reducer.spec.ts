@@ -1,4 +1,3 @@
-import { EPersonMock } from '../utilities';
 import {
   AddAuthenticationMessageAction,
   AuthenticateAction,
@@ -24,18 +23,14 @@ import {
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
   SetAuthCookieStatus,
-  SetRedirectUrlAction,
-  SetUserAsIdleAction,
-  UnsetUserAsIdleAction,
-} from '@dspace/core';
-import {
-  authReducer,
-  AuthState,
-} from '@dspace/core';
+  SetRedirectUrlAction, SetUserAsIdleAction, UnsetUserAsIdleAction
+} from './auth.actions';
+import { authReducer, AuthState } from './auth.reducer';
 import { AuthMethod } from './models';
 import { AuthMethodType } from './models';
 import { AuthStatus } from './models';
 import { AuthTokenInfo } from './models';
+import { EPersonMock } from '../utilities/testing/eperson.mock';
 
 describe('authReducer', () => {
 

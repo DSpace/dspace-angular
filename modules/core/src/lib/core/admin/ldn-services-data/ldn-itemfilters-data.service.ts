@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
+
 import {
   FindAllData,
   FindAllDataImpl,
-} from '@dspace/core';
-import { IdentifiableDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { FollowLinkConfig } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Itemfilter } from '../../data';
+  FindListOptions, FollowLinkConfig,
+  IdentifiableDataService,
+  Itemfilter, PaginatedList, RemoteData,
+  RequestService
+} from '../../data';
+import { ObjectCacheService, RemoteDataBuildService } from '../../cache';
+import { HALEndpointService } from '../../shared';
+import { NotificationsService } from '../../notifications';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the itemfilters endpoint
