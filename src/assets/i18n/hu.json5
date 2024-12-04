@@ -2901,10 +2901,10 @@
   "footer.link.coar-notify-support": "COAR Notify",
 
   // "forgot-email.form.header": "Forgot Password",
-  "forgot-email.form.header": "Elfelejtettem a jelszót",
+  "forgot-email.form.header": "Elfelejtett jelszó",
 
   // "forgot-email.form.info": "Enter the email address associated with the account.",
-  "forgot-email.form.info": "Írja be a fiókhoz rendelt e-mail címet.",
+  "forgot-email.form.info": "Kérjük adja meg a fiókhoz rendelt e-mail címét.",
 
   // "forgot-email.form.email": "Email Address *",
   "forgot-email.form.email": "E-mail cím *",
@@ -2916,7 +2916,7 @@
   "forgot-email.form.email.error.not-email-form": "Please fill in a valid email address",
 
   // "forgot-email.form.email.hint": "An email will be sent to this address with a further instructions.",
-  "forgot-email.form.email.hint": "Elküldtünk egy e-mailt erre a címre további utasításokkal.",
+  "forgot-email.form.email.hint": "A megadott email címre érkezni fog egy levél a további utasításokkal.",
 
   // "forgot-email.form.submit": "Reset password",
   "forgot-email.form.submit": "Jelszó visszaállítása",
@@ -2934,10 +2934,10 @@
   "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   // "forgot-password.title": "Forgot Password",
-  "forgot-password.title": "Elfelejtettem a jelszót",
+  "forgot-password.title": "Elfelejtett jelszó",
 
   // "forgot-password.form.head": "Forgot Password",
-  "forgot-password.form.head": "Elfelejtettem a jelszót",
+  "forgot-password.form.head": "Elfelejtett jelszó",
 
   // "forgot-password.form.info": "Enter a new password in the box below, and confirm it by typing it again into the second box.",
   "forgot-password.form.info": "Írjon be egy új jelszót a lenti mezőbe, és igazolja a második mezőbe újraírva azt.",
@@ -6132,7 +6132,7 @@
   "suggestion.type.openaire": "OpenAIRE",
 
   // "register-email.title": "New user registration",
-  "register-email.title": "Új felhasználó regisztrálása",
+  "register-email.title": "Új felhasználó regisztrációja",
 
   // "register-page.create-profile.header": "Create Profile",
   "register-page.create-profile.header": "Profil létrehozása",
@@ -6213,7 +6213,7 @@
   "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
-  "register-page.registration.email.hint": "Az e-mail cím ellenőrizve lesz és evvel tud belépni a rendszerbe.",
+  "register-page.registration.email.hint": "A regisztráció során az e-mail cím megerősítésére lesz szükség, mert bejelentkezési névként ez a cím kerül felhasználásra.",
 
   // "register-page.registration.submit": "Register",
   "register-page.registration.submit": "Regisztráció",
@@ -6222,7 +6222,7 @@
   "register-page.registration.success.head": "Ellenőrző e-mail elküldve",
 
   // "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  "register-page.registration.success.content": "Egy e-mail elküldve a(z) {{ email }} címre, tartalmaz egy speciális címet a további utasításokhoz.",
+  "register-page.registration.success.content": "Egy e-mail elküldve a(z) {{ email }} címre, amely tartalmaz egy hivatkozást a további utasításokhoz.",
 
   // "register-page.registration.error.head": "Error when trying to register email",
   "register-page.registration.error.head": "Hiba történt az e-mail cím regisztrációjakor",
