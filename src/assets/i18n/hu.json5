@@ -94,13 +94,13 @@
   "admin.registries.bitstream-formats.create.head": "Bitfolyam formátum létrehozása",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  "admin.registries.bitstream-formats.create.new": "Bitfolyam formátum hozzáadása.",
+  "admin.registries.bitstream-formats.create.new": "Bitfolyam formátum hozzáadása",
 
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
   "admin.registries.bitstream-formats.create.success.content": "Új bitfolyam formátum sikeresen létrehozva.",
 
   // "admin.registries.bitstream-formats.create.success.head": "Success",
-  "admin.registries.bitstream-formats.create.success.head": "Sikerült",
+  "admin.registries.bitstream-formats.create.success.head": "Sikeres művelet",
 
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
   "admin.registries.bitstream-formats.delete.failure.amount": "A {{ amount }} formátum(ok) törlése sikertelen",
@@ -112,7 +112,7 @@
   "admin.registries.bitstream-formats.delete.success.amount": "A {{ amount }} formátum(ok) sikeresen törölve",
 
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
-  "admin.registries.bitstream-formats.delete.success.head": "Sikerült",
+  "admin.registries.bitstream-formats.delete.success.head": "Sikeres művelet",
 
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
   "admin.registries.bitstream-formats.description": "Ez a bitfolyam formátum lista ismert formátumokról és azok támogatásáról nyújt információt.",
@@ -167,7 +167,7 @@
   "admin.registries.bitstream-formats.edit.success.content": "Bitfolyam formátum szerkesztése sikeres.",
 
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
-  "admin.registries.bitstream-formats.edit.success.head": "Sikerült",
+  "admin.registries.bitstream-formats.edit.success.head": "Sikeres művelet",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
   "admin.registries.bitstream-formats.edit.supportLevel.hint": "Intézménye ilyen szintű támogatást biztosít ennek a formátumnak.",
@@ -329,10 +329,10 @@
   "admin.registries.schema.notification.created": "Metaadat séma létrehozása sikerült \"{{prefix}}\"",
 
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  "admin.registries.schema.notification.deleted.failure": "A {{amount}} metaadat sémák törlése sikertelen",
+  "admin.registries.schema.notification.deleted.failure": "A(z) {{amount}} metaadat sémák törlése sikertelen",
 
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
-  "admin.registries.schema.notification.deleted.success": "A {{amount}} metaadat sémák törlése sikeres",
+  "admin.registries.schema.notification.deleted.success": "A(z) {{amount}} metaadat sémák törlése sikeres",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
   "admin.registries.schema.notification.edited": "Metaadat séma szerkesztése sikeres \"{{prefix}}\"",
@@ -353,7 +353,7 @@
   "admin.registries.schema.notification.field.edited": "metaadat mező szerkesztése sikeres\"{{field}}\"",
 
   // "admin.registries.schema.notification.success": "Success",
-  "admin.registries.schema.notification.success": "Sikerült",
+  "admin.registries.schema.notification.success": "Sikeres művelet",
 
   // "admin.registries.schema.return": "Back",
   "admin.registries.schema.return": "Vissza",
@@ -1418,13 +1418,13 @@
   "bitstream.edit.form.primaryBitstream.label": "Elsődleges fájl",
 
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
-  "bitstream.edit.form.selectedFormat.hint": "Amennyiben a formátum nem található a fentebbi listán, <b>válassza \"formátum nincs a listán\" feljebb</b> majd írja le \"Új formátum leírása\".",
+  "bitstream.edit.form.selectedFormat.hint": "Amennyiben a formátum nem található a fentebbi listában, <b>válassza \"formátum nincs a listában\" opciót</b>, majd pedig írja le \"Új formátum leírása\" mezőben.",
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
   "bitstream.edit.form.selectedFormat.label": "Kiválasztott formátum",
 
   // "bitstream.edit.form.selectedFormat.unknown": "Format not in list",
-  "bitstream.edit.form.selectedFormat.unknown": "Formátum nincs a listán",
+  "bitstream.edit.form.selectedFormat.unknown": "Formátum nincs a listában",
 
   // "bitstream.edit.notifications.error.format.title": "An error occurred saving the bitstream's format",
   "bitstream.edit.notifications.error.format.title": "Bitfolyam formátum mentése közben hiba történt",
@@ -1716,7 +1716,7 @@
   "collection.delete.cancel": "Mégse",
 
   // "collection.delete.confirm": "Confirm",
-  "collection.delete.confirm": "Mehet",
+  "collection.delete.confirm": "Megerősít",
 
   // "collection.delete.processing": "Deleting",
   "collection.delete.processing": "Törlés",
@@ -1768,37 +1768,37 @@
   "collection.edit.item-mapper.no-search": "Írja be a keresőszót",
 
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.map.error.content": "A {{amount}} tárgyak térképezésekor hiba történt.",
+  "collection.edit.item-mapper.notifications.map.error.content": "A(z) {{amount}} tárgy hozzárendelésekor hiba történt.",
 
   // "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
-  "collection.edit.item-mapper.notifications.map.error.head": "Térképezési hibák",
+  "collection.edit.item-mapper.notifications.map.error.head": "Hozzárendelés hibái",
 
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  "collection.edit.item-mapper.notifications.map.success.content": "A {{amount}} tárgyak térképezése sikerült.",
+  "collection.edit.item-mapper.notifications.map.success.content": "A(z) {{amount}} tárgy hozzárendelése sikeres.",
 
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
-  "collection.edit.item-mapper.notifications.map.success.head": "Térképezés befejezve",
+  "collection.edit.item-mapper.notifications.map.success.head": "Hozzárendelés befejeződött",
 
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.unmap.error.content": "A {{amount}} tárgyak térképezésének törlésekor hiba történt.",
+  "collection.edit.item-mapper.notifications.unmap.error.content": "A(z) {{amount}} tárgy hozzárendelésének törlésekor hiba történt.",
 
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
   "collection.edit.item-mapper.notifications.unmap.error.head": "Térképezési hibák törlése",
 
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  "collection.edit.item-mapper.notifications.unmap.success.content": "A {{amount}} tárgyak térképezése sikeresen törölve.",
+  "collection.edit.item-mapper.notifications.unmap.success.content": "A(z) {{amount}} tárgy térképezése sikeresen törölve.",
 
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
   "collection.edit.item-mapper.notifications.unmap.success.head": "Térképezés törlése befejeződött",
 
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  "collection.edit.item-mapper.remove": "Kiválasztott térgyak térképezésének törlése",
+  "collection.edit.item-mapper.remove": "Kiválasztott tárgyak hozzárendelésének törlése",
 
   // "collection.edit.item-mapper.search-form.placeholder": "Search items...",
   "collection.edit.item-mapper.search-form.placeholder": "Tárgyak keresése...",
 
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  "collection.edit.item-mapper.tabs.browse": "Térképezett tárgyak böngészése",
+  "collection.edit.item-mapper.tabs.browse": "Gyűjteményhez hozzárendelt tárgyak böngészése",
 
   // "collection.edit.item-mapper.tabs.map": "Map new items",
   "collection.edit.item-mapper.tabs.map": "Új tárgyak térképezése",
@@ -1816,7 +1816,7 @@
   "collection.edit.logo.notifications.add.error": "Gyűjtemény logó feltöltése sikertelen. Kérjük, ellenőrizze a tartalmat, mielőtt újra próbálkozna.",
 
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
-  "collection.edit.logo.notifications.add.success": "Gyűjtemény logó feltöltése sikerült.",
+  "collection.edit.logo.notifications.add.success": "Gyűjtemény logó feltöltése sikeres.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
   "collection.edit.logo.notifications.delete.success.title": "Logó törölve",
@@ -2638,7 +2638,7 @@
   "dso-selector.placeholder.type.collection": "Gyűjtemény",
 
   // "dso-selector.placeholder.type.item": "item",
-  "dso-selector.placeholder.type.item": "Elem",
+  "dso-selector.placeholder.type.item": "Tárgy",
 
   // "dso-selector.select.collection.head": "Select a collection",
   "dso-selector.select.collection.head": "Gyűjtemény kiválasztása",
@@ -3483,10 +3483,10 @@
   "item.edit.tabs.disabled.tooltip": "You're not authorized to access this tab",
 
   // "item.edit.tabs.mapper.head": "Collection Mapper",
-  "item.edit.tabs.mapper.head": "Gyűjteményhez rendelés",
+  "item.edit.tabs.mapper.head": "Gyűjteményi hozzárendelés",
 
   // "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
-  "item.edit.tabs.item-mapper.title": "Item Edit - Collection Mapper",
+  "item.edit.tabs.item-mapper.title": "Elem szerkesztése - Gyűjteményi hozzárendelés",
 
   // "item.edit.identifiers.doi.status.UNKNOWN": "Unknown",
   "item.edit.identifiers.doi.status.UNKNOWN": "Unknown",
@@ -3537,7 +3537,7 @@
   "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
 
   // "item.edit.register-doi.confirm": "Confirm",
-  "item.edit.register-doi.confirm": "Confirm",
+  "item.edit.register-doi.confirm": "Megerősít",
 
   // "item.edit.register-doi.cancel": "Cancel",
   "item.edit.register-doi.cancel": "Mégse",
@@ -3552,59 +3552,59 @@
   "item.edit.register-doi.to-update": "The following DOI has already been minted and will be queued for registration online",
 
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
-  "item.edit.item-mapper.buttons.add": "Térképezze a tárgyat a kiválasztott gyűjteményekhez",
+  "item.edit.item-mapper.buttons.add": "A tárgy kiválasztott gyűjteményekhez való hozzárendelése",
 
   // "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
-  "item.edit.item-mapper.buttons.remove": "Törölje a tárgy térképezését a kiválasztott gyűjteményekhez",
+  "item.edit.item-mapper.buttons.remove": "Törölje a tárgy hozzárendelését a kiválasztott gyűjteményekhez",
 
   // "item.edit.item-mapper.cancel": "Cancel",
   "item.edit.item-mapper.cancel": "Mégse",
 
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-  "item.edit.item-mapper.description": "Ez a térképező eszköz, amellyel az adminisztrátorok ezt a tárgyat más gyűjteményekhez térképezhetik. Kereshet gyűjteményeket amelyekhez térképezze, vagy böngészheti azon gyűjtemények listáját, amelyhez jelenleg hozzá van térképezve..",
+  "item.edit.item-mapper.description": "A gyűjteményi hozzárendelés révén az adminisztrátorok ezt a tárgyat más gyűjteményekhez is hozzárendelhetik anélkül, hogy az adott elem duplikálásra kerülne. Az alábbi részen egyrészt böngészheti azon gyűjtemények listáját, amelyhez jelenleg a tartalmazó gyűjteményen kívül is már hozzá van rendelve, illetve gyűjtemények keresése révén új tudja új gyűjteményekhez rendelheti az aktuális elemet.",
 
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  "item.edit.item-mapper.head": "Tárgytérképező - Térképezze a tárgyat gyűjteményekhez",
+  "item.edit.item-mapper.head": "Elem hozzárendelése - A tárgy gyűjteményi hozzárendelése",
 
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
   // TODO New key - Add a translation
-  "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
+  "item.edit.item-mapper.item": "Tárgy: \"<b>{{name}}</b>\"",
 
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
-  "item.edit.item-mapper.no-search": "Kérjük írja be a keresett szót",
+  "item.edit.item-mapper.no-search": "Kérjük adja meg a keresőkifejezést",
 
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.add.error.content": "A tárgynak a {{amount}} gyűjteményekhez való térképezésekor hiba történt.",
+  "item.edit.item-mapper.notifications.add.error.content": "A tárgynak a {{amount}} gyűjteményekhez való hozzárendelésekor hiba történt.",
 
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
-  "item.edit.item-mapper.notifications.add.error.head": "Térképezési hibák",
+  "item.edit.item-mapper.notifications.add.error.head": "Hozzárendelés hibái",
 
   // "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.add.success.content": "Tárgy sikeresen térképezve {{amount}} gyűjteményhez.",
+  "item.edit.item-mapper.notifications.add.success.content": "Tárgy sikeresen hozzárendelve {{amount}} gyűjteményhez.",
 
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
-  "item.edit.item-mapper.notifications.add.success.head": "Térképezés befejeződött",
+  "item.edit.item-mapper.notifications.add.success.head": "Hozzárendelés befejeződött",
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.remove.error.content": "A {{amount}} gyűjteményekhez való térképezés eltávolításakor hiba történt.",
+  "item.edit.item-mapper.notifications.remove.error.content": "A(z) {{amount}} gyűjteményekhez való hozzárendelés eltávolításakor hiba történt.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
-  "item.edit.item-mapper.notifications.remove.error.head": "Térképezési hibák eltávolítása",
+  "item.edit.item-mapper.notifications.remove.error.head": "Hozzárendelési hibák eltávolítása",
 
   // "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.remove.success.content": "A {{amount}} gyűjteményhez való térképezés sikeresen eltávolítva.",
+  "item.edit.item-mapper.notifications.remove.success.content": "A(z) {{amount}} gyűjteményhez való hozzárendelés sikeresen eltávolítva.",
 
   // "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
-  "item.edit.item-mapper.notifications.remove.success.head": "Térképezés eltávolítása befejeződött",
+  "item.edit.item-mapper.notifications.remove.success.head": "A hozzárendelés eltávolítása befejeződött",
 
   // "item.edit.item-mapper.search-form.placeholder": "Search collections...",
-  "item.edit.item-mapper.search-form.placeholder": "Search collections...",
+  "item.edit.item-mapper.search-form.placeholder": "Gyűjtemények keresése...",
 
   // "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
-  "item.edit.item-mapper.tabs.browse": "Böngéssze a térképezett gyűjteményeket",
+  "item.edit.item-mapper.tabs.browse": "A már hozzárendelt gyűjtemények böngészése",
 
   // "item.edit.item-mapper.tabs.map": "Map new collections",
-  "item.edit.item-mapper.tabs.map": "Térképezzen új gyűjteményeket",
+  "item.edit.item-mapper.tabs.map": "Új gyűjtemények hozzárendelése",
 
   // "item.edit.metadata.add-button": "Add",
   "item.edit.metadata.add-button": "Hozzáadás",
@@ -3613,16 +3613,16 @@
   "item.edit.metadata.discard-button": "Elvetés",
 
   // "item.edit.metadata.edit.language": "Edit language",
-  "item.edit.metadata.edit.language": "Edit language",
+  "item.edit.metadata.edit.language": "Nyelv szerkesztése",
 
   // "item.edit.metadata.edit.value": "Edit value",
-  "item.edit.metadata.edit.value": "Edit value",
+  "item.edit.metadata.edit.value": "Érték módosítása",
 
   // "item.edit.metadata.edit.authority.key": "Edit authority key",
-  "item.edit.metadata.edit.authority.key": "Edit authority key",
+  "item.edit.metadata.edit.authority.key": "Autoritáskulcs szerkesztése",
 
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
-  "item.edit.metadata.edit.buttons.confirm": "Confirm",
+  "item.edit.metadata.edit.buttons.confirm": "Megerősít",
 
   // "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
   "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
@@ -3758,7 +3758,7 @@
   "item.edit.move.search.placeholder": "Írjon be keresőszót hogy gyűjteményeket találjon",
 
   // "item.edit.move.success": "The item has been moved successfully",
-  "item.edit.move.success": "Tárgy mozgatása sikerült",
+  "item.edit.move.success": "Tárgy mozgatása sikeres",
 
   // "item.edit.move.title": "Move item",
   "item.edit.move.title": "Tárgy mozgatása",
@@ -3816,7 +3816,7 @@
   "item.edit.reinstate.header": "Reinstate item: {{ id }}",
 
   // "item.edit.reinstate.success": "The item was reinstated successfully",
-  "item.edit.reinstate.success": "Tárgy visszaállítása sikerült",
+  "item.edit.reinstate.success": "Tárgy visszaállítása sikeres",
 
   // "item.edit.relationships.discard-button": "Discard",
   "item.edit.relationships.discard-button": "Elvetés",
@@ -3912,16 +3912,16 @@
   "item.edit.tabs.status.buttons.delete.label": "Tárgy teljes kitörlése",
 
   // "item.edit.tabs.status.buttons.mappedCollections.button": "Mapped collections",
-  "item.edit.tabs.status.buttons.mappedCollections.button": "Térképezett gyűjtemények",
+  "item.edit.tabs.status.buttons.mappedCollections.button": "Hozzárendelt gyűjtemények",
 
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
-  "item.edit.tabs.status.buttons.mappedCollections.label": "Térképezett gyűjtemények szervezése",
+  "item.edit.tabs.status.buttons.mappedCollections.label": "Hozzárendelt gyűjtemények szervezése",
 
   // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
   "item.edit.tabs.status.buttons.move.button": "Áthelyezés...",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
-  "item.edit.tabs.status.buttons.move.label": "Tárgy másik gyűjteménybe költöztetése",
+  "item.edit.tabs.status.buttons.move.label": "Tárgy áthelyezése másik gyűjteménybe",
 
   // "item.edit.tabs.status.buttons.private.button": "Make it non-discoverable...",
   "item.edit.tabs.status.buttons.private.button": "Legyen privát...",
@@ -3978,7 +3978,7 @@
   "item.edit.tabs.versionhistory.title": "Tárgy szerkesztése - Változatok története",
 
   // "item.edit.tabs.versionhistory.under-construction": "Editing or adding new versions is not yet possible in this user interface.",
-  "item.edit.tabs.versionhistory.under-construction": "Változatok szerkesztése, vagy újak hozzáadása ezen a felületen még nem lehetséges.",
+  "item.edit.tabs.versionhistory.under-construction": "Meglévő verziók szerkesztése vagy újak hozzáadása ezen a felületen még nem lehetséges.",
 
   // "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.head": "Tárgy megtekintése",
@@ -4003,13 +4003,13 @@
   "item.edit.withdraw.header": "Withdraw item: {{ id }}",
 
   // "item.edit.withdraw.success": "The item was withdrawn successfully",
-  "item.edit.withdraw.success": "Tárgy visszavonása sikerült",
+  "item.edit.withdraw.success": "Tárgy visszavonása sikeres",
 
   // "item.orcid.return": "Back",
   "item.orcid.return": "Vissza",
 
   // "item.listelement.badge": "Item",
-  "item.listelement.badge": "Elem",
+  "item.listelement.badge": "Tárgy",
 
   // "item.page.description": "Description",
   "item.page.description": "Leírás",
@@ -4369,22 +4369,22 @@
   "item.select.table.title": "Cím",
 
   // "item.version.history.empty": "There are no other versions for this item yet.",
-  "item.version.history.empty": "Ennek a tárgynak még nincs más változata.",
+  "item.version.history.empty": "E tárgynak még nincs más verziója.",
 
   // "item.version.history.head": "Version History",
-  "item.version.history.head": "Változatok története",
+  "item.version.history.head": "Verzió történet",
 
   // "item.version.history.return": "Back",
   "item.version.history.return": "Vissza",
 
   // "item.version.history.selected": "Selected version",
-  "item.version.history.selected": "Kiválasztott változat",
+  "item.version.history.selected": "A kiválasztott verzió",
 
   // "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
-  "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
+  "item.version.history.selected.alert": "Ön jelenleg az aktuális elem {{version}}.verzióját tekinti meg.",
 
   // "item.version.history.table.version": "Version",
-  "item.version.history.table.version": "Változat",
+  "item.version.history.table.version": "Verzió",
 
   // "item.version.history.table.item": "Item",
   "item.version.history.table.item": "Tárgy",
@@ -4399,37 +4399,37 @@
   "item.version.history.table.summary": "Összefoglaló",
 
   // "item.version.history.table.workspaceItem": "Workspace item",
-  "item.version.history.table.workspaceItem": "Workspace item",
+  "item.version.history.table.workspaceItem": "Munkaterület elem",
 
   // "item.version.history.table.workflowItem": "Workflow item",
-  "item.version.history.table.workflowItem": "Workflow item",
+  "item.version.history.table.workflowItem": "Munkafolyamat elem",
 
   // "item.version.history.table.actions": "Action",
-  "item.version.history.table.actions": "Action",
+  "item.version.history.table.actions": "Művelet",
 
   // "item.version.history.table.action.editWorkspaceItem": "Edit workspace item",
-  "item.version.history.table.action.editWorkspaceItem": "Edit workspace item",
+  "item.version.history.table.action.editWorkspaceItem": "Munkaterület elem szerkesztése",
 
   // "item.version.history.table.action.editSummary": "Edit summary",
-  "item.version.history.table.action.editSummary": "Edit summary",
+  "item.version.history.table.action.editSummary": "Összefoglaló szerkesztése",
 
   // "item.version.history.table.action.saveSummary": "Save summary edits",
-  "item.version.history.table.action.saveSummary": "Save summary edits",
+  "item.version.history.table.action.saveSummary": "Összefoglaló módosításának mentése",
 
   // "item.version.history.table.action.discardSummary": "Discard summary edits",
-  "item.version.history.table.action.discardSummary": "Discard summary edits",
+  "item.version.history.table.action.discardSummary": "Összefoglaló módosításának visszavonása",
 
   // "item.version.history.table.action.newVersion": "Create new version from this one",
-  "item.version.history.table.action.newVersion": "Create new version from this one",
+  "item.version.history.table.action.newVersion": "Új verzió létrehozása ebből a verzióból",
 
   // "item.version.history.table.action.deleteVersion": "Delete version",
-  "item.version.history.table.action.deleteVersion": "Delete version",
+  "item.version.history.table.action.deleteVersion": "Verzió törlése",
 
   // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
-  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
+  "item.version.history.table.action.hasDraft": "Az új verzió létrehozása sikertelen, mert egy folyamatban lévő feltöltés található a verziók történetében",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
-  "item.version.notice": "Ez nem ennek a tárgynak a legutóbbi változata. A legutóbbi változat megtalálható itt <a href='{{destination}}'>here</a>.",
+  "item.version.notice": "A jelen verzió ennek az elemnek nem a legutóbbi változata. A legutóbbi változat <a href='{{destination}}'>itt</a> található.",
 
   // "item.version.create.modal.header": "New version",
   "item.version.create.modal.header": "Új verzió",
@@ -4567,7 +4567,7 @@
   "itemtemplate.edit.metadata.edit.value": "Edit value",
 
   // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
-  "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
+  "itemtemplate.edit.metadata.edit.buttons.confirm": "Megerősít",
 
   // "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
   "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
@@ -5320,7 +5320,7 @@
   "nav.user.description": "User profile bar",
 
   // "none.listelement.badge": "Item",
-  "none.listelement.badge": "Item",
+  "none.listelement.badge": "Tárgy",
 
   // "quality-assurance.title": "Quality Assurance",
   "quality-assurance.title": "Quality Assurance",
@@ -5680,7 +5680,7 @@
   "process.new.parameter.required.missing": "The following parameters are required but still missing:",
 
   // "process.new.notification.success.title": "Success",
-  "process.new.notification.success.title": "Sikerült",
+  "process.new.notification.success.title": "Siker",
 
   // "process.new.notification.success.content": "The process was successfully created",
   "process.new.notification.success.content": "A folyamat sikeresen létrehozva",
@@ -8634,7 +8634,7 @@
   "workflow-item.selectrevieweraction.button.cancel": "Mégse",
 
   // "workflow-item.selectrevieweraction.button.confirm": "Confirm",
-  "workflow-item.selectrevieweraction.button.confirm": "Confirm",
+  "workflow-item.selectrevieweraction.button.confirm": "Megerősít",
 
   // "workflow-item.scorereviewaction.notification.success.title": "Rating review",
   "workflow-item.scorereviewaction.notification.success.title": "Rating review",
@@ -8658,19 +8658,19 @@
   "workflow-item.scorereviewaction.button.cancel": "Mégse",
 
   // "workflow-item.scorereviewaction.button.confirm": "Confirm",
-  "workflow-item.scorereviewaction.button.confirm": "Confirm",
+  "workflow-item.scorereviewaction.button.confirm": "Megerősít",
 
   // "idle-modal.header": "Session will expire soon",
-  "idle-modal.header": "Session will expire soon",
+  "idle-modal.header": "A munkamenet hamarosan lejár",
 
   // "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
-  "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
+  "idle-modal.info": "Biztonsági okokból a felhasználói munkamenetek {{ timeToExpire }} perc inaktivitás után lejárnak. A munkamenete hamarosan lejár. Szeretné meghosszabbítani, vagy kijelentkezik?",
 
   // "idle-modal.log-out": "Log out",
-  "idle-modal.log-out": "Log out",
+  "idle-modal.log-out": "Kijelentkezés",
 
   // "idle-modal.extend-session": "Extend session",
-  "idle-modal.extend-session": "Extend session",
+  "idle-modal.extend-session": "Munkamenet meghosszabbítása",
 
   // "researcher.profile.action.processing": "Processing...",
   "researcher.profile.action.processing": "Processing...",
@@ -8838,7 +8838,7 @@
   "person.page.orcid.sync-queue.table.header.description": "Description",
 
   // "person.page.orcid.sync-queue.table.header.action": "Action",
-  "person.page.orcid.sync-queue.table.header.action": "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Művelet",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
   "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
@@ -9162,7 +9162,7 @@
   "access-control-add-to-existing": "Hozzáadás a jelenlegihez",
 
   // "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
-  "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+  "access-control-limit-to-specific": "A módosítások korlátozása bizonyos bitfolyamokra",
 
   // "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
   "access-control-process-all-bitstreams": "Az elemhez tartozó összes bitfolyam frissítése",
@@ -9258,7 +9258,7 @@
   "ldn-registered-services.table.status": "Állapot",
 
   // "ldn-registered-services.table.action": "Action",
-  "ldn-registered-services.table.action": "Action",
+  "ldn-registered-services.table.action": "Művelet",
 
   // "ldn-registered-services.new": "NEW",
   "ldn-registered-services.new": "NEW",
@@ -9516,7 +9516,7 @@
   "service.overview.edit.modal": "Edit Service",
 
   // "service.detail.update": "Confirm",
-  "service.detail.update": "Confirm",
+  "service.detail.update": "Megerősít",
 
   // "service.detail.return": "Cancel",
   "service.detail.return": "Mégse",
@@ -10295,7 +10295,7 @@
   "notify-message-result.status": "Állapot",
 
   // "notify-message-result.action": "Action",
-  "notify-message-result.action": "Action",
+  "notify-message-result.action": "Művelet",
 
   // "notify-message-result.detail": "Detail",
   "notify-message-result.detail": "Detail",
