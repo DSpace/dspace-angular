@@ -3561,7 +3561,7 @@
   "item.edit.item-mapper.cancel": "Mégse",
 
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-  "item.edit.item-mapper.description": "A gyűjteményi hozzárendelés révén az adminisztrátorok ezt a tárgyat más gyűjteményekhez is hozzárendelhetik anélkül, hogy az adott elem duplikálásra kerülne. Az alábbi részen egyrészt böngészheti azon gyűjtemények listáját, amelyhez jelenleg a tartalmazó gyűjteményen kívül is már hozzá van rendelve, illetve gyűjtemények keresése révén új tudja új gyűjteményekhez rendelheti az aktuális elemet.",
+  "item.edit.item-mapper.description": "A gyűjteményi hozzárendelés révén az adminisztrátorok ezt a tárgyat más gyűjteményekhez is hozzárendelhetik anélkül, hogy az adott elem duplikálásra kerülne. Az alábbi részen egyrészt böngészheti azon gyűjtemények listáját, amelyhez jelenleg a tartalmazó gyűjteményen kívül is már hozzá van rendelve, illetve gyűjtemények keresése révén új gyűjteményekhez rendelheti az aktuális elemet.",
 
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
   "item.edit.item-mapper.head": "Elem hozzárendelése - A tárgy gyűjteményi hozzárendelése",
@@ -3625,7 +3625,7 @@
   "item.edit.metadata.edit.buttons.confirm": "Megerősít",
 
   // "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
-  "item.edit.metadata.edit.buttons.drag": "Drag to reorder",
+  "item.edit.metadata.edit.buttons.drag": "Húzza a sorrend módosításához",
 
   // "item.edit.metadata.edit.buttons.edit": "Edit",
   "item.edit.metadata.edit.buttons.edit": "Szerkesztés",
@@ -3879,7 +3879,7 @@
   "item.edit.tabs.curate.title": "Tárgy szerkesztése - Gondozás",
 
   // "item.edit.curate.title": "Curate Item: {{item}}",
-  "item.edit.curate.title": "Curate Item: {{item}}",
+  "item.edit.curate.title": "Elem gondozása: {{item}}",
 
   // "item.edit.tabs.access-control.head": "Access Control",
   "item.edit.tabs.access-control.head": "Hozzáférés kontroll",
@@ -4381,7 +4381,7 @@
   "item.version.history.selected": "A kiválasztott verzió",
 
   // "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
-  "item.version.history.selected.alert": "Ön jelenleg az aktuális elem {{version}}.verzióját tekinti meg.",
+  "item.version.history.selected.alert": "Ön jelenleg az aktuális elem {{version}}. verzióját tekinti meg.",
 
   // "item.version.history.table.version": "Version",
   "item.version.history.table.version": "Verzió",
@@ -4426,7 +4426,7 @@
   "item.version.history.table.action.deleteVersion": "Verzió törlése",
 
   // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
-  "item.version.history.table.action.hasDraft": "Az új verzió létrehozása sikertelen, mert egy folyamatban lévő feltöltés található a verziók történetében",
+  "item.version.history.table.action.hasDraft": "Az új verzió nem hozható létre, mert egy folyamatban lévő feltöltés található a verziók történetében",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
   "item.version.notice": "A jelen verzió ennek az elemnek nem a legutóbbi változata. A legutóbbi változat <a href='{{destination}}'>itt</a> található.",
@@ -4435,10 +4435,10 @@
   "item.version.create.modal.header": "Új verzió",
 
   // "item.qa.withdrawn.modal.header": "Request withdrawal",
-  "item.qa.withdrawn.modal.header": "Request withdrawal",
+  "item.qa.withdrawn.modal.header": "Visszavonás kérvényezése",
 
   // "item.qa.reinstate.modal.header": "Request reinstate",
-  "item.qa.reinstate.modal.header": "Request reinstate",
+  "item.qa.reinstate.modal.header": "Visszaállítás kérvényezése",
 
   // "item.qa.reinstate.create.modal.header": "New version",
   "item.qa.reinstate.create.modal.header": "Új verzió",
@@ -4447,7 +4447,7 @@
   "item.version.create.modal.text": "Új verzió készítése ehhez az elemhez",
 
   // "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
-  "item.version.create.modal.text.startingFrom": "starting from version {{version}}",
+  "item.version.create.modal.text.startingFrom": "kiindulva a {{version}}. verzióból",
 
   // "item.version.create.modal.button.confirm": "Create",
   "item.version.create.modal.button.confirm": "Létrehoz",
@@ -4459,10 +4459,10 @@
   "item.qa.withdrawn-reinstate.modal.button.confirm.tooltip": "Send request",
 
   // "qa-withdrown.create.modal.button.confirm": "Withdraw",
-  "qa-withdrown.create.modal.button.confirm": "Withdraw",
+  "qa-withdrown.create.modal.button.confirm": "Visszavonás",
 
   // "qa-reinstate.create.modal.button.confirm": "Reinstate",
-  "qa-reinstate.create.modal.button.confirm": "Reinstate",
+  "qa-reinstate.create.modal.button.confirm": "Visszaállítás",
 
   // "item.version.create.modal.button.cancel": "Cancel",
   "item.version.create.modal.button.cancel": "Mégse",
@@ -4471,61 +4471,61 @@
   "item.qa.withdrawn-reinstate.create.modal.button.cancel": "Mégse",
 
   // "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
-  "item.version.create.modal.button.cancel.tooltip": "Do not create new version",
+  "item.version.create.modal.button.cancel.tooltip": "Ne hozzon létre új verziót",
 
   // "item.qa.withdrawn-reinstate.create.modal.button.cancel.tooltip": "Do not send request",
-  "item.qa.withdrawn-reinstate.create.modal.button.cancel.tooltip": "Do not send request",
+  "item.qa.withdrawn-reinstate.create.modal.button.cancel.tooltip": "Ne küldjön kérelmet",
 
   // "item.version.create.modal.form.summary.label": "Summary",
   "item.version.create.modal.form.summary.label": "Összefoglaló",
 
   // "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdraw this item",
-  "qa-withdrawn.create.modal.form.summary.label": "You are requesting to withdraw this item",
+  "qa-withdrawn.create.modal.form.summary.label": "Ezen elem visszavonásának kérvényezése",
 
   // "qa-withdrawn.create.modal.form.summary2.label": "Please enter the reason for the withdrawal",
-  "qa-withdrawn.create.modal.form.summary2.label": "Please enter the reason for the withdrawal",
+  "qa-withdrawn.create.modal.form.summary2.label": "Kérjük adja meg a visszavonás okát",
 
   // "qa-reinstate.create.modal.form.summary.label": "You are requesting to reinstate this item",
-  "qa-reinstate.create.modal.form.summary.label": "You are requesting to reinstate this item",
+  "qa-reinstate.create.modal.form.summary.label": "Ezen elem visszaállításának kérvényezése",
 
   // "qa-reinstate.create.modal.form.summary2.label": "Please enter the reason for the reinstatment",
-  "qa-reinstate.create.modal.form.summary2.label": "Please enter the reason for the reinstatment",
+  "qa-reinstate.create.modal.form.summary2.label": "Kérjük adja meg a visszaállítás okát",
 
   // "item.version.create.modal.form.summary.placeholder": "Insert the summary for the new version",
   "item.version.create.modal.form.summary.placeholder": "Kérjük adja meg az új verzió összefoglalóját",
 
   // "qa-withdrown.modal.form.summary.placeholder": "Enter the reason for the withdrawal",
-  "qa-withdrown.modal.form.summary.placeholder": "Enter the reason for the withdrawal",
+  "qa-withdrown.modal.form.summary.placeholder": "Adja meg a visszavonás okát",
 
   // "qa-reinstate.modal.form.summary.placeholder": "Enter the reason for the reinstatement",
-  "qa-reinstate.modal.form.summary.placeholder": "Enter the reason for the reinstatement",
+  "qa-reinstate.modal.form.summary.placeholder": "Adja meg a visszaállítás okát",
 
   // "item.version.create.modal.submitted.header": "Creating new version...",
-  "item.version.create.modal.submitted.header": "Creating new version...",
+  "item.version.create.modal.submitted.header": "Új verzió készítése...",
 
   // "item.qa.withdrawn.modal.submitted.header": "Sending withdrawn request...",
-  "item.qa.withdrawn.modal.submitted.header": "Sending withdrawn request...",
+  "item.qa.withdrawn.modal.submitted.header": "Visszavonás kérvényezése...",
 
   // "correction-type.manage-relation.action.notification.reinstate": "Reinstate request sent.",
-  "correction-type.manage-relation.action.notification.reinstate": "Reinstate request sent.",
+  "correction-type.manage-relation.action.notification.reinstate": "Visszaállítás kérelem elküldve.",
 
   // "correction-type.manage-relation.action.notification.withdrawn": "Withdraw request sent.",
-  "correction-type.manage-relation.action.notification.withdrawn": "Withdraw request sent.",
+  "correction-type.manage-relation.action.notification.withdrawn": "Visszavonási kérelem elküldve.",
 
   // "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
-  "item.version.create.modal.submitted.text": "The new version is being created. This may take some time if the item has a lot of relationships.",
+  "item.version.create.modal.submitted.text": "Az új verzió létrehozása folyamatban van. Ez eltarthat egy ideig, ha az elemhez sok kapcsolódó elem tartozik.",
 
   // "item.version.create.notification.success": "New version has been created with version number {{version}}",
-  "item.version.create.notification.success": "New version has been created with version number {{version}}",
+  "item.version.create.notification.success": "Az új verzió elkészült a következő verziószámmal {{version}}",
 
   // "item.version.create.notification.failure": "New version has not been created",
-  "item.version.create.notification.failure": "New version has not been created",
+  "item.version.create.notification.failure": "Az új verzió nem jött létre",
 
   // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
-  "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
+  "item.version.create.notification.inProgress": "Az új verzió nem hozható létre, mert egy folyamatban lévő feltöltés található a verziók történetében",
 
   // "item.version.delete.modal.header": "Delete version",
-  "item.version.delete.modal.header": "Delete version",
+  "item.version.delete.modal.header": "Verzió törlése",
 
   // "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
   "item.version.delete.modal.text": "Do you want to delete version {{version}}?",
@@ -4570,7 +4570,7 @@
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Megerősít",
 
   // "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
-  "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
+  "itemtemplate.edit.metadata.edit.buttons.drag": "Húzza a sorrend módosításához",
 
   // "itemtemplate.edit.metadata.edit.buttons.edit": "Edit",
   "itemtemplate.edit.metadata.edit.buttons.edit": "Edit",
@@ -5056,7 +5056,7 @@
   "menu.section.quality-assurance": "Quality Assurance",
 
   // "menu.section.notifications_publication-claim": "Publication Claim",
-  "menu.section.notifications_publication-claim": "Publication Claim",
+  "menu.section.notifications_publication-claim": "Publikáció igénylése",
 
   // "menu.section.pin": "Pin sidebar",
   "menu.section.pin": "Oldalsáv rögzítése",
@@ -6036,10 +6036,10 @@
   "suggestion.loading": "Loading ...",
 
   // "suggestion.title": "Publication Claim",
-  "suggestion.title": "Publication Claim",
+  "suggestion.title": "Publikáció igénylése",
 
   // "suggestion.title.breadcrumbs": "Publication Claim",
-  "suggestion.title.breadcrumbs": "Publication Claim",
+  "suggestion.title.breadcrumbs": "Publikáció igénylése",
 
   // "suggestion.targets.description": "Below you can see all the suggestions ",
   "suggestion.targets.description": "Below you can see all the suggestions ",
@@ -6123,7 +6123,7 @@
   "suggestion.from.source": "from the ",
 
   // "suggestion.count.missing": "You have no publication claims left",
-  "suggestion.count.missing": "You have no publication claims left",
+  "suggestion.count.missing": "Nincs több igényelhető publikációja",
 
   // "suggestion.totalScore": "Total Score",
   "suggestion.totalScore": "Total Score",
@@ -9216,10 +9216,10 @@
   "vocabulary-treeview.search.form.add": "Hozzáadás",
 
   // "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
-  "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
+  "admin.notifications.publicationclaim.breadcrumbs": "Publikáció igénylése",
 
   // "admin.notifications.publicationclaim.page.title": "Publication Claim",
-  "admin.notifications.publicationclaim.page.title": "Publication Claim",
+  "admin.notifications.publicationclaim.page.title": "Publikáció igénylése",
 
   // "coar-notify-support.title": "COAR Notify Protocol",
   "coar-notify-support.title": "COAR Notify Protocol",
@@ -10347,5 +10347,5 @@
 
   // "browse.search-form.placeholder": "Search the repository",
   // TODO New key - Add a translation
-  "browse.search-form.placeholder": "Search the repository",
+  "browse.search-form.placeholder": "Keresés a repozitóriumban",
 }
