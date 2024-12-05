@@ -8,5 +8,9 @@ export interface SearchConfig extends Config {
      * Used by {@link UploadBitstreamComponent}.
      */
     advancedFilters: AdvancedSearchConfig;
+  /**
+   * Number used to render n skeletons while the filters are loading
+   */
+  defaultFilterCount?: number;
 
 }

@@ -1,0 +1,24 @@
+<div class="row flex-nowrap">
+  <div class="info-skeleton mb-2 col-12">
+    <ngx-skeleton-loader/>
+  </div>
+</div>
+
+@for (result of loadingResults; track result) {
+  <div class="row flex-nowrap result-row">
+    @if(showThumbnails) {
+      <div class="thumbnail-skeleton">
+        <ngx-skeleton-loader/>
+      </div>
+    }
+
+    <div [class.col-9]="showThumbnails" [class.col-md-12]="!showThumbnails">
+      <div class="badge-skeleton">
+        <ngx-skeleton-loader/>
+      </div>
+      <div class="text-skeleton">
+        <ngx-skeleton-loader [count]="textLineCount"/>
+      </div>
+    </div>
+  </div>
+}
