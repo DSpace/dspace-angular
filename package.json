@@ -135,7 +135,7 @@
     "@angular/compiler-cli": "^17.3.11",
     "@angular/language-service": "^17.3.11",
     "@cypress/schematic": "^1.5.0",
-    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@fortawesome/fontawesome-free": "^6.7.1",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "@ngrx/store-devtools": "^17.1.1",
