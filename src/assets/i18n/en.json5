@@ -6382,9 +6382,13 @@
 
   "statistics.table.publicationsReports.header.views": "Views",
 
+  "statistics.table.publicationsReports.header.city": "City",
+
   "statistics.table.projectsReports.header.item": "Item",
 
   "statistics.table.projectsReports.header.views": "Views",
+
+  "statistics.table.projectsReports.header.city": "City",
 
   "statistics.reports.title": "Reports",
 
