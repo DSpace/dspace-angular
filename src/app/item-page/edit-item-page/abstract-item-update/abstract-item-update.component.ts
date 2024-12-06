@@ -6,7 +6,7 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { ActivatedRoute, Router, Data } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { take, map, switchMap, tap } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { environment } from '../../../../environments/environment';
@@ -82,7 +82,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     super.ngOnInit();
 
     this.discardTimeOut = environment.item.edit.undoTimeout;
-    this.hasChanges().pipe(first()).subscribe((hasChanges) => {
+    this.hasChanges().pipe(take(1)).subscribe((hasChanges) => {
       if (!hasChanges) {
         this.initializeOriginalFields();
       } else {
@@ -167,7 +167,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    */
   private checkLastModified() {
     const currentVersion = this.item.lastModified;
-    this.objectUpdatesService.getLastModified(this.url).pipe(first()).subscribe(
+    this.objectUpdatesService.getLastModified(this.url).pipe(take(1)).subscribe(
       (updateVersion: Date) => {
         if (updateVersion.getDate() !== currentVersion.getDate()) {
           this.notificationsService.warning(this.getNotificationTitle('outdated'), this.getNotificationContent('outdated'));
