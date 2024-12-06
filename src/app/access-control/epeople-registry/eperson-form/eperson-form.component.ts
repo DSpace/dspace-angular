@@ -279,7 +279,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         this.groups = this.groupsDataService.findListByHref(eperson._links.groups.href, {
           currentPage: 1,
           elementsPerPage: this.config.pageSize
-        });
+        }, undefined, undefined, followLink('object'));
       }
       this.formGroup.patchValue({
         firstName: eperson != null ? eperson.firstMetadataValue('eperson.firstname') : '',
