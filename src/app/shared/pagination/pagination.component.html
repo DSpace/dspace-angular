@@ -3,7 +3,7 @@
     <div class="row">
       <div *ngIf="!hidePaginationDetail && collectionSize > 0" class="col-auto pagination-info">
           <span class="align-middle hidden-xs-down">{{ 'pagination.showing.label' | translate }}</span>
-          <span class="align-middle">{{ 'pagination.showing.detail' | translate:(getShowingDetails(collectionSize)|async)}}</span>
+          <span class="align-middle">{{ 'pagination.showing.detail' | translate:(showingDetails$ | async)}}</span>
       </div>
       <div class="col">
         <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
