@@ -40,7 +40,6 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';
-import { HALResource } from '../../shared/hal-resource.model';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { FindListOptions } from '../find-list-options.model';
@@ -307,9 +306,9 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       // Ensure all followLinks from the cached object are automatically invalidated when invalidating the cached object
       tap((remoteDataObject: RemoteData<T>) => {
         if (hasValue(remoteDataObject?.payload?._links)) {
-          for (const followLinkName of Object.keys(remoteDataObject.payload._links)) {
+          for (const followLinkName of Object.keys(remoteDataObject.payload._links) as (keyof typeof remoteDataObject.payload._links)[]) {
             // only add the followLinks if they are embedded, and we get only links from the linkMap with the correct name
-            const linkDefinition = this.getLinkDefinition((remoteDataObject.payload as any).constructor, followLinkName);
+            const linkDefinition: LinkDefinition<T> = getLinkDefinition(remoteDataObject.payload.constructor as GenericConstructor<T>, followLinkName);
             if (linkDefinition?.propertyName && hasValue(remoteDataObject.payload[linkDefinition.propertyName]) && followLinkName !== 'self') {
               // followLink can be either an individual HALLink or a HALLink[]
               const followLinksList: HALLink[] = [].concat(remoteDataObject.payload._links[followLinkName]);
@@ -364,9 +363,9 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
         if (hasValue(remoteDataObject?.payload?.page)) {
           for (const object of remoteDataObject.payload.page) {
             if (hasValue(object?._links)) {
-              for (const followLinkName of Object.keys(object._links)) {
+              for (const followLinkName of Object.keys(object._links) as (keyof typeof object._links)[]) {
                 // only add the followLinks if they are embedded, and we get only links from the linkMap with the correct name
-                const linkDefinition = this.getLinkDefinition((remoteDataObject.payload as any).constructor, followLinkName);
+                const linkDefinition: LinkDefinition<PaginatedList<T>> = getLinkDefinition(remoteDataObject.payload.constructor as GenericConstructor<PaginatedList<T>>, followLinkName);
                 if (linkDefinition?.propertyName && followLinkName !== 'self' && hasValue(object[linkDefinition.propertyName])) {
                   // followLink can be either an individual HALLink or a HALLink[]
                   const followLinksList: HALLink[] = [].concat(object._links[followLinkName]);
@@ -522,9 +521,4 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
 
     return done$;
   }
-
-  getLinkDefinition<D extends HALResource>(source: GenericConstructor<D>, linkName: keyof D['_links']): LinkDefinition<D> {
-    return getLinkDefinition(source, linkName);
-  }
-
 }
