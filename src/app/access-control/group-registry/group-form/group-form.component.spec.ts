@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -30,8 +30,6 @@ import { GroupMock, GroupMock2 } from '../../../shared/testing/group-mock';
 import { GroupFormComponent } from './group-form.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { Operation } from 'fast-json-patch';
@@ -39,23 +37,24 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
   let fixture: ComponentFixture<GroupFormComponent>;
-  let translateService: TranslateService;
   let builderService: FormBuilderService;
   let ePersonDataServiceStub: any;
   let groupsDataServiceStub: any;
   let dsoDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
   let notificationService: NotificationsServiceStub;
-  let router;
+  let router: RouterMock;
+  let route: ActivatedRouteStub;
 
-  let groups;
-  let groupName;
-  let groupDescription;
-  let expected;
+  let groups: Group[];
+  let groupName: string;
+  let groupDescription: string;
+  let expected: Group;
 
   beforeEach(waitForAsync(() => {
     groups = [GroupMock, GroupMock2];
@@ -69,6 +68,15 @@ describe('GroupFormComponent', () => {
             value: groupDescription
           }
         ],
+      },
+      object: createSuccessfulRemoteDataObject$(undefined),
+      _links: {
+        self: {
+          href: 'group-selflink',
+        },
+        object: {
+          href: 'group-objectlink',
+        }
       },
     });
     ePersonDataServiceStub = {};
@@ -106,7 +114,14 @@ describe('GroupFormComponent', () => {
       create(group: Group): Observable<RemoteData<Group>> {
         this.allGroups = [...this.allGroups, group];
         this.createdGroup = Object.assign({}, group, {
-          _links: { self: { href: 'group-selflink' } }
+          _links: {
+            self: {
+              href: 'group-selflink',
+            },
+            object: {
+              href: 'group-objectlink',
+            },
+          },
         });
         return createSuccessfulRemoteDataObject$(this.createdGroup);
       },
@@ -188,17 +203,13 @@ describe('GroupFormComponent', () => {
         return typeof value === 'object' && value !== null;
       }
     });
-    translateService = getMockTranslateService();
     router = new RouterMock();
+    route = new ActivatedRouteStub();
     notificationService = new NotificationsServiceStub();
+
     return TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
+        TranslateModule.forRoot(),
       ],
       declarations: [GroupFormComponent],
       providers: [
@@ -216,14 +227,11 @@ describe('GroupFormComponent', () => {
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
-        {
-          provide: ActivatedRoute,
-          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) }
-        },
+        { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -236,8 +244,8 @@ describe('GroupFormComponent', () => {
   describe('when submitting the form', () => {
     beforeEach(() => {
       spyOn(component.submitForm, 'emit');
-      component.groupName.value = groupName;
-      component.groupDescription.value = groupDescription;
+      component.groupName.setValue(groupName);
+      component.groupDescription.setValue(groupDescription);
     });
     describe('without active Group', () => {
       beforeEach(() => {
@@ -245,14 +253,22 @@ describe('GroupFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new group using the correct values', (async () => {
-        await fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
-        });
+      it('should emit a new group using the correct values', (() => {
+        expect(component.submitForm.emit).toHaveBeenCalledWith(jasmine.objectContaining({
+          name: groupName,
+          metadata: {
+            'dc.description': [
+              {
+                value: groupDescription,
+              },
+            ],
+          },
+        }));
       }));
     });
+
     describe('with active Group', () => {
-      let expected2;
+      let expected2: Group;
       beforeEach(() => {
         expected2 = Object.assign(new Group(), {
           name: 'newGroupName',
@@ -263,15 +279,24 @@ describe('GroupFormComponent', () => {
               }
             ],
           },
+          object: createSuccessfulRemoteDataObject$(undefined),
+          _links: {
+            self: {
+              href: 'group-selflink',
+            },
+            object: {
+              href: 'group-objectlink',
+            },
+          },
         });
         spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(observableOf(expected));
         spyOn(groupsDataServiceStub, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(expected2));
-        component.groupName.value = 'newGroupName';
-        component.onSubmit();
-        fixture.detectChanges();
+        component.ngOnInit();
       });
 
       it('should edit with name and description operations', () => {
+        component.groupName.setValue('newGroupName');
+        component.onSubmit();
         const operations = [{
           op: 'add',
           path: '/metadata/dc.description',
@@ -285,9 +310,8 @@ describe('GroupFormComponent', () => {
       });
 
       it('should edit with description operations', () => {
-        component.groupName.value = null;
+        component.groupName.setValue(null);
         component.onSubmit();
-        fixture.detectChanges();
         const operations = [{
           op: 'add',
           path: '/metadata/dc.description',
@@ -297,9 +321,9 @@ describe('GroupFormComponent', () => {
       });
 
       it('should edit with name operations', () => {
-        component.groupDescription.value = null;
+        component.groupName.setValue('newGroupName');
+        component.groupDescription.setValue(null);
         component.onSubmit();
-        fixture.detectChanges();
         const operations = [{
           op: 'replace',
           path: '/name',
@@ -308,12 +332,13 @@ describe('GroupFormComponent', () => {
         expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
       });
 
-      it('should emit the existing group using the correct new values', (async () => {
-        await fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expected2);
-        });
-      }));
+      it('should emit the existing group using the correct new values', () => {
+        component.onSubmit();
+        expect(component.submitForm.emit).toHaveBeenCalledWith(expected2);
+      });
+
       it('should emit success notification', () => {
+        component.onSubmit();
         expect(notificationService.success).toHaveBeenCalled();
       });
     });
@@ -328,11 +353,8 @@ describe('GroupFormComponent', () => {
 
 
   describe('check form validation', () => {
-    let groupCommunity;
-
     beforeEach(() => {
       groupName = 'testName';
-      groupCommunity = 'testgroupCommunity';
       groupDescription = 'testgroupDescription';
 
       expected = Object.assign(new Group(), {
@@ -344,8 +366,17 @@ describe('GroupFormComponent', () => {
             }
           ],
         },
+        _links: {
+          self: {
+            href: 'group-selflink',
+          },
+          object: {
+            href: 'group-objectlink',
+          },
+        },
       });
       spyOn(component.submitForm, 'emit');
+      spyOn(dsoDataServiceStub, 'findByHref').and.returnValue(observableOf(expected));
 
       fixture.detectChanges();
       component.initialisePage();
@@ -395,21 +426,20 @@ describe('GroupFormComponent', () => {
   });
 
   describe('delete', () => {
-    let deleteButton;
+    let deleteButton: HTMLButtonElement;
 
-    beforeEach(() => {
-      component.initialisePage();
-
+    beforeEach(async () => {
+      spyOn(groupsDataServiceStub, 'delete').and.callThrough();
+      component.activeGroup$ = observableOf({
+        id: 'active-group',
+        permanent: false,
+      } as Group);
       component.canEdit$ = observableOf(true);
-      component.groupBeingEdited = {
-        permanent: false
-      } as Group;
+
+      component.initialisePage();
 
       fixture.detectChanges();
       deleteButton = fixture.debugElement.query(By.css('.delete-button')).nativeElement;
-
-      spyOn(groupsDataServiceStub, 'delete').and.callThrough();
-      spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(observableOf({ id: 'active-group' }));
     });
 
     describe('if confirmed via modal', () => {
