@@ -27,7 +27,6 @@ export const ROUTES: Route[] = [
     resolve: {
       dso: itemPageResolver,
       breadcrumb: itemBreadcrumbResolver,
-      menu: dsoEditMenuResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [
@@ -35,10 +34,16 @@ export const ROUTES: Route[] = [
         path: '',
         component: ThemedItemPageComponent,
         pathMatch: 'full',
+        resolve: {
+          menu: dsoEditMenuResolver,
+        },
       },
       {
         path: 'full',
         component: ThemedFullItemPageComponent,
+        resolve: {
+          menu: dsoEditMenuResolver,
+        },
       },
       {
         path: ITEM_EDIT_PATH,

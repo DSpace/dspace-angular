@@ -335,7 +335,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Performs the choosen action calling the REST service.
+   * Performs the chosen action calling the REST service.
    *
    * @param {string} action
    *    the action (can be: ACCEPTED, REJECTED, DISCARDED, PENDING)
@@ -454,7 +454,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Dispatch the Quality Assurance events retrival.
+   * Dispatch the Quality Assurance events retrieval.
    */
   public getQualityAssuranceEvents(): Observable<QualityAssuranceEventData[]> {
     return this.paginationService.getFindListOptions(this.paginationConfig.id, this.defaultConfig).pipe(
