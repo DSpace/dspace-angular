@@ -4,4 +4,7 @@
 
 legend {
   font-size: initial;
+
+  /* Changed from Bootstrap 5's legend to ensure that the date issues label is on a different line as it's input */
+  float: none;
 }

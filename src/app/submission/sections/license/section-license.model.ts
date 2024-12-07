@@ -3,7 +3,7 @@ export const SECTION_LICENSE_FORM_LAYOUT = {
 
   granted: {
     element: {
-      container: 'custom-control custom-checkbox pl-1',
+      container: 'custom-control custom-checkbox ps-1',
       control: 'custom-control-input',
       label: 'custom-control-label pt-1',
     },

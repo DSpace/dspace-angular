@@ -12,9 +12,9 @@
                   {{ 'person.page.orcid.synchronization-mode-message' | translate}}
                 </ds-alert>
               </div>
-              <div class="form-group row">
-                <label for="syncMode">{{ 'person.page.orcid.synchronization-mode.label'| translate }}</label>
-                <select class="form-control" [(ngModel)]="currentSyncMode" name="syncMode" id="syncMode"
+              <div class="mb-3 row">
+                <label class="form-label" for="syncMode">{{ 'person.page.orcid.synchronization-mode.label'| translate }}</label>
+                <select class="form-select" [(ngModel)]="currentSyncMode" name="syncMode" id="syncMode"
                         required>
                   <option *ngFor="let syncMode of syncModes"
                           [value]="syncMode.value">{{ syncMode.label | translate }}</option>
@@ -36,13 +36,13 @@
                   {{ 'person.page.orcid.synchronization-mode-publication-message' | translate}}
                 </ds-alert>
               </div>
-              <div class="form-group">
+              <div class="mb-3">
                 <div *ngFor="let option of syncPublicationOptions" class="row form-check">
                   <input type="radio" [(ngModel)]="currentSyncPublications"
                          name="syncPublications" id="publicationOption_{{option.value}}" [value]="option.value"
                          required>
                   <label for="publicationOption_{{option.value}}"
-                         class="ml-2">{{option.label | translate}}</label>
+                         class="ms-2 form-label">{{option.label | translate}}</label>
                 </div>
               </div>
             </div>
@@ -59,12 +59,12 @@
                   {{ 'person.page.orcid.synchronization-mode-funding-message' | translate}}
                 </ds-alert>
               </div>
-              <div class="form-group">
+              <div class="mb-3">
                 <div *ngFor="let option of syncFundingOptions" class="row form-check">
                   <input type="radio" [(ngModel)]="currentSyncFunding"
                          name="syncFundings" id="fundingOption_{{option.value}}" [value]="option.value"
                          required>
-                  <label for="fundingOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
+                  <label for="fundingOption_{{option.value}}" class="ms-2 form-label">{{option.label | translate}}</label>
                 </div>
               </div>
             </div>
@@ -81,12 +81,12 @@
                   {{ 'person.page.orcid.synchronization-mode-profile-message' | translate}}
                 </ds-alert>
               </div>
-              <div class="form-group">
+              <div class="mb-3">
                 <div *ngFor="let option of syncProfileOptions" class="row form-check">
                   <input type="checkbox" [(ngModel)]="option.checked"
                          name="syncProfile_{{option.value}}" id="profileOption_{{option.value}}"
                          [value]="option.value">
-                  <label for="profileOption_{{option.value}}" class="ml-2">{{option.label | translate}}</label>
+                  <label for="profileOption_{{option.value}}" class="ms-2 form-label">{{option.label | translate}}</label>
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <button type="submit" class="btn btn-primary float-right">
+        <button type="submit" class="btn btn-primary float-end">
           <i class="fas fa-edit"></i>
           {{ 'person.page.orcid.save.preference.changes' | translate }}
         </button>
