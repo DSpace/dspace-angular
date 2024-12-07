@@ -1,5 +1,9 @@
-<ng-container *ngIf="(isEnabled$ | async) && (hasRoute('home') || hasRoute('collections') || hasRoute('communities'))">
+<ng-container
+  *ngIf="(isEnabled$ | async) && (isActivated$ | async)">
   <div *ngIf="route$ | async as route" class="d-inline-block float-right margin-right">
-    <a [href]="route" class="btn btn-secondary" [title]="'feed.description' | translate" [attr.aria-label]="'feed.description' | translate"><i class="fas fa-rss-square"></i></a>
+    <a target="_blank" rel="noopener noreferrer" [href]="route" class="btn btn-secondary"
+      [title]="'feed.description' | translate" [attr.aria-label]="'feed.description' | translate">
+      <i class="fas fa-rss-square"></i>
+    </a>
   </div>
 </ng-container>
