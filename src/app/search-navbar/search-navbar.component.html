@@ -3,7 +3,7 @@
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)" autocomplete="on" class="d-flex">
       <input #searchInput [@toggleAnimation]="isExpanded" [attr.aria-label]="('nav.search' | translate)" name="query"
              formControlName="query" type="text" placeholder="{{searchExpanded ? ('nav.search' | translate) : ''}}"
-             class="bg-transparent position-absolute form-control dropdown-menu-right pl-1 pr-4"
+             class="d-inline-block bg-transparent position-absolute form-control dropdown-menu-right p1"
              [class.display]="searchExpanded ? 'inline-block' : 'none'"
              [tabIndex]="searchExpanded ? 0 : -1"
              [attr.data-test]="'header-search-box' | dsBrowserOnly">

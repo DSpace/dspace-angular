@@ -5,6 +5,8 @@
 
   .dropdown-menu {
     overflow: hidden;
+    min-width: 100%;
+    top: 100%;
     @include media-breakpoint-down(sm) {
       border: 0;
       background-color: var(--ds-expandable-navbar-bg);
