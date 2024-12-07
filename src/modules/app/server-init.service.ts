@@ -21,6 +21,7 @@ import { LocaleService } from '../../app/core/locale/locale.service';
 import { HeadTagService } from '../../app/core/metadata/head-tag.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
+import { isNotEmpty } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
@@ -100,6 +101,14 @@ export class ServerInitService extends InitService {
   }
 
   private saveAppConfigForCSR(): void {
-    this.transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);
+    if (isNotEmpty(environment.rest.ssrBaseUrl) && environment.rest.baseUrl !== environment.rest.ssrBaseUrl) {
+      // Avoid to transfer ssrBaseUrl in order to prevent security issues
+      const config: AppConfig = Object.assign({}, environment as AppConfig, {
+        rest: Object.assign({}, environment.rest, { ssrBaseUrl: '', hasSsrBaseUrl: true }),
+      });
+      this.transferState.set<AppConfig>(APP_CONFIG_STATE, config);
+    } else {
+      this.transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);
+    }
   }
 }
