@@ -455,6 +455,15 @@
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.failure": "Nem sikerült törülni: EPerson \"{{name}}\"",
 
+  // "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No current active eperson",
+  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "Jelenleg nincs aktív személy",
+
+  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Deleted Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.success.deleteMembership": "Tagság törölve a következő csoportból: \"{{name}}\"",
+
+  // "admin.access-control.epeople.form.notification.failure.deleteMembership": "Can't Delete Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.failure.deleteMembership": "A tagság nem törölhető a következő csoportból: \"{{name}}\"",
+
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Tagja a következő csoportoknak:",
 
@@ -466,6 +475,9 @@
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Gyűjtemény/Közösség",
+
+  // "admin.access-control.epeople.form.table.remove": "Remove",
+  "admin.access-control.epeople.form.table.remove": "Távolítsa el",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Ez az ESzemély egyetlen csoportnak sem tagja",
@@ -2498,6 +2510,14 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(mindig szükséges)",
 
+  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
+  // TODO New key - Add a translation
+  "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
+
+  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
+  // TODO New key - Add a translation
+  "cookies.consent.app.disable-all.title": "Enable or disable all services",
+
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Változások történtek az utolsó látogatása óta, frissítse a beleegyezését.",
 
@@ -2514,8 +2534,15 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Mentés",
 
+  // "cookies.consent.content-notice.title": "Cookie Consent",
+  "cookies.consent.content-notice.title": "Cookie elfogadása",
+
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Mi gyűjtjük és feldolgozzuk a személyes adatait a következő célból: <strong>Hitelesítés, Beállítások, Elismerés és Statisztikák</strong>. <br/> Részletekért olvassa el: {privacyPolicy}.",
+
+  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
+  // TODO New key - Add a translation
+  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Személyreszab",
@@ -2531,6 +2558,14 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Gyűjtött adatok",
+
+  // "cookies.consent.content-modal.services": "services",
+  // TODO New key - Add a translation
+  "cookies.consent.content-modal.services": "services",
+
+  // "cookies.consent.content-modal.service": "service",
+  // TODO New key - Add a translation
+  "cookies.consent.content-modal.service": "service",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Hitelesítés",

@@ -509,6 +509,15 @@
   // "admin.access-control.epeople.form.notification.deleted.failure": "Failed to delete EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.failure": "Falha ao excluir EPerson \"{{name}}\"",
 
+  // "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "No current active eperson",
+  "admin.access-control.epeople.form.notification.failure.noActiveEPerson": "Nenhuma pessoa ativa no momento",
+
+  // "admin.access-control.epeople.form.notification.success.deleteMembership": "Deleted Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.success.deleteMembership": "Associação excluída do grupo: \"{{name}}\"",
+
+  // "admin.access-control.epeople.form.notification.failure.deleteMembership": "Can't Delete Membership From Group: \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.failure.deleteMembership": "Não é possível excluir a associação do grupo: \"{{name}}\"",
+
   // "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Member of these groups:",
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "Membro destes grupos:",
 
@@ -520,6 +529,9 @@
 
   // "admin.access-control.epeople.form.table.collectionOrCommunity": "Collection/Community",
   "admin.access-control.epeople.form.table.collectionOrCommunity": "Coleção/Comunidade",
+
+  // "admin.access-control.epeople.form.table.remove": "Remove",
+  "admin.access-control.epeople.form.table.remove": "Remover",
 
   // "admin.access-control.epeople.form.memberOfNoGroups": "This EPerson is not a member of any groups",
   "admin.access-control.epeople.form.memberOfNoGroups": "Esta EPerson não é membro de nenhum grupo",
@@ -2369,6 +2381,12 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(sempre requerido)",
 
+  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
+  "cookies.consent.app.disable-all.description": "Use esse comutador para ativar ou desativar todos os serviços.",
+
+  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
+  "cookies.consent.app.disable-all.title": "Ativar ou desativar todos os serviços",
+
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Houve alterações desde sua última visita, atualize seu consentimento.",
 
@@ -2384,8 +2402,14 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Salvar",
 
+  // "cookies.consent.content-notice.title": "Cookie Consent",
+  "cookies.consent.content-notice.title": "Consentimento de Cookies",
+
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Coletamos e processamos suas informações pessoais para os seguintes propósitos: <strong>Autenticação, Preferências, Reconhecimento e Estatísticas</strong>. <br/> Para aprender mais, por favor leia  nossa {privacyPolicy}.",
+
+  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
+  "cookies.consent.content-notice.description.no-privacy": "Coletamos e processamos suas informações pessoais para os seguintes propósitos: <strong>Autenticação, Preferências, Reconhecimento e Estatísticas</strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Customizar",
@@ -2401,6 +2425,12 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informações que coletamos",
+
+  // "cookies.consent.content-modal.services": "services",
+  "cookies.consent.content-modal.services": "Serviços",
+
+  // "cookies.consent.content-modal.service": "service",
+  "cookies.consent.content-modal.service": "serviço",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticação",
@@ -10231,10 +10261,4 @@
 
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
-
-  // "register-page.registration.aria.label": "Enter your e-mail address",
-  "register-page.registration.aria.label": "Digite seu e-mail",
-
-  // "forgot-email.form.aria.label": "Enter your e-mail address",
-  "forgot-email.form.aria.label": "Digite seu e-mail",
 }
