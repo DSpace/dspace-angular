@@ -112,7 +112,16 @@ export class LinkService {
    * @param linkToFollow the {@link FollowLinkConfig} to resolve
    */
   public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): T {
-    model[linkToFollow.name] = this.resolveLinkWithoutAttaching(model, linkToFollow);
+    const linkDefinitions = this.getLinkDefinitions(model.constructor as GenericConstructor<T>);
+    const linkDef = linkDefinitions.get(linkToFollow.name);
+
+    if (isNotEmpty(linkDef)) {
+      // If link exist in definition we can resolve it and  use a real property name
+      model[linkDef.propertyName] = this.resolveLinkWithoutAttaching(model, linkToFollow);
+    } else {
+      // For some links we don't have a definition, so we use the link name as property name
+      model[linkToFollow.name] = this.resolveLinkWithoutAttaching(model, linkToFollow);
+    }
     return model;
   }
 
