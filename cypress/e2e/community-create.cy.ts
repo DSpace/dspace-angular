@@ -5,9 +5,9 @@ beforeEach(() => {
 
 it('should show loading component while saving', () => {
   const title = 'Test Community Title';
-  cy.get('#title').type(title);
+  cy.get('#title-en').type(title);
 
-  cy.get('button[type="submit"]').click();
+  cy.get('button[type="button"].btn-primary').click();
 
   cy.get('ds-loading').should('be.visible');
 });
