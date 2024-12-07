@@ -2274,6 +2274,8 @@
 
   "item.edit.bitstreams.upload-button": "Upload",
 
+  "item.edit.bitstreams.load-more.link": "Load more",
+
   "item.edit.delete.cancel": "Cancel",
 
   "item.edit.delete.confirm": "Delete",
