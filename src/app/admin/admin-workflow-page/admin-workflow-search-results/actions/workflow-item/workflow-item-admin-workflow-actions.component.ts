@@ -6,6 +6,7 @@ import {
   Component,
   Injector,
   Input,
+  OnInit,
 } from '@angular/core';
 import {
   Router,
@@ -55,7 +56,7 @@ import {
 /**
  * The component for displaying the actions for a list element for a workflow-item on the admin workflow search page
  */
-export class WorkflowItemAdminWorkflowActionsComponent extends MyDSpaceReloadableActionsComponent<ClaimedTask, ClaimedTaskDataService> {
+export class WorkflowItemAdminWorkflowActionsComponent extends MyDSpaceReloadableActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnInit{
 
   /**
    * The workflow item to perform the actions on
