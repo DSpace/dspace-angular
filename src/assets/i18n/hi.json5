@@ -938,6 +938,8 @@
 
   "admin.workflow.item.send-back": "वापस भेजे",
 
+  "admin.workflow.item.return": "पूल में वापस करें ",
+
   "admin.workflow.item.workflow": "कार्यप्रवाह",
 
   "admin.workflow.title": "कार्यप्रवाह व्यवस्थापित करें",
