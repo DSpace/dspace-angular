@@ -7,19 +7,17 @@ import {
 import {
   Component,
   OnDestroy,
+  OnInit,
 } from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
+import { RouterLink } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  combineLatest as observableCombineLatest,
   Observable,
+  Subscription,
   zip,
 } from 'rxjs';
 import {
@@ -36,7 +34,6 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
@@ -63,12 +60,22 @@ import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-sch
  * A component used for managing all existing metadata schemas within the repository.
  * The admin can create, edit or delete metadata schemas here.
  */
-export class MetadataRegistryComponent implements OnDestroy {
+export class MetadataRegistryComponent implements OnDestroy, OnInit {
 
   /**
    * A list of all the current metadata schemas within the repository
    */
   metadataSchemas: Observable<RemoteData<PaginatedList<MetadataSchema>>>;
+
+  /**
+   * The {@link MetadataSchema}that is being edited
+   */
+  activeMetadataSchema$: Observable<MetadataSchema>;
+
+  /**
+   * The selected {@link MetadataSchema} IDs
+   */
+  selectedMetadataSchemaIDs$: Observable<number[]>;
 
   /**
    * Pagination config used to display the list of metadata schemas
@@ -79,15 +86,25 @@ export class MetadataRegistryComponent implements OnDestroy {
   });
 
   /**
-   * Whether or not the list of MetadataSchemas needs an update
+   * Whether the list of MetadataSchemas needs an update
    */
   needsUpdate$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-  constructor(private registryService: RegistryService,
-              private notificationsService: NotificationsService,
-              private router: Router,
-              private paginationService: PaginationService,
-              private translateService: TranslateService) {
+  subscriptions: Subscription[] = [];
+
+  constructor(
+    protected registryService: RegistryService,
+    protected notificationsService: NotificationsService,
+    protected paginationService: PaginationService,
+    protected translateService: TranslateService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.activeMetadataSchema$ = this.registryService.getActiveMetadataSchema();
+    this.selectedMetadataSchemaIDs$ = this.registryService.getSelectedMetadataSchemas().pipe(
+      map((schemas: MetadataSchema[]) => schemas.map((schema: MetadataSchema) => schema.id)),
+    );
     this.updateSchemas();
   }
 
@@ -116,30 +133,13 @@ export class MetadataRegistryComponent implements OnDestroy {
    * @param schema
    */
   editSchema(schema: MetadataSchema) {
-    this.getActiveSchema().pipe(take(1)).subscribe((activeSchema) => {
+    this.subscriptions.push(this.activeMetadataSchema$.pipe(take(1)).subscribe((activeSchema: MetadataSchema) => {
       if (schema === activeSchema) {
         this.registryService.cancelEditMetadataSchema();
       } else {
         this.registryService.editMetadataSchema(schema);
       }
-    });
-  }
-
-  /**
-   * Checks whether the given metadata schema is active (being edited)
-   * @param schema
-   */
-  isActive(schema: MetadataSchema): Observable<boolean> {
-    return this.getActiveSchema().pipe(
-      map((activeSchema) => schema === activeSchema),
-    );
-  }
-
-  /**
-   * Gets the active metadata schema (being edited)
-   */
-  getActiveSchema(): Observable<MetadataSchema> {
-    return this.registryService.getActiveMetadataSchema();
+    }));
   }
 
   /**
@@ -154,41 +154,24 @@ export class MetadataRegistryComponent implements OnDestroy {
   }
 
   /**
-   * Checks whether a given metadata schema is selected in the list (checkbox)
-   * @param schema
-   */
-  isSelected(schema: MetadataSchema): Observable<boolean> {
-    return this.registryService.getSelectedMetadataSchemas().pipe(
-      map((schemas) => schemas.find((selectedSchema) => selectedSchema === schema) != null),
-    );
-  }
-
-  /**
    * Delete all the selected metadata schemas
    */
   deleteSchemas() {
-    this.registryService.getSelectedMetadataSchemas().pipe(take(1)).subscribe(
-      (schemas) => {
-        const tasks$ = [];
-        for (const schema of schemas) {
-          if (hasValue(schema.id)) {
-            tasks$.push(this.registryService.deleteMetadataSchema(schema.id).pipe(getFirstCompletedRemoteData()));
-          }
-        }
-        zip(...tasks$).subscribe((responses: RemoteData<NoContent>[]) => {
-          const successResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
-          const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
-          if (successResponses.length > 0) {
-            this.showNotification(true, successResponses.length);
-          }
-          if (failedResponses.length > 0) {
-            this.showNotification(false, failedResponses.length);
-          }
-          this.registryService.deselectAllMetadataSchema();
-          this.registryService.cancelEditMetadataSchema();
-        });
-      },
-    );
+    this.subscriptions.push(this.selectedMetadataSchemaIDs$.pipe(
+      take(1),
+      switchMap((schemaIDs: number[]) => zip(schemaIDs.map((schemaID: number) => this.registryService.deleteMetadataSchema(schemaID).pipe(getFirstCompletedRemoteData())))),
+    ).subscribe((responses: RemoteData<NoContent>[]) => {
+      const successResponses: RemoteData<NoContent>[] = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
+      const failedResponses: RemoteData<NoContent>[] = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
+      if (successResponses.length > 0) {
+        this.showNotification(true, successResponses.length);
+      }
+      if (failedResponses.length > 0) {
+        this.showNotification(false, failedResponses.length);
+      }
+      this.registryService.deselectAllMetadataSchema();
+      this.registryService.cancelEditMetadataSchema();
+    }));
   }
 
   /**
@@ -199,20 +182,20 @@ export class MetadataRegistryComponent implements OnDestroy {
   showNotification(success: boolean, amount: number) {
     const prefix = 'admin.registries.schema.notification';
     const suffix = success ? 'success' : 'failure';
-    const messages = observableCombineLatest(
-      this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
-      this.translateService.get(`${prefix}.deleted.${suffix}`, { amount: amount }),
-    );
-    messages.subscribe(([head, content]) => {
-      if (success) {
-        this.notificationsService.success(head, content);
-      } else {
-        this.notificationsService.error(head, content);
-      }
-    });
+
+    const head: string = this.translateService.instant(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`);
+    const content: string = this.translateService.instant(`${prefix}.deleted.${suffix}`, { amount: amount });
+
+    if (success) {
+      this.notificationsService.success(head, content);
+    } else {
+      this.notificationsService.error(head, content);
+    }
   }
+
   ngOnDestroy(): void {
     this.paginationService.clearPagination(this.config.id);
+    this.subscriptions.map((subscription: Subscription) => subscription.unsubscribe());
   }
 
 }

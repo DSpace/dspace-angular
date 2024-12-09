@@ -61,7 +61,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let epersonDto of (ePeopleDto$ | async)?.page"
-                [ngClass]="{'table-primary' : isActive(epersonDto.eperson) | async}">
+                [ngClass]="{'table-primary' : (activeEPerson$ | async) === epersonDto.eperson}">
               <td>{{epersonDto.eperson.id}}</td>
               <td>{{ dsoNameService.getName(epersonDto.eperson) }}</td>
               <td>{{epersonDto.eperson.email}}</td>

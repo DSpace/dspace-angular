@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   inject,
@@ -7,16 +7,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RestResponse } from '../../../core/cache/response.models';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
@@ -34,7 +30,7 @@ import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { RegistryServiceStub } from '../../../shared/testing/registry.service.stub';
 import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
@@ -45,8 +41,12 @@ import { MetadataSchemaComponent } from './metadata-schema.component';
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
   let fixture: ComponentFixture<MetadataSchemaComponent>;
-  let registryService: RegistryService;
-  const mockSchemasList = [
+
+  let registryService: RegistryServiceStub;
+  let activatedRoute: ActivatedRouteStub;
+  let paginationService: PaginationServiceStub;
+
+  const mockSchemasList: MetadataSchema[] = [
     {
       id: 1,
       _links: {
@@ -67,8 +67,8 @@ describe('MetadataSchemaComponent', () => {
       prefix: 'mock',
       namespace: 'http://dspace.org/mockschema',
     },
-  ];
-  const mockFieldsList = [
+  ] as MetadataSchema[];
+  const mockFieldsList: MetadataField[] = [
     {
       id: 1,
       _links: {
@@ -117,33 +117,8 @@ describe('MetadataSchemaComponent', () => {
       scopeNote: null,
       schema: createSuccessfulRemoteDataObject$(mockSchemasList[1]),
     },
-  ];
-  const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
-  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-  const registryServiceStub = {
-    getMetadataSchemas: () => mockSchemas,
-    getMetadataFieldsBySchema: (schema: MetadataSchema) => createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockFieldsList.filter((value) => value.id === 3 || value.id === 4))),
-    getMetadataSchemaByPrefix: (schemaName: string) => createSuccessfulRemoteDataObject$(mockSchemasList.filter((value) => value.prefix === schemaName)[0]),
-    getActiveMetadataField: () => observableOf(undefined),
-    getSelectedMetadataFields: () => observableOf([]),
-    editMetadataField: (schema) => {
-    },
-    cancelEditMetadataField: () => {
-    },
-    deleteMetadataField: () => observableOf(new RestResponse(true, 200, 'OK')),
-    deselectAllMetadataField: () => {
-    },
-    clearMetadataFieldRequests: () => observableOf(undefined),
-  };
-  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+  ] as MetadataField[];
   const schemaNameParam = 'mock';
-  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({
-      schemaName: schemaNameParam,
-    }),
-  });
-
-  const paginationService = new PaginationServiceStub();
 
   const configurationDataService = jasmine.createSpyObj('configurationDataService', {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
@@ -162,6 +137,14 @@ describe('MetadataSchemaComponent', () => {
 
 
   beforeEach(waitForAsync(() => {
+    activatedRoute = new ActivatedRouteStub({
+      schemaName: schemaNameParam,
+    });
+    paginationService = new PaginationServiceStub();
+    registryService = new RegistryServiceStub();
+    spyOn(registryService, 'getMetadataFieldsBySchema').and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockFieldsList.filter((value) => value.id === 3 || value.id === 4))));
+    spyOn(registryService, 'getMetadataSchemaByPrefix').and.callFake((schemaName) => createSuccessfulRemoteDataObject$(mockSchemasList.filter((value) => value.prefix === schemaName)[0]));
+
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -174,10 +157,9 @@ describe('MetadataSchemaComponent', () => {
         VarDirective,
       ],
       providers: [
-        { provide: RegistryService, useValue: registryServiceStub },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: RegistryService, useValue: registryService },
+        { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
         {
           provide: NotificationsService,
@@ -187,7 +169,7 @@ describe('MetadataSchemaComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub()  },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideComponent(MetadataSchemaComponent, {
         remove: {
@@ -242,7 +224,7 @@ describe('MetadataSchemaComponent', () => {
     }));
 
     it('should cancel editing the selected field when clicked again', waitForAsync(() => {
-      spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(mockFieldsList[2] as MetadataField));
+      comp.activeField$ = observableOf(mockFieldsList[2] as MetadataField);
       spyOn(registryService, 'cancelEditMetadataField');
       row.click();
       fixture.detectChanges();
@@ -257,7 +239,7 @@ describe('MetadataSchemaComponent', () => {
 
     beforeEach(() => {
       spyOn(registryService, 'deleteMetadataField').and.callThrough();
-      spyOn(registryService, 'getSelectedMetadataFields').and.returnValue(observableOf(selectedFields as MetadataField[]));
+      comp.selectedMetadataFieldIDs$ = observableOf(selectedFields.map((metadataField: MetadataField) => metadataField.id));
       comp.deleteFields();
       fixture.detectChanges();
     });
