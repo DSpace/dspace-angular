@@ -4,8 +4,7 @@
       <div *ngIf="(filterServices(ldnPattern.pattern ) | async)?.length > 0">
         <label class="row col-form-label">
           {{'submission.section.section-coar-notify.control.' + ldnPattern.pattern + '.label' | translate }}
-        </label
-        >
+        </label>
         <div *ngIf="ldnServiceByPattern[ldnPattern.pattern]?.services.length">
           <div
             *ngFor="

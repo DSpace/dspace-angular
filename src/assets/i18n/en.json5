@@ -5630,8 +5630,6 @@
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 
-  "orgunit.search.results.head": "Organizational Unit Search Results",
-
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
   "workflow-item.edit.title": "Edit workflowitem",
@@ -6348,6 +6346,8 @@
 
   "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
 
+  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+
   "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
   "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
@@ -6363,6 +6363,10 @@
   "ldn-service-overview-select-edit": "Edit LDN service",
 
   "ldn-service-overview-close-modal": "Close modal",
+
+  "ldn-service-usesActorEmailId": "Requires actor email in notifications",
+
+  "ldn-service-usesActorEmailId-description": "If enabled, initial notifications sent will include the submitter email rather than the repository URL. This is usually the case for endorsement or review services.",
 
   "a-common-or_statement.label": "Item type is Journal Article or Dataset",
 
