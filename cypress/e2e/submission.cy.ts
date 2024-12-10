@@ -217,7 +217,7 @@ describe('New Submission page', () => {
     });
 
     // Close popup window
-    cy.get('ds-dynamic-lookup-relation-modal button.close').click();
+    cy.get('ds-dynamic-lookup-relation-modal button.btn-close').click();
 
     // Back on the form, click the discard button to remove new submission
     // Clicking it will display a confirmation, which we will confirm with another click

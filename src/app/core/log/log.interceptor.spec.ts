@@ -1,7 +1,11 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
-  HttpClientTestingModule,
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
   HttpTestingController,
+  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
@@ -39,10 +43,7 @@ describe('LogInterceptor', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        StoreModule.forRoot(appReducers, storeModuleConfig),
-      ],
+      imports: [StoreModule.forRoot(appReducers, storeModuleConfig)],
       providers: [
         DspaceRestService,
         // LogInterceptor,
@@ -55,6 +56,8 @@ describe('LogInterceptor', () => {
         { provide: Router, useValue: router },
         { provide: CorrelationIdService, useClass: CorrelationIdService },
         { provide: UUIDService, useClass: UUIDService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
       ],
     });
 

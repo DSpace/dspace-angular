@@ -8,10 +8,10 @@
 
     <form [class]="'ng-invalid'" [formGroup]="form">
 
-        <div class="form-group">
+        <div class="mb-3">
             <div class="row">
                 <div class="col-12">
-                    <label class="font-weight-bold"
+                    <label class="fw-bold form-label"
                            for="email">{{MESSAGE_PREFIX + '.email' | translate}}</label>
                     <input [className]="(email.invalid) && (email.dirty || email.touched) ? 'form-control is-invalid' :'form-control'"
                            type="text" id="email" formControlName="email"

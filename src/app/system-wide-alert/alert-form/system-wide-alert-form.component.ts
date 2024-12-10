@@ -277,7 +277,7 @@ export class SystemWideAlertFormComponent implements OnInit {
           this.back();
         }
       } else {
-        this.notificationsService.error(this.translateService.get(`${messagePrefix}.error`, response.errorMessage));
+        this.notificationsService.error(this.translateService.get(`${messagePrefix}.error`));
       }
     });
   }
