@@ -141,9 +141,7 @@ export class BrowseService {
         .find((def: BrowseDefinition) => def.id === browseId)
       ),
       map((browseDef: BrowseDefinition) => {
-        console.log('comparing for browseDef', browseDef);
         if (browseDef.order === SortDirection.ASC || browseDef.order === SortDirection.DESC) {
-          console.log('returning browseDef.order', browseDef.order);
           return browseDef.order;
         } else {
           return defaultDirection;
