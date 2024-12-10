@@ -37,7 +37,7 @@
     <div class="mb-5 mt-5">
       <!-- In the url section -->
       <div class="d-flex align-items-center">
-        <div class="d-flex flex-column w-50 mr-2">
+        <div class="d-flex flex-column w-50 me-2">
           <label for="url" class="font-weight-bold">{{ 'ldn-new-service.form.label.url' | translate }}</label>
           <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
                  [placeholder]="'ldn-new-service.form.placeholder.url' | translate" class="form-control"
@@ -73,7 +73,7 @@
       <label for="lowerIp" class="font-weight-bold">{{ 'ldn-new-service.form.label.ip-range' | translate }}</label>
       <div class="d-flex">
         <input [class.invalid-field]="formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched"
-               [placeholder]="'ldn-new-service.form.placeholder.lowerIp' | translate" class="form-control mr-2"
+               [placeholder]="'ldn-new-service.form.placeholder.lowerIp' | translate" class="form-control me-2"
                formControlName="lowerIp"
                id="lowerIp"
                name="lowerIp"
@@ -298,7 +298,7 @@
     </div>
       <div class="modal-footer">
         <div *ngIf="!isNewService">
-          <button (click)="closeModal()" class="btn btn-outline-secondary mr-2"
+          <button (click)="closeModal()" class="btn btn-outline-secondary me-2"
                   id="delete-confirm-edit">{{ 'service.detail.return' | translate }}
           </button>
           <button *ngIf="!isNewService" (click)="patchService()"
@@ -306,7 +306,7 @@
           </button>
         </div>
         <div *ngIf="isNewService">
-          <button (click)="closeModal()" class="btn btn-outline-secondary mr-2 "
+          <button (click)="closeModal()" class="btn btn-outline-secondary me-2 "
                   id="delete-confirm-new">{{ 'service.refuse.create' | translate }}
           </button>
           <button (click)="createService()"

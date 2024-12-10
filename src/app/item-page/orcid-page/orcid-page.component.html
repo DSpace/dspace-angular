@@ -10,7 +10,7 @@
 
 <div *ngIf="(processingConnection | async) !== true && (item | async)" class="container">
   <div class="button-row bottom mb-3">
-    <div class="text-right">
+    <div class="text-end">
       <a [routerLink]="getItemPage()" role="button" class="btn btn-outline-secondary" data-test="back-button">
         <i class="fas fa-arrow-left"></i> {{'item.orcid.return' | translate}}
       </a>

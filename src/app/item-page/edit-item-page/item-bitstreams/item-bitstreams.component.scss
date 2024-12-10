@@ -1,12 +1,12 @@
 .header-row {
-  color: var(--bs-table-dark-color);
-  background-color: var(--bs-table-dark-bg);
-  border-color: var(--bs-table-dark-border-color);
+  color: var(--bs-white);
+  background-color: var(--bs-gray-800);
+  border-color: var(--bs-gray-700);
 }
 
 .bundle-row {
-  color: var(--bs-table-head-color);
-  background-color: var(--bs-table-head-bg);
+  color: var(--bs-gray-700);
+  background-color: var(--bs-gray-200);
   border-color: var(--bs-table-border-color);
 }
 
