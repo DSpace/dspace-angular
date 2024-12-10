@@ -191,6 +191,12 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    */
   public editingAuthority = false;
 
+
+  /**
+   * Whether or not the free-text editing is enabled when scrollable dropdown or hierarchical vocabulary is used
+   */
+  public enabledFreeTextEditing = false;
+
   /**
    * Field group used by authority field
    * @type {UntypedFormGroup}
@@ -438,15 +444,23 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * Process the change of authority field value updating the authority key and confidence as necessary
    */
   onChangeAuthorityField(event): void {
-    this.mdValue.newValue.value = event.value;
-    if (event.authority) {
-      this.mdValue.newValue.authority = event.authority;
-      this.mdValue.newValue.confidence = ConfidenceType.CF_ACCEPTED;
+    if (event) {
+      this.mdValue.newValue.value = event.value;
+      if (event.authority) {
+        this.mdValue.newValue.authority = event.authority;
+        this.mdValue.newValue.confidence = ConfidenceType.CF_ACCEPTED;
+      } else {
+        this.mdValue.newValue.authority = null;
+        this.mdValue.newValue.confidence = ConfidenceType.CF_UNSET;
+      }
+      this.confirm.emit(false);
     } else {
+      // The event is undefined when the user clears the selection in scrollable dropdown
+      this.mdValue.newValue.value = '';
       this.mdValue.newValue.authority = null;
       this.mdValue.newValue.confidence = ConfidenceType.CF_UNSET;
+      this.confirm.emit(false);
     }
-    this.confirm.emit(false);
   }
 
   /**
@@ -478,6 +492,19 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
       this.mdValue.newValue.confidence = ConfidenceType.CF_ACCEPTED;
       this.confirm.emit(false);
     }
+  }
+
+  /**
+   * Toggles the free-text ediitng mode
+   */
+  toggleFreeTextEdition() {
+    if (this.enabledFreeTextEditing) {
+      if (this.getModel().value !== this.mdValue.newValue.value) {
+        // Reload the model to adapt it to the new possible value modified during free text editing
+        this.initAuthorityProperties();
+      }
+    }
+    this.enabledFreeTextEditing = !this.enabledFreeTextEditing;
   }
 
 }
