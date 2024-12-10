@@ -1,0 +1,7 @@
+<textarea [(ngModel)]="mdValue?.newValue.value"
+          [attr.aria-label]="(dsoType + '.edit.metadata.edit.value') | translate"
+          [dsDebounce]="300"
+          (onDebounce)="confirm.emit(false)"
+          class="form-control"
+          rows="5">
+</textarea>
