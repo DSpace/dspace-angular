@@ -15,13 +15,19 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import difference from 'lodash/difference';
+import cloneDeep from 'lodash/cloneDeep';
+import differenceWith from 'lodash/differenceWith';
 import {
   BehaviorSubject,
   Subscription,
 } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import {
+  AccessibilitySetting,
+  AccessibilitySettingsService,
+} from '../../../accessibility/accessibility-settings.service';
 import { AppState } from '../../../app.reducer';
 import { INotification } from '../models/notification.model';
 import { NotificationComponent } from '../notification/notification.component';
@@ -61,9 +67,12 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
    */
   public isPaused$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private service: NotificationsService,
-              private store: Store<AppState>,
-              private cdr: ChangeDetectorRef) {
+  constructor(
+    protected service: NotificationsService,
+    protected store: Store<AppState>,
+    protected cdr: ChangeDetectorRef,
+    protected accessibilitySettingsService: AccessibilitySettingsService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -73,13 +82,13 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
           this.notifications = [];
         } else if (state.length > this.notifications.length) {
           // Add
-          const newElem = difference(state, this.notifications);
+          const newElem = differenceWith(state, this.notifications, this.byId);
           newElem.forEach((notification) => {
             this.add(notification);
           });
         } else {
           // Remove
-          const delElem = difference(this.notifications, state);
+          const delElem = differenceWith(this.notifications, state, this.byId);
           delElem.forEach((notification) => {
             this.notifications = this.notifications.filter((item: INotification) => item.id !== notification.id);
 
@@ -89,6 +98,9 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
       });
   }
 
+  private byId = (notificationA: INotification, notificationB: INotification) =>
+    notificationA.id === notificationB.id;
+
   // Add the new notification to the notification array
   add(item: INotification): void {
     const toBlock: boolean = this.block(item);
@@ -96,7 +108,22 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
       if (this.notifications.length >= this.maxStack) {
         this.notifications.splice(this.notifications.length - 1, 1);
       }
-      this.notifications.splice(0, 0, item);
+
+      // It would be a bit better to handle the retrieval of configured settings in the NotificationsService.
+      // Due to circular dependencies this is difficult to implement.
+      this.accessibilitySettingsService.getAsNumber(AccessibilitySetting.NotificationTimeOut, item.options.timeOut)
+        .pipe(take(1)).subscribe(timeOut => {
+          if (timeOut < 0) {
+            timeOut = 0;
+          }
+
+          // Deep clone because the unaltered item is read-only
+          const modifiedNotification = cloneDeep(item);
+          modifiedNotification.options.timeOut = timeOut;
+          this.notifications.splice(0, 0, modifiedNotification);
+          this.cdr.detectChanges();
+        });
+
     } else {
       // Remove the notification from the store
       // This notification was in the store, but not in this.notifications
