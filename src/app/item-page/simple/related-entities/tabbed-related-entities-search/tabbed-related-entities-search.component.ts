@@ -88,7 +88,6 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
       queryParams: {
         tab: event.nextId,
       },
-      queryParamsHandling: 'merge',
     });
   }
 
