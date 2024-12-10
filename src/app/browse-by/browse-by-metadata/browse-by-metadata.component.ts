@@ -210,18 +210,18 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
 
   ngOnInit(): void {
-
-    const sortConfig = new SortOptions('default', SortDirection.ASC);
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
-    this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
-    this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
+    this.browseId = this.route.snapshot.params.id;
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
-        }),
-      ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
-        this.browseId = params.id || this.defaultBrowseId;
+      this.browseService.getConfiguredSortDirection(this.browseId, SortDirection.ASC).pipe(
+        map((sortDir) => new SortOptions(this.browseId, sortDir)),
+        switchMap((sortConfig) => {
+          this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig, false);
+          this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
+          return observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
+            map(([routeParams, queryParams, scope, currentPage, currentSort]) => ({
+              params: Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort
+            })));
+        })).subscribe(({ params, scope, currentPage, currentSort }) => {
         this.authority = params.authority;
 
         if (typeof params.value === 'string') {
@@ -241,11 +241,10 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
         if (isNotEmpty(this.value)) {
           this.updatePageWithItems(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
         } else {
-          this.updatePage(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, false));
+          is.updatePage(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, false));
         }
+        this.updateStartsWithTextOptions();
       }));
-    this.updateStartsWithTextOptions();
-
   }
 
   ngOnChanges(): void {

@@ -11,6 +11,9 @@ export abstract class BrowseDefinition extends CacheableObject {
   @autoserialize
   id: string;
 
+  @autoserialize
+  order: string;
+
   /**
    * Get the render type of the BrowseDefinition model
    */
