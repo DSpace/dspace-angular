@@ -74,9 +74,13 @@ export const ROUTES: Route[] = [
         },
         children: [
           {
-            path: '',
+            path: 'search',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: { breadcrumbKey: 'community.search' },
           },
           {
             path: 'subcoms-cols',

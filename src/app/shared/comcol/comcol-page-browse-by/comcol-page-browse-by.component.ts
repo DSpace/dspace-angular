@@ -5,6 +5,7 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -33,6 +34,10 @@ import {
   take,
 } from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { BrowseService } from '../../../core/browse/browse.service';
@@ -82,6 +87,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
   subs: Subscription[] = [];
 
   constructor(
+    @Inject(APP_CONFIG) public appConfig: AppConfig,
     public router: Router,
     private browseService: BrowseService,
   ) {
@@ -99,14 +105,14 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
             allOptions.push({
               id: 'search',
               label: 'collection.page.browse.search.head',
-              routerLink: comColRoute,
+              routerLink: `${comColRoute}/search`,
             });
           } else if (this.contentType === 'community') {
             comColRoute = getCommunityPageRoute(this.id);
             allOptions.push({
               id: 'search',
               label: 'collection.page.browse.search.head',
-              routerLink: comColRoute,
+              routerLink: `${comColRoute}/search`,
             });
             allOptions.push({
               id: 'comcols',
@@ -120,6 +126,10 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
             label: `browse.comcol.by.${config.id}`,
             routerLink: `${comColRoute}/browse/${config.id}`,
           })));
+
+          if (this.appConfig[this.contentType].defaultBrowseTab !== 'search') {
+            allOptions.push(allOptions.shift());
+          }
         }
         return allOptions;
       }),
@@ -134,9 +144,14 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
         distinctUntilChanged(),
       ),
     ]).subscribe(([navOptions, url]: [ComColPageNavOption[], string]) => {
-      for (const option of navOptions) {
-        if (option.routerLink === url?.split('?')[0]) {
-          this.currentOption$.next(option);
+      if (url?.split('?')[0].endsWith(`/${this.id}`)) {
+        const option = navOptions.find(o => o.id === this.appConfig[this.contentType].defaultBrowseTab);
+        void this.router.navigate([option.routerLink], { queryParams: option.params });
+      } else {
+        for (const option of navOptions) {
+          if (option.routerLink === url?.split('?')[0]) {
+            this.currentOption$.next(option);
+          }
         }
       }
     }));
