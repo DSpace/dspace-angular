@@ -55,7 +55,8 @@
   --bs-table-striped-bg: #{$light};
 }
 
-cdk-tree-node .btn {
+.btn-transparent
+{
   --bs-btn-box-shadow: none;
   --bs-btn-focus-box-shadow: none;
   --bs-btn-active-border-color: transparent;

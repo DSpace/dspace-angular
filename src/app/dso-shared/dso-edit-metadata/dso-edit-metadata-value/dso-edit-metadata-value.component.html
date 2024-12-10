@@ -18,7 +18,7 @@
                       (change)="onChangeAuthorityField($event)">
     </ds-dynamic-onebox>
     <div *ngIf="!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE">
-      <span class="badge badge-light border" >
+      <span class="badge bg-light border" >
         <i dsAuthorityConfidenceState
            class="fas fa-fw p-0"
            aria-hidden="true"

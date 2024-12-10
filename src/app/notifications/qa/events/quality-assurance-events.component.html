@@ -76,17 +76,17 @@
                     </div>
                   </td>
                   <td *ngIf="showTopic.indexOf('/PID') !== -1">
-                    <p><span class="small">{{'quality-assurance.event.table.pidtype' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.type}}</span></p>
+                    <p><span class="small">{{'quality-assurance.event.table.pidtype' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.type}}</span></p>
                     <p><span class="small">{{'quality-assurance.event.table.pidvalue' | translate}}</span><br>
                       <a *ngIf="hasPIDHref(eventElement.event.message); else noPID" href="{{getPIDHref(eventElement.event.message)}}" rel="noopener noreferrer" target="_blank">
                         {{eventElement.event.message.value}}
                       </a>
-                      <ng-template #noPID><span class="badge badge-info">{{eventElement.event.message.value}}</span></ng-template>
+                      <ng-template #noPID><span class="badge bg-info">{{eventElement.event.message.value}}</span></ng-template>
                     </p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/SUBJECT') !== -1">
                     <p><span class="small">{{'quality-assurance.event.table.subjectValue' | translate}}
-                       </span><br><span class="badge badge-info">{{eventElement.event.message.value}}</span></p>
+                       </span><br><span class="badge bg-info">{{eventElement.event.message.value}}</span></p>
                   </td>
                   <td *ngIf="showTopic.indexOf('/ABSTRACT') !== -1">
                     <p class="abstract-container" [class.show]="showMore">
@@ -125,11 +125,11 @@
                       <a href="{{sourceUrlForProjectSearch}}{{ eventElement.event.message.sourceId}}" rel="noopener noreferrer" target="_blank">{{eventElement.event.message.title}}</a>
                     </p>
                     <p>
-                      <span *ngIf="eventElement.event.message.acronym"><span class="small">{{'quality-assurance.event.table.acronym' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.acronym}}</span><br></span>
-                      <span *ngIf="eventElement.event.message.code"><span class="small">{{'quality-assurance.event.table.code' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.code}}</span><br></span>
-                      <span *ngIf="eventElement.event.message.funder"><span class="small">{{'quality-assurance.event.table.funder' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.funder}}</span><br></span>
-                      <span *ngIf="eventElement.event.message.fundingProgram"><span class="small">{{'quality-assurance.event.table.fundingProgram' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.fundingProgram}}</span><br></span>
-                      <span *ngIf="eventElement.event.message.jurisdiction"><span class="small">{{'quality-assurance.event.table.jurisdiction' | translate}}</span>&nbsp;<span class="badge badge-info">{{eventElement.event.message.jurisdiction}}</span></span>
+                      <span *ngIf="eventElement.event.message.acronym"><span class="small">{{'quality-assurance.event.table.acronym' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.acronym}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.code"><span class="small">{{'quality-assurance.event.table.code' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.code}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.funder"><span class="small">{{'quality-assurance.event.table.funder' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.funder}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.fundingProgram"><span class="small">{{'quality-assurance.event.table.fundingProgram' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.fundingProgram}}</span><br></span>
+                      <span *ngIf="eventElement.event.message.jurisdiction"><span class="small">{{'quality-assurance.event.table.jurisdiction' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.jurisdiction}}</span></span>
                     </p>
                     <hr>
                     <div>

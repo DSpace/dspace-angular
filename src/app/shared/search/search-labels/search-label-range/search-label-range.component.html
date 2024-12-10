@@ -3,7 +3,7 @@
    [routerLink]="searchLink"
    [queryParams]="(removeParametersMin$ | async)"
    (click)="searchFilterService.minimizeAll()"
-   class="badge badge-primary">
+   class="badge bg-primary">
   <span class="d-flex">
     <span class="flex-grow-1 text-left">{{('search.filters.applied.f.' + appliedFilter.filter + '.min') | translate}}: {{ min }}</span>
     <span class="ps-1" aria-hidden="true">×</span>
@@ -14,7 +14,7 @@
    [routerLink]="searchLink"
    [queryParams]="(removeParametersMax$ | async)"
    (click)="searchFilterService.minimizeAll()"
-   class="badge badge-primary">
+   class="badge bg-primary">
   <span class="d-flex">
     <span class="flex-grow-1 text-left">{{('search.filters.applied.f.' + appliedFilter.filter + '.max') | translate}}: {{ max }}</span>
     <span class="ps-1" aria-hidden="true">×</span>
