@@ -41,6 +41,7 @@ import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
 import { BrowseByTitleComponent } from './browse-by-title.component';
+import { SortDirection } from '../../core/cache/models/sort-options.model';
 
 describe('BrowseByTitleComponent', () => {
   let comp: BrowseByTitleComponent;
@@ -73,6 +74,7 @@ describe('BrowseByTitleComponent', () => {
   const mockBrowseService = {
     getBrowseItemsFor: () => toRemoteData(mockItems),
     getBrowseEntriesFor: () => toRemoteData([]),
+    getConfiguredSortDirection: () => observableOf(SortDirection.ASC),
   };
 
   const mockDsoService = {
