@@ -2252,6 +2252,8 @@
 
   "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
 
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
   "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
 
   "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
