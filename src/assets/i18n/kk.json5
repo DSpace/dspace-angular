@@ -6809,7 +6809,7 @@
   // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
   "submission.sections.sherpa.publisher.policy": "Баспагердің саясаты",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Open Policy Finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
   "submission.sections.sherpa.publisher.policy.description": "Төмендегі ақпарат Шерпа Ромео арқылы табылды. Баспагердің саясатына сүйене отырып, ол сізге эмбарго қажет пе және / немесе қандай файлдарды жүктеуге рұқсат етілгені туралы ұсыныстар береді. Егер сізде сұрақтар туындаса, төменгі деректемедегі кері байланыс нысаны арқылы веб-сайтыңыздың әкімшісіне хабарласыңыз.",
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
