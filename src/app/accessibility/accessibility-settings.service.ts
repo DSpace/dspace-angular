@@ -19,8 +19,8 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import {
   hasValue,
   isNotEmpty,
-  isNotEmptyOperator,
 } from '../shared/empty.util';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
 /**
  * Name of the cookie used to store the settings locally
@@ -33,16 +33,30 @@ export const ACCESSIBILITY_COOKIE = 'dsAccessibilityCookie';
 export const ACCESSIBILITY_SETTINGS_METADATA_KEY = 'dspace.accessibility.settings';
 
 /**
- * Enum containing all possible accessibility settings.
- * When adding new settings, the {@link AccessibilitySettingsService#getInputType} method and the i18n keys for the
- * accessibility settings page should be updated.
+ * Type containing all possible accessibility settings.
+ * When adding new settings, make sure to add the new setting to the accessibility-settings component form.
+ * The converter methods to convert from stored format to form format (and vice-versa) need to be updated as well.
  */
-export enum AccessibilitySetting {
-  NotificationTimeOut = 'notificationTimeOut',
-  LiveRegionTimeOut = 'liveRegionTimeOut',
-}
+export type AccessibilitySetting = 'notificationTimeOut' | 'liveRegionTimeOut';
 
-export type AccessibilitySettings = { [key in AccessibilitySetting]?: any };
+/**
+ * Type representing an object that contains accessibility settings values for all accessibility settings.
+ */
+export type FullAccessibilitySettings = { [key in AccessibilitySetting]: string };
+
+/**
+ * Type representing an object that contains accessibility settings values for some accessibility settings.
+ */
+export type AccessibilitySettings = Partial<FullAccessibilitySettings>;
+
+/**
+ * The accessibility settings object format used by the accessibility-settings component form.
+ */
+export interface AccessibilitySettingsFormValues {
+  notificationTimeOutEnabled: boolean,
+  notificationTimeOut: string,
+  liveRegionTimeOut: string,
+}
 
 /**
  * Service handling the retrieval and configuration of accessibility settings.
@@ -60,10 +74,6 @@ export class AccessibilitySettingsService {
     protected authService: AuthService,
     protected ePersonService: EPersonDataService,
   ) {
-  }
-
-  getAllAccessibilitySettingKeys(): AccessibilitySetting[] {
-    return Object.entries(AccessibilitySetting).map(([_, val]) => val);
   }
 
   /**
@@ -204,8 +214,8 @@ export class AccessibilitySettingsService {
 
     return this.ePersonService.createPatchFromCache(user).pipe(
       take(1),
-      isNotEmptyOperator(),
-      switchMap(operations => this.ePersonService.patch(user, operations)),
+      switchMap(operations =>
+        isNotEmpty(operations) ? this.ePersonService.patch(user, operations) : createSuccessfulRemoteDataObject$({})),
       getFirstCompletedRemoteData(),
       map(rd => rd.hasSucceeded),
     );
@@ -223,17 +233,75 @@ export class AccessibilitySettingsService {
   }
 
   /**
-   * Returns the input type that a form should use for the provided {@link AccessibilitySetting}
+   * Clears all settings in the cookie and attempts to clear settings in metadata.
+   * Emits true if settings in metadata were cleared and false otherwise.
    */
-  getInputType(setting: AccessibilitySetting): string {
+  clearSettings(): Observable<boolean> {
+    this.setSettingsInCookie({});
+    return this.setSettingsInAuthenticatedUserMetadata({});
+  }
+
+  /**
+   * Retrieve the placeholder to be used for the provided AccessibilitySetting.
+   * Returns an empty string when no placeholder is specified for the provided setting.
+   */
+  getPlaceholder(setting: AccessibilitySetting): string {
     switch (setting) {
-      case AccessibilitySetting.NotificationTimeOut:
-        return 'number';
-      case AccessibilitySetting.LiveRegionTimeOut:
-        return 'number';
+      case 'notificationTimeOut':
+        return millisecondsToSeconds(environment.notifications.timeOut.toString());
+      case 'liveRegionTimeOut':
+        return millisecondsToSeconds(environment.liveRegion.messageTimeOutDurationMs.toString());
       default:
-        return 'text';
+        return '';
     }
   }
 
+  /**
+   * Convert values in the provided accessibility settings object to values ready to be stored.
+   */
+  convertFormValuesToStoredValues(settings: AccessibilitySettingsFormValues): FullAccessibilitySettings {
+    return {
+      notificationTimeOut: settings.notificationTimeOutEnabled ?
+        secondsToMilliseconds(settings.notificationTimeOut) : '0',
+      liveRegionTimeOut: secondsToMilliseconds(settings.liveRegionTimeOut),
+    };
+  }
+
+  /**
+   * Convert values in the provided accessibility settings object to values ready to show in the form.
+   */
+  convertStoredValuesToFormValues(settings: AccessibilitySettings): AccessibilitySettingsFormValues {
+    return {
+      notificationTimeOutEnabled: parseFloat(settings.notificationTimeOut) !== 0,
+      notificationTimeOut: millisecondsToSeconds(settings.notificationTimeOut),
+      liveRegionTimeOut: millisecondsToSeconds(settings.liveRegionTimeOut),
+    };
+  }
+
+}
+
+/**
+ * Converts a string representing seconds to a string representing milliseconds
+ * Returns null if the input could not be parsed to a float
+ */
+function secondsToMilliseconds(secondsStr: string): string {
+  const seconds = parseFloat(secondsStr);
+  if (isNaN(seconds)) {
+    return null;
+  } else {
+    return (seconds * 1000).toString();
+  }
+}
+
+/**
+ * Converts a string representing milliseconds to a string representing seconds
+ * Returns null if the input could not be parsed to a float
+ */
+function millisecondsToSeconds(millisecondsStr: string): string {
+  const milliseconds = parseFloat(millisecondsStr);
+  if (isNaN(milliseconds)) {
+    return null;
+  } else {
+    return (milliseconds / 1000).toString();
+  }
 }
