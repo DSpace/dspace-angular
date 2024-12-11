@@ -138,7 +138,7 @@ export class BrowseService {
       getRemoteDataPayload(),
       getPaginatedListPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-        .find((def: BrowseDefinition) => def.id === browseId)
+        .find((def: BrowseDefinition) => def.id === browseId),
       ),
       map((browseDef: BrowseDefinition) => {
         if (browseDef.order === SortDirection.ASC || browseDef.order === SortDirection.DESC) {

@@ -20,6 +20,7 @@ import { of as observableOf } from 'rxjs';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { BrowseService } from '../../core/browse/browse.service';
+import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -41,7 +42,6 @@ import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
 import { BrowseByTitleComponent } from './browse-by-title.component';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
 
 describe('BrowseByTitleComponent', () => {
   let comp: BrowseByTitleComponent;

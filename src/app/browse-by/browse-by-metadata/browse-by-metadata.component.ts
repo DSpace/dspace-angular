@@ -12,7 +12,6 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  Params,
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,7 +22,10 @@ import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
@@ -219,7 +221,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
           this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
           return observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
             map(([routeParams, queryParams, scope, currentPage, currentSort]) => ({
-              params: Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort
+              params: Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort,
             })));
         })).subscribe(({ params, scope, currentPage, currentSort }) => {
         this.authority = params.authority;
@@ -241,7 +243,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
         if (isNotEmpty(this.value)) {
           this.updatePageWithItems(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails), this.value, this.authority);
         } else {
-          is.updatePage(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, false));
+          this.updatePage(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, false));
         }
         this.updateStartsWithTextOptions();
       }));
