@@ -2,25 +2,87 @@
   <h2>{{ 'info.accessibility-settings.title' | translate }}</h2>
 
   <form>
-    <div *ngFor="let setting of accessibilitySettingsOptions" class="form-group row">
-      <label [for]="setting + 'Input'" class="col-sm-2 col-form-label">
-        {{ 'info.accessibility-settings.' + setting + '.label' | translate }}
+    <div class="form-group row">
+      <label [for]="'disableNotificationTimeOutInput'" class="col-sm-2 col-form-label">
+        {{ 'info.accessibility-settings.disableNotificationTimeOut.label' | translate }}
       </label>
 
-      <div class="col-sm-10">
-        <input [type]="getInputType(setting)" [id]="setting + 'Input'" class="form-control"
-               [(ngModel)]="formValues[setting]" [ngModelOptions]="{ standalone: true }"
-               [attr.aria-describedby]="setting + 'Hint'">
+      <div class="col-sm-5">
+        <ui-switch [id]="'disableNotificationTimeOutInput'"
+                   [(ngModel)]="formValues.notificationTimeOutEnabled"
+                   [ngModelOptions]="{ standalone: true }"
+        ></ui-switch>
+      </div>
 
-        <small [id]="setting + 'Hint'" class="form-text text-muted">
-          {{ 'info.accessibility-settings.' + setting + '.hint' | translate }}
-        </small>
+      <div class="col-sm-1" *dsContextHelp="{
+            content: 'info.accessibility-settings.disableNotificationTimeOut.hint',
+            id: 'disableNotificationTimeOutHelp',
+            iconPlacement: 'right',
+            tooltipPlacement: 'right'
+          }">
       </div>
     </div>
 
-    <button type="submit" (click)="saveSettings()" class="btn btn-primary">
-      {{ 'info.accessibility-settings.submit' | translate }}
-    </button>
+    <div class="form-group row">
+      <label [for]="'notificationTimeOutInput'" class="col-sm-2 col-form-label">
+        {{ 'info.accessibility-settings.notificationTimeOut.label' | translate }}
+      </label>
+
+      <div class="col-sm-4">
+        <input [type]="'number'" [id]="'notificationTimeOutInput'" class="form-control"
+               [placeholder]="getPlaceholder('notificationTimeOut')"
+               [readOnly]="!formValues.notificationTimeOutEnabled"
+               [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
+               [attr.aria-describedby]="'notificationTimeOutHint'">
+      </div>
+
+      <div class="col-sm-1 col-form-label">
+        {{ 'info.accessibility-settings.notificationTimeOut.unit' | translate }}
+      </div>
+
+      <div class="col-sm-1" *dsContextHelp="{
+            content: 'info.accessibility-settings.notificationTimeOut.hint',
+            id: 'notificationTimeOutHelp',
+            iconPlacement: 'right',
+            tooltipPlacement: 'right'
+          }">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label [for]="'liveRegionTimeOutInput'" class="col-sm-2 col-form-label">
+        {{ 'info.accessibility-settings.liveRegionTimeOut.label' | translate }}
+      </label>
+
+      <div class="col-sm-4">
+        <input [type]="'number'" [id]="'liveRegionTimeOutInput'" class="form-control"
+               [placeholder]="getPlaceholder('liveRegionTimeOut')"
+               [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
+               [attr.aria-describedby]="'liveRegionTimeOutHint'">
+      </div>
+
+      <div class="col-sm-1 col-form-label">
+        {{ 'info.accessibility-settings.liveRegionTimeOut.unit' | translate }}
+      </div>
+
+      <div class="col-sm-1" *dsContextHelp="{
+            content: 'info.accessibility-settings.liveRegionTimeOut.hint',
+            id: 'liveRegionTimeOutHelp',
+            iconPlacement: 'right',
+            tooltipPlacement: 'right'
+          }">
+      </div>
+    </div>
+
+    <div role="group">
+      <button type="submit" (click)="saveSettings()" class="btn btn-primary mr-2">
+        {{ 'info.accessibility-settings.submit' | translate }}
+      </button>
+      <button type="reset" (click)="resetSettings()" class="btn btn-warning">
+        {{ 'info.accessibility-settings.reset' | translate }}
+      </button>
+    </div>
+
   </form>
 
 </div>

@@ -3,21 +3,22 @@ import { AuthService } from '../../core/auth/auth.service';
 import {
   AccessibilitySetting,
   AccessibilitySettingsService,
-  AccessibilitySettings
+  AccessibilitySettingsFormValues,
 } from '../../accessibility/accessibility-settings.service';
 import { take } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 
+/**
+ * Component providing the form where users can update accessibility settings.
+ */
 @Component({
   selector: 'ds-accessibility-settings',
   templateUrl: './accessibility-settings.component.html'
 })
 export class AccessibilitySettingsComponent implements OnInit {
 
-  protected accessibilitySettingsOptions: AccessibilitySetting[];
-
-  protected formValues: AccessibilitySettings = { };
+  protected formValues: AccessibilitySettingsFormValues;
 
   constructor(
     protected authService: AuthService,
@@ -28,19 +29,41 @@ export class AccessibilitySettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accessibilitySettingsOptions = this.settingsService.getAllAccessibilitySettingKeys();
-    this.settingsService.getAll().pipe(take(1)).subscribe(currentSettings => {
-      this.formValues = currentSettings;
+    this.updateFormValues();
+  }
+
+  getPlaceholder(setting: AccessibilitySetting): string {
+    return this.settingsService.getPlaceholder(setting);
+  }
+
+  /**
+   * Saves the user-configured settings
+   */
+  saveSettings() {
+    const formValues = this.formValues;
+    const convertedValues = this.settingsService.convertFormValuesToStoredValues(formValues);
+    this.settingsService.setSettings(convertedValues).pipe(take(1)).subscribe(location => {
+      this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));
+      this.updateFormValues();
     });
   }
 
-  getInputType(setting: AccessibilitySetting): string {
-    return this.settingsService.getInputType(setting);
+  /**
+   * Updates the form values with the currently stored accessibility settings
+   */
+  updateFormValues() {
+    this.settingsService.getAll().pipe(take(1)).subscribe(storedSettings => {
+      this.formValues = this.settingsService.convertStoredValuesToFormValues(storedSettings);
+    });
   }
 
-  saveSettings() {
-    this.settingsService.setSettings(this.formValues).pipe(take(1)).subscribe(location => {
-      this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));
+  /**
+   * Resets accessibility settings
+   */
+  resetSettings() {
+    this.settingsService.clearSettings().pipe(take(1)).subscribe(() => {
+      this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.reset-notification'));
+      this.updateFormValues();
     });
   }
 
