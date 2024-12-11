@@ -6,11 +6,9 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { ContextHelpDirective } from 'src/app/shared/context-help.directive';
 
-import {
-  AccessibilitySetting,
-  AccessibilitySettingsService,
-} from '../../accessibility/accessibility-settings.service';
+import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
 import { getAccessibilitySettingsServiceStub } from '../../accessibility/accessibility-settings.service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -40,6 +38,10 @@ describe('AccessibilitySettingsComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(AccessibilitySettingsComponent, {
+      remove: {
+        imports: [ContextHelpDirective],
+      },
     }).compileComponents();
   }));
 
@@ -54,19 +56,12 @@ describe('AccessibilitySettingsComponent', () => {
   });
 
   describe('On Init', () => {
-    it('should retrieve all accessibility settings options', () => {
-      expect(settingsService.getAllAccessibilitySettingKeys).toHaveBeenCalled();
-    });
-
     it('should retrieve the current settings', () => {
       expect(settingsService.getAll).toHaveBeenCalled();
     });
-  });
 
-  describe('getInputType', () => {
-    it('should retrieve the input type for the setting from the service', () => {
-      component.getInputType(AccessibilitySetting.LiveRegionTimeOut);
-      expect(settingsService.getInputType).toHaveBeenCalledWith(AccessibilitySetting.LiveRegionTimeOut);
+    it('should convert retrieved settings to form format', () => {
+      expect(settingsService.convertStoredValuesToFormValues).toHaveBeenCalled();
     });
   });
 
@@ -75,6 +70,12 @@ describe('AccessibilitySettingsComponent', () => {
       settingsService.setSettings = jasmine.createSpy('setSettings').and.returnValue(of('cookie'));
       component.saveSettings();
       expect(settingsService.setSettings).toHaveBeenCalled();
+    });
+
+    it('should convert form settings to stored format', () => {
+      settingsService.setSettings = jasmine.createSpy('setSettings').and.returnValue(of('cookie'));
+      component.saveSettings();
+      expect(settingsService.convertFormValuesToStoredValues).toHaveBeenCalled();
     });
 
     it('should give the user a notification mentioning where the settings were saved', () => {

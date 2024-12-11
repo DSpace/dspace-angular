@@ -2134,17 +2134,29 @@
 
   "info.accessibility-settings.breadcrumbs": "Accessibility settings",
 
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Hide notifications automatically",
+
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will remain until manually closed.",
+
   "info.accessibility-settings.liveRegionTimeOut.label": "Live region time-out",
 
-  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration in milliseconds after which a message in the live region disappears.",
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the live region disappears.",
+
+  "info.accessibility-settings.liveRegionTimeOut.unit": "Seconds",
 
   "info.accessibility-settings.notificationTimeOut.label": "Notification time-out",
 
-  "info.accessibility-settings.notificationTimeOut.hint": "The duration in milliseconds after which a notification disappears. Set to 0 for notifications to remain indefinitely.",
+  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+
+  "info.accessibility-settings.notificationTimeOut.unit": "Seconds",
 
   "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
 
   "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+
+  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+
+  "info.accessibility-settings.reset": "Reset accessibility settings",
 
   "info.accessibility-settings.submit": "Save accessibility settings",
 
@@ -3896,7 +3908,7 @@
 
   "profile.card.accessibility.header": "Accessibility",
 
-  "profile.card.accessibility.link": "Accessibility Settings Page",
+  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
 
   "profile.card.identify": "Identify",
 
