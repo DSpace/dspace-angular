@@ -9,7 +9,7 @@
 
       <div class="col-sm-5">
         <ui-switch [id]="'disableNotificationTimeOutInput'"
-                   [(ngModel)]="formValues.disableNotificationTimeOut"
+                   [(ngModel)]="formValues.notificationTimeOutEnabled"
                    [ngModelOptions]="{ standalone: true }"
         ></ui-switch>
       </div>
@@ -31,7 +31,7 @@
       <div class="col-sm-4">
         <input [type]="'number'" [id]="'notificationTimeOutInput'" class="form-control"
                [placeholder]="getPlaceholder('notificationTimeOut')"
-               [readOnly]="formValues.disableNotificationTimeOut"
+               [readOnly]="!formValues.notificationTimeOutEnabled"
                [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'notificationTimeOutHint'">
       </div>

@@ -1844,7 +1844,7 @@
 
   "info.accessibility-settings.breadcrumbs": "Accessibility settings",
 
-  "info.accessibility-settings.disableNotificationTimeOut.label": "Disable automatic notification hiding",
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Hide notifications automatically",
 
   "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will remain until manually closed.",
 

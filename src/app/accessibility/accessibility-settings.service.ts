@@ -42,7 +42,7 @@ export type AccessibilitySettings = Partial<FullAccessibilitySettings>;
  * The accessibility settings object format used by the accessibility-settings component form.
  */
 export interface AccessibilitySettingsFormValues {
-  disableNotificationTimeOut: boolean,
+  notificationTimeOutEnabled: boolean,
   notificationTimeOut: string,
   liveRegionTimeOut: string,
 }
@@ -250,8 +250,8 @@ export class AccessibilitySettingsService {
    */
   convertFormValuesToStoredValues(settings: AccessibilitySettingsFormValues): FullAccessibilitySettings {
     return {
-      notificationTimeOut: settings.disableNotificationTimeOut ? '0'
-        : secondsToMilliseconds(settings.notificationTimeOut),
+      notificationTimeOut: settings.notificationTimeOutEnabled ?
+        secondsToMilliseconds(settings.notificationTimeOut) : '0',
       liveRegionTimeOut: secondsToMilliseconds(settings.liveRegionTimeOut),
     };
   }
@@ -261,7 +261,7 @@ export class AccessibilitySettingsService {
    */
   convertStoredValuesToFormValues(settings: AccessibilitySettings): AccessibilitySettingsFormValues {
     return {
-      disableNotificationTimeOut: parseFloat(settings.notificationTimeOut) === 0,
+      notificationTimeOutEnabled: parseFloat(settings.notificationTimeOut) !== 0,
       notificationTimeOut: millisecondsToSeconds(settings.notificationTimeOut),
       liveRegionTimeOut: millisecondsToSeconds(settings.liveRegionTimeOut),
     };
