@@ -22,19 +22,21 @@ export const ACCESSIBILITY_COOKIE = 'dsAccessibilityCookie';
 export const ACCESSIBILITY_SETTINGS_METADATA_KEY = 'dspace.accessibility.settings';
 
 /**
- * Enum containing all possible accessibility settings.
- * When adding new settings, make sure to add the new setting to the accessibility-settings component.
+ * Type containing all possible accessibility settings.
+ * When adding new settings, make sure to add the new setting to the accessibility-settings component form.
  * The converter methods to convert from stored format to form format (and vice-versa) need to be updated as well.
  */
-export enum AccessibilitySetting {
-  NotificationTimeOut = 'notificationTimeOut',
-  LiveRegionTimeOut = 'liveRegionTimeOut',
-}
+export type AccessibilitySetting = 'notificationTimeOut' | 'liveRegionTimeOut';
 
 /**
- * Type representing an object that contains accessibility settings values.
+ * Type representing an object that contains accessibility settings values for all accessibility settings.
  */
-export type AccessibilitySettings = { [key in AccessibilitySetting]?: string };
+export type FullAccessibilitySettings = { [key in AccessibilitySetting]: string };
+
+/**
+ * Type representing an object that contains accessibility settings values for some accessibility settings.
+ */
+export type AccessibilitySettings = Partial<FullAccessibilitySettings>;
 
 /**
  * The accessibility settings object format used by the accessibility-settings component form.
@@ -61,10 +63,6 @@ export class AccessibilitySettingsService {
     protected authService: AuthService,
     protected ePersonService: EPersonDataService,
   ) {
-  }
-
-  getAllAccessibilitySettingKeys(): AccessibilitySetting[] {
-    return Object.entries(AccessibilitySetting).map(([_, val]) => val);
   }
 
   /**
@@ -238,9 +236,9 @@ export class AccessibilitySettingsService {
    */
   getPlaceholder(setting: AccessibilitySetting): string {
     switch (setting) {
-      case AccessibilitySetting.NotificationTimeOut:
+      case 'notificationTimeOut':
         return millisecondsToSeconds(environment.notifications.timeOut.toString());
-      case AccessibilitySetting.LiveRegionTimeOut:
+      case 'liveRegionTimeOut':
         return millisecondsToSeconds(environment.liveRegion.messageTimeOutDurationMs.toString());
       default:
         return '';
@@ -250,11 +248,11 @@ export class AccessibilitySettingsService {
   /**
    * Convert values in the provided accessibility settings object to values ready to be stored.
    */
-  convertFormValuesToStoredValues(settings: AccessibilitySettingsFormValues): AccessibilitySettings {
+  convertFormValuesToStoredValues(settings: AccessibilitySettingsFormValues): FullAccessibilitySettings {
     return {
-      'notificationTimeOut': settings.disableNotificationTimeOut ? '0'
+      notificationTimeOut: settings.disableNotificationTimeOut ? '0'
         : secondsToMilliseconds(settings.notificationTimeOut),
-      'liveRegionTimeOut': secondsToMilliseconds(settings.liveRegionTimeOut),
+      liveRegionTimeOut: secondsToMilliseconds(settings.liveRegionTimeOut),
     };
   }
 
@@ -271,6 +269,10 @@ export class AccessibilitySettingsService {
 
 }
 
+/**
+ * Converts a string representing seconds to a string representing milliseconds
+ * Returns null if the input could not be parsed to a float
+ */
 function secondsToMilliseconds(secondsStr: string): string {
   const seconds = parseFloat(secondsStr);
   if (isNaN(seconds)) {
@@ -280,6 +282,10 @@ function secondsToMilliseconds(secondsStr: string): string {
   }
 }
 
+/**
+ * Converts a string representing milliseconds to a string representing seconds
+ * Returns null if the input could not be parsed to a float
+ */
 function millisecondsToSeconds(millisecondsStr: string): string {
   const milliseconds = parseFloat(millisecondsStr);
   if (isNaN(milliseconds)) {

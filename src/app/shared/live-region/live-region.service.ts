@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, switchMap, take, timer } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { UUIDService } from '../../core/shared/uuid.service';
-import { AccessibilitySettingsService, AccessibilitySetting } from '../../accessibility/accessibility-settings.service';
+import { AccessibilitySettingsService } from '../../accessibility/accessibility-settings.service';
 
 export const MIN_MESSAGE_DURATION = 200;
 
@@ -130,7 +130,7 @@ export class LiveRegionService {
    */
   getConfiguredMessageTimeOutMs(): Observable<number> {
     return this.accessibilitySettingsService.getAsNumber(
-      AccessibilitySetting.LiveRegionTimeOut,
+      'liveRegionTimeOut',
       this.getMessageTimeOutMs(),
     ).pipe(map(timeOut => Math.max(timeOut, MIN_MESSAGE_DURATION)));
   }

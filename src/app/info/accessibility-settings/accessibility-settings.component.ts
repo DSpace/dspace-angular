@@ -18,9 +18,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AccessibilitySettingsComponent implements OnInit {
 
-  // Re-export for use in template
-  protected readonly AccessibilitySetting = AccessibilitySetting;
-
   protected formValues: AccessibilitySettingsFormValues;
 
   constructor(

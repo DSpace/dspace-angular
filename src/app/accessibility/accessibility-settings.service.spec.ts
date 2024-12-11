@@ -1,6 +1,5 @@
 import {
   AccessibilitySettingsService,
-  AccessibilitySetting,
   AccessibilitySettings,
   ACCESSIBILITY_SETTINGS_METADATA_KEY,
   ACCESSIBILITY_COOKIE
@@ -41,17 +40,6 @@ describe('accessibilitySettingsService', () => {
     );
   });
 
-  describe('getALlAccessibilitySettingsKeys', () => {
-    it('should return an array containing all accessibility setting names', () => {
-      const settingNames: AccessibilitySetting[] = [
-        AccessibilitySetting.NotificationTimeOut,
-        AccessibilitySetting.LiveRegionTimeOut,
-      ];
-
-      expect(service.getAllAccessibilitySettingKeys()).toEqual(settingNames);
-    });
-  });
-
   describe('get', () => {
     it('should return the setting if it is set', () => {
       const settings: AccessibilitySettings = {
@@ -60,7 +48,7 @@ describe('accessibilitySettingsService', () => {
 
       service.getAll = jasmine.createSpy('getAll').and.returnValue(of(settings));
 
-      service.get(AccessibilitySetting.NotificationTimeOut, 'default').subscribe(value =>
+      service.get('notificationTimeOut', 'default').subscribe(value =>
         expect(value).toEqual('1000')
       );
     });
@@ -72,7 +60,7 @@ describe('accessibilitySettingsService', () => {
 
       service.getAll = jasmine.createSpy('getAll').and.returnValue(of(settings));
 
-      service.get(AccessibilitySetting.LiveRegionTimeOut, 'default').subscribe(value =>
+      service.get('liveRegionTimeOut', 'default').subscribe(value =>
         expect(value).toEqual('default')
       );
     });
@@ -82,7 +70,7 @@ describe('accessibilitySettingsService', () => {
     it('should return the setting as number if the value for the setting can be parsed to a number', () => {
       service.get = jasmine.createSpy('get').and.returnValue(of('1000'));
 
-      service.getAsNumber(AccessibilitySetting.NotificationTimeOut).subscribe(value =>
+      service.getAsNumber('notificationTimeOut').subscribe(value =>
         expect(value).toEqual(1000)
       );
     });
@@ -90,7 +78,7 @@ describe('accessibilitySettingsService', () => {
     it('should return the default value if no value is set for the setting', () => {
       service.get = jasmine.createSpy('get').and.returnValue(of(null));
 
-      service.getAsNumber(AccessibilitySetting.NotificationTimeOut, 123).subscribe(value =>
+      service.getAsNumber('notificationTimeOut', 123).subscribe(value =>
         expect(value).toEqual(123)
       );
     });
@@ -98,7 +86,7 @@ describe('accessibilitySettingsService', () => {
     it('should return the default value if the value for the setting can not be parsed to a number', () => {
       service.get = jasmine.createSpy('get').and.returnValue(of('text'));
 
-      service.getAsNumber(AccessibilitySetting.NotificationTimeOut, 123).subscribe(value =>
+      service.getAsNumber('notificationTimeOut', 123).subscribe(value =>
         expect(value).toEqual(123)
       );
     });
@@ -176,7 +164,7 @@ describe('accessibilitySettingsService', () => {
     it('should correctly update the chosen setting', () => {
       service.updateSettings = jasmine.createSpy('updateSettings');
 
-      service.set(AccessibilitySetting.LiveRegionTimeOut, '500');
+      service.set('liveRegionTimeOut', '500');
       expect(service.updateSettings).toHaveBeenCalledWith({ liveRegionTimeOut: '500' });
     });
   });
@@ -307,7 +295,7 @@ describe('accessibilitySettingsService', () => {
     });
 
     it('should set the settings in metadata', () => {
-      service.setSettingsInMetadata(ePerson, { [AccessibilitySetting.LiveRegionTimeOut]: '500' }).subscribe();
+      service.setSettingsInMetadata(ePerson, { ['liveRegionTimeOut']: '500' }).subscribe();
       expect(ePerson.setMetadata).toHaveBeenCalled();
     });
 
@@ -318,19 +306,19 @@ describe('accessibilitySettingsService', () => {
     });
 
     it('should create a patch with the metadata changes', () => {
-      service.setSettingsInMetadata(ePerson, { [AccessibilitySetting.LiveRegionTimeOut]: '500' }).subscribe();
+      service.setSettingsInMetadata(ePerson, { ['liveRegionTimeOut']: '500' }).subscribe();
       expect(ePersonService.createPatchFromCache).toHaveBeenCalled();
     });
 
     it('should send the patch request', () => {
-      service.setSettingsInMetadata(ePerson, { [AccessibilitySetting.LiveRegionTimeOut]: '500' }).subscribe();
+      service.setSettingsInMetadata(ePerson, { ['liveRegionTimeOut']: '500' }).subscribe();
       expect(ePersonService.patch).toHaveBeenCalled();
     });
 
     it('should emit true when the update succeeded', fakeAsync(() => {
       ePersonService.patch = jasmine.createSpy().and.returnValue(createSuccessfulRemoteDataObject$({}));
 
-      service.setSettingsInMetadata(ePerson, { [AccessibilitySetting.LiveRegionTimeOut]: '500' })
+      service.setSettingsInMetadata(ePerson, { ['liveRegionTimeOut']: '500' })
         .subscribe(value => {
         expect(value).toBeTrue();
       });
@@ -341,7 +329,7 @@ describe('accessibilitySettingsService', () => {
     it('should emit false when the update failed', fakeAsync(() => {
       ePersonService.patch = jasmine.createSpy().and.returnValue(createFailedRemoteDataObject$());
 
-      service.setSettingsInMetadata(ePerson, { [AccessibilitySetting.LiveRegionTimeOut]: '500' })
+      service.setSettingsInMetadata(ePerson, { ['liveRegionTimeOut']: '500' })
         .subscribe(value => {
         expect(value).toBeFalse();
       });
@@ -357,7 +345,7 @@ describe('accessibilitySettingsService', () => {
     });
 
     it('should store the settings in a cookie', () => {
-      service.setSettingsInCookie({ [AccessibilitySetting.LiveRegionTimeOut]: '500' });
+      service.setSettingsInCookie({ ['liveRegionTimeOut']: '500' });
       expect(cookieService.set).toHaveBeenCalled();
     });
 

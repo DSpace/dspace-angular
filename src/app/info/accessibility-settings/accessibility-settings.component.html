@@ -30,7 +30,7 @@
 
       <div class="col-sm-4">
         <input [type]="'number'" [id]="'notificationTimeOutInput'" class="form-control"
-               [placeholder]="getPlaceholder(AccessibilitySetting.NotificationTimeOut)"
+               [placeholder]="getPlaceholder('notificationTimeOut')"
                [readOnly]="formValues.disableNotificationTimeOut"
                [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'notificationTimeOutHint'">
@@ -56,7 +56,7 @@
 
       <div class="col-sm-4">
         <input [type]="'number'" [id]="'liveRegionTimeOutInput'" class="form-control"
-               [placeholder]="getPlaceholder(AccessibilitySetting.LiveRegionTimeOut)"
+               [placeholder]="getPlaceholder('liveRegionTimeOut')"
                [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'liveRegionTimeOutHint'">
       </div>

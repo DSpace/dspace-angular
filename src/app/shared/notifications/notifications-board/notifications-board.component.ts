@@ -18,8 +18,7 @@ import { INotification } from '../models/notification.model';
 import { NotificationsState } from '../notifications.reducers';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import {
-  AccessibilitySettingsService,
-  AccessibilitySetting
+  AccessibilitySettingsService
 } from '../../../accessibility/accessibility-settings.service';
 import cloneDeep from 'lodash/cloneDeep';
 import differenceWith from 'lodash/differenceWith';
@@ -98,7 +97,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
       // It would be a bit better to handle the retrieval of configured settings in the NotificationsService.
       // Due to circular dependencies this is difficult to implement.
-      this.accessibilitySettingsService.getAsNumber(AccessibilitySetting.NotificationTimeOut, item.options.timeOut)
+      this.accessibilitySettingsService.getAsNumber('notificationTimeOut', item.options.timeOut)
         .pipe(take(1)).subscribe(timeOut => {
           if (timeOut < 0) {
             timeOut = 0;
