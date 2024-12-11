@@ -318,7 +318,6 @@ export class ItemBitstreamsService {
       switchMap(() => this.requestService.setStaleByHrefSubstring(bundle.self)),
       take(1),
     ).subscribe(() => {
-      console.log('got here!');
       this.isPerformingMoveRequest.next(false);
       finish?.();
     });
