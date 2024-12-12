@@ -269,7 +269,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    * @param newEPerson
    */
   private generateOperations(oldEPerson: EPerson, newEPerson: EPerson): Operation[] {
-    let operations = this.comparator.diff(oldEPerson, newEPerson).filter((operation: Operation) => operation.op === 'replace');
+    let operations = this.comparator.diff(oldEPerson, newEPerson).filter((operation: Operation) => operation.op === 'replace' || operation.op === 'add');
     if (hasValue(oldEPerson.email) && oldEPerson.email !== newEPerson.email) {
       operations = [...operations, {
         op: 'replace', path: '/email', value: newEPerson.email,
