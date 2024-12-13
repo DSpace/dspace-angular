@@ -22,6 +22,8 @@ pipelines:
   branches:
     'dspace-cris-2023_02_x':
       - step: *unittest-code-checks
+    'prod/**':
+      - step: *unittest-code-checks
   pull-requests:
     '**':
       - step: *unittest-code-checks
