@@ -16,6 +16,7 @@ import { AbstractMenuProvider, PartialMenuSection } from './menu-provider.model'
 import { MenuState } from './menu-state.model';
 import { MenuService } from './menu.service';
 import { MENU_PROVIDER } from './menu.structure';
+import { MenuRoute } from './menu-route.model';
 
 /**
  * Service that is responsible for adding and removing the menu sections created by the providers, both for
@@ -126,8 +127,8 @@ export class MenuProviderService {
         .filter(provider => {
           let shouldUpdate = false;
           if (!provider.shouldPersistOnRouteChange && isNotEmpty(provider.activePaths)) {
-            provider.activePaths.forEach((path) => {
-              if (state.url.includes(path)) {
+            provider.activePaths.forEach((path: MenuRoute) => {
+              if (route.data.menuRoute === path) {
                 shouldUpdate = true;
               }
             });

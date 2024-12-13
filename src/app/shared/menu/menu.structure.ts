@@ -10,6 +10,7 @@ import { MenuID } from './menu-id.model';
 import { AbstractMenuProvider, MenuProviderTypeWithOptions } from './menu-provider.model';
 import { MenuProviderService } from './menu-provider.service';
 import { hasValue, isNotEmpty } from '../empty.util';
+import { MenuRoute } from './menu-route.model';
 
 export const MENU_PROVIDER = new InjectionToken<AbstractMenuProvider>('MENU_PROVIDER');
 
@@ -75,7 +76,7 @@ function processProviderType(providers: Provider[], menuID: string, providerType
  * @param hasSubProviders - Whether this provider has sub providers
  * @param paths - The paths this provider should be active on if relevant
  */
-function addProviderToList(providers: Provider[], providerType: Type<AbstractMenuProvider>, menuID: string, index: number, parentID?: string, hasSubProviders?: boolean, paths?: string[]) {
+function addProviderToList(providers: Provider[], providerType: Type<AbstractMenuProvider>, menuID: string, index: number, parentID?: string, hasSubProviders?: boolean, paths?: MenuRoute[]) {
   const resolvedProvider =  {
     provide: MENU_PROVIDER,
     multi: true,

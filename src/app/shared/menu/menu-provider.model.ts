@@ -11,6 +11,7 @@ import { Observable, } from 'rxjs';
 import { MenuID } from './menu-id.model';
 import { MenuItemModels } from './menu-section.model';
 import { Type } from '@angular/core';
+import { MenuRoute } from './menu-route.model';
 
 /**
  * Partial menu section
@@ -52,7 +53,7 @@ export interface MenuProvider {
  */
 export class MenuProviderTypeWithOptions {
   providerType: Type<MenuProvider>;
-  paths?: string[];
+  paths?: MenuRoute[];
   childProviderTypes?: (Type<MenuProvider> | MenuProviderTypeWithOptions)[];
 
 }
@@ -90,7 +91,7 @@ export abstract class AbstractMenuProvider implements MenuProvider {
    * This will be automatically set based on the paths added based on the paths provided through the 'onRoute' static
    * method in the app.menus.ts file
    */
-  activePaths?: string[];
+  activePaths?: MenuRoute[];
 
   /**
    * The ID of the parent provider of this provider.
@@ -110,7 +111,7 @@ export abstract class AbstractMenuProvider implements MenuProvider {
    * Static method to be called from the app.menus.ts file to define paths on which this provider should the active
    * @param paths - The paths on which the sections of this provider should be active
    */
-  public static onRoute(...paths: string[]): MenuProviderTypeWithOptions {
+  public static onRoute(...paths: MenuRoute[]): MenuProviderTypeWithOptions {
     if (!AbstractMenuProvider.isPrototypeOf(this)) {
       throw new Error(
         'onRoute should only be called from concrete subclasses of AbstractMenuProvider'
