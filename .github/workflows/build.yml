@@ -35,6 +35,9 @@ jobs:
       NODE_OPTIONS: '--max-old-space-size=4096'
       # Project name to use when running "docker compose" prior to e2e tests
       COMPOSE_PROJECT_NAME: 'ci'
+      # Docker Registry to use for Docker compose scripts below.
+      # We use GitHub's Container Registry to avoid aggressive rate limits at DockerHub.
+      DOCKER_REGISTRY: ghcr.io
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
