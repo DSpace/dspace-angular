@@ -1970,7 +1970,7 @@
   dependencies:
     call-bind "^1.0.7"
 
-"@material-ui/core@^4.11.0", "@material-ui/core@^4.12.4":
+"@material-ui/core@^4.12.3", "@material-ui/core@^4.12.4":
   version "4.12.4"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.12.4.tgz#4ac17488e8fcaf55eb6a7f5efb2a131e10138a73"
   integrity sha512-tr7xekNlM9LjA6pagJmL8QCgZXaubWUwkJnoYcMKd4gw/t4XiyvnTkjdGrUVicyB2BsdaAv1tvow45bPM4sSwQ==
@@ -7816,12 +7816,12 @@ mirador-share-plugin@^0.16.0:
   dependencies:
     notistack "^3.0.1"
 
-mirador@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/mirador/-/mirador-3.3.0.tgz#7a957a1db1a5388b2b8cafab00db4eb9f97557b9"
-  integrity sha512-BmGfRnWJ45B+vtiAwcFT7n9nKialfejE9UvuUK0NorO37ShArpsKr3yVSD4jQASwSR4DRRpPEG21jOk4WN7H3w==
+mirador@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/mirador/-/mirador-3.4.1.tgz#b644f6fd4ede9b3e8d41973cc1b1022ac7f9605f"
+  integrity sha512-cIaz175Hghi9dI7kwR96yu5qLAQcUIKoqwo4c2XBJgl+fsz2VboN9w2LSDuqQ8rP03okGZOtZ+ocp76z1GzvlQ==
   dependencies:
-    "@material-ui/core" "^4.11.0"
+    "@material-ui/core" "^4.12.3"
     "@material-ui/icons" "^4.9.1"
     "@material-ui/lab" "^4.0.0-alpha.53"
     "@researchgate/react-intersection-observer" "^1.0.0"
@@ -7838,7 +7838,7 @@ mirador@^3.3.0:
     lodash "^4.17.11"
     manifesto.js "^4.2.0"
     normalize-url "^4.5.0"
-    openseadragon "^2.4.2"
+    openseadragon "^2.4.2 || ^3.0.0 || 4.0.x || ^4.1.1 || ^5.0.0"
     prop-types "^15.6.2"
     re-reselect "^4.0.0"
     react-aria-live "^2.0.5"
@@ -8306,10 +8306,10 @@ open@8.4.2, open@^8.0.9:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-openseadragon@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/openseadragon/-/openseadragon-2.4.2.tgz#f25d833d0ab9941599d65a3e2b44bec546c9f15c"
-  integrity sha512-398KbZwRtOYA6OmeWRY4Q0737NTacQ9Q6whmr9Lp1MNQO3p0eBz5LIASRne+4gwequcSM1vcHcjfy3dIndQziw==
+"openseadragon@^2.4.2 || ^3.0.0 || 4.0.x || ^4.1.1 || ^5.0.0":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/openseadragon/-/openseadragon-5.0.1.tgz#ad3aaccc6c0f733c3153131e9af05bc2e17a1952"
+  integrity sha512-a/hjouW9i3UfWxRADVYN2MyRhXMGnE7x9VVL7/4jXCcDLFyO4UM5o4RStYtqa5BfaHw/wMNAaD2WbxQF8f1pJg==
 
 optionator@^0.9.3:
   version "0.9.4"
