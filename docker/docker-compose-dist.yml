@@ -26,7 +26,7 @@ services:
       DSPACE_REST_HOST: sandbox.dspace.org
       DSPACE_REST_PORT: 443
       DSPACE_REST_NAMESPACE: /server
-    image: dspace/dspace-angular:${DSPACE_VER:-latest}-dist
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-angular:${DSPACE_VER:-latest}-dist"
     build:
       context: ..
       dockerfile: Dockerfile.dist
