@@ -7,7 +7,8 @@ name: Build
 on: [push, pull_request]
 
 permissions:
-  contents: read  #  to fetch code (actions/checkout)
+  contents: read  # to fetch code (actions/checkout)
+  packages: read  # to fetch private images from GitHub Container Registry (GHCR)
 
 jobs:
   tests:
@@ -116,6 +117,14 @@ jobs:
           name: coverage-report-${{ matrix.node-version }}
           path: 'coverage/dspace-angular/lcov.info'
           retention-days: 14
+
+      # Login to our Docker registry, so that we can access private Docker images using "docker compose" below.
+      - name: Login to ${{ env.DOCKER_REGISTRY }}
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       # Using "docker compose" start backend using CI configuration
       # and load assetstore from a cached copy
