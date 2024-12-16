@@ -178,8 +178,9 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   /**
    * Get the user reports for the specific category.
    * @param category the that is being selected
+   * @param reportType
    */
-  getUserReports(category) {
+  getUserReports(category, reportType = this.route?.snapshot?.queryParams?.reportType) {
     this.reports$ =
       of(category)
         .pipe(
@@ -189,8 +190,15 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
       this.reports$, this.getReportId(), this.getCategoryId()
     ]).subscribe(([report, reportId, categoryId]) => {
       if (!reportId && !categoryId) {
-        this.setStatisticsState(report[0].id, category.id);
-        this.selectedReportId = report[0].id;
+        let reportToShowId = report[0].id;
+        if (reportType) {
+          const newReport = report.find((r) => r.reportType === reportType)?.id;
+          if (newReport) {
+            reportToShowId = newReport;
+          }
+        }
+        this.setStatisticsState(reportToShowId, category.id);
+        this.selectedReportId = reportToShowId;
       } else {
         this.setStatisticsState(reportId, categoryId);
       }
