@@ -22,6 +22,6 @@
     </div>
   </div>
   <ng-container *ngIf="entry && isPlainProperty(entry.value)">
-    <p data-test="property"> <span class="font-weight-bold">{{ getPropertyLabel(entry.key) | titlecase }}</span> : {{entry.value}}</p>
+    <p data-test="property"> <span class="fw-bold">{{ getPropertyLabel(entry.key) | titlecase }}</span> : {{entry.value}}</p>
   </ng-container>
 </div>

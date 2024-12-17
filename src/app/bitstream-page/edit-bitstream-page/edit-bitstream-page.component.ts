@@ -249,7 +249,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     group: [this.iiifLabelModel],
   }, {
     grid: {
-      host: 'form-row',
+      host: 'row',
     },
   });
 
@@ -267,7 +267,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     group: [this.iiifTocModel],
   }, {
     grid: {
-      host: 'form-row',
+      host: 'row',
     },
   });
 
@@ -285,7 +285,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     group: [this.iiifWidthModel],
   }, {
     grid: {
-      host: 'form-row',
+      host: 'row',
     },
   });
 
@@ -303,7 +303,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     group: [this.iiifHeightModel],
   }, {
     grid: {
-      host: 'form-row',
+      host: 'row',
     },
   });
 
@@ -326,7 +326,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       ],
     }, {
       grid: {
-        host: 'form-row',
+        host: 'row',
       },
     }),
     new DynamicFormGroupModel({
