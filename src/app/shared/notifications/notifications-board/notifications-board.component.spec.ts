@@ -18,6 +18,8 @@ import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
+import { getAccessibilitySettingsServiceStub } from '../../../accessibility/accessibility-settings.service.stub';
 import { AppState } from '../../../app.reducer';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { Notification } from '../models/notification.model';
@@ -48,6 +50,7 @@ describe('NotificationsBoardComponent', () => {
       ],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
+        { provide: AccessibilitySettingsService, useValue: getAccessibilitySettingsServiceStub() },
         ChangeDetectorRef,
       ],
     }).compileComponents();  // compile template and css
