@@ -37,23 +37,27 @@ body {
     z-index: 0;
 }
 
-.klaro
-.cookie-notice {
-  .cn-buttons {
-    .cm-btn.cm-btn-success {
-      color: var(--button-text-color-cookie);
-      background-color: var(--green1);
-    }
-    .cm-btn.cm-btn-success.cm-btn-accept-all {
-      color: var(--button-text-color-cookie);
-      background-color: var(--green1);
-    }
+.orejime-AppContainer .orejime-Notice-actionItem {
+  &.orejime-Notice-actionItem--save > button {
+    color: var(--button-text-color-cookie);
+    background-color: var(--green1);
   }
 }
 
-.klaro .cookie-modal a, .klaro .context-notice a, .klaro .cookie-notice a
-{
-  color: var(--green1);
+.orejime-ModalPortal {
+  .orejime-Button.orejime-AppToggles-enableAll,
+  .orejime-Modal-saveButton {
+    color: var(--button-text-color-cookie);
+    background-color: var(--green1);
+  }
+
+  .orejime-Modal-closeButton svg {
+    cursor: pointer;
+  }
+
+  a {
+    color: var(--bs-white);
+  }
 }
 
 .media-viewer
@@ -466,3 +470,11 @@ ngb-accordion {
 .mt-ncs { margin-top: calc(var(--ds-content-spacing) * -1); }
 .mb-ncs { margin-bottom: calc(var(--ds-content-spacing) * -1); }
 .my-ncs { margin-top: calc(var(--ds-content-spacing) * -1); margin-bottom: calc(var(--ds-content-spacing) * -1); }
+
+
+.link-contrast {
+  // Rules for accessibility to meet minimum contrast and have an identifiable link between other texts
+  color: darken($link-color, 5%);
+  // We use underline to discern link from text as we can't make color lighter on a white bg
+  text-decoration: underline;
+}
