@@ -118,7 +118,7 @@ export const RESOURCE_POLICY_FORM_DATE_GROUP_CONFIG: DynamicFormGroupModelConfig
 };
 export const RESOURCE_POLICY_FORM_DATE_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    control: 'form-row',
+    control: 'row',
   },
 };
 

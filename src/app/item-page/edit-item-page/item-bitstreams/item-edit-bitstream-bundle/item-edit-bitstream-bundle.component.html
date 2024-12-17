@@ -1,8 +1,8 @@
 <ng-template #bundleView>
   <div class="row bundle-row">
-    <div class="{{bundleNameColumn.buildClasses()}} font-weight-bold row-element d-flex">
+    <div class="{{bundleNameColumn.buildClasses()}} fw-bold row-element d-flex">
       <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
-      <div class="float-left d-flex align-items-center">
+      <div class="float-start d-flex align-items-center">
         {{'item.edit.bitstreams.bundle.name' | translate:{ name: dsoNameService.getName(bundle) } }}
       </div>
     </div>
