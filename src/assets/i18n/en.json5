@@ -5837,6 +5837,18 @@
 
   "statistics.table.itemReports.title.TotalVisitsPerMonth": "Top views per month",
 
+  "statistics.table.publicationsReports.header.item": "Item",
+
+  "statistics.table.publicationsReports.header.views": "Views",
+
+  "statistics.table.publicationsReports.header.city": "City",
+
+  "statistics.table.projectsReports.header.item": "Item",
+
+  "statistics.table.projectsReports.header.views": "Views",
+
+  "statistics.table.projectsReports.header.city": "City",
+
   "statistics.reports.title": "Reports",
 
   "submission.dropdown.hint.open": "Open data means the data files you submit will be openly accessible and downloadable without any restrictions.",
