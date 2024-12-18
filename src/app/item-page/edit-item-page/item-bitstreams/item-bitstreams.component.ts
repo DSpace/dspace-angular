@@ -1,11 +1,8 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, CommonModule, NgForOf, NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
+  HostListener,
   NgZone,
   OnDestroy,
 } from '@angular/core';
@@ -57,21 +54,22 @@ import {
 } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { ItemBitstreamsService } from './item-bitstreams.service';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
-import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
 @Component({
   selector: 'ds-item-bitstreams',
   styleUrls: ['./item-bitstreams.component.scss'],
   templateUrl: './item-bitstreams.component.html',
   imports: [
+    CommonModule,
     AsyncPipe,
     TranslateModule,
     ItemEditBitstreamBundleComponent,
@@ -81,6 +79,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
     ItemEditBitstreamDragHandleComponent,
     NgForOf,
     ThemedLoadingComponent,
+    AlertComponent,
   ],
   providers: [ObjectValuesPipe],
   standalone: true,
@@ -89,6 +88,9 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
  * Component for displaying an item's bitstreams edit page
  */
 export class ItemBitstreamsComponent extends AbstractItemUpdateComponent implements OnDestroy {
+
+  // Declared for use in template
+  protected readonly AlertType = AlertType;
 
   /**
    * All bundles for the current item
@@ -107,16 +109,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   /**
    * The bootstrap sizes used for the columns within this table
    */
-  columnSizes = new ResponsiveTableSizes([
-    // Name column
-    new ResponsiveColumnSizes(2, 2, 3, 4, 4),
-    // Description column
-    new ResponsiveColumnSizes(2, 3, 3, 3, 3),
-    // Format column
-    new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-    // Actions column
-    new ResponsiveColumnSizes(6, 5, 4, 3, 3),
-  ]);
+  columnSizes: ResponsiveTableSizes;
 
   /**
    * Are we currently submitting the changes?
@@ -142,6 +135,11 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     return this.bundlesSubject.asObservable();
   }
 
+  /**
+   * An observable which emits a boolean which represents whether the service is currently handling a 'move' request
+   */
+  isProcessingMoveRequest: Observable<boolean>;
+
   constructor(
     public itemService: ItemDataService,
     public objectUpdatesService: ObjectUpdatesService,
@@ -155,8 +153,11 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     public cdRef: ChangeDetectorRef,
     public bundleService: BundleDataService,
     public zone: NgZone,
+    public itemBitstreamsService: ItemBitstreamsService,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, route);
+
+    this.columnSizes = this.itemBitstreamsService.getColumnSizes();
   }
 
   /**
@@ -164,6 +165,61 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   postItemInit(): void {
     this.loadBundles(1);
+  }
+
+  /**
+   * Handles keyboard events that should move the currently selected bitstream up
+   */
+  @HostListener('document:keydown.arrowUp', ['$event'])
+  moveUp(event: KeyboardEvent) {
+    if (this.itemBitstreamsService.hasSelectedBitstream()) {
+      event.preventDefault();
+      this.itemBitstreamsService.moveSelectedBitstreamUp();
+    }
+  }
+
+  /**
+   * Handles keyboard events that should move the currently selected bitstream down
+   */
+  @HostListener('document:keydown.arrowDown', ['$event'])
+  moveDown(event: KeyboardEvent) {
+    if (this.itemBitstreamsService.hasSelectedBitstream()) {
+      event.preventDefault();
+      this.itemBitstreamsService.moveSelectedBitstreamDown();
+    }
+  }
+
+  /**
+   * Handles keyboard events that should cancel the currently selected bitstream.
+   * A cancel means that the selected bitstream is returned to its original position and is no longer selected.
+   * @param event
+   */
+  @HostListener('document:keyup.escape', ['$event'])
+  cancelSelection(event: KeyboardEvent) {
+    if (this.itemBitstreamsService.hasSelectedBitstream()) {
+      event.preventDefault();
+      this.itemBitstreamsService.cancelSelection();
+    }
+  }
+
+  /**
+   * Handles keyboard events that should clear the currently selected bitstream.
+   * A clear means that the selected bitstream remains in its current position but is no longer selected.
+   */
+  @HostListener('document:keydown.enter', ['$event'])
+  @HostListener('document:keydown.space', ['$event'])
+  clearSelection(event: KeyboardEvent) {
+    // Only when no specific element is in focus do we want to clear the currently selected bitstream
+    // Otherwise we might clear the selection when a different action was intended, e.g. clicking a button or selecting
+    // a different bitstream.
+    if (
+      this.itemBitstreamsService.hasSelectedBitstream() &&
+      event.target instanceof Element &&
+      event.target.tagName === 'BODY'
+    ) {
+      event.preventDefault();
+      this.itemBitstreamsService.clearSelection();
+    }
   }
 
   /**

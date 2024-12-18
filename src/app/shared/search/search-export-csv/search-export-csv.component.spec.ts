@@ -13,7 +13,6 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { Process } from '../../../process-page/processes/process.model';
-import { Script } from '../../../process-page/scripts/script.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
@@ -33,7 +32,6 @@ describe('SearchExportCsvComponent', () => {
   let notificationsService;
   let router;
 
-  const script = Object.assign(new Script(), { id: 'metadata-export-search', name: 'metadata-export-search' });
   const process = Object.assign(new Process(), { processId: 5, scriptName: 'metadata-export-search' });
 
   const searchConfig = new PaginatedSearchOptions({
@@ -49,7 +47,7 @@ describe('SearchExportCsvComponent', () => {
 
   function initBeforeEachAsync() {
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
-      findById: createSuccessfulRemoteDataObject$(script),
+      scriptWithNameExistsAndCanExecute: observableOf(true),
       invoke: createSuccessfulRemoteDataObject$(process),
     });
     authorizationDataService = jasmine.createSpyObj('authorizationService', {
@@ -117,14 +115,21 @@ describe('SearchExportCsvComponent', () => {
     describe('when the metadata-export-search script is not present', () => {
       beforeEach(waitForAsync(() => {
         initBeforeEachAsync();
-        (scriptDataService.findById as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Not found', 404));
+        (scriptDataService.scriptWithNameExistsAndCanExecute as jasmine.Spy).and.returnValue(observableOf(false));
       }));
-      beforeEach(() => {
-        initBeforeEach();
-      });
+
       it('should should not add the button', () => {
+        initBeforeEach();
+
         const debugElement = fixture.debugElement.query(By.css('button.export-button'));
         expect(debugElement).toBeNull();
+      });
+
+      it('should not call scriptWithNameExistsAndCanExecute when unauthorized', () => {
+        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        initBeforeEach();
+
+        expect(scriptDataService.scriptWithNameExistsAndCanExecute).not.toHaveBeenCalled();
       });
     });
   });
