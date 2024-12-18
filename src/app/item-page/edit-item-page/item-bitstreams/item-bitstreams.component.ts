@@ -1,4 +1,9 @@
-import { AsyncPipe, CommonModule, NgForOf, NgIf } from '@angular/common';
+import {
+  AsyncPipe,
+  CommonModule,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -21,27 +26,25 @@ import {
   combineLatest,
   Observable,
   Subscription,
-  zip as observableZip,
 } from 'rxjs';
 import {
   filter,
   map,
   switchMap,
-  take, tap,
+  take,
+  tap,
 } from 'rxjs/operators';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import {
@@ -54,6 +57,7 @@ import {
 } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
@@ -61,9 +65,6 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemBitstreamsService } from './item-bitstreams.service';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { AlertComponent } from 'src/app/shared/alert/alert.component';
-import { AlertType } from 'src/app/shared/alert/alert-type';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -237,11 +238,11 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     this.bundlesOptions = Object.assign(new PaginationComponentOptions(), this.bundlesOptions, {
       currentPage: currentPage || this.bundlesOptions.currentPage + 1,
     });
-    this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
+    this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({ pagination: this.bundlesOptions })).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       tap((bundlesPL: PaginatedList<Bundle>) =>
-        this.showLoadMoreLink$.next(bundlesPL.pageInfo.currentPage < bundlesPL.pageInfo.totalPages)
+        this.showLoadMoreLink$.next(bundlesPL.pageInfo.currentPage < bundlesPL.pageInfo.totalPages),
       ),
       map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
     ).subscribe((bundles: Bundle[]) => {
