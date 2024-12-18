@@ -63,6 +63,7 @@ import { ItemBitstreamsService } from './item-bitstreams.service';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { AlertType } from 'src/app/shared/alert/alert-type';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -76,7 +77,6 @@ import { AlertComponent } from 'src/app/shared/alert/alert.component';
     RouterLink,
     NgIf,
     VarDirective,
-    ItemEditBitstreamDragHandleComponent,
     NgForOf,
     ThemedLoadingComponent,
     AlertComponent,
@@ -257,30 +257,12 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   submit() {
     this.submitting = true;
-    const bundlesOnce$ = this.bundles$.pipe(take(1));
 
-    // Fetch all removed bitstreams from the object update service
-    const removedBitstreams$ = bundlesOnce$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(
-        ...bundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true)),
-      )),
-      map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
-        ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
-      )),
-      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field)),
-    );
-
-    // Send out delete requests for all deleted bitstreams
-    const removedResponses$: Observable<RemoteData<NoContent>> = removedBitstreams$.pipe(
-      take(1),
-      switchMap((removedBitstreams: Bitstream[]) => {
-        return this.bitstreamService.removeMultiple(removedBitstreams);
-      }),
-    );
+    const removedResponses$ = this.itemBitstreamsService.removeMarkedBitstreams(this.bundles$.pipe(take(1)));
 
     // Perform the setup actions from above in order and display notifications
     removedResponses$.subscribe((responses: RemoteData<NoContent>) => {
-      this.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
+      this.itemBitstreamsService.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
       this.submitting = false;
     });
   }
