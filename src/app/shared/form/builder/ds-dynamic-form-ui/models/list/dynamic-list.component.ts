@@ -26,6 +26,11 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import findKey from 'lodash/findKey';
+import {
+  EMPTY,
+  reduce,
+} from 'rxjs';
+import { expand } from 'rxjs/operators';
 
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
@@ -142,18 +147,33 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
       if (this.model.repeatable && this.model.required) {
         listGroup.addValidators(this.hasAtLeastOneVocabularyEntry());
       }
-      const pageInfo: PageInfo = new PageInfo({
-        elementsPerPage: 9999, currentPage: 1,
+
+      const initialPageInfo: PageInfo = new PageInfo({
+        elementsPerPage: 20, currentPage: 1,
       } as PageInfo);
-      this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, pageInfo).pipe(
+
+      this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, initialPageInfo).pipe(
         getFirstSucceededRemoteDataPayload(),
-      ).subscribe((entries: PaginatedList<VocabularyEntry>) => {
+        expand((entries: PaginatedList<VocabularyEntry>) => {
+          if (entries.pageInfo.currentPage < entries.pageInfo.totalPages) {
+            const nextPageInfo: PageInfo = new PageInfo({
+              elementsPerPage: 20, currentPage: entries.pageInfo.currentPage + 1,
+            } as PageInfo);
+            return this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, nextPageInfo).pipe(
+              getFirstSucceededRemoteDataPayload(),
+            );
+          } else {
+            return EMPTY;
+          }
+        }),
+        reduce((acc: VocabularyEntry[], entries: PaginatedList<VocabularyEntry>) => acc.concat(entries.page), []),
+      ).subscribe((allEntries: VocabularyEntry[]) => {
         let groupCounter = 0;
         let itemsPerGroup = 0;
         let tempList: ListItem[] = [];
-        this.optionsList = entries.page;
+        this.optionsList = allEntries;
         // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
-        entries.page.forEach((option: VocabularyEntry, key: number) => {
+        allEntries.forEach((option: VocabularyEntry, key: number) => {
           const value = option.authority || option.value;
           const checked: boolean = isNotEmpty(findKey(
             this.model.value,

@@ -183,7 +183,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   findAllOptions = {
     elementsPerPage: 20,
-    currentPage: 1
+    currentPage: 1,
   };
 
   /**
@@ -485,9 +485,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     const bitstreamFormats$ = this.bitstreamFormatsRD$.pipe(
       reduce((acc: BitstreamFormat[], response: RemoteData<PaginatedList<BitstreamFormat>>) => {
-          return acc.concat(response.payload.page);
-        }, [])
-    )
+        return acc.concat(response.payload.page);
+      }, []),
+    );
 
     const bitstream$ = this.bitstreamRD$.pipe(
       getFirstSucceededRemoteData(),
