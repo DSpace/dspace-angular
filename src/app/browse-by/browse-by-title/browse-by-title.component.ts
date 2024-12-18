@@ -6,10 +6,12 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { Params } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import {
   SortDirection,
@@ -23,12 +25,10 @@ import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-heade
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
-  getBrowseSearchOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
 
 @Component({
@@ -57,22 +57,23 @@ import {
 export class BrowseByTitleComponent extends BrowseByMetadataComponent implements OnInit {
 
   ngOnInit(): void {
-    const sortConfig = new SortOptions('dc.title', SortDirection.ASC);
-    // include the thumbnail configuration in browse search options
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, this.fetchThumbnails));
-    this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
-    this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
+    this.browseId = this.route.snapshot.params.id;
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
-        }),
-      ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
+      this.browseService.getConfiguredSortDirection(this.browseId, SortDirection.ASC).pipe(
+        map((sortDir) => new SortOptions(this.browseId, sortDir)),
+        switchMap((sortConfig) => {
+          this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig, false);
+          this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
+          return observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
+            map(([routeParams, queryParams, scope, currentPage, currentSort]) => ({
+              params: Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort,
+            })),
+          );
+        })).subscribe(({ params, scope, currentPage, currentSort }) => {
         this.startsWith = +params.startsWith || params.startsWith;
-        this.browseId = params.id || this.defaultBrowseId;
         this.updatePageWithItems(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails), undefined, undefined);
+        this.updateStartsWithTextOptions();
       }));
-    this.updateStartsWithTextOptions();
   }
 
 }
