@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -57,7 +58,8 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               protected routeService: RouteService,
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
   ) {
-    super(service, sidebarService, windowService, searchConfigService, routeService, router, appConfig);
+    super(service, sidebarService, windowService, searchConfigService, routeService, router, appConfig, platformId);
   }
 }
