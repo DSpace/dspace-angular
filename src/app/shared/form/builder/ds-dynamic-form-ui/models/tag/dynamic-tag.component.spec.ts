@@ -45,10 +45,12 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { DsDynamicTagComponent } from './dynamic-tag.component';
 import { DynamicTagModel } from './dynamic-tag.model';
 
-function createKeyUpEvent(key: number) {
+function createKeyUpEvent(key: number, keyName: string) {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   const event = {
-    keyCode: key, preventDefault: () => {
+    keyCode: key,
+    key: keyName,
+    preventDefault: () => {
     }, stopPropagation: () => {
     },
   };
@@ -279,7 +281,7 @@ describe('DsDynamicTagComponent test suite', () => {
       });
 
       it('should add an item on ENTER or key press is \',\' or \';\'', fakeAsync(() => {
-        let event = createKeyUpEvent(13);
+        let event = createKeyUpEvent(188,',');
         tagComp.currentValue = 'test value';
 
         tagFixture.detectChanges();
@@ -290,7 +292,7 @@ describe('DsDynamicTagComponent test suite', () => {
         expect(tagComp.model.value).toEqual(['test value']);
         expect(tagComp.currentValue).toBeNull();
 
-        event = createKeyUpEvent(188);
+        event = createKeyUpEvent(13,'Enter');
         tagComp.currentValue = 'test value';
 
         tagFixture.detectChanges();
