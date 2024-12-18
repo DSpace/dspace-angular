@@ -6755,4 +6755,14 @@
   "register-page.registration.aria.label": "Enter your e-mail address",
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  "statistics.table.header.TotalVisits": "Object",
+
+  "statistics.table.header.TotalVisitsMonth": "Month",
+
+  "statistics.table.header.TotalDownloads": "Downloads",
+
+  "statistics.table.header.TopCities": "Cities",
+
+  "statistics.table.header.topCountries": "Countries",
 }
