@@ -6,13 +6,30 @@
          [formControl]="input"
          (focusin)="query$.next(mdField)"
          (dsClickOutside)="query$.next(null)"
-         (click)="$event.stopPropagation();" />
+         (click)="$event.stopPropagation();"
+         (keyup)="this.selectedValueLoading = false"
+  />
   <div class="invalid-feedback show-feedback" *ngIf="showInvalid">{{ dsoType + '.edit.metadata.metadatafield.invalid' | translate }}</div>
-  <div class="autocomplete dropdown-menu" [ngClass]="{'show': (mdFieldOptions$ | async)?.length > 0}">
-    <div class="dropdown-list">
-      <div *ngFor="let mdFieldOption of (mdFieldOptions$ | async)">
-        <button class="d-block dropdown-item" (click)="select(mdFieldOption)">
-          <span [innerHTML]="mdFieldOption"></span>
+  <div id="scrollable-metadata-field-selector" class="dropdown-menu scrollable-menu" [ngClass]="{'show': (mdFieldOptions$ | async)?.length > 0}">
+    <div  class="dropdown-list">
+      <div
+        infiniteScroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="0"
+        [infiniteScrollContainer]="'#scrollable-metadata-field-selector'"
+        [fromRoot]="true"
+        (scrolled)="onScrollDown()">
+        <ng-container *ngIf="mdFieldOptions$ | async">
+          <button *ngFor="let listEntry of (mdFieldOptions$ | async)"
+                  class="d-block dropdown-item"
+                  dsHoverClass="ds-hover"
+                  (click)="select(listEntry)" #listEntryElement>
+            <span [innerHTML]="listEntry"></span>
+          </button>
+        </ng-container>
+        <button *ngIf="loading"
+                class="list-group-item list-group-item-action border-0 list-entry">
+          <ds-loading [showMessage]="false"></ds-loading>
         </button>
       </div>
     </div>
