@@ -218,7 +218,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled) {
+  if (environment.ssr.enabled && req.method === 'GET' && environment.ssr.paths.some(p => req.url.includes(p))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
