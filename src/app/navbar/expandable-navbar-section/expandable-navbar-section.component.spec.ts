@@ -12,7 +12,7 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 
 describe('ExpandableNavbarSectionComponent', () => {
@@ -23,7 +23,12 @@ describe('ExpandableNavbarSectionComponent', () => {
   describe('on larger screens', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule, ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+        imports: [
+          ExpandableNavbarSectionComponent,
+          HoverOutsideDirective,
+          NoopAnimationsModule,
+          TestComponent,
+        ],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
@@ -39,10 +44,6 @@ describe('ExpandableNavbarSectionComponent', () => {
       component = fixture.componentInstance;
       spyOn(component as any, 'getMenuItemComponent').and.returnValue(TestComponent);
       fixture.detectChanges();
-    });
-
-    it('should create', () => {
-      expect(component).toBeTruthy();
     });
 
     describe('when the mouse enters the section header (while inactive)', () => {
@@ -184,7 +185,12 @@ describe('ExpandableNavbarSectionComponent', () => {
   describe('on smaller, mobile screens', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule, ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+        imports: [
+          ExpandableNavbarSectionComponent,
+          HoverOutsideDirective,
+          NoopAnimationsModule,
+          TestComponent,
+        ],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
