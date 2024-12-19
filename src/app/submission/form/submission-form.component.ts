@@ -22,10 +22,7 @@ import {
 
 import { AuthService } from '../../core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import {
-  SubmissionSectionModel,
-  SubmissionSectionVisibility,
-} from '../../core/config/models/config-submission-section.model';
+import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
 import { Collection } from '../../core/shared/collection.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
@@ -38,6 +35,7 @@ import {
 } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
+import { SectionVisibility } from '../objects/section-visibility.model';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
@@ -233,7 +231,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   /**
    *  Returns the visibility object of the collection section
    */
-  private getCollectionVisibility(): SubmissionSectionVisibility {
+  private getCollectionVisibility(): SectionVisibility {
     const submissionSectionModel: SubmissionSectionModel =
       this.submissionDefinition.sections.page.find(
         (section) => isEqual(section.sectionType, SectionsType.Collection),
