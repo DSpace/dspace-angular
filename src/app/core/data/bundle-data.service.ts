@@ -78,10 +78,11 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
    *                                    requested after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
+   * @param options                     the {@link FindListOptions} for the request
    */
   // TODO should be implemented rest side
-  findByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
-    return this.findAllByItem(item, { elementsPerPage: 9999 }, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+  findByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
+    return this.findAllByItem(item, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       map((rd: RemoteData<PaginatedList<Bundle>>) => {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
           const matchingBundle = rd.payload.page.find((bundle: Bundle) =>
@@ -113,6 +114,47 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
       }),
     );
   }
+
+  // findByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
+  //   return this.findAllByItem(item, { elementsPerPage: 1, currentPage: 1 }, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+  //     expand((rd: RemoteData<PaginatedList<Bundle>>) => {
+  //       if (rd.hasSucceeded && hasValue(rd.payload) && hasValue(rd.payload.page) && rd.payload.currentPage < rd.payload.totalPages) {
+  //         const nextPageOptions = { elementsPerPage: 1, currentPage: rd.payload.currentPage + 1 };
+  //         return this.findAllByItem(item, nextPageOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  //       } else {
+  //         return EMPTY;
+  //       }
+  //     }),
+  //     map((rd: RemoteData<PaginatedList<Bundle>>) => {
+  //       if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
+  //         const matchingBundle = rd.payload.page.find((bundle: Bundle) => bundle.name === bundleName);
+  //         if (hasValue(matchingBundle)) {
+  //           return new RemoteData(
+  //             rd.timeCompleted,
+  //             rd.msToLive,
+  //             rd.lastUpdated,
+  //             RequestEntryState.Success,
+  //             null,
+  //             matchingBundle,
+  //             200
+  //           );
+  //         } else {
+  //           return new RemoteData(
+  //             rd.timeCompleted,
+  //             rd.msToLive,
+  //             rd.lastUpdated,
+  //             RequestEntryState.Error,
+  //             `The bundle with name ${bundleName} was not found.`,
+  //             null,
+  //             404
+  //           );
+  //         }
+  //       } else {
+  //         return rd as any;
+  //       }
+  //     })
+  //   );
+  // }
 
   /**
    * Get the bitstreams endpoint for a bundle
