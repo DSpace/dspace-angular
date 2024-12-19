@@ -5,6 +5,8 @@ import {
 import {
   Component,
   Input,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -45,11 +47,16 @@ import {
 /**
  * Component displaying alerts for an item
  */
-export class ItemAlertsComponent {
+export class ItemAlertsComponent implements OnChanges {
   /**
    * The Item to display alerts for
    */
   @Input() item: Item;
+
+  /**
+   * Whether the reinstate button should be shown
+   */
+  showReinstateButton$: Observable<boolean>;
 
   /**
    * The AlertType enumeration
@@ -58,10 +65,16 @@ export class ItemAlertsComponent {
   public AlertTypeEnum = AlertType;
 
   constructor(
-    private authService: AuthorizationDataService,
-    private dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
-    private correctionTypeDataService: CorrectionTypeDataService,
+    protected authService: AuthorizationDataService,
+    protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
+    protected correctionTypeDataService: CorrectionTypeDataService,
   ) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.item?.currentValue.withdrawn && this.showReinstateButton$) {
+      this.showReinstateButton$ = this.shouldShowReinstateButton();
+    }
   }
 
   /**
@@ -69,7 +82,7 @@ export class ItemAlertsComponent {
    * The button is shown if the user is not an admin and the item has a reinstate request.
    * @returns An Observable that emits a boolean value indicating whether to show the reinstate button.
    */
-  showReinstateButton$(): Observable<boolean>  {
+  shouldShowReinstateButton(): Observable<boolean>  {
     const correction$ = this.correctionTypeDataService.findByItem(this.item.uuid, true).pipe(
       getFirstCompletedRemoteData(),
       map((correctionTypeRD: RemoteData<PaginatedList<CorrectionType>>) => correctionTypeRD.hasSucceeded ? correctionTypeRD.payload.page : []),
@@ -78,8 +91,8 @@ export class ItemAlertsComponent {
     return combineLatest([isAdmin$, correction$]).pipe(
       map(([isAdmin, correction]) => {
         return !isAdmin && correction.some((correctionType) => correctionType.topic === REQUEST_REINSTATE);
-      },
-      ));
+      }),
+    );
   }
 
   /**
