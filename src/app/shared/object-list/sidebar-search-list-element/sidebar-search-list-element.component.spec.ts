@@ -22,7 +22,7 @@ export function createSidebarSearchListElementTests(
   componentClass: any,
   object: SearchResult<DSpaceObject & ChildHALResource>,
   parent: DSpaceObject,
-  expectedParentTitle: string,
+  expectedHierarchicalTitle: string,
   expectedTitle: string,
   expectedDescription: string,
   extraProviders: any[] = [],
@@ -59,9 +59,9 @@ export function createSidebarSearchListElementTests(
       fixture.detectChanges();
     });
 
-    it('should contain the correct parent title', (done) => {
-      component.parentTitle$.subscribe((title) => {
-        expect(title).toEqual(expectedParentTitle);
+    it('should contain the correct hierarchical title', (done) => {
+      component.hierarchicalTitle$.subscribe((title) => {
+        expect(title).toEqual(expectedHierarchicalTitle);
         done();
       });
     });
