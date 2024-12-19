@@ -1163,7 +1163,9 @@
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Devolver",
 
-  // "admin.workflow.item.policies": "Policies",
+  "admin.workflow.item.return": "Retornar para o conjunto",
+
+
   "admin.workflow.item.policies": "Políticas",
 
   // "admin.workflow.item.supervision": "Supervision",
