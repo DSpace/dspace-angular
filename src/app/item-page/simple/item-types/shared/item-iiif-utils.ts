@@ -11,32 +11,44 @@ import {
 
 import { RouteService } from '../../../../core/services/route.service';
 import { Item } from '../../../../core/shared/item.model';
+import { hasValue } from '../../../../shared/empty.util';
 
 export const isIiifEnabled = (item: Item) => {
-  return !!item.firstMetadataValue('dspace.iiif.enabled');
+  return getBooleanValue(item.firstMetadataValue('dspace.iiif.enabled'));
 
 };
 
 export const isIiifSearchEnabled = (item: Item) => {
-  return !!item.firstMetadataValue('iiif.search.enabled');
+  return getBooleanValue(item.firstMetadataValue('iiif.search.enabled'));
 
 };
 
 /**
+ * Accepts string input metadata value and returns boolean. If undefined input
+ * returns false.
+ * @param input metadata value
+ */
+function getBooleanValue(input: string): boolean {
+  if (hasValue(input)) {
+    return input.toLowerCase() === 'true' || input.toLowerCase() === 'yes';
+  }
+  return false;
+}
+
+/**
  * Checks to see if previous route was a dspace search. If
- * it was, the search term is extracted and subsequently passed
+ * it was, the search term is extracted and passed
  * to the mirador viewer component.
- * @param item the dspace object
  * @param routeService
  */
-export const getDSpaceQuery = (item: Item, routeService: RouteService): Observable<string> => {
+export const getDSpaceQuery = (routeService: RouteService): Observable<string> => {
 
   return routeService.getPreviousUrl().pipe(
+    map(r => new DefaultUrlSerializer().parse(r)),
     filter(r => {
-      return r.includes('/search');
+      return r.queryParamMap.keys.includes('query');
     }),
-    map((r: string) => {
-      const url: UrlTree = new DefaultUrlSerializer().parse(r);
+    map((url: UrlTree) => {
       return url.queryParamMap.get('query');
     }),
     take(1),
