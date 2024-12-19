@@ -1,4 +1,4 @@
-<div *ngIf="uri && name" class="item-page-field">
+<div *ngIf="(uri$ | async) && (name$ | async)" class="item-page-field">
   <ds-metadata-field-wrapper [label]="'item.page.cc.license.title' | translate">
     <div [ngClass]="{'row': variant === 'full', 'col': variant === 'small'}">
 
@@ -6,8 +6,8 @@
       <div *ngIf="showImage" [ngClass]="{'col-auto': variant === 'full', 'row': variant === 'small'}"
         style="align-content: center;"
       >
-        <a [href]="uri" target="_blank" class="link-anchor dont-break-out ds-simple-metadata-link">
-          <img (error)="showImage = false" [src]="imgSrc" [alt]="name" class="cc-image"
+        <a [href]="uri$ | async" target="_blank" class="link-anchor dont-break-out ds-simple-metadata-link">
+          <img (error)="showImage = false" [src]="imgSrc$ | async" [alt]="name$ | async" class="cc-image"
             [ngStyle]="{
               'width': 'var(--ds-thumbnail-max-width)',
               'margin-bottom': variant === 'small'? '1ch' : '0',
@@ -20,7 +20,7 @@
       <div [ngClass]="{ 'row': variant === 'small', 'col': variant === 'full' }">
         <span>
           {{ variant === 'full' && showDisclaimer ? ('item.page.cc.license.disclaimer' | translate) : '' }}
-          <a *ngIf="showName || !showImage" [href]="uri" target="_blank" id="cc-name">{{ name }}</a>
+          <a *ngIf="showName || !showImage" [href]="uri$ | async" target="_blank" id="cc-name">{{ (name$ | async) }}</a>
         </span>
       </div>
     </div>
