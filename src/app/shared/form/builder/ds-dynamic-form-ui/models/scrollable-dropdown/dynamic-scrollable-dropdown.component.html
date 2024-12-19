@@ -40,17 +40,19 @@
          (scrolled)="onScroll()"
          [scrollWindow]="false">
 
-      <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length === 0">{{'form.no-results' | translate}}</button>
+      <button class="dropdown-item disabled" type="button" *ngIf="optionsList && optionsList.length === 0">
+        {{ 'form.no-results' | translate }}
+      </button>
       <button class="dropdown-item collection-item text-truncate"
               (click)="onSelect(undefined); sdRef.close()" (mousedown)="onSelect(undefined); sdRef.close()"
               title="{{ 'dropdown.clear.tooltip' | translate }}" role="option"
-      >
+              type="button">
         <i>{{ 'dropdown.clear' | translate }}</i>
       </button>
       <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList; let i = index"
               [class.active]="i === selectedIndex"
               (keydown.enter)="onSelect(listEntry); sdRef.close()" (mousedown)="onSelect(listEntry); sdRef.close()"
-              title="{{ listEntry.display }}" role="option"
+              title="{{ listEntry.display }}" role="option" type="button"
               [attr.id]="listEntry.display === (currentValue|async) ? ('combobox_' + id + '_selected') : null">
         {{inputFormatter(listEntry)}}
       </button>

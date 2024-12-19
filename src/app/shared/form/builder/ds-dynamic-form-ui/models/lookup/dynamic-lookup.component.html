@@ -94,11 +94,12 @@
          (scrolled)="onScroll()"
          [scrollWindow]="false">
 
-      <button class="dropdown-item disabled"
+      <button class="dropdown-item disabled" type="button"
               *ngIf="optionsList && optionsList.length === 0"
-              (click)="$event.stopPropagation(); clearFields(); sdRef.close();">{{'form.no-results' | translate}}
+              (click)="$event.stopPropagation(); clearFields(); sdRef.close();">
+        {{ 'form.no-results' | translate }}
       </button>
-      <button class="dropdown-item lookup-item"
+      <button class="dropdown-item lookup-item" type="button"
               *ngFor="let listEntry of optionsList"
               (click)="$event.stopPropagation(); onSelect(listEntry); sdRef.close();"
               title="{{ listEntry.display }}">
