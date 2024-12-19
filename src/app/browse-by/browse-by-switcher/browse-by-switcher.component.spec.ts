@@ -85,7 +85,7 @@ describe('BrowseBySwitcherComponent', () => {
   types.forEach((type: NonHierarchicalBrowseDefinition) => {
     describe(`when switching to a browse-by page for "${type.id}"`, () => {
       beforeEach(async () => {
-        comp.browseByType = type.dataType;
+        comp.browseByType = type as any;
         comp.ngOnChanges({
           browseByType: new SimpleChange(undefined, type.dataType, true),
         });

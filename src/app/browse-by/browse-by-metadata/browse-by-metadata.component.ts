@@ -23,7 +23,10 @@ import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
@@ -216,7 +219,13 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
+      observableCombineLatest(
+        [ this.route.params.pipe(take(1)),
+          this.route.queryParams,
+          this.scope$,
+          this.currentPagination$,
+          this.currentSort$,
+        ]).pipe(
         map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
         }),
