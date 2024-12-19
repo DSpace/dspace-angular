@@ -2,6 +2,7 @@ import {
   CdkDrag,
   CdkDragDrop,
   CdkDropList,
+  CdkDropListGroup,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import {
@@ -48,6 +49,7 @@ import { ChipsItem } from './models/chips-item.model';
     TranslateModule,
     CdkDrag,
     CdkDropList,
+    CdkDropListGroup,
   ],
   standalone: true,
 })
@@ -105,8 +107,17 @@ export class ChipsComponent implements OnChanges {
     this.dragged = index;
   }
 
-  onDrop(event: CdkDragDrop<ChipsItem[]>) {
-    moveItemInArray(this.chips.chipsItems.getValue(), event.previousIndex, event.currentIndex);
+  onDrop(event: CdkDragDrop<{ index: number }>) {
+    const previousContainerIndex = event.previousContainer.data.index;
+    const currentContainerIndex = event.container.data.index;
+
+    const currentPositionInCurrentContainer = event.currentIndex;
+
+    const directionAdjuster = currentContainerIndex > previousContainerIndex ? -1 : 0;
+
+    moveItemInArray(this.chips.chipsItems.getValue(),
+      previousContainerIndex,
+      currentContainerIndex + currentPositionInCurrentContainer + directionAdjuster);
     this.dragged = -1;
     this.chips.updateOrder();
     this.isDragging.next(false);
