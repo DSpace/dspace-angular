@@ -19,10 +19,14 @@ import {
   AppConfig,
 } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
+import { BrowseByDataType } from '../../../browse-by/browse-by-switcher/browse-by-data-type';
+import { MetadataService } from '../../../core/metadata/metadata.service';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
-import { hasValue } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';
@@ -42,6 +46,7 @@ export class MetadataValuesComponent implements OnChanges {
 
   constructor(
     @Inject(APP_CONFIG) private appConfig: AppConfig,
+    private metadataService: MetadataService,
   ) {
   }
 
@@ -112,17 +117,18 @@ export class MetadataValuesComponent implements OnChanges {
 
   /**
    * Return a queryparams object for use in a link, with the key dependent on whether this browse
-   * definition is metadata browse, or item browse
-   * @param value the specific metadata value being linked
+   * definition is metadata browse, or item browse, and whether or not an authority key is included
+   * @param mdValue the specific metadata value being linked
    */
-  getQueryParams(value) {
-    const queryParams = { startsWith: value };
-    // todo: should compare with type instead?
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    if (this.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
-      return { value: value };
+  getQueryParams(mdValue: MetadataValue) {
+    if (this.browseDefinition.getRenderType() === BrowseByDataType.Metadata) {
+      if (isNotEmpty(mdValue.authority) && !this.metadataService.isVirtual(mdValue)) {
+        return { value: mdValue.value, authority: mdValue.authority };
+      } else {
+        return { value: mdValue.value };
+      }
     }
-    return queryParams;
+    return { startsWith: mdValue.value };
   }
 
 

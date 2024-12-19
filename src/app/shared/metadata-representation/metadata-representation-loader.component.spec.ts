@@ -36,6 +36,10 @@ class TestType implements MetadataRepresentation {
   getValue(): string {
     return '';
   }
+
+  getAuthority(): string {
+    return '';
+  }
 }
 
 describe('MetadataRepresentationLoaderComponent', () => {
