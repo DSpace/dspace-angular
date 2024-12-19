@@ -9,6 +9,7 @@ import { SelectableListService } from './selectable-list/selectable-list.service
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { hasValue } from '../empty.util';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -227,4 +228,20 @@ export class ObjectListComponent {
       this.next.emit(true);
   }
 
+  /**
+  * @Description check if it is valid to return the number
+  * */
+  get isValidForShowItemNumbered() {
+    return hasValue(this.objects?.payload?.currentPage) && hasValue(this.objects?.payload?.elementsPerPage);
+  }
+
+  /**
+   * @Description return  the current position of the item in the search
+   * */
+  getNumber(index: number): number {
+    if (this.isValidForShowItemNumbered) {
+      return ((this.objects?.payload?.currentPage - 1) * this.objects?.payload?.elementsPerPage) + (index + 1);
+    }
+    return null;
+  }
 }
