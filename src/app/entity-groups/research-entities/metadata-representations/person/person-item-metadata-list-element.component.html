@@ -12,4 +12,9 @@
   <a [routerLink]="[itemPageRoute]"
      [innerHTML]="mdRepresentation.getValue()"
      [ngbTooltip]="mdRepresentation.allMetadata(['person.jobTitle']).length > 0 ? descTemplate : null"></a>
+  <ds-orcid-badge-and-tooltip class="ml-1"
+                              *ngIf="mdRepresentation.firstMetadata('person.identifier.orcid')"
+                              [orcid]="mdRepresentation.firstMetadata('person.identifier.orcid')"
+                              [authenticatedTimestamp]="mdRepresentation.firstMetadata('dspace.orcid.authenticated')">
+  </ds-orcid-badge-and-tooltip>
 </ds-truncatable>
