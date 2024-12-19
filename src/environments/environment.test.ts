@@ -427,4 +427,10 @@ export const environment: BuildConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
   },
+
+  ccLicense: {
+    variant: 'small',
+    showName: true,
+    showDisclaimer: true,
+  },
 };
