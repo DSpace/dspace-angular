@@ -18,6 +18,7 @@ import {
   Observable,
 } from 'rxjs';
 
+import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   DsoEditMetadataChangeType,
@@ -80,6 +81,8 @@ export class DsoEditMetadataFieldValuesComponent {
    * @type {DsoEditMetadataChangeType}
    */
   public DsoEditMetadataChangeTypeEnum = DsoEditMetadataChangeType;
+
+  public readonly Context = Context;
 
   /**
    * Drop a value into a new position
