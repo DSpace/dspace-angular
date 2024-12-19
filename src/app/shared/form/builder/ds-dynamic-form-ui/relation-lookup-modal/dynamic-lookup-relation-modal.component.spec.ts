@@ -3,11 +3,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DebugElement, NgZone, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf, Subscription } from 'rxjs';
-import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
+import { DynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Store } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
@@ -26,8 +25,8 @@ import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
-  let component: DsDynamicLookupRelationModalComponent;
-  let fixture: ComponentFixture<DsDynamicLookupRelationModalComponent>;
+  let component: DynamicLookupRelationModalComponent;
+  let fixture: ComponentFixture<DynamicLookupRelationModalComponent>;
   let debugElement: DebugElement;
   let item;
   let item1;
@@ -103,7 +102,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationModalComponent],
+      declarations: [DynamicLookupRelationModalComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
       providers: [
         {
@@ -119,7 +118,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         {
           provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) }
         },
-        { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
           provide: Store, useValue: {
@@ -137,7 +135,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DsDynamicLookupRelationModalComponent);
+    fixture = TestBed.createComponent(DynamicLookupRelationModalComponent);
     debugElement = fixture.debugElement;
     component = fixture.componentInstance;
     component.listId = listID;

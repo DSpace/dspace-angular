@@ -1,4 +1,4 @@
-import { Component, EventEmitter, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
@@ -17,7 +17,6 @@ import {
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
@@ -45,8 +44,7 @@ import { RelationshipType } from '../../../../../core/shared/item-relationships/
 /**
  * Represents a modal where the submitter can select items to be added as a certain relationship type to the object being submitted
  */
-export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
-  @Output() selectEvent: EventEmitter<ListableObject[]> = new EventEmitter<ListableObject[]>();
+export class DynamicLookupRelationModalComponent implements OnInit, OnDestroy {
 
   /**
    * The label to use to display i18n messages (describing the type of relationship)
@@ -155,16 +153,15 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   constructor(
     public modal: NgbActiveModal,
-    private selectableListService: SelectableListService,
-    private relationshipService: RelationshipDataService,
-    private relationshipTypeService: RelationshipTypeDataService,
-    private externalSourceService: ExternalSourceDataService,
-    private lookupRelationService: LookupRelationService,
-    private searchConfigService: SearchConfigurationService,
-    private rdbService: RemoteDataBuildService,
-    private zone: NgZone,
-    private store: Store<AppState>,
-    private router: Router,
+    protected selectableListService: SelectableListService,
+    protected relationshipService: RelationshipDataService,
+    protected externalSourceService: ExternalSourceDataService,
+    protected lookupRelationService: LookupRelationService,
+    protected searchConfigService: SearchConfigurationService,
+    protected rdbService: RemoteDataBuildService,
+    protected zone: NgZone,
+    protected store: Store<AppState>,
+    protected router: Router,
   ) {
 
   }

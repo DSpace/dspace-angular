@@ -25,7 +25,8 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { DynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { ThemedDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/themed-dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../shared/search/models/search-result.model';
@@ -210,12 +211,11 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   /**
    * Open the dynamic lookup modal to search for items to add as relationships
    */
-  openLookup() {
-
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
+  openLookup(): void {
+    this.modalRef = this.modalService.open(ThemedDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
-    const modalComp: DsDynamicLookupRelationModalComponent = this.modalRef.componentInstance;
+    const modalComp: DynamicLookupRelationModalComponent = this.modalRef.componentInstance.compRef;
     modalComp.repeatable = true;
     modalComp.isEditRelationship = true;
     modalComp.listId = this.listId;

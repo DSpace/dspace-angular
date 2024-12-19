@@ -6,7 +6,7 @@ import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } fro
 import { DsDynamicListComponent } from './builder/ds-dynamic-form-ui/models/list/dynamic-list.component';
 import { DsDynamicLookupComponent } from './builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { DsDynamicDisabledComponent } from './builder/ds-dynamic-form-ui/models/disabled/dynamic-disabled.component';
-import { DsDynamicLookupRelationModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { DynamicLookupRelationModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { DsDynamicScrollableDropdownComponent } from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DsDynamicTagComponent } from './builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
 import { DsDynamicOneboxComponent } from './builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
@@ -42,6 +42,7 @@ import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-boots
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
+import { ThemedDynamicLookupRelationModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/themed-dynamic-lookup-relation-modal.component';
 
 const COMPONENTS = [
   CustomSwitchComponent,
@@ -55,7 +56,8 @@ const COMPONENTS = [
   DsDynamicLookupRelationExternalSourceTabComponent,
   ThemedDynamicLookupRelationExternalSourceTabComponent,
   DsDynamicDisabledComponent,
-  DsDynamicLookupRelationModalComponent,
+  DynamicLookupRelationModalComponent,
+  ThemedDynamicLookupRelationModalComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
   DsDynamicOneboxComponent,

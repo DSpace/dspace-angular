@@ -89,7 +89,7 @@ import { RelationshipDataService } from '../../../../core/data/relationship-data
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
-import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { ThemedDynamicLookupRelationModalComponent } from './relation-lookup-modal/themed-dynamic-lookup-relation-modal.component';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
@@ -424,7 +424,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Open a modal where the user can select relationships to be added to item being submitted
    */
   openLookup() {
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
+    this.modalRef = this.modalService.open(ThemedDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
 
