@@ -220,7 +220,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
         const filteredPage: SearchResult<DSpaceObject>[] = page.filter((pageItem: SearchResult<DSpaceObject>) => selection.findIndex((selected: SearchResult<Item>) => selected.equals(pageItem)) < 0);
-        this.selectObject.emit(...filteredPage);
+        if (filteredPage && filteredPage.length > 0) {
+          this.selectObject.emit(...filteredPage);
+        }
       });
     this.selectableListService.select(this.listId, page);
   }
@@ -235,7 +237,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
         const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) >= 0);
-        this.deselectObject.emit(...filteredPage);
+        if (filteredPage && filteredPage.length > 0) {
+          this.deselectObject.emit(...filteredPage);
+        }
       });
     this.selectableListService.deselect(this.listId, page);
   }
@@ -260,7 +264,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
         take(1),
         tap((selection: SearchResult<Item>[]) => {
           const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
-          this.selectObject.emit(...filteredResults);
+          if (filteredResults && filteredResults.length > 0) {
+            this.selectObject.emit(...filteredResults);
+          }
         }),
         mapTo(results),
       )),
