@@ -245,6 +245,8 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
         if (typeof params.startsWith === 'string') {
           this.startsWith = params.startsWith.trim();
+        } else {
+          this.startsWith = '';
         }
 
         if (isNotEmpty(this.value)) {
