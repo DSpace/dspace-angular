@@ -6,7 +6,15 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  Angulartics2,
+  RouterlessTracking,
+} from 'angulartics2';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
@@ -52,27 +60,29 @@ describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     init();
-    TestBed.configureTestingModule(
-      {
-        imports: [
-          NoopAnimationsModule,
-          TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([]),
-          WorkflowItemSearchResultAdminWorkflowListElementComponent,
-        ],
-        providers: [
-          { provide: TruncatableService, useValue: mockTruncatableService },
-          { provide: LinkService, useValue: linkService },
-          { provide: DSONameService, useClass: DSONameServiceMock },
-          { provide: APP_CONFIG, useValue: environment },
-          { provide: ThemeService, useValue: getMockThemeService() },
-          { provide: AuthService, useValue: new AuthServiceMock() },
-          { provide: AuthorizationDataService, useValue: {} },
-          { provide: XSRFService, useValue: {} },
-        ],
-        schemas: [NO_ERRORS_SCHEMA],
-      })
-      .compileComponents();
+    TestBed.configureTestingModule({
+      imports: [
+        NoopAnimationsModule,
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        StoreModule.forRoot({}),
+        WorkflowItemSearchResultAdminWorkflowListElementComponent,
+      ],
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: LinkService, useValue: linkService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
+        Store,
+        { provide: Angulartics2, useValue: { startTracking: () => {} } },
+        { provide: RouterlessTracking, useValue: { trackLocation: () => {} } },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
