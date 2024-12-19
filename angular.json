@@ -30,7 +30,6 @@
               "lodash",
               "jwt-decode",
               "uuid",
-              "webfontloader",
               "zone.js"
             ],
             "outputPath": "dist/browser",
@@ -266,6 +265,8 @@
           "options": {
             "lintFilePatterns": [
               "src/**/*.ts",
+              "cypress/**/*.ts",
+              "lint/**/*.ts",
               "src/**/*.html",
               "src/**/*.json5"
             ]

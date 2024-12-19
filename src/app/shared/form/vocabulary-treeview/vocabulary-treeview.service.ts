@@ -260,7 +260,7 @@ export class VocabularyTreeviewService {
     const hasChildren = entry.hasOtherInformation() && (entry.otherInformation as any)!.hasChildren === 'true';
     const pageInfo: PageInfo = this.pageInfo;
     const isInInitValueHierarchy = this.initValueHierarchy.includes(entryId);
-    const isSelected: boolean = selectedItems.some(() => selectedItems.includes(entry.id));
+    const isSelected: boolean = selectedItems.some(() => selectedItems.includes(entryId));
     const result = new TreeviewNode(
       entry,
       hasChildren,

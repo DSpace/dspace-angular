@@ -39,8 +39,8 @@ import { FindListOptions } from '../../../../../core/data/find-list-options.mode
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Context } from '../../../../../core/shared/context.model';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
@@ -55,6 +55,7 @@ import {
   isNotEmpty,
 } from '../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
@@ -148,6 +149,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   query: string;
 
   /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  hiddenQuery: string;
+
+  /**
    * A map of subscriptions within this component
    */
   subMap: {
@@ -193,12 +199,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   /**
    * Maintain the list of the related items to be added
    */
-  toAdd = [];
+  toAdd: ItemSearchResult[] = [];
 
   /**
    * Maintain the list of the related items to be removed
    */
-  toRemove = [];
+  toRemove: ItemSearchResult[] = [];
 
   /**
    * Disable buttons while the submit button is pressed
@@ -209,7 +215,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
     private relationshipService: RelationshipDataService,
-    private relationshipTypeService: RelationshipTypeDataService,
     private externalSourceService: ExternalSourceDataService,
     private lookupRelationService: LookupRelationService,
     private searchConfigService: SearchConfigurationService,
@@ -276,13 +281,14 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.toAdd = [];
     this.toRemove = [];
     this.modal.close();
+    this.closeEv();
   }
 
   /**
    * Select (a list of) objects and add them to the store
    * @param selectableObjects
    */
-  select(...selectableObjects: SearchResult<Item>[]) {
+  select(...selectableObjects: SearchResult<DSpaceObject>[]) {
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = observableCombineLatest([...selectableObjects.map((sri: SearchResult<Item>) => {
@@ -325,11 +331,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * Deselect (a list of) objects and remove them from the store
    * @param selectableObjects
    */
-  deselect(...selectableObjects: SearchResult<Item>[]) {
+  deselect(...selectableObjects: SearchResult<DSpaceObject>[]) {
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
-        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType, this.submissionId));
+        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject as Item, this.relationshipOptions.relationshipType, this.submissionId));
       }),
     );
   }
@@ -370,13 +376,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   /**
-   * Called when discard button is clicked, emit discard event to parent to conclude functionality
+   * Called when close button is clicked
+   */
+  closeEv(): void {
+  }
+
+  /**
+   * Called when discard button is clicked
    */
   discardEv(): void {
   }
 
   /**
-   * Called when submit button is clicked, emit submit event to parent to conclude functionality
+   * Called when submit button is clicked
    */
   submitEv(): void {
   }

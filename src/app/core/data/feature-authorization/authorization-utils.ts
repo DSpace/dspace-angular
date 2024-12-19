@@ -91,5 +91,5 @@ export const oneAuthorizationMatchesFeature = (featureID: FeatureID) =>
           return observableOf([]);
         }
       }),
-      map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID).length > 0),
+      map((features: Feature[]) => features.filter((feature: Feature) => feature.id === featureID.valueOf()).length > 0),
     );

@@ -80,7 +80,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 
 @Component({
-  selector: 'ds-edit-bitstream-page',
+  selector: 'ds-base-edit-bitstream-page',
   styleUrls: ['./edit-bitstream-page.component.scss'],
   templateUrl: './edit-bitstream-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

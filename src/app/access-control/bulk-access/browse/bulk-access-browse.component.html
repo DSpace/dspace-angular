@@ -23,10 +23,10 @@
             <a ngbNavLink>{{'admin.access-control.bulk-access-browse.search.header' | translate}}</a>
             <ng-template ngbNavContent>
               <div class="mx-n3">
-                <ds-themed-search [configuration]="'administrativeBulkAccess'"
+                <ds-search [configuration]="'administrativeBulkAccess'"
                                   [selectable]="true"
                                   [selectionConfig]="{ repeatable: true, listId: listId }"
-                                  [showThumbnails]="false"></ds-themed-search>
+                                  [showThumbnails]="false"></ds-search>
               </div>
             </ng-template>
           </li>

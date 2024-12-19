@@ -11,10 +11,11 @@ import { SearchSettingsComponent } from './search-settings.component';
  * Themed wrapper for SearchSettingsComponent
  */
 @Component({
-  selector: 'ds-themed-search-settings',
+  selector: 'ds-search-settings',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
+  imports: [SearchSettingsComponent],
 })
 export class ThemedSearchSettingsComponent extends ThemedComponent<SearchSettingsComponent> {
   @Input() currentSortOption: SortOptions;

@@ -22,7 +22,7 @@ import { Item } from '../../core/shared/item.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { AlertComponent } from '../../shared/alert/alert.component';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TestDataService } from '../../shared/testing/test-data-service.mock';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -112,7 +112,7 @@ describe('DsoEditMetadataComponent', () => {
             DsoEditMetadataValueHeadersComponent,
             DsoEditMetadataFieldValuesComponent,
             AlertComponent,
-            LoadingComponent,
+            ThemedLoadingComponent,
           ],
         },
       })

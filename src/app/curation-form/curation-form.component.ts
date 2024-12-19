@@ -62,7 +62,7 @@ export class CurationFormComponent implements OnDestroy, OnInit {
   form: UntypedFormGroup;
 
   @Input()
-    dsoHandle: string;
+  dsoHandle: string;
 
   subs: Subscription[] = [];
 

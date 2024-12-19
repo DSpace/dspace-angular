@@ -40,7 +40,7 @@ export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
    * An event fired when the modal is closed
    */
   @Output()
-    response = new EventEmitter<DSpaceObject>();
+  response = new EventEmitter<DSpaceObject>();
 
   constructor(protected activeModal: NgbActiveModal,
               protected route: ActivatedRoute) {

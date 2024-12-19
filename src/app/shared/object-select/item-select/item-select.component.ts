@@ -46,11 +46,11 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> implements 
    * Whether or not to hide the collection column
    */
   @Input()
-    hideCollection = false;
+  hideCollection = false;
 
   /**
    * Collection of all the data that is used to display the {@link Item} in the HTML.
-   * By collecting this data here it doesn't need to be recalculated on evey change detection.
+   * By collecting this data here it doesn't need to be recalculated on every change detection.
    */
   selectItems$: Observable<DSpaceObjectSelect<Item>[]>;
 

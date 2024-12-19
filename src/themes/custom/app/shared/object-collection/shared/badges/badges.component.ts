@@ -8,7 +8,7 @@ import { ThemedStatusBadgeComponent } from '../../../../../../../app/shared/obje
 import { ThemedTypeBadgeComponent } from '../../../../../../../app/shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 
 @Component({
-  selector: 'ds-badges',
+  selector: 'ds-themed-badges',
   // styleUrls: ['./badges.component.scss'],
   styleUrls: ['../../../../../../../app/shared/object-collection/shared/badges/badges.component.scss'],
   // templateUrl: './badges.component.html',

@@ -20,7 +20,7 @@ import { BrowseByComponent as BaseComponent } from '../../../../../app/shared/br
 import { StartsWithLoaderComponent } from '../../../../../app/shared/starts-with/starts-with-loader.component';
 
 @Component({
-  selector: 'ds-browse-by',
+  selector: 'ds-themed-browse-by',
   // styleUrls: ['./browse-by.component.scss'],
   styleUrls: ['../../../../../app/shared/browse-by/browse-by.component.scss'],
   // templateUrl: './browse-by.component.html',
@@ -30,8 +30,7 @@ import { StartsWithLoaderComponent } from '../../../../../app/shared/starts-with
     fadeInOut,
   ],
   standalone: true,
-  imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent,
-    ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
+  imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
 })
 export class BrowseByComponent extends BaseComponent {
 }

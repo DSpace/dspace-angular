@@ -154,9 +154,9 @@ export class RowParser {
       && (
         isEmpty(visibility)
         && (
-          submissionScope === SubmissionScopeType.WorkspaceItem && scope !== SubmissionFieldScopeType.WorkspaceItem
+          submissionScope === SubmissionScopeType.WorkspaceItem.valueOf() && scope !== SubmissionFieldScopeType.WorkspaceItem.valueOf()
           ||
-          submissionScope === SubmissionScopeType.WorkflowItem && scope !== SubmissionFieldScopeType.WorkflowItem
+          submissionScope === SubmissionScopeType.WorkflowItem.valueOf() && scope !== SubmissionFieldScopeType.WorkflowItem.valueOf()
         )
       );
   }

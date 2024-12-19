@@ -41,7 +41,7 @@ import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { hasValue } from '../../../shared/empty.util';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
@@ -54,7 +54,7 @@ import { NotificationsStateService } from '../../notifications-state.service';
   templateUrl: './quality-assurance-topics.component.html',
   styleUrls: ['./quality-assurance-topics.component.scss'],
   standalone: true,
-  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
+  imports: [AlertComponent, NgIf, ThemedLoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
 export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
@@ -86,13 +86,13 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
   protected subs: Subscription[] = [];
 
   /**
-   * This property represents a sourceId which is used to retrive a topic
+   * This property represents a sourceId which is used to retrieve a topic
    * @type {string}
    */
   public sourceId: string;
 
   /**
-   * This property represents a targetId (item-id) which is used to retrive a topic
+   * This property represents a targetId (item-id) which is used to retrieve a topic
    * @type {string}
    */
   public targetId: string;
@@ -171,7 +171,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
   }
 
   /**
-   * Dispatch the Quality Assurance topics retrival.
+   * Dispatch the Quality Assurance topics retrieval.
    */
   public getQualityAssuranceTopics(source: string, target?: string): void {
     this.subs.push(this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(

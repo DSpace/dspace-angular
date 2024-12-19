@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -58,7 +59,7 @@ import { SubmissionService } from '../../submission.service';
     ThemedCollectionDropdownComponent,
   ],
 })
-export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
+export class SubmissionFormCollectionComponent implements OnDestroy, OnChanges, OnInit {
 
   /**
    * The current collection id this submission belonging to
@@ -166,7 +167,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
-    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.collection);
+    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Collection);
   }
 
   /**

@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
 import { ThemedRegisterEmailFormComponent } from 'src/app/register-email-form/themed-registry-email-form.component';
 
-import {
-  RegisterEmailFormComponent,
-  TYPE_REQUEST_REGISTER,
-} from '../../register-email-form/register-email-form.component';
+import { TYPE_REQUEST_REGISTER } from '../../register-email-form/register-email-form.component';
 
 @Component({
-  selector: 'ds-register-email',
+  selector: 'ds-base-register-email',
   styleUrls: ['./register-email.component.scss'],
   templateUrl: './register-email.component.html',
   imports: [
-    RegisterEmailFormComponent, ThemedRegisterEmailFormComponent,
+    ThemedRegisterEmailFormComponent,
   ],
   standalone: true,
 })

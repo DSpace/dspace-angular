@@ -8,10 +8,11 @@ import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
  */
 
 @Component({
-  selector: 'ds-themed-workflow-item-delete',
+  selector: 'ds-workflow-item-delete',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [WorkflowItemDeleteComponent],
 })
 export class ThemedWorkflowItemDeleteComponent extends ThemedComponent<WorkflowItemDeleteComponent> {
   protected getComponentName(): string {

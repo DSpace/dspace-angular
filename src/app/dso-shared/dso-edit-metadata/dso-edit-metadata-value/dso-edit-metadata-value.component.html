@@ -1,4 +1,4 @@
-<div class="d-flex flex-row ds-value-row" *ngVar="mdValue.newValue.isVirtual as isVirtual" role="row"
+<div class="d-flex flex-row ds-value-row" *ngVar="metadataService.isVirtual(mdValue.newValue) as isVirtual" role="row"
      cdkDrag (cdkDragStarted)="dragging.emit(true)" (cdkDragEnded)="dragging.emit(false)"
      [ngClass]="{ 'ds-warning': mdValue.reordered || mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD, 'h-100': isOnlyValue }">
   <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex flex-column" *ngVar="(mdRepresentation$ | async) as mdRepresentation" role="cell">
@@ -9,12 +9,12 @@
     <ds-dynamic-scrollable-dropdown *ngIf="mdValue.editing && (isScrollableVocabulary() | async)"
                                     [bindId]="mdField"
                                     [group]="group"
-                                    [model]="getModel() | async"
+                                    [model]="getModel()"
                                     (change)="onChangeAuthorityField($event)">
     </ds-dynamic-scrollable-dropdown>
     <ds-dynamic-onebox *ngIf="mdValue.editing && ((isHierarchicalVocabulary() | async) || (isSuggesterVocabulary() | async))"
                       [group]="group"
-                      [model]="getModel() | async"
+                      [model]="getModel()"
                       (change)="onChangeAuthorityField($event)">
     </ds-dynamic-onebox>
     <div *ngIf="!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE">
@@ -55,7 +55,7 @@
     </div>
     <div class="d-flex" *ngIf="mdRepresentation">
       <a class="mr-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
-      <ds-themed-type-badge [object]="mdRepresentation"></ds-themed-type-badge>
+      <ds-type-badge [object]="mdRepresentation"></ds-type-badge>
     </div>
   </div>
   <div class="ds-flex-cell ds-lang-cell" role="cell">

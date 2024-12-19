@@ -23,7 +23,7 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
  * This component represents the whole mydspace page
  */
 @Component({
-  selector: 'ds-my-dspace-page',
+  selector: 'ds-themed-my-dspace-page',
   // styleUrls: ['./my-dspace-page.component.scss'],
   styleUrls: ['../../../../app/my-dspace-page/my-dspace-page.component.scss'],
   // templateUrl: './my-dspace-page.component.html',
@@ -40,11 +40,11 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
   imports: [
     ThemedSearchComponent,
     MyDSpaceNewSubmissionComponent,
-    MyDspaceQaEventsNotificationsComponent,
-    SuggestionsNotificationComponent,
     AsyncPipe,
     RoleDirective,
     NgIf,
+    SuggestionsNotificationComponent,
+    MyDspaceQaEventsNotificationsComponent,
   ],
 })
 export class MyDSpacePageComponent extends BaseComponent {

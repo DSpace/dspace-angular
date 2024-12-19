@@ -46,7 +46,7 @@ import { SelectableListService } from '../../../../../../object-list/selectable-
 import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../../../../search/models/paginated-search-options.model';
 import { SearchResult } from '../../../../../../search/models/search-result.model';
-import { SearchResultsComponent } from '../../../../../../search/search-results/search-results.component';
+import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
 
 /**
@@ -61,12 +61,12 @@ export enum ImportType {
 }
 
 @Component({
-  selector: 'ds-external-source-entry-import-modal',
+  selector: 'ds-base-external-source-entry-import-modal',
   styleUrls: ['./external-source-entry-import-modal.component.scss'],
   templateUrl: './external-source-entry-import-modal.component.html',
   imports: [
     TranslateModule,
-    SearchResultsComponent,
+    ThemedSearchResultsComponent,
     NgIf,
     AsyncPipe,
   ],

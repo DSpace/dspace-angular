@@ -10,8 +10,8 @@
           <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'community.logo' | translate">
           </ds-comcol-page-logo>
           <!-- Handle -->
-          <ds-themed-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">
-          </ds-themed-comcol-page-handle>
+          <ds-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">
+          </ds-comcol-page-handle>
           <!-- Introductory text -->
           <ds-comcol-page-content [content]="communityPayload.introductoryText" [hasInnerHtml]="true">
           </ds-comcol-page-content>
@@ -25,8 +25,8 @@
       <section class="comcol-page-browse-section">
 
         <!-- Browse-By Links -->
-        <ds-themed-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type">
-        </ds-themed-comcol-page-browse-by>
+        <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type">
+        </ds-comcol-page-browse-by>
 
         <router-outlet></router-outlet>
       </section>
@@ -39,5 +39,5 @@
   </div>
 
   <ds-error *ngIf="communityRD?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
-  <ds-themed-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-themed-loading>
+  <ds-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>
 </div>

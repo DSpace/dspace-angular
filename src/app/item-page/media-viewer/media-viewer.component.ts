@@ -34,7 +34,7 @@ import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ThumbnailComponent } from '../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
 import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
 
@@ -42,12 +42,12 @@ import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-med
  * This component renders the media viewers
  */
 @Component({
-  selector: 'ds-media-viewer',
+  selector: 'ds-base-media-viewer',
   templateUrl: './media-viewer.component.html',
   styleUrls: ['./media-viewer.component.scss'],
   imports: [
     ThemedMediaViewerImageComponent,
-    ThumbnailComponent,
+    ThemedThumbnailComponent,
     AsyncPipe,
     NgIf,
     ThemedMediaViewerVideoComponent,

@@ -242,7 +242,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
    * @param reRequestOnStale            Whether or not the request should automatically be re-
    *                                    requested after the response becomes stale
    * @return {Observable<Bitstream | null>}
-   *    Return an observable that constains primary bitstream information or null
+   *    Return an observable that contains primary bitstream information or null
    */
   public findPrimaryBitstreamByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<Bitstream | null> {
     return this.bundleService.findByItemAndName(item, bundleName, useCachedVersionIfAvailable, reRequestOnStale, followLink('primaryBitstream')).pipe(

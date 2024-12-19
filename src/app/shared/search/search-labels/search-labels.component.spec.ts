@@ -25,7 +25,6 @@ describe('SearchLabelsComponent', () => {
   let fixture: ComponentFixture<SearchLabelsComponent>;
 
   const searchLink = '/search';
-  let searchService;
 
   const field1 = 'author';
   const field2 = 'subject';
@@ -57,16 +56,10 @@ describe('SearchLabelsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchLabelsComponent);
     comp = fixture.componentInstance;
-    searchService = (comp as any).searchService;
-    (comp as any).appliedFilters = observableOf(mockFilters);
     fixture.detectChanges();
   });
 
-  describe('when the component has been initialized', () => {
-    it('should return all params but the provided filter', () => {
-      comp.appliedFilters.subscribe((filters) => {
-        expect(filters).toBe(mockFilters);
-      });
-    });
+  it('should create', () => {
+    expect(comp).toBeTruthy();
   });
 });

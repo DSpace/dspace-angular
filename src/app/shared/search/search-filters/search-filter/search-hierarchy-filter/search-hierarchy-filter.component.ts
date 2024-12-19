@@ -11,21 +11,23 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  BehaviorSubject,
-  combineLatest,
+  from,
   Observable,
-  Subscription,
 } from 'rxjs';
 import {
   filter,
   map,
+  switchMap,
   take,
 } from 'rxjs/operators';
 
@@ -38,25 +40,14 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { FacetValue } from '../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import {
-  addOperatorToFilterValue,
-  getFacetValueForType,
-} from '../../../search.utils';
+import { addOperatorToFilterValue } from '../../../search.utils';
 import {
   facetLoad,
   SearchFacetFilterComponent,
@@ -78,8 +69,6 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
  */
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnDestroy, OnInit {
 
-  subscriptions: Subscription[] = [];
-
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected rdbs: RemoteDataBuildService,
@@ -88,27 +77,23 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               protected vocabularyService: VocabularyService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
-              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
-              @Inject(SCOPE) public scope: string,
   ) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope);
+    super(
+      searchService,
+      filterService,
+      rdbs,
+      router,
+      searchConfigService,
+    );
   }
 
   vocabularyExists$: Observable<boolean>;
-
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
-    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
-  }
 
   /**
    * Submits a new active custom value to the filter from the input field
    * Overwritten method from parent component, adds the "query" operator to the received data before passing it on
    * @param data The string from the input field
-   */
-  onSubmit(data: any) {
+   */ onSubmit(data: any) {
     super.onSubmit(addOperatorToFilterValue(data, 'query'));
   }
 
@@ -141,18 +126,15 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
       name: this.getVocabularyEntry(),
       closed: true,
     };
-    this.subscriptions.push(combineLatest([
-      (modalRef.componentInstance as VocabularyTreeviewModalComponent).select,
-      this.selectedValues$.pipe(take(1)),
-    ]).subscribe(([detail, selectedValues]: [VocabularyEntryDetail, FacetValue[]]) => {
+    modalRef.componentInstance.showAdd = false;
+    this.subs.push(from(modalRef.result).pipe(
+      switchMap((detail: VocabularyEntryDetail) => this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, detail.value, 'equals')),
+      take(1),
+    ).subscribe((params: Params) => {
       void this.router.navigate(
         [this.searchService.getSearchLink()],
         {
-          queryParams: {
-            [this.filterConfig.paramName]: [...selectedValues, { value: detail.value }]
-              .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
-          },
-          queryParamsHandling: 'merge',
+          queryParams: params,
         },
       );
     }));

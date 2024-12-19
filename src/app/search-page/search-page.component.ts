@@ -5,7 +5,7 @@ import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';
 
 @Component({
-  selector: 'ds-search-page',
+  selector: 'ds-base-search-page',
   templateUrl: './search-page.component.html',
   providers: [
     {

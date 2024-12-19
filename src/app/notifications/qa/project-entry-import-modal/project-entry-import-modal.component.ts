@@ -6,6 +6,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -33,7 +34,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../shared/empty.util';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
@@ -104,13 +105,13 @@ export interface QualityAssuranceEventData {
   styleUrls: ['./project-entry-import-modal.component.scss'],
   templateUrl: './project-entry-import-modal.component.html',
   standalone: true,
-  imports: [RouterLink, NgIf, FormsModule, LoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [RouterLink, NgIf, FormsModule, ThemedLoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component to display a modal window for linking a project to an Quality Assurance event
  * Shows information about the selected project and a selectable list.
  */
-export class ProjectEntryImportModalComponent implements OnInit {
+export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
   /**
    * The external source entry
    */
@@ -200,7 +201,7 @@ export class ProjectEntryImportModalComponent implements OnInit {
               private selectService: SelectableListService) { }
 
   /**
-   * Component intitialization.
+   * Component initialization.
    */
   public ngOnInit(): void {
     this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'notifications-project-bound', pageSize: this.pageSize });

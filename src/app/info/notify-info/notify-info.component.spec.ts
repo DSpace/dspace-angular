@@ -16,7 +16,9 @@ describe('NotifyInfoComponent', () => {
   let notifyInfoServiceSpy: any;
 
   beforeEach(async () => {
-    notifyInfoServiceSpy = jasmine.createSpyObj('NotifyInfoService', ['getCoarLdnLocalInboxUrls']);
+    notifyInfoServiceSpy = jasmine.createSpyObj('NotifyInfoService', {
+      getCoarLdnLocalInboxUrls: of([]),
+    });
 
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NotifyInfoComponent],
@@ -31,8 +33,7 @@ describe('NotifyInfoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NotifyInfoComponent);
     component = fixture.componentInstance;
-    component.coarRestApiUrl = of([]);
-    spyOn(component, 'generateCoarRestApiLinksHTML').and.returnValue(of(''));
+    component.coarRestApiUrls$ = of('');
     fixture.detectChanges();
   });
 

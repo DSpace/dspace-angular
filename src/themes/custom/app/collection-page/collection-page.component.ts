@@ -15,7 +15,7 @@ import {
   fadeInOut,
 } from '../../../../app/shared/animations/fade';
 import { ThemedComcolPageBrowseByComponent } from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/themed-comcol-page-content.component';
 import { ThemedComcolPageHandleComponent } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
@@ -26,9 +26,8 @@ import { ObjectCollectionComponent } from '../../../../app/shared/object-collect
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
 
-
 @Component({
-  selector: 'ds-collection-page',
+  selector: 'ds-themed-collection-page',
   // templateUrl: './collection-page.component.html',
   templateUrl: '../../../../app/collection-page/collection-page.component.html',
   // styleUrls: ['./collection-page.component.scss']
@@ -40,10 +39,9 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
   ],
   standalone: true,
   imports: [
-    ComcolPageContentComponent,
+    ThemedComcolPageContentComponent,
     ErrorComponent,
     NgIf,
-    RouterOutlet,
     ThemedLoadingComponent,
     TranslateModule,
     ViewTrackerComponent,
@@ -55,9 +53,11 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
     ObjectCollectionComponent,
+    RouterOutlet,
   ],
 })
 /**
  * This component represents a detail page for a single collection
  */
-export class CollectionPageComponent extends BaseComponent {}
+export class CollectionPageComponent extends BaseComponent {
+}

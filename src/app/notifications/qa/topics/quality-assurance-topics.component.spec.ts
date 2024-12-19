@@ -18,7 +18,7 @@ import { ItemDataService } from 'src/app/core/data/item-data.service';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   getMockNotificationsStateService,
   qualityAssuranceTopicObjectMoreAbstract,
@@ -69,7 +69,7 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
         remove: {
           imports: [
             AlertComponent,
-            LoadingComponent,
+            ThemedLoadingComponent,
             PaginationComponent,
           ],
         },

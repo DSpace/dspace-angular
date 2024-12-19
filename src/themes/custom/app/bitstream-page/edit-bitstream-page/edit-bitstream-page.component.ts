@@ -18,7 +18,7 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-thumbnail.component';
 
 @Component({
-  selector: 'ds-edit-bitstream-page',
+  selector: 'ds-themed-edit-bitstream-page',
   // styleUrls: ['./edit-bitstream-page.component.scss'],
   styleUrls: ['../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component.scss'],
   // templateUrl: './edit-bitstream-page.component.html',

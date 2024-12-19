@@ -14,7 +14,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
-import { LoadingComponent } from '../loading/loading.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-item-withdrawn-reinstate-modal',
@@ -23,7 +23,7 @@ import { LoadingComponent } from '../loading/loading.component';
   imports: [
     NgIf,
     TranslateModule,
-    LoadingComponent,
+    ThemedLoadingComponent,
     FormsModule,
     AsyncPipe,
   ],

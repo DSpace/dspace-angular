@@ -27,7 +27,7 @@ import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
 export class AdminNotifyMetricsComponent {
 
   @Input()
-    boxesConfig: AdminNotifyMetricsRow[];
+  boxesConfig: AdminNotifyMetricsRow[];
 
   private incomingConfiguration = 'NOTIFY.incoming';
   private involvedItemsSuffix = 'involvedItems';

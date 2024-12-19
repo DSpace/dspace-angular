@@ -54,7 +54,7 @@ import {
  * Used to choose a dso from to export metadata of
  */
 @Component({
-  selector: 'ds-export-metadata-selector',
+  selector: 'ds-export-batch-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
   imports: [NgIf, DSOSelectorComponent, TranslateModule],

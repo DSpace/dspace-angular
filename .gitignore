@@ -28,11 +28,11 @@ webpack.records.json
 
 morgan.log
 
+# Yarn no longer used
+yarn.lock
 yarn-error.log
 
 *.css
-
-package-lock.json
 
 .java-version
 

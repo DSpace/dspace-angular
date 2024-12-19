@@ -310,10 +310,10 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
     })?.fields?.[0]?.scope;
 
     switch (scope) {
-      case SubmissionScopeType.WorkspaceItem: {
+      case SubmissionScopeType.WorkspaceItem.valueOf(): {
         return (this.submissionObject as any).type === WorkspaceItem.type.value;
       }
-      case SubmissionScopeType.WorkflowItem: {
+      case SubmissionScopeType.WorkflowItem.valueOf(): {
         return (this.submissionObject as any).type === WorkflowItem.type.value;
       }
       default: {
@@ -340,8 +340,8 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
       this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, errorsToShow, serverValidationErrors, sectionMetadata);
-    } catch (e) {
-      const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
+    } catch (e: unknown) {
+      const msg: string = this.translate.instant('error.submission.sections.init-form-error') + (e as Error).toString();
       const sectionError: SubmissionSectionError = {
         message: msg,
         path: '/sections/' + this.sectionData.id,

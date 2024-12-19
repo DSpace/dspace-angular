@@ -2,7 +2,9 @@ import { of as observableOf } from 'rxjs';
 
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
+import { createPaginatedList } from '../testing/utils.test';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -1345,7 +1347,7 @@ export function getMockSuggestionNotificationsStateService(): any {
 export function getMockSuggestionsService(): any {
   return jasmine.createSpyObj('SuggestionsService', {
     getTargets: jasmine.createSpy('getTargets'),
-    getSuggestions: observableOf([]),
+    getSuggestions: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     clearSuggestionRequests: jasmine.createSpy('clearSuggestionRequests'),
     deleteReviewedSuggestion: jasmine.createSpy('deleteReviewedSuggestion'),
     retrieveCurrentUserSuggestions: jasmine.createSpy('retrieveCurrentUserSuggestions'),

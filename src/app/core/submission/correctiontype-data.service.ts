@@ -76,10 +76,7 @@ export class CorrectionTypeDataService extends IdentifiableDataService<Correctio
   findByTopic(topic: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<CorrectionType> {
     const options = new FindListOptions();
     options.searchParams = [
-      {
-        fieldName: 'topic',
-        fieldValue: topic,
-      },
+      new RequestParam('topic', topic),
     ];
 
     return this.searchData.searchBy(this.searchByTopic, options, useCachedVersionIfAvailable, reRequestOnStale).pipe(

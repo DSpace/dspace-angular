@@ -7,10 +7,11 @@ import { EditCommunitySelectorComponent } from './edit-community-selector.compon
  * Themed wrapper for EditCommunitySelectorComponent
  */
 @Component({
-  selector: 'ds-themed-edit-community-selector',
+  selector: 'ds-edit-community-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [EditCommunitySelectorComponent],
 })
 export class ThemedEditCommunitySelectorComponent
   extends ThemedComponent<EditCommunitySelectorComponent> {

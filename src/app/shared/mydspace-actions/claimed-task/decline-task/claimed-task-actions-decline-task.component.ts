@@ -39,8 +39,6 @@ export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
  */
 export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAbstractComponent {
 
-  option = WORKFLOW_TASK_OPTION_DECLINE_TASK;
-
   constructor(protected injector: Injector,
               protected router: Router,
               protected notificationsService: NotificationsService,

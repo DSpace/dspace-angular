@@ -7,10 +7,11 @@ import { NavbarComponent } from './navbar.component';
  * Themed wrapper for NavbarComponent
  */
 @Component({
-  selector: 'ds-themed-navbar',
+  selector: 'ds-navbar',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [NavbarComponent],
 })
 export class ThemedNavbarComponent  extends ThemedComponent<NavbarComponent> {
   protected getComponentName(): string {

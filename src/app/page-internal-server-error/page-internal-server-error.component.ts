@@ -10,7 +10,7 @@ import { ServerResponseService } from '../core/services/server-response.service'
  * This component representing the `PageInternalServer` DSpace page.
  */
 @Component({
-  selector: 'ds-page-internal-server-error',
+  selector: 'ds-base-page-internal-server-error',
   styleUrls: ['./page-internal-server-error.component.scss'],
   templateUrl: './page-internal-server-error.component.html',
   changeDetection: ChangeDetectionStrategy.Default,

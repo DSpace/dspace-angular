@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -8,48 +8,41 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../testing/search-service.stub';
 import { SearchFiltersComponent } from './search-filters.component';
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;
   let fixture: ComponentFixture<SearchFiltersComponent>;
-  let searchService: SearchService;
 
-  const searchServiceStub = {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    getClearFiltersQueryParams: () => {
-    },
-    getSearchLink: () => {
-    },
-    getConfigurationSearchConfig: () => { },
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  };
-
-  const searchFiltersStub = {
-    getSelectedValuesForFilter: (filter) =>
-      [],
-  };
+  let searchService: SearchServiceStub;
+  let searchFilters: SearchFilterServiceStub;
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchFiltersComponent],
-      providers: [
-        { provide: SearchService, useValue: searchServiceStub },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: SearchFilterService, useValue: searchFiltersStub },
-        { provide: APP_CONFIG, useValue: environment },
+    searchService = new SearchServiceStub();
+    searchFilters = new SearchFilterServiceStub();
 
+    TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+        RouterModule.forRoot([]),
+        NoopAnimationsModule,
+        SearchFiltersComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        { provide: SearchService, useValue: searchService },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: SearchFilterService, useValue: searchFilters },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).overrideComponent(SearchFiltersComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
@@ -59,13 +52,12 @@ describe('SearchFiltersComponent', () => {
     fixture = TestBed.createComponent(SearchFiltersComponent);
     comp = fixture.componentInstance; // SearchFiltersComponent test instance
     fixture.detectChanges();
-    searchService = (comp as any).searchService;
   });
 
   describe('when the getSearchLink method is called', () => {
     beforeEach(() => {
       spyOn(searchService, 'getSearchLink');
-      (comp as any).getSearchLink();
+      comp.getSearchLink();
     });
 
     it('should call getSearchLink on the searchService', () => {

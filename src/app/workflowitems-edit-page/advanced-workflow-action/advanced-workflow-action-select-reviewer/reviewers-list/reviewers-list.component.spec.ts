@@ -224,6 +224,38 @@ describe('ReviewersListComponent', () => {
         })).not.toBeTruthy();
       });
     });
+
+    it('should replace the value when a new member is added when multipleReviewers is false', () => {
+      spyOn(component.selectedReviewersUpdated, 'emit');
+      component.multipleReviewers = false;
+      component.selectedReviewers = [EPersonMock];
+
+      component.addMemberToGroup(EPersonMock2);
+
+      expect(component.selectedReviewers).toEqual([EPersonMock2]);
+      expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock2]);
+    });
+
+    it('should add the value when a new member is added when multipleReviewers is true', () => {
+      spyOn(component.selectedReviewersUpdated, 'emit');
+      component.multipleReviewers = true;
+      component.selectedReviewers = [EPersonMock];
+
+      component.addMemberToGroup(EPersonMock2);
+
+      expect(component.selectedReviewers).toEqual([EPersonMock, EPersonMock2]);
+      expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock, EPersonMock2]);
+    });
+
+    it('should delete the member when present', () => {
+      spyOn(component.selectedReviewersUpdated, 'emit');
+      component.selectedReviewers = [EPersonMock];
+
+      component.deleteMemberFromGroup(EPersonMock);
+
+      expect(component.selectedReviewers).toEqual([]);
+      expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([]);
+    });
   });
 
   describe('when a group is selected', () => {
@@ -243,39 +275,6 @@ describe('ReviewersListComponent', () => {
         })).toBeTruthy();
       });
     });
-  });
-
-
-  it('should replace the value when a new member is added when multipleReviewers is false', () => {
-    spyOn(component.selectedReviewersUpdated, 'emit');
-    component.multipleReviewers = false;
-    component.selectedReviewers = [EPersonMock];
-
-    component.addMemberToGroup(EPersonMock2);
-
-    expect(component.selectedReviewers).toEqual([EPersonMock2]);
-    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock2]);
-  });
-
-  it('should add the value when a new member is added when multipleReviewers is true', () => {
-    spyOn(component.selectedReviewersUpdated, 'emit');
-    component.multipleReviewers = true;
-    component.selectedReviewers = [EPersonMock];
-
-    component.addMemberToGroup(EPersonMock2);
-
-    expect(component.selectedReviewers).toEqual([EPersonMock, EPersonMock2]);
-    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([EPersonMock, EPersonMock2]);
-  });
-
-  it('should delete the member when present', () => {
-    spyOn(component.selectedReviewersUpdated, 'emit');
-    component.selectedReviewers = [EPersonMock];
-
-    component.deleteMemberFromGroup(EPersonMock);
-
-    expect(component.selectedReviewers).toEqual([]);
-    expect(component.selectedReviewersUpdated.emit).toHaveBeenCalledWith([]);
   });
 
 });

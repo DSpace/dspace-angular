@@ -20,6 +20,7 @@ import {
   combineLatest,
 } from 'rxjs';
 import {
+  filter,
   map,
   take,
 } from 'rxjs/operators';
@@ -38,7 +39,7 @@ import {
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { isNotEmpty } from '../../shared/empty.util';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';
 import { OrcidQueueComponent } from './orcid-queue/orcid-queue.component';
@@ -53,7 +54,7 @@ import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-set
   styleUrls: ['./orcid-page.component.scss'],
   imports: [
     CommonModule,
-    LoadingComponent,
+    ThemedLoadingComponent,
     AlertComponent,
     OrcidAuthComponent,
     OrcidSyncSettingsComponent,
@@ -187,8 +188,20 @@ export class OrcidPageComponent implements OnInit {
    */
   private clearRouteParams(): void {
     // update route removing the code from query params
-    const redirectUrl = this.router.url.split('?')[0];
-    this.router.navigate([redirectUrl]);
+    this.route.queryParamMap
+      .pipe(
+        filter((paramMap: ParamMap) => isNotEmpty(paramMap.keys)),
+        map(_ => Object.assign({})),
+        take(1),
+      ).subscribe(queryParams =>
+        this.router.navigate(
+          [],
+          {
+            relativeTo: this.route,
+            queryParams,
+          },
+        ),
+      );
   }
 
 }

@@ -20,7 +20,7 @@ import {
 } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
-import { ThumbnailComponent } from '../../../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
@@ -33,12 +33,24 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
  * This component show metadata for the given item object in the list view.
  */
 @Component({
-  selector: 'ds-item-list-preview',
+  selector: 'ds-base-item-list-preview',
   styleUrls: ['item-list-preview.component.scss'],
   templateUrl: 'item-list-preview.component.html',
   animations: [fadeInOut],
   standalone: true,
-  imports: [NgIf, ThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, ItemSubmitterComponent, ItemCollectionComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ItemCollectionComponent,
+    ItemSubmitterComponent,
+    NgClass,
+    NgFor,
+    NgIf,
+    ThemedBadgesComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 export class ItemListPreviewComponent implements OnInit {
 

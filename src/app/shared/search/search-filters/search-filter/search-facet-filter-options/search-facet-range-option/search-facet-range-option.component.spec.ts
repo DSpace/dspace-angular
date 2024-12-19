@@ -118,7 +118,7 @@ describe('SearchFacetRangeOptionComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when the updateChangeParams method is called wih a value', () => {
+  describe('when the updateChangeParams method is called with a value', () => {
     it('should update the changeQueryParams with the new parameter values', () => {
       comp.changeQueryParams = {};
       comp.filterValue = {
@@ -136,8 +136,8 @@ describe('SearchFacetRangeOptionComponent', () => {
       };
       (comp as any).updateChangeParams();
       expect(comp.changeQueryParams).toEqual({
-        [mockFilterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: ['50'],
-        [mockFilterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: ['60'],
+        [mockFilterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [50],
+        [mockFilterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [60],
         ['page-id.page']: 1,
       });
     });

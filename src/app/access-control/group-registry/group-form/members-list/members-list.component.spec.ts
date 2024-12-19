@@ -222,13 +222,13 @@ describe('MembersListComponent', () => {
 
     describe('if first delete button is pressed', () => {
       beforeEach(() => {
+        spyOn(component, 'search').and.callThrough();
         const deleteButton: DebugElement = fixture.debugElement.query(By.css('#ePeopleMembersOfGroup tbody .fa-trash-alt'));
         deleteButton.nativeElement.click();
         fixture.detectChanges();
       });
-      it('then no ePerson remains as a member of the active group.', () => {
-        const epersonsFound = fixture.debugElement.queryAll(By.css('#ePeopleMembersOfGroup tbody tr'));
-        expect(epersonsFound.length).toEqual(0);
+      it('should trigger the search to add the user back to the search table', () => {
+        expect(component.search).toHaveBeenCalled();
       });
     });
   });
@@ -264,13 +264,13 @@ describe('MembersListComponent', () => {
 
       describe('if first add button is pressed', () => {
         beforeEach(() => {
+          spyOn(component, 'search').and.callThrough();
           const addButton: DebugElement = fixture.debugElement.query(By.css('#epersonsSearch tbody .fa-plus'));
           addButton.nativeElement.click();
           fixture.detectChanges();
         });
-        it('then all (two) ePersons are member of the active group. No non-members left', () => {
-          epersonsFound = fixture.debugElement.queryAll(By.css('#epersonsSearch tbody tr'));
-          expect(epersonsFound.length).toEqual(0);
+        it('should trigger the search to remove the user from the search table', () => {
+          expect(component.search).toHaveBeenCalled();
         });
       });
     });

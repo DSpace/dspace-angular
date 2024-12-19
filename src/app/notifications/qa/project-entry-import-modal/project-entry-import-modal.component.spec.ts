@@ -19,7 +19,7 @@ import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   ItemMockPid10,
   NotificationsMockDspaceObject,
@@ -106,7 +106,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
       .overrideComponent(ProjectEntryImportModalComponent, {
         remove: {
           imports: [
-            LoadingComponent,
+            ThemedLoadingComponent,
             ThemedSearchResultsComponent,
             AlertComponent,
           ],

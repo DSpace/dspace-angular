@@ -6,7 +6,7 @@ import { SearchPageComponent as BaseComponent } from '../../../../app/search-pag
 import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
 
 @Component({
-  selector: 'ds-search-page',
+  selector: 'ds-themed-search-page',
   // styleUrls: ['./search-page.component.scss'],
   // templateUrl: './search-page.component.html'
   templateUrl: '../../../../app/search-page/search-page.component.html',

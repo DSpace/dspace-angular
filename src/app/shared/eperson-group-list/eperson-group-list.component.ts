@@ -143,7 +143,6 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
     const lazyProvider$: Observable<EPersonDataService | GroupDataService> = lazyDataService(this.dataServiceMap, resourceType.value, this.parentInjector);
     lazyProvider$.subscribe((dataService: EPersonDataService | GroupDataService) => {
       this.dataService = dataService;
-      console.log(dataService);
       this.paginationOptions.id = uniqueId('egl');
       this.paginationOptions.pageSize = 5;
 

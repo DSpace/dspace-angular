@@ -1,4 +1,5 @@
 import {
+  Inject,
   Injectable,
   OnDestroy,
 } from '@angular/core';
@@ -21,6 +22,10 @@ import {
 } from 'rxjs/operators';
 
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -29,10 +34,12 @@ import {
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { FilterType } from '../../../shared/search/models/filter-type.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../../../shared/search/models/search-filter.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
 import { LinkService } from '../../cache/builders/link.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import {
@@ -56,6 +63,7 @@ import {
 } from '../operators';
 import { ViewMode } from '../view-mode.model';
 import {
+  FilterConfig,
   SearchConfig,
   SortConfig,
 } from './search-filters/search-config.model';
@@ -120,24 +128,15 @@ export class SearchConfigurationService implements OnDestroy {
    */
   protected subs: Map<string, Subscription[]> = new Map<string, Subscription[]>(null);
 
-  /**
-   * Initialize the search options
-   * @param {RouteService} routeService
-   * @param {PaginationService} paginationService
-   * @param {ActivatedRoute} route
-   * @param linkService
-   * @param halService
-   * @param requestService
-   * @param rdb
-   */
   constructor(protected routeService: RouteService,
               protected paginationService: PaginationService,
               protected route: ActivatedRoute,
               protected linkService: LinkService,
               protected halService: HALEndpointService,
               protected requestService: RequestService,
-              protected rdb: RemoteDataBuildService) {
-
+              protected rdb: RemoteDataBuildService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
     this.initDefaults();
   }
 
@@ -279,6 +278,22 @@ export class SearchConfigurationService implements OnDestroy {
       field: entry.name,
       direction: entry.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC,
     }));
+  }
+
+  /**
+   * Return the {@link FilterConfig}s of the filters that should be displayed for the current configuration/scope
+   *
+   * @param configuration The search configuration
+   * @param scope The scope if exists
+   */
+  public getConfigurationAdvancedSearchFilters(configuration: string, scope?: string): Observable<FilterConfig[]> {
+    return this.getConfigurationSearchConfig(configuration, scope).pipe(
+      map((searchConfiguration: SearchConfig) => {
+        return searchConfiguration.filters
+          .filter((filterConfig: FilterConfig) => this.appConfig.search.advancedFilters.filter.includes(filterConfig.filter))
+          .filter((filterConfig: FilterConfig) => filterConfig.type !== FilterType.range);
+      }),
+    );
   }
 
   setPaginationId(paginationId): void {
@@ -556,6 +571,35 @@ export class SearchConfigurationService implements OnDestroy {
     );
   }
 
+  /**
+   * Calculates the {@link Params} of the search after removing a filter with a certain value and resets the page number.
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  unselectAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsExceptValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
+      map((params: Params) => Object.assign(params, {
+        [this.paginationService.getPageParam(this.paginationID)]: 1,
+      })),
+    );
+  }
+
+  /**
+   * Calculates the {@link Params} of the search after adding a filter with a certain value and resets the page number.
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  selectNewAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsWithAdditionalValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
+      map((params: Params) => Object.assign(params, {
+        [this.paginationService.getPageParam(this.paginationID)]: 1,
+      })),
+    );
+  }
 
   /**
    * @returns {Observable<Params>} Emits the current view mode as a partial SearchOptions object

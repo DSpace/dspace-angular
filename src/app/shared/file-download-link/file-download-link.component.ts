@@ -22,6 +22,7 @@ import {
   getBitstreamDownloadRoute,
   getBitstreamRequestACopyRoute,
 } from '../../app-routing-paths';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Bitstream } from '../../core/shared/bitstream.model';
@@ -32,7 +33,7 @@ import {
 } from '../empty.util';
 
 @Component({
-  selector: 'ds-file-download-link',
+  selector: 'ds-base-file-download-link',
   templateUrl: './file-download-link.component.html',
   styleUrls: ['./file-download-link.component.scss'],
   standalone: true,
@@ -73,6 +74,7 @@ export class FileDownloadLinkComponent implements OnInit {
 
   constructor(
     private authorizationService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
   ) {
   }
 

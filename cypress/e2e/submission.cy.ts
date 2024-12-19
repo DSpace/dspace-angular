@@ -34,7 +34,7 @@ describe('New Submission page', () => {
                 // Author & Subject fields have invalid "aria-multiline" attrs.
                 // See https://github.com/DSpace/dspace-angular/issues/1272
                 'aria-allowed-attr': { enabled: false },
-                // All panels are accordians & fail "aria-required-children" and "nested-interactive".
+                // All panels are accordions & fail "aria-required-children" and "nested-interactive".
                 // Seem to require updating ng-bootstrap and https://github.com/DSpace/dspace-angular/issues/2216
                 'aria-required-children': { enabled: false },
                 'nested-interactive': { enabled: false },
@@ -137,7 +137,7 @@ describe('New Submission page', () => {
 
     // Upload our DSpace logo via drag & drop onto submission form
     // cy.get('div#section_upload')
-    cy.get('div.ds-document-drop-zone').selectFile('src/assets/images/dspace-logo.png', {
+    cy.get('div.ds-document-drop-zone').selectFile('src/assets/images/dspace-logo.svg', {
       action: 'drag-drop',
     });
 
@@ -192,7 +192,7 @@ describe('New Submission page', () => {
     testA11y('ds-submission-edit',
             {
               rules: {
-                // All panels are accordians & fail "aria-required-children" and "nested-interactive".
+                // All panels are accordions & fail "aria-required-children" and "nested-interactive".
                 // Seem to require updating ng-bootstrap and https://github.com/DSpace/dspace-angular/issues/2216
                 'aria-required-children': { enabled: false },
                 'nested-interactive': { enabled: false },

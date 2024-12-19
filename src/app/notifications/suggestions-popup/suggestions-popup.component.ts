@@ -16,13 +16,14 @@ import {
   Observable,
   of,
   Subject,
+  Subscription,
 } from 'rxjs';
 import {
   take,
   takeUntil,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { fromTopEnter } from '../../shared/animations/fromTop';
 import { isNotEmpty } from '../../shared/empty.util';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
@@ -53,7 +54,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 
   labelPrefix = 'notification.';
 
-  subscription;
+  subscription: Subscription;
 
   suggestionsRD$: Observable<SuggestionTarget[]>;
 

@@ -15,6 +15,7 @@ import { RequestService } from '../../core/data/request.service';
 import { RouteService } from '../../core/services/route.service';
 import { Community } from '../../core/shared/community.model';
 import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/create-comcol-page/create-comcol-page.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { CommunityFormComponent } from '../community-form/community-form.component';
@@ -32,6 +33,7 @@ import { CommunityFormComponent } from '../community-form/community-form.compone
     VarDirective,
     NgIf,
     AsyncPipe,
+    ThemedLoadingComponent,
   ],
   standalone: true,
 })

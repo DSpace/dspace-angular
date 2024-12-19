@@ -13,6 +13,7 @@ import {
   isNotEmpty,
 } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ErrorResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
 import {
   DeleteRequest,
@@ -23,6 +24,7 @@ import {
   SubmissionRequest,
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { RequestError } from '../data/request-error.model';
 import { RestRequest } from '../data/rest-request.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -57,7 +59,7 @@ export class SubmissionRestService {
       getFirstCompletedRemoteData(),
       map((response: RemoteData<SubmissionResponse>) => {
         if (response.hasFailed) {
-          throw new Error(response.errorMessage);
+          throw new ErrorResponse({ statusText: response.errorMessage, statusCode: response.statusCode } as RequestError);
         } else {
           return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
         }
@@ -78,7 +80,7 @@ export class SubmissionRestService {
    */
   protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string): string {
     let url = isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
-    url = new URLCombiner(url, '?projection=full').toString();
+    url = new URLCombiner(url, '?embed=item,sections,collection').toString();
     if (collectionId) {
       url = new URLCombiner(url, `&owningCollection=${collectionId}`).toString();
     }

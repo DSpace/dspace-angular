@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
   EventEmitter,
-  NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -30,44 +30,38 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { FacetValue } from '../../../models/facet-value.model';
+import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {
-
+  let comp: SearchHierarchyFilterComponent;
   let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
   let showVocabularyTreeLink: DebugElement;
 
-  const testSearchLink = 'test-search';
   const testSearchFilter = 'subject';
   const VocabularyTreeViewComponent = {
     select: new EventEmitter<VocabularyEntryDetail>(),
   };
 
-  const searchService = {
-    getSearchLink: () => testSearchLink,
-    getFacetValuesFor: () => observableOf([]),
-  };
+  let searchService: SearchServiceStub;
   const searchFilterService = {
     getPage: () => observableOf(0),
   };
-  const router = new RouterStub();
-  const ngbModal = jasmine.createSpyObj('modal', {
+  let searchConfigService: SearchConfigurationServiceStub;
+  let router: RouterStub;
+  const modalService = jasmine.createSpyObj('modal', {
     open: {
       componentInstance: VocabularyTreeViewComponent,
+      result: Promise.resolve(Object.assign(new VocabularyEntryDetail(), {
+        value: 'new-selected-value',
+      })),
     },
   });
   const vocabularyService = {
@@ -75,6 +69,10 @@ describe('SearchHierarchyFilterComponent', () => {
   };
 
   beforeEach(() => {
+    searchService = new SearchServiceStub();
+    searchConfigService = new SearchConfigurationServiceStub();
+    router = new RouterStub();
+
     return TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -87,21 +85,21 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: Router, useValue: router },
-        { provide: NgbModal, useValue: ngbModal },
+        { provide: NgbModal, useValue: modalService },
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: IN_PLACE_SEARCH, useValue: false },
-        { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
-        { provide: SCOPE, useValue: undefined },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 
   function init() {
     fixture = TestBed.createComponent(SearchHierarchyFilterComponent);
+    comp = fixture.componentInstance;
+    comp.inPlaceSearch = false;
+    comp.filterConfig = Object.assign(new SearchFilterConfig(), { name: testSearchFilter });
+    comp.refreshFilters = new BehaviorSubject<boolean>(false);
     fixture.detectChanges();
     showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
   }
@@ -134,39 +132,31 @@ describe('SearchHierarchyFilterComponent', () => {
     });
 
     describe('when clicking the vocabulary tree link', () => {
-
-      const alreadySelectedValues = [
-        'already-selected-value-1',
-        'already-selected-value-2',
-      ];
-      const newSelectedValue = 'new-selected-value';
-
       beforeEach(async () => {
-        fixture.componentInstance.selectedValues$ = observableOf(
-          alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value })),
-        );
-        showVocabularyTreeLink.nativeElement.click();
-        VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
-          value: newSelectedValue,
+        spyOn(searchConfigService, 'selectNewAppliedFilterParams').and.returnValue(observableOf({
+          'f.subject': [
+            'definedBy_selectNewAppliedFilterParams',
+          ],
         }));
+        showVocabularyTreeLink.nativeElement.click();
       });
 
       it('should open the vocabulary tree modal', () => {
-        expect(ngbModal.open).toHaveBeenCalled();
+        expect(modalService.open).toHaveBeenCalled();
       });
 
       describe('when selecting a value from the vocabulary tree', () => {
 
         it('should add a new search filter to the existing search filters', fakeAsync(() => {
+          expect(modalService.open).toHaveBeenCalled();
           tick();
-          expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
+          expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalled();
+          expect(router.navigate).toHaveBeenCalledWith(['/search'], {
             queryParams: {
               [`f.${testSearchFilter}`]: [
-                ...alreadySelectedValues,
-                newSelectedValue,
-              ].map((value => `${value},equals`)),
+                'definedBy_selectNewAppliedFilterParams',
+              ],
             },
-            queryParamsHandling: 'merge',
           });
         }));
       });

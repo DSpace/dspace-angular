@@ -27,44 +27,44 @@ export class ExternalSourceEntry extends ListableObject {
    * Unique identifier
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The object type
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The value to display
    */
   @autoserialize
-    display: string;
+  display: string;
 
   /**
    * The value to store the entry with
    */
   @autoserialize
-    value: string;
+  value: string;
 
   /**
    * The ID of the external source this entry originates from
    */
   @autoserialize
-    externalSource: string;
+  externalSource: string;
 
   /**
    * Metadata of the entry
    */
   @autoserializeAs(MetadataMapSerializer)
-    metadata: MetadataMap;
+  metadata: MetadataMap;
 
   /**
    * The {@link HALLink}s for this ExternalSourceEntry
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
   };
 

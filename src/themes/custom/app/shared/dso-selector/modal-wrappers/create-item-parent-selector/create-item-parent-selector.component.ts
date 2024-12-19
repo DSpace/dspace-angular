@@ -6,7 +6,7 @@ import { AuthorizedCollectionSelectorComponent } from '../../../../../../../app/
 import { CreateItemParentSelectorComponent as BaseComponent } from '../../../../../../../app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 
 @Component({
-  selector: 'ds-create-item-parent-selector',
+  selector: 'ds-themed-create-item-parent-selector',
   // styleUrls: ['./create-item-parent-selector.component.scss'],
   // templateUrl: './create-item-parent-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component.html',

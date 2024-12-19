@@ -7,10 +7,11 @@ import { EditItemSelectorComponent } from './edit-item-selector.component';
  * Themed wrapper for EditItemSelectorComponent
  */
 @Component({
-  selector: 'ds-themed-edit-item-selector',
+  selector: 'ds-edit-item-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [EditItemSelectorComponent],
 })
 export class ThemedEditItemSelectorComponent
   extends ThemedComponent<EditItemSelectorComponent> {

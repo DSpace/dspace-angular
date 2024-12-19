@@ -15,6 +15,7 @@ import {
   filter,
   map,
   switchMap,
+  take,
 } from 'rxjs/operators';
 
 import {
@@ -212,8 +213,14 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveAddFieldUpdate(url: string, field: Identifiable) {
+  saveAddFieldUpdate(url: string, field: Identifiable): Observable<boolean> {
+    const update$: Observable<boolean> = this.getFieldUpdatesExclusive(url, [field]).pipe(
+      filter((fieldUpdates: FieldUpdates) => fieldUpdates[field.uuid].changeType === FieldChangeType.ADD),
+      take(1),
+      map(() => true),
+    );
     this.saveFieldUpdate(url, field, FieldChangeType.ADD);
+    return update$;
   }
 
   /**
@@ -221,8 +228,14 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
    */
-  saveRemoveFieldUpdate(url: string, field: Identifiable) {
+  saveRemoveFieldUpdate(url: string, field: Identifiable): Observable<boolean> {
+    const update$: Observable<boolean> = this.getFieldUpdatesExclusive(url, [field]).pipe(
+      filter((fieldUpdates: FieldUpdates) => fieldUpdates[field.uuid].changeType === FieldChangeType.REMOVE),
+      take(1),
+      map(() => true),
+    );
     this.saveFieldUpdate(url, field, FieldChangeType.REMOVE);
+    return update$;
   }
 
   /**

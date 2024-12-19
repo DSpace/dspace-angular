@@ -2,7 +2,10 @@ import {
   AsyncPipe,
   NgIf,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   ActivatedRoute,
   Router,
@@ -30,7 +33,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 @Component({
-  selector: 'ds-forgot-password-form',
+  selector: 'ds-base-forgot-password-form',
   styleUrls: ['./forgot-password-form.component.scss'],
   templateUrl: './forgot-password-form.component.html',
   imports: [
@@ -45,7 +48,7 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 /**
  * Component for a user to enter a new password for a forgot token.
  */
-export class ForgotPasswordFormComponent {
+export class ForgotPasswordFormComponent implements OnInit {
 
   registration$: Observable<Registration>;
 

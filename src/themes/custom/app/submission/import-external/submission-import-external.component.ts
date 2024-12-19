@@ -18,7 +18,7 @@ import { SubmissionImportExternalComponent as BaseComponent } from '../../../../
  * This component allows to submit a new workspaceitem importing the data from an external source.
  */
 @Component({
-  selector: 'ds-submission-import-external',
+  selector: 'ds-themed-submission-import-external',
   // styleUrls: ['./submission-import-external.component.scss'],
   styleUrls: ['../../../../../app/submission/import-external/submission-import-external.component.scss'],
   // templateUrl: './submission-import-external.component.html',

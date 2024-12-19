@@ -38,7 +38,7 @@ import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modi
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
-  selector: 'ds-workspaceitems-delete-page',
+  selector: 'ds-base-workspaceitems-delete-page',
   templateUrl: './workspaceitems-delete-page.component.html',
   styleUrls: ['./workspaceitems-delete-page.component.scss'],
   imports: [

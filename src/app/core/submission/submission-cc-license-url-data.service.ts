@@ -7,6 +7,7 @@ import {
 
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { BaseDataService } from '../data/base/base-data.service';
 import {
@@ -54,17 +55,8 @@ export class SubmissionCcLicenseUrlDataService extends BaseDataService<Submissio
     return this.searchData.getSearchByHref(
       'rightsByQuestions',{
         searchParams: [
-          {
-            fieldName: 'license',
-            fieldValue: ccLicense.id,
-          },
-          ...ccLicense.fields.map(
-            (field) => {
-              return {
-                fieldName: `answer_${field.id}`,
-                fieldValue: options.get(field).id,
-              };
-            }),
+          new RequestParam('license', ccLicense.id),
+          ...ccLicense.fields.map((field: Field) => new RequestParam(`answer_${field.id}`, options.get(field).id)),
         ],
       },
     ).pipe(

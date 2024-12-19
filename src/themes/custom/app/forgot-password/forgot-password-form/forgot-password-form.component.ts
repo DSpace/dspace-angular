@@ -10,7 +10,7 @@ import { ProfilePageSecurityFormComponent } from '../../../../../app/profile-pag
 import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pipe';
 
 @Component({
-  selector: 'ds-forgot-password-form',
+  selector: 'ds-themed-forgot-password-form',
   // styleUrls: ['./forgot-password-form.component.scss'],
   styleUrls: ['../../../../../app/forgot-password/forgot-password-form/forgot-password-form.component.scss'],
   // templateUrl: './forgot-password-form.component.html'
@@ -18,8 +18,8 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   standalone: true,
   imports: [
     TranslateModule,
-    ProfilePageSecurityFormComponent,
     BrowserOnlyPipe,
+    ProfilePageSecurityFormComponent,
     AsyncPipe,
     NgIf,
   ],

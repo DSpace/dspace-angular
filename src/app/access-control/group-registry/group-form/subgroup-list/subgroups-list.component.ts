@@ -80,7 +80,7 @@ enum SubKey {
 export class SubgroupsListComponent implements OnInit, OnDestroy {
 
   @Input()
-    messagePrefix: string;
+  messagePrefix: string;
 
   /**
    * Result of search groups, initially all groups

@@ -4,10 +4,11 @@ import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { TopLevelCommunityListComponent } from './top-level-community-list.component';
 
 @Component({
-  selector: 'ds-themed-top-level-community-list',
+  selector: 'ds-top-level-community-list',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [TopLevelCommunityListComponent],
 })
 export class ThemedTopLevelCommunityListComponent extends ThemedComponent<TopLevelCommunityListComponent> {
   protected inAndOutputNames: (keyof TopLevelCommunityListComponent & keyof this)[];

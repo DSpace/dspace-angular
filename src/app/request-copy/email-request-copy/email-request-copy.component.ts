@@ -16,7 +16,7 @@ import { RequestCopyEmail } from './request-copy-email.model';
 
 
 @Component({
-  selector: 'ds-email-request-copy',
+  selector: 'ds-base-email-request-copy',
   styleUrls: ['./email-request-copy.component.scss'],
   templateUrl: './email-request-copy.component.html',
   standalone: true,

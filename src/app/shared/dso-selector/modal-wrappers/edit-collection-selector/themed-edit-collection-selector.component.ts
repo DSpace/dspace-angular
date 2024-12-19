@@ -7,10 +7,11 @@ import { EditCollectionSelectorComponent } from './edit-collection-selector.comp
  * Themed wrapper for EditCollectionSelectorComponent
  */
 @Component({
-  selector: 'ds-themed-edit-collection-selector',
+  selector: 'ds-edit-collection-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [EditCollectionSelectorComponent],
 })
 export class ThemedEditCollectionSelectorComponent
   extends ThemedComponent<EditCollectionSelectorComponent> {

@@ -19,7 +19,7 @@ import { languageHelper } from './language-helper';
  * This component renders a video viewer and playlist for the media viewer
  */
 @Component({
-  selector: 'ds-media-viewer-video',
+  selector: 'ds-base-media-viewer-video',
   templateUrl: './media-viewer-video.component.html',
   styleUrls: ['./media-viewer-video.component.scss'],
   imports: [

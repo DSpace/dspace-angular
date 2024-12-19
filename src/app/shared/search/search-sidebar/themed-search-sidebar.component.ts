@@ -22,33 +22,35 @@ import { SearchSidebarComponent } from './search-sidebar.component';
  * Themed wrapper for SearchSidebarComponent
  */
 @Component({
-  selector: 'ds-themed-search-sidebar',
-  styleUrls: [],
+  selector: 'ds-search-sidebar',
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
+  imports: [SearchSidebarComponent],
 })
 export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarComponent> {
 
-  @Input() configuration;
+  @Input() configuration: string;
   @Input() configurationList: SearchConfigurationOption[];
   @Input() currentScope: string;
   @Input() currentSortOption: SortOptions;
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
-  @Input() resultCount;
+  @Input() resultCount: number;
   @Input() viewModeList: ViewMode[];
-  @Input() showViewModes = true;
-  @Input() inPlaceSearch;
+  @Input() showViewModes: boolean;
+  @Input() inPlaceSearch: boolean;
   @Input() searchOptions: PaginatedSearchOptions;
   @Input() sortOptionsList: SortOptions[];
   @Input() refreshFilters: BehaviorSubject<boolean>;
-  @Output() toggleSidebar = new EventEmitter<boolean>();
-  @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter<SearchConfigurationOption>();
-  @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter<ViewMode>();
+  @Output() toggleSidebar: EventEmitter<boolean> = new EventEmitter();
+  @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter();
+  @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter();
 
   protected inAndOutputNames: (keyof SearchSidebarComponent & keyof this)[] = [
     'configuration', 'configurationList', 'currentScope', 'currentSortOption',
     'resultCount', 'filters', 'viewModeList', 'showViewModes', 'inPlaceSearch',
-    'searchOptions', 'sortOptionsList', 'refreshFilters', 'toggleSidebar', 'changeConfiguration', 'changeViewMode'];
+    'searchOptions', 'sortOptionsList', 'refreshFilters', 'toggleSidebar', 'changeConfiguration',
+    'changeViewMode',
+  ];
 
   protected getComponentName(): string {
     return 'SearchSidebarComponent';

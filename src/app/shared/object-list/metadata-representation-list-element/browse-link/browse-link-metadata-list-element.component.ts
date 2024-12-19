@@ -22,6 +22,8 @@ export class BrowseLinkMetadataListElementComponent extends MetadataRepresentati
    */
   getQueryParams() {
     const queryParams = { startsWith: this.mdRepresentation.getValue() };
+    // todo: should compare with type instead?
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     if (this.mdRepresentation.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
       return { value: this.mdRepresentation.getValue() };
     }

@@ -37,6 +37,7 @@ describe('ModifyItemOverviewComponent', () => {
     fixture = TestBed.createComponent(ModifyItemOverviewComponent);
     comp = fixture.componentInstance;
     comp.item = mockItem;
+    comp.ngOnChanges();
 
     fixture.detectChanges();
   });

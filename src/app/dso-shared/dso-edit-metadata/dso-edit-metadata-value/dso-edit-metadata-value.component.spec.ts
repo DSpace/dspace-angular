@@ -10,10 +10,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 import { MetadataField } from 'src/app/core/metadata/metadata-field.model';
 import { MetadataSchema } from 'src/app/core/metadata/metadata-schema.model';
 import { RegistryService } from 'src/app/core/registry/registry.service';
@@ -221,7 +218,7 @@ describe('DsoEditMetadataValueComponent', () => {
 
   it('should not show a badge', () => {
     expect(
-      fixture.debugElement.query(By.css('ds-themed-type-badge')),
+      fixture.debugElement.query(By.css('ds-type-badge')),
     ).toBeNull();
   });
 
@@ -289,7 +286,7 @@ describe('DsoEditMetadataValueComponent', () => {
 
     it('should show a badge', () => {
       expect(
-        fixture.debugElement.query(By.css('ds-themed-type-badge')),
+        fixture.debugElement.query(By.css('ds-type-badge')),
       ).toBeTruthy();
     });
 
@@ -346,14 +343,11 @@ describe('DsoEditMetadataValueComponent', () => {
     });
 
     it('getModel should return a DynamicScrollableDropdownModel', () => {
-      const result = component.getModel();
+      const model = component.getModel();
 
-      expect(result instanceof Observable).toBe(true);
+      expect(model instanceof DynamicScrollableDropdownModel).toBe(true);
+      expect(model.vocabularyOptions.name).toBe(mockVocabularyScrollable.name);
 
-      result.subscribe((model) => {
-        expect(model instanceof DynamicScrollableDropdownModel).toBe(true);
-        expect(model.vocabularyOptions.name).toBe(mockVocabularyScrollable.name);
-      });
     });
   });
 
@@ -380,14 +374,10 @@ describe('DsoEditMetadataValueComponent', () => {
     });
 
     it('getModel should return a DynamicOneboxModel', () => {
-      const result = component.getModel();
+      const model = component.getModel();
 
-      expect(result instanceof Observable).toBe(true);
-
-      result.subscribe((model) => {
-        expect(model instanceof DynamicOneboxModel).toBe(true);
-        expect(model.vocabularyOptions.name).toBe(mockVocabularyHierarchical.name);
-      });
+      expect(model instanceof DynamicOneboxModel).toBe(true);
+      expect(model.vocabularyOptions.name).toBe(mockVocabularyHierarchical.name);
     });
   });
 
@@ -416,14 +406,10 @@ describe('DsoEditMetadataValueComponent', () => {
     });
 
     it('getModel should return a DynamicOneboxModel', () => {
-      const result = component.getModel();
+      const model = component.getModel();
 
-      expect(result instanceof Observable).toBe(true);
-
-      result.subscribe((model) => {
-        expect(model instanceof DynamicOneboxModel).toBe(true);
-        expect(model.vocabularyOptions.name).toBe(mockVocabularySuggester.name);
-      });
+      expect(model instanceof DynamicOneboxModel).toBe(true);
+      expect(model.vocabularyOptions.name).toBe(mockVocabularySuggester.name);
     });
 
     describe('authority key edition', () => {

@@ -48,37 +48,37 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * A string representing the unique handle of this Item
    */
   @autoserialize
-    handle: string;
+  handle: string;
 
   /**
    * The Date of the last modification of this Item
    */
   @deserializeAs(Date)
-    lastModified: Date;
+  lastModified: Date;
 
   /**
    * A boolean representing if this Item is currently archived or not
    */
   @autoserializeAs(Boolean, 'inArchive')
-    isArchived: boolean;
+  isArchived: boolean;
 
   /**
    * A boolean representing if this Item is currently discoverable or not
    */
   @autoserializeAs(Boolean, 'discoverable')
-    isDiscoverable: boolean;
+  isDiscoverable: boolean;
 
   /**
    * A boolean representing if this Item is currently withdrawn or not
    */
   @autoserializeAs(Boolean, 'withdrawn')
-    isWithdrawn: boolean;
+  isWithdrawn: boolean;
 
   /**
    * The {@link HALLink}s for this Item
    */
   @deserialize
-    _links: {
+  _links: {
     mappedCollections: HALLink;
     relationships: HALLink;
     bundles: HALLink;
@@ -96,35 +96,35 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * Will be undefined unless the owningCollection {@link HALLink} has been resolved.
    */
   @link(COLLECTION)
-    owningCollection?: Observable<RemoteData<Collection>>;
+  owningCollection?: Observable<RemoteData<Collection>>;
 
   /**
    * The version this item represents in its history
    * Will be undefined unless the version {@link HALLink} has been resolved.
    */
   @link(VERSION)
-    version?: Observable<RemoteData<Version>>;
+  version?: Observable<RemoteData<Version>>;
 
   /**
    * The list of Bundles inside this Item
    * Will be undefined unless the bundles {@link HALLink} has been resolved.
    */
   @link(BUNDLE, true)
-    bundles?: Observable<RemoteData<PaginatedList<Bundle>>>;
+  bundles?: Observable<RemoteData<PaginatedList<Bundle>>>;
 
   /**
    * The list of Relationships this Item has with others
    * Will be undefined unless the relationships {@link HALLink} has been resolved.
    */
   @link(RELATIONSHIP, true)
-    relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;
+  relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;
 
   /**
    * The thumbnail for this Item
    * Will be undefined unless the thumbnail {@link HALLink} has been resolved.
    */
   @link(BITSTREAM, false, 'thumbnail')
-    thumbnail?: Observable<RemoteData<Bitstream>>;
+  thumbnail?: Observable<RemoteData<Bitstream>>;
 
   /**
    * The access status for this Item
@@ -138,7 +138,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * Will be undefined unless the identifiers {@link HALLink} has been resolved.
    */
   @link(IDENTIFIERS, false, 'identifiers')
-    identifiers?: Observable<RemoteData<IdentifierData>>;
+  identifiers?: Observable<RemoteData<IdentifierData>>;
 
   /**
    * Method that returns as which type of object this object should be rendered

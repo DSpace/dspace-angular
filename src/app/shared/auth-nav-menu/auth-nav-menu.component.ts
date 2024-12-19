@@ -48,19 +48,17 @@ import {
 } from '../animations/fade';
 import { isNotUndefined } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
-import { LogInComponent } from '../log-in/log-in.component';
 import { ThemedLogInComponent } from '../log-in/themed-log-in.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component';
-import { UserMenuComponent } from './user-menu/user-menu.component';
 
 @Component({
-  selector: 'ds-auth-nav-menu',
+  selector: 'ds-base-auth-nav-menu',
   templateUrl: './auth-nav-menu.component.html',
   styleUrls: ['./auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
   standalone: true,
-  imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, ThemedLogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgClass, NgIf, NgbDropdownModule, ThemedLogInComponent, RouterLink, RouterLinkActive, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 export class AuthNavMenuComponent implements OnInit {
   /**

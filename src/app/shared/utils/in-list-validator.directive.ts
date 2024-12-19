@@ -27,7 +27,7 @@ export class InListValidator implements Validator {
    * The list to look in
    */
   @Input()
-    dsInListValidator: string[];
+  dsInListValidator: string[];
 
   /**
    * The function that checks if the form control's value is currently valid

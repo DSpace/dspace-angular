@@ -32,12 +32,14 @@ import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { coreSelector } from '../../app/core/core.selectors';
+import { RequestService } from '../../app/core/data/request.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
-import { MetadataService } from '../../app/core/metadata/metadata.service';
+import { HeadTagService } from '../../app/core/metadata/head-tag.service';
+import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
-import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
@@ -73,14 +75,17 @@ export class BrowserInitService extends InitService {
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
     protected googleAnalyticsService: GoogleAnalyticsService,
-    protected metadata: MetadataService,
+    protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
-    protected klaroService: KlaroService,
+    protected orejimeService: OrejimeService,
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
     private rootDataService: RootDataService,
     protected router: Router,
+    private requestService: RequestService,
+    private halService: HALEndpointService,
+
   ) {
     super(
       store,
@@ -89,7 +94,7 @@ export class BrowserInitService extends InitService {
       translate,
       localeService,
       angulartics2DSpace,
-      metadata,
+      headTagService,
       breadcrumbsService,
       themeService,
       menuService,
@@ -123,7 +128,7 @@ export class BrowserInitService extends InitService {
       this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
 
-      this.initKlaro();
+      this.initOrejime();
 
       await lastValueFrom(this.authenticationReady$());
 
@@ -155,12 +160,12 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * Initialize Klaro (once authentication is resolved)
+   * Initialize Orejime (once authentication is resolved)
    * @protected
    */
-  protected initKlaro() {
+  protected initOrejime() {
     this.authenticationReady$().subscribe(() => {
-      this.klaroService.initialize();
+      this.orejimeService.initialize();
     });
   }
 
@@ -169,17 +174,15 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * During an external authentication flow invalidate the SSR transferState
+   * During an external authentication flow invalidate the
    * data in the cache. This allows the app to fetch fresh content.
    * @private
    */
   private externalAuthCheck() {
-
     this.sub = this.authService.isExternalAuthentication().pipe(
       filter((externalAuth: boolean) => externalAuth),
     ).subscribe(() => {
-      // Clear the transferState data.
-      this.rootDataService.invalidateRootCache();
+      this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
       this.authService.setExternalAuthStatus(false);
     },
     );

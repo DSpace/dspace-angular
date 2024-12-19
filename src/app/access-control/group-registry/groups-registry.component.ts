@@ -14,10 +14,7 @@ import {
   ReactiveFormsModule,
   UntypedFormBuilder,
 } from '@angular/forms';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -149,7 +146,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private formBuilder: UntypedFormBuilder,
               protected routeService: RouteService,
-              private router: Router,
               private authorizationService: AuthorizationDataService,
               private paginationService: PaginationService,
               public requestService: RequestService,

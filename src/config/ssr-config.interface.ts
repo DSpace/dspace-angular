@@ -14,8 +14,10 @@ export interface SSRConfig extends Config {
   enablePerformanceProfiler: boolean;
 
   /**
-   * Reduce render blocking requests by inlining critical CSS.
-   * Defaults to true.
+   * When set to true, reduce render blocking requests by inlining critical CSS.
+   * Determining which styles are critical can be an expensive operation;
+   * this option can be disabled to boost server performance at the expense of loading smoothness.
+   * For improved SSR performance, DSpace defaults this to false (disabled).
    */
   inlineCriticalCss: boolean;
 }

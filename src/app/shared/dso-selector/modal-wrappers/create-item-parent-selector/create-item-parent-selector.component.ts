@@ -31,7 +31,7 @@ import {
  */
 
 @Component({
-  selector: 'ds-create-item-parent-selector',
+  selector: 'ds-base-create-item-parent-selector',
   // styleUrls: ['./create-item-parent-selector.component.scss'],
   // templateUrl: '../dso-selector-modal-wrapper.component.html',
   templateUrl: './create-item-parent-selector.component.html',

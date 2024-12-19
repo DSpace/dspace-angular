@@ -22,18 +22,18 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { MetadataService } from '../../core/metadata/metadata.service';
+import { HeadTagService } from '../../core/metadata/head-tag.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import {
@@ -74,18 +74,10 @@ const mockWithdrawnItem: Item = Object.assign(new Item(), {
   isWithdrawn: true,
 });
 
-const metadataServiceStub = {
-  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-  processRemoteData: () => {
-  },
-  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-};
-
 describe('FullItemPageComponent', () => {
   let comp: FullItemPageComponent;
   let fixture: ComponentFixture<FullItemPageComponent>;
 
-  let authService: AuthService;
   let routeStub: ActivatedRouteStub;
   let routeData;
   let authorizationDataService: AuthorizationDataService;
@@ -93,6 +85,7 @@ describe('FullItemPageComponent', () => {
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
+  let headTagService: HeadTagServiceMock;
 
   const mocklink = {
     href: 'http://test.org',
@@ -107,11 +100,6 @@ describe('FullItemPageComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {},
-    });
-
     routeData = {
       dso: createSuccessfulRemoteDataObject(mockItem),
     };
@@ -143,6 +131,8 @@ describe('FullItemPageComponent', () => {
       getInboxRelationLink: observableOf('http://test.org'),
     });
 
+    headTagService = new HeadTagServiceMock();
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -153,8 +143,7 @@ describe('FullItemPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: metadataServiceStub },
-        { provide: AuthService, useValue: authService },
+        { provide: HeadTagService, useValue: headTagService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },

@@ -10,13 +10,15 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
+import { AuthService } from '../core/auth/auth.service';
 import { ItemDataService } from '../core/data/item-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { hasValue } from '../shared/empty.util';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from './item.resolver';
+import { getItemPageLinksToFollow } from './item.resolver';
 import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
@@ -26,6 +28,7 @@ import { getItemPageRoute } from './item-page-routing-paths';
  * @param {Router} router
  * @param {ItemDataService} itemService
  * @param {Store<AppState>} store
+ * @param {AuthService} authService
  * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
  * or an error if something went wrong
  */
@@ -35,14 +38,16 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   router: Router = inject(Router),
   itemService: ItemDataService = inject(ItemDataService),
   store: Store<AppState> = inject(Store<AppState>),
+  authService: AuthService = inject(AuthService),
 ): Observable<RemoteData<Item>> => {
   const itemRD$ = itemService.findById(
     route.params.id,
     true,
     false,
-    ...ITEM_PAGE_LINKS_TO_FOLLOW,
+    ...getItemPageLinksToFollow(),
   ).pipe(
     getFirstCompletedRemoteData(),
+    redirectOn4xx(router, authService),
   );
 
   itemRD$.subscribe((itemRD: RemoteData<Item>) => {
@@ -63,7 +68,7 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
         if (!thisRoute.startsWith(itemRoute)) {
           const itemId = rd.payload.uuid;
           const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
-          router.navigateByUrl(itemRoute + subRoute);
+          void router.navigateByUrl(itemRoute + subRoute);
         }
       }
       return rd;

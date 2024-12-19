@@ -14,16 +14,20 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import {
+  AuthActionTypes,
+  RetrieveAuthenticatedEpersonSuccessAction,
+} from '../../core/auth/auth.actions';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,
   AddUserSuggestionsAction,
   RefreshUserSuggestionsErrorAction,
-  RetrieveAllTargetsErrorAction,
   RetrieveTargetsBySourceAction,
+  RetrieveTargetsBySourceErrorAction,
   SuggestionTargetActionTypes,
 } from './suggestion-targets.actions';
 
@@ -45,13 +49,13 @@ export class SuggestionTargetsEffects {
         action.payload.currentPage,
       ).pipe(
         map((targets: PaginatedList<SuggestionTarget>) =>
-          new AddTargetAction(targets.page, targets.totalPages, targets.currentPage, targets.totalElements),
+          new AddTargetAction(action.payload.source, targets.page, targets.totalPages, targets.currentPage, targets.totalElements),
         ),
         catchError((error: unknown) => {
           if (error instanceof Error) {
             console.error(error.message);
           }
-          return of(new RetrieveAllTargetsErrorAction());
+          return of(new RetrieveTargetsBySourceErrorAction(action.payload.source));
         }),
       );
     }),
@@ -66,6 +70,17 @@ export class SuggestionTargetsEffects {
       this.notificationsService.error(null, this.translate.get('suggestion.target.error.service.retrieve'));
     }),
   ), { dispatch: false });
+
+  /**
+   * Show a notification on error.
+   */
+  retrieveUserTargets$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS),
+    switchMap((action: RetrieveAuthenticatedEpersonSuccessAction) => {
+      return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload).pipe(
+        map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
+      );
+    })));
 
   /**
    * Fetch the current user suggestion

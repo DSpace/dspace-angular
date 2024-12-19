@@ -24,8 +24,8 @@ import {
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
-  EMPTY,
   Observable,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -52,7 +52,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
 import { DsoEditMetadataForm } from './dso-edit-metadata-form';
@@ -62,11 +62,11 @@ import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 
 @Component({
-  selector: 'ds-dso-edit-metadata',
+  selector: 'ds-base-dso-edit-metadata',
   styleUrls: ['./dso-edit-metadata.component.scss'],
   templateUrl: './dso-edit-metadata.component.html',
   standalone: true,
-  imports: [NgIf, DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, NgFor, DsoEditMetadataFieldValuesComponent, AlertComponent, LoadingComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, NgFor, DsoEditMetadataFieldValuesComponent, AlertComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component showing a table of all metadata on a DSpaceObject and options to modify them
@@ -188,7 +188,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       const lazyProvider$: Observable<UpdateDataService<DSpaceObject>> = lazyDataService(this.dataServiceMap, this.dsoType, this.parentInjector);
       return lazyProvider$;
     } else {
-      return EMPTY;
+      return of(this.updateDataService);
     }
   }
 
@@ -244,7 +244,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   /**
    * Submit the current changes to the form by retrieving json PATCH operations from the form and sending it to the
    * DSpaceObject's data-service
-   * Display notificiations and reset the form afterwards if successful
+   * Display notifications and reset the form afterwards if successful
    */
   submit(): void {
     this.saving$.next(true);

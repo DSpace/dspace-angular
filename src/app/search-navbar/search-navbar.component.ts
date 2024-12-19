@@ -20,7 +20,7 @@ import { ClickOutsideDirective } from '../shared/utils/click-outside.directive';
  * The search box in the header that expands on focus and collapses on focus out
  */
 @Component({
-  selector: 'ds-search-navbar',
+  selector: 'ds-base-search-navbar',
   templateUrl: './search-navbar.component.html',
   styleUrls: ['./search-navbar.component.scss'],
   animations: [expandSearchInput],
@@ -31,7 +31,7 @@ export class SearchNavbarComponent {
 
   // The search form
   searchForm;
-  // Whether or not the search bar is expanded, boolean for html ngIf, string fo AngularAnimation state change
+  // Whether or not the search bar is expanded, boolean for html ngIf, string for AngularAnimation state change
   searchExpanded = false;
   isExpanded = 'collapsed';
 

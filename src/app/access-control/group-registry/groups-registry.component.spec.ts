@@ -22,10 +22,7 @@ import {
 } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -59,6 +56,7 @@ import {
 } from '../../shared/mocks/dso-name.service.mock';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import {
@@ -72,7 +70,6 @@ import {
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
 import { GroupsRegistryComponent } from './groups-registry.component';
 
 describe('GroupsRegistryComponent', () => {
@@ -209,12 +206,9 @@ describe('GroupsRegistryComponent', () => {
     paginationService = new PaginationServiceStub();
     return TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
-        }), GroupsRegistryComponent],
+        TranslateModule.forRoot(),
+        GroupsRegistryComponent,
+      ],
       providers: [GroupsRegistryComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
@@ -232,6 +226,12 @@ describe('GroupsRegistryComponent', () => {
         provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(GroupsRegistryComponent, {
+      remove: {
+        imports: [
+          PaginationComponent,
+        ],
+      },
     }).compileComponents();
   }));
 

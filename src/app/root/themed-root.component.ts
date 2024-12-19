@@ -7,10 +7,11 @@ import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { RootComponent } from './root.component';
 
 @Component({
-  selector: 'ds-themed-root',
+  selector: 'ds-root',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [RootComponent],
 })
 export class ThemedRootComponent extends ThemedComponent<RootComponent> {
   /**

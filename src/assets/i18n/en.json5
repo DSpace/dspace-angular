@@ -1034,7 +1034,11 @@
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
+  "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
+
   "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+
+  "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -1043,6 +1047,8 @@
   "pagination.previous.button": "Previous",
 
   "pagination.next.button.disabled.tooltip": "No more pages of results",
+
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
 
   "browse.startsWith": ", starting with {{ startsWith }}",
 
@@ -1432,7 +1438,11 @@
 
   "community.edit.logo.delete.title": "Delete logo",
 
+  "community-collection.edit.logo.delete.title": "Confirm deletion",
+
   "community.edit.logo.delete-undo.title": "Undo delete",
+
+  "community-collection.edit.logo.delete-undo.title": "Undo delete",
 
   "community.edit.logo.label": "Community logo",
 
@@ -1452,7 +1462,7 @@
 
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
 
-  "community.edit.notifications.error": "An error occured while editing the community",
+  "community.edit.notifications.error": "An error occurred while editing the community",
 
   "community.edit.return": "Back",
 
@@ -1574,25 +1584,19 @@
 
   "cookies.consent.app.required.title": "(always required)",
 
-  "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-
-  "cookies.consent.app.disable-all.title": "Enable or disable all services",
-
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
 
   "cookies.consent.decline": "Decline",
 
+  "cookies.consent.decline-all": "Decline all",
+
   "cookies.consent.ok": "That's ok",
 
   "cookies.consent.save": "Save",
 
-  "cookies.consent.content-notice.title": "Cookie Consent",
-
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-
-  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
+  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
 
   "cookies.consent.content-notice.learnMore": "Customize",
 
@@ -1602,11 +1606,9 @@
 
   "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
 
+  "cookies.consent.content-modal.no-privacy-policy.text": "",
+
   "cookies.consent.content-modal.title": "Information that we collect",
-
-  "cookies.consent.content-modal.services": "services",
-
-  "cookies.consent.content-modal.service": "service",
 
   "cookies.consent.app.title.authentication": "Authentication",
 
@@ -1662,7 +1664,7 @@
 
   "curation.form.submit.error.head": "Running the curation task failed",
 
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
 
   "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
 
@@ -1681,6 +1683,10 @@
   "deny-request-copy.intro": "This message will be sent to the applicant of the request",
 
   "deny-request-copy.success": "Successfully denied item request",
+
+  "dropdown.clear": "Clear selection",
+
+  "dropdown.clear.tooltip": "Clear the selected option",
 
   "dso.name.untitled": "Untitled",
 
@@ -1721,6 +1727,12 @@
   "dso-selector.no-results": "No {{ type }} found",
 
   "dso-selector.placeholder": "Search for a {{ type }}",
+
+  "dso-selector.placeholder.type.community": "community",
+
+  "dso-selector.placeholder.type.collection": "collection",
+
+  "dso-selector.placeholder.type.item": "item",
 
   "dso-selector.select.collection.head": "Select a collection",
 
@@ -1792,6 +1804,8 @@
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
 
+  "confirmation-modal.delete-community-collection-logo.info": "Are you sure you want to delete the logo?",
+
   "confirmation-modal.delete-profile.header": "Delete Profile",
 
   "confirmation-modal.delete-profile.info": "Are you sure you want to delete your profile",
@@ -1843,6 +1857,8 @@
   "error.top-level-communities": "Error fetching top-level communities",
 
   "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+
+  "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
 
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
@@ -1912,7 +1928,7 @@
 
   "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   "forgot-password.title": "Forgot Password",
 
@@ -2208,6 +2224,10 @@
 
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
+  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+
   "item.edit.bitstreams.discard-button": "Discard",
 
   "item.edit.bitstreams.edit.buttons.download": "Download",
@@ -2220,7 +2240,19 @@
 
   "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
 
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
 
   "item.edit.bitstreams.headers.actions": "Actions",
 
@@ -2762,7 +2794,7 @@
 
   "item.page.reinstate": "Request reinstatement",
 
-  "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.page.claim.button": "Claim",
 
@@ -2828,7 +2860,7 @@
 
   "item.preview.organization.foundingDate": "Founding Date",
 
-  "item.preview.organization.identifier.crossrefid": "CrossRef ID",
+  "item.preview.organization.identifier.crossrefid": "Crossref ID",
 
   "item.preview.organization.identifier.isni": "ISNI",
 
@@ -2892,7 +2924,7 @@
 
   "item.version.history.table.action.deleteVersion": "Delete version",
 
-  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
 
@@ -2956,7 +2988,7 @@
 
   "item.version.create.notification.failure": "New version has not been created",
 
-  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.version.delete.modal.header": "Delete version",
 
@@ -3542,7 +3574,7 @@
 
   "quality-assurance.event.action.ignore": "Ignore suggestion",
 
-  "quality-assurance.event.action.undo": "DELETE",
+  "quality-assurance.event.action.undo": "Delete",
 
   "quality-assurance.event.action.reject": "Reject suggestion",
 
@@ -3647,6 +3679,8 @@
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
   "orgunit.page.ror": "ROR Identifier",
+
+  "orgunit.search.results.head": "Organizational Unit Search Results",
 
   "pagination.options.description": "Pagination options",
 
@@ -3835,6 +3869,8 @@
   "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
 
   "process.overview.delete.header": "Delete processes",
+
+  "process.overview.unknown.user": "Unknown",
 
   "process.bulk.delete.error.head": "Error on deleteing process",
 
@@ -4084,7 +4120,7 @@
 
   "register-page.registration.error.head": "Error when trying to register email",
 
-  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
 
   "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
@@ -4234,6 +4270,8 @@
 
   "resource-policies.form.name.label": "Name",
 
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   "resource-policies.form.policy-type.label": "Select the policy type",
 
   "resource-policies.form.policy-type.required": "You must select the resource policy type.",
@@ -4292,6 +4330,8 @@
 
   "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
 
+  "search.filters.applied.f.title": "Title",
+
   "search.filters.applied.f.author": "Author",
 
   "search.filters.applied.f.dateIssued.max": "End date",
@@ -4305,6 +4345,10 @@
   "search.filters.applied.f.entityType": "Item Type",
 
   "search.filters.applied.f.has_content_in_original_bundle": "Has files",
+
+  "search.filters.applied.f.original_bundle_filenames": "File name",
+
+  "search.filters.applied.f.original_bundle_descriptions": "File description",
 
   "search.filters.applied.f.itemtype": "Type",
 
@@ -4323,6 +4367,26 @@
   "search.filters.applied.f.supervisedBy": "Supervised by",
 
   "search.filters.applied.f.withdrawn": "Withdrawn",
+
+  "search.filters.applied.operator.equals": "",
+
+  "search.filters.applied.operator.notequals": " not equals",
+
+  "search.filters.applied.operator.authority": "",
+
+  "search.filters.applied.operator.notauthority": " not authority",
+
+  "search.filters.applied.operator.contains": " contains",
+
+  "search.filters.applied.operator.notcontains": " not contains",
+
+  "search.filters.applied.operator.query": "",
+
+  "search.filters.filter.title.head": "Title",
+
+  "search.filters.filter.title.placeholder": "Title",
+
+  "search.filters.filter.title.label": "Search Title",
 
   "search.filters.filter.author.head": "Author",
 
@@ -4391,6 +4455,18 @@
   "search.filters.filter.expand": "Expand filter",
 
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
+
+  "search.filters.filter.original_bundle_filenames.head": "File name",
+
+  "search.filters.filter.original_bundle_filenames.placeholder": "File name",
+
+  "search.filters.filter.original_bundle_filenames.label": "Search File name",
+
+  "search.filters.filter.original_bundle_descriptions.head": "File description",
+
+  "search.filters.filter.original_bundle_descriptions.placeholder": "File description",
+
+  "search.filters.filter.original_bundle_descriptions.label": "Search File description",
 
   "search.filters.filter.itemtype.head": "Type",
 
@@ -4514,6 +4590,20 @@
 
   "search.filters.search.submit": "Submit",
 
+  "search.filters.operator.equals.text": "Equals",
+
+  "search.filters.operator.notequals.text": "Not Equals",
+
+  "search.filters.operator.authority.text": "Authority",
+
+  "search.filters.operator.notauthority.text": "Not Authority",
+
+  "search.filters.operator.contains.text": "Contains",
+
+  "search.filters.operator.notcontains.text": "Not Contains",
+
+  "search.filters.operator.query.text": "Query",
+
   "search.form.search": "Search",
 
   "search.form.search_dspace": "All repository",
@@ -4547,6 +4637,16 @@
   "search.sidebar.settings.rpp": "Results per page",
 
   "search.sidebar.settings.sort-by": "Sort By",
+
+  "search.sidebar.advanced-search.title": "Advanced Search",
+
+  "search.sidebar.advanced-search.filter-by": "Filter by",
+
+  "search.sidebar.advanced-search.filters": "Filters",
+
+  "search.sidebar.advanced-search.operators": "Operators",
+
+  "search.sidebar.advanced-search.add": "Add",
 
   "search.sidebar.settings.title": "Settings",
 
@@ -4688,7 +4788,7 @@
 
   "submission.import-external.source.cinii": "CiNii",
 
-  "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "Crossref",
 
   "submission.import-external.source.datacite": "DataCite",
 
@@ -4714,7 +4814,11 @@
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
-  "submission.import-external.source.openAIREFunding": "Funding OpenAIRE API",
+  "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
+
+  "submission.import-external.source.openaireTitle": "OpenAIRE Search by Title",
+
+  "submission.import-external.source.openaireFunding": "OpenAIRE Search by Funder",
 
   "submission.import-external.source.orcid": "ORCID",
 
@@ -4786,8 +4890,6 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openAIREFunding": "Funding OpenAIRE API",
-
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
@@ -4809,6 +4911,12 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importing from OpenAIRE",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importing from OpenAIRE",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
 
@@ -4908,11 +5016,15 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "Funding OpenAIRE ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Search by Authors ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Search by Title ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
 
@@ -4922,8 +5034,6 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openAIREFunding": "Funding OpenAIRE API",
-
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
@@ -4931,8 +5041,6 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
-
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
 
@@ -5027,6 +5135,12 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaire": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaireTitle": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFundin": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
 
@@ -6000,31 +6114,13 @@
 
   "admin.notifications.publicationclaim.page.title": "Publication Claim",
 
-  "filter.search.operator.placeholder": "Operator",
-
-  "search.filters.filter.entityType.text": "Item Type",
-
-  "search.filters.operator.equals.text": "Equals",
-
-  "search.filters.operator.notequals.text": "Not Equals",
-
-  "search.filters.operator.notcontains.text": "Not Contains",
-
-  "search.filters.operator.contains.text": "Contains",
-
-  "search.filters.filter.title.text": "Title",
-
-  "search.filters.applied.f.title": "Title",
-
-  "search.filters.filter.author.text": "Author",
-
   "coar-notify-support.title": "COAR Notify Protocol",
 
-  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\\\"https://notify.coar-repositories.org/\\\">COAR Notify website</a>.",
+  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
 
   "coar-notify-support.ldn-inbox.title": "LDN InBox",
 
-  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {ldnInboxUrl}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {{ ldnInboxUrl }}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
 
   "coar-notify-support.message-moderation.title": "Message Moderation",
 
@@ -6134,7 +6230,7 @@
   "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
 
-  "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-register-new-service.breadcrumbs": "New Service",
@@ -6189,8 +6285,12 @@
 
   "item.page.review": "Review",
 
-  "item.page.dataset": "Dataset",
+  "item.page.referenced": "Referenced By",
+
+  "item.page.supplemented": "Supplemented By",
+
   "menu.section.icon.ldn_services": "LDN Services overview",
+
   "menu.section.services": "LDN Services",
 
   "menu.section.services_new": "LDN Service",
@@ -6266,13 +6366,13 @@
 
   "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
-  "ldn-service-button-mark-inbound-deletion": "Mark inbound pattern for deletion",
+  "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
 
-  "ldn-service-button-unmark-inbound-deletion": "Unmark inbound pattern for deletion",
+  "ldn-service-button-unmark-inbound-deletion": "Unmark supported pattern for deletion",
 
-  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for inbound pattern",
+  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for the pattern",
 
-  "ldn-service-input-inbound-pattern-dropdown": "Select inbound pattern for service",
+  "ldn-service-input-inbound-pattern-dropdown": "Select a pattern for service",
 
   "ldn-service-overview-select-delete": "Select service for deletion",
 
@@ -6311,14 +6411,6 @@
   "type-equals-dataset_condition.label": "Type equals Dataset",
 
   "type-equals-journal-article_condition.label": "Type equals Journal Article",
-
-  "search.filters.filter.subject.text": "Subject",
-
-  "search.advanced.filters.head": "Advanced Search",
-
-  "filter.search.text.placeholder": "Search text",
-
-  "advancesearch.form.submit": "Add",
 
   "ldn.no-filter.label": "None",
 
@@ -6653,4 +6745,16 @@
   "search.filters.filter.notifyEndorsement.placeholder": "Notify Endorsement",
 
   "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
+
+  "item.page.cc.license.title": "Creative Commons license",
+
+  "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+
+  "browse.search-form.placeholder": "Search the repository",
+
+  "file-download-link.download": "Download ",
+
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  "forgot-email.form.aria.label": "Enter your e-mail address",
 }

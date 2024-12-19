@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Suggestion } from 'src/app/core/notifications/models/suggestion.model';
+import { Suggestion } from 'src/app/core/notifications/suggestions/models/suggestion.model';
 
 import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { Item } from '../../core/shared/item.model';

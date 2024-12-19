@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
@@ -37,7 +38,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { hasValue } from '../../../shared/empty.util';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -50,13 +51,13 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
     CommonModule,
     NgbTooltipModule,
     TranslateModule,
-    LoadingComponent,
+    ThemedLoadingComponent,
     AlertComponent,
     PaginationComponent,
   ],
   standalone: true,
 })
-export class OrcidQueueComponent implements OnInit, OnDestroy {
+export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
 
   /**
    * The item for which showing the orcid settings

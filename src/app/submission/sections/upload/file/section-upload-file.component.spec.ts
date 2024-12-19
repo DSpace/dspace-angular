@@ -51,6 +51,7 @@ import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
+import { ThemedSubmissionSectionUploadFileComponent } from './themed-section-upload-file.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
 
 const configMetadataFormMock = {
@@ -284,7 +285,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    SubmissionSectionUploadFileComponent,
+    ThemedSubmissionSectionUploadFileComponent,
     CommonModule,
     AsyncPipe,
     NgbModule],

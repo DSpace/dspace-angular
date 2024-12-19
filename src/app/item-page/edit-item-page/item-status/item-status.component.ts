@@ -7,6 +7,7 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -58,7 +59,7 @@ import { ItemOperationComponent } from '../item-operation/item-operation.compone
 import { ItemOperation } from '../item-operation/itemOperation.model';
 
 @Component({
-  selector: 'ds-item-status',
+  selector: 'ds-base-item-status',
   templateUrl: './item-status.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [
@@ -79,7 +80,7 @@ import { ItemOperation } from '../item-operation/itemOperation.model';
 /**
  * Component for displaying an item's status
  */
-export class ItemStatusComponent implements OnInit {
+export class ItemStatusComponent implements OnInit, OnDestroy {
 
   /**
    * The item to display the status for

@@ -12,7 +12,7 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
  * Component representing the statistics page for an item.
  */
 @Component({
-  selector: 'ds-item-statistics-page',
+  selector: 'ds-base-item-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./item-statistics-page.component.scss'],
   standalone: true,

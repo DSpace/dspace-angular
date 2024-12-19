@@ -14,10 +14,7 @@ import {
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
-import {
-  ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
-  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
-} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
+import { ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
 
@@ -32,11 +29,6 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
   imports: [NgbTooltipModule, TranslateModule],
 })
 export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedClaimedTaskActionsAbstractComponent {
-
-  /**
-   * This component represents the advanced select option
-   */
-  option = ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER;
 
   workflowType = ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER;
 

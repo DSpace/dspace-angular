@@ -21,7 +21,7 @@ import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-wi
 import { ViewModeSwitchComponent } from '../../../../app/shared/view-mode-switch/view-mode-switch.component';
 
 @Component({
-  selector: 'ds-configuration-search-page',
+  selector: 'ds-themed-configuration-search-page',
   // styleUrls: ['./configuration-search-page.component.scss'],
   styleUrls: ['../../../../app/shared/search/search.component.scss'],
   // templateUrl: './configuration-search-page.component.html'

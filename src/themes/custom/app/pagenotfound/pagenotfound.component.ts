@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PageNotFoundComponent as BaseComponent } from '../../../../app/pagenotfound/pagenotfound.component';
 
 @Component({
-  selector: 'ds-pagenotfound',
+  selector: 'ds-themed-pagenotfound',
   // styleUrls: ['./pagenotfound.component.scss'],
   styleUrls: ['../../../../app/pagenotfound/pagenotfound.component.scss'],
   // templateUrl: './pagenotfound.component.html'

@@ -11,10 +11,11 @@ import { ItemAlertsComponent } from './item-alerts.component';
  * Themed wrapper for {@link ItemAlertsComponent}
  */
 @Component({
-  selector: 'ds-themed-item-alerts',
+  selector: 'ds-item-alerts',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [ItemAlertsComponent],
 })
 export class ThemedItemAlertsComponent extends ThemedComponent<ItemAlertsComponent> {
   protected inAndOutputNames: (keyof ItemAlertsComponent & keyof this)[] = ['item'];

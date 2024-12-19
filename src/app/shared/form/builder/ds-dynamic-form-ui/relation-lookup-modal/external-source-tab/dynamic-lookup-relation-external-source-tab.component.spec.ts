@@ -174,7 +174,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     });
 
     it('should display a ds-themed-loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading).not.toBeNull();
     });
   });

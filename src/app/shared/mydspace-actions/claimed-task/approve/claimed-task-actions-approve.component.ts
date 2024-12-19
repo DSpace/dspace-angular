@@ -21,6 +21,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { WorkflowItemDataService } from '../../../../core/submission/workflowitem-data.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedApprovedTaskSearchResult } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
@@ -38,17 +39,16 @@ export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
  * Component for displaying and processing the approve action on a workflow task item
  */
 export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstractComponent {
-  /**
-   * This component represents the approve option
-   */
-  option = WORKFLOW_TASK_OPTION_APPROVE;
 
-  constructor(protected injector: Injector,
-              protected router: Router,
-              protected notificationsService: NotificationsService,
-              protected translate: TranslateService,
-              protected searchService: SearchService,
-              protected requestService: RequestService) {
+  constructor(
+    protected injector: Injector,
+    protected router: Router,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected searchService: SearchService,
+    protected requestService: RequestService,
+    protected workflowItemDataService: WorkflowItemDataService,
+  ) {
     super(injector, router, notificationsService, translate, searchService, requestService);
   }
 
@@ -63,4 +63,13 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
     return reloadedObject;
   }
 
+  public handleReloadableActionResponse(result: boolean, dso: DSpaceObject): void {
+    super.handleReloadableActionResponse(result, dso);
+
+    // Item page version table includes labels for workflow Items, determined
+    // based on the result of /workflowitems/search/item?uuid=...
+    // In order for this label to be in sync with the workflow state, we should
+    // invalidate WFIs as they are approved.
+    this.workflowItemDataService.invalidateByHref(this.object?._links.workflowitem?.href);
+  }
 }

@@ -34,7 +34,7 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
  * This component renders a search page using a configuration as input.
  */
 @Component({
-  selector: 'ds-configuration-search-page',
+  selector: 'ds-base-configuration-search-page',
   styleUrls: ['../shared/search/search.component.scss'],
   templateUrl: '../shared/search/search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

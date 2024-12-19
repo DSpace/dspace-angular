@@ -15,12 +15,10 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
+import { getDSORoute } from 'src/app/app-routing-paths';
 
-import { getCollectionModuleRoute } from '../../../collection-page/collection-page-routing-paths';
-import { getCommunityModuleRoute } from '../../../community-page/community-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../empty.util';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
@@ -73,22 +71,10 @@ export class SubscriptionViewComponent {
   ) { }
 
   /**
-   * Return the prefix of the route to the dso object page ( e.g. "items")
+   * Return the route to the dso object page
    */
-  getPageRoutePrefix(): string {
-    let routePrefix;
-    switch (this.dso.type.toString()) {
-      case 'community':
-        routePrefix = getCommunityModuleRoute();
-        break;
-      case 'collection':
-        routePrefix = getCollectionModuleRoute();
-        break;
-      case 'item':
-        routePrefix = getItemModuleRoute();
-        break;
-    }
-    return routePrefix;
+  getPageRoute(dso: DSpaceObject): string {
+    return getDSORoute(dso);
   }
 
   /**

@@ -15,7 +15,7 @@ import { listableObjectComponent } from '../../../../../../../../../app/shared/o
 import { ItemSearchResultListElementComponent as BaseComponent } from '../../../../../../../../../app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TruncatableComponent } from '../../../../../../../../../app/shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
-import { ThumbnailComponent } from '../../../../../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../../../../../../app/thumbnail/themed-thumbnail.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.Any, 'custom')
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Any, 'custom')
@@ -26,7 +26,7 @@ import { ThumbnailComponent } from '../../../../../../thumbnail/thumbnail.compon
   // templateUrl: './item-search-result-list-element.component.html',
   templateUrl: '../../../../../../../../../app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, ThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe],
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe],
 
 })
 export class ItemSearchResultListElementComponent extends BaseComponent {

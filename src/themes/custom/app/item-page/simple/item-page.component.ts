@@ -27,7 +27,7 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
  * All fields of the item that should be displayed, are defined in its template.
  */
 @Component({
-  selector: 'ds-item-page',
+  selector: 'ds-themed-item-page',
   // styleUrls: ['./item-page.component.scss'],
   styleUrls: ['../../../../../app/item-page/simple/item-page.component.scss'],
   // templateUrl: './item-page.component.html',
@@ -44,11 +44,11 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     ItemVersionsComponent,
     ErrorComponent,
     ThemedLoadingComponent,
-    NotifyRequestsStatusComponent,
-    QaEventNotificationComponent,
     TranslateModule,
     AsyncPipe,
     NgIf,
+    NotifyRequestsStatusComponent,
+    QaEventNotificationComponent,
   ],
 })
 export class ItemPageComponent extends BaseComponent {

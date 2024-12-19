@@ -7,11 +7,11 @@ import { NotificationAnimationsType } from '../app/shared/notifications/models/n
 export const environment: BuildConfig = {
   production: false,
 
-  // Angular SSR settings
+  // Angular SSR (Server Side Rendering) settings
   ssr: {
     enabled: true,
     enablePerformanceProfiler: false,
-    inlineCriticalCss: true,
+    inlineCriticalCss: false,
   },
 
   // Angular express server settings.
@@ -422,4 +422,9 @@ export const environment: BuildConfig = {
       ],
     },
   ],
+
+  liveRegion: {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
+  },
 };

@@ -27,7 +27,6 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { Item } from '../../../../../core/shared/item.model';
@@ -139,7 +138,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         {
           provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) },
         },
-        { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
           provide: Store, useValue: {

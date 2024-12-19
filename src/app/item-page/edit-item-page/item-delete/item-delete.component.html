@@ -6,30 +6,29 @@
             <p>{{descriptionMessage | translate}}</p>
             <ds-modify-item-overview [item]="item"></ds-modify-item-overview>
 
-            <ng-container *ngVar="(types$ | async) as types">
+            <ng-container *ngVar="(typeDTOs$ | async) as types">
 
                 <div *ngIf="types && types.length > 0" class="mb-4">
 
                     {{'virtual-metadata.delete-item.info' | translate}}
 
-                    <div *ngFor="let type of types" class="mb-4">
-
-                        <div *ngVar="(isSelected(type) | async) as selected"
+                    <div *ngFor="let typeDto of types" class="mb-4">
+                        <div *ngVar="(typeDto.isSelected$ | async) as selected"
                              class="d-flex flex-row">
 
-                            <div class="m-2" (click)="setSelected(type, !selected)">
+                            <div class="m-2" (click)="setSelected(typeDto.relationshipType, !selected)">
                                 <label>
-                                    <input type="checkbox" [checked]="selected">
+                                    <input type="checkbox" [checked]="selected" [disabled]="isDeleting$ | async">
                                 </label>
                             </div>
 
                             <div class="flex-column flex-grow-1">
-                                <h5 (click)="setSelected(type, !selected)">
-                                    {{getRelationshipMessageKey(getLabel(type) | async) | translate}}
+                                <h5 (click)="setSelected(typeDto.relationshipType, !selected)">
+                                    {{getRelationshipMessageKey(typeDto.label$ | async) | translate}}
                                 </h5>
-                                <div *ngFor="let relationship of (getRelationships(type) | async)"
+                                <div *ngFor="let relationshipDto of (typeDto.relationshipDTOs$ | async)"
                                      class="d-flex flex-row">
-                                    <ng-container *ngVar="(getRelatedItem(relationship) | async) as relatedItem">
+                                    <ng-container *ngVar="(relationshipDto.relatedItem$ | async) as relatedItem">
 
                                         <ds-listable-object-component-loader
                                                 *ngIf="relatedItem"
@@ -46,7 +45,7 @@
                                         </div>
 
                                         <ng-template #virtualMetadataModal>
-                                            <div>
+                                            <div class="thumb-font-1">
                                                 <div class="modal-header">
                                                     {{'virtual-metadata.delete-item.modal-head' | translate}}
                                                     <button type="button" class="close"
@@ -60,7 +59,7 @@
                                                             [object]="relatedItem"
                                                             [viewMode]="viewMode">
                                                     </ds-listable-object-component-loader>
-                                                    <div *ngFor="let metadata of (getVirtualMetadata(relationship) | async)">
+                                                    <div *ngFor="let metadata of (relationshipDto.virtualMetadata$ | async)">
                                                         <div>
                                                             <div class="font-weight-bold">
                                                                 {{metadata.metadataField}}
@@ -87,10 +86,11 @@
             </ng-container>
 
             <div class="space-children-mr">
-              <button (click)="performAction()"
+              <button [disabled]="isDeleting$ | async" (click)="performAction()"
                       class="btn btn-outline-secondary perform-action">{{confirmMessage | translate}}
               </button>
-              <button [routerLink]="[itemPageRoute, 'edit']" class="btn btn-outline-secondary cancel">
+              <button [disabled]="isDeleting$ | async" [routerLink]="[itemPageRoute, 'edit']"
+                      class="btn btn-outline-secondary cancel">
                 {{cancelMessage| translate}}
               </button>
             </div>

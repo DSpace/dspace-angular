@@ -34,10 +34,6 @@ export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
  * Component for displaying the edit metadata action on a workflow task item
  */
 export class ClaimedTaskActionsEditMetadataComponent extends ClaimedTaskActionsAbstractComponent {
-  /**
-   * This component represents the edit metadata option
-   */
-  option = WORKFLOW_TASK_OPTION_EDIT_METADATA;
 
   constructor(protected injector: Injector,
               protected router: Router,
