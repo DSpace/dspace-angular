@@ -11,11 +11,13 @@ import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-s
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { CollectionHomePageComponent } from './collection-home/collection-home-page.component';
 import { collectionPageResolver } from './collection-page.resolver';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
   COLLECTION_CREATE_PATH,
   COLLECTION_EDIT_PATH,
+  COLLECTION_HOME_PATH,
   ITEMTEMPLATE_PATH,
 } from './collection-page-routing-paths';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
@@ -78,6 +80,10 @@ export const ROUTES: Route[] = [
           breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'collection.edit.template.title', breadcrumbKey: 'collection.edit.template' },
+      },
+      {
+        path: COLLECTION_HOME_PATH,
+        component: CollectionHomePageComponent,
       },
       {
         path: '',
