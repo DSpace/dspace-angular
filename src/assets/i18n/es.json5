@@ -8134,6 +8134,12 @@
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar en el repositorio",
 
+  // "community.form.thumbnail": "Thumbnail Description",
+  "community.form.thumbnail": "Descripción del logotipo de la comunidad",
+
+  // "collection.form.thumbnail": "Thumbnail Description",
+  "collection.form.thumbnail": "Descripción del logo de la colección",
+
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Descargar ",
 
@@ -8142,4 +8148,5 @@
 
   // "forgot-email.form.aria.label": "Enter your e-mail address",
   "forgot-email.form.aria.label": "Introduzca su dirección de correo electrónico",
+
 }

@@ -10229,8 +10229,14 @@
   // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
   "item.page.cc.license.disclaimer": "Exceto quando indicado de outra forma, a licença deste item é descrita como",
 
-  //"browse.search-form.placeholder": "Search the repository",
+  // "browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
+
+  // "community.form.thumbnail": "Thumbnail Description",
+  "community.form.thumbnail": "Descrição do logotipo da comunidade",
+
+  // "collection.form.thumbnail": "Thumbnail Description",
+  "collection.form.thumbnail": "Descrição do logotipo da coleção",
 
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Baixar ",
