@@ -140,12 +140,12 @@ describe('BrowseByDatePageComponent', () => {
   describe('when rendered in SSR', () => {
     beforeEach(() => {
       comp.platformId = 'server';
-      spyOn((comp as any).browseService, 'getBrowseEntriesFor');
+      spyOn((comp as any).browseService, 'getBrowseItemsFor');
     });
 
-    it('should not call getBrowseEntriesFor on init', (done) => {
+    it('should not call getBrowseItemsFor on init', (done) => {
       comp.ngOnInit();
-      expect((comp as any).browseService.getBrowseEntriesFor).not.toHaveBeenCalled();
+      expect((comp as any).browseService.getBrowseItemsFor).not.toHaveBeenCalled();
       comp.loading$.subscribe((res) => {
         expect(res).toBeFalsy();
         done();
@@ -156,13 +156,13 @@ describe('BrowseByDatePageComponent', () => {
   describe('when rendered in CSR', () => {
     beforeEach(() => {
       comp.platformId = 'browser';
-      spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+      spyOn((comp as any).browseService, 'getBrowseItemsFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
     });
 
-    it('should call getBrowseEntriesFor on init', fakeAsync(() => {
+    it('should call getBrowseItemsFor on init', fakeAsync(() => {
       comp.ngOnInit();
       tick(100);
-      expect((comp as any).browseService.getBrowseEntriesFor).toHaveBeenCalled();
+      expect((comp as any).browseService.getBrowseItemsFor).toHaveBeenCalled();
     }));
   });
 });
