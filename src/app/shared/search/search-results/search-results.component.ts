@@ -23,13 +23,13 @@ import {
   isNotEmpty,
 } from '../../empty.util';
 import { ErrorComponent } from '../../error/error.component';
-import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchResult } from '../models/search-result.model';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
+import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -44,7 +44,7 @@ export interface SelectionConfig {
     fadeInOut,
   ],
   standalone: true,
-  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, RouterLink, TranslateModule],
+  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ErrorComponent, RouterLink, TranslateModule, SearchResultsSkeletonComponent],
 })
 
 /**
