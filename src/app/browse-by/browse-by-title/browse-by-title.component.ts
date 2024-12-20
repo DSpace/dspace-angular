@@ -13,7 +13,10 @@ import {
   combineLatest as observableCombineLatest,
   of as observableOf,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import {
   SortDirection,
@@ -32,7 +35,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
-  getBrowseSearchOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
 
 @Component({
@@ -66,12 +68,16 @@ export class BrowseByTitleComponent extends BrowseByMetadataComponent implements
       return;
     }
     const sortConfig = new SortOptions('dc.title', SortDirection.ASC);
-    // include the thumbnail configuration in browse search options
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, this.fetchThumbnails));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
+      observableCombineLatest(
+        [ this.route.params.pipe(take(1)),
+          this.route.queryParams,
+          this.scope$,
+          this.currentPagination$,
+          this.currentSort$,
+        ]).pipe(
         map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
         }),

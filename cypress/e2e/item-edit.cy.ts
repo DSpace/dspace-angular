@@ -9,11 +9,6 @@ beforeEach(() => {
 
   // This page is restricted, so we will be shown the login form. Fill it out & submit.
   cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
-
-  // We need to wait for the correction types allowed for the item to be loaded to be sure that each tab is fully loaded.
-  // This because the edit item page causes often tests to fails due to timeout.
-  cy.intercept('GET', 'server/api/config/correctiontypes/search/findByItem*').as('correctionTypes');
-  cy.wait('@correctionTypes');
 });
 
 describe('Edit Item > Edit Metadata tab', () => {

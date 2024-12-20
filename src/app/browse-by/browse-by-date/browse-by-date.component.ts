@@ -21,7 +21,10 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
@@ -56,7 +59,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
-  getBrowseSearchOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
 
 @Component({
@@ -112,15 +114,18 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.startsWithType = StartsWithType.date;
-    // include the thumbnail configuration in browse search options
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, this.fetchThumbnails));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.route.data,
-        this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, scope, data, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams, data), scope, currentPage, currentSort];
+      observableCombineLatest(
+        [ this.route.params.pipe(take(1)),
+          this.route.queryParams,
+          this.scope$,
+          this.currentPagination$,
+          this.currentSort$,
+        ]).pipe(
+        map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
+          return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
         }),
       ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
