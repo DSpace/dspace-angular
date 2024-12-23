@@ -134,7 +134,7 @@ describe('MyDSpacePageComponent', () => {
     );
 
     flush();
-    expect(comp.configuration).toBe(MyDSpaceConfigurationValueType.Workspace);
-    expect(comp.context).toBe(Context.Workspace);
+    expect(comp.configuration()).toBe(MyDSpaceConfigurationValueType.Workspace);
+    expect(comp.context()).toBe(Context.Workspace);
   }));
 });
