@@ -7,6 +7,7 @@ import {
   Component,
   Inject,
   OnInit,
+  signal,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -65,12 +66,12 @@ export class MyDSpacePageComponent implements OnInit {
   /**
    * The start context to use in the search: workspace or workflow
    */
-  context: Context;
+  context = signal<Context>(null);
 
   /**
    * The start configuration to use in the search: workspace or workflow
    */
-  configuration: string;
+  configuration = signal<string>(null);
 
   /**
    * Variable for enumeration RoleType
@@ -108,8 +109,8 @@ export class MyDSpacePageComponent implements OnInit {
     this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
 
     this.configurationList$.pipe(take(1)).subscribe((configurationList: SearchConfigurationOption[]) => {
-      this.configuration = configurationList[0].value;
-      this.context = configurationList[0].context;
+      this.configuration.set(configurationList[0].value);
+      this.context.set(configurationList[0].context);
     });
 
   }
