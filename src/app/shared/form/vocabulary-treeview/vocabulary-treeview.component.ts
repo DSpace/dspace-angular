@@ -165,12 +165,20 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
     );
     this.nodeMap.set(node.item.id, newNode);
 
-    if ((((level + 1) < this.preloadLevel) && newNode.childrenLoaded)
+    if ((((level + 1) < this.preloadLevel))
       || (newNode.isSearchNode && newNode.childrenLoaded)
       || newNode.isInInitValueHierarchy) {
-      if (!newNode.isSearchNode) {
+
+      if (newNode.item.id === LOAD_MORE || newNode.item.id === LOAD_MORE_ROOT) {
+        // When a 'LOAD_MORE' node is encountered, the parent already has a lot of expanded children
+        // so this is a good point to stop expanding.
+        return newNode;
+      }
+
+      if (!newNode.childrenLoaded) {
         this.loadChildren(newNode);
       }
+
       this.treeControl.expand(newNode);
     }
     return newNode;
