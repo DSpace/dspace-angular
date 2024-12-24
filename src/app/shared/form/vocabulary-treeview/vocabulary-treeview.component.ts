@@ -1,7 +1,7 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { map } from 'rxjs/operators';
+import { map, tap, switchMap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,7 +18,9 @@ import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source
 import { CoreState } from '../../../core/core-state.model';
 import { lowerCase } from 'lodash/string';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
+import { RemoteData } from '../../../core/data/remote-data';
 
 /**
  * Component that shows a hierarchical vocabulary in a tree view
@@ -219,20 +221,35 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit {
    */
   ngOnInit(): void {
     this.subs.push(
-      this.vocabularyTreeviewService.getData().subscribe((data) => {
+      this.vocabularyService.findVocabularyById(this.vocabularyOptions.name).pipe(
+        // Retrieve the configured preloadLevel from REST
+        getFirstCompletedRemoteData(),
+        map((vocabularyRD: RemoteData<Vocabulary>) => {
+          if (vocabularyRD.hasSucceeded &&
+            hasValue(vocabularyRD.payload.preloadLevel) &&
+            vocabularyRD.payload.preloadLevel > 1) {
+            return vocabularyRD.payload.preloadLevel;
+          } else {
+            // Set preload level to 1 in case request fails
+            return 1;
+          }
+        }),
+        tap(preloadLevel => this.preloadLevel = preloadLevel),
+        tap(() => this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), this.selectedItems, null)),
+        switchMap(() => this.vocabularyTreeviewService.getData()),
+      ).subscribe((data) => {
         this.dataSource.data = data;
       })
     );
+
+
+    this.loading = this.vocabularyTreeviewService.isLoading();
 
     this.translate.get(`search.filters.filter.${this.vocabularyOptions.name}.head`).pipe(
       map((type) => lowerCase(type)),
     ).subscribe(
       (type) => this.description = this.translate.get('vocabulary-treeview.info', { type })
     );
-
-    this.loading = this.vocabularyTreeviewService.isLoading();
-
-    this.vocabularyTreeviewService.initialize(this.vocabularyOptions, new PageInfo(), this.selectedItems, null);
   }
 
   /**
