@@ -52,7 +52,7 @@ export class SearchFilterConfig implements CacheableObject {
     /**
      * Defines if the item facet is collapsed by default or not on the search page
      */
-    @autoserialize
+    @autoserializeAs(Boolean, 'openByDefault')
       isOpenByDefault: boolean;
 
     /**
