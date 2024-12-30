@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
-  browseParamsToOptions,
-  getBrowseSearchOptions
+  browseParamsToOptions
 } from '../browse-by-metadata-page/browse-by-metadata-page.component';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';

@@ -20,7 +20,6 @@ import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { createPaginatedList } from './shared/testing/utils.test';
 import createSpy = jasmine.createSpy;
 import { AuthService } from './core/auth/auth.service';
-import { MenuResolverService } from './menu-resolver.service';
 import { AuthServiceStub } from './shared/testing/auth-service.stub';
 
 const BOOLEAN = { t: true, f: false };
