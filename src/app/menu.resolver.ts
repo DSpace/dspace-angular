@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest as observableCombineLatest, combineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, combineLatest, Observable, of as observableOf } from 'rxjs';
 import { MenuID } from './shared/menu/menu-id.model';
 import { MenuState } from './shared/menu/menu-state.model';
 import { MenuItemType } from './shared/menu/menu-item-type.model';
@@ -12,7 +12,7 @@ import { RemoteData } from './core/data/remote-data';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
 import { BrowseService } from './core/browse/browse.service';
 import { MenuService } from './shared/menu/menu.service';
-import { filter, find, map, take } from 'rxjs/operators';
+import { filter, find, map, mergeMap, take } from 'rxjs/operators';
 import { hasValue } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import {
@@ -47,6 +47,7 @@ import {
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { AuthService } from './core/auth/auth.service';
 
 /**
  * Creates all of the app's menus
@@ -61,6 +62,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
+    protected authService: AuthService,
   ) {
   }
 
@@ -70,7 +72,7 @@ export class MenuResolver implements Resolve<boolean> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return combineLatest([
       this.createPublicMenu$(),
-      this.createAdminMenu$(),
+      this.createAdminMenuIfLoggedIn$(),
     ]).pipe(
       map((menusDone: boolean[]) => menusDone.every(Boolean)),
     );
@@ -144,6 +146,15 @@ export class MenuResolver implements Resolve<boolean> {
       });
 
     return this.waitForMenu$(MenuID.PUBLIC);
+  }
+
+  /**
+   * Initialize all menu sections and items for {@link MenuID.ADMIN}, only if the user is logged in.
+   */
+  createAdminMenuIfLoggedIn$() {
+    return this.authService.isAuthenticated().pipe(
+      mergeMap((isAuthenticated) => isAuthenticated ? this.createAdminMenu$() : observableOf(true)),
+    );
   }
 
   /**

@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
-  browseParamsToOptions,
-  getBrowseSearchOptions
+  browseParamsToOptions
 } from '../browse-by-metadata-page/browse-by-metadata-page.component';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -11,7 +10,7 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { isValidDate } from '../../shared/date.util';
@@ -52,15 +51,16 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
   ngOnInit(): void {
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.startsWithType = StartsWithType.date;
-    // include the thumbnail configuration in browse search options
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, this.fetchThumbnails));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.route.data,
-        this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, data, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams, data), currentPage, currentSort];
+      observableCombineLatest(
+        [ this.route.params.pipe(take(1)),
+          this.route.queryParams,
+          this.currentPagination$,
+          this.currentSort$]).pipe(
+        map(([routeParams, queryParams, currentPage, currentSort]) => {
+          return [Object.assign({}, routeParams, queryParams), currentPage, currentSort];
         })
       ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
