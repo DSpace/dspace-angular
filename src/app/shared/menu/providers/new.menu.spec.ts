@@ -8,22 +8,23 @@
 
 import { TestBed } from '@angular/core/testing';
 import { MenuItemType } from '../menu-item-type.model';
-import { MenuSubSection, MenuTopSection } from './expandable-menu-provider';
 import { NewMenuProvider } from './new.menu';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: MenuTopSection = {
-    model: {
+const expectedTopSection: PartialMenuSection = {
+  visible: true,
+  model: {
       type: MenuItemType.TEXT,
       text: 'menu.section.new'
     },
     icon: 'plus',
   };
 
-const expectedSubSections: MenuSubSection[] = [
+const expectedSubSections: PartialMenuSection[] = [
   {
     visible: true,
     model: {

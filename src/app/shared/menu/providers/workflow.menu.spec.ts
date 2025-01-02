@@ -7,12 +7,12 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { PartialMenuSection } from '../menu-provider';
 import { MenuItemType } from '../menu-item-type.model';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { WorkflowMenuProvider } from './workflow.menu';
+import { PartialMenuSection } from '../menu-provider.model';
 
 const expectedSections: PartialMenuSection[] = [
   {

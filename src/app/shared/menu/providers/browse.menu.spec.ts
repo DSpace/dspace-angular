@@ -9,7 +9,6 @@
 import { TestBed } from '@angular/core/testing';
 import { BrowseMenuProvider } from './browse.menu';
 import { MenuItemType } from '../menu-item-type.model';
-import { MenuSubSection, MenuTopSection } from './expandable-menu-provider';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { BrowseServiceStub } from '../../testing/browse-service.stub';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -17,16 +16,18 @@ import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
+import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: MenuTopSection = {
-    model: {
+const expectedTopSection: PartialMenuSection = {
+  visible: true,
+  model: {
       type: MenuItemType.TEXT,
       text: 'menu.section.browse_global',
     },
     icon: 'globe',
   };
 
-const expectedSubSections: MenuSubSection[] = [
+const expectedSubSections: PartialMenuSection[] = [
   {
     visible: true,
     model: {

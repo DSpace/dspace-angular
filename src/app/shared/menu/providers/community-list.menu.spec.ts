@@ -8,8 +8,8 @@
 
 import { TestBed } from '@angular/core/testing';
 import { CommunityListMenuProvider } from './community-list.menu';
-import { PartialMenuSection } from '../menu-provider';
 import { MenuItemType } from '../menu-item-type.model';
+import { PartialMenuSection } from '../menu-provider.model';
 
 const expectedSections: PartialMenuSection[] = [
   {

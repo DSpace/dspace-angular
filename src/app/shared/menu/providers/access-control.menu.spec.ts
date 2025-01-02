@@ -8,7 +8,6 @@
 
 import { TestBed } from '@angular/core/testing';
 import { MenuItemType } from '../menu-item-type.model';
-import { MenuSubSection, MenuTopSection } from './expandable-menu-provider';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -16,8 +15,10 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { AccessControlMenuProvider } from './access-control.menu';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { ScriptServiceStub } from '../../testing/script-service.stub';
+import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: MenuTopSection = {
+const expectedTopSection: PartialMenuSection = {
+  visible: true,
   model: {
     type: MenuItemType.TEXT,
       text: 'menu.section.access_control',
@@ -25,7 +26,7 @@ const expectedTopSection: MenuTopSection = {
   icon: 'key'
 };
 
-const expectedSubSections: MenuSubSection[] = [
+const expectedSubSections: PartialMenuSection[] = [
   {
     visible: true,
     model: {
