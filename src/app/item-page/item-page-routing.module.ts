@@ -18,6 +18,7 @@ import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { VersionResolver } from './version-page/version.resolver';
+import { MenuRoute } from '../shared/menu/menu-route.model';
 
 @NgModule({
   imports: [
@@ -34,10 +35,16 @@ import { VersionResolver } from './version-page/version.resolver';
             path: '',
             component: ThemedItemPageComponent,
             pathMatch: 'full',
+            data: {
+              menuRoute: MenuRoute.SIMPLE_ITEM_PAGE,
+            },
           },
           {
             path: 'full',
             component: ThemedFullItemPageComponent,
+            data: {
+              menuRoute: MenuRoute.FULL_ITEM_PAGE,
+            },
           },
           {
             path: ITEM_EDIT_PATH,

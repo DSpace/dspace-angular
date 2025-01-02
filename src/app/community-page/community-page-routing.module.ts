@@ -15,6 +15,7 @@ import { CreateCommunityPageComponent } from './create-community-page/create-com
 import { CreateCommunityPageGuard } from './create-community-page/create-community-page.guard';
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
+import { MenuRoute } from '../shared/menu/menu-route.model';
 
 @NgModule({
   imports: [
@@ -48,6 +49,9 @@ import { ThemedCommunityPageComponent } from './themed-community-page.component'
             path: '',
             component: ThemedCommunityPageComponent,
             pathMatch: 'full',
+            data: {
+              menuRoute: MenuRoute.SIMPLE_COMMUNITY_PAGE,
+            },
           }
         ],
       },

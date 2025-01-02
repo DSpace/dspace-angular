@@ -19,6 +19,7 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
 import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
+import { MenuRoute } from '../shared/menu/menu-route.model';
 
 @NgModule({
   imports: [
@@ -62,6 +63,9 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
             path: '',
             component: ThemedCollectionPageComponent,
             pathMatch: 'full',
+            data: {
+              menuRoute: MenuRoute.SIMPLE_COLLECTION_PAGE,
+            },
           }
         ],
       },

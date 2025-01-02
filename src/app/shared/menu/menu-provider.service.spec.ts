@@ -7,7 +7,7 @@ import { waitForAsync } from '@angular/core/testing';
 import { MenuProviderService } from './menu-provider.service';
 import { MenuService } from './menu.service';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
-import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
+import { MenuRoute } from './menu-route.model';
 
 describe('MenuProviderService', () => {
 
@@ -18,7 +18,7 @@ describe('MenuProviderService', () => {
       public shouldPersistOnRouteChange: boolean,
       public menuProviderId: string,
       public index: number,
-      public activePaths: string[],
+      public activePaths: MenuRoute[],
       public parentID: string,
       public alwaysRenderExpandable: boolean,
       public sections: PartialMenuSection[]
@@ -36,7 +36,12 @@ describe('MenuProviderService', () => {
   let menuService: MenuService;
 
   const router = {
-    events: observableOf(new ResolveEnd(1, 'test-url', 'test-url-after-redirect',{url: 'test-url', root: {url: [new UrlSegment('test-url', {})]}} as any ))
+    events: observableOf(new ResolveEnd(1, 'test-url', 'test-url-after-redirect', {
+      url: 'test-url',
+      root: {url: [new UrlSegment('test-url', {})],       data: {}
+      },
+      data: {}
+    } as any))
   };
 
   const section = {
@@ -59,7 +64,7 @@ describe('MenuProviderService', () => {
   const persistentProvider2 = new TestMenuProvider(MenuID.PUBLIC, true, 'provider2', 1, undefined, 'provider1', false, [section]);
   const nonPersistentProvider3 = new TestMenuProvider(MenuID.PUBLIC, false, 'provider3', 2, undefined, undefined, false, [section]);
   const nonPersistentProvider4 = new TestMenuProvider(MenuID.PUBLIC, false, 'provider4', 3, undefined, 'provider3', false, [section]);
-  const nonPersistentProvider5WithRoutes = new TestMenuProvider(MenuID.PUBLIC, false, 'provider4', 3, [COMMUNITY_MODULE_PATH, COLLECTION_MODULE_PATH], undefined, false, [section]);
+  const nonPersistentProvider5WithRoutes = new TestMenuProvider(MenuID.PUBLIC, false, 'provider4', 3, [MenuRoute.SIMPLE_COMMUNITY_PAGE, MenuRoute.SIMPLE_COLLECTION_PAGE,], undefined, false, [section]);
 
   const listOfProvider = [persistentProvider1, persistentProvider2, nonPersistentProvider3, nonPersistentProvider4, nonPersistentProvider5WithRoutes];
 
@@ -110,7 +115,7 @@ describe('MenuProviderService', () => {
 
   describe('resolveRouteMenus with no matching path specific providers', () => {
     it('should remove the current non persistent menus and add the general non persistent menus', () => {
-      const route = {};
+      const route = {data:{}};
       const state = {url: 'test-url'};
       menuProviderService.resolveRouteMenus(route as any, state as any).subscribe();
 
@@ -128,7 +133,7 @@ describe('MenuProviderService', () => {
 
   describe('resolveRouteMenus with a matching path specific provider', () => {
     it('should remove the current non persistent menus and add the general non persistent menus', () => {
-      const route = {};
+      const route = {data:{ menuRoute: MenuRoute.SIMPLE_COMMUNITY_PAGE}};
       const state = {url: `xxxx/${COMMUNITY_MODULE_PATH}/xxxxxx`};
       menuProviderService.resolveRouteMenus(route as any, state as any).subscribe();
 

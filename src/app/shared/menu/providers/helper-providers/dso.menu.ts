@@ -40,4 +40,8 @@ export abstract class DSpaceObjectPageMenuProvider extends AbstractRouteContextM
       return dso.type.toString().toLowerCase();
     }
   }
+
+  protected isApplicable(dso: DSpaceObject): boolean {
+    return hasValue(dso);
+  }
 }
