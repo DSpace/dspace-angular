@@ -4,6 +4,7 @@ import {
 } from '@angular/common';
 import {
   Component,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import {
@@ -40,7 +41,7 @@ import { FilteredCollections } from './filtered-collections.model';
   ],
   standalone: true,
 })
-export class FilteredCollectionsComponent {
+export class FilteredCollectionsComponent implements OnInit {
 
   queryForm: FormGroup;
   results: FilteredCollections = new FilteredCollections();

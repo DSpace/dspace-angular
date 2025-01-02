@@ -27,14 +27,14 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let schema of (metadataSchemas | async)?.payload?.page"
-                            [ngClass]="{'table-primary' : isActive(schema) | async}">
+                            [ngClass]="{'table-primary' : (activeMetadataSchema$ | async)?.id === schema.id}">
                             <td>
                                 <label class="mb-0">
                                     <input type="checkbox"
-                                           [checked]="isSelected(schema) | async"
+                                           [checked]="(selectedMetadataSchemaIDs$ | async)?.includes(schema.id)"
                                            (change)="selectMetadataSchema(schema, $event)"
                                     >
-                                    <span class="sr-only">{{((isSelected(schema) | async) ? 'admin.registries.metadata.schemas.deselect' : 'admin.registries.metadata.schemas.select') | translate}}</span>
+                                    <span class="sr-only">{{(((selectedMetadataSchemaIDs$ | async)?.includes(schema.id)) ? 'admin.registries.metadata.schemas.deselect' : 'admin.registries.metadata.schemas.select') | translate}}</span>
                                 </label>
                             </td>
                             <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.id}}</a></td>
