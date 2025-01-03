@@ -8133,7 +8133,7 @@
 
   // "browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar en el repositorio",
-  
+
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Descargar ",
 
@@ -8721,4 +8721,13 @@
 
   // "quality-assurance.event.reason": "Reason",
   "quality-assurance.event.reason": "Motivo",
+
+  // "dso-selector.placeholder.type.community": "community",
+  "dso-selector.placeholder.type.community": "comunidad",
+
+  // "dso-selector.placeholder.type.collection": "collection",
+  "dso-selector.placeholder.type.collection": "colección",
+
+  // "dso-selector.placeholder.type.item": "item",
+  "dso-selector.placeholder.type.item": "ítem",
 }
