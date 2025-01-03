@@ -24,16 +24,18 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
+  combineLatest as observableCombineLatest,
   Observable,
   of,
   Subscription,
 } from 'rxjs';
 import {
   debounceTime,
-  distinctUntilChanged,
   map,
+  startWith,
   switchMap,
   take,
   tap,
@@ -50,6 +52,7 @@ import {
   metadataFieldsToString,
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -59,7 +62,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
   styleUrls: ['./metadata-field-selector.component.scss'],
   templateUrl: './metadata-field-selector.component.html',
   standalone: true,
-  imports: [FormsModule, NgClass, ReactiveFormsModule, ClickOutsideDirective, NgIf, NgFor, AsyncPipe, TranslateModule],
+  imports: [FormsModule, NgClass, ReactiveFormsModule, ClickOutsideDirective, NgIf, NgFor, AsyncPipe, TranslateModule, ThemedLoadingComponent, InfiniteScrollModule],
 })
 /**
  * Component displaying a searchable input for metadata-fields
@@ -96,7 +99,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * List of available metadata field options to choose from, dependent on the current query the user entered
    * Shows up in a dropdown below the input
    */
-  mdFieldOptions$: Observable<string[]>;
+  mdFieldOptions$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   /**
    * FormControl for the input
@@ -131,6 +134,30 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    */
   subs: Subscription[] = [];
 
+
+  /**
+   * The current page to load
+   * Dynamically goes up as the user scrolls down until it reaches the last page possible
+   */
+  currentPage$ = new BehaviorSubject(1);
+
+  /**
+   * Whether or not the list contains a next page to load
+   * This allows us to avoid next pages from trying to load when there are none
+   */
+  hasNextPage = false;
+
+  /**
+   * Whether or not new results are currently loading
+   */
+  loading = false;
+
+  /**
+   * Default page option for this feature
+   */
+  pageOptions = { elementsPerPage: 20, sort: new SortOptions('fieldName', SortDirection.ASC) };
+
+
   constructor(protected registryService: RegistryService,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService) {
@@ -141,32 +168,33 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * Update the mdFieldOptions$ depending on the query$ fired by querying the server
    */
   ngOnInit(): void {
+    this.subs.push(this.input.valueChanges.pipe(
+      debounceTime(this.debounceTime),
+      startWith(''),
+    ).subscribe((valueChange) => {
+      this.currentPage$.next(1);
+      if (!this.selectedValueLoading) {
+        this.query$.next(valueChange);
+      }
+      this.mdField = valueChange;
+      this.mdFieldChange.emit(this.mdField);
+    }));
     this.subs.push(
-      this.input.valueChanges.pipe(
-        debounceTime(this.debounceTime),
-      ).subscribe((valueChange) => {
-        if (!this.selectedValueLoading) {
-          this.query$.next(valueChange);
-        }
-        this.selectedValueLoading = false;
-        this.mdField = valueChange;
-        this.mdFieldChange.emit(this.mdField);
-      }),
-    );
-    this.mdFieldOptions$ = this.query$.pipe(
-      distinctUntilChanged(),
-      switchMap((query: string) => {
-        this.showInvalid = false;
-        if (query !== null) {
-          return this.registryService.queryMetadataFields(query, { elementsPerPage: 10, sort: new SortOptions('fieldName', SortDirection.ASC) }, true, false, followLink('schema')).pipe(
-            getAllSucceededRemoteData(),
-            metadataFieldsToString(),
-          );
-        } else {
-          return [[]];
-        }
-      }),
-    );
+      observableCombineLatest(
+        this.query$,
+        this.currentPage$,
+      )
+        .pipe(
+          switchMap(([query, page]: [string, number]) => {
+            this.loading = true;
+            if (page === 1) {
+              this.mdFieldOptions$.next([]);
+            }
+            return this.search(query as string, page as number);
+          }),
+        ).subscribe((rd ) => {
+          if (!this.selectedValueLoading) {this.updateList(rd);}
+        }));
   }
 
   /**
@@ -210,6 +238,41 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
     this.input.setValue(mdFieldOption);
   }
 
+
+  /**
+   * When the user reaches the bottom of the page (or almost) and there's a next page available, increase the current page
+   */
+  onScrollDown() {
+    if (this.hasNextPage && !this.loading) {
+      this.currentPage$.next(this.currentPage$.value + 1);
+    }
+  }
+
+  /**
+   * @Description It update the mdFieldOptions$ according the query result page
+   * */
+  updateList(list: string[]) {
+    this.loading = false;
+    this.hasNextPage = list.length > 0;
+    const currentEntries = this.mdFieldOptions$.getValue();
+    this.mdFieldOptions$.next([...currentEntries, ...list]);
+    this.selectedValueLoading = false;
+  }
+  /**
+   * Perform a search for the current query and page
+   * @param query Query to search objects for
+   * @param page  Page to retrieve
+   * @param useCache Whether or not to use the cache
+   */
+  search(query: string, page: number, useCache: boolean = true)  {
+    return this.registryService.queryMetadataFields(query,{
+      elementsPerPage: this.pageOptions.elementsPerPage, sort: this.pageOptions.sort,
+      currentPage: page }, useCache, false, followLink('schema'))
+      .pipe(
+        getAllSucceededRemoteData(),
+        metadataFieldsToString(),
+      );
+  }
   /**
    * Unsubscribe from any open subscriptions
    */
