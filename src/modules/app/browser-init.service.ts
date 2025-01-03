@@ -32,9 +32,11 @@ import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { coreSelector } from '../../app/core/core.selectors';
+import { RequestService } from '../../app/core/data/request.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { HeadTagService } from '../../app/core/metadata/head-tag.service';
+import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
@@ -81,6 +83,9 @@ export class BrowserInitService extends InitService {
     protected menuService: MenuService,
     private rootDataService: RootDataService,
     protected router: Router,
+    private requestService: RequestService,
+    private halService: HALEndpointService,
+
   ) {
     super(
       store,
@@ -169,17 +174,15 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * During an external authentication flow invalidate the SSR transferState
+   * During an external authentication flow invalidate the
    * data in the cache. This allows the app to fetch fresh content.
    * @private
    */
   private externalAuthCheck() {
-
     this.sub = this.authService.isExternalAuthentication().pipe(
       filter((externalAuth: boolean) => externalAuth),
     ).subscribe(() => {
-      // Clear the transferState data.
-      this.rootDataService.invalidateRootCache();
+      this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
       this.authService.setExternalAuthStatus(false);
     },
     );
