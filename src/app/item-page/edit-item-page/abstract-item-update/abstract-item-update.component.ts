@@ -16,9 +16,9 @@ import {
   Subscription,
 } from 'rxjs';
 import {
-  first,
   map,
   switchMap,
+  take,
   tap,
 } from 'rxjs/operators';
 
@@ -33,7 +33,7 @@ import { getAllSucceededRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item.resolver';
+import { getItemPageLinksToFollow } from '../../item.resolver';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
@@ -92,7 +92,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
           this.item = rd.payload;
         }),
         switchMap((rd: RemoteData<Item>) => {
-          return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...ITEM_PAGE_LINKS_TO_FOLLOW);
+          return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...getItemPageLinksToFollow());
         }),
         getAllSucceededRemoteData(),
       ).subscribe((rd: RemoteData<Item>) => {
@@ -102,7 +102,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     super.ngOnInit();
 
     this.discardTimeOut = environment.item.edit.undoTimeout;
-    this.hasChanges().pipe(first()).subscribe((hasChanges) => {
+    this.hasChanges().pipe(take(1)).subscribe((hasChanges) => {
       if (!hasChanges) {
         this.initializeOriginalFields();
       } else {
@@ -187,7 +187,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    */
   private checkLastModified() {
     const currentVersion = this.item.lastModified;
-    this.objectUpdatesService.getLastModified(this.url).pipe(first()).subscribe(
+    this.objectUpdatesService.getLastModified(this.url).pipe(take(1)).subscribe(
       (updateVersion: Date) => {
         if (updateVersion.getDate() !== currentVersion.getDate()) {
           this.notificationsService.warning(this.getNotificationTitle('outdated'), this.getNotificationContent('outdated'));
