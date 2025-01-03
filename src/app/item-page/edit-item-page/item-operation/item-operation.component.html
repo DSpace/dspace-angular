@@ -1,9 +1,9 @@
-<div class="col-3 float-left d-flex h-100 action-label">
-      <span class="justify-content-center align-self-center">
+<div class="col-12 col-md-3 h-auto float-left d-flex action-label">
+      <span class="justify-content-center align-self-center font-weight-bold">
         {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.label' | translate}}
       </span>
 </div>
-<div class="col-9 float-left action-button">
+<div class="col-12 col-md-9 float-left action-button">
   <span *ngIf="operation.authorized">
     <button class="btn btn-outline-primary" [disabled]="operation.disabled" [routerLink]="operation.operationUrl" [attr.aria-label]="'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate">
       {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}

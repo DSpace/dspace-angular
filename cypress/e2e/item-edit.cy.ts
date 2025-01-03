@@ -15,6 +15,9 @@ describe('Edit Item > Edit Metadata tab', () => {
   it('should pass accessibility tests', () => {
     cy.get('a[data-test="metadata"]').click();
 
+    // Our selected tab should be active
+    cy.get('a[data-test="metadata"]').should('have.class', 'active');
+
     // <ds-edit-item-page> tag must be loaded
     cy.get('ds-edit-item-page').should('be.visible');
 
@@ -33,6 +36,9 @@ describe('Edit Item > Status tab', () => {
   it('should pass accessibility tests', () => {
     cy.get('a[data-test="status"]').click();
 
+    // Our selected tab should be active
+    cy.get('a[data-test="status"]').should('have.class', 'active');
+
     // <ds-item-status> tag must be loaded
     cy.get('ds-item-status').should('be.visible');
 
@@ -45,6 +51,9 @@ describe('Edit Item > Bitstreams tab', () => {
 
   it('should pass accessibility tests', () => {
     cy.get('a[data-test="bitstreams"]').click();
+
+    // Our selected tab should be active
+    cy.get('a[data-test="bitstreams"]').should('have.class', 'active');
 
     // <ds-item-bitstreams> tag must be loaded
     cy.get('ds-item-bitstreams').should('be.visible');
@@ -70,6 +79,9 @@ describe('Edit Item > Curate tab', () => {
   it('should pass accessibility tests', () => {
     cy.get('a[data-test="curate"]').click();
 
+    // Our selected tab should be active
+    cy.get('a[data-test="curate"]').should('have.class', 'active');
+
     // <ds-item-curate> tag must be loaded
     cy.get('ds-item-curate').should('be.visible');
 
@@ -82,6 +94,9 @@ describe('Edit Item > Relationships tab', () => {
 
   it('should pass accessibility tests', () => {
     cy.get('a[data-test="relationships"]').click();
+
+    // Our selected tab should be active
+    cy.get('a[data-test="relationships"]').should('have.class', 'active');
 
     // <ds-item-relationships> tag must be loaded
     cy.get('ds-item-relationships').should('be.visible');
@@ -96,6 +111,9 @@ describe('Edit Item > Version History tab', () => {
   it('should pass accessibility tests', () => {
     cy.get('a[data-test="versionhistory"]').click();
 
+    // Our selected tab should be active
+    cy.get('a[data-test="versionhistory"]').should('have.class', 'active');
+
     // <ds-item-version-history> tag must be loaded
     cy.get('ds-item-version-history').should('be.visible');
 
@@ -109,6 +127,9 @@ describe('Edit Item > Access Control tab', () => {
   it('should pass accessibility tests', () => {
     cy.get('a[data-test="access-control"]').click();
 
+    // Our selected tab should be active
+    cy.get('a[data-test="access-control"]').should('have.class', 'active');
+
     // <ds-item-access-control> tag must be loaded
     cy.get('ds-item-access-control').should('be.visible');
 
@@ -121,6 +142,9 @@ describe('Edit Item > Collection Mapper tab', () => {
 
   it('should pass accessibility tests', () => {
     cy.get('a[data-test="mapper"]').click();
+
+    // Our selected tab should be active
+    cy.get('a[data-test="mapper"]').should('have.class', 'active');
 
     // <ds-item-collection-mapper> tag must be loaded
     cy.get('ds-item-collection-mapper').should('be.visible');

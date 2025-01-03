@@ -114,4 +114,17 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   get dragDisabled(): boolean {
     return this.model.groups.length === 1 || !this.model.isDraggable;
   }
+
+  /**
+   * Gets the control of the specified group model. It adds the startingIndex property to the group model if it does not
+   * already have it. This ensures that the controls are always linked to the correct group model.
+   * @param groupModel The group model to get the control for.
+   * @returns The form control of the specified group model.
+   */
+  getControlOfGroup(groupModel: any) {
+    if (!groupModel.hasOwnProperty('startingIndex')) {
+      groupModel.startingIndex = groupModel.index;
+    }
+    return this.control.get([groupModel.startingIndex]);
+  }
 }

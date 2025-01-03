@@ -201,7 +201,7 @@ export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
               private selectService: SelectableListService) { }
 
   /**
-   * Component intitialization.
+   * Component initialization.
    */
   public ngOnInit(): void {
     this.pagination = Object.assign(new PaginationComponentOptions(), { id: 'notifications-project-bound', pageSize: this.pageSize });

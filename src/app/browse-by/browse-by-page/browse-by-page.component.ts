@@ -23,7 +23,7 @@ import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switc
 })
 export class BrowseByPageComponent implements OnInit {
 
-  browseByType$: Observable<BrowseByDataType>;
+  browseByType$: Observable<{type: BrowseByDataType }>;
 
   constructor(
     protected route: ActivatedRoute,
@@ -35,7 +35,7 @@ export class BrowseByPageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.browseByType$ = this.route.data.pipe(
-      map((data: { browseDefinition: BrowseDefinition }) => data.browseDefinition.getRenderType()),
+      map((data: { browseDefinition: BrowseDefinition }) => ({ type: data.browseDefinition.getRenderType() })),
     );
   }
 

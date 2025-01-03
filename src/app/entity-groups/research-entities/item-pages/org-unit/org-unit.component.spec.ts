@@ -23,7 +23,7 @@ const mockItem: Item = Object.assign(new Item(), {
         value: 'New York',
       },
     ],
-    'organization.adress.addressCountry': [
+    'organization.address.addressCountry': [
       {
         language: 'en_US',
         value: 'USA',
