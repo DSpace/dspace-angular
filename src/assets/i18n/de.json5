@@ -2271,8 +2271,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Fehler beim Laden der Objekte",
 
-  //"error.profile-groups": "Error retrieving profile groups"
-  "error.profile-groups": "Fehler beim Abrufen der letzten Einreichungen",
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Fehler beim Laden der neuesten Veröffentlichungen",

@@ -2918,8 +2918,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Chyba při načítání objektů",
 
-  //"error.profile-groups": "Error retrieving profile groups"
-  "error.profile-groups": "Chyba při načítání skupin profilů",
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Chyba při načítání nedávných příspěvků",

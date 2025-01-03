@@ -2949,9 +2949,7 @@
 
   // "error.objects": "Error fetching objects",
   "error.objects": "Tárgyak megjelenítésekor hiba történt",
-
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Hiba a profilcsoportok lekérésekor",
+  
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Friss feltöltések megjelenítésekor hiba történt",

@@ -2408,8 +2408,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Mearachd a' faighinn oibseactan",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Thachair mearachd a' lorg nam buidhnean pròifil",
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Mearachd a' faighinn chur-a-steachan ùra",

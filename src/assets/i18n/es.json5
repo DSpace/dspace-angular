@@ -2661,8 +2661,6 @@
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Error al recuperar los envíos recientes",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Error al recuperar grupos del perfil",
 
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Error al recuperar los resultados de búsqueda",

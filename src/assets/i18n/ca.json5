@@ -2576,8 +2576,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Error en recuperar objectes",
 
-  //"error.profile-groups": "Error retrieving profile groups"
-  "error.profile-groups": "S'ha produït un error en recuperar els grups de perfils",
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Error en recuperar els enviaments recents",

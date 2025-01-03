@@ -2353,8 +2353,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Errore durante il recupero degli oggetti",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Errore durante il recupero dei gruppi di profili",
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Errore durante il recupero delle submissions recenti",
