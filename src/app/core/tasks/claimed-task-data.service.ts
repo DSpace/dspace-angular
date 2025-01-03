@@ -97,4 +97,19 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
     return this.searchTask('findByItem', options).pipe(getFirstSucceededRemoteData());
   }
 
+  /**
+   * Check if exist claimed task for item by item uuid.
+   * @param uuid
+   *  The item uuid
+   * @return {Observable<RemoteData<ClaimedTask>>}
+   *    The server response
+   */
+  public checkIfClaimedTaskExistForItem(uuid: string): Observable<RemoteData<ClaimedTask>> {
+    const options = new FindListOptions();
+    options.searchParams = [
+      new RequestParam('uuid', uuid),
+    ];
+    return this.searchTask('checkIfClaimedTaskExistForItem', options).pipe(getFirstSucceededRemoteData());
+  }
+
 }
