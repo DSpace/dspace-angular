@@ -1148,6 +1148,10 @@
 
   "collection.edit.tabs.mapper.head": "Item Mapper",
 
+  "collection.edit.tabs.multilingual-editor": "Multilingual content editor",
+
+  "collection.edit.tabs.default-language": "Default language",
+
   "collection.edit.tabs.item-mapper.title": "Collection Edit - Item Mapper",
 
   "collection.edit.item-mapper.cancel": "Cancel",
