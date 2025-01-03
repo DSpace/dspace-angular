@@ -27,6 +27,11 @@ export class SiteStatisticsPageComponent extends StatisticsPageDirective<Site> {
    */
   types: string[] = [
     'TotalVisits',
+    'TotalVisitsPerMonth',
+    'TopItems',
+    'TotalDownloads',
+    'TopCountries',
+    'TopCities',
   ];
 
   constructor(protected siteService: SiteDataService) {
