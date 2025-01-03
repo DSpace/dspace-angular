@@ -2949,7 +2949,6 @@
 
   // "error.objects": "Error fetching objects",
   "error.objects": "Tárgyak megjelenítésekor hiba történt",
-  
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Friss feltöltések megjelenítésekor hiba történt",
