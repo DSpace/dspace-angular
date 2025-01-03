@@ -104,6 +104,22 @@ describe('SearchHierarchyFilterComponent', () => {
     showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
   }
 
+  describe('if the last page of facet values has been reached', () => {
+    beforeEach(() => {
+      spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
+        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200,
+      )));
+      init();
+    });
+
+    it('should not show the search bar', () => {
+      comp.isLastPage$ = new BehaviorSubject(true);
+      fixture.detectChanges();
+      const textSearchBar = fixture.debugElement.query(By.css('ds-filter-input-suggestions'));
+      expect(textSearchBar).toBeNull();
+    });
+  });
+
   describe('if the vocabulary doesn\'t exist', () => {
 
     beforeEach(() => {
