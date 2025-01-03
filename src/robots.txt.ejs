@@ -16,25 +16,27 @@ Disallow: /submit
 Disallow: /workspaceitems
 Disallow: /profile
 Disallow: /workflowitems
+# Crawlers should be able to access the main entity page, but not the individual tabs
+Disallow: /entities/*/*/*
 # Crawlers should be able to access entity pages, but not the facet search links present on entity pages
-Disallow: /entities/*?f
+Disallow: /entities/*/*/*?*
 
 # Optionally uncomment the following line ONLY if sitemaps are working
 # and you have verified that your site is being indexed correctly.
-# Disallow: /browse/*
+Disallow: /browse/*
 #
 # If you have configured DSpace (Solr-based) Statistics to be publicly
 # accessible, then you may not want this content to be indexed
-# Disallow: /statistics
+Disallow: /statistics
 #
 # You also may wish to disallow access to the following paths, in order
 # to stop web spiders from accessing user-based content
-# Disallow: /contact
-# Disallow: /feedback
-# Disallow: /forgot
-# Disallow: /login
-# Disallow: /register
+Disallow: /feedback
+Disallow: /forgot
+Disallow: /login
+Disallow: /register
 
+Disallow: /server/opensearch
 
 ##############################
 # Section for misbehaving bots
