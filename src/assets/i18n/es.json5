@@ -8730,4 +8730,16 @@
 
   // "dso-selector.placeholder.type.item": "item",
   "dso-selector.placeholder.type.item": "ítem",
+
+  // "search.sidebar.advanced-search.filter-by": "Filter by",
+  "search.sidebar.advanced-search.filter-by": "Filtrar por",
+
+  // "search.sidebar.advanced-search.filters": "Filters",
+  "search.sidebar.advanced-search.filters": "Filtros",
+
+  // "search.sidebar.advanced-search.operators": "Operators",
+  "search.sidebar.advanced-search.operators": "Operadores",
+
+  // "search.sidebar.advanced-search.add": "Add",
+  "search.sidebar.advanced-search.add": "Añadir",
 }
