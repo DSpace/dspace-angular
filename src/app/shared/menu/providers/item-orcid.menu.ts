@@ -29,13 +29,6 @@ export class OrcidMenuProvider extends DSpaceObjectPageMenuProvider {
     super();
   }
 
-  protected isApplicable(item: Item): boolean {
-    if (item instanceof Item) {
-      return this.getDsoType(item) === 'person';
-    }
-    return false;
-  }
-
   public getSectionsForContext(item: Item): Observable<PartialMenuSection[]> {
     return combineLatest([
       this.authorizationService.isAuthorized(FeatureID.CanSynchronizeWithORCID, item.self),
@@ -54,5 +47,12 @@ export class OrcidMenuProvider extends DSpaceObjectPageMenuProvider {
         ] as PartialMenuSection[];
       }),
     );
+  }
+
+  protected isApplicable(item: Item): boolean {
+    if (item instanceof Item) {
+      return this.getDsoType(item) === 'person';
+    }
+    return false;
   }
 }

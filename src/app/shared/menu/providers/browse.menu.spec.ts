@@ -18,51 +18,53 @@ import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: PartialMenuSection = {
-  visible: true,
-  model: {
+describe('BrowseMenuProvider', () => {
+
+  const expectedTopSection: PartialMenuSection = {
+    visible: true,
+    model: {
       type: MenuItemType.TEXT,
       text: 'menu.section.browse_global',
     },
     icon: 'globe',
   };
 
-const expectedSubSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.browse_global_by_author',
-      link: '/browse/author',
+  const expectedSubSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.browse_global_by_author',
+        link: '/browse/author',
+      },
     },
-  },
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.browse_global_by_subject',
-      link: '/browse/subject',
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.browse_global_by_subject',
+        link: '/browse/subject',
+      },
     },
-  },
-];
+  ];
 
-describe('BrowseMenuProvider', () => {
+
   let provider: BrowseMenuProvider;
   let browseServiceStub = new BrowseServiceStub();
 
   beforeEach(() => {
     spyOn(browseServiceStub, 'getBrowseDefinitions').and.returnValue(
       createSuccessfulRemoteDataObject$(createPaginatedList([
-        { id: 'author' } as BrowseDefinition,
-        { id: 'subject' } as BrowseDefinition,
+        {id: 'author'} as BrowseDefinition,
+        {id: 'subject'} as BrowseDefinition,
       ]))
     );
 
     TestBed.configureTestingModule({
       providers: [
         BrowseMenuProvider,
-        { provide: BrowseService, useValue: browseServiceStub },
-        { provide: ObjectCacheService, useValue: getMockObjectCacheService() },
+        {provide: BrowseService, useValue: browseServiceStub},
+        {provide: ObjectCacheService, useValue: getMockObjectCacheService()},
       ],
     });
     provider = TestBed.inject(BrowseMenuProvider);

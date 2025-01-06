@@ -11,19 +11,19 @@ import { CommunityListMenuProvider } from './community-list.menu';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: `menu.section.browse_global_communities_and_collections`,
-      link: `/community-list`,
-    },
-    icon: 'diagram-project'
-  },
-];
-
 describe('CommunityListMenuProvider', () => {
+  const expectedSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: `menu.section.browse_global_communities_and_collections`,
+        link: `/community-list`,
+      },
+      icon: 'diagram-project'
+    },
+  ];
+
   let provider: CommunityListMenuProvider;
 
   beforeEach(() => {

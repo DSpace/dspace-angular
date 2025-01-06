@@ -14,19 +14,20 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { ProcessesMenuProvider } from './processes.menu';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.processes',
-      link: '/processes',
-    },
-    icon: 'terminal',
-  },
-];
-
 describe('ProcessesMenuProvider', () => {
+
+  const expectedSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.processes',
+        link: '/processes',
+      },
+      icon: 'terminal',
+    },
+  ];
+
   let provider: ProcessesMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -38,7 +39,7 @@ describe('ProcessesMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         ProcessesMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
       ],
     });
     provider = TestBed.inject(ProcessesMenuProvider);

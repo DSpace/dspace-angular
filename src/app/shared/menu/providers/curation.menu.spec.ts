@@ -14,19 +14,19 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { CurationMenuProvider } from './curation.menu';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.curation_task',
-      link: 'admin/curation-tasks',
-    },
-    icon: 'filter',
-  },
-];
-
 describe('CurationMenuProvider', () => {
+  const expectedSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.curation_task',
+        link: 'admin/curation-tasks',
+      },
+      icon: 'filter',
+    },
+  ];
+
   let provider: CurationMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -38,7 +38,7 @@ describe('CurationMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         CurationMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
       ],
     });
     provider = TestBed.inject(CurationMenuProvider);

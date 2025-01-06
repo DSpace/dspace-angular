@@ -14,19 +14,21 @@ import { of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.admin_search',
-      link: '/admin/search',
-    },
-    icon: 'search',
-  },
-];
-
 describe('AdminSearchMenuProvider', () => {
+
+  const expectedSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.admin_search',
+        link: '/admin/search',
+      },
+      icon: 'search',
+    },
+  ];
+
+
   let provider: AdminSearchMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -38,7 +40,7 @@ describe('AdminSearchMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         AdminSearchMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
       ],
     });
     provider = TestBed.inject(AdminSearchMenuProvider);

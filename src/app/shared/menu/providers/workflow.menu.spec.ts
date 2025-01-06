@@ -14,19 +14,20 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { WorkflowMenuProvider } from './workflow.menu';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.workflow',
-      link: '/admin/workflow',
-    },
-    icon: 'user-check',
-  },
-];
-
 describe('WorkflowMenuProvider', () => {
+
+  const expectedSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.workflow',
+        link: '/admin/workflow',
+      },
+      icon: 'user-check',
+    },
+  ];
+
   let provider: WorkflowMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -38,7 +39,7 @@ describe('WorkflowMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         WorkflowMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
       ],
     });
     provider = TestBed.inject(WorkflowMenuProvider);

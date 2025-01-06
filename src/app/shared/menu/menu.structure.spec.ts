@@ -1,7 +1,7 @@
 import { MenuID } from './menu-id.model';
 import { CommunityListMenuProvider } from './providers/community-list.menu';
 import { NewMenuProvider } from './providers/new.menu';
-import { DsoOptionMenu } from './providers/dso-option.menu';
+import { DsoOptionMenuProvider } from './providers/dso-option.menu';
 import { SubscribeMenuProvider } from './providers/comcol-subscribe.menu';
 import { buildMenuStructure } from './menu.structure';
 import { MenuProviderService } from './menu-provider.service';
@@ -47,7 +47,7 @@ describe('buildMenuStructure', () => {
         SystemWideAlertMenuProvider,
       ],
       [MenuID.DSO_EDIT]: [
-        DsoOptionMenu.withSubs([
+        DsoOptionMenuProvider.withSubs([
           SubscribeMenuProvider.onRoute(
             MenuRoute.SIMPLE_COMMUNITY_PAGE,
             MenuRoute.SIMPLE_COLLECTION_PAGE
@@ -97,7 +97,7 @@ describe('buildMenuStructure', () => {
       VersioningMenuProvider,
       OrcidMenuProvider,
       ClaimMenuProvider,
-      DsoOptionMenu,
+      DsoOptionMenuProvider,
     ];
 
 

@@ -40,14 +40,6 @@ export class ClaimMenuProvider extends DSpaceObjectPageMenuProvider {
     super();
   }
 
-
-  protected isApplicable(item: DSpaceObject): boolean {
-    if (item instanceof Item) {
-      return this.getDsoType(item) === 'person';
-    }
-    return false;
-  }
-
   public getSectionsForContext(item: Item): Observable<PartialMenuSection[]> {
     return combineLatest([
       this.authorizationService.isAuthorized(FeatureID.CanClaimItem, item.self),
@@ -70,6 +62,13 @@ export class ClaimMenuProvider extends DSpaceObjectPageMenuProvider {
     );
   }
 
+  protected isApplicable(item: DSpaceObject): boolean {
+    if (item instanceof Item) {
+      return this.getDsoType(item) === 'person';
+    }
+    return false;
+  }
+
   /**
    * Claim a researcher by creating a profile
    * Shows notifications and/or hides the menu section on success/error
@@ -82,7 +81,7 @@ export class ClaimMenuProvider extends DSpaceObjectPageMenuProvider {
           this.translate.get('researcherprofile.success.claim.body'),
         );
         this.authorizationService.invalidateAuthorizationsRequestCache();
-        this.menuService.hideMenuSection(MenuID.DSO_EDIT, 'claim-dso-' + item.uuid);
+        this.menuService.hideMenuSection(MenuID.DSO_EDIT, this.menuProviderId);
       } else {
         this.notificationsService.error(
           this.translate.get('researcherprofile.error.claim.title'),

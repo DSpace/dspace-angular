@@ -15,43 +15,44 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { EditMenuProvider } from './edit.menu';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: PartialMenuSection = {
-  visible: true,
-  model: {
-    type: MenuItemType.TEXT,
-    text: 'menu.section.edit'
-  },
-  icon: 'pencil',
-};
-
-const expectedSubSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.ONCLICK,
-      text: 'menu.section.edit_community',
-      function: jasmine.any(Function) as any,
-    },
-  },
-  {
-    visible: false,
-    model: {
-      type: MenuItemType.ONCLICK,
-      text: 'menu.section.edit_collection',
-      function: jasmine.any(Function) as any,
-    },
-  },
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.ONCLICK,
-      text: 'menu.section.edit_item',
-      function: jasmine.any(Function) as any,
-    },
-  },
-];
-
 describe('EditMenuProvider', () => {
+
+  const expectedTopSection: PartialMenuSection = {
+    visible: true,
+    model: {
+      type: MenuItemType.TEXT,
+      text: 'menu.section.edit'
+    },
+    icon: 'pencil',
+  };
+
+  const expectedSubSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.ONCLICK,
+        text: 'menu.section.edit_community',
+        function: jasmine.any(Function) as any,
+      },
+    },
+    {
+      visible: false,
+      model: {
+        type: MenuItemType.ONCLICK,
+        text: 'menu.section.edit_collection',
+        function: jasmine.any(Function) as any,
+      },
+    },
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.ONCLICK,
+        text: 'menu.section.edit_item',
+        function: jasmine.any(Function) as any,
+      },
+    },
+  ];
+
   let provider: EditMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -67,7 +68,7 @@ describe('EditMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         EditMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
       ],
     });
     provider = TestBed.inject(EditMenuProvider);

@@ -15,51 +15,51 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: PartialMenuSection = {
-  visible: true,
-  model: {
+describe('NewMenuProvider', () => {
+  const expectedTopSection: PartialMenuSection = {
+    visible: true,
+    model: {
       type: MenuItemType.TEXT,
       text: 'menu.section.new'
     },
     icon: 'plus',
   };
 
-const expectedSubSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.ONCLICK,
-      text: 'menu.section.new_community',
-      function: jasmine.any(Function) as any,
+  const expectedSubSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.ONCLICK,
+        text: 'menu.section.new_community',
+        function: jasmine.any(Function) as any,
+      },
     },
-  },
-  {
-    visible: false,
-    model: {
-      type: MenuItemType.ONCLICK,
-      text: 'menu.section.new_collection',
-      function: jasmine.any(Function) as any,
+    {
+      visible: false,
+      model: {
+        type: MenuItemType.ONCLICK,
+        text: 'menu.section.new_collection',
+        function: jasmine.any(Function) as any,
+      },
     },
-  },
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.ONCLICK,
-      text: 'menu.section.new_item',
-      function: jasmine.any(Function) as any,
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.ONCLICK,
+        text: 'menu.section.new_item',
+        function: jasmine.any(Function) as any,
+      },
     },
-  },
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.new_process',
-      link: '/processes/new'
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.new_process',
+        link: '/processes/new'
+      },
     },
-  },
-];
+  ];
 
-describe('NewMenuProvider', () => {
   let provider: NewMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -75,7 +75,7 @@ describe('NewMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         NewMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
       ],
     });
     provider = TestBed.inject(NewMenuProvider);

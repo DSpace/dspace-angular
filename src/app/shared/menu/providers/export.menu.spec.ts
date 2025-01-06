@@ -16,35 +16,35 @@ import { ScriptServiceStub } from '../../testing/script-service.stub';
 import { ExportMenuProvider } from './export.menu';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: PartialMenuSection = {
-  visible: true,
-  model: {
-    type: MenuItemType.TEXT,
-      text: 'menu.section.export',
-  },
-  icon: 'file-export',
-};
-
-const expectedSubSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.ONCLICK,
-      text: 'menu.section.export_metadata',
-      function: jasmine.any(Function) as any,
-    },
-  },
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.ONCLICK,
-      text: 'menu.section.export_batch',
-      function: jasmine.any(Function) as any,
-    },
-  }
-];
-
 describe('ExportMenuProvider', () => {
+  const expectedTopSection: PartialMenuSection = {
+    visible: true,
+    model: {
+      type: MenuItemType.TEXT,
+      text: 'menu.section.export',
+    },
+    icon: 'file-export',
+  };
+
+  const expectedSubSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.ONCLICK,
+        text: 'menu.section.export_metadata',
+        function: jasmine.any(Function) as any,
+      },
+    },
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.ONCLICK,
+        text: 'menu.section.export_batch',
+        function: jasmine.any(Function) as any,
+      },
+    }
+  ];
+
   let provider: ExportMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -56,8 +56,8 @@ describe('ExportMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         ExportMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
-        { provide: ScriptDataService, useClass: ScriptServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
+        {provide: ScriptDataService, useClass: ScriptServiceStub},
       ],
     });
     provider = TestBed.inject(ExportMenuProvider);

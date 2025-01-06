@@ -16,35 +16,35 @@ import { ScriptDataService } from '../../../core/data/processes/script-data.serv
 import { ScriptServiceStub } from '../../testing/script-service.stub';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: PartialMenuSection = {
-  visible: true,
-  model: {
-    type: MenuItemType.TEXT,
-      text: 'menu.section.import',
-  },
-  icon: 'file-import',
-};
-
-const expectedSubSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.import_metadata',
-      link: '/admin/metadata-import',
-    },
-  },
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.import_batch',
-      link: '/admin/batch-import',
-    },
-  },
-];
-
 describe('ImportMenuProvider', () => {
+  const expectedTopSection: PartialMenuSection = {
+    visible: true,
+    model: {
+      type: MenuItemType.TEXT,
+      text: 'menu.section.import',
+    },
+    icon: 'file-import',
+  };
+
+  const expectedSubSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.import_metadata',
+        link: '/admin/metadata-import',
+      },
+    },
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.import_batch',
+        link: '/admin/batch-import',
+      },
+    },
+  ];
+
   let provider: ImportMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -56,8 +56,8 @@ describe('ImportMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         ImportMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
-        { provide: ScriptDataService, useClass: ScriptServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
+        {provide: ScriptDataService, useClass: ScriptServiceStub},
       ],
     });
     provider = TestBed.inject(ImportMenuProvider);

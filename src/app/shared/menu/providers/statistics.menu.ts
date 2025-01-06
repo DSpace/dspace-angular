@@ -49,7 +49,7 @@ export class StatisticsMenuProvider extends AbstractRouteContextMenuProvider<DSp
     if (hasValue(dso)) {
       dsoRoute = getDSORoute(dso);
       if (hasValue(dsoRoute)) {
-        link = `statistics/${dsoRoute}`;
+        link = `statistics${dsoRoute}`;
       }
     }
 

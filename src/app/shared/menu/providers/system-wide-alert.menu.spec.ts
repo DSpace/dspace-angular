@@ -14,19 +14,20 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { SystemWideAlertMenuProvider } from './system-wide-alert.menu';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.system-wide-alert',
-      link: '/admin/system-wide-alert',
-    },
-    icon: 'exclamation-circle',
-  },
-];
-
 describe('SystemWideAlertMenuProvider', () => {
+
+  const expectedSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.system-wide-alert',
+        link: '/admin/system-wide-alert',
+      },
+      icon: 'exclamation-circle',
+    },
+  ];
+
   let provider: SystemWideAlertMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -38,7 +39,7 @@ describe('SystemWideAlertMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         SystemWideAlertMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
       ],
     });
     provider = TestBed.inject(SystemWideAlertMenuProvider);

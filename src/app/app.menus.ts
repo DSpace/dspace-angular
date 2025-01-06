@@ -27,7 +27,7 @@ import { RegistriesMenuProvider } from './shared/menu/providers/registries.menu'
 import { StatisticsMenuProvider } from './shared/menu/providers/statistics.menu';
 import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide-alert.menu';
 import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
-import { DsoOptionMenu } from './shared/menu/providers/dso-option.menu';
+import { DsoOptionMenuProvider } from './shared/menu/providers/dso-option.menu';
 import { MenuRoute } from './shared/menu/menu-route.model';
 
 export const MENUS = buildMenuStructure({
@@ -51,7 +51,7 @@ export const MENUS = buildMenuStructure({
     SystemWideAlertMenuProvider,
   ],
   [MenuID.DSO_EDIT]: [
-    DsoOptionMenu.withSubs([
+    DsoOptionMenuProvider.withSubs([
       SubscribeMenuProvider.onRoute(
         MenuRoute.SIMPLE_COMMUNITY_PAGE,
         MenuRoute.SIMPLE_COLLECTION_PAGE,

@@ -17,43 +17,43 @@ import { ScriptDataService } from '../../../core/data/processes/script-data.serv
 import { ScriptServiceStub } from '../../testing/script-service.stub';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: PartialMenuSection = {
-  visible: true,
-  model: {
-    type: MenuItemType.TEXT,
-      text: 'menu.section.access_control',
-  },
-  icon: 'key'
-};
-
-const expectedSubSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.access_control_people',
-      link: '/access-control/epeople',
-    },
-  },
-  {
-    visible: false,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.access_control_groups',
-      link: '/access-control/groups',
-    },
-  },
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.access_control_bulk',
-      link: '/access-control/bulk-access',
-    },
-  },
-];
-
 describe('AccessControlMenuProvider', () => {
+  const expectedTopSection: PartialMenuSection = {
+    visible: true,
+    model: {
+      type: MenuItemType.TEXT,
+      text: 'menu.section.access_control',
+    },
+    icon: 'key'
+  };
+
+  const expectedSubSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.access_control_people',
+        link: '/access-control/epeople',
+      },
+    },
+    {
+      visible: false,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.access_control_groups',
+        link: '/access-control/groups',
+      },
+    },
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.access_control_bulk',
+        link: '/access-control/bulk-access',
+      },
+    },
+  ];
+
   let provider: AccessControlMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -69,8 +69,8 @@ describe('AccessControlMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         AccessControlMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
-        { provide: ScriptDataService, useClass: ScriptServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
+        {provide: ScriptDataService, useClass: ScriptServiceStub},
       ],
     });
     provider = TestBed.inject(AccessControlMenuProvider);

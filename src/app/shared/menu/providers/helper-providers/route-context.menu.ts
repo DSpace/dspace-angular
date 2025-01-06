@@ -24,7 +24,7 @@ export abstract class AbstractRouteContextMenuProvider<T> extends AbstractMenuPr
 
     return this.getRouteContext(route, state).pipe(
       switchMap((routeContext: T) => {
-      if (this.isApplicable(routeContext)) {
+        if (this.isApplicable(routeContext)) {
           return this.getSectionsForContext(routeContext);
         } else {
           return observableOf([]);

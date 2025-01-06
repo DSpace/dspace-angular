@@ -14,19 +14,19 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { HealthMenuProvider } from './health.menu';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.health',
-      link: '/health',
-    },
-    icon: 'heartbeat',
-  },
-];
-
 describe('HealthMenuProvider', () => {
+  const expectedSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.health',
+        link: '/health',
+      },
+      icon: 'heartbeat',
+    },
+  ];
+
   let provider: HealthMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -38,7 +38,7 @@ describe('HealthMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         HealthMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
       ],
     });
     provider = TestBed.inject(HealthMenuProvider);

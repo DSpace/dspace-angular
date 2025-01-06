@@ -16,35 +16,36 @@ import { ScriptServiceStub } from '../../testing/script-service.stub';
 import { RegistriesMenuProvider } from './registries.menu';
 import { PartialMenuSection } from '../menu-provider.model';
 
-const expectedTopSection: PartialMenuSection = {
-  visible: true,
-  model: {
-    type: MenuItemType.TEXT,
-      text: 'menu.section.registries',
-  },
-  icon: 'list',
-};
-
-const expectedSubSections: PartialMenuSection[] = [
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.registries_metadata',
-      link: 'admin/registries/metadata',
-    },
-  },
-  {
-    visible: true,
-    model: {
-      type: MenuItemType.LINK,
-      text: 'menu.section.registries_format',
-      link: 'admin/registries/bitstream-formats',
-    },
-  },
-];
-
 describe('RegistriesMenuProvider', () => {
+
+  const expectedTopSection: PartialMenuSection = {
+    visible: true,
+    model: {
+      type: MenuItemType.TEXT,
+      text: 'menu.section.registries',
+    },
+    icon: 'list',
+  };
+
+  const expectedSubSections: PartialMenuSection[] = [
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.registries_metadata',
+        link: 'admin/registries/metadata',
+      },
+    },
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.registries_format',
+        link: 'admin/registries/bitstream-formats',
+      },
+    },
+  ];
+
   let provider: RegistriesMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
 
@@ -56,8 +57,8 @@ describe('RegistriesMenuProvider', () => {
     TestBed.configureTestingModule({
       providers: [
         RegistriesMenuProvider,
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
-        { provide: ScriptDataService, useClass: ScriptServiceStub },
+        {provide: AuthorizationDataService, useValue: authorizationServiceStub},
+        {provide: ScriptDataService, useClass: ScriptServiceStub},
       ],
     });
     provider = TestBed.inject(RegistriesMenuProvider);

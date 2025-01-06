@@ -18,7 +18,7 @@ import { DSpaceObject } from 'src/app/core/shared/dspace-object.model';
  * This section will be rendered as a button on the DSO pages if sub providers have been added
  */
 @Injectable()
-export class DsoOptionMenu extends DSpaceObjectPageMenuProvider {
+export class DsoOptionMenuProvider extends DSpaceObjectPageMenuProvider {
 
   alwaysRenderExpandable = true;
 
