@@ -4197,32 +4197,66 @@
 
 
 
-  // "process.overview.table.finish" : "Finish time",
+  // "process.overview.table.finish": "Finish time",
   "process.overview.table.finish": "Schlusszeit",
 
-  // "process.overview.table.id" : "Process ID",
+  // "process.overview.table.id": "Process ID",
   "process.overview.table.id": "Prozess ID",
 
-  // "process.overview.table.name" : "Name",
+  // "process.overview.table.name": "Name",
   "process.overview.table.name": "Name",
 
-  // "process.overview.table.start" : "Start time",
+  // "process.overview.table.start": "Start time",
   "process.overview.table.start": "Startzeit",
 
-  // "process.overview.table.status" : "Status",
+  // "process.overview.table.status": "Status",
   "process.overview.table.status": "Status",
 
-  // "process.overview.table.user" : "User",
+  // "process.overview.table.user": "User",
   "process.overview.table.user": "Benutzer:in",
 
   // "process.overview.title": "Processes Overview",
-  "process.overview.title": "Überblick der Prozesse",
+  "process.overview.title": "Übersicht der Prozesse",
 
   // "process.overview.breadcrumbs": "Processes Overview",
-  "process.overview.breadcrumbs": "Überblick der Prozesse",
+  "process.overview.breadcrumbs": "Übersicht der Prozesse",
 
   // "process.overview.new": "New",
   "process.overview.new": "Neu",
+
+  // "process.overview.table.actions": "Actions",
+  "process.overview.table.actions": "Aktionen",
+
+  // "process.overview.delete": "Delete {{count}} processes",
+  "process.overview.delete": "Lösche {{count}} Prozesse",
+
+  // "process.overview.delete-process": "Delete process",
+  "process.overview.delete-process": "Lösche Prozess",
+
+  // "process.overview.delete.clear": "Clear delete selection",
+  "process.overview.delete.clear": "Auswahl aufheben",
+
+  // "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
+  "process.overview.delete.processing": "Es werden {{count}} Prozesse gelöscht. Diese Aktion kann einige Zeit dauern. Bitte warten Sie bis zum Abschluss der Aktion.",
+
+  // "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
+  "process.overview.delete.body": "Wollen Sie tatsächlich {{count}} Prozesse löschen?",
+
+  // "process.overview.delete.header": "Delete processes",
+  "process.overview.delete.header": "Prozess löschen",
+
+  // "process.overview.unknown.user": "Unknown",
+  "process.overview.unknown.user": "Unbekannt",
+
+  // "process.bulk.delete.error.head": "Error on deleteing process",
+  "process.bulk.delete.error.head": "Fehler beim Löschen des Prozesses",
+
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
+  "process.bulk.delete.error.body": "Der Prozess mit ID {{processId}} konnte nicht gelöscht werden. Es wird versucht, die verbleibenden Prozesse zu löschen.",
+
+  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  "process.bulk.delete.success": "Es wurden {{count}} Prozesse erfolgreich gelöscht.",
+
 
 
   // "profile.breadcrumbs": "Update Profile",
