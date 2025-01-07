@@ -334,6 +334,7 @@ export class DefaultAppConfig implements AppConfig {
 
   // Community Page Config
   community: CommunityPageConfig = {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
@@ -341,6 +342,7 @@ export class DefaultAppConfig implements AppConfig {
 
   // Collection Page Config
   collection: CollectionPageConfig = {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
