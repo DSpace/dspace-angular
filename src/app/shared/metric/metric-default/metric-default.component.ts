@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { RedirectWithHrefDirective } from '../../../directives/redirect/redirect-href.directive';
 import { BaseMetricComponent } from '../metric-loader/base-metric.component';
+import { METRIC_TYPE_DOWNLOAD } from '../metric-embedded/metric-embedded-download/metric-embedded-download.component';
 
 @Component({
   selector: 'ds-metric-default',
@@ -37,5 +38,8 @@ export class MetricDefaultComponent extends BaseMetricComponent implements OnIni
 
   ngOnInit(): void {
     this.url = this.getDetailUrl();
+    if (this.metric.metricType === 'download') {
+      this.url += (this.url.includes('?') ? '&' : '?') + 'reportType=' + METRIC_TYPE_DOWNLOAD;
+    }
   }
 }
