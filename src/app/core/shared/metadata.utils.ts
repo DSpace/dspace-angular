@@ -157,7 +157,7 @@ export class Metadata {
       return false;
     }
     if (isObject(value) && value.hasOwnProperty('value')) {
-      return isNotEmpty(value.value);
+      return isNotEmpty(value.value) && value.value !== PLACEHOLDER_VALUE;
     }
     return true;
   }
