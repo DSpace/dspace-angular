@@ -45,10 +45,14 @@ export class Metadata {
    * checked in order, and only values from the first with at least one match will be returned.
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @param {number} limit The maximum number of values to return. If unspecified, all matching values will be returned.
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
-  public static all(mapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-    filter?: MetadataValueFilter): MetadataValue[] {
+  public static all(
+    mapOrMaps: MetadataMapInterface | MetadataMapInterface[],
+    keyOrKeys: string | string[],
+    filter?: MetadataValueFilter,
+    limit?: number): MetadataValue[] {
     const mdMaps: MetadataMapInterface[] = mapOrMaps instanceof Array ? mapOrMaps : [mapOrMaps];
     const matches: MetadataValue[] = [];
     for (const mdMap of mdMaps) {
@@ -58,6 +62,9 @@ export class Metadata {
           for (const candidate of candidates) {
             if (Metadata.valueMatches(candidate as MetadataValue, filter)) {
               matches.push(candidate as MetadataValue);
+              if (hasValue(limit) && matches.length >= limit) {
+                return  matches;
+              }
             }
           }
         }
@@ -160,7 +167,7 @@ export class Metadata {
       return false;
     }
     if (isObject(value) && value.hasOwnProperty('value')) {
-      return isNotEmpty(value.value);
+      return isNotEmpty(value.value) && value.value !== PLACEHOLDER_VALUE;
     }
     return true;
   }
