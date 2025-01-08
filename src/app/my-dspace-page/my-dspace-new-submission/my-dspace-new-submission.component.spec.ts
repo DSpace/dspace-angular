@@ -76,7 +76,7 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const html = `
-        <ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
+        <ds-themed-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-themed-my-dspace-new-submission>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;

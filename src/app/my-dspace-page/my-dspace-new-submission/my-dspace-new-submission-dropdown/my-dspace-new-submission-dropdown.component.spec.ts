@@ -99,7 +99,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 
-      const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
+      const html = `<ds-themed-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-themed-my-dspace-new-submission>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -151,7 +151,7 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 
-      const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
+      const html = `<ds-themed-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-themed-my-dspace-new-submission>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
