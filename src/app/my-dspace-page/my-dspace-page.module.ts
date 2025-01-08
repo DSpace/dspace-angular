@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 
 import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
 import { MyDSpacePageComponent } from './my-dspace-page.component';
-import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
@@ -15,11 +14,16 @@ import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-submission
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 import { SearchModule } from '../shared/search/search.module';
 import { UploadModule } from '../shared/upload/upload.module';
+import {
+  ThemedMyDSpaceNewSubmissionComponent
+} from './my-dspace-new-submission/themed-my-dspace-new-submission.component';
+import {MyDSpaceNewSubmissionComponent} from './my-dspace-new-submission/my-dspace-new-submission.component';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
   ThemedMyDSpacePageComponent,
   MyDSpaceNewSubmissionComponent,
+  ThemedMyDSpaceNewSubmissionComponent,
   CollectionSelectorComponent,
   MyDSpaceNewSubmissionDropdownComponent,
   MyDSpaceNewExternalDropdownComponent
