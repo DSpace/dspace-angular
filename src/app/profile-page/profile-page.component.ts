@@ -236,13 +236,6 @@ export class ProfilePageComponent implements OnInit {
   }
 
   /**
-   * Returns true if the researcher profile feature is enabled, false otherwise.
-   */
-  isResearcherProfileEnabled(): Observable<boolean> {
-    return this.isResearcherProfileEnabled$.asObservable();
-  }
-
-  /**
    * Returns an error message from a password validation request with a specific reason or
    * a default message without specific reason.
    * @param response from the validation password patch request.

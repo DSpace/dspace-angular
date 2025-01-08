@@ -9,7 +9,7 @@ describe('Admin Export Modals', () => {
 
   it('Export metadata modal should pass accessibility tests', () => {
     // Pin the sidebar open
-    cy.get('#sidebar-collapse-toggle').click();
+    cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
     cy.get('#admin-menu-section-export-title').click();
@@ -22,7 +22,7 @@ describe('Admin Export Modals', () => {
 
   it('Export batch modal should pass accessibility tests', () => {
     // Pin the sidebar open
-    cy.get('#sidebar-collapse-toggle').click();
+    cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
     cy.get('#admin-menu-section-export-title').click();

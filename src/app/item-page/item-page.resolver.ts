@@ -40,7 +40,7 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   store: Store<AppState> = inject(Store<AppState>),
   authService: AuthService = inject(AuthService),
 ): Observable<RemoteData<Item>> => {
-  return itemService.findById(
+  const itemRD$ = itemService.findById(
     route.params.id,
     true,
     false,
@@ -48,8 +48,14 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   ).pipe(
     getFirstCompletedRemoteData(),
     redirectOn4xx(router, authService),
+  );
+
+  itemRD$.subscribe((itemRD: RemoteData<Item>) => {
+    store.dispatch(new ResolvedAction(state.url, itemRD.payload));
+  });
+
+  return itemRD$.pipe(
     map((rd: RemoteData<Item>) => {
-      store.dispatch(new ResolvedAction(state.url, rd.payload));
       if (rd.hasSucceeded && hasValue(rd.payload)) {
         const thisRoute = state.url;
 

@@ -1,7 +1,7 @@
 # NOTE: will log all redux actions and transfers in console
 debug: false
 
-# Angular Universal server settings
+# Angular User Inteface settings
 # NOTE: these settings define where Node.js will start your UI application. Therefore, these
 # "ui" settings usually specify a localhost port/URL which is later proxied to a public URL (using Apache or similar)
 ui:
@@ -17,12 +17,12 @@ ui:
   # Trust X-FORWARDED-* headers from proxies (default = true)
   useProxies: true
 
-universal:
-  # Whether to inline "critical" styles into the server-side rendered HTML.
-  # Determining which styles are critical is a relatively expensive operation;
-  # this option can be disabled to boost server performance at the expense of
-  # loading smoothness.
-  inlineCriticalCss: true
+# Angular Server Side Rendering (SSR) settings
+ssr:
+  # Whether to tell Angular to inline "critical" styles into the server-side rendered HTML.
+  # Determining which styles are critical is a relatively expensive operation; this option is
+  # disabled (false) by default to boost server performance at the expense of loading smoothness.
+  inlineCriticalCss: false
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually

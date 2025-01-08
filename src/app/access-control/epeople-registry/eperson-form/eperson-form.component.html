@@ -2,7 +2,7 @@
   <div class="group-form row">
     <div class="col-12">
 
-      <div *ngIf="epersonService.getActiveEPerson() | async; then editHeader; else createHeader"></div>
+      <div *ngIf="activeEPerson$ | async; then editHeader; else createHeader"></div>
 
       <ng-template #createHeader>
         <h1 class="border-bottom pb-2">{{messagePrefix + '.create' | translate}}</h1>
@@ -44,7 +44,7 @@
 
       <ds-loading [showMessage]="false" *ngIf="!formGroup"></ds-loading>
 
-      <div *ngIf="epersonService.getActiveEPerson() | async">
+      <div *ngIf="activeEPerson$ | async">
         <h2>{{messagePrefix + '.groupsEPersonIsMemberOf' | translate}}</h2>
 
         <ds-loading [showMessage]="false" *ngIf="groups$ | async | dsHasNoValue"></ds-loading>
@@ -75,7 +75,9 @@
                     {{ dsoNameService.getName(group) }}
                   </a>
                 </td>
-                <td class="align-middle">{{ dsoNameService.getName(undefined) }}</td>
+                <td class="align-middle">
+                  {{ dsoNameService.getName((group.object | async)?.payload) }}
+                </td>
               </tr>
               </tbody>
             </table>

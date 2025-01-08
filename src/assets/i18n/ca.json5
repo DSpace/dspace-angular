@@ -2232,12 +2232,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(sempre requerit)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Utilitzeu aquest camp per activar o desactivar tots els serveis.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Activar o desactivar tots els serveis",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Hi ha hagut canvis des de la darrera visita, si us plau, actualitzeu el vostre consentiment.",
 
@@ -2253,14 +2247,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Guardar",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Cookie Consent",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Recopilem i processem la vostra informació personal amb les finalitats següents: <strong>Autenticació, Preferències, Reconeixement i Estadístiques</strong>. <br/> Per obtenir més informació, llegiu la nostra {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Recopilem i processem la vostra informació personal per als següents propòsits: <strong>Autenticació, Preferències, Reconeixement i Estadístiques<strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Personalitzar",
@@ -2276,12 +2264,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informació que recopilem",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "serveis",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "servei",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticació",

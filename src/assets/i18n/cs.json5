@@ -13,7 +13,7 @@
   "403.help": "Nemáte povolení k přístupu na tuto stránku. Pro návrat na domovskou stránku můžete použít tlačítko níže.",
 
   // "403.link.home-page": "Take me to the home page",
-  "403.link.home-page": "Přesměrujte mě na domovskou stránku",
+  "403.link.home-page": "Návrat na domovskou stránku",
 
   // "403.forbidden": "Forbidden",
   "403.forbidden": "Přístup zakázán",
@@ -46,7 +46,7 @@
   "error-page.description.500": "Služba je nedostupná",
 
   // "error-page.description.404": "Page not found",
-  "error-page.description.404": "Stránka nebyla nenalezena",
+  "error-page.description.404": "Stránka nebyla nalezena",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   "error-page.orcid.generic-error": "Při přihlašování přes ORCID došlo k chybě. Ujistěte se, že jste sdíleli e-mailovou adresu připojenou ke svému účtu ORCID s DSpace. Pokud chyba přetrvává, kontaktujte správce",
@@ -67,13 +67,13 @@
   "access-status.unknown.listelement.badge": "Status neznámý",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
-  "admin.curation-tasks.breadcrumbs": "Kurátorská úloha systému",
+  "admin.curation-tasks.breadcrumbs": "Systémové úlohy správy",
 
   // "admin.curation-tasks.title": "System curation tasks",
-  "admin.curation-tasks.title": "Kurátorská úloha systému",
+  "admin.curation-tasks.title": "Systémové úlohy správy",
 
   // "admin.curation-tasks.header": "System curation tasks",
-  "admin.curation-tasks.header": "Kurátorská úloha systému",
+  "admin.curation-tasks.header": "Systémové úlohy správy",
 
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
   "admin.registries.bitstream-formats.breadcrumbs": "Registr formátů",
@@ -172,7 +172,7 @@
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Úroveň podpory",
 
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  "admin.registries.bitstream-formats.head": "Registr formátu souboru",
+  "admin.registries.bitstream-formats.head": "Registr formátů souboru",
 
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
   "admin.registries.bitstream-formats.no-items": "Žádné formáty souboru k zobrazení.",
@@ -373,7 +373,7 @@
   "admin.access-control.bulk-access.breadcrumbs": "Hromadná správa přístupu",
 
   // "administrativeBulkAccess.search.results.head": "Search Results",
-  "administrativeBulkAccess.search.results.head": "Prohledávat výsledky",
+  "administrativeBulkAccess.search.results.head": "Výsledky vyhledávání",
 
   // "admin.access-control.bulk-access": "Bulk Access Management",
   "admin.access-control.bulk-access": "Hromadná správa přístupu",
@@ -403,7 +403,7 @@
   "admin.access-control.epeople.actions.reset": "Resetovat heslo",
 
   // "admin.access-control.epeople.actions.stop-impersonating": "Stop impersonating EPerson",
-  "admin.access-control.epeople.actions.stop-impersonating": "Přestat simulovat jiného uživatele",
+  "admin.access-control.epeople.actions.stop-impersonating": "Přestat vystupovat jako jiný uživatel",
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "Uživatelé",
@@ -612,7 +612,7 @@
   "admin.access-control.groups.table.edit.buttons.remove": "Odstranit \"{{name}}\"",
 
   // "admin.access-control.groups.no-items": "No groups found with this in their name or this as UUID",
-  "admin.access-control.groups.no-items": "Nebyly nalezeny žádné skupiny, které by měly toto ve svém názvu nebo toto jako UUID,",
+  "admin.access-control.groups.no-items": "Nebyla nalezena žádná skupina s tímto v návzvu nebo UUID",
 
   // "admin.access-control.groups.notification.deleted.success": "Successfully deleted group \"{{name}}\"",
   "admin.access-control.groups.notification.deleted.success": "Úspěšně odstraněna skupina \"{{name}}\"",
@@ -696,7 +696,7 @@
   "admin.access-control.groups.form.members-list.button.see-all": "Procházet vše",
 
   // "admin.access-control.groups.form.members-list.headMembers": "Current Members",
-  "admin.access-control.groups.form.members-list.headMembers": "Aktuální členové",
+  "admin.access-control.groups.form.members-list.headMembers": "Současní členové",
 
   // "admin.access-control.groups.form.members-list.search.button": "Search",
   "admin.access-control.groups.form.members-list.search.button": "Hledat",
@@ -738,13 +738,13 @@
   "admin.access-control.groups.form.members-list.table.edit.buttons.add": "Přidat člena jménem \"{{name}}\"",
 
   // "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Žádná aktuální aktivní skupina, nejprve zadejte jméno.",
+  "admin.access-control.groups.form.members-list.notification.failure.noActiveGroup": "Žádná aktuální aktivní skupina, nejprve zadejte název.",
 
   // "admin.access-control.groups.form.members-list.no-members-yet": "No members in group yet, search and add.",
   "admin.access-control.groups.form.members-list.no-members-yet": "Ve skupině zatím nejsou žádní členové, vyhledejte je a přidejte.",
 
   // "admin.access-control.groups.form.members-list.no-items": "No EPeople found in that search",
-  "admin.access-control.groups.form.members-list.no-items": "V tomto vyhledávání nebyly nalezeni žádní uživatelé",
+  "admin.access-control.groups.form.members-list.no-items": "V tomto vyhledávání nebyli nalezeni žádní uživatelé",
 
   // "admin.access-control.groups.form.subgroups-list.notification.failure": "Something went wrong: \"{{cause}}\"",
   "admin.access-control.groups.form.subgroups-list.notification.failure": "Neúspěch: Něco se pokazilo: \"{{cause}}\"",
@@ -801,7 +801,7 @@
   "admin.access-control.groups.form.subgroups-list.notification.failure.subgroupToAddIsActiveGroup": "Toto je aktuální skupina, nelze přidat.",
 
   // "admin.access-control.groups.form.subgroups-list.no-items": "No groups found with this in their name or this as UUID",
-  "admin.access-control.groups.form.subgroups-list.no-items": "Nebyly nalezeny žádné skupiny, které by měly toto ve svém názvu nebo toto UUID",
+  "admin.access-control.groups.form.subgroups-list.no-items": "Nebyla nalezena žádná skupina s tímto v návzvu nebo UUID",
 
   // "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "No subgroups in group yet.",
   "admin.access-control.groups.form.subgroups-list.no-subgroups-yet": "Ve skupině zatím nejsou žádné podskupiny.",
@@ -831,7 +831,7 @@
   "admin.notifications.source.breadcrumbs": "Quality Assurance",
 
   // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
-  "admin.access-control.groups.form.tooltip.editGroupPage": "Na této stránce můžete upravit vlastnosti a členy skupiny. V horní části můžete upravit název a popis skupiny, pokud se nejedá o skupinu admin pro kolekci nebo komunitu. V takovém případě jsou název a popis skupiny vygenerovány automaticky a nelze je upravovat. V následujících částech můžete upravovat členství ve skupině. Další podrobnosti naleznete v části [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group).",
+  "admin.access-control.groups.form.tooltip.editGroupPage": "Na této stránce můžete upravit vlastnosti a členy skupiny. V horní části můžete upravit název a popis skupiny, pokud se nejedá o skupinu admin pro kolekci nebo komunitu. V takovém případě jsou název a popis skupiny vygenerovány automaticky a nelze je upravovat. V následujících částech můžete upravovat členství ve skupině. Další podrobnosti naleznete v části [wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group).",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
   "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Pro přidání nebo odebrání uživatele z této skupiny, buď klikněte na „Prohledávat všechny“ nebo použijte vyhledávací okno pro vyhledání uživatele (použijte roletku na levé straně vyhledávacího okna a vyberte, zda chcete prohledávat pomocí metadat nebo e-mailu). Potom klikněte na tlačítko plus u každého uživatele, kterého chcete přidat, nebo na ikonu odpadkového koše u každého uživatele, kterého chcete odebrat. Seznam níže může obsahovat několik stránek: k přechodu na další stránku použijte ovládací prvky pod seznamem. Až budete hotovi, uložte změny pomocí tlačítka „Uložit“ v horní části.",
@@ -1406,7 +1406,7 @@
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Prohledávat vše",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Current Members",
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Aktuální členové",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.headMembers": "Současní členové",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Search",
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.button": "Hledat",
@@ -1448,7 +1448,7 @@
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.table.edit.buttons.add": "Přidat uživatele jménem \"{{name}}\"",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "No current active group, submit a name first.",
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "Žádná aktivní skupina, nejdříve vložte název.",
+  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.notification.failure.noActiveGroup": "Žádná aktuální aktivní skupina, nejprve zadejte název.",
 
   // "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "No members in group yet, search and add.",
   "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.no-members-yet": "Žádní členové ve skupině, nejdříve vyhledejte a přidejte.",
@@ -1475,10 +1475,10 @@
   "auth.messages.token-refresh-failed": "Nepodařilo se obnovit váš přístupový token. Prosím přihlašte se znovu.",
 
   // "bitstream.download.page": "Now downloading {{bitstream}}...",
-  "bitstream.download.page": "Nyní se stahuje {{bitstream}}..." ,
+  "bitstream.download.page": "Nyní se stahuje {{bitstream}}...",
 
   // "bitstream.download.page.back": "Back",
-  "bitstream.download.page.back": "Zpět" ,
+  "bitstream.download.page.back": "Zpět",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
   "bitstream.edit.authorizations.link": "Upravit politiky souboru",
@@ -1792,7 +1792,7 @@
   "claimed-approved-search-result-list-element.title": "Schváleno",
 
   // "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
-  "claimed-declined-search-result-list-element.title": "Zamítnuto, posláno zpět vkladateli",
+  "claimed-declined-search-result-list-element.title": "Zamítnuto, posláno zpět odesílateli",
 
   // "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
   "claimed-declined-task-search-result-list-element.title": "Zamítnuto, posláno zpět správci schvalovacího workflow",
@@ -1815,7 +1815,7 @@
   "collection.create.sub-head": "Vytvořit kolekci pro komunitu {{ parent }}",
 
   // "collection.curate.header": "Curate Collection: {{collection}}",
-  "collection.curate.header": "Kurátorovat kolekci: {{collection}}",
+  "collection.curate.header": "Spravovat kolekci: {{collection}}",
 
   // "collection.delete.cancel": "Cancel",
   "collection.delete.cancel": "Zrušit",
@@ -1923,7 +1923,7 @@
   "collection.edit.logo.notifications.add.success": "Nahrání loga kolekce proběhlo úspěšně.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
-  "collection.edit.logo.notifications.delete.success.title": "Logo odstraněno",
+  "collection.edit.logo.notifications.delete.success.title": "Logo smazáno",
 
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
   "collection.edit.logo.notifications.delete.success.content": "Úspěšně odstraněno logo kolekce",
@@ -1948,10 +1948,10 @@
   "collection.edit.tabs.access-control.title": "Úprava kolekce - Řízení přístupu",
 
   // "collection.edit.tabs.curate.head": "Curate",
-  "collection.edit.tabs.curate.head": "Kurátorovat",
+  "collection.edit.tabs.curate.head": "Spravovat",
 
   // "collection.edit.tabs.curate.title": "Collection Edit - Curate",
-  "collection.edit.tabs.curate.title": "Upravit kolekci - kurátorovat",
+  "collection.edit.tabs.curate.title": "Upravit kolekci - správa",
 
   // "collection.edit.tabs.authorizations.head": "Authorizations",
   "collection.edit.tabs.authorizations.head": "Oprávnění",
@@ -2014,7 +2014,7 @@
   "collection.edit.tabs.source.head": "Zdroj obsahu",
 
   // "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "collection.edit.tabs.source.notifications.discarded.content": "Vaše změny byly vyřazeny. Chcete-li své změny obnovit, klikněte na tlačítko Zpět",
+  "collection.edit.tabs.source.notifications.discarded.content": "Vaše změny byly zahozeny. Pro obnovení změn klikněte na tlačítko 'Vrátit změny'",
 
   // "collection.edit.tabs.source.notifications.discarded.title": "Changes discarded",
   // TODO Source message changed - Revise the translation
@@ -2024,7 +2024,7 @@
   "collection.edit.tabs.source.notifications.invalid.content": "Vaše změny nebyly uloženy. Před uložením se prosím ujistěte, že jsou všechna pole platná.",
 
   // "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
-  "collection.edit.tabs.source.notifications.invalid.title": "Metadata neplatná",
+  "collection.edit.tabs.source.notifications.invalid.title": "Neplatná metadata",
 
   // "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
   "collection.edit.tabs.source.notifications.saved.content": "Vaše změny ve zdroji obsahu této kolekce byly uloženy.",
@@ -2210,13 +2210,12 @@
   "collection.source.controls.harvest.last": "Naposledy harvestováno:",
 
   // "collection.source.controls.harvest.message": "Harvest info:",
-  "collection.source.controls.harvest.message": "Informace o harevstu:",
-
+  "collection.source.controls.harvest.message": "Informace o harvestu:",
   // "collection.source.controls.harvest.no-information": "N/A",
   "collection.source.controls.harvest.no-information": "Není k dispozi",
 
   // "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
-  "collection.source.update.notifications.error.content": "Zadané nastavení bylo testováno a nefungovalo.",
+  "collection.source.update.notifications.error.content": "Zadané nastavení bylo otestováno a nefungovalo.",
 
   // "collection.source.update.notifications.error.title": "Server Error",
   "collection.source.update.notifications.error.title": "Chyba serveru",
@@ -2260,10 +2259,10 @@
   "community.create.notifications.success": "Úspěšně vytvořena komunita",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
-  "community.create.sub-head": "Vytvořit dílčí komunitu pro komunitu {{ parent }}",
+  "community.create.sub-head": "Vytvořit podkomunitu v komunitě {{ parent }}",
 
   // "community.curate.header": "Curate Community: {{community}}",
-  "community.curate.header": "Kurátorství komunity: {{ community }}",
+  "community.curate.header": "Spravovat komunitu: {{ community }}",
 
   // "community.delete.cancel": "Cancel",
   "community.delete.cancel": "Zrušit",
@@ -2296,7 +2295,7 @@
   "community.edit.breadcrumbs": "Upravit komunitu",
 
   // "community.edit.logo.delete.title": "Delete logo",
-  "community.edit.logo.delete.title": "Odstranit logo",
+  "community.edit.logo.delete.title": "Smazat logo",
 
   // "community.edit.logo.delete-undo.title": "Undo delete",
   "community.edit.logo.delete-undo.title": "Zrušit odstranění",
@@ -2311,7 +2310,7 @@
   "community.edit.logo.notifications.add.success": "Nahrání loga komunity proběhlo úspěšně.",
 
   // "community.edit.logo.notifications.delete.success.title": "Logo deleted",
-  "community.edit.logo.notifications.delete.success.title": "Logo odstraněno",
+  "community.edit.logo.notifications.delete.success.title": "Logo smazáno",
 
   // "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
   "community.edit.logo.notifications.delete.success.content": "Úspěšně odstraněno logo komunity",
@@ -2336,10 +2335,10 @@
   "community.edit.return": "Zpět",
 
   // "community.edit.tabs.curate.head": "Curate",
-  "community.edit.tabs.curate.head": "Kurátorovat",
+  "community.edit.tabs.curate.head": "Spravovat",
 
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
-  "community.edit.tabs.curate.title": "Upravit komunitu - kurátorovat",
+  "community.edit.tabs.curate.title": "Upravit komunitu - správa",
 
   // "community.edit.tabs.access-control.head": "Access Control",
   "community.edit.tabs.access-control.head": "Řízení přístupu",
@@ -2397,13 +2396,13 @@
   "comcol-role.edit.collection-admin.name": "Správci",
 
   // "comcol-role.edit.community-admin.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  "comcol-role.edit.community-admin.description": "Správci komunit mohou vytvářet dílčí komunity nebo kolekce a spravovat nebo přidělovat správu těmto dílčím komunitám nebo kolekcím. Kromě toho rozhodují o tom, kdo může odesílat záznamy do všech dílčích kolekcí, upravovat metadata záznamů (po odeslání) a přidávat (mapovat) existující záznamy z jiných kolekcí (na základě oprávnění).",
+  "comcol-role.edit.community-admin.description": "Administrátoři komunit mohou vytvářet podkomunity nebo kolekce a spravovat nebo přidělovat správu těmto podkomunitám nebo kolekcím. Kromě toho rozhodují o tom, kdo může odesílat záznamy do všech podkolekcí, upravovat metadata záznamů (po odeslání) a přidávat (mapovat) existující záznamy z jiných kolekcí (na základě oprávnění).",
 
   // "comcol-role.edit.collection-admin.description": "Collection administrators decide who can submit items to the collection, edit item metadata (after submission), and add (map) existing items from other collections to this collection (subject to authorization for that collection).",
   "comcol-role.edit.collection-admin.description": "Správci kolekcí rozhodují o tom, kdo může do kolekce vkládat záznamy, upravovat metadata záznamů (po vložení) a přidávat (mapovat) existující záznamy z jiných kolekcí do této kolekce (podléhá autorizaci pro danou kolekci).",
 
   // "comcol-role.edit.submitters.name": "Submitters",
-  "comcol-role.edit.submitters.name": "Vkladatelé",
+  "comcol-role.edit.submitters.name": "Odesílatelé",
 
   // "comcol-role.edit.submitters.description": "The E-People and Groups that have permission to submit new items to this collection.",
   "comcol-role.edit.submitters.description": "Uživatelé a skupiny, které mají oprávnění ke vkládání nových záznamů do této kolekce.",
@@ -2422,7 +2421,7 @@
 
   // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
   // TODO Source message changed - Revise the translation
-  "comcol-role.edit.bitstream_read.description": "Správci komunit mohou vytvářet dílčí komunity nebo kolekce a spravovat nebo přidělovat správu těmto dílčím komunitám nebo kolekcím. Kromě toho rozhodují o tom, kdo může odesílat záznamy do libovolných dílčích kolekcí, upravovat metadata záznamů (po odeslání) a přidávat (mapovat) existující záznamy z jiných kolekcí (na základě oprávnění).",
+  "comcol-role.edit.bitstream_read.description": "Správci komunit mohou vytvářet podkomunity nebo kolekce a spravovat nebo přidělovat správu těmto podkomunitám nebo kolekcím. Kromě toho rozhodují o tom, kdo může odesílat záznamy do libovolných podkolekcí, upravovat metadata záznamů (po odeslání) a přidávat (mapovat) existující záznamy z jiných kolekcí (na základě oprávnění).",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   "comcol-role.edit.bitstream_read.anonymous-group": "Výchozí čtení pro příchozí soubory je v současné době nastaveno na hodnotu Anonymní.",
@@ -2461,7 +2460,7 @@
   "community.form.errors.title.required": "Zadejte název komunity",
 
   // "community.form.rights": "Copyright text (HTML)",
-  "community.form.rights": "Text autorských práv (HTML)",
+  "community.form.rights": "Copyright (HTML)",
 
   // "community.form.tableofcontents": "News (HTML)",
   "community.form.tableofcontents": "Novinky (HTML)",
@@ -2482,7 +2481,7 @@
   "community.page.news": "Novinky",
 
   // "community.all-lists.head": "Subcommunities and Collections",
-  "community.all-lists.head": "Dílčí komunity a kolekce",
+  "community.all-lists.head": "Podkomunity a kolekce",
 
   // "community.search.results.head": "Search Results",
   // TODO New key - Add a translation
@@ -2517,12 +2516,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(vždy vyžadováno)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Pomocí tohoto přepínače povolíte nebo zakážete všechny služby.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Povolit nebo zakázat všechny služby.",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Od vaší poslední návštěvy došlo ke změnám, aktualizujte prosím svůj souhlas.",
 
@@ -2538,14 +2531,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Uložit",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Souhlas se soubory Cookie",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Vaše osobní údaje shromažďujeme a zpracováváme pro následující účely: <strong>Ověření, Preference, Potvrzení a Statistiky</strong>. <br/> Chcete-li se dozvědět více, přečtěte si prosím naše {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Vaše osobní údaje shromažďujeme a zpracováváme pro následující účely: <strong>Ověření, Preference, Potvrzení a Statistiky</strong>. <strong>Využíváme osobní údaje pro tyto účely:",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Přizpůsobit",
@@ -2561,12 +2548,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informace, které shromažďujeme",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "služby",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "služba",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Ověřování",
@@ -2641,16 +2622,16 @@
   "curation.form.submit": "Start",
 
   // "curation.form.submit.success.head": "The curation task has been started successfully",
-  "curation.form.submit.success.head": "Kurátorská úloha byla úspěšně spuštěna",
+  "curation.form.submit.success.head": "Úloha správy byla úspěšně spuštěna",
 
   // "curation.form.submit.success.content": "You will be redirected to the corresponding process page.",
   "curation.form.submit.success.content": "Budete přesměrováni na příslušnou stránku procesu.",
 
   // "curation.form.submit.error.head": "Running the curation task failed",
-  "curation.form.submit.error.head": "Spuštění kurátorské úlohy se nezdařilo.",
+  "curation.form.submit.error.head": "Spuštění úlohy správy se nezdařilo.",
 
   // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
-  "curation.form.submit.error.content": "Při pokusu o spuštění kurátorské úlohy došlo k chybě.",
+  "curation.form.submit.error.content": "Při pokusu o spuštění úlohy správy došlo k chybě.",
 
   // "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
   "curation.form.submit.error.invalid-handle": "Nepodařilo se určit handle pro tento objekt",
@@ -2703,7 +2684,7 @@
   "dso-selector.create.community.head": "Nová komunita",
 
   // "dso-selector.create.community.or-divider": "or",
-  "dso-selector.create.community.or-divider": "or",
+  "dso-selector.create.community.or-divider": "nebo",
 
   // "dso-selector.create.community.sub-level": "Create a new community in",
   "dso-selector.create.community.sub-level": "Vytvořit novou komunitu v",
@@ -2928,10 +2909,10 @@
   "error.invalid-search-query": "Vyhledávací dotaz není platný. Další informace o této chybě naleznete v osvědčených postupech <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a>.",
 
   // "error.sub-collections": "Error fetching sub-collections",
-  "error.sub-collections": "Chyba při načítání dílčích kolekcí",
+  "error.sub-collections": "Chyba při načítání podkolekcí",
 
   // "error.sub-communities": "Error fetching sub-communities",
-  "error.sub-communities": "Chyba při načítání dílčích komunit",
+  "error.sub-communities": "Chyba při načítání podkomunit",
 
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
   "error.submission.sections.init-form-error": "Při inicializaci sekce došlo k chybě, zkontrolujte prosím konfiguraci vstupního formuláře. Podrobnosti jsou uvedeny níže : <br> <br>",
@@ -2940,7 +2921,7 @@
   "error.top-level-communities": "Chyba při načítání komunit nejvyšší úrovně",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "eslání. Pokud tuto licenci v tuto chvíli nemůžete udělit, můžete svou práci uložit a vrátit se k ní později nebo podání odstranit.",
+  "error.validation.license.notgranted": "Bez udělení licence nelze záznam dokončit. Pokud v tuto chvíli nemůžete licenci udělit, uložte svou práci a vraťte se k příspěvku později nebo jej smažte.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Toto zadání je omezeno aktuálním vzorcem: {{ pattern }}.",
@@ -3045,7 +3026,7 @@
   "forgot-email.form.success.head": "E-mail pro obnovení hesla odeslán",
 
   // "forgot-email.form.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  "forgot-email.form.success.content": "Na adresu {{ email }} byl odeslán e-mail obsahující speciální adresu URL a další pokyny.",
+  "forgot-email.form.success.content": "Na adresu {{ email }} byl odeslán e-mail obsahující speciální URL a další instrukce.",
 
   // "forgot-email.form.error.head": "Error when trying to reset password",
   // TODO Source message changed - Revise the translation
@@ -3243,7 +3224,7 @@
   "grant-deny-request-copy.header": "Žádost o kopii dokumentu",
 
   // "grant-deny-request-copy.home-page": "Take me to the home page",
-  "grant-deny-request-copy.home-page": "Přesměrujte mne na domovskou stránku",
+  "grant-deny-request-copy.home-page": "Návrat na domovskou stránku",
 
   // "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
   "grant-deny-request-copy.intro1": "Pokud jste jedním z autorů dokumentu <a href='{{ url }}'>{{ name }}</a>, použijte prosím jednu z níže uvedených možností, abyste odpověděli na žádost uživatele.",
@@ -3252,7 +3233,7 @@
   "grant-deny-request-copy.intro2": "Po výběru možnosti se zobrazí návrh e-mailové odpovědi, který můžete upravit.",
 
   // "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
-  "grant-deny-request-copy.processed": " Tato žádost již byla zpracována. Pomocí níže uvedeného tlačítka se můžete vrátit na domovskou stránku.",
+  "grant-deny-request-copy.processed": "Tato žádost již byla zpracována. Pomocí níže uvedeného tlačítka se můžete vrátit na domovskou stránku.",
 
   // "grant-request-copy.email.subject": "Request copy of document",
   "grant-request-copy.email.subject": "Žádost o kopii dokumentu",
@@ -3279,13 +3260,13 @@
   "health-page.info-tab": "Informace",
 
   // "health-page.status-tab": "Status",
-  "health-page.status-tab": "Status",
+  "health-page.status-tab": "Stav",
 
   // "health-page.error.msg": "The health check service is temporarily unavailable",
   "health-page.error.msg": "Služba kontrolující stav systému je momentálně nedostupná.",
 
   // "health-page.property.status": "Status code",
-  "health-page.property.status": "Kód statusu",
+  "health-page.property.status": "Stavový kód",
 
   // "health-page.section.db.title": "Database",
   "health-page.section.db.title": "Databáze",
@@ -3432,8 +3413,7 @@
   "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
 
   // "item.alerts.private": "This item is non-discoverable",
-  // TODO Source message changed - Revise the translation
-  "item.alerts.private": "Tento záznam je nezobrazitelný",
+  "item.alerts.private": "Tento záznam je nevyhledatelný",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
   "item.alerts.withdrawn": "Tento záznam byl stažen",
@@ -3457,7 +3437,7 @@
   "item.badge.private": "Nedohledatelné",
 
   // "item.badge.withdrawn": "Withdrawn",
-  "item.badge.withdrawn": "Zrušeno",
+  "item.badge.withdrawn": "Vyřazeno",
 
   // "item.bitstreams.upload.bundle": "Bundle",
   "item.bitstreams.upload.bundle": "Svazek",
@@ -3545,10 +3525,10 @@
   "item.edit.bitstreams.headers.name": "Název",
 
   // "item.edit.bitstreams.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.bitstreams.notifications.discarded.content": "Vaše změny byly zahozeny. Pro obnovení změn klikněte na tlačítko 'Undo'",
+  "item.edit.bitstreams.notifications.discarded.content": "Vaše změny byly zahozeny. Pro obnovení změn klikněte na tlačítko 'Vrátit změny'",
 
   // "item.edit.bitstreams.notifications.discarded.title": "Changes discarded",
-  "item.edit.bitstreams.notifications.discarded.title": "Změny zahozeny",
+  "item.edit.bitstreams.notifications.discarded.title": "Zahozené změny",
 
   // "item.edit.bitstreams.notifications.move.failed.title": "Error moving bitstreams",
   "item.edit.bitstreams.notifications.move.failed.title": "Chyba při přesunu souborů",
@@ -3560,7 +3540,7 @@
   "item.edit.bitstreams.notifications.move.saved.title": "Změny uloženy",
 
   // "item.edit.bitstreams.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "item.edit.bitstreams.notifications.outdated.content": "Záznam, na které právě pracujete, byl změněn jiným uživatelem. Vaše aktuální změny jsou zahozeny, aby se zabránilo konfliktům",
+  "item.edit.bitstreams.notifications.outdated.content": "Záznam, na kterém právě pracujete, byl změněn jiným uživatelem. Vaše aktuální změny byly zahozeny, aby se zabránilo konfliktům",
 
   // "item.edit.bitstreams.notifications.outdated.title": "Changes outdated",
   "item.edit.bitstreams.notifications.outdated.title": "Změny jsou zastaralé",
@@ -3653,13 +3633,13 @@
   "item.edit.identifiers.doi.status.MINTED": "Vydáno (nezaregistrováno)",
 
   // "item.edit.tabs.status.buttons.register-doi.label": "Register a new or pending DOI",
-  "item.edit.tabs.status.buttons.register-doi.label": "Registrace nového nebo čekání na nové DOI",
+  "item.edit.tabs.status.buttons.register-doi.label": "Registrovat nové nebo čekající DOI",
 
   // "item.edit.tabs.status.buttons.register-doi.button": "Register DOI...",
   "item.edit.tabs.status.buttons.register-doi.button": "Zaregistrujte DOI...",
 
   // "item.edit.register-doi.header": "Register a new or pending DOI",
-  "item.edit.register-doi.header": "Zaregistrujte nové DOI nebo čekající k registraci",
+  "item.edit.register-doi.header": "Registrovat nové nebo čekající DOI",
 
   // "item.edit.register-doi.description": "Review any pending identifiers and item metadata below and click Confirm to proceed with DOI registration, or Cancel to back out",
   "item.edit.register-doi.description": "Níže zkontrolujte všechny identifikátory a metadata ve frontě. Zvolte \"Potvrdit\" pro pokračování v registraci DOI nebo \"Zrušit\" pro přerušení procesu.",
@@ -3689,7 +3669,7 @@
   "item.edit.item-mapper.cancel": "Zrušit",
 
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-  "item.edit.item-mapper.description": "Toto je nástroj pro mapování záznamů, který umožňuje správcům mapovat tuto záznam na jiné kolekce. Můžete vyhledávat kolekce a mapovat je nebo procházet seznam kolekcí, ke kterým je záznam aktuálně mapována.",
+  "item.edit.item-mapper.description": "Toto je nástroj pro mapování záznamů, který umožňuje správcům mapovat tento záznam do jiné kolekce. Můžete vyhledávat kolekce a mapovat je nebo procházet seznam kolekcí, ke kterým je záznam aktuálně mapována.",
 
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
   "item.edit.item-mapper.head": "Mapování do jiných kolekcí - mapovat záznam do kolekcí",
@@ -3770,7 +3750,7 @@
   "item.edit.metadata.edit.buttons.unedit": "Zastavit úpravy",
 
   // "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
-  "item.edit.metadata.edit.buttons.virtual": "Tato hodnota metadat je virtuální, tedy děděná z příbuzné entity. Nemůže být zděděna napřímo. Přidejte či odeberte příslušný vztah na záložce \"Vztahy\".",
+  "item.edit.metadata.edit.buttons.virtual": "Tato hodnota metadat je virtuální, tedy děděná z provázané entity. Nemůže být změněna napřímo. Přidejte či odeberte příslušný vztah na záložce \"Vztahy\".",
 
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
   "item.edit.metadata.empty": "Záznam aktuálně neobsahuje žádná metadata. Kliknutím na tlačítko Přidat začněte přidávat hodnotu metadat.",
@@ -3798,11 +3778,11 @@
   "item.edit.metadata.metadatafield.invalid": "Prosím, vyberte platné metadatové pole",
 
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.metadata.notifications.discarded.content": "Vaše změny byly vyřazeny. Pro obnovení změn klikněte na tlačítko 'Vrátit změny'",
+  "item.edit.metadata.notifications.discarded.content": "Vaše změny byly zahozeny. Pro obnovení změn klikněte na tlačítko 'Vrátit změny'",
 
   // "item.edit.metadata.notifications.discarded.title": "Changes discarded",
   // TODO Source message changed - Revise the translation
-  "item.edit.metadata.notifications.discarded.title": "Změny zahozeny",
+  "item.edit.metadata.notifications.discarded.title": "Zahozené změny",
 
   // "item.edit.metadata.notifications.error.title": "An error occurred",
   "item.edit.metadata.notifications.error.title": "Došlo k chybě",
@@ -3811,17 +3791,17 @@
   "item.edit.metadata.notifications.invalid.content": "Vaše změny nebyly uloženy. Před uložením se prosím ujistěte, že jsou všechna pole platná.",
 
   // "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
-  "item.edit.metadata.notifications.invalid.title": "Metadata neplatná",
+  "item.edit.metadata.notifications.invalid.title": "Neplatná metadata",
 
   // "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "item.edit.metadata.notifications.outdated.content": "Záznam, na které právě pracujete, byl změněna jiným uživatelem. Vaše aktuální změny jsou zahozeny, aby se zabránilo konfliktům",
+  "item.edit.metadata.notifications.outdated.content": "Záznam, na kterém právě pracujete, byl změněn jiným uživatelem. Vaše aktuální změny byly zahozeny, aby se zabránilo konfliktům",
 
   // "item.edit.metadata.notifications.outdated.title": "Changes outdated",
   // TODO Source message changed - Revise the translation
   "item.edit.metadata.notifications.outdated.title": "Změny jsou zastaralé",
 
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
-  "item.edit.metadata.notifications.saved.content": "Vaše změny metadat této záznamu byly uloženy.",
+  "item.edit.metadata.notifications.saved.content": "Vaše změny metadat tohoto záznamu byly uloženy.",
 
   // "item.edit.metadata.notifications.saved.title": "Metadata saved",
   "item.edit.metadata.notifications.saved.title": "Metadata uložena",
@@ -3978,16 +3958,16 @@
   "item.edit.relationships.no-relationships": "Žádné vztahy",
 
   // "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "item.edit.relationships.notifications.discarded.content": "Vaše změny byly vyřazeny. Pro obnovení změn klikněte na tlačítko 'Vrátit změny'",
+  "item.edit.relationships.notifications.discarded.content": "Vaše změny byly zahozeny. Pro obnovení změn klikněte na tlačítko 'Vrátit změny'",
 
   // "item.edit.relationships.notifications.discarded.title": "Changes discarded",
-  "item.edit.relationships.notifications.discarded.title": "Změny vyřazeny",
+  "item.edit.relationships.notifications.discarded.title": "Zahozené změny",
 
   // "item.edit.relationships.notifications.failed.title": "Error editing relationships",
   "item.edit.relationships.notifications.failed.title": "Chyba při úpravě vztahů",
 
   // "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  "item.edit.relationships.notifications.outdated.content": "Záznam, na které právě pracujete, byl změněna jiným uživatelem. Vaše aktuální změny jsou vyřazeny, aby se zabránilo konfliktům",
+  "item.edit.relationships.notifications.outdated.content": "Záznam, na kterém právě pracujete, byl změněn jiným uživatelem. Vaše aktuální změny byly zahozeny, aby se zabránilo konfliktům",
 
   // "item.edit.relationships.notifications.outdated.title": "Changes outdated",
   "item.edit.relationships.notifications.outdated.title": "Změny jsou zastaralé",
@@ -4011,25 +3991,25 @@
   "item.edit.return": "Zpět",
 
   // "item.edit.tabs.bitstreams.head": "Bitstreams",
-  "item.edit.tabs.bitstreams.head": "Soubor",
+  "item.edit.tabs.bitstreams.head": "Soubory",
 
   // "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
   "item.edit.tabs.bitstreams.title": "Úprava záznamu - soubor",
 
   // "item.edit.tabs.curate.head": "Curate",
-  "item.edit.tabs.curate.head": "Kurátorovat",
+  "item.edit.tabs.curate.head": "Spravovat",
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
-  "item.edit.tabs.curate.title": "Úprava záznamu - Kurátorovat",
+  "item.edit.tabs.curate.title": "Úprava záznamu - spravovat",
 
   // "item.edit.curate.title": "Curate Item: {{item}}",
-  "item.edit.curate.title": "Kurátorovat záznam: {{item}}",
+  "item.edit.curate.title": "Spravovat záznam: {{item}}",
 
   // "item.edit.tabs.access-control.head": "Access Control",
-  "item.edit.tabs.access-control.head": "Kontrola přístupu",
+  "item.edit.tabs.access-control.head": "Řízení přístupu",
 
   // "item.edit.tabs.access-control.title": "Item Edit - Access Control",
-  "item.edit.tabs.access-control.title": "Úprava záznamu - Kontrola přístupu",
+  "item.edit.tabs.access-control.title": "Úprava záznamu - Řízení přístupu",
 
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metadata",
@@ -4168,7 +4148,7 @@
   "item.page.journal-title": "Název časopisu",
 
   // "item.page.publisher": "Publisher",
-  "item.page.publisher": "Vydavatel",
+  "item.page.publisher": "Nakladatel",
 
   // "item.page.titleprefix": "Item: ",
   "item.page.titleprefix": "Záznam: ",
@@ -4223,10 +4203,10 @@
   "workflow-item.search.result.notification.deleted.failure": "Při mazání příkazu supervize \"{{name}}\" došlo k chybě",
 
   // "workflow-item.search.result.list.element.supervised-by": "Supervised by:",
-  "workflow-item.search.result.list.element.supervised-by": "Supervizován:",
+  "workflow-item.search.result.list.element.supervised-by": "Dohlížející autorita:",
 
   // "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
-  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Odebrat skupinu supervize",
+  "workflow-item.search.result.list.element.supervised.remove-tooltip": "Odebrat dohlížející autoritu",
 
   // "confidence.indicator.help-text.accepted": "This authority value has been confirmed as accurate by an interactive user",
   // TODO New key - Add a translation
@@ -4268,7 +4248,7 @@
   "item.page.abstract": "Abstrakt",
 
   // "item.page.author": "Authors",
-  "item.page.author": "Autor",
+  "item.page.author": "Autoři",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Citace",
@@ -4277,7 +4257,7 @@
   "item.page.collections": "Kolekce",
 
   // "item.page.collections.loading": "Loading...",
-  "item.page.collections.loading": "Načítání...",
+  "item.page.collections.loading": "Načítá se...",
 
   // "item.page.collections.load-more": "Load more",
   "item.page.collections.load-more": "Načíst další",
@@ -4310,10 +4290,10 @@
   "item.page.journal.search.title": "Články v tomto časopise",
 
   // "item.page.link.full": "Full item page",
-  "item.page.link.full": "Úplný záznam",
+  "item.page.link.full": "Zobrazit úplný záznam",
 
   // "item.page.link.simple": "Simple item page",
-  "item.page.link.simple": "Jednoduchý záznam",
+  "item.page.link.simple": "Zobrazit minimální záznam",
 
   // "item.page.orcid.title": "ORCID",
   "item.page.orcid.title": "ORCID",
@@ -4346,7 +4326,7 @@
   "item.page.subject": "Klíčová slova",
 
   // "item.page.uri": "URI",
-  "item.page.uri": "URI",
+  "item.page.uri": "Permanentní identifikátor",
 
   // "item.page.bitstreams.view-more": "Show more",
   "item.page.bitstreams.view-more": "Zobrazit více",
@@ -4379,13 +4359,13 @@
   "item.page.reinstate": "Request reinstatement",
 
   // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
-  "item.page.version.hasDraft": "Nová verze nemůže být vytvořena, protože v historii verzí právě probíhá zadání nové verze.",
+  "item.page.version.hasDraft": "Nová verze nemůže být vytvořena, protože v historii verzí už další rozpracovaná verze existuje.",
 
   // "item.page.claim.button": "Claim",
-  "item.page.claim.button": "Prohlásit",
+  "item.page.claim.button": "Převzít",
 
   // "item.page.claim.tooltip": "Claim this item as profile",
-  "item.page.claim.tooltip": "Prohlásit tento záznam za profilovou",
+  "item.page.claim.tooltip": "Prohlásit tento záznam za profil",
 
   // "item.page.image.alt.ROR": "ROR logo",
   // TODO New key - Add a translation
@@ -4461,10 +4441,10 @@
   "item.preview.oaire.awardNumber": "Identifikátor zdroje financování:",
 
   // "item.preview.dc.title.alternative": "Acronym:",
-  "item.preview.dc.title.alternative": "Akronym:",
+  "item.preview.dc.title.alternative": "Zkratka:",
 
   // "item.preview.dc.coverage.spatial": "Jurisdiction:",
-  "item.preview.dc.coverage.spatial": "Jurisdikce:",
+  "item.preview.dc.coverage.spatial": "Příslušnost:",
 
   // "item.preview.oaire.fundingStream": "Funding Stream:",
   "item.preview.oaire.fundingStream": "Tok finančních prostředků:",
@@ -4587,7 +4567,7 @@
   "item.version.history.table.action.deleteVersion": "Smazat verzi",
 
   // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
-  "item.version.history.table.action.hasDraft": "Nová verze nemůže být vytvořena, protože v historii verzí probíhá odesílání.",
+  "item.version.history.table.action.hasDraft": "Nová verze nemůže být vytvořena, protože v historii verzí už další rozpracovaná verze existuje.",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
   "item.version.notice": "Toto není nejnovější verze tohoto záznamu. Nejnovější verzi naleznete <a href='{{destination}}'>zde</a>.",
@@ -4700,7 +4680,7 @@
   "item.version.create.notification.failure": "Nová verze nebyla vytvořena",
 
   // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
-  "item.version.create.notification.inProgress": "Nová verze nemůže být vytvořena, protože v historii verzí probíhá odesílání.",
+  "item.version.create.notification.inProgress": "Nová verze nemůže být vytvořena, protože v historii verzí už další rozpracovaná verze existuje.",
 
   // "item.version.delete.modal.header": "Delete version",
   "item.version.delete.modal.header": "Smazat verzi",
@@ -4790,7 +4770,7 @@
   "itemtemplate.edit.metadata.metadatafield.invalid": "Prosím zvolte platné metadatové pole",
 
   // "itemtemplate.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  "itemtemplate.edit.metadata.notifications.discarded.content": "Vaše změny byly zahozeny. Chcete-li obnovit své změny, klikněte na tlačítko 'Zpět'.",
+  "itemtemplate.edit.metadata.notifications.discarded.content": "Vaše změny byly zahozeny. Pro obnovení změn klikněte na tlačítko 'Vrátit změny'",
 
   // "itemtemplate.edit.metadata.notifications.discarded.title": "Changes discarded",
   "itemtemplate.edit.metadata.notifications.discarded.title": "Změny byly zahozeny",
@@ -4799,7 +4779,7 @@
   "itemtemplate.edit.metadata.notifications.error.title": "Vyskytla se chyba",
 
   // "itemtemplate.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  "itemtemplate.edit.metadata.notifications.invalid.content": "Vaše změny nebyly uloženy. Před uložením se ujistěte, že všechna pole jsou platná.",
+  "itemtemplate.edit.metadata.notifications.invalid.content": "Vaše změny nebyly uloženy. Před uložením se prosím ujistěte, že jsou všechna pole platná.",
 
   // "itemtemplate.edit.metadata.notifications.invalid.title": "Metadata invalid",
   "itemtemplate.edit.metadata.notifications.invalid.title": "Neplatná metadata",
@@ -4814,7 +4794,7 @@
   "itemtemplate.edit.metadata.notifications.saved.content": "Vaše změny v šabloně metadat tohoto záznamu byly uloženy.",
 
   // "itemtemplate.edit.metadata.notifications.saved.title": "Metadata saved",
-  "itemtemplate.edit.metadata.notifications.saved.title": "Metadata uloženy",
+  "itemtemplate.edit.metadata.notifications.saved.title": "Metadata uložena",
 
   // "itemtemplate.edit.metadata.reinstate-button": "Undo",
   "itemtemplate.edit.metadata.reinstate-button": "Vrátit zpět",
@@ -4841,7 +4821,7 @@
   "journal.page.issn": "ISSN",
 
   // "journal.page.publisher": "Publisher",
-  "journal.page.publisher": "Vydavatel",
+  "journal.page.publisher": "Nakladatel",
 
   // "journal.page.titleprefix": "Journal: ",
   "journal.page.titleprefix": "Časopis: ",
@@ -4987,10 +4967,10 @@
   "loading.search-results": "Načítají se výsledky vyhledávání...",
 
   // "loading.sub-collections": "Loading sub-collections...",
-  "loading.sub-collections": "Načítají se dílčí kolekce...",
+  "loading.sub-collections": "Načítají se podkolekce...",
 
   // "loading.sub-communities": "Loading sub-communities...",
-  "loading.sub-communities": "Načítají se dílčí komunity...",
+  "loading.sub-communities": "Načítají se podkomunity...",
 
   // "loading.top-level-communities": "Loading top-level communities...",
   "loading.top-level-communities": "Načítají se komunity nejvyšší úrovně...",
@@ -5042,11 +5022,10 @@
   "menu.header.nav.description": "Admin navigation bar",
 
   // "menu.header.admin": "Management",
-  // TODO Source message changed - Revise the translation
-  "menu.header.admin": "Management",
+  "menu.header.admin": "Admin",
 
   // "menu.header.image.logo": "Repository logo",
-  "menu.header.image.logo": "Logo úložiště",
+  "menu.header.image.logo": "Logo repozitáře",
 
   // "menu.header.admin.description": "Management menu",
   "menu.header.admin.description": "Management menu",
@@ -5122,7 +5101,7 @@
   "menu.section.control_panel": "Ovládací panel",
 
   // "menu.section.curation_task": "Curation Task",
-  "menu.section.curation_task": "Kurátorská úloha",
+  "menu.section.curation_task": "Úloha správy",
 
   // "menu.section.edit": "Edit",
   "menu.section.edit": "Upravit",
@@ -5168,25 +5147,25 @@
   "menu.section.icon.control_panel": "Sekce menu Ovládací panel",
 
   // "menu.section.icon.curation_tasks": "Curation Task menu section",
-  "menu.section.icon.curation_tasks": "Sekce menu Kurátorská úloha",
+  "menu.section.icon.curation_tasks": "Sekce menu úloha správy",
 
   // "menu.section.icon.edit": "Edit menu section",
   "menu.section.icon.edit": "Sekce menu Upravit",
 
   // "menu.section.icon.export": "Export menu section",
-  "menu.section.icon.export": "Exportovat sekci menu",
+  "menu.section.icon.export": "Sekce menu Exportovat",
 
   // "menu.section.icon.find": "Find menu section",
-  "menu.section.icon.find": "Najít sekci menu",
+  "menu.section.icon.find": "Sekce menu Najít",
 
   // "menu.section.icon.health": "Health check menu section",
-  "menu.section.icon.health": "Kontrola stavu sekce menu",
+  "menu.section.icon.health": "Sekce menu Kontrola stavu",
 
   // "menu.section.icon.import": "Import menu section",
-  "menu.section.icon.import": "Importovat sekci menu",
+  "menu.section.icon.import": "Sekce menu Importovat",
 
   // "menu.section.icon.new": "New menu section",
-  "menu.section.icon.new": "Nová sekce menu",
+  "menu.section.icon.new": "Sekce menu Nový",
 
   // "menu.section.icon.pin": "Pin sidebar",
   "menu.section.icon.pin": "Připnout postranní panel",
@@ -5263,7 +5242,7 @@
   "menu.section.health": "Stav systému",
 
   // "menu.section.registries": "Registries",
-  "menu.section.registries": "Rejstřík",
+  "menu.section.registries": "Registry",
 
   // "menu.section.registries_format": "Format",
   "menu.section.registries_format": "Formát",
@@ -5288,7 +5267,7 @@
   "menu.section.toggle.control_panel": "Přepnout sekci ovládacího panelu",
 
   // "menu.section.toggle.curation_task": "Toggle Curation Task section",
-  "menu.section.toggle.curation_task": "Přepnout sekci Kurátorská úloha",
+  "menu.section.toggle.curation_task": "Přepnout sekci úloha správy",
 
   // "menu.section.toggle.edit": "Toggle Edit section",
   "menu.section.toggle.edit": "Přepnout sekci Úpravy",
@@ -5306,7 +5285,7 @@
   "menu.section.toggle.new": "Přepnout sekci Nová",
 
   // "menu.section.toggle.registries": "Toggle Registries section",
-  "menu.section.toggle.registries": "Přepnout sekci Rejstříky",
+  "menu.section.toggle.registries": "Přepnout sekci Registry",
 
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
   "menu.section.toggle.statistics_task": "Přepnout sekci Statistická úloha",
@@ -5330,7 +5309,7 @@
   "mydspace.description": "",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
-  "mydspace.messages.controller-help": "Zvolte tuto možnost, chcete-li odeslat zprávu vkladateli záznamu.",
+  "mydspace.messages.controller-help": "Zvolte tuto možnost, chcete-li odeslat zprávu odesílateli záznamu.",
 
   // "mydspace.messages.description-placeholder": "Insert your message here...",
   "mydspace.messages.description-placeholder": "Zde vložte svou zprávu...",
@@ -5378,7 +5357,7 @@
   "mydspace.new-submission-external-short": "Importovat metadata",
 
   // "mydspace.results.head": "Your submissions",
-  "mydspace.results.head": "Váš příspěvek",
+  "mydspace.results.head": "Vaše záznamy",
 
   // "mydspace.results.no-abstract": "No Abstract",
   "mydspace.results.no-abstract": "Žádný abstrakt",
@@ -5412,12 +5391,12 @@
   // TODO Source message changed - Revise the translation
   "mydspace.show.workflow": "Úlohy workflow",
 
-  // "mydspace.show.workspace": "Your submissions",
+  // "mydspace.show.workspace": "Your Submissions",
   // TODO Source message changed - Revise the translation
-  "mydspace.show.workspace": "Váš příspěvek",
+  "mydspace.show.workspace": "Vaše záznamy",
 
   // "mydspace.show.supervisedWorkspace": "Supervised items",
-  "mydspace.show.supervisedWorkspace": "Zkontrolované záznamy",
+  "mydspace.show.supervisedWorkspace": "Záznamy pod dohledem",
 
   // "mydspace.status.mydspaceArchived": "Archived",
   "mydspace.status.mydspaceArchived": "Archivováno",
@@ -5488,7 +5467,7 @@
   "nav.user-profile-menu-and-logout": "Menu uživatelského profilu a odhlášení",
 
   // "nav.logout": "Log Out",
-  "nav.logout": "Menu uživatelského profilu a odhlášení",
+  "nav.logout": "Odhlásit se",
 
   // "nav.main.description": "Main navigation bar",
   "nav.main.description": "Hlavní navigační panel",
@@ -5509,7 +5488,7 @@
   "nav.statistics.header": "Statistika",
 
   // "nav.stop-impersonating": "Stop impersonating EPerson",
-  "nav.stop-impersonating": "Přestat simulovat jiného uživatele",
+  "nav.stop-impersonating": "Přestat vystupovat jako jiný uživatel",
 
   // "nav.subscriptions": "Subscriptions",
   "nav.subscriptions": "Nastavení notifikací",
@@ -5813,7 +5792,7 @@
   "orgunit.page.city": "Město",
 
   // "orgunit.page.country": "Country",
-  "orgunit.page.country": "Stát",
+  "orgunit.page.country": "Země",
 
   // "orgunit.page.dateestablished": "Date established",
   "orgunit.page.dateestablished": "Datum založení.",
@@ -5895,7 +5874,7 @@
   "person-relationships.search.results.head": "Výsledky vyhledávání osob",
 
   // "person.search.title": "Person Search",
-  "person.search.title": "Vyledatávání osob",
+  "person.search.title": "Vyhledávání osob",
 
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Parametry",
@@ -6124,7 +6103,7 @@
   "process.overview.delete.clear": "Zrušit výběr mazání",
 
   // "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
-  "process.overview.delete.processing": "Smazává se {{count}} procesů. Počkejte prosím na úplné dokončení mazání. To může chvíli trvat.",
+  "process.overview.delete.processing": "Maže se {{count}} procesů. Počkejte prosím na úplné dokončení mazání. To může chvíli trvat.",
 
   // "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
   "process.overview.delete.body": "Určitě chcete smazat {{count}} procesů",
@@ -6289,7 +6268,7 @@
   "publication.page.journal-title": "Název časopisu",
 
   // "publication.page.publisher": "Publisher",
-  "publication.page.publisher": "Vydavatel",
+  "publication.page.publisher": "Nakladatel",
 
   // "publication.page.titleprefix": "Publication: ",
   "publication.page.titleprefix": "Publikace: ",
@@ -6515,7 +6494,7 @@
   "register-page.registration.header": "Registrace nového uživatele",
 
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  "register-page.registration.info": "Zaregistrujte si účet a přihlaste se k odběru sbírek pro e-mailové aktualizace a odesílejte nové záznamy do systému DSpace",
+  "register-page.registration.info": "Zaregistrujte si účet a přihlaste se k odběru kolekcí pro e-mailové aktualizace a odesílejte nové záznamy do systému DSpace",
 
   // "register-page.registration.email": "Email Address *",
   "register-page.registration.email": "E-mailová adresa *",
@@ -6883,7 +6862,7 @@
   "search.filters.applied.f.dateIssued.min": "Datum zahájení",
 
   // "search.filters.applied.f.dateSubmitted": "Date submitted",
-  "search.filters.applied.f.dateSubmitted": "Date vložení",
+  "search.filters.applied.f.dateSubmitted": "Datum vložení",
 
   // "search.filters.applied.f.discoverable": "Non-discoverable",
   // TODO Source message changed - Revise the translation
@@ -6913,7 +6892,7 @@
   "search.filters.applied.f.subject": "Předmět",
 
   // "search.filters.applied.f.submitter": "Submitter",
-  "search.filters.applied.f.submitter": "Vkladatel",
+  "search.filters.applied.f.submitter": "Odesílatel",
 
   // "search.filters.applied.f.jobTitle": "Job Title",
   "search.filters.applied.f.jobTitle": "Název pracovní pozice",
@@ -6925,10 +6904,10 @@
   "search.filters.applied.f.birthDate.min": "Datum narození od",
 
   // "search.filters.applied.f.supervisedBy": "Supervised by",
-  "search.filters.applied.f.supervisedBy": "Zkontrolováno",
+  "search.filters.applied.f.supervisedBy": "Pod dohledem",
 
   // "search.filters.applied.f.withdrawn": "Withdrawn",
-  "search.filters.applied.f.withdrawn": "Zrušeno",
+  "search.filters.applied.f.withdrawn": "Vyřazeno",
 
   // "search.filters.applied.operator.equals": "",
   // TODO New key - Add a translation
@@ -7019,10 +6998,10 @@
   "search.filters.filter.creativeWorkKeywords.label": "Předmět hledání",
 
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
-  "search.filters.filter.creativeWorkPublisher.head": "Vydavatel",
+  "search.filters.filter.creativeWorkPublisher.head": "Nakladatel",
 
   // "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
-  "search.filters.filter.creativeWorkPublisher.placeholder": "Vydavatel",
+  "search.filters.filter.creativeWorkPublisher.placeholder": "Nakladatel",
 
   // "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
   "search.filters.filter.creativeWorkPublisher.label": "Hledat vydavatele",
@@ -7058,7 +7037,7 @@
   "search.filters.filter.discoverable.head": "Nedohledatelné",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
-  "search.filters.filter.withdrawn.head": "Zrušeno",
+  "search.filters.filter.withdrawn.head": "Vyřazeno",
 
   // "search.filters.filter.entityType.head": "Item Type",
   "search.filters.filter.entityType.head": "Typ záznamu",
@@ -7142,13 +7121,13 @@
   "search.filters.filter.objectpeople.placeholder": "Lidé",
 
   // "search.filters.filter.objectpeople.label": "Search people",
-  "search.filters.filter.objectpeople.label": "Hledat lidi",
+  "search.filters.filter.objectpeople.label": "Hledat osoby",
 
   // "search.filters.filter.organizationAddressCountry.head": "Country",
-  "search.filters.filter.organizationAddressCountry.head": "Stát",
+  "search.filters.filter.organizationAddressCountry.head": "Země",
 
   // "search.filters.filter.organizationAddressCountry.placeholder": "Country",
-  "search.filters.filter.organizationAddressCountry.placeholder": "Stát",
+  "search.filters.filter.organizationAddressCountry.placeholder": "Země",
 
   // "search.filters.filter.organizationAddressCountry.label": "Search country",
   "search.filters.filter.organizationAddressCountry.label": "Hledat stát",
@@ -7178,7 +7157,7 @@
   "search.filters.filter.scope.placeholder": "Filtr rozsahu",
 
   // "search.filters.filter.scope.label": "Search scope filter",
-  "search.filters.filter.scope.label": "Hledat filtr rozsahu",
+  "search.filters.filter.scope.label": "Filtr rozsahu hledání",
 
   // "search.filters.filter.show-less": "Collapse",
   "search.filters.filter.show-less": "Sbalit",
@@ -7196,13 +7175,13 @@
   "search.filters.filter.subject.label": "Hledat předmět",
 
   // "search.filters.filter.submitter.head": "Submitter",
-  "search.filters.filter.submitter.head": "Vkladatel",
+  "search.filters.filter.submitter.head": "Odesílatel",
 
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  "search.filters.filter.submitter.placeholder": "Vkladatel",
+  "search.filters.filter.submitter.placeholder": "Odesílatel",
 
   // "search.filters.filter.submitter.label": "Search submitter",
-  "search.filters.filter.submitter.label": "Hledat vkladatele",
+  "search.filters.filter.submitter.label": "Hledat odesílatele",
 
   // "search.filters.filter.show-tree": "Browse {{ name }} tree",
   "search.filters.filter.show-tree": "Procházet {{ name }} podle",
@@ -7224,8 +7203,7 @@
   "search.filters.filter.supervisedBy.placeholder": "Supervised By",
 
   // "search.filters.filter.supervisedBy.label": "Search Supervised By",
-  // TODO New key - Add a translation
-  "search.filters.filter.supervisedBy.label": "Search Supervised By",
+  "search.filters.filter.supervisedBy.label": "Hledat dohlížející autoritu",
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Číslo časopisu",
@@ -7286,8 +7264,8 @@
   // "search.filters.withdrawn.false": "No",
   "search.filters.withdrawn.false": "Ne",
 
-  // "search.filters.head": "Filters",
-  "search.filters.head": "Filtry",
+  // "search.filters.head": "Limit your search",
+  "search.filters.head": "Zúžit hledání",
 
   // "search.filters.reset": "Reset filters",
   "search.filters.reset": "Resetovat filtry",
@@ -7441,10 +7419,10 @@
   "sorting.dc.date.issued.DESC": "Datum vydání sestupně",
 
   // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
-  "sorting.dc.date.accessioned.ASC": "Datum přírůstku vzestupně",
+  "sorting.dc.date.accessioned.ASC": "Datum odeslání vzestupně",
 
   // "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
-  "sorting.dc.date.accessioned.DESC": "Datum přírůstku sestupně",
+  "sorting.dc.date.accessioned.DESC": "Datum odeslání sestupně",
 
   // "sorting.lastModified.ASC": "Last modified Ascending",
   "sorting.lastModified.ASC": "Naposledy upraveno vzestupně",
@@ -7526,7 +7504,7 @@
   "submission.general.cannot_submit": "Nemáte oprávnění k vytvoření nového příspěvku.",
 
   // "submission.general.deposit": "Deposit",
-  "submission.general.deposit": "Vložit do repozitáře",
+  "submission.general.deposit": "Nahrát",
 
   // "submission.general.discard.confirm.cancel": "Cancel",
   "submission.general.discard.confirm.cancel": "Zrušit",
@@ -7554,7 +7532,7 @@
   "submission.general.info.pending-changes": "Neuložené změny",
 
   // "submission.general.save": "Save",
-  "submission.general.save": "Průběžně uložit záznam",
+  "submission.general.save": "Uložit",
 
   // "submission.general.save-later": "Save for later",
   "submission.general.save-later": "Uložit na později",
@@ -7709,10 +7687,10 @@
   "submission.import-external.preview.subtitle": "Níže uvedená metadata byla importována z externího zdroje. Budou předvyplněna při zahájení odesílání..",
 
   // "submission.import-external.preview.button.import": "Start submission",
-  "submission.import-external.preview.button.import": "Zahájit odesílání",
+  "submission.import-external.preview.button.import": "Začít nový příspěvek",
 
   // "submission.import-external.preview.error.import.title": "Submission error",
-  "submission.import-external.preview.error.import.title": "Chyba při odesílání",
+  "submission.import-external.preview.error.import.title": "Chyba při vytváření nového příspěvku",
 
   // "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
   "submission.import-external.preview.error.import.body": "Během procesu importu externí zdrojového záznamu došlo k chybě.",
@@ -7893,7 +7871,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Vyhledávací dotaz",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
-  "submission.sections.describe.relationship-lookup.search-tab.search": "Hledání",
+  "submission.sections.describe.relationship-lookup.search-tab.search": "Přejít na",
 
   // "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
   "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Hledání...",
@@ -8080,7 +8058,7 @@
   "submission.sections.describe.relationship-lookup.title.Funding Agency": "Financující agentura",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
-  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Projekt, ke kterému publikace náleží",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Financování",
 
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Nadřazená organizační jednotka",
@@ -8287,7 +8265,7 @@
   "submission.sections.identifiers.info": "Pro tento záznam budou vytvořeny následující identifikátory:",
 
   // "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
-  "submission.sections.identifiers.no_handle": "Tomuto záznamu nybyl přidělen žádný handle.",
+  "submission.sections.identifiers.no_handle": "Tomuto záznamu nebyl přidělen žádný handle.",
 
   // "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
   "submission.sections.identifiers.no_doi": "Tomuto záznamu nebylo přiděleno žádné DOI.",
@@ -8311,7 +8289,7 @@
   "submission.sections.submit.progressbar.describe.recycle": "Opětovně použít",
 
   // "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
-  "submission.sections.submit.progressbar.describe.stepcustom": "Popsat",
+  "submission.sections.submit.progressbar.describe.stepcustom": "Popis",
 
   // "submission.sections.submit.progressbar.describe.stepone": "Describe",
   "submission.sections.submit.progressbar.describe.stepone": "Základní informace o dokumentu",
@@ -8449,10 +8427,10 @@
   "submission.sections.upload.form.until-placeholder": "Až do",
 
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-  "submission.sections.upload.header.policy.default.nolist": "Nahrané soubory v kolekci {{collectionName}} budou přístupné podle následující skupiny (skupin):",
+  "submission.sections.upload.header.policy.default.nolist": "Nahrané soubory v kolekci {{collectionName}} budou přístupné podle následujících skupin:",
 
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "submission.sections.upload.header.policy.default.withlist": "Vezměte prosím na vědomí, že nahrané soubory v kolekci {{collectionName}} budou kromě toho, co je explicitně rozhodnuto pro jednotlivý soubor, přístupné podle následující skupiny (skupin):",
+  "submission.sections.upload.header.policy.default.withlist": "Vezměte prosím na vědomí, že nahrané soubory v kolekci {{collectionName}} budou kromě toho, co je explicitně rozhodnuto pro jednotlivý soubor, přístupné podle následujících skupin:",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Zde najdete všechny soubory, které jsou aktuálně v záznamu. Můžete aktualizovat metadata souborů a podmínky přístupu nebo <strong>nahrát další soubory pouhým přetažením kdekoli na stránku</strong>.",
@@ -8621,14 +8599,13 @@
   "submission.sections.sherpa.record.information.uri": "URI",
 
   // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
-  "submission.sections.sherpa.error.message": "Informace ze Sherpa Romeo se nepodařilo načíst.",
+  "submission.sections.sherpa.error.message": "Při načítání informací ze služby Sherpa došlo k chybě",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "Nově podaný záznam",
 
   // "submission.submit.title": "New submission",
-  // TODO Source message changed - Revise the translation
-  "submission.submit.title": "Nově podaný záznam",
+  "submission.submit.title": "Nový příspěvek",
 
   // "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete": "Smazat",
@@ -8680,7 +8657,7 @@
   "submission.workflow.tasks.claimed.decline_help": "",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  "submission.workflow.tasks.claimed.reject.reason.info": "Do níže uvedeného pole zadejte důvod odmítnutí podání a uveďte, zda může vkladatel problém odstranit a podání znovu odeslat.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Do níže uvedeného pole zadejte důvod odmítnutí podání a uveďte, zda může odesílatel problém odstranit a podání znovu odeslat.",
 
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Popište důvod odmítnutí",
@@ -8695,7 +8672,7 @@
   "submission.workflow.tasks.claimed.reject.submit": "Odmítnout",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Pokud jste záznam zkontrolovali a zjistili, že <strong>není</strong> vhodný pro zařazení do kolekce, vyberte \"Odmítnout\".  Poté budete vyzváni k zadání zprávy, ve které uvedete, proč je záznam nevhodný, a zda by měl vkladatel něco změnit a znovu předložit.",
+  "submission.workflow.tasks.claimed.reject_help": "Pokud jste záznam zkontrolovali a zjistili, že <strong>není</strong> vhodný pro zařazení do kolekce, vyberte \"Odmítnout\".  Poté budete vyzváni k zadání zprávy, ve které uvedete, proč je záznam nevhodný, a zda by měl odesílatel něco změnit a znovu odeslat.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Vrátit do fondu",
@@ -8710,13 +8687,13 @@
   "submission.workflow.tasks.generic.processing": "Zpracování...",
 
   // "submission.workflow.tasks.generic.submitter": "Submitter",
-  "submission.workflow.tasks.generic.submitter": "Zadavatel",
+  "submission.workflow.tasks.generic.submitter": "Odesílatel",
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
   "submission.workflow.tasks.generic.success": "Operace proběhla úspěšně",
 
   // "submission.workflow.tasks.pool.claim": "Claim",
-  "submission.workflow.tasks.pool.claim": "Vyžádat si",
+  "submission.workflow.tasks.pool.claim": "Převzít",
 
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
   "submission.workflow.tasks.pool.claim_help": "Přiřaďte si tento úkol.",
@@ -8913,7 +8890,7 @@
   "uploader.or": ", nebo ",
 
   // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
-  "uploader.processing": "(nyní je bezpečné tuto stránku zavřít)",
+  "uploader.processing": "Zpracovávám nahrané soubory... (nyní je bezpečné tuto stránku zavřít)",
 
   // "uploader.queue-length": "Queue length",
   "uploader.queue-length": "Délka fronty",
@@ -8928,7 +8905,7 @@
   "virtual-metadata.delete-relationship.modal-head": "Vyberte záznamy, pro které chcete uložit virtuální metadata jako skutečná metadata",
 
   // "supervisedWorkspace.search.results.head": "Supervised Items",
-  "supervisedWorkspace.search.results.head": "Zkontrolované záznamy",
+  "supervisedWorkspace.search.results.head": "Záznamy pod dohledem",
 
   // "workspace.search.results.head": "Your submissions",
   "workspace.search.results.head": "Moje záznamy",
@@ -8937,7 +8914,7 @@
   "workflowAdmin.search.results.head": "Spravovat workflow",
 
   // "workflow.search.results.head": "Workflow tasks",
-  "workflow.search.results.head": "Kroky workflow",
+  "workflow.search.results.head": "Úlohy workflow",
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "Úlohy Workflow a osobního pracovního prostoru",
@@ -8977,22 +8954,22 @@
   "workflow-item.delete.button.confirm": "Smazat",
 
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
-  "workflow-item.send-back.notification.success.title": "Odesláno zpět vkladateli",
+  "workflow-item.send-back.notification.success.title": "Vráceno zpět odesílateli",
 
   // "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
-  "workflow-item.send-back.notification.success.content": "Tento záznam ve workflow byl úspěšně odeslán zpět vkladateli",
+  "workflow-item.send-back.notification.success.content": "Tento záznam ve workflow byl úspěšně vrácen zpět odesílateli",
 
   // "workflow-item.send-back.notification.error.title": "Something went wrong",
   "workflow-item.send-back.notification.error.title": "Něco se pokazilo",
 
   // "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
-  "workflow-item.send-back.notification.error.content": "Záznam ve workflow se nepodařilo odeslat zpět vkladateli",
+  "workflow-item.send-back.notification.error.content": "Záznam ve workflow se nepodařilo vrátit zpět odesílateli",
 
   // "workflow-item.send-back.title": "Send workflow item back to submitter",
-  "workflow-item.send-back.title": "Odeslat záznam ve workflow zpět vladateli",
+  "workflow-item.send-back.title": "Vrátit záznam ve workflow zpět odesílateli",
 
   // "workflow-item.send-back.header": "Send workflow item back to submitter",
-  "workflow-item.send-back.header": "Odeslat záznam ve workflow zpět vladateli",
+  "workflow-item.send-back.header": "Vrátit záznam ve workflow zpět odesílateli",
 
   // "workflow-item.send-back.button.cancel": "Cancel",
   "workflow-item.send-back.button.cancel": "Zrušit",
@@ -9008,7 +8985,7 @@
   "workspace-item.view.breadcrumbs": "Zobrazení pracovního prostoru",
 
   // "workspace-item.view.title": "Workspace View",
-  "workspace-item.view.title": "Zobrazení pracovní prostoru",
+  "workspace-item.view.title": "Zobrazení pracovního prostoru",
 
   // "workspace-item.delete.breadcrumbs": "Workspace Delete",
   "workspace-item.delete.breadcrumbs": "Vymazat obsah pracovního prostoru",
@@ -9074,10 +9051,10 @@
   "workflow-item.scorereviewaction.notification.error.content": "Nebylo možné zkontrolovat tento záznam",
 
   // "workflow-item.scorereviewaction.title": "Rate this item",
-  "workflow-item.scorereviewaction.title": "Zkontrolovat tento záznam",
+  "workflow-item.scorereviewaction.title": "Ohodnotit tento záznam",
 
   // "workflow-item.scorereviewaction.header": "Rate this item",
-  "workflow-item.scorereviewaction.header": "Zkontrolovat tento záznam",
+  "workflow-item.scorereviewaction.header": "Ohodnotit tento záznam",
 
   // "workflow-item.scorereviewaction.button.cancel": "Cancel",
   "workflow-item.scorereviewaction.button.cancel": "Zrušit",
@@ -9341,7 +9318,7 @@
   "person.page.orcid.sync-queue.send.bad-request-error": "Odeslání do ORCID se nezdařilo, protože zdroj odeslaný do registru ORCID není platný",
 
   // "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
-  "person.page.orcid.sync-queue.send.error": "Podání do ORCID se nezdařilo",
+  "person.page.orcid.sync-queue.send.error": "Odeslání do ORCID se nezdařilo",
 
   // "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
   "person.page.orcid.sync-queue.send.conflict-error": "Odeslání do ORCID se nezdařilo, protože zdroj se již nachází v registru ORCID",
@@ -9494,7 +9471,7 @@
   "system-wide-alert-form.retrieval.error": "Něco se pokazilo při načítání systémových upozornění",
 
   // "system-wide-alert.form.cancel": "Cancel",
-  "system-wide-alert.form.cancel": "Zrušir",
+  "system-wide-alert.form.cancel": "Zrušit",
 
   // "system-wide-alert.form.save": "Save",
   "system-wide-alert.form.save": "Uložit",
@@ -9512,7 +9489,7 @@
   "system-wide-alert.form.label.message": "Obsah upozornění",
 
   // "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
-  "system-wide-alert.form.label.countdownTo.enable": "Povolit odpočítávací měřič",
+  "system-wide-alert.form.label.countdownTo.enable": "Povolit odpočet",
 
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
   "system-wide-alert.form.label.countdownTo.hint": "Nápověda: Nastavte odpočítávací měřič. Je-li to povoleno, lze datum nastavit i v budoucnosti a systémový upozornění bude uvádět odpočítávání do nastaveného data. Ve chvíli, kdy skončí odpočítávání, zmizí i odpočítávač z upozornění. Server NEBUDE automaticky zastaven.",
@@ -9647,7 +9624,7 @@
 
   // "vocabulary-treeview.search.form.add": "Add",
   // TODO New key - Add a translation
-  "vocabulary-treeview.search.form.add": "Add",
+  "vocabulary-treeview.search.form.add": "Přidat",
 
   // "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
   // TODO New key - Add a translation
@@ -11034,6 +11011,5 @@
   // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
   // TODO New key - Add a translation
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
-
 
 }

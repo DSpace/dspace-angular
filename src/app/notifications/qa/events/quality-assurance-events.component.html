@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h2 class="border-bottom pb-2">
+      <h1 class="border-bottom pb-2">
         <div class="d-flex justify-content-between">
           {{'notifications.events.title'| translate}}
         </div>
-      </h2>
+      </h1>
       <ds-alert *ngIf="!targetId"  [type]="'alert-info'">
         <span [innerHTML]="'quality-assurance.events.description' | translate : {topic: selectedTopicName, source: sourceId}"></span>
       </ds-alert>
@@ -17,9 +17,9 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <h4 class="border-bottom pb-2">
+      <h2 class="border-bottom pb-2">
         {{'quality-assurance.events.topic' | translate}} {{this.showTopic}}
-      </h4>
+      </h2>
 
       <ds-loading class="container" *ngIf="(isEventPageLoading | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
 
@@ -247,7 +247,7 @@
 
 <ng-template #ignoreModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="ignoreModal">{{'quality-assurance.event.sure' | translate}}</h4>
+    <h1 class="modal-title h4" id="ignoreModal">{{'quality-assurance.event.sure' | translate}}</h1>
   </div>
   <div class="modal-body">
     <p>{{'quality-assurance.event.ignore.description' | translate}}</p>
@@ -264,7 +264,7 @@
 
 <ng-template #rejectModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="rejectModal">{{'quality-assurance.event.sure' | translate}}</h4>
+    <h1 class="modal-title h4" id="rejectModal">{{'quality-assurance.event.sure' | translate}}</h1>
   </div>
   <div class="modal-body">
     <p>{{'quality-assurance.event.reject.description' | translate}}</p>
@@ -281,7 +281,7 @@
 
 <ng-template #undoModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="undoModal">{{'quality-assurance.event.sure' | translate}}</h4>
+    <h1 class="modal-title h4" id="undoModal">{{'quality-assurance.event.sure' | translate}}</h1>
   </div>
   <div class="modal-body">
     <p>{{'quality-assurance.event.undo.description' | translate}}</p>
