@@ -779,7 +779,6 @@
   "error.item": "Greška pri preuzimanju stavke",
   "error.items": "Greška pri preuzimanju stavki",
   "error.objects": "Greška pri preuzimanju objekata",
-  "error.profile-groups": "Greška pri preuzimanju grupa profila",
   "error.recent-submissions": "Greška pri preuzimanju nedavnih podnesaka",
   "error.search-results": "Greška pri preuzimanju rezultata pretrage",
   "error.invalid-search-query": "Upit za pretragu nije ispravan. Proverite najbolja rešenja za <a href=\"https://solr.apache.org/guide/kueri-sintak-and-parsing.html\" target=\"_blank\">Solr sintaksu upita</a> za dodatne informacije o ovoj grešci .",

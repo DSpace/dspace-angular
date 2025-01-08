@@ -2105,9 +2105,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Alınan nesneler hatası",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Profil grupları alınırken hata oluştu",
-
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Son başvuruları alma hatası",
 

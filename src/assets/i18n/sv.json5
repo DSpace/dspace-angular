@@ -2420,9 +2420,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Ett fel uppstod när objekt hämtades",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Det gick inte att hämta profilgrupper",
-
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Ett fel uppstod när senste bidrag hämtades",
 

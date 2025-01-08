@@ -2252,9 +2252,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Objektu ielasīšanas kļūda",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Izgūstot profilu grupas, radās kļūda",
-
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Neseno iesniegumu ielasīšanas kļūda",
 

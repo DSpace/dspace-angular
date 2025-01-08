@@ -2899,7 +2899,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Chyba při načítání objektů",
 
-
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Chyba při načítání nedávných příspěvků",
 
@@ -11012,4 +11011,5 @@
   // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
   // TODO New key - Add a translation
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+
 }

@@ -2640,10 +2640,6 @@
   // TODO New key - Add a translation
   "error.objects": "Error fetching objects",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  // TODO New key - Add a translation
-  "error.profile-groups": "Error retrieving profile groups",
-
   // "error.recent-submissions": "Error fetching recent submissions",
   // TODO New key - Add a translation
   "error.recent-submissions": "Error fetching recent submissions",

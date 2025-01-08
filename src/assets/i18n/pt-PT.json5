@@ -2777,9 +2777,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Erro ao carregar objetos!",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Erro ao recuperar grupos de perfis",
-
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Erro ao carregar depósitos recentes!",
 

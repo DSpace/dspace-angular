@@ -2448,9 +2448,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Fout bij het ophalen van objecten",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Fout bij het ophalen van profielgroepen",
-
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Fout bij het ophalen van recent toegevoegde items",
 

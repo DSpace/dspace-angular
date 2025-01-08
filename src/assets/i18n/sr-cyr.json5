@@ -779,7 +779,6 @@
   "error.item": "Грешка при преузимању ставке",
   "error.items": "Грешка при преузимању ставки",
   "error.objects": "Грешка при преузимању објеката",
-  "error.profile-groups": "Грешка при преузимању група профила",
   "error.recent-submissions": "Грешка при преузимању недавних поднесака",
   "error.search-results": "Грешка при преузимању резултата претраге",
   "error.invalid-search-query": "Упит за претрагу није исправан. Проверите најбоља решења за <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.HTML\" target=\"_blank\">Solr синтаксу упита</a> за додатне информације о овој грешци.",

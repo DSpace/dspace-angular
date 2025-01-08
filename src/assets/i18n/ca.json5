@@ -2558,7 +2558,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Error en recuperar objectes",
 
-
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Error en recuperar els enviaments recents",
 

@@ -2221,9 +2221,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Виникла помилка при отриманні об'єктів",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Помилка отримання груп профілів",
-
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Виникла помилка при отриманні останніх submissions ",
 

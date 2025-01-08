@@ -2512,9 +2512,6 @@
   // "error.objects": "Error fetching objects",
   "error.objects": "Нысандарды алу қатесі",
 
-  //"error.profile-groups": "Error retrieving profile groups",
-  "error.profile-groups": "Профиль топтарын алу қатесі",
-
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Соңғы жіберілімдерді алу қатесі",
 
