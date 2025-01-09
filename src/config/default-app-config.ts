@@ -48,9 +48,6 @@ export class DefaultAppConfig implements AppConfig {
 
     // Trust X-FORWARDED-* headers from proxies
     useProxies: true,
-
-    transferState: true,
-    replaceRestUrl: false,
   };
 
   // The REST API server settings
