@@ -8131,7 +8131,7 @@
   // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
   "access-control-option-end-date-note": "Escoja la fecha hasta la cuál se aplicarán las condiciones de acceso especificadas",
 
-  //"browse.search-form.placeholder": "Search the repository",
+  // "browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar en el repositorio",
 
   // "community.form.thumbnail": "Thumbnail Description",
@@ -8149,4 +8149,603 @@
   // "forgot-email.form.aria.label": "Enter your e-mail address",
   "forgot-email.form.aria.label": "Introduzca su dirección de correo electrónico",
 
+  // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  "search.filters.remove": "Eliminar filtro de tipo {{ type }} con valor {{ value }}",
+
+  // "search.filters.applied.f.title": "Title",
+  "search.filters.applied.f.title": "Título",
+
+  // "search.filters.applied.f.original_bundle_filenames": "File name",
+  "search.filters.applied.f.original_bundle_filenames": "Nombre del archivo",
+
+  // "search.filters.applied.f.original_bundle_descriptions": "File description",
+  "search.filters.applied.f.original_bundle_descriptions": "Descripción del archivo",
+
+  // "search.filters.applied.operator.equals": "",
+  "search.filters.applied.operator.equals": "",
+
+  // "search.filters.applied.operator.notequals": " not equals",
+  "search.filters.applied.operator.notequals": " no es igual a",
+
+  // "search.filters.applied.operator.authority": "",
+  "search.filters.applied.operator.authority": "",
+
+  // "search.filters.applied.operator.notauthority": " not authority",
+  "search.filters.applied.operator.notauthority": " sin autoridad",
+
+  // "search.filters.applied.operator.contains": " contains",
+  "search.filters.applied.operator.contains": " contiene",
+
+  // "search.filters.applied.operator.notcontains": " not contains",
+  "search.filters.applied.operator.notcontains": " no contiene",
+
+  // "search.filters.applied.operator.query": "",
+  "search.filters.applied.operator.query": "",
+
+  // "search.filters.entityType.Person": "Person",
+  "search.filters.entityType.Person": "Persona",
+
+  // "search.filters.entityType.Project": "Project",
+  "search.filters.entityType.Project": "Proyecto",
+
+  // "search.filters.entityType.Publication": "Publication",
+  "search.filters.entityType.Publication": "Publicación",
+
+  // "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.Archived": "Archivado",
+
+  // "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.Validation": "Validación",
+
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.Waiting for Controller": "A la espera del revisor",
+
+  // "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.Workflow": "Flujo de trabajo",
+
+  // "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.Workspace": "Espacio de trabajo",
+
+  // "search.filters.operator.equals.text": "Equals",
+  "search.filters.operator.equals.text": "Es igual a",
+
+  // "search.filters.operator.notequals.text": "Not Equals",
+  "search.filters.operator.notequals.text": "No es igual a",
+
+  // "search.filters.operator.authority.text": "Authority",
+  "search.filters.operator.authority.text": "Autoridad",
+
+  // "search.filters.operator.notauthority.text": "Not Authority",
+  "search.filters.operator.notauthority.text": "Sin autoridad",
+
+  // "search.filters.operator.contains.text": "Contains",
+  "search.filters.operator.contains.text": "Contiene",
+
+  // "search.filters.operator.notcontains.text": "Not Contains",
+  "search.filters.operator.notcontains.text": "No contiene",
+
+  // "search.filters.operator.query.text": "Query",
+  "search.filters.operator.query.text": "Consulta",
+
+  // "search.sidebar.advanced-search.title": "Advanced Search",
+  "search.sidebar.advanced-search.title": "Búsqueda Avanzada",
+
+  // "discover.filters.head": "Discover",
+  "discover.filters.head": "Descubrir",
+
+  // "search.filters.filter.title.head": "Title",
+  "search.filters.filter.title.head": "Título",
+
+  // "search.filters.filter.title.placeholder": "Title",
+  "search.filters.filter.title.placeholder": "Título",
+
+  // "search.filters.filter.title.label": "Search Title",
+  "search.filters.filter.title.label": "Buscar por título",
+
+  // "search.filters.filter.original_bundle_filenames.head": "File name",
+  "search.filters.filter.original_bundle_filenames.head": "Nombre del archivo",
+
+  // "search.filters.filter.original_bundle_filenames.placeholder": "File name",
+  "search.filters.filter.original_bundle_filenames.placeholder": "Nombre del archivo",
+
+  // "search.filters.filter.original_bundle_filenames.label": "Search File name",
+  "search.filters.filter.original_bundle_filenames.label": "Buscar por nombre del archivo",
+
+  // "search.filters.filter.original_bundle_descriptions.head": "File description",
+  "search.filters.filter.original_bundle_descriptions.head": "Descripción del archivo",
+
+  // "search.filters.filter.original_bundle_descriptions.placeholder": "File description",
+  "search.filters.filter.original_bundle_descriptions.placeholder": "Descripción del archivo",
+
+  // "search.filters.filter.original_bundle_descriptions.label": "Search File description",
+  "search.filters.filter.original_bundle_descriptions.label": "Buscar por descripción del archivo",
+
+  // "search.filters.filter.funding.head": "Funding",
+  "search.filters.filter.funding.head": "Financiación",
+
+  // "search.filters.filter.funding.placeholder": "Funding",
+  "search.filters.filter.funding.placeholder": "Financiación",
+
+  // "search.filters.filter.queue_last_start_time.head": "Last processing time ",
+  "search.filters.filter.queue_last_start_time.head": "Última hora de procesamiento ",
+
+  // "search.filters.filter.queue_last_start_time.min.label": "Min range",
+  "search.filters.filter.queue_last_start_time.min.label": "Alcance mínimo",
+
+  // "search.filters.filter.queue_last_start_time.max.label": "Max range",
+  "search.filters.filter.queue_last_start_time.max.label": "Alcance máximo",
+
+  // "search.filters.filter.relateditem.head": "Related item",
+  "search.filters.filter.relateditem.head": "Ítem relacionado",
+
+  // "search.filters.filter.origin.head": "Origin",
+  "search.filters.filter.origin.head": "Origen",
+
+  // "search.filters.filter.ldn_service.head": "LDN Service",
+  "search.filters.filter.ldn_service.head": "Servicio LDN",
+
+  // "search.filters.filter.target.head": "Target",
+  "search.filters.filter.target.head": "Destino",
+
+  // "search.filters.filter.queue_status.head": "Queue status",
+  "search.filters.filter.queue_status.head": "Estado de la fila",
+
+  // "search.filters.filter.activity_stream_type.head": "Activity stream type",
+  "search.filters.filter.activity_stream_type.head": "Tipo de flujo de actividad",
+
+  // "search.filters.filter.coar_notify_type.head": "COAR Notify type",
+  "search.filters.filter.coar_notify_type.head": "COAR Tipo de notificación",
+
+  // "search.filters.filter.notification_type.head": "Notification type",
+  "search.filters.filter.notification_type.head": "Tipo de notificación",
+
+  // "search.filters.filter.relateditem.label": "Search related items",
+  "search.filters.filter.relateditem.label": "Buscar ítems relacionados",
+
+  // "search.filters.filter.queue_status.label": "Search queue status",
+  "search.filters.filter.queue_status.label": "Estado de la fila de búsqueda",
+
+  // "search.filters.filter.target.label": "Search target",
+  "search.filters.filter.target.label": "Buscar por destino",
+
+  // "search.filters.filter.activity_stream_type.label": "Search activity stream type",
+  "search.filters.filter.activity_stream_type.label": "Buscar por tipo de flujo de actividad",
+
+  // "search.filters.filter.coar_notify_type.label": "Search COAR Notify type",
+  "search.filters.filter.coar_notify_type.label": "Buscar por COAR Tipo de notificación",
+
+  // "search.filters.filter.notification_type.label": "Search notification type",
+  "search.filters.filter.notification_type.label": "Buscar por tipo de notificación",
+
+  // "search.filters.filter.relateditem.placeholder": "Related items",
+  "search.filters.filter.relateditem.placeholder": "Ítems relacionados",
+
+  // "search.filters.filter.target.placeholder": "Target",
+  "search.filters.filter.target.placeholder": "Destino",
+
+  // "search.filters.filter.origin.label": "Search source",
+  "search.filters.filter.origin.label": "Buscar fuente",
+
+  // "search.filters.filter.origin.placeholder": "Source",
+  "search.filters.filter.origin.placeholder": "Fuente",
+
+  // "search.filters.filter.ldn_service.label": "Search LDN Service",
+  "search.filters.filter.ldn_service.label": "Buscar por servicio LDN",
+
+  // "search.filters.filter.ldn_service.placeholder": "LDN Service",
+  "search.filters.filter.ldn_service.placeholder": "Servicio LDN",
+
+  // "search.filters.filter.queue_status.placeholder": "Queue status",
+  "search.filters.filter.queue_status.placeholder": "Estado de la fila",
+
+  // "search.filters.filter.activity_stream_type.placeholder": "Activity stream type",
+  "search.filters.filter.activity_stream_type.placeholder": "Tipo de flujo de actividad",
+
+  // "search.filters.filter.coar_notify_type.placeholder": "COAR Notify type",
+  "search.filters.filter.coar_notify_type.placeholder": "COAR Tipo de notificación",
+
+  // "search.filters.filter.notification_type.placeholder": "Notification",
+  "search.filters.filter.notification_type.placeholder": "Notificación",
+
+  // "search.filters.filter.notifyRelation.head": "Notify Relation",
+  "search.filters.filter.notifyRelation.head": "Notificación de relación",
+
+  // "search.filters.filter.notifyRelation.label": "Search Notify Relation",
+  "search.filters.filter.notifyRelation.label": "Buscar por notificación de relación",
+
+  // "search.filters.filter.notifyRelation.placeholder": "Notify Relation",
+  "search.filters.filter.notifyRelation.placeholder": "Notificación de relación",
+
+  // "search.filters.filter.notifyReview.head": "Notify Review",
+  "search.filters.filter.notifyReview.head": "Notificación de revisión",
+
+  // "search.filters.filter.notifyReview.label": "Search Notify Review",
+  "search.filters.filter.notifyReview.label": "Buscar por notificación de Revisión",
+
+  // "search.filters.filter.notifyReview.placeholder": "Notify Review",
+  "search.filters.filter.notifyReview.placeholder": "Notificación de revisión",
+
+  // "search.filters.filter.notifyEndorsement.head": "Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.head": "Notificación de aprobación",
+
+  // "search.filters.filter.notifyEndorsement.placeholder": "Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.placeholder": "Notificación de aprobación",
+
+  // "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.label": "Buscar por notificación de aprobación",
+
+  // "menu.section.notifications": "Notifications",
+  "menu.section.notifications": "Notificaciones",
+
+  // "menu.section.icon.notifications": "Notifications menu section",
+  "menu.section.icon.notifications": "Sección del menú de notificaciones",
+
+  // "menu.section.notifications_publication-claim": "Publication Claim",
+  "menu.section.notifications_publication-claim": "Reclamo de publicación",
+
+  // "menu.section.quality-assurance": "Quality Assurance",
+  "menu.section.quality-assurance": "Control de calidad",
+
+  // "notification.suggestion": "We found <b>{{count}} publications</b> in the {{source}} that seems to be related to your profile.<br>",
+  "notification.suggestion": "Hemos encontrado <b>{{count}} publicaciones</b> en el {{source}} que parecen estar relacionadas con su perfil.<br>",
+
+  // "notification.suggestion.review": "review the suggestions",
+  "notification.suggestion.review": "revisar sugerencias",
+
+  // "notification.suggestion.please": "Please",
+  "notification.suggestion.please": "Por favor",
+
+  // "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
+  "admin.notifications.publicationclaim.breadcrumbs": "Reclamo de publicación",
+
+  // "admin.notifications.publicationclaim.page.title": "Publication Claim",
+  "admin.notifications.publicationclaim.page.title": "Reclamo de publicación",
+
+  // "suggestion.loading": "Loading ...",
+  "suggestion.loading": "Cargando ...",
+
+  // "suggestion.title": "Publication Claim",
+  "suggestion.title": "Reclamo de publicación",
+
+  // "suggestion.title.breadcrumbs": "Publication Claim",
+  "suggestion.title.breadcrumbs": "Reclamo de publicación",
+
+  // "suggestion.targets.description": "Below you can see all the suggestions ",
+  "suggestion.targets.description": "A continuación puede ver todas las sugerencias ",
+
+  // "suggestion.targets": "Current Suggestions",
+  "suggestion.targets": "Sugerencias actuales",
+
+  // "suggestion.table.name": "Researcher Name",
+  "suggestion.table.name": "Nombre del investigador",
+
+  // "suggestion.table.actions": "Actions",
+  "suggestion.table.actions": "Acciones",
+
+  // "suggestion.button.review": "Review {{ total }} suggestion(s)",
+  "suggestion.button.review": "Revisar {{ total }} sugerencia(s)",
+
+  // "suggestion.button.review.title": "Review {{ total }} suggestion(s) for ",
+  "suggestion.button.review.title": "Revisar {{ total }} sugerencia(s) para ",
+
+  // "suggestion.noTargets": "No target found.",
+  "suggestion.noTargets": "Ningún destino encontrado.",
+
+  // "suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
+  "suggestion.target.error.service.retrieve": "Se ha producido un error al cargar los destinos de las sugerencias",
+
+  // "suggestion.evidence.type": "Type",
+  "suggestion.evidence.type": "Tipo",
+
+  // "suggestion.evidence.score": "Score",
+  "suggestion.evidence.score": "Puntuación",
+
+  // "suggestion.evidence.notes": "Notes",
+  "suggestion.evidence.notes": "Notas",
+
+  // "suggestion.approveAndImport": "Approve & import",
+  "suggestion.approveAndImport": "Aprobar e importar",
+
+  // "suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='{{ url }}'>View.</a>",
+  "suggestion.approveAndImport.success": "La sugerencia se ha importado correctamente. <a href='{{ url }}'>Ver.</a>",
+
+  // "suggestion.approveAndImport.bulk": "Approve & import Selected",
+  "suggestion.approveAndImport.bulk": "Aprobar e importar Seleccionado",
+
+  // "suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+  "suggestion.approveAndImport.bulk.success": "{{ count }} las sugerencias se han importado correctamente ",
+
+  // "suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
+  "suggestion.approveAndImport.bulk.error": "{{ count }} las sugerencias no se han importado debido a errores inesperados del servidor",
+
+  // "suggestion.ignoreSuggestion": "Ignore Suggestion",
+  "suggestion.ignoreSuggestion": "Ignorar sugerencia",
+
+  // "suggestion.ignoreSuggestion.success": "The suggestion has been discarded",
+  "suggestion.ignoreSuggestion.success": "La sugerencia ha sido descartada",
+
+  // "suggestion.ignoreSuggestion.bulk": "Ignore Suggestion Selected",
+  "suggestion.ignoreSuggestion.bulk": "Ignorar sugerencia seleccionada",
+
+  // "suggestion.ignoreSuggestion.bulk.success": "{{ count }} suggestions have been discarded ",
+  "suggestion.ignoreSuggestion.bulk.success": "{{ count }} sugerencias descartadas ",
+
+  // "suggestion.ignoreSuggestion.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
+  "suggestion.ignoreSuggestion.bulk.error": "{{ count }} las sugerencias no se han descartado debido a errores inesperados del servidor",
+
+  // "suggestion.seeEvidence": "See evidence",
+  "suggestion.seeEvidence": "Ver pruebas",
+
+  // "suggestion.hideEvidence": "Hide evidence",
+  "suggestion.hideEvidence": "Ocultar pruebas",
+
+  // "suggestion.suggestionFor": "Suggestions for",
+  "suggestion.suggestionFor": "Sugerencias para",
+
+  // "suggestion.suggestionFor.breadcrumb": "Suggestions for {{ name }}",
+  "suggestion.suggestionFor.breadcrumb": "Sugerencias para {{ name }}",
+
+  // "suggestion.source.openaire": "OpenAIRE Graph",
+  "suggestion.source.openaire": "Gráfico OpenAIRE",
+
+  // "suggestion.from.source": "from the ",
+  "suggestion.from.source": "del ",
+
+  // "suggestion.count.missing": "You have no publication claims left",
+  "suggestion.count.missing": "Ya no tiene reclamaciones de publicación",
+
+  // "suggestion.totalScore": "Total Score",
+  "suggestion.totalScore": "Puntuación total",
+
+  // "suggestion.type.openaire": "OpenAIRE",
+  "suggestion.type.openaire": "OpenAIRE",
+
+  // "notifications.events.title": "Quality Assurance Suggestions",
+  "notifications.events.title": "Sugerencias para el control de calidad",
+
+  // "admin.quality-assurance.breadcrumbs": "Quality Assurance",
+  "admin.quality-assurance.breadcrumbs": "Control de calidad",
+
+  // "admin.notifications.event.breadcrumbs": "Quality Assurance Suggestions",
+  "admin.notifications.event.breadcrumbs": "Sugerencias para el control de calidad",
+
+  // "admin.notifications.event.page.title": "Quality Assurance Suggestions",
+  "admin.notifications.event.page.title": "Sugerencias para el control de calidad",
+
+  // "admin.quality-assurance.page.title": "Quality Assurance",
+  "admin.quality-assurance.page.title": "Control de calidad",
+
+  // "admin.notifications.source.breadcrumbs": "Quality Assurance",
+  "admin.notifications.source.breadcrumbs": "Control de calidad",
+
+  // "quality-assurance.event.table.person-who-requested": "Requested by",
+  "quality-assurance.event.table.person-who-requested": "Solicitado por",
+
+  // "quality-assurance.title": "Quality Assurance",
+  "quality-assurance.title": "Control de calidad",
+
+  // "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
+  "quality-assurance.topics.description": "A continuación podrá ver todos los temas recibidos de las suscripciones a {{source}}.",
+
+  // "quality-assurance.source.description": "Below you can see all the notification's sources.",
+  "quality-assurance.source.description": "A continuación podrá ver todas las fuentes de la notificación.",
+
+  // "quality-assurance.topics": "Current Topics",
+  "quality-assurance.topics": "Temas actuales",
+
+  // "quality-assurance.source": "Current Sources",
+  "quality-assurance.source": "Fuentes actuales",
+
+  // "quality-assurance.table.topic": "Topic",
+  "quality-assurance.table.topic": "Tema",
+
+  // "quality-assurance.table.source": "Source",
+  "quality-assurance.table.source": "Fuente",
+
+  // "quality-assurance.table.last-event": "Last Event",
+  "quality-assurance.table.last-event": "Último acontecimiento",
+
+  // "quality-assurance.table.actions": "Actions",
+  "quality-assurance.table.actions": "Acciones",
+
+  // "quality-assurance.source-list.button.detail": "Show topics for {{param}}",
+  "quality-assurance.source-list.button.detail": "Mostrar temas para {{param}}",
+
+  // "quality-assurance.topics-list.button.detail": "Show suggestions for {{param}}",
+  "quality-assurance.topics-list.button.detail": "Mostrar sugerencias para {{param}}",
+
+  // "quality-assurance.noTopics": "No topics found.",
+  "quality-assurance.noTopics": "No se han encontrado temas.",
+
+  // "quality-assurance.noSource": "No sources found.",
+  "quality-assurance.noSource": "No se han encontrado fuentes.",
+
+  // "quality-assurance.topic.error.service.retrieve": "An error occurred while loading the Quality Assurance topics",
+  "quality-assurance.topic.error.service.retrieve": "Se ha producido un error al cargar los temas de control de calidad",
+
+  // "quality-assurance.source.error.service.retrieve": "An error occurred while loading the Quality Assurance source",
+  "quality-assurance.source.error.service.retrieve": "Se ha producido un error al cargar la fuente de control de calidad",
+
+  // "quality-assurance.loading": "Loading ...",
+  "quality-assurance.loading": "Cargando ...",
+
+  // "quality-assurance.events.topic": "Topic:",
+  "quality-assurance.events.topic": "Tema:",
+
+  // "quality-assurance.noEvents": "No suggestions found.",
+  "quality-assurance.noEvents": "No se han encontrado sugerencias.",
+
+  // "quality-assurance.event.table.trust": "Trust",
+  "quality-assurance.event.table.trust": "Confíe en",
+
+  // "quality-assurance.event.table.publication": "Publication",
+  "quality-assurance.event.table.publication": "Publicación",
+
+  // "quality-assurance.event.table.details": "Details",
+  "quality-assurance.event.table.details": "Detalles",
+
+  // "quality-assurance.event.table.project-details": "Project details",
+  "quality-assurance.event.table.project-details": "Detalles del proyecto",
+
+  // "quality-assurance.event.table.reasons": "Reasons",
+  "quality-assurance.event.table.reasons": "Razones",
+
+  // "quality-assurance.event.table.actions": "Actions",
+  "quality-assurance.event.table.actions": "Acciones",
+
+  // "quality-assurance.event.action.accept": "Accept suggestion",
+  "quality-assurance.event.action.accept": "Aceptar sugerencia",
+
+  // "quality-assurance.event.action.ignore": "Ignore suggestion",
+  "quality-assurance.event.action.ignore": "Ignorar sugerencia",
+
+  // "quality-assurance.event.action.undo": "Delete",
+  "quality-assurance.event.action.undo": "Borrar",
+
+  // "quality-assurance.event.action.reject": "Reject suggestion",
+  "quality-assurance.event.action.reject": "Rechazar la sugerencia",
+
+  // "quality-assurance.event.action.import": "Import project and accept suggestion",
+  "quality-assurance.event.action.import": "Importar proyecto y aceptar sugerencia",
+
+  // "quality-assurance.event.table.pidtype": "PID Type:",
+  "quality-assurance.event.table.pidtype": "Tipo de PID:",
+
+  // "quality-assurance.event.table.pidvalue": "PID Value:",
+  "quality-assurance.event.table.pidvalue": "Valor del PID:",
+
+  // "quality-assurance.event.table.subjectValue": "Subject Value:",
+  "quality-assurance.event.table.subjectValue": "Valor del tema:",
+
+  // "quality-assurance.event.table.abstract": "Abstract:",
+  "quality-assurance.event.table.abstract": "Resumen:",
+
+  // "quality-assurance.event.table.suggestedProject": "OpenAIRE Suggested Project data",
+  "quality-assurance.event.table.suggestedProject": "Datos del proyecto sugeridos por OpenAIRE",
+
+  // "quality-assurance.event.table.project": "Project title:",
+  "quality-assurance.event.table.project": "Título del proyecto:",
+
+  // "quality-assurance.event.table.acronym": "Acronym:",
+  "quality-assurance.event.table.acronym": "Acrónimo:",
+
+  // "quality-assurance.event.table.code": "Code:",
+  "quality-assurance.event.table.code": "Código:",
+
+  // "quality-assurance.event.table.funder": "Funder:",
+  "quality-assurance.event.table.funder": "Financiador:",
+
+  // "quality-assurance.event.table.fundingProgram": "Funding program:",
+  "quality-assurance.event.table.fundingProgram": "Programa de financiación:",
+
+  // "quality-assurance.event.table.jurisdiction": "Jurisdiction:",
+  "quality-assurance.event.table.jurisdiction": "Jurisdicción:",
+
+  // "quality-assurance.events.back": "Back to topics",
+  "quality-assurance.events.back": "Volver a los temas",
+
+  // "quality-assurance.events.back-to-sources": "Back to sources",
+  "quality-assurance.events.back-to-sources": "Volver a las fuentes",
+
+  // "quality-assurance.event.table.less": "Show less",
+  "quality-assurance.event.table.less": "Mostrar menos",
+
+  // "quality-assurance.event.table.more": "Show more",
+  "quality-assurance.event.table.more": "Mostrar más",
+
+  // "quality-assurance.event.project.found": "Bound to the local record:",
+  "quality-assurance.event.project.found": "Vinculado al registro local:",
+
+  // "quality-assurance.event.project.notFound": "No local record found",
+  "quality-assurance.event.project.notFound": "No se ha encontrado ningún registro local",
+
+  // "quality-assurance.event.sure": "Are you sure?",
+  "quality-assurance.event.sure": "¿Seguro?",
+
+  // "quality-assurance.event.ignore.description": "This operation can't be undone. Ignore this suggestion?",
+  "quality-assurance.event.ignore.description": "Esta operación no se puede deshacer. ¿Ignorar esta sugerencia?",
+
+  // "quality-assurance.event.undo.description": "This operation can't be undone!",
+  "quality-assurance.event.undo.description": "¡Esta operación no se puede deshacer!",
+
+  // "quality-assurance.event.reject.description": "This operation can't be undone. Reject this suggestion?",
+  "quality-assurance.event.reject.description": "Esta operación no se puede deshacer. ¿Rechazas esta sugerencia?",
+
+  // "quality-assurance.event.accept.description": "No DSpace project selected. A new project will be created based on the suggestion data.",
+  "quality-assurance.event.accept.description": "No se ha seleccionado ningún proyecto DSpace. Se creará un nuevo proyecto basado en los datos de la sugerencia.",
+
+  // "quality-assurance.event.action.cancel": "Cancel",
+  "quality-assurance.event.action.cancel": "Cancelar",
+
+  // "quality-assurance.event.action.saved": "Your decision has been saved successfully.",
+  "quality-assurance.event.action.saved": "Su elección se ha guardado correctamente.",
+
+  // "quality-assurance.event.action.error": "An error has occurred. Your decision has not been saved.",
+  "quality-assurance.event.action.error": "Se ha producido un error. Su elección no se ha guardado.",
+
+  // "quality-assurance.event.modal.project.title": "Choose a project to bound",
+  "quality-assurance.event.modal.project.title": "Elija un proyecto para vincular",
+
+  // "quality-assurance.event.modal.project.publication": "Publication:",
+  "quality-assurance.event.modal.project.publication": "Publicación:",
+
+  // "quality-assurance.event.modal.project.bountToLocal": "Bound to the local record:",
+  "quality-assurance.event.modal.project.bountToLocal": "Vinculado al registro local:",
+
+  // "quality-assurance.event.modal.project.select": "Project search",
+  "quality-assurance.event.modal.project.select": "Buscar proyectos",
+
+  // "quality-assurance.event.modal.project.search": "Search",
+  "quality-assurance.event.modal.project.search": "Buscar",
+
+  // "quality-assurance.event.modal.project.clear": "Clear",
+  "quality-assurance.event.modal.project.clear": "Limpiar",
+
+  // "quality-assurance.event.modal.project.cancel": "Cancel",
+  "quality-assurance.event.modal.project.cancel": "Cancelar",
+
+  // "quality-assurance.event.modal.project.bound": "Bound project",
+  "quality-assurance.event.modal.project.bound": "Proyecto vinculado",
+
+  // "quality-assurance.event.modal.project.remove": "Remove",
+  "quality-assurance.event.modal.project.remove": "Eliminar",
+
+  // "quality-assurance.event.modal.project.placeholder": "Enter a project name",
+  "quality-assurance.event.modal.project.placeholder": "Introduzca el nombre del proyecto",
+
+  // "quality-assurance.event.modal.project.notFound": "No project found.",
+  "quality-assurance.event.modal.project.notFound": "No se ha encontrado ningún proyecto.",
+
+  // "quality-assurance.event.project.bounded": "The project has been linked successfully.",
+  "quality-assurance.event.project.bounded": "El proyecto se ha vinculado con éxito.",
+
+  // "quality-assurance.event.project.removed": "The project has been successfully unlinked.",
+  "quality-assurance.event.project.removed": "El proyecto se ha desvinculado con éxito.",
+
+  // "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
+  "quality-assurance.event.project.error": "Se ha producido un error. No se ha realizado ninguna operación.",
+
+  // "quality-assurance.event.reason": "Reason",
+  "quality-assurance.event.reason": "Motivo",
+
+  // "dso-selector.placeholder.type.community": "community",
+  "dso-selector.placeholder.type.community": "comunidad",
+
+  // "dso-selector.placeholder.type.collection": "collection",
+  "dso-selector.placeholder.type.collection": "colección",
+
+  // "dso-selector.placeholder.type.item": "item",
+  "dso-selector.placeholder.type.item": "ítem",
+
+  // "search.sidebar.advanced-search.filter-by": "Filter by",
+  "search.sidebar.advanced-search.filter-by": "Filtrar por",
+
+  // "search.sidebar.advanced-search.filters": "Filters",
+  "search.sidebar.advanced-search.filters": "Filtros",
+
+  // "search.sidebar.advanced-search.operators": "Operators",
+  "search.sidebar.advanced-search.operators": "Operadores",
+
+  // "search.sidebar.advanced-search.add": "Add",
+  "search.sidebar.advanced-search.add": "Añadir",
 }
