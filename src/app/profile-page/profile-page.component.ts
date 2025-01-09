@@ -188,7 +188,7 @@ export class ProfilePageComponent implements OnInit {
    */
   updateSecurity() {
     const passEntered = isNotEmpty(this.password);
-    if (this.invalidSecurity) {
+    if (this.currentPassword && !passEntered) {
       this.notificationsService.error(this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.general'));
     }
     if (!this.invalidSecurity && passEntered) {
