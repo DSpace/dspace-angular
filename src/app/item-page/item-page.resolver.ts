@@ -18,7 +18,7 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { hasValue } from '../shared/empty.util';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from './item.resolver';
+import { getItemPageLinksToFollow } from './item.resolver';
 import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
@@ -40,16 +40,22 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   store: Store<AppState> = inject(Store<AppState>),
   authService: AuthService = inject(AuthService),
 ): Observable<RemoteData<Item>> => {
-  return itemService.findById(
+  const itemRD$ = itemService.findById(
     route.params.id,
     true,
     false,
-    ...ITEM_PAGE_LINKS_TO_FOLLOW,
+    ...getItemPageLinksToFollow(),
   ).pipe(
     getFirstCompletedRemoteData(),
     redirectOn4xx(router, authService),
+  );
+
+  itemRD$.subscribe((itemRD: RemoteData<Item>) => {
+    store.dispatch(new ResolvedAction(state.url, itemRD.payload));
+  });
+
+  return itemRD$.pipe(
     map((rd: RemoteData<Item>) => {
-      store.dispatch(new ResolvedAction(state.url, rd.payload));
       if (rd.hasSucceeded && hasValue(rd.payload)) {
         const thisRoute = state.url;
 
