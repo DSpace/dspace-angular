@@ -54,6 +54,7 @@ import {
   APP_CONFIG_STATE,
   AppConfig,
 } from '../../config/app-config.interface';
+import { BuildConfig } from '../../config/build-config.interface';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { DefaultAppConfig } from '../../config/default-app-config';
 import { environment } from '../../environments/environment';
@@ -70,7 +71,7 @@ export class BrowserInitService extends InitService {
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    @Inject(APP_CONFIG) protected appConfig: BuildConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
@@ -113,9 +114,7 @@ export class BrowserInitService extends InitService {
 
   protected init(): () => Promise<boolean> {
     return async () => {
-      if (this.appConfig.ui.transferState) {
-        await this.loadAppState();
-      }
+      await this.loadAppState();
       this.checkAuthenticationToken();
       this.externalAuthCheck();
       this.initCorrelationId();
@@ -147,7 +146,7 @@ export class BrowserInitService extends InitService {
    */
   private async loadAppState(): Promise<boolean> {
     // The app state can be transferred only when SSR and CSR are using the same base url for the REST API
-    if (this.appConfig.ui.transferState && (!this.appConfig.rest.hasSsrBaseUrl || this.appConfig.ui.replaceRestUrl)) {
+    if (this.appConfig.ssr.transferState) {
       const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
       this.transferState.remove(InitService.NGRX_STATE);
       this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
