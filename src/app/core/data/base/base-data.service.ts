@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 
-import { AsyncSubject, from as observableFrom, Observable, of as observableOf } from 'rxjs';
+import { AsyncSubject, from as observableFrom, Observable, of as observableOf, shareReplay } from 'rxjs';
 import { map, mergeMap, skipWhile, switchMap, take, tap, toArray } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
@@ -264,6 +264,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       isNotEmptyOperator(),
       take(1),
       map((href: string) => this.buildHrefFromFindOptions(href, {}, [], ...linksToFollow)),
+      shareReplay(1),
     );
 
     const startTime: number = new Date().getTime();
@@ -299,6 +300,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       isNotEmptyOperator(),
       take(1),
       map((href: string) => this.buildHrefFromFindOptions(href, options, [], ...linksToFollow)),
+      shareReplay(1),
     );
 
     const startTime: number = new Date().getTime();
