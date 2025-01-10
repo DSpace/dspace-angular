@@ -17,7 +17,7 @@ import { PaginationComponentOptions } from './pagination-component-options.model
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { hasValue } from '../empty.util';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
@@ -224,6 +224,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
     this.currentPage$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
+      tap((currentPagination) => this.pageChange.emit(currentPagination.currentPage)),
       map((currentPagination) => currentPagination.currentPage)
     );
     this.pageSize$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
@@ -258,6 +259,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   public doPageChange(page: number) {
     this.updateParams({page: page.toString()});
     this.emitPaginationChange();
+    this.pageChange.emit(page);
   }
 
   /**
