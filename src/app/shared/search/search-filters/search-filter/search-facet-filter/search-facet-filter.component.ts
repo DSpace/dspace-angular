@@ -160,7 +160,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.currentUrl = this.router.url;
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
     this.searchOptions$ = this.searchConfigService.searchOptions.pipe(
-      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign({}, options, {
+      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign(new SearchOptions(options), {
         scope: this.scope,
       })),
     );

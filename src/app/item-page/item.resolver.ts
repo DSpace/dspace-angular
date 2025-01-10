@@ -7,6 +7,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import { environment } from '../../environments/environment';
 import { AppState } from '../app.reducer';
 import { ItemDataService } from '../core/data/item-data.service';
 import { RemoteData } from '../core/data/remote-data';
@@ -22,15 +23,21 @@ import {
  * The self links defined in this list are expected to be requested somewhere in the near future
  * Requesting them as embeds will limit the number of requests
  */
-export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
-  followLink('owningCollection', {},
-    followLink('parentCommunity', {},
-      followLink('parentCommunity')),
-  ),
-  followLink('relationships'),
-  followLink('version', {}, followLink('versionhistory')),
-  followLink('thumbnail'),
-];
+export function getItemPageLinksToFollow(): FollowLinkConfig<Item>[] {
+  const followLinks: FollowLinkConfig<Item>[] = [
+    followLink('owningCollection', {},
+      followLink('parentCommunity', {},
+        followLink('parentCommunity')),
+    ),
+    followLink('relationships'),
+    followLink('version', {}, followLink('versionhistory')),
+    followLink('thumbnail'),
+  ];
+  if (environment.item.showAccessStatuses) {
+    followLinks.push(followLink('accessStatus'));
+  }
+  return followLinks;
+}
 
 export const itemResolver: ResolveFn<RemoteData<Item>> = (
   route: ActivatedRouteSnapshot,
@@ -42,7 +49,7 @@ export const itemResolver: ResolveFn<RemoteData<Item>> = (
     route.params.id,
     true,
     false,
-    ...ITEM_PAGE_LINKS_TO_FOLLOW,
+    ...getItemPageLinksToFollow(),
   ).pipe(
     getFirstCompletedRemoteData(),
   );

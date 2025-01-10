@@ -62,6 +62,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
+import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
@@ -86,6 +87,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     AsyncPipe,
     ItemSelectComponent,
     NgIf,
+    BrowserOnlyPipe,
   ],
   standalone: true,
 })

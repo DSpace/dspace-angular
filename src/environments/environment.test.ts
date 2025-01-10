@@ -422,4 +422,9 @@ export const environment: BuildConfig = {
       ],
     },
   ],
+
+  liveRegion: {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
+  },
 };

@@ -13,10 +13,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   map,
   mergeMap,
@@ -58,7 +55,12 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   /**
    * A paginated list of bitstream formats to be shown on the page
    */
-  bitstreamFormats: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
+  bitstreamFormats$: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
+
+  /**
+   * The currently selected {@link BitstreamFormat} IDs
+   */
+  selectedBitstreamFormatIDs$: Observable<string[]>;
 
   /**
    * The current pagination configuration for the page
@@ -125,14 +127,11 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Checks whether a given bitstream format is selected in the list (checkbox)
-   * @param bitstreamFormat
+   * Returns the list of all the bitstream formats that are selected in the list (checkbox)
    */
-  isSelected(bitstreamFormat: BitstreamFormat): Observable<boolean> {
+  selectedBitstreamFormatIDs(): Observable<string[]> {
     return this.bitstreamFormatService.getSelectedBitstreamFormats().pipe(
-      map((bitstreamFormats: BitstreamFormat[]) => {
-        return bitstreamFormats.find((selectedFormat) => selectedFormat.id === bitstreamFormat.id) != null;
-      }),
+      map((bitstreamFormats: BitstreamFormat[]) => bitstreamFormats.map((selectedFormat) => selectedFormat.id)),
     );
   }
 
@@ -156,27 +155,23 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
     const prefix = 'admin.registries.bitstream-formats.delete';
     const suffix = success ? 'success' : 'failure';
 
-    const messages = observableCombineLatest(
-      this.translateService.get(`${prefix}.${suffix}.head`),
-      this.translateService.get(`${prefix}.${suffix}.amount`, { amount: amount }),
-    );
-    messages.subscribe(([head, content]) => {
+    const head: string = this.translateService.instant(`${prefix}.${suffix}.head`);
+    const content: string = this.translateService.instant(`${prefix}.${suffix}.amount`, { amount: amount });
 
-      if (success) {
-        this.notificationsService.success(head, content);
-      } else {
-        this.notificationsService.error(head, content);
-      }
-    });
+    if (success) {
+      this.notificationsService.success(head, content);
+    } else {
+      this.notificationsService.error(head, content);
+    }
   }
 
   ngOnInit(): void {
-
-    this.bitstreamFormats = this.paginationService.getFindListOptions(this.pageConfig.id, this.pageConfig).pipe(
+    this.bitstreamFormats$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.pageConfig).pipe(
       switchMap((findListOptions: FindListOptions) => {
         return this.bitstreamFormatService.findAll(findListOptions);
       }),
     );
+    this.selectedBitstreamFormatIDs$ = this.selectedBitstreamFormatIDs();
   }
 
 

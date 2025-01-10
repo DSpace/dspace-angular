@@ -9,7 +9,7 @@
         <ds-badges [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-badges>
       </div>
       <ds-truncatable [id]="item.id">
-        <h3 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
+        <h2 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h2>
         <div>
           <span class="text-muted">
             <ds-truncatable-part [id]="item.id" [minLines]="1">

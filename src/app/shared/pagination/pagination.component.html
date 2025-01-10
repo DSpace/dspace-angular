@@ -3,7 +3,7 @@
     <div class="row">
       <div *ngIf="!hidePaginationDetail && collectionSize > 0" class="col-auto pagination-info">
           <span class="align-middle hidden-xs-down">{{ 'pagination.showing.label' | translate }}</span>
-          <span class="align-middle">{{ 'pagination.showing.detail' | translate:(getShowingDetails(collectionSize)|async)}}</span>
+          <span class="align-middle">{{ 'pagination.showing.detail' | translate:(showingDetails$ | async)}}</span>
       </div>
       <div class="col">
         <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
@@ -39,7 +39,8 @@
 
   <div *ngIf="shouldShowBottomPager | async">
     <div *ngIf="showPaginator" class="pagination justify-content-center clearfix bottom">
-      <ngb-pagination [boundaryLinks]="paginationOptions.boundaryLinks"
+      <ngb-pagination [attr.aria-label]="('pagination-control.page-number-bar' | translate) + paginationOptions.id"
+                      [boundaryLinks]="paginationOptions.boundaryLinks"
                       [collectionSize]="collectionSize"
                       [disabled]="paginationOptions.disabled"
                       [ellipses]="paginationOptions.ellipses"

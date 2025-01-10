@@ -3,31 +3,31 @@ import { testA11y } from 'cypress/support/utils';
 const page = {
   openLoginMenu() {
     // Click the "Log In" dropdown menu in header
-    cy.get('ds-header [data-test="login-menu"]').click();
+    cy.get('[data-test="login-menu"]').click();
   },
   openUserMenu() {
     // Once logged in, click the User menu in header
-    cy.get('ds-header [data-test="user-menu"]').click();
+    cy.get('[data-test="user-menu"]').click();
   },
   submitLoginAndPasswordByPressingButton(email, password) {
     // Enter email
-    cy.get('ds-header [data-test="email"]').type(email);
+    cy.get('[data-test="email"]').type(email);
     // Enter password
-    cy.get('ds-header [data-test="password"]').type(password);
+    cy.get('[data-test="password"]').type(password);
     // Click login button
-    cy.get('ds-header [data-test="login-button"]').click();
+    cy.get('[data-test="login-button"]').click();
   },
   submitLoginAndPasswordByPressingEnter(email, password) {
     // In opened Login modal, fill out email & password, then click Enter
-    cy.get('ds-header [data-test="email"]').type(email);
-    cy.get('ds-header [data-test="password"]').type(password);
-    cy.get('ds-header [data-test="password"]').type('{enter}');
+    cy.get('[data-test="email"]').type(email);
+    cy.get('[data-test="password"]').type(password);
+    cy.get('[data-test="password"]').type('{enter}');
   },
   submitLogoutByPressingButton() {
     // This is the POST command that will actually log us out
     cy.intercept('POST', '/server/api/authn/logout').as('logout');
     // Click logout button
-    cy.get('ds-header [data-test="logout-button"]').click();
+    cy.get('[data-test="logout-button"]').click();
     // Wait until above POST command responds before continuing
     // (This ensures next action waits until logout completes)
     cy.wait('@logout');
@@ -67,7 +67,7 @@ describe('Login Modal', () => {
 
     // Login, and the <ds-log-in> tag should no longer exist
     page.submitLoginAndPasswordByPressingEnter(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
-    cy.get('.form-login').should('not.exist');
+    cy.get('ds-log-in').should('not.exist');
 
     // Verify we are still on homepage
     cy.url().should('include', '/home');

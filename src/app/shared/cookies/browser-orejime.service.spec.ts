@@ -20,12 +20,12 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../remote-data.utils';
 import {
-  BrowserKlaroService,
+  BrowserOrejimeService,
   COOKIE_MDFIELD,
-} from './browser-klaro.service';
-import { ANONYMOUS_STORAGE_NAME_KLARO } from './klaro-configuration';
+} from './browser-orejime.service';
+import { ANONYMOUS_STORAGE_NAME_OREJIME } from './orejime-configuration';
 
-describe('BrowserKlaroService', () => {
+describe('BrowserOrejimeService', () => {
   const trackingIdProp = 'google.analytics.key';
   const trackingIdTestValue = 'mock-tracking-id';
   const googleAnalytics = 'google-analytics';
@@ -37,7 +37,7 @@ describe('BrowserKlaroService', () => {
   let cookieService;
 
   let user;
-  let service: BrowserKlaroService;
+  let service: BrowserOrejimeService;
   let configurationDataService: ConfigurationDataService;
   const createConfigSuccessSpy = (...values: string[]) => jasmine.createSpyObj('configurationDataService', {
     findByPropertyName: createSuccessfulRemoteDataObject$({
@@ -70,7 +70,7 @@ describe('BrowserKlaroService', () => {
     configurationDataService = createConfigSuccessSpy(recaptchaValue);
     findByPropertyName = configurationDataService.findByPropertyName;
     cookieService = jasmine.createSpyObj('cookieService', {
-      get: '{%22token_item%22:true%2C%22impersonation%22:true%2C%22redirect%22:true%2C%22language%22:true%2C%22klaro%22:true%2C%22has_agreed_end_user%22:true%2C%22google-analytics%22:true}',
+      get: '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true}',
       set: () => {
         /* empty */
       },
@@ -78,7 +78,7 @@ describe('BrowserKlaroService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        BrowserKlaroService,
+        BrowserOrejimeService,
         {
           provide: TranslateService,
           useValue: translateService,
@@ -101,7 +101,7 @@ describe('BrowserKlaroService', () => {
         },
       ],
     });
-    service = TestBed.inject(BrowserKlaroService);
+    service = TestBed.inject(BrowserOrejimeService);
     appName = 'testName';
     purpose = 'test purpose';
     testKey = 'this.is.a.fake.message.key';
@@ -115,7 +115,7 @@ describe('BrowserKlaroService', () => {
           },
         },
       },
-      services: [{
+      apps: [{
         name: appName,
         purposes: [purpose],
       }, {
@@ -125,7 +125,8 @@ describe('BrowserKlaroService', () => {
 
     };
 
-    service.klaroConfig = mockConfig;
+    service.orejimeConfig = mockConfig;
+    service.createCategories();
   });
 
   it('should be created', () => {
@@ -248,7 +249,7 @@ describe('BrowserKlaroService', () => {
         scheduler.schedule(() => service.getSavedPreferences().subscribe());
         scheduler.flush();
 
-        expect(cookieService.get).toHaveBeenCalledWith(ANONYMOUS_STORAGE_NAME_KLARO);
+        expect(cookieService.get).toHaveBeenCalledWith(ANONYMOUS_STORAGE_NAME_OREJIME);
       });
     });
 
@@ -261,7 +262,7 @@ describe('BrowserKlaroService', () => {
         scheduler.schedule(() => service.getSavedPreferences().subscribe());
         scheduler.flush();
 
-        expect(cookieService.get).toHaveBeenCalledWith('klaro-' + user.uuid);
+        expect(cookieService.get).toHaveBeenCalledWith('orejime-' + user.uuid);
       });
     });
   });
@@ -320,12 +321,12 @@ describe('BrowserKlaroService', () => {
       configurationDataService.findByPropertyName = findByPropertyName;
     });
 
-    it('should not filter googleAnalytics when servicesToHide are empty', () => {
-      const filteredConfig = (service as any).filterConfigServices([]);
+    it('should not filter googleAnalytics when appsToHide is empty', () => {
+      const filteredConfig = (service as any).filterConfigApps([]);
       expect(filteredConfig).toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
-    it('should filter services using names passed as servicesToHide', () => {
-      const filteredConfig = (service as any).filterConfigServices([googleAnalytics]);
+    it('should filter apps using names passed as appsToHide', () => {
+      const filteredConfig = (service as any).filterConfigApps([googleAnalytics]);
       expect(filteredConfig).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
     it('should have been initialized with googleAnalytics', () => {
@@ -337,7 +338,7 @@ describe('BrowserKlaroService', () => {
         }),
       );
       service.initialize();
-      expect(service.klaroConfig.services).toContain(jasmine.objectContaining({ name: googleAnalytics }));
+      expect(service.orejimeConfig.apps).toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
     it('should filter googleAnalytics when empty configuration is retrieved', () => {
       configurationDataService.findByPropertyName =
@@ -363,7 +364,7 @@ describe('BrowserKlaroService', () => {
           );
 
       service.initialize();
-      expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
+      expect(service.orejimeConfig.apps).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
     it('should filter googleAnalytics when an error occurs', () => {
       configurationDataService.findByPropertyName =
@@ -381,7 +382,7 @@ describe('BrowserKlaroService', () => {
             }),
           );
       service.initialize();
-      expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
+      expect(service.orejimeConfig.apps).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
     it('should filter googleAnalytics when an invalid payload is retrieved', () => {
       configurationDataService.findByPropertyName =
@@ -399,7 +400,7 @@ describe('BrowserKlaroService', () => {
             }),
           );
       service.initialize();
-      expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
+      expect(service.orejimeConfig.apps).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
   });
 });
