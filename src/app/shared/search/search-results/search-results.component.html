@@ -1,8 +1,12 @@
 @if ((filters$ | async).length > 0 && isLoading()) {
   <div class="row">
     <div class="col-12">
-      <div class="filter-badge-skeleton">
-        <ngx-skeleton-loader/>
+      <div class="d-flex">
+        @for (filter of (filters$| async); track filter.key) {
+          <div class="filter-badge-skeleton mr-2">
+            <ngx-skeleton-loader/>
+          </div>
+        }
       </div>
     </div>
   </div>
