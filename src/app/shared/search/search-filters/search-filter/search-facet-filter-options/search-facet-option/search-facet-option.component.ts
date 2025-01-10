@@ -20,15 +20,15 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { LiveRegionService } from '../../../../../../shared/live-region/live-region.service';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { getFacetValueForType } from '../../../../search.utils';
-import { LiveRegionService } from '../../../../../../shared/live-region/live-region.service';
 
 @Component({
   selector: 'ds-search-facet-option',
