@@ -1,4 +1,7 @@
-import { NgIf } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -7,12 +10,15 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { Observable } from 'rxjs';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import {
   fadeIn,
@@ -27,6 +33,7 @@ import { CollectionElementLinkType } from '../../object-collection/collection-el
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchFilter } from '../models/search-filter.model';
 import { SearchResult } from '../models/search-result.model';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
@@ -39,12 +46,13 @@ export interface SelectionConfig {
 @Component({
   selector: 'ds-base-search-results',
   templateUrl: './search-results.component.html',
+  styleUrls: ['./search-results.component.scss'],
   animations: [
     fadeIn,
     fadeInOut,
   ],
   standalone: true,
-  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ErrorComponent, RouterLink, TranslateModule, SearchResultsSkeletonComponent],
+  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ErrorComponent, RouterLink, TranslateModule, SearchResultsSkeletonComponent, AsyncPipe, NgxSkeletonLoaderModule],
 })
 
 /**
@@ -52,6 +60,8 @@ export interface SelectionConfig {
  */
 export class SearchResultsComponent {
   hasNoValue = hasNoValue;
+
+  filters$: Observable<SearchFilter[]>;
 
   /**
    * The link type of the listed search results
@@ -124,6 +134,10 @@ export class SearchResultsComponent {
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  constructor(private searchConfigService: SearchConfigurationService) {
+    this.filters$ = this.searchConfigService.getCurrentFilters();
+  }
 
   /**
    * Check if search results are loading

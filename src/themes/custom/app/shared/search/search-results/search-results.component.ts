@@ -1,7 +1,11 @@
-import { NgIf } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import {
   fadeIn,
@@ -17,13 +21,13 @@ import { SearchResultsSkeletonComponent } from '../../../../../../app/shared/sea
   selector: 'ds-themed-search-results',
   // templateUrl: './search-results.component.html',
   templateUrl: '../../../../../../app/shared/search/search-results/search-results.component.html',
-  // styleUrls: ['./search-results.component.scss'],
+  styleUrls: ['../../../../../../app/shared/search/search-results/search-results.component.scss'],
   animations: [
     fadeIn,
     fadeInOut,
   ],
   standalone: true,
-  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ErrorComponent, RouterLink, TranslateModule, SearchResultsSkeletonComponent],
+  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ErrorComponent, RouterLink, TranslateModule, SearchResultsSkeletonComponent,  SearchResultsSkeletonComponent, AsyncPipe, NgxSkeletonLoaderModule],
 })
 export class SearchResultsComponent extends BaseComponent {
 
