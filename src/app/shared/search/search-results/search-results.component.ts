@@ -11,13 +11,17 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import {
@@ -32,6 +36,7 @@ import { ErrorComponent } from '../../error/error.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { AppliedFilter } from '../models/applied-filter.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilter } from '../models/search-filter.model';
 import { SearchResult } from '../models/search-result.model';
@@ -60,8 +65,15 @@ export interface SelectionConfig {
  */
 export class SearchResultsComponent {
   hasNoValue = hasNoValue;
+  /**
+   * Currently active filters in url
+   */
+  activeFilters$: Observable<SearchFilter[]>;
 
-  filters$: Observable<SearchFilter[]>;
+  /**
+   * Filter applied to show labels, once populated the activeFilters$ will be loaded
+   */
+  appliedFilters$: BehaviorSubject<AppliedFilter[]>;
 
   /**
    * The link type of the listed search results
@@ -135,14 +147,18 @@ export class SearchResultsComponent {
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
-  constructor(private searchConfigService: SearchConfigurationService) {
-    this.filters$ = this.searchConfigService.getCurrentFilters();
+  constructor(
+    protected searchConfigService: SearchConfigurationService,
+    protected searchService: SearchService,
+  ) {
+    this.activeFilters$ = this.searchConfigService.getCurrentFilters();
+    this.appliedFilters$ = this.searchService.appliedFilters$;
   }
 
   /**
    * Check if search results are loading
    */
-  isLoading() {
+  isLoading(): boolean {
     return !this.showError() && (hasNoValue(this.searchResults) || hasNoValue(this.searchResults.payload) || this.searchResults.isLoading);
   }
 

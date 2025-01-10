@@ -1,4 +1,6 @@
 :host ::ng-deep {
+  --ds-wrapper-grid-spacing: calc(var(--bs-spacer) / 2);
+
   .info-skeleton, .badge-skeleton, .text-skeleton{
     ngx-skeleton-loader .skeleton-loader {
       height: var(--ds-search-skeleton-text-height);
@@ -27,9 +29,26 @@
     }
   }
 
+  .card-skeleton {
+    ngx-skeleton-loader .skeleton-loader {
+      height: var(--ds-search-skeleton-card-height);
+    }
+  }
+
   ngx-skeleton-loader .skeleton-loader {
     background-color: var(--bs-light);
     box-shadow: none;
+  }
+
+  .card-columns {
+    margin-left: calc(-1 * var(--ds-wrapper-grid-spacing));
+    margin-right: calc(-1 * var(--ds-wrapper-grid-spacing));
+    column-gap: 0;
+
+    .card-column {
+      padding-left: var(--ds-wrapper-grid-spacing);
+      padding-right: var(--ds-wrapper-grid-spacing);
+    }
   }
 }
 
@@ -37,3 +56,4 @@
   margin-right: 0;
   margin-left: 0;
 }
+

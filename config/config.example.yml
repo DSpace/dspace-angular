@@ -23,6 +23,14 @@ ssr:
   # Determining which styles are critical is a relatively expensive operation; this option is
   # disabled (false) by default to boost server performance at the expense of loading smoothness.
   inlineCriticalCss: false
+  # Whether to enable rendering of Search component on SSR.
+  # If set to true the component will be included in the HTML returned from the server side rendering.
+  # If set to false the component will not be included in the HTML returned from the server side rendering.
+  enableSearchComponent: false,
+  # Whether to enable rendering of Browse component on SSR.
+  # If set to true the component will be included in the HTML returned from the server side rendering.
+  # If set to false the component will not be included in the HTML returned from the server side rendering.
+  enableBrowseComponent: false,
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually

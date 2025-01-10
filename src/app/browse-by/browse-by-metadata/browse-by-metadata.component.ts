@@ -35,6 +35,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
@@ -119,7 +120,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Defines whether to fetch search results during SSR execution
    */
-  @Input() renderOnServerSide = false;
+  renderOnServerSide: boolean;
 
   scope$: BehaviorSubject<string> = new BehaviorSubject(undefined);
 
@@ -217,6 +218,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
       currentPage: 1,
       pageSize: this.appConfig.browseBy.pageSize,
     });
+    this.renderOnServerSide = environment.ssr.enableBrowseComponent;
   }
 
 

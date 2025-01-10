@@ -39,6 +39,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
@@ -241,7 +242,7 @@ export class SearchComponent implements OnDestroy, OnInit {
   /**
    * Defines whether to fetch search results during SSR execution
    */
-  @Input() renderOnServerSide = false;
+  renderOnServerSide: boolean;
 
   /**
    * The current configuration used during the search
@@ -356,6 +357,7 @@ export class SearchComponent implements OnDestroy, OnInit {
               @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
+    this.renderOnServerSide = environment.ssr.enableSearchComponent;
   }
 
   /**

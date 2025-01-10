@@ -8,5 +8,7 @@ export const environment: Partial<BuildConfig> = {
     enabled: true,
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
+    enableSearchComponent: false,
+    enableBrowseComponent: false,
   },
 };

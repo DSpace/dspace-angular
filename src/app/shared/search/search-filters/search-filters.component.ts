@@ -81,6 +81,11 @@ export class SearchFiltersComponent implements OnInit {
    */
   searchLink: string;
 
+  /**
+   * Filters for which visibility has been computed
+   */
+  filtersWithComputedVisibility = 0;
+
   subs = [];
   filterLabel = 'search';
   defaultFilterCount: number;
@@ -126,6 +131,12 @@ export class SearchFiltersComponent implements OnInit {
   minimizeFilters(): void {
     if (this.searchService.appliedFilters$.value.length > 0) {
       this.searchFilterService.minimizeAll();
+    }
+  }
+
+  countFiltersWithComputedVisibility(computed: boolean) {
+    if (computed) {
+      this.filtersWithComputedVisibility += 1;
     }
   }
 }
