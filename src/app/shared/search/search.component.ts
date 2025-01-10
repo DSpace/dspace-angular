@@ -49,6 +49,7 @@ import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-ro
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { isPlatformServer } from "@angular/common";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'ds-search',
@@ -304,6 +305,7 @@ export class SearchComponent implements OnDestroy, OnInit {
               @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
+    this.renderOnServerSide = environment.universal.enableSearchComponent;
   }
 
   /**

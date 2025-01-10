@@ -23,6 +23,7 @@ import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { isPlatformServer } from "@angular/common";
+import { environment } from "../../../environments/environment";
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -147,7 +148,8 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
         currentPage: 1,
         pageSize: this.appConfig.browseBy.pageSize,
         });
-    }
+    this.renderOnServerSide = environment.ssr.enableBrowseComponent;
+  }
 
 
   ngOnInit(): void {

@@ -14,6 +14,7 @@ import { PaginatedSearchOptions } from '../models/paginated-search-options.model
 import { SearchFilter } from "../models/search-filter.model";
 import { Observable } from "rxjs";
 import { SearchConfigurationService } from "../../../core/shared/search/search-configuration.service";
+import { SearchService } from "../../../core/shared/search/search.service";
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -110,7 +111,10 @@ export class SearchResultsComponent {
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
-  constructor(private searchConfigService: SearchConfigurationService) {
+  constructor(
+    protected searchConfigService: SearchConfigurationService,
+    protected searchService: SearchService,
+  ) {
     this.filters$ = this.searchConfigService.getCurrentFilters();
   }
 

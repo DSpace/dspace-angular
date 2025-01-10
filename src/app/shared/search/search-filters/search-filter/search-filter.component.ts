@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
@@ -42,6 +42,8 @@ export class SearchFilterComponent implements OnInit {
    * The current scope
    */
   @Input() scope: string;
+
+  @Output() isVisibilityComputed = new EventEmitter<boolean>();
 
   /**
    * True when the filter is 100% collapsed in the UI
@@ -99,6 +101,9 @@ export class SearchFilterComponent implements OnInit {
         this.filterService.expand(this.filter.name);
       }
     });
+    this.active$.pipe(take(1)).subscribe(() => {
+      this.isVisibilityComputed.emit(true);
+    })
   }
 
   /**

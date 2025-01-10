@@ -25,6 +25,14 @@ ssr:
   inlineCriticalCss: false
   # Path prefixes to enable SSR for. By default these are limited to paths of primary DSpace objects.
   paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ]
+  # Whether to enable rendering of Search component on SSR.
+  # If set to true the component will be included in the HTML returned from the server side rendering.
+  # If set to false the component will not be included in the HTML returned from the server side rendering.
+  enableSearchComponent: false,
+  # Whether to enable rendering of Browse component on SSR.
+  # If set to true the component will be included in the HTML returned from the server side rendering.
+  # If set to false the component will not be included in the HTML returned from the server side rendering.
+  enableBrowseComponent: false,
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
@@ -84,7 +92,7 @@ cache:
     anonymousCache:
       # Maximum number of pages to cache. Default is zero (0) which means anonymous user cache is disabled.
       # As all pages are cached in server memory, increasing this value will increase memory needs.
-      # Individual cached pages are usually small (<100KB), so a value of max=1000 would only require ~100MB of memory. 
+      # Individual cached pages are usually small (<100KB), so a value of max=1000 would only require ~100MB of memory.
       max: 0
       # Amount of time after which cached pages are considered stale (in ms). After becoming stale, the cached
       # copy is automatically refreshed on the next request.
@@ -394,7 +402,7 @@ vocabularies:
     vocabulary: 'srsc'
     enabled: true
 
-# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query. 
+# Default collection/community sorting order at Advanced search, Create/update community and collection when there are not a query.
 comcolSelectionSort:
   sortField: 'dc.title'
   sortDirection: 'ASC'

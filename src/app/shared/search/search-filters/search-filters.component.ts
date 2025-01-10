@@ -61,6 +61,11 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    */
   searchLink: string;
 
+  /**
+   * Filters for which visibility has been computed
+   */
+  filtersWithComputedVisibility = 0;
+
   subs = [];
   defaultFilterCount: number;
 
@@ -113,5 +118,11 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
         sub.unsubscribe();
       }
     });
+  }
+
+  countFiltersWithComputedVisibility(computed: boolean) {
+    if (computed) {
+      this.filtersWithComputedVisibility += 1;
+    }
   }
 }
