@@ -22,7 +22,14 @@
       width: var(--ds-search-skeleton-thumbnail-width);
       height: var(--ds-search-skeleton-thumbnail-height);
       padding: var(--ds-search-skeleton-thumbnail-padding);
+      margin-right: var(--ds-search-skeleton-thumbnail-margin);
+      border-radius: 0;
     }
+  }
+
+  ngx-skeleton-loader .skeleton-loader {
+    background-color: var(--bs-light);
+    box-shadow: none;
   }
 }
 

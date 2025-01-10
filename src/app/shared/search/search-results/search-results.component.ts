@@ -11,6 +11,9 @@ import { CollectionElementLinkType } from '../../object-collection/collection-el
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { Context } from '../../../core/shared/context.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchFilter } from "../models/search-filter.model";
+import { Observable } from "rxjs";
+import { SearchConfigurationService } from "../../../core/shared/search/search-configuration.service";
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -31,6 +34,8 @@ export interface SelectionConfig {
  */
 export class SearchResultsComponent {
   hasNoValue = hasNoValue;
+
+  filters$: Observable<SearchFilter[]>;
 
   /**
    * The link type of the listed search results
@@ -103,6 +108,10 @@ export class SearchResultsComponent {
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  constructor(private searchConfigService: SearchConfigurationService) {
+    this.filters$ = this.searchConfigService.getCurrentFilters();
+  }
 
   /**
    * Check if search results are loading

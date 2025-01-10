@@ -1,0 +1,10 @@
+:host ::ng-deep {
+  .filter-badge-skeleton {
+    ngx-skeleton-loader .skeleton-loader {
+      background-color: var(--bs-light);
+      box-shadow: none;
+      width: var(--ds-search-skeleton-filter-badge-width);
+      height: var(--ds-search-skeleton-text-height);
+    }
+  }
+}
