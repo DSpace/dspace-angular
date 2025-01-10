@@ -84,7 +84,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
-    this.defaultFilterCount = this.appConfig.search.defaultFilterCount ?? 5;
+    this.defaultFilterCount = this.appConfig.search.defaultFiltersCount ?? 5;
   }
 
   ngOnInit(): void {
