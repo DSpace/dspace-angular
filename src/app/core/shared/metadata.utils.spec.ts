@@ -7,7 +7,10 @@ import {
   MetadataValueFilter,
   MetadatumViewModel,
 } from './metadata.models';
-import { Metadata, PLACEHOLDER_VALUE } from './metadata.utils';
+import {
+  Metadata,
+  PLACEHOLDER_VALUE,
+} from './metadata.utils';
 
 const mdValue = (value: string, language?: string, authority?: string): MetadataValue => {
   return Object.assign(new MetadataValue(), {
