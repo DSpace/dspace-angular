@@ -13,12 +13,16 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Community } from '../../../core/shared/community.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../error/error.component';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { createFailedRemoteDataObject } from '../../remote-data.utils';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../testing/search-service.stub';
 import { ThemeService } from '../../theme-support/theme.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsComponent } from './search-results.component';
@@ -35,6 +39,11 @@ describe('SearchResultsComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: SearchService, useValue: new SearchServiceStub() },
+        {
+          provide: SearchConfigurationService,
+          useValue: new SearchConfigurationServiceStub(),
+        },
       ],
       imports: [
         TranslateModule.forRoot(),

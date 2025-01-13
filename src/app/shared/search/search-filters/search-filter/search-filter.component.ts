@@ -34,7 +34,6 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { SequenceService } from '../../../../core/shared/sequence.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { fadeIn } from '../../../animations/fade';
 import { slide } from '../../../animations/slide';
 import {
   hasValue,
@@ -52,7 +51,7 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
   selector: 'ds-search-filter',
   styleUrls: ['./search-filter.component.scss'],
   templateUrl: './search-filter.component.html',
-  animations: [slide, fadeIn],
+  animations: [slide],
   standalone: true,
   imports: [NgIf, NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
 })
@@ -138,9 +137,7 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
    */
   ngOnInit() {
     this.appliedFilters$ = this.searchService.getSelectedValuesForFilter(this.filter.name);
-    this.active$ = this.getIsActive().pipe(
-      startWith(true),
-    );
+    this.active$ = this.isActive();
     this.collapsed$ = this.isCollapsed();
     this.initializeFilter();
     this.subs.push(
@@ -232,6 +229,16 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Check if a given filter is supposed to be shown or not
+   * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
+   */
+  isActive(): Observable<boolean> {
+    return this.getIsActive().pipe(
+      startWith(true),
+    );
+  }
+
+  /**
+   * Return current filter visibility
    * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
    */
   private getIsActive():  Observable<boolean> {
