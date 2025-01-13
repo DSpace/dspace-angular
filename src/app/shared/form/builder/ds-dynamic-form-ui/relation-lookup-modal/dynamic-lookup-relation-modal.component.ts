@@ -1,4 +1,4 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest as observableCombineLatest, Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
@@ -28,6 +28,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { Collection } from '../../../../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -49,32 +50,32 @@ export class DynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   /**
    * The label to use to display i18n messages (describing the type of relationship)
    */
-  label: string;
+  @Input() label: string;
 
   /**
    * Options for searching related items
    */
-  relationshipOptions: RelationshipOptions;
+  @Input() relationshipOptions: RelationshipOptions;
 
   /**
    * The ID of the list to add/remove selected items to/from
    */
-  listId: string;
+  @Input() listId: string;
 
   /**
    * The item we're adding relationships to
    */
-  item;
+  @Input() item: Item;
 
   /**
    * The collection we're submitting an item to
    */
-  collection;
+  @Input() collection: Collection;
 
   /**
    * Is the selection repeatable?
    */
-  repeatable: boolean;
+  @Input() repeatable: boolean;
 
   /**
    * The list of selected items
@@ -84,14 +85,14 @@ export class DynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   /**
    * The context to display lists
    */
-  context: Context;
+  @Input() context: Context;
 
   /**
    * The metadata-fields describing these relationships
    */
-  metadataFields: string;
+  @Input() metadataFields: string;
 
-  query: string;
+  @Input() query: string;
 
   /**
    * A map of subscriptions within this component
@@ -99,7 +100,8 @@ export class DynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   subMap: {
     [uuid: string]: Subscription
   } = {};
-  submissionId: string;
+
+  @Input() submissionId: string;
 
   /**
    * A list of the available external sources configured for this relationship
@@ -119,12 +121,12 @@ export class DynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   /**
    * The type of relationship
    */
-  relationshipType: RelationshipType;
+  @Input() relationshipType: RelationshipType;
 
   /**
    * Checks if relationship is left
    */
-  currentItemIsLeftItem$: Observable<boolean>;
+  @Input() currentItemIsLeftItem$: Observable<boolean>;
 
   /**
    * Relationship is left
@@ -134,22 +136,22 @@ export class DynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   /**
    * Checks if modal is being used by edit relationship page
    */
-  isEditRelationship = false;
+  @Input() isEditRelationship = false;
 
   /**
    * Maintain the list of the related items to be added
    */
-  toAdd = [];
+  @Input() toAdd = [];
 
   /**
    * Maintain the list of the related items to be removed
    */
-  toRemove = [];
+  @Input() toRemove = [];
 
   /**
    * Disable buttons while the submit button is pressed
    */
-  isPending = false;
+  @Input() isPending = false;
 
   constructor(
     public modal: NgbActiveModal,

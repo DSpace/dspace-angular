@@ -448,7 +448,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     this.submissionService.dispatchSave(this.model.submissionId);
 
-    const modalComp = this.modalRef.componentInstance;
+    const modalComp: ThemedDynamicLookupRelationModalComponent = this.modalRef.componentInstance;
 
     if (hasValue(this.model.value) && !this.model.readOnly) {
       if (typeof this.model.value === 'string') {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ComponentRef, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -215,7 +215,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.open(ThemedDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
-    const modalComp: DynamicLookupRelationModalComponent = this.modalRef.componentInstance.compRef;
+    const modalComp: ThemedDynamicLookupRelationModalComponent = this.modalRef.componentInstance;
     modalComp.repeatable = true;
     modalComp.isEditRelationship = true;
     modalComp.listId = this.listId;
@@ -232,112 +232,114 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       modalComp.collection = collection;
     });
 
-    modalComp.select = (...selectableObjects: SearchResult<Item>[]) => {
-      selectableObjects.forEach((searchResult) => {
-        const relatedItem: Item = searchResult.indexableObject;
+    this.subs.push(modalComp.compRef$.pipe(
+      hasValueOperator(),
+      map((compRef: ComponentRef<DynamicLookupRelationModalComponent>) => compRef.instance),
+    ).subscribe((modalComponent: DynamicLookupRelationModalComponent) => {
+      modalComponent.select = (...selectableObjects: SearchResult<Item>[]) => {
+        selectableObjects.forEach((searchResult) => {
+          const relatedItem: Item = searchResult.indexableObject;
 
-        const foundIndex = modalComp.toRemove.findIndex( el => el.uuid === relatedItem.uuid);
+          const foundIndex = modalComponent.toRemove.findIndex(el => el.uuid === relatedItem.uuid);
 
-        if (foundIndex !== -1) {
-          modalComp.toRemove.splice(foundIndex,1);
-        } else {
+          if (foundIndex !== -1) {
+            modalComponent.toRemove.splice(foundIndex, 1);
+          } else {
 
-          this.getRelationFromId(relatedItem)
-            .subscribe((relationship: Relationship) => {
-              if (!relationship ) {
-                modalComp.toAdd.push(searchResult);
-              } else {
-                const foundIndexRemove = modalComp.toRemove.findIndex( el => el.indexableObject.uuid === relatedItem.uuid);
-                if (foundIndexRemove !== -1) {
-                  modalComp.toRemove.splice(foundIndexRemove,1);
+            this.getRelationFromId(relatedItem)
+              .subscribe((relationship: Relationship) => {
+                if (!relationship) {
+                  modalComponent.toAdd.push(searchResult);
+                } else {
+                  const foundIndexRemove = modalComponent.toRemove.findIndex(el => el.indexableObject.uuid === relatedItem.uuid);
+                  if (foundIndexRemove !== -1) {
+                    modalComponent.toRemove.splice(foundIndexRemove, 1);
+                  }
                 }
-              }
 
-              this.loading$.next(true);
-              // emit the last page again to trigger a fieldupdates refresh
-              this.relationshipsRd$.next(this.relationshipsRd$.getValue());
-            });
-        }
-      });
-    };
-    modalComp.deselect = (...selectableObjects: SearchResult<Item>[]) => {
-      selectableObjects.forEach((searchResult) => {
-        const relatedItem: Item = searchResult.indexableObject;
+                this.loading$.next(true);
+                // emit the last page again to trigger a fieldupdates refresh
+                this.relationshipsRd$.next(this.relationshipsRd$.getValue());
+              });
+          }
+        });
+      };
 
-        const foundIndex = modalComp.toAdd.findIndex( el => el.indexableObject.uuid === relatedItem.uuid);
+      modalComponent.deselect = (...selectableObjects: SearchResult<Item>[]) => {
+        selectableObjects.forEach((searchResult) => {
+          const relatedItem: Item = searchResult.indexableObject;
 
-        if (foundIndex !== -1) {
-          modalComp.toAdd.splice(foundIndex,1);
-        } else {
-          modalComp.toRemove.push(searchResult);
-        }
-      });
-    };
+          const foundIndex = modalComponent.toAdd.findIndex(el => el.indexableObject.uuid === relatedItem.uuid);
 
+          if (foundIndex !== -1) {
+            modalComponent.toAdd.splice(foundIndex, 1);
+          } else {
+            modalComponent.toRemove.push(searchResult);
+          }
+        });
+      };
 
+      modalComponent.submitEv = () => {
+        const subscriptions = [];
 
-    modalComp.submitEv = () => {
+        modalComponent.toAdd.forEach((searchResult: SearchResult<Item>) => {
+          const relatedItem = searchResult.indexableObject;
+          subscriptions.push(this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
+            map((nameVariant) => {
+              const update = {
+                uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
+                nameVariant,
+                type: this.relationshipType,
+                relatedItem,
+              } as RelationshipIdentifiable;
+              this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
+              return update;
+            })
+          ));
+        });
 
-      const subscriptions = [];
+        modalComponent.toRemove.forEach((searchResult) => {
+          subscriptions.push(this.relationshipService.getNameVariant(this.listId, searchResult.indexableObjectuuid).pipe(
+            switchMap((nameVariant) => {
+              return this.getRelationFromId(searchResult.indexableObject).pipe(
+                map((relationship: Relationship) => {
+                  const update = {
+                    uuid: relationship.id,
+                    nameVariant,
+                    type: this.relationshipType,
+                    relationship,
+                  } as RelationshipIdentifiable;
+                  this.objectUpdatesService.saveRemoveFieldUpdate(this.url, update);
+                  return update;
+                })
+              );
+            })
+          ));
+        });
 
-      modalComp.toAdd.forEach((searchResult: SearchResult<Item>) => {
-        const relatedItem = searchResult.indexableObject;
-        subscriptions.push(this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
-          map((nameVariant) => {
-          const update = {
-            uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
-            nameVariant,
-            type: this.relationshipType,
-            relatedItem,
-          } as RelationshipIdentifiable;
-          this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
-          return update;
-        })
-        ));
-      });
+        observableCombineLatest(subscriptions).subscribe((res) => {
+          // Wait until the states changes since there are multiple items
+          setTimeout(() => {
+            this.submit.emit();
+          }, 1000);
 
-      modalComp.toRemove.forEach( (searchResult) => {
-        subscriptions.push(this.relationshipService.getNameVariant(this.listId, searchResult.indexableObjectuuid).pipe(
-          switchMap((nameVariant) => {
-            return this.getRelationFromId(searchResult.indexableObject).pipe(
-              map( (relationship: Relationship) => {
-                const update = {
-                  uuid: relationship.id,
-                  nameVariant,
-                  type: this.relationshipType,
-                  relationship,
-                } as RelationshipIdentifiable;
-                this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
-                return update;
-              })
-            );
-          })
-        ));
-      });
+          modalComponent.isPending = true;
+        });
+      };
 
-      observableCombineLatest(subscriptions).subscribe( (res) => {
-        // Wait until the states changes since there are multiple items
-        setTimeout( () => {
-          this.submit.emit();
-        },1000);
+      modalComponent.discardEv = () => {
+        modalComponent.toAdd.forEach((searchResult) => {
+          this.selectableListService.deselectSingle(this.listId, searchResult);
+        });
 
-        modalComp.isPending = true;
-      });
-    };
+        modalComponent.toRemove.forEach((searchResult) => {
+          this.selectableListService.selectSingle(this.listId, searchResult);
+        });
 
-
-    modalComp.discardEv = () => {
-      modalComp.toAdd.forEach( (searchResult) => {
-        this.selectableListService.deselectSingle(this.listId,searchResult);
-      });
-
-      modalComp.toRemove.forEach( (searchResult) => {
-        this.selectableListService.selectSingle(this.listId,searchResult);
-      });
-
-      modalComp.toAdd = [];
-      modalComp.toRemove = [];
-    };
+        modalComponent.toAdd = [];
+        modalComponent.toRemove = [];
+      };
+    }));
 
     this.relatedEntityType$
       .pipe(take(1))
