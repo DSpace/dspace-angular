@@ -42,7 +42,7 @@ export class SearchResultsSkeletonComponent implements OnInit {
   protected readonly ViewMode = ViewMode;
 
   constructor(private searchService: SearchService) {
-    this.viewMode$ = searchService.getViewMode();
+    this.viewMode$ = this.searchService.getViewMode();
   }
 
   ngOnInit() {
