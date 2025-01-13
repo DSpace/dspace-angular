@@ -242,7 +242,7 @@ export class SearchComponent implements OnDestroy, OnInit {
   /**
    * Defines whether to fetch search results during SSR execution
    */
-  renderOnServerSide: boolean;
+  @Input() renderOnServerSide: boolean;
 
   /**
    * The current configuration used during the search
@@ -357,7 +357,6 @@ export class SearchComponent implements OnDestroy, OnInit {
               @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
-    this.renderOnServerSide = environment.ssr.enableSearchComponent;
   }
 
   /**
@@ -368,7 +367,7 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+    if (!this.renderOnServerSide && !environment.ssr.enableSearchComponent && isPlatformServer(this.platformId)) {
       this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
         this.searchOptions$.next(options);
       }));

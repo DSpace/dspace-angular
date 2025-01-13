@@ -120,7 +120,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Defines whether to fetch search results during SSR execution
    */
-  renderOnServerSide: boolean;
+  @Input() renderOnServerSide: boolean;
 
   scope$: BehaviorSubject<string> = new BehaviorSubject(undefined);
 
@@ -218,12 +218,11 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
       currentPage: 1,
       pageSize: this.appConfig.browseBy.pageSize,
     });
-    this.renderOnServerSide = environment.ssr.enableBrowseComponent;
   }
 
 
   ngOnInit(): void {
-    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+    if (!this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId)) {
       this.loading$ = observableOf(false);
       return;
     }
