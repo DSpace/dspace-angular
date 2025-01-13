@@ -6,7 +6,7 @@ import { ItemReinstateComponent } from './item-reinstate/item-reinstate.componen
 import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
-import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
+import { ThemedItemBitstreamsComponent } from './item-bitstreams/themed-item-bitstreams.component';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
@@ -74,7 +74,7 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
               },
               {
                 path: 'bitstreams',
-                component: ItemBitstreamsComponent,
+                component: ThemedItemBitstreamsComponent,
                 data: { title: 'item.edit.tabs.bitstreams.title', showBreadcrumbs: true },
                 canActivate: [ItemPageBitstreamsGuard]
               },

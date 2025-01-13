@@ -46,6 +46,7 @@ import { ResultsBackButtonModule } from '../../shared/results-back-button/result
 import {
   AccessControlFormModule
 } from '../../shared/access-control-form-container/access-control-form.module';
+import { ThemedItemBitstreamsComponent } from './item-bitstreams/themed-item-bitstreams.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -79,6 +80,7 @@ import {
     ThemedItemStatusComponent,
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
+    ThemedItemBitstreamsComponent,
     ItemVersionHistoryComponent,
     ItemEditBitstreamComponent,
     ItemEditBitstreamBundleComponent,
@@ -102,6 +104,8 @@ import {
   ],
   exports: [
     ItemOperationComponent,
+    ItemEditBitstreamBundleComponent,
+    ItemEditBitstreamDragHandleComponent,
   ]
 })
 export class EditItemPageModule {
