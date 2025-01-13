@@ -305,7 +305,6 @@ export class SearchComponent implements OnDestroy, OnInit {
               @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
-    this.renderOnServerSide = environment.universal.enableSearchComponent;
   }
 
   /**
@@ -316,7 +315,7 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+    if (!this.renderOnServerSide && !environment.universal.enableSearchComponent && isPlatformServer(this.platformId)) {
       this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
         this.searchOptions$.next(options);
       }));

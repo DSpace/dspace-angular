@@ -148,12 +148,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
         currentPage: 1,
         pageSize: this.appConfig.browseBy.pageSize,
         });
-    this.renderOnServerSide = environment.universal.enableBrowseComponent;
   }
 
 
   ngOnInit(): void {
-    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+    if (!this.renderOnServerSide && !environment.universal.enableBrowseComponent && isPlatformServer(this.platformId)) {
       this.loading$ = observableOf(false);
       return;
     }
