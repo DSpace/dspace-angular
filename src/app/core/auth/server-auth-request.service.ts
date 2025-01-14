@@ -5,10 +5,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  map,
-  tap,
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { PostRequest } from '../data/request.models';
@@ -49,7 +46,13 @@ export class ServerAuthRequestService extends AuthRequestService {
     return this.httpClient.get(this.halService.getRootHref(), { observe: 'response' }).pipe(
       // retrieve the XSRF token from the response header
       map((response: HttpResponse<any>) => response.headers.get(XSRF_RESPONSE_HEADER)),
-      tap(() => this.xsrfService.tokenInitialized$.next(true)),
+      map((xsrfToken: string) => {
+        if (!xsrfToken) {
+          throw new Error('Failed to initialize XSRF token');
+        }
+        this.xsrfService.tokenInitialized$.next(true);
+        return xsrfToken;
+      }),
       // Use that token to create an HttpHeaders object
       map((xsrfToken: string) => new HttpHeaders()
         .set('Content-Type', 'application/json; charset=utf-8')
