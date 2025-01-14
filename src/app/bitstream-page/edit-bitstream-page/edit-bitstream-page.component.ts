@@ -21,7 +21,6 @@ import {
   DynamicFormLayout,
   DynamicFormService,
   DynamicInputModel,
-  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 import {
   TranslateModule,
@@ -31,24 +30,22 @@ import cloneDeep from 'lodash/cloneDeep';
 import {
   combineLatest,
   combineLatest as observableCombineLatest,
-  EMPTY,
   Observable,
   of as observableOf,
   Subscription,
 } from 'rxjs';
 import {
-  expand,
   filter,
   map,
-  reduce,
   switchMap,
+  take,
   tap,
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { FindAllDataImpl } from '../../core/data/base/find-all-data';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
@@ -58,7 +55,6 @@ import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
 import { Metadata } from '../../core/shared/metadata.utils';
 import {
-  getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -75,6 +71,7 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { DynamicScrollableDropdownModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormComponent } from '../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -113,12 +110,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
 
   /**
-   * The formats their remote data observable
-   * Tracks changes and updates the view
-   */
-  bitstreamFormatsRD$: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
-
-  /**
    * The UUID of the primary bitstream for this bundle
    */
   primaryBitstreamUUID: string;
@@ -132,11 +123,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * The originally selected format
    */
   originalFormat: BitstreamFormat;
-
-  /**
-   * A list of all available bitstream formats
-   */
-  formats: BitstreamFormat[];
 
   /**
    * @type {string} Key prefix used to generate form messages
@@ -224,9 +210,22 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The Dynamic Input Model for the selected format
    */
-  selectedFormatModel = new DynamicSelectModel({
+  selectedFormatModel = new DynamicScrollableDropdownModel({
     id: 'selectedFormat',
     name: 'selectedFormat',
+    displayKey: 'shortDescription',
+    repeatable: false,
+    metadataFields: [],
+    submissionId: '',
+    hasSelectableMetadata: false,
+    findAllFactory: this.findAllFormatsServiceFactory(),
+    formatFunction: (format: BitstreamFormat | string) => {
+      if (format instanceof  BitstreamFormat) {
+        return hasValue(format) && format.supportLevel === BitstreamFormatSupportLevel.Unknown ? this.translate.instant(this.KEY_PREFIX + 'selectedFormat.unknown') : format.shortDescription;
+      } else {
+        return format;
+      }
+    },
   });
 
   /**
@@ -444,6 +443,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * @private
    */
   private bundle: Bundle;
+  /**
+   * The currently selected format
+   * @private
+   */
+  private selectedFormat: BitstreamFormat;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -470,25 +474,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.entityType = this.route.snapshot.queryParams.entityType;
     this.bitstreamRD$ = this.route.data.pipe(map((data: any) => data.bitstream));
 
-    this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions).pipe(
-      getFirstSucceededRemoteData(),
-      expand((response: RemoteData<PaginatedList<BitstreamFormat>>) => {
-        const pageInfo = response.payload.pageInfo;
-        if (pageInfo.currentPage < pageInfo.totalPages) {
-          const nextPageOptions = { ...this.findAllOptions, currentPage: pageInfo.currentPage + 1 };
-          return this.bitstreamFormatService.findAll(nextPageOptions).pipe(getFirstSucceededRemoteData());
-        } else {
-          return EMPTY;
-        }
-      }),
-    );
-
-    const bitstreamFormats$ = this.bitstreamFormatsRD$.pipe(
-      reduce((acc: BitstreamFormat[], response: RemoteData<PaginatedList<BitstreamFormat>>) => {
-        return acc.concat(response.payload.page);
-      }, []),
-    );
-
     const bitstream$ = this.bitstreamRD$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -509,24 +494,31 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       switchMap((bundle: Bundle) => bundle.item),
       getFirstSucceededRemoteDataPayload(),
     );
+    const format$ = bitstream$.pipe(
+      switchMap(bitstream => bitstream.format),
+      getFirstSucceededRemoteDataPayload(),
+    );
+
     this.subs.push(
       observableCombineLatest(
         bitstream$,
-        bitstreamFormats$,
         bundle$,
         primaryBitstream$,
         item$,
-      ).pipe()
-        .subscribe(([bitstream, allFormats, bundle, primaryBitstream, item]) => {
-          this.bitstream = bitstream as Bitstream;
-          this.formats = allFormats;
-          this.bundle = bundle;
-          // hasValue(primaryBitstream) because if there's no primaryBitstream on the bundle it will
-          // be a success response, but empty
-          this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
-          this.itemId = item.uuid;
-          this.setIiifStatus(this.bitstream);
-        }),
+        format$,
+      ).subscribe(([bitstream, bundle, primaryBitstream, item, format]) => {
+        this.bitstream = bitstream as Bitstream;
+        this.bundle = bundle;
+        this.selectedFormat = format;
+        // hasValue(primaryBitstream) because if there's no primaryBitstream on the bundle it will
+        // be a success response, but empty
+        this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
+        this.itemId = item.uuid;
+        this.setIiifStatus(this.bitstream);
+      }),
+      format$.pipe(take(1)).subscribe(
+        (format) => this.originalFormat = format,
+      ),
     );
 
     this.subs.push(
@@ -542,7 +534,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   setForm() {
     this.formGroup = this.formService.createFormGroup(this.formModel);
-    this.updateFormatModel();
     this.updateForm(this.bitstream);
     this.updateFieldTranslations();
   }
@@ -561,6 +552,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         description: bitstream.firstMetadataValue('dc.description'),
       },
       formatContainer: {
+        selectedFormat: this.selectedFormat.shortDescription,
         newFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined,
       },
     });
@@ -580,36 +572,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         },
       });
     }
-    this.bitstream.format.pipe(
-      getAllSucceededRemoteDataPayload(),
-    ).subscribe((format: BitstreamFormat) => {
-      this.originalFormat = format;
-      this.formGroup.patchValue({
-        formatContainer: {
-          selectedFormat: format.id,
-        },
-      });
-      this.updateNewFormatLayout(format.id);
-    });
+    this.updateNewFormatLayout();
   }
 
-  /**
-   * Create the list of unknown format IDs an add options to the selectedFormatModel
-   */
-  updateFormatModel() {
-    this.selectedFormatModel.options = this.formats.map((format: BitstreamFormat) =>
-      Object.assign({
-        value: format.id,
-        label: this.isUnknownFormat(format.id) ? this.translate.instant(this.KEY_PREFIX + 'selectedFormat.unknown') : format.shortDescription,
-      }));
-  }
 
   /**
    * Update the layout of the "Other Format" input depending on the selected format
    * @param selectedId
    */
-  updateNewFormatLayout(selectedId: string) {
-    if (this.isUnknownFormat(selectedId)) {
+  updateNewFormatLayout() {
+    if (this.isUnknownFormat()) {
       this.formLayout.newFormat.grid.host = this.newFormatBaseLayout;
     } else {
       this.formLayout.newFormat.grid.host = this.newFormatBaseLayout + ' invisible';
@@ -620,9 +592,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Is the provided format (id) part of the list of unknown formats?
    * @param id
    */
-  isUnknownFormat(id: string): boolean {
-    const format = this.formats.find((f: BitstreamFormat) => f.id === id);
-    return hasValue(format) && format.supportLevel === BitstreamFormatSupportLevel.Unknown;
+  isUnknownFormat(): boolean {
+    return hasValue(this.selectedFormat) &&  this.selectedFormat.supportLevel === BitstreamFormatSupportLevel.Unknown;
   }
 
   /**
@@ -654,7 +625,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   onChange(event) {
     const model = event.model;
     if (model.id === this.selectedFormatModel.id) {
-      this.updateNewFormatLayout(model.value);
+      this.selectedFormat = model.value;
+      this.updateNewFormatLayout();
     }
   }
 
@@ -664,8 +636,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   onSubmit() {
     const updatedValues = this.formGroup.getRawValue();
     const updatedBitstream = this.formToBitstream(updatedValues);
-    const selectedFormat = this.formats.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
-    const isNewFormat = selectedFormat.id !== this.originalFormat.id;
+    const isNewFormat = this.selectedFormat.id !== this.originalFormat.id;
     const isPrimary = updatedValues.fileNamePrimaryContainer.primaryBitstream;
     const wasPrimary = this.primaryBitstreamUUID === this.bitstream.uuid;
 
@@ -717,7 +688,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       bundle$ = observableOf(this.bundle);
     }
     if (isNewFormat) {
-      bitstream$ = this.bitstreamService.updateFormat(this.bitstream, selectedFormat).pipe(
+      bitstream$ = this.bitstreamService.updateFormat(this.bitstream, this.selectedFormat).pipe(
         getFirstCompletedRemoteData(),
         map((formatResponse: RemoteData<Bitstream>) => {
           if (hasValue(formatResponse) && formatResponse.hasFailed) {
@@ -875,4 +846,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       .forEach((subscription) => subscription.unsubscribe());
   }
 
+  findAllFormatsServiceFactory() {
+    return () => this.bitstreamFormatService as any as FindAllDataImpl<BitstreamFormat>;
+  }
 }
