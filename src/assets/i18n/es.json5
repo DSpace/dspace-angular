@@ -10192,9 +10192,6 @@
   // "forgot-email.form.aria.label": "Enter your e-mail address",
   "forgot-email.form.aria.label": "Introduzca su dirección de correo electrónico",
 
-  // "search.sidebar.advanced-search.add": "Add",
-  "search.sidebar.advanced-search.add": "Añadir",
-
   // "search-facet-option.update.announcement": "The page will be reloaded. selected filter: ",
   "search-facet-option.update.announcement": "La página será recargada. filtro seleccionado: ",
 }
