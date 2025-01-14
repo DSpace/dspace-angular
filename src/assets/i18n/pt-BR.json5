@@ -10240,4 +10240,7 @@
 
   // "forgot-email.form.aria.label": "Enter your e-mail address",
   "forgot-email.form.aria.label": "Digite seu e-mail",
+
+  // "search-facet-option.update.announcement": "The page will be reloaded. selected filter: ",
+  "search-facet-option.update.announcement": "La página será recargada. filtro seleccionado: ",
 }
