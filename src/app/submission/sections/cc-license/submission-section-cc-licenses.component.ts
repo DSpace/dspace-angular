@@ -1,9 +1,9 @@
-import { Component, Inject } from '@angular/core';
-import { EMPTY, expand, Observable, of as observableOf, reduce, Subscription } from 'rxjs';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { EMPTY, expand, Observable, of as observableOf, reduce, Subscription, tap } from 'rxjs';
 import { Field, Option, SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import {
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
 } from '../../../core/shared/operators';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
@@ -22,6 +22,7 @@ import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/subm
 import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
 import { RemoteData } from "../../../core/data/remote-data";
 import { PaginatedList } from "../../../core/data/paginated-list.model";
+import { FindListOptions } from "../../../core/data/find-list-options.model";
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -60,7 +61,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
   /**
    * Cache of the available Creative Commons licenses.
    */
-  submissionCcLicenses: SubmissionCcLicence[];
+  submissionCcLicenses: SubmissionCcLicence[] = [];
 
   /**
    * Reference to NgbModal
@@ -71,6 +72,25 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * Default jurisdiction configured
    */
   defaultJurisdiction: string;
+
+  /**
+   * The currently selected cc licence
+   */
+  selectedCcLicense: SubmissionCcLicence = new SubmissionCcLicence();
+
+  /**
+   * Options for paginated data loading
+   */
+  ccLicenceOptions: FindListOptions = {
+    elementsPerPage: 20,
+    currentPage: 1,
+  };
+  /**
+   * Check to stop paginated search
+   *
+   * @private
+   */
+  private _isLastPage: boolean;
 
   /**
    * The Creative Commons link saved in the workspace item.
@@ -96,6 +116,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     protected submissionCcLicenseUrlDataService: SubmissionCcLicenseUrlDataService,
     protected operationsBuilder: JsonPatchOperationsBuilder,
     protected configService: ConfigurationDataService,
+    protected ref: ChangeDetectorRef,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
     @Inject('submissionIdProvider') public injectedSubmissionId: string
@@ -119,9 +140,10 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * @param ccLicense the Creative Commons license to select.
    */
   selectCcLicense(ccLicense: SubmissionCcLicence) {
-    if (!!this.getSelectedCcLicense() && this.getSelectedCcLicense().id === ccLicense.id) {
+    if (this.selectedCcLicense.id === ccLicense.id) {
       return;
     }
+    this.selectedCcLicense = ccLicense;
     this.setAccepted(false);
     this.updateSectionData({
       ccLicense: {
@@ -265,26 +287,6 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         }
         this.sectionData.data = data;
       }),
-      this.submissionCcLicensesDataService.findAll({ currentPage: 1, elementsPerPage: 20 }).pipe(
-        getFirstSucceededRemoteData(),
-        expand((typeListRD: RemoteData<PaginatedList<SubmissionCcLicence>>) => {
-          const currentPage = typeListRD.payload.pageInfo.currentPage;
-          const totalPages = typeListRD.payload.pageInfo.totalPages;
-          if (currentPage < totalPages) {
-            const nextPageInfo = { currentPage: currentPage + 1, elementsPerPage: 20 };
-            return this.submissionCcLicensesDataService.findAll(nextPageInfo).pipe(
-              getFirstSucceededRemoteData()
-            );
-          } else {
-            return EMPTY;
-          }
-        }),
-        reduce((acc: SubmissionCcLicence[], typeListRD: RemoteData<PaginatedList<SubmissionCcLicence>>) => acc.concat(typeListRD.payload.page), []),
-      ).subscribe(
-        (licenses) => {
-          this.submissionCcLicenses = licenses;
-        },
-      ),
       this.configService.findByPropertyName('cc.license.jurisdiction').pipe(
         getFirstCompletedRemoteData(),
         getRemoteDataPayload()
@@ -297,6 +299,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
           }
       })
     );
+    this.loadCcLicences();
   }
 
   /**
@@ -315,5 +318,32 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    */
   updateSectionData(data: WorkspaceitemSectionCcLicenseObject) {
     this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, Object.assign({}, this.data, data));
+  }
+
+  onScroll(event) {
+    if (event.target.scrollTop + event.target.clientHeight >= event.target.scrollHeight) {
+      if (!this.isLoading && !this._isLastPage) {
+        this.ccLicenceOptions.currentPage++;
+        this.loadCcLicences();
+      }
+    }
+  }
+
+  loadCcLicences() {
+    this.isLoading = true;
+
+    this.subscriptions.push(
+      this.submissionCcLicensesDataService.findAll(this.ccLicenceOptions).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        tap((response) => this._isLastPage = response.pageInfo.currentPage === response.pageInfo.totalPages),
+        map((list) => list.page),
+      ).subscribe(
+        (licenses) => {
+          this.submissionCcLicenses = [...this.submissionCcLicenses, ...licenses];
+          this.isLoading = false;
+          this.ref.detectChanges();
+        },
+      ),
+    );
   }
 }

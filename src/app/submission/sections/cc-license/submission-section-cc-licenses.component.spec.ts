@@ -215,9 +215,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
     });
 
     it('should display the selected cc license', () => {
-      expect(
-        de.query(By.css('.ccLicense-select ds-select button.selection')).nativeElement.innerText
-      ).toContain('test license name 2');
+      expect(component.selectedCcLicense.name).toContain('test license name 2');
     });
 
     it('should display all field labels of the selected cc license only', () => {

@@ -1470,6 +1470,8 @@
 
   "deny-request-copy.success": "Successfully denied item request",
 
+  "dynamic-list.load-more": "Load more",
+
   "dropdown.clear": "Clear selection",
 
   "dropdown.clear.tooltip": "Clear the selected option",

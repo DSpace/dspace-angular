@@ -44,7 +44,9 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public items: ListItem[][] = [];
-  protected optionsList: VocabularyEntry[];
+  public showLoadMore$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  protected optionsList: VocabularyEntry[] = [];
+  private nextPageInfo: PageInfo;
 
   constructor(private vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
@@ -60,7 +62,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
    */
   ngOnInit() {
     if (this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name)) {
-      this.setOptionsFromVocabulary();
+      this.initOptionsFromVocabulary();
     }
   }
 
@@ -107,70 +109,18 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
   /**
    * Setting up the field options from vocabulary
    */
-  protected setOptionsFromVocabulary() {
+  protected initOptionsFromVocabulary() {
     if (this.model.vocabularyOptions.name && this.model.vocabularyOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as UntypedFormGroup;
       if (this.model.repeatable && this.model.required) {
         listGroup.addValidators(this.hasAtLeastOneVocabularyEntry());
       }
 
-      const initialPageInfo: PageInfo = new PageInfo({
+      this.nextPageInfo = new PageInfo({
         elementsPerPage: 20, currentPage: 1,
       } as PageInfo);
 
-      this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, initialPageInfo).pipe(
-        getFirstSucceededRemoteDataPayload(),
-        expand((entries: PaginatedList<VocabularyEntry>) => {
-          if (entries.pageInfo.currentPage < entries.pageInfo.totalPages) {
-            const nextPageInfo: PageInfo = new PageInfo({
-              elementsPerPage: 20, currentPage: entries.pageInfo.currentPage + 1,
-            } as PageInfo);
-            return this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, nextPageInfo).pipe(
-              getFirstSucceededRemoteDataPayload()
-            );
-          } else {
-            return EMPTY;
-          }
-        }),
-        reduce((acc: VocabularyEntry[], entries: PaginatedList<VocabularyEntry>) => acc.concat(entries.page), [])
-      ).subscribe((allEntries: VocabularyEntry[]) => {
-        let groupCounter = 0;
-        let itemsPerGroup = 0;
-        let tempList: ListItem[] = [];
-        this.optionsList = allEntries;
-        // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
-        allEntries.forEach((option: VocabularyEntry, key: number) => {
-          const value = option.authority || option.value;
-          const checked: boolean = isNotEmpty(findKey(
-            this.model.value,
-            (v) => v.value === option.value));
-
-          const item: ListItem = {
-            id: `${this.model.id}_${value}`,
-            label: option.display,
-            value: checked,
-            index: key
-          };
-          if (this.model.repeatable) {
-            this.formBuilderService.addFormGroupControl(listGroup, (this.model as DynamicListCheckboxGroupModel), new DynamicCheckboxModel(item));
-          } else {
-            (this.model as DynamicListRadioGroupModel).options.push({
-              label: item.label,
-              value: option
-            });
-          }
-          tempList.push(item);
-          itemsPerGroup++;
-          this.items[groupCounter] = tempList;
-          if (itemsPerGroup === this.model.groupLength) {
-            groupCounter++;
-            itemsPerGroup = 0;
-            tempList = [];
-          }
-        });
-        this.cdr.markForCheck();
-      });
-
+      this.loadEntries(listGroup);
     }
   }
 
@@ -183,4 +133,70 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     };
   }
 
+  /**
+   * Update current page state to keep track of which one to load next
+   * @param response
+   */
+  setPaginationInfo(response: PaginatedList<VocabularyEntry>) {
+    if (response.pageInfo.currentPage < response.pageInfo.totalPages) {
+      this.nextPageInfo = Object.assign(new PageInfo(), response.pageInfo,  { currentPage: response.currentPage + 1 });
+      this.showLoadMore$.next(true);
+    } else {
+      this.showLoadMore$.next(false);
+    }
+  }
+
+  /**
+   * Load entries page
+   *
+   * @param listGroup
+   */
+  loadEntries(listGroup?: UntypedFormGroup) {
+    if (!hasValue(listGroup)) {
+      listGroup = this.group.controls[this.model.id] as UntypedFormGroup;
+    }
+
+    this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.nextPageInfo).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      tap((response) => this.setPaginationInfo(response)),
+      map(entries => entries.page),
+    ).subscribe((allEntries: VocabularyEntry[]) => {
+      this.optionsList = [...this.optionsList, ...allEntries];
+      let groupCounter = (this.items.length > 0) ? (this.items.length - 1) : 0;
+      let itemsPerGroup = 0;
+      let tempList: ListItem[] = [];
+
+      // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
+      allEntries.forEach((option: VocabularyEntry, key: number) => {
+        const value = option.authority || option.value;
+        const checked: boolean = isNotEmpty(findKey(
+          this.model.value,
+          (v) => v?.value === option.value));
+
+        const item: ListItem = {
+          id: `${this.model.id}_${value}`,
+          label: option.display,
+          value: checked,
+          index: key,
+        };
+        if (this.model.repeatable) {
+          this.formBuilderService.addFormGroupControl(listGroup, (this.model as DynamicListCheckboxGroupModel), new DynamicCheckboxModel(item));
+        } else {
+          (this.model as DynamicListRadioGroupModel).options.push({
+            label: item.label,
+            value: option,
+          });
+        }
+        tempList.push(item);
+        itemsPerGroup++;
+        this.items[groupCounter] = tempList;
+        if (itemsPerGroup === this.model.groupLength) {
+          groupCounter++;
+          itemsPerGroup = 0;
+          tempList = [];
+        }
+      });
+      this.cdr.markForCheck();
+    });
+  }
 }
