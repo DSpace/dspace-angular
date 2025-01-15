@@ -9,6 +9,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../share
 import { Bitstream } from '../../../../../../../../core/shared/bitstream.model';
 import { TranslateLoaderMock } from '../../../../../../../../shared/mocks/translate-loader.mock';
 import { FileSizePipe } from '../../../../../../../../shared/utils/file-size-pipe';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('BitstreamAttachmentComponent', () => {
   let component: BitstreamAttachmentComponent;
@@ -27,6 +28,7 @@ describe('BitstreamAttachmentComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ BitstreamAttachmentComponent, FileSizePipe ],
       imports: [
+        NgbTooltipModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
