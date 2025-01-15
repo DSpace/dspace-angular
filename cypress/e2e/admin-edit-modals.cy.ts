@@ -12,6 +12,7 @@ describe('Admin Edit Modals', () => {
     cy.get('#sidebar-collapse-toggle').click();
 
     // Click on entry of menu
+    cy.get('#admin-menu-section-edit-title').should('be.visible');
     cy.get('#admin-menu-section-edit-title').click();
 
     cy.get('a[data-test="menu.section.edit_community"]').click();
@@ -25,6 +26,7 @@ describe('Admin Edit Modals', () => {
     cy.get('#sidebar-collapse-toggle').click();
 
     // Click on entry of menu
+    cy.get('#admin-menu-section-edit-title').should('be.visible');
     cy.get('#admin-menu-section-edit-title').click();
 
     cy.get('a[data-test="menu.section.edit_collection"]').click();
@@ -38,6 +40,7 @@ describe('Admin Edit Modals', () => {
     cy.get('#sidebar-collapse-toggle').click();
 
     // Click on entry of menu
+    cy.get('#admin-menu-section-edit-title').should('be.visible');
     cy.get('#admin-menu-section-edit-title').click();
 
     cy.get('a[data-test="menu.section.edit_item"]').click();
