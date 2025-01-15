@@ -19,7 +19,7 @@
     </div>
   </div>
   <div *ngIf="(isAuthenticated | async) && (showAuth | async)" class="nav-item">
-    <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
+    <div ngbDropdown #loggedInDrop="ngbDropdown" display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
       <a href="javascript:void(0);"
          role="menuitem"
          [attr.aria-label]="'nav.user-profile-menu-and-logout' | translate"
@@ -30,7 +30,7 @@
          ngbDropdownToggle>
         <i class="fas fa-user-circle fa-lg fa-fw"></i></a>
       <div id="logoutDropdownMenu" ngbDropdownMenu>
-        <ds-user-menu [inExpandableNavbar]="false"></ds-user-menu>
+        <ds-user-menu [inExpandableNavbar]="false" (changedRoute)="loggedInDrop.close()"></ds-user-menu>
       </div>
     </div>
   </div>

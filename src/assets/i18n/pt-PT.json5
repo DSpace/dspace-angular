@@ -1568,8 +1568,8 @@
   // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
   "browse.metadata.nsi.breadcrumbs": "Percorrer por 'Norwegian Science Index'",
 
-  // "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
-  "browse.metadata.nsi.tree.descrption": "Selecionar um índice para adicionar como filtro de pesquisa",
+  // "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
+  "browse.metadata.nsi.tree.description": "Selecionar um índice para adicionar como filtro de pesquisa",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Percorrer por título",

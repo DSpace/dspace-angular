@@ -153,6 +153,9 @@ export class FormService {
   }
 
   public addControlErrors(field: AbstractControl, formId: string, fieldId: string, fieldIndex: number) {
+    if (field.errors === null) {
+      return;
+    }
     const errors: string[] = Object.keys(field.errors)
       .filter((errorKey) => field.errors[errorKey] === true)
       .map((errorKey) => `error.validation.${errorKey}`);

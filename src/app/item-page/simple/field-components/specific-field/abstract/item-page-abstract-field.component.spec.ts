@@ -15,8 +15,10 @@ import {
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { BrowseService } from '../../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.component';
 
@@ -38,6 +40,7 @@ describe('ItemPageAbstractFieldComponent', () => {
       providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: BrowseService, useValue: BrowseServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageAbstractFieldComponent, {
