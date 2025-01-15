@@ -12,7 +12,8 @@ describe('Admin Export Modals', () => {
     cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
-    cy.get('#admin-menu-section-export-title').click();
+    cy.get('[data-test="admin-menu-section-export-title"]').should('be.visible');
+    cy.get('[data-test="admin-menu-section-export-title"]').click();
 
     cy.get('a[data-test="menu.section.export_metadata"]').click();
 
@@ -25,7 +26,8 @@ describe('Admin Export Modals', () => {
     cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
-    cy.get('#admin-menu-section-export-title').click();
+    cy.get('[data-test="admin-menu-section-export-title"]').should('be.visible');
+    cy.get('[data-test="admin-menu-section-export-title"]').click();
 
     cy.get('a[data-test="menu.section.export_batch"]').click();
 
