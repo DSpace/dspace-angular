@@ -8,6 +8,8 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Inject,
+  Injector,
   Input,
   OnInit,
   Output,
@@ -27,21 +29,28 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
   of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
   distinctUntilChanged,
   map,
+  take,
   tap,
 } from 'rxjs/operators';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from 'src/config/app-config.interface';
 
 import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
-import { FindAllData } from '../../../../../../core/data/base/find-all-data';
+import { FindAllDataImpl } from '../../../../../../core/data/base/find-all-data';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
+import { lazyDataService } from '../../../../../../core/lazy-data-service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -102,12 +111,15 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * If is provided in the config will be used for data loading in stead of the VocabularyService
    * @private
    */
-  private findAllService: FindAllData<CacheableObject>;
+  private findAllService: FindAllDataImpl<CacheableObject>;
 
-  constructor(protected vocabularyService: VocabularyService,
-              protected cdr: ChangeDetectorRef,
-              protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService,
+  constructor(
+    protected vocabularyService: VocabularyService,
+    protected cdr: ChangeDetectorRef,
+    protected layoutService: DynamicFormLayoutService,
+    protected validationService: DynamicFormValidationService,
+    protected parentInjector: Injector,
+    @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap,
   ) {
     super(vocabularyService, layoutService, validationService);
   }
@@ -116,11 +128,17 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
-    this.findAllService = this.model?.findAllFactory();
-    this.useFindAllService = hasValue(this.findAllService?.findAll) && typeof this.findAllService.findAll === 'function';
+    const lazyProvider$: Observable<Cache> = hasValue(this.model.resourceType) ?
+      lazyDataService(this.dataServiceMap, this.model.resourceType.value, this.parentInjector) : of(null);
 
-    this.updatePageInfo(this.model.maxOptions, 1);
-    this.loadOptions(true);
+    lazyProvider$.pipe(take(1)).subscribe((dataService) => {
+      this.findAllService = dataService as unknown as FindAllDataImpl<CacheableObject>;
+      this.useFindAllService = hasValue(this.findAllService?.findAll) && typeof this.findAllService.findAll === 'function';
+      this.updatePageInfo(this.model.maxOptions, 1);
+      this.loadOptions(true);
+    });
+
+
     this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
       .subscribe((value) => {
         this.setCurrentValue(value);

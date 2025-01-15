@@ -4,8 +4,7 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
-import { FindAllDataImpl } from '../../../../../../core/data/base/find-all-data';
+import { ResourceType } from '../../../../../../core/shared/resource-type';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import {
   DsDynamicInputModel,
@@ -20,7 +19,8 @@ export interface DynamicScrollableDropdownModelConfig extends DsDynamicInputMode
   value?: any;
   displayKey?: string;
   formatFunction?: (value: any) => string;
-  findAllFactory?: () =>  FindAllDataImpl<CacheableObject>;}
+  resourceType?: ResourceType;
+}
 
 export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
 
@@ -32,9 +32,9 @@ export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
    */
   formatFunction: (value: any) => string;
   /**
-   * Factory for a service that implements FindAllData
+   * Resource type to match data service
    */
-  findAllFactory: () =>  FindAllDataImpl<CacheableObject>;
+  resourceType: ResourceType;
 
   constructor(config: DynamicScrollableDropdownModelConfig, layout?: DynamicFormControlLayout) {
 
@@ -45,7 +45,7 @@ export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
     this.maxOptions = config.maxOptions || 10;
     this.displayKey = config.displayKey || 'display';
     this.formatFunction = config.formatFunction;
-    this.findAllFactory = config.findAllFactory || (() => null);
+    this.resourceType = config.resourceType;
   }
 
 }

@@ -50,6 +50,7 @@ import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.servi
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
+import { BITSTREAM_FORMAT } from '../../core/shared/bitstream-format.resource-type';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
@@ -218,7 +219,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     metadataFields: [],
     submissionId: '',
     hasSelectableMetadata: false,
-    findAllFactory: this.findAllFormatsServiceFactory(),
+    resourceType: BITSTREAM_FORMAT,
     formatFunction: (format: BitstreamFormat | string) => {
       if (format instanceof  BitstreamFormat) {
         return hasValue(format) && format.supportLevel === BitstreamFormatSupportLevel.Unknown ? this.translate.instant(this.KEY_PREFIX + 'selectedFormat.unknown') : format.shortDescription;
