@@ -12,6 +12,7 @@ describe('Admin Add New Modals', () => {
     cy.get('#sidebar-collapse-toggle').click();
 
     // Click on entry of menu
+    cy.get('#admin-menu-section-new-title').should('be.visible');
     cy.get('#admin-menu-section-new-title').click();
 
     cy.get('a[data-test="menu.section.new_community"]').click();
@@ -25,6 +26,7 @@ describe('Admin Add New Modals', () => {
     cy.get('#sidebar-collapse-toggle').click();
 
     // Click on entry of menu
+    cy.get('#admin-menu-section-new-title').should('be.visible');
     cy.get('#admin-menu-section-new-title').click();
 
     cy.get('a[data-test="menu.section.new_collection"]').click();
@@ -38,6 +40,7 @@ describe('Admin Add New Modals', () => {
     cy.get('#sidebar-collapse-toggle').click();
 
     // Click on entry of menu
+    cy.get('#admin-menu-section-new-title').should('be.visible');
     cy.get('#admin-menu-section-new-title').click();
 
     cy.get('a[data-test="menu.section.new_item"]').click();
