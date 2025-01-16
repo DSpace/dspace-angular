@@ -380,3 +380,9 @@ vocabularies:
 comcolSelectionSort:
   sortField: 'dc.title'
   sortDirection: 'ASC'
+
+prefetch:
+  urls:
+    - /api
+    - /api/discover
+  refreshInterval: 60000

@@ -22,6 +22,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
+import { PrefetchConfig } from './prefetch-config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -431,5 +432,12 @@ export class DefaultAppConfig implements AppConfig {
   comcolSelectionSort: DiscoverySortConfig = {
     sortField:'dc.title',
     sortDirection:'ASC',
+  };
+
+  // EndpointMap prefetching configuration
+  prefetch: PrefetchConfig = {
+    urls: [],
+    bootstrap: {},
+    refreshInterval: 60000, // refresh every minute
   };
 }

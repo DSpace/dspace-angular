@@ -313,5 +313,11 @@ export const environment: BuildConfig = {
       vocabulary: 'srsc',
       enabled: true
     }
-  ]
+  ],
+
+  prefetch: {
+    urls: [],
+    bootstrap: {},
+    refreshInterval: 60000,
+  }
 };
