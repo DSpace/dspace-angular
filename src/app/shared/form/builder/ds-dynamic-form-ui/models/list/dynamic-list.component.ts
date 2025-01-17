@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { UntypedFormGroup, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import {
   DynamicCheckboxModel,
@@ -17,7 +17,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { BehaviorSubject, EMPTY, expand, map, reduce, tap } from "rxjs";
+import { BehaviorSubject, EMPTY, expand, map, reduce, Subscription, tap } from "rxjs";
 
 export interface ListItem {
   id: string;
@@ -34,7 +34,7 @@ export interface ListItem {
   styleUrls: ['./dynamic-list.component.scss'],
   templateUrl: './dynamic-list.component.html'
 })
-export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
+export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {
 
   @Input() group: UntypedFormGroup;
   @Input() model: any;
@@ -44,9 +44,10 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public items: ListItem[][] = [];
-  public showLoadMore$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   protected optionsList: VocabularyEntry[] = [];
   private nextPageInfo: PageInfo;
+  private subs: Subscription[] = [];
 
   constructor(private vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
@@ -63,6 +64,12 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
   ngOnInit() {
     if (this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name)) {
       this.initOptionsFromVocabulary();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.subs.length > 0) {
+      this.subs.forEach(sub => sub.unsubscribe());
     }
   }
 
@@ -140,9 +147,9 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
   setPaginationInfo(response: PaginatedList<VocabularyEntry>) {
     if (response.pageInfo.currentPage < response.pageInfo.totalPages) {
       this.nextPageInfo = Object.assign(new PageInfo(), response.pageInfo,  { currentPage: response.currentPage + 1 });
-      this.showLoadMore$.next(true);
+      this.isLoading$.next(true);
     } else {
-      this.showLoadMore$.next(false);
+      this.isLoading$.next(false);
     }
   }
 
@@ -156,47 +163,53 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
       listGroup = this.group.controls[this.model.id] as UntypedFormGroup;
     }
 
-    this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.nextPageInfo).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      tap((response) => this.setPaginationInfo(response)),
-      map(entries => entries.page),
-    ).subscribe((allEntries: VocabularyEntry[]) => {
-      this.optionsList = [...this.optionsList, ...allEntries];
-      let groupCounter = (this.items.length > 0) ? (this.items.length - 1) : 0;
-      let itemsPerGroup = 0;
-      let tempList: ListItem[] = [];
+    this.subs.push(
+      this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, this.nextPageInfo).pipe(
+        getFirstSucceededRemoteDataPayload(),
+        tap((response) => this.setPaginationInfo(response)),
+        map(entries => entries.page),
+      ).subscribe((allEntries: VocabularyEntry[]) => {
+        this.optionsList = [...this.optionsList, ...allEntries];
+        let groupCounter = this.items.length;
+        let itemsPerGroup = 0;
+        let tempList: ListItem[] = [];
 
-      // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
-      allEntries.forEach((option: VocabularyEntry, key: number) => {
-        const value = option.authority || option.value;
-        const checked: boolean = isNotEmpty(findKey(
-          this.model.value,
-          (v) => v?.value === option.value));
+        // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
+        allEntries.forEach((option: VocabularyEntry) => {
+          const value = option.authority || option.value;
+          const checked: boolean = isNotEmpty(findKey(
+            this.model.value,
+            (v) => v?.value === option.value));
 
-        const item: ListItem = {
-          id: `${this.model.id}_${value}`,
-          label: option.display,
-          value: checked,
-          index: key,
-        };
-        if (this.model.repeatable) {
-          this.formBuilderService.addFormGroupControl(listGroup, (this.model as DynamicListCheckboxGroupModel), new DynamicCheckboxModel(item));
-        } else {
-          (this.model as DynamicListRadioGroupModel).options.push({
-            label: item.label,
-            value: option,
-          });
+          const item: ListItem = {
+            id: `${this.model.id}_${value}`,
+            label: option.display,
+            value: checked,
+            index: this.optionsList.indexOf(option),
+          };
+          if (this.model.repeatable) {
+            this.formBuilderService.addFormGroupControl(listGroup, (this.model as DynamicListCheckboxGroupModel), new DynamicCheckboxModel(item));
+          } else {
+            (this.model as DynamicListRadioGroupModel).options.push({
+              label: item.label,
+              value: option,
+            });
+          }
+          tempList.push(item);
+          itemsPerGroup++;
+          this.items[groupCounter] = tempList;
+          if (itemsPerGroup === this.model.groupLength) {
+            groupCounter++;
+            itemsPerGroup = 0;
+            tempList = [];
+          }
+        });
+        this.cdr.markForCheck();
+        // If the paginated request did not reach the end keep loading the entries in the background
+        if (this.isLoading$.value) {
+          this.loadEntries();
         }
-        tempList.push(item);
-        itemsPerGroup++;
-        this.items[groupCounter] = tempList;
-        if (itemsPerGroup === this.model.groupLength) {
-          groupCounter++;
-          itemsPerGroup = 0;
-          tempList = [];
-        }
-      });
-      this.cdr.markForCheck();
-    });
+      }),
+    );
   }
 }
