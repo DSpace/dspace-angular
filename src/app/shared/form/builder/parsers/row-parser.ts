@@ -122,7 +122,7 @@ export class RowParser {
     if (config && !isEmpty(config.group)) {
       const clsGroup = {
         element: {
-          control: 'form-row',
+          control: 'row',
         },
       };
       const groupModel = new DynamicRowGroupModel(config, clsGroup);

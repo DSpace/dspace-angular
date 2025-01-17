@@ -6,7 +6,7 @@
       <ds-view-tracker [object]="item"></ds-view-tracker>
       <div *ngIf="!item.isWithdrawn || (isAdmin$|async)" class="full-item-info">
         <div class="d-flex flex-row">
-          <ds-item-page-title-field class="mr-auto" [item]="item"></ds-item-page-title-field>
+          <ds-item-page-title-field class="me-auto" [item]="item"></ds-item-page-title-field>
           <ds-dso-edit-menu></ds-dso-edit-menu>
         </div>
         <div class="simple-view-link my-3" *ngIf="!fromSubmissionObject">
@@ -31,8 +31,8 @@
         <ds-item-page-collections [item]="item"></ds-item-page-collections>
         <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
         <div class="button-row bottom" *ngIf="fromSubmissionObject">
-          <div class="text-right">
-            <button class="btn btn-outline-secondary mr-1" (click)="back()"><i
+          <div class="text-end">
+            <button class="btn btn-outline-secondary me-1" (click)="back()"><i
                     class="fas fa-arrow-left"></i> {{'item.page.return' | translate}}</button>
           </div>
         </div>

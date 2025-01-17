@@ -8,6 +8,7 @@
       <div cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
         <!-- Draggable Items -->
         <div *ngFor="let groupModel of model.groups"
+             class="drag-item-container"
              role="group"
              [formGroupName]="groupModel.index"
              [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"

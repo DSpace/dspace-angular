@@ -8,7 +8,7 @@
 
       <div class="d-flex flex-column">
         <div>
-          <label for="accesscontroloption-{{control.id}}">
+          <label class="form-label" for="accesscontroloption-{{control.id}}">
             {{'access-control-option-label' | translate}}
           </label>
           <select
@@ -17,7 +17,7 @@
             [(ngModel)]="control.itemName"
             (ngModelChange)="accessControlChanged(control, $event)"
             name="itemName-{{control.id}}"
-            class="form-control">
+            class="form-select">
             <option value=""></option>
             <option *ngFor="let option of dropdownOptions" [value]="option.name">
               {{ option.name }}
@@ -29,7 +29,7 @@
         </div>
 
         <div *ngIf="control.hasStartDate" class="mt-3">
-          <label for="accesscontrolstartdate-{{control.id}}">
+          <label class="form-label" for="accesscontrolstartdate-{{control.id}}">
             {{'access-control-option-start-date' | translate}}
           </label>
           <div class="input-group">
@@ -58,7 +58,7 @@
         </div>
 
         <div *ngIf="control.hasEndDate" class="mt-3">
-          <label for="accesscontrolenddate-{{control.id}}">
+          <label class="form-label" for="accesscontrolenddate-{{control.id}}">
             {{'access-control-option-end-date' | translate}}
           </label>
           <div class="input-group">

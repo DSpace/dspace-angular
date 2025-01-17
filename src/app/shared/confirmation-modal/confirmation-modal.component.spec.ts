@@ -82,7 +82,7 @@ describe('ConfirmationModalComponent', () => {
   describe('when the click method emits on close button', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'close');
-      debugElement.query(By.css('button.close')).triggerEventHandler('click', {
+      debugElement.query(By.css('button.btn-close')).triggerEventHandler('click', {
         preventDefault: () => {/**/
         },
       });

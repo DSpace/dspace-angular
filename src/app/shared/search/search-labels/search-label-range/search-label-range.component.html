@@ -3,10 +3,10 @@
    [routerLink]="searchLink"
    [queryParams]="(removeParametersMin$ | async)"
    (click)="searchFilterService.minimizeAll()"
-   class="badge badge-primary">
+   class="badge bg-primary">
   <span class="d-flex">
     <span class="flex-grow-1 text-left">{{('search.filters.applied.f.' + appliedFilter.filter + '.min') | translate}}: {{ min }}</span>
-    <span class="pl-1" aria-hidden="true">×</span>
+    <span class="ps-1" aria-hidden="true">×</span>
   </span>
 </a>
 <a *ngIf="max !== '*'"
@@ -14,9 +14,9 @@
    [routerLink]="searchLink"
    [queryParams]="(removeParametersMax$ | async)"
    (click)="searchFilterService.minimizeAll()"
-   class="badge badge-primary">
+   class="badge bg-primary">
   <span class="d-flex">
     <span class="flex-grow-1 text-left">{{('search.filters.applied.f.' + appliedFilter.filter + '.max') | translate}}: {{ max }}</span>
-    <span class="pl-1" aria-hidden="true">×</span>
+    <span class="ps-1" aria-hidden="true">×</span>
   </span>
 </a>
