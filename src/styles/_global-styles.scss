@@ -445,8 +445,11 @@ ngb-accordion {
 }
 
 .form-control, .page-link {
-    &:disabled::placeholder {
+    &:disabled {
         color: lighten($gray-700, 10%);
+    }
+    &::placeholder {
+        color: $gray-700;
     }
     &:focus {
         box-shadow: none;
