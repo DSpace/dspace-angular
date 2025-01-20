@@ -268,8 +268,8 @@ describe('BrowseByMetadataComponent', () => {
 
   describe('when rendered in SSR', () => {
     beforeEach(() => {
-      comp.platformId = 'server';
-      spyOn((comp as any).browseService, 'getBrowseEntriesFor');
+      comp.ssrRenderingDisabled = true;
+      spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(null));
     });
 
     it('should not call getBrowseEntriesFor on init', (done) => {
@@ -284,7 +284,7 @@ describe('BrowseByMetadataComponent', () => {
 
   describe('when rendered in CSR', () => {
     beforeEach(() => {
-      comp.platformId = 'browser';
+      comp.ssrRenderingDisabled = false;
       spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
     });
 

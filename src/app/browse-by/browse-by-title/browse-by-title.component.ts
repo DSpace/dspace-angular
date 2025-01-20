@@ -18,6 +18,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
@@ -63,7 +64,7 @@ import {
 export class BrowseByTitleComponent extends BrowseByMetadataComponent implements OnInit {
 
   ngOnInit(): void {
-    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+    if (!this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId)) {
       this.loading$ = observableOf(false);
       return;
     }
