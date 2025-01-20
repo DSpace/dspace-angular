@@ -131,6 +131,10 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    * Observable determining if the loading animation needs to be shown
    */
   loading$ = observableOf(true);
+  /**
+   * Whether this component should be rendered or not in SSR
+   */
+  ssrRenderingDisabled = false;
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
@@ -148,11 +152,12 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
         currentPage: 1,
         pageSize: this.appConfig.browseBy.pageSize,
         });
+    this.ssrRenderingDisabled = !this.renderOnServerSide && !environment.universal.enableBrowseComponent && isPlatformServer(this.platformId);
   }
 
 
   ngOnInit(): void {
-    if (!this.renderOnServerSide && !environment.universal.enableBrowseComponent && isPlatformServer(this.platformId)) {
+    if (this.ssrRenderingDisabled) {
       this.loading$ = observableOf(false);
       return;
     }

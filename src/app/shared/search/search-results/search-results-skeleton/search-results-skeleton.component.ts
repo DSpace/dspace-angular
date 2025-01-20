@@ -25,6 +25,9 @@ import { hasValue } from '../../../empty.util';
   templateUrl: './search-results-skeleton.component.html',
   styleUrl: './search-results-skeleton.component.scss',
 })
+/**
+ * Component to show placeholders for search results while loading, to give a loading feedback to the user without layout shifting.
+ */
 export class SearchResultsSkeletonComponent implements OnInit {
   @Input()
   showThumbnails: boolean;

@@ -20,6 +20,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { isPlatformServer } from "@angular/common";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -52,7 +53,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
   }
 
   ngOnInit(): void {
-    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+    if (!this.renderOnServerSide && !environment.universal.enableBrowseComponent && isPlatformServer(this.platformId)) {
       this.loading$ = observableOf(false);
       return;
     }
