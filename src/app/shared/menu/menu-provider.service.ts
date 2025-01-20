@@ -92,8 +92,8 @@ export class MenuProviderService {
             provider: AbstractMenuProvider,
             sections: PartialMenuSection[]
           }, sectionIndex) => {
-            providerWithSection.sections.forEach((section) => {
-              this.addSection(providerWithSection.provider, section);
+            providerWithSection.sections.forEach((section, index) => {
+              this.addSection(providerWithSection.provider, section, index);
             });
             return this.waitForMenu$(providerWithSection.provider.menuID);
           });
@@ -156,8 +156,8 @@ export class MenuProviderService {
           provider: AbstractMenuProvider,
           sections: PartialMenuSection[]
         }) => {
-          providerWithSection.sections.forEach((section) => {
-            this.addSection(providerWithSection.provider, section);
+          providerWithSection.sections.forEach((section, index) => {
+            this.addSection(providerWithSection.provider, section, index);
           });
           return this.waitForMenu$(providerWithSection.provider.menuID);
         });
@@ -172,12 +172,13 @@ export class MenuProviderService {
    * @param provider - The provider of the section which will be used to provide extra data to the section
    * @param section  - The partial section to be added to the menus
    */
-  private addSection(provider: AbstractMenuProvider, section: PartialMenuSection) {
+  private addSection(provider: AbstractMenuProvider, section: PartialMenuSection, index: number) {
     this.menuService.addSection(provider.menuID, {
       ...section,
-      id: section.id ?? `${provider.menuProviderId}`,
+      id: section.id ?? `${provider.menuProviderId}_${index}`,
       parentID: section.parentID ?? provider.parentID,
-      index: section.index ?? provider.index,
+      index: provider.index,
+      active: section.active ?? true,
       shouldPersistOnRouteChange: section.shouldPersistOnRouteChange ?? provider.shouldPersistOnRouteChange,
       alwaysRenderExpandable: section.alwaysRenderExpandable ?? provider.alwaysRenderExpandable,
     });

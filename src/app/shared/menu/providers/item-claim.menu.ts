@@ -81,7 +81,7 @@ export class ClaimMenuProvider extends DSpaceObjectPageMenuProvider {
           this.translate.get('researcherprofile.success.claim.body'),
         );
         this.authorizationService.invalidateAuthorizationsRequestCache();
-        this.menuService.hideMenuSection(MenuID.DSO_EDIT, this.menuProviderId);
+        this.menuService.hideMenuSection(MenuID.DSO_EDIT, this.getAutomatedSectionId(0));
       } else {
         this.notificationsService.error(
           this.translate.get('researcherprofile.error.claim.title'),

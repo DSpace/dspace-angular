@@ -22,7 +22,6 @@ export interface PartialMenuSection {
   visible: boolean;
   model: MenuItemModels;
   parentID?: string;
-  index?: number;
   active?: boolean;
   shouldPersistOnRouteChange?: boolean;
   icon?: string;
@@ -65,7 +64,7 @@ export abstract class AbstractMenuProvider implements MenuProvider {
 
   /**
    * ID of the menu this provider is part of
-   * If not set up, this will be set based on the provider class name
+   * This will be set to the menu ID of the menu in which it is present in the app.menus.ts file
    */
   menuID?: MenuID;
 
@@ -143,6 +142,10 @@ export abstract class AbstractMenuProvider implements MenuProvider {
    * @param state - The router snapshot on which the sections possibly depend
    */
   abstract getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
+
+  protected getAutomatedSectionId(indexOfSectionInProvider: number): string {
+    return `${this.menuProviderId}_${indexOfSectionInProvider};`
+  }
 
 }
 

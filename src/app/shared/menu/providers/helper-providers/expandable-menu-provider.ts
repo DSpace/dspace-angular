@@ -58,4 +58,12 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
       })
     );
   }
+
+  protected getAutomatedSectionIdForTopSection(): string {
+    return this.getAutomatedSectionId(0);
+  }
+  protected getAutomatedSectionIdForSubsection(indexOfSubSectionInProvider: number): string {
+    return `${this.menuProviderId}_0_${indexOfSubSectionInProvider};`
+  }
+
 }

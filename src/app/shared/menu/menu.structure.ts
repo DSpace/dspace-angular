@@ -53,7 +53,7 @@ function processProviderType(providers: Provider[], menuID: string, providerType
     const childProviderTypes = (providerType as any).childProviderTypes;
 
     childProviderTypes.forEach((childProviderType, childIndex: number) => {
-      processProviderType(providers, menuID, childProviderType, childIndex, `${menuID}_${index}`, hasSubProviders);
+      processProviderType(providers, menuID, childProviderType, childIndex, `${menuID}_${index}_0`, hasSubProviders);
     });
     processProviderType(providers, menuID, providerPart, index, parentID, true);
 

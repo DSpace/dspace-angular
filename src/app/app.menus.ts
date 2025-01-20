@@ -73,7 +73,6 @@ export const MENUS = buildMenuStructure({
       ClaimMenuProvider.onRoute(
         MenuRoute.SIMPLE_ITEM_PAGE,
         MenuRoute.FULL_ITEM_PAGE,
-        MenuRoute.SIMPLE_COLLECTION_PAGE,
       ),
     ]),
   ],
