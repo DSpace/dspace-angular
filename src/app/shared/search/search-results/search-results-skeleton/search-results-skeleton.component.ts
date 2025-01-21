@@ -29,17 +29,28 @@ import { hasValue } from '../../../empty.util';
  * Component to show placeholders for search results while loading, to give a loading feedback to the user without layout shifting.
  */
 export class SearchResultsSkeletonComponent implements OnInit {
+  /**
+   * Whether the search result contains thumbnail
+   */
   @Input()
   showThumbnails: boolean;
-
+  /**
+   * The number of search result loaded in the current page
+   */
   @Input()
   numberOfResults = 0;
-
+  /**
+   * How many placeholder are displayed for the search result text
+   */
   @Input()
   textLineCount = 2;
-
+  /**
+   * The view mode of the search page
+   */
   public viewMode$: Observable<ViewMode>;
-
+  /**
+   * Array built from numberOfResults to count and iterate based on index
+   */
   public loadingResults: number[];
 
   protected readonly ViewMode = ViewMode;

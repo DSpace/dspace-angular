@@ -20,12 +20,13 @@
   }
 
   .thumbnail-skeleton {
+    max-width: var(--ds-thumbnail-max-width);
+    height: 100%;
+
     ngx-skeleton-loader .skeleton-loader {
-      width: var(--ds-search-skeleton-thumbnail-width);
-      height: var(--ds-search-skeleton-thumbnail-height);
-      padding: var(--ds-search-skeleton-thumbnail-padding);
       margin-right: var(--ds-search-skeleton-thumbnail-margin);
       border-radius: 0;
+      height: 100%;
     }
   }
 
@@ -52,8 +53,4 @@
   }
 }
 
-.result-row {
-  margin-right: 0;
-  margin-left: 0;
-}
 

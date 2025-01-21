@@ -5,14 +5,16 @@
 </div>
 
 @if((viewMode$ | async) === ViewMode.ListElement) {
-  @for (result of loadingResults; track result) {
-      <div class="row flex-nowrap result-row">
+  @for (result of loadingResults; track result; let first = $first) {
+      <div [class.my-4]="!first" class="row">
       @if(showThumbnails) {
-        <div class="thumbnail-skeleton">
-          <ngx-skeleton-loader/>
+        <div class="col-3 col-md-2">
+          <div class="thumbnail-skeleton position-relative">
+            <ngx-skeleton-loader/>
+          </div>
         </div>
       }
-      <div [class.col-9]="showThumbnails" [class.col-md-12]="!showThumbnails">
+      <div [class.col-9]="showThumbnails" [class.col-md-10]="showThumbnails" [class.col-md-12]="!showThumbnails">
         <div class="badge-skeleton">
           <ngx-skeleton-loader/>
         </div>
