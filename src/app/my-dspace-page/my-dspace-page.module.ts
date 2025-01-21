@@ -18,6 +18,9 @@ import {
   ThemedMyDSpaceNewSubmissionComponent
 } from './my-dspace-new-submission/themed-my-dspace-new-submission.component';
 import {MyDSpaceNewSubmissionComponent} from './my-dspace-new-submission/my-dspace-new-submission.component';
+import {
+  ThemedMyDSpaceNewExternalDropdownComponent
+} from './my-dspace-new-submission/my-dspace-new-external-dropdown/themed-my-dspace-new-external-dropdown.component';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
@@ -26,7 +29,8 @@ const DECLARATIONS = [
   ThemedMyDSpaceNewSubmissionComponent,
   CollectionSelectorComponent,
   MyDSpaceNewSubmissionDropdownComponent,
-  MyDSpaceNewExternalDropdownComponent
+  MyDSpaceNewExternalDropdownComponent,
+  ThemedMyDSpaceNewExternalDropdownComponent
 ];
 
 @NgModule({
