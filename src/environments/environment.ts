@@ -13,6 +13,8 @@ export const environment: Partial<BuildConfig> = {
     enabled: false,
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
+    transferState: true,
+    replaceRestUrl: false,
   },
 };
 

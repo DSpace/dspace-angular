@@ -54,6 +54,7 @@ import {
 } from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { DspaceRestInterceptor } from './core/dspace-rest/dspace-rest.interceptor';
 import { LocaleInterceptor } from './core/locale/locale.interceptor';
 import { LogInterceptor } from './core/log/log.interceptor';
 import {
@@ -146,6 +147,11 @@ export const commonAppConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DspaceRestInterceptor,
       multi: true,
     },
     // register the dynamic matcher used by form. MUST be provided by the app module

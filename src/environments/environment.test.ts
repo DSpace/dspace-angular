@@ -12,6 +12,8 @@ export const environment: BuildConfig = {
     enabled: true,
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
+    transferState: true,
+    replaceRestUrl: false,
   },
 
   // Angular express server settings.
