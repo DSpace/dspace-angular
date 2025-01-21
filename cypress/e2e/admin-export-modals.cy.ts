@@ -9,6 +9,7 @@ describe('Admin Export Modals', () => {
 
   it('Export metadata modal should pass accessibility tests', () => {
     // Pin the sidebar open
+    cy.get('#sidebar-collapse-toggle').trigger('mouseover');
     cy.get('#sidebar-collapse-toggle').click();
 
     // Click on entry of menu
@@ -23,6 +24,7 @@ describe('Admin Export Modals', () => {
 
   it('Export batch modal should pass accessibility tests', () => {
     // Pin the sidebar open
+    cy.get('#sidebar-collapse-toggle').trigger('mouseover');
     cy.get('#sidebar-collapse-toggle').click();
 
     // Click on entry of menu
