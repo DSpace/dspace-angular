@@ -177,7 +177,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current sorting settings
    */
   getCurrentSort(paginationId: string, defaultSort: SortOptions): Observable<SortOptions> {
-    return this.paginationService.getCurrentSort(paginationId, defaultSort);
+    return this.paginationService.getCurrentSort(paginationId, defaultSort, true);
   }
 
   /**

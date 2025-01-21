@@ -320,14 +320,15 @@ export class SearchComponent implements OnDestroy, OnInit {
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
       distinctUntilChanged()
     );
-    const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
-      switchMap((searchSortOptions: SortOptions[]) => {
-        const defaultSort: SortOptions = searchSortOptions[0];
-        return this.searchConfigService.getCurrentSort(this.paginationId, defaultSort);
+    const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
+
+    const sortOption$: Observable<SortOptions> = combineLatest([searchSortOptions$, searchOptions$]).pipe(
+      switchMap(([searchSortOptions, searchOptions]: [SortOptions[], PaginatedSearchOptions]) => {
+        const defaultSortOption = hasValue(searchOptions.sort?.field) && hasValue(searchOptions.sort?.field) ? searchOptions.sort : searchSortOptions[0];
+        return this.searchConfigService.getCurrentSort(this.paginationId, defaultSortOption);
       }),
       distinctUntilChanged()
     );
-    const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
     this.subs.push(combineLatest([configuration$, searchSortOptions$, searchOptions$, sortOption$, this.currentScope$]).pipe(
       filter(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {

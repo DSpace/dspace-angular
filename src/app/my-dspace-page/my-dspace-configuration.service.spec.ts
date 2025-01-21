@@ -118,7 +118,7 @@ describe('MyDSpaceConfigurationService', () => {
       service.getCurrentSort('page-id', defaults.sort);
     });
     it('should call getCurrentSort on the paginationService with the provided id and sort options', () => {
-      expect((service as any).paginationService.getCurrentSort).toHaveBeenCalledWith('page-id', defaults.sort);
+      expect((service as any).paginationService.getCurrentSort).toHaveBeenCalledWith('page-id', defaults.sort, true);
     });
   });
 
