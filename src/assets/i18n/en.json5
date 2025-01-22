@@ -6763,4 +6763,6 @@
   "register-page.registration.aria.label": "Enter your e-mail address",
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  "embargo.listelement.badge": "embargo until {{ date }}",
 }
