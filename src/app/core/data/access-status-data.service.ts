@@ -33,7 +33,7 @@ export class AccessStatusDataService extends BaseDataService<AccessStatusObject>
   findItemAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
     return this.findByHref(item._links.accessStatus.href);
   }
-  
+
   /**
    * Returns {@link RemoteData} of {@link AccessStatusObject} that is the access status of the given bitstream
    * @param bitstream Bitstream we want the access status of
