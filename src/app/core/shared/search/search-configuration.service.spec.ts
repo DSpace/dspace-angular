@@ -155,7 +155,7 @@ describe('SearchConfigurationService', () => {
       service.getCurrentSort(defaults.pagination.id, {} as any);
     });
     it('should call getCurrentSort on the paginationService with the provided id and sort options', () => {
-      expect((service as any).paginationService.getCurrentSort).toHaveBeenCalledWith(defaults.pagination.id, {});
+      expect((service as any).paginationService.getCurrentSort).toHaveBeenCalledWith(defaults.pagination.id, {}, true);
     });
   });
 
