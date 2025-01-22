@@ -71,7 +71,7 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
     const item = this.object as Item;
     if (item.accessStatus == null) {
       // In case the access status has not been loaded, do it individually.
-      item.accessStatus = this.accessStatusDataService.findAccessStatusFor(item);
+      item.accessStatus = this.accessStatusDataService.findItemAccessStatusFor(item);
     }
     this.accessStatus$ = item.accessStatus.pipe(
       map((accessStatusRD) => {
