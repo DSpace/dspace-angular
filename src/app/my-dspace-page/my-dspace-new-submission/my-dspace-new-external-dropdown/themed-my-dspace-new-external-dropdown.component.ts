@@ -22,7 +22,7 @@ export class ThemedMyDSpaceNewExternalDropdownComponent extends ThemedComponent<
    * @param themeName The name of the theme
    */
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../../themes/${themeName}/app/shared/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component`);
+    return import(`../../../../themes/${themeName}/app/my-dspace-page/my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component`);
   }
 
   /**
