@@ -177,7 +177,7 @@
     "ng-mocks": "^14.13.2",
     "ngx-mask": "^13.1.7",
     "nodemon": "^2.0.22",
-    "postcss": "^8.4",
+    "postcss": "^8.5",
     "postcss-import": "^14.0.0",
     "postcss-loader": "^4.0.3",
     "postcss-preset-env": "^7.4.2",
