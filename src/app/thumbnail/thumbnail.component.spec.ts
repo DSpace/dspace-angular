@@ -288,6 +288,7 @@ describe('ThumbnailComponent', () => {
           format: { href: 'format.url' },
           content: { href: CONTENT },
           thumbnail: undefined,
+          accessStatus: { href: 'accessStatus.url' },
         };
         comp.thumbnail = thumbnail;
       });
@@ -324,6 +325,7 @@ describe('ThumbnailComponent', () => {
           format: { href: 'format.url' },
           content: { href: CONTENT },
           thumbnail: undefined,
+          accessStatus: { href: 'accessStatus.url' },
         };
       });
 
