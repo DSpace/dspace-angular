@@ -30,13 +30,14 @@ import {
   hasValue,
   isNotEmpty,
 } from '../empty.util';
+import { ThemedEmbargoBadgeComponent } from '../object-collection/shared/badges/embargo-badge/themed-embargo-badge.component';
 
 @Component({
   selector: 'ds-base-file-download-link',
   templateUrl: './file-download-link.component.html',
   styleUrls: ['./file-download-link.component.scss'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgTemplateOutlet, AsyncPipe, TranslateModule],
+  imports: [RouterLink, NgClass, NgTemplateOutlet, AsyncPipe, TranslateModule, ThemedEmbargoBadgeComponent],
 })
 /**
  * Component displaying a download link
