@@ -45,7 +45,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
   };
 
   const mockAccessStatusDataService = {
-    findAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
+    findItemAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
       return createSuccessfulRemoteDataObject$(new AccessStatusObject());
     },
   };
