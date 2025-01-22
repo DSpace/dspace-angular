@@ -194,7 +194,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^16.14.0",
     "rimraf": "^3.0.2",
-    "sass": "~1.83.1",
+    "sass": "~1.83.4",
     "sass-loader": "^12.6.0",
     "sass-resources-loader": "^2.2.5",
     "ts-node": "^8.10.2",
