@@ -12,6 +12,7 @@ export const environment: BuildConfig = {
     async: true,
     time: false,
     inlineCriticalCss: false,
+    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ],
   },
 
   // Angular Universal server settings.

@@ -23,6 +23,8 @@ ssr:
   # Determining which styles are critical is a relatively expensive operation; this option is
   # disabled (false) by default to boost server performance at the expense of loading smoothness.
   inlineCriticalCss: false
+  # Path prefixes to enable SSR for. By default these are limited to paths of primary DSpace objects.
+  paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ]
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually

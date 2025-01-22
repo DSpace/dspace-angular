@@ -238,7 +238,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res) {
-  if (environment.universal.preboot) {
+  if (environment.universal.preboot && req.method === 'GET' && (req.path === '/' || environment.universal.paths.some(pathPrefix => req.path.startsWith(pathPrefix)))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res);
   } else {
