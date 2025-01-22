@@ -182,7 +182,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-mocha-reporter": "2.2.5",
-    "ng-mocks": "^14.13.1",
+    "ng-mocks": "^14.13.2",
     "ngx-mask": "14.2.4",
     "nodemon": "^2.0.22",
     "postcss": "^8.4",
