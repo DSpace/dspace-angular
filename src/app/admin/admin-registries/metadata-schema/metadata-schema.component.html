@@ -31,8 +31,8 @@
               </thead>
               <tbody>
               <tr *ngFor="let field of fields?.page"
-                  [ngClass]="{'table-primary' : isActive(field) | async}">
-                <td *ngVar="(isSelected(field) | async) as selected">
+                  [ngClass]="{'table-primary' : (activeField$ | async)?.id === field.id}">
+                <td *ngVar="(selectedMetadataFieldIDs$ | async)?.includes(field.id) as selected">
                   <input type="checkbox"
                          [attr.aria-label]="(selected ? 'admin.registries.schema.fields.deselect' : 'admin.registries.schema.fields.select') | translate"
                          [checked]="selected"

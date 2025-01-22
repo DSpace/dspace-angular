@@ -1,4 +1,4 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync, fakeAsync, flush } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -15,6 +15,9 @@ import uniqueId from 'lodash/uniqueId';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { cold } from 'jasmine-marbles';
+import { LiveRegionService } from '../../live-region/live-region.service';
+import { LiveRegionServiceStub } from '../../live-region/live-region.service.stub';
+import { NotificationOptions } from '../models/notification-options.model';
 import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
 import { getAccessibilitySettingsServiceStub } from '../../../accessibility/accessibility-settings.service.stub';
 
@@ -23,8 +26,11 @@ export const bools = { f: false, t: true };
 describe('NotificationsBoardComponent', () => {
   let comp: NotificationsBoardComponent;
   let fixture: ComponentFixture<NotificationsBoardComponent>;
+  let liveRegionService: LiveRegionServiceStub;
 
   beforeEach(waitForAsync(() => {
+    liveRegionService = new LiveRegionServiceStub();
+
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -38,8 +44,10 @@ describe('NotificationsBoardComponent', () => {
       declarations: [NotificationsBoardComponent, NotificationComponent], // declare the test component
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
+        { provide: LiveRegionService, useValue: liveRegionService },
         { provide: AccessibilitySettingsService, useValue: getAccessibilitySettingsServiceStub() },
-        ChangeDetectorRef]
+        ChangeDetectorRef,
+      ]
     }).compileComponents();  // compile template and css
   }));
 
@@ -107,6 +115,43 @@ describe('NotificationsBoardComponent', () => {
                             expect(notification.isPaused$).toEqual(comp.isPaused$);
                           });
     });
+  });
+
+  describe('add', () => {
+    beforeEach(() => {
+      liveRegionService.addMessage.calls.reset();
+    });
+
+    it('should announce content to the live region', fakeAsync(() => {
+      const notification = new Notification('id', NotificationType.Info, 'title', 'content');
+      comp.add(notification);
+
+      flush();
+
+      expect(liveRegionService.addMessage).toHaveBeenCalledWith('content');
+    }));
+
+    it('should not announce anything if there is no content', fakeAsync(() => {
+      const notification = new Notification('id', NotificationType.Info, 'title');
+      comp.add(notification);
+
+      flush();
+
+      expect(liveRegionService.addMessage).not.toHaveBeenCalled();
+    }));
+
+    it('should not announce the content if disabled', fakeAsync(() => {
+      const options = new NotificationOptions();
+      options.announceContentInLiveRegion = false;
+
+      const notification = new Notification('id', NotificationType.Info, 'title', 'content');
+      notification.options = options;
+      comp.add(notification);
+
+      flush();
+
+      expect(liveRegionService.addMessage).not.toHaveBeenCalled();
+    }));
   });
 
 })

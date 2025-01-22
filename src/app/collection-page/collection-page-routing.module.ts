@@ -55,7 +55,6 @@ import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
         resolve: {
           dso: CollectionPageResolver,
           breadcrumb: CollectionBreadcrumbResolver,
-          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -85,6 +84,9 @@ import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
             path: '',
             component: ThemedCollectionPageComponent,
             pathMatch: 'full',
+            resolve: {
+              menu: DSOEditMenuResolver,
+            },
           }
         ],
         data: {
