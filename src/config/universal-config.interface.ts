@@ -13,4 +13,9 @@ export interface UniversalConfig extends Config {
    * loading smoothness.
    */
   inlineCriticalCss?: boolean;
+
+  /**
+   * Paths to enable SSR for. Defaults to the home page and paths in the sitemap.
+   */
+  paths: Array<string>;
 }

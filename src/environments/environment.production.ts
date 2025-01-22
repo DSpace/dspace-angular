@@ -9,5 +9,6 @@ export const environment: Partial<BuildConfig> = {
     async: true,
     time: false,
     inlineCriticalCss: false,
+    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ],
   }
 };
