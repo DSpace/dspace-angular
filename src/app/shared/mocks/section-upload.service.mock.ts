@@ -5,7 +5,6 @@ import { SubmissionFormsConfigDataService } from '../../core/config/submission-f
  */
 export function getMockSectionUploadService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('SectionUploadService', {
-    getUploadedFilesData: jasmine.createSpy('getUploadedFilesData'),
     getUploadedFileList: jasmine.createSpy('getUploadedFileList'),
     getFileData: jasmine.createSpy('getFileData'),
     getDefaultPolicies: jasmine.createSpy('getDefaultPolicies'),

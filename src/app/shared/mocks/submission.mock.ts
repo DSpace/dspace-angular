@@ -3674,11 +3674,6 @@ export const mockUploadFiles = [
   }
 ];
 
-export const mockUploadFilesData = {
-  primary: null,
-  files: JSON.parse(JSON.stringify(mockUploadFiles)),
-};
-
 export const mockFileFormData = {
   metadata: {
     'dc.title': [

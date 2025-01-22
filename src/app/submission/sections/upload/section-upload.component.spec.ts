@@ -24,7 +24,7 @@ import {
   mockSubmissionState,
   mockUploadConfigResponse,
   mockUploadConfigResponseNotRequired,
-  mockUploadFiles, mockUploadFilesData,
+  mockUploadFiles,
 } from '../../../shared/mocks/submission.mock';
 import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
 import { SectionUploadService } from './section-upload.service';
@@ -162,7 +162,6 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       );
 
       bitstreamService.getUploadedFileList.and.returnValue(observableOf([]));
-      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
     };
 
     TestBed.configureTestingModule({
@@ -233,7 +232,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     });
 
     it('should init component properly', () => {
-      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
+
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new Collection(), mockCollection, {
@@ -248,6 +247,8 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
       );
+
+      bitstreamService.getUploadedFileList.and.returnValue(observableOf([]));
 
       comp.onSectionInit();
 
@@ -270,7 +271,6 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     });
 
     it('should init file list properly', () => {
-      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
 
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
@@ -285,7 +285,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
       );
 
-      bitstreamService.getUploadedFilesData.and.returnValue(observableOf(mockUploadFilesData));
+      bitstreamService.getUploadedFileList.and.returnValue(observableOf(mockUploadFiles));
 
       comp.onSectionInit();
 
@@ -308,8 +308,6 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     });
 
     it('should properly read the section status when required is true', () => {
-      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
-
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
@@ -327,7 +325,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       bitstreamService.getUploadedFileList.and.returnValue(cold('-a-b', {
         a: [],
-        b: mockUploadFiles,
+        b: mockUploadFiles
       }));
 
       comp.onSectionInit();
@@ -342,8 +340,6 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
     it('should properly read the section status when required is false', () => {
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
-
-      bitstreamService.getUploadedFilesData.and.returnValue(observableOf({ primary: null, files: [] }));
 
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
 

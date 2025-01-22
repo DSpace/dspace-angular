@@ -27,7 +27,6 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { SubmissionVisibility } from '../../utils/visibility.util';
-import { WorkspaceitemSectionUploadObject } from '../../../core/submission/models/workspaceitem-section-upload.model';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -198,20 +197,28 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
       }),
 
       // retrieve submission's bitstreams from state
-      observableCombineLatest([
-        this.configMetadataForm$,
-        this.bitstreamService.getUploadedFilesData(this.submissionId, this.sectionData.id),
-      ]).pipe(
-        filter(([configMetadataForm, sectionUploadObject]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-          return isNotEmpty(configMetadataForm) && isNotEmpty(sectionUploadObject);
+      observableCombineLatest(this.configMetadataForm$,
+        this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id)).pipe(
+        filter(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
+          return isNotEmpty(configMetadataForm) && isNotUndefined(fileList);
         }),
-        distinctUntilChanged(),
-      ).subscribe(([configMetadataForm, { files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-        this.fileList = files;
-        this.fileIndexes = this.fileList.map(file => file.uuid);
-        this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
-        this.changeDetectorRef.detectChanges();
-      }),
+        distinctUntilChanged())
+        .subscribe(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
+            this.fileList = [];
+            this.fileIndexes = [];
+            this.fileNames = [];
+            this.changeDetectorRef.detectChanges();
+            if (isNotUndefined(fileList) && fileList.length > 0) {
+              fileList.forEach((file) => {
+                this.fileList.push(file);
+                this.fileIndexes.push(file.uuid);
+                this.fileNames.push(this.getFileName(configMetadataForm, file));
+              });
+            }
+
+            this.changeDetectorRef.detectChanges();
+          }
+        )
     );
   }
 
