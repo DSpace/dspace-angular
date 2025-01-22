@@ -19,6 +19,7 @@ import {
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  catchError,
   Observable,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -34,6 +35,7 @@ import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-orcid-auth',
@@ -203,13 +205,14 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
     this.unlinkProcessing.next(true);
     this.orcidAuthService.unlinkOrcidByItem(this.item).pipe(
       getFirstCompletedRemoteData(),
+      catchError(createFailedRemoteDataObjectFromError$<ResearcherProfile>),
     ).subscribe((remoteData: RemoteData<ResearcherProfile>) => {
       this.unlinkProcessing.next(false);
-      if (remoteData.isSuccess) {
+      if (remoteData.hasFailed) {
+        this.notificationsService.error(this.translateService.get('person.page.orcid.unlink.error'));
+      } else {
         this.notificationsService.success(this.translateService.get('person.page.orcid.unlink.success'));
         this.unlink.emit();
-      } else {
-        this.notificationsService.error(this.translateService.get('person.page.orcid.unlink.error'));
       }
     });
   }

@@ -9,9 +9,9 @@
 
 
       <ds-pagination
-        *ngIf="(bitstreamFormats | async)?.payload?.totalElements > 0"
+        *ngIf="(bitstreamFormats$ | async)?.payload?.totalElements > 0"
         [paginationOptions]="pageConfig"
-        [collectionSize]="(bitstreamFormats | async)?.payload?.totalElements"
+        [collectionSize]="(bitstreamFormats$ | async)?.payload?.totalElements"
         [hideGear]="false"
         [hidePagerWhenSinglePage]="true">
         <div class="table-responsive">
@@ -26,12 +26,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let bitstreamFormat of (bitstreamFormats | async)?.payload?.page">
+            <tr *ngFor="let bitstreamFormat of (bitstreamFormats$ | async)?.payload?.page">
               <td>
                 <label class="mb-0">
                   <input type="checkbox"
                          [attr.aria-label]="'admin.registries.bitstream-formats.select' | translate"
-                         [checked]="isSelected(bitstreamFormat) | async"
+                         [checked]="(selectedBitstreamFormatIDs$ | async)?.includes(bitstreamFormat.id)"
                          (change)="selectBitStreamFormat(bitstreamFormat, $event)"
                   >
                   <span class="sr-only">{{'admin.registries.bitstream-formats.select' | translate}}&#125;</span>
@@ -46,13 +46,13 @@
           </table>
         </div>
       </ds-pagination>
-      <div *ngIf="(bitstreamFormats | async)?.payload?.totalElements === 0" class="alert alert-info" role="alert">
+      <div *ngIf="(bitstreamFormats$ | async)?.payload?.totalElements === 0" class="alert alert-info" role="alert">
         {{'admin.registries.bitstream-formats.no-items' | translate}}
       </div>
 
       <div>
-        <button *ngIf="(bitstreamFormats | async)?.payload?.page?.length > 0" class="btn btn-primary deselect" (click)="deselectAll()">{{'admin.registries.bitstream-formats.table.deselect-all' | translate}}</button>
-        <button *ngIf="(bitstreamFormats | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteFormats()">{{'admin.registries.bitstream-formats.table.delete' | translate}}</button>
+        <button *ngIf="(bitstreamFormats$ | async)?.payload?.page?.length > 0" class="btn btn-primary deselect" (click)="deselectAll()">{{'admin.registries.bitstream-formats.table.deselect-all' | translate}}</button>
+        <button *ngIf="(bitstreamFormats$ | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteFormats()">{{'admin.registries.bitstream-formats.table.delete' | translate}}</button>
       </div>
     </div>
   </div>

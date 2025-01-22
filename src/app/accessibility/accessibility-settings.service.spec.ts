@@ -18,7 +18,9 @@ import {
   ACCESSIBILITY_COOKIE,
   ACCESSIBILITY_SETTINGS_METADATA_KEY,
   AccessibilitySettings,
-  AccessibilitySettingsService, AccessibilitySettingsFormValues, FullAccessibilitySettings,
+  AccessibilitySettingsFormValues,
+  AccessibilitySettingsService,
+  FullAccessibilitySettings,
 } from './accessibility-settings.service';
 
 
