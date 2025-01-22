@@ -18,7 +18,7 @@ import {
   ACCESSIBILITY_COOKIE,
   ACCESSIBILITY_SETTINGS_METADATA_KEY,
   AccessibilitySettings,
-  AccessibilitySettingsService,
+  AccessibilitySettingsService, AccessibilitySettingsFormValues, FullAccessibilitySettings,
 } from './accessibility-settings.service';
 
 
@@ -363,4 +363,27 @@ describe('accessibilitySettingsService', () => {
     });
   });
 
+  describe('convertFormValuesToStoredValues', () => {
+    it('should reset the notificationTimeOut when timeOut is enabled but set to "0"', () => {
+      const formValues: AccessibilitySettingsFormValues = {
+        notificationTimeOutEnabled: true,
+        notificationTimeOut: '0',
+        liveRegionTimeOut: null,
+      };
+
+      const storedValues: FullAccessibilitySettings = service.convertFormValuesToStoredValues(formValues);
+      expect('notificationTimeOut' in storedValues).toBeFalse();
+    });
+  });
+
+  it('should keep the notificationTimeOut when timeOut is enabled and differs from "0"', () => {
+    const formValues: AccessibilitySettingsFormValues = {
+      notificationTimeOutEnabled: true,
+      notificationTimeOut: '3',
+      liveRegionTimeOut: null,
+    };
+
+    const storedValues: FullAccessibilitySettings = service.convertFormValuesToStoredValues(formValues);
+    expect('notificationTimeOut' in storedValues).toBeTrue();
+  });
 });
