@@ -9,7 +9,8 @@
         <!-- Draggable Items -->
         <div #sortableElement
              *ngFor="let groupModel of model.groups; let idx = index; let length = count"
-             [formGroupName]="idx"
+             role="group"
+             [formGroupName]="groupModel.index"
              [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"
              cdkDrag
              [cdkDragDisabled]="dragDisabled"
@@ -31,7 +32,7 @@
                                              [formGroup]="group"
                                              [formModel]="formModel"
                                              [context]="groupModel"
-                                             [group]="control.get([idx])"
+                                             [group]="getControlOfGroup(groupModel)"
                                              [hidden]="_model.hidden"
                                              [class.d-none]="_model.hidden"
                                              [layout]="formLayout"

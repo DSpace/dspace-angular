@@ -126,6 +126,19 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   }
 
   /**
+   * Gets the control of the specified group model. It adds the startingIndex property to the group model if it does not
+   * already have it. This ensures that the controls are always linked to the correct group model.
+   * @param groupModel The group model to get the control for.
+   * @returns The form control of the specified group model.
+   */
+  getControlOfGroup(groupModel: any) {
+    if (!groupModel.hasOwnProperty('startingIndex')) {
+      groupModel.startingIndex = groupModel.index;
+    }
+    return this.control.get([groupModel.startingIndex]);
+  }
+
+  /**
    * Toggles the keyboard drag and drop feature for the given sortable element.
    * @param event
    * @param sortableElement

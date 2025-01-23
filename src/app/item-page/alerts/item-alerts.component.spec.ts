@@ -161,7 +161,7 @@ describe('ItemAlertsComponent', () => {
         (authorizationService.isAuthorized).and.returnValue(isAdmin$);
         (correctionTypeDataService.findByItem).and.returnValue(correction$);
 
-        expectObservable(component.showReinstateButton$()).toBe(expectedMarble, expectedValues);
+        expectObservable(component.shouldShowReinstateButton()).toBe(expectedMarble, expectedValues);
       });
     });
 

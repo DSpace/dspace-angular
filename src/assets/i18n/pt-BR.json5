@@ -1547,14 +1547,14 @@
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
   "browse.metadata.srsc.breadcrumbs": "Navegue por Categoria de Assunto",
 
-  // "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
-  "browse.metadata.srsc.tree.descrption": "Selecione um assunto para adicionar como filtro de pesquisa",
+  // "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
+  "browse.metadata.srsc.tree.description": "Selecione um assunto para adicionar como filtro de pesquisa",
 
   // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
   "browse.metadata.nsi.breadcrumbs": "Navegue pelo Índice de Ciência Norueguês",
 
-  // "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
-  "browse.metadata.nsi.tree.descrption": "Selecione um índice para adicionar como filtro de pesquisa",
+  // "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
+  "browse.metadata.nsi.tree.description": "Selecione um índice para adicionar como filtro de pesquisa",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Pesquisar por Título",
@@ -2369,12 +2369,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(sempre requerido)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Use esse comutador para ativar ou desativar todos os serviços.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Ativar ou desativar todos os serviços",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Houve alterações desde sua última visita, atualize seu consentimento.",
 
@@ -2390,14 +2384,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Salvar",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Consentimento de Cookies",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Coletamos e processamos suas informações pessoais para os seguintes propósitos: <strong>Autenticação, Preferências, Reconhecimento e Estatísticas</strong>. <br/> Para aprender mais, por favor leia  nossa {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Coletamos e processamos suas informações pessoais para os seguintes propósitos: <strong>Autenticação, Preferências, Reconhecimento e Estatísticas</strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Customizar",
@@ -2413,12 +2401,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informações que coletamos",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "Serviços",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "serviço",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticação",
@@ -10249,4 +10231,13 @@
 
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
+
+  // "file-download-link.download": "Download ",
+  "file-download-link.download": "Baixar ",
+
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  "register-page.registration.aria.label": "Digite seu e-mail",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  "forgot-email.form.aria.label": "Digite seu e-mail",
 }

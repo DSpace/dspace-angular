@@ -265,6 +265,22 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Check whether the current entity can have multiple relationships of this type
+   * This is based on the max cardinality of the relationship
+   * @private
+   */
+  private isRepeatable(): boolean {
+    const isLeft = this.currentItemIsLeftItem$.getValue();
+    if (isLeft) {
+      const leftMaxCardinality = this.relationshipType.leftMaxCardinality;
+      return hasNoValue(leftMaxCardinality) || leftMaxCardinality > 1;
+    } else {
+      const rightMaxCardinality = this.relationshipType.rightMaxCardinality;
+      return hasNoValue(rightMaxCardinality) || rightMaxCardinality > 1;
+    }
+  }
+
+  /**
    * Open the dynamic lookup modal to search for items to add as relationships
    */
   openLookup() {
@@ -281,6 +297,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.toAdd = [];
     modalComp.toRemove = [];
     modalComp.isPending = false;
+    modalComp.repeatable = this.isRepeatable();
     modalComp.hiddenQuery = '-search.resourceid:' + this.item.uuid;
 
     this.item.owningCollection.pipe(
@@ -478,7 +495,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     );
 
     // this adds thumbnail images when required by configuration
-    const linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(this.fetchThumbnail);
+    const linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(this.fetchThumbnail, this.appConfig.item.showAccessStatuses);
 
     this.subs.push(
       observableCombineLatest([
