@@ -7830,10 +7830,10 @@ mirador-share-plugin@^0.16.0:
   dependencies:
     notistack "^3.0.1"
 
-mirador@^3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/mirador/-/mirador-3.4.2.tgz#51ec7ca1b9854792bbe2fa5e13b3692c92e97102"
-  integrity sha512-Gd7G4NkXq6/qD/De5soYspSo9VykAzrGFunKqUI3x9WShoZP23pYIEPoC/96tvfk3KMv+UbAUxDp99Xeo7vnVQ==
+mirador@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/mirador/-/mirador-3.4.3.tgz#1b083bd037b851d1389758f3c86eb94832b00ec6"
+  integrity sha512-yHoug0MHy4e9apykbbBhK+4CmbZS94zMxmugw2E2VX6iB0b2PKKY0JfYr/QfXh9P29YnWAbymaXJVpgbHVpTVw==
   dependencies:
     "@material-ui/core" "^4.12.3"
     "@material-ui/icons" "^4.9.1"
