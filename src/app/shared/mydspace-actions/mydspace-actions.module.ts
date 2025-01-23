@@ -18,6 +18,7 @@ import { ItemActionsComponent } from './item/item-actions.component';
 import { PoolTaskActionsComponent } from './pool-task/pool-task-actions.component';
 import { WorkflowitemActionsComponent } from './workflowitem/workflowitem-actions.component';
 import { WorkspaceitemActionsComponent } from './workspaceitem/workspaceitem-actions.component';
+import {ThemedWorkspaceitemActionsComponent} from './workspaceitem/themed-workspaceitem-actions.component';
 
 const ENTRY_COMPONENTS = [
   ClaimedTaskActionsApproveComponent,
@@ -34,6 +35,7 @@ const DECLARATIONS = [
   PoolTaskActionsComponent,
   WorkflowitemActionsComponent,
   WorkspaceitemActionsComponent,
+  ThemedWorkspaceitemActionsComponent,
 ];
 
 /**
