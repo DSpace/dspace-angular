@@ -13,6 +13,8 @@ export const environment: BuildConfig = {
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
     paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ],
+    enableSearchComponent: false,
+    enableBrowseComponent: false,
   },
 
   // Angular express server settings.

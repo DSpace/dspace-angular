@@ -8003,6 +8003,13 @@ ngx-pagination@6.0.3:
   dependencies:
     tslib "^2.3.0"
 
+ngx-skeleton-loader@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-skeleton-loader/-/ngx-skeleton-loader-9.0.0.tgz#43f3235130c3b81c7191aa363aba12f4d7cd1b29"
+  integrity sha512-aO4/V6oGdZGNcTjasTg/fwzJJYl/ZmNKgCukOEQdUK3GSFOZtB/3GGULMJuZ939hk3Hzqh1OBiLfIM1SqTfhqg==
+  dependencies:
+    tslib "^2.0.0"
+
 ngx-ui-switch@^14.1.0:
   version "14.1.0"
   resolved "https://registry.yarnpkg.com/ngx-ui-switch/-/ngx-ui-switch-14.1.0.tgz#32248361a684257c5ae64cfde61b95de920b901c"
