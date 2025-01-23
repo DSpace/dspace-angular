@@ -260,11 +260,20 @@ export class AccessibilitySettingsService {
    * Convert values in the provided accessibility settings object to values ready to be stored.
    */
   convertFormValuesToStoredValues(settings: AccessibilitySettingsFormValues): FullAccessibilitySettings {
-    return {
+    const storedValues = {
       notificationTimeOut: settings.notificationTimeOutEnabled ?
         secondsToMilliseconds(settings.notificationTimeOut) : '0',
       liveRegionTimeOut: secondsToMilliseconds(settings.liveRegionTimeOut),
     };
+
+    // When the user enables the timeout but does not change the timeout duration from 0,
+    // it is removed from the values to be stored so the default value is used.
+    // Keeping it at 0 would mean the notifications are not automatically removed.
+    if (settings.notificationTimeOutEnabled && settings.notificationTimeOut === '0') {
+      delete storedValues.notificationTimeOut;
+    }
+
+    return storedValues;
   }
 
   /**
