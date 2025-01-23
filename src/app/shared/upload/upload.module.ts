@@ -11,9 +11,11 @@ import { SharedModule } from '../shared.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { UploaderComponent } from './uploader/uploader.component';
 import { FileDropzoneNoUploaderComponent } from './file-dropzone-no-uploader/file-dropzone-no-uploader.component';
+import {ThemedUploaderComponent} from './uploader/themed-uploader.component';
 
 const COMPONENTS = [
   UploaderComponent,
+  ThemedUploaderComponent,
   FileDropzoneNoUploaderComponent,
 ];
 
