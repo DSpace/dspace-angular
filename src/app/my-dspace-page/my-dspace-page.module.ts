@@ -21,6 +21,9 @@ import {MyDSpaceNewSubmissionComponent} from './my-dspace-new-submission/my-dspa
 import {
   ThemedMyDSpaceNewExternalDropdownComponent
 } from './my-dspace-new-submission/my-dspace-new-external-dropdown/themed-my-dspace-new-external-dropdown.component';
+import {
+  ThemedMyDSpaceNewSubmissionDropdownComponent
+} from './my-dspace-new-submission/my-dspace-new-submission-dropdown/themed-my-dspace-new-submission-dropdown.component';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
@@ -29,6 +32,7 @@ const DECLARATIONS = [
   ThemedMyDSpaceNewSubmissionComponent,
   CollectionSelectorComponent,
   MyDSpaceNewSubmissionDropdownComponent,
+  ThemedMyDSpaceNewSubmissionDropdownComponent,
   MyDSpaceNewExternalDropdownComponent,
   ThemedMyDSpaceNewExternalDropdownComponent
 ];
