@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformServer,
   NgIf,
 } from '@angular/common';
 import {
@@ -7,6 +8,7 @@ import {
   Component,
   Inject,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -17,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
+  of as observableOf,
 } from 'rxjs';
 import {
   map,
@@ -28,6 +31,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import {
@@ -99,11 +103,16 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     @Inject(APP_CONFIG) public appConfig: AppConfig,
     public dsoNameService: DSONameService,
     protected cdRef: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) public platformId: any,
   ) {
-    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
+    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService, platformId);
   }
 
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId)) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.startsWithType = StartsWithType.date;
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);

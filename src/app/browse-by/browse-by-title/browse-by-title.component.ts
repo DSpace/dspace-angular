@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformServer,
   NgIf,
 } from '@angular/common';
 import {
@@ -8,12 +9,16 @@ import {
 } from '@angular/core';
 import { Params } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+} from 'rxjs';
 import {
   map,
   take,
 } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
@@ -59,6 +64,10 @@ import {
 export class BrowseByTitleComponent extends BrowseByMetadataComponent implements OnInit {
 
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId)) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('dc.title', SortDirection.ASC);
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
