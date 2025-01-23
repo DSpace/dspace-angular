@@ -25,6 +25,14 @@ ssr:
   inlineCriticalCss: false
   # Path prefixes to enable SSR for. By default these are limited to paths of primary DSpace objects.
   paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ]
+  # Whether to enable rendering of Search component on SSR.
+  # If set to true the component will be included in the HTML returned from the server side rendering.
+  # If set to false the component will not be included in the HTML returned from the server side rendering.
+  enableSearchComponent: false,
+  # Whether to enable rendering of Browse component on SSR.
+  # If set to true the component will be included in the HTML returned from the server side rendering.
+  # If set to false the component will not be included in the HTML returned from the server side rendering.
+  enableBrowseComponent: false,
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
@@ -450,6 +458,12 @@ search:
     enabled: false
     # List of filters to enable in "Advanced Search" dropdown
     filter: [ 'title', 'author', 'subject', 'entityType' ]
+  #
+  # Number used to render n UI elements called loading skeletons that act as placeholders.
+  # These elements indicate that some content will be loaded in their stead.
+  # Since we don't know how many filters will be loaded before we receive a response from the server we use this parameter for the skeletons count.
+  # e.g. If we set 5 then 5 loading skeletons will be visualized before the actual filters are retrieved.
+  defaultFiltersCount: 5
 
 
 # Notify metrics

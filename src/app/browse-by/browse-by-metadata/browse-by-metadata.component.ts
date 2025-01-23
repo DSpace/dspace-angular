@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformServer,
   NgIf,
 } from '@angular/common';
 import {
@@ -9,6 +10,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -33,6 +35,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
@@ -114,6 +117,11 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Input() displayTitle = true;
 
+  /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide: boolean;
+
   scope$: BehaviorSubject<string> = new BehaviorSubject(undefined);
 
   /**
@@ -194,6 +202,10 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
    * Observable determining if the loading animation needs to be shown
    */
   loading$ = observableOf(true);
+  /**
+   * Whether this component should be rendered or not in SSR
+   */
+  ssrRenderingDisabled = false;
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
@@ -202,6 +214,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
                      protected router: Router,
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
+                     @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
@@ -209,11 +222,15 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
       currentPage: 1,
       pageSize: this.appConfig.browseBy.pageSize,
     });
+    this.ssrRenderingDisabled = !this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId);
   }
 
 
   ngOnInit(): void {
-
+    if (this.ssrRenderingDisabled) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
@@ -335,7 +352,6 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
     this.subs.filter((sub: Subscription) => hasValue(sub)).forEach((sub: Subscription) => sub.unsubscribe());
     this.paginationService.clearPagination(this.paginationConfig.id);
   }
-
 
 }
 
