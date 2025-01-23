@@ -274,10 +274,18 @@ export class SearchConfigurationService implements OnDestroy {
    * @param searchConfig The SearchConfig object
    */
   getConfigurationSortOptions(searchConfig: SearchConfig): SortOptions[] {
-    return searchConfig.sortOptions.map((entry: SortConfig) => ({
-      field: entry.name,
-      direction: entry.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC,
-    }));
+    return searchConfig.sortOptions.map((entry: SortConfig) => this.convertSortConfigToOptions(entry));
+  }
+
+  /**
+   * Converts a sortConfig object to a SortOptions object
+   * @param sortConfig  The sortConfig object to convert
+   */
+  convertSortConfigToOptions(sortConfig: SortConfig): SortOptions {
+    return {
+      field: sortConfig.name,
+      direction: sortConfig.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC,
+    };
   }
 
   /**

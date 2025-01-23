@@ -362,4 +362,17 @@ describe('SearchConfigurationService', () => {
       });
     });
   });
+
+  describe('convertSortConfigToOptions', () => {
+    it('should convert a sortConfig object to a SortOptions object', () => {
+      const sortConfig1 = { name: 'test-name-1', sortOrder: 'asc' };
+      const sortConfig2 = { name: 'test-name-2', sortOrder: 'not-asc' };
+      const sortOption1 = { field: 'test-name-1', direction: SortDirection.ASC };
+      const sortOption2 = { field: 'test-name-2', direction: SortDirection.DESC };
+
+      expect(service.convertSortConfigToOptions(sortConfig1)).toEqual(sortOption1);
+      expect(service.convertSortConfigToOptions(sortConfig2)).toEqual(sortOption2);
+    });
+
+  });
 });

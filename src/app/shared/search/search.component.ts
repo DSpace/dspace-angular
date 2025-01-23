@@ -382,16 +382,25 @@ export class SearchComponent implements OnDestroy, OnInit {
     // Determinate PaginatedSearchOptions and listen to any update on it
     const configuration$: Observable<string> = this.searchConfigService
       .getCurrentConfiguration(this.configuration).pipe(distinctUntilChanged());
-    const searchSortOptions$: Observable<SortOptions[]> = combineLatest([configuration$, this.currentScope$]).pipe(
+
+    const scopedConfiguration$: Observable<SearchConfig> = combineLatest([configuration$, this.currentScope$]).pipe(
       switchMap(([configuration, scope]: [string, string]) => this.searchConfigService.getConfigurationSearchConfig(configuration, scope)),
+    );
+
+    const searchSortOptions$: Observable<SortOptions[]> = scopedConfiguration$.pipe(
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
       distinctUntilChanged(),
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
-    const sortOption$: Observable<SortOptions> = combineLatest([searchSortOptions$, searchOptions$]).pipe(
-      switchMap(([searchSortOptions, searchOptions]: [SortOptions[], PaginatedSearchOptions]) => {
-        const defaultSortOption = hasValue(searchOptions.sort?.field) && hasValue(searchOptions.sort?.field) ? searchOptions.sort : searchSortOptions[0];
+    const sortOption$: Observable<SortOptions> = combineLatest([searchSortOptions$, scopedConfiguration$]).pipe(
+      switchMap(([searchSortOptions, searchConfig]: [SortOptions[], SearchConfig]) => {
+        let defaultSortOption;
+        if (hasValue(searchConfig.defaultSortOption?.name) && hasValue(searchConfig.defaultSortOption?.sortOrder)) {
+          defaultSortOption = this.searchConfigService.convertSortConfigToOptions(searchConfig.defaultSortOption);
+        } else {
+          defaultSortOption = searchSortOptions[0];
+        }
         return this.searchConfigService.getCurrentSort(this.paginationId, defaultSortOption);
       }),
       distinctUntilChanged(),
