@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UploaderComponent } from './uploader.component';
 
-// Import your models if needed
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderProperties } from './uploader-properties.model';
 import {ThemedComponent} from '../../theme-support/themed.component';
@@ -52,9 +51,8 @@ export class ThemedUploaderComponent extends ThemedComponent<UploaderComponent> 
    * Import a theme-specific version of this component (if it exists)
    */
   protected importThemedComponent(themeName: string): Promise<any> {
-    // Adjust this path to match your theme folder structure
     return import(
-      `../../../../themes/${themeName}/app/.../uploader.component`
+      `../../../../themes/${themeName}/app/shared/upload/uploader/uploader.component`
       );
   }
 

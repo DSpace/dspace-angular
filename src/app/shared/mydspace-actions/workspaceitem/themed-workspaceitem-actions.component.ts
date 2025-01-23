@@ -37,9 +37,8 @@ export class ThemedWorkspaceitemActionsComponent extends ThemedComponent<Workspa
    * Dynamically load a theme-specific version if available
    */
   protected importThemedComponent(themeName: string): Promise<any> {
-    // Adjust this path to match your theme folder structure
     return import(
-      `../../../../themes/${themeName}/app/.../workspaceitem-actions/workspaceitem-actions.component`
+      `../../../../themes/${themeName}/app/shared/mydspace-actions/workspaceitem/workspaceitem-actions.component`
       );
   }
 
