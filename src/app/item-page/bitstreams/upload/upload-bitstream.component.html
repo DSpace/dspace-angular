@@ -27,13 +27,13 @@
         <button *ngIf="!selectedBundleId && selectedBundleName?.length > 0" class="btn btn-success mr-2" (click)="createBundle()">
           <i class="fa fa-plus"></i> {{ 'item.bitstreams.upload.bundle.new' | translate }}
         </button>
-        <ds-uploader  class="w-100" *ngIf="selectedBundleId"
+        <ds-themed-uploader  class="w-100" *ngIf="selectedBundleId"
                       [dropMsg]="'item.bitstreams.upload.drop-message'"
                       [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
                       [enableDragOverDocument]="true"
                       [uploadFilesOptions]="uploadFilesOptions"
                       (onCompleteItem)="onCompleteItem($event)"
-                      (onUploadError)="onUploadError()"></ds-uploader>
+                      (onUploadError)="onUploadError()"></ds-themed-uploader>
         <button class="btn btn-outline-secondary" (click)="onCancel()">{{'item.bitstreams.upload.cancel' | translate}}</button>
       </div>
     </div>

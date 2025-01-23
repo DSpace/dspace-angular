@@ -1,8 +1,8 @@
-<ds-uploader *ngIf="uploadFilesOptions.url"
+<ds-themed-uploader *ngIf="uploadFilesOptions.url"
              [dropMsg]="dropMsg"
              [dropOverDocumentMsg]="dropOverDocumentMsg"
              [enableDragOverDocument]="enableDragOverDocument"
              [onBeforeUpload]="onBeforeUpload"
              [uploadFilesOptions]="uploadFilesOptions"
              (onCompleteItem)="onCompleteItem($event)"
-             (onUploadError)="onUploadError()"></ds-uploader>
+             (onUploadError)="onUploadError()"></ds-themed-uploader>

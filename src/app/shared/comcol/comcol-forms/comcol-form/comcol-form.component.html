@@ -26,13 +26,13 @@
         </div>
       </div>
       <div *ngIf="!logo" class="col-12 d-inline-block">
-        <ds-uploader  *ngIf="initializedUploaderOptions | async"
+        <ds-themed-uploader  *ngIf="initializedUploaderOptions | async"
                       [dropMsg]="type.value + '.edit.logo.upload'"
                       [dropOverDocumentMsg]="type.value + '.edit.logo.upload'"
                       [enableDragOverDocument]="true"
                       [uploadFilesOptions]="uploadFilesOptions"
                       (onCompleteItem)="onCompleteItem()"
-                      (onUploadError)="onUploadError()"></ds-uploader>
+                      (onUploadError)="onUploadError()"></ds-themed-uploader>
       </div>
     </ng-container>
   </div>
