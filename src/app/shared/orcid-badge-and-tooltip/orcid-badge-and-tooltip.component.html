@@ -1,0 +1,11 @@
+<img placement="top"
+     [ngbTooltip]="orcidTooltipTemplate"
+     class="orcid-icon"
+     [ngClass]="{'not-authenticated': !authenticatedTimestamp}"
+     alt="ORCID {{ orcidTooltip }}"
+     src="assets/images/orcid.logo.icon.svg"
+     data-test="orcidIcon"/>
+
+<ng-template #orcidTooltipTemplate>
+    <span class="text-muted">{{ orcidTooltip }}</span>
+</ng-template>

@@ -1568,8 +1568,8 @@
   // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
   "browse.metadata.nsi.breadcrumbs": "Percorrer por 'Norwegian Science Index'",
 
-  // "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
-  "browse.metadata.nsi.tree.descrption": "Selecionar um índice para adicionar como filtro de pesquisa",
+  // "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
+  "browse.metadata.nsi.tree.description": "Selecionar um índice para adicionar como filtro de pesquisa",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Percorrer por título",
@@ -2396,12 +2396,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(sempre necessária)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Utilize este interruptor para ativar ou desativar todos os serviços.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Ativar ou desativar todos os serviços",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Existem alterações desde a sua última visita, atualize o seu consentimento.",
 
@@ -2417,14 +2411,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Guardar",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Consentir cookies",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Recolhemos e processamos informação pessoal para os seguintes propósitos: <strong>Autenticação, Guardar Preferências, Termos de Uso e Estatísticas</strong>. <br/> Para saber mais, por favor leia a nossa {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Recolhemos e processamos as suas informações pessoais para os seguintes fins: <strong>Autenticação, Preferências, Reconhecimento e Estatísticas</strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Pesonalizar",
@@ -2440,12 +2428,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informação que recolhemos",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "serviços",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "serviço",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticação",

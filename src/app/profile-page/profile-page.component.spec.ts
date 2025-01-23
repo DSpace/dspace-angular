@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
@@ -30,7 +31,10 @@ import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -136,6 +140,10 @@ describe('ProfilePageComponent', () => {
             ProfilePageSecurityFormComponent,
             ProfilePageResearcherFormComponent,
             SuggestionsNotificationComponent,
+            NgTemplateOutlet,
+            PaginationComponent,
+            ThemedLoadingComponent,
+            ErrorComponent,
           ],
         },
       })
@@ -371,7 +379,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return true', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: true,
         });
@@ -387,7 +395,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: false,
         });
@@ -403,7 +411,7 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
           a: false,
         });

@@ -19,6 +19,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import differenceWith from 'lodash/differenceWith';
 import {
   BehaviorSubject,
+  of as observableOf,
   Subscription,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -26,6 +27,11 @@ import { take } from 'rxjs/operators';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { AccessibilitySettingsService } from '../../../accessibility/accessibility-settings.service';
 import { AppState } from '../../../app.reducer';
+import {
+  hasNoValue,
+  isNotEmptyOperator,
+} from '../../empty.util';
+import { LiveRegionService } from '../../live-region/live-region.service';
 import { INotification } from '../models/notification.model';
 import { NotificationComponent } from '../notification/notification.component';
 import { NotificationsState } from '../notifications.reducers';
@@ -68,6 +74,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
     protected service: NotificationsService,
     protected store: Store<AppState>,
     protected cdr: ChangeDetectorRef,
+    protected liveRegionService: LiveRegionService,
     protected accessibilitySettingsService: AccessibilitySettingsService,
   ) {
   }
@@ -118,6 +125,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
           const modifiedNotification = cloneDeep(item);
           modifiedNotification.options.timeOut = timeOut;
           this.notifications.splice(0, 0, modifiedNotification);
+          this.addContentToLiveRegion(modifiedNotification);
           this.cdr.detectChanges();
         });
 
@@ -129,29 +137,44 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Adds the content of the notification (if any) to the live region, so it can be announced by screen readers.
+   */
+  private addContentToLiveRegion(item: INotification) {
+    let content = item.content;
+
+    if (!item.options.announceContentInLiveRegion || hasNoValue(content)) {
+      return;
+    }
+
+    if (typeof content === 'string') {
+      content = observableOf(content);
+    }
+
+    content.pipe(
+      isNotEmptyOperator(),
+      take(1),
+    ).subscribe(contentStr => this.liveRegionService.addMessage(contentStr));
+  }
+
+  /**
+   * Whether to block the provided item because a duplicate notification with the exact same information already
+   * exists within the notifications array.
+   * @param item The item to check
+   * @return true if the notifications array already contains a notification with the exact same information as the
+   * provided item. false otherwise.
+   * @private
+   */
   private block(item: INotification): boolean {
     const toCheck = item.html ? this.checkHtml : this.checkStandard;
+
     this.notifications.forEach((notification) => {
       if (toCheck(notification, item)) {
         return true;
       }
     });
 
-    if (this.notifications.length > 0) {
-      this.notifications.forEach((notification) => {
-        if (toCheck(notification, item)) {
-          return true;
-        }
-      });
-    }
-
-    let comp: INotification;
-    if (this.notifications.length > 0) {
-      comp = this.notifications[0];
-    } else {
-      return false;
-    }
-    return toCheck(comp, item);
+    return false;
   }
 
   private checkStandard(checker: INotification, item: INotification): boolean {
