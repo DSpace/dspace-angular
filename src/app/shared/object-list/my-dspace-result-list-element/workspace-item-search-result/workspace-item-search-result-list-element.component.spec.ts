@@ -113,7 +113,7 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
     spyOn(component.reloadedObject, 'emit').and.callThrough();
     const actionPayload: any = { reloadedObject: {}};
 
-    const actionsComponent = fixture.debugElement.query(By.css('ds-workspaceitem-actions'));
+    const actionsComponent = fixture.debugElement.query(By.css('ds-themed-workspaceitem-actions'));
     actionsComponent.triggerEventHandler('processCompleted', actionPayload);
     tick();
 
