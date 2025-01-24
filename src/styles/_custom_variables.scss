@@ -99,8 +99,8 @@
   --ds-footer-logo-height: 50px;
   --ds-footer-n-coar-height: 20px;
 
-  --ds-home-news-link-color: #D2FC93;
-  --ds-home-news-link-hover-color: #{$ds-home-news-link-color};
+  --ds-home-news-link-color: #{$ds-home-news-link-color};
+  --ds-home-news-link-hover-color: #{darken($ds-home-news-link-color, 15%)};
   --ds-home-news-background-color: #{$gray-200};
 
   --ds-breadcrumb-bg: #{$gray-200} !important;
