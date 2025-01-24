@@ -22,6 +22,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { isPlatformServer } from "@angular/common";
 
 export const BBM_PAGINATION_ID = 'bbm';
 

@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { hasValue } from '../../shared/empty.util';
 import {
@@ -11,9 +11,11 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { map, take } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { isPlatformServer } from "@angular/common";
 
 @Component({
   selector: 'ds-browse-by-title-page',
@@ -32,11 +34,16 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
                      protected router: Router,
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
+                     @Inject(PLATFORM_ID) public platformId: any,
   ) {
-    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
+    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService, platformId);
   }
 
   ngOnInit(): void {
+    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('dc.title', SortDirection.ASC);
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
