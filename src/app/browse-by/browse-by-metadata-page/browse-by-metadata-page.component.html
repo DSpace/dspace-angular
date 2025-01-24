@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="(!ssrRenderingDisabled)">
     <ng-container *ngVar="(parent$ | async) as parent">
     <ng-container *ngIf="parent?.payload as parentContext">
         <div class="d-flex flex-row border-bottom mb-4 pb-4">
