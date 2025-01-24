@@ -195,7 +195,6 @@ describe('CollectionSourceControlsComponent', () => {
       const buttons = fixture.debugElement.queryAll(By.css('button'));
 
       buttons.forEach(button => {
-        console.log(button.nativeElement);
         expect(button.nativeElement.getAttribute('aria-disabled')).toBe('true');
         expect(button.nativeElement.classList.contains('disabled')).toBeTrue();
       });
