@@ -27,7 +27,7 @@ export class MetadataService {
    * Returns undefined otherwise.
    */
   public virtualValue(metadataValue: MetadataValue | undefined): string {
-    if (this.isVirtual) {
+    if (this.isVirtual(metadataValue)) {
       return metadataValue.authority.substring(metadataValue.authority.indexOf(VIRTUAL_METADATA_PREFIX) + VIRTUAL_METADATA_PREFIX.length);
     } else {
       return undefined;

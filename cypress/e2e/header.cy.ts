@@ -10,4 +10,29 @@ describe('Header', () => {
     // Analyze <ds-header> for accessibility
     testA11y('ds-header');
   });
+
+  it('should allow for changing language to German (for example)', () => {
+    cy.visit('/');
+
+    // Click the language switcher (globe) in header
+    cy.get('a[data-test="lang-switch"]').click();
+    // Click on the "Deusch" language in dropdown
+    cy.get('#language-menu-list li').contains('Deutsch').click();
+
+    // HTML "lang" attribute should switch to "de"
+    cy.get('html').invoke('attr', 'lang').should('eq', 'de');
+
+    // Login menu should now be in German
+    cy.get('a[data-test="login-menu"]').contains('Anmelden');
+
+    // Change back to English from language switcher
+    cy.get('a[data-test="lang-switch"]').click();
+    cy.get('#language-menu-list li').contains('English').click();
+
+    // HTML "lang" attribute should switch to "en"
+    cy.get('html').invoke('attr', 'lang').should('eq', 'en');
+
+    // Login menu should now be in English
+    cy.get('a[data-test="login-menu"]').contains('Log In');
+  });
 });
