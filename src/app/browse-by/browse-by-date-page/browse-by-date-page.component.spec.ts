@@ -24,8 +24,8 @@ import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { cold } from 'jasmine-marbles';
-import { Store } from "@ngrx/store";
-import { BrowseEntry } from "../../core/shared/browse-entry.model";
+import { Store } from '@ngrx/store';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;

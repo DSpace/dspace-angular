@@ -325,6 +325,6 @@ export const environment: BuildConfig = {
   },
 
   search: {
-    defaultFilterCount: 5
+    filterPlaceholdersCount: 5
   }
 };

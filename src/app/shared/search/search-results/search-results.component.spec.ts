@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SearchResultsComponent } from './search-results.component';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 import { createFailedRemoteDataObject } from '../../remote-data.utils';
-import { SearchResultsSkeletonComponent } from "./search-results-skeleton/search-results-skeleton.component";
+import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;

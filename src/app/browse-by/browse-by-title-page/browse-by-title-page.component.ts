@@ -15,8 +15,8 @@ import { of as observableOf } from 'rxjs';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { isPlatformServer } from "@angular/common";
-import { environment } from "../../../environments/environment";
+import { isPlatformServer } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-browse-by-title-page',

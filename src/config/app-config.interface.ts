@@ -23,7 +23,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
-import { SearchConfig } from "./search-page-config.interface";
+import { SearchConfig } from './search-page-config.interface';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;

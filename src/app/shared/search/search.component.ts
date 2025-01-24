@@ -48,7 +48,7 @@ import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
-import { isPlatformServer } from "@angular/common";
+import { isPlatformServer } from '@angular/common';
 import { environment } from 'src/environments/environment';
 
 @Component({

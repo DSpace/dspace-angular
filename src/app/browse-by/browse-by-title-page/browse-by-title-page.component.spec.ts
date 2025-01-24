@@ -22,7 +22,7 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { BrowseEntry } from "../../core/shared/browse-entry.model";
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
 
 
 describe('BrowseByTitlePageComponent', () => {

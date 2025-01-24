@@ -19,8 +19,8 @@ import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { isPlatformServer } from "@angular/common";
-import { environment } from "../../../environments/environment";
+import { isPlatformServer } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-browse-by-date-page',

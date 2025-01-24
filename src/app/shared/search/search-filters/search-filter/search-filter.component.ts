@@ -93,7 +93,9 @@ export class SearchFilterComponent implements OnInit {
    */
   ngOnInit() {
     this.selectedValues$ = this.getSelectedValues();
-    this.active$ = this.isActive();
+    this.active$ = this.isActive().pipe(
+      startWith(true)
+    );
     this.collapsed$ = this.isCollapsed();
     this.initializeFilter();
     this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
@@ -101,9 +103,9 @@ export class SearchFilterComponent implements OnInit {
         this.filterService.expand(this.filter.name);
       }
     });
-    this.active$.pipe(take(1)).subscribe(() => {
+    this.isActive().pipe(take(1)).subscribe(() => {
       this.isVisibilityComputed.emit(true);
-    })
+    });
   }
 
   /**
@@ -192,7 +194,7 @@ export class SearchFilterComponent implements OnInit {
               }
             ));
         }
-      }),
-      startWith(true));
+      })
+    );
   }
 }

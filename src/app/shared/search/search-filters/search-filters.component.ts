@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -12,7 +12,7 @@ import { SearchFilterService } from '../../../core/shared/search/search-filter.s
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
-import { APP_CONFIG, AppConfig } from "../../../../config/app-config.interface";
+import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-search-filters',
@@ -88,10 +88,13 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
-      Object.keys(filters).forEach((f) => filters[f] = null);
-      return filters;
-    }));
+    this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(
+      tap(() => this.filtersWithComputedVisibility = 0),
+      map((filters) => {
+        Object.keys(filters).forEach((f) => filters[f] = null);
+        return filters;
+      })
+    );
     this.searchLink = this.getSearchLink();
   }
 

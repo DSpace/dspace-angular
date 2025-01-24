@@ -9,8 +9,8 @@ import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { APP_CONFIG } from "../../../../config/app-config.interface";
-import { environment } from "../../../../environments/environment";
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;
