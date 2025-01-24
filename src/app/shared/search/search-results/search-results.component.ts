@@ -22,6 +22,7 @@ export interface SelectionConfig {
 
 @Component({
   selector: 'ds-search-results',
+  styleUrls: ['./search-results.component.scss'],
   templateUrl: './search-results.component.html',
   animations: [
     fadeIn,
