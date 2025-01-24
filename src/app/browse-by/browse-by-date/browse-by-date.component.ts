@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformServer,
   NgIf,
 } from '@angular/common';
 import {
@@ -7,6 +8,7 @@ import {
   Component,
   Inject,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -17,14 +19,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
+  of as observableOf,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import {
@@ -53,7 +60,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
-  getBrowseSearchOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
 
 @Component({
@@ -97,22 +103,30 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     @Inject(APP_CONFIG) public appConfig: AppConfig,
     public dsoNameService: DSONameService,
     protected cdRef: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) public platformId: any,
   ) {
-    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
+    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService, platformId);
   }
 
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId)) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.startsWithType = StartsWithType.date;
-    // include the thumbnail configuration in browse search options
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig, this.fetchThumbnails));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.route.data,
-        this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, scope, data, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams, data), scope, currentPage, currentSort];
+      observableCombineLatest(
+        [ this.route.params.pipe(take(1)),
+          this.route.queryParams,
+          this.scope$,
+          this.currentPagination$,
+          this.currentSort$,
+        ]).pipe(
+        map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
+          return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
         }),
       ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;

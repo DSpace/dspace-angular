@@ -291,5 +291,4 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
         console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
     }
   }
-
 }
