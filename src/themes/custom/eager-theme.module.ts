@@ -54,19 +54,7 @@ import {
   ItemSearchResultListElementComponent
 } from './app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
-import {
-  MyDSpaceNewSubmissionComponent
-} from './app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
-import {
-  MyDSpaceNewExternalDropdownComponent
-} from './app/my-dspace-page/my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
-import {
-  MyDSpaceNewSubmissionDropdownComponent
-} from './app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
-import {UploaderComponent} from './app/shared/upload/uploader/uploader.component';
-import {
-  WorkspaceitemActionsComponent
-} from './app/shared/mydspace-actions/workspaceitem/workspaceitem-actions.component';
+
 
 
 /**
@@ -88,11 +76,6 @@ const ENTRY_COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   ItemSearchResultListElementComponent,
   TopLevelCommunityListComponent,
-  MyDSpaceNewSubmissionComponent,
-  MyDSpaceNewExternalDropdownComponent,
-  MyDSpaceNewSubmissionDropdownComponent,
-  UploaderComponent,
-  WorkspaceitemActionsComponent,
 ];
 
 const DECLARATIONS = [

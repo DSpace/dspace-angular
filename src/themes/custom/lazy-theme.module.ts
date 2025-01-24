@@ -156,6 +156,20 @@ import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { FormModule } from '../../app/shared/form/form.module';
 import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
+import {
+  MyDSpaceNewSubmissionComponent
+} from './app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
+import {
+  MyDSpaceNewExternalDropdownComponent
+} from './app/my-dspace-page/my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
+import {
+  MyDSpaceNewSubmissionDropdownComponent
+} from './app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
+import {UploaderComponent} from './app/shared/upload/uploader/uploader.component';
+import {
+  WorkspaceitemActionsComponent
+} from './app/shared/mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import {FileUploadModule} from 'ng2-file-upload';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -239,6 +253,11 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileComponent,
   ItemStatusComponent,
   EditBitstreamPageComponent,
+  MyDSpaceNewSubmissionComponent,
+  MyDSpaceNewExternalDropdownComponent,
+  MyDSpaceNewSubmissionDropdownComponent,
+  UploaderComponent,
+  WorkspaceitemActionsComponent,
 ];
 
 @NgModule({
@@ -299,6 +318,7 @@ const DECLARATIONS = [
     NgxGalleryModule,
     FormModule,
     RequestCopyModule,
+    FileUploadModule,
   ],
   declarations: DECLARATIONS,
   exports: [
