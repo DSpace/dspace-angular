@@ -148,7 +148,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
         currentPage: 1,
         pageSize: this.appConfig.browseBy.pageSize,
         });
-    this.renderOnServerSide = environment.ssr.enableBrowseComponent;
+    this.renderOnServerSide = environment.universal.enableBrowseComponent;
   }
 
 
