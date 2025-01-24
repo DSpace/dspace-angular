@@ -106,7 +106,7 @@
     "lodash": "^4.17.21",
     "lru-cache": "^7.14.1",
     "markdown-it": "^13.0.1",
-    "mirador": "^3.4.2",
+    "mirador": "^3.4.3",
     "mirador-dl-plugin": "^0.13.0",
     "mirador-share-plugin": "^0.16.0",
     "morgan": "^1.10.0",
