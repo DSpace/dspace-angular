@@ -171,7 +171,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
       searchParams.push(new RequestParam('sequenceId', sequenceId));
     }
     if (hasValue(filename)) {
-      searchParams.push(new RequestParam('filename', encodeURIComponent(filename)));
+      searchParams.push(new RequestParam('filename', filename));
     }
 
     const hrefObs = this.getSearchByHref(

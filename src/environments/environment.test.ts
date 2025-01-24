@@ -12,6 +12,7 @@ export const environment: BuildConfig = {
     async: true,
     time: false,
     inlineCriticalCss: false,
+    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ],
   },
 
   // Angular Universal server settings.
@@ -314,5 +315,10 @@ export const environment: BuildConfig = {
       vocabulary: 'srsc',
       enabled: true
     }
-  ]
+  ],
+
+  liveRegion: {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
+  },
 };

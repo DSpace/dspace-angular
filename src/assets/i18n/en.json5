@@ -832,6 +832,8 @@
 
   "pagination.next.button.disabled.tooltip": "No more pages of results",
 
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+
   "browse.startsWith": ", starting with {{ startsWith }}",
 
   "browse.startsWith.choose_start": "(Choose start)",
@@ -1240,7 +1242,7 @@
 
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
 
-  "community.edit.notifications.error": "An error occured while editing the community",
+  "community.edit.notifications.error": "An error occurred while editing the community",
 
   "community.edit.return": "Back",
 
@@ -1448,7 +1450,7 @@
 
   "curation.form.submit.error.head": "Running the curation task failed",
 
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
 
   "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
 
@@ -1620,6 +1622,8 @@
 
   "error.recent-submissions": "Error fetching recent submissions",
 
+  "error.profile-groups": "Error retrieving profile groups",
+
   "error.search-results": "Error fetching search results",
 
   "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
@@ -1700,7 +1704,7 @@
 
   "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   "forgot-password.title": "Forgot Password",
 
@@ -1988,6 +1992,10 @@
 
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
+  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+
   "item.edit.bitstreams.discard-button": "Discard",
 
   "item.edit.bitstreams.edit.buttons.download": "Download",
@@ -2000,7 +2008,19 @@
 
   "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
 
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
 
   "item.edit.bitstreams.headers.actions": "Actions",
 
@@ -3518,7 +3538,7 @@
 
   "register-page.registration.error.head": "Error when trying to register email",
 
-  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
 
   "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
@@ -5248,6 +5268,10 @@
 
   "person.orcid.registry.auth": "ORCID Authorizations",
 
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+
   "home.recent-submissions.head": "Recent Submissions",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
@@ -5367,4 +5391,10 @@
   "process.overview.unknown.user": "Unknown",
 
   "browse.search-form.placeholder": "Search the repository",
+
+  "file-download-link.download": "Download ",
+
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  "forgot-email.form.aria.label": "Enter your e-mail address",
 }
