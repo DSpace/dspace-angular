@@ -2045,8 +2045,8 @@
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Увійти",
 
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Надсилання пропозицій",
+  // "cookies.consent.app.description.authentication": "Required for signing you in",
+  "cookies.consent.app.description.authentication": "Необхідно для входу",
 
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Налаштування",

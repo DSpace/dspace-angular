@@ -2115,13 +2115,6 @@
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Requis pour permettre votre connexion",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "Nous utilisons le service Google reCAPTCHA pour envoyer des suggestions",
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Envoi de suggestions",
-
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Préférences",
 

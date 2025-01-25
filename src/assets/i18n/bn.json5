@@ -2191,8 +2191,11 @@
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
   "cookies.consent.app.description.acknowledgement": "আপনার স্বীকৃতি এবং সম্মতি সংরক্ষণের জন্য প্রয়োজন",
 
+
+
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
   "cookies.consent.app.title.google-analytics": "গুগল বিশ্লেষক",
+
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
   "cookies.consent.app.description.google-analytics": "আমাদের পরিসংখ্যানগত ডেটা ট্র্যাক করার অনুমতি দিন",
 
