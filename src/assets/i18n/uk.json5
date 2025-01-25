@@ -2045,15 +2045,6 @@
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Увійти",
 
-  // "cookies.consent.app.description.authentication": "Required for signing you in",
-  "cookies.consent.app.description.authentication": "Необхідно для входу",
-
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "Ми використовуємо сервіс Google reCAPTCHA для надсилання пропозицій",
-
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-
   //"cookies.consent.purpose.feedback": "Sending suggestions",
   "cookies.consent.purpose.feedback": "Надсилання пропозицій",
 
@@ -2482,24 +2473,6 @@
 
   // "info.end-user-agreement.title": "End User Agreement",
   "info.end-user-agreement.title": "Користувацька угода",
-
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Для відправки ви повинні прийняти файли cookie <b>Suggestions</b> (Google reCaptcha).",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Відкрити налаштування файлів cookie",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "Надіслати",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "Під час перевірки reCaptcha сталася помилка",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "Термін перевірки минув. Перевірте ще раз.",
 
   // "info.privacy.breadcrumbs": "Privacy Statement",
   "info.privacy.breadcrumbs": "Заява про конфіденційність",

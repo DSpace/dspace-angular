@@ -2409,18 +2409,6 @@
   // TODO New key - Add a translation
   "cookies.consent.app.description.authentication": "Required for signing you in",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions",
-  // TODO New key - Add a translation
-  "cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions",
-
-  //"cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  // TODO New key - Add a translation
-  "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  // TODO New key - Add a translation
-  "cookies.consent.purpose.feedback": "Sending suggestions",
-
   // "cookies.consent.app.title.preferences": "Preferences",
   // TODO New key - Add a translation
   "cookies.consent.app.title.preferences": "Preferences",
@@ -2984,30 +2972,6 @@
   // "info.privacy.breadcrumbs": "Privacy Statement",
   // TODO New key - Add a translation
   "info.privacy.breadcrumbs": "Privacy Statement",
-
-  //"info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-
-  //"info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-
-  //"info.feedback.submit": "Send",
-  // TODO New key - Add a translation
-  "info.feedback.submit": "Send",
-
-  //"info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  //"info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-
-  //"info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
 
   // "info.privacy.head": "Privacy Statement",
   // TODO New key - Add a translation

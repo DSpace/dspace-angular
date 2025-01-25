@@ -2066,15 +2066,6 @@
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Erforderlich für Ihre Anmeldung",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "Für den Versand von Vorschlägen nutzen wir den Google-Dienst reCAPTCHA",
-
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Senden von Vorschlägen",
-
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Präferenzen",
 
@@ -2607,24 +2598,6 @@
 
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "Feedback",
-
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Zum Senden müssen Sie <b>Vorschläge</b>-Cookies (Google reCaptcha) akzeptieren.",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie Settings",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Öffnen Sie die Cookie-Einstellungen",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "Schicken",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "Bei der reCaptcha-Überprüfung ist ein Fehler aufgetreten",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "Verifizierung abgelaufen. Überprüfen Sie es noch einmal.",
 
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "Feedback",

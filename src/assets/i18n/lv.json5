@@ -2041,15 +2041,6 @@
   // TODO New key - Add a translation
   "cookies.consent.app.description.authentication": "Required for signing you in",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions",
-
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Sending suggestions",
-
   // "cookies.consent.app.title.preferences": "Preferences",
   // TODO New key - Add a translation
   "cookies.consent.app.title.preferences": "Preferences",
@@ -2550,24 +2541,6 @@
   // "info.end-user-agreement.title": "End User Agreement",
   // TODO New key - Add a translation
   "info.end-user-agreement.title": "End User Agreement",
-
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Lai nosūtītu, jums ir jāpieņem sīkfaili <b>Ieteikumi</b> (Google reCaptcha).",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Atveriet sīkfailu iestatījumus",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "Sūtīt",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "ReCaptcha verifikācijas laikā radās kļūda",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "Verifikācija beidzās. Pārbaudiet vēlreiz.",
 
   // "info.privacy.breadcrumbs": "Privacy Statement",
   // TODO New key - Add a translation

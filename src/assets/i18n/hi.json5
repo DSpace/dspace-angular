@@ -1582,12 +1582,6 @@
 
   "cookies.consent.app.description.authentication": "आपको साइन इन करने के लिए आवश्यक",
 
-  "cookies.consent.app.description.google-recaptcha-feedback": "सुझाव भेजने के लिए हम Google reCAPTCHA सेवा का उपयोग करते हैं",
-
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-
-  "cookies.consent.purpose.feedback": "सुझाव भेज रहा हूँ",
-
   "cookies.consent.app.description.google-analytics": "हमें सांख्यिकीय जानकारी पर नज़र रखने की अनुमति देता है",
 
   "cookies.consent.app.description.preferences": "आपकी प्राथमिकताएं सहेजने के लिए आवश्यक",
@@ -2065,18 +2059,6 @@
   "info.end-user-agreement.title": "अंतिम उपयोगकर्ता समझौता",
 
   "info.feedback.breadcrumbs": "प्रतिपुष्टि",
-
-  "info.feedback.google-recaptcha.must-accept-cookies": "भेजने के लिए आपको <b>सुझाव</b> कुकीज़ (Google reCaptcha) स्वीकार करनी होंगी।",
-
-  "info.feedback.google-recaptcha.open-cookie-settings": "कुकी सेटिंग खोलें",
-
-  "info.feedback.submit": "भेजना",
-
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  "info.feedback.google-recaptcha.notification.message.error": "रीकैप्चा सत्यापन के दौरान एक त्रुटि उत्पन्न हुई",
-
-  "info.feedback.google-recaptcha.notification.message.expired": "सत्यापन समाप्त हो गया. फिर से जाँचो।",
 
   "info.feedback.comments": "टिप्पणियाँ",
 

@@ -2178,16 +2178,6 @@
   // "cookies.consent.decline": "Decline",
   "cookies.consent.decline": "Avböj",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "Vi använder Googles reCAPTCHA-tjänst för att skicka förslag",
-
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Skickar förslag",
-
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Vi samlar in och hanterar dina persondata för följande syften: <strong>Autenticering, inställningar, godkännanden och statistik</strong>. <br/> För mer information, läs {privacyPolicy}.",
 
@@ -2792,24 +2782,6 @@
 
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "Feedback",
-
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Za pošiljanje morate sprejeti piškotke <b>Suggestions</b> (Google reCaptcha).",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Odprite nastavitve piškotkov",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "Pošlji",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "Med preverjanjem reCaptcha je prišlo do napake",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "Preverjanje je poteklo. Ponovno preverite.",
 
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "Feedback",

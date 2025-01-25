@@ -2191,13 +2191,8 @@
   // "cookies.consent.app.description.acknowledgement": "Required for saving your acknowledgements and consents",
   "cookies.consent.app.description.acknowledgement": "আপনার স্বীকৃতি এবং সম্মতি সংরক্ষণের জন্য প্রয়োজন",
 
-  "cookies.consent.app.description.google-recaptcha-feedback": "আমরা পরামর্শ পাঠাতে Google reCAPTCHA পরিষেবা ব্যবহার করি",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-  "cookies.consent.purpose.feedback": "পরামর্শ পাঠানো হচ্ছে",
-
   // "cookies.consent.app.title.google-analytics": "Google Analytics",
   "cookies.consent.app.title.google-analytics": "গুগল বিশ্লেষক",
-
   // "cookies.consent.app.description.google-analytics": "Allows us to track statistical data",
   "cookies.consent.app.description.google-analytics": "আমাদের পরিসংখ্যানগত ডেটা ট্র্যাক করার অনুমতি দিন",
 
@@ -2754,20 +2749,6 @@
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "প্রতিক্রিয়া",
 
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Feedback</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "পাঠাতে আপনাকে অবশ্যই <b>প্রতিক্রিয়া</b> কুকিজ (Google reCaptcha) গ্রহণ করতে হবে।",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Google reCaptcha",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Google reCaptcha",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "পাঠান",
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  // "info.feedback.google-recaptcha.notification.message.error": "reCaptcha যাচাইকরণের সময় একটি ত্রুটি ঘটেছে৷",
-  "info.feedback.google-recaptcha.notification.message.error": "reCaptcha যাচাইকরণের সময় একটি ত্রুটি ঘটেছে৷",
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "যাচাইকরণের মেয়াদ শেষ। আবার চেক করুন।",
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "প্রতিক্রিয়া",
 

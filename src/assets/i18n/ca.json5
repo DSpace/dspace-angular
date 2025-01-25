@@ -2320,12 +2320,6 @@
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
   "cookies.consent.app.description.google-recaptcha": "Utilitzem el servei google reCAPTCHA durant el registre i la recuperació de contrasenya",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "Necessari per guardar els vostres reconeixements i consentiments",
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Enviament de suggeriments",
 
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Funcional",
@@ -3000,23 +2994,6 @@
 
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "Suggeriments",
-
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Per enviar, heu d'acceptar les galetes de <b>Suggeriments</b> (Google reCaptcha).",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Obriu la configuració de les galetes",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "nviar",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "S'ha produït un error durant la verificació de reCaptcha",
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expire": "Verificació caducada. Verifiqueu de nou.",
 
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "Suggeriments",

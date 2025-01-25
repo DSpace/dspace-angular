@@ -2273,15 +2273,6 @@
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Жүйеге кіру үшін қажет",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "Ұсыныстар жіберу үшін Google reCAPTCHA қызметін пайдаланамыз",
-
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Ұсыныстарды жіберу",
-
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Параметрлері",
 
@@ -2947,24 +2938,6 @@
 
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "Кері байланыс",
-
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Жіберу үшін <b>Ұсыныстар</b> cookie файлдарын (Google reCaptcha) қабылдауыңыз керек.",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Cookie параметрлерін ашыңыз",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "Жіберу",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "reCaptcha тексеру кезінде қате орын алды",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "Тексеру мерзімі аяқталды. Қайтадан тексеріңіз.",
 
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "Кері байланыс",

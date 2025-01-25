@@ -2358,12 +2358,6 @@
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
   "cookies.consent.app.description.google-recaptcha": "Utilizamos el servicio google reCAPTCHA durante el registro y la recuperación de contraseña",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "Utilizamos el servicio google reCAPTCHA el envio de comentarios",
-
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Funcional",
 
@@ -2372,9 +2366,6 @@
 
   // "cookies.consent.purpose.registration-password-recovery": "Registration and Password recovery",
   "cookies.consent.purpose.registration-password-recovery": "Registro y recuperación de contraseña",
-
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Envio de comentarios",
 
   // "cookies.consent.purpose.sharing": "Sharing",
   "cookies.consent.purpose.sharing": "Compartición",
@@ -3110,25 +3101,6 @@
 
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "Sugerencias",
-
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To register you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Para registrarse debe aceptar las cookies de <b>Sugerencias</b> (Google reCaptcha).",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Google reCaptcha",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Google reCaptcha",
-
-  // "info.feedback.submit": "Register",
-  "info.feedback.submit": "Enviar",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "Se produjo un error durante la verificación de reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "Verificación caducada. Verifique de nuevo.",
-
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "Sugerencias",
 

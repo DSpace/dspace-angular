@@ -3425,30 +3425,6 @@
   // TODO New key - Add a translation
   "info.feedback.breadcrumbs": "Feedback",
 
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-
-  // "info.feedback.submit": "Send",
-  // TODO New key - Add a translation
-  "info.feedback.submit": "Send",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  // TODO New key - Add a translation
-  "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "Visszajelzés",
 

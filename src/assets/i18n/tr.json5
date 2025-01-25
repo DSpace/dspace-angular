@@ -1928,14 +1928,6 @@
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Kayıt olmak için gerekli",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "Öneri göndermek için Google reCAPTCHA hizmetini kullanıyoruz",
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
-
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Öneriler gönderiliyor",
-
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Tercihler",
 
@@ -2370,24 +2362,6 @@
 
   // "info.privacy.head": "Privacy Statement",
   "info.privacy.head": "Gizlilik bildirimi",
-
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Göndermek için <b>Öneriler</b> çerezlerini (Google reCaptcha) kabul etmelisiniz.",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Çerez ayarlarını açın",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "Gönder",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "reCaptcha doğrulaması sırasında bir hata oluştu",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "Doğrulama süresi doldu. Tekrar kontrol edin.",
 
   // "info.privacy.title": "Privacy Statement",
   "info.privacy.title": "Gizlilik bildirimi",

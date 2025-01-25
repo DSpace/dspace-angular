@@ -2674,24 +2674,6 @@
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "Votre avis",
 
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Pour envoyer, vous devez accepter les cookies de <b>Suggestions</b> (Google reCaptcha).",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Ouvrir les paramètres des cookies",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "Envoyer",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "Une erreur s'est produite lors de la vérification reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "La vérification a expiré. Revérifier.",
-
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "Votre avis",
 

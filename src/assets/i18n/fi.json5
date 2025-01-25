@@ -2422,15 +2422,6 @@
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
   "cookies.consent.app.description.google-recaptcha": "Käytämme Googlen reCAPTCHA-palvelua rekisteröinnin ja salasanan palauttamisen yhteydessä.",
 
-  //"cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions"
-  "cookies.consent.app.description.google-recaptcha-feedback": "Käytämme Googlen reCAPTCHA-palvelua ehdotusten lähettämiseen",
-
-  // "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
-  "cookies.consent.app.title.google-recaptcha-feedback": "",
-
-  //"cookies.consent.purpose.feedback": "Sending suggestions",
-  "cookies.consent.purpose.feedback": "Lähetetään ehdotuksia",
-
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Toiminnallinen",
 
@@ -3174,24 +3165,6 @@
 
   // "info.feedback.breadcrumbs": "Feedback",
   "info.feedback.breadcrumbs": "Palaute",
-
-  // "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
-  "info.feedback.google-recaptcha.must-accept-cookies": "Lähettääksesi sinun on hyväksyttävä <b>Suggestions</b>-evästeet (Google reCaptcha).",
-
-  // "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
-  "info.feedback.google-recaptcha.open-cookie-settings": "Avaa evästeasetukset",
-
-  // "info.feedback.submit": "Send",
-  "info.feedback.submit": "Lähetä",
-
-  // "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
-
-  // "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "info.feedback.google-recaptcha.notification.message.error": "Virhe reCaptcha-todennuksessa",
-
-  // "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
-  "info.feedback.google-recaptcha.notification.message.expired": "Todentaminen vanhentunut. Todenna uudelleen.",
 
   // "info.feedback.head": "Feedback",
   "info.feedback.head": "Palaute",
