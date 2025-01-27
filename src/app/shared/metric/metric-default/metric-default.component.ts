@@ -11,8 +11,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { RedirectWithHrefDirective } from '../../../directives/redirect/redirect-href.directive';
-import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { METRIC_TYPE_DOWNLOAD } from '../metric-embedded/metric-embedded-download/metric-embedded-download.component';
+import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 
 @Component({
   selector: 'ds-metric-default',
