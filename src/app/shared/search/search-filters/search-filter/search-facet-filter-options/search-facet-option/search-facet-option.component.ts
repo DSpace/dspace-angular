@@ -74,11 +74,6 @@ export class SearchFacetOptionComponent implements OnInit {
 
   paginationId: string;
 
-  /**
-   * Stores selected filters
-   */
-  selectedFilters = new Set();
-
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
@@ -132,23 +127,9 @@ export class SearchFacetOptionComponent implements OnInit {
 
   /**
    * Announces to the screen reader that the page will be reloaded, which filter has been selected
-   * and then implement “filterService.minimizeAll()”
    */
-  selectingFilter() {
-    const filterValue = this.filterValue.value;
-    if (!this.selectedFilters.has(filterValue)) {
-      this.translateService.get('search-facet-option.update.announcement')
-        .subscribe(translatedMessage => {
-          const message = `${translatedMessage} ${filterValue}`;
-          this.liveRegionService.addMessage(message);
-
-          setTimeout(() => {
-            this.liveRegionService.clear();
-          }, this.liveRegionService.getMessageTimeOutMs());
-          this.selectedFilters.add(filterValue);
-        });
-    }
-    this.filterService.minimizeAll();
+  announceFilter() {
+    const message = this.translateService.instant('search-facet-option.update.announcement', { filter: this.filterValue.value });
+    this.liveRegionService.addMessage(message);
   }
-
 }
