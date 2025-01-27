@@ -56,6 +56,11 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   mouseEntered = false;
 
   /**
+   * Whether the section was expanded
+   */
+  focusOnFirstChildSection = false;
+
+  /**
    * True if screen size was small before a resize event
    */
   wasMobile = undefined;
@@ -107,6 +112,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
       if (active === true) {
         this.addArrowEventListeners = true;
       } else {
+        this.focusOnFirstChildSection = undefined;
         this.unsubscribeFromEventListeners();
       }
     }));
@@ -118,7 +124,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
       this.dropdownItems.forEach((item: HTMLElement) => {
         item.addEventListener('keydown', this.navigateDropdown.bind(this));
       });
-      if (this.dropdownItems.length > 0) {
+      if (this.focusOnFirstChildSection && this.dropdownItems.length > 0) {
         this.dropdownItems.item(0).focus();
       }
       this.addArrowEventListeners = false;
@@ -128,6 +134,18 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this.unsubscribeFromEventListeners();
+  }
+
+  /**
+   * Activate this section if it's currently inactive, deactivate it when it's currently active.
+   * Also saves whether this toggle was performed by a keyboard event (non-click event) in order to know if thi first
+   * item should be focussed when activating a section.
+   *
+   *  @param {Event} event The user event that triggered this method
+   */
+  override toggleSection(event: Event): void {
+    this.focusOnFirstChildSection = event.type !== 'click';
+    super.toggleSection(event);
   }
 
   /**
@@ -222,9 +240,11 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
         this.deactivateSection(event, false);
         break;
       case 'ArrowDown':
+        this.focusOnFirstChildSection = true;
         this.activateSection(event);
         break;
       case 'Space':
+      case 'Enter':
         event.preventDefault();
         break;
     }

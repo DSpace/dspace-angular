@@ -72,9 +72,11 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
    * Set initial values for instance variables
    */
   ngOnInit(): void {
-    this.menuService.isSectionActive(this.menuID, this.section.id).pipe(distinctUntilChanged()).subscribe((isActive: boolean) => {
-      this.active$.next(isActive);
-    });
+    this.subs.push(this.menuService.isSectionActive(this.menuID, this.section.id).pipe(distinctUntilChanged()).subscribe((isActive: boolean) => {
+      if (this.active$.value !== isActive) {
+        this.active$.next(isActive);
+      }
+    }));
     this.initializeInjectorData();
   }
 
