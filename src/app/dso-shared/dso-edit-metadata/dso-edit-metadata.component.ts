@@ -23,16 +23,16 @@ import {
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
   combineLatest as observableCombineLatest,
   Observable,
   of,
   Subscription,
+  switchMap,
 } from 'rxjs';
 import {
   map,
-  mergeMap,
   tap,
-  withLatestFrom,
 } from 'rxjs/operators';
 
 import {
@@ -197,7 +197,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       this.dsoUpdateSubscription = observableCombineLatest([this.route.data, this.route.parent.data]).pipe(
         map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
         tap((data: any) => this.initDSO(data.dso.payload)),
-        mergeMap(() => this.retrieveDataService().pipe(withLatestFrom(this.getSecuritySettings()))),
+        switchMap(() => combineLatest([this.retrieveDataService(),this.getSecuritySettings()])),
       ).subscribe(([dataService, securitySettings]: [UpdateDataService<DSpaceObject>, MetadataSecurityConfiguration]) => {
         this.securitySettings$.next(securitySettings);
         this.initDataService(dataService);
