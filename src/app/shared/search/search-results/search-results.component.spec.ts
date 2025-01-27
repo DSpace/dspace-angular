@@ -8,6 +8,10 @@ import { SearchResultsComponent } from './search-results.component';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 import { createFailedRemoteDataObject } from '../../remote-data.utils';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchServiceStub } from '../../testing/search-service.stub';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
@@ -21,7 +25,12 @@ describe('SearchResultsComponent', () => {
       declarations: [
         SearchResultsComponent,
         SearchResultsSkeletonComponent,
-        QueryParamsDirectiveStub],
+        QueryParamsDirectiveStub
+      ],
+      providers: [
+        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: SearchService, useValue: new SearchServiceStub() },
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

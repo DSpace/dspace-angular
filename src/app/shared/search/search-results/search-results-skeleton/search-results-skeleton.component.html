@@ -5,7 +5,7 @@
 </div>
 
 <ng-container *ngIf="(viewMode$ | async) === ViewMode.ListElement; else grid">
-  <ng-container *ngFor="let result of loadingResults; let first = $first">
+  <ng-container *ngFor="let result of loadingResults; let first = first">
     <div [class.my-4]="!first" class="row">
       <div *ngIf="showThumbnails" class="col-3 col-md-2">
         <div class="thumbnail-skeleton position-relative">
