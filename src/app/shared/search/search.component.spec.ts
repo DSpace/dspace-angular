@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -216,6 +216,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         useValue: searchConfigurationServiceStub
       },
       { provide: APP_CONFIG, useValue: environment },
+      { provide: PLATFORM_ID, useValue: 'browser' },
     ],
     schemas: [NO_ERRORS_SCHEMA]
   }).overrideComponent(compType, {
@@ -373,6 +374,35 @@ describe('SearchComponent', () => {
       it('should return null', () => {
         expect(result).toBeNull();
       });
+    });
+
+    describe('when rendered in SSR', () => {
+      beforeEach(() => {
+        comp.platformId = 'server';
+      });
+
+      it('should not call search method on init', (done) => {
+        comp.ngOnInit();
+        //Check that the first method from which the search depend upon is not being called
+        expect(searchConfigurationServiceStub.getCurrentConfiguration).not.toHaveBeenCalled();
+        comp.initialized$.subscribe((res) => {
+          expect(res).toBeTruthy();
+          done();
+        });
+      });
+    });
+
+    describe('when rendered in CSR', () => {
+      beforeEach(() => {
+        comp.platformId = 'browser';
+      });
+
+      it('should call search method on init', fakeAsync(() => {
+        comp.ngOnInit();
+        tick(100);
+        //Check that the last method from which the search depend upon is being called
+        expect(searchServiceStub.search).toHaveBeenCalled();
+      }));
     });
   });
 });

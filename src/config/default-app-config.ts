@@ -23,6 +23,7 @@ import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
+import { SearchConfig } from './search-page-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -441,5 +442,9 @@ export class DefaultAppConfig implements AppConfig {
   liveRegion: LiveRegionConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
+  };
+
+  search: SearchConfig = {
+    filterPlaceholdersCount: 5
   };
 }

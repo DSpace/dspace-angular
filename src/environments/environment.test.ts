@@ -13,6 +13,8 @@ export const environment: BuildConfig = {
     time: false,
     inlineCriticalCss: false,
     paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ],
+    enableSearchComponent: false,
+    enableBrowseComponent: false,
   },
 
   // Angular Universal server settings.
@@ -321,4 +323,8 @@ export const environment: BuildConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
   },
+
+  search: {
+    filterPlaceholdersCount: 5
+  }
 };

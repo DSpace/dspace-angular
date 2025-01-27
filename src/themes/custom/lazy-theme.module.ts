@@ -159,6 +159,8 @@ import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 import {UserMenuComponent} from './app/shared/auth-nav-menu/user-menu/user-menu.component';
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -305,6 +307,7 @@ const DECLARATIONS = [
     NgxGalleryModule,
     FormModule,
     RequestCopyModule,
+    NgxSkeletonLoaderModule
   ],
   declarations: DECLARATIONS,
   exports: [
