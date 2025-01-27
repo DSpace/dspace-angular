@@ -35,6 +35,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { RouterTestingModule } from '@angular/router/testing';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -195,7 +196,7 @@ describe('EPersonFormComponent', () => {
         RouterTestingModule,
         TranslateModule.forRoot(),
       ],
-      declarations: [EPersonFormComponent],
+      declarations: [EPersonFormComponent, BtnDisabledDirective],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
@@ -481,7 +482,8 @@ describe('EPersonFormComponent', () => {
       // ePersonDataServiceStub.activeEPerson = eperson;
       spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBeNull();
+      expect(deleteButton.nativeElement.classList.contains('disabled')).toBeFalse();
       deleteButton.triggerEventHandler('click', null);
       fixture.detectChanges();
       expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);

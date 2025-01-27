@@ -34,7 +34,7 @@
     </button>
     <button class="btn collection-confirm"
             [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
-            [disabled]="selectedIds?.length === 0"
+            [dsBtnDisabled]="selectedIds?.length === 0"
             (click)="confirmSelected()">
       <i class="fas fa-trash"></i> {{confirmButton | translate}}
     </button>
