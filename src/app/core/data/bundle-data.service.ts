@@ -78,10 +78,14 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
    *                                    requested after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
+   * @param options                     the {@link FindListOptions} for the request
    */
   // TODO should be implemented rest side
-  findByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
-    return this.findAllByItem(item, { elementsPerPage: 9999 }, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+  findByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
+    //Since we filter by bundleName where the pagination options are not indicated we need to load all the possible bundles.
+    // This is a workaround, in substitution of the previously recursive call with expand
+    const paginationOptions = options ?? { elementsPerPage: 9999 };
+    return this.findAllByItem(item, paginationOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       map((rd: RemoteData<PaginatedList<Bundle>>) => {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
           const matchingBundle = rd.payload.page.find((bundle: Bundle) =>

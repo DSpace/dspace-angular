@@ -26,7 +26,7 @@ import { BrowseDefinition } from '../../../../core/shared/browse-definition.mode
 })
 export class ComcolBrowseByComponent implements OnInit {
 
-  browseByType$: Observable<BrowseByDataType>;
+  browseByType$: Observable<{type: BrowseByDataType }>;
 
   scope$: Observable<string>;
 
@@ -40,7 +40,7 @@ export class ComcolBrowseByComponent implements OnInit {
    */
   ngOnInit(): void {
     this.browseByType$ = this.route.data.pipe(
-      map((data: { browseDefinition: BrowseDefinition }) => data.browseDefinition.getRenderType()),
+      map((data: { browseDefinition: BrowseDefinition }) => ({ type: data.browseDefinition.getRenderType() })),
     );
     this.scope$ = this.route.data.pipe(
       map((data: Data) => data.scope),

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   inject,
@@ -16,42 +16,26 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { RegistryServiceStub } from '../../../../shared/testing/registry.service.stub';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { MetadataSchemaFormComponent } from './metadata-schema-form.component';
 
 describe('MetadataSchemaFormComponent', () => {
   let component: MetadataSchemaFormComponent;
   let fixture: ComponentFixture<MetadataSchemaFormComponent>;
-  let registryService: RegistryService;
 
-  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-  const registryServiceStub = {
-    getActiveMetadataSchema: () => observableOf(undefined),
-    createOrUpdateMetadataSchema: (schema: MetadataSchema) => observableOf(schema),
-    cancelEditMetadataSchema: () => {
-    },
-    clearMetadataSchemaRequests: () => observableOf(undefined),
-  };
-  const formBuilderServiceStub = {
-    createFormGroup: () => {
-      return {
-        patchValue: () => {
-        },
-        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void {
-        },
-      };
-    },
-  };
-  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+  let registryService: RegistryServiceStub;
 
   beforeEach(waitForAsync(() => {
+    registryService = new RegistryServiceStub();
+
     return TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataSchemaFormComponent, EnumKeysPipe],
       providers: [
-        { provide: RegistryService, useValue: registryServiceStub },
+        { provide: RegistryService, useValue: registryService },
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideComponent(MetadataSchemaFormComponent, {
         remove: {
@@ -88,7 +72,7 @@ describe('MetadataSchemaFormComponent', () => {
 
     describe('without an active schema', () => {
       beforeEach(() => {
-        spyOn(registryService, 'getActiveMetadataSchema').and.returnValue(observableOf(undefined));
+        component.activeMetadataSchema$ = observableOf(undefined);
         component.onSubmit();
         fixture.detectChanges();
       });
@@ -107,7 +91,7 @@ describe('MetadataSchemaFormComponent', () => {
       } as MetadataSchema);
 
       beforeEach(() => {
-        spyOn(registryService, 'getActiveMetadataSchema').and.returnValue(observableOf(expectedWithId));
+        component.activeMetadataSchema$ = observableOf(expectedWithId);
         component.onSubmit();
         fixture.detectChanges();
       });

@@ -21,8 +21,8 @@ However, reviewers may request that you complete any actions in this list if you
 
 - [ ] My PR is **created against the `main` branch** of code (unless it is a backport or is fixing an issue specific to an older branch).
 - [ ] My PR is **small in size** (e.g. less than 1,000 lines of code, not including comments & specs/tests), or I have provided reasons as to why that's not possible.
-- [ ] My PR **passes [ESLint](https://eslint.org/)** validation using `yarn lint`
-- [ ] My PR **doesn't introduce circular dependencies** (verified via `yarn check-circ-deps`)
+- [ ] My PR **passes [ESLint](https://eslint.org/)** validation using `npm run lint`
+- [ ] My PR **doesn't introduce circular dependencies** (verified via `npm run check-circ-deps`)
 - [ ] My PR **includes [TypeDoc](https://typedoc.org/) comments** for _all new (or modified) public methods and classes_. It also includes TypeDoc for large or complex private methods.
 - [ ] My PR **passes all specs/tests and includes new/updated specs or tests** based on the [Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code+Testing+Guide).
 - [ ] My PR **aligns with [Accessibility guidelines](https://wiki.lyrasis.org/display/DSDOC8x/Accessibility)** if it makes changes to the user interface.

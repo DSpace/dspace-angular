@@ -7,7 +7,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest,
   combineLatest as observableCombineLatest,
+  mergeMap,
   Observable,
+  of as observableOf,
 } from 'rxjs';
 import {
   filter,
@@ -17,6 +19,7 @@ import {
 } from 'rxjs/operators';
 
 import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { AuthService } from './core/auth/auth.service';
 import { BrowseService } from './core/browse/browse.service';
 import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
@@ -62,6 +65,7 @@ export class MenuResolverService  {
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
     protected configurationDataService: ConfigurationDataService,
+    protected authService: AuthService,
   ) {
   }
 
@@ -71,7 +75,7 @@ export class MenuResolverService  {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return combineLatest([
       this.createPublicMenu$(),
-      this.createAdminMenu$(),
+      this.createAdminMenuIfLoggedIn$(),
     ]).pipe(
       map((menusDone: boolean[]) => menusDone.every(Boolean)),
     );
@@ -148,6 +152,15 @@ export class MenuResolverService  {
   }
 
   /**
+   * Initialize all menu sections and items for {@link MenuID.ADMIN}, only if the user is logged in.
+   */
+  createAdminMenuIfLoggedIn$() {
+    return this.authService.isAuthenticated().pipe(
+      mergeMap((isAuthenticated) => isAuthenticated ? this.createAdminMenu$() : observableOf(true)),
+    );
+  }
+
+  /**
    * Initialize all menu sections and items for {@link MenuID.ADMIN}
    */
   createAdminMenu$() {
@@ -156,8 +169,6 @@ export class MenuResolverService  {
     this.createExportMenuSections();
     this.createImportMenuSections();
     this.createAccessControlMenuSections();
-    this.createReportMenuSections();
-
     return this.waitForMenu$(MenuID.ADMIN);
   }
 

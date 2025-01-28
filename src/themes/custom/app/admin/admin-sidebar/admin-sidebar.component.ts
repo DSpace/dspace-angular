@@ -10,6 +10,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AdminSidebarComponent as BaseComponent } from '../../../../../app/admin/admin-sidebar/admin-sidebar.component';
+import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pipe';
 
 /**
  * Component representing the admin sidebar
@@ -21,7 +22,7 @@ import { AdminSidebarComponent as BaseComponent } from '../../../../../app/admin
   // styleUrls: ['./admin-sidebar.component.scss']
   styleUrls: ['../../../../../app/admin/admin-sidebar/admin-sidebar.component.scss'],
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 export class AdminSidebarComponent extends BaseComponent {
 }

@@ -27,7 +27,7 @@ import * as expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
 import axios from 'axios';
 import LRU from 'lru-cache';
-import isbot from 'isbot';
+import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
@@ -99,7 +99,7 @@ export function app() {
    * If production mode is enabled in the environment file:
    * - Enable Angular's production mode
    * - Initialize caching of SSR rendered pages (if enabled in config.yml)
-   * - Enable compression for SSR reponses. See [compression](https://github.com/expressjs/compression)
+   * - Enable compression for SSR responses. See [compression](https://github.com/expressjs/compression)
    */
   if (environment.production) {
     enableProdMode();
@@ -218,7 +218,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled) {
+  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || environment.ssr.paths.some(pathPrefix => req.path.startsWith(pathPrefix)))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -428,7 +428,7 @@ function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, r
       if (environment.cache.serverSide.debug) { console.log(`CACHE EXPIRED FOR ${key} in ${cacheName} cache. Re-rendering...`); }
       // Update cached copy by rerendering server-side
       // NOTE: In this scenario the currently cached copy will be returned to the current user.
-      // This re-render is peformed behind the scenes to update cached copy for next user.
+      // This re-render is performed behind the scenes to update cached copy for next user.
       serverSideRender(req, res, next, false);
     }
   } else {

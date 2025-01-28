@@ -13,7 +13,7 @@ import {
 } from '@typescript-eslint/utils/ts-eslint';
 import { EnumType } from 'typescript';
 
-export type Meta = RuleMetaData<string>;
+export type Meta = RuleMetaData<string, unknown[]>;
 export type Valid = ValidTestCase<unknown[]>;
 export type Invalid = InvalidTestCase<string, unknown[]>;
 

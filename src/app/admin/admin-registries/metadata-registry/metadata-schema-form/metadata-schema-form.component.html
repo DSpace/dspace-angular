@@ -1,4 +1,4 @@
-<div *ngIf="registryService.getActiveMetadataSchema() | async; then editheader; else createHeader"></div>
+<div *ngIf="activeMetadataSchema$ | async; then editheader; else createHeader"></div>
 
 <ng-template #createHeader>
     <h2>{{messagePrefix + '.create' | translate}}</h2>

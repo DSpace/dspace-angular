@@ -8,7 +8,7 @@
         <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
           <ds-thumbnail [thumbnail]="item?.thumbnail | async"></ds-thumbnail>
         </ds-metadata-field-wrapper>
-        <ng-container *ngVar="(getFiles() | async) as bitstreams">
+        <ng-container *ngIf="(bitstreams$ | async) as bitstreams">
           <ds-metadata-field-wrapper [label]="('item.page.files' | translate)">
             <div *ngIf="bitstreams?.length > 0" class="file-section">
               <button class="btn btn-link" *ngFor="let file of bitstreams; let last=last;" (click)="downloadBitstreamFile(file?.uuid)">

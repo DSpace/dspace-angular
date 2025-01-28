@@ -26,7 +26,9 @@ import { ConfigurationDataServiceStub } from './shared/testing/configuration-dat
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { createPaginatedList } from './shared/testing/utils.test';
 import createSpy = jasmine.createSpy;
+import { AuthService } from './core/auth/auth.service';
 import { MenuResolverService } from './menu-resolver.service';
+import { AuthServiceStub } from './shared/testing/auth-service.stub';
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
@@ -80,6 +82,7 @@ describe('menuResolver', () => {
         { provide: ScriptDataService, useValue: scriptService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: NgbModal, useValue: mockNgbModal },
+        { provide: AuthService, useValue: AuthServiceStub },
         MenuResolverService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -94,19 +97,19 @@ describe('menuResolver', () => {
   describe('resolve', () => {
     it('should create all menus', (done) => {
       spyOn(resolver, 'createPublicMenu$').and.returnValue(observableOf(true));
-      spyOn(resolver, 'createAdminMenu$').and.returnValue(observableOf(true));
+      spyOn(resolver, 'createAdminMenuIfLoggedIn$').and.returnValue(observableOf(true));
 
       resolver.resolve(null, null).subscribe(resolved => {
         expect(resolved).toBeTrue();
         expect(resolver.createPublicMenu$).toHaveBeenCalled();
-        expect(resolver.createAdminMenu$).toHaveBeenCalled();
+        expect(resolver.createAdminMenuIfLoggedIn$).toHaveBeenCalled();
         done();
       });
     });
 
     it('should return an Observable that emits true as soon as all menus are created', () => {
       spyOn(resolver, 'createPublicMenu$').and.returnValue(cold('--(t|)', BOOLEAN));
-      spyOn(resolver, 'createAdminMenu$').and.returnValue(cold('----(t|)', BOOLEAN));
+      spyOn(resolver, 'createAdminMenuIfLoggedIn$').and.returnValue(cold('----(t|)', BOOLEAN));
 
       expect(resolver.resolve(null, null)).toBeObservable(cold('----(t|)', BOOLEAN));
     });

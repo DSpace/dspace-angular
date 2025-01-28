@@ -1,8 +1,8 @@
 <div class="container" *ngIf="(isLoading$ | async) === false">
   <div class="row">
     <div class="col-12 pb-4">
-      <h2 id="sub-header"
-          class="border-bottom pb-2">{{ 'collection.create.sub-head' | translate:{ parent: dsoNameService.getName((parentRD$| async)?.payload) } }}</h2>
+      <h1 id="sub-header"
+          class="border-bottom pb-2">{{ 'collection.create.sub-head' | translate:{ parent: dsoNameService.getName((parentRD$| async)?.payload) } }}</h1>
     </div>
   </div>
   <ds-collection-form (submitForm)="onSubmit($event)"

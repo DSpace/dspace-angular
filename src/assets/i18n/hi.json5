@@ -1616,8 +1616,6 @@
 
   "cookies.consent.content-notice.description": "हम निम्नलिखित उद्देश्यों के लिए आपकी व्यक्तिगत जानकारी एकत्र और संसाधित करते हैं: <strong>प्रमाणीकरण, प्राथमिकताएं, पावती और सांख्यिकी</strong>। <br/> अधिक जानने के लिए, कृपया हमारी {privacyPolicy} पढ़ें।",
 
-  "cookies.consent.content-notice.description.no-privacy": "हम निम्नलिखित उद्देश्यों के लिए आपकी व्यक्तिगत जानकारी एकत्र और संसाधित करते हैं: <strong>प्रमाणीकरण, प्राथमिकताएं, पावती और सांख्यिकी</strong>।",
-
   "cookies.consent.content-notice.learnMore": "अनुकूलित करें",
 
   "cookies.consent.decline": "अस्वीकार",

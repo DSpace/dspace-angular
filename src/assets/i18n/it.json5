@@ -1958,12 +1958,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(sempre obbligatorio)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Utilizzare questo interruttore per abilitare o disabilitare tutti i servizi.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Abilitare o disabilitare tutti i servizi",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Ci sono stati dei cambiamenti dal tuo ultimo accesso, aggiorna il tuo consenso.",
 
@@ -1979,14 +1973,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Salvare",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Consenso ai cookie",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  "cookies.consent.content-notice.description": "Raccogliamo ed elaboriamo le tue informazioni personali per i seguenti scopi: <strong>Autenticazione, Preferenze, Accettazione e Statistiche</strong>. <br/> Per saperne di più, leggi la nostra {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Raccogliamo ed elaboriamo le tue informazioni personali per i seguenti scopi: <strong>Autenticazione, Preferenze, Accettazione e Statistiche</strong>.",
+  "cookies.consent.content-notice.description": "Raccogliamo ed elaboriamo le tue informazioni personali per i seguenti scopi: {purposes}",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Personalizza",
@@ -2002,12 +1990,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informazioni che raccogliamo",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "servizi",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "servizio",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticazione",

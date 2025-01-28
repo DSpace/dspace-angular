@@ -68,7 +68,7 @@ export class SubmissionObjectDataService {
           environment.cache.msToLive.default,
           now,
           RequestEntryState.Error,
-          'The request couldn\'t be sent. Unable to determine the type of submission object',
+          'The request could not be sent. Unable to determine the type of submission object',
           undefined,
           400,
         ));

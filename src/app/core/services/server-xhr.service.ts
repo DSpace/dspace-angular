@@ -33,7 +33,7 @@ const httpAgent = new HttpAgent(agentOptions);
 const httpsAgent = new HttpsAgent(agentOptions);
 
 /**
- * Contructs the XMLHttpRequest instances used for all HttpClient requests.
+ * Constructs the XMLHttpRequest instances used for all HttpClient requests.
  * Emulated by https://github.com/pwnall/node-xhr2 on the server.
  * This class overrides the built-in Angular implementation to set additional configuration.
  *
