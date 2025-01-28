@@ -11,11 +11,12 @@ import { Params } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
+  Observable,
   of as observableOf,
 } from 'rxjs';
 import {
+  distinctUntilChanged,
   map,
-  take,
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -24,15 +25,8 @@ import {
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
-import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
-import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
@@ -44,15 +38,8 @@ import {
   templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
   standalone: true,
   imports: [
-    VarDirective,
     AsyncPipe,
-    ComcolPageHeaderComponent,
-    ComcolPageLogoComponent,
     NgIf,
-    ThemedComcolPageHandleComponent,
-    ThemedComcolPageContentComponent,
-    DsoEditMenuComponent,
-    ThemedComcolPageBrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,
@@ -71,18 +58,20 @@ export class BrowseByTitleComponent extends BrowseByMetadataComponent implements
     const sortConfig = new SortOptions('dc.title', SortDirection.ASC);
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
+    const routeParams$: Observable<Params> = observableCombineLatest([
+      this.route.params,
+      this.route.queryParams,
+    ]).pipe(
+      map(([params, queryParams]: [Params, Params]) => Object.assign({}, params, queryParams)),
+      distinctUntilChanged((prev: Params, curr: Params) => prev.id === curr.id && prev.startsWith === curr.startsWith),
+    );
     this.subs.push(
-      observableCombineLatest(
-        [ this.route.params.pipe(take(1)),
-          this.route.queryParams,
-          this.scope$,
-          this.currentPagination$,
-          this.currentSort$,
-        ]).pipe(
-        map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
-        }),
-      ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
+      observableCombineLatest([
+        routeParams$,
+        this.scope$,
+        this.currentPagination$,
+        this.currentSort$,
+      ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         this.startsWith = +params.startsWith || params.startsWith;
         this.browseId = params.id || this.defaultBrowseId;
         this.updatePageWithItems(browseParamsToOptions(params, scope, currentPage, currentSort, this.browseId, this.fetchThumbnails), undefined, undefined);
