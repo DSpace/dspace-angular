@@ -21,10 +21,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { Process } from '../../../process-page/processes/process.model';
@@ -54,6 +56,11 @@ export class SearchExportCsvComponent implements OnInit {
   @Input() searchConfig: PaginatedSearchOptions;
 
   /**
+   * The total number of items in the search results which can be exported
+   */
+  @Input() total: number;
+
+  /**
    * Observable used to determine whether the button should be shown
    */
   shouldShowButton$: Observable<boolean>;
@@ -63,12 +70,18 @@ export class SearchExportCsvComponent implements OnInit {
    */
   tooltipMsg = 'metadata-export-search.tooltip';
 
+  exportLimitExceededKey = 'metadata-export-search.submit.error.limit-exceeded';
+
+  exportLimitExceededMsg = '';
+
+  shouldShowWarning$: Observable<boolean>;
+
   constructor(private scriptDataService: ScriptDataService,
               private authorizationDataService: AuthorizationDataService,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private router: Router,
-  ) {
+              private configurationService: ConfigurationDataService) {
   }
 
   ngOnInit(): void {
@@ -77,6 +90,25 @@ export class SearchExportCsvComponent implements OnInit {
       switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute('metadata-export-search')),
       map((canExecute: boolean) => canExecute),
       startWith(false),
+    );
+    this.shouldShowWarning$ = this.itemExceeds();
+  }
+
+  /**
+   * Checks if the export limit has been exceeded and updates the tooltip accordingly
+   */
+  private itemExceeds(): Observable<boolean> {
+    return this.configurationService.findByPropertyName('metadataexport.max.items').pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<ConfigurationProperty>) => {
+        const limit = Number(response.payload?.values?.[0]);
+        if (response.hasSucceeded && limit < this.total) {
+          this.exportLimitExceededMsg = this.translateService.instant(this.exportLimitExceededKey, { limit: response.payload?.values?.[0] });
+          return true;
+        } else {
+          return false;
+        }
+      }),
     );
   }
 
