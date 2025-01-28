@@ -24,6 +24,7 @@ import { WorkspaceItem } from '../../../../../core/submission/models/workspaceit
 import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+import {BtnDisabledDirective} from '../../../../btn-disabled.directive';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -103,7 +104,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationModalComponent],
+      declarations: [DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
       providers: [
         {
@@ -202,10 +203,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
   describe('when initialized and is relationship show the list of buttons', () => {
     it('submit button should be disabled', () => {
-      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.submit')).nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.submit')).nativeElement.classList.contains('disabled')).toBeTrue();
     });
     it('discard button should be disabled', () => {
-      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.discard')).nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.discard')).nativeElement.classList.contains('disabled')).toBeTrue();
     });
   });
 
@@ -243,9 +246,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
     it('there should show 1 spinner and disable all 3 buttons', () => {
       expect(debugElement.queryAll(By.css('.spinner-border')).length).toEqual(1);
-      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
-      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
-      expect(debugElement.query(By.css('.close')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.submit')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.submit')).nativeElement?.classList.contains('disabled')).toBeTrue();
+      expect(debugElement.query(By.css('.discard')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.discard')).nativeElement?.classList.contains('disabled')).toBeTrue();
+      expect(debugElement.query(By.css('.close')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.close')).nativeElement?.classList.contains('disabled')).toBeTrue();
     });
 
   });

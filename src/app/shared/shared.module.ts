@@ -286,6 +286,7 @@ import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.comp
 import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
 import { OrcidBadgeAndTooltipComponent } from './orcid-badge-and-tooltip/orcid-badge-and-tooltip.component';
 import { LiveRegionComponent } from './live-region/live-region.component';
+import {BtnDisabledDirective} from './btn-disabled.directive';
 
 const MODULES = [
   CommonModule,
@@ -497,6 +498,7 @@ const DIRECTIVES = [
   MetadataFieldValidator,
   HoverClassDirective,
   ContextHelpDirective,
+  BtnDisabledDirective,
 ];
 
 @NgModule({

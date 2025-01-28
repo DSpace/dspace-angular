@@ -65,7 +65,7 @@
                     <!--CREATE-->
                     <ng-container *ngIf="canCreateVersion$ | async">
                       <button class="btn btn-outline-primary btn-sm version-row-element-create"
-                              [disabled]="isAnyBeingEdited() || (hasDraftVersion$ | async)"
+                              [dsBtnDisabled]="isAnyBeingEdited() || (hasDraftVersion$ | async)"
                               (click)="createNewVersion(versionDTO.version)"
                               title="{{createVersionTitle$ | async | translate }}">
                         <i class="fas fa-code-branch fa-fw"></i>
@@ -75,7 +75,7 @@
                     <ng-container *ngIf="versionDTO.canDeleteVersion">
                       <button class="btn btn-sm version-row-element-delete"
                               [ngClass]="isAnyBeingEdited() ? 'btn-outline-primary' : 'btn-outline-danger'"
-                              [disabled]="isAnyBeingEdited()"
+                              [dsBtnDisabled]="isAnyBeingEdited()"
                               (click)="deleteVersion(versionDTO.version, versionDTO.version.id==itemVersion.id)"
                               title="{{'item.version.history.table.action.deleteVersion' | translate}}">
                         <i class="fas fa-trash fa-fw"></i>
@@ -120,7 +120,7 @@
               <ng-container *ngIf="versionDTO.canEditVersion | async">
                 <button class="btn btn-outline-primary btn-sm version-row-element-edit"
                         *ngIf="!isThisBeingEdited(versionDTO.version)"
-                        [disabled]="isAnyBeingEdited()"
+                        [dsBtnDisabled]="isAnyBeingEdited()"
                         (click)="enableVersionEditing(versionDTO.version)"
                         title="{{'item.version.history.table.action.editSummary' | translate}}">
                   <i class="fas fa-edit fa-fw"></i>

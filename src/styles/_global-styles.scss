@@ -496,3 +496,14 @@ ngb-accordion {
   // We use underline to discern link from text as we can't make color lighter on a white bg
   text-decoration: underline;
 }
+
+// An element that is disabled should not have focus styles to avoid confusion
+// It however is still focusable for screen readers and keyboard navigation
+.disabled {
+    pointer-events: none;
+}
+
+.disabled:focus {
+    outline: none;
+    box-shadow: none;
+}
