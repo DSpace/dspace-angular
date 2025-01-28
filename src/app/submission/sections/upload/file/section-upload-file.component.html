@@ -35,7 +35,7 @@
           <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
-                  [disabled]="(processingDelete$ | async)"
+                  [dsBtnDisabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">
             <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
             <i *ngIf="(processingDelete$ | async) !== true" class="fa fa-trash fa-2x text-danger"></i>

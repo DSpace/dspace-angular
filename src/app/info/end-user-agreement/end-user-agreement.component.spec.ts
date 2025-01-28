@@ -16,6 +16,7 @@ import { of as observableOf } from 'rxjs';
 import { LogOutAction } from '../../core/auth/auth.actions';
 import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
@@ -57,7 +58,7 @@ describe('EndUserAgreementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), EndUserAgreementComponent],
+      imports: [TranslateModule.forRoot(), EndUserAgreementComponent, BtnDisabledDirective],
       providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },
@@ -95,7 +96,8 @@ describe('EndUserAgreementComponent', () => {
 
     it('should disable the save button', () => {
       const button = fixture.debugElement.query(By.css('#button-save')).nativeElement;
-      expect(button.disabled).toBeTruthy();
+      expect(button.getAttribute('aria-disabled')).toBe('true');
+      expect(button.classList.contains('disabled')).toBeTrue();
     });
   });
 
