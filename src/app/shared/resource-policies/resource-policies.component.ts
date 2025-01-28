@@ -41,6 +41,7 @@ import { GroupDataService } from '../../core/eperson/group-data.service';
 import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -63,6 +64,7 @@ import {
     NgIf,
     AsyncPipe,
     NgForOf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
