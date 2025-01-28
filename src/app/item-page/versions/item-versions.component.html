@@ -67,7 +67,7 @@
               <ng-template #notThisBeingEdited>
                 <!--EDIT-->
                 <button class="btn btn-outline-primary btn-sm version-row-element-edit"
-                        [disabled]="isAnyBeingEdited()"
+                        [dsBtnDisabled]="isAnyBeingEdited()"
                         (click)="enableVersionEditing(versionDTO.version)"
                         title="{{'item.version.history.table.action.editSummary' | translate}}">
                   <i class="fas fa-edit fa-fw"></i>

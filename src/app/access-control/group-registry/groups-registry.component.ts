@@ -62,6 +62,7 @@ import {
   getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -84,6 +85,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     NgSwitchCase,
     NgbTooltipModule,
     NgForOf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

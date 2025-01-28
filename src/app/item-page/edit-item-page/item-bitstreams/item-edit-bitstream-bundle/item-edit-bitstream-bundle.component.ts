@@ -52,6 +52,7 @@ import {
   getAllSucceededRemoteData,
   paginatedListToArray,
 } from '../../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -87,6 +88,7 @@ import {
     NgbDropdownModule,
     CdkDrag,
     BrowserOnlyPipe,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
