@@ -19,7 +19,8 @@ import {
   Observable,
 } from 'rxjs';
 import {
-  map,
+  filter,
+  map, switchMap,
   take,
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
@@ -46,6 +47,11 @@ import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/co
 import { isValidDate } from '../../shared/date.util';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import {
+  getFirstSucceededRemoteDataPayload,
+  getAllSucceededRemoteDataPayload
+} from '../../core/shared/operators';
+import {
+  hasNoValue,
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
@@ -57,6 +63,11 @@ import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
+import { SearchOptions } from '../../shared/search/models/search-options.model';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchService } from "../../core/shared/search/search.service";
+import { FacetValues } from '../../shared/search/models/facet-values.model';
+
 
 @Component({
   selector: 'ds-browse-by-date',
@@ -99,6 +110,8 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     @Inject(APP_CONFIG) public appConfig: AppConfig,
     public dsoNameService: DSONameService,
     protected cdRef: ChangeDetectorRef,
+    public searchConfigService: SearchConfigurationService,
+    public searchService: SearchService
   ) {
     super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
   }
@@ -140,49 +153,44 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
    * @param scope           The scope under which to fetch the earliest item for
    */
   updateStartsWithOptions(definition: string, metadataKeys: string[], scope?: string) {
-    const firstItemRD$: Observable<RemoteData<Item>> = this.browseService.getFirstItemFor(definition, scope, SortDirection.ASC);
-    const lastItemRD$: Observable<RemoteData<Item>> = this.browseService.getFirstItemFor(definition, scope, SortDirection.DESC);
-    this.loading$ = observableCombineLatest([
-      firstItemRD$,
-      lastItemRD$,
-    ]).pipe(
-      map(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => firstItemRD.isLoading || lastItemRD.isLoading),
-    );
-    this.subs.push(
-      observableCombineLatest([
-        firstItemRD$,
-        lastItemRD$,
-      ]).subscribe(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
-        let lowerLimit: number = this.getLimit(firstItemRD, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
-        const upperLimit: number = this.getLimit(lastItemRD, metadataKeys, new Date().getUTCFullYear());
-        const options: number[] = [];
-        const oneYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
-        const fiveYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
-        if (lowerLimit <= fiveYearBreak) {
-          lowerLimit -= 10;
-        } else if (lowerLimit <= oneYearBreak) {
-          lowerLimit -= 5;
-        } else {
-          lowerLimit -= 1;
-        }
-        let i: number = upperLimit;
-        while (i > lowerLimit) {
-          options.push(i);
-          if (i <= fiveYearBreak) {
-            i -= 10;
-          } else if (i <= oneYearBreak) {
-            i -= 5;
-          } else {
-            i--;
-          }
-        }
+    this.searchConfigService.getConfig(null,definition).pipe(
+      getFirstSucceededRemoteDataPayload(),
+      map( configs => configs.filter( filter => filter.name.toUpperCase() === definition.toUpperCase()  ) ),
+      filter( configs => configs.length > 0 ),
+      map( findConfig =>  findConfig[0]),
+      switchMap( config => {
+        return this.searchService.getFacetValuesFor(config, 10).pipe(
+          getAllSucceededRemoteDataPayload()
+        );
+      }),
+      map( facetValue =>  facetValue.page ),
+    ).subscribe(
+      values => {
+        const options = this.generateYearFromFacetValue(values);
         if (isNotEmpty(options)) {
           this.startsWithOptions = options;
           this.cdRef.detectChanges();
         }
-      }),
+      }
     );
   }
+
+  /**
+   * Prepare  options
+   * @param data   The facets values
+   */
+  generateYearFromFacetValue = (data: any[]) => {
+    const years: number[] = [];
+
+    data.forEach(item => {
+      const [start, end] = item.value.split(" - ").map(Number);
+      for (let year = start; year <= end; year++) {
+        years.push(year);
+      }
+    });
+
+    return years;
+  };
 
   /**
    * Returns the year from the item metadata field or the limit.
