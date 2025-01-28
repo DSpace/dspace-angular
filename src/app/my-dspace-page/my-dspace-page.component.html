@@ -1,6 +1,6 @@
 <div class="container">
   <ds-suggestions-notification></ds-suggestions-notification>
-  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
+  <ds-my-dspace-new-submission (uploadEnd)="refreshData($event)" *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
 </div>
 
 <ds-search
