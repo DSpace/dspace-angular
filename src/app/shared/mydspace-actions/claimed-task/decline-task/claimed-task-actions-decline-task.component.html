@@ -1,5 +1,5 @@
 <button (click)="submitTask()"
-        [disabled]="processing$ | async"
+        [dsBtnDisabled]="processing$ | async"
         class="declineTaskAction btn btn-warning"
         ngbTooltip="{{'submission.workflow.tasks.claimed.decline_help' | translate}}"
         type="button">

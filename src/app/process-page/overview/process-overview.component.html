@@ -64,10 +64,10 @@
                 <span> {{ 'process.overview.delete.processing' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}</span>
             </div>
             <div class="mt-4">
-                <button class="btn btn-primary mr-2" [disabled]="processBulkDeleteService.isProcessing$() |async"
+                <button class="btn btn-primary mr-2" [dsBtnDisabled]="processBulkDeleteService.isProcessing$() |async"
                         (click)="closeModal()">{{'process.detail.delete.cancel' | translate}}</button>
                 <button id="delete-confirm" class="btn btn-danger"
-                        [disabled]="processBulkDeleteService.isProcessing$() |async"
+                        [dsBtnDisabled]="processBulkDeleteService.isProcessing$() |async"
                         (click)="deleteSelected()">{{ 'process.overview.delete' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()}  }}
                 </button>
             </div>
