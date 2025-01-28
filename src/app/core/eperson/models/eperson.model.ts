@@ -85,7 +85,7 @@ export class EPerson extends DSpaceObject {
   public groups?: Observable<RemoteData<PaginatedList<Group>>>;
 
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
-    return [this.constructor.name, ...super.getRenderTypes()];
+    return ['EPerson', this.constructor.name, ...super.getRenderTypes()];
   }
 
 }

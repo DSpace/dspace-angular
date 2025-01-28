@@ -1,6 +1,6 @@
 {
 
-  // Dspace v7.x > i18n pt-PT > last reviewed 16-06-2023
+  // Dspace v7.x > i18n pt-PT > last updated 14th of May 2024
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
@@ -135,13 +135,13 @@
   "admin.registries.bitstream-formats.edit.extensions.placeholder": "Indique uma extenção de ficheiro sem o ponto",
 
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  "admin.registries.bitstream-formats.edit.failure.content": "Ocorreu um erro ao editar o formato de bitstream.",
+  "admin.registries.bitstream-formats.edit.failure.content": "Ocorreu um erro ao editar o formato de ficheiro.",
 
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
   "admin.registries.bitstream-formats.edit.failure.head": "Falha",
 
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  "admin.registries.bitstream-formats.edit.head": "Formato de bitstream: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "Formato de ficheiro: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
   "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como internos são ocultos para o utilizador, usados por motivos administrativos.",
@@ -162,7 +162,7 @@
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Nome",
 
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  "admin.registries.bitstream-formats.edit.success.content": "O formato de bitstream foi editado com sucesso.",
+  "admin.registries.bitstream-formats.edit.success.content": "O formato de ficheiro foi editado com sucesso.",
 
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   "admin.registries.bitstream-formats.edit.success.head": "Sucesso",
@@ -177,7 +177,7 @@
   "admin.registries.bitstream-formats.head": "Registo de formatos de ficheiros",
 
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  "admin.registries.bitstream-formats.no-items": "Nenhum formato de bitstream para exibir.",
+  "admin.registries.bitstream-formats.no-items": "Nenhum formato de ficheiro para exibir.",
 
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
   "admin.registries.bitstream-formats.table.delete": "Apagar selecionado(s)",
@@ -214,6 +214,9 @@
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
   "admin.registries.bitstream-formats.title": "Registo de formatos de ficheiro",
+
+  // "admin.registries.bitstream-formats.select": "Select bitstream format",
+  "admin.registries.bitstream-formats.select": "Selecionar formato de ficheiro",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Registo de metadados",
@@ -332,6 +335,30 @@
   // "admin.registries.schema.title": "Metadata Schema Registry",
   "admin.registries.schema.title": "Registo de esquemas de metadados",
 
+  // "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+  "admin.access-control.bulk-access.breadcrumbs": "Gestão de permissões em lote",
+
+  // "administrativeBulkAccess.search.results.head": "Search Results",
+  "administrativeBulkAccess.search.results.head": "Resultados de pesquisa",
+
+  // "admin.access-control.bulk-access": "Bulk Access Management",
+  "admin.access-control.bulk-access": "Gestão de permissões em lote",
+
+  // "admin.access-control.bulk-access.title": "Bulk Access Management",
+  "admin.access-control.bulk-access.title": "Gestão de permissões em lote",
+
+  // "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+  "admin.access-control.bulk-access-browse.header": "Passo 1: Selecionar objectos",
+
+  // "admin.access-control.bulk-access-browse.search.header": "Search",
+  "admin.access-control.bulk-access-browse.search.header": "Pesquisa",
+
+  // "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+  "admin.access-control.bulk-access-browse.selected.header": "Selecção atual({{number}})",
+
+  // "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+  "admin.access-control.bulk-access-settings.header": "Passo 2: Operação a realizar",
+
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Apagar utilizador",
 
@@ -349,6 +376,18 @@
 
   // "admin.access-control.epeople.title": "EPeople",
   "admin.access-control.epeople.title": "Utilizadores",
+
+  // "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
+  "admin.access-control.epeople.edit.breadcrumbs": "Nova 'EPessoa'",
+
+  // "admin.access-control.epeople.edit.title": "New EPerson",
+  "admin.access-control.epeople.edit.title": "Nova 'EPessoa'",
+
+  // "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
+  "admin.access-control.epeople.add.breadcrumbs": "Adicionar 'EPessoa'",
+
+  // "admin.access-control.epeople.add.title": "Add EPerson",
+  "admin.access-control.epeople.add.title": "Adicionar 'EPessoa'",
 
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Utilizadores",
@@ -467,8 +506,8 @@
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   "admin.access-control.epeople.form.goToGroups": "Adicionar a grupos",
 
-  // "admin.access-control.epeople.notification.deleted.failure": "Failed to delete EPerson: \"{{name}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "Falha ao apagar utilizador: \"{{name}}\"",
+  // "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Ocorreu um erro ao tentar eliminar a 'EPessoa' com o id \"{{id}}\", com o código: \"{{statusCode}}\" e mensagem: \"{{restResponse.errorMessage}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   "admin.access-control.epeople.notification.deleted.success": "Utilizador removido com sucesso: \"{{name}}\"",
@@ -740,11 +779,11 @@
   // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
   "admin.access-control.groups.form.tooltip.editGroupPage": "Nesta página, pode modificar as propriedades e os membros de um grupo. Na secção superior, pode editar o nome e a descrição do grupo, a menos que se trate de um grupo administrativo para uma coleção ou comunidade, em que o nome e a descrição do grupo são auto-gerados e não podem ser editados. Nas seções seguintes, pode editar o nome e a descrição do grupo. Ver [wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+ou+gerir+a+utilizador+grupo) para mais detalhes.",
 
-  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Para adicionar ou remover um utilizador de/para este grupo, clique no botão 'Procurar tudo' ou use a barra de pesquisa em baixo para procurar utilizadores (use o menu suspenso, à esquerda da barra de pesquisa, para escolher se pretende pesquisar por metadados ou por e-mail). Depois clique no ícone 'mais' para cada utilizador que deseja adicionar na lista em baixo, ou no ícone 'lixo' para cada utilizador que deseja remover. A lista pode conter várias páginas: utilize os controlos no final da lista para navegar para as páginas seguintes. Quando estiver pronto, guarde as suas alterações clicando no botão 'Guardar' na seção superior.",
+  // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Para adicionar ou remover um utilizador de/para este grupo, clique no botão 'Procurar tudo' ou use a barra de pesquisa em baixo para procurar utilizadores (use o menu suspenso, à esquerda da barra de pesquisa, para escolher se pretende pesquisar por metadados ou por e-mail). Depois clique no ícone 'mais' para cada utilizador que deseja adicionar na lista em baixo, ou no ícone 'lixo' para cada utilizador que deseja remover. A lista pode conter várias páginas: utilize os controlos no final da lista para navegar para as páginas seguintes.",
 
-  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for users. Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages. Once you are ready, save your changes by clicking the 'Save' button in the top section.",
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Para adicionar ou remover um sub-grupo de/para grupo, clique no botão 'Procurar Tudo' ou use a barra de pesquisa em baixo para procurar utilizadores. Depois clique no ícone 'mais' para cada utilizador que deseja adicionar lista em baixo, ou no ícone 'lixo' para cada utilizador que deseja remover. A lista pode conter várias páginas: utilize os controlos de página no final da lista para navegar para as páginas seguintes. Quando estiver pronto, guarde as suas alterações clicando no botão 'Guardar' na seção superior.",
+  // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Para adicionar ou remover um sub-grupo de/para grupo, clique no botão 'Procurar Tudo' ou use a barra de pesquisa em baixo para procurar grupos. Depois clique no ícone 'mais' para cada grupo que deseja adicionar lista em baixo, ou no ícone 'lixo' para cada grupo que deseja remover. A lista pode conter várias páginas: utilize os controlos de página no final da lista para navegar para as páginas seguintes.",
 
   // "admin.search.breadcrumbs": "Administrative Search",
   "admin.search.breadcrumbs": "Pesquisa administrativa",
@@ -993,10 +1032,10 @@
   "bitstream.download.page.back": "Voltar",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
-  "bitstream.edit.authorizations.link": "Editar políticas dos bitstreams",
+  "bitstream.edit.authorizations.link": "Editar políticas dos ficheiros",
 
   // "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
-  "bitstream.edit.authorizations.title": "Editar políticas dos bitstreams",
+  "bitstream.edit.authorizations.title": "Editar políticas dos ficheiros",
 
   // "bitstream.edit.return": "Back",
   "bitstream.edit.return": "Voltar",
@@ -1151,6 +1190,9 @@
   // "browse.comcol.by.srsc": "By Subject Category",
   "browse.comcol.by.srsc": "Por vocabulário controlado (SRSC)",
 
+  // "browse.comcol.by.nsi": "By Norwegian Science Index",
+  "browse.comcol.by.nsi": "Por 'Norwegian Science Index'",
+
   // "browse.comcol.by.title": "By Title",
   "browse.comcol.by.title": "Por título",
 
@@ -1158,7 +1200,7 @@
   "browse.comcol.head": "Navegar",
 
   // "browse.empty": "No items to show.",
-  "browse.empty": "Sem itens a exibir.",
+  "browse.empty": "Sem itens para exibir.",
 
   // "browse.metadata.author": "Author",
   "browse.metadata.author": "autor",
@@ -1182,7 +1224,10 @@
   "browse.metadata.subject.breadcrumbs": "Percorrer por assunto",
 
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
-  "browse.metadata.srsc.breadcrumbs": "Percorrer por vocabulário controlado (SRSC)",
+  "browse.metadata.srsc.breadcrumbs": "Percorrer por vocabulário controlado",
+
+  // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+  "browse.metadata.nsi.breadcrumbs": "Percorrer por 'Norwegian Science Index'",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Percorrer por título",
@@ -1267,6 +1312,9 @@
 
   // "browse.startsWith.input": "Filter",
   "browse.startsWith.input": "Filtrar",
+
+  // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
+  "browse.taxonomy_srsc.title": "Percorrer por vocabulário controlado",
 
   // "browse.taxonomy.button": "Browse",
   "browse.taxonomy.button": "Pesquisar",
@@ -1427,6 +1475,12 @@
   // "collection.edit.return": "Back",
   "collection.edit.return": "Voltar",
 
+  // "collection.edit.tabs.access-control.head": "Access Control",
+  "collection.edit.tabs.access-control.head": "Controlo de acesso",
+
+  // "collection.edit.tabs.access-control.title": "Collection Edit - Access Control",
+  "collection.edit.tabs.access-control.title": "Editar coleção - Controlo de acesso",
+
   // "collection.edit.tabs.curate.head": "Curate",
   "collection.edit.tabs.curate.head": "Curadoria",
 
@@ -1446,7 +1500,7 @@
   "collection.edit.item.authorizations.load-more-button": "Carregar mais",
 
   // "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
-  "collection.edit.item.authorizations.show-bitstreams-button": "Mostrar as políticas do bitstream para o pacote",
+  "collection.edit.item.authorizations.show-bitstreams-button": "Mostrar as políticas do ficheiro para o pacote",
 
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
   "collection.edit.tabs.metadata.head": "Editar metadados",
@@ -1604,6 +1658,12 @@
   // "collection.select.empty": "No collections to show",
   "collection.select.empty": "Nenhuma coleção a mostrar",
 
+  // "collection.select.table.select": "Select collection",
+  "collection.select.table.select": "Selecionar coleção",
+
+  // "collection.select.table.deselect": "Deselect collection",
+  "collection.select.table.deselect": "Desmarcar coleção",
+
   // "collection.select.table.title": "Title",
   "collection.select.table.title": "Título",
 
@@ -1692,7 +1752,7 @@
   "communityList.title": "Lista de comunidades",
 
   // "communityList.showMore": "Show More",
-  "communityList.showMore": "Mostrar mais",
+  "communityList.showMore": "Expandir",
 
   // "community.create.head": "Create a Community",
   "community.create.head": "Criar uma comunidade",
@@ -1781,6 +1841,12 @@
   // "community.edit.tabs.curate.title": "Community Edit - Curate",
   "community.edit.tabs.curate.title": "Editar comunidade - curadoria",
 
+  // "community.edit.tabs.access-control.head": "Access Control",
+  "community.edit.tabs.access-control.head": "Controlo de acesso",
+
+  // "community.edit.tabs.access-control.title": "Community Edit - Access Control",
+  "community.edit.tabs.access-control.title": "Editar comunidade - Controlo de acesso",
+
   // "community.edit.tabs.metadata.head": "Edit Metadata",
   "community.edit.tabs.metadata.head": "Editar metadados",
 
@@ -1850,6 +1916,9 @@
   // "comcol-role.edit.bitstream_read.name": "Default bitstream read access",
   "comcol-role.edit.bitstream_read.name": "Leitura predefinida de ficheiros (DEFAULT_BITSTREAM_READ)",
 
+  // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
+  "comcol-role.edit.bitstream_read.description": "E-Pessoas e grupos que podem ler novos ficheiros submetidos a esta coleção. As alterações feitas esta função não são retroactivas. Os ficheiros existentes no sistema continuarão a poder ser visualizados por quem tinha acesso de leitura no momento da sua adição.",
+
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   "comcol-role.edit.bitstream_read.description": "Os 'Administradores de comunidades' podem criar sub-comunidades e coleções, bem como gerir ou delegar a gestão dessas sub-comunidade ou coleções. Adicionalmente, decidem quem pode depositar itens em qualquer coleção, editar metadados (após depósito) e mapear itens de outras coleções (sujeito a autorização).",
 
@@ -1913,10 +1982,10 @@
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Sub-comunidade e coleções",
 
-  // "community.sub-collection-list.head": "Collections of this Community",
+  // "community.sub-collection-list.head": "Collections in this Community",
   "community.sub-collection-list.head": "Coleções desta comunidade",
 
-  // "community.sub-community-list.head": "Communities of this Community",
+  // "community.sub-community-list.head": "Communities in this Community",
   "community.sub-community-list.head": "Comunidades desta comunidade",
 
   // "cookies.consent.accept-all": "Accept all",
@@ -2385,6 +2454,9 @@
 
   // "feed.description": "Syndication feed",
   "feed.description": "Feed",
+
+  // "file-download-link.restricted": "Restricted bitstream",
+  "file-download-link.restricted": "'Bitstream' restrito",
 
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Erro na obteção de ficheiros para este item!",
@@ -3077,7 +3149,7 @@
   "item.edit.item-mapper.notifications.remove.error.head": "Erros de remoção de mapeamento",
 
   // "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
-  "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.remove.success.content": "Mapeamento do item removido com sucesso de {{amount}} coleção.",
 
   // "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
   "item.edit.item-mapper.notifications.remove.success.head": "Completou a remoção de mapeamento",
@@ -3096,6 +3168,12 @@
 
   // "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.discard-button": "Cancelar",
+
+  // "item.edit.metadata.edit.language": "Edit language",
+  "item.edit.metadata.edit.language": "Editar idioma",
+
+  // "item.edit.metadata.edit.value": "Edit value",
+  "item.edit.metadata.edit.value": "Editar valor",
 
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   "item.edit.metadata.edit.buttons.confirm": "Confirmar",
@@ -3207,6 +3285,9 @@
 
   // "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
   "item.edit.move.inheritpolicies.description": "Herdar as politicas padrões da coleção destino",
+
+  // "item.edit.move.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
+  "item.edit.move.inheritpolicies.tooltip": "Aviso: Quando activada, a política de acesso de leitura para o item e quaisquer ficheiros associados ao item, serão substituídos pela política de acesso de leitura predefinida da coleção. Isto não pode ser anulado.",
 
   // "item.edit.move.move": "Move",
   "item.edit.move.move": "Mover",
@@ -3340,17 +3421,23 @@
   // "item.edit.curate.title": "Curate Item: {{item}}",
   "item.edit.curate.title": "Curar item: {{item}}",
 
+  // "item.edit.tabs.access-control.head": "Access Control",
+  "item.edit.tabs.access-control.head": "Controlo de acesso",
+
+  // "item.edit.tabs.access-control.title": "Item Edit - Access Control",
+  "item.edit.tabs.access-control.title": "Editar item - Controlo de acesso",
+
   // "item.edit.tabs.metadata.head": "Metadata",
   "item.edit.tabs.metadata.head": "Metadados do item",
 
   // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
-  "item.edit.tabs.metadata.title": "Editar Item -  Metadados",
+  "item.edit.tabs.metadata.title": "Editar item -  Metadados",
 
   // "item.edit.tabs.relationships.head": "Relationships",
   "item.edit.tabs.relationships.head": "Relações do item",
 
   // "item.edit.tabs.relationships.title": "Item Edit - Relationships",
-  "item.edit.tabs.relationships.title": "Editar Item - Relacionamentos",
+  "item.edit.tabs.relationships.title": "Editar item - Relacionamentos",
 
   // "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
   "item.edit.tabs.status.buttons.authorizations.button": "Permissões...",
@@ -3404,7 +3491,7 @@
   "item.edit.tabs.status.buttons.withdraw.label": "Retirar item da vista pública do repositório",
 
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  "item.edit.tabs.status.description": "Bem-vindo à página de gestão de itens. Nesta área, pode retirar, restabelecer, mover ou apagar definitivamente o item. Adicionalmente, também pode atualizar ou adicionar novos metadados / bitstreams percorrendo pelas outras abas.",
+  "item.edit.tabs.status.description": "Bem-vindo à página de gestão de itens. Nesta área, pode retirar, restabelecer, mover ou apagar definitivamente o item. Adicionalmente, também pode atualizar ou adicionar novos metadados / ficheiros percorrendo pelas outras abas.",
 
   // "item.edit.tabs.status.head": "Status",
   "item.edit.tabs.status.head": "Estado do item",
@@ -3479,7 +3566,7 @@
   "item.page.titleprefix": "Item: ",
 
   // "item.page.volume-title": "Volume Title",
-  "item.page.volume-title": "Título do Volume",
+  "item.page.volume-title": "Título do volume",
 
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "Resultados da pesquisa de item",
@@ -3488,7 +3575,7 @@
   "item.search.title": "Pesquisa de item",
 
   // "item.truncatable-part.show-more": "Show more",
-  "item.truncatable-part.show-more": "Mostrar mais",
+  "item.truncatable-part.show-more": "Expandir",
 
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "Colapsar",
@@ -3619,7 +3706,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Criar nova versão",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Um nova versão não pode ser criada porque já se encontra uma submisão em curso no histórico de versões.",
 
   // "item.page.claim.button": "Claim",
@@ -3663,12 +3750,14 @@
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
+
   // "item.preview.dc.identifier.isbn": "ISBN",
   "item.preview.dc.identifier.isbn": "ISBN",
+
   // "item.preview.dc.identifier": "Identifier:",
   "itemm.preview.dc.identifier": "Identificador:",
 
-  // "item.preview.dc.relation.ispartof": "Journal or Serie",
+  // "item.preview.dc.relation.ispartof": "Journal or Series",
   "item.preview.dc.relation.ispartof": "Revista ou Série",
 
   // "item.preview.dc.identifier.doi": "DOI",
@@ -3709,6 +3798,12 @@
 
   // "item.select.empty": "No items to show",
   "item.select.empty": "Nenhum item para mostrar.",
+
+  // "item.select.table.select": "Select item",
+  "item.select.table.select": "Selecionar item",
+
+  // "item.select.table.deselect": "Deselect item",
+  "item.select.table.deselect": "Desmarcar item",
 
   // "item.select.table.author": "Author",
   "item.select.table.author": "Autor",
@@ -3776,7 +3871,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Remover versão",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Uma nova versão não pode ser criada porque se encontra um depósito em curso no histórico de versões",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -3821,7 +3916,7 @@
   // "item.version.create.notification.failure": "New version has not been created",
   "item.version.create.notification.failure": "Nova versão não foi criada",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "Uma nova versão não pode ser criada porque se encontra um depósito em curso no histórico de versões",
 
   // "item.version.delete.modal.header": "Delete version",
@@ -3859,6 +3954,12 @@
 
   // "itemtemplate.edit.metadata.discard-button": "Discard",
   "itemtemplate.edit.metadata.discard-button": "Rejeitar",
+
+  // "itemtemplate.edit.metadata.edit.language": "Edit language",
+  "itemtemplate.edit.metadata.edit.language": "Editar lidioma",
+
+  // "itemtemplate.edit.metadata.edit.value": "Edit value",
+  "itemtemplate.edit.metadata.edit.value": "Editar valor",
 
   // "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirmar",
@@ -4157,6 +4258,9 @@
   // "menu.section.access_control_authorizations": "Authorizations",
   "menu.section.access_control_authorizations": "Autorizações",
 
+  // "menu.section.access_control_bulk": "Bulk Access Management",
+  "menu.section.access_control_bulk": "Gestão de permissões em lote",
+
   // "menu.section.access_control_groups": "Groups",
   "menu.section.access_control_groups": "Grupos",
 
@@ -4191,7 +4295,10 @@
   "menu.section.browse_global_by_subject": "Por assunto",
 
   // "menu.section.browse_global_by_srsc": "By Subject Category",
-  "menu.section.browse_global_by_srsc": "Por vocabulário controlado (SRSC)",
+  "menu.section.browse_global_by_srsc": "Por vocabulário controlado",
+
+  // "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
+  "menu.section.browse_global_by_nsi": "Por 'Norwegian Science Index'",
 
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Por título",
@@ -4233,7 +4340,7 @@
   "menu.section.export_metadata": "Metadados",
 
   // "menu.section.export_batch": "Batch Export (ZIP)",
-  "menu.section.export_batch": "Importação em lote (ZIP)",
+  "menu.section.export_batch": "Exportação em lote (ZIP)",
 
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Secção do menu controle de acesso",
@@ -4473,7 +4580,7 @@
   "mydspace.show.supervisedWorkspace": "Itens supervisionados",
 
   // "mydspace.status.mydspaceArchived": "Archived",
-  "mydspace.status.mydspaceArchived": "Depósito aceite",
+  "mydspace.status.mydspaceArchived": "Depositado",
 
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Em validação",
@@ -4652,6 +4759,18 @@
   // "process.new.select-parameters": "Parameters",
   "process.new.select-parameters": "Parâmetros",
 
+  // "process.new.select-parameter": "Select parameter",
+  "process.new.select-parameter": "Selecionar parâmetro",
+
+  // "process.new.add-parameter": "Add a parameter...",
+  "process.new.add-parameter": "Adicionar um parâmetro...",
+
+  // "process.new.delete-parameter": "Delete parameter",
+  "process.new.delete-parameter": "Apagar parâmetro",
+
+  // "process.new.parameter.label": "Parameter value",
+  "process.new.parameter.label": "Valor do parâmetro",
+
   // "process.new.cancel": "Cancel",
   "process.new.cancel": "Cancelar",
 
@@ -4809,28 +4928,31 @@
   "process.overview.table.actions": "Ações",
 
   // "process.overview.delete": "Delete {{count}} processes",
-  "process.overview.delete": "Remover {{count}} processos",
+  "process.overview.delete": "Apagar {{count}} processos",
+
+  // "process.overview.delete-process": "Delete process",
+  "process.overview.delete-process": "Apagar processo",
 
   // "process.overview.delete.clear": "Clear delete selection",
-  "process.overview.delete.clear": "Limpar selecção a remover",
+  "process.overview.delete.clear": "Limpar selecção a apagar",
 
   // "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
-  "process.overview.delete.processing": "{{count}} processo(s) estão a ser removidos. Por favor aguarde pela remoção completa. Notar que esta operação pode demorar algum tempo.",
+  "process.overview.delete.processing": "{{count}} processo(s) estão a ser apagados. Por favor aguarde pela remoção completa. Notar que esta operação pode demorar algum tempo.",
 
   // "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
-  "process.overview.delete.body": "Tem a certeza de que quer remover o(s) processo(s) {{count}}?",
+  "process.overview.delete.body": "Tem a certeza que quer apagar o(s) processo(s) {{count}}?",
 
   // "process.overview.delete.header": "Delete processes",
-  "process.overview.delete.header": "Remover processos",
+  "process.overview.delete.header": "Apagar processos",
 
   // "process.bulk.delete.error.head": "Error on deleteing process",
-  "process.bulk.delete.error.head": "Ocorreu um erro ao remover os processos",
+  "process.bulk.delete.error.head": "Ocorreu um erro ao apagar os processos",
 
   // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
   "process.bulk.delete.error.body": "O processo com  o ID {{{processId}} não pôde ser removido. Os restantes processos continuarão a ser removidos.",
 
   // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
-  "process.bulk.delete.success": "{{count}} processso(s) foram removidos com sucesso",
+  "process.bulk.delete.success": "{{count}} processso(s) foram apagados com sucesso",
 
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Atualizar perfil",
@@ -5315,6 +5437,10 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nome",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Selecione o tipo de política",
 
@@ -5345,6 +5471,18 @@
   // "resource-policies.table.headers.group": "Group",
   "resource-policies.table.headers.group": "Grupo",
 
+  // "resource-policies.table.headers.select-all": "Select all",
+  "resource-policies.table.headers.select-all": "Selecionar tudo",
+
+  // "resource-policies.table.headers.deselect-all": "Deselect all",
+  "resource-policies.table.headers.deselect-all": "Desmarcar tudo",
+
+  // "resource-policies.table.headers.select": "Select",
+  "resource-policies.table.headers.select": "Selecionar",
+
+  // "resource-policies.table.headers.deselect": "Deselect",
+  "resource-policies.table.headers.deselect": "Desmarcar",
+
   // "resource-policies.table.headers.id": "ID",
   "resource-policies.table.headers.id": "ID",
 
@@ -5369,6 +5507,9 @@
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
   "resource-policies.table.headers.title.for.collection": "Políticas para coleção",
 
+  // "root.skip-to-content": "Skip to main content",
+  "root.skip-to-content": "Ir para o conteúdo principal",
+
   // "search.description": "",
   "search.description": "",
 
@@ -5383,6 +5524,9 @@
 
   // "search.search-form.placeholder": "Search the repository ...",
   "search.search-form.placeholder": "Pesquisar no repositório...",
+
+  // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  "search.filters.remove": "Remover filtro de tipo {{ type }} com valor {{ value }}",
 
   // "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.author": "Autor",
@@ -5616,10 +5760,10 @@
   "search.filters.filter.scope.label": "Filtro do âmbito da pesquisa",
 
   // "search.filters.filter.show-less": "Collapse",
-  "search.filters.filter.show-less": "Mostrar menos",
+  "search.filters.filter.show-less": "Colapsar",
 
   // "search.filters.filter.show-more": "Show more",
-  "search.filters.filter.show-more": "Mostrar mais",
+  "search.filters.filter.show-more": "Expandir",
 
   // "search.filters.filter.subject.head": "Subject",
   "search.filters.filter.subject.head": "Assunto",
@@ -5671,6 +5815,21 @@
 
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Sim",
+
+  // "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.Archived": "Depositado",
+
+  // "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.Validation": "Em validação",
+
+  // "search.filters.namedresourcetype.waitingforcontroller": "Waiting for Controller",
+  "search.filters.namedresourcetype.waitingforcontroller": "Aguarda validador",
+
+  // "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.Workflow": "Em fluxo de trabalho",
+
+  // "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.Workspace": "Por terminar",
 
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Sim",
@@ -5749,6 +5908,12 @@
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Mostrar como lista",
+
+  // "selectable-list-item-control.deselect": "Deselect item",
+  "selectable-list-item-control.deselect": "Desmarcar item",
+
+  // "selectable-list-item-control.select": "Select item",
+  "selectable-list-item-control.select": "Selecionar item",
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Ascendente",
@@ -5921,8 +6086,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite",
@@ -6447,7 +6612,7 @@
   "submission.sections.general.add-more": "Adicionar mais",
 
   // "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
-  "submission.sections.general.cannot_deposit": "O depósito não pode ser preenchido devido a erros no formulário.<br>Por favor preencha todos os campos necessários para completar o depósito.",
+  "submission.sections.general.cannot_deposit": "O depósito não pode ser concluído devido a erros ou falhas de preenchimento em campos obrigatórios do formulário.<br>Por favor preencha todos os campos necessários para completar o depósito!",
 
   // "submission.sections.general.collection": "Collection",
   "submission.sections.general.collection": "Coleção",
@@ -6843,7 +7008,7 @@
   "submission.workflow.tasks.claimed.approve": "Aprovar",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Se reviu o item e está conformidade para inclusão na coleção, selecione 'Aprovar'.",
+  "submission.workflow.tasks.claimed.approve_help": "Se reviu o item e está em conformidade para entrada na coleção, selecione 'Aprovar'.",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Editar",
@@ -7058,11 +7223,14 @@
   // "vocabulary-treeview.search.form.search": "Search",
   "vocabulary-treeview.search.form.search": "pesquisar",
 
+  // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
+  "vocabulary-treeview.search.form.search-placeholder": "Filtrar resultados inserindo as primeiras letras",
+
   // "vocabulary-treeview.search.no-result": "There were no items to show",
   "vocabulary-treeview.search.no-result": "Não existem itens para mostrar",
 
   // "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
-  "vocabulary-treeview.tree.description.nsi": "O Norwegian Science Index",
+  "vocabulary-treeview.tree.description.nsi": "O 'Norwegian Science Index'",
 
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
   "vocabulary-treeview.tree.description.srsc": "Categorias de Assuntos de Investigação",
@@ -7560,7 +7728,7 @@
   "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "O endereço da organização a enviar requer um país ISO 3166 válido de 2 dígitos",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "É necessário um identificador para desambiguar as organizações. Os identificadores suportados são os identificadores GRID, RINGGOLD, Legal Entity Identity (LEIs) e Crossref Funder Registry (CrossRef)",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "É necessário um identificador para desambiguar as organizações. Os identificadores suportados são os identificadores GRID, RINGGOLD, Legal Entity Identity (LEIs) e Crossref Funder Registry (Crossref)",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
   "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "Os identificadores da organização requerem um valor",
@@ -7682,6 +7850,9 @@
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
   "system-wide-alert.form.label.countdownTo.hint": "Dica: Defina um temporizador de contagem decrescente. Quando ativado, pode ser definida uma data no futuro e o 'banner' de alerta geral do sistema irá realizar uma contagem decrescente para a data definida. Quando este temporizador terminar, desaparecerá do alerta. O servidor NÃO pára automaticamente.",
 
+  // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
+  "system-wide-alert-form.select-date-by-calendar": "Selecionar data utilizando o calendário",
+
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
   "system-wide-alert.form.label.preview": "Pré-visualização de alerta geral do sistema",
 
@@ -7703,45 +7874,109 @@
   // "admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Alertas gerais do sistema",
 
+  // "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+  "item-access-control-title": "Este formulário permite-lhe efetuar alterações às condições de acesso dos metadados do item ou dos seus ficheiros.",
 
+  // "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  "collection-access-control-title": "Este formulário permite-lhe efetuar alterações às condições de acesso de todos os itens pertencentes a esta coleção. As alterações podem ser efectuadas quer nos metadados do item, quer em todo o conteúdo (ficheiros).",
+
+  // "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  "community-access-control-title": "Este formulário permite-lhe efetuar alterações às condições de acesso de todos os itens pertencentes a qualquer coleção desta comunidade. As alterações podem ser efectuadas quer nos metadados do item, quer em todo o conteúdo (ficheiros).",
+
+  // "access-control-item-header-toggle": "Item's Metadata",
+  "access-control-item-header-toggle": "Metadados do item",
+
+  // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  "access-control-item-toggle.enable": "Ativar a opção para efetuar alterações nos metadados do item",
+
+  // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  "access-control-item-toggle.disable": "Desativar a opção para efetuar alterações nos metadados do itema",
+
+  // "access-control-bitstream-header-toggle": "Bitstreams",
+  "access-control-bitstream-header-toggle": "Ficheiros",
+
+  // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.enable": "Ativar a opção para efetuar alterações nos ficheiros",
+
+  // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.disable": "Desativar a opção para efetuar alterações nos ficheiros",
+
+  // "access-control-mode": "Mode",
+  "access-control-mode": "Modo",
+
+  // "access-control-access-conditions": "Access conditions",
+  "access-control-access-conditions": "Condições de acesso",
+
+  // "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+  "access-control-no-access-conditions-warning-message": "Atualmente, não estão especificadas condições de acesso em baixo. Se for executado, esta operação substituirá as condições de acesso actuais pelas condições predefinidas herdadas da coleção proprietária.",
+
+  // "access-control-replace-all": "Replace access conditions",
+  "access-control-replace-all": "Substituir as condições de acesso",
+
+  // "access-control-add-to-existing": "Add to existing ones",
+  "access-control-add-to-existing": "Adicionar aos existentes",
+
+  // "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+  "access-control-limit-to-specific": "Limitar as alterações a ficheiros específicos",
+
+  // "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+  "access-control-process-all-bitstreams": "Atualizar todos os ficheiros no item",
+
+  // "access-control-bitstreams-selected": "bitstreams selected",
+  "access-control-bitstreams-selected": "ficheiros selecionados",
+
+  // "access-control-bitstreams-select": "Select bitstreams",
+  "access-control-bitstreams-select": "Selecionar ficheiros",
+
+  // "access-control-cancel": "Cancel",
+  "access-control-cancel": "Cancelar",
+
+  // "access-control-execute": "Execute",
+  "access-control-execute": "Executar",
+
+  // "access-control-add-more": "Add more",
+  "access-control-add-more": "Adicionar mais",
+
+  // "access-control-remove": "Remove access condition",
+  "access-control-remove": "Remover condição de acesso",
+
+  // "access-control-select-bitstreams-modal.title": "Select bitstreams",
+  "access-control-select-bitstreams-modal.title": "Selecionar ficheiros",
+
+  // "access-control-select-bitstreams-modal.no-items": "No items to show.",
+  "access-control-select-bitstreams-modal.no-items": "Sem itens para mostrar.",
+
+  // "access-control-select-bitstreams-modal.close": "Close",
+  "access-control-select-bitstreams-modal.close": "Fechar",
+
+  // "access-control-option-label": "Access condition type",
+  "access-control-option-label": "Tipo de condição de acesso",
+
+  // "access-control-option-note": "Choose an access condition to apply to selected objects.",
+  "access-control-option-note": "Selecionar uma condição de acesso a aplicar ao(s) 'ficheiro(s)' seleccionados.",
+
+  // "access-control-option-start-date": "Grant access from",
+  "access-control-option-start-date": "Conceder acesso a partir de",
+
+  // "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
+  "access-control-option-start-date-note": "Selecionar a data a partir da qual a condição de acesso é aplicada",
+
+  // "access-control-option-end-date": "Grant access until",
+  "access-control-option-end-date": "Conceder acesso até",
+
+  // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
+  "access-control-option-end-date-note": "Selecionar a data até à qual a condição de acesso é aplicada",
+
+  // "vocabulary-treeview.search.form.add": "Add",
+  "vocabulary-treeview.search.form.add": "Adicionar",
 
   // Other strings...
   // Missing, Duplicate or Redundant ???
 
-  // NOT FOUND 16-06-2023
+  // NOT FOUND 08-12-2023
 
   // "browse.metadata.srsc": "Subject Category",
-  "browse.metadata.srsc": "vocabulário controlado (SRSC)",
-
-  // "mydspace.status.mydspaceArchived": "Archived",
-  "mydspace.status.mydspaceArchived": "Depositado",
-
-  // "mydspace.status.mydspaceValidation": "Validation",
-  "mydspace.status.mydspaceValidation": "Em validação",
-
-  // "mydspace.status.mydspaceWaitingController": "Waiting for Controller",
-  "mydspace.status.mydspaceWaitingController": "Aguarda validador",
-
-  // "mydspace.status.mydspaceWorkflow": "Workflow",
-  "mydspace.status.mydspaceWorkflow": "Em fluxo de trabalho",
-
-  // "mydspace.status.mydspaceWorkspace": "Workspace",
-  "mydspace.status.mydspaceWorkspace": "Depósito por terminar",
-
-  // "search.filters.namedresourcetype.Archived": "Archived",
-  "search.filters.namedresourcetype.Archived": "Depositado",
-
-  // "search.filters.namedresourcetype.Validation": "Validation",
-  "search.filters.namedresourcetype.Validation": "Em validação",
-
-  // "search.filters.namedresourcetype.waitingforcontroller": "Waiting for Controller",
-  "search.filters.namedresourcetype.waitingforcontroller": "Aguarda validador",
-
-  // "search.filters.namedresourcetype.Workflow": "Workflow",
-  "search.filters.namedresourcetype.Workflow": "Em fluxo de trabalho",
-
-  // "search.filters.namedresourcetype.Workspace": "Workspace",
-  "search.filters.namedresourcetype.Workspace": "Por terminar",
+  "browse.metadata.srsc": "Vocabulário controlado (SRSC)",
 
   // "datafile.listelement.badge": "Data file",
   "datafile.listelement.badge": "Ficheiro de dados",
@@ -7754,9 +7989,6 @@
 
   // "browse.previous.button": "Previous",
   "browse.previous.button": "Anterior",
-
-  // "curation-task.task.registerdoi.label": "DOI check",
-  "curation-task.task.registerdoi.label": "Verificação de DOIs",
 
   // "mydspace.general.text-here": "here",
   "mydspace.general.text-here": "aqui",

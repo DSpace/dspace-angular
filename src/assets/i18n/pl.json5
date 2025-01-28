@@ -1535,6 +1535,9 @@
   "resource-policies.form.date.start.label": "Data rozpoczęcia",
   "resource-policies.form.description.label": "Opis",
   "resource-policies.form.name.label": "Nazwa",
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
   "resource-policies.form.policy-type.label": "Wybierz typ polityki",
   "resource-policies.form.policy-type.required": "Musisz wybrać typ polityki zasobu.",
   "resource-policies.table.headers.action": "Akcja",
@@ -1723,7 +1726,7 @@
   "submission.import-external.source.ads": "NASA/ADS",
   "submission.import-external.source.arxiv": "arXiv",
   "submission.import-external.source.cinii": "CiNii",
-  "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "Crossref",
   "submission.import-external.source.loading": "ładowanie...",
   "submission.import-external.source.sherpaJournal": "Czasopisma w SHERPA",
   "submission.import-external.source.sherpaJournalIssn": "Czasopisma w SHERPA wg ISSN",

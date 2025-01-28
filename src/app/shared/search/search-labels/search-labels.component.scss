@@ -1,3 +1,10 @@
 :host {
     line-height: 1;
+  .labels {
+    margin: 0 calc(-1 * var(--bs-spacer)/8);
+    ds-search-label {
+      display: inline-block;
+      padding: 0 calc(var(--bs-spacer)/8);
+    }
+  }
 }

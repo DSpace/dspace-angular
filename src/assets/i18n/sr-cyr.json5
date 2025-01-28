@@ -1787,6 +1787,9 @@
   "resource-policies.form.date.start.label": "Датум почетка",
   "resource-policies.form.description.label": "Опис",
   "resource-policies.form.name.label": "Име",
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
   "resource-policies.form.policy-type.label": "Изаберите тип полисе",
   "resource-policies.form.policy-type.required": "Морате да изаберете тип полисе ресурса.",
   "resource-policies.table.headers.action": "Поступак",
@@ -1994,7 +1997,7 @@
   "submission.import-external.source.arxiv": "arXiv",
   "submission.import-external.source.ads": "NASA/ADS",
   "submission.import-external.source.cinii": "CiNii",
-  "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "Crossref",
   "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.scielo": "SciELO",
   "submission.import-external.source.scopus": "Scopus",

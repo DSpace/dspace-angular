@@ -11,7 +11,10 @@ import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';
 import { getDSORoute } from '../../app-routing-paths';
 import { SubmissionService } from '../../submission/submission.service';
 import { CollectionDataService } from '../data/collection-data.service';
-import { hasValue } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
 
 /**
  * Service to calculate the parent {@link DSpaceObject} breadcrumbs for a {@link SubmissionObject}
@@ -35,6 +38,10 @@ export class SubmissionParentBreadcrumbsService implements BreadcrumbsProviderSe
    * @param submissionObject The {@link SubmissionObject} for which the parent breadcrumb structure needs to be created
    */
   getBreadcrumbs(submissionObject: SubmissionObject): Observable<Breadcrumb[]> {
+    if (isEmpty(submissionObject)) {
+      return observableOf([]);
+    }
+
     return combineLatest([
       (submissionObject.collection as Observable<RemoteData<Collection>>).pipe(
         getFirstCompletedRemoteData(),

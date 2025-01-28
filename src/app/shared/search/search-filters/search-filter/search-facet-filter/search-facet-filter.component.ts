@@ -62,6 +62,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   isLastPage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
+   * Emits true if show the search text
+   */
+  isAvailableForShowSearchText: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  /**
    * The value of the input field that is used to query for possible values for this filter
    */
   filter: string;
@@ -118,7 +122,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.filterValues$ = new BehaviorSubject(createPendingRemoteDataObject());
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
     this.searchOptions$ = this.searchConfigService.searchOptions.pipe(
-      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign({}, options, {
+      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign(new SearchOptions(options), {
         scope: this.scope,
       })),
     );
@@ -297,6 +301,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
             getFirstSucceededRemoteData(),
             tap((rd: RemoteData<FacetValues>) => {
               this.isLastPage$.next(hasNoValue(rd?.payload?.next));
+              const hasLimitFacets =  rd?.payload?.page.length < rd?.payload?.facetLimit;
+              this.isAvailableForShowSearchText.next(hasLimitFacets && hasNoValue(rd?.payload?.next));
             }),
             map((rd: RemoteData<FacetValues>) => ({
                 values: observableOf(rd),

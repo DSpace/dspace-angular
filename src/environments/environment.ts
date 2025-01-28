@@ -13,8 +13,11 @@ export const environment: Partial<BuildConfig> = {
     preboot: false,
     async: true,
     time: false,
-    inlineCriticalCss: true,
-  }
+    inlineCriticalCss: false,
+    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ],
+    enableSearchComponent: false,
+    enableBrowseComponent: false,
+  },
 };
 
 /*

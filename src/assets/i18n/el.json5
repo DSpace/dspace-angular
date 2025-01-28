@@ -1687,6 +1687,9 @@
   "resource-policies.form.eperson-group-list.table.headers.id": "ID",
   "resource-policies.form.eperson-group-list.table.headers.name": "Ονομα",
   "resource-policies.form.name.label": "Ονομα",
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
   "resource-policies.form.policy-type.label": "Επιλέξτε τον τύπο πολιτικής",
   "resource-policies.form.policy-type.required": "Πρέπει να επιλέξετε τον τύπο πολιτικής πόρων.",
   "resource-policies.table.headers.action": "Δράση",
@@ -1882,7 +1885,7 @@
   "submission.import-external.source.ads": "NASA/ADS",
   "submission.import-external.source.arxiv": "arXiv",
   "submission.import-external.source.cinii": "CiNii",
-  "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "Crossref",
   "submission.import-external.source.epo": "Ευρωπαϊκό Γραφείο Διπλωμάτων Ευρεσιτεχνίας (EPO)",
   "submission.import-external.source.lcname": "Βιβλιοθήκη Ονομάτων του Κογκρέσου (Library of Congress Names)",
   "submission.import-external.source.loading": "Φόρτωση ...",

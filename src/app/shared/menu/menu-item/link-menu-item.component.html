@@ -6,6 +6,6 @@
    [queryParams]="item.queryParams"
    (click)="$event.stopPropagation()"
    (keyup.space)="navigate($event)"
-   (keyup.enter)="navigate($event)"
+   (keydown.enter)="navigate($event)"
    href="javascript:void(0);"
 >{{item.text | translate}}</a>

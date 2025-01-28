@@ -1,7 +1,9 @@
-<a class="badge badge-primary mr-1 mb-1"
+<a class="badge badge-primary mb-1"
    [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.' + key) | translate, value: normalizeFilterValue(value) }"
    [routerLink]="searchLink"
    [queryParams]="(removeParameters | async)" queryParamsHandling="merge">
-    {{('search.filters.applied.' + key) | translate}}: {{'search.filters.' + filterName + '.' + value | translate: {default: normalizeFilterValue(value)} }}
-    <span aria-hidden="true"> ×</span>
+    <span class="d-flex">
+      <span class="flex-grow-1 text-left">{{('search.filters.applied.' + key) | translate}}: {{'search.filters.' + filterName + '.' + value | translate: {default: normalizeFilterValue(value)} }}</span>
+      <span class="pl-1" aria-hidden="true">×</span>
+    </span>
 </a>

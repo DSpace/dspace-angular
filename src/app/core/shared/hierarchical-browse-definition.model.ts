@@ -1,4 +1,4 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { typedObject } from '../cache/builders/build-decorators';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { HIERARCHICAL_BROWSE_DEFINITION } from './hierarchical-browse-definition.resource-type';
@@ -25,9 +25,6 @@ export class HierarchicalBrowseDefinition extends BrowseDefinition {
 
   @autoserialize
   vocabulary: string;
-
-  @autoserializeAs('metadata')
-  metadataKeys: string[];
 
   get self(): string {
     return this._links.self.href;

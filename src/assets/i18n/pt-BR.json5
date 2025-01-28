@@ -1290,7 +1290,7 @@
   "browse.startsWith.type_date.label": "Ou digite na data (year-month) e clique no botão de Ir",
 
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
-  "browse.startsWith.type_text": "Filtrar resultados informando as primeiras letras:",
+  "browse.startsWith.type_text": "Filtrar resultados informando as primeiras letras",
 
   // "browse.startsWith.input": "Filter", (Auto-Translated)
   "browse.startsWith.input": "Filtro",
@@ -3669,7 +3669,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Criar nova versão",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Não é possível criar uma nova versão porque há uma submissão em andamento no histórico de versões",
 
   // "item.page.claim.button": "Claim",
@@ -3828,7 +3828,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Apagar versão",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Não é possível criar uma nova versão porque há uma submissão em andamento no histórico de versões",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -3873,7 +3873,7 @@
   // "item.version.create.notification.failure": "New version has not been created",
   "item.version.create.notification.failure": "A nova versão não foi criada",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "Não é possível criar uma nova versão porque há uma submissão em andamento no histórico de versões",
 
   // "item.version.delete.modal.header": "Delete version",
@@ -5373,6 +5373,10 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nome",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Selecione o tipo política",
 
@@ -5994,8 +5998,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite", (Auto-Translated)
   "submission.import-external.source.datacite": "DataCite",
@@ -7850,4 +7854,16 @@
 
   // "access-control-option-end-date-note": "Select the date until which the related access condition is applied", (Auto-Translated)
   "access-control-option-end-date-note": "Selecione a data até a qual a condição de acesso relacionada é aplicada",
+
+  //"browse.search-form.placeholder": "Search the repository",
+  "browse.search-form.placeholder": "Buscar no repositório",
+
+  // "file-download-link.download": "Download ",
+  "file-download-link.download": "Baixar ",
+
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  "register-page.registration.aria.label": "Digite seu e-mail",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  "forgot-email.form.aria.label": "Digite seu e-mail",
 }

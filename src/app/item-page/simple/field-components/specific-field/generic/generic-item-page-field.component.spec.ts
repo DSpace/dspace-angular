@@ -7,6 +7,8 @@ import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component
 import { GenericItemPageFieldComponent } from './generic-item-page-field.component';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { BrowseService } from '../../../../../core/browse/browse.service';
+import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 
@@ -29,7 +31,8 @@ describe('GenericItemPageFieldComponent', () => {
       })],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: BrowseService, useValue: BrowseServiceStub },
       ],
       declarations: [GenericItemPageFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]

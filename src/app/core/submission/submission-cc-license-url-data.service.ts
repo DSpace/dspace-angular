@@ -16,6 +16,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { dataService } from '../data/base/data-service.decorator';
+import { RequestParam } from '../cache/models/request-param.model';
 
 @Injectable()
 @dataService(SUBMISSION_CC_LICENSE_URL)
@@ -43,17 +44,8 @@ export class SubmissionCcLicenseUrlDataService extends BaseDataService<Submissio
     return this.searchData.getSearchByHref(
       'rightsByQuestions',{
         searchParams: [
-          {
-            fieldName: 'license',
-            fieldValue: ccLicense.id
-          },
-          ...ccLicense.fields.map(
-            (field) => {
-              return {
-                fieldName: `answer_${field.id}`,
-                fieldValue: options.get(field).id,
-              };
-            }),
+          new RequestParam('license', ccLicense.id),
+          ...ccLicense.fields.map((field: Field) => new RequestParam(`answer_${field.id}`, options.get(field).id)),
         ]
       }
     ).pipe(
