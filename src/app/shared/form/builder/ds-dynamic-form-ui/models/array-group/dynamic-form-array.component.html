@@ -21,7 +21,7 @@
                (focus)="addInstructionMessageToLiveRegion(sortableElement)"
                (keydown.space)="toggleKeyboardDragAndDrop($event, sortableElement, idx, length)"
                (keydown.tab)="stopKeyboardDragAndDrop(sortableElement, idx, length)"
-               (keydown.escape)="stopKeyboardDragAndDrop(sortableElement,idx,length)"
+               (keydown.escape)="cancelKeyboardDragAndDrop(sortableElement, idx, length)"
                (keydown.arrowUp)="handleArrowPress($event, dropList, length, idx, 'up')"
                (keydown.arrowDown)="handleArrowPress($event, dropList, length, idx, 'down')">
             <i class="drag-icon fas fa-grip-vertical fa-fw" [class.drag-disable]="dragDisabled" ></i>

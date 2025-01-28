@@ -144,4 +144,16 @@ describe('DsDynamicFormArrayComponent', () => {
     expect(component.model.groups[1]).toBeDefined();
     expect(document.activeElement).toBe(dropList.querySelectorAll('[cdkDragHandle]')[2]);
   });
+
+  it('should cancel keyboard drag and drop', () => {
+    const dropList = fixture.debugElement.query(By.css('.cdk-drop-list')).nativeElement;
+    component.elementBeingSortedStartingIndex = 2;
+    component.elementBeingSorted = dropList.querySelectorAll('[cdkDragHandle]')[2];
+    component.model.moveGroup(2, 1);
+    fixture.detectChanges();
+    component.cancelKeyboardDragAndDrop(dropList, 1, 3);
+    fixture.detectChanges();
+    expect(component.elementBeingSorted).toBeNull();
+    expect(component.elementBeingSortedStartingIndex).toBeNull();
+  });
 });

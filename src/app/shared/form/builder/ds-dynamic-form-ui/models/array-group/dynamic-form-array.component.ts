@@ -71,6 +71,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
 
   elementBeingSorted: HTMLElement;
+  elementBeingSortedStartingIndex: number;
 
   /* eslint-disable @angular-eslint/no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -152,6 +153,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     } else {
       sortableElement.classList.add('sorting-with-keyboard');
       this.elementBeingSorted = sortableElement;
+      this.elementBeingSortedStartingIndex = index;
       this.liveRegionService.clear();
       this.liveRegionService.addMessage(this.translateService.instant('live-region.ordering.status', {
         itemName: sortableElement.querySelector('input')?.value,
@@ -172,6 +174,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     this.liveRegionService.clear();
     if (this.elementBeingSorted) {
       this.elementBeingSorted = null;
+      this.elementBeingSortedStartingIndex = null;
       this.liveRegionService.addMessage(this.translateService.instant('live-region.ordering.dropped', {
         itemName: sortableElement.querySelector('input')?.value,
         index: index + 1,
@@ -221,6 +224,20 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     } else {
       event.preventDefault();
       this.setFocusToDropListElementOfIndex(dropList, newIndex, direction);
+    }
+  }
+
+  cancelKeyboardDragAndDrop(sortableElement: HTMLDivElement, index: number, length: number) {
+    this.model.moveGroup(index, this.elementBeingSortedStartingIndex - index);
+    if (hasValue(this.model.groups[this.elementBeingSortedStartingIndex]) && hasValue((this.control as any).controls[this.elementBeingSortedStartingIndex])) {
+      this.onCustomEvent({
+        previousIndex: index,
+        newIndex: this.elementBeingSortedStartingIndex,
+        arrayModel: this.model,
+        model: this.model.groups[this.elementBeingSortedStartingIndex].group[0],
+        control: (this.control as any).controls[this.elementBeingSortedStartingIndex],
+      }, 'move');
+      this.stopKeyboardDragAndDrop(sortableElement, this.elementBeingSortedStartingIndex, length);
     }
   }
 
