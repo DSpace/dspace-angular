@@ -1,8 +1,13 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   first,
@@ -11,13 +16,21 @@ import {
 
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 
 @Component({
-  selector: 'ds-collection-authorizations',
+  selector: 'ds-bitstream-authorizations',
   templateUrl: './bitstream-authorizations.component.html',
+  imports: [
+    ResourcePoliciesComponent,
+    AsyncPipe,
+    TranslateModule,
+    RouterLink,
+  ],
+  standalone: true,
 })
 /**
- * Component that handles the Collection Authorizations
+ * Component that handles the Bitstream Authorizations
  */
 export class BitstreamAuthorizationsComponent<TDomain extends DSpaceObject> implements OnInit {
 

@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
@@ -23,13 +28,17 @@ import {
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core-state.model';
 import { hasValue } from '../empty.util';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 
 @Component({
-  selector: 'ds-log-in',
+  selector: 'ds-base-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe],
 })
 export class LogInComponent implements OnInit {
 

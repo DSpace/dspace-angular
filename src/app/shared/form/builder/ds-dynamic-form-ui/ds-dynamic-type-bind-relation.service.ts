@@ -31,7 +31,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-cons
  * Service to manage type binding for submission input fields
  * Any form component with the typeBindRelations DynamicFormControlRelation property can be controlled this way
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DsDynamicTypeBindRelationService {
 
   constructor(@Optional() @Inject(DYNAMIC_MATCHERS) private dynamicMatchers: DynamicFormControlMatcher[],

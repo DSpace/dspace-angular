@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -7,6 +12,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -31,13 +37,18 @@ import {
   hasNoValue,
   hasValue,
 } from '../empty.util';
+import { ErrorComponent } from '../error/error.component';
 import {
   HostWindowService,
   WidthCategory,
 } from '../host-window.service';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -46,6 +57,8 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   styleUrls: ['./object-grid.component.scss'],
   templateUrl: './object-grid.component.html',
   animations: [fadeIn],
+  standalone: true,
+  imports: [PaginationComponent, NgIf, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 
 export class ObjectGridComponent implements OnInit {

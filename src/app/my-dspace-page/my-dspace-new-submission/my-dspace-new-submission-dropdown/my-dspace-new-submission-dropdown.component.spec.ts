@@ -20,7 +20,6 @@ import { ItemType } from '../../../core/shared/item-relationships/item-type.mode
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import {
   createPaginatedList,
   createTestComponent,
@@ -98,11 +97,8 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
@@ -150,11 +146,8 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
@@ -202,6 +195,8 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

@@ -1,7 +1,12 @@
 import {
   CdkDragDrop,
+  CdkDropList,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
+import {
+  AsyncPipe,
+  NgFor,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -19,11 +24,15 @@ import {
   DsoEditMetadataForm,
   DsoEditMetadataValue,
 } from '../dso-edit-metadata-form';
+import { DsoEditMetadataValueComponent } from '../dso-edit-metadata-value/dso-edit-metadata-value.component';
+import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 
 @Component({
   selector: 'ds-dso-edit-metadata-field-values',
   styleUrls: ['./dso-edit-metadata-field-values.component.scss'],
   templateUrl: './dso-edit-metadata-field-values.component.html',
+  standalone: true,
+  imports: [CdkDropList, DsoEditMetadataValueHeadersComponent, NgFor, DsoEditMetadataValueComponent, AsyncPipe],
 })
 /**
  * Component displaying table rows for each value for a certain metadata field within a form

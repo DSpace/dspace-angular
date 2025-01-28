@@ -8,7 +8,10 @@ import {
   fakeAsync,
   TestBed,
 } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -31,6 +34,7 @@ import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
 } from '../remote-data.utils';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { RouterStub } from '../testing/router.stub';
 import { PoolTaskActionsComponent } from './pool-task/pool-task-actions.component';
@@ -95,8 +99,8 @@ describe('MyDSpaceReloadableActionsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        PoolTaskActionsComponent,
       ],
-      declarations: [PoolTaskActionsComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -105,6 +109,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
         { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PoolTaskActionsComponent, {

@@ -1,36 +1,27 @@
-import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { of } from 'rxjs';
 
-import { NotifyInfoGuard } from './notify-info.guard';
-import { NotifyInfoService } from './notify-info.service';
+import { notifyInfoGuard } from './notify-info.guard';
 
-describe('NotifyInfoGuard', () => {
-  let guard: NotifyInfoGuard;
+describe('notifyInfoGuard', () => {
+  let guard: any;
   let notifyInfoServiceSpy: any;
   let router: any;
 
   beforeEach(() => {
     notifyInfoServiceSpy = jasmine.createSpyObj('NotifyInfoService', ['isCoarConfigEnabled']);
     router = jasmine.createSpyObj('Router', ['parseUrl']);
-    TestBed.configureTestingModule({
-      providers: [
-        NotifyInfoGuard,
-        { provide: NotifyInfoService, useValue: notifyInfoServiceSpy },
-        { provide: Router, useValue: router },
-      ],
-    });
-    guard = TestBed.inject(NotifyInfoGuard);
+    guard = notifyInfoGuard;
   });
 
   it('should be created', () => {
-    expect(guard).toBeTruthy();
+    notifyInfoServiceSpy.isCoarConfigEnabled.and.returnValue(of(true));
+    expect(guard(null, null, notifyInfoServiceSpy, router)).toBeTruthy();
   });
 
   it('should return true if COAR config is enabled', (done) => {
     notifyInfoServiceSpy.isCoarConfigEnabled.and.returnValue(of(true));
 
-    guard.canActivate(null, null).subscribe((result) => {
+    guard(null, null, notifyInfoServiceSpy, router).subscribe((result) => {
       expect(result).toBe(true);
       done();
     });
@@ -40,7 +31,7 @@ describe('NotifyInfoGuard', () => {
     notifyInfoServiceSpy.isCoarConfigEnabled.and.returnValue(of(false));
     router.parseUrl.and.returnValue(of('/404'));
 
-    guard.canActivate(null, null).subscribe(() => {
+    guard(null, null, notifyInfoServiceSpy, router).subscribe(() => {
       expect(router.parseUrl).toHaveBeenCalledWith('/404');
       done();
     });

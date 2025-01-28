@@ -36,6 +36,7 @@ import {
   isNotNull,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
@@ -44,9 +45,13 @@ import parseSectionErrors from '../utils/parseSectionErrors';
  * This component allows to edit an existing workspaceitem/workflowitem.
  */
 @Component({
-  selector: 'ds-submission-edit',
+  selector: 'ds-base-submission-edit',
   styleUrls: ['./submission-edit.component.scss'],
   templateUrl: './submission-edit.component.html',
+  standalone: true,
+  imports: [
+    SubmissionFormComponent,
+  ],
 })
 export class SubmissionEditComponent implements OnDestroy, OnInit {
 

@@ -74,7 +74,7 @@ export function normalizeSectionData(obj: any, objIndex?: number) {
 /**
  * Provides methods to parse response for a submission request.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
   protected toCache = false;

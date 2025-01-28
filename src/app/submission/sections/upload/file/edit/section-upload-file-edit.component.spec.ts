@@ -7,7 +7,6 @@ import {
 import {
   ComponentFixture,
   fakeAsync,
-  inject,
   TestBed,
   tick,
   waitForAsync,
@@ -16,7 +15,6 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import {
   NgbActiveModal,
   NgbModal,
@@ -27,13 +25,22 @@ import {
   DynamicFormGroupModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment.test';
 import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';
+import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
@@ -54,9 +61,17 @@ import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/
 import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { SubmissionService } from '../../../../submission.service';
-import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { SectionUploadService } from '../../section-upload.service';
+import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
+
+function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
+  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
+    getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
+    matchesCondition: jasmine.createSpy('matchesCondition'),
+    subscribeRelations: jasmine.createSpy('subscribeRelations'),
+  });
+}
 
 const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
   add: jasmine.createSpy('add'),
@@ -65,6 +80,22 @@ const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
 });
 
 const formMetadataMock = ['dc.title', 'dc.description'];
+
+const initialState: any = {
+  core: {
+    'bitstreamFormats': {},
+    'cache/object': {},
+    'cache/syncbuffer': {},
+    'cache/object-updates': {},
+    'data/request': {},
+    'history': {},
+    'index': {},
+    'auth': {},
+    'json/patch': {},
+    'metaTag': {},
+    'route': {},
+  },
+};
 
 describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
@@ -93,19 +124,21 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   let noAccessConditionsMock = Object.assign({}, mockFileFormData);
   delete noAccessConditionsMock.accessConditions;
 
+  const mockCdRef = Object.assign({
+    detectChanges: () => undefined,
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         FormComponent,
         SubmissionSectionUploadFileEditComponent,
         TestComponent,
+        NgxMaskModule.forRoot(),
       ],
       providers: [
         { provide: FormService, useValue: getMockFormService() },
@@ -113,12 +146,16 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        provideMockStore({ initialState }),
         FormBuilderService,
-        ChangeDetectorRef,
+        { provide: ChangeDetectorRef, useValue: mockCdRef },
         SubmissionSectionUploadFileEditComponent,
         NgbModal,
         NgbActiveModal,
-        FormComponent,
+        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
@@ -150,11 +187,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create SubmissionSectionUploadFileEditComponent', inject([SubmissionSectionUploadFileEditComponent], (app: SubmissionSectionUploadFileEditComponent) => {
-
+    it('should create SubmissionSectionUploadFileEditComponent', () => {
+      let app = TestBed.inject(SubmissionSectionUploadFileEditComponent);
       expect(app).toBeDefined();
-
-    }));
+    });
   });
 
   describe('', () => {
@@ -194,7 +230,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       const maxStartDate = { year: 2022, month: 1, day: 12 };
       const maxEndDate = { year: 2019, month: 7, day: 12 };
 
-      comp.ngOnInit();
+      comp.formModel = compAsAny.buildFileEditForm();
 
       const models = [DynamicCustomSwitchModel, DynamicFormGroupModel, DynamicFormArrayModel];
 
@@ -232,7 +268,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.fileData = fileData;
       comp.formId = 'testFileForm';
 
-      comp.ngOnInit();
+      comp.formModel = compAsAny.buildFileEditForm();
 
       const model: DynamicSelectModel<string> = formbuilderService.findById('name', comp.formModel, 0);
       const formGroup = formbuilderService.createFormGroup(comp.formModel);
@@ -364,16 +400,14 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [
+    SubmissionSectionUploadFileEditComponent,
+    CommonModule,
+    FormsModule,
+    FormComponent,
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
-
-  availableGroups;
-  availableAccessConditionOptions;
-  collectionId = mockSubmissionCollectionId;
-  collectionPolicyType;
-  fileIndexes = [];
-  fileList = [];
-  fileNames = [];
-  sectionId = 'upload';
-  submissionId = mockSubmissionId;
 }

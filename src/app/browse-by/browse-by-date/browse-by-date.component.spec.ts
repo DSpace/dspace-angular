@@ -2,10 +2,13 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
@@ -14,6 +17,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -25,8 +29,16 @@ import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
+import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
+import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
@@ -97,8 +109,15 @@ describe('BrowseByDateComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BrowseByDateComponent, EnumKeysPipe, VarDirective],
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbModule,
+        BrowseByDateComponent,
+        EnumKeysPipe,
+        VarDirective,
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
@@ -106,10 +125,26 @@ describe('BrowseByDateComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: ChangeDetectorRef, useValue: mockCdRef },
+        { provide: Store, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(BrowseByDateComponent, {
+        remove: {
+          imports: [
+            ComcolPageHeaderComponent,
+            ComcolPageLogoComponent,
+            ThemedComcolPageHandleComponent,
+            ComcolPageContentComponent,
+            ThemedComcolPageBrowseByComponent,
+            ThemedLoadingComponent,
+            ThemedBrowseByComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -141,5 +176,34 @@ describe('BrowseByDateComponent', () => {
   it('should create a list of startsWith options with the current year first', () => {
     //expect(comp.startsWithOptions[0]).toEqual(new Date().getUTCFullYear());
     expect(comp.startsWithOptions[0]).toEqual(1960);
+  });
+
+  describe('when rendered in SSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'server';
+      spyOn((comp as any).browseService, 'getBrowseItemsFor');
+    });
+
+    it('should not call getBrowseItemsFor on init', (done) => {
+      comp.ngOnInit();
+      expect((comp as any).browseService.getBrowseItemsFor).not.toHaveBeenCalled();
+      comp.loading$.subscribe((res) => {
+        expect(res).toBeFalsy();
+        done();
+      });
+    });
+  });
+
+  describe('when rendered in CSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'browser';
+      spyOn((comp as any).browseService, 'getBrowseItemsFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+    });
+
+    it('should call getBrowseItemsFor on init', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(100);
+      expect((comp as any).browseService.getBrowseItemsFor).toHaveBeenCalled();
+    }));
   });
 });

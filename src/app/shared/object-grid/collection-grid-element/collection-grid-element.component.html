@@ -1,11 +1,11 @@
 <div class="card">
   <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/', object.id]" class="card-img-top" [attr.title]="'search.results.view-result' | translate">
-    <ds-themed-thumbnail [thumbnail]="(object.logo | async)?.payload" [limitWidth]="false">
-    </ds-themed-thumbnail>
+    <ds-thumbnail [thumbnail]="(object.logo | async)?.payload" [limitWidth]="false">
+    </ds-thumbnail>
   </a>
   <span *ngIf="linkType === linkTypes.None" class="card-img-top">
-    <ds-themed-thumbnail [thumbnail]="(object.logo | async)?.payload" [limitWidth]="false">
-    </ds-themed-thumbnail>
+    <ds-thumbnail [thumbnail]="(object.logo | async)?.payload" [limitWidth]="false">
+    </ds-thumbnail>
   </span>
   <div class="card-body">
     <h4 class="card-title">{{ dsoNameService.getName(object) }}</h4>

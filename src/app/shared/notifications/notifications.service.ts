@@ -18,7 +18,7 @@ import {
   RemoveNotificationAction,
 } from './notifications.actions';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NotificationsService {
 
   constructor(private store: Store<Notification>,

@@ -46,7 +46,13 @@
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true
+    "strictInputAccessModifiers": true,
+    "extendedDiagnostics": {
+      // The categories to use for specific diagnostics.
+      "checks": {
+        "missingControlFlowDirective": "error"
+      },
+    }
   },
   "exclude": [
     "cypress.config.ts"

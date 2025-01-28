@@ -27,10 +27,8 @@ describe('ResultsBackButtonComponent', () => {
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [ResultsBackButtonComponent],
         imports: [TranslateModule.forRoot(),
-          RouterTestingModule.withRoutes([]),
-        ],
+          RouterTestingModule.withRoutes([]), ResultsBackButtonComponent],
         providers: [
           { provide: TranslateService, useValue: translate },
         ],

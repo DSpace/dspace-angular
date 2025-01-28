@@ -39,8 +39,8 @@ describe('ItemAdminSearchResultActionsComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        ItemAdminSearchResultActionsComponent,
       ],
-      declarations: [ItemAdminSearchResultActionsComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();

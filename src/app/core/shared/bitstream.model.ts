@@ -28,25 +28,25 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    * The size of this bitstream in bytes
    */
   @autoserialize
-    sizeBytes: number;
+  sizeBytes: number;
 
   /**
    * The description of this Bitstream
    */
   @autoserialize
-    description: string;
+  description: string;
 
   /**
    * The name of the Bundle this Bitstream is part of
    */
   @autoserialize
-    bundleName: string;
+  bundleName: string;
 
   /**
    * The {@link HALLink}s for this Bitstream
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     bundle: HALLink;
     format: HALLink;
@@ -59,21 +59,21 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    * Will be undefined unless the thumbnail {@link HALLink} has been resolved.
    */
   @link(BITSTREAM, false, 'thumbnail')
-    thumbnail?: Observable<RemoteData<Bitstream>>;
+  thumbnail?: Observable<RemoteData<Bitstream>>;
 
   /**
    * The BitstreamFormat of this Bitstream
    * Will be undefined unless the format {@link HALLink} has been resolved.
    */
   @link(BITSTREAM_FORMAT, false, 'format')
-    format?: Observable<RemoteData<BitstreamFormat>>;
+  format?: Observable<RemoteData<BitstreamFormat>>;
 
   /**
    * The owning bundle for this Bitstream
    * Will be undefined unless the bundle{@link HALLink} has been resolved.
    */
   @link(BUNDLE)
-    bundle?: Observable<RemoteData<Bundle>>;
+  bundle?: Observable<RemoteData<Bundle>>;
 
   getParentLinkKey(): keyof this['_links'] {
     return 'format';

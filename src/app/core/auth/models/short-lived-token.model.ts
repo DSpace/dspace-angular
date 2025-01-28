@@ -22,19 +22,19 @@ export class ShortLivedToken implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The value for this ShortLivedToken
    */
   @autoserializeAs('token')
-    value: string;
+  value: string;
 
   /**
    * The {@link HALLink}s for this ShortLivedToken
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
   };
 }

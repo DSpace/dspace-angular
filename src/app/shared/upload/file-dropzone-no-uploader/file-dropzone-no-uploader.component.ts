@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -6,13 +7,19 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
-import { FileUploader } from 'ng2-file-upload';
+import {
+  FileUploader,
+  FileUploadModule,
+} from 'ng2-file-upload';
 import {
   Observable,
   of as observableOf,
 } from 'rxjs';
 
+import { FileValidator } from '../../utils/require-file.validator';
 import { UploaderOptions } from '../uploader/uploader-options.model';
 
 /**
@@ -26,6 +33,14 @@ import { UploaderOptions } from '../uploader/uploader-options.model';
   selector: 'ds-file-dropzone-no-uploader',
   templateUrl: './file-dropzone-no-uploader.component.html',
   styleUrls: ['./file-dropzone-no-uploader.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FileUploadModule,
+    FileValidator,
+  ],
+  standalone: true,
 })
 export class FileDropzoneNoUploaderComponent implements OnInit {
 
@@ -39,7 +54,7 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
   /**
    * The function to call when file is added
    */
-  @Output() onFileAdded: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onFileAdded: EventEmitter<File> = new EventEmitter<File>();
 
   /**
    * The uploader configuration options
@@ -68,15 +83,17 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
   }
 
   @HostListener('window:drop', ['$event'])
-  onDrop(event: any) {
+  onDrop(event: DragEvent) {
     event.preventDefault();
+    event.stopPropagation();
   }
 
   @HostListener('window:dragover', ['$event'])
-  onDragOver(event: any) {
+  onDragOver(event: DragEvent) {
     // Show drop area on the page
     event.preventDefault();
-    if ((event.target as any).tagName !== 'HTML') {
+    event.stopPropagation();
+    if ((event.target as HTMLElement).tagName !== 'HTML') {
       this.isOverDocumentDropZone = observableOf(true);
     }
   }
@@ -90,11 +107,18 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
     }
   }
 
+  public handleFileInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.setFile(input.files);
+    }
+  }
+
   /**
    * Set file
    * @param files
    */
-  setFile(files) {
+  public setFile(files: FileList) {
     this.fileObject = files.length > 0 ? files[0] : undefined;
     this.onFileAdded.emit(this.fileObject);
   }

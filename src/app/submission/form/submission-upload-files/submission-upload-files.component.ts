@@ -1,7 +1,9 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -23,6 +25,7 @@ import {
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
 import { SectionsType } from '../../sections/sections-type';
@@ -33,10 +36,15 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
  * This component represents the drop zone that provides to add files to the submission.
  */
 @Component({
-  selector: 'ds-submission-upload-files',
+  selector: 'ds-base-submission-upload-files',
   templateUrl: './submission-upload-files.component.html',
+  imports: [
+    UploaderComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
-export class SubmissionUploadFilesComponent implements OnChanges {
+export class SubmissionUploadFilesComponent implements OnChanges, OnDestroy {
 
   /**
    * The collection id this submission belonging to

@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,9 +8,13 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   NgbTypeahead,
+  NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -44,6 +49,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../../../empty.util';
+import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicTagModel } from './dynamic-tag.model';
@@ -55,6 +61,13 @@ import { DynamicTagModel } from './dynamic-tag.model';
   selector: 'ds-dynamic-tag',
   styleUrls: ['./dynamic-tag.component.scss'],
   templateUrl: './dynamic-tag.component.html',
+  imports: [
+    NgbTypeaheadModule,
+    FormsModule,
+    NgIf,
+    ChipsComponent,
+  ],
+  standalone: true,
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 

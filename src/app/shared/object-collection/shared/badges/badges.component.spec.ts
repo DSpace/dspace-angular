@@ -14,7 +14,7 @@ describe('BadgesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BadgesComponent ],
+      imports: [BadgesComponent],
       providers: [{ provide: ThemeService, useValue: getMockThemeService() }],
       schemas: [NO_ERRORS_SCHEMA],
     })

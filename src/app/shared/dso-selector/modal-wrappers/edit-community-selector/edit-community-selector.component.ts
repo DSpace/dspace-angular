@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -7,6 +8,7 @@ import {
   Router,
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import { getCommunityEditRoute } from '../../../../community-page/community-page-routing-paths';
@@ -16,6 +18,7 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -27,8 +30,10 @@ import {
  */
 
 @Component({
-  selector: 'ds-edit-community-selector',
+  selector: 'ds-base-edit-community-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 
 export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {

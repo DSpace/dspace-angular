@@ -30,8 +30,8 @@ describe('LoadingComponent (inline template)', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        LoadingComponent,
       ],
-      declarations: [LoadingComponent], // declare the test component
       providers: [TranslateService],
     }).compileComponents();  // compile template and css
   }));

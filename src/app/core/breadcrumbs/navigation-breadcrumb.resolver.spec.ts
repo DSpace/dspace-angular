@@ -1,8 +1,8 @@
-import { NavigationBreadcrumbResolver } from './navigation-breadcrumb.resolver';
+import { navigationBreadcrumbResolver } from './navigation-breadcrumb.resolver';
 
-describe('NavigationBreadcrumbResolver', () => {
+describe('navigationBreadcrumbResolver', () => {
   describe('resolve', () => {
-    let resolver: NavigationBreadcrumbResolver;
+    let resolver: any;
     let NavigationBreadcrumbService: any;
     let i18nKey: string;
     let relatedI18nKey: string;
@@ -40,11 +40,11 @@ describe('NavigationBreadcrumbResolver', () => {
       };
       expectedPath = '/base/example:/base';
       NavigationBreadcrumbService = {};
-      resolver = new NavigationBreadcrumbResolver(NavigationBreadcrumbService);
+      resolver = navigationBreadcrumbResolver;
     });
 
     it('should resolve the breadcrumb config', () => {
-      const resolvedConfig = resolver.resolve(route, state);
+      const resolvedConfig = resolver(route, state, NavigationBreadcrumbService);
       const expectedConfig = { provider: NavigationBreadcrumbService, key: `${i18nKey}:${relatedI18nKey}`, url: expectedPath };
       expect(resolvedConfig).toEqual(expectedConfig);
     });

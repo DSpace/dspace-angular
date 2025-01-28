@@ -19,6 +19,7 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-view-tracker',
   styleUrls: ['./view-tracker.component.scss'],
   templateUrl: './view-tracker.component.html',
+  standalone: true,
 })
 export class ViewTrackerComponent implements OnInit, OnDestroy {
   /**

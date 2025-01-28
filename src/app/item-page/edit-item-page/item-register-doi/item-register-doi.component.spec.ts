@@ -75,8 +75,7 @@ describe('ItemRegisterDoiComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemRegisterDoiComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemRegisterDoiComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },

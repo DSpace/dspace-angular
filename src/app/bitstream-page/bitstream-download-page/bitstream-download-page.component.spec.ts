@@ -98,8 +98,7 @@ describe('BitstreamDownloadPageComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot()],
-      declarations: [BitstreamDownloadPageComponent],
+      imports: [CommonModule, TranslateModule.forRoot(), BitstreamDownloadPageComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Router, useValue: router },

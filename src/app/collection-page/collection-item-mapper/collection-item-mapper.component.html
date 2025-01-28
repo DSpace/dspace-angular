@@ -23,19 +23,19 @@
             </div>
           </ng-template>
         </li>
-        <li [ngbNavItem]="'mapTab'" role="presentation" data-test="mapTab">
+        <li [ngbNavItem]="'mapTab' | dsBrowserOnly" role="presentation" data-test="mapTab">
           <a ngbNavLink>{{'collection.edit.item-mapper.tabs.map' | translate}}</a>
           <ng-template ngbNavContent>
             <div class="row mt-2">
               <div class="col-12 col-lg-6">
-                <ds-themed-search-form id="search-form"
+                <ds-search-form id="search-form"
                                 [query]="(searchOptions$ | async)?.query"
                                 [scope]="(searchOptions$ | async)?.scope"
                                 [currentUrl]="'./'"
                                 [inPlaceSearch]="true"
                                 [searchPlaceholder]="'collection.edit.item-mapper.search-form.placeholder' | translate"
                                 (submitSearch)="performedSearch = true">
-                </ds-themed-search-form>
+                </ds-search-form>
               </div>
             </div>
 

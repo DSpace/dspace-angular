@@ -1,33 +1,27 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
 } from '@angular/core';
+import intersectionWith from 'lodash/intersectionWith';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  filter,
+  mergeAll,
+  take,
+} from 'rxjs/operators';
 
+import { BrowseService } from '../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getRemoteDataPayload } from '../../../../core/shared/operators';
-
-/**
- * Interface that encapsulate Image configuration for this component.
- */
-export interface ImageField {
-  /**
-   * URI that is used to retrieve the image.
-   */
-  URI: string;
-  /**
-   * i18n Key that represents the alt text to display
-   */
-  alt: string;
-  /**
-   * CSS variable that contains the height of the inline image.
-   */
-  heightVar: string;
-}
-
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '../../../../core/shared/operators';
+import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import { ImageField } from './image-field';
 
 /**
  * This component can be used to represent metadata on a simple item page.
@@ -37,10 +31,16 @@ export interface ImageField {
 
 @Component({
   templateUrl: './item-page-field.component.html',
+  imports: [
+    MetadataValuesComponent,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class ItemPageFieldComponent {
 
-  constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
+  constructor(protected browseDefinitionDataService: BrowseDefinitionDataService,
+              protected browseService: BrowseService) {
   }
 
     /**
@@ -49,7 +49,7 @@ export class ItemPageFieldComponent {
     @Input() item: Item;
 
     /**
-     * Whether the {@link MarkdownPipe} should be used to render this metadata.
+     * Whether the {@link MarkdownDirective} should be used to render this metadata.
      */
     enableMarkdown = false;
 
@@ -84,9 +84,26 @@ export class ItemPageFieldComponent {
      * link in dspace.cfg (webui.browse.link.<n>)
      */
     get browseDefinition(): Observable<BrowseDefinition> {
-      return this.browseDefinitionDataService.findByFields(this.fields).pipe(
+      return this.browseService.getBrowseDefinitions().pipe(
+        getFirstCompletedRemoteData(),
         getRemoteDataPayload(),
-        map((def) => def),
+        getPaginatedListPayload(),
+        mergeAll(),
+        filter((def: BrowseDefinition) =>
+          intersectionWith(def.metadataKeys, this.fields, ItemPageFieldComponent.fieldMatch).length > 0,
+        ),
+        take(1),
       );
+    }
+
+    /**
+     * Returns true iff the spec and field match.
+     * @param spec  Specification of a metadata field name: either a metadata field, or a prefix ending in ".*".
+     * @param field A metadata field name.
+     * @private
+     */
+    private static fieldMatch(spec: string, field: string): boolean {
+      return field === spec
+        || (spec.endsWith('.*') && field.substring(0, spec.length - 1) === spec.substring(0, spec.length - 1));
     }
 }

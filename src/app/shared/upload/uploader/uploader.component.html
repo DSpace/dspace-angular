@@ -19,8 +19,8 @@
          (fileOver)="fileOverBase($event)"
          class="well ds-base-drop-zone mt-1 mb-3 text-muted">
       <div class="text-center m-0 p-2 d-flex justify-content-center align-items-center" *ngIf="uploader?.queue?.length === 0">
-        <span>
-          <i class="fas fa-upload" aria-hidden="true"></i>
+        <span class="d-flex align-items-center">
+          <i class="fas fa-upload pr-1" aria-hidden="true"></i>
           {{dropMsg | translate}}{{'uploader.or' | translate}}
           <label for="inputFileUploader-{{uploaderId}}" class="btn btn-link m-0 p-0 ml-1" tabindex="0" (keyup.enter)="$event.stopImmediatePropagation(); fileInput.click()">
             <span role="button" [attr.aria-label]="ariaLabel | translate">{{'uploader.browse' | translate}}</span>

@@ -13,7 +13,7 @@ import { ChangeAnalyzer } from './change-analyzer';
  * A class to determine what differs between two
  * DSpaceObjects
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DSOChangeAnalyzer<T extends DSpaceObject> implements ChangeAnalyzer<T> {
 
   /**

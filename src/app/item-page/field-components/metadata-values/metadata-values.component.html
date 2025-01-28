@@ -12,13 +12,16 @@
 
 <!-- Render value as markdown -->
 <ng-template #markdown let-value="value">
-  <span class="dont-break-out" [innerHTML]="value | dsMarkdown | async">
+  <span class="dont-break-out" [dsMarkdown]="value">
   </span>
 </ng-template>
 
 <!-- Render value as a link (href and label) -->
 <ng-template #link let-value="value">
-    <a class="dont-break-out ds-simple-metadata-link" target="_blank" [href]="value">
+    <a class="dont-break-out ds-simple-metadata-link"
+      [href]="value"
+      [attr.target]="getLinkAttributes(value).target"
+      [attr.rel]="getLinkAttributes(value).rel">
       {{value}}
     </a>
 </ng-template>

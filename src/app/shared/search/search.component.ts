@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  isPlatformServer,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -7,11 +13,13 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
@@ -31,6 +39,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
@@ -48,7 +57,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../animations/push';
 import {
   hasValue,
@@ -59,22 +68,41 @@ import {
 import { HostWindowService } from '../host-window.service';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
+import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { currentPath } from '../utils/route.utils';
+import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchResult } from './models/search-result.model';
+import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';
+import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
+import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 @Component({
-  selector: 'ds-search',
+  selector: 'ds-base-search',
   styleUrls: ['./search.component.scss'],
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgIf,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    SearchLabelsComponent,
+    ViewModeSwitchComponent,
+  ],
 })
 
 /**
@@ -104,6 +132,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If empty, the query will be determined by the route parameter called 'filter'
    */
   @Input() fixedFilterQuery: string;
+
+  /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
 
   /**
    * If this is true, the request will only be sent if there's
@@ -207,6 +240,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() hideScopeInUrl: boolean;
 
   /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide: boolean;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -220,6 +258,7 @@ export class SearchComponent implements OnDestroy, OnInit {
    * The current sort options used
    */
   currentScope$: Observable<string>;
+
 
   /**
    * The current sort options used
@@ -315,6 +354,7 @@ export class SearchComponent implements OnDestroy, OnInit {
               protected routeService: RouteService,
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
@@ -327,6 +367,14 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.ssr.enableSearchComponent && isPlatformServer(this.platformId)) {
+      this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
+        this.searchOptions$.next(options);
+      }));
+      this.initialized$.next(true);
+      return;
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);
@@ -342,7 +390,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     }
 
     this.currentScope$ = this.routeService.getQueryParameterValue('scope').pipe(
-      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope),
+      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope ?? ''),
     );
 
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
@@ -463,7 +511,6 @@ export class SearchComponent implements OnDestroy, OnInit {
    * @private
    */
   private retrieveFilters(searchOptions: PaginatedSearchOptions) {
-    this.filtersRD$.next(null);
     this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
@@ -489,8 +536,18 @@ export class SearchComponent implements OnDestroy, OnInit {
     if (this.configuration === 'supervision') {
       followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
     }
+
+    const searchOptionsWithHidden = Object.assign (new PaginatedSearchOptions({}), searchOptions);
+    if (isNotEmpty(this.hiddenQuery)) {
+      if (isNotEmpty(searchOptionsWithHidden.query)) {
+        searchOptionsWithHidden.query = searchOptionsWithHidden.query + ' AND ' + this.hiddenQuery;
+      } else {
+        searchOptionsWithHidden.query = this.hiddenQuery;
+      }
+    }
+
     this.service.search(
-      searchOptions,
+      searchOptionsWithHidden,
       undefined,
       this.useCachedVersionIfAvailable,
       true,
@@ -499,7 +556,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {
-            this.service.trackSearch(searchOptions, results.payload);
+            this.service.trackSearch(searchOptionsWithHidden, results.payload);
           }
           if (results.payload?.page?.length > 0) {
             this.resultFound.emit(results.payload);

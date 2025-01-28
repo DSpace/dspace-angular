@@ -23,7 +23,6 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
-import { ComcolModule } from '../../../comcol.module';
 import { ComcolRoleComponent } from './comcol-role.component';
 
 describe('ComcolRoleComponent', () => {
@@ -48,7 +47,6 @@ describe('ComcolRoleComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        ComcolModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule,

@@ -68,8 +68,7 @@ describe('ItemPrivateComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemPrivateComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemPrivateComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },

@@ -31,6 +31,8 @@ import {
   ContentSourceHarvestType,
 } from '../../../core/shared/content-source.model';
 import { hasValue } from '../../../shared/empty.util';
+import { FormComponent } from '../../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   INotification,
   Notification,
@@ -43,6 +45,7 @@ import {
 } from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { CollectionSourceComponent } from './collection-source.component';
+import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -142,8 +145,7 @@ describe('CollectionSourceComponent', () => {
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [CollectionSourceComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, CollectionSourceComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
@@ -155,7 +157,15 @@ describe('CollectionSourceComponent', () => {
         { provide: RequestService, useValue: requestService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(CollectionSourceComponent, {
+        remove: { imports: [
+          ThemedLoadingComponent,
+          FormComponent,
+          CollectionSourceControlsComponent,
+        ] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,22 +1,28 @@
-<div class="d-flex flex-row ds-value-row" *ngVar="mdValue.newValue.isVirtual as isVirtual" role="row"
+<div class="d-flex flex-row ds-value-row" *ngVar="metadataService.isVirtual(mdValue.newValue) as isVirtual" role="row"
      cdkDrag (cdkDragStarted)="dragging.emit(true)" (cdkDragEnded)="dragging.emit(false)"
      [ngClass]="{ 'ds-warning': mdValue.reordered || mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD, 'h-100': isOnlyValue }">
   <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex flex-column" *ngVar="(mdRepresentation$ | async) as mdRepresentation" role="cell">
     <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing && !mdRepresentation">{{ mdValue.newValue.value }}</div>
-    <textarea class="form-control" rows="5" *ngIf="mdValue.editing && !mdRepresentation && (isAuthorityControlled() | async) !== true" [(ngModel)]="mdValue.newValue.value"
+    <textarea class="form-control" rows="5" *ngIf="mdValue.editing && !mdRepresentation && ((isAuthorityControlled() | async) !== true || (enabledFreeTextEditing && (isSuggesterVocabulary() | async) !== true))" [(ngModel)]="mdValue.newValue.value"
               [attr.aria-label]="(dsoType + '.edit.metadata.edit.value') | translate"
               [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
-    <ds-dynamic-scrollable-dropdown *ngIf="mdValue.editing && (isScrollableVocabulary() | async)"
+    <ds-dynamic-scrollable-dropdown *ngIf="mdValue.editing && (isScrollableVocabulary() | async) && !enabledFreeTextEditing"
                                     [bindId]="mdField"
                                     [group]="group"
-                                    [model]="getModel() | async"
+                                    [model]="getModel()"
                                     (change)="onChangeAuthorityField($event)">
     </ds-dynamic-scrollable-dropdown>
-    <ds-dynamic-onebox *ngIf="mdValue.editing && ((isHierarchicalVocabulary() | async) || (isSuggesterVocabulary() | async))"
+    <ds-dynamic-onebox *ngIf="mdValue.editing && (((isHierarchicalVocabulary() | async)  && !enabledFreeTextEditing) || (isSuggesterVocabulary() | async))"
                       [group]="group"
-                      [model]="getModel() | async"
+                      [model]="getModel()"
                       (change)="onChangeAuthorityField($event)">
     </ds-dynamic-onebox>
+    <button class="btn btn-secondary mt-2" *ngIf="mdValue.editing && ((isScrollableVocabulary() | async) || (isHierarchicalVocabulary() | async))"
+        [title]="enabledFreeTextEditing ? dsoType + '.edit.metadata.edit.buttons.disable-free-text-editing' : dsoType + '.edit.metadata.edit.buttons.enable-free-text-editing' | translate"
+        (click)="toggleFreeTextEdition()">
+    <i class="fas fa-fw" [ngClass]="enabledFreeTextEditing ? 'fa-lock' : 'fa-unlock'"></i>
+    {{ (enabledFreeTextEditing ? dsoType + '.edit.metadata.edit.buttons.disable-free-text-editing' : dsoType + '.edit.metadata.edit.buttons.enable-free-text-editing') | translate }}
+    </button>
     <div *ngIf="!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE">
       <span class="badge badge-light border" >
         <i dsAuthorityConfidenceState
@@ -36,7 +42,7 @@
           [authorityValue]="mdValue.newValue.confidence"
           [iconMode]="true"
       ></i>
-        <input class="form-control form-outline" [(ngModel)]="mdValue.newValue.authority" [disabled]="!editingAuthority"
+        <input class="form-control form-outline" data-test="authority-input" [(ngModel)]="mdValue.newValue.authority" [disabled]="!editingAuthority"
               [attr.aria-label]="(dsoType + '.edit.metadata.edit.authority.key') | translate"
               (change)="onChangeAuthorityKey()" />
         <button class="btn btn-outline-secondary btn-sm ng-star-inserted" id="metadata-confirm-btn" *ngIf="!editingAuthority"
@@ -55,7 +61,7 @@
     </div>
     <div class="d-flex" *ngIf="mdRepresentation">
       <a class="mr-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
-      <ds-themed-type-badge [object]="mdRepresentation"></ds-themed-type-badge>
+      <ds-type-badge [object]="mdRepresentation"></ds-type-badge>
     </div>
   </div>
   <div class="ds-flex-cell ds-lang-cell" role="cell">

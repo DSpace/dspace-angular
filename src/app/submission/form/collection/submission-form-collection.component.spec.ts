@@ -30,6 +30,7 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { Collection } from '../../../core/shared/collection.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import {
   mockSubmissionId,
@@ -149,8 +150,6 @@ describe('SubmissionFormCollectionComponent Component', () => {
         ReactiveFormsModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionFormCollectionComponent,
         TestComponent,
       ],
@@ -167,7 +166,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
         SubmissionFormCollectionComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(SubmissionFormCollectionComponent, {
+        remove: { imports: [ThemedCollectionDropdownComponent] },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -310,6 +313,10 @@ describe('SubmissionFormCollectionComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    NgbModule],
 })
 class TestComponent {
 

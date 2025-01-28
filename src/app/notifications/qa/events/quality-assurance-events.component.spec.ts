@@ -122,8 +122,6 @@ describe('QualityAssuranceEventsComponent test suite', () => {
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         QualityAssuranceEventsComponent,
         TestComponent,
       ],
@@ -352,6 +350,8 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
 

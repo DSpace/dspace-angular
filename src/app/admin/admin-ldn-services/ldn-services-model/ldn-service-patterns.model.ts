@@ -5,9 +5,9 @@ import { autoserialize } from 'cerialize';
  */
 export class NotifyServicePattern {
   @autoserialize
-    pattern: string;
+  pattern: string;
   @autoserialize
-    constraint: string;
+  constraint: string;
   @autoserialize
-    automatic: string;
+  automatic: string;
 }

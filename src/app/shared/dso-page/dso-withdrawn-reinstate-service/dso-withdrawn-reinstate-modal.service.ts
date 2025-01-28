@@ -3,15 +3,15 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
-import { Item } from 'src/app/core/shared/item.model';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
+import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { ItemWithdrawnReinstateModalComponent } from '../../correction-suggestion/withdrawn-reinstate-modal.component';
+import { ItemWithdrawnReinstateModalComponent } from '../../correction-suggestion/item-withdrawn-reinstate-modal.component';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 export const REQUEST_WITHDRAWN = 'REQUEST/WITHDRAWN';
@@ -61,7 +61,7 @@ export class DsoWithdrawnReinstateModalService {
    * @param correctionType - The type of correction.
    * @param reason - The reason for the request.
    * Reloads the current page in order to update the withdrawn/reinstate button.
-   * and desplay a notification box.
+   * and display a notification box.
    */
   sendQARequest(target: string, correctionType: 'request-reinstate' | 'request-withdrawn', reason: string): void {
     this.qaEventDataService.postData(target, correctionType, '', reason)

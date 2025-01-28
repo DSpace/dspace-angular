@@ -1,12 +1,26 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragHandle,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
+import {
+  NgClass,
+  NgForOf,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
+  forwardRef,
   Input,
   Output,
   QueryList,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   DynamicFormArrayComponent,
   DynamicFormControlCustomEvent,
@@ -21,12 +35,24 @@ import {
 
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { hasValue } from '../../../../../empty.util';
+import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 
 @Component({
   selector: 'ds-dynamic-form-array',
   templateUrl: './dynamic-form-array.component.html',
   styleUrls: ['./dynamic-form-array.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    CdkDropList,
+    NgClass,
+    NgForOf,
+    CdkDrag,
+    CdkDragHandle,
+    forwardRef(() => DsDynamicFormControlContainerComponent),
+    NgTemplateOutlet,
+  ],
+  standalone: true,
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
@@ -87,5 +113,18 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
    */
   get dragDisabled(): boolean {
     return this.model.groups.length === 1 || !this.model.isDraggable;
+  }
+
+  /**
+   * Gets the control of the specified group model. It adds the startingIndex property to the group model if it does not
+   * already have it. This ensures that the controls are always linked to the correct group model.
+   * @param groupModel The group model to get the control for.
+   * @returns The form control of the specified group model.
+   */
+  getControlOfGroup(groupModel: any) {
+    if (!groupModel.hasOwnProperty('startingIndex')) {
+      groupModel.startingIndex = groupModel.index;
+    }
+    return this.control.get([groupModel.startingIndex]);
   }
 }

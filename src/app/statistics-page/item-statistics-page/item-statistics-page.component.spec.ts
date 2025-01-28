@@ -20,7 +20,6 @@ import { Item } from '../../core/shared/item.model';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { SharedModule } from '../../shared/shared.module';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { ItemStatisticsPageComponent } from './item-statistics-page.component';
 
@@ -73,9 +72,6 @@ describe('ItemStatisticsPageComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         CommonModule,
-        SharedModule,
-      ],
-      declarations: [
         ItemStatisticsPageComponent,
         StatisticsTableComponent,
       ],

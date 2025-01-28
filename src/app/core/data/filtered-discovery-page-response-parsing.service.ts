@@ -14,7 +14,7 @@ import { RestRequest } from './rest-request.model';
  * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a discovery query (string)
  * wrapped in a FilteredDiscoveryQueryResponse
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FilteredDiscoveryPageResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
   objectFactory = {};
   toCache = false;

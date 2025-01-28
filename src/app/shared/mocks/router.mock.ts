@@ -33,4 +33,8 @@ export class RouterMock {
   get url() {
     return this.routerState.snapshot.url;
   }
+
+  serializeUrl(commands, navExtras = {}) {
+    return '/testing-url';
+  }
 }

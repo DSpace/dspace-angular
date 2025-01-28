@@ -18,13 +18,21 @@
                                             [defaultConfiguration]="configuration"
                                             [inPlaceSearch]="inPlaceSearch"
                                             (changeConfiguration)="changeConfiguration.emit($event)"></ds-search-switch-configuration>
-            <ds-themed-search-filters [currentScope]="currentScope"
+            <ds-search-filters [currentScope]="currentScope"
                                [currentConfiguration]="configuration"
                                [filters]="filters"
                                [refreshFilters]="refreshFilters"
-                               [inPlaceSearch]="inPlaceSearch"></ds-themed-search-filters>
-            <ds-themed-search-settings *ngIf="inPlaceSearch" [currentSortOption]="currentSortOption"
-                                       [sortOptionsList]="sortOptionsList"></ds-themed-search-settings>
+                               [inPlaceSearch]="inPlaceSearch">
+            </ds-search-filters>
+            <ds-advanced-search *ngIf="inPlaceSearch && (this.showAdvancedSearch$ | async) === true"
+                                [configuration]="configuration"
+                                [filtersConfig]="(filters | async)?.payload"
+                                [scope]="currentScope">
+            </ds-advanced-search>
+            <ds-search-settings *ngIf="inPlaceSearch"
+                                [currentSortOption]="currentSortOption"
+                                [sortOptionsList]="sortOptionsList">
+            </ds-search-settings>
         </div>
     </div>
 </div>

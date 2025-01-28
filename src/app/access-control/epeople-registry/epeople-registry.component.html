@@ -41,11 +41,10 @@
         </div>
       </form>
 
-      <ds-themed-loading *ngIf="searching$ | async"></ds-themed-loading>
+      <ds-loading *ngIf="searching$ | async"></ds-loading>
       <ds-pagination
         *ngIf="(pageInfoState$ | async)?.totalElements > 0 && (searching$ | async) !== true"
         [paginationOptions]="config"
-        [pageInfoState]="pageInfoState$"
         [collectionSize]="(pageInfoState$ | async)?.totalElements"
         [hideGear]="true"
         [hidePagerWhenSinglePage]="true">
@@ -62,7 +61,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let epersonDto of (ePeopleDto$ | async)?.page"
-                [ngClass]="{'table-primary' : isActive(epersonDto.eperson) | async}">
+                [ngClass]="{'table-primary' : (activeEPerson$ | async) === epersonDto.eperson}">
               <td>{{epersonDto.eperson.id}}</td>
               <td>{{ dsoNameService.getName(epersonDto.eperson) }}</td>
               <td>{{epersonDto.eperson.email}}</td>

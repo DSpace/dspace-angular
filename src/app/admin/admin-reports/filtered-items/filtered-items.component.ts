@@ -1,5 +1,11 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import {
@@ -7,9 +13,16 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  NgbAccordion,
+  NgbAccordionModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   map,
   Observable,
@@ -43,8 +56,18 @@ import { QueryPredicate } from './query-predicate.model';
   selector: 'ds-report-filtered-items',
   templateUrl: './filtered-items.component.html',
   styleUrls: ['./filtered-items.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    NgbAccordionModule,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NgForOf,
+    FiltersComponent,
+  ],
+  standalone: true,
 })
-export class FilteredItemsComponent {
+export class FilteredItemsComponent implements OnInit {
 
   collections: OptionVO[];
   presetQueries: PresetQuery[];
@@ -68,7 +91,7 @@ export class FilteredItemsComponent {
     private formBuilder: FormBuilder,
     private restService: DspaceRestService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadCollections();
     this.loadPresetQueries();
     this.loadMetadataFields();

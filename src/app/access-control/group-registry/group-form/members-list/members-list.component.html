@@ -5,7 +5,6 @@
 
   <ds-pagination *ngIf="(ePeopleMembersOfGroup | async)?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(ePeopleMembersOfGroup | async)"
                  [collectionSize]="(ePeopleMembersOfGroup | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -21,24 +20,32 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let eperson of (ePeopleMembersOfGroup | async)?.page">
-          <td class="align-middle">{{eperson.id}}</td>
+        <tr *ngFor="let epersonDTO of (ePeopleMembersOfGroup | async)?.page">
+          <td class="align-middle">{{epersonDTO.eperson.id}}</td>
           <td class="align-middle">
-            <a [routerLink]="getEPersonEditRoute(eperson.id)">
-              {{ dsoNameService.getName(eperson) }}
+            <a [routerLink]="getEPersonEditRoute(epersonDTO.eperson.id)">
+              {{ dsoNameService.getName(epersonDTO.eperson) }}
             </a>
           </td>
           <td class="align-middle">
-            {{messagePrefix + '.table.email' | translate}}: {{ eperson.email ? eperson.email : '-' }}<br/>
-            {{messagePrefix + '.table.netid' | translate}}: {{ eperson.netid ? eperson.netid : '-' }}
+            {{messagePrefix + '.table.email' | translate}}: {{ epersonDTO.eperson.email ? epersonDTO.eperson.email : '-' }}<br/>
+            {{messagePrefix + '.table.netid' | translate}}: {{ epersonDTO.eperson.netid ? epersonDTO.eperson.netid : '-' }}
           </td>
           <td class="align-middle">
             <div class="btn-group edit-field">
-              <button (click)="deleteMemberFromGroup(eperson)"
+              <button (click)="deleteMemberFromGroup(epersonDTO.eperson)"
+                      *ngIf="epersonDTO.ableToDelete"
                       [disabled]="actionConfig.remove.disabled"
                       [ngClass]="['btn btn-sm', actionConfig.remove.css]"
-                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(eperson) } }}">
+                      title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(epersonDTO.eperson) } }}">
                 <i [ngClass]="actionConfig.remove.icon"></i>
+              </button>
+              <button *ngIf="!epersonDTO.ableToDelete"
+                      (click)="addMemberToGroup(epersonDTO.eperson)"
+                      [disabled]="actionConfig.add.disabled"
+                      [ngClass]="['btn btn-sm', actionConfig.add.css]"
+                      title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(epersonDTO.eperson) } }}">
+                <i [ngClass]="actionConfig.add.icon"></i>
               </button>
             </div>
           </td>
@@ -86,7 +93,6 @@
 
   <ds-pagination *ngIf="(ePeopleSearch | async)?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(ePeopleSearch | async)"
                  [collectionSize]="(ePeopleSearch | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">

@@ -1,13 +1,21 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -35,24 +43,43 @@ import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type
 import { getFinishedRemoteData } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
 import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
-import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
+import {
+  ExternalSourceData,
+  SubmissionImportExternalSearchbarComponent,
+} from './import-external-searchbar/submission-import-external-searchbar.component';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
  */
 @Component({
-  selector: 'ds-submission-import-external',
+  selector: 'ds-base-submission-import-external',
   styleUrls: ['./submission-import-external.component.scss'],
   templateUrl: './submission-import-external.component.html',
   animations: [fadeIn],
+  imports: [
+    ObjectCollectionComponent,
+    ThemedLoadingComponent,
+    AlertComponent,
+    NgIf,
+    AsyncPipe,
+    SubmissionImportExternalSearchbarComponent,
+    TranslateModule,
+    VarDirective,
+    RouterLink,
+  ],
+  standalone: true,
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
 

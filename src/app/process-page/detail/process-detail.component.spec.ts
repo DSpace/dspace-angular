@@ -14,6 +14,8 @@ import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
+  RouterModule,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -26,6 +28,8 @@ import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
@@ -147,15 +151,14 @@ describe('ProcessDetailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     init();
-    void TestBed.configureTestingModule({
-      declarations: [
-        ProcessDetailComponent,
-        ProcessDetailFieldComponent,
-        VarDirective,
-        FileSizePipe,
-        HasNoValuePipe,
-      ],
-      imports: [TranslateModule.forRoot(), RouterTestingModule],
+    TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule,
+        RouterModule.forRoot([]),
+        ProcessDetailComponent, ProcessDetailFieldComponent,
+        VarDirective, FileSizePipe,
+        HasNoValuePipe],
       providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: ProcessDataService, useValue: processService },
@@ -168,7 +171,16 @@ describe('ProcessDetailComponent', () => {
         { provide: Router, useValue: router },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ProcessDetailComponent, {
+        remove: { imports: [
+          ProcessDetailFieldComponent,
+          ThemedFileDownloadLinkComponent,
+          ThemedLoadingComponent,
+          RouterLink,
+        ] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

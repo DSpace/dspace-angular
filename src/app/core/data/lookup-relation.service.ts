@@ -34,7 +34,7 @@ import { RequestService } from './request.service';
 /**
  * A service for retrieving local and external entries information during a relation lookup
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LookupRelationService {
   /**
    * The search config last used for retrieving local results

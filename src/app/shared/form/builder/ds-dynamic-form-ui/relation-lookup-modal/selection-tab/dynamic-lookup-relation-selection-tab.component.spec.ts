@@ -20,6 +20,8 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { ObjectCollectionComponent } from '../../../../../../shared/object-collection/object-collection.component';
+import { PageSizeSelectorComponent } from '../../../../../../shared/page-size-selector/page-size-selector.component';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
@@ -57,8 +59,7 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationSelectionTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), DsDynamicLookupRelationSelectionTabComponent, VarDirective],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
@@ -74,6 +75,12 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(DsDynamicLookupRelationSelectionTabComponent, {
+        remove: {
+          imports: [ObjectCollectionComponent,
+            PageSizeSelectorComponent],
+        },
+      })
       .compileComponents();
   }));
 

@@ -42,8 +42,8 @@ describe('MyDSpaceItemStatusComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        MyDSpaceStatusBadgeComponent,
       ],
-      declarations: [MyDSpaceStatusBadgeComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MyDSpaceStatusBadgeComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

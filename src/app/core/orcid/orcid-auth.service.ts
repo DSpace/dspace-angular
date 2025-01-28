@@ -33,7 +33,7 @@ import {
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OrcidAuthService {
 
   constructor(

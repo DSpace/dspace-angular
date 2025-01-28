@@ -1,4 +1,13 @@
 import {
+  CdkDrag,
+  CdkDragHandle,
+} from '@angular/cdk/drag-drop';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -9,11 +18,18 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  FormsModule,
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
   EMPTY,
   Observable,
   of as observableOf,
@@ -22,6 +38,7 @@ import {
   map,
   switchMap,
   take,
+  tap,
 } from 'rxjs/operators';
 import { RegistryService } from 'src/app/core/registry/registry.service';
 import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
@@ -30,6 +47,7 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { MetadataService } from '../../../core/metadata/metadata.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -50,16 +68,22 @@ import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabul
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {
   DsDynamicOneboxModelConfig,
   DynamicOneboxModel,
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
+import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
+import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { DebounceDirective } from '../../../shared/utils/debounce.directive';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataValue,
@@ -69,6 +93,8 @@ import {
   selector: 'ds-dso-edit-metadata-value',
   styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value.component.html',
+  standalone: true,
+  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective],
 })
 /**
  * Component displaying a single editable row for a metadata value
@@ -165,6 +191,12 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    */
   public editingAuthority = false;
 
+
+  /**
+   * Whether or not the free-text editing is enabled when scrollable dropdown or hierarchical vocabulary is used
+   */
+  public enabledFreeTextEditing = false;
+
   /**
    * Field group used by authority field
    * @type {UntypedFormGroup}
@@ -172,9 +204,9 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   group = new UntypedFormGroup({ authorityField : new UntypedFormControl() });
 
   /**
-   * Observable property of the model to use for editinf authorities values
+   * Model to use for editing authorities values
    */
-  private model$: Observable<DynamicOneboxModel | DynamicScrollableDropdownModel>;
+  private model$: BehaviorSubject<DynamicOneboxModel | DynamicScrollableDropdownModel> = new BehaviorSubject(null);
 
   /**
    * Observable with information about the authority vocabulary used
@@ -189,14 +221,17 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   private isScrollableVocabulary$: Observable<boolean>;
   private isSuggesterVocabulary$: Observable<boolean>;
 
-  constructor(protected relationshipService: RelationshipDataService,
-              protected dsoNameService: DSONameService,
-              protected vocabularyService: VocabularyService,
-              protected itemService: ItemDataService,
-              protected cdr: ChangeDetectorRef,
-              protected registryService: RegistryService,
-              protected notificationsService: NotificationsService,
-              protected translate: TranslateService) {
+  constructor(
+    protected relationshipService: RelationshipDataService,
+    protected dsoNameService: DSONameService,
+    protected vocabularyService: VocabularyService,
+    protected itemService: ItemDataService,
+    protected cdr: ChangeDetectorRef,
+    protected registryService: RegistryService,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected metadataService: MetadataService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -208,7 +243,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * Initialise potential properties of a virtual metadata value
    */
   initVirtualProperties(): void {
-    this.mdRepresentation$ = this.mdValue.newValue.isVirtual ?
+    this.mdRepresentation$ = this.metadataService.isVirtual(this.mdValue.newValue) ?
       this.relationshipService.resolveMetadataRepresentation(this.mdValue.newValue, this.dso, 'Item')
         .pipe(
           map((mdRepresentation: MetadataRepresentation) =>
@@ -251,6 +286,8 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
     }
 
     this.isAuthorityControlled$ = this.vocabulary$.pipe(
+      // Create the model used by the authority fields to ensure its existence when the field is initialized
+      tap((v: Vocabulary) => this.model$.next(this.createModel(v))),
       map((result: Vocabulary) => isNotEmpty(result)),
     );
 
@@ -266,54 +303,62 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
       map((result: Vocabulary) => isNotEmpty(result) && !result.hierarchical && !result.scrollable),
     );
 
-    this.model$ = this.vocabulary$.pipe(
-      map((vocabulary: Vocabulary) => {
-        let formFieldValue;
-        if (isNotEmpty(this.mdValue.newValue.value)) {
-          formFieldValue = new FormFieldMetadataValueObject();
-          formFieldValue.value = this.mdValue.newValue.value;
-          formFieldValue.display = this.mdValue.newValue.value;
-          if (this.mdValue.newValue.authority) {
-            formFieldValue.authority = this.mdValue.newValue.authority;
-            formFieldValue.confidence = this.mdValue.newValue.confidence;
-          }
-        } else {
-          formFieldValue = this.mdValue.newValue.value;
-        }
+  }
 
-        const vocabularyOptions = vocabulary ? {
-          closed: false,
-          name: vocabulary.name,
-        } as VocabularyOptions : null;
-
-        if (!vocabulary.scrollable) {
-          const model: DsDynamicOneboxModelConfig = {
-            id: 'authorityField',
-            label: `${this.dsoType}.edit.metadata.edit.value`,
-            vocabularyOptions: vocabularyOptions,
-            metadataFields: [this.mdField],
-            value: formFieldValue,
-            repeatable: false,
-            submissionId: 'edit-metadata',
-            hasSelectableMetadata: false,
-          };
-          return new DynamicOneboxModel(model);
-        } else {
-          const model: DynamicScrollableDropdownModelConfig = {
-            id: 'authorityField',
-            label: `${this.dsoType}.edit.metadata.edit.value`,
-            placeholder: `${this.dsoType}.edit.metadata.edit.value`,
-            vocabularyOptions: vocabularyOptions,
-            metadataFields: [this.mdField],
-            value: formFieldValue,
-            repeatable: false,
-            submissionId: 'edit-metadata',
-            hasSelectableMetadata: false,
-            maxOptions: 10,
-          };
-          return new DynamicScrollableDropdownModel(model);
+  /**
+   * Returns a {@link DynamicOneboxModel} or {@link DynamicScrollableDropdownModel} model based on the
+   * vocabulary used.
+   */
+  private createModel(vocabulary: Vocabulary): DynamicOneboxModel | DynamicScrollableDropdownModel {
+    if (isNotEmpty(vocabulary)) {
+      let formFieldValue;
+      if (isNotEmpty(this.mdValue.newValue.value)) {
+        formFieldValue = new FormFieldMetadataValueObject();
+        formFieldValue.value = this.mdValue.newValue.value;
+        formFieldValue.display = this.mdValue.newValue.value;
+        if (this.mdValue.newValue.authority) {
+          formFieldValue.authority = this.mdValue.newValue.authority;
+          formFieldValue.confidence = this.mdValue.newValue.confidence;
         }
-      }));
+      } else {
+        formFieldValue = this.mdValue.newValue.value;
+      }
+
+      const vocabularyOptions = vocabulary ? {
+        closed: false,
+        name: vocabulary.name,
+      } as VocabularyOptions : null;
+
+      if (!vocabulary.scrollable) {
+        const model: DsDynamicOneboxModelConfig = {
+          id: 'authorityField',
+          label: `${this.dsoType}.edit.metadata.edit.value`,
+          vocabularyOptions: vocabularyOptions,
+          metadataFields: [this.mdField],
+          value: formFieldValue,
+          repeatable: false,
+          submissionId: 'edit-metadata',
+          hasSelectableMetadata: false,
+        };
+        return new DynamicOneboxModel(model);
+      } else {
+        const model: DynamicScrollableDropdownModelConfig = {
+          id: 'authorityField',
+          label: `${this.dsoType}.edit.metadata.edit.value`,
+          placeholder: `${this.dsoType}.edit.metadata.edit.value`,
+          vocabularyOptions: vocabularyOptions,
+          metadataFields: [this.mdField],
+          value: formFieldValue,
+          repeatable: false,
+          submissionId: 'edit-metadata',
+          hasSelectableMetadata: false,
+          maxOptions: 10,
+        };
+        return new DynamicScrollableDropdownModel(model);
+      }
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -399,23 +444,31 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * Process the change of authority field value updating the authority key and confidence as necessary
    */
   onChangeAuthorityField(event): void {
-    this.mdValue.newValue.value = event.value;
-    if (event.authority) {
-      this.mdValue.newValue.authority = event.authority;
-      this.mdValue.newValue.confidence = ConfidenceType.CF_ACCEPTED;
+    if (event) {
+      this.mdValue.newValue.value = event.value;
+      if (event.authority) {
+        this.mdValue.newValue.authority = event.authority;
+        this.mdValue.newValue.confidence = ConfidenceType.CF_ACCEPTED;
+      } else {
+        this.mdValue.newValue.authority = null;
+        this.mdValue.newValue.confidence = ConfidenceType.CF_UNSET;
+      }
+      this.confirm.emit(false);
     } else {
+      // The event is undefined when the user clears the selection in scrollable dropdown
+      this.mdValue.newValue.value = '';
       this.mdValue.newValue.authority = null;
       this.mdValue.newValue.confidence = ConfidenceType.CF_UNSET;
+      this.confirm.emit(false);
     }
-    this.confirm.emit(false);
   }
 
   /**
-   * Returns an observable with the {@link DynamicOneboxModel} or {@link DynamicScrollableDropdownModel} model used
+   * Returns the {@link DynamicOneboxModel} or {@link DynamicScrollableDropdownModel} model used
    * for the authority field
    */
-  getModel(): Observable<DynamicOneboxModel | DynamicScrollableDropdownModel> {
-    return this.model$;
+  getModel(): DynamicOneboxModel | DynamicScrollableDropdownModel {
+    return this.model$.value;
   }
 
   /**
@@ -439,6 +492,19 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
       this.mdValue.newValue.confidence = ConfidenceType.CF_ACCEPTED;
       this.confirm.emit(false);
     }
+  }
+
+  /**
+   * Toggles the free-text ediitng mode
+   */
+  toggleFreeTextEdition() {
+    if (this.enabledFreeTextEditing) {
+      if (this.getModel().value !== this.mdValue.newValue.value) {
+        // Reload the model to adapt it to the new possible value modified during free text editing
+        this.initAuthorityProperties();
+      }
+    }
+    this.enabledFreeTextEditing = !this.enabledFreeTextEditing;
   }
 
 }

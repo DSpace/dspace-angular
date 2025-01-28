@@ -1,4 +1,5 @@
 import { Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import {
   hasNoValue,
@@ -34,17 +35,18 @@ export class ConcatFieldParser extends FieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
+      translate: TranslateService,
     protected separator: string,
     protected firstPlaceholder: string = null,
     protected secondPlaceholder: string = null) {
-    super(submissionId, configData, initFormValues, parserOptions);
+    super(submissionId, configData, initFormValues, parserOptions, translate);
 
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;
     this.secondPlaceholder = secondPlaceholder;
   }
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     const id: string = this.configData.selectableMetadata[0].metadata;
 
     const clsInput = {

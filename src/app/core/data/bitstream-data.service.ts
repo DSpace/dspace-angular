@@ -28,7 +28,6 @@ import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Bitstream } from '../shared/bitstream.model';
-import { BITSTREAM } from '../shared/bitstream.resource-type';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -37,7 +36,6 @@ import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { sendRequest } from '../shared/request.operators';
-import { dataService } from './base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -70,10 +68,7 @@ import { RestRequestMethod } from './rest-request-method';
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
  */
-@Injectable({
-  providedIn: 'root',
-})
-@dataService(BITSTREAM)
+@Injectable({ providedIn: 'root' })
 export class BitstreamDataService extends IdentifiableDataService<Bitstream> implements SearchData<Bitstream>, PatchData<Bitstream>, DeleteData<Bitstream> {
   private searchData: SearchDataImpl<Bitstream>;
   private patchData: PatchDataImpl<Bitstream>;
@@ -246,11 +241,12 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
    *                                    requested after the response becomes stale
+   * @param options                     the {@link FindListOptions} for the request
    * @return {Observable<Bitstream | null>}
-   *    Return an observable that constains primary bitstream information or null
+   *    Return an observable that contains primary bitstream information or null
    */
-  public findPrimaryBitstreamByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<Bitstream | null> {
-    return this.bundleService.findByItemAndName(item, bundleName, useCachedVersionIfAvailable, reRequestOnStale, followLink('primaryBitstream')).pipe(
+  public findPrimaryBitstreamByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, options?: FindListOptions): Observable<Bitstream | null> {
+    return this.bundleService.findByItemAndName(item, bundleName, useCachedVersionIfAvailable, reRequestOnStale, options, followLink('primaryBitstream')).pipe(
       getFirstCompletedRemoteData(),
       switchMap((rd: RemoteData<Bundle>) => {
         if (!rd.hasSucceeded) {

@@ -18,8 +18,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
-import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
 import {
   SortDirection,
   SortOptions,
@@ -48,7 +46,6 @@ import { BrowseEntryListElementComponent } from '../object-list/browse-entry-lis
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { SharedModule } from '../shared.module';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { routeServiceStub } from '../testing/route-service.stub';
@@ -103,10 +100,7 @@ describe('BrowseByComponent', () => {
     themeService = getMockThemeService('base');
     void TestBed.configureTestingModule({
       imports: [
-        BrowseByRoutingModule,
-        AccessControlRoutingModule,
         CommonModule,
-        SharedModule,
         NgbModule,
         TranslateModule.forRoot({
           loader: {
@@ -116,8 +110,8 @@ describe('BrowseByComponent', () => {
         }),
         RouterTestingModule,
         NoopAnimationsModule,
+        BrowseByComponent,
       ],
-      declarations: [BrowseByComponent],
       providers: [
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: ConfigurationDataService, useValue: configurationDataService },
@@ -141,7 +135,7 @@ describe('BrowseByComponent', () => {
   it('should display a loading message when objects is empty', () => {
     (comp as any).objects = undefined;
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('ds-themed-loading'))).not.toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-loading'))).not.toBeNull();
   });
 
   it('should display results when objects is not empty', () => {

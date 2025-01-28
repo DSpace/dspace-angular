@@ -1,8 +1,14 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
 import {
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormControl,
   UntypedFormGroup,
@@ -13,7 +19,10 @@ import {
   Router,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -33,6 +42,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { Registration } from '../../core/shared/registration.model';
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
@@ -40,9 +50,18 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
  * Component that renders the create profile page to be used by a user registering through a token
  */
 @Component({
-  selector: 'ds-create-profile',
+  selector: 'ds-base-create-profile',
   styleUrls: ['./create-profile.component.scss'],
   templateUrl: './create-profile.component.html',
+  imports: [
+    ProfilePageSecurityFormComponent,
+    TranslateModule,
+    NgIf,
+    AsyncPipe,
+    ReactiveFormsModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class CreateProfileComponent implements OnInit {
   registration$: Observable<Registration>;

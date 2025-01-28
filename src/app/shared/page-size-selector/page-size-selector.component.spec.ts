@@ -19,7 +19,7 @@ import {
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
@@ -57,8 +57,7 @@ describe('PageSizeSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [PageSizeSelectorComponent, EnumKeysPipe, VarDirective],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), PageSizeSelectorComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: PaginationService, useValue: paginationService },

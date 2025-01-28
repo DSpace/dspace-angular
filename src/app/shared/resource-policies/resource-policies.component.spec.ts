@@ -226,8 +226,6 @@ describe('ResourcePoliciesComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ResourcePoliciesComponent,
         ResourcePolicyEntryComponent,
         TestComponent,
@@ -448,6 +446,10 @@ describe('ResourcePoliciesComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule,
+    FormsModule,
+    ReactiveFormsModule],
 })
 class TestComponent {
 

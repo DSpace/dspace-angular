@@ -23,9 +23,11 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { VarDirective } from '../../../utils/var.directive';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { PoolSearchResultDetailElementComponent } from './pool-search-result-detail-element.component';
 
 let component: PoolSearchResultDetailElementComponent;
@@ -77,8 +79,7 @@ const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
 describe('PoolSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [PoolSearchResultDetailElementComponent, VarDirective],
+      imports: [NoopAnimationsModule, VarDirective, PoolSearchResultDetailElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
@@ -88,7 +89,10 @@ describe('PoolSearchResultDetailElementComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PoolSearchResultDetailElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ItemDetailPreviewComponent, PoolTaskActionsComponent],
+      },
     }).compileComponents();
   }));
 

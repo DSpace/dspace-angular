@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -6,17 +10,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import {
-  map,
-  mapTo,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
@@ -33,19 +33,20 @@ import {
 } from '../../../../../../core/shared/operators';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../../empty.util';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
 import { SearchResult } from '../../../../../search/models/search-result.model';
+import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
+import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-search-tab',
+  selector: 'ds-base-dynamic-lookup-relation-search-tab',
   styleUrls: ['./dynamic-lookup-relation-search-tab.component.scss'],
   templateUrl: './dynamic-lookup-relation-search-tab.component.html',
   providers: [
@@ -54,6 +55,15 @@ import { RelationshipOptions } from '../../../models/relationship-options.model'
       useClass: SearchConfigurationService,
     },
   ],
+  imports: [
+    AsyncPipe,
+    VarDirective,
+    TranslateModule,
+    NgbDropdownModule,
+    NgIf,
+    ThemedSearchComponent,
+  ],
+  standalone: true,
 })
 
 /**
@@ -113,14 +123,19 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Input() isEditRelationship: boolean;
 
   /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
+
+  /**
    * Send an event to deselect an object from the list
    */
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() deselectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   /**
    * Send an event to select an object from the list
    */
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   /**
    * Search results
@@ -197,7 +212,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.selection$
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
-        const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
+        const filteredPage: SearchResult<DSpaceObject>[] = page.filter((pageItem: SearchResult<DSpaceObject>) => selection.findIndex((selected: SearchResult<Item>) => selected.equals(pageItem)) < 0);
         this.selectObject.emit(...filteredPage);
       });
     this.selectableListService.select(this.listId, page);
@@ -216,35 +231,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
         this.deselectObject.emit(...filteredPage);
       });
     this.selectableListService.deselect(this.listId, page);
-  }
-
-  /**
-   * Select all items that were found using the current search query
-   */
-  selectAll() {
-    this.allSelected = true;
-    this.selectAllLoading = true;
-    const fullPagination = Object.assign(new PaginationComponentOptions(), {
-      currentPage: 1,
-      pageSize: 9999,
-    });
-    const fullSearchConfig = Object.assign(this.lookupRelationService.searchConfig, { pagination: fullPagination });
-    const results$ = this.searchService.search<Item>(fullSearchConfig);
-    results$.pipe(
-      getFirstSucceededRemoteData(),
-      map((resultsRD) => resultsRD.payload.page),
-      tap(() => this.selectAllLoading = false),
-      switchMap((results) => this.selection$.pipe(
-        take(1),
-        tap((selection: SearchResult<Item>[]) => {
-          const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
-          this.selectObject.emit(...filteredResults);
-        }),
-        mapTo(results),
-      )),
-    ).subscribe((results) => {
-      this.selectableListService.select(this.listId, results);
-    });
   }
 
   /**

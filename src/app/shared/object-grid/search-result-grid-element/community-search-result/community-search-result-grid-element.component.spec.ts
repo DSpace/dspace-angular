@@ -9,10 +9,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { AuthService } from '../../../../core/auth/auth.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -24,8 +26,14 @@ import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.ser
 import { Community } from '../../../../core/shared/community.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
+import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { StoreMock } from '../../../../shared/testing/store.mock';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
@@ -71,14 +79,15 @@ describe('CommunitySearchResultGridElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        TruncatePipe,
+        CommunitySearchResultGridElementComponent,
       ],
-      declarations: [CommunitySearchResultGridElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
+        { provide: Store, useValue: StoreMock },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: BitstreamDataService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
@@ -89,8 +98,11 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: XSRFService, useValue: {} },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CommunitySearchResultGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

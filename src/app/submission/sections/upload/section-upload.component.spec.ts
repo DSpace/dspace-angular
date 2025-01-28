@@ -10,11 +10,11 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
@@ -26,6 +26,7 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
 import {
   mockGroup,
@@ -37,10 +38,12 @@ import {
   mockUploadFiles,
   mockUploadFilesData,
 } from '../../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';
 import { SectionDataObject } from '../models/section-data.model';
@@ -174,11 +177,8 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionUploadComponent,
         TestComponent,
       ],
@@ -192,11 +192,19 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         { provide: SectionUploadService, useValue: bitstreamService },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ChangeDetectorRef,
         SubmissionSectionUploadComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    })
+      .overrideComponent(SubmissionSectionUploadComponent, {
+        remove: {
+          imports: [AlertComponent],
+        },
+      })
+      .compileComponents().then();
   }));
 
   describe('', () => {
@@ -373,6 +381,9 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [
+    CommonModule],
 })
 class TestComponent {
 

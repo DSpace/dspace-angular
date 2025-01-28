@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RootModule } from '../../app/root.module';
-import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
-import { SharedModule } from '../../app/shared/shared.module';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
@@ -28,13 +24,9 @@ const DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
-    SharedBrowseByModule,
-    ResultsBackButtonModule,
     RootModule,
-    NavbarModule,
+    ...DECLARATIONS,
   ],
-  declarations: DECLARATIONS,
   providers: [
     ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
   ],

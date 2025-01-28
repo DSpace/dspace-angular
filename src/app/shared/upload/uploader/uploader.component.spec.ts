@@ -12,7 +12,6 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { DragService } from '../../../core/drag.service';
@@ -36,14 +35,11 @@ describe('Chips component', () => {
       imports: [
         FileUploadModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         UploaderComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
-        ScrollToService,
         UploaderComponent,
         DragService,
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
@@ -76,6 +72,8 @@ describe('Chips component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [FileUploadModule, UploaderComponent],
 })
 class TestComponent {
   public uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {

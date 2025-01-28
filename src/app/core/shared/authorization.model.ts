@@ -31,10 +31,10 @@ export class Authorization extends DSpaceObject {
    * Unique identifier for this authorization
    */
   @autoserialize
-    id: string;
+  id: string;
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     eperson: HALLink;
     feature: HALLink;
@@ -46,17 +46,17 @@ export class Authorization extends DSpaceObject {
    * Null if the authorization grants access to anonymous users
    */
   @link(EPERSON)
-    eperson?: Observable<RemoteData<EPerson>>;
+  eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * The Feature enabled by this Authorization
    */
   @link(FEATURE)
-    feature?: Observable<RemoteData<Feature>>;
+  feature?: Observable<RemoteData<Feature>>;
 
   /**
    * The Object this authorization applies to
    */
   @link(ITEM)
-    object?: Observable<RemoteData<DSpaceObject>>;
+  object?: Observable<RemoteData<DSpaceObject>>;
 }

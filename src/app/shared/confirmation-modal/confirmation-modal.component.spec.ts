@@ -24,8 +24,7 @@ describe('ConfirmationModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ConfirmationModalComponent],
+      imports: [TranslateModule.forRoot(), ConfirmationModalComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
       ],

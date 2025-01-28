@@ -8,9 +8,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
@@ -33,14 +38,21 @@ describe('LinkMenuItemComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [LinkMenuItemComponent, RouterLinkDirectiveStub, QueryParamsDirectiveStub],
+      imports: [TranslateModule.forRoot(), LinkMenuItemComponent],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, link: link, queryParams: queryParams } },
-        { provide: Router, useValue: RouterStub },
+        { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        RouterLinkDirectiveStub,
+        QueryParamsDirectiveStub,
+        RouterLink,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(LinkMenuItemComponent, {
+        remove: { imports: [] },
+        add: { imports: [RouterLinkDirectiveStub, QueryParamsDirectiveStub] },
+      })
       .compileComponents();
   }));
 

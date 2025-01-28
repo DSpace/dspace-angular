@@ -24,7 +24,7 @@ import { FieldParser } from './field-parser';
 
 export class OneboxFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     if (this.configData.selectableMetadata.length > 1) {
       // Case Qualdrop Model
       const clsGroup = {

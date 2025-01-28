@@ -1,14 +1,28 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  NgbDropdownModule,
+  NgbPaginationModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -16,6 +30,8 @@ import {
 } from 'rxjs';
 import {
   map,
+  startWith,
+  switchMap,
   take,
 } from 'rxjs/operators';
 
@@ -27,13 +43,21 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { hasValue } from '../empty.util';
+import {
+  hasValue,
+  hasValueOperator,
+} from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { HostWindowState } from '../search/host-window.reducer';
+import { RSSComponent } from '../rss-feed/rss.component';
+import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponentOptions } from './pagination-component-options.model';
+
+interface PaginationDetails {
+  range: string;
+  total: number;
+}
 
 /**
  * The default pagination controls component.
@@ -45,8 +69,10 @@ import { PaginationComponentOptions } from './pagination-component-options.model
   templateUrl: 'pagination.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
+  standalone: true,
+  imports: [NgIf, NgbDropdownModule, NgFor, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe],
 })
-export class PaginationComponent implements OnDestroy, OnInit {
+export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   /**
    * ViewMode that should be passed to {@link ListableObjectComponentLoaderComponent}.
    */
@@ -56,11 +82,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Number of items in collection.
    */
   @Input() collectionSize: number;
-
-  /**
-   * Page state of a Remote paginated objects.
-   */
-  @Input() pageInfoState: Observable<PageInfo> = undefined;
 
   /**
    * Configuration for the NgbPagination component.
@@ -151,17 +172,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Current page.
    */
-  public currentPage$;
+  public currentPage$: Observable<number>;
 
   /**
    * Current page in the state of a Remote paginated objects.
    */
   public currentPageState: number = undefined;
-
-  /**
-   * An observable of HostWindowState type
-   */
-  public hostWindow: Observable<HostWindowState>;
 
   /**
    * ID for the pagination instance. This ID is used in the routing to retrieve the pagination options.
@@ -201,6 +217,9 @@ export class PaginationComponent implements OnDestroy, OnInit {
   public sortField$: Observable<string>;
   public defaultSortField = 'name';
 
+
+  public showingDetails$: Observable<PaginationDetails>;
+
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
@@ -229,6 +248,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.initializeConfig();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.collectionSize.currentValue !== changes.collectionSize.previousValue) {
+      this.showingDetails$ = this.getShowingDetails(this.collectionSize);
+    }
+  }
+
   /**
    * Method provided by Angular. Invoked when the instance is destroyed.
    */
@@ -252,7 +277,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
       map((currentPagination) => currentPagination.pageSize),
     );
 
-    let sortOptions;
+    let sortOptions: SortOptions;
     if (this.sortOptions) {
       sortOptions = this.sortOptions;
     } else {
@@ -266,19 +291,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
     );
   }
 
-  /**
-   * @param cdRef
-   *    ChangeDetectorRef is a singleton service provided by Angular.
-   * @param route
-   *    Route is a singleton service provided by Angular.
-   * @param router
-   *    Router is a singleton service provided by Angular.
-   * @param hostWindowService
-   *    the HostWindowService singleton.
-   */
-  constructor(private cdRef: ChangeDetectorRef,
-              private paginationService: PaginationService,
-              public hostWindowService: HostWindowService) {
+  constructor(
+    protected cdRef: ChangeDetectorRef,
+    protected paginationService: PaginationService,
+    public hostWindowService: HostWindowService,
+  ) {
   }
 
   /**
@@ -315,17 +332,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to change the route to the given sort field
-   *
-   * @param sortField
-   *    The sort field being navigated to.
-   */
-  public doSortFieldChange(field: string) {
-    this.updateParams({ page: 1, sortField: field });
-    this.emitPaginationChange();
-  }
-
-  /**
    * Method to emit a general pagination change event
    */
   private emitPaginationChange() {
@@ -343,25 +349,30 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Method to get pagination details of the current viewed page.
    */
-  public getShowingDetails(collectionSize: number): Observable<any> {
-    let showingDetails = observableOf({ range: null + ' - ' + null, total: null });
-    if (collectionSize) {
-      showingDetails = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
-        map((currentPaginationOptions) => {
-          let lastItem;
-          const pageMax = currentPaginationOptions.pageSize * currentPaginationOptions.currentPage;
+  public getShowingDetails(collectionSize: number): Observable<PaginationDetails> {
+    return observableOf(collectionSize).pipe(
+      hasValueOperator(),
+      switchMap(() => this.paginationService.getCurrentPagination(this.id, this.paginationOptions)),
+      map((currentPaginationOptions) => {
+        let lastItem: number;
+        const pageMax = currentPaginationOptions.pageSize * currentPaginationOptions.currentPage;
 
-          const firstItem = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
-          if (collectionSize > pageMax) {
-            lastItem = pageMax;
-          } else {
-            lastItem = collectionSize;
-          }
-          return { range: firstItem + ' - ' + lastItem, total: collectionSize };
-        }),
-      );
-    }
-    return showingDetails;
+        const firstItem: number = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
+        if (collectionSize > pageMax) {
+          lastItem = pageMax;
+        } else {
+          lastItem = collectionSize;
+        }
+        return {
+          range: `${firstItem} - ${lastItem}`,
+          total: collectionSize,
+        };
+      }),
+      startWith({
+        range: `${null} - ${null}`,
+        total: null,
+      }),
+    );
   }
 
   /**

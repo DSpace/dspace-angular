@@ -6,7 +6,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -25,11 +28,19 @@ import { ResourcePolicyDataService } from '../../../core/resource-policy/resourc
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
 
 @Component({
   selector: 'ds-resource-policy-edit',
   templateUrl: './resource-policy-edit.component.html',
+  imports: [
+    ResourcePolicyFormComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class ResourcePolicyEditComponent implements OnInit {
 

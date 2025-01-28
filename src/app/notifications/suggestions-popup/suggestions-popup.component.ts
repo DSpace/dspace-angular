@@ -1,21 +1,29 @@
 import { trigger } from '@angular/animations';
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
   of,
   Subject,
+  Subscription,
 } from 'rxjs';
 import {
   take,
   takeUntil,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { fromTopEnter } from '../../shared/animations/fromTop';
 import { isNotEmpty } from '../../shared/empty.util';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
@@ -33,12 +41,20 @@ import { SuggestionsService } from '../suggestions.service';
       fromTopEnter,
     ]),
   ],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    RouterLink,
+    NgIf,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 
   labelPrefix = 'notification.';
 
-  subscription;
+  subscription: Subscription;
 
   suggestionsRD$: Observable<SuggestionTarget[]>;
 

@@ -16,9 +16,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { Version } from '../shared/version.model';
-import { VERSION } from '../shared/version.resource-type';
 import { VersionHistory } from '../shared/version-history.model';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PatchData,
@@ -32,8 +30,7 @@ import { RestRequestMethod } from './rest-request-method';
 /**
  * Service responsible for handling requests related to the Version object
  */
-@Injectable()
-@dataService(VERSION)
+@Injectable({ providedIn: 'root' })
 export class VersionDataService extends IdentifiableDataService<Version> implements PatchData<Version> {
   private patchData: PatchData<Version>;
 

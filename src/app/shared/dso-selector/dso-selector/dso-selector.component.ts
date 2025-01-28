@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   ElementRef,
   EventEmitter,
@@ -9,8 +15,16 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -48,10 +62,13 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../empty.util';
+import { HoverClassDirective } from '../../hover-class.directive';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { NotificationType } from '../../notifications/models/notification-type';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ListableNotificationObject } from '../../object-list/listable-notification-object/listable-notification-object.model';
 import { LISTABLE_NOTIFICATION_OBJECT } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
 import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
@@ -61,6 +78,8 @@ import { SearchResult } from '../../search/models/search-result.model';
   selector: 'ds-dso-selector',
   styleUrls: ['./dso-selector.component.scss'],
   templateUrl: './dso-selector.component.html',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgIf, NgFor, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 
 /**
@@ -159,6 +178,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    */
   public subs: Subscription[] = [];
 
+  /**
+   * Random seed of 4 characters to avoid duplicate ids
+   */
+  randomSeed: string = Math.random().toString(36).substring(2, 6);
+
   constructor(
     protected searchService: SearchService,
     protected notifcationsService: NotificationsService,
@@ -172,7 +196,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * The search will always start with the initial currentDSOId value
    */
   ngOnInit(): void {
-    this.typesString = this.types.map((type: string) => type.toString().toLowerCase()).join(', ');
+    this.typesString = this.types.map((type: string) => this.translate.instant(`dso-selector.placeholder.type.${type.toString().toLowerCase()}`)).join(', ');
 
     // Create an observable searching for the current DSO (return empty list if there's no current DSO)
     let currentDSOResult$: Observable<PaginatedList<SearchResult<DSpaceObject>>>;

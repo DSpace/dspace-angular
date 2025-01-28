@@ -19,7 +19,7 @@
     </div>
     <div class="sidebar-collapsible-element-outer-wrapper">
       <div class="sidebar-collapsible-element-inner-wrapper sidebar-item toggler-wrapper">
-        <span [id]="adminMenuSectionTitleId(section.id)">
+        <span [id]="adminMenuSectionTitleId(section.id)" [attr.data-test]="adminMenuSectionTitleId(section.id) | dsBrowserOnly">
           <ng-container
             *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
         </span>
@@ -35,7 +35,6 @@
       <div class="sidebar-collapsible-element-inner-wrapper">
         <div class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section.id)" [attr.aria-label]="('menu.section.' + section.id) | translate">
           <div class="sidebar-item" *ngFor="let subSection of (subSections$ | async)">
-            {{ (sectionMap$ | async).get(subSection.id).component | json}}
             <ng-container
               *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
           </div>

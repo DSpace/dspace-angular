@@ -3,6 +3,7 @@ import {
   deserialize,
 } from 'cerialize';
 
+import { FilterType } from '../../../../shared/search/models/filter-type.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { CacheableObject } from '../../../cache/cacheable-object.model';
 import { HALLink } from '../../hal-link.model';
@@ -20,31 +21,31 @@ export class SearchConfig implements CacheableObject {
    * The id of this search configuration.
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The configured filters.
    */
   @autoserialize
-    filters: FilterConfig[];
+  filters: FilterConfig[];
 
   /**
    * The configured sort options.
    */
   @autoserialize
-    sortOptions: SortConfig[];
+  sortOptions: SortConfig[];
 
   /**
    * The object type.
    */
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The {@link HALLink}s for this Item
    */
   @deserialize
-    _links: {
+  _links: {
     facets: HALLink;
     objects: HALLink;
     self: HALLink;
@@ -60,7 +61,7 @@ export interface FilterConfig {
   operators: OperatorConfig[];
   openByDefault: boolean;
   pageSize: number;
-  type: string;
+  type: FilterType;
 }
 
 /**

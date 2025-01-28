@@ -1,12 +1,21 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
   OnChanges,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -17,17 +26,21 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../core/shared/search/search-filter.service';
 import {
   hasValue,
   isNotEmpty,
 } from '../empty.util';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
 @Component({
-  selector: 'ds-search-form',
+  selector: 'ds-base-search-form',
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
+  standalone: true,
+  imports: [FormsModule, NgIf, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 /**
  * Component that represents the search form
@@ -47,7 +60,7 @@ export class SearchFormComponent implements OnChanges {
    * The currently selected scope object's UUID
    */
   @Input()
-    scope = '';
+  scope = '';
 
   /**
    * Hides the scope in the url, this can be useful when you hardcode the scope in another way
@@ -86,6 +99,7 @@ export class SearchFormComponent implements OnChanges {
   constructor(
     protected router: Router,
     protected searchService: SearchService,
+    protected searchFilterService: SearchFilterService,
     protected paginationService: PaginationService,
     protected searchConfig: SearchConfigurationService,
     protected modalService: NgbModal,
@@ -122,6 +136,7 @@ export class SearchFormComponent implements OnChanges {
    */
   onScopeChange(scope: DSpaceObject) {
     this.updateSearch({ scope: scope ? scope.uuid : undefined });
+    this.searchFilterService.minimizeAll();
   }
 
   /**

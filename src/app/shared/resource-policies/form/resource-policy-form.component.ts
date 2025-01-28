@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   ElementRef,
   EventEmitter,
@@ -11,6 +16,7 @@ import {
 import {
   NgbModal,
   NgbNavChangeEvent,
+  NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
@@ -18,6 +24,7 @@ import {
   DynamicFormGroupModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -50,8 +57,10 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../empty.util';
+import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
 import {
   RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG,
@@ -78,6 +87,16 @@ export interface ResourcePolicyEvent {
 @Component({
   selector: 'ds-resource-policy-form',
   templateUrl: './resource-policy-form.component.html',
+  imports: [
+    FormComponent,
+    NgbNavModule,
+    EpersonGroupListComponent,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NgFor,
+  ],
+  standalone: true,
 })
 /**
  * Component that show form for adding/editing a resource policy

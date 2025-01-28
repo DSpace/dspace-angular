@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Injector,
@@ -8,7 +14,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -31,18 +40,26 @@ import {
   fadeInOut,
 } from '../animations/fade';
 import { hasValue } from '../empty.util';
+import { ErrorComponent } from '../error/error.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../object-collection/object-collection.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { StartsWithType } from '../starts-with/starts-with-decorator';
+import { ThemedResultsBackButtonComponent } from '../results-back-button/themed-results-back-button.component';
+import { StartsWithLoaderComponent } from '../starts-with/starts-with-loader.component';
+import { StartsWithType } from '../starts-with/starts-with-type';
+import { VarDirective } from '../utils/var.directive';
 
 @Component({
-  selector: 'ds-browse-by',
+  selector: 'ds-base-browse-by',
   styleUrls: ['./browse-by.component.scss'],
   templateUrl: './browse-by.component.html',
   animations: [
     fadeIn,
     fadeInOut,
   ],
+  standalone: true,
+  imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
 })
 /**
  * Component to display a browse-by page for any ListableObject

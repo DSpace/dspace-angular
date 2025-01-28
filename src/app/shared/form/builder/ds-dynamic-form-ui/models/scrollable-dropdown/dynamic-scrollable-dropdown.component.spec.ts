@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  Injector,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -29,6 +30,7 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../../../config/app-config.interface';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -92,17 +94,17 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         ReactiveFormsModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         DsDynamicScrollableDropdownComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
+        Injector,
         ChangeDetectorRef,
         DsDynamicScrollableDropdownComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -188,7 +190,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         scrollableDropdownFixture.detectChanges();
 
         de = scrollableDropdownFixture.debugElement.queryAll(By.css('button.dropdown-item'));
-        btnEl = de[0].nativeElement;
+        btnEl = de[1].nativeElement;
 
         btnEl.dispatchEvent(mousedownEvent);
         scrollableDropdownFixture.detectChanges();
@@ -240,6 +242,13 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    InfiniteScrollModule,
+    ReactiveFormsModule,
+    NgbModule],
 })
 class TestComponent {
 

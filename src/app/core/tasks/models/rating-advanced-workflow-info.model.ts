@@ -21,12 +21,12 @@ export class RatingAdvancedWorkflowInfo extends AdvancedWorkflowInfo {
    * Whether the description is required.
    */
   @autoserialize
-    descriptionRequired: boolean;
+  descriptionRequired: boolean;
 
   /**
    * The maximum value.
    */
   @autoserialize
-    maxValue: number;
+  maxValue: number;
 
 }

@@ -64,8 +64,6 @@ describe('LogInExternalProviderComponent', () => {
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         LogInExternalProviderComponent,
       ],
       providers: [

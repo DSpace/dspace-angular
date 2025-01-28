@@ -1,11 +1,25 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -49,13 +63,29 @@ import {
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-groups-registry',
   templateUrl: './groups-registry.component.html',
+  imports: [
+    ThemedLoadingComponent,
+    TranslateModule,
+    RouterLink,
+    ReactiveFormsModule,
+    AsyncPipe,
+    NgIf,
+    PaginationComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgbTooltipModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 /**
  * A component used for managing all existing groups within the repository.
@@ -116,7 +146,6 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private formBuilder: UntypedFormBuilder,
               protected routeService: RouteService,
-              private router: Router,
               private authorizationService: AuthorizationDataService,
               private paginationService: PaginationService,
               public requestService: RequestService,

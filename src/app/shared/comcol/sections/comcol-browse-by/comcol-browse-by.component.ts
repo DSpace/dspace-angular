@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -10,16 +11,22 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
+import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 
 @Component({
   selector: 'ds-comcol-browse-by',
   templateUrl: './comcol-browse-by.component.html',
   styleUrls: ['./comcol-browse-by.component.scss'],
+  imports: [
+    BrowseBySwitcherComponent,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class ComcolBrowseByComponent implements OnInit {
 
-  browseByType$: Observable<BrowseByDataType>;
+  browseByType$: Observable<{type: BrowseByDataType }>;
 
   scope$: Observable<string>;
 
@@ -33,7 +40,7 @@ export class ComcolBrowseByComponent implements OnInit {
    */
   ngOnInit(): void {
     this.browseByType$ = this.route.data.pipe(
-      map((data: { browseDefinition: BrowseDefinition }) => data.browseDefinition.getRenderType()),
+      map((data: { browseDefinition: BrowseDefinition }) => ({ type: data.browseDefinition.getRenderType() })),
     );
     this.scope$ = this.route.data.pipe(
       map((data: Data) => data.scope),

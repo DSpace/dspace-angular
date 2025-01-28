@@ -1,17 +1,23 @@
+import { CommonModule } from '@angular/common';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
   HostListener,
   Input,
+  OnInit,
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
-import { FileUploader } from 'ng2-file-upload';
+import {
+  FileUploader,
+  FileUploadModule,
+} from 'ng2-file-upload';
 import { of as observableOf } from 'rxjs';
 
 import { DragService } from '../../../core/drag.service';
@@ -35,9 +41,10 @@ import { UploaderProperties } from './uploader-properties.model';
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
+  standalone: true,
+  imports: [TranslateModule, FileUploadModule, CommonModule],
 })
-
-export class UploaderComponent {
+export class UploaderComponent implements OnInit, AfterViewInit {
 
   /**
    * The message to show when drag files on the drop zone
@@ -108,7 +115,6 @@ export class UploaderComponent {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private scrollToService: ScrollToService,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
     private cookieService: CookieService,
@@ -118,7 +124,7 @@ export class UploaderComponent {
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.uploaderId = 'ds-drag-and-drop-uploader' + uniqueId();
     this.checkConfig(this.uploadFilesOptions);
     this.uploader = new FileUploader({
@@ -143,7 +149,7 @@ export class UploaderComponent {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.uploader.onAfterAddingAll = ((items) => {
       this.onFileSelected.emit(items);
     });

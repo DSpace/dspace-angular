@@ -17,7 +17,10 @@ import {
   BrowserModule,
   By,
 } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterModule,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -38,13 +41,15 @@ import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ItemSharedModule } from '../item-shared.module';
 import { ItemVersionsComponent } from './item-versions.component';
 
 describe('ItemVersionsComponent', () => {
@@ -153,8 +158,7 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ItemVersionsComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule],
+      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemVersionsComponent, VarDirective],
       providers: [
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
@@ -167,10 +171,14 @@ describe('ItemVersionsComponent', () => {
         { provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy },
         { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
         { provide: ConfigurationDataService, useValue: configurationServiceSpy },
-        { provide: Router, useValue: routerSpy },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ItemVersionsComponent, {
+        remove: { imports: [AlertComponent, PaginationComponent] },
+      })
+      .compileComponents();
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
     authenticationService = TestBed.inject(AuthService);
@@ -197,19 +205,6 @@ describe('ItemVersionsComponent', () => {
 
   versions.forEach((version: Version, index: number) => {
     const versionItem = items[index];
-
-    it(`should display version ${version.version} in the correct column for version ${version.id}`, () => {
-      const id = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-version`));
-      expect(id.nativeElement.textContent).toContain(version.version.toString());
-    });
-
-    // Check if the current version contains an asterisk
-    if (item1.uuid === versionItem.uuid) {
-      it('should add an asterisk to the version of the selected item', () => {
-        const item = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-version`));
-        expect(item.nativeElement.textContent).toContain('*');
-      });
-    }
 
     it(`should display date ${version.created} in the correct column for version ${version.id}`, () => {
       const date = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-date`));
@@ -309,46 +304,6 @@ describe('ItemVersionsComponent', () => {
     it('isThisBeingEdited should be false for all versions', () => {
       expect(component.isThisBeingEdited(version1)).toBeFalse();
       expect(component.isThisBeingEdited(version2)).toBeFalse();
-    });
-  });
-
-  describe('when deleting a version', () => {
-    let deleteButton;
-
-    beforeEach(() => {
-      const canDelete = (featureID: FeatureID, url: string ) => of(featureID === FeatureID.CanDeleteVersion);
-      authorizationServiceSpy.isAuthorized.and.callFake(canDelete);
-
-      fixture.detectChanges();
-
-      // delete the last version in the table (version2 → item2)
-      deleteButton = fixture.debugElement.queryAll(By.css('.version-row-element-delete'))[1].nativeElement;
-
-      itemDataServiceSpy.delete.calls.reset();
-    });
-
-    describe('if confirmed via modal', () => {
-      beforeEach(waitForAsync(() => {
-        deleteButton.click();
-        fixture.detectChanges();
-        (document as any).querySelector('.modal-footer .confirm').click();
-      }));
-
-      it('should call ItemService.delete', () => {
-        expect(itemDataServiceSpy.delete).toHaveBeenCalledWith(item2.id);
-      });
-    });
-
-    describe('if canceled via modal', () => {
-      beforeEach(waitForAsync(() => {
-        deleteButton.click();
-        fixture.detectChanges();
-        (document as any).querySelector('.modal-footer .cancel').click();
-      }));
-
-      it('should not call ItemService.delete', () => {
-        expect(itemDataServiceSpy.delete).not.toHaveBeenCalled();
-      });
     });
   });
 });

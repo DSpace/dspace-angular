@@ -11,6 +11,7 @@ import { hasValue } from '../empty.util';
  */
 @Pipe({
   name: 'dsTruncate',
+  standalone: true,
 })
 export class TruncatePipe implements PipeTransform {
 

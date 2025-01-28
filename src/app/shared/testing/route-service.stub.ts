@@ -41,5 +41,8 @@ export const routeServiceStub: any = {
   getPreviousUrl: () => {
     return observableOf('/home');
   },
+  setParameter: (key: any, value: any) => {
+    return;
+  },
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };

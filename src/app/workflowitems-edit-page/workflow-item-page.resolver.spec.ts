@@ -2,11 +2,11 @@ import { first } from 'rxjs/operators';
 
 import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
+import { workflowItemPageResolver } from './workflow-item-page.resolver';
 
-describe('WorkflowItemPageResolver', () => {
+describe('workflowItemPageResolver', () => {
   describe('resolve', () => {
-    let resolver: WorkflowItemPageResolver;
+    let resolver: any;
     let wfiService: WorkflowItemDataService;
     const uuid = '1234-65487-12354-1235';
 
@@ -14,11 +14,11 @@ describe('WorkflowItemPageResolver', () => {
       wfiService = {
         findById: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       } as any;
-      resolver = new WorkflowItemPageResolver(wfiService);
+      resolver = workflowItemPageResolver;
     });
 
     it('should resolve a workflow item with the correct id', (done) => {
-      resolver.resolve({ params: { id: uuid } } as any, undefined)
+      resolver({ params: { id: uuid } } as any, undefined, wfiService)
         .pipe(first())
         .subscribe(
           (resolved) => {

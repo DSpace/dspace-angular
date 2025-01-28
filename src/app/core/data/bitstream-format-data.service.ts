@@ -25,11 +25,9 @@ import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
-import { dataService } from './base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -60,8 +58,7 @@ const selectedBitstreamFormatSelector = createSelector(
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bitstreamformats endpoint
  */
-@Injectable()
-@dataService(BITSTREAM_FORMAT)
+@Injectable({ providedIn: 'root' })
 export class BitstreamFormatDataService extends IdentifiableDataService<BitstreamFormat> implements FindAllData<BitstreamFormat>, DeleteData<BitstreamFormat> {
 
   protected linkPath = 'bitstreamformats';

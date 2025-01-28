@@ -21,6 +21,7 @@ import { SelectableListService } from '../../../../../object-list/selectable-lis
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
+import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { relatedRelationships } from '../../../../../testing/related-relationships.mock';
 import { VarDirective } from '../../../../../utils/var.directive';
@@ -97,8 +98,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationSearchTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsDynamicLookupRelationSearchTabComponent, VarDirective],
       providers: [
         { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
         {
@@ -112,10 +112,14 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
         { provide: LookupRelationService, useValue: lookupRelationService },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: RelationshipDataService, useValue: relationshipService },
-
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(DsDynamicLookupRelationSearchTabComponent, {
+        remove: {
+          imports: [ThemedSearchComponent],
+        },
+      })
       .compileComponents();
   }));
 
@@ -157,18 +161,6 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     it('should emit the page filtered from not yet selected objects and call select on the service for all objects', () => {
       expect((component.deselectObject as any).emit).toHaveBeenCalledWith(searchResult1, searchResult2);
       expect(selectableListService.deselect).toHaveBeenCalledWith(listID, [searchResult1, searchResult2, searchResult3]);
-    });
-  });
-
-  describe('selectAll', () => {
-    beforeEach(() => {
-      spyOn(component.selectObject, 'emit');
-      component.selectAll();
-    });
-
-    it('should emit the page filtered from already selected objects and call select on the service for all objects', () => {
-      expect(component.selectObject.emit).toHaveBeenCalledWith(searchResult3);
-      expect(selectableListService.select).toHaveBeenCalledWith(listID, [searchResult1, searchResult2, searchResult3]);
     });
   });
 

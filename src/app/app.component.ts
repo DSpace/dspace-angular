@@ -1,4 +1,5 @@
 import {
+  AsyncPipe,
   DOCUMENT,
   isPlatformBrowser,
 } from '@angular/common';
@@ -31,6 +32,7 @@ import {
   Observable,
 } from 'rxjs';
 import {
+  delay,
   distinctUntilChanged,
   take,
   withLatestFrom,
@@ -39,12 +41,12 @@ import {
 import { environment } from '../environments/environment';
 import { AuthService } from './core/auth/auth.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { models } from './core/core.module';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from './core/services/window.service';
 import { distinctNext } from './core/shared/distinct-next';
+import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
@@ -56,6 +58,11 @@ import { ThemeService } from './shared/theme-support/theme.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    ThemedRootComponent,
+    AsyncPipe,
+  ],
 })
 export class AppComponent implements OnInit, AfterViewInit {
   notificationOptions;
@@ -96,9 +103,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   ) {
     this.notificationOptions = environment.notifications;
 
-    /* Use models object so all decorators are actually called */
-    this.models = models;
-
     if (isPlatformBrowser(this.platformId)) {
       this.trackIdleModal();
     }
@@ -133,7 +137,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.router.events.subscribe((event) => {
+    this.router.events.pipe(
+      // delay(0) to prevent "Expression has changed after it was checked" errors
+      delay(0),
+    ).subscribe((event) => {
       if (event instanceof NavigationStart) {
         distinctNext(this.isRouteLoading$, true);
       } else if (

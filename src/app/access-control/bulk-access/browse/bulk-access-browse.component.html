@@ -23,10 +23,10 @@
             <a ngbNavLink>{{'admin.access-control.bulk-access-browse.search.header' | translate}}</a>
             <ng-template ngbNavContent>
               <div class="mx-n3">
-                <ds-themed-search [configuration]="'administrativeBulkAccess'"
+                <ds-search [configuration]="'administrativeBulkAccess'"
                                   [selectable]="true"
                                   [selectionConfig]="{ repeatable: true, listId: listId }"
-                                  [showThumbnails]="false"></ds-themed-search>
+                                  [showThumbnails]="false"></ds-search>
               </div>
             </ng-template>
           </li>
@@ -37,7 +37,6 @@
             <ng-template ngbNavContent>
               <ds-pagination
                 [paginationOptions]="(paginationOptions$ | async)"
-                [pageInfoState]="(objectsSelected$|async)?.payload.pageInfo"
                 [collectionSize]="(objectsSelected$|async)?.payload?.totalElements"
                 [objects]="(objectsSelected$|async)"
                 [showPaginator]="false"

@@ -4,8 +4,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -22,6 +29,8 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   selector: 'ds-item-actions',
   styleUrls: ['./item-actions.component.scss'],
   templateUrl: './item-actions.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, RouterLink, TranslateModule],
 })
 
 export class ItemActionsComponent extends MyDSpaceActionsComponent<Item, ItemDataService> implements OnInit {

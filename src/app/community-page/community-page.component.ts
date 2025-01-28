@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
@@ -6,7 +10,10 @@ import {
 import {
   ActivatedRoute,
   Router,
+  RouterModule,
+  RouterOutlet,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -24,15 +31,47 @@ import { Bitstream } from '../core/shared/bitstream.model';
 import { Community } from '../core/shared/community.model';
 import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
+import { ThemedComcolPageBrowseByComponent } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ThemedComcolPageContentComponent } from '../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { hasValue } from '../shared/empty.util';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { VarDirective } from '../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { getCommunityPageRoute } from './community-page-routing-paths';
+import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
+import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
 
 @Component({
-  selector: 'ds-community-page',
+  selector: 'ds-base-community-page',
   styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
+  imports: [
+    ThemedComcolPageContentComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    NgIf,
+    TranslateModule,
+    ThemedCommunityPageSubCommunityListComponent,
+    ThemedCollectionPageSubCollectionListComponent,
+    ThemedComcolPageBrowseByComponent,
+    DsoEditMenuComponent,
+    ThemedComcolPageHandleComponent,
+    ComcolPageLogoComponent,
+    ComcolPageHeaderComponent,
+    AsyncPipe,
+    ViewTrackerComponent,
+    VarDirective,
+    RouterOutlet,
+    RouterModule,
+  ],
+  standalone: true,
 })
 /**
  * This component represents a detail page for a single community

@@ -32,7 +32,7 @@ export const maxMobileWidth = WidthCategory.SM;
 const hostWindowStateSelector = (state: AppState) => state.hostWindow;
 const widthSelector = createSelector(hostWindowStateSelector, (hostWindow: HostWindowState) => hostWindow.width);
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HostWindowService {
   private breakPoints: { XS_MIN, SM_MIN, MD_MIN, LG_MIN, XL_MIN } = {} as any;
 

@@ -65,8 +65,7 @@ describe('ItemWithdrawComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemWithdrawComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemWithdrawComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },

@@ -38,11 +38,9 @@ describe('NumberPickerComponent test suite', () => {
         ReactiveFormsModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         NumberPickerComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         NumberPickerComponent,
@@ -161,6 +159,11 @@ describe('NumberPickerComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    NumberPickerComponent],
 })
 class TestComponent {
 

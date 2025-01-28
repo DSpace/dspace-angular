@@ -20,6 +20,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { AuthService } from '../../core/auth/auth.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {
   mockSectionsData,
   mockSectionsList,
@@ -30,14 +31,21 @@ import {
   mockSubmissionSelfUrl,
   mockSubmissionState,
 } from '../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
 import { SectionsService } from '../sections/sections.service';
 import { VisibilityType } from '../sections/visibility-type';
 import { SubmissionService } from '../submission.service';
+import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
+import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
+import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
 import { SubmissionFormComponent } from './submission-form.component';
+import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
 
 describe('SubmissionFormComponent Component', () => {
 
@@ -59,21 +67,31 @@ describe('SubmissionFormComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [
-        SubmissionFormComponent,
-        TestComponent,
+      imports: [SubmissionFormComponent, TestComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
+        { provide: ThemeService, useValue: getMockThemeService() },
         ChangeDetectorRef,
         SubmissionFormComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(SubmissionFormComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+            SubmissionSectionContainerComponent,
+            SubmissionFormFooterComponent,
+            ThemedSubmissionUploadFilesComponent,
+            SubmissionFormCollectionComponent,
+            SubmissionFormSectionAddComponent,
+          ] },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -259,6 +277,7 @@ describe('SubmissionFormComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

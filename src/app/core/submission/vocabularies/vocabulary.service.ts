@@ -32,7 +32,7 @@ import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.da
 /**
  * A service responsible for fetching/sending data from/to the REST API on the vocabularies endpoint
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class VocabularyService {
   protected searchTopMethod = 'top';
 

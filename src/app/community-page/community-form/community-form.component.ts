@@ -1,17 +1,26 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnChanges,
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
@@ -20,7 +29,11 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * Form used for creating and editing communities
@@ -29,6 +42,17 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   selector: 'ds-community-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
+  standalone: true,
+  imports: [
+    FormComponent,
+    TranslateModule,
+    UploaderComponent,
+    AsyncPipe,
+    ComcolPageLogoComponent,
+    NgIf,
+    NgClass,
+    VarDirective,
+  ],
 })
 export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges {
   /**
@@ -85,8 +109,9 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
                      protected authService: AuthService,
                      protected dsoService: CommunityDataService,
                      protected requestService: RequestService,
-                     protected objectCache: ObjectCacheService) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache);
+                     protected objectCache: ObjectCacheService,
+                     protected modalService: NgbModal) {
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 
   ngOnChanges(changes: SimpleChanges) {

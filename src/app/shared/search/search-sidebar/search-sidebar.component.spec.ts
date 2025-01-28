@@ -1,4 +1,7 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -8,19 +11,48 @@ import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment.test';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
+import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
+import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
 import { SearchSidebarComponent } from './search-sidebar.component';
 
 describe('SearchSidebarComponent', () => {
   let comp: SearchSidebarComponent;
   let fixture: ComponentFixture<SearchSidebarComponent>;
-  // waitForAsync beforeEach
+
+  let searchConfigurationService: SearchConfigurationServiceStub;
+
   beforeEach(waitForAsync(() => {
+    searchConfigurationService = new SearchConfigurationServiceStub();
+
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NgbCollapseModule],
-      declarations: [SearchSidebarComponent],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents();  // compile template and css
+      imports: [
+        TranslateModule.forRoot(),
+        NgbCollapseModule,
+        SearchSidebarComponent,
+      ],
+      providers: [
+        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).overrideProvider(APP_CONFIG, {
+      useValue: environment,
+    }).overrideComponent(SearchSidebarComponent, {
+      remove:{
+        imports: [
+          AdvancedSearchComponent,
+          ThemedSearchFiltersComponent,
+          ThemedSearchSettingsComponent,
+        ],
+      },
+      add: {
+        changeDetection: ChangeDetectionStrategy.Default,
+      },
+    }).compileComponents();
   }));
 
   // synchronous beforeEach

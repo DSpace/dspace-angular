@@ -11,7 +11,7 @@ import { RoleType } from './role-types';
 /**
  * A service that provides methods to identify user role.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RoleService {
 
   /**

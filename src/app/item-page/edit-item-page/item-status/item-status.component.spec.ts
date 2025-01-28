@@ -79,8 +79,7 @@ describe('ItemStatusComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemStatusComponent],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemStatusComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },

@@ -64,7 +64,7 @@ class CollectionItemTemplateDataService extends IdentifiableDataService<Item> {
 /**
  * A service responsible for fetching/sending data from/to the REST API on a collection's itemtemplates endpoint
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemTemplateDataService extends BaseItemDataService {
   private byCollection: CollectionItemTemplateDataService;
 

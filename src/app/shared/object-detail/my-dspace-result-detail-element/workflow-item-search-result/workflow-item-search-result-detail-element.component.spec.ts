@@ -17,8 +17,10 @@ import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { WorkflowItemSearchResultDetailElementComponent } from './workflow-item-search-result-detail-element.component';
 
 let component: WorkflowItemSearchResultDetailElementComponent;
@@ -65,8 +67,7 @@ mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: obs
 describe('WorkflowItemSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [WorkflowItemSearchResultDetailElementComponent],
+      imports: [NoopAnimationsModule, WorkflowItemSearchResultDetailElementComponent],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockResultObject) },
         { provide: 'indexElementProvider', useValue: (compIndex) },
@@ -75,7 +76,10 @@ describe('WorkflowItemSearchResultDetailElementComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(WorkflowItemSearchResultDetailElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ItemDetailPreviewComponent, WorkflowitemActionsComponent],
+      },
     }).compileComponents();
   }));
 

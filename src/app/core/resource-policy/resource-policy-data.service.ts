@@ -13,7 +13,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CreateDataImpl } from '../data/base/create-data';
-import { dataService } from '../data/base/data-service.decorator';
 import { DeleteDataImpl } from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { PatchDataImpl } from '../data/base/patch-data';
@@ -36,13 +35,11 @@ import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ActionType } from './models/action-type.model';
 import { ResourcePolicy } from './models/resource-policy.model';
-import { RESOURCE_POLICY } from './models/resource-policy.resource-type';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the resourcepolicies endpoint
  */
-@Injectable()
-@dataService(RESOURCE_POLICY)
+@Injectable({ providedIn: 'root' })
 export class ResourcePolicyDataService extends IdentifiableDataService<ResourcePolicy> {
   protected searchByEPersonMethod = 'eperson';
   protected searchByGroupMethod = 'group';

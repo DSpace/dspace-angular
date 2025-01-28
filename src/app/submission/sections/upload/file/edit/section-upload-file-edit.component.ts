@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -20,20 +21,21 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
   filter,
   mergeMap,
   take,
 } from 'rxjs/operators';
+import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
 import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
 import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionUploadObject } from '../../../../../core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';
@@ -48,8 +50,8 @@ import { FormFieldModel } from '../../../../../shared/form/builder/models/form-f
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { SubmissionService } from '../../../../submission.service';
-import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { SectionUploadService } from '../../section-upload.service';
+import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import {
   BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
   BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT,
@@ -74,6 +76,12 @@ import {
   selector: 'ds-submission-section-upload-file-edit',
   styleUrls: ['./section-upload-file-edit.component.scss'],
   templateUrl: './section-upload-file-edit.component.html',
+  imports: [
+    FormComponent,
+    NgIf,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class SubmissionSectionUploadFileEditComponent
 implements OnInit, OnDestroy {

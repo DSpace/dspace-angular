@@ -1,4 +1,4 @@
-<ds-themed-results-back-button *ngIf="showBackButton$ | async" [back]="back"></ds-themed-results-back-button>
+<ds-results-back-button *ngIf="showBackButton$ | async" [back]="back"></ds-results-back-button>
 <div class="row" *ngIf="iiifEnabled">
   <div class="col-12">
     <ds-mirador-viewer id="iiif-viewer"
@@ -10,28 +10,28 @@
 </div>
 
 <div class="d-flex flex-row">
-  <ds-themed-item-page-title-field [item]="object" class="mr-auto">
-  </ds-themed-item-page-title-field>
+  <ds-item-page-title-field [item]="object" class="mr-auto">
+  </ds-item-page-title-field>
   <ds-dso-edit-menu></ds-dso-edit-menu>
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
-        <ds-themed-thumbnail [thumbnail]="object?.thumbnail | async"></ds-themed-thumbnail>
+        <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     </ng-container>
     <div *ngIf="mediaViewer.image || mediaViewer.video" class="mb-2">
-      <ds-themed-media-viewer [item]="object"></ds-themed-media-viewer>
+      <ds-media-viewer [item]="object"></ds-media-viewer>
     </div>
-    <ds-themed-item-page-file-section [item]="object"></ds-themed-item-page-file-section>
+    <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
-    <ds-themed-metadata-representation-list class="ds-item-page-mixed-author-field"
+    <ds-metadata-representation-list class="ds-item-page-mixed-author-field"
       [parentItem]="object"
       [itemType]="'Person'"
       [metadataFields]="['dc.contributor.author', 'dc.creator']"
       [label]="'relationships.isAuthorOf' | translate">
-    </ds-themed-metadata-representation-list>
+    </ds-metadata-representation-list>
     <ds-generic-item-page-field [item]="object"
       [fields]="['journal.title']"
       [label]="'item.page.journal-title'">
@@ -71,7 +71,7 @@
     </ds-item-page-uri-field>
     <ds-item-page-collections [item]="object"></ds-item-page-collections>
     <ds-item-page-uri-field [item]="object"
-      [fields]="['notify.relation.endorsedBy']"
+      [fields]="['coar.notify.endorsedBy']"
       [label]="'item.page.endorsement'">
     </ds-item-page-uri-field>
     <ds-item-page-uri-field [item]="object"
@@ -80,12 +80,14 @@
     </ds-item-page-uri-field>
     <ds-item-page-uri-field [item]="object"
       [fields]="['datacite.relation.isSupplementedBy']"
-      [label]="'item.page.dataset'">
+      [label]="'item.page.supplemented'">
     </ds-item-page-uri-field>
     <ds-item-page-uri-field [item]="object"
       [fields]="['datacite.relation.isReferencedBy']"
-      [label]="'item.page.dataset'">
+      [label]="'item.page.referenced'">
     </ds-item-page-uri-field>
+    <ds-item-page-cc-license-field [item]="object" [variant]="'full'">
+    </ds-item-page-cc-license-field>
     <div>
       <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button">
         <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}

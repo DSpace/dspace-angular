@@ -25,19 +25,13 @@ describe('AdminSidebarSectionComponent', () => {
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot()],
-        declarations: [AdminSidebarSectionComponent, TestComponent],
+        imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot(), AdminSidebarSectionComponent, TestComponent],
         providers: [
           { provide: 'sectionDataProvider', useValue: { model: { link: 'google.com' }, icon: iconString } },
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         ],
-      }).overrideComponent(AdminSidebarSectionComponent, {
-        set: {
-          entryComponents: [TestComponent],
-        },
-      })
-        .compileComponents();
+      }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -65,19 +59,13 @@ describe('AdminSidebarSectionComponent', () => {
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot()],
-        declarations: [AdminSidebarSectionComponent, TestComponent],
+        imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot(), AdminSidebarSectionComponent, TestComponent],
         providers: [
           { provide: 'sectionDataProvider', useValue: { model: { link: 'google.com', disabled: true }, icon: iconString } },
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         ],
-      }).overrideComponent(AdminSidebarSectionComponent, {
-        set: {
-          entryComponents: [TestComponent],
-        },
-      })
-        .compileComponents();
+      }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -107,6 +95,8 @@ describe('AdminSidebarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [RouterTestingModule],
 })
 class TestComponent {
 }

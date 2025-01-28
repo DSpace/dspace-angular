@@ -20,7 +20,6 @@ import { SiteDataService } from '../../core/data/site-data.service';
 import { Site } from '../../core/shared/site.model';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { SharedModule } from '../../shared/shared.module';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { SiteStatisticsPageComponent } from './site-statistics-page.component';
 
@@ -73,9 +72,6 @@ describe('SiteStatisticsPageComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         CommonModule,
-        SharedModule,
-      ],
-      declarations: [
         SiteStatisticsPageComponent,
         StatisticsTableComponent,
       ],

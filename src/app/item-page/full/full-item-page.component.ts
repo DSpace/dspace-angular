@@ -1,4 +1,10 @@
-import { Location } from '@angular/common';
+import {
+  AsyncPipe,
+  KeyValuePipe,
+  Location,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,7 +17,9 @@ import {
   ActivatedRoute,
   Data,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -21,7 +29,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -32,8 +39,19 @@ import { ServerResponseService } from '../../core/services/server-response.servi
 import { Item } from '../../core/shared/item.model';
 import { MetadataMap } from '../../core/shared/metadata.models';
 import { fadeInOut } from '../../shared/animations/fade';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { hasValue } from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { CollectionsComponent } from '../field-components/collections/collections.component';
+import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemPageComponent } from '../simple/item-page.component';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
 
 /**
  * This component renders a full item page.
@@ -41,11 +59,31 @@ import { ItemPageComponent } from '../simple/item-page.component';
  */
 
 @Component({
-  selector: 'ds-full-item-page',
+  selector: 'ds-base-full-item-page',
   styleUrls: ['./full-item-page.component.scss'],
   templateUrl: './full-item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
+  imports: [
+    ErrorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    ThemedFullFileSectionComponent,
+    CollectionsComponent,
+    ItemVersionsComponent,
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+    KeyValuePipe,
+    RouterLink,
+    ThemedItemPageTitleFieldComponent,
+    DsoEditMenuComponent,
+    ItemVersionsNoticeComponent,
+    ViewTrackerComponent,
+    ThemedItemAlertsComponent,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit, OnDestroy {
 
@@ -64,7 +102,6 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected _location: Location,
     protected responseService: ServerResponseService,
@@ -73,7 +110,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
-    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
+    super(route, router, items, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/

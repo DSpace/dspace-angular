@@ -17,7 +17,6 @@ import {
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 
 import { Process } from '../../../process-page/processes/process.model';
-import { PROCESS } from '../../../process-page/processes/process.resource-type';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
@@ -27,7 +26,6 @@ import { Bitstream } from '../../shared/bitstream.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NoContent } from '../../shared/NoContent.model';
 import { getAllCompletedRemoteData } from '../../shared/operators';
-import { dataService } from '../base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -56,10 +54,8 @@ export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => v
   factory: () => setTimeout,
 });
 
-@Injectable()
-@dataService(PROCESS)
+@Injectable({ providedIn: 'root' })
 export class ProcessDataService extends IdentifiableDataService<Process> implements FindAllData<Process>, DeleteData<Process>, SearchData<Process> {
-
   private findAllData: FindAllData<Process>;
   private deleteData: DeleteData<Process>;
   private searchData: SearchData<Process>;

@@ -10,6 +10,12 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';
 
 describe('ImportBatchSelectorComponent', () => {
@@ -37,10 +43,12 @@ describe('ImportBatchSelectorComponent', () => {
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [ImportBatchSelectorComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ImportBatchSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
+        { provide: SearchService, useValue: new SearchServiceStub() },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

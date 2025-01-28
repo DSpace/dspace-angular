@@ -46,11 +46,10 @@ describe('MetadataValuesComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
+      }), MetadataValuesComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
       ],
-      declarations: [MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataValuesComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
@@ -82,6 +81,22 @@ describe('MetadataValuesComponent', () => {
   it('should correctly detect a pattern on string containing "test"', () => {
     const mdValue = { value: 'This is a test value' } as MetadataValue;
     expect(comp.hasLink(mdValue)).toBe(true);
+  });
+
+  it('should return correct target and rel for internal links', () => {
+    spyOn(comp, 'hasInternalLink').and.returnValue(true);
+    const urlValue = '/internal-link';
+    const result = comp.getLinkAttributes(urlValue);
+    expect(result.target).toBe('_self');
+    expect(result.rel).toBe('');
+  });
+
+  it('should return correct target and rel for external links', () => {
+    spyOn(comp, 'hasInternalLink').and.returnValue(false);
+    const urlValue = 'https://www.dspace.org';
+    const result = comp.getLinkAttributes(urlValue);
+    expect(result.target).toBe('_blank');
+    expect(result.rel).toBe('noopener noreferrer');
   });
 
 });

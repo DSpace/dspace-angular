@@ -20,7 +20,6 @@ import { ItemType } from '../../../core/shared/item-relationships/item-type.mode
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import {
   createPaginatedList,
@@ -94,11 +93,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewExternalDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
@@ -146,11 +142,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewExternalDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
@@ -197,6 +190,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

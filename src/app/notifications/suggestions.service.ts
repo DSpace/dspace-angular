@@ -21,15 +21,14 @@ import {
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
-import { Suggestion } from '../core/notifications/models/suggestion.model';
-import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
-import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
-import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
+import { Suggestion } from '../core/notifications/suggestions/models/suggestion.model';
+import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionDataService } from '../core/notifications/suggestions/suggestion-data.service';
+import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
 import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
 import { NoContent } from '../core/shared/NoContent.model';
 import {
-  getAllSucceededRemoteDataPayload,
   getFinishedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -38,9 +37,11 @@ import {
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import {
+  hasNoValue,
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
+import { followLink } from '../shared/utils/follow-link-config.model';
 import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
 
 /**
@@ -54,19 +55,19 @@ export interface SuggestionBulkResult {
 /**
  * The service handling all Suggestion Target  requests to the REST service.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SuggestionsService {
 
   /**
    * Initialize the service variables.
    * @param {ResearcherProfileDataService} researcherProfileService
    * @param {SuggestionTargetDataService} suggestionTargetDataService
-   * @param {SuggestionsDataService} suggestionsDataService
+   * @param {SuggestionDataService} suggestionsDataService
    * @param translateService
    */
   constructor(
     private researcherProfileService: ResearcherProfileDataService,
-    private suggestionsDataService: SuggestionsDataService,
+    private suggestionsDataService: SuggestionDataService,
     private suggestionTargetDataService: SuggestionTargetDataService,
     private translateService: TranslateService,
   ) {
@@ -93,7 +94,7 @@ export class SuggestionsService {
       sort: sortOptions,
     };
 
-    return this.suggestionTargetDataService.getTargets(source, findListOptions).pipe(
+    return this.suggestionTargetDataService.getTargetsBySource(source, findListOptions).pipe(
       getFinishedRemoteData(),
       take(1),
       map((rd: RemoteData<PaginatedList<SuggestionTarget>>) => {
@@ -120,7 +121,7 @@ export class SuggestionsService {
    * @return Observable<RemoteData<PaginatedList<Suggestion>>>
    *    The list of Suggestion.
    */
-  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<PaginatedList<Suggestion>> {
+  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<RemoteData<PaginatedList<Suggestion>>> {
     const [source, target] = targetId.split(':');
 
     const findListOptions: FindListOptions = {
@@ -129,9 +130,7 @@ export class SuggestionsService {
       sort: sortOptions,
     };
 
-    return this.suggestionsDataService.getSuggestionsByTargetAndSource(target, source, findListOptions).pipe(
-      getAllSucceededRemoteDataPayload(),
-    );
+    return this.suggestionsDataService.getSuggestionsByTargetAndSource(target, source, findListOptions);
   }
 
   /**
@@ -165,13 +164,16 @@ export class SuggestionsService {
    *   The EPerson id for which to retrieve suggestion targets
    */
   public retrieveCurrentUserSuggestions(userUuid: string): Observable<SuggestionTarget[]> {
-    return this.researcherProfileService.findById(userUuid, true).pipe(
+    if (hasNoValue(userUuid)) {
+      return of([]);
+    }
+    return this.researcherProfileService.findById(userUuid, true, true,  followLink('item')).pipe(
       getFirstCompletedRemoteData(),
       mergeMap((profile: RemoteData<ResearcherProfile> ) => {
         if (isNotEmpty(profile) && profile.hasSucceeded && isNotEmpty(profile.payload)) {
           return this.researcherProfileService.findRelatedItemId(profile.payload).pipe(
             mergeMap((itemId: string) => {
-              return this.suggestionsDataService.getTargetsByUser(itemId).pipe(
+              return this.suggestionTargetDataService.getTargetsByUser(itemId).pipe(
                 getFirstSucceededRemoteListPayload(),
               );
             }),

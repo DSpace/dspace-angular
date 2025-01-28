@@ -2232,12 +2232,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(sempre requerit)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Utilitzeu aquest camp per activar o desactivar tots els serveis.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Activar o desactivar tots els serveis",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Hi ha hagut canvis des de la darrera visita, si us plau, actualitzeu el vostre consentiment.",
 
@@ -2253,14 +2247,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Guardar",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Cookie Consent",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Recopilem i processem la vostra informació personal amb les finalitats següents: <strong>Autenticació, Preferències, Reconeixement i Estadístiques</strong>. <br/> Per obtenir més informació, llegiu la nostra {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Recopilem i processem la vostra informació personal per als següents propòsits: <strong>Autenticació, Preferències, Reconeixement i Estadístiques<strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Personalitzar",
@@ -2276,12 +2264,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informació que recopilem",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "serveis",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "servei",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticació",
@@ -3779,7 +3761,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Crear una nova versió",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "No es pot crear una nova versió perquè a l'historial de versions hi ha un enviament en curs",
 
   // "item.page.claim.button": "Claim",
@@ -3938,7 +3920,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Esborrar versió",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "No és possible crear una nova versió ja que existeix a l'historial de versions un enviament pendent",
 
 
@@ -3985,7 +3967,7 @@
   // "item.version.create.notification.failure" : "New version has not been created",
   "item.version.create.notification.failure": "No s'ha creat una nova versió",
 
-  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "No és possible crear una nova versió ja que existeix a l'historial de versions un enviament pendent",
 
 
@@ -5459,6 +5441,9 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nom",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "Màxim 30 caràcters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Seleccioneu el tipus de política",
 
@@ -6070,8 +6055,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite",

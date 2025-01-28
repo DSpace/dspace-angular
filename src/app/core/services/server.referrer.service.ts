@@ -2,12 +2,12 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import {
   Observable,
   of as observableOf,
 } from 'rxjs';
 
+import { REQUEST } from '../../../express.tokens';
 import { ReferrerService } from './referrer.service';
 
 /**

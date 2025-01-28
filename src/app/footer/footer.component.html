@@ -82,10 +82,10 @@
         </li>
       </ul>
     </div>
-    <div class="notify-enabled text-white" [hidden]="!coarLdnEnabled">
+    <div *ngIf="coarLdnEnabled$ | async" class="notify-enabled text-white">
       <a class="coar-notify-support-route" routerLink="info/coar-notify-support">
-        <img class="n-coar" src="assets/images/n-coar.png" [attr.alt]="'menu.header.image.logo' | translate" />
-        COAR Notify
+        <img class="n-coar" src="assets/images/n-coar.svg" [attr.alt]="'menu.header.image.logo' | translate" />
+        {{ 'footer.link.coar-notify-support' | translate }}
       </a>
     </div>
   </div>

@@ -9,7 +9,7 @@ import {
 /**
  * LinkHead Service injects <link> tag into the head element during runtime.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LinkHeadService {
   constructor(
     private rendererFactory: RendererFactory2,
@@ -20,7 +20,7 @@ export class LinkHeadService {
 
   /**
    * Method to create a Link tag in the HEAD of the html.
-   * @param tag LinkDefition is the paramaters to define a link tag.
+   * @param tag LinkDefition is the parameters to define a link tag.
    * @returns Link tag that was created
    */
   addTag(tag: LinkDefinition) {
