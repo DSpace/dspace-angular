@@ -29,7 +29,7 @@
       [parentItem]="object"
       [itemType]="'Person'"
       [metadataFields]="['dc.contributor.author', 'dc.creator']"
-      [label]="'relationships.isAuthorOf' | translate">
+      [label]="'item.page.authors' | translate">
     </ds-metadata-representation-list>
     <ds-generic-item-page-field [item]="object"
       [fields]="['journal.title']"
@@ -52,17 +52,17 @@
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isProjectOfPublication'"
-      [label]="'relationships.isProjectOf' | translate">
+      [label]="'item.page.projects' | translate">
     </ds-related-items>
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isOrgUnitOfPublication'"
-      [label]="'relationships.isOrgUnitOf' | translate">
+      [label]="'item.page.org-units' | translate">
     </ds-related-items>
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isJournalIssueOfPublication'"
-      [label]="'relationships.isJournalIssueOf' | translate">
+      [label]="'item.page.journal-issue' | translate">
     </ds-related-items>
     <ds-item-page-abstract-field [item]="object"></ds-item-page-abstract-field>
     <ds-generic-item-page-field [item]="object"
