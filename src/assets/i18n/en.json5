@@ -1296,11 +1296,19 @@
 
   "collection.form.abstract": "Short Description",
 
+  "collection.form.customfooter": "Collection home page custom footer (HTML)",
+
   "collection.form.description": "Introductory text (HTML)",
 
   "collection.form.errors.title.required": "Please enter a collection name",
 
+  "collection.form.headertext": "Collection home page header text (HTML)",
+
+  "collection.form.homepageintrotext": "Collection home page introductory text (HTML)",
+
   "collection.form.license": "License",
+
+  "collection.form.ownername": "Collection home page owner name (HTML)",
 
   "collection.form.provenance": "Provenance",
 
