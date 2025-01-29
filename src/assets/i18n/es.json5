@@ -10201,5 +10201,6 @@
   // "forgot-email.form.aria.label": "Enter your e-mail address",
   "forgot-email.form.aria.label": "Introduzca su dirección de correo electrónico",
 
-
+  // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+  "search-facet-option.update.announcement": "La página será recargada. Filtro {{ filter }} seleccionado.",
 }
