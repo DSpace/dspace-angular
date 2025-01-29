@@ -82,10 +82,6 @@ export class MyDSpacePageComponent implements OnInit {
    */
   roleTypeEnum = RoleType;
 
-  /**
-   * Projection to use during the search
-   */
-  projection = 'preventMetadataSecurity';
 
   /**
    * List of available view mode

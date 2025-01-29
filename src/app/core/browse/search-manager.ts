@@ -55,7 +55,7 @@ export class SearchManager {
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
   getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
-    const browseOptions = Object.assign({}, options, { projection: 'preventMetadataSecurity' });
+    const browseOptions = Object.assign({}, options, { projection: options.projection ?? 'preventMetadataSecurity' });
     return this.browseService.getBrowseItemsFor(filterValue, filterAuthority, browseOptions, ...linksToFollow)
       .pipe(this.completeWithExtraData());
   }
@@ -77,7 +77,8 @@ export class SearchManager {
     useCachedVersionIfAvailable = true,
     reRequestOnStale = true,
     ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
-    return this.searchService.search(searchOptions, responseMsToLive, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)
+    const optionsWithDefaultProjection = Object.assign(new PaginatedSearchOptions({}), searchOptions, { projection: searchOptions.projection ?? 'preventMetadataSecurity' });
+    return this.searchService.search(optionsWithDefaultProjection, responseMsToLive, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)
       .pipe(this.completeSearchObjectsWithExtraData());
   }
 
