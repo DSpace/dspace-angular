@@ -97,7 +97,7 @@ describe('MetadataLinkViewComponent', () => {
   });
 
   itemService = jasmine.createSpyObj('ItemDataService', {
-    findByIdWithProjections: jasmine.createSpy('findByIdWithProjections')
+    findByIdWithProjections: jasmine.createSpy('findByIdWithProjections'),
   });
 
   beforeEach(waitForAsync(() => {

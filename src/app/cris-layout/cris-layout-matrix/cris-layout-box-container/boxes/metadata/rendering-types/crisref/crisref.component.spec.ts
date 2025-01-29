@@ -28,7 +28,7 @@ describe('CrisrefComponent', () => {
   let fixture: ComponentFixture<CrisrefComponent>;
 
   const itemService = jasmine.createSpyObj('ItemDataService', {
-    findByIdWithProjections: jasmine.createSpy('findByIdWithProjections')
+    findByIdWithProjections: jasmine.createSpy('findByIdWithProjections'),
   });
   const metadataValue = Object.assign(new MetadataValue(), {
     'value': 'test item title',

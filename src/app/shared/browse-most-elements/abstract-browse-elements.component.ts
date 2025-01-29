@@ -12,6 +12,7 @@ import {
   mergeMap,
   Observable,
 } from 'rxjs';
+import { SearchManager } from 'src/app/core/browse/search-manager';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -26,13 +27,11 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SearchResult } from '../search/models/search-result.model';
 import { followLink } from '../utils/follow-link-config.model';
-import { SearchManager } from 'src/app/core/browse/search-manager';
 
 @Component({
   template: '',
