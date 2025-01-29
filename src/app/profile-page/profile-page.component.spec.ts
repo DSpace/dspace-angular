@@ -11,14 +11,14 @@ import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { authReducer } from '../core/auth/auth.reducer';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { AuthService } from '../core/auth/auth.service';
 import { RestResponse } from '../core/cache/response.models';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { getTestScheduler } from 'jasmine-marbles';
 import { By } from '@angular/platform-browser';
 import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -308,56 +308,5 @@ describe('ProfilePageComponent', () => {
       expect(specialGroupsEle).toBeFalsy();
     });
   });
-  });
-
-  describe('isResearcherProfileEnabled', () => {
-
-    describe('when configuration service return values', () => {
-
-      beforeEach(() => {
-        configurationService.findByPropertyName.and.returnValue(createSuccessfulRemoteDataObject$(validConfiguration));
-        fixture.detectChanges();
-      });
-
-      it('should return true', () => {
-        const result = component.isResearcherProfileEnabled();
-        const expected = cold('a', {
-          a: true
-        });
-        expect(result).toBeObservable(expected);
-      });
-    });
-
-    describe('when configuration service return no values', () => {
-
-      beforeEach(() => {
-        configurationService.findByPropertyName.and.returnValue(createSuccessfulRemoteDataObject$(emptyConfiguration));
-        fixture.detectChanges();
-      });
-
-      it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
-        const expected = cold('a', {
-          a: false
-        });
-        expect(result).toBeObservable(expected);
-      });
-    });
-
-    describe('when configuration service return an error', () => {
-
-      beforeEach(() => {
-        configurationService.findByPropertyName.and.returnValue(createFailedRemoteDataObject$());
-        fixture.detectChanges();
-      });
-
-      it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
-        const expected = cold('a', {
-          a: false
-        });
-        expect(result).toBeObservable(expected);
-      });
-    });
   });
 });

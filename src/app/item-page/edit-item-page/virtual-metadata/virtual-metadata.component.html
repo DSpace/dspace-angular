@@ -5,9 +5,9 @@
         </button>
     </div>
     <div class="modal-body">
-        <ng-container *ngFor="let item of items; trackBy: trackItem">
-            <div *ngVar="(isSelectedVirtualMetadataItem(item) | async) as selected"
-                 (click)="setSelectedVirtualMetadataItem(item, !selected)"
+        <ng-container *ngFor="let itemDTO of itemDTOs; trackBy: trackItem">
+            <div *ngVar="(itemDTO?.isSelectedVirtualMetadata$ | async) as selected"
+                 (click)="setSelectedVirtualMetadataItem(itemDTO?.item, !selected)"
                  class="item d-flex flex-row">
                 <div class="m-2">
                     <label>
@@ -15,9 +15,9 @@
                     </label>
                 </div>
                 <div class="flex-column">
-                    <ds-listable-object-component-loader [object]="item">
+                    <ds-listable-object-component-loader [object]="itemDTO?.item">
                     </ds-listable-object-component-loader>
-                    <div *ngFor="let metadata of virtualMetadata.get(item.uuid)">
+                    <div *ngFor="let metadata of virtualMetadata.get(itemDTO?.item?.uuid)">
                         <div class="font-weight-bold">
                             {{metadata.metadataField}}
                         </div>

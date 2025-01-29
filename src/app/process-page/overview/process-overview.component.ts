@@ -50,10 +50,11 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
    */
   dateFormat = 'yyyy-MM-dd HH:mm:ss';
 
-  processesToDelete: string[] = [];
   private modalRef: any;
 
   isProcessingSub: Subscription;
+
+  isProcessing$: Observable<boolean>;
 
   constructor(protected processService: ProcessDataService,
               protected paginationService: PaginationService,
@@ -67,6 +68,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.setProcesses();
     this.processBulkDeleteService.clearAllProcesses();
+    this.isProcessing$ = this.processBulkDeleteService.isProcessing$();
   }
 
   /**

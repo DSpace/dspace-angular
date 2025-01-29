@@ -21,7 +21,7 @@
   </div>
   <ng-content></ng-content>
 
-  <div *ngIf="shouldShowBottomPager | async">
+  <div *ngIf="showBottomPager$ | async">
     <div *ngIf="showPaginator" class="pagination justify-content-center clearfix bottom">
       <ngb-pagination [boundaryLinks]="paginationOptions.boundaryLinks"
                       [collectionSize]="collectionSize"

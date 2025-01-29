@@ -1,9 +1,15 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Item} from '../../../core/shared/item.model';
 import {MetadataValue} from '../../../core/shared/metadata.models';
 import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import { hasValue } from '../../../shared/empty.util';
+
+interface ItemDTO {
+  item: Item;
+  isSelectedVirtualMetadata$: Observable<boolean>;
+}
 
 @Component({
   selector: 'ds-virtual-metadata',
@@ -14,7 +20,7 @@ import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
  * The component is shown when a relationship is marked to be deleted.
  * Each item has a checkbox to indicate whether its virtual metadata should be saved as real metadata.
  */
-export class VirtualMetadataComponent implements OnInit {
+export class VirtualMetadataComponent implements OnInit, OnChanges {
 
   /**
    * The current url of this page
@@ -53,11 +59,9 @@ export class VirtualMetadataComponent implements OnInit {
   showThumbnails: boolean;
 
   /**
-   * Get an array of the left and the right item of the relationship to be deleted.
+   * Array of the left and the right item of the relationship to be deleted.
    */
-  get items() {
-    return [this.leftItem, this.rightItem];
-  }
+  itemDTOs: [ItemDTO, ItemDTO] = [undefined, undefined];
 
   public virtualMetadata: Map<string, VirtualMetadata[]> = new Map<string, VirtualMetadata[]>();
 
@@ -109,14 +113,28 @@ export class VirtualMetadataComponent implements OnInit {
   /**
    * Prevent unnecessary rerendering so fields don't lose focus
    */
-  trackItem(index, item: Item) {
-    return item && item.uuid;
+  trackItem(index, itemDTO: ItemDTO) {
+    return itemDTO?.item?.uuid;
   }
 
   ngOnInit(): void {
-    this.items.forEach((item) => {
-      this.virtualMetadata.set(item.uuid, this.getVirtualMetadata(item));
-    });
+    this.virtualMetadata.set(this.leftItem.uuid, this.getVirtualMetadata(this.leftItem));
+    this.virtualMetadata.set(this.rightItem.uuid, this.getVirtualMetadata(this.rightItem));
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ((hasValue(changes.leftItem) || hasValue(changes.rightItem)) && hasValue(this.leftItem) && hasValue(this.rightItem)) {
+      this.itemDTOs = [
+        {
+          item: this.leftItem,
+          isSelectedVirtualMetadata$: this.isSelectedVirtualMetadataItem(this.leftItem),
+        },
+        {
+          item: this.rightItem,
+          isSelectedVirtualMetadata$: this.isSelectedVirtualMetadataItem(this.rightItem),
+        },
+      ];
+    }
   }
 }
 

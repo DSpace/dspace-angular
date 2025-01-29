@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { VirtualMetadataComponent } from './virtual-metadata.component';
 import { Item } from '../../../core/shared/item.model';
@@ -62,6 +62,10 @@ describe('VirtualMetadataComponent', () => {
     comp.leftItem = item;
     comp.rightItem = relatedItem;
     comp.relationshipId = relationshipId;
+    comp.ngOnChanges({
+      leftItem: new SimpleChange(undefined, comp.leftItem, true),
+      rightItem: new SimpleChange(undefined, comp.rightItem, true),
+    });
 
     fixture.detectChanges();
   });

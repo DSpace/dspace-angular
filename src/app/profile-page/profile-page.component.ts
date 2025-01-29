@@ -192,11 +192,4 @@ export class ProfilePageComponent implements OnInit {
     this.updateProfile();
   }
 
-  /**
-   * Returns true if the researcher profile feature is enabled, false otherwise.
-   */
-  isResearcherProfileEnabled(): Observable<boolean> {
-    return this.isResearcherProfileEnabled$.asObservable();
-  }
-
 }
