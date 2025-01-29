@@ -8,5 +8,8 @@ export const environment: Partial<BuildConfig> = {
     enabled: true,
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
+    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ],
+    enableSearchComponent: false,
+    enableBrowseComponent: false,
   },
 };

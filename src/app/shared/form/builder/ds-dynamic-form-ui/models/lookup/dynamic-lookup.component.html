@@ -52,7 +52,7 @@
               type="button"
               ngbTooltip="{{'form.search-help' | translate}}"
               placement="top"
-              [disabled]="model.readOnly || isSearchDisabled()"
+              [dsBtnDisabled]="model.readOnly || isSearchDisabled()"
               [hidden]="isInputDisabled()"
               (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
       </button>
@@ -60,7 +60,7 @@
               type="button"
               ngbTooltip="{{'form.clear-help' | translate}}"
               placement="top"
-              [disabled]="model.readOnly"
+              [dsBtnDisabled]="model.readOnly"
               (click)="remove()">{{'form.clear' | translate}}
       </button>
     </div>
@@ -69,14 +69,14 @@
               type="button"
               ngbTooltip="{{'form.edit-help' | translate}}"
               placement="top"
-              [disabled]="isEditDisabled()"
+              [dsBtnDisabled]="isEditDisabled()"
               (click)="switchEditMode()">{{'form.edit' | translate}}
       </button>
       <button *ngIf="editMode" class="btn btn-secondary"
               type="button"
               ngbTooltip="{{'form.save-help' | translate}}"
               placement="top"
-              [disabled]="!hasEmptyValue()"
+              [dsBtnDisabled]="!hasEmptyValue()"
               (click)="saveChanges()">{{'form.save' | translate}}
       </button>
     </div>

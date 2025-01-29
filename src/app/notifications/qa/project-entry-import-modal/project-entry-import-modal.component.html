@@ -32,8 +32,8 @@
     <div id="project-search" class="input-group mb-3">
       <input type="text" class="form-control" (keyup.enter)="search(projectTitle)" [(ngModel)]="projectTitle" placeholder="{{labelPrefix + label + '.placeholder' |translate}}" aria-label="" aria-describedby="">
       <div class="input-group-append">
-        <button type="button" class="btn btn-outline-secondary" [disabled]="projectTitle === ''" (click)="projectTitle = ''">{{(labelPrefix + label + '.clear'|translate)}}</button>
-        <button type="button" class="btn btn-primary" [disabled]="projectTitle === ''" (click)="search(projectTitle)">{{(labelPrefix + label + '.search'|translate)}}</button>
+        <button type="button" class="btn btn-outline-secondary" [dsBtnDisabled]="projectTitle === ''" (click)="projectTitle = ''">{{(labelPrefix + label + '.clear'|translate)}}</button>
+        <button type="button" class="btn btn-primary" [dsBtnDisabled]="projectTitle === ''" (click)="search(projectTitle)">{{(labelPrefix + label + '.search'|translate)}}</button>
       </div>
     </div>
 
@@ -66,6 +66,6 @@
     <button type="button" class="btn btn-outline-secondary" (click)="close()">{{ (labelPrefix + label + '.cancel' | translate) }}</button>
   </div>
   <div>
-    <button type="button" class="btn btn-primary" [disabled]="selectedImportType === importType.None" (click)="bound()">{{ (labelPrefix + label + '.bound' | translate) }}</button>
+    <button type="button" class="btn btn-primary" [dsBtnDisabled]="selectedImportType === importType.None" (click)="bound()">{{ (labelPrefix + label + '.bound' | translate) }}</button>
   </div>
 </div>

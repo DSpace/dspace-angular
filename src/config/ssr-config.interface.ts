@@ -20,4 +20,19 @@ export interface SSRConfig extends Config {
    * For improved SSR performance, DSpace defaults this to false (disabled).
    */
   inlineCriticalCss: boolean;
+
+  /**
+   * Paths to enable SSR for. Defaults to the home page and paths in the sitemap.
+   */
+  paths: Array<string>;
+
+  /**
+   * Whether to enable rendering of search component on SSR
+   */
+  enableSearchComponent: boolean;
+
+  /**
+   * Whether to enable rendering of browse component on SSR
+   */
+  enableBrowseComponent: boolean;
 }
