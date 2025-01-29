@@ -17,8 +17,8 @@ ui:
   # Trust X-FORWARDED-* headers from proxies (default = true)
   useProxies: true
 
-# Angular Server Side Rendering (SSR) settings
-ssr:
+# Angular Universal / Server Side Rendering (SSR) settings
+universal:
   # Whether to tell Angular to inline "critical" styles into the server-side rendered HTML.
   # Determining which styles are critical is a relatively expensive operation; this option is
   # disabled (false) by default to boost server performance at the expense of loading smoothness.
@@ -28,11 +28,11 @@ ssr:
   # Whether to enable rendering of Search component on SSR.
   # If set to true the component will be included in the HTML returned from the server side rendering.
   # If set to false the component will not be included in the HTML returned from the server side rendering.
-  enableSearchComponent: false,
+  enableSearchComponent: false
   # Whether to enable rendering of Browse component on SSR.
   # If set to true the component will be included in the HTML returned from the server side rendering.
   # If set to false the component will not be included in the HTML returned from the server side rendering.
-  enableBrowseComponent: false,
+  enableBrowseComponent: false
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
