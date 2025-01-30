@@ -55,6 +55,7 @@ import {
   isNotEmpty,
   isUndefined,
 } from '../../../shared/empty.util';
+import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -71,7 +72,6 @@ import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
-import { DynamicQualdropModel } from "../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model";
 
 /**
  * This component represents a section that contains a Form.
@@ -264,7 +264,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
   protected getSectionStatus(): Observable<boolean> {
     const formStatus$ = this.formService.isValid(this.formId);
     const serverValidationStatus$ = this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
-      map((validationErrors) => isEmpty(validationErrors))
+      map((validationErrors) => isEmpty(validationErrors)),
     );
 
     return observableCombineLatest([formStatus$, serverValidationStatus$]).pipe(
@@ -470,7 +470,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         event,
         this.previousValue,
         this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
-        languageMap
+        languageMap,
       );
     } else {
       this.formOperationsService.dispatchOperationsFromEvent(
@@ -478,7 +478,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         event,
         this.previousValue,
         this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
-        null
+        null,
       );
     }
 

@@ -67,10 +67,10 @@ export class SectionFormOperationsService {
    * @param languageMap
    */
   public dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                     event: DynamicFormControlEvent,
-                                     previousValue: FormFieldPreviousValueObject,
-                                     hasStoredValue: boolean,
-                                     languageMap: Map<string, string[]> = null): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject,
+    hasStoredValue: boolean,
+    languageMap: Map<string, string[]> = null): void {
     switch (event.type) {
       case 'remove':
         this.dispatchOperationsFromRemoveEvent(pathCombiner, event, previousValue);
@@ -388,10 +388,10 @@ export class SectionFormOperationsService {
    * @param languageMap
    */
   protected dispatchOperationsFromChangeEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                              event: DynamicFormControlEvent,
-                                              previousValue: FormFieldPreviousValueObject,
-                                              hasStoredValue: boolean,
-                                              languageMap?: Map<string, string[]>): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject,
+    hasStoredValue: boolean,
+    languageMap?: Map<string, string[]>): void {
     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
@@ -481,10 +481,10 @@ export class SectionFormOperationsService {
    * @param languageMap
    */
   protected dispatchOperationsFromMap(valueMap: Map<string, any>,
-                                      pathCombiner: JsonPatchOperationPathCombiner,
-                                      event: DynamicFormControlEvent,
-                                      previousValue: FormFieldPreviousValueObject,
-                                      languageMap: Map<string, string[]> = null): void {
+    pathCombiner: JsonPatchOperationPathCombiner,
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject,
+    languageMap: Map<string, string[]> = null): void {
     const currentValueMap = valueMap;
     if (event.type === 'remove') {
       const path = this.getQualdropItemPathFromEvent(event);
@@ -528,8 +528,8 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    */
   private dispatchOperationsFromMoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                          event: DynamicFormControlEvent,
-                                          previousValue: FormFieldPreviousValueObject) {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject) {
 
     return this.handleArrayGroupPatch(pathCombiner, event.$event, (event as any).$event.arrayModel, previousValue);
   }
