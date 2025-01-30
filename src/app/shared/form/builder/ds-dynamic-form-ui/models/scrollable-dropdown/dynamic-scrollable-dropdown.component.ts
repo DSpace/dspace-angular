@@ -29,6 +29,7 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { FindAllData } from "../../../../../../core/data/base/find-all-data";
 import { CacheableObject } from "../../../../../../core/cache/cacheable-object.model";
+import { RemoteData } from "../../../../../../core/data/remote-data";
 
 /**
  * Component representing a dropdown input field
