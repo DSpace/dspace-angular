@@ -1,4 +1,4 @@
-@if (submissionCcLicenses) {
+<ng-container *ngIf="selectedCcLicense">
   <div class="mb-4 ccLicense-select">
     <div ngbDropdown>
       <input id="cc-license-dropdown"
@@ -18,22 +18,23 @@
            [infiniteScrollUpDistance]="1.5"
            [fromRoot]="true"
            [scrollWindow]="false">
-
-        @if(submissionCcLicenses?.length === 0) {
+        <ng-container *ngIf="submissionCcLicenses?.length === 0; else licensesList">
           <button class="dropdown-item disabled">
             {{ 'submission.sections.ccLicense.none' | translate }}
           </button>
-        } @else {
-          @for(license of submissionCcLicenses; track license.id) {
-            <button class="dropdown-item" (click)="selectCcLicense(license)">
-              {{ license.name }}
-            </button>
-          }
-        }
+        </ng-container>
       </div>
+    </div>
   </div>
-  </div>
-}
+</ng-container>
+
+<ng-template #licensesList>
+  <ng-container *ngFor="let license of submissionCcLicenses">
+    <button class="dropdown-item" (click)="selectCcLicense(license)">
+      {{ license.name }}
+    </button>
+  </ng-container>
+</ng-template>
 
 <ng-container *ngIf="getSelectedCcLicense()">
 
