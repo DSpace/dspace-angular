@@ -31,11 +31,11 @@ ssr:
   # Whether to enable rendering of Search component on SSR.
   # If set to true the component will be included in the HTML returned from the server side rendering.
   # If set to false the component will not be included in the HTML returned from the server side rendering.
-  enableSearchComponent: false,
+  enableSearchComponent: false
   # Whether to enable rendering of Browse component on SSR.
   # If set to true the component will be included in the HTML returned from the server side rendering.
   # If set to false the component will not be included in the HTML returned from the server side rendering.
-  enableBrowseComponent: false,
+  enableBrowseComponent: false
   # Enable state transfer from the server-side application to the client-side application.
   # Defaults to true.
   # Note: When using an external application cache layer, it's recommended not to transfer the state to avoid caching it.
