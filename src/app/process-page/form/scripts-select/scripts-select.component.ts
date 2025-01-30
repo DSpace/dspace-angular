@@ -1,19 +1,18 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { Script } from '../../scripts/script.model';
-import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Subscription, tap } from 'rxjs';
+import { map } from 'rxjs/operators';
 import {
   getRemoteDataPayload,
-  getFirstSucceededRemoteData,
   getFirstCompletedRemoteData
 } from '../../../core/shared/operators';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { ActivatedRoute, Router } from '@angular/router';
+import { hasValue } from '../../../shared/empty.util';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { controlContainerFactory } from '../process-form.component';
-import { FindListOptions } from "../../../core/data/find-list-options.model";
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
 
@@ -69,7 +68,7 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
    * Load the scripts and check if the route contains a script
    */
   loadScripts() {
-    if (this.isLoading$.value) return;
+    if (this.isLoading$.value) {return;}
     this.isLoading$.next(true);
 
     this.routeSub = this.scriptService.findAll(this.scriptOptions).pipe(

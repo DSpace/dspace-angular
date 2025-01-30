@@ -17,7 +17,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { BehaviorSubject, EMPTY, expand, map, reduce, Subscription, tap } from "rxjs";
+import { BehaviorSubject, map, Subscription, tap } from 'rxjs';
 
 export interface ListItem {
   id: string;

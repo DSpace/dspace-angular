@@ -1,8 +1,8 @@
 import { AUTOCOMPLETE_OFF, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { FindAllDataImpl } from "../../../../../../core/data/base/find-all-data";
-import { CacheableObject } from "../../../../../../core/cache/cacheable-object.model";
+import { FindAllDataImpl } from '../../../../../../core/data/base/find-all-data';
+import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN = 'SCROLLABLE_DROPDOWN';
 

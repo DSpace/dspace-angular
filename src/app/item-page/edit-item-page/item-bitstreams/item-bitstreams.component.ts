@@ -23,7 +23,7 @@ import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/res
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { ItemBitstreamsService } from './item-bitstreams.service';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { PaginationComponentOptions } from "../../../shared/pagination/pagination-component-options.model";
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-item-bitstreams',

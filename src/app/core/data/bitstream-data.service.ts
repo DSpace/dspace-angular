@@ -8,7 +8,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { BITSTREAM } from '../shared/bitstream.resource-type';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';

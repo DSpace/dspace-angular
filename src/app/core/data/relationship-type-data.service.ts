@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest as observableCombineLatest, EMPTY, expand, from, Observable, reduce } from 'rxjs';
-import { map, mergeMap, switchMap, toArray } from 'rxjs/operators';
+import { map, mergeMap, toArray } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

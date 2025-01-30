@@ -4,19 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import {
   combineLatest,
-  combineLatest as observableCombineLatest, EMPTY,
-  expand,
+  combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf, reduce,
+  of as observableOf,
   Subscription, take
 } from 'rxjs';
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import cloneDeep from 'lodash/cloneDeep';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
@@ -25,7 +24,6 @@ import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/em
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { Bundle } from '../../core/shared/bundle.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -34,7 +32,7 @@ import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-u
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
 import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { FindAllDataImpl } from "../../core/data/base/find-all-data";
+import { FindAllDataImpl } from '../../core/data/base/find-all-data';
 
 @Component({
   selector: 'ds-edit-bitstream-page',

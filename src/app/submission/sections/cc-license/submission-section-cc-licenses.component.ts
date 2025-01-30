@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { EMPTY, expand, Observable, of as observableOf, reduce, Subscription, tap } from 'rxjs';
+import { Observable, of as observableOf, Subscription, tap } from 'rxjs';
 import { Field, Option, SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload
 } from '../../../core/shared/operators';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
@@ -20,9 +19,7 @@ import { isNotEmpty } from '../../../shared/empty.util';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
-import { RemoteData } from "../../../core/data/remote-data";
-import { PaginatedList } from "../../../core/data/paginated-list.model";
-import { FindListOptions } from "../../../core/data/find-list-options.model";
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 /**
  * This component represents the submission section to select the Creative Commons license.

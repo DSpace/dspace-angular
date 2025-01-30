@@ -15,7 +15,6 @@ import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { hasValue, isEmpty } from '../../../../../empty.util';
@@ -27,9 +26,9 @@ import {
 } from '../../../../../../core/data/paginated-list.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { FindAllData } from "../../../../../../core/data/base/find-all-data";
-import { CacheableObject } from "../../../../../../core/cache/cacheable-object.model";
-import { RemoteData } from "../../../../../../core/data/remote-data";
+import { FindAllData } from '../../../../../../core/data/base/find-all-data';
+import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
+import { RemoteData } from '../../../../../../core/data/remote-data';
 
 /**
  * Component representing a dropdown input field

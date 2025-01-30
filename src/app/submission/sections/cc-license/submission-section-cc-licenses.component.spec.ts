@@ -198,10 +198,10 @@ describe('SubmissionSectionCcLicensesComponent', () => {
 
   it('should display a dropdown with the different cc licenses', () => {
     expect(
-      de.query(By.css('.ccLicense-select ds-select .dropdown-menu button:nth-child(1)')).nativeElement.innerText
+      de.query(By.css('.ccLicense-select .scrollable-menu button:nth-child(1)')).nativeElement.innerText,
     ).toContain('test license name 1');
     expect(
-      de.query(By.css('.ccLicense-select ds-select .dropdown-menu button:nth-child(2)')).nativeElement.innerText
+      de.query(By.css('.ccLicense-select .scrollable-menu button:nth-child(2)')).nativeElement.innerText,
     ).toContain('test license name 2');
   });
 
