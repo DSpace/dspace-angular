@@ -22,6 +22,8 @@ import {
 import {
   Observable,
   of as observableOf,
+  of,
+  throwError,
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
@@ -126,6 +128,9 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
     beforeEach(waitForAsync(async () => {
       const mockBitstreamDataService = {
         getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
+          return createSuccessfulRemoteDataObject$(new Bitstream());
+        },
+        findPrimaryBitstreamByItemAndName(): Observable<RemoteData<Bitstream>> {
           return createSuccessfulRemoteDataObject$(new Bitstream());
         },
       };
@@ -484,6 +489,15 @@ describe('ItemComponent', () => {
     const recentSubmissionsUrl = '/collections/be7b8430-77a5-4016-91c9-90863e50583a?cp.page=3';
 
     beforeEach(waitForAsync(() => {
+      const mockBitstreamDataService = {
+        getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
+          return createSuccessfulRemoteDataObject$(new Bitstream());
+        },
+        findPrimaryBitstreamByItemAndName(): Observable<RemoteData<Bitstream>> {
+          return createSuccessfulRemoteDataObject$(new Bitstream());
+        },
+      };
+
       TestBed.configureTestingModule({
         imports: [
           TranslateModule.forRoot({
@@ -511,7 +525,7 @@ describe('ItemComponent', () => {
           { provide: VersionDataService, useValue: {} },
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
-          { provide: BitstreamDataService, useValue: {} },
+          { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: WorkspaceitemDataService, useValue: {} },
           { provide: SearchService, useValue: {} },
           { provide: RouteService, useValue: mockRouteService },
@@ -560,6 +574,93 @@ describe('ItemComponent', () => {
       comp.ngOnInit();
       comp.showBackButton$.subscribe((val) => {
         expect(val).toBeTrue();
+      });
+    });
+  });
+
+  describe('when calling getThumbnailLink ', () => {
+    let component: ItemComponent;
+    let bitstreamDataService: jasmine.SpyObj<BitstreamDataService>;
+    let router: jasmine.SpyObj<Router>;
+    let routeService: jasmine.SpyObj<RouteService>;
+
+    beforeEach(() => {
+      bitstreamDataService = jasmine.createSpyObj('BitstreamDataService', [
+        'findPrimaryBitstreamByItemAndName',
+        'findAllByItemAndBundleName'
+      ]);
+      router = jasmine.createSpyObj('Router', ['navigate']);
+      routeService = jasmine.createSpyObj('RouteService', ['getRoute']);
+
+      component = new ItemComponent(routeService, router, bitstreamDataService);
+    });
+
+    it('should return the primary bitstream link if available', (done) => {
+      const item = new Item();
+      const primaryBitstream = new Bitstream();
+      primaryBitstream._links = {
+        self: { href: 'self-link' },
+        bundle: { href: 'bundle-link' },
+        format: { href: 'format-link' },
+        content: { href: 'primary-link' },
+        thumbnail: { href: 'thumbnail-link' }
+      };
+      const remotePaginatedListBitstream = createSuccessfulRemoteDataObject$(createPaginatedList([primaryBitstream]));
+      bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(primaryBitstream));
+
+      component.getThumbnailLink(item).subscribe(link => {
+        expect(link).toBe('primary-link');
+        done();
+      });
+    });
+
+    it('should return the first bitstream link if no primary bitstream is available', (done) => {
+      const item = new Item();
+      const primaryBitstream = new Bitstream();
+      primaryBitstream._links = {
+        self: { href: 'self-link' },
+        bundle: { href: 'bundle-link' },
+        format: { href: 'format-link' },
+        content: { href: 'primary-link' },
+        thumbnail: { href: 'thumbnail-link' }
+      };
+      const remotePaginatedListBitstream = createSuccessfulRemoteDataObject$(createPaginatedList([primaryBitstream]));
+      bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(null));
+      bitstreamDataService.findAllByItemAndBundleName.and.returnValue(remotePaginatedListBitstream);
+
+      component.getThumbnailLink(item).subscribe(link => {
+        expect(link).toBe('primary-link');
+        done();
+      });
+    });
+
+    it('should return an empty string if no bitstream is available', (done) => {
+      const item = new Item();
+      const primaryBitstream = new Bitstream();
+      primaryBitstream._links = {
+        self: { href: 'self-link' },
+        bundle: { href: 'bundle-link' },
+        format: { href: 'format-link' },
+        content: { href: 'primary-link' },
+        thumbnail: { href: 'thumbnail-link' }
+      };
+      const remotePaginatedListBitstream = createSuccessfulRemoteDataObject$(createPaginatedList([]));
+      bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(null));
+      bitstreamDataService.findAllByItemAndBundleName.and.returnValue(remotePaginatedListBitstream);
+
+      component.getThumbnailLink(item).subscribe(link => {
+        expect(link).toBe('');
+        done();
+      });
+    });
+
+    it('should return an empty string if an error occurs', (done) => {
+      const item = new Item();
+      bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(throwError(() => new Error('Network error')));
+
+      component.getThumbnailLink(item).subscribe(link => {
+        expect(link).toBe('');
+        done();
       });
     });
   });
