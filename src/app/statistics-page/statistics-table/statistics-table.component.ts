@@ -103,19 +103,6 @@ export class StatisticsTableComponent implements OnInit {
    * @param reportType
    */
   getObjectHeaderLabel(reportType: string): string {
-    switch (reportType) {
-      case 'TotalVisits':
-        return this.translateService.instant('statistics.table.header.TotalVisits');
-      case 'TotalVisitsPerMonth':
-        return this.translateService.instant('statistics.table.header.TotalVisitsPerMonth');
-      case 'TotalDownloads':
-        return this.translateService.instant('statistics.table.header.TotalDownloads');
-      case 'TopCities':
-        return this.translateService.instant('statistics.table.header.TopCities');
-      case 'topCountries':
-        return this.translateService.instant('statistics.table.header.topCountries');
-      default:
-        return '';
-    }
+    return this.translateService.instant('statistics.table.header.' + reportType);
   }
 }
