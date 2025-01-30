@@ -26,9 +26,8 @@ export interface UniversalConfig extends Config {
 
   /**
    * When a different REST base URL is used for the server-side application, the generated state contains references to
-   * REST resources with the internal URL configured, so it is not transferred to the client application, by default.
-   * Enabling this setting transfers the state to the client application and replaces internal URLs with the public
-   * URLs used by the client application.
+   * REST resources with the internal URL configured. By default, these internal URLs are replaced with public URLs.
+   * Disable this setting to avoid URL replacement during SSR. In this the state is not transferred to avoid security issues.
    */
   replaceRestUrl: boolean;
 
