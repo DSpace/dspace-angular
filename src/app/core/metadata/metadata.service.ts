@@ -45,6 +45,7 @@ import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { getDownloadableBitstream } from '../shared/bitstream.operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { FindListOptions } from '../data/find-list-options.model';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -306,6 +307,7 @@ export class MetadataService {
         'ORIGINAL',
         true,
         true,
+        new FindListOptions(),
         followLink('primaryBitstream'),
         followLink('bitstreams', {
             findListOptions: {

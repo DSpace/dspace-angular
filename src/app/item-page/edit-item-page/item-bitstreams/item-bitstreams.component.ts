@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy, HostListener } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { map, switchMap, take } from 'rxjs/operators';
-import { Observable, Subscription, combineLatest } from 'rxjs';
+import { Observable, Subscription, combineLatest, BehaviorSubject, tap } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,6 +23,7 @@ import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/res
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { ItemBitstreamsService } from './item-bitstreams.service';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -40,7 +41,16 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   /**
    * The currently listed bundles
    */
-  bundles$: Observable<Bundle[]>;
+  private bundlesSubject = new BehaviorSubject<Bundle[]>([]);
+
+  /**
+   * The page options to use for fetching the bundles
+   */
+  bundlesOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'bundles-pagination-options',
+    currentPage: 1,
+    pageSize: 10,
+  });
 
   /**
    * The bootstrap sizes used for the columns within this table
@@ -63,6 +73,18 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * An observable which emits a boolean which represents whether the service is currently handling a 'move' request
    */
   isProcessingMoveRequest: Observable<boolean>;
+
+  /**
+   * The flag indicating to show the load more link
+   */
+  showLoadMoreLink$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  /**
+   * The list of bundles for the current item as an observable
+   */
+  get bundles$(): Observable<Bundle[]> {
+    return this.bundlesSubject.asObservable();
+  }
 
   constructor(
     public itemService: ItemDataService,
@@ -88,14 +110,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
-    const bundlesOptions = this.itemBitstreamsService.getInitialBundlesPaginationOptions();
     this.isProcessingMoveRequest = this.itemBitstreamsService.getPerformingMoveRequest$();
-
-    this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: bundlesOptions})).pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page)
-    );
+    this.loadBundles(1);
   }
 
   /**
@@ -158,6 +174,26 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   initializeNotificationsPrefix(): void {
     this.notificationsPrefix = 'item.edit.bitstreams.notifications.';
+  }
+
+  /**
+   * Load bundles for the current item
+   * @param currentPage The current page to load
+   */
+  loadBundles(currentPage?: number) {
+    this.bundlesOptions = Object.assign(new PaginationComponentOptions(), this.bundlesOptions, {
+      currentPage: currentPage || this.bundlesOptions.currentPage + 1,
+    });
+    this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+      tap((bundlesPL: PaginatedList<Bundle>) =>
+        this.showLoadMoreLink$.next(bundlesPL.pageInfo.currentPage < bundlesPL.pageInfo.totalPages)
+      ),
+      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
+    ).subscribe((bundles: Bundle[]) => {
+      this.bundlesSubject.next([...this.bundlesSubject.getValue(), ...bundles]);
+    });
   }
 
 
