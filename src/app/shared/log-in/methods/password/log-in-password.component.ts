@@ -49,6 +49,7 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { fadeOut } from '../../../animations/fade';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { isNotEmpty } from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 
@@ -62,7 +63,7 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe, BtnDisabledDirective],
 })
 export class LogInPasswordComponent implements OnInit {
 

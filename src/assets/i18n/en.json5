@@ -1034,11 +1034,11 @@
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
-  "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
+  "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
 
   "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
 
-  "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
+  "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -1684,6 +1684,8 @@
 
   "deny-request-copy.success": "Successfully denied item request",
 
+  "dynamic-list.load-more": "Load more",
+
   "dropdown.clear": "Clear selection",
 
   "dropdown.clear.tooltip": "Clear the selected option",
@@ -1843,6 +1845,8 @@
   "error.objects": "Error fetching objects",
 
   "error.recent-submissions": "Error fetching recent submissions",
+
+  "error.profile-groups": "Error retrieving profile groups",
 
   "error.search-results": "Error fetching search results",
 
@@ -2290,6 +2294,8 @@
 
   "item.edit.bitstreams.upload-button": "Upload",
 
+  "item.edit.bitstreams.load-more.link": "Load more",
+
   "item.edit.delete.cancel": "Cancel",
 
   "item.edit.delete.confirm": "Delete",
@@ -2399,6 +2405,10 @@
   "item.edit.metadata.edit.value": "Edit value",
 
   "item.edit.metadata.edit.authority.key": "Edit authority key",
+
+  "item.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+
+  "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
 
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
@@ -5646,8 +5656,6 @@
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 
-  "orgunit.search.results.head": "Organizational Unit Search Results",
-
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
   "workflow-item.edit.title": "Edit workflowitem",
@@ -5991,6 +5999,10 @@
   "person.orcid.registry.queue": "ORCID Registry Queue",
 
   "person.orcid.registry.auth": "ORCID Authorizations",
+
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
 
   "home.recent-submissions.head": "Recent Submissions",
 
@@ -6757,6 +6769,8 @@
   "register-page.registration.aria.label": "Enter your e-mail address",
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
 
   "statistics.table.header.TotalVisits": "Object",
 
