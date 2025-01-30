@@ -71,6 +71,7 @@ import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
+import { DynamicQualdropModel } from "../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model";
 
 /**
  * This component represents a section that contains a Form.
@@ -263,7 +264,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
   protected getSectionStatus(): Observable<boolean> {
     const formStatus$ = this.formService.isValid(this.formId);
     const serverValidationStatus$ = this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
-      map((validationErrors) => isEmpty(validationErrors)),
+      map((validationErrors) => isEmpty(validationErrors))
     );
 
     return observableCombineLatest([formStatus$, serverValidationStatus$]).pipe(
@@ -447,11 +448,41 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-    this.formOperationsService.dispatchOperationsFromEvent(
-      this.pathCombiner,
-      event,
-      this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
+    const languageMap = new Map();
+    const isQualdrop = event.model.parent instanceof DynamicQualdropModel;
+
+    if (isQualdrop) {
+      const groupMetadata = this.formOperationsService.getQualdropValueMap(event).keys();
+      this.formService.getForm(this.formId).pipe(take(1)).subscribe((form) => {
+        [...groupMetadata].forEach((metadata) => {
+          if (hasValue(form.data[metadata]) && form.data[metadata].length > 1) {
+            form.data[metadata].forEach((entry: any) => {
+              languageMap.set(metadata, [...(languageMap.get(metadata) ?? []), entry.language]);
+            });
+          } else {
+            languageMap.set(metadata, [form.data[metadata][0].language]);
+          }
+        });
+      });
+
+      this.formOperationsService.dispatchOperationsFromEvent(
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
+        languageMap
+      );
+    } else {
+      this.formOperationsService.dispatchOperationsFromEvent(
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
+        null
+      );
+    }
+
+
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
