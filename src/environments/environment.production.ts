@@ -9,7 +9,7 @@ export const environment: Partial<BuildConfig> = {
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
     transferState: true,
-    replaceRestUrl: false,
+    replaceRestUrl: true,
     paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/', '/reload/' ],
     enableSearchComponent: false,
     enableBrowseComponent: false,
