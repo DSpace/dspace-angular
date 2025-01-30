@@ -20,6 +20,7 @@
           <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0" cdkDragHandle
                (focus)="addInstructionMessageToLiveRegion(sortableElement)"
                (keydown.space)="toggleKeyboardDragAndDrop($event, sortableElement, idx, length)"
+               (keydown.enter)="toggleKeyboardDragAndDrop($event, sortableElement, idx, length)"
                (keydown.tab)="stopKeyboardDragAndDrop(sortableElement, idx, length)"
                (keydown.escape)="cancelKeyboardDragAndDrop(sortableElement, idx, length)"
                (keydown.arrowUp)="handleArrowPress($event, dropList, length, idx, 'up')"
