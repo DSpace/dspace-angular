@@ -13,7 +13,7 @@
             </span>
             <div class="space-children-mr flex-shrink-0">
               <button class="btn btn-danger p-1"
-                      [disabled]="((canDelete() | async) !== true) || (isProcessingDelete() | async)"
+                      [dsBtnDisabled]="((canDelete() | async) !== true) || (isProcessingDelete() | async)"
                       [title]="'resource-policies.delete.btn.title' | translate"
                       (click)="deleteSelectedResourcePolicies()">
                 <span *ngIf="(isProcessingDelete() | async)">
@@ -25,7 +25,7 @@
                 </span>
               </button>
               <button class="btn btn-success p-1"
-                      [disabled]="(isProcessingDelete() | async)"
+                      [dsBtnDisabled]="(isProcessingDelete() | async)"
                       [title]="'resource-policies.add.for.' + resourceType | translate"
                       (click)="redirectToResourcePolicyCreatePage()">
                 <i class='fas fa-plus' aria-hidden="true"></i>

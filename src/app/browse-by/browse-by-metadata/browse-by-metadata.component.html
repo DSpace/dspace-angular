@@ -1,4 +1,4 @@
-<section class="comcol-page-browse-section">
+<section class="comcol-page-browse-section" *ngIf="(!ssrRenderingDisabled)">
   <div class="browse-by-metadata w-100">
     <ds-browse-by *ngIf="(loading$ | async) !== true" class="col-xs-12 w-100"
                          title="{{'browse.title' | translate:{

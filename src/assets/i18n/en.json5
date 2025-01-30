@@ -1684,6 +1684,8 @@
 
   "deny-request-copy.success": "Successfully denied item request",
 
+  "dynamic-list.load-more": "Load more",
+
   "dropdown.clear": "Clear selection",
 
   "dropdown.clear.tooltip": "Clear the selected option",
@@ -2291,6 +2293,8 @@
   "item.edit.bitstreams.save-button": "Save",
 
   "item.edit.bitstreams.upload-button": "Upload",
+
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   "item.edit.delete.cancel": "Cancel",
 
@@ -5652,8 +5656,6 @@
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 
-  "orgunit.search.results.head": "Organizational Unit Search Results",
-
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
   "workflow-item.edit.title": "Edit workflowitem",
@@ -6767,6 +6769,8 @@
   "register-page.registration.aria.label": "Enter your e-mail address",
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
 
   "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
 

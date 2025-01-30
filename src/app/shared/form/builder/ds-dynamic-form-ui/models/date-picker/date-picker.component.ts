@@ -24,6 +24,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import isEqual from 'lodash/isEqual';
 
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { hasValue } from '../../../../../empty.util';
 import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
@@ -41,6 +42,7 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
     NgIf,
     NumberPickerComponent,
     FormsModule,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

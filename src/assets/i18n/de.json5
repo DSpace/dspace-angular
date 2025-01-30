@@ -730,11 +730,6 @@
   // TODO New key - Add a translation
   "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
 
-
-  //"admin.reports.items.title": "Metadata Query Report",
-  // TODO New key - Add a translation
-  "admin.reports.items.title": "Metadata Query Report",
-
   //"admin.reports.items.breadcrumbs": "Metadata Query Report",
   // TODO New key - Add a translation
   "admin.reports.items.breadcrumbs": "Metadata Query Report",
@@ -886,7 +881,6 @@
   //"admin.reports.items.title": "Title",
   // TODO New key - Add a translation
   "admin.reports.items.title": "Title",
-
 
   //"admin.reports.commons.filters": "Filters",
   // TODO New key - Add a translation
