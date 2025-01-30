@@ -11,6 +11,7 @@ import {
   from as observableFrom,
   Observable,
   of as observableOf,
+  shareReplay,
 } from 'rxjs';
 import {
   map,
@@ -283,6 +284,10 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       isNotEmptyOperator(),
       take(1),
       map((href: string) => this.buildHrefFromFindOptions(href, {}, [], ...linksToFollow)),
+      shareReplay({
+        bufferSize: 1,
+        refCount: true,
+      }),
     );
 
     const startTime: number = new Date().getTime();
@@ -337,6 +342,10 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       isNotEmptyOperator(),
       take(1),
       map((href: string) => this.buildHrefFromFindOptions(href, options, [], ...linksToFollow)),
+      shareReplay({
+        bufferSize: 1,
+        refCount: true,
+      }),
     );
 
     const startTime: number = new Date().getTime();

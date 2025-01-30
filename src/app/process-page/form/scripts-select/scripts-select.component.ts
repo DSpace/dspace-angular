@@ -19,32 +19,29 @@ import {
 } from '@angular/forms';
 import {
   ActivatedRoute,
-  Params,
   Router,
 } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
-  Observable,
+  BehaviorSubject,
   Subscription,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
-  filter,
   map,
-  switchMap,
-  take,
+  tap,
 } from 'rxjs/operators';
 
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import {
-  getFirstSucceededRemoteData,
+  getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../shared/empty.util';
+import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { Script } from '../../scripts/script.model';
 import { controlContainerFactory } from '../process-form-factory';
 
@@ -61,7 +58,7 @@ const SCRIPT_QUERY_PARAMETER = 'script';
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [NgIf, FormsModule, NgFor, AsyncPipe, TranslateModule],
+  imports: [NgIf, FormsModule, NgFor, AsyncPipe, TranslateModule, InfiniteScrollModule, ThemedLoadingComponent, NgbDropdownModule],
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
   /**
@@ -71,9 +68,19 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
   /**
    * All available scripts
    */
-  scripts$: Observable<Script[]>;
+  scripts: Script[] = [];
+
   private _selectedScript: Script;
-  private routeSub: Subscription;
+  private subscription: Subscription;
+
+  private _isLastPage = false;
+
+  scriptOptions: FindListOptions = {
+    elementsPerPage: 20,
+    currentPage: 1,
+  };
+
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private scriptService: ScriptDataService,
@@ -87,31 +94,46 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
    * Checks if the route contains a script ID and auto selects this scripts
    */
   ngOnInit() {
-    this.scripts$ = this.scriptService.findAll({ elementsPerPage: 9999 })
-      .pipe(
-        getFirstSucceededRemoteData(),
-        getRemoteDataPayload(),
-        map((paginatedList: PaginatedList<Script>) => paginatedList.page),
-      );
+    this.loadScripts();
+  }
 
-    this.routeSub = this.route.queryParams
-      .pipe(
-        filter((params: Params) => hasNoValue(params.id)),
-        map((params: Params) => params[SCRIPT_QUERY_PARAMETER]),
-        distinctUntilChanged(),
-        switchMap((id: string) =>
-          this.scripts$
-            .pipe(
-              take(1),
-              map((scripts) =>
-                scripts.find((script) => script.id === id),
-              ),
-            ),
-        ),
-      ).subscribe((script: Script) => {
-        this._selectedScript = script;
-        this.select.emit(script);
-      });
+  /**
+   * Load the scripts and check if the route contains a script
+   */
+  loadScripts() {
+    if (this.isLoading$.value) {return;}
+    this.isLoading$.next(true);
+
+    this.subscription = this.scriptService.findAll(this.scriptOptions).pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      tap((paginatedList: PaginatedList<Script>) => {
+        this._isLastPage = paginatedList?.pageInfo?.currentPage >= paginatedList?.pageInfo?.totalPages;
+      }),
+      map((paginatedList: PaginatedList<Script>) => paginatedList.page),
+    ).subscribe((newScripts: Script[]) => {
+      this.scripts = [...this.scripts, ...newScripts];
+      this.isLoading$.next(false);
+
+      const param = this.route.snapshot.queryParams[SCRIPT_QUERY_PARAMETER];
+      if (hasValue(param)) {
+        this._selectedScript = this.scripts.find((script) => script.id === param);
+        this.select.emit(this._selectedScript);
+      }
+    });
+  }
+
+  /**
+   * Load more scripts when the user scrolls to the bottom of the list
+   * @param event The scroll event
+   */
+  onScroll(event: any) {
+    if (event.target.scrollTop + event.target.clientHeight >= event.target.scrollHeight) {
+      if (!this.isLoading$.value && !this._isLastPage) {
+        this.scriptOptions.currentPage++;
+        this.loadScripts();
+      }
+    }
   }
 
   /**
@@ -133,14 +155,25 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
     );
   }
 
+  selectScript(script: Script) {
+    this._selectedScript = script;
+  }
+
+  onSelect(newScript: Script) {
+    this.selectScript(newScript);
+    // this._selectedScript = newScript;
+    this.select.emit(newScript);
+    this.selectedScript = newScript.name;
+  }
+
   @Input()
   set script(value: Script) {
     this._selectedScript = value;
   }
 
   ngOnDestroy(): void {
-    if (hasValue(this.routeSub)) {
-      this.routeSub.unsubscribe();
+    if (hasValue(this.subscription)) {
+      this.subscription.unsubscribe();
     }
   }
 }

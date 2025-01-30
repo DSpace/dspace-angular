@@ -101,6 +101,7 @@ import { SubmissionObject } from '../../../../core/submission/models/submission-
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -142,6 +143,7 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
     NgbTooltipModule,
     NgTemplateOutlet,
     ExistingRelationListElementComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
