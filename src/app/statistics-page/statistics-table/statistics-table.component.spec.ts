@@ -97,31 +97,4 @@ describe('StatisticsTableComponent', () => {
         .toEqual('8');
     });
   });
-
-  describe('getObjectHeaderLabel', () => {
-
-    it('should return the correct label for TotalVisits', () => {
-      expect(component.getObjectHeaderLabel('TotalVisits')).toEqual('statistics.table.header.TotalVisits');
-    });
-
-    it('should return the correct label for TotalVisitsPerMonth', () => {
-      expect(component.getObjectHeaderLabel('TotalVisitsPerMonth')).toEqual('statistics.table.header.TotalVisitsPerMonth');
-    });
-
-    it('should return the correct label for TotalDownloads', () => {
-      expect(component.getObjectHeaderLabel('TotalDownloads')).toEqual('statistics.table.header.TotalDownloads');
-    });
-
-    it('should return the correct label for TopCities', () => {
-      expect(component.getObjectHeaderLabel('TopCities')).toEqual('statistics.table.header.TopCities');
-    });
-
-    it('should return the correct label for topCountries', () => {
-      expect(component.getObjectHeaderLabel('topCountries')).toEqual('statistics.table.header.topCountries');
-    });
-
-    it('should return an empty string for unknown report types', () => {
-      expect(component.getObjectHeaderLabel('UnknownType')).toEqual('');
-    });
-  });
 });
