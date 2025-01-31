@@ -11,6 +11,7 @@ import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
 import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
+import { ItemBitstreamsComponent } from './app/item-page/edit-item-page/item-bitstreams/item-bitstreams.component';
 import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
 import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
@@ -33,6 +34,7 @@ import { PublicationSidebarSearchListElementComponent } from './app/shared/objec
 import { StartsWithDateComponent } from './app/shared/starts-with/date/starts-with-date.component';
 import { StartsWithTextComponent } from './app/shared/starts-with/text/starts-with-text.component';
 
+
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
  * This will ensure that decorator gets picked up when the app loads
@@ -54,6 +56,7 @@ const ENTRY_COMPONENTS = [
   ItemSearchResultListElementComponent,
   TopLevelCommunityListComponent,
   BrowseEntryListElementComponent,
+  ItemBitstreamsComponent,
 ];
 
 const DECLARATIONS = [
