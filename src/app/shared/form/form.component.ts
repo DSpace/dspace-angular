@@ -372,6 +372,9 @@ export class FormComponent implements OnDestroy, OnInit {
       // dispatch remove event for any field type except for qualdrop value
       this.removeArrayItem.emit(event);
     }
+    if (index === 0) {
+      this.insertItem($event,arrayContext,0);
+    }
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
@@ -385,6 +388,19 @@ export class FormComponent implements OnDestroy, OnInit {
     const context = arrayContext.groups[index];
     const value: FormFieldMetadataValueObject = (context.group[0] as any).metadataValue;
     return isNotEmpty(value) && value.isVirtual;
+  }
+
+  isValidForShowDeleteButton(context, index): boolean {
+   if(index > 0) return true;
+   return this.hasValue(context, index);
+  }
+
+  /**
+  * @Description check if the model has a value
+  * **/
+  hasValue(arrayContext, index: number) {
+    const context = arrayContext.groups[index];
+    return isNotEmpty((context.group[0] as any).value);
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {

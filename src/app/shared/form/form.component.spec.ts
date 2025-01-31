@@ -117,6 +117,7 @@ function init() {
             id: 'bootstrapArrayGroupInput',
             placeholder: 'example array group input',
             readOnly: false,
+            value: 'test',
           }),
         ];
       },
@@ -432,6 +433,16 @@ describe('FormComponent test suite', () => {
       const readOnly = formComp.isItemReadOnly(formComp.formModel[0] as DynamicFormArrayModel, 0);
 
       expect(readOnly).toBe(false);
+    }));
+
+    it('should return valid property from array item for show delete button', inject([FormBuilderService], (service: FormBuilderService) => {
+      spyOn(formComp.addArrayItem, 'emit');
+
+      formComp.insertItem(new Event('click'), formComp.formModel[0] as DynamicFormArrayModel, 0);
+
+      const isValid = formComp.isValidForShowDeleteButton(formComp.formModel[0] as DynamicFormArrayModel, 0);
+
+      expect(isValid).toBe(true);
     }));
 
     it('should dispatch FormChangeAction when an item has been added to an array', inject([FormBuilderService], (service: FormBuilderService) => {
