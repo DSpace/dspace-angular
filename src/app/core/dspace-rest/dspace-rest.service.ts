@@ -104,6 +104,11 @@ export class DspaceRestService {
       // Because HttpHeaders is immutable, the set method returns a new object instead of updating the existing headers
       requestOptions.headers = requestOptions.headers.set('Content-Type', DEFAULT_CONTENT_TYPE);
     }
+
+    return this.performRequest(method, url, requestOptions);
+  }
+
+  performRequest(method: RestRequestMethod, url: string, requestOptions: HttpOptions): Observable<RawRestResponse> {
     return this.http.request(method, url, requestOptions).pipe(
       map((res) => ({
         payload: res.body,
