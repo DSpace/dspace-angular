@@ -390,15 +390,17 @@ export class FormComponent implements OnDestroy, OnInit {
     return isNotEmpty(value) && value.isVirtual;
   }
 
-  isValidForShowDeleteButton(context, index): boolean {
-   if(index > 0) return true;
-   return this.hasValue(context, index);
+  isValidForShowDeleteButton(context: DynamicFormArrayModel, index: number): boolean {
+    if (index > 0) {
+      return true;
+    }
+    return this.hasValue(context, index);
   }
 
   /**
   * @Description check if the model has a value
   * **/
-  hasValue(arrayContext, index: number) {
+  hasValue(arrayContext: DynamicFormArrayModel, index: number) {
     const context = arrayContext.groups[index];
     return isNotEmpty((context.group[0] as any).value);
   }
