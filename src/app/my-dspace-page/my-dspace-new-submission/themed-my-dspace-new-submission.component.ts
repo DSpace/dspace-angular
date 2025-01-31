@@ -1,12 +1,4 @@
-/*
- * The contents of this file are subject to the license and copyright
- * detailed in the LICENSE and NOTICE files at the root of the source
- * tree and available online at
- *
- * http://www.dspace.org/license/
- */
-
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {ThemedComponent} from '../../shared/theme-support/themed.component';
 import {MyDSpaceNewSubmissionComponent} from './my-dspace-new-submission.component';
 import {SearchResult} from '../../shared/search/models/search-result.model';
@@ -28,14 +20,9 @@ export class ThemedMyDSpaceNewSubmissionComponent extends ThemedComponent<MyDSpa
   @Output() uploadEnd = new EventEmitter<SearchResult<DSpaceObject>[]>();
 
   /**
-   * Input properties to be passed to the unthemed component
-   */
-  @Input() uploadFilesOptions: any;
-
-  /**
    * Properties to bind between the themed and unthemed components
    */
-  protected inAndOutputNames: (keyof MyDSpaceNewSubmissionComponent & keyof this)[] = ['uploadEnd', 'uploadFilesOptions'];
+  protected inAndOutputNames: (keyof MyDSpaceNewSubmissionComponent & keyof this)[] = ['uploadEnd'];
 
   /**
    * The name of the unthemed component

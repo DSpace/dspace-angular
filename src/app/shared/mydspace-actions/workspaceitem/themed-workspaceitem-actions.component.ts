@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import {ThemedComponent} from '../../theme-support/themed.component';
+import {MyDSpaceActionsResult} from '../mydspace-actions';
 
 /**
  * Themed version of WorkspaceitemActionsComponent
@@ -18,12 +19,16 @@ export class ThemedWorkspaceitemActionsComponent extends ThemedComponent<Workspa
    */
   @Input() object: WorkspaceItem;
 
+
+  @Output() processCompleted = new EventEmitter<MyDSpaceActionsResult>();
+
   /**
    * Indicate which class members are recognized as in/outputs
    * and which property names we want forwarded to the unthemed component.
    */
   protected inAndOutputNames: (keyof WorkspaceitemActionsComponent & keyof this)[] = [
-    'object'
+    'object',
+    'processCompleted',
   ];
 
   /**
