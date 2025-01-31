@@ -12,7 +12,6 @@ import { ItemBitstreamsComponent } from './item-bitstreams.component';
  */
 @Component({
   selector: 'ds-item-bitstreams',
-  styleUrls: ['./item-bitstreams.component.scss'],
   templateUrl: '../../../shared/theme-support/themed.component.html',
   standalone: true,
   imports: [ItemBitstreamsComponent],
