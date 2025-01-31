@@ -54,7 +54,6 @@ import {
   ItemSearchResultListElementComponent
 } from './app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
-import { ItemBitstreamsComponent } from './app/item-page/edit-item-page/item-bitstreams/item-bitstreams.component';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
 
 
@@ -77,7 +76,6 @@ const ENTRY_COMPONENTS = [
   PublicationSidebarSearchListElementComponent,
   ItemSearchResultListElementComponent,
   TopLevelCommunityListComponent,
-  ItemBitstreamsComponent
 ];
 
 const DECLARATIONS = [
