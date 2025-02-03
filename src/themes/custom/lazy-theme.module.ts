@@ -10,6 +10,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { RootModule } from '../../app/root.module';
 import { SearchResultsSkeletonComponent } from '../../app/shared/search/search-results/search-results-skeleton/search-results-skeleton.component';
@@ -53,6 +54,9 @@ import { MetadataRepresentationListComponent } from './app/item-page/simple/meta
 import { LoginPageComponent } from './app/login-page/login-page.component';
 import { LogoutPageComponent } from './app/logout-page/logout-page.component';
 import { ObjectNotFoundComponent } from './app/lookup-by-id/objectnotfound/objectnotfound.component';
+import { MyDSpaceNewExternalDropdownComponent } from './app/my-dspace-page/my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
+import { MyDSpaceNewSubmissionComponent } from './app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
+import { MyDSpaceNewSubmissionDropdownComponent } from './app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
 import { MyDSpacePageComponent } from './app/my-dspace-page/my-dspace-page.component';
 import { ExpandableNavbarSectionComponent } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import { PageNotFoundComponent } from './app/pagenotfound/pagenotfound.component';
@@ -77,6 +81,7 @@ import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/
 import { ExternalSourceEntryImportModalComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { LoadingComponent } from './app/shared/loading/loading.component';
+import { WorkspaceitemActionsComponent } from './app/shared/mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { AccessStatusBadgeComponent } from './app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component';
 import { BadgesComponent } from './app/shared/object-collection/shared/badges/badges.component';
 import { MyDSpaceStatusBadgeComponent } from './app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
@@ -92,6 +97,7 @@ import { SearchResultsComponent } from './app/shared/search/search-results/searc
 import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
 import { SearchSidebarComponent } from './app/shared/search/search-sidebar/search-sidebar.component';
 import { SearchFormComponent } from './app/shared/search-form/search-form.component';
+import { UploaderComponent } from './app/shared/upload/uploader/uploader.component';
 import { CollectionStatisticsPageComponent } from './app/statistics-page/collection-statistics-page/collection-statistics-page.component';
 import { CommunityStatisticsPageComponent } from './app/statistics-page/community-statistics-page/community-statistics-page.component';
 import { ItemStatisticsPageComponent } from './app/statistics-page/item-statistics-page/item-statistics-page.component';
@@ -201,6 +207,11 @@ const DECLARATIONS = [
   AdminSearchPageComponent,
   AdminWorkflowPageComponent,
   SearchResultsSkeletonComponent,
+  MyDSpaceNewSubmissionComponent,
+  MyDSpaceNewExternalDropdownComponent,
+  MyDSpaceNewSubmissionDropdownComponent,
+  UploaderComponent,
+  WorkspaceitemActionsComponent,
 ];
 
 @NgModule({
@@ -219,6 +230,7 @@ const DECLARATIONS = [
     FormsModule,
     NgxGalleryModule,
     ...DECLARATIONS,
+    FileUploadModule,
   ],
 })
 

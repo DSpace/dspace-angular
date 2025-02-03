@@ -43,7 +43,7 @@ import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-for
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { ThemedUploaderComponent } from '../../shared/upload/uploader/themed-uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
   collectionFormEntityTypeSelectionConfig,
@@ -61,7 +61,7 @@ import {
   imports: [
     FormComponent,
     TranslateModule,
-    UploaderComponent,
+    ThemedUploaderComponent,
     AsyncPipe,
     ComcolPageLogoComponent,
     NgIf,

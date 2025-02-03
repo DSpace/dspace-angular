@@ -62,6 +62,7 @@ import {
 } from '../../../empty.util';
 import { FormComponent } from '../../../form/form.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { ThemedUploaderComponent } from '../../../upload/uploader/themed-uploader.component';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
 import { followLink } from '../../../utils/follow-link-config.model';
@@ -78,7 +79,7 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
   imports: [
     FormComponent,
     TranslateModule,
-    UploaderComponent,
+    ThemedUploaderComponent,
     AsyncPipe,
     ComcolPageLogoComponent,
     NgIf,

@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
-import { UploaderComponent } from '../../../../../../app/shared/upload/uploader/uploader.component';
+import { ThemedUploaderComponent } from '../../../../../../app/shared/upload/uploader/themed-uploader.component';
 import { SubmissionUploadFilesComponent as BaseComponent } from '../../../../../../app/submission/form/submission-upload-files/submission-upload-files.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { SubmissionUploadFilesComponent as BaseComponent } from '../../../../../
   // templateUrl: './submission-upload-files.component.html',
   templateUrl: '../../../../../../app/submission/form/submission-upload-files/submission-upload-files.component.html',
   imports: [
-    UploaderComponent,
+    ThemedUploaderComponent,
     NgIf,
   ],
   standalone: true,

@@ -13,7 +13,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { isNotUndefined } from '../../../empty.util';
-import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import { ThemedWorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/themed-workspaceitem-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';
@@ -28,7 +28,7 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   styleUrls: ['../search-result-detail-element.component.scss', './workspace-item-search-result-detail-element.component.scss'],
   templateUrl: './workspace-item-search-result-detail-element.component.html',
   standalone: true,
-  imports: [ItemDetailPreviewComponent, WorkspaceitemActionsComponent],
+  imports: [ItemDetailPreviewComponent, ThemedWorkspaceitemActionsComponent, ThemedWorkspaceitemActionsComponent],
 })
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.DetailedListElement)
