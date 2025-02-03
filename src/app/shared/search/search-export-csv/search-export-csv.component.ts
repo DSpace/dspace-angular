@@ -5,7 +5,9 @@ import {
 import {
   Component,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -48,7 +50,7 @@ import { SearchFilter } from '../models/search-filter.model';
 /**
  * Display a button to export the current search results as csv
  */
-export class SearchExportCsvComponent implements OnInit {
+export class SearchExportCsvComponent implements OnInit, OnChanges {
 
   /**
    * The current configuration of the search
@@ -94,16 +96,22 @@ export class SearchExportCsvComponent implements OnInit {
     this.shouldShowWarning$ = this.itemExceeds();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.total) {
+      this.shouldShowWarning$ = this.itemExceeds();
+    }
+  }
+
   /**
    * Checks if the export limit has been exceeded and updates the tooltip accordingly
    */
   private itemExceeds(): Observable<boolean> {
-    return this.configurationService.findByPropertyName('metadataexport.max.items').pipe(
+    return this.configurationService.findByPropertyName('bulkedit.export.max.items').pipe(
       getFirstCompletedRemoteData(),
       map((response: RemoteData<ConfigurationProperty>) => {
-        const limit = Number(response.payload?.values?.[0]);
-        if (response.hasSucceeded && limit < this.total) {
-          this.exportLimitExceededMsg = this.translateService.instant(this.exportLimitExceededKey, { limit: response.payload?.values?.[0] });
+        const limit = Number(response.payload?.values?.[0]) || 500;
+        if (limit < this.total) {
+          this.exportLimitExceededMsg = this.translateService.instant(this.exportLimitExceededKey, { limit: String(limit) });
           return true;
         } else {
           return false;
