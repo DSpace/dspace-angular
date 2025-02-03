@@ -39,6 +39,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -69,6 +70,7 @@ import { FormService } from './form.service';
     DynamicFormsCoreModule,
     NgIf,
     AsyncPipe,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

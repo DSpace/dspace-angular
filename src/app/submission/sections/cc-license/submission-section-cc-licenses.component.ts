@@ -46,6 +46,7 @@ import {
 import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -73,6 +74,7 @@ import { SectionsType } from '../sections-type';
     NgbDropdownModule,
     FormsModule,
     InfiniteScrollModule,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

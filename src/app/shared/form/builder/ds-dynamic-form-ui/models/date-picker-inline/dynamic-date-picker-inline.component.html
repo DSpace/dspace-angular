@@ -29,7 +29,7 @@
                 type="button"
                 [attr.aria-labelledby]="'label_' + model.id"
                 [class.disabled]="model.disabled"
-                [disabled]="model.disabled"
+                [dsBtnDisabled]="model.disabled"
                 (click)="datepicker.toggle()">
 
             <i *ngIf="model.toggleIcon" class="{{model.toggleIcon}}" aria-hidden="true"></i>
