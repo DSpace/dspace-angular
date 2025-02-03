@@ -15,6 +15,6 @@
    class="export-button btn btn-dark btn-sm"
    [ngbTooltip]="(shouldShowWarning$ | async) ? tipContentWarning : tipContent"
    (click)="export()"
-   [title]="tooltipMsg |translate" [attr.aria-label]="tooltipMsg |translate">
+   [title]="tooltipMsg | translate" [attr.aria-label]="(shouldShowWarning$ | async) ? ((tooltipMsg | translate) + ' ' + exportLimitExceededMsg): (tooltipMsg | translate)">
     <i class="fas fa-file-export fa-fw"></i>
 </button>
