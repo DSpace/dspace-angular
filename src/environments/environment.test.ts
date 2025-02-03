@@ -14,7 +14,7 @@ export const environment: BuildConfig = {
     inlineCriticalCss: false,
     transferState: true,
     replaceRestUrl: false,
-    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ],
+    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/', '/reload/' ],
     enableSearchComponent: false,
     enableBrowseComponent: false,
   },
