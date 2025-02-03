@@ -27,11 +27,12 @@ import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { coreSelector } from '../../app/core/core.selectors';
 import { filter, find, map } from 'rxjs/operators';
-import { isNotEmpty } from '../../app/shared/empty.util';
+import { isNotEmpty, hasValue } from '../../app/shared/empty.util';
 import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { firstValueFrom, Subscription } from 'rxjs';
+import { HrefOnlyDataService } from '../../app/core/data/href-only-data.service';
 
 /**
  * Performs client-side initialization.
@@ -56,7 +57,8 @@ export class BrowserInitService extends InitService {
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
-    private rootDataService: RootDataService
+    protected rootDataService: RootDataService,
+    protected hrefOnlyDataService: HrefOnlyDataService,
   ) {
     super(
       store,
@@ -69,6 +71,7 @@ export class BrowserInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      hrefOnlyDataService,
     );
   }
 
@@ -100,6 +103,8 @@ export class BrowserInitService extends InitService {
       this.trackAuthTokenExpiration();
 
       this.initKlaro();
+
+      this.initBootstrapEndpoints();
 
       await this.authenticationReady$().toPromise();
 
@@ -170,6 +175,18 @@ export class BrowserInitService extends InitService {
     firstValueFrom(this.authenticationReady$()).then(() => {
         this.sub.unsubscribe();
       });
+  }
+
+  /**
+   * Use the bootstrapped requests from the server to prefill the cache on the client
+   */
+  override initBootstrapEndpoints() {
+    super.initBootstrapEndpoints();
+
+    if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
+      // Clear bootstrap once finished so the dspace-rest.service does not keep using the bootstrap
+      this.appConfig.prefetch.bootstrap = undefined;
+    }
   }
 
 }
