@@ -106,17 +106,51 @@ export const ROUTES: Route[] = [
     ],
     data: {
       menu: {
-        public: [{
-          id: 'statistics_collection_:id',
-          active: true,
-          visible: true,
-          index: 2,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.statistics',
-            link: 'statistics/collections/:id/',
-          } as LinkMenuItemModel,
-        }],
+        public: [
+          {
+            id: 'statistics',
+            active: true,
+            visible: true,
+            index: 2,
+            model: {
+              type: MenuItemType.TEXT,
+              text: 'menu.section.statistics',
+            } as LinkMenuItemModel,
+          },
+          {
+            id: 'statistics_site',
+            parentID: 'statistics',
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics.site',
+              link: 'statistics',
+            } as LinkMenuItemModel,
+          },
+          {
+            id: 'statistics_community_:id',
+            parentID: 'statistics',
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics.community',
+              link: 'statistics/communities/:id/',
+            } as LinkMenuItemModel,
+          },
+          {
+            id: 'statistics_collection_:id',
+            parentID: 'statistics',
+            active: false,
+            visible: true,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics.collection',
+              link: 'statistics/collections/:id/',
+            } as LinkMenuItemModel,
+          }
+        ],
       },
     },
   },
