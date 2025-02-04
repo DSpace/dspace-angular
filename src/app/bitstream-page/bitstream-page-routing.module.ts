@@ -13,6 +13,7 @@ import { BitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-bread
 import { BitstreamBreadcrumbsService } from '../core/breadcrumbs/bitstream-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
+import { bitstreamDownloadRedirectGuard } from './bitstream-download-redirect.guard';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -42,6 +43,7 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         resolve: {
           bitstream: BitstreamPageResolver
         },
+        canActivate: [bitstreamDownloadRedirectGuard],
       },
       {
         path: EDIT_BITSTREAM_PATH,

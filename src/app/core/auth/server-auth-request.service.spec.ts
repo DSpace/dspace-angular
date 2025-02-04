@@ -9,6 +9,8 @@ import {
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER
 } from '../xsrf/xsrf.constants';
+import { XSRFService } from '../xsrf/xsrf.service';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 describe(`ServerAuthRequestService`, () => {
   let href: string;
@@ -17,6 +19,7 @@ describe(`ServerAuthRequestService`, () => {
   let httpClient: HttpClient;
   let httpResponse: HttpResponse<any>;
   let halService: HALEndpointService;
+  let xsrfService: XSRFService;
   const mockToken = 'mock-token';
 
   beforeEach(() => {
@@ -37,7 +40,10 @@ describe(`ServerAuthRequestService`, () => {
     halService = jasmine.createSpyObj('halService', {
       'getRootHref': '/api'
     });
-    service = new ServerAuthRequestService(halService, requestService, null, httpClient);
+    xsrfService = jasmine.createSpyObj('xsrfService', null, {
+      'tokenInitialized$': new BehaviorSubject(false),
+    });
+    service = new ServerAuthRequestService(halService, requestService, null, httpClient, xsrfService);
   });
 
   describe(`createShortLivedTokenRequest`, () => {
