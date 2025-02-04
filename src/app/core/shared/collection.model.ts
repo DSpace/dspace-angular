@@ -123,6 +123,38 @@ export class Collection extends DSpaceObject implements ChildHALResource, Handle
   }
 
   /**
+  * The header text of this collection
+  * Corresponds to the metadata field dspace.collection.headertext
+  */
+  get customHeaderText(): string {
+    return this.firstMetadataValue('dspace.collection.headertext');
+  }
+
+  /**
+  * The custom footer of this collection
+  * Corresponds to the metadata field dspace.collection.customfooter
+  */
+  get customFooterText(): string {
+    return this.firstMetadataValue('dspace.collection.customfooter');
+  }
+
+  /**
+  * The home page intro text of this collection
+  * Corresponds to the metadata field dspace.collection.homepageintrotext
+  */
+  get customHomePageIntroText(): string {
+    return this.firstMetadataValue('dspace.collection.homepageintrotext');
+  }
+
+  /**
+  * The owner name of this collection
+  * Corresponds to the metadata field dspace.collection.introtext
+  */
+  get customOwnerNameText(): string {
+    return this.firstMetadataValue('dspace.collection.ownername');
+  }
+
+  /**
    * The sidebar text of this Collection
    * Corresponds to the metadata field dc.description.tableofcontents
    */
