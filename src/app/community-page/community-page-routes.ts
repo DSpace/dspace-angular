@@ -132,7 +132,7 @@ export const ROUTES: Route[] = [
             model: {
               type: MenuItemType.LINK,
               text: 'menu.section.statistics.community',
-              link: 'statistics/communities/:id/:name',
+              link: 'statistics/communities/:id',
             } as LinkMenuItemModel,
           }
         ],
