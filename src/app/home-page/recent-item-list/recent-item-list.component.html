@@ -1,7 +1,18 @@
 <ng-container *ngVar="(itemRD$ | async) as itemRD">
         <div class="mt-4" [ngClass]="placeholderFontClass" *ngIf="itemRD?.hasSucceeded && itemRD?.payload?.page.length > 0" @fadeIn>
                 <div class="d-flex flex-row border-bottom mb-4 pb-4"></div>
-                <h2> {{'home.recent-submissions.head' | translate}}</h2>
+                <h2>
+                  <span
+                    *dsContextHelp="{
+                      content: 'home.tooltip.recent-item-list',
+                      id: 'home-recent-item-list',
+                      iconPlacement: 'right',
+                      tooltipPlacement: ['top', 'right', 'bottom']
+                    }"
+                  >
+                    {{'home.recent-submissions.head' | translate}}
+                  </span>
+                </h2>
                 <div class="my-4" *ngFor="let item of itemRD?.payload?.page">
                         <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode" class="pb-4">
                         </ds-listable-object-component-loader>
