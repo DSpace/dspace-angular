@@ -13,7 +13,10 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -103,6 +106,7 @@ export class CommunityPageComponent implements OnInit {
     private authService: AuthService,
     private authorizationDataService: AuthorizationDataService,
     public dsoNameService: DSONameService,
+    public translateService: TranslateService,
   ) {
 
   }

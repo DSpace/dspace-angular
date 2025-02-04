@@ -9,10 +9,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Community } from '../../../core/shared/community.model';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { translateServiceStub } from '../../mocks/translate.service.mock';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { CommunityListElementComponent } from './community-list-element.component';
 
@@ -49,6 +51,7 @@ describe('CommunityListElementComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: TranslateService, useValue: translateServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CommunityListElementComponent, {
