@@ -587,7 +587,7 @@ describe('ItemComponent', () => {
     beforeEach(() => {
       bitstreamDataService = jasmine.createSpyObj('BitstreamDataService', [
         'findPrimaryBitstreamByItemAndName',
-        'findAllByItemAndBundleName'
+        'findAllByItemAndBundleName',
       ]);
       router = jasmine.createSpyObj('Router', ['navigate']);
       routeService = jasmine.createSpyObj('RouteService', ['getRoute']);
@@ -603,7 +603,7 @@ describe('ItemComponent', () => {
         bundle: { href: 'bundle-link' },
         format: { href: 'format-link' },
         content: { href: 'primary-link' },
-        thumbnail: { href: 'thumbnail-link' }
+        thumbnail: { href: 'thumbnail-link' },
       };
       const remotePaginatedListBitstream = createSuccessfulRemoteDataObject$(createPaginatedList([primaryBitstream]));
       bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(primaryBitstream));
@@ -622,7 +622,7 @@ describe('ItemComponent', () => {
         bundle: { href: 'bundle-link' },
         format: { href: 'format-link' },
         content: { href: 'primary-link' },
-        thumbnail: { href: 'thumbnail-link' }
+        thumbnail: { href: 'thumbnail-link' },
       };
       const remotePaginatedListBitstream = createSuccessfulRemoteDataObject$(createPaginatedList([primaryBitstream]));
       bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(null));
@@ -642,7 +642,7 @@ describe('ItemComponent', () => {
         bundle: { href: 'bundle-link' },
         format: { href: 'format-link' },
         content: { href: 'primary-link' },
-        thumbnail: { href: 'thumbnail-link' }
+        thumbnail: { href: 'thumbnail-link' },
       };
       const remotePaginatedListBitstream = createSuccessfulRemoteDataObject$(createPaginatedList([]));
       bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(null));

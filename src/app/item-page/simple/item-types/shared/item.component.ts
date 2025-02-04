@@ -4,13 +4,19 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import {
   catchError,
   map,
   switchMap,
   take,
 } from 'rxjs/operators';
+import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
+import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 
 import { environment } from '../../../../../environments/environment';
 import { RouteService } from '../../../../core/services/route.service';
@@ -22,9 +28,6 @@ import {
   isIiifEnabled,
   isIiifSearchEnabled,
 } from './item-iiif-utils';
-import { BitstreamDataService } from 'src/app/core/data/bitstream-data.service';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 
 @Component({
   selector: 'ds-item',
@@ -131,13 +134,13 @@ export class ItemComponent implements OnInit {
           map((bitstreams) => {
             const bitstreamList = bitstreams.payload.page;
             return (bitstreamList && bitstreamList.length > 0) ? bitstreamList[0]._links.content.href : '';
-          })
+          }),
         );
       }),
-      catchError(error => {
+      catchError((error: unknown) => {
         console.error('Error fetching thumbnail link:', error);
         return of('');
-      })
+      }),
     );
   }
 }
