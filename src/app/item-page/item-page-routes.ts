@@ -121,7 +121,7 @@ export const ROUTES: Route[] = [
               text: 'menu.section.statistics.item',
               link: 'statistics/items/:id/',
             } as LinkMenuItemModel,
-          }
+          },
         ],
       },
     },

@@ -34,7 +34,7 @@ export const ROUTES: Route[] = [
               text: 'menu.section.statistics.site',
               link: 'statistics',
             } as LinkMenuItemModel,
-          }
+          },
         ],
       },
     },

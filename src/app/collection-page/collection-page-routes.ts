@@ -149,7 +149,7 @@ export const ROUTES: Route[] = [
               text: 'menu.section.statistics.collection',
               link: 'statistics/collections/:id/',
             } as LinkMenuItemModel,
-          }
+          },
         ],
       },
     },
