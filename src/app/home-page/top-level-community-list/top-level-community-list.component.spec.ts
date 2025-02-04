@@ -8,11 +8,11 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import { Store } from '@ngrx/store';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';

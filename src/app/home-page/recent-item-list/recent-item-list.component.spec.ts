@@ -3,9 +3,9 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
-import { Store } from '@ngrx/store';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import {
