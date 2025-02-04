@@ -1167,6 +1167,9 @@
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Cuir air ais",
 
+  // "admin.workflow.item.return": "Return to pool",
+  "admin.workflow.item.return": "Till dhan amar-stòrais",
+
 
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
