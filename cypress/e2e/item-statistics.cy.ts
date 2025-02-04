@@ -6,7 +6,8 @@ describe('Item Statistics Page', () => {
 
   it('should load if you click on "Statistics" from an Item/Entity page', () => {
     cy.visit('/entities/publication/'.concat(Cypress.env('DSPACE_TEST_ENTITY_PUBLICATION')));
-    cy.get('ds-navbar ds-link-menu-item a[data-test="link-menu-item.menu.section.statistics"]').click();
+    cy.get('ds-expandable-navbar-section').contains('Statistics').parents('[data-test="navbar-section-wrapper"]').trigger('mouseenter', { force: true });
+    cy.get('ds-navbar ds-link-menu-item a[data-test="link-menu-item.menu.section.statistics.item"]').click();
     cy.location('pathname').should('eq', ITEMSTATISTICSPAGE);
   });
 
