@@ -5,6 +5,7 @@ import {
 } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
+import { Store } from '@ngrx/store';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import {
@@ -54,6 +55,7 @@ describe('RecentItemListComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
+        { provide: Store, useValue: {} },
       ],
     })
       .compileComponents();
