@@ -183,6 +183,7 @@ import { ValueListBrowseDefinition } from './shared/value-list-browse-definition
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
 import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
+import { StatisticsEndpoint } from '../statistics/statistics-endpoint.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -381,7 +382,8 @@ export const models =
     IdentifierData,
     Subscription,
     ItemRequest,
-    BulkAccessConditionOptions
+    BulkAccessConditionOptions,
+    StatisticsEndpoint,
   ];
 
 @NgModule({
