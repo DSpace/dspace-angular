@@ -36,6 +36,12 @@ export class SearchConfig implements CacheableObject {
   sortOptions: SortConfig[];
 
   /**
+   * The default sort option
+   */
+  @autoserialize
+  defaultSortOption: SortConfig;
+
+  /**
    * The object type.
    */
   @autoserialize
