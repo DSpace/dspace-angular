@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -84,8 +79,6 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
   templateUrl: './eperson-form.component.html',
   imports: [
     FormComponent,
-    NgIf,
-    NgFor,
     AsyncPipe,
     TranslateModule,
     NgClass,
@@ -93,8 +86,8 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     PaginationComponent,
     RouterLink,
     HasNoValuePipe,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 /**

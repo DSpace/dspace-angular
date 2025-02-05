@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -35,14 +31,13 @@ export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
   preserveWhitespaces: false,
   imports: [
     ModifyItemOverviewComponent,
-    NgIf,
     AsyncPipe,
     TranslateModule,
     NgbRatingModule,
     NgClass,
     ReactiveFormsModule,
-    VarDirective,
-  ],
+    VarDirective
+],
   standalone: true,
 })
 export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActionComponent implements OnInit {

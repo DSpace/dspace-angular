@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -40,7 +36,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './workflow-item-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ListableObjectComponentLoaderComponent, NgClass, WorkflowitemActionsComponent, ThemedLoadingComponent, AsyncPipe],
+  imports: [ListableObjectComponentLoaderComponent, NgClass, WorkflowitemActionsComponent, ThemedLoadingComponent, AsyncPipe],
 })
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement)

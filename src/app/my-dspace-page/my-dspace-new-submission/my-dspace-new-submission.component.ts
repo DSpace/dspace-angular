@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   ChangeDetectorRef,
   Component,
@@ -37,9 +37,8 @@ import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submissi
   imports: [
     MyDSpaceNewExternalDropdownComponent,
     MyDSpaceNewSubmissionDropdownComponent,
-    UploaderComponent,
-    NgIf,
-  ],
+    UploaderComponent
+],
   standalone: true,
 })
 export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {

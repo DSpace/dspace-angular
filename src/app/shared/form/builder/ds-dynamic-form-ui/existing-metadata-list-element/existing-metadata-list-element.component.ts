@@ -1,8 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -166,12 +163,11 @@ export class ReorderableRelationship extends Reorderable {
   templateUrl: './existing-metadata-list-element.component.html',
   styleUrls: ['./existing-metadata-list-element.component.scss'],
   imports: [
-    NgIf,
     ThemedLoadingComponent,
     AsyncPipe,
     MetadataRepresentationLoaderComponent,
-    TranslateModule,
-  ],
+    TranslateModule
+],
   standalone: true,
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {

@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-  NgFor,
-} from '@angular/common';
+import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -21,7 +17,7 @@ import { SearchLabelLoaderComponent } from './search-label-loader/search-label-l
   styleUrls: ['./search-labels.component.scss'],
   templateUrl: './search-labels.component.html',
   standalone: true,
-  imports: [NgFor, SearchLabelComponent, AsyncPipe, ObjectKeysPipe, SearchLabelLoaderComponent, KeyValuePipe],
+  imports: [SearchLabelComponent, AsyncPipe, ObjectKeysPipe, SearchLabelLoaderComponent, KeyValuePipe],
 })
 
 /**

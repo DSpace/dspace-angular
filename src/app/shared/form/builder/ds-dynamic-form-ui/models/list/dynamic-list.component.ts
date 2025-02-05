@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -68,14 +63,12 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html',
   imports: [
     NgClass,
-    NgIf,
     NgbButtonsModule,
-    NgForOf,
     ReactiveFormsModule,
     AsyncPipe,
     TranslateModule,
-    ThemedLoadingComponent,
-  ],
+    ThemedLoadingComponent
+],
   standalone: true,
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {

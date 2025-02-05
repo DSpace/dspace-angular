@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -87,7 +84,6 @@ import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     FormComponent,
-    NgIf,
     VarDirective,
     ThemedThumbnailComponent,
     AsyncPipe,
@@ -95,8 +91,8 @@ import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.compo
     ErrorComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    FileSizePipe,
-  ],
+    FileSizePipe
+],
   standalone: true,
 })
 /**

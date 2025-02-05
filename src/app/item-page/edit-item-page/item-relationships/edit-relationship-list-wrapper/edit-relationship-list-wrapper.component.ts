@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -30,9 +27,8 @@ import { EditRelationshipListComponent } from '../edit-relationship-list/edit-re
   standalone: true,
   imports: [
     AsyncPipe,
-    EditRelationshipListComponent,
-    NgIf,
-  ],
+    EditRelationshipListComponent
+],
 })
 /**
  * A component creating a list of editable relationships of a certain type

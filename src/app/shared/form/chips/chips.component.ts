@@ -4,12 +4,7 @@ import {
   CdkDropList,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import {
-  AsyncPipe,
-  NgClass,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -41,14 +36,12 @@ import { ChipsItem } from './models/chips-item.model';
   imports: [
     NgbTooltipModule,
     NgClass,
-    NgForOf,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
-    NgIf,
     TranslateModule,
     CdkDrag,
-    CdkDropList,
-  ],
+    CdkDropList
+],
   standalone: true,
 })
 

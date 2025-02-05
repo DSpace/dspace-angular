@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -41,13 +37,11 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
   selector: 'ds-bitstream-formats',
   templateUrl: './bitstream-formats.component.html',
   imports: [
-    NgIf,
     AsyncPipe,
     RouterLink,
     TranslateModule,
-    PaginationComponent,
-    NgForOf,
-  ],
+    PaginationComponent
+],
   standalone: true,
 })
 export class BitstreamFormatsComponent implements OnInit, OnDestroy {

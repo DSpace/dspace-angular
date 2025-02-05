@@ -1,13 +1,15 @@
 <div class="page-size-settings">
-    <ds-sidebar-dropdown
-            [id]="'search-sidebar-rpp'"
-            [label]="'search.sidebar.settings.rpp'"
-            (changed)="reloadRPP($event)"
+  <ds-sidebar-dropdown
+    [id]="'search-sidebar-rpp'"
+    [label]="'search.sidebar.settings.rpp'"
+    (changed)="reloadRPP($event)"
     >
-        <option *ngFor="let pageSizeOption of (paginationOptions$ | async).pageSizeOptions"
-                [value]="pageSizeOption"
-                [selected]="pageSizeOption === +((paginationOptions$ | async).pageSize) ? 'selected': null">
-            {{pageSizeOption}}
-        </option>
-    </ds-sidebar-dropdown>
+    @for (pageSizeOption of (paginationOptions$ | async).pageSizeOptions; track pageSizeOption) {
+      <option
+        [value]="pageSizeOption"
+        [selected]="pageSizeOption === +((paginationOptions$ | async).pageSize) ? 'selected': null">
+        {{pageSizeOption}}
+      </option>
+    }
+  </ds-sidebar-dropdown>
 </div>

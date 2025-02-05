@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -34,9 +34,8 @@ import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-p
   selector: 'ds-bitstream-format-form',
   templateUrl: './format-form.component.html',
   imports: [
-    FormComponent,
-    NgIf,
-  ],
+    FormComponent
+],
   standalone: true,
 })
 export class FormatFormComponent implements OnInit {

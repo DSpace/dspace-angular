@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -52,7 +49,6 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
     AsyncPipe,
     ComcolPageHeaderComponent,
     ComcolPageLogoComponent,
-    NgIf,
     ThemedComcolPageHandleComponent,
     ThemedComcolPageContentComponent,
     DsoEditMenuComponent,
@@ -61,8 +57,8 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
     ThemedLoadingComponent,
     ThemedBrowseByComponent,
     VocabularyTreeviewComponent,
-    RouterLink,
-  ],
+    RouterLink
+],
   standalone: true,
 })
 /**

@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -69,14 +64,12 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     TranslateModule,
     ProfilePageResearcherFormComponent,
     VarDirective,
-    NgIf,
-    NgForOf,
     SuggestionsNotificationComponent,
     NgTemplateOutlet,
     PaginationComponent,
     ThemedLoadingComponent,
-    ErrorComponent,
-  ],
+    ErrorComponent
+],
   standalone: true,
 })
 /**

@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -25,10 +21,8 @@ import { SuggestionsService } from '../suggestions.service';
   imports: [
     RouterLink,
     TranslateModule,
-    AsyncPipe,
-    NgIf,
-    NgForOf,
-  ],
+    AsyncPipe
+],
   styleUrls: ['./suggestions-notification.component.scss'],
 })
 export class SuggestionsNotificationComponent implements OnInit {

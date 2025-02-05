@@ -1,7 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -22,10 +19,8 @@ import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
   animations: [fadeIn],
   imports: [
     TranslateModule,
-    NgIf,
-    NgFor,
-    ObjectKeysPipe,
-  ],
+    ObjectKeysPipe
+],
   standalone: true,
 })
 export class SuggestionEvidencesComponent {

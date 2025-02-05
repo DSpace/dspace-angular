@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -21,9 +18,8 @@ import { IdentifierData } from './identifier-data.model';
   templateUrl: './identifier-data.component.html',
   imports: [
     TranslateModule,
-    AsyncPipe,
-    NgIf,
-  ],
+    AsyncPipe
+],
   standalone: true,
 })
 /**

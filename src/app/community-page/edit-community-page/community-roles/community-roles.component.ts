@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -30,9 +27,8 @@ import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-co
   templateUrl: './community-roles.component.html',
   imports: [
     ComcolRoleComponent,
-    AsyncPipe,
-    NgForOf,
-  ],
+    AsyncPipe
+],
   standalone: true,
 })
 export class CommunityRolesComponent implements OnInit {

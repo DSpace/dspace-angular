@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   Input,
@@ -109,13 +104,11 @@ export interface EPersonListActionConfig {
     ContextHelpDirective,
     ReactiveFormsModule,
     PaginationComponent,
-    NgIf,
     AsyncPipe,
     RouterLink,
     NgClass,
-    NgForOf,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 /**

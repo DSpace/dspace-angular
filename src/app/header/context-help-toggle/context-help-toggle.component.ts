@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -25,7 +22,7 @@ import { ContextHelpService } from '../../shared/context-help.service';
   templateUrl: './context-help-toggle.component.html',
   styleUrls: ['./context-help-toggle.component.scss'],
   standalone: true,
-  imports: [NgIf, AsyncPipe, TranslateModule],
+  imports: [AsyncPipe, TranslateModule],
 })
 export class ContextHelpToggleComponent implements OnInit {
   buttonVisible$: Observable<boolean>;

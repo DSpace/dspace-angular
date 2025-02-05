@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -65,17 +61,15 @@ import { SectionsType } from '../sections-type';
   styleUrls: ['./submission-section-cc-licenses.component.scss'],
   imports: [
     TranslateModule,
-    NgIf,
     ThemedLoadingComponent,
     AsyncPipe,
     VarDirective,
-    NgForOf,
     DsSelectComponent,
     NgbDropdownModule,
     FormsModule,
     InfiniteScrollModule,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent {

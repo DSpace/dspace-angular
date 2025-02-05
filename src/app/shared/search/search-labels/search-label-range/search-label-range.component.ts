@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -32,10 +29,9 @@ import { AppliedFilter } from '../../models/applied-filter.model';
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
     RouterLink,
-    TranslateModule,
-  ],
+    TranslateModule
+],
 })
 export class SearchLabelRangeComponent implements OnInit {
 

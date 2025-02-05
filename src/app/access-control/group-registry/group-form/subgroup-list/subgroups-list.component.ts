@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -65,13 +61,11 @@ enum SubKey {
   imports: [
     RouterLink,
     AsyncPipe,
-    NgForOf,
     ContextHelpDirective,
     TranslateModule,
     ReactiveFormsModule,
-    PaginationComponent,
-    NgIf,
-  ],
+    PaginationComponent
+],
   standalone: true,
 })
 /**

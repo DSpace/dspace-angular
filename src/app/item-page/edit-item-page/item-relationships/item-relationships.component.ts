@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -61,15 +56,13 @@ import { EditRelationshipListWrapperComponent } from './edit-relationship-list-w
     AlertComponent,
     AsyncPipe,
     EditRelationshipListComponent,
-    NgForOf,
-    NgIf,
     NgTemplateOutlet,
     ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
     EditRelationshipListWrapperComponent,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 /**

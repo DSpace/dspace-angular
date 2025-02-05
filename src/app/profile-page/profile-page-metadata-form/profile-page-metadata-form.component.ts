@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -34,9 +34,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   selector: 'ds-base-profile-page-metadata-form',
   templateUrl: './profile-page-metadata-form.component.html',
   imports: [
-    FormComponent,
-    NgIf,
-  ],
+    FormComponent
+],
   standalone: true,
 })
 /**

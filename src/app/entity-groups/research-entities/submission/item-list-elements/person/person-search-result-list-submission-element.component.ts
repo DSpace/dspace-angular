@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -39,7 +34,7 @@ import { PersonInputSuggestionsComponent } from './person-suggestions/person-inp
   styleUrls: ['./person-search-result-list-submission-element.component.scss'],
   templateUrl: './person-search-result-list-submission-element.component.html',
   standalone: true,
-  imports: [NgIf, ThemedThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, NgFor, AsyncPipe],
+  imports: [ThemedThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, AsyncPipe],
 })
 
 /**

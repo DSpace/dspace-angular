@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -59,15 +55,13 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     AsyncPipe,
     NgbAccordionModule,
     TranslateModule,
-    NgIf,
     NgbNavModule,
     ThemedSearchComponent,
     BrowserOnlyPipe,
-    NgForOf,
     NgxPaginationModule,
     SelectableListItemControlComponent,
-    ListableObjectComponentLoaderComponent,
-  ],
+    ListableObjectComponentLoaderComponent
+],
   standalone: true,
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {

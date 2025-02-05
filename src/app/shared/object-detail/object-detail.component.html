@@ -14,16 +14,24 @@
   (paginationChange)="onPaginationChange($event)"
   (prev)="goPrev()"
   (next)="goNext()">
-    <div class="row mt-2" *ngIf="objects?.hasSucceeded" @fadeIn>
-      <div class="col"
-           *ngFor="let object of objects?.payload?.page">
-        <ds-listable-object-component-loader [object]="object"
-                                             [viewMode]="viewMode"
-                                             [context]="context"
-                                             [showThumbnails]="showThumbnails"
-                                             (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
-      </div>
+  @if (objects?.hasSucceeded) {
+    <div class="row mt-2" @fadeIn>
+      @for (object of objects?.payload?.page; track object) {
+        <div class="col"
+          >
+          <ds-listable-object-component-loader [object]="object"
+            [viewMode]="viewMode"
+            [context]="context"
+            [showThumbnails]="showThumbnails"
+          (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
+        </div>
+      }
     </div>
-  <ds-error *ngIf="objects.hasFailed" message="{{'error.objects' | translate}}"></ds-error>
-  <ds-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-loading>
+  }
+  @if (objects.hasFailed) {
+    <ds-error message="{{'error.objects' | translate}}"></ds-error>
+  }
+  @if (objects.isLoading) {
+    <ds-loading message="{{'loading.objects' | translate}}"></ds-loading>
+  }
 </ds-pagination>

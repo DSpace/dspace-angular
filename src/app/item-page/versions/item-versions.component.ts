@@ -1,10 +1,4 @@
-import {
-  AsyncPipe,
-  DatePipe,
-  NgClass,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
 import {
   Component,
   Input,
@@ -82,12 +76,10 @@ interface VersionDTO {
     FormsModule,
     ItemVersionsRowElementVersionComponent,
     NgClass,
-    NgFor,
-    NgIf,
     PaginationComponent,
     TranslateModule,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
 })
 
 /**

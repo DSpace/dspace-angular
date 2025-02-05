@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -58,11 +55,10 @@ import { VarDirective } from '../../../../utils/var.directive';
     AlertComponent,
     AsyncPipe,
     TranslateModule,
-    NgIf,
     RouterLink,
     VarDirective,
-    HasNoValuePipe,
-  ],
+    HasNoValuePipe
+],
   standalone: true,
 })
 export class ComcolRoleComponent implements OnInit {

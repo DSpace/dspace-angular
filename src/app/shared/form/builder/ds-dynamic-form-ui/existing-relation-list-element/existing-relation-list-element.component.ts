@@ -1,8 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -82,9 +79,8 @@ export abstract class Reorderable {
   imports: [
     ThemedLoadingComponent,
     AsyncPipe,
-    ListableObjectComponentLoaderComponent,
-    NgIf,
-  ],
+    ListableObjectComponentLoaderComponent
+],
   standalone: true,
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {

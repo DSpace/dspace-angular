@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  isPlatformBrowser,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -42,9 +38,8 @@ import { MiradorViewerService } from './mirador-viewer.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     TranslateModule,
-    AsyncPipe,
-    NgIf,
-  ],
+    AsyncPipe
+],
   standalone: true,
 })
 export class MiradorViewerComponent implements OnInit {

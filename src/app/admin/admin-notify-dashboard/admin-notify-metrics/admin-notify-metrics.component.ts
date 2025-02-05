@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -16,9 +16,8 @@ import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
   standalone: true,
   imports: [
     NotificationBoxComponent,
-    TranslateModule,
-    NgForOf,
-  ],
+    TranslateModule
+],
 })
 /**
  * Component used to display the number of notification for each configured box in the notifyMetrics section

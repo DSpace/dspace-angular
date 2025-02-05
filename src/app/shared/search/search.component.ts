@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  isPlatformServer,
-  NgIf,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { AsyncPipe, isPlatformServer, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -93,7 +88,6 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
     NgTemplateOutlet,
     PageWithSidebarComponent,
     ThemedSearchFormComponent,
@@ -101,8 +95,8 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
     ThemedSearchSidebarComponent,
     TranslateModule,
     SearchLabelsComponent,
-    ViewModeSwitchComponent,
-  ],
+    ViewModeSwitchComponent
+],
 })
 
 /**

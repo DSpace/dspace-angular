@@ -1,9 +1,5 @@
 import { trigger } from '@angular/animations';
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -44,10 +40,8 @@ import { SuggestionsService } from '../suggestions.service';
   imports: [
     AsyncPipe,
     TranslateModule,
-    RouterLink,
-    NgIf,
-    NgForOf,
-  ],
+    RouterLink
+],
   standalone: true,
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -36,7 +36,7 @@ import {
   // templateUrl: '../dso-selector-modal-wrapper.component.html',
   templateUrl: './create-item-parent-selector.component.html',
   standalone: true,
-  imports: [NgIf, AuthorizedCollectionSelectorComponent, TranslateModule],
+  imports: [AuthorizedCollectionSelectorComponent, TranslateModule],
 })
 export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

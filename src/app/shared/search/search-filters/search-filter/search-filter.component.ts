@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  LowerCasePipe,
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, LowerCasePipe, NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -53,7 +48,7 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
   templateUrl: './search-filter.component.html',
   animations: [slide],
   standalone: true,
-  imports: [NgIf, NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
 })
 
 /**

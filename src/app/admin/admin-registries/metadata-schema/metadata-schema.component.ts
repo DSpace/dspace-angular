@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -59,11 +54,9 @@ import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field
     MetadataFieldFormComponent,
     TranslateModule,
     PaginationComponent,
-    NgIf,
-    NgForOf,
     NgClass,
-    RouterLink,
-  ],
+    RouterLink
+],
   standalone: true,
 })
 /**

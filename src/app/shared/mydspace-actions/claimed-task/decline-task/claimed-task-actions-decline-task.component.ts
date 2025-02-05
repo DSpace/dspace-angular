@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Injector,
@@ -33,7 +30,7 @@ export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
   templateUrl: './claimed-task-actions-decline-task.component.html',
   styleUrls: ['./claimed-task-actions-decline-task.component.scss'],
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [NgbTooltipModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component for displaying and processing the decline task action on a workflow task item

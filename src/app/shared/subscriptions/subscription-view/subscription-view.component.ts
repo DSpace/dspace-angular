@@ -1,7 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -33,7 +30,7 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss'],
   standalone: true,
-  imports: [NgIf, ThemedTypeBadgeComponent, RouterLink, NgFor, TranslateModule, BtnDisabledDirective],
+  imports: [ThemedTypeBadgeComponent, RouterLink, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Table row representing a subscription that displays all information and action buttons to manage it
