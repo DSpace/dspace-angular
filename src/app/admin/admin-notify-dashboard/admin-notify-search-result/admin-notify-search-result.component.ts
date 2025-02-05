@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  DatePipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -42,14 +37,12 @@ import { AdminNotifyMessagesService } from '../services/admin-notify-messages.se
   standalone: true,
   imports: [
     TranslateModule,
-    NgForOf,
-    NgIf,
     DatePipe,
     AsyncPipe,
     TruncatableComponent,
     TruncatablePartComponent,
-    RouterLink,
-  ],
+    RouterLink
+],
 })
 /**
  * Component for visualization in table format of the search results related to the AdminNotifyDashboardComponent

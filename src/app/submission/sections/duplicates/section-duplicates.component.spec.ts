@@ -255,11 +255,7 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [BrowserModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxPaginationModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
 })
 class TestComponent {
 

@@ -1,10 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-  Location,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, KeyValuePipe, Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -71,8 +65,6 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
     ThemedFullFileSectionComponent,
     CollectionsComponent,
     ItemVersionsComponent,
-    NgIf,
-    NgForOf,
     AsyncPipe,
     KeyValuePipe,
     RouterLink,
@@ -81,8 +73,8 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
     ItemVersionsNoticeComponent,
     ViewTrackerComponent,
     ThemedItemAlertsComponent,
-    VarDirective,
-  ],
+    VarDirective
+],
   standalone: true,
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit, OnDestroy {

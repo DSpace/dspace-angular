@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -40,11 +36,9 @@ import { SectionsService } from '../sections.service';
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     TranslateModule,
-    NgForOf,
-    NgIf,
     AsyncPipe,
-    VarDirective,
-  ],
+    VarDirective
+],
   standalone: true,
 })
 

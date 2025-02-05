@@ -1,9 +1,4 @@
-import {
-  NgClass,
-  NgForOf,
-  NgIf,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -71,14 +66,12 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
     NgbDropdownModule,
     AuthorityConfidenceStateDirective,
     FormsModule,
-    NgIf,
     NgClass,
     InfiniteScrollModule,
-    NgForOf,
     NgTemplateOutlet,
     ObjNgFor,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {

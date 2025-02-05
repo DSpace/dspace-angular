@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -51,11 +47,9 @@ import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wr
   imports: [
     MetadataFieldWrapperComponent,
     TranslateModule,
-    NgForOf,
     AsyncPipe,
-    RouterLink,
-    NgIf,
-  ],
+    RouterLink
+],
   standalone: true,
 })
 export class CollectionsComponent implements OnInit {

@@ -5,7 +5,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <span *ngIf="header" class="h5 px-2">{{header | translate}}</span>
+    @if (header) {
+      <span class="h5 px-2">{{header | translate}}</span>
+    }
     <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)"></ds-dso-selector>
   </div>
 </div>

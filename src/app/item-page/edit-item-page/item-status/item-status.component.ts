@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -68,13 +63,11 @@ import { ItemOperation } from '../item-operation/itemOperation.model';
   ],
   imports: [
     TranslateModule,
-    NgForOf,
     AsyncPipe,
-    NgIf,
     RouterLink,
     ItemOperationComponent,
-    NgClass,
-  ],
+    NgClass
+],
   standalone: true,
 })
 /**

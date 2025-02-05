@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ComponentRef,
@@ -84,9 +81,8 @@ import { ThemedExternalSourceEntryImportModalComponent } from './external-source
     AsyncPipe,
     TranslateModule,
     ErrorComponent,
-    NgIf,
-    ThemedLoadingComponent,
-  ],
+    ThemedLoadingComponent
+],
   standalone: true,
 })
 /**

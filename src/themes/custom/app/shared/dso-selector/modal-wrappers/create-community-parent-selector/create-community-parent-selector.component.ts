@@ -3,6 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { DSOSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/dso-selector.component';
 import { CreateCommunityParentSelectorComponent as BaseComponent } from '../../../../../../../app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+import { AsyncPipe } from "@angular/common";
 
 @Component({
   selector: 'ds-themed-create-community-parent-selector',
@@ -11,7 +12,7 @@ import { CreateCommunityParentSelectorComponent as BaseComponent } from '../../.
   // templateUrl: './create-community-parent-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule],
+  imports: [DSOSelectorComponent, TranslateModule, AsyncPipe],
 })
 export class CreateCommunityParentSelectorComponent extends BaseComponent {
 }

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -41,7 +38,6 @@ import { ItemComponent } from '../shared/item.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf,
     ThemedResultsBackButtonComponent,
     MiradorViewerComponent,
     ThemedItemPageTitleFieldComponent,
@@ -59,7 +55,7 @@ import { ItemComponent } from '../shared/item.component';
     RouterLink,
     AsyncPipe,
     TranslateModule,
-    ItemPageCcLicenseFieldComponent,
-  ],
+    ItemPageCcLicenseFieldComponent
+],
 })
 export class UntypedItemComponent extends ItemComponent {}

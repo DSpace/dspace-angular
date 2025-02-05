@@ -1,10 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-  NgSwitch,
-  NgSwitchCase,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -79,14 +73,10 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     RouterLink,
     ReactiveFormsModule,
     AsyncPipe,
-    NgIf,
     PaginationComponent,
-    NgSwitch,
-    NgSwitchCase,
     NgbTooltipModule,
-    NgForOf,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 /**

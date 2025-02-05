@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -32,11 +28,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AsyncPipe,
-    NgForOf,
     TranslateModule,
-    RouterLink,
-    NgIf,
-  ],
+    RouterLink
+],
   standalone: true,
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {

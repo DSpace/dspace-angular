@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-  NgTemplateOutlet,
-} from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -83,16 +78,14 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
   templateUrl: './dynamic-onebox.component.html',
   imports: [
     NgbTypeaheadModule,
-    NgIf,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
     NgTemplateOutlet,
     TranslateModule,
     ObjNgFor,
-    NgForOf,
     FormsModule,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {

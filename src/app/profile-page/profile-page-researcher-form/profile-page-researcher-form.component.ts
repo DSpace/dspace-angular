@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -49,13 +46,12 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
   selector: 'ds-profile-page-researcher-form',
   templateUrl: './profile-page-researcher-form.component.html',
   imports: [
-    NgIf,
     AsyncPipe,
     TranslateModule,
     UiSwitchModule,
     VarDirective,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 /**

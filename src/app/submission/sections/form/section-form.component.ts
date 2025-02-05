@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   ChangeDetectorRef,
   Component,
@@ -77,9 +77,8 @@ import { SectionFormOperationsService } from './section-form-operations.service'
   templateUrl: './section-form.component.html',
   imports: [
     FormComponent,
-    ThemedLoadingComponent,
-    NgIf,
-  ],
+    ThemedLoadingComponent
+],
   standalone: true,
 })
 export class SubmissionSectionFormComponent extends SectionModelComponent {

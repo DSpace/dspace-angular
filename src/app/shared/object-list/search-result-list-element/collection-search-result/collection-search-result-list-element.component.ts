@@ -1,7 +1,4 @@
-import {
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -20,7 +17,7 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
   styleUrls: ['../search-result-list-element.component.scss', 'collection-search-result-list-element.component.scss'],
   templateUrl: 'collection-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, NgClass, ThemedBadgesComponent, RouterLink],
+  imports: [NgClass, ThemedBadgesComponent, RouterLink],
 })
 /**
  * Component representing a collection search result in list view

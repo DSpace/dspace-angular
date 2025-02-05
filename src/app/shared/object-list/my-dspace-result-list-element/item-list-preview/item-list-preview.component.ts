@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -43,14 +38,12 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
     ItemCollectionComponent,
     ItemSubmitterComponent,
     NgClass,
-    NgFor,
-    NgIf,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,
     TranslateModule,
     TruncatableComponent,
-    TruncatablePartComponent,
-  ],
+    TruncatablePartComponent
+],
 })
 export class ItemListPreviewComponent implements OnInit {
 

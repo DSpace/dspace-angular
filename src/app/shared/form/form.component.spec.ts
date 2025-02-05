@@ -471,13 +471,13 @@ describe('FormComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    CommonModule,
     FormComponent,
     DsDynamicFormComponent,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    DynamicFormsCoreModule],
+    DynamicFormsCoreModule
+],
 })
 class TestComponent {
 

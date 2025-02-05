@@ -60,9 +60,8 @@ export interface ResourcePolicyCheckboxEntry {
     AsyncPipe,
     TranslateModule,
     FormsModule,
-    NgIf,
-    HasValuePipe,
-  ],
+    HasValuePipe
+],
   standalone: true,
 })
 export class ResourcePolicyEntryComponent implements OnInit {

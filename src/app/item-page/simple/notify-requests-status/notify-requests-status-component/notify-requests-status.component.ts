@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -38,10 +33,8 @@ import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/requ
   imports: [
     RequestStatusAlertBoxComponent,
     AsyncPipe,
-    KeyValuePipe,
-    NgForOf,
-    NgIf,
-  ],
+    KeyValuePipe
+],
 })
 
 /**

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -33,7 +33,7 @@ import { currentPath } from '../utils/route.utils';
   styleUrls: ['./view-mode-switch.component.scss'],
   templateUrl: './view-mode-switch.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe],
+  imports: [RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe],
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
 

@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -36,13 +32,11 @@ import { SplitPipe } from '../../../shared/utils/split.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [QualityAssuranceSourceDataService],
   imports: [
-    NgIf,
-    NgForOf,
     AsyncPipe,
     RouterLink,
     TranslateModule,
-    SplitPipe,
-  ],
+    SplitPipe
+],
   standalone: true,
 })
 /**

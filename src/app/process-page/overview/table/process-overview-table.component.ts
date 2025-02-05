@@ -1,10 +1,4 @@
-import {
-  AsyncPipe,
-  isPlatformBrowser,
-  NgClass,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -91,11 +85,9 @@ export interface ProcessOverviewTableEntry {
     TranslateModule,
     PaginationComponent,
     RouterLink,
-    NgForOf,
-    NgIf,
     ThemedLoadingComponent,
-    VarDirective,
-  ],
+    VarDirective
+],
 })
 export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
 

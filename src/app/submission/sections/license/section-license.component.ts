@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewChecked,
   ChangeDetectorRef,
@@ -67,9 +64,8 @@ import {
   providers: [],
   imports: [
     FormComponent,
-    NgIf,
-    AsyncPipe,
-  ],
+    AsyncPipe
+],
   standalone: true,
 })
 export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {

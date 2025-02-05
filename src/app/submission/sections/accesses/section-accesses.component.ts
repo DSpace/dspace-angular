@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Inject,
@@ -78,9 +78,8 @@ import { SectionAccessesService } from './section-accesses.service';
   templateUrl: './section-accesses.component.html',
   styleUrls: ['./section-accesses.component.scss'],
   imports: [
-    FormComponent,
-    NgIf,
-  ],
+    FormComponent
+],
   standalone: true,
 })
 export class SubmissionSectionAccessesComponent extends SectionModelComponent {

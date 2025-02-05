@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -61,15 +57,14 @@ import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banne
     SystemWideAlertBannerComponent,
     ThemedHeaderNavbarWrapperComponent,
     ThemedBreadcrumbsComponent,
-    NgIf,
     NgClass,
     ThemedLoadingComponent,
     RouterOutlet,
     ThemedFooterComponent,
     NotificationsBoardComponent,
     AsyncPipe,
-    LiveRegionComponent,
-  ],
+    LiveRegionComponent
+],
 })
 export class RootComponent implements OnInit {
   theme: Observable<ThemeConfig> = of({} as any);

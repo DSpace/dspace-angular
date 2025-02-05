@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -31,9 +28,8 @@ import { hasValue } from '../../../shared/empty.util';
   templateUrl: './collection-roles.component.html',
   imports: [
     ComcolRoleComponent,
-    NgForOf,
-    AsyncPipe,
-  ],
+    AsyncPipe
+],
   standalone: true,
 })
 export class CollectionRolesComponent implements OnInit {

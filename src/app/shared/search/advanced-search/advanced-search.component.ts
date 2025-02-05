@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  KeyValuePipe,
-  NgForOf,
-} from '@angular/common';
+import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -54,10 +50,9 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
     FilterInputSuggestionsComponent,
     FormsModule,
     KeyValuePipe,
-    NgForOf,
     TranslateModule,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
 })
 export class AdvancedSearchComponent implements OnInit, OnDestroy {
 

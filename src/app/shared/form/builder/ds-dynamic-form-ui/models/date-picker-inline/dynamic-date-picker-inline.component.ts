@@ -1,7 +1,4 @@
-import {
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -35,9 +32,8 @@ import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
     NgClass,
     NgbDatepickerModule,
     ReactiveFormsModule,
-    NgIf,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 export class DsDatePickerInlineComponent extends DynamicFormControlComponent {

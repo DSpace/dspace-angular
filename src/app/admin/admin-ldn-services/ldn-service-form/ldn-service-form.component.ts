@@ -5,11 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -77,11 +73,9 @@ import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patter
   imports: [
     ReactiveFormsModule,
     TranslateModule,
-    NgIf,
     NgbDropdownModule,
-    NgForOf,
-    AsyncPipe,
-  ],
+    AsyncPipe
+],
 })
 export class LdnServiceFormComponent implements OnInit, OnDestroy {
   formModel: FormGroup;

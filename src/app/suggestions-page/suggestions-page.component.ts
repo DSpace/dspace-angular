@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -70,16 +66,14 @@ import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowit
   imports: [
     AsyncPipe,
     VarDirective,
-    NgIf,
     RouterLink,
     TranslateModule,
     SuggestionActionsComponent,
     ThemedLoadingComponent,
     PaginationComponent,
     SuggestionListElementComponent,
-    NgForOf,
-    AlertComponent,
-  ],
+    AlertComponent
+],
   standalone: true,
 })
 

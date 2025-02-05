@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -31,9 +28,8 @@ import { CollectionFormComponent } from '../collection-form/collection-form.comp
     CollectionFormComponent,
     TranslateModule,
     AsyncPipe,
-    ThemedLoadingComponent,
-    NgIf,
-  ],
+    ThemedLoadingComponent
+],
   standalone: true,
 })
 export class CreateCollectionPageComponent extends CreateComColPageComponent<Collection> {

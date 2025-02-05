@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgFor,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import {
   Component,
   forwardRef,
@@ -38,7 +34,7 @@ import { InputSuggestionsComponent } from '../input-suggestions.component';
     },
   ],
   standalone: true,
-  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, ListableObjectComponentLoaderComponent, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, ListableObjectComponentLoaderComponent, AsyncPipe, TranslateModule],
 })
 
 /**

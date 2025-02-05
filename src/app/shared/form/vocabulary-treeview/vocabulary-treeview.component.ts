@@ -2,10 +2,7 @@ import {
   CdkTreeModule,
   FlatTreeControl,
 } from '@angular/cdk/tree';
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -62,14 +59,13 @@ export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEn
   imports: [
     FormsModule,
     NgbTooltipModule,
-    NgIf,
     CdkTreeModule,
     TranslateModule,
     AsyncPipe,
     ThemedLoadingComponent,
     AlertComponent,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {

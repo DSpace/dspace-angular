@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -46,10 +42,8 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
     AsyncPipe,
     TranslateModule,
     PaginationComponent,
-    NgIf,
-    NgFor,
-    RouterLink,
-  ],
+    RouterLink
+],
   standalone: true,
 })
 export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnInit {

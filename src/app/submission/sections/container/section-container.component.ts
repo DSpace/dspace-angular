@@ -1,10 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgComponentOutlet,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass, NgComponentOutlet } from '@angular/common';
 import {
   Component,
   Injector,
@@ -30,15 +24,13 @@ import { rendersSectionType } from '../sections-decorator';
   styleUrls: ['./section-container.component.scss'],
   imports: [
     AlertComponent,
-    NgForOf,
     NgbAccordionModule,
     NgComponentOutlet,
     TranslateModule,
     NgClass,
-    NgIf,
     AsyncPipe,
-    SectionsDirective,
-  ],
+    SectionsDirective
+],
   standalone: true,
 })
 export class SubmissionSectionContainerComponent implements OnInit {

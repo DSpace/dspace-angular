@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -34,11 +34,10 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   selector: 'ds-profile-page-security-form',
   templateUrl: './profile-page-security-form.component.html',
   imports: [
-    NgIf,
     FormComponent,
     AlertComponent,
-    TranslateModule,
-  ],
+    TranslateModule
+],
   standalone: true,
 })
 /**

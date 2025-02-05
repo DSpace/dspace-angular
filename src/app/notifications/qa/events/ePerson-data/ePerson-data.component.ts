@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -21,10 +17,8 @@ import {
   templateUrl: './ePerson-data.component.html',
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
-    AsyncPipe,
-  ],
+    AsyncPipe
+],
   styleUrls: ['./ePerson-data.component.scss'],
 })
 /**

@@ -1,7 +1,4 @@
-import {
-  NgIf,
-  NgStyle,
-} from '@angular/common';
+import { NgStyle } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -25,9 +22,8 @@ import { listableObjectComponent } from '../object-collection/shared/listable-ob
   imports: [
     NgStyle,
     HoverClassDirective,
-    TranslateModule,
-    NgIf,
-  ],
+    TranslateModule
+],
 })
 /**
  * Component to display the count of notifications for each type of LDN message and to access the related filtered search

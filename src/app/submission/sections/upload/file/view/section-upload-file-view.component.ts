@@ -1,7 +1,4 @@
-import {
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -30,10 +27,8 @@ import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessCo
     SubmissionSectionUploadAccessConditionsComponent,
     TranslateModule,
     TruncatePipe,
-    NgIf,
-    NgForOf,
-    FileSizePipe,
-  ],
+    FileSizePipe
+],
   standalone: true,
 })
 export class SubmissionSectionUploadFileViewComponent implements OnInit {

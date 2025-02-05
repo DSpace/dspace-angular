@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -50,9 +50,8 @@ import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-d
   imports: [
     AlertComponent,
     FormsModule,
-    TranslateModule,
-    NgForOf,
-  ],
+    TranslateModule
+],
   standalone: true,
 })
 export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {

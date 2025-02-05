@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -74,12 +70,10 @@ export interface AccessConditionGroupsMapEntry {
   imports: [
     ThemedSubmissionSectionUploadFileComponent,
     SubmissionSectionUploadAccessConditionsComponent,
-    NgIf,
     AlertComponent,
     TranslateModule,
-    NgForOf,
-    AsyncPipe,
-  ],
+    AsyncPipe
+],
   standalone: true,
 })
 export class SubmissionSectionUploadComponent extends SectionModelComponent {

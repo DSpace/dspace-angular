@@ -1,7 +1,4 @@
-import {
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -26,10 +23,8 @@ import { AdminNotifyMessage } from '../models/admin-notify-message.model';
   ],
   standalone: true,
   imports: [
-    NgForOf,
-    TranslateModule,
-    NgIf,
-  ],
+    TranslateModule
+],
 })
 /**
  * Component for detailed view of LDN messages displayed in search result in AdminNotifyDashboardComponent

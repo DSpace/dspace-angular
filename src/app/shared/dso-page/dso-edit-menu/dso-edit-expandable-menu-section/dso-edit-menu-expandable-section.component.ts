@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgComponentOutlet,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgComponentOutlet } from '@angular/common';
 import {
   Component,
   Inject,
@@ -34,7 +29,7 @@ import { MenuService } from '../../../menu/menu.service';
   templateUrl: './dso-edit-menu-expandable-section.component.html',
   styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],
   standalone: true,
-  imports: [NgbDropdownModule, NgbTooltipModule, NgFor, NgIf, NgComponentOutlet, TranslateModule, AsyncPipe, BtnDisabledDirective],
+  imports: [NgbDropdownModule, NgbTooltipModule, NgComponentOutlet, TranslateModule, AsyncPipe, BtnDisabledDirective],
 })
 export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent implements OnInit {
 

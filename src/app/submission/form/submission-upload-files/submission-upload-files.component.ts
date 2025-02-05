@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -39,9 +39,8 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
   selector: 'ds-base-submission-upload-files',
   templateUrl: './submission-upload-files.component.html',
   imports: [
-    UploaderComponent,
-    NgIf,
-  ],
+    UploaderComponent
+],
   standalone: true,
 })
 export class SubmissionUploadFilesComponent implements OnChanges, OnDestroy {

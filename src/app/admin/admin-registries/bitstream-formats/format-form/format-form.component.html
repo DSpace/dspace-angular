@@ -1,3 +1,5 @@
-<ds-form *ngIf="formModel"
-         [formId]="'comcol-form-id'"
-         [formModel]="formModel" (submitForm)="onSubmit()" (cancel)="onCancel()"></ds-form>
+@if (formModel) {
+  <ds-form
+    [formId]="'comcol-form-id'"
+  [formModel]="formModel" (submitForm)="onSubmit()" (cancel)="onCancel()"></ds-form>
+}

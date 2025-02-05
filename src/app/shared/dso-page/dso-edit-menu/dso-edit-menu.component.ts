@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgComponentOutlet,
-  NgFor,
-} from '@angular/common';
+import { AsyncPipe, NgComponentOutlet } from '@angular/common';
 import {
   Component,
   Injector,
@@ -23,7 +19,7 @@ import { ThemeService } from '../../theme-support/theme.service';
   styleUrls: ['./dso-edit-menu.component.scss'],
   templateUrl: './dso-edit-menu.component.html',
   standalone: true,
-  imports: [NgFor, NgComponentOutlet, AsyncPipe],
+  imports: [NgComponentOutlet, AsyncPipe],
 })
 export class DsoEditMenuComponent extends MenuComponent {
   /**

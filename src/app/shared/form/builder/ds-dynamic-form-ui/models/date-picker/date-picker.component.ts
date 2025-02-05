@@ -1,8 +1,4 @@
-import {
-  DOCUMENT,
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { DOCUMENT, NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -39,11 +35,10 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
   templateUrl: './date-picker.component.html',
   imports: [
     NgClass,
-    NgIf,
     NumberPickerComponent,
     FormsModule,
-    BtnDisabledDirective,
-  ],
+    BtnDisabledDirective
+],
   standalone: true,
 })
 

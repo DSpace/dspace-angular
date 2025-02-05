@@ -193,7 +193,7 @@ describe('ChipsComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [NgbModule, NgIf],
+  imports: [NgbModule],
 })
 class TestComponent {
 

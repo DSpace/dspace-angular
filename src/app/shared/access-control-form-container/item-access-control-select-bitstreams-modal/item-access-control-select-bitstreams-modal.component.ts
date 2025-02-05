@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -33,7 +30,7 @@ export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-contro
   templateUrl: './item-access-control-select-bitstreams-modal.component.html',
   styleUrls: ['./item-access-control-select-bitstreams-modal.component.scss'],
   standalone: true,
-  imports: [NgIf, ObjectCollectionComponent, AsyncPipe, TranslateModule],
+  imports: [ObjectCollectionComponent, AsyncPipe, TranslateModule],
 })
 export class ItemAccessControlSelectBitstreamsModalComponent implements OnInit {
 

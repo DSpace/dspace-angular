@@ -1,9 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   ActivatedRoute,
@@ -28,11 +23,9 @@ import { getCommunityPageRoute } from '../community-page-routing-paths';
     RouterLink,
     TranslateModule,
     NgClass,
-    NgForOf,
     RouterOutlet,
-    NgIf,
-    AsyncPipe,
-  ],
+    AsyncPipe
+],
 })
 export class EditCommunityPageComponent extends EditComColPageComponent<Community> {
   type = 'community';

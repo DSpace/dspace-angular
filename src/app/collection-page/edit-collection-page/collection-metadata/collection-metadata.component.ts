@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -56,9 +53,8 @@ import { getCollectionItemTemplateRoute } from '../../collection-page-routing-pa
     RouterLink,
     AsyncPipe,
     TranslateModule,
-    NgIf,
-    VarDirective,
-  ],
+    VarDirective
+],
   standalone: true,
 })
 export class CollectionMetadataComponent extends ComcolMetadataComponent<Collection> implements OnInit {
