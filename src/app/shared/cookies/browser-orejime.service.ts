@@ -39,6 +39,7 @@ import { OrejimeService } from './orejime.service';
 import {
   ANONYMOUS_STORAGE_NAME_OREJIME,
   getOrejimeConfiguration,
+  MATOMO_OREJIME_KEY,
 } from './orejime-configuration';
 
 /**
@@ -133,14 +134,19 @@ export class BrowserOrejimeService extends OrejimeService {
       ),
     );
 
-    const appsToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
-      map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
+    const hideMatomo$ = observableOf(!(environment.matomo?.trackerUrl && environment.matomo?.siteId));
+
+    const appsToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$, hideMatomo$]).pipe(
+      map(([hideGoogleAnalytics, hideRegistrationVerification, hideMatomo]) => {
         const appsToHideArray: string[] = [];
         if (hideGoogleAnalytics) {
           appsToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
         }
         if (hideRegistrationVerification) {
           appsToHideArray.push(CAPTCHA_NAME);
+        }
+        if (hideMatomo) {
+          appsToHideArray.push(MATOMO_OREJIME_KEY);
         }
         return appsToHideArray;
       }),

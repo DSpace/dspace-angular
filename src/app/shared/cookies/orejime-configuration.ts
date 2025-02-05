@@ -19,6 +19,10 @@ export const ANONYMOUS_STORAGE_NAME_OREJIME = 'orejime-anonymous';
 
 export const GOOGLE_ANALYTICS_OREJIME_KEY = 'google-analytics';
 
+export const MATOMO_OREJIME_KEY = 'matomo';
+
+export const MATOMO_COOKIE = 'dsMatomo';
+
 /**
  * Orejime configuration
  * For more information see https://github.com/empreinte-digitale/orejime
@@ -133,6 +137,17 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
           [/^orejime-.+$/],
           HAS_AGREED_END_USER,
         ],
+      },
+      {
+        name: MATOMO_OREJIME_KEY,
+        purposes: ['statistical'],
+        required: false,
+        cookies: [
+          MATOMO_COOKIE,
+        ],
+        callback: (consent: boolean) => {
+          _window?.nativeWindow.changeMatomoConsent(consent);
+        },
       },
       {
         name: GOOGLE_ANALYTICS_OREJIME_KEY,
