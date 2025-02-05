@@ -8,7 +8,6 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
@@ -163,7 +162,6 @@ describe('TopLevelCommunityListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-        { provide: Store, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

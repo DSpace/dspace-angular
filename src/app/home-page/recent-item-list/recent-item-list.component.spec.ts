@@ -3,7 +3,6 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
@@ -56,7 +55,6 @@ describe('RecentItemListComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
-        { provide: Store, useValue: {} },
       ],
     })
       .overrideComponent(RecentItemListComponent, {
