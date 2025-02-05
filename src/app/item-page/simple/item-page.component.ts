@@ -142,7 +142,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected items: ItemDataService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
-    protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string,
@@ -176,12 +175,12 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   private initPageLinks(): void {
     this.route.params.subscribe(params => {
-      combineLatest([this.signpostingDataService.getLinks(params.id).pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
-        .subscribe(([signpostingLinks, coarRestApiUrls]) => {
+      combineLatest([this.route.data.pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
+        .subscribe(([data, coarRestApiUrls]) => {
           let links = '';
-          this.signpostingLinks = signpostingLinks;
+          this.signpostingLinks = data.links ?? [];
 
-          signpostingLinks.forEach((link: SignpostingLink) => {
+          this.signpostingLinks.forEach((link: SignpostingLink) => {
             links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
             let tag: LinkDefinition = {
               href: link.href,

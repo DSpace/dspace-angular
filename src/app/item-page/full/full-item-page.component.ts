@@ -116,13 +116,12 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected items: ItemDataService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
-    protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
-    super(route, router, items, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
+    super(route, router, items, authorizationService, responseService, linkHeadService, notifyInfoService, platformId);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
@@ -150,6 +149,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
 
   ngOnDestroy() {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    super.ngOnDestroy();
   }
 
   protected increaseLimit(metadataKey: string) {
