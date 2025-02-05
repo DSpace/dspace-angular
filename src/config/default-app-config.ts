@@ -318,6 +318,7 @@ export class DefaultAppConfig implements AppConfig {
       // NOTE: list of metadata fields for which the dropdown hint is enabled
       // eg. 'dc.access.rights': true,
     },
+    minChars: 3,
   };
 
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
