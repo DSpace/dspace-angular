@@ -1,9 +1,17 @@
-import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
-import { SignpostingLink } from '../../../core/data/signposting-links.model';
-import { Observable, of } from 'rxjs';
 import { inject } from '@angular/core';
-import { hasValue } from '../../../shared/empty.util';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
 import { SignpostingDataService } from '../../../core/data/signposting-data.service';
+import { SignpostingLink } from '../../../core/data/signposting-links.model';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Resolver to retrieve signposting links before an eventual redirect of any route guard

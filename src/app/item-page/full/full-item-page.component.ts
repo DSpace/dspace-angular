@@ -38,7 +38,6 @@ import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-inf
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
