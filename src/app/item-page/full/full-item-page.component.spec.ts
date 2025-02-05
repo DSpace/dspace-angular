@@ -153,6 +153,7 @@ describe('FullItemPageComponent', () => {
   beforeEach(waitForAsync(() => {
     routeData = {
       dso: createSuccessfulRemoteDataObject(mockItem),
+      links: [mocklink, mocklink2]
     };
 
     routeStub = Object.assign(new ActivatedRouteStub(), {
