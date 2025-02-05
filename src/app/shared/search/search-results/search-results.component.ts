@@ -57,7 +57,17 @@ export interface SelectionConfig {
     fadeInOut,
   ],
   standalone: true,
-  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ErrorComponent, RouterLink, TranslateModule, SearchResultsSkeletonComponent, AsyncPipe, NgxSkeletonLoaderModule],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    NgIf,
+    NgxSkeletonLoaderModule,
+    ObjectCollectionComponent,
+    RouterLink,
+    SearchExportCsvComponent,
+    SearchResultsSkeletonComponent,
+    TranslateModule,
+  ],
 })
 
 /**
