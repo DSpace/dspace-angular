@@ -44,6 +44,7 @@ import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
+import { ContextHelpDirective } from '../../shared/context-help.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -60,7 +61,7 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   styleUrls: ['./system-wide-alert-form.component.scss'],
   templateUrl: './system-wide-alert-form.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule, BtnDisabledDirective, ContextHelpDirective],
 })
 export class SystemWideAlertFormComponent implements OnInit {
 

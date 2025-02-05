@@ -10243,4 +10243,7 @@
 
   // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
   "search-facet-option.update.announcement": "A página será recarregada. O filtro {{ filter }} foi selecionado.",
+
+  // "system-wide-alert-form.tooltip.system.alert": "On this page, you can create alert or warning texts that will be displayed throughout the system for more effective communication with users. To activate this, you must add the desired text, select the active option button and click save. If you want to activate the timer feature for a countdown, this is also possible, which does not mean that the system will be suspended, but that the message will disappear at the end of the countdown. If you want to deactivate an alert in the system, simply select the option on the inactive button and click save.",
+  "system-wide-alert-form.tooltip.system.alert": "Nessa página, é possível criar textos de alerta ou aviso que serão exibidos em todo o sistema para uma comunicação mais eficaz com os usuários. Para ativar isso, você deve adicionar o texto desejado, selecionar o botão da opção ativo e clicar em salvar. Se quiser ativar o recurso de cronômetro para uma contagem regressiva, isso também é possível, o que não significa que o sistema será suspenso, mas que a mensagem desaparecerá ao final da contagem regressiva. Se você quiser desativar um alerta no sistema, basta selecionar a opção no botão para inativo e clicar em salvar.",
 }
