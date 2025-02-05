@@ -24,6 +24,7 @@ import { Community } from '../../core/shared/community.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { ContextHelpDirective } from '../../shared/context-help.directive';
 import { HostWindowService } from '../../shared/host-window.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
@@ -165,7 +166,13 @@ describe('TopLevelCommunityListComponent', () => {
         { provide: Store, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(TopLevelCommunityListComponent, {
+        remove: {
+          imports: [ContextHelpDirective],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
