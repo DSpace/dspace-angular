@@ -2,7 +2,6 @@ import {
   AsyncPipe,
   NgClass,
   NgComponentOutlet,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -30,7 +29,7 @@ import { StartsWithLoaderComponent } from '../../../../../app/shared/starts-with
     fadeInOut,
   ],
   standalone: true,
-  imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
+  imports: [VarDirective, NgClass, NgComponentOutlet, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
 })
 export class BrowseByComponent extends BaseComponent {
 }
