@@ -73,10 +73,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   minDay = 1;
   maxDay = 31;
 
-  yearPlaceholder: string;
-  monthPlaceholder: string;
-  dayPlaceholder: string;
-
   disabledMonth = true;
   disabledDay = true;
 
@@ -118,10 +114,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     }
 
     this.maxYear = now.getUTCFullYear() + 100;
-
-    this.translationService.get('form.date-picker.placeholder.year').subscribe(value => this.yearPlaceholder = value);
-    this.translationService.get('form.date-picker.placeholder.month').subscribe(value => this.monthPlaceholder = value);
-    this.translationService.get('form.date-picker.placeholder.day').subscribe(value => this.dayPlaceholder = value);
   }
 
   onBlur(event) {
