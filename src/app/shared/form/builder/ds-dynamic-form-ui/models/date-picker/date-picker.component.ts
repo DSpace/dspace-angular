@@ -9,6 +9,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DOCUMENT } from '@angular/common';
 import isEqual from 'lodash/isEqual';
+import { TranslateService } from '@ngx-translate/core';
 
 
 export type DatePickerFieldType = '_year' | '_month' | '_day';
@@ -48,10 +49,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   minDay = 1;
   maxDay = 31;
 
-  yearPlaceholder = 'year';
-  monthPlaceholder = 'month';
-  dayPlaceholder = 'day';
-
   disabledMonth = true;
   disabledDay = true;
 
@@ -59,6 +56,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
+              protected translateService: TranslateService,
               private renderer: Renderer2,
               @Inject(DOCUMENT) private _document: Document
   ) {
