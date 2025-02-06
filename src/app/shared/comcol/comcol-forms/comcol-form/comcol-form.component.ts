@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -78,8 +81,8 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
     AsyncPipe,
     ComcolPageLogoComponent,
     NgClass,
-    VarDirective
-],
+    VarDirective,
+  ],
   standalone: true,
 })
 export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {

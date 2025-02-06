@@ -39,8 +39,8 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
     BrowserOnlyPipe,
     ProfilePageSecurityFormComponent,
     AsyncPipe,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

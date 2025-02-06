@@ -22,8 +22,8 @@ import { MetadataValuesComponent } from '../metadata-values/metadata-values.comp
   templateUrl: './metadata-uri-values.component.html',
   imports: [
     MetadataFieldWrapperComponent,
-    TranslateModule
-],
+    TranslateModule,
+  ],
   standalone: true,
 })
 export class MetadataUriValuesComponent extends MetadataValuesComponent {

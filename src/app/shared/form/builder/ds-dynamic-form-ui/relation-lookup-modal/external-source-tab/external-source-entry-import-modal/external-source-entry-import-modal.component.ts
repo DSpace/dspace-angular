@@ -66,8 +66,8 @@ export enum ImportType {
     TranslateModule,
     ThemedSearchResultsComponent,
     AsyncPipe,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

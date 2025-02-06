@@ -37,8 +37,8 @@ import { SectionsService } from '../sections.service';
   imports: [
     TranslateModule,
     AsyncPipe,
-    VarDirective
-],
+    VarDirective,
+  ],
   standalone: true,
 })
 

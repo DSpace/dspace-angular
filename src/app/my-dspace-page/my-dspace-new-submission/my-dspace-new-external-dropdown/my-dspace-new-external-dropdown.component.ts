@@ -42,8 +42,8 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     AsyncPipe,
     TranslateModule,
     BrowserOnlyPipe,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {

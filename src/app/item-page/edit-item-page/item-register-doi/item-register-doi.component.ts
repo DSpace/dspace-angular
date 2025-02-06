@@ -37,8 +37,8 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
     ModifyItemOverviewComponent,
     RouterLink,
     TranslateModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 /**

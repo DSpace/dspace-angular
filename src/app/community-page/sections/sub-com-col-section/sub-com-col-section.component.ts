@@ -22,8 +22,8 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sub-community-li
   imports: [
     ThemedCommunityPageSubCommunityListComponent,
     ThemedCollectionPageSubCollectionListComponent,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 export class SubComColSectionComponent implements OnInit {

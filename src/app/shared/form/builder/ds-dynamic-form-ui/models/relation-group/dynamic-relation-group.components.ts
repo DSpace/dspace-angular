@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -77,8 +80,8 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
     ThemedLoadingComponent,
     ChipsComponent,
     forwardRef(() => FormComponent),
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {

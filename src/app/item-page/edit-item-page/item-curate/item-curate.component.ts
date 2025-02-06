@@ -27,8 +27,8 @@ import { hasValue } from '../../../shared/empty.util';
   imports: [
     CurationFormComponent,
     TranslateModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 export class ItemCurateComponent implements OnInit {

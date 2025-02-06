@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -43,8 +46,8 @@ interface ItemDTO {
     TranslateModule,
     VarDirective,
     AsyncPipe,
-    ListableObjectComponentLoaderComponent
-],
+    ListableObjectComponentLoaderComponent,
+  ],
   standalone: true,
 })
 /**

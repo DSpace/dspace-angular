@@ -476,8 +476,8 @@ describe('FormComponent test suite', () => {
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    DynamicFormsCoreModule
-],
+    DynamicFormsCoreModule,
+  ],
 })
 class TestComponent {
 

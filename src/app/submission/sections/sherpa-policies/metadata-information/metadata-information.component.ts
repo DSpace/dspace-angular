@@ -16,8 +16,8 @@ import { Metadata } from '../../../../core/submission/models/sherpa-policies-det
   styleUrls: ['./metadata-information.component.scss'],
   imports: [
     TranslateModule,
-    DatePipe
-],
+    DatePipe,
+  ],
   standalone: true,
 })
 export class MetadataInformationComponent {

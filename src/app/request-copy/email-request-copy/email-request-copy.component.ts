@@ -1,4 +1,7 @@
-import { Location, NgClass } from '@angular/common';
+import {
+  Location,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,

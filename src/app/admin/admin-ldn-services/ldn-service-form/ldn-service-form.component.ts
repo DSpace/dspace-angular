@@ -74,8 +74,8 @@ import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patter
     ReactiveFormsModule,
     TranslateModule,
     NgbDropdownModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
 })
 export class LdnServiceFormComponent implements OnInit, OnDestroy {
   formModel: FormGroup;

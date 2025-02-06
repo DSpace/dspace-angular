@@ -34,8 +34,8 @@ import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-p
   selector: 'ds-bitstream-format-form',
   templateUrl: './format-form.component.html',
   imports: [
-    FormComponent
-],
+    FormComponent,
+  ],
   standalone: true,
 })
 export class FormatFormComponent implements OnInit {

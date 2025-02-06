@@ -1,4 +1,7 @@
-import { AsyncPipe, isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+} from '@angular/common';
 import {
   Component,
   Inject,

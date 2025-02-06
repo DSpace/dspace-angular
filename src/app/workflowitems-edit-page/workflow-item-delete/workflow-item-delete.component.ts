@@ -1,4 +1,7 @@
-import { CommonModule, Location } from '@angular/common';
+import {
+  CommonModule,
+  Location,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import {
   ActivatedRoute,

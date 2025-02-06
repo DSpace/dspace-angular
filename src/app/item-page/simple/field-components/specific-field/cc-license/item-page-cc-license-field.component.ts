@@ -1,4 +1,7 @@
-import { NgClass, NgStyle } from '@angular/common';
+import {
+  NgClass,
+  NgStyle,
+} from '@angular/common';
 import {
   Component,
   Input,

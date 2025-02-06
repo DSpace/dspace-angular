@@ -20,8 +20,8 @@ import { ItemVersionsComponent } from '../../versions/item-versions.component';
   imports: [
     ItemVersionsComponent,
     VarDirective,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 /**

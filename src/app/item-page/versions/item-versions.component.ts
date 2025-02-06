@@ -1,4 +1,8 @@
-import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -78,8 +82,8 @@ interface VersionDTO {
     NgClass,
     PaginationComponent,
     TranslateModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
 })
 
 /**

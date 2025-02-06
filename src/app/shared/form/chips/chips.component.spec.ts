@@ -1,8 +1,5 @@
 // Load the implementations that should be tested
-import {
-  CommonModule,
-  NgIf,
-} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,

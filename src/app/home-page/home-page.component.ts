@@ -1,4 +1,8 @@
-import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   Inject,

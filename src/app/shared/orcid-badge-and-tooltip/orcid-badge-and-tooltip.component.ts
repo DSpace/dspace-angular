@@ -18,8 +18,8 @@ import { MetadataValue } from '../../core/shared/metadata.models';
   standalone: true,
   imports: [
     NgbTooltipModule,
-    NgClass
-],
+    NgClass,
+  ],
   templateUrl: './orcid-badge-and-tooltip.component.html',
   styleUrl: './orcid-badge-and-tooltip.component.scss',
 })

@@ -1,4 +1,7 @@
-import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -68,8 +71,8 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     NgTemplateOutlet,
     PaginationComponent,
     ThemedLoadingComponent,
-    ErrorComponent
-],
+    ErrorComponent,
+  ],
   standalone: true,
 })
 /**

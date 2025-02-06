@@ -60,8 +60,8 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     BrowserOnlyPipe,
     NgxPaginationModule,
     SelectableListItemControlComponent,
-    ListableObjectComponentLoaderComponent
-],
+    ListableObjectComponentLoaderComponent,
+  ],
   standalone: true,
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {

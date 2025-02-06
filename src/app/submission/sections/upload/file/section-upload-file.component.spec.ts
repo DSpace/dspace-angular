@@ -287,8 +287,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   imports: [
     ThemedSubmissionSectionUploadFileComponent,
     AsyncPipe,
-    NgbModule
-],
+    NgbModule,
+  ],
 })
 class TestComponent {
 

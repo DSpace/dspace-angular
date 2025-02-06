@@ -1,4 +1,8 @@
-import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,

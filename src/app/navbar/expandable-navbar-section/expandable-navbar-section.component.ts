@@ -1,4 +1,7 @@
-import { AsyncPipe, NgComponentOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgComponentOutlet,
+} from '@angular/common';
 import {
   AfterViewChecked,
   Component,
@@ -33,8 +36,8 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
     AsyncPipe,
     HoverOutsideDirective,
     NgComponentOutlet,
-    RouterLinkActive
-],
+    RouterLinkActive,
+  ],
 })
 export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements AfterViewChecked, OnInit, OnDestroy {
 

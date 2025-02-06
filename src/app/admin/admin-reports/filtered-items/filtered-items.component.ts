@@ -40,7 +40,10 @@ import { environment } from 'src/environments/environment';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
-import { FilteredItem, FilteredItems } from './filtered-items-model';
+import {
+  FilteredItem,
+  FilteredItems,
+} from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
 import { PresetQuery } from './preset-query.model';
 import { QueryPredicate } from './query-predicate.model';
@@ -58,8 +61,8 @@ import { QueryPredicate } from './query-predicate.model';
     TranslateModule,
     AsyncPipe,
     FiltersComponent,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class FilteredItemsComponent implements OnInit {

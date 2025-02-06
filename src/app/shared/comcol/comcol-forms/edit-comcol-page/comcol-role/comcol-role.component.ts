@@ -57,8 +57,8 @@ import { VarDirective } from '../../../../utils/var.directive';
     TranslateModule,
     RouterLink,
     VarDirective,
-    HasNoValuePipe
-],
+    HasNoValuePipe,
+  ],
   standalone: true,
 })
 export class ComcolRoleComponent implements OnInit {

@@ -1,4 +1,7 @@
-import { AsyncPipe, isPlatformServer } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformServer,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -76,8 +79,8 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
     TranslateModule,
     AsyncPipe,
     NotifyRequestsStatusComponent,
-    QaEventNotificationComponent
-],
+    QaEventNotificationComponent,
+  ],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
 

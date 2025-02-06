@@ -1,4 +1,8 @@
-import { AsyncPipe, DatePipe, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,

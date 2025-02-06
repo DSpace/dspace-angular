@@ -79,8 +79,8 @@ export abstract class Reorderable {
   imports: [
     ThemedLoadingComponent,
     AsyncPipe,
-    ListableObjectComponentLoaderComponent
-],
+    ListableObjectComponentLoaderComponent,
+  ],
   standalone: true,
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {

@@ -55,8 +55,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     TranslateModule,
     AsyncPipe,
     ReactiveFormsModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class CreateProfileComponent implements OnInit {

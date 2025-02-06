@@ -18,8 +18,8 @@ import { PermittedVersions } from '../../../../core/submission/models/sherpa-pol
   imports: [
     TranslateModule,
     NgbCollapseModule,
-    TitleCasePipe
-],
+    TitleCasePipe,
+  ],
   standalone: true,
 })
 export class ContentAccordionComponent {

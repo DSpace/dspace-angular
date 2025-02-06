@@ -1,4 +1,8 @@
-import { AsyncPipe, LowerCasePipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  LowerCasePipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,

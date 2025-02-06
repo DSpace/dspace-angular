@@ -1,4 +1,8 @@
-import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -97,7 +101,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
       this.dontParseLinks$.pipe(distinctUntilChanged()),
     ]).pipe(
       map(([text, dontParseLinks]) =>
-        dontParseLinks ? [{text}] : this.parseLinks(text)),
+        dontParseLinks ? [{ text }] : this.parseLinks(text)),
     );
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();
   }
@@ -175,7 +179,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
     return text.match(splitRegexp).map((substring: string) => {
       const match = substring.match(parseRegexp);
       return match === null
-        ? {text: substring}
+        ? { text: substring }
         : ({ href: match[2], text: match[1] });
     });
   }

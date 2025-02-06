@@ -49,8 +49,8 @@ import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-med
     ThemedMediaViewerVideoComponent,
     TranslateModule,
     ThemedLoadingComponent,
-    VarDirective
-],
+    VarDirective,
+  ],
   standalone: true,
 })
 export class MediaViewerComponent implements OnDestroy, OnInit {

@@ -36,8 +36,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   imports: [
     FormComponent,
     AlertComponent,
-    TranslateModule
-],
+    TranslateModule,
+  ],
   standalone: true,
 })
 /**

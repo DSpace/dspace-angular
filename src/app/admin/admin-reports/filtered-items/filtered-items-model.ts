@@ -1,6 +1,6 @@
 import { Item } from 'src/app/core/shared/item.model';
-import { Observable } from "rxjs";
-import { Collection } from "../../../core/shared/collection.model";
+
+import { Collection } from '../../../core/shared/collection.model';
 
 export class FilteredItems {
 

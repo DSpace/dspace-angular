@@ -1,4 +1,8 @@
-import { AsyncPipe, NgClass, NgComponentOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+} from '@angular/common';
 import {
   Component,
   HostListener,

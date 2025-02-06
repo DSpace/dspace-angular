@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -55,8 +58,8 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
     TruncatableComponent,
     TruncatablePartComponent,
     NgClass,
-    RouterLink
-],
+    RouterLink,
+  ],
   standalone: true,
 })
 export class LdnServicesOverviewComponent implements OnInit, OnDestroy {

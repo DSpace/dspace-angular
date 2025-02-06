@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -86,8 +89,8 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     PaginationComponent,
     RouterLink,
     HasNoValuePipe,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

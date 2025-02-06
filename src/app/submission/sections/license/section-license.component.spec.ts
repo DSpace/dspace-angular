@@ -379,8 +379,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     SubmissionSectionLicenseComponent,
     FormsModule,
     FormComponent,
-    ReactiveFormsModule
-],
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

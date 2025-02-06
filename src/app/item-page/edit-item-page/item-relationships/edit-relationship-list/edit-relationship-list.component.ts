@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -94,8 +97,8 @@ import { EditRelationshipComponent } from '../edit-relationship/edit-relationshi
     TranslateModule,
     NgClass,
     ThemedLoadingComponent,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

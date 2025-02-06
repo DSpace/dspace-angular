@@ -22,8 +22,8 @@ import { RequestStatusEnum } from '../notify-status.enum';
     TruncatablePartComponent,
     TruncatableComponent,
     TranslateModule,
-    NgClass
-],
+    NgClass,
+  ],
 })
 /**
  * Represents a component that displays the status of a request.

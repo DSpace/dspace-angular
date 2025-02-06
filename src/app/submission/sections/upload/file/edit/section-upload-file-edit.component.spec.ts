@@ -405,8 +405,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     SubmissionSectionUploadFileEditComponent,
     FormsModule,
     FormComponent,
-    ReactiveFormsModule
-],
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 }

@@ -48,8 +48,8 @@ import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wr
     MetadataFieldWrapperComponent,
     TranslateModule,
     AsyncPipe,
-    RouterLink
-],
+    RouterLink,
+  ],
   standalone: true,
 })
 export class CollectionsComponent implements OnInit {

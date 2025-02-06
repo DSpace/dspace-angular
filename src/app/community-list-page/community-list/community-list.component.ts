@@ -2,7 +2,10 @@ import {
   CdkTreeModule,
   FlatTreeControl,
 } from '@angular/cdk/tree';
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,

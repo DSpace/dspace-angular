@@ -21,8 +21,8 @@ import { SuggestionsService } from '../suggestions.service';
   imports: [
     RouterLink,
     TranslateModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   styleUrls: ['./suggestions-notification.component.scss'],
 })
 export class SuggestionsNotificationComponent implements OnInit {

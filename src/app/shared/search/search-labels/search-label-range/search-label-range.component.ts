@@ -30,8 +30,8 @@ import { AppliedFilter } from '../../models/applied-filter.model';
   imports: [
     AsyncPipe,
     RouterLink,
-    TranslateModule
-],
+    TranslateModule,
+  ],
 })
 export class SearchLabelRangeComponent implements OnInit {
 

@@ -57,8 +57,8 @@ import { RelationshipOptions } from '../../../models/relationship-options.model'
     VarDirective,
     TranslateModule,
     NgbDropdownModule,
-    ThemedSearchComponent
-],
+    ThemedSearchComponent,
+  ],
   standalone: true,
 })
 

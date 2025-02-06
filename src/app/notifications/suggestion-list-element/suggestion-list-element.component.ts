@@ -30,8 +30,8 @@ import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-
     TranslateModule,
     ItemSearchResultListElementComponent,
     SuggestionActionsComponent,
-    SuggestionEvidencesComponent
-],
+    SuggestionEvidencesComponent,
+  ],
   standalone: true,
 })
 export class SuggestionListElementComponent implements OnInit {

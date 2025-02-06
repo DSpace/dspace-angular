@@ -46,8 +46,8 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     ObjectCollectionComponent,
     ErrorComponent,
     ThemedLoadingComponent,
-    VarDirective
-],
+    VarDirective,
+  ],
   standalone: true,
 })
 /**

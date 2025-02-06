@@ -57,8 +57,8 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
     ThemedLoadingComponent,
     ThemedBrowseByComponent,
     VocabularyTreeviewComponent,
-    RouterLink
-],
+    RouterLink,
+  ],
   standalone: true,
 })
 /**

@@ -42,8 +42,8 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
     AsyncPipe,
     TranslateModule,
     PaginationComponent,
-    RouterLink
-],
+    RouterLink,
+  ],
   standalone: true,
 })
 export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnInit {

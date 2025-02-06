@@ -19,8 +19,8 @@ import { SearchResult } from '../../../../search/models/search-result.model';
   standalone: true,
   imports: [
     MetadataFieldWrapperComponent,
-    TranslateModule
-],
+    TranslateModule,
+  ],
 })
 export class ItemDetailPreviewFieldComponent {
 

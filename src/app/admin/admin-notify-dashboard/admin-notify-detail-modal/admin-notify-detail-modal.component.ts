@@ -23,8 +23,8 @@ import { AdminNotifyMessage } from '../models/admin-notify-message.model';
   ],
   standalone: true,
   imports: [
-    TranslateModule
-],
+    TranslateModule,
+  ],
 })
 /**
  * Component for detailed view of LDN messages displayed in search result in AdminNotifyDashboardComponent

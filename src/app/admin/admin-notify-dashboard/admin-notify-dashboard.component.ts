@@ -44,8 +44,8 @@ import {
     AdminNotifyMetricsComponent,
     RouterLink,
     TranslateModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
 })
 
 /**

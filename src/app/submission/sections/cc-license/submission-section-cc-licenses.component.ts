@@ -68,8 +68,8 @@ import { SectionsType } from '../sections-type';
     NgbDropdownModule,
     FormsModule,
     InfiniteScrollModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent {

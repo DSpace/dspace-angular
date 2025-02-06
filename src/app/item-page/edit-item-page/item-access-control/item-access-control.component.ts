@@ -18,8 +18,8 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
   styleUrls: ['./item-access-control.component.scss'],
   imports: [
     AccessControlFormContainerComponent,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 export class ItemAccessControlComponent implements OnInit {

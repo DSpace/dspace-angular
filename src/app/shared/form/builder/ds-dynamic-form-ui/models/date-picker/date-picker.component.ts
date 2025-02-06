@@ -1,4 +1,7 @@
-import { DOCUMENT, NgClass } from '@angular/common';
+import {
+  DOCUMENT,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -37,8 +40,8 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
     NgClass,
     NumberPickerComponent,
     FormsModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 

@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -71,8 +74,8 @@ import { EPersonFormComponent } from './eperson-form/eperson-form.component';
     ReactiveFormsModule,
     ThemedLoadingComponent,
     PaginationComponent,
-    NgClass
-],
+    NgClass,
+  ],
   standalone: true,
 })
 /**

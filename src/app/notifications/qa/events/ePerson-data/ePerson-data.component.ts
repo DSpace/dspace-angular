@@ -17,8 +17,8 @@ import {
   templateUrl: './ePerson-data.component.html',
   standalone: true,
   imports: [
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   styleUrls: ['./ePerson-data.component.scss'],
 })
 /**

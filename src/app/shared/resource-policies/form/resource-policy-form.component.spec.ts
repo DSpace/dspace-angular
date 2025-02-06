@@ -498,8 +498,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
   imports: [
     FormsModule,
     NgbModule,
-    ReactiveFormsModule
-],
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -27,9 +25,7 @@ import { getCollectionPageRoute } from '../collection-page-routing-paths';
     RouterLink,
     TranslateModule,
     NgClass,
-    NgForOf,
     RouterOutlet,
-    NgIf,
     AsyncPipe,
   ],
   standalone: true,

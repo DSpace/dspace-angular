@@ -51,8 +51,8 @@ import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadat
     AsyncPipe,
     TranslateModule,
     VirtualMetadataComponent,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class EditRelationshipComponent implements OnChanges {

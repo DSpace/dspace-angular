@@ -28,8 +28,8 @@ import { CollectionFormComponent } from '../collection-form/collection-form.comp
     CollectionFormComponent,
     TranslateModule,
     AsyncPipe,
-    ThemedLoadingComponent
-],
+    ThemedLoadingComponent,
+  ],
   standalone: true,
 })
 export class CreateCollectionPageComponent extends CreateComColPageComponent<Collection> {

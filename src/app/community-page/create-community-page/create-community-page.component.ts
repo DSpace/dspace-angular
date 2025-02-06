@@ -29,8 +29,8 @@ import { CommunityFormComponent } from '../community-form/community-form.compone
     TranslateModule,
     VarDirective,
     AsyncPipe,
-    ThemedLoadingComponent
-],
+    ThemedLoadingComponent,
+  ],
   standalone: true,
 })
 export class CreateCommunityPageComponent extends CreateComColPageComponent<Community> {

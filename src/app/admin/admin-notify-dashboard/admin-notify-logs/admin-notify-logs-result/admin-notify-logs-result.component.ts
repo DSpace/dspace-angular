@@ -35,8 +35,8 @@ import { ThemedSearchComponent } from '../../../../shared/search/themed-search.c
     SearchLabelsComponent,
     ThemedSearchComponent,
     AsyncPipe,
-    TranslateModule
-],
+    TranslateModule,
+  ],
 })
 
 /**

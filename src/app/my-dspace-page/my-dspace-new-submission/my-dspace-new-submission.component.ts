@@ -37,8 +37,8 @@ import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submissi
   imports: [
     MyDSpaceNewExternalDropdownComponent,
     MyDSpaceNewSubmissionDropdownComponent,
-    UploaderComponent
-],
+    UploaderComponent,
+  ],
   standalone: true,
 })
 export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {

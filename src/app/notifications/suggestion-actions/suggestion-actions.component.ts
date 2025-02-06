@@ -31,8 +31,8 @@ import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestio
     EntityDropdownComponent,
     TranslateModule,
     NgbDropdownModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class SuggestionActionsComponent {

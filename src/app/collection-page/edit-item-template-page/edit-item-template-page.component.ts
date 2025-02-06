@@ -38,8 +38,8 @@ import { getCollectionEditRoute } from '../collection-page-routing-paths';
     VarDirective,
     TranslateModule,
     ThemedLoadingComponent,
-    AlertComponent
-],
+    AlertComponent,
+  ],
   standalone: true,
 })
 /**

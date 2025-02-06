@@ -1,5 +1,10 @@
 import { trigger } from '@angular/animations';
-import { AsyncPipe, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgStyle,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,

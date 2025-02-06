@@ -1,4 +1,8 @@
-import { AsyncPipe, NgClass, NgComponentOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+} from '@angular/common';
 import {
   Component,
   Injector,
@@ -29,8 +33,8 @@ import { rendersSectionType } from '../sections-decorator';
     TranslateModule,
     NgClass,
     AsyncPipe,
-    SectionsDirective
-],
+    SectionsDirective,
+  ],
   standalone: true,
 })
 export class SubmissionSectionContainerComponent implements OnInit {

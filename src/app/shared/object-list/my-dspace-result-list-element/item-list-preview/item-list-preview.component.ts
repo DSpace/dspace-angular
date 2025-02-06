@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -42,8 +45,8 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
     ThemedThumbnailComponent,
     TranslateModule,
     TruncatableComponent,
-    TruncatablePartComponent
-],
+    TruncatablePartComponent,
+  ],
 })
 export class ItemListPreviewComponent implements OnInit {
 

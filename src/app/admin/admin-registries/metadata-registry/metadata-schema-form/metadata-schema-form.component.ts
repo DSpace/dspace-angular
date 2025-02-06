@@ -38,8 +38,8 @@ import { FormComponent } from '../../../../shared/form/form.component';
   imports: [
     AsyncPipe,
     TranslateModule,
-    FormComponent
-],
+    FormComponent,
+  ],
   standalone: true,
 })
 /**

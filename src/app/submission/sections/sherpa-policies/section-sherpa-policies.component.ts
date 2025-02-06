@@ -45,8 +45,8 @@ import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.co
     PublisherPolicyComponent,
     PublicationInformationComponent,
     AsyncPipe,
-    VarDirective
-],
+    VarDirective,
+  ],
   standalone: true,
 })
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {

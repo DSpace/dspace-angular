@@ -28,8 +28,8 @@ import { hasValue } from '../../../shared/empty.util';
   templateUrl: './collection-roles.component.html',
   imports: [
     ComcolRoleComponent,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 export class CollectionRolesComponent implements OnInit {

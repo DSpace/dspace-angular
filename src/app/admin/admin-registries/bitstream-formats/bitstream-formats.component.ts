@@ -40,8 +40,8 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
     AsyncPipe,
     RouterLink,
     TranslateModule,
-    PaginationComponent
-],
+    PaginationComponent,
+  ],
   standalone: true,
 })
 export class BitstreamFormatsComponent implements OnInit, OnDestroy {
