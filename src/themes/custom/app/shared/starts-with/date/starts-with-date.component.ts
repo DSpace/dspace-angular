@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormsModule,
@@ -15,7 +14,7 @@ import { StartsWithDateComponent as BaseComponent } from '../../../../../../app/
   // templateUrl: './starts-with-date.component.html',
   templateUrl: '../../../../../../app/shared/starts-with/date/starts-with-date.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgFor, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
 })
 export class StartsWithDateComponent extends BaseComponent {
 }

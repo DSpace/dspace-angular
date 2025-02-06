@@ -56,13 +56,8 @@
                                 [(ngModel)]="versionBeingEditedSummary" (keyup.enter)="onSummarySubmit()"
                                 class="form-control" type="text"/>
                             } @else {
-                              {{versionDTO.version.summary}}
+                              <span>{{versionDTO.version.summary}}</span>
                             }
-                            <ng-template #editSummary>
-                              <input [attr.aria-label]="'item.version.history.table.action.editSummary' | translate"
-                                [(ngModel)]="versionBeingEditedSummary" (keyup.enter)="onSummarySubmit()"
-                                class="form-control" type="text"/>
-                            </ng-template>
                           </div>
                           @if (displayActions && versionDTO.canEditVersion | async) {
                             <div class="float-right btn-group edit-field space-children-mr">
