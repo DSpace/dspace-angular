@@ -60,14 +60,23 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   showImage = true;
   imgSrc: string;
 
+  /**
+   * Parse a URI an return its CC code. URIs pointing to non-CC licenses will return null.
+   * @param uri
+   * @returns the CC code or null if uri is not a valid CC URI
+   */
+  public static parseCcCode(uri: string): string {
+    const regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
+    const matches = regex.exec(uri ?? '') ?? [];
+    return matches.length > 2 ? matches[2] : null;
+  }
+
   ngOnInit() {
     this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
     this.name = this.item.firstMetadataValue(this.ccLicenseNameField);
 
     // Extracts the CC license code from the URI
-    const regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
-    const matches = regex.exec(this.uri ?? '') ?? [];
-    const ccCode = matches.length > 2 ? matches[2] : null;
+    const ccCode = ItemPageCcLicenseFieldComponent.parseCcCode(this.uri);
     this.imgSrc = ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null;
   }
 }
