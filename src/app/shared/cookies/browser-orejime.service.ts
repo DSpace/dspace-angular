@@ -229,13 +229,13 @@ export class BrowserOrejimeService extends OrejimeService {
    * Return saved preferences stored in the orejime cookie
    */
   getSavedPreferences(): Observable<any> {
-    return this.getUser$().pipe(
-      map((user: EPerson) => {
+    return this.getUserId$().pipe(
+      map((userId: string) => {
         let storageName;
-        if (isEmpty(user)) {
+        if (isEmpty(userId)) {
           storageName = ANONYMOUS_STORAGE_NAME_OREJIME;
         } else {
-          storageName = this.getStorageName(user.uuid);
+          storageName = this.getStorageName(userId);
         }
         return this.cookieService.get(storageName);
       }),
@@ -256,6 +256,24 @@ export class BrowserOrejimeService extends OrejimeService {
       this.cookieService.set(this.getStorageName(user.uuid), anonCookie);
       this.updateSettingsForUsers(user);
     }
+  }
+
+  /**
+   * Retrieves the currently logged in user id
+   * Returns undefined when no one is logged in
+   */
+  private getUserId$() {
+    return this.authService.isAuthenticated()
+      .pipe(
+        take(1),
+        switchMap((loggedIn: boolean) => {
+          if (loggedIn) {
+            return this.authService.getAuthenticatedUserIdFromStore();
+          }
+          return observableOf(undefined);
+        }),
+        take(1),
+      );
   }
 
   /**

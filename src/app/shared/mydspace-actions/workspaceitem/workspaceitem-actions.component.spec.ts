@@ -111,7 +111,7 @@ const ePersonMock: EPerson = Object.assign(new EPerson(), {
         uuid: '0a53a0f2-e168-4ed9-b4af-cba9a2d267ca',
         language: null,
         value:
-          '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true}',
+          '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true,"correlation-id":true}',
         place: 0,
         authority: null,
         confidence: -1,
