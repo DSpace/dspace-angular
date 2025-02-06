@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -49,8 +45,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
     UploaderComponent,
     AsyncPipe,
     ComcolPageLogoComponent,
-    NgIf,
-    NgClass,
     VarDirective,
   ],
 })
