@@ -84,7 +84,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   @Input() set content(translateKey: string) {
     this.content$.next(translateKey);
   }
-  private content$: BehaviorSubject<string | undefined> = new BehaviorSubject(undefined);
+  private content$: BehaviorSubject<string> = new BehaviorSubject(null);
 
   parsedContent$: Observable<ParsedContent>;
 
@@ -100,7 +100,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
       this.content$.pipe(distinctUntilChanged(), mergeMap(translateKey => this.translateService.get(translateKey))),
       this.dontParseLinks$.pipe(distinctUntilChanged()),
     ]).pipe(
-      map(([text, dontParseLinks]) =>
+      map(([text, dontParseLinks]: [string, boolean]) =>
         dontParseLinks ? [{ text }] : this.parseLinks(text)),
     );
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();

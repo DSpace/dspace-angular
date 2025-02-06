@@ -59,11 +59,12 @@ describe('ChipsComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       html = `
-      <ds-chips
-        *ngIf="chips.hasItems()"
-        [chips]="chips"
-        [editable]="editable"
-        (selected)="onChipSelected($event)"></ds-chips>`;
+        @if(chips.hasItems()) {
+          <ds-chips
+            [chips]="chips"
+            [editable]="editable"
+            (selected)="onChipSelected($event)"></ds-chips>
+        }`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
