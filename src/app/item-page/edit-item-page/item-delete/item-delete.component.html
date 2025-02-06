@@ -6,11 +6,11 @@
       <p>{{descriptionMessage | translate}}</p>
       <ds-modify-item-overview [item]="item"></ds-modify-item-overview>
 
-      <ng-container *ngVar="(typeDTOs$ | async) as types">
-        @if (types && types.length > 0) {
+      <ng-container>
+        @if ((typeDTOs$ | async) && (typeDTOs$ | async).length > 0) {
           <div class="mb-4">
             {{'virtual-metadata.delete-item.info' | translate}}
-            @for (typeDto of types; track typeDto) {
+            @for (typeDto of (typeDTOs$ | async); track typeDto) {
               <div class="mb-4">
                 <div *ngVar="(typeDto.isSelected$ | async) as selected"
                   class="d-flex flex-row">
