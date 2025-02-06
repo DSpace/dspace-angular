@@ -1154,6 +1154,9 @@
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Повернути назад",
 
+  // "admin.workflow.item.return": "Return to pool",
+  "admin.workflow.item.return": "Повернути до черги",
+
 
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",

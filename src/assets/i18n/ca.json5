@@ -1205,6 +1205,9 @@
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Tornar",
 
+  // "admin.workflow.item.return": "Return to pool",
+  "admin.workflow.item.return": "Retornar al pool",
+
 
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",

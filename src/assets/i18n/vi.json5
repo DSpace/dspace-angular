@@ -257,6 +257,7 @@
   "admin.workflow.item.workspace": "Workspace",
   "admin.workflow.item.delete": "Xóa",
   "admin.workflow.item.send-back": "Gửi trở lại",
+  "admin.workflow.item.return": "Trả lại nhiệm vụ",
   "admin.workflow.item.policies": "Policies",
   "admin.workflow.item.supervision": "Supervision",
   "admin.batch-import.breadcrumbs": "Nhập dữ liệu theo lô",

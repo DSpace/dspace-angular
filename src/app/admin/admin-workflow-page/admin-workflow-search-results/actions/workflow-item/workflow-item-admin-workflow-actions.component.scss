@@ -1,1 +1,10 @@
+.loader-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
+.loading-text {
+  font-size: 14px;
+  color: #555;
+}

@@ -274,6 +274,7 @@
   "admin.workflow.item.workspace": "Радни простор",
   "admin.workflow.item.delete": "Избришите",
   "admin.workflow.item.send-back": "Вратите",
+  "admin.workflow.item.return": "Повратак у групу",
   "admin.workflow.item.policies": "Политике",
   "admin.workflow.item.supervision": "Надзор",
   "admin.metadata-import.breadcrumbs": "Увези метаподатке",

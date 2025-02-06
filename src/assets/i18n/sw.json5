@@ -1352,6 +1352,10 @@
   // TODO New key - Add a translation
   "admin.workflow.item.send-back": "Send back",
 
+  // "admin.workflow.item.return": "Return to pool",
+  // TODO New key - Add a translation
+  "admin.workflow.item.return": "Return to pool",
+
 
 
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
