@@ -5998,4 +5998,14 @@
 
   // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
   "workspace-item.delete.notification.error.content": "Das Workspace-Item konnte nicht gelöscht werden.",
+
+
+  // "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Jahr",
+
+  // "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Monat",
+
+  // "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Tag",
 }
