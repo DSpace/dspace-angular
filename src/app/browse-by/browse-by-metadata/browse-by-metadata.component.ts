@@ -1,4 +1,7 @@
-import { AsyncPipe, isPlatformServer } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformServer,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -67,8 +70,8 @@ export const BBM_PAGINATION_ID = 'bbm';
     AsyncPipe,
     TranslateModule,
     ThemedLoadingComponent,
-    ThemedBrowseByComponent
-],
+    ThemedBrowseByComponent,
+  ],
   standalone: true,
 })
 /**

@@ -1,4 +1,7 @@
-import { AsyncPipe, Location } from '@angular/common';
+import {
+  AsyncPipe,
+  Location,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -67,8 +70,8 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     RouterLink,
     AsyncPipe,
     ReactiveFormsModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

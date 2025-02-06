@@ -43,8 +43,8 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     ThemedLoadingComponent,
     TranslateModule,
     AsyncPipe,
-    VarDirective
-],
+    VarDirective,
+  ],
   standalone: true,
 })
 export class CommunityPageSubCollectionListComponent implements OnInit, OnDestroy {

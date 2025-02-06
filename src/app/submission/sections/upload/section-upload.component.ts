@@ -72,8 +72,8 @@ export interface AccessConditionGroupsMapEntry {
     SubmissionSectionUploadAccessConditionsComponent,
     AlertComponent,
     TranslateModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 export class SubmissionSectionUploadComponent extends SectionModelComponent {

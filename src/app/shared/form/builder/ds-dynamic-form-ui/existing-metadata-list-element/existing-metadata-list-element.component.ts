@@ -166,8 +166,8 @@ export class ReorderableRelationship extends Reorderable {
     ThemedLoadingComponent,
     AsyncPipe,
     MetadataRepresentationLoaderComponent,
-    TranslateModule
-],
+    TranslateModule,
+  ],
   standalone: true,
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {

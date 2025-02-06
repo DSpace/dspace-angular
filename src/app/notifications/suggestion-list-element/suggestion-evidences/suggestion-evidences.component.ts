@@ -19,8 +19,8 @@ import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
   animations: [fadeIn],
   imports: [
     TranslateModule,
-    ObjectKeysPipe
-],
+    ObjectKeysPipe,
+  ],
   standalone: true,
 })
 export class SuggestionEvidencesComponent {

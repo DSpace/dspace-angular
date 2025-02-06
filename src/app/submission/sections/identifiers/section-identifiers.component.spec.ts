@@ -278,8 +278,8 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
-],
+    NgxPaginationModule,
+  ],
 })
 class TestComponent {
 

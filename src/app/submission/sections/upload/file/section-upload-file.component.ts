@@ -51,8 +51,8 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, OnDestroy {

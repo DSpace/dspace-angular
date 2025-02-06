@@ -80,8 +80,8 @@ import {
   imports: [
     FormComponent,
     TranslateModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class SubmissionSectionUploadFileEditComponent

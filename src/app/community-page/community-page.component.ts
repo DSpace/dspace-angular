@@ -65,8 +65,8 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com
     ViewTrackerComponent,
     VarDirective,
     RouterOutlet,
-    RouterModule
-],
+    RouterModule,
+  ],
   standalone: true,
 })
 /**

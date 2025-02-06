@@ -58,8 +58,8 @@ import {
     ResourcePolicyEntryComponent,
     TranslateModule,
     AsyncPipe,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

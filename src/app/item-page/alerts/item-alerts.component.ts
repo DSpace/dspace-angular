@@ -36,8 +36,8 @@ import {
     AlertComponent,
     TranslateModule,
     RouterLink,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 /**

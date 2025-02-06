@@ -15,8 +15,8 @@ import { Journal } from '../../../../core/submission/models/sherpa-policies-deta
   templateUrl: './publication-information.component.html',
   styleUrls: ['./publication-information.component.scss'],
   imports: [
-    TranslateModule
-],
+    TranslateModule,
+  ],
   standalone: true,
 })
 export class PublicationInformationComponent {

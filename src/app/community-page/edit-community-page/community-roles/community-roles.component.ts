@@ -27,8 +27,8 @@ import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-co
   templateUrl: './community-roles.component.html',
   imports: [
     ComcolRoleComponent,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 export class CommunityRolesComponent implements OnInit {

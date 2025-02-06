@@ -50,8 +50,8 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
     TranslateModule,
     UiSwitchModule,
     VarDirective,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

@@ -22,8 +22,8 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
     ThemedLoadingComponent,
     ThemedCollectionDropdownComponent,
     TranslateModule,
-    NgClass
-],
+    NgClass,
+  ],
   standalone: true,
 })
 export class SubmissionImportExternalCollectionComponent {

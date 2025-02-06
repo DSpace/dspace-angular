@@ -75,8 +75,8 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     AsyncPipe,
     PaginationComponent,
     NgbTooltipModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

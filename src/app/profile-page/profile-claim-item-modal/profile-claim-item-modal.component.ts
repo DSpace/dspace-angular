@@ -39,8 +39,8 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
     ListableObjectComponentLoaderComponent,
     AsyncPipe,
     TranslateModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {

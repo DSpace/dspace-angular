@@ -29,8 +29,8 @@ import {
   imports: [
     AsyncPipe,
     TranslateModule,
-    RouterLink
-],
+    RouterLink,
+  ],
   standalone: true,
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {

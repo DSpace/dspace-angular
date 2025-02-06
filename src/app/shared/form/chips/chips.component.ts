@@ -4,7 +4,10 @@ import {
   CdkDropList,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -40,8 +43,8 @@ import { ChipsItem } from './models/chips-item.model';
     AuthorityConfidenceStateDirective,
     TranslateModule,
     CdkDrag,
-    CdkDropList
-],
+    CdkDropList,
+  ],
   standalone: true,
 })
 

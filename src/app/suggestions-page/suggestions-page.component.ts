@@ -72,8 +72,8 @@ import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowit
     ThemedLoadingComponent,
     PaginationComponent,
     SuggestionListElementComponent,
-    AlertComponent
-],
+    AlertComponent,
+  ],
   standalone: true,
 })
 

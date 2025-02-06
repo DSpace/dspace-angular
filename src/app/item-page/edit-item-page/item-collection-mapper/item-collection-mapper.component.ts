@@ -76,8 +76,8 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     ThemedSearchFormComponent,
     AsyncPipe,
     TranslateModule,
-    BrowserOnlyPipe
-],
+    BrowserOnlyPipe,
+  ],
   standalone: true,
 })
 /**

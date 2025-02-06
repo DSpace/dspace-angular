@@ -61,8 +61,8 @@ import { getEntityEditRoute } from '../../item-page-routing-paths';
     VarDirective,
     DsoInputSuggestionsComponent,
     FormsModule,
-    UploaderComponent
-],
+    UploaderComponent,
+  ],
   standalone: true,
 })
 /**

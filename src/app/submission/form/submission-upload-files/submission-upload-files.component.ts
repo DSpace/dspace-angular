@@ -39,8 +39,8 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
   selector: 'ds-base-submission-upload-files',
   templateUrl: './submission-upload-files.component.html',
   imports: [
-    UploaderComponent
-],
+    UploaderComponent,
+  ],
   standalone: true,
 })
 export class SubmissionUploadFilesComponent implements OnChanges, OnDestroy {

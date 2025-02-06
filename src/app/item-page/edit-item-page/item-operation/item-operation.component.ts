@@ -17,8 +17,8 @@ import { ItemOperation } from './itemOperation.model';
     TranslateModule,
     RouterLink,
     NgbTooltipModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

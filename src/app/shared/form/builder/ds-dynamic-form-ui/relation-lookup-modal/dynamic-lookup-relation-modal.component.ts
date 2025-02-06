@@ -86,8 +86,8 @@ import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dy
     ThemedDynamicLookupRelationSearchTabComponent,
     AsyncPipe,
     DsDynamicLookupRelationSelectionTabComponent,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 

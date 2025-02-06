@@ -18,8 +18,8 @@ import { IdentifierData } from './identifier-data.model';
   templateUrl: './identifier-data.component.html',
   imports: [
     TranslateModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 /**

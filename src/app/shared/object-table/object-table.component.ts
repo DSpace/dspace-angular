@@ -39,8 +39,8 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
     ThemedLoadingComponent,
     ErrorComponent,
     TranslateModule,
-    TabulatableObjectsLoaderComponent
-],
+    TabulatableObjectsLoaderComponent,
+  ],
   standalone: true,
 })
 

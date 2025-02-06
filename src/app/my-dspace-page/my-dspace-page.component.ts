@@ -47,8 +47,8 @@ export const MYDSPACE_ROUTE = '/mydspace';
     AsyncPipe,
     RoleDirective,
     SuggestionsNotificationComponent,
-    MyDspaceQaEventsNotificationsComponent
-],
+    MyDspaceQaEventsNotificationsComponent,
+  ],
   standalone: true,
 })
 export class MyDSpacePageComponent implements OnInit {

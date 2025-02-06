@@ -1,4 +1,7 @@
-import { AsyncPipe, Location } from '@angular/common';
+import {
+  AsyncPipe,
+  Location,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -77,8 +80,8 @@ import { CollectionSourceControlsComponent } from './collection-source-controls/
     ThemedLoadingComponent,
     FormComponent,
     CollectionSourceControlsComponent,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class CollectionSourceComponent extends AbstractTrackableComponent implements OnInit, OnDestroy {

@@ -81,8 +81,8 @@ import { ThemedExternalSourceEntryImportModalComponent } from './external-source
     AsyncPipe,
     TranslateModule,
     ErrorComponent,
-    ThemedLoadingComponent
-],
+    ThemedLoadingComponent,
+  ],
   standalone: true,
 })
 /**

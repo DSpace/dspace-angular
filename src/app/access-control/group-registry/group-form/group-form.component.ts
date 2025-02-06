@@ -93,8 +93,8 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
     TranslateModule,
     ContextHelpDirective,
     MembersListComponent,
-    SubgroupsListComponent
-],
+    SubgroupsListComponent,
+  ],
   standalone: true,
 })
 /**

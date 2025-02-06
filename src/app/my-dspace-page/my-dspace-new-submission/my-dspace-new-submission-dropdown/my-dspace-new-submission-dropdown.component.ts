@@ -44,8 +44,8 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     AsyncPipe,
     TranslateModule,
     BrowserOnlyPipe,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy {

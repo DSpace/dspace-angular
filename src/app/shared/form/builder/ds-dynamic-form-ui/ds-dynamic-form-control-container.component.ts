@@ -1,4 +1,8 @@
-import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -135,8 +139,8 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
     NgbTooltipModule,
     NgTemplateOutlet,
     ExistingRelationListElementComponent,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent

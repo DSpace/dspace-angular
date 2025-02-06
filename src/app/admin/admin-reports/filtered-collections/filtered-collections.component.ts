@@ -33,8 +33,8 @@ import { FilteredCollections } from './filtered-collections.model';
     TranslateModule,
     NgbAccordionModule,
     FiltersComponent,
-    KeyValuePipe
-],
+    KeyValuePipe,
+  ],
   standalone: true,
 })
 export class FilteredCollectionsComponent implements OnInit {

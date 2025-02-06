@@ -16,8 +16,8 @@ import { hasValue } from '../../../empty.util';
   standalone: true,
   imports: [
     NgxSkeletonLoaderModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   templateUrl: './search-results-skeleton.component.html',
   styleUrl: './search-results-skeleton.component.scss',
 })

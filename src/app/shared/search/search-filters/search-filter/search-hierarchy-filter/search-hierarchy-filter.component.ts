@@ -1,4 +1,7 @@
-import { AsyncPipe, LowerCasePipe } from '@angular/common';
+import {
+  AsyncPipe,
+  LowerCasePipe,
+} from '@angular/common';
 import {
   Component,
   Inject,

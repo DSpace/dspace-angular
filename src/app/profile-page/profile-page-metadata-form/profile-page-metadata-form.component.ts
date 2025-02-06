@@ -34,8 +34,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   selector: 'ds-base-profile-page-metadata-form',
   templateUrl: './profile-page-metadata-form.component.html',
   imports: [
-    FormComponent
-],
+    FormComponent,
+  ],
   standalone: true,
 })
 /**

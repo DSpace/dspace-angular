@@ -63,8 +63,8 @@ interface BundleBitstreamsMapEntry {
     TranslateModule,
     NgForTrackByIdDirective,
     AsyncPipe,
-    AlertComponent
-],
+    AlertComponent,
+  ],
   standalone: true,
 })
 /**

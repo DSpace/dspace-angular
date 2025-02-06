@@ -83,8 +83,8 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     TranslateModule,
     AsyncPipe,
     ItemSelectComponent,
-    BrowserOnlyPipe
-],
+    BrowserOnlyPipe,
+  ],
   standalone: true,
 })
 /**

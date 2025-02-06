@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -63,8 +66,8 @@ import { ItemVersionsSummaryModalComponent } from '../item-versions-summary-moda
     RouterLink,
     TranslateModule,
     NgClass,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   templateUrl: './item-versions-row-element-version.component.html',
   styleUrl: './item-versions-row-element-version.component.scss',
 })

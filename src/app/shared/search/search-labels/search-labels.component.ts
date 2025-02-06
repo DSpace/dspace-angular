@@ -1,4 +1,7 @@
-import { AsyncPipe, KeyValuePipe } from '@angular/common';
+import {
+  AsyncPipe,
+  KeyValuePipe,
+} from '@angular/common';
 import {
   Component,
   Input,

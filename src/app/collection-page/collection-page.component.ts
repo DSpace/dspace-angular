@@ -73,8 +73,8 @@ import { getCollectionPageRoute } from './collection-page-routing-paths';
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
     ObjectCollectionComponent,
-    RouterOutlet
-],
+    RouterOutlet,
+  ],
   standalone: true,
 })
 export class CollectionPageComponent implements OnInit {

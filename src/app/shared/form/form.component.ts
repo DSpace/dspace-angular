@@ -66,8 +66,8 @@ import { FormService } from './form.service';
     TranslateModule,
     DynamicFormsCoreModule,
     AsyncPipe,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class FormComponent implements OnDestroy, OnInit {

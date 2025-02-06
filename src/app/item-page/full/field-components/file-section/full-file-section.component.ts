@@ -59,8 +59,8 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
     ThemedThumbnailComponent,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
-    MetadataFieldWrapperComponent
-],
+    MetadataFieldWrapperComponent,
+  ],
   standalone: true,
 })
 export class FullFileSectionComponent extends FileSectionComponent implements OnDestroy, OnInit {

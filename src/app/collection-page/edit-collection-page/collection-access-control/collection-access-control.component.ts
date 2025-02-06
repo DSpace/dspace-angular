@@ -18,8 +18,8 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
   styleUrls: ['./collection-access-control.component.scss'],
   imports: [
     AccessControlFormContainerComponent,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 export class CollectionAccessControlComponent  implements OnInit {

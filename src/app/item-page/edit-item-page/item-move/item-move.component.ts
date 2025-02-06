@@ -53,8 +53,8 @@ import {
     RouterLink,
     AsyncPipe,
     AuthorizedCollectionSelectorComponent,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

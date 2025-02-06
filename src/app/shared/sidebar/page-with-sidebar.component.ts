@@ -1,4 +1,7 @@
-import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -20,8 +23,8 @@ import { SidebarService } from './sidebar.service';
   standalone: true,
   imports: [
     AsyncPipe,
-    NgTemplateOutlet
-],
+    NgTemplateOutlet,
+  ],
 })
 /**
  * This component takes care of displaying the sidebar properly on all viewports. It does not

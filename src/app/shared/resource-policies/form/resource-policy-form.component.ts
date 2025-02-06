@@ -90,8 +90,8 @@ export interface ResourcePolicyEvent {
     EpersonGroupListComponent,
     TranslateModule,
     AsyncPipe,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

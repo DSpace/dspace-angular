@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -45,8 +48,8 @@ import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-sch
     AsyncPipe,
     PaginationComponent,
     NgClass,
-    RouterLink
-],
+    RouterLink,
+  ],
   standalone: true,
 })
 /**

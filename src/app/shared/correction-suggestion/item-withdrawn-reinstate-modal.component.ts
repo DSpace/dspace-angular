@@ -21,8 +21,8 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
     TranslateModule,
     ThemedLoadingComponent,
     FormsModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 /**

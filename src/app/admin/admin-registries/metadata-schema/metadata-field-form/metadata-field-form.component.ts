@@ -34,8 +34,8 @@ import { FormComponent } from '../../../../shared/form/form.component';
   imports: [
     FormComponent,
     TranslateModule,
-    AsyncPipe
-],
+    AsyncPipe,
+  ],
   standalone: true,
 })
 /**

@@ -1,4 +1,7 @@
-import { AsyncPipe, NgClass } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -58,8 +61,8 @@ import { LdnPattern } from './submission-coar-notify.config';
     TranslateModule,
     NgbDropdownModule,
     NgClass,
-    InfiniteScrollModule
-],
+    InfiniteScrollModule,
+  ],
   providers: [NgbDropdown],
 })
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {

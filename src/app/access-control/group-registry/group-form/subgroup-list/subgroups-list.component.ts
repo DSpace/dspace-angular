@@ -64,8 +64,8 @@ enum SubKey {
     ContextHelpDirective,
     TranslateModule,
     ReactiveFormsModule,
-    PaginationComponent
-],
+    PaginationComponent,
+  ],
   standalone: true,
 })
 /**

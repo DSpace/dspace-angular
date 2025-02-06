@@ -73,8 +73,8 @@ import {
     SubmissionImportExternalSearchbarComponent,
     TranslateModule,
     VarDirective,
-    RouterLink
-],
+    RouterLink,
+  ],
   standalone: true,
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {

@@ -24,8 +24,8 @@ import { FilterGroup } from './filter-group.model';
   styleUrls: ['./filters-section.component.scss'],
   imports: [
     ReactiveFormsModule,
-    TranslateModule
-],
+    TranslateModule,
+  ],
   standalone: true,
 })
 export class FiltersComponent {

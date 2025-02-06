@@ -34,8 +34,8 @@ import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-co
   imports: [
     ReactiveFormsModule,
     NgClass,
-    forwardRef(() => DsDynamicFormControlContainerComponent)
-],
+    forwardRef(() => DsDynamicFormControlContainerComponent),
+  ],
   standalone: true,
 })
 export class DsDynamicFormGroupComponent extends DynamicFormControlComponent {

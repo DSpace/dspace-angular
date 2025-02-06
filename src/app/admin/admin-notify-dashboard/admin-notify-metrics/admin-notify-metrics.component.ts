@@ -16,8 +16,8 @@ import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
   standalone: true,
   imports: [
     NotificationBoxComponent,
-    TranslateModule
-],
+    TranslateModule,
+  ],
 })
 /**
  * Component used to display the number of notification for each configured box in the notifyMetrics section

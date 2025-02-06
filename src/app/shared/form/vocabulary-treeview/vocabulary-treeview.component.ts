@@ -64,8 +64,8 @@ export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEn
     AsyncPipe,
     ThemedLoadingComponent,
     AlertComponent,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {

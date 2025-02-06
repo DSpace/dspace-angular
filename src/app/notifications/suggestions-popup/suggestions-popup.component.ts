@@ -40,8 +40,8 @@ import { SuggestionsService } from '../suggestions.service';
   imports: [
     AsyncPipe,
     TranslateModule,
-    RouterLink
-],
+    RouterLink,
+  ],
   standalone: true,
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {

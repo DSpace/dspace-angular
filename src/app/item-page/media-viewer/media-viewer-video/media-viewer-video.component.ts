@@ -23,8 +23,8 @@ import { languageHelper } from './language-helper';
   imports: [
     NgbDropdownModule,
     TranslateModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class MediaViewerVideoComponent {

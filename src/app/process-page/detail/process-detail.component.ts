@@ -1,4 +1,8 @@
-import { AsyncPipe, DatePipe, isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  DatePipe,
+  isPlatformBrowser,
+} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,

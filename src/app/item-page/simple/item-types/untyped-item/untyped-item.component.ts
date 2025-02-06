@@ -55,7 +55,7 @@ import { ItemComponent } from '../shared/item.component';
     RouterLink,
     AsyncPipe,
     TranslateModule,
-    ItemPageCcLicenseFieldComponent
-],
+    ItemPageCcLicenseFieldComponent,
+  ],
 })
 export class UntypedItemComponent extends ItemComponent {}

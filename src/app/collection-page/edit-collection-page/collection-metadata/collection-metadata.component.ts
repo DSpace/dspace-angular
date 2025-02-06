@@ -53,8 +53,8 @@ import { getCollectionItemTemplateRoute } from '../../collection-page-routing-pa
     RouterLink,
     AsyncPipe,
     TranslateModule,
-    VarDirective
-],
+    VarDirective,
+  ],
   standalone: true,
 })
 export class CollectionMetadataComponent extends ComcolMetadataComponent<Collection> implements OnInit {

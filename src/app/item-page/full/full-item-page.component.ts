@@ -1,4 +1,8 @@
-import { AsyncPipe, KeyValuePipe, Location } from '@angular/common';
+import {
+  AsyncPipe,
+  KeyValuePipe,
+  Location,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -73,8 +77,8 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
     ItemVersionsNoticeComponent,
     ViewTrackerComponent,
     ThemedItemAlertsComponent,
-    VarDirective
-],
+    VarDirective,
+  ],
   standalone: true,
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit, OnDestroy {

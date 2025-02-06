@@ -48,8 +48,8 @@ import { SearchResult } from '../../../../../search/models/search-result.model';
     PageSizeSelectorComponent,
     ObjectCollectionComponent,
     AsyncPipe,
-    TranslateModule
-],
+    TranslateModule,
+  ],
   standalone: true,
 })
 

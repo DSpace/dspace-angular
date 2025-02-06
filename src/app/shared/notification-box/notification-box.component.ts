@@ -22,8 +22,8 @@ import { listableObjectComponent } from '../object-collection/shared/listable-ob
   imports: [
     NgStyle,
     HoverClassDirective,
-    TranslateModule
-],
+    TranslateModule,
+  ],
 })
 /**
  * Component to display the count of notifications for each type of LDN message and to access the related filtered search

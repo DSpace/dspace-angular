@@ -16,8 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./comcol-page-content.component.scss'],
   templateUrl: './comcol-page-content.component.html',
   imports: [
-    TranslateModule
-],
+    TranslateModule,
+  ],
   standalone: true,
 })
 export class ComcolPageContentComponent {

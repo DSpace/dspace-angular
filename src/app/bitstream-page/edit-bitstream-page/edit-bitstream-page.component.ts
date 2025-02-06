@@ -91,8 +91,8 @@ import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.compo
     ErrorComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    FileSizePipe
-],
+    FileSizePipe,
+  ],
   standalone: true,
 })
 /**

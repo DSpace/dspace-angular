@@ -104,8 +104,8 @@ class RelationshipDTO {
     AsyncPipe,
     VarDirective,
     RouterLink,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 /**

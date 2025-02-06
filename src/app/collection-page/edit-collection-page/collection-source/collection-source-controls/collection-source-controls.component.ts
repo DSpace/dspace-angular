@@ -53,8 +53,8 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     TranslateModule,
     AsyncPipe,
     VarDirective,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class CollectionSourceControlsComponent implements OnInit, OnDestroy {

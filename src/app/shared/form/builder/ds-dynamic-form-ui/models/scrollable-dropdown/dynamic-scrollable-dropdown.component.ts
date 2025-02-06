@@ -71,8 +71,8 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
     AsyncPipe,
     InfiniteScrollModule,
     TranslateModule,
-    BtnDisabledDirective
-],
+    BtnDisabledDirective,
+  ],
   standalone: true,
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
