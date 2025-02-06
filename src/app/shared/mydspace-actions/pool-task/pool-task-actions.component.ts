@@ -34,6 +34,7 @@ import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';
 
@@ -45,7 +46,7 @@ import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actio
   styleUrls: ['./pool-task-actions.component.scss'],
   templateUrl: './pool-task-actions.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, RouterLink, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent<PoolTask, PoolTaskDataService> implements OnDestroy {
 

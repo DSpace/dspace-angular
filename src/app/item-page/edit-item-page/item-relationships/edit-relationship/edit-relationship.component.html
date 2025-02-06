@@ -9,12 +9,12 @@
   </div>
   <div class="col-2">
     <div class="btn-group relationship-action-buttons">
-      <button [disabled]="!canRemove()" (click)="openVirtualMetadataModal(virtualMetadataModal)"
+      <button [dsBtnDisabled]="!canRemove()" (click)="openVirtualMetadataModal(virtualMetadataModal)"
               class="btn btn-outline-danger btn-sm"
               title="{{'item.edit.metadata.edit.buttons.remove' | translate}}">
         <i class="fas fa-trash-alt fa-fw"></i>
       </button>
-      <button [disabled]="!canUndo()" (click)="undo()"
+      <button [dsBtnDisabled]="!canUndo()" (click)="undo()"
               class="btn btn-outline-warning btn-sm"
               title="{{'item.edit.metadata.edit.buttons.undo' | translate}}">
         <i class="fas fa-undo-alt fa-fw"></i>

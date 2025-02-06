@@ -103,7 +103,7 @@
                   <button
                     *ngIf="itemRD"
                     [attr.aria-label]="'access-control-bitstreams-select' | translate"
-                    [disabled]="!state.bitstream.toggleStatus || state.bitstream.changesLimit !== 'selected'"
+                    [dsBtnDisabled]="!state.bitstream.toggleStatus || state.bitstream.changesLimit !== 'selected'"
                     (click)="openSelectBitstreamsModal(itemRD.payload)"
                     class="btn btn-outline-dark border-0" type="button">
                     <i class="fa fa-search"></i>
@@ -161,7 +161,7 @@
           {{ 'access-control-cancel' | translate }}
         </button>
         <button class="btn btn-primary"
-                [disabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"
+                [dsBtnDisabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"
                 (click)="submit()" type="submit">
           {{ 'access-control-execute' | translate }}
         </button>

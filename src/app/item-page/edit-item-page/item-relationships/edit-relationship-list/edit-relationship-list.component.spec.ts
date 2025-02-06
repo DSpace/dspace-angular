@@ -388,7 +388,8 @@ describe('EditRelationshipListComponent', () => {
           comp.hasChanges = observableOf(true);
           fixture.detectChanges();
           const element = de.query(By.css('.btn-success'));
-          expect(element.nativeElement?.disabled).toBeTrue();
+          expect(element.nativeElement?.getAttribute('aria-disabled')).toBe('true');
+          expect(element.nativeElement?.classList.contains('disabled')).toBeTrue();
         });
       });
 

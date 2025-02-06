@@ -14,6 +14,7 @@ import {
 } from 'rxjs/operators';
 
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { BulkAccessBrowseComponent } from './browse/bulk-access-browse.component';
@@ -27,6 +28,7 @@ import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.com
     TranslateModule,
     BulkAccessSettingsComponent,
     BulkAccessBrowseComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

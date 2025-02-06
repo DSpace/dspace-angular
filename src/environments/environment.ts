@@ -13,7 +13,7 @@ export const environment: Partial<BuildConfig> = {
     enabled: false,
     enablePerformanceProfiler: false,
     inlineCriticalCss: false,
-    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/' ],
+    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/', '/reload/' ],
     enableSearchComponent: false,
     enableBrowseComponent: false,
   },

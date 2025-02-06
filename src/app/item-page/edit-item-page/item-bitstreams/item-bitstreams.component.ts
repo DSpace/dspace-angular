@@ -51,6 +51,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -81,6 +82,7 @@ import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/i
     NgForOf,
     ThemedLoadingComponent,
     AlertComponent,
+    BtnDisabledDirective,
   ],
   providers: [ObjectValuesPipe],
   standalone: true,
