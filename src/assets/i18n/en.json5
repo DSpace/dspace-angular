@@ -1034,11 +1034,11 @@
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
-  "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
+  "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
 
   "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
 
-  "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
+  "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -1047,6 +1047,8 @@
   "pagination.previous.button": "Previous",
 
   "pagination.next.button.disabled.tooltip": "No more pages of results",
+
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
 
   "browse.startsWith": ", starting with {{ startsWith }}",
 
@@ -1460,7 +1462,7 @@
 
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
 
-  "community.edit.notifications.error": "An error occured while editing the community",
+  "community.edit.notifications.error": "An error occurred while editing the community",
 
   "community.edit.return": "Back",
 
@@ -1582,25 +1584,19 @@
 
   "cookies.consent.app.required.title": "(always required)",
 
-  "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-
-  "cookies.consent.app.disable-all.title": "Enable or disable all services",
-
   "cookies.consent.update": "There were changes since your last visit, please update your consent.",
 
   "cookies.consent.close": "Close",
 
   "cookies.consent.decline": "Decline",
 
+  "cookies.consent.decline-all": "Decline all",
+
   "cookies.consent.ok": "That's ok",
 
   "cookies.consent.save": "Save",
 
-  "cookies.consent.content-notice.title": "Cookie Consent",
-
-  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-
-  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
+  "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
 
   "cookies.consent.content-notice.learnMore": "Customize",
 
@@ -1610,11 +1606,9 @@
 
   "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
 
+  "cookies.consent.content-modal.no-privacy-policy.text": "",
+
   "cookies.consent.content-modal.title": "Information that we collect",
-
-  "cookies.consent.content-modal.services": "services",
-
-  "cookies.consent.content-modal.service": "service",
 
   "cookies.consent.app.title.authentication": "Authentication",
 
@@ -1670,7 +1664,7 @@
 
   "curation.form.submit.error.head": "Running the curation task failed",
 
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
 
   "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
 
@@ -1689,6 +1683,8 @@
   "deny-request-copy.intro": "This message will be sent to the applicant of the request",
 
   "deny-request-copy.success": "Successfully denied item request",
+
+  "dynamic-list.load-more": "Load more",
 
   "dropdown.clear": "Clear selection",
 
@@ -1850,6 +1846,8 @@
 
   "error.recent-submissions": "Error fetching recent submissions",
 
+  "error.profile-groups": "Error retrieving profile groups",
+
   "error.search-results": "Error fetching search results",
 
   "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
@@ -1863,6 +1861,8 @@
   "error.top-level-communities": "Error fetching top-level communities",
 
   "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
+
+  "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
 
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
@@ -1932,7 +1932,7 @@
 
   "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   "forgot-password.title": "Forgot Password",
 
@@ -2228,6 +2228,10 @@
 
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
+  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+
   "item.edit.bitstreams.discard-button": "Discard",
 
   "item.edit.bitstreams.edit.buttons.download": "Download",
@@ -2240,7 +2244,19 @@
 
   "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
 
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
 
   "item.edit.bitstreams.headers.actions": "Actions",
 
@@ -2277,6 +2293,8 @@
   "item.edit.bitstreams.save-button": "Save",
 
   "item.edit.bitstreams.upload-button": "Upload",
+
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   "item.edit.delete.cancel": "Cancel",
 
@@ -2387,6 +2405,10 @@
   "item.edit.metadata.edit.value": "Edit value",
 
   "item.edit.metadata.edit.authority.key": "Edit authority key",
+
+  "item.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+
+  "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
 
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
@@ -4108,7 +4130,7 @@
 
   "register-page.registration.error.head": "Error when trying to register email",
 
-  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
 
   "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
@@ -5634,8 +5656,6 @@
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 
-  "orgunit.search.results.head": "Organizational Unit Search Results",
-
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
   "workflow-item.edit.title": "Edit workflowitem",
@@ -5979,6 +5999,10 @@
   "person.orcid.registry.queue": "ORCID Registry Queue",
 
   "person.orcid.registry.auth": "ORCID Authorizations",
+
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
 
   "home.recent-submissions.head": "Recent Submissions",
 
@@ -6745,4 +6769,22 @@
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
 
   "browse.search-form.placeholder": "Search the repository",
+
+  "file-download-link.download": "Download ",
+
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+
+  "dynamic-form-array.sortable-list.label": "Sortable list",
 }

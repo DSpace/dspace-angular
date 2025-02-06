@@ -1,5 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -28,7 +31,7 @@ import { hasValue } from '../../../shared/empty.util';
   ],
   standalone: true,
 })
-export class CollectionCurateComponent {
+export class CollectionCurateComponent implements OnInit {
   dsoRD$: Observable<RemoteData<Collection>>;
   collectionName$: Observable<string>;
 

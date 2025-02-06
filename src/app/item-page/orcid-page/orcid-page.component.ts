@@ -20,6 +20,7 @@ import {
   combineLatest,
 } from 'rxjs';
 import {
+  filter,
   map,
   take,
 } from 'rxjs/operators';
@@ -187,8 +188,20 @@ export class OrcidPageComponent implements OnInit {
    */
   private clearRouteParams(): void {
     // update route removing the code from query params
-    const redirectUrl = this.router.url.split('?')[0];
-    this.router.navigate([redirectUrl]);
+    this.route.queryParamMap
+      .pipe(
+        filter((paramMap: ParamMap) => isNotEmpty(paramMap.keys)),
+        map(_ => Object.assign({})),
+        take(1),
+      ).subscribe(queryParams =>
+        this.router.navigate(
+          [],
+          {
+            relativeTo: this.route,
+            queryParams,
+          },
+        ),
+      );
   }
 
 }

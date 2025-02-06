@@ -23,7 +23,7 @@ import {
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { KlaroService } from '../shared/cookies/klaro.service';
+import { OrejimeService } from '../shared/cookies/orejime.service';
 import { hasValue } from '../shared/empty.util';
 
 @Component({
@@ -46,7 +46,7 @@ export class FooterComponent implements OnInit {
   coarLdnEnabled$: Observable<boolean>;
 
   constructor(
-    @Optional() public cookies: KlaroService,
+    @Optional() public cookies: OrejimeService,
     protected authorizationService: AuthorizationDataService,
     protected notifyInfoService: NotifyInfoService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
