@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { ProfilePageMetadataFormComponent as BaseComponent } from '../../../../../app/profile-page/profile-page-metadata-form/profile-page-metadata-form.component';
@@ -10,7 +9,6 @@ import { FormComponent } from '../../../../../app/shared/form/form.component';
   // templateUrl: './profile-page-metadata-form.component.html',
   imports: [
     FormComponent,
-    NgIf,
   ],
   standalone: true,
 })
