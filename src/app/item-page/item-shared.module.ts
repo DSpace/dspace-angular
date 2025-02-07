@@ -16,6 +16,7 @@ import { RelatedItemsComponent } from './simple/related-items/related-items-comp
 import {
   ThemedMetadataRepresentationListComponent
 } from './simple/metadata-representation-list/themed-metadata-representation-list.component';
+import { ThemedRelatedEntitiesSearchComponent } from './simple/related-entities/related-entities-search/themed-related-entities-search.component';
 
 const ENTRY_COMPONENTS = [
   ItemVersionsDeleteModalComponent,
@@ -26,6 +27,7 @@ const ENTRY_COMPONENTS = [
 const COMPONENTS = [
   ...ENTRY_COMPONENTS,
   RelatedEntitiesSearchComponent,
+  ThemedRelatedEntitiesSearchComponent,
   TabbedRelatedEntitiesSearchComponent,
   MetadataValuesComponent,
   GenericItemPageFieldComponent,

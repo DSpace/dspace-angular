@@ -4,12 +4,12 @@
       <a ngbNavLink>{{'item.page.relationships.' + relationType.label | translate}}</a>
       <ng-template ngbNavContent>
         <div class="mt-4">
-          <ds-related-entities-search [item]="item"
+          <ds-themed-related-entities-search [item]="item"
                                       [relationType]="relationType.filter"
                                       [configuration]="relationType.configuration"
                                       [searchEnabled]="searchEnabled"
                                       [sideBarWidth]="sideBarWidth">
-          </ds-related-entities-search>
+          </ds-themed-related-entities-search>
         </div>
       </ng-template>
     </li>
@@ -17,10 +17,10 @@
   <div [ngbNavOutlet]="tabs"></div>
 </ng-container>
 <div *ngIf="relationTypes.length === 1" class="mt-4">
-  <ds-related-entities-search *ngVar="relationTypes[0] as relationType" [item]="item"
+  <ds-themed-related-entities-search *ngVar="relationTypes[0] as relationType" [item]="item"
                               [relationType]="relationType.filter"
                               [configuration]="relationType.configuration"
                               [searchEnabled]="searchEnabled"
                               [sideBarWidth]="sideBarWidth">
-  </ds-related-entities-search>
+  </ds-themed-related-entities-search>
 </div>
