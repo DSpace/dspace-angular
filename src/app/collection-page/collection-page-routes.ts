@@ -8,16 +8,14 @@ import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
-import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
-import { collectionPageResolver } from './collection-page.resolver';
+import { MenuRoute } from '../shared/menu/menu-route.model';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
   COLLECTION_CREATE_PATH,
   COLLECTION_EDIT_PATH,
   ITEMTEMPLATE_PATH,
 } from './collection-page-routing-paths';
+import { collectionPageResolver } from './collection-page.resolver';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { createCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
@@ -82,8 +80,8 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCollectionPageComponent,
-        resolve: {
-          menu: dsoEditMenuResolver,
+        data: {
+          menuRoute: MenuRoute.SIMPLE_COLLECTION_PAGE,
         },
         children: [
           {
@@ -104,20 +102,5 @@ export const ROUTES: Route[] = [
         ],
       },
     ],
-    data: {
-      menu: {
-        public: [{
-          id: 'statistics_collection_:id',
-          active: true,
-          visible: true,
-          index: 2,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.statistics',
-            link: 'statistics/collections/:id/',
-          } as LinkMenuItemModel,
-        }],
-      },
-    },
   },
 ];
