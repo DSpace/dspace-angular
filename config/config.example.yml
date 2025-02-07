@@ -19,9 +19,6 @@ ui:
 
 # Angular Server Side Rendering (SSR) settings
 ssr:
-  # Enable request performance profiling data collection and printing the results in the server console.
-  # Defaults to false. Enabling in production is NOT recommended
-  enablePerformanceProfiler: false
   # Whether to tell Angular to inline "critical" styles into the server-side rendered HTML.
   # Determining which styles are critical is a relatively expensive operation; this option is
   # disabled (false) by default to boost server performance at the expense of loading smoothness.
@@ -48,6 +45,9 @@ ssr:
   # REST resources with the internal URL configured. By default, these internal URLs are replaced with public URLs.
   # Disable this setting to avoid URL replacement during SSR. In this the state is not transferred to avoid security issues.
   replaceRestUrl: true
+  # Enable request performance profiling data collection and printing the results in the server console.
+  # Defaults to false. Enabling in production is NOT recommended
+  #enablePerformanceProfiler: false
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
