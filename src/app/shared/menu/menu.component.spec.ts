@@ -43,6 +43,7 @@ import { MenuComponent } from './menu.component';
 import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
+import { TextMenuItemModel } from './menu-item/models/text.model';
 import { MenuItemType } from './menu-item-type.model';
 import { rendersSectionForMenu } from './menu-section.decorator';
 import { MenuSection } from './menu-section.model';
@@ -72,6 +73,19 @@ describe('MenuComponent', () => {
   let fixture: ComponentFixture<MenuComponent>;
   let menuService: MenuService;
   let store: MockStore;
+  let router: any;
+
+  const menuSection: MenuSection =       {
+    id: 'browse',
+    model: {
+      type: MenuItemType.TEXT,
+      text: 'menu.section.browse_global',
+    } as TextMenuItemModel,
+    icon: 'globe',
+    visible: true,
+  };
+
+  const mockMenuID = 'mock-menuID' as MenuID;
 
   const mockStatisticSection = { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } };
 
@@ -153,7 +167,7 @@ describe('MenuComponent', () => {
     comp.menuID = mockMenuID;
     menuService = TestBed.inject(MenuService);
     store = TestBed.inject(Store) as MockStore<AppState>;
-    spyOn(comp as any, 'getSectionDataInjector').and.returnValue(MenuSection);
+    spyOn(comp as any, 'getSectionDataInjector').and.returnValue(menuSection);
     fixture.detectChanges();
   });
 

@@ -31,7 +31,7 @@ import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';
 import { getComponentForMenu } from './menu-section.decorator';
 import { MenuSection } from './menu-section.model';
-import { MenuSectionComponent } from './menu-section/menu-section.component';
+import { AbstractMenuSectionComponent } from './menu-section/abstract-menu-section.component';
 
 /**
  * A basic implementation of a MenuComponent
@@ -72,7 +72,7 @@ export class MenuComponent implements OnInit, OnDestroy {
    */
   sectionMap$: BehaviorSubject<Map<string, {
     injector: Injector,
-    component: GenericConstructor<MenuSectionComponent>
+    component: GenericConstructor<AbstractMenuSectionComponent>
   }>> = new BehaviorSubject(new Map());
 
   /**
@@ -121,7 +121,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         }),
         isNotEmptyOperator(),
         switchMap((section: MenuSection) => this.getSectionComponent(section).pipe(
-          map((component: GenericConstructor<MenuSectionComponent>) => ({ section, component })),
+          map((component: GenericConstructor<AbstractMenuSectionComponent>) => ({ section, component })),
         )),
         distinctUntilChanged((x, y) => x.section.id === y.section.id && x.component.prototype === y.component.prototype),
       ).subscribe(({ section, component }) => {
@@ -233,12 +233,12 @@ export class MenuComponent implements OnInit, OnDestroy {
   /**
    * Retrieve the component for a given MenuSection object
    * @param {MenuSection} section The given MenuSection
-   * @returns {Observable<GenericConstructor<MenuSectionComponent>>} Emits the constructor of the Component that should be used to render this object
+   * @returns {Observable<GenericConstructor<AbstractMenuSectionComponent>>} Emits the constructor of the Component that should be used to render this object
    */
-  private getSectionComponent(section: MenuSection): Observable<GenericConstructor<MenuSectionComponent>> {
+  private getSectionComponent(section: MenuSection): Observable<GenericConstructor<AbstractMenuSectionComponent>> {
     return this.menuService.hasSubSections(this.menuID, section.id).pipe(
       map((expandable: boolean) => {
-        return getComponentForMenu(this.menuID, expandable, this.themeService.getThemeName());
+        return getComponentForMenu(this.menuID, expandable || section.alwaysRenderExpandable, this.themeService.getThemeName());
       },
       ),
     );
