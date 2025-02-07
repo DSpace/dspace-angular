@@ -357,11 +357,8 @@ describe('ThumbnailComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           TranslateModule.forRoot(),
-          ThumbnailComponent,
-          SafeUrlPipe,
-          MockTranslatePipe,
-          VarDirective,
         ],
+        declarations: [ThumbnailComponent, SafeUrlPipe, MockTranslatePipe, VarDirective],
         providers: [
           { provide: AuthService, useValue: authService },
           { provide: AuthorizationDataService, useValue: authorizationService },
@@ -386,7 +383,7 @@ describe('ThumbnailComponent', () => {
 
     it('should start out with isLoading$ true', () => {
       expect(comp.isLoading).toBeTrue();
-      expect(de.query(By.css('ds-loading'))).toBeTruthy();
+      expect(de.query(By.css('ds-themed-loading'))).toBeTruthy();
     });
 
     it('should not call setSrc', () => {
