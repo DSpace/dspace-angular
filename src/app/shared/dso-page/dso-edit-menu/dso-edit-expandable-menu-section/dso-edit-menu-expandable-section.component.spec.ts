@@ -74,8 +74,7 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
   describe('when there are no subsections', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot()],
-        declarations: [DsoEditMenuExpandableSectionComponent, TestComponent],
+        imports: [TranslateModule.forRoot(), DsoEditMenuExpandableSectionComponent, TestComponent],
         providers: [
           { provide: 'sectionDataProvider', useValue: dummySection },
           { provide: MenuService, useValue: menuService },

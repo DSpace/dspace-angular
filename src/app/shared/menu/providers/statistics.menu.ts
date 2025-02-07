@@ -12,11 +12,15 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import {
+  combineLatest,
+  map,
   Observable,
   of,
 } from 'rxjs';
 
 import { getDSORoute } from '../../../app-routing-paths';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
@@ -34,6 +38,11 @@ import { AbstractRouteContextMenuProvider } from './helper-providers/route-conte
  */
 @Injectable()
 export class StatisticsMenuProvider extends AbstractRouteContextMenuProvider<DSpaceObject> {
+  constructor(
+    protected authorizationService: AuthorizationDataService,
+  ) {
+    super();
+  }
 
   public getRouteContext(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DSpaceObject> {
     let dsoRD: RemoteData<DSpaceObject> = route.data.dso;
@@ -51,28 +60,32 @@ export class StatisticsMenuProvider extends AbstractRouteContextMenuProvider<DSp
   }
 
   public getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
+    return combineLatest([
+      this.authorizationService.isAuthorized(FeatureID.CanViewUsageStatistics, dso?._links.self.href),
+    ]).pipe(
+      map(([authorized]) => {
+        let link = `statistics`;
 
-    let link = `statistics`;
+        let dsoRoute;
+        if (hasValue(dso)) {
+          dsoRoute = getDSORoute(dso);
+          if (hasValue(dsoRoute)) {
+            link = `statistics${dsoRoute}`;
+          }
+        }
 
-    let dsoRoute;
-    if (hasValue(dso)) {
-      dsoRoute = getDSORoute(dso);
-      if (hasValue(dsoRoute)) {
-        link = `statistics${dsoRoute}`;
-      }
-    }
-
-    return of([
-      {
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.statistics',
-          link,
-        },
-        icon: 'chart-line',
-      },
-    ] as PartialMenuSection[]);
+        return [
+          {
+            visible: authorized,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'menu.section.statistics',
+              link,
+            },
+            icon: 'chart-line',
+          },
+        ];
+      }),
+    );
   }
-
 }

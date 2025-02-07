@@ -51,7 +51,7 @@ describe('BrowseMenuProvider', () => {
 
 
   let provider: BrowseMenuProvider;
-  let browseServiceStub = new BrowseServiceStub();
+  let browseServiceStub = BrowseServiceStub;
 
   beforeEach(() => {
     spyOn(browseServiceStub, 'getBrowseDefinitions').and.returnValue(

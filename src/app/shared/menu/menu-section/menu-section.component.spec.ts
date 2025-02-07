@@ -23,6 +23,7 @@ import { AbstractMenuSectionComponent } from './abstract-menu-section.component'
 @Component({
   selector: 'ds-some-menu-section',
   template: '',
+  standalone: true,
 })
 class SomeMenuSectionComponent extends AbstractMenuSectionComponent {
   constructor(
@@ -47,8 +48,7 @@ describe('MenuSectionComponent', () => {
       active: false,
     } as any;
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, SomeMenuSectionComponent],
-      declarations: [AbstractMenuSectionComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, SomeMenuSectionComponent, AbstractMenuSectionComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: MenuService, useClass: MenuServiceStub },

@@ -1,5 +1,8 @@
+import { inject } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
@@ -34,6 +37,18 @@ describe('StatisticsMenuProvider', () => {
     },
   ];
 
+  const expectedSectionsForItemInvisible: PartialMenuSection[] = [
+    {
+      visible: false,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.statistics',
+        link: `statistics/items/test-item-uuid`,
+      },
+      icon: 'chart-line',
+    },
+  ];
+
   let provider: StatisticsMenuProvider;
 
   const item: Item = Object.assign(new Item(), {
@@ -57,13 +72,18 @@ describe('StatisticsMenuProvider', () => {
       }],
     },
   });
+  let authorizationService: AuthorizationDataService;
 
   beforeEach(() => {
+    authorizationService = jasmine.createSpyObj('authorizationService', {
+      isAuthorized: observableOf(true),
+    });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       providers: [
         StatisticsMenuProvider,
+        { provide: AuthorizationDataService, useValue: authorizationService },
       ],
     });
     provider = TestBed.inject(StatisticsMenuProvider);
@@ -83,6 +103,13 @@ describe('StatisticsMenuProvider', () => {
     it('should return a statistics link to the DSO when a DSO is provided', (done) => {
       provider.getSectionsForContext(item).subscribe((sections) => {
         expect(sections).toEqual(expectedSectionsForItem);
+        done();
+      });
+    });
+    it('should not return anything if not authorized to view statistics', (done) => {
+      (TestBed.inject(AuthorizationDataService) as any).isAuthorized.and.returnValue(observableOf(false));
+      provider.getSectionsForContext(item).subscribe((sections) => {
+        expect(sections).toEqual(expectedSectionsForItemInvisible);
         done();
       });
     });
