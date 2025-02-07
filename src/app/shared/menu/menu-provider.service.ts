@@ -178,7 +178,7 @@ export class MenuProviderService {
       id: section.id ?? `${provider.menuProviderId}_${index}`,
       parentID: section.parentID ?? provider.parentID,
       index: provider.index,
-      active: section.active ?? true,
+      active: section.active ?? false,
       shouldPersistOnRouteChange: section.shouldPersistOnRouteChange ?? provider.shouldPersistOnRouteChange,
       alwaysRenderExpandable: section.alwaysRenderExpandable ?? provider.alwaysRenderExpandable,
     });
