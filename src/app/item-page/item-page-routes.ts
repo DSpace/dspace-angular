@@ -7,17 +7,17 @@ import { MenuRoute } from '../shared/menu/menu-route.model';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
+import { itemPageResolver } from './item-page.resolver';
 import {
   ITEM_EDIT_PATH,
   ORCID_PATH,
   UPLOAD_BITSTREAM_PATH,
 } from './item-page-routing-paths';
-import { itemPageResolver } from './item-page.resolver';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { orcidPageGuard } from './orcid-page/orcid-page.guard';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
-import { VersionPageComponent } from './version-page/version-page/version-page.component';
 import { versionResolver } from './version-page/version.resolver';
+import { VersionPageComponent } from './version-page/version-page/version-page.component';
 
 export const ROUTES: Route[] = [
   {

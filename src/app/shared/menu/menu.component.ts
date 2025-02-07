@@ -24,11 +24,11 @@ import {
   isNotEmptyOperator,
 } from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
+import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';
 import { getComponentForMenu } from './menu-section.decorator';
 import { MenuSection } from './menu-section.model';
 import { AbstractMenuSectionComponent } from './menu-section/abstract-menu-section.component';
-import { MenuService } from './menu.service';
 
 /**
  * A basic implementation of a MenuComponent

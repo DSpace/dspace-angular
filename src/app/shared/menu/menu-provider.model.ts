@@ -5,8 +5,8 @@
  *
  * http://www.dspace.org/license/
  */
-import { Type } from '@angular/core';
 /* eslint-disable max-classes-per-file */
+import { Type } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
