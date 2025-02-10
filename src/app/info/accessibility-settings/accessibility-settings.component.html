@@ -30,10 +30,15 @@
 
       <div class="col-sm-4">
         <input [type]="'number'" [id]="'notificationTimeOutInput'" class="form-control"
+               [ngClass]="{'is-invalid': !settingsService.isValid('notificationTimeOut', formValues.notificationTimeOut)}"
+               [min]="1"
                [placeholder]="getPlaceholder('notificationTimeOut')"
                [readOnly]="!formValues.notificationTimeOutEnabled"
                [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'notificationTimeOutHint'">
+        <div class="invalid-feedback" [ngClass]="{ 'd-block': !settingsService.isValid('notificationTimeOut', formValues.notificationTimeOut) }">
+          {{ 'info.accessibility-settings.notificationTimeOut.invalid' | translate }}
+        </div>
       </div>
 
 
@@ -53,9 +58,14 @@
 
       <div class="col-sm-4">
         <input [type]="'number'" [id]="'liveRegionTimeOutInput'" class="form-control"
+               [ngClass]="{'is-invalid': !settingsService.isValid('liveRegionTimeOut', formValues.liveRegionTimeOut)}"
+               [min]="1"
                [placeholder]="getPlaceholder('liveRegionTimeOut')"
                [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'liveRegionTimeOutHint'">
+        <div class="invalid-feedback" [ngClass]="{ 'd-block': !settingsService.isValid('liveRegionTimeOut', formValues.liveRegionTimeOut) }">
+          {{ 'info.accessibility-settings.liveRegionTimeOut.invalid' | translate }}
+        </div>
       </div>
 
 

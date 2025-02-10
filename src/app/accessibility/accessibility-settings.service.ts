@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, switchMap } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { CookieService } from '../core/services/cookie.service';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { hasValue, isNotEmpty, hasNoValue } from '../shared/empty.util';
 import { AuthService } from '../core/auth/auth.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
@@ -276,6 +276,26 @@ export class AccessibilitySettingsService {
     };
   }
 
+  /**
+   * Returns true if the provided value is a valid value for the provided AccessibilitySetting.
+   */
+  isValid(setting: AccessibilitySetting | string, value: string): boolean {
+    switch (setting) {
+      case 'notificationTimeOut':
+        return hasNoValue(value) || parseFloat(value) > 0;
+      case 'liveRegionTimeOut':
+        return hasNoValue(value) || parseFloat(value) > 0;
+      default:
+        throw new Error(`Unhandled accessibility setting during validity check: ${setting}`);
+    }
+  }
+
+  /**
+   * Returns true if all settings in the provided AccessibilitySettings object are valid
+   */
+  allValid(settings: AccessibilitySettings) {
+    return Object.entries(settings).every(([setting, value], _) => this.isValid(setting, value));
+  }
 }
 
 /**

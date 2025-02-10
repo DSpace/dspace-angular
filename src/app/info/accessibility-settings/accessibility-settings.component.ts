@@ -42,10 +42,18 @@ export class AccessibilitySettingsComponent implements OnInit {
   saveSettings() {
     const formValues = this.formValues;
     const convertedValues = this.settingsService.convertFormValuesToStoredValues(formValues);
-    this.settingsService.setSettings(convertedValues).pipe(take(1)).subscribe(location => {
-      this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));
-      this.updateFormValues();
-    });
+
+    if (this.settingsService.allValid(convertedValues)) {
+      this.settingsService.setSettings(convertedValues).pipe(take(1)).subscribe(location => {
+        this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));
+        this.updateFormValues();
+      });
+    } else {
+      this.notificationsService.error(
+        null,
+        this.translateService.instant('info.accessibility-settings.invalid-form-notification'),
+      );
+    }
   }
 
   /**
