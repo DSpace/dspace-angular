@@ -55,6 +55,7 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { VarDirective } from '../shared/utils/var.directive';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ds-base-collection-page',
@@ -100,6 +101,11 @@ export class CollectionPageComponent implements OnInit {
    */
   collectionPageRoute$: Observable<string>;
 
+  /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
@@ -111,6 +117,8 @@ export class CollectionPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentLanguage = this.translateService.currentLang;
+
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
       redirectOn4xx(this.router, this.authService),

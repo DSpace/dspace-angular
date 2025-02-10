@@ -292,7 +292,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
 
           const key = `/metadata/${fieldModel.name}`;
 
-          const keyExistAndAtLeastOneValueIsNotNull: boolean = (fieldModel.value !== null || this.dso.firstMetadataValue(fieldModel.name, { language }) !== null);
+          const keyExistAndAtLeastOneValueIsNotNull: boolean = (hasValue(fieldModel.value) || hasValue(this.dso.firstMetadataValue(fieldModel.name, { language })));
 
           if ( keyExistAndAtLeastOneValueIsNotNull) {
             if (operations.has(key)) {
@@ -354,7 +354,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     this.defaultLanguageCode = environment.defaultLanguage;
     this.defaultLanguage = environment.languages.find(lang => lang.code === this.defaultLanguageCode).label;
 
-    this.languages = environment.languages.filter(lang => lang.code !== this.defaultLanguageCode);
+    this.languages = environment.languages.filter(lang => lang.code !== this.defaultLanguageCode && (lang.active === true));
     this.currentLanguageCode = this.languages.length > 0 ? this.languages[0].code : null;
   }
 

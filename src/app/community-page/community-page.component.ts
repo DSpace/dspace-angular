@@ -48,6 +48,7 @@ import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-trac
 import { getCommunityPageRoute } from './community-page-routing-paths';
 import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
 import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ds-base-community-page',
@@ -96,6 +97,11 @@ export class CommunityPageComponent implements OnInit {
   logoRD$: Observable<RemoteData<Bitstream>>;
 
   /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
+
+  /**
    * Route to the community page
    */
   communityPageRoute$: Observable<string>;
@@ -112,6 +118,8 @@ export class CommunityPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentLanguage = this.translateService.currentLang;
+
     this.communityRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Community>),
       redirectOn4xx(this.router, this.authService),
