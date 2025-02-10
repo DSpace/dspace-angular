@@ -24,6 +24,7 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
 import { AuthService } from '../core/auth/auth.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
@@ -48,7 +49,6 @@ import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-trac
 import { getCommunityPageRoute } from './community-page-routing-paths';
 import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
 import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ds-base-community-page',

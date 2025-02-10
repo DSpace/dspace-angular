@@ -24,6 +24,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
 import { AuthService } from '../core/auth/auth.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { SortOptions } from '../core/cache/models/sort-options.model';
@@ -55,7 +56,6 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { VarDirective } from '../shared/utils/var.directive';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ds-base-collection-page',
