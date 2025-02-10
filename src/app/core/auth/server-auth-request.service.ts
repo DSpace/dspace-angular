@@ -16,6 +16,7 @@ import {
 } from '../xsrf/xsrf.constants';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { XSRFService } from '../xsrf/xsrf.service';
 
 /**
  * Server side version of the service to send authentication requests
@@ -28,6 +29,7 @@ export class ServerAuthRequestService extends AuthRequestService {
     requestService: RequestService,
     rdbService: RemoteDataBuildService,
     protected httpClient: HttpClient,
+    protected xsrfService: XSRFService
   ) {
     super(halService, requestService, rdbService);
   }
@@ -43,6 +45,13 @@ export class ServerAuthRequestService extends AuthRequestService {
     return this.httpClient.get(this.halService.getRootHref(), { observe: 'response' }).pipe(
       // retrieve the XSRF token from the response header
       map((response: HttpResponse<any>) => response.headers.get(XSRF_RESPONSE_HEADER)),
+      map((xsrfToken: string) => {
+        if (!xsrfToken) {
+          throw new Error('Failed to initialize XSRF token');
+        }
+        this.xsrfService.tokenInitialized$.next(true);
+        return xsrfToken;
+      }),
       // Use that token to create an HttpHeaders object
       map((xsrfToken: string) => new HttpHeaders()
           .set('Content-Type', 'application/json; charset=utf-8')
