@@ -15,7 +15,7 @@
           {{'vocabulary-treeview.search.form.reset' | translate}}
         </button>
         <button *ngIf="showAdd" class="btn btn-outline-primary" type="button" (click)="add()"
-          [disabled]="this.vocabularyOptions.closed">
+          [dsBtnDisabled]="this.vocabularyOptions.closed">
           {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
       </div>
