@@ -414,18 +414,22 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
     const isQualdrop = event.model.parent instanceof DynamicQualdropModel;
 
     if (isQualdrop) {
-      const groupMetadata = this.formOperationsService.getQualdropValueMap(event).keys();
-      this.formService.getForm(this.formId).pipe(take(1)).subscribe((form) => {
-        [...groupMetadata].forEach((metadata) => {
-          if (hasValue(form.data[metadata]) && form.data[metadata].length > 1) {
-            form.data[metadata].forEach((entry: any) => {
-              languageMap.set(metadata, [...(languageMap.get(metadata) ?? []), entry.language]);
-            });
-          } else {
-            languageMap.set(metadata, [form.data[metadata][0].language]);
+      const qualdropMap = this.formOperationsService.getQualdropValueMap(event);
+
+      if (qualdropMap) {
+        const groupMetadata = qualdropMap.keys();
+        this.formService.getForm(this.formId).pipe(take(1)).subscribe((form) => {
+          for (const metadata of groupMetadata) {
+            if (hasValue(form.data[metadata]) && form.data[metadata].length > 1) {
+              form.data[metadata].forEach((entry: any) => {
+                languageMap.set(metadata, [...(languageMap.get(metadata) ?? []), entry.language]);
+              });
+            } else {
+              languageMap.set(metadata, [form.data[metadata][0].language]);
+            }
           }
         });
-      });
+      }
 
       this.formOperationsService.dispatchOperationsFromEvent(
         this.pathCombiner,
