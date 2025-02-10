@@ -236,8 +236,14 @@ export class FormBuilderService extends DynamicFormService {
           });
         }
 
-        if (controlModel.group.some(control => (control as DsDynamicInputModel).language)) {
-          const qualdropLanguageControl = controlModel.group.find(control => hasValue( (control as DsDynamicInputModel).language)) as DsDynamicInputModel;
+        let qualdropLanguageControl = null;
+        for (const control of controlModel.group) {
+          if (hasValue((control as DsDynamicInputModel).language)) {
+            qualdropLanguageControl = control as DsDynamicInputModel;
+            break;
+          }
+        }
+        if (qualdropLanguageControl) {
           controlModel.language = controlLanguage ?? qualdropLanguageControl.language;
           controlLanguage = controlModel.language;
         }
