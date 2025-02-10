@@ -6,6 +6,8 @@ import {
 import {
   Component,
   Input,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -22,6 +24,7 @@ import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/oper
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
+import { hasValue } from '../../../empty.util';
 import { MetadataFieldWrapperComponent } from '../../../metadata-field-wrapper/metadata-field-wrapper.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
@@ -41,7 +44,7 @@ import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-fie
   standalone: true,
   imports: [NgIf, ThemedBadgesComponent, ThemedItemPageTitleFieldComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, VarDirective, NgFor, ThemedItemDetailPreviewFieldComponent, ItemSubmitterComponent, AsyncPipe, FileSizePipe, TranslateModule],
 })
-export class ItemDetailPreviewComponent {
+export class ItemDetailPreviewComponent implements OnChanges {
   /**
    * The item to display
    */
@@ -78,6 +81,12 @@ export class ItemDetailPreviewComponent {
     protected bitstreamDataService: BitstreamDataService,
     public dsoNameService: DSONameService,
   ) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (hasValue(changes.item)) {
+      this.bitstreams$ = this.getFiles();
+    }
   }
 
   /**
