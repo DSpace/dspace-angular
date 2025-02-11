@@ -131,7 +131,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   ERROR_KEY_PREFIX = '.form.errors.';
 
   /**
-   * The form model that represents the fields in the form
+   * The map of form model that represents the fields in the form
    */
   formModels: Map<string, DynamicFormControlModel[]> = new Map();
 
