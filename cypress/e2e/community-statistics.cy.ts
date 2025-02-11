@@ -6,7 +6,8 @@ describe('Community Statistics Page', () => {
 
   it('should load if you click on "Statistics" from a Community page', () => {
     cy.visit('/communities/'.concat(Cypress.env('DSPACE_TEST_COMMUNITY')));
-    cy.get('ds-navbar ds-link-menu-item a[data-test="link-menu-item.menu.section.statistics"]').click();
+    cy.get('ds-expandable-navbar-section').contains('Statistics').parents('[data-test="navbar-section-wrapper"]').trigger('mouseenter', { force: true });
+    cy.get('ds-navbar ds-link-menu-item a[data-test="link-menu-item.menu.section.statistics.community"]').click();
     cy.location('pathname').should('eq', COMMUNITYSTATISTICSPAGE);
   });
 
