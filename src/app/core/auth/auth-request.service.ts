@@ -1,5 +1,9 @@
-import { Observable } from 'rxjs';
 import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  catchError,
   distinctUntilChanged,
   filter,
   map,
@@ -144,6 +148,12 @@ export abstract class AuthRequestService {
         } else {
           return null;
         }
+      }),
+      catchError((error: unknown) => {
+        if (error instanceof Error) {
+          console.error(error?.message);
+        }
+        return of(null);
       }),
     );
   }

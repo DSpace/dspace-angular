@@ -18,6 +18,7 @@ export class RouterMock {
   // noinspection TypeScriptUnresolvedFunction
   navigate = jasmine.createSpy('navigate');
   navigateByUrl = jasmine.createSpy('navigateByUrl');
+  parseUrl = jasmine.createSpy('parseUrl');
 
   serializeUrl(url: UrlTree): string {
     return url ? url.toString() : '/testing-url';
@@ -37,9 +38,5 @@ export class RouterMock {
 
   get url() {
     return this.routerState.snapshot.url;
-  }
-
-  parseUrl(url: string): UrlTree {
-    return null;
   }
 }
