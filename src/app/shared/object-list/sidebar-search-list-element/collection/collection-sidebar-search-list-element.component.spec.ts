@@ -1,3 +1,11 @@
+import {
+  catchError,
+  Observable,
+  of,
+  switchMap,
+} from 'rxjs';
+import { RemoteData } from 'src/app/core/data/remote-data';
+
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
@@ -32,6 +40,45 @@ const parent = Object.assign(new Community(), {
   },
 });
 
-describe('CollectionSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(CollectionSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'description'),
-);
+function getExpectedHierarchicalTitle(parentObj: Community, obj: CollectionSearchResult): Observable<string> {
+  let titles: string[] = [];
+  if (obj.indexableObject.metadata['dc.title']) {
+    titles = [obj.indexableObject.metadata['dc.title'][0].value];
+  }
+  let currentParent: Community = parentObj;
+
+  const fetchParentTitles = (currParent: Collection | Community): Observable<string[]> => {
+    if (!currParent) {
+      return of([]);
+    }
+
+    if (currParent.parentCommunity) {
+      return currParent.parentCommunity.pipe(
+        switchMap((remoteData: RemoteData<Community>) => {
+          if (remoteData.hasSucceeded && remoteData.payload) {
+            const parentTitle = remoteData.payload.name;
+            titles.unshift(parentTitle);
+            return fetchParentTitles(remoteData.payload);
+          }
+          return of([]);
+        }),
+        catchError(() => of([])),
+      );
+    } else {
+      return of([]);
+    }
+  };
+
+  return fetchParentTitles(currentParent).pipe(
+    switchMap(() => titles.join(' > ')),
+  );
+}
+
+const expectedHierarchicalTitle = getExpectedHierarchicalTitle(parent, object);
+if (expectedHierarchicalTitle) {
+  expectedHierarchicalTitle.subscribe((hierarchicalTitle: string) => {
+    describe('CollectionSidebarSearchListElementComponent', () => {
+      createSidebarSearchListElementTests(CollectionSidebarSearchListElementComponent, object, parent, hierarchicalTitle, 'title', 'description');
+    });
+  });
+}
