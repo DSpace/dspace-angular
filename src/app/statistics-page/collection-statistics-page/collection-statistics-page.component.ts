@@ -26,6 +26,8 @@ export class CollectionStatisticsPageComponent extends StatisticsPageDirective<C
   types: string[] = [
     'TotalVisits',
     'TotalVisitsPerMonth',
+    'TopItems',
+    'TotalDownloads',
     'TopCountries',
     'TopCities',
   ];
