@@ -313,7 +313,7 @@
   "admin.registries.schema.form.element": "Element",
 
   // "admin.registries.schema.form.qualifier": "Qualifier",
-  "admin.registries.schema.form.qualifier": "Qualifizierer",
+  "admin.registries.schema.form.qualifier": "Qualifier",
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
   "admin.registries.schema.form.scopenote": "Geltungs- bzw. Gültigkeitsbereich",
@@ -2916,7 +2916,7 @@
   "forgot-password.form.identification.header": "Identifizieren",
 
   // "forgot-password.form.identification.email": "Email address: ",
-  "forgot-password.form.identification.email": "E-Mail-Addresse: ",
+  "forgot-password.form.identification.email": "E-Mail-Adresse: ",
 
   // "forgot-password.form.label.password": "Password",
   "forgot-password.form.label.password": "Passwort",
@@ -4128,7 +4128,7 @@
   "item.page.related-items.view-less": "{{ amount }} weniger anzeigen",
 
   // "item.page.relationships.isAuthorOfPublication": "Publications",
-  "item.page.relationships.isAuthorOfPublication": "Veröffentichungen",
+  "item.page.relationships.isAuthorOfPublication": "Veröffentlichungen",
 
   // "item.page.relationships.isJournalOfPublication": "Publications",
   "item.page.relationships.isJournalOfPublication": "Veröffentlichungen",
@@ -7449,7 +7449,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Lokale Projekte ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Lokale Publicationen ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Lokale Publikationen ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Lokale Autor:innen ({{ count }})",
@@ -7605,7 +7605,7 @@
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Förderung",
 
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
-  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Übergeordnete Organisationeinheit",
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Übergeordnete Organisationseinheit",
 
   // "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
   "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publikation",
@@ -7836,7 +7836,7 @@
   "submission.sections.submit.progressbar.describe.steptwo": "Beschreiben",
 
   // "submission.sections.submit.progressbar.duplicates": "Potential duplicates",
-  "submission.sections.submit.progressbar.duplicates": "Potenzielle Doubletten",
+  "submission.sections.submit.progressbar.duplicates": "Potenzielle Dubletten",
 
   // "submission.sections.submit.progressbar.identifiers": "Identifiers",
   "submission.sections.submit.progressbar.identifiers": "Identifier",
@@ -7965,7 +7965,7 @@
   "submission.sections.upload.header.policy.default.nolist": "In diese Sammlung {{collectionName}} hochgeladene Dateien werden für folgende(n) Gruppe(n) zugänglich sein:",
 
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "submission.sections.upload.header.policy.default.withlist": "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zugüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
+  "submission.sections.upload.header.policy.default.withlist": "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zuzüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Hier finden Sie alle Dateien, die aktuell zum Item gehören. Sie können ihre Metadaten und Zugriffsrechte bearbeiten oder <strong>weitere Dateien per Drag & Drop hinzufügen.</strong>",
@@ -8034,10 +8034,10 @@
   "submission.sections.accesses.form.until-placeholder": "Bis",
 
   // "submission.sections.duplicates.none": "No duplicates were detected.",
-  "submission.sections.duplicates.none": "Es wurden keine Doubletten entdeckt.",
+  "submission.sections.duplicates.none": "Es wurden keine Dubletten entdeckt.",
 
   // "submission.sections.duplicates.detected": "Potential duplicates were detected. Please review the list below.",
-  "submission.sections.duplicates.detected": "Es wurden mögliche Doubletten entdeckt. Bitte prüfen Sie die Liste unten.",
+  "submission.sections.duplicates.detected": "Es wurden mögliche Dubletten entdeckt. Bitte prüfen Sie die Liste unten.",
 
   // "submission.sections.duplicates.in-workspace": "This item is in workspace",
   "submission.sections.duplicates.in-workspace": "Dieses Item befindet sich im Arbeitsbereich",
@@ -9342,7 +9342,7 @@
   "ldn-service.form.pattern.announce-review.category": "Ankündigungen",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
-  "ldn-service.form.pattern.announce-service-result.label": "Ergebnis des Dienstes ankünden",
+  "ldn-service.form.pattern.announce-service-result.label": "Ergebnis des Dienstes ankündigen",
 
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "Diese Vorlage wird verwendet, um das Vorhandensein eines \"Dienstergebnisses\" anzukündigen, wobei auf die entsprechende Ressource verwiesen wird.",
