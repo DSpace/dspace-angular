@@ -445,6 +445,8 @@ ngb-accordion {
 }
 
 .form-control, .page-link {
+  border: 2px solid $gray-700;
+
     &:disabled {
         color: lighten($gray-700, 10%);
     }
