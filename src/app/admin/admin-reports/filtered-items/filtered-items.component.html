@@ -160,9 +160,9 @@
                             <div>
                                 <button id="prev" class="btn btn-light" (click)="prevPage()" [dsBtnDisabled]="!canNavigatePrevious()">{{'admin.reports.commons.previous-page' | translate}}</button>
                                 <button id="next" class="btn btn-light" (click)="nextPage()" [dsBtnDisabled]="!canNavigateNext()">{{'admin.reports.commons.next-page' | translate}}</button>
-<!--
-                                <button id="export">{{'admin.reports.commons.export' | translate}}</button>
--->
+                                <div style="float: right; margin-right: 60px;">
+                                    <ds-filtered-items-export-csv [reportParams]="queryForm"></ds-filtered-items-export-csv>
+                                </div>
                             </div>
                             <table id="itemtable" class="sortable"></table>
                         </ng-template>

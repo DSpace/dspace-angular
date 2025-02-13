@@ -8402,6 +8402,16 @@
   "item.page.cc.license.disclaimer": "Sauf indication contraire, la licence de cet Item est décrite comme",
 
   //"browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "Chercher dans le dépôt",
+  "browse.search-form.placeholder": "Chercher dans le dépôt",  //"metadata-export-filtered-items.tooltip": "Export report output as CSV",
+
+  //"metadata-export-filtered-items.tooltip": "Export report output as CSV",
+  "metadata-export-filtered-items.tooltip": "Exporter le rapport en CSV",
+
+  //"metadata-export-filtered-items.submit.success": "CSV export succeeded.",
+  "metadata-export-filtered-items.submit.success": "Exportation CSV complétée.",
+
+  //"metadata-export-filtered-items.submit.error": "CSV export failed.",
+  "metadata-export-filtered-items.submit.error": "L'exportation CSV n'a pas fonctionné.",
+
 }
 

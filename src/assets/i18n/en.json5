@@ -6787,4 +6787,10 @@
   "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  "metadata-export-filtered-items.tooltip": "Export report output as CSV",
+
+  "metadata-export-filtered-items.submit.success": "CSV export succeeded.",
+
+  "metadata-export-filtered-items.submit.error": "CSV export failed.",
 }
