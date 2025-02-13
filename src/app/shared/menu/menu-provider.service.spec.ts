@@ -38,7 +38,8 @@ describe('MenuProviderService', () => {
   const router = {
     events: observableOf(new ResolveEnd(1, 'test-url', 'test-url-after-redirect', {
       url: 'test-url',
-      root: {url: [new UrlSegment('test-url', {})],       data: {}
+      root: {
+        url: [new UrlSegment('test-url', {})], data: {}
       },
       data: {}
     } as any))
@@ -61,7 +62,7 @@ describe('MenuProviderService', () => {
 
 
   const persistentProvider1 = new TestMenuProvider(MenuID.PUBLIC, true, 'provider1', 0, undefined, undefined, false, [section]);
-  const persistentProvider2 = new TestMenuProvider(MenuID.PUBLIC, true, 'provider2', 1, undefined, 'provider1', false, [section]);
+  const persistentProvider2 = new TestMenuProvider(MenuID.PUBLIC, true, 'provider2', 1, undefined, 'provider1', false, [section, section]);
   const nonPersistentProvider3 = new TestMenuProvider(MenuID.PUBLIC, false, 'provider3', 2, undefined, undefined, false, [section]);
   const nonPersistentProvider4 = new TestMenuProvider(MenuID.PUBLIC, false, 'provider4', 3, undefined, 'provider3', false, [section]);
   const nonPersistentProvider5WithRoutes = new TestMenuProvider(MenuID.PUBLIC, false, 'provider4', 3, [MenuRoute.SIMPLE_COMMUNITY_PAGE, MenuRoute.SIMPLE_COLLECTION_PAGE,], undefined, false, [section]);
@@ -69,17 +70,19 @@ describe('MenuProviderService', () => {
   const listOfProvider = [persistentProvider1, persistentProvider2, nonPersistentProvider3, nonPersistentProvider4, nonPersistentProvider5WithRoutes];
 
   const expectedSection1 = generateAddedSection(persistentProvider1, section);
-  const expectedSection2 = generateAddedSection(persistentProvider2, section);
+  const expectedSection21 = generateAddedSection(persistentProvider2, section);
+  const expectedSection22 = generateAddedSection(persistentProvider2, section, 1);
   const expectedSection3 = generateAddedSection(nonPersistentProvider3, section);
   const expectedSection4 = generateAddedSection(nonPersistentProvider4, section);
   const expectedSection5 = generateAddedSection(nonPersistentProvider5WithRoutes, section);
 
-  function generateAddedSection(provider, sectionToAdd) {
+  function generateAddedSection(provider, sectionToAdd, index = 0) {
     return {
       ...sectionToAdd,
-      id: sectionToAdd.id ?? `${provider.menuProviderId}`,
+      id: sectionToAdd.id ?? `${provider.menuProviderId}_${index}`,
       parentID: sectionToAdd.parentID ?? provider.parentID,
       index: sectionToAdd.index ?? provider.index,
+      active: false,
       shouldPersistOnRouteChange: sectionToAdd.shouldPersistOnRouteChange ?? provider.shouldPersistOnRouteChange,
       alwaysRenderExpandable: sectionToAdd.alwaysRenderExpandable ?? provider.alwaysRenderExpandable,
     };
@@ -106,7 +109,8 @@ describe('MenuProviderService', () => {
       menuProviderService.initPersistentMenus();
 
       expect(menuService.addSection).toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
-      expect(menuService.addSection).toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection2);
+      expect(menuService.addSection).toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);
+      expect(menuService.addSection).toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection22);
       expect(menuService.addSection).not.toHaveBeenCalledWith(nonPersistentProvider3.menuID, expectedSection3);
       expect(menuService.addSection).not.toHaveBeenCalledWith(nonPersistentProvider4.menuID, expectedSection4);
       expect(menuService.addSection).not.toHaveBeenCalledWith(nonPersistentProvider5WithRoutes.menuID, expectedSection5);
@@ -115,7 +119,7 @@ describe('MenuProviderService', () => {
 
   describe('resolveRouteMenus with no matching path specific providers', () => {
     it('should remove the current non persistent menus and add the general non persistent menus', () => {
-      const route = {data:{}};
+      const route = {data: {}};
       const state = {url: 'test-url'};
       menuProviderService.resolveRouteMenus(route as any, state as any).subscribe();
 
@@ -124,7 +128,8 @@ describe('MenuProviderService', () => {
       expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_EDIT, sectionToBeRemoved.id);
 
       expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
-      expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection2);
+      expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);
+      expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection22);
       expect(menuService.addSection).toHaveBeenCalledWith(nonPersistentProvider3.menuID, expectedSection3);
       expect(menuService.addSection).toHaveBeenCalledWith(nonPersistentProvider4.menuID, expectedSection4);
       expect(menuService.addSection).not.toHaveBeenCalledWith(nonPersistentProvider5WithRoutes.menuID, expectedSection5);
@@ -133,7 +138,7 @@ describe('MenuProviderService', () => {
 
   describe('resolveRouteMenus with a matching path specific provider', () => {
     it('should remove the current non persistent menus and add the general non persistent menus', () => {
-      const route = {data:{ menuRoute: MenuRoute.SIMPLE_COMMUNITY_PAGE}};
+      const route = {data: {menuRoute: MenuRoute.SIMPLE_COMMUNITY_PAGE}};
       const state = {url: `xxxx/${COMMUNITY_MODULE_PATH}/xxxxxx`};
       menuProviderService.resolveRouteMenus(route as any, state as any).subscribe();
 
@@ -142,7 +147,8 @@ describe('MenuProviderService', () => {
       expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_EDIT, sectionToBeRemoved.id);
 
       expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
-      expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection2);
+      expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);
+      expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection22);
       expect(menuService.addSection).toHaveBeenCalledWith(nonPersistentProvider3.menuID, expectedSection3);
       expect(menuService.addSection).toHaveBeenCalledWith(nonPersistentProvider4.menuID, expectedSection4);
       expect(menuService.addSection).toHaveBeenCalledWith(nonPersistentProvider5WithRoutes.menuID, expectedSection5);
@@ -158,7 +164,8 @@ describe('MenuProviderService', () => {
       expect(menuService.removeSection).toHaveBeenCalledWith(MenuID.DSO_EDIT, sectionToBeRemoved.id);
 
       expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider1.menuID, expectedSection1);
-      expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection2);
+      expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection21);
+      expect(menuService.addSection).not.toHaveBeenCalledWith(persistentProvider2.menuID, expectedSection22);
       expect(menuService.addSection).toHaveBeenCalledWith(nonPersistentProvider3.menuID, expectedSection3);
       expect(menuService.addSection).toHaveBeenCalledWith(nonPersistentProvider4.menuID, expectedSection4);
       expect(menuService.addSection).not.toHaveBeenCalledWith(nonPersistentProvider5WithRoutes.menuID, expectedSection5);

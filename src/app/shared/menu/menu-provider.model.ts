@@ -144,7 +144,7 @@ export abstract class AbstractMenuProvider implements MenuProvider {
   abstract getSections(route?: ActivatedRouteSnapshot, state?: RouterStateSnapshot): Observable<PartialMenuSection[]>;
 
   protected getAutomatedSectionId(indexOfSectionInProvider: number): string {
-    return `${this.menuProviderId}_${indexOfSectionInProvider};`
+    return `${this.menuProviderId}_${indexOfSectionInProvider}`;
   }
 
 }
