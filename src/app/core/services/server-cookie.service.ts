@@ -1,9 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { CookieAttributes } from 'js-cookie';
 import { CookieService, ICookieService } from './cookie.service';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 @Injectable()
 export class ServerCookieService extends CookieService implements ICookieService {
+
+  constructor(@Inject(REQUEST) protected req: any) {
+    super();
+  }
 
   public set(name: string, value: any, options?: CookieAttributes): void {
     return;
