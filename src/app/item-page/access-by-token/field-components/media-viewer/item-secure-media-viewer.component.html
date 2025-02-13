@@ -1,0 +1,35 @@
+<ng-container *ngVar="mediaList$ | async as mediaList">
+  <ds-loading
+    *ngIf="isLoading"
+    message="{{ 'loading.default' | translate }}"
+    [showMessage]="false"
+  ></ds-loading>
+  <div class="media-viewer" *ngIf="!isLoading">
+    <ng-container *ngIf="mediaList.length > 0; else showThumbnail">
+      <ng-container *ngVar="mediaOptions.video && ['audio', 'video'].includes(mediaList[0]?.format) as showVideo">
+        <ng-container *ngVar="mediaOptions.image && mediaList[0]?.format === 'image' as showImage">
+          <ds-secure-media-viewer-video *ngIf="showVideo"
+                                                      [medias]="mediaList"
+                                                      [captions]="captions$ | async"
+                                                      [accessToken]="accessToken"
+          ></ds-secure-media-viewer-video>
+          <ds-secure-media-viewer-image *ngIf="showImage"
+                                                      [images]="mediaList"
+                                                      [accessToken]="accessToken"
+          ></ds-secure-media-viewer-image>
+          <ng-container *ngIf="showImage || showVideo; else showThumbnail"></ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  <ng-template #showThumbnail>
+    <ds-secure-media-viewer-image *ngIf="mediaOptions.image && mediaOptions.video"
+      [image]="(thumbnailsRD$ | async)?.payload?.page[0]?._links.content.href || thumbnailPlaceholder"
+      [accessToken]="accessToken"
+      [preview]="false"
+    ></ds-secure-media-viewer-image>
+    <ds-thumbnail *ngIf="!(mediaOptions.image && mediaOptions.video)"
+                  [thumbnail]="(thumbnailsRD$ | async)?.payload?.page[0]">
+    </ds-thumbnail>
+  </ng-template>
+</ng-container>
