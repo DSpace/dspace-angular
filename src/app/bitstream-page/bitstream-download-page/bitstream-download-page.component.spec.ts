@@ -73,15 +73,15 @@ describe('BitstreamDownloadPageComponent', () => {
         self: { href: 'bitstream-self-link' },
       },
     });
-
     activatedRoute = {
       data: observableOf({
-        bitstream: createSuccessfulRemoteDataObject(
-          bitstream,
-        ),
+        bitstream: createSuccessfulRemoteDataObject(bitstream),
       }),
       params: observableOf({
         id: 'testid',
+      }),
+      queryParams: observableOf({
+        accessToken: undefined,
       }),
     };
 
