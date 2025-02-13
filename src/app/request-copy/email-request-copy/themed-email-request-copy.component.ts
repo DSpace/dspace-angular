@@ -26,6 +26,11 @@ export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailReques
   @Output() send: EventEmitter<RequestCopyEmail> = new EventEmitter<RequestCopyEmail>();
 
   /**
+   * Event emitter for a selected / changed access period
+   */
+  @Output() selectedAccessPeriod: EventEmitter<number> = new EventEmitter();
+
+  /**
    * The subject of the email
    */
   @Input() subject: string;
@@ -35,7 +40,13 @@ export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailReques
    */
   @Input() message: string;
 
-  protected inAndOutputNames: (keyof EmailRequestCopyComponent & keyof this)[] = ['send', 'subject', 'message'];
+  /**
+   * A list of valid access periods, if configured
+   */
+  @Input() validAccessPeriods: number[];
+
+
+  protected inAndOutputNames: (keyof EmailRequestCopyComponent & keyof this)[] = ['send', 'subject', 'message', 'validAccessPeriods', 'selectedAccessPeriod'];
 
   protected getComponentName(): string {
     return 'EmailRequestCopyComponent';
