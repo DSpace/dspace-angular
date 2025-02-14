@@ -3,14 +3,16 @@
   <div class="container">
     <h2>{{ 'person.orcid.registry.queue' | translate }}</h2>
 
-    <ds-alert *ngIf="(processing$ | async) !== true && (getList() | async)?.payload?.totalElements === 0"
+    <ds-alert *ngIf="(processing$ | async) !== true && listDataRD?.payload?.totalElements === 0"
               [type]="AlertTypeEnum.Info">
       {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
     </ds-alert>
-    <ds-pagination *ngIf="(processing$ | async) !== true && (getList() | async)?.payload?.totalElements > 0"
+    <ds-pagination *ngIf="listDataRD?.payload?.totalElements > 0"
                    [paginationOptions]="paginationOptions"
-                   [collectionSize]="(getList() | async)?.payload?.totalElements"
-                   [retainScrollPosition]="false" [hideGear]="true" (paginationChange)="updateList()">
+                   [collectionSize]="listDataRD?.payload?.totalElements"
+                   [retainScrollPosition]="true"
+                   [hideGear]="true"
+                   (paginationChange)="onPaginationChange()">
 
       <div class="table-responsive">
         <table id="groups" class="table table-sm table-striped table-hover table-bordered">
@@ -22,7 +24,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let entry of (getList() | async)?.payload?.page" data-test="orcidQueueElementRow">
+          <tr *ngFor="let entry of listDataRD?.payload?.page" data-test="orcidQueueElementRow">
             <td style="width: 15%" class="text-center align-middle">
               <i [ngClass]="getIconClass(entry)" [ngbTooltip]="getIconTooltip(entry) | translate"
                  class="fa-2x" aria-hidden="true"></i>
@@ -51,3 +53,4 @@
     </ds-pagination>
   </div>
 </div>
+
