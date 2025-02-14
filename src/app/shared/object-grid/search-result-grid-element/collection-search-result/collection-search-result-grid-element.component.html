@@ -10,7 +10,7 @@
   <div class="card-body">
     <ds-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-badges>
     <h4 class="card-title">{{ dsoNameService.getName(dso) }}</h4>
-    <p *ngIf="dso.shortDescription" class="card-text">{{dso.shortDescription}}</p>
+    <p *ngIf="dso.shortDescription(translateService.currentLang) as shortDescription" class="card-text">{{shortDescription}}</p>
     <div *ngIf="linkType !== linkTypes.None" class="text-center">
       <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/',  dso.id]" class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
     </div>
