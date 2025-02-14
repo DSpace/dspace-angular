@@ -28,11 +28,10 @@ import { getProcessDetailRoute } from '../../../../process-page/process-page-rou
 import { Process } from '../../../../process-page/processes/process.model';
 import {
   hasValue,
-  isNotEmpty,
 } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { FormGroup } from '@angular/forms';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ds-filtered-items-export-csv',

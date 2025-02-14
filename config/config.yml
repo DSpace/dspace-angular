@@ -1,5 +1,46 @@
 rest:
-  ssl: true
-  host: sandbox.dspace.org
-  port: 443
-  nameSpace: /server
+  ssl: false
+  host: localhost
+  port: 8080
+  nameSpace: /dspace-server
+
+form:
+  recaptcha:
+    v2SiteKey: 6Leado4hAAAAAA5sjp8htg4b9iFmjC4E4XBH4VrB
+    v3SiteKey: 6Le0eI4hAAAAAJEEmz-fOOSl6DTqzK35EEov-Ivn
+
+themes:
+  - name: dspace
+    headTags:
+    - tagName: link
+      attributes:
+        rel: icon
+        href: assets/dspace/images/favicons/favicon.ico
+        sizes: any
+    - tagName: link
+      attributes:
+        rel: icon
+        href: assets/dspace/images/favicons/favicon.svg
+        type: image/svg+xml
+    - tagName: link
+      attributes:
+        rel: apple-touch-icon
+        href: assets/dspace/images/favicons/apple-touch-icon.png
+    - tagName: link
+      attributes:
+        rel: manifest
+        href: assets/dspace/images/favicons/manifest.webmanifest
+
+item:
+  showAccessStatuses: true
+
+languages:
+  - code: fr
+    label: Français
+    active: true
+  - code: en
+    label: English
+    active: true
+
+browseBy:
+  showThumbnails: false

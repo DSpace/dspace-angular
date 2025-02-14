@@ -21,7 +21,10 @@ import {
 } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv.component';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+   FormControl,
+   FormGroup,
+} from '@angular/forms';
 
 describe('FilteredItemsExportCsvComponent', () => {
   let component: FilteredItemsExportCsvComponent;
@@ -38,7 +41,7 @@ describe('FilteredItemsExportCsvComponent', () => {
   const params = new FormGroup({
     collections: new FormControl(),
     queryPredicates: new FormControl(),
-    filters: new FormGroup({})
+    filters: new FormGroup({}),
   });
 
   function initBeforeEachAsync() {
@@ -135,7 +138,7 @@ describe('FilteredItemsExportCsvComponent', () => {
         [
           { name: '-c', value: params.value.collections },
           { name: '-qp', value: params.value.queryPredicates },
-          { name: '-f', value: params.value.filters }
+          { name: '-f', value: params.value.filters },
         ], []);
 
       component.reportParams = null;
