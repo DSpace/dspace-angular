@@ -26,9 +26,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { Process } from '../../../../process-page/processes/process.model';
-import {
-  hasValue,
-} from '../../../../shared/empty.util';
+import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
 import { FormGroup } from '@angular/forms';

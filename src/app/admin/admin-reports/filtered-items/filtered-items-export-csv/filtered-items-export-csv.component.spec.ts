@@ -22,8 +22,8 @@ import {
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv.component';
 import {
-   FormControl,
-   FormGroup,
+  FormControl,
+  FormGroup,
 } from '@angular/forms';
 
 describe('FilteredItemsExportCsvComponent', () => {
