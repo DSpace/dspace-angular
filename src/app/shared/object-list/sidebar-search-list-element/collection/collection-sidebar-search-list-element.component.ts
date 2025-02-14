@@ -16,6 +16,8 @@ import { SidebarSearchListElementComponent } from '../sidebar-search-list-elemen
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
+@listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.ScopeSelectorModal)
+@listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
 @Component({
   selector: 'ds-collection-sidebar-search-list-element',
   templateUrl: '../sidebar-search-list-element.component.html',
