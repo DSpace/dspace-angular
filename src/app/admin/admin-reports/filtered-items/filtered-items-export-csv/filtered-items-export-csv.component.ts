@@ -84,14 +84,14 @@ export class FilteredItemsExportCsvComponent implements OnInit {
    */
   export() {
     const parameters = [];
-    const colls = this.reportParams.value.collections;
+    const colls = this.reportParams.value.collections || [];
     for (let i = 0; i < colls.length; i++) {
       if (colls[i]) {
         parameters.push({ name: '-c', value: colls[i] });
       }
     }
 
-    const preds = this.reportParams.value.queryPredicates;
+    const preds = this.reportParams.value.queryPredicates || [];
     for (let i = 0; i < preds.length; i++) {
       const field = preds[i].field;
       const op = preds[i].operator;
@@ -105,7 +105,7 @@ export class FilteredItemsExportCsvComponent implements OnInit {
       }
     }
 
-    const filters = FiltersComponent.toQueryString(this.reportParams.value.filters);
+    const filters = FiltersComponent.toQueryString(this.reportParams.value.filters) || [];
     if (filters.length > 0) {
       parameters.push({ name: '-f', value: filters });
     }
