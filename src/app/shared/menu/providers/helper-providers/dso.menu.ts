@@ -8,9 +8,9 @@
 import { ActivatedRouteSnapshot, RouterStateSnapshot, } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { hasNoValue, hasValue } from '../../../empty.util';
 import { AbstractRouteContextMenuProvider } from './route-context.menu';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { hasValue } from '../../../empty.util';
 
 /**
  * Helper provider for DSpace object page based menus
@@ -21,7 +21,13 @@ export abstract class DSpaceObjectPageMenuProvider extends AbstractRouteContextM
    * Retrieve the dso from the current route data
    */
   public getRouteContext(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DSpaceObject | undefined> {
-    const dsoRD: RemoteData<DSpaceObject> = route.data.dso;
+    let dsoRD: RemoteData<DSpaceObject> = route.data.dso;
+    // Check if one of the parent routes has a DSO
+    while (hasValue(route.parent) && hasNoValue(dsoRD)) {
+      route = route.parent;
+      dsoRD = route.data.dso;
+    }
+
     if (hasValue(dsoRD) && dsoRD.hasSucceeded && hasValue(dsoRD.payload)) {
       return of(dsoRD.payload);
     } else {

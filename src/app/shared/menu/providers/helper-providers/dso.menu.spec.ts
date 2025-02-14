@@ -83,7 +83,7 @@ describe('DSpaceObjectPageMenuProvider', () => {
       });
     });
 
-    it('return undefined when no DSO is present on the current route', (done) => {
+    it('return the first parent DSO when no DSO is present on the current route', (done) => {
       const route = {
         data: {},
         parent: {
@@ -96,7 +96,7 @@ describe('DSpaceObjectPageMenuProvider', () => {
       } as any;
 
       provider.getRouteContext(route, undefined).subscribe((dso) => {
-        expect(dso).toBeUndefined();
+        expect(dso).toEqual(item);
         done();
       });
     });
