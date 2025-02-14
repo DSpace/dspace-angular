@@ -47,6 +47,11 @@ export class ThumbnailComponent implements OnChanges {
   @Input() thumbnail: Bitstream | RemoteData<Bitstream>;
 
   /**
+   * A link to open when a user clicks on thumbnail image
+   */
+  @Input() link: string = undefined;
+
+  /**
    * The default image, used if the thumbnail isn't set or can't be downloaded.
    * If defaultImage is null, a HTML placeholder is used instead.
    */
