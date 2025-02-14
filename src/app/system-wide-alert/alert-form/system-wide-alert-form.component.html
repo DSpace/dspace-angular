@@ -1,5 +1,16 @@
 <div class="container">
-    <h1 id="header">{{'system-wide-alert.form.header' | translate}}</h1>
+    <h1 id="header">
+      <span
+        *dsContextHelp="{
+          content: 'system-wide-alert-form.tooltip.system.alert',
+          id: 'system-alert',
+          iconPlacement: 'right',
+          tooltipPlacement: ['top', 'right', 'bottom']
+        }"
+      >
+        {{'system-wide-alert.form.header' | translate}}
+      </span>
+    </h1>
     <div [formGroup]="alertForm" [class]="'ng-invalid'">
         <div class="form-group">
             <div class="row mb-2">
