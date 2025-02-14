@@ -13,6 +13,7 @@ import { AdminSearchMenuProvider } from './shared/menu/providers/admin-search.me
 import { BrowseMenuProvider } from './shared/menu/providers/browse.menu';
 import { SubscribeMenuProvider } from './shared/menu/providers/comcol-subscribe.menu';
 import { CommunityListMenuProvider } from './shared/menu/providers/community-list.menu';
+import { CreateReportMenuProvider } from './shared/menu/providers/create-report.menu';
 import { CurationMenuProvider } from './shared/menu/providers/curation.menu';
 import { DSpaceObjectEditMenuProvider } from './shared/menu/providers/dso-edit.menu';
 import { DsoOptionMenuProvider } from './shared/menu/providers/dso-option.menu';
@@ -42,6 +43,7 @@ export const MENUS = buildMenuStructure({
     ImportMenuProvider,
     ExportMenuProvider,
     AccessControlMenuProvider,
+    CreateReportMenuProvider,
     AdminSearchMenuProvider,
     RegistriesMenuProvider,
     CurationMenuProvider,
@@ -54,11 +56,17 @@ export const MENUS = buildMenuStructure({
     DsoOptionMenuProvider.withSubs([
       SubscribeMenuProvider.onRoute(
         MenuRoute.SIMPLE_COMMUNITY_PAGE,
+        MenuRoute.SIMPLE_COMMUNITY_BROWSE_PAGE,
+        MenuRoute.SIMPLE_COMMUNITY_SUBCOLCOM_PAGE,
         MenuRoute.SIMPLE_COLLECTION_PAGE,
+        MenuRoute.SIMPLE_COLLECTION_BROWSE_PAGE,
       ),
       DSpaceObjectEditMenuProvider.onRoute(
         MenuRoute.SIMPLE_COMMUNITY_PAGE,
+        MenuRoute.SIMPLE_COMMUNITY_BROWSE_PAGE,
+        MenuRoute.SIMPLE_COMMUNITY_SUBCOLCOM_PAGE,
         MenuRoute.SIMPLE_COLLECTION_PAGE,
+        MenuRoute.SIMPLE_COLLECTION_BROWSE_PAGE,
         MenuRoute.SIMPLE_ITEM_PAGE,
         MenuRoute.FULL_ITEM_PAGE,
       ),

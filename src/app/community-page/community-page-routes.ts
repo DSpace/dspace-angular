@@ -83,7 +83,10 @@ export const ROUTES: Route[] = [
             resolve: {
               breadcrumb: i18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'community.subcoms-cols' },
+            data: {
+              breadcrumbKey: 'community.subcoms-cols',
+              menuRoute: MenuRoute.SIMPLE_COMMUNITY_SUBCOLCOM_PAGE,
+            },
           },
           {
             path: 'browse/:id',
@@ -93,7 +96,10 @@ export const ROUTES: Route[] = [
             resolve: {
               breadcrumb: browseByI18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'browse.metadata' },
+            data: {
+              breadcrumbKey: 'browse.metadata',
+              menuRoute: MenuRoute.SIMPLE_COMMUNITY_BROWSE_PAGE,
+            },
           },
         ],
       },

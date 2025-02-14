@@ -125,6 +125,7 @@ describe('MenuComponent', () => {
             id: 'section1',
             active: false,
             visible: true,
+            alwaysRenderExpandable: false,
             model: {
               type: MenuItemType.LINK,
               text: 'test',
@@ -190,6 +191,7 @@ describe('MenuComponent', () => {
                 id: 'section1',
                 active: false,
                 visible: true,
+                alwaysRenderExpandable: false,
                 model: {
                   type: MenuItemType.LINK,
                   text: 'test',
@@ -201,6 +203,7 @@ describe('MenuComponent', () => {
                 parentID: 'section1',
                 active: false,
                 visible: true,
+                alwaysRenderExpandable: false,
                 model: {
                   type: MenuItemType.LINK,
                   text: 'test',

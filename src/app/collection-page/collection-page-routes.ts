@@ -97,7 +97,10 @@ export const ROUTES: Route[] = [
             resolve: {
               breadcrumb: browseByI18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'browse.metadata' },
+            data: {
+              breadcrumbKey: 'browse.metadata',
+              menuRoute: MenuRoute.SIMPLE_COLLECTION_BROWSE_PAGE,
+            },
           },
         ],
       },

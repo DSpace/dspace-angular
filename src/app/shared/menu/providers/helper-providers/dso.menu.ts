@@ -16,7 +16,10 @@ import {
 
 import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { hasNoValue, hasValue } from '../../../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../empty.util';
 import { AbstractRouteContextMenuProvider } from './route-context.menu';
 
 /**

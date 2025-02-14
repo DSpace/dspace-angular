@@ -14,7 +14,7 @@ describe('DSpaceObjectPageMenuProvider', () => {
   const item: Item = Object.assign(new Item(), {
     uuid: 'test-item-uuid',
     type: ITEM.value,
-    _links: {self: {href: 'self-link'}},
+    _links: { self: { href: 'self-link' } },
     metadata: {
       'dc.title': [{
         'value': 'Untyped Item',
@@ -25,7 +25,7 @@ describe('DSpaceObjectPageMenuProvider', () => {
   const item2: Item = Object.assign(new Item(), {
     uuid: 'test-item2-uuid',
     type: ITEM.value,
-    _links: {self: {href: 'self-link'}},
+    _links: { self: { href: 'self-link' } },
     metadata: {
       'dc.title': [{
         'value': 'Untyped Item 2',
@@ -36,7 +36,7 @@ describe('DSpaceObjectPageMenuProvider', () => {
   const person: Item = Object.assign(new Item(), {
     uuid: 'test-uuid',
     type: ITEM.value,
-    _links: {self: {href: 'self-link'}},
+    _links: { self: { href: 'self-link' } },
     metadata: {
       'dc.title': [{
         'value': 'Person Entity',
@@ -50,7 +50,7 @@ describe('DSpaceObjectPageMenuProvider', () => {
   const collection: Collection = Object.assign(new Collection(), {
     uuid: 'test-collection-uuid',
     type: COLLECTION.value,
-    _links: {self: {href: 'self-link'}},
+    _links: { self: { href: 'self-link' } },
     metadata: {
       'dc.title': [{
         'value': 'Collection',
@@ -75,7 +75,7 @@ describe('DSpaceObjectPageMenuProvider', () => {
 
   describe('getRouteContext', () => {
     it('should get the dso from the route', (done) => {
-      const route = {data: {dso: createSuccessfulRemoteDataObject(item)}} as any;
+      const route = { data: { dso: createSuccessfulRemoteDataObject(item) } } as any;
 
       provider.getRouteContext(route, undefined).subscribe((dso) => {
         expect(dso).toEqual(item);
@@ -89,8 +89,8 @@ describe('DSpaceObjectPageMenuProvider', () => {
         parent: {
           data: {},
           parent: {
-            data: {dso: createSuccessfulRemoteDataObject(item)},
-            parent: {data: {dso: createSuccessfulRemoteDataObject(item2)}},
+            data: { dso: createSuccessfulRemoteDataObject(item) },
+            parent: { data: { dso: createSuccessfulRemoteDataObject(item2) } },
           },
         },
       } as any;
@@ -101,7 +101,7 @@ describe('DSpaceObjectPageMenuProvider', () => {
       });
     });
     it('should return undefined when no dso is found in the route', (done) => {
-      const route = {data: {}, parent: {data: {}, parent: {data: {}, parent: {data: {}}}}} as any;
+      const route = { data: {}, parent: { data: {}, parent: { data: {}, parent: { data: {} } } } } as any;
 
       provider.getRouteContext(route, undefined).subscribe((dso) => {
         expect(dso).toBeUndefined();
