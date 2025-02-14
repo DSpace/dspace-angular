@@ -24,7 +24,7 @@
         <ds-comcol-page-content [content]="parentContext.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
         </ds-comcol-page-content>
       </header>
-        <ds-dso-edit-menu></ds-dso-edit-menu>
+          <ds-context-menu [contextMenuObject]="parentContext" [contextMenuObjectType]="parentContext.type | uppercase"></ds-context-menu>
         </div>
       <!-- Browse-By Links -->
       <ds-themed-comcol-page-browse-by [id]="parentContext.id" [contentType]="parentContext.type"></ds-themed-comcol-page-browse-by>

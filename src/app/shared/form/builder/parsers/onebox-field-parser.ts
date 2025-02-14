@@ -73,7 +73,7 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.readOnly = selectModelConfig.disabled && inputModelConfig.readOnly;
       // in case of qualdrop do not show toggle of security
       inputModelConfig.toggleSecurityVisibility = false;
-
+      inputSelectGroup.language = inputModelConfig.language;
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
       inputSelectGroup.group.push(new DsDynamicInputModel(inputModelConfig, clsInput));
 
