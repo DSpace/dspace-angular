@@ -1614,6 +1614,10 @@
 
   "cookies.consent.app.description.authentication": "Required for signing you in",
 
+  "cookies.consent.app.title.correlation-id": "Correlation ID",
+
+  "cookies.consent.app.description.correlation-id": "Allow us to track your session for debugging purposes",
+
   "cookies.consent.app.title.preferences": "Preferences",
 
   "cookies.consent.app.description.preferences": "Required for saving your preferences",

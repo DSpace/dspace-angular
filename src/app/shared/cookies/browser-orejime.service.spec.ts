@@ -66,6 +66,7 @@ describe('BrowserOrejimeService', () => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
       getAuthenticatedUserFromStore: observableOf(user),
+      getAuthenticatedUserIdFromStore: observableOf(user.id),
     });
     configurationDataService = createConfigSuccessSpy(recaptchaValue);
     findByPropertyName = configurationDataService.findByPropertyName;
@@ -135,6 +136,7 @@ describe('BrowserOrejimeService', () => {
 
   describe('initialize with user', () => {
     beforeEach(() => {
+      spyOn((service as any), 'getUserId$').and.returnValue(observableOf(user.uuid));
       spyOn((service as any), 'getUser$').and.returnValue(observableOf(user));
       translateService.get.and.returnValue(observableOf('loading...'));
       spyOn(service, 'addAppMessages');
@@ -151,6 +153,7 @@ describe('BrowserOrejimeService', () => {
 
   describe('to not call the initialize user method, but the other methods', () => {
     beforeEach(() => {
+      spyOn((service as any), 'getUserId$').and.returnValue(observableOf(undefined));
       spyOn((service as any), 'getUser$').and.returnValue(observableOf(undefined));
       translateService.get.and.returnValue(observableOf('loading...'));
       spyOn(service, 'addAppMessages');
@@ -202,22 +205,22 @@ describe('BrowserOrejimeService', () => {
     });
   });
 
-  describe('getUser$ when there is no one authenticated', () => {
+  describe('getUserId$ when there is no one authenticated', () => {
     beforeEach(() => {
       (service as any).authService.isAuthenticated.and.returnValue(observableOf(false));
     });
     it('should return undefined', () => {
-      getTestScheduler().expectObservable((service as any).getUser$()).toBe('(a|)', { a: undefined });
+      getTestScheduler().expectObservable((service as any).getUserId$()).toBe('(a|)', { a: undefined });
     });
   });
 
-  describe('getUser$ when there someone is authenticated', () => {
+  describe('getUserId$ when there someone is authenticated', () => {
     beforeEach(() => {
       (service as any).authService.isAuthenticated.and.returnValue(observableOf(true));
-      (service as any).authService.getAuthenticatedUserFromStore.and.returnValue(observableOf(user));
+      (service as any).authService.getAuthenticatedUserIdFromStore.and.returnValue(observableOf(user.id));
     });
-    it('should return the user', () => {
-      getTestScheduler().expectObservable((service as any).getUser$()).toBe('(a|)', { a: user });
+    it('should return the user id', () => {
+      getTestScheduler().expectObservable((service as any).getUserId$()).toBe('(a|)', { a: user.id });
     });
   });
 
@@ -242,7 +245,7 @@ describe('BrowserOrejimeService', () => {
 
     describe('when no user is autheticated', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getUser$').and.returnValue(observableOf(undefined));
+        spyOn(service as any, 'getUserId$').and.returnValue(observableOf(undefined));
       });
 
       it('should return the cookie consents object', () => {
@@ -255,7 +258,7 @@ describe('BrowserOrejimeService', () => {
 
     describe('when user is autheticated', () => {
       beforeEach(() => {
-        spyOn(service as any, 'getUser$').and.returnValue(observableOf(user));
+        spyOn(service as any, 'getUserId$').and.returnValue(observableOf(user.uuid));
       });
 
       it('should return the cookie consents object', () => {
@@ -313,7 +316,7 @@ describe('BrowserOrejimeService', () => {
     beforeEach(() => {
       GOOGLE_ANALYTICS_KEY = clone((service as any).GOOGLE_ANALYTICS_KEY);
       REGISTRATION_VERIFICATION_ENABLED_KEY = clone((service as any).REGISTRATION_VERIFICATION_ENABLED_KEY);
-      spyOn((service as any), 'getUser$').and.returnValue(observableOf(user));
+      spyOn((service as any), 'getUserId$').and.returnValue(observableOf(user.uuid));
       translateService.get.and.returnValue(observableOf('loading...'));
       spyOn(service, 'addAppMessages');
       spyOn((service as any), 'initializeUser');

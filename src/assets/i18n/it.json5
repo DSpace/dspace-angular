@@ -1997,6 +1997,11 @@
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Necessario per l'accesso",
 
+  // "cookies.consent.app.title.correlation-id": "Correlation ID",
+  "cookies.consent.app.title.correlation-id": "ID di correlazione",
+
+  // "cookies.consent.app.description.correlation-id": "Allow us to track your session for debugging purposes",
+  "cookies.consent.app.description.correlation-id": "Consentici di tracciare la tua sessione per scopi di debug",
 
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Preferenze",
