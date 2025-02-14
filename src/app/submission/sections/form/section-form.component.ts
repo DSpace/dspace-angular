@@ -40,6 +40,7 @@ import { FormRowModel } from '../../../core/config/models/config-submission-form
 import { SubmissionVisibility } from '../../utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
+import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 
 /**
  * This component represents a section that contains a Form.
@@ -409,11 +410,45 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-    this.formOperationsService.dispatchOperationsFromEvent(
-      this.pathCombiner,
-      event,
-      this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
+    const languageMap = new Map();
+    const isQualdrop = event.model.parent instanceof DynamicQualdropModel;
+
+    if (isQualdrop) {
+      const qualdropMap = this.formOperationsService.getQualdropValueMap(event);
+
+      if (qualdropMap) {
+        const groupMetadata = qualdropMap.keys();
+        this.formService.getForm(this.formId).pipe(take(1)).subscribe((form) => {
+          for (const metadata of groupMetadata) {
+            if (hasValue(form.data[metadata]) && form.data[metadata].length > 1) {
+              form.data[metadata].forEach((entry: any) => {
+                languageMap.set(metadata, [...(languageMap.get(metadata) ?? []), entry.language]);
+              });
+            } else {
+              languageMap.set(metadata, [form.data[metadata][0].language]);
+            }
+          }
+        });
+      }
+
+      this.formOperationsService.dispatchOperationsFromEvent(
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
+        languageMap
+      );
+    } else {
+      this.formOperationsService.dispatchOperationsFromEvent(
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
+        null
+      );
+    }
+
+
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
