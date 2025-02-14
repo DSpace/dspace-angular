@@ -14,8 +14,7 @@
             </div>
         </div>
       </div>
-
       <span class="h5 px-2">{{'dso-selector.create.community.sub-level' | translate}}</span>
       <ds-dso-selector [configuration]="configuration" [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)"></ds-dso-selector>
-    </div>
+  </div>
 </div>
