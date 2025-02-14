@@ -6787,4 +6787,14 @@
   "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  "statistics.table.header.TotalVisits": "Object",
+
+  "statistics.table.header.TotalVisitsMonth": "Month",
+
+  "statistics.table.header.TotalDownloads": "Downloads",
+
+  "statistics.table.header.TopCities": "Cities",
+
+  "statistics.table.header.topCountries": "Countries",
 }
