@@ -18,7 +18,7 @@ import { ResourceType } from '../../../../core/shared/resource-type';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
-import { UploaderComponent } from '../../../upload/uploader/uploader.component';
+import { ThemedUploaderComponent } from '../../../upload/uploader/themed-uploader.component';
 import { Operation } from 'fast-json-patch';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
@@ -36,7 +36,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   /**
    * The logo uploader component
    */
-  @ViewChild(UploaderComponent) uploaderComponent: UploaderComponent;
+  @ViewChild(ThemedUploaderComponent) uploaderComponent: ThemedUploaderComponent;
 
   /**
    * DSpaceObject that the form represents
@@ -227,7 +227,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
 
     this.submitForm.emit({
       dso: updatedDSO,
-      uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
+      uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.compRef$.value.instance.uploader : undefined,
       deleteLogo: this.markLogoForDeletion,
       operations: operations,
     });
