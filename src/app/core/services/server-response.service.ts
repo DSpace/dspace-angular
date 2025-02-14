@@ -77,7 +77,7 @@ export class ServerResponseService {
    * @param content
    */
   setHeader(header: string, content: string) {
-    if (this.response) {
+    if (this.response && !this.response.writableEnded) {
       this.response.setHeader(header, content);
     }
   }

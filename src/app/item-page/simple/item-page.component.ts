@@ -34,7 +34,6 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import {
@@ -142,7 +141,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected items: ItemDataService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
-    protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string,
@@ -175,36 +173,34 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    * @private
    */
   private initPageLinks(): void {
-    this.route.params.subscribe(params => {
-      combineLatest([this.signpostingDataService.getLinks(params.id).pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
-        .subscribe(([signpostingLinks, coarRestApiUrls]) => {
-          let links = '';
-          this.signpostingLinks = signpostingLinks;
+    combineLatest([this.route.data.pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
+      .subscribe(([data, coarRestApiUrls]) => {
+        let links = '';
+        this.signpostingLinks = data.links ?? [];
 
-          signpostingLinks.forEach((link: SignpostingLink) => {
-            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
-            let tag: LinkDefinition = {
-              href: link.href,
-              rel: link.rel,
-            };
-            if (isNotEmpty(link.type)) {
-              tag = Object.assign(tag, {
-                type: link.type,
-              });
-            }
-            this.linkHeadService.addTag(tag);
-          });
-
-          if (coarRestApiUrls.length > 0) {
-            const inboxLinks = this.initPageInboxLinks(coarRestApiUrls);
-            links = links + (isNotEmpty(links) ? ', ' : '') + inboxLinks;
+        this.signpostingLinks.forEach((link: SignpostingLink) => {
+          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
+          let tag: LinkDefinition = {
+            href: link.href,
+            rel: link.rel,
+          };
+          if (isNotEmpty(link.type)) {
+            tag = Object.assign(tag, {
+              type: link.type,
+            });
           }
-
-          if (isPlatformServer(this.platformId)) {
-            this.responseService.setHeader('Link', links);
-          }
+          this.linkHeadService.addTag(tag);
         });
-    });
+
+        if (coarRestApiUrls.length > 0) {
+          const inboxLinks = this.initPageInboxLinks(coarRestApiUrls);
+          links = links + (isNotEmpty(links) ? ', ' : '') + inboxLinks;
+        }
+
+        if (isPlatformServer(this.platformId)) {
+          this.responseService.setHeader('Link', links);
+        }
+      });
   }
 
   /**

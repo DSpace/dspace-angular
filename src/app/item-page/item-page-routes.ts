@@ -18,6 +18,7 @@ import {
 } from './item-page-routing-paths';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { orcidPageGuard } from './orcid-page/orcid-page.guard';
+import { signpostingLinksResolver } from './simple/link-resolver/signposting-links.resolver';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { versionResolver } from './version-page/version.resolver';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
@@ -28,6 +29,7 @@ export const ROUTES: Route[] = [
     resolve: {
       dso: itemPageResolver,
       breadcrumb: itemBreadcrumbResolver,
+      links: signpostingLinksResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [

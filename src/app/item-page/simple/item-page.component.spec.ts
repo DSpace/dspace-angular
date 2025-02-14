@@ -100,7 +100,7 @@ describe('ItemPageComponent', () => {
   let hardRedirectService: HardRedirectService;
 
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
+    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) , links: [mocklink, mocklink2]  }),
   });
 
   const getCoarLdnLocalInboxUrls = ['http://InboxUrls.org', 'http://InboxUrls2.org'];
