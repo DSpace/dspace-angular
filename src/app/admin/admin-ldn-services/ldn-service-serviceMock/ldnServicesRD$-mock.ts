@@ -12,6 +12,7 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
 export const mockLdnService: LdnService = {
   uuid: '1',
   enabled: false,
+  usesActorEmailId: false,
   score: 0,
   id: 1,
   lowerIp: '192.0.2.146',
@@ -49,6 +50,7 @@ export const mockLdnServiceRD$ = createSuccessfulRemoteDataObject$(mockLdnServic
 export const mockLdnServices: LdnService[] = [{
   uuid: '1',
   enabled: false,
+  usesActorEmailId: false,
   score: 0,
   id: 1,
   lowerIp: '192.0.2.146',
@@ -81,6 +83,7 @@ export const mockLdnServices: LdnService[] = [{
 }, {
   uuid: '2',
   enabled: false,
+  usesActorEmailId: false,
   score: 0,
   id: 2,
   lowerIp: '192.0.2.146',
