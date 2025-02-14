@@ -1,4 +1,7 @@
-import { EMPTY, of as observableOf } from 'rxjs';
+import {
+  EMPTY,
+  of as observableOf,
+} from 'rxjs';
 
 export const routeServiceStub: any = {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -37,6 +40,9 @@ export const routeServiceStub: any = {
   },
   getPreviousUrl: () => {
     return observableOf('/home');
-  }
+  },
+  setParameter: (key: any, value: any) => {
+    return;
+  },
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };

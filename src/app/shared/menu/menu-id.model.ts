@@ -1,5 +1,5 @@
 /**
- * Availavle Menu IDs
+ * Available Menu IDs
  */
 export enum MenuID {
   ADMIN = 'admin-sidebar',

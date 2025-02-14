@@ -1,13 +1,29 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { isEmpty, isNotEmpty } from '../empty.util';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
-import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 
 /**
  * Component to switch between list and grid views.
@@ -15,7 +31,9 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'ds-view-mode-switch',
   styleUrls: ['./view-mode-switch.component.scss'],
-  templateUrl: './view-mode-switch.component.html'
+  templateUrl: './view-mode-switch.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe],
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
 
@@ -62,7 +80,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
     }
 
     this.sub = this.searchService.getViewMode().pipe(
-      filter((viewMode: ViewMode) => isNotEmpty(viewMode))
+      filter((viewMode: ViewMode) => isNotEmpty(viewMode)),
     ).subscribe((viewMode: ViewMode) => {
       this.currentMode = viewMode;
     });

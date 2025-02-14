@@ -1,12 +1,39 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
+import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
+import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
+import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
+import { SearchSwitchConfigurationComponent } from '../search-switch-configuration/search-switch-configuration.component';
 
 /**
  * This component renders a simple item page.
@@ -15,20 +42,22 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
  */
 
 @Component({
-  selector: 'ds-search-sidebar',
+  selector: 'ds-base-search-sidebar',
   styleUrls: ['./search-sidebar.component.scss'],
   templateUrl: './search-sidebar.component.html',
+  standalone: true,
+  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule, AdvancedSearchComponent, AsyncPipe],
 })
 
 /**
  * Component representing the sidebar on the search page
  */
-export class SearchSidebarComponent {
+export class SearchSidebarComponent implements OnInit {
 
   /**
    * The configuration to use for the search options
    */
-  @Input() configuration;
+  @Input() configuration: string;
 
   /**
    * The list of available configuration options
@@ -53,7 +82,7 @@ export class SearchSidebarComponent {
   /**
    * The total amount of results
    */
-  @Input() resultCount;
+  @Input() resultCount: number;
 
   /**
    * The list of available view mode options
@@ -68,7 +97,7 @@ export class SearchSidebarComponent {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch = true;
 
   /**
    * The configuration for the current paginated search results
@@ -99,5 +128,19 @@ export class SearchSidebarComponent {
    * Emits event when the user select a new view mode
    */
   @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter<ViewMode>();
+
+  showAdvancedSearch$: Observable<boolean>;
+
+  constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected searchConfigurationService: SearchConfigurationService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.showAdvancedSearch$ = this.searchConfigurationService.getConfigurationAdvancedSearchFilters(this.configuration, this.currentScope).pipe(
+      map((advancedFilters: FilterConfig[]) => this.appConfig.search.advancedFilters.enabled && advancedFilters.length > 0),
+    );
+  }
 
 }

@@ -3,9 +3,9 @@
   <div class="card-body d-flex flex-column"
        *ngVar="group$ | async as group">
 
-    <h5 class="w-100">
+    <h2 class="h4 w-100">
       {{ roleName$ | async }}
-    </h5>
+    </h2>
 
     <div class="mt-2 mb-2">
       <ds-alert [type]="'alert-info'" >{{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.description' | translate}}</ds-alert>
@@ -13,15 +13,14 @@
 
     <div class="d-flex flex-md-row justify-content-between flex-column">
       <div class="w-100 d-flex align-items-center">
-        <ds-themed-loading *ngIf="!(groupRD$ | async)"></ds-themed-loading>
+        <ds-loading *ngIf="groupRD$ | async | dsHasNoValue"></ds-loading>
         <div *ngIf="hasNoGroup$ | async">
           {{'comcol-role.edit.no-group' | translate}}
         </div>
         <div *ngIf="hasAnonymousGroup$ | async">
           {{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.anonymous-group' | translate}}
         </div>
-        <a *ngIf="hasCustomGroup$ | async"
-           routerLink="{{editGroupLink$ | async}}">
+        <a *ngIf="hasCustomGroup$ | async" [routerLink]="editGroupLink$ | async">
           {{ dsoNameService.getName(group) }}
         </a>
       </div>

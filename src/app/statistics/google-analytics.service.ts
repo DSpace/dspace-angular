@@ -1,6 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
-
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import {
   Angulartics2GoogleAnalytics,
   Angulartics2GoogleGlobalSiteTag,
@@ -9,9 +11,9 @@ import { combineLatest } from 'rxjs';
 
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { OrejimeService } from '../shared/cookies/orejime.service';
+import { GOOGLE_ANALYTICS_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
 import { isEmpty } from '../shared/empty.util';
-import { KlaroService } from '../shared/cookies/klaro.service';
-import { GOOGLE_ANALYTICS_KLARO_KEY } from '../shared/cookies/klaro-configuration';
 
 /**
  * Set up Google Analytics on the client side.
@@ -23,7 +25,7 @@ export class GoogleAnalyticsService {
   constructor(
     private googleAnalytics: Angulartics2GoogleAnalytics,
     private googleGlobalSiteTag: Angulartics2GoogleGlobalSiteTag,
-    private klaroService: KlaroService,
+    private orejimeService: OrejimeService,
     private configService: ConfigurationDataService,
     @Inject(DOCUMENT) private document: any,
   ) {
@@ -39,12 +41,12 @@ export class GoogleAnalyticsService {
     const googleKey$ = this.configService.findByPropertyName('google.analytics.key').pipe(
       getFirstCompletedRemoteData(),
     );
-    const preferences$ = this.klaroService.getSavedPreferences();
+    const preferences$ = this.orejimeService.getSavedPreferences();
 
     combineLatest([preferences$, googleKey$])
       .subscribe(([preferences, remoteData]) => {
         // make sure user has accepted Google Analytics consents
-        if (isEmpty(preferences) || isEmpty(preferences[GOOGLE_ANALYTICS_KLARO_KEY]) || !preferences[GOOGLE_ANALYTICS_KLARO_KEY]) {
+        if (isEmpty(preferences) || isEmpty(preferences[GOOGLE_ANALYTICS_OREJIME_KEY]) || !preferences[GOOGLE_ANALYTICS_OREJIME_KEY]) {
           return;
         }
 

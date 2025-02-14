@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-item-versions-delete-modal',
   templateUrl: './item-versions-delete-modal.component.html',
-  styleUrls: ['./item-versions-delete-modal.component.scss']
+  styleUrls: ['./item-versions-delete-modal.component.scss'],
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class ItemVersionsDeleteModalComponent {
   /**
@@ -16,7 +23,7 @@ export class ItemVersionsDeleteModalComponent {
   versionNumber: number;
 
   constructor(
-    protected activeModal: NgbActiveModal,) {
+    protected activeModal: NgbActiveModal) {
   }
 
   onModalClose() {

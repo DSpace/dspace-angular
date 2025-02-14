@@ -18,10 +18,12 @@
       </div>
     </div>
     <div *ngFor="let metadata of metadataList" class="row">
-      <div class="col-md-12">
-        <strong>{{'item.preview.' + metadata.key | translate}}</strong>
-        <p>{{metadata.value.value}}</p>
-      </div>
+      <p class="col-md-12">
+        <strong class="">{{'item.preview.' + metadata.key | translate}}</strong><br>
+        <ng-container *ngFor="let metadatum of metadata.values">
+          <span>{{metadatum.value}}</span><br>
+        </ng-container>
+      </p>
     </div>
     <div class="row">
       <div class="col-md-12">

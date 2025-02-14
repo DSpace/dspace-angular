@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { CollectionPageComponent } from './collection-page.component';
 
@@ -6,9 +7,11 @@ import { CollectionPageComponent } from './collection-page.component';
  * Themed wrapper for CollectionPageComponent
  */
 @Component({
-  selector: 'ds-themed-collection-page',
+  selector: 'ds-collection-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [CollectionPageComponent],
 })
 export class ThemedCollectionPageComponent extends ThemedComponent<CollectionPageComponent> {
   protected getComponentName(): string {

@@ -1,21 +1,39 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  NavigationExtras,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import findIndex from 'lodash/findIndex';
 import { Subscription } from 'rxjs';
 
-import { hasValue } from '../../empty.util';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
-import { SearchConfigurationOption } from './search-configuration-option.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
+import { hasValue } from '../../empty.util';
 import { currentPath } from '../../utils/route.utils';
-import findIndex from 'lodash/findIndex';
+import { SearchConfigurationOption } from './search-configuration-option.model';
 
 @Component({
   selector: 'ds-search-switch-configuration',
   styleUrls: ['./search-switch-configuration.component.scss'],
   templateUrl: './search-switch-configuration.component.html',
+  standalone: true,
+  imports: [NgIf, FormsModule, NgFor, TranslateModule],
 })
 /**
  * Represents a select that allow to switch over available search configurations
@@ -60,7 +78,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.searchConfigService.getCurrentConfiguration(this.defaultConfiguration)
       .subscribe((currentConfiguration) => {
-        const index = findIndex(this.configurationList, {value: currentConfiguration });
+        const index = findIndex(this.configurationList, { value: currentConfiguration });
         this.selectedOption = this.configurationList[index];
       });
   }
@@ -70,7 +88,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
    */
   onSelect() {
     const navigationExtras: NavigationExtras = {
-      queryParams: {configuration: this.selectedOption.value},
+      queryParams: { configuration: this.selectedOption.value },
     };
 
     this.changeConfiguration.emit(this.selectedOption);

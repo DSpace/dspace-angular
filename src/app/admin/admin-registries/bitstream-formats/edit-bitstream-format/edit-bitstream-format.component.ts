@@ -1,14 +1,26 @@
-import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+
+import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
+import { FormatFormComponent } from '../format-form/format-form.component';
 
 /**
  * This component renders the edit page of a bitstream format.
@@ -17,6 +29,12 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 @Component({
   selector: 'ds-edit-bitstream-format',
   templateUrl: './edit-bitstream-format.component.html',
+  imports: [
+    FormatFormComponent,
+    TranslateModule,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class EditBitstreamFormatComponent implements OnInit {
 
@@ -36,7 +54,7 @@ export class EditBitstreamFormatComponent implements OnInit {
 
   ngOnInit(): void {
     this.bitstreamFormatRD$ = this.route.data.pipe(
-      map((data) => data.bitstreamFormat as RemoteData<BitstreamFormat>)
+      map((data) => data.bitstreamFormat as RemoteData<BitstreamFormat>),
     );
   }
 
@@ -49,15 +67,15 @@ export class EditBitstreamFormatComponent implements OnInit {
     this.bitstreamFormatDataService.updateBitstreamFormat(bitstreamFormat).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((response: RemoteData<BitstreamFormat>) => {
-        if (response.hasSucceeded) {
-          this.notificationService.success(this.translateService.get('admin.registries.bitstream-formats.edit.success.head'),
-            this.translateService.get('admin.registries.bitstream-formats.edit.success.content'));
-          this.router.navigate([getBitstreamFormatsModuleRoute()]);
-        } else {
-          this.notificationService.error('admin.registries.bitstream-formats.edit.failure.head',
-            'admin.registries.bitstream-formats.create.edit.content');
-        }
+      if (response.hasSucceeded) {
+        this.notificationService.success(this.translateService.get('admin.registries.bitstream-formats.edit.success.head'),
+          this.translateService.get('admin.registries.bitstream-formats.edit.success.content'));
+        this.router.navigate([getBitstreamFormatsModuleRoute()]);
+      } else {
+        this.notificationService.error('admin.registries.bitstream-formats.edit.failure.head',
+          'admin.registries.bitstream-formats.create.edit.content');
       }
+    },
     );
   }
 }

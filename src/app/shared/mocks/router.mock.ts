@@ -9,9 +9,9 @@ export class RouterMock {
     snapshot: {
       url: '',
       root: {
-        queryParamMap: null
-      }
-    }
+        queryParamMap: null,
+      },
+    },
   };
 
   // noinspection TypeScriptUnresolvedFunction
@@ -32,5 +32,9 @@ export class RouterMock {
 
   get url() {
     return this.routerState.snapshot.url;
+  }
+
+  serializeUrl(commands, navExtras = {}) {
+    return '/testing-url';
   }
 }

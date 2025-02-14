@@ -1,12 +1,14 @@
 import {
   DynamicFormControlLayout,
+  DynamicFormControlRelation,
   DynamicRadioGroupModel,
   DynamicRadioGroupModelConfig,
-  serializable
+  serializable,
 } from '@ng-dynamic-forms/core';
+
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { hasValue } from '../../../../../empty.util';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   vocabularyOptions: VocabularyOptions;
@@ -15,12 +17,14 @@ export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any
   value?: VocabularyEntry[];
   required: boolean;
   hint?: string;
+  typeBindRelations?: DynamicFormControlRelation[];
 }
 
 export class DynamicListRadioGroupModel extends DynamicRadioGroupModel<any> {
 
   @serializable() vocabularyOptions: VocabularyOptions;
   @serializable() repeatable: boolean;
+  @serializable() typeBindRelations: DynamicFormControlRelation[];
   @serializable() groupLength: number;
   @serializable() required: boolean;
   @serializable() hint: string;
@@ -35,6 +39,7 @@ export class DynamicListRadioGroupModel extends DynamicRadioGroupModel<any> {
     this.required = config.required;
     this.hint = config.hint;
     this.value = config.value;
+    this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
   }
 
   get hasAuthority(): boolean {

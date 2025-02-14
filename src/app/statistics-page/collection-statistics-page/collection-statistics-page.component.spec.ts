@@ -1,20 +1,27 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CollectionStatisticsPageComponent } from './collection-statistics-page.component';
-import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { of as observableOf } from 'rxjs';
-import { Collection } from '../../core/shared/collection.model';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
+import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { AuthService } from '../../core/auth/auth.service';
+import { Collection } from '../../core/shared/collection.model';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
+import { CollectionStatisticsPageComponent } from './collection-statistics-page.component';
 
 describe('CollectionStatisticsPageComponent', () => {
 
@@ -29,9 +36,9 @@ describe('CollectionStatisticsPageComponent', () => {
         scope: createSuccessfulRemoteDataObject(
           Object.assign(new Collection(), {
             id: 'collection_id',
-          })
-        )
-      })
+          }),
+        ),
+      }),
     };
 
     const router = {
@@ -47,9 +54,9 @@ describe('CollectionStatisticsPageComponent', () => {
           new UsageReport(), {
             id: `${scope}-${type}-report`,
             points: [],
-          }
-        )
-      )
+          },
+        ),
+      ),
     );
 
     const nameService = {
@@ -58,16 +65,13 @@ describe('CollectionStatisticsPageComponent', () => {
 
     const authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
 
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         CommonModule,
-        SharedModule,
-      ],
-      declarations: [
         CollectionStatisticsPageComponent,
         StatisticsTableComponent,
       ],

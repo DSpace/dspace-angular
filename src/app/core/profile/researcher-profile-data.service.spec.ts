@@ -1,33 +1,43 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
+import { ReplaceOperation } from 'fast-json-patch';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { PageInfo } from '../shared/page-info.model';
-import { buildPaginatedList } from '../data/paginated-list.model';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RestResponse } from '../cache/response.models';
-import { RequestEntry } from '../data/request-entry.model';
-import { ResearcherProfileDataService } from './researcher-profile-data.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { ResearcherProfile } from './model/researcher-profile.model';
-import { Item } from '../shared/item.model';
-import { ReplaceOperation } from 'fast-json-patch';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { PostRequest } from '../data/request.models';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { testCreateDataImplementation } from '../data/base/create-data.spec';
-import { testSearchDataImplementation } from '../data/base/search-data.spec';
-import { testPatchDataImplementation } from '../data/base/patch-data.spec';
 import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
+import { testPatchDataImplementation } from '../data/base/patch-data.spec';
+import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { buildPaginatedList } from '../data/paginated-list.model';
+import { PostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { PageInfo } from '../shared/page-info.model';
+import { ResearcherProfile } from './model/researcher-profile.model';
+import { ResearcherProfileDataService } from './researcher-profile-data.service';
 
 describe('ResearcherProfileService', () => {
   let scheduler: TestScheduler;
@@ -46,9 +56,9 @@ describe('ResearcherProfileService', () => {
     id: itemId,
     _links: {
       self: {
-        href: `https://rest.api/rest/api/items/${itemId}`
+        href: `https://rest.api/rest/api/items/${itemId}`,
       },
-    }
+    },
   });
   const researcherProfile: ResearcherProfile = Object.assign(new ResearcherProfile(), {
     id: researcherProfileId,
@@ -56,12 +66,12 @@ describe('ResearcherProfileService', () => {
     type: 'profile',
     _links: {
       item: {
-        href: `https://rest.api/rest/api/profiles/${researcherProfileId}/item`
+        href: `https://rest.api/rest/api/profiles/${researcherProfileId}/item`,
       },
       self: {
-        href: `https://rest.api/rest/api/profiles/${researcherProfileId}`
+        href: `https://rest.api/rest/api/profiles/${researcherProfileId}`,
       },
-    }
+    },
   });
 
   const researcherProfilePatched: ResearcherProfile = Object.assign(new ResearcherProfile(), {
@@ -70,12 +80,12 @@ describe('ResearcherProfileService', () => {
     type: 'profile',
     _links: {
       item: {
-        href: `https://rest.api/rest/api/profiles/${researcherProfileId}/item`
+        href: `https://rest.api/rest/api/profiles/${researcherProfileId}/item`,
       },
       self: {
-        href: `https://rest.api/rest/api/profiles/${researcherProfileId}`
+        href: `https://rest.api/rest/api/profiles/${researcherProfileId}`,
       },
-    }
+    },
   });
 
   const researcherProfileId2 = 'agbf9946-f4ce-479e-8f11-b90cbe9f7241';
@@ -85,9 +95,9 @@ describe('ResearcherProfileService', () => {
     type: 'profile',
     _links: {
       self: {
-        href: `https://rest.api/rest/api/profiles/${researcherProfileId2}`
+        href: `https://rest.api/rest/api/profiles/${researcherProfileId2}`,
       },
-    }
+    },
   });
 
   const mockItemUnlinkedToOrcid: Item = Object.assign(new Item(), {
@@ -95,105 +105,105 @@ describe('ResearcherProfileService', () => {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: {
       'dc.title': [{
-        value: 'test person'
+        value: 'test person',
       }],
       'dspace.entity.type': [{
-        'value': 'Person'
+        'value': 'Person',
       }],
       'dspace.object.owner': [{
         'value': 'test person',
         'language': null,
         'authority': 'researcher-profile-id',
         'confidence': 600,
-        'place': 0
+        'place': 0,
       }],
-    }
+    },
   });
 
   const mockItemLinkedToOrcid: Item = Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: {
       'dc.title': [{
-        value: 'test person'
+        value: 'test person',
       }],
       'dspace.entity.type': [{
-        'value': 'Person'
+        'value': 'Person',
       }],
       'dspace.object.owner': [{
         'value': 'test person',
         'language': null,
         'authority': 'researcher-profile-id',
         'confidence': 600,
-        'place': 0
+        'place': 0,
       }],
       'dspace.orcid.authenticated': [{
         'value': '2022-06-10T15:15:12.952872',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
+        'place': 0,
       }],
       'dspace.orcid.scope': [{
         'value': '/authenticate',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
+        'place': 0,
       }, {
         'value': '/read-limited',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 1
+        'place': 1,
       }, {
         'value': '/activities/update',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 2
+        'place': 2,
       }, {
         'value': '/person/update',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 3
+        'place': 3,
       }],
       'person.identifier.orcid': [{
         'value': 'orcid-id',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
-      }]
-    }
+        'place': 0,
+      }],
+    },
   });
 
   const disconnectionAllowAdmin = {
     uuid: 'orcid.disconnection.allowed-users',
     name: 'orcid.disconnection.allowed-users',
-    values: ['only_admin']
+    values: ['only_admin'],
   } as ConfigurationProperty;
 
   const disconnectionAllowAdminOwner = {
     uuid: 'orcid.disconnection.allowed-users',
     name: 'orcid.disconnection.allowed-users',
-    values: ['admin_and_owner']
+    values: ['admin_and_owner'],
   } as ConfigurationProperty;
 
   const authorizeUrl = {
     uuid: 'orcid.authorize-url',
     name: 'orcid.authorize-url',
-    values: ['orcid.authorize-url']
+    values: ['orcid.authorize-url'],
   } as ConfigurationProperty;
   const appClientId = {
     uuid: 'orcid.application-client-id',
     name: 'orcid.application-client-id',
-    values: ['orcid.application-client-id']
+    values: ['orcid.application-client-id'],
   } as ConfigurationProperty;
   const orcidScope = {
     uuid: 'orcid.scope',
     name: 'orcid.scope',
-    values: ['/authenticate', '/read-limited']
+    values: ['/authenticate', '/read-limited'],
   } as ConfigurationProperty;
 
   const endpointURL = `https://rest.api/rest/api/profiles`;
@@ -212,7 +222,7 @@ describe('ResearcherProfileService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: endpointURL })
+      getEndpoint: cold('a', { a: endpointURL }),
     });
 
     responseCacheEntry = new RequestEntry();
@@ -225,18 +235,18 @@ describe('ResearcherProfileService', () => {
       removeByHrefSubstring: {},
       getByHref: observableOf(responseCacheEntry),
       getByUUID: observableOf(responseCacheEntry),
-      setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
+      setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: hot('a|', {
-        a: researcherProfileRD
+        a: researcherProfileRD,
       }),
       buildList: hot('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }),
       buildFromRequestUUID: hot('a|', {
-        a: researcherProfileRD
-      })
+        a: researcherProfileRD,
+      }),
     });
     objectCache = {} as ObjectCacheService;
     const notificationsService = {} as NotificationsService;
@@ -244,7 +254,7 @@ describe('ResearcherProfileService', () => {
     const comparator = {} as any;
     routerStub = new RouterMock();
     const itemService = jasmine.createSpyObj('ItemService', {
-      findByHref: jasmine.createSpy('findByHref')
+      findByHref: jasmine.createSpy('findByHref'),
     });
 
     service = new ResearcherProfileDataService(
@@ -287,7 +297,7 @@ describe('ResearcherProfileService', () => {
     it('should return the RemoteData<ResearcherProfile> created', () => {
       const result = service.create();
       const expected = cold('a|', {
-        a: researcherProfileRD
+        a: researcherProfileRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -319,7 +329,7 @@ describe('ResearcherProfileService', () => {
       it('should return a ResearcherProfile object with the given id', () => {
         const result = service.findRelatedItemId(researcherProfile);
         const expected = cold('(a|)', {
-          a: itemId
+          a: itemId,
         });
         expect(result).toBeObservable(expected);
       });
@@ -341,7 +351,7 @@ describe('ResearcherProfileService', () => {
       it('should not return a ResearcherProfile object with the given id', () => {
         const result = service.findRelatedItemId(researcherProfile);
         const expected = cold('(a|)', {
-          a: null
+          a: null,
         });
         expect(result).toBeObservable(expected);
       });

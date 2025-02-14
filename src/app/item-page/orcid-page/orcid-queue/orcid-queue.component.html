@@ -3,11 +3,11 @@
   <div class="container">
     <h2>{{ 'person.orcid.registry.queue' | translate }}</h2>
 
-    <ds-alert *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements == 0"
+    <ds-alert *ngIf="(processing$ | async) !== true && (getList() | async)?.payload?.totalElements === 0"
               [type]="AlertTypeEnum.Info">
       {{ 'person.page.orcid.sync-queue.empty-message' | translate}}
     </ds-alert>
-    <ds-pagination *ngIf="!(processing$ | async) && (getList() | async)?.payload?.totalElements > 0"
+    <ds-pagination *ngIf="(processing$ | async) !== true && (getList() | async)?.payload?.totalElements > 0"
                    [paginationOptions]="paginationOptions"
                    [collectionSize]="(getList() | async)?.payload?.totalElements"
                    [retainScrollPosition]="false" [hideGear]="true" (paginationChange)="updateList()">

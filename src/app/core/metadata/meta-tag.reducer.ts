@@ -1,8 +1,8 @@
 import {
-  MetaTagAction,
-  MetaTagTypes,
   AddMetaTagAction,
   ClearMetaTagAction,
+  MetaTagAction,
+  MetaTagTypes,
 } from './meta-tag.actions';
 
 export interface MetaTagState {
@@ -10,7 +10,7 @@ export interface MetaTagState {
 }
 
 const initialstate: MetaTagState = {
-  tagsInUse: []
+  tagsInUse: [],
 };
 
 export const metaTagReducer = (state: MetaTagState = initialstate, action: MetaTagAction): MetaTagState => {
@@ -29,7 +29,7 @@ export const metaTagReducer = (state: MetaTagState = initialstate, action: MetaT
 
 const addMetaTag = (state: MetaTagState, action: AddMetaTagAction): MetaTagState => {
   return {
-    tagsInUse: [...state.tagsInUse, action.payload]
+    tagsInUse: [...state.tagsInUse, action.payload],
   };
 };
 

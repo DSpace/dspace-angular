@@ -39,4 +39,6 @@ export enum Context {
   MyDSpaceValidation = 'mydspaceValidation',
 
   Bitstream = 'bitstream',
+
+  CoarNotify = 'coarNotify',
 }

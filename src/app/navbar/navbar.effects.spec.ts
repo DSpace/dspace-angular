@@ -1,14 +1,18 @@
 import { TestBed } from '@angular/core/testing';
-import { NavbarEffects } from './navbar.effects';
-import { HostWindowResizeAction } from '../shared/host-window.actions';
-import { Observable } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { cold, hot } from 'jasmine-marbles';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import { Observable } from 'rxjs';
+
+import { HostWindowResizeAction } from '../shared/host-window.actions';
 import { CollapseMenuAction } from '../shared/menu/menu.actions';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { MenuID } from '../shared/menu/menu-id.model';
+import { MenuServiceStub } from '../shared/testing/menu-service.stub';
+import { NavbarEffects } from './navbar.effects';
 
 describe('NavbarEffects', () => {
   let navbarEffects: NavbarEffects;

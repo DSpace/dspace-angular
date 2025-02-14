@@ -1,10 +1,20 @@
-import { CollectionListElementComponent } from './collection-list-element.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Collection } from '../../../core/shared/collection.model';
+import { ActivatedRoute } from '@angular/router';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { Collection } from '../../../core/shared/collection.model';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { CollectionListElementComponent } from './collection-list-element.component';
 
 let collectionListElementComponent: CollectionListElementComponent;
 let fixture: ComponentFixture<CollectionListElementComponent>;
@@ -14,10 +24,10 @@ const mockCollectionWithArchivedItems: Collection = Object.assign(new Collection
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }, archivedItemsCount: 1
+        value: 'Test title',
+      },
+    ],
+  }, archivedItemsCount: 1,
 });
 
 const mockCollectionWithArchivedItemsDisabledAtBackend: Collection = Object.assign(new Collection(), {
@@ -25,10 +35,10 @@ const mockCollectionWithArchivedItemsDisabledAtBackend: Collection = Object.assi
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }, archivedItemsCount: -1
+        value: 'Test title',
+      },
+    ],
+  }, archivedItemsCount: -1,
 });
 
 
@@ -37,10 +47,10 @@ const mockCollectionWithAbstract: Collection = Object.assign(new Collection(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }, archivedItemsCount: 1
+        value: 'Short description',
+      },
+    ],
+  }, archivedItemsCount: 1,
 });
 
 const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection(), {
@@ -48,24 +58,24 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }, archivedItemsCount: 1
+        value: 'Test title',
+      },
+    ],
+  }, archivedItemsCount: 1,
 });
 
 describe('CollectionListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CollectionListElementComponent],
+      imports: [CollectionListElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) }
+        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

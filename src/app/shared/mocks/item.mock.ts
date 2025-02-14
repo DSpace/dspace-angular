@@ -1,38 +1,38 @@
 import { of as observableOf } from 'rxjs';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { Bitstream } from '../../core/shared/bitstream.model';
 
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
+import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
-import { Bundle } from '../../core/shared/bundle.model';
 
 export const MockBitstreamFormat1: BitstreamFormat = Object.assign(new BitstreamFormat(), {
   shortDescription: 'Microsoft Word XML',
-    description: 'Microsoft Word XML',
-    mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    supportLevel: 0,
-    internal: false,
-    extensions: null,
-    _links:{
+  description: 'Microsoft Word XML',
+  mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  supportLevel: 0,
+  internal: false,
+  extensions: null,
+  _links:{
     self: {
-      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
-    }
-    }
+      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10',
+    },
+  },
 });
 
 export const MockBitstreamFormat2: BitstreamFormat = Object.assign(new BitstreamFormat(), {
-    shortDescription: 'Adobe PDF',
-    description: 'Adobe Portable Document Format',
-    mimetype: 'application/pdf',
-    supportLevel: 0,
-    internal: false,
-    extensions: null,
-    _links:{
-      self: {
-        href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
-      }
-    }
+  shortDescription: 'Adobe PDF',
+  description: 'Adobe Portable Document Format',
+  mimetype: 'application/pdf',
+  supportLevel: 0,
+  internal: false,
+  extensions: null,
+  _links:{
+    self: {
+      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4',
+    },
+  },
 });
 
 export const MockBitstreamFormat3: BitstreamFormat = Object.assign(new BitstreamFormat(), {
@@ -44,9 +44,9 @@ export const MockBitstreamFormat3: BitstreamFormat = Object.assign(new Bitstream
   extensions: null,
   _links:{
     self: {
-      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/17'
-    }
-  }
+      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/17',
+    },
+  },
 });
 
 export const MockBitstream1: Bitstream = Object.assign(new Bitstream(),
@@ -57,8 +57,8 @@ export const MockBitstream1: Bitstream = Object.assign(new Bitstream(),
     bundleName: 'ORIGINAL',
     _links:{
       self: {
-        href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713'
-      }
+        href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
+      },
     },
     id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
     uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
@@ -67,10 +67,10 @@ export const MockBitstream1: Bitstream = Object.assign(new Bitstream(),
       'dc.title': [
         {
           language: null,
-          value: 'test_word.docx'
-        }
-      ]
-    }
+          value: 'test_word.docx',
+        },
+      ],
+    },
   });
 
 export const MockBitstream2: Bitstream = Object.assign(new Bitstream(), {
@@ -85,16 +85,16 @@ export const MockBitstream2: Bitstream = Object.assign(new Bitstream(), {
     self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28' },
     content: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content' },
     format: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4' },
-    bundle: { href: '' }
+    bundle: { href: '' },
   },
   metadata: {
     'dc.title': [
       {
         language: null,
-        value: 'test_pdf.pdf'
-      }
-    ]
-  }
+        value: 'test_pdf.pdf',
+      },
+    ],
+  },
 });
 
 export const MockBitstream3: Bitstream = Object.assign(new Bitstream(), {
@@ -109,16 +109,16 @@ export const MockBitstream3: Bitstream = Object.assign(new Bitstream(), {
     self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29' },
     content: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/4db100c1-e1f5-4055-9404-9bc3e2d15f29/content' },
     format: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/17' },
-    bundle: { href: '' }
+    bundle: { href: '' },
   },
   metadata: {
     'dc.title': [
       {
         language: null,
-        value: 'scary'
-      }
-    ]
-  }
+        value: 'scary',
+      },
+    ],
+  },
 });
 
 export const MockOriginalBundle: Bundle = Object.assign(new Bundle(), {
@@ -128,7 +128,7 @@ export const MockOriginalBundle: Bundle = Object.assign(new Bundle(), {
     _links: {
       self: {
         href: 'dspace-angular://aggregated/object/1507836003548',
-      }
+      },
     },
     requestPending: false,
     responsePending: false,
@@ -148,14 +148,14 @@ export const MockOriginalBundle: Bundle = Object.assign(new Bundle(), {
         elementsPerPage: 20,
         totalElements: 3,
         totalPages: 1,
-        currentPage: 2
+        currentPage: 2,
       },
       page: [
         MockBitstream1,
-        MockBitstream2
-      ]
-    }
-  }))
+        MockBitstream2,
+      ],
+    },
+  })),
 });
 
 
@@ -171,8 +171,8 @@ export const ItemMock: Item = Object.assign(new Item(), {
   ])),
   _links:{
     self: {
-      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-    }
+      href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+    },
   },
   id: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   uuid: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
@@ -181,116 +181,116 @@ export const ItemMock: Item = Object.assign(new Item(), {
     'dc.creator': [
       {
         language: 'en_US',
-        value: 'Doe, Jane'
-      }
+        value: 'Doe, Jane',
+      },
     ],
     'dc.date.accessioned': [
       {
         language: null,
-        value: '1650-06-26T19:58:25Z'
-      }
+        value: '1650-06-26T19:58:25Z',
+      },
     ],
     'dc.date.available': [
       {
         language: null,
-        value: '1650-06-26T19:58:25Z'
-      }
+        value: '1650-06-26T19:58:25Z',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '1650-06-26'
-      }
+        value: '1650-06-26',
+      },
     ],
     'dc.identifier.issn': [
       {
         language: 'en_US',
-        value: '123456789'
-      }
+        value: '123456789',
+      },
     ],
     'dc.identifier.uri': [
       {
         language: null,
-        value: 'http://dspace7.4science.it/xmlui/handle/10673/6'
-      }
+        value: 'http://dspace7.4science.it/xmlui/handle/10673/6',
+      },
     ],
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-      }
+        value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+      },
     ],
     'dc.description.provenance': [
       {
         language: 'en',
-        value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+        value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
       },
       {
         language: 'en',
-        value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+        value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
       },
       {
         language: 'en',
-        value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+        value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
       },
       {
         language: 'en',
-        value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-      }
+        value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+      },
     ],
     'dc.language': [
       {
         language: 'en_US',
-        value: 'en'
-      }
+        value: 'en',
+      },
     ],
     'dc.rights': [
       {
         language: 'en_US',
-        value: '© Jane Doe'
-      }
+        value: '© Jane Doe',
+      },
     ],
     'dc.subject': [
       {
         language: 'en_US',
-        value: 'keyword1'
+        value: 'keyword1',
       },
       {
         language: 'en_US',
-        value: 'keyword2'
+        value: 'keyword2',
       },
       {
         language: 'en_US',
-        value: 'keyword3'
-      }
+        value: 'keyword3',
+      },
     ],
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test PowerPoint Document'
-      }
+        value: 'Test PowerPoint Document',
+      },
     ],
     'dc.type': [
       {
         language: 'en_US',
-        value: 'text'
-      }
-    ]
+        value: 'text',
+      },
+    ],
   },
   owningCollection: observableOf({
-      _links: {
-        self: {
-          href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb'
-        }
+    _links: {
+      self: {
+        href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
       },
-      requestPending: false,
-      responsePending: false,
-      isSuccessful: true,
-      errorMessage: '',
-      statusCode: '202',
-      pageInfo: {},
-      payload: []
-    }
-  )
+    },
+    requestPending: false,
+    responsePending: false,
+    isSuccessful: true,
+    errorMessage: '',
+    statusCode: '202',
+    pageInfo: {},
+    payload: [],
+  },
+  ),
 });
 /* eslint-enable @typescript-eslint/no-shadow */

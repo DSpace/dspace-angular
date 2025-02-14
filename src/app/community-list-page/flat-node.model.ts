@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
-import { Community } from '../core/shared/community.model';
+
 import { Collection } from '../core/shared/collection.model';
+import { Community } from '../core/shared/community.model';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
 
 /**

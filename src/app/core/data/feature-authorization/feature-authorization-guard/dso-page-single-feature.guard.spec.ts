@@ -1,77 +1,82 @@
-import { AuthorizationDataService } from '../authorization-data.service';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { RemoteData } from '../../remote-data';
-import { Observable, of as observableOf } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import {
+  ResolveFn,
+  Router,
+  UrlTree,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { DsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
-import { FeatureID } from '../feature-id';
 import { AuthService } from '../../../auth/auth.service';
+import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { RemoteData } from '../../remote-data';
+import { AuthorizationDataService } from '../authorization-data.service';
+import { FeatureID } from '../feature-id';
+import { dsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
+import {
+  defaultDSOGetObjectUrl,
+  getRouteWithDSOId,
+} from './dso-page-some-feature.guard';
 
-/**
- * Test implementation of abstract class DsoPageSingleFeatureGuard
- */
-class DsoPageSingleFeatureGuardImpl extends DsoPageSingleFeatureGuard<any> {
-  constructor(protected resolver: Resolve<RemoteData<any>>,
-              protected authorizationService: AuthorizationDataService,
-              protected router: Router,
-              protected authService: AuthService,
-              protected featureID: FeatureID) {
-    super(resolver, authorizationService, router, authService);
-  }
-
-  getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
-    return observableOf(this.featureID);
-  }
-}
 
 describe('DsoPageSingleFeatureGuard', () => {
-  let guard: DsoPageSingleFeatureGuard<any>;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
-  let resolver: Resolve<RemoteData<any>>;
+  let resolver: ResolveFn<RemoteData<any>>;
   let object: DSpaceObject;
   let route;
   let parentRoute;
 
+  let featureId: FeatureID;
+
   function init() {
     object = {
-      self: 'test-selflink'
+      self: 'test-selflink',
     } as DSpaceObject;
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     router = jasmine.createSpyObj('router', {
-      parseUrl: {}
+      parseUrl: {},
     });
-    resolver = jasmine.createSpyObj('resolver', {
-      resolve: createSuccessfulRemoteDataObject$(object)
-    });
+    resolver = () => createSuccessfulRemoteDataObject$(object);
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
     });
     parentRoute = {
       params: {
-        id: '3e1a5327-dabb-41ff-af93-e6cab9d032f0'
-      }
+        id: '3e1a5327-dabb-41ff-af93-e6cab9d032f0',
+      },
     };
     route = {
       params: {
       },
-      parent: parentRoute
+      parent: parentRoute,
     };
-    guard = new DsoPageSingleFeatureGuardImpl(resolver, authorizationService, router, authService, undefined);
+
+    featureId = FeatureID.LoginOnBehalfOf;
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: Router, useValue: router },
+        { provide: AuthService, useValue: authService },
+      ],
+    });
   }
 
   beforeEach(() => {
     init();
   });
 
-  describe('getObjectUrl', () => {
+  describe('defaultDSOGetObjectUrl', () => {
     it('should return the resolved object\'s selflink', (done) => {
-      guard.getObjectUrl(route, undefined).subscribe((selflink) => {
+      defaultDSOGetObjectUrl(resolver)(route, undefined).subscribe((selflink) => {
         expect(selflink).toEqual(object.self);
         done();
       });
@@ -80,8 +85,23 @@ describe('DsoPageSingleFeatureGuard', () => {
 
   describe('getRouteWithDSOId', () => {
     it('should return the route that has the UUID of the DSO', () => {
-      const foundRoute = (guard as any).getRouteWithDSOId(route);
+      const foundRoute = getRouteWithDSOId(route);
       expect(foundRoute).toBe(parentRoute);
+    });
+  });
+
+  describe('dsoPageSingleFeatureGuard', () => {
+    it('should call authorizationService.isAuthenticated with the appropriate arguments', (done) => {
+      const result$ = TestBed.runInInjectionContext(() => {
+        return dsoPageSingleFeatureGuard(
+          () => resolver, () => observableOf(featureId),
+        )(route, { url: 'current-url' } as any);
+      }) as Observable<boolean | UrlTree>;
+
+      result$.subscribe(() => {
+        expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId, object.self, undefined);
+        done();
+      });
     });
   });
 });

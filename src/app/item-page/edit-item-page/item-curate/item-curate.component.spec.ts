@@ -1,12 +1,21 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { ItemCurateComponent } from './item-curate.component';
-import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../core/shared/item.model';
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { ItemCurateComponent } from './item-curate.component';
 
 describe('ItemCurateComponent', () => {
   let comp: ItemCurateComponent;
@@ -18,31 +27,36 @@ describe('ItemCurateComponent', () => {
 
   const item = Object.assign(new Item(), {
     handle: '123456789/1',
-    metadata: {'dc.title': ['Item Name']}
+    metadata: { 'dc.title': ['Item Name'] },
   });
 
   beforeEach(waitForAsync(() => {
     routeStub = {
       parent: {
         data: observableOf({
-          dso: createSuccessfulRemoteDataObject(item)
-        })
-      }
+          dso: createSuccessfulRemoteDataObject(item),
+        }),
+      },
     };
 
     dsoNameService = jasmine.createSpyObj('dsoNameService', {
-      getName: 'Item Name'
+      getName: 'Item Name',
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemCurateComponent],
+      imports: [TranslateModule.forRoot(), ItemCurateComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: DSONameService, useValue: dsoNameService}
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: DSONameService, useValue: dsoNameService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideComponent(ItemCurateComponent, {
+        remove: {
+          imports: [CurationFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

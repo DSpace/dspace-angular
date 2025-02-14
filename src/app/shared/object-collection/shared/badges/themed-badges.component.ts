@@ -1,16 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { BadgesComponent } from './badges.component';
-import { ThemedComponent } from '../../../theme-support/themed.component';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { Context } from 'src/app/core/shared/context.model';
+
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { ThemedComponent } from '../../../theme-support/themed.component';
+import { BadgesComponent } from './badges.component';
 
 /**
  * Themed wrapper for BadgesComponent
  */
 @Component({
-  selector: 'ds-themed-badges',
+  selector: 'ds-badges',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [BadgesComponent],
 })
 export class ThemedBadgesComponent extends ThemedComponent<BadgesComponent> {
   @Input() object: DSpaceObject;

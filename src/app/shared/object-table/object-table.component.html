@@ -1,0 +1,32 @@
+<ds-pagination
+  [paginationOptions]="config"
+  [collectionSize]="objects?.payload?.totalElements"
+  [sortOptions]="sortConfig"
+  [hideGear]="hideGear"
+  [objects]="objects"
+  [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
+  [hidePaginationDetail]="hidePaginationDetail"
+  [showPaginator]="showPaginator"
+  (pageChange)="onPageChange($event)"
+  (pageSizeChange)="onPageSizeChange($event)"
+  (sortDirectionChange)="onSortDirectionChange($event)"
+  (sortFieldChange)="onSortFieldChange($event)"
+  (paginationChange)="onPaginationChange($event)"
+  (prev)="goPrev()"
+  (next)="goNext()"
+  [retainScrollPosition]="true"
+>
+  <div *ngIf="objects?.hasSucceeded">
+    <div @fadeIn>
+      <ds-tabulatable-objects-loader [objects]="objects.payload"
+                                     [context]="context"
+                                     [showThumbnails]="showThumbnails"
+                                     [linkType]="linkType">
+      </ds-tabulatable-objects-loader>
+    </div>
+  </div>
+  <ds-error *ngIf="objects?.hasFailed" message="{{'error.objects' | translate}}"></ds-error>
+  <ds-loading *ngIf="objects?.isLoading" message="{{'loading.objects' | translate}}"></ds-loading>
+</ds-pagination>
+
+

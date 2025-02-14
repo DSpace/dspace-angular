@@ -1,16 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { of } from 'rxjs';
-import { NgbAccordionModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  NgbAccordionModule,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { BulkAccessBrowseComponent } from './bulk-access-browse.component';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SelectableObject } from '../../../shared/object-list/selectable-list/selectable-list.service.spec';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { BulkAccessBrowseComponent } from './bulk-access-browse.component';
 
 describe('BulkAccessBrowseComponent', () => {
   let component: BulkAccessBrowseComponent;
@@ -23,7 +35,7 @@ describe('BulkAccessBrowseComponent', () => {
   const selected1 = new SelectableObject(value1);
   const selected2 = new SelectableObject(value2);
 
-  const testSelection = { id: listID1, selection: [selected1, selected2] } ;
+  const testSelection = { id: listID1, selection: [selected1, selected2] };
 
   const selectableListService = jasmine.createSpyObj('SelectableListService', ['getSelectableList', 'deselectAll']);
   beforeEach(waitForAsync(() => {
@@ -31,14 +43,28 @@ describe('BulkAccessBrowseComponent', () => {
       imports: [
         NgbAccordionModule,
         NgbNavModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        BulkAccessBrowseComponent,
       ],
-      declarations: [BulkAccessBrowseComponent],
-      providers: [ { provide: SelectableListService, useValue: selectableListService }, ],
+      providers: [
+        { provide: SelectableListService, useValue: selectableListService },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+        NO_ERRORS_SCHEMA,
+      ],
+    })
+      .overrideComponent(BulkAccessBrowseComponent, {
+        remove: {
+          imports: [
+            PaginationComponent,
+            ThemedSearchComponent,
+            SelectableListItemControlComponent,
+            ListableObjectComponentLoaderComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -72,8 +98,8 @@ describe('BulkAccessBrowseComponent', () => {
       'elementsPerPage': 5,
       'totalElements': 2,
       'totalPages': 1,
-      'currentPage': 1
-    }), [selected1, selected2]) ;
+      'currentPage': 1,
+    }), [selected1, selected2]);
     const rd = createSuccessfulRemoteDataObject(list);
 
     expect(component.objectsSelected$.value).toEqual(rd);

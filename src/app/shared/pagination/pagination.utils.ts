@@ -1,5 +1,5 @@
-import { PaginationComponentOptions } from './pagination-component-options.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 
 /**
  * Transform a PaginationComponentOptions object into a FindListOptions object
@@ -9,6 +9,6 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 export function toFindListOptions(pagination: PaginationComponentOptions, original?: FindListOptions): FindListOptions {
   return Object.assign(new FindListOptions(), original, {
     currentPage: pagination.currentPage,
-    elementsPerPage: pagination.pageSize
+    elementsPerPage: pagination.pageSize,
   });
 }

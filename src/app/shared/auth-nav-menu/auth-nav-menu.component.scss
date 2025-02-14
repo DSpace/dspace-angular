@@ -1,10 +1,10 @@
-.loginDropdownMenu, .logoutDropdownMenu {
+#loginDropdownMenu, #logoutDropdownMenu {
   min-width: 330px;
   z-index: 1002;
 }
 
-.loginDropdownMenu {
-  min-height: 260px;
+#loginDropdownMenu {
+  min-height: 75px;
 }
 
 .dropdown-item.active, .dropdown-item:active,
@@ -17,5 +17,14 @@
 
   &:hover, &:focus {
     color: var(--ds-header-icon-color-hover);
+  }
+}
+
+.dropdownLogin, .dropdownLogout {
+  &:not(:focus-visible).active,
+  &:not(:focus-visible):active,
+  &:not(:focus-visible).active:focus,
+  &:not(:focus-visible):active:focus {
+    box-shadow: unset;
   }
 }

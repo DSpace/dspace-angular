@@ -1,40 +1,65 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../core/cache/builders/link.service';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { RequestService } from '../../core/data/request.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { ActionType } from '../../core/resource-policy/models/action-type.model';
+import { PolicyType } from '../../core/resource-policy/models/policy-type.model';
+import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
-import { LinkService } from '../../core/cache/builders/link.service';
-import { getMockLinkService } from '../mocks/link-service.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { createPaginatedList, createTestComponent } from '../testing/utils.test';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { NotificationsServiceStub } from '../testing/notifications-service.stub';
-import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
-import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { RouterStub } from '../testing/router.stub';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { ResourcePoliciesComponent } from './resource-policies.component';
-import { PolicyType } from '../../core/resource-policy/models/policy-type.model';
-import { ActionType } from '../../core/resource-policy/models/action-type.model';
+import { getMockLinkService } from '../mocks/link-service.mock';
+import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
 import { EPersonMock } from '../testing/eperson.mock';
 import { GroupMock } from '../testing/group-mock';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { RouterStub } from '../testing/router.stub';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../testing/utils.test';
+import { HasValuePipe } from '../utils/has-value.pipe';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ResourcePoliciesComponent } from './resource-policies.component';
 
 describe('ResourcePoliciesComponent test suite', () => {
   let comp: ResourcePoliciesComponent;
@@ -59,17 +84,17 @@ describe('ResourcePoliciesComponent test suite', () => {
     uuid: 'resource-policy-1',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
     eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const anotherResourcePolicy: any = {
@@ -84,65 +109,65 @@ describe('ResourcePoliciesComponent test suite', () => {
     uuid: 'resource-policy-2',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
     eperson: observableOf(createSuccessfulRemoteDataObject(EPersonMock)),
-    group: observableOf(createSuccessfulRemoteDataObject({}))
+    group: observableOf(createSuccessfulRemoteDataObject({})),
   };
 
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'bitstream1',
-    uuid: 'bitstream1'
+    uuid: 'bitstream1',
   });
   const bitstream2 = Object.assign(new Bitstream(), {
     id: 'bitstream2',
-    uuid: 'bitstream2'
+    uuid: 'bitstream2',
   });
   const bitstream3 = Object.assign(new Bitstream(), {
     id: 'bitstream3',
-    uuid: 'bitstream3'
+    uuid: 'bitstream3',
   });
   const bitstream4 = Object.assign(new Bitstream(), {
     id: 'bitstream4',
-    uuid: 'bitstream4'
+    uuid: 'bitstream4',
   });
   const bundle1 = Object.assign(new Bundle(), {
     id: 'bundle1',
     uuid: 'bundle1',
     _links: {
-      self: { href: 'bundle1-selflink' }
+      self: { href: 'bundle1-selflink' },
     },
-    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
   });
   const bundle2 = Object.assign(new Bundle(), {
     id: 'bundle2',
     uuid: 'bundle2',
     _links: {
-      self: { href: 'bundle2-selflink' }
+      self: { href: 'bundle2-selflink' },
     },
-    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4]))
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4])),
   });
 
   const item = Object.assign(new Item(), {
     uuid: 'itemUUID',
     id: 'itemUUID',
     _links: {
-      self: { href: 'item-selflink' }
+      self: { href: 'item-selflink' },
     },
-    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2]))
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2])),
   });
 
   const routeStub = {
     data: observableOf({
-      item: createSuccessfulRemoteDataObject(item)
-    })
+      item: createSuccessfulRemoteDataObject(item),
+    }),
   };
 
   const epersonService = jasmine.createSpyObj('epersonService', {
@@ -154,7 +179,7 @@ describe('ResourcePoliciesComponent test suite', () => {
   });
 
   routerStub = Object.assign(new RouterStub(), {
-    url: `url/edit`
+    url: `url/edit`,
   });
 
   const getInitEntries = () => {
@@ -162,13 +187,13 @@ describe('ResourcePoliciesComponent test suite', () => {
       Object.assign({}, {
         id: resourcePolicy.id,
         policy: resourcePolicy,
-        checked: false
+        checked: false,
       }),
       Object.assign({}, {
         id: anotherResourcePolicy.id,
         policy: anotherResourcePolicy,
-        checked: false
-      })
+        checked: false,
+      }),
     ];
   };
 
@@ -176,13 +201,13 @@ describe('ResourcePoliciesComponent test suite', () => {
     {
       id: resourcePolicy.id,
       policy: resourcePolicy,
-      checked: true
+      checked: true,
     },
     {
       id: anotherResourcePolicy.id,
       policy: anotherResourcePolicy,
-      checked: false
-    }
+      checked: false,
+    },
   ];
 
   const pageInfo = new PageInfo();
@@ -191,7 +216,7 @@ describe('ResourcePoliciesComponent test suite', () => {
   const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
   const dsoNameService = jasmine.createSpyObj('dsoNameMock', {
-    getName: 'NAME'
+    getName: 'NAME',
   });
 
   beforeEach(waitForAsync(() => {
@@ -200,12 +225,11 @@ describe('ResourcePoliciesComponent test suite', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         ResourcePoliciesComponent,
         ResourcePolicyEntryComponent,
-        TestComponent
+        TestComponent,
+        HasValuePipe,
       ],
       providers: [
         { provide: LinkService, useValue: linkService },
@@ -218,10 +242,10 @@ describe('ResourcePoliciesComponent test suite', () => {
         { provide: Router, useValue: routerStub },
         { provide: DSONameService, useValue: dsoNameService },
         ChangeDetectorRef,
-        ResourcePoliciesComponent
+        ResourcePoliciesComponent,
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -232,7 +256,7 @@ describe('ResourcePoliciesComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       resourcePolicyService.searchByResource.and.returnValue(hot('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }));
       const html = `
         <ds-resource-policies [resourceUUID]="resourceUUID" [resourceType]="resourceType"></ds-resource-policies>`;
@@ -278,7 +302,7 @@ describe('ResourcePoliciesComponent test suite', () => {
       const expected = getInitEntries();
       compAsAny.isActive = true;
       resourcePolicyService.searchByResource.and.returnValue(hot('a|', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }));
 
       scheduler = getTestScheduler();
@@ -326,7 +350,7 @@ describe('ResourcePoliciesComponent test suite', () => {
 
       it('should return false when no row is selected', () => {
         expect(comp.canDelete()).toBeObservable(cold('(a|)', {
-          a: false
+          a: false,
         }));
       });
 
@@ -335,7 +359,7 @@ describe('ResourcePoliciesComponent test suite', () => {
         const event = { target: { checked: true } };
         checkbox.triggerEventHandler('change', event);
         expect(comp.canDelete()).toBeObservable(cold('(a|)', {
-          a: true
+          a: true,
         }));
       });
     });
@@ -387,7 +411,7 @@ describe('ResourcePoliciesComponent test suite', () => {
     it('should get the resource\'s policy list', () => {
       const initResourcePolicyEntries = getInitEntries();
       expect(comp.getResourcePolicies()).toBeObservable(cold('a', {
-        a: initResourcePolicyEntries
+        a: initResourcePolicyEntries,
       }));
 
     });
@@ -421,7 +445,11 @@ describe('ResourcePoliciesComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [CommonModule,
+    FormsModule,
+    ReactiveFormsModule],
 })
 class TestComponent {
 

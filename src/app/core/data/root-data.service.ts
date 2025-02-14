@@ -1,31 +1,33 @@
-import { Root } from './root.model';
 import { Injectable } from '@angular/core';
-import { ROOT } from './root.resource-type';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable, of as observableOf } from 'rxjs';
-import { RemoteData } from './remote-data';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
+
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { catchError, map } from 'rxjs/operators';
-import { BaseDataService } from './base/base-data.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from './base/data-service.decorator';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { BaseDataService } from './base/base-data.service';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
+import { Root } from './root.model';
 
 /**
  * A service to retrieve the {@link Root} object from the REST API.
  */
-@Injectable()
-@dataService(ROOT)
+@Injectable({ providedIn: 'root' })
 export class RootDataService extends BaseDataService<Root> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected restService: DspaceRestService,
   ) {
     super('', requestService, rdbService, objectCache, halService, 6 * 60 * 60 * 1000);
   }
@@ -34,12 +36,13 @@ export class RootDataService extends BaseDataService<Root> {
    * Check if root endpoint is available
    */
   checkServerAvailability(): Observable<boolean> {
-    return this.restService.get(this.halService.getRootHref()).pipe(
-      catchError((err ) => {
+    return this.findRoot().pipe(
+      catchError((err: unknown) => {
         console.error(err);
         return observableOf(false);
       }),
-      map((res: RawRestResponse) => res.statusCode === 200)
+      getFirstCompletedRemoteData(),
+      map((rootRd: RemoteData<Root>) => rootRd.statusCode === 200),
     );
   }
 
@@ -60,6 +63,6 @@ export class RootDataService extends BaseDataService<Root> {
    * Set to sale the root endpoint cache hit
    */
   invalidateRootCache() {
-    this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
+    this.requestService.setStaleByHref(this.halService.getRootHref());
   }
 }

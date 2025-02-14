@@ -1,6 +1,6 @@
+import { MenuID } from './menu-id.model';
 import { MenuSectionIndex } from './menu-section-Index.model';
 import { MenuSections } from './menu-sections.model';
-import { MenuID } from './menu-id.model';
 
 /**
  * Represents the state of a single menu in the store

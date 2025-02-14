@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { FindListOptions } from '../data/find-list-options.model';
+import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { PoolTask } from './models/pool-task-object.model';
-import { POOL_TASK } from './models/pool-task-object.resource-type';
-import { TasksService } from './tasks.service';
-import { RemoteData } from '../data/remote-data';
-import { RequestParam } from '../cache/models/request-param.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
-import { FindListOptions } from '../data/find-list-options.model';
-import { dataService } from '../data/base/data-service.decorator';
+import { PoolTask } from './models/pool-task-object.model';
+import { TasksService } from './tasks.service';
 
 /**
  * The service handling all REST requests for PoolTask
  */
-@Injectable()
-@dataService(POOL_TASK)
+@Injectable({ providedIn: 'root' })
 export class PoolTaskDataService extends TasksService<PoolTask> {
   /**
    * Initialize instance variables
@@ -47,7 +44,7 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
   public findByItem(uuid: string): Observable<RemoteData<PoolTask>> {
     const options = new FindListOptions();
     options.searchParams = [
-      new RequestParam('uuid', uuid)
+      new RequestParam('uuid', uuid),
     ];
     return this.searchTask('findByItem', options).pipe(getFirstCompletedRemoteData());
   }

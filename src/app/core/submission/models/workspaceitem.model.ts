@@ -1,8 +1,15 @@
-import { deserializeAs, inheritSerialization } from 'cerialize';
-import { inheritLinkAnnotations, typedObject } from '../../cache/builders/build-decorators';
+import {
+  deserializeAs,
+  inheritSerialization,
+} from 'cerialize';
+
+import {
+  inheritLinkAnnotations,
+  typedObject,
+} from '../../cache/builders/build-decorators';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { SubmissionObject } from './submission-object.model';
 import { WORKSPACEITEM } from '../../eperson/models/workspaceitem.resource-type';
+import { SubmissionObject } from './submission-object.model';
 
 /**
  * A model class for a WorkspaceItem.
@@ -19,5 +26,5 @@ export class WorkspaceItem extends SubmissionObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer(WorkspaceItem.type.value), 'id')
-  uuid: string;
+    uuid: string;
 }

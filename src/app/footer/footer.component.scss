@@ -22,13 +22,40 @@
     }
 
     .bottom-footer {
+      .notify-enabled {
+        position: absolute;
+        bottom: 4px;
+        right: 0;
+
+        .coar-notify-support-route {
+          padding: 0 calc(var(--bs-spacer) / 2);
+          color: inherit;
+        }
+
+        .n-coar {
+          height: var(--ds-footer-n-coar-height);
+          margin-bottom: 8.5px;
+        }
+
+        margin-top: 20px;
+      }
       ul {
         li {
           display: inline-flex;
 
-          a {
+          a, .btn-link {
             padding: 0 calc(var(--bs-spacer) / 2);
-            color: inherit
+            color: inherit;
+            font-size: .875em;
+
+            &:focus {
+              box-shadow: none;
+              text-decoration: underline;
+            }
+
+            &:focus-visible {
+              box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+            }
           }
 
           &:not(:last-child) {
@@ -43,5 +70,6 @@
     }
   }
 }
+
 
 

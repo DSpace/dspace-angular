@@ -1,0 +1,143 @@
+@import '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component.scss';
+@import '../../../shared/form/form.component.scss';
+
+form {
+  font-size: 14px;
+  position: relative;
+}
+
+input,
+select {
+  max-width: 100%;
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+}
+
+option:not(:first-child) {
+  font-weight: bold;
+}
+
+.trash-button {
+  width: 40px;
+  height: 40px;
+}
+
+textarea {
+  height: 200px;
+  resize: none;
+}
+
+.add-pattern-link {
+  color: #0048ff;
+  cursor: pointer;
+}
+
+.remove-pattern-link {
+  color: #e34949;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.status-checkbox {
+  margin-top: 5px;
+}
+
+
+.invalid-field {
+  border: 1px solid red;
+  color: #000000;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch.checked {
+  background-color: #24cc9a;
+}
+
+.slider {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: transform 0.3s;
+}
+
+
+.toggle-switch .slider {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.toggle-switch.checked .slider {
+  transform: translateX(30px);
+}
+
+.toggle-switch-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.small-text {
+  font-size: 0.7em;
+  color: #888;
+}
+
+.toggle-switch {
+  cursor: pointer;
+  margin-top: 3px;
+  margin-right: 3px
+}
+
+.label-box {
+  margin-left: 11px;
+}
+
+.label-box-2 {
+  margin-left: 14px;
+}
+
+.label-box-3 {
+  margin-left: 5px;
+}
+
+.submission-form-footer {
+  border-radius: var(--bs-card-border-radius);
+  bottom: 0;
+  background-color: var(--bs-gray-400);
+  padding: calc(var(--bs-spacer) / 2);
+  z-index: calc(var(--ds-submission-footer-z-index) + 1);
+}
+
+.marked-for-deletion {
+  background-color: lighten($red, 30%);
+}
+
+.dropdown-menu-top, .scrollable-dropdown-menu  {
+  z-index: var(--ds-submission-footer-z-index);
+}
+
+

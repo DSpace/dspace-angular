@@ -1,21 +1,34 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { SubmissionFormsModel } from 'src/app/core/config/models/config-submission-forms.model';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
+
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
 
 @Component({
-    selector: 'ds-themed-submission-upload-section-file',
-    styleUrls: [],
-    templateUrl: '../../../../shared/theme-support/themed.component.html'
+  selector: 'ds-submission-upload-section-file',
+  styleUrls: [],
+  templateUrl: '../../../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [SubmissionSectionUploadFileComponent],
 })
 export class ThemedSubmissionSectionUploadFileComponent
-    extends ThemedComponent<SubmissionSectionUploadFileComponent> {
+  extends ThemedComponent<SubmissionSectionUploadFileComponent> {
 
   /**
    * The list of available access condition
    * @type {Array}
    */
   @Input() availableAccessConditionOptions: any[];
+
+   /**
+   * The indicator is the primary bitstream
+   * it will be null if no primary bitstream is set for the ORIGINAL bundle
+   * @type {boolean, null}
+   */
+   @Input() isPrimary: boolean | null;
 
   /**
    * The submission id
@@ -69,6 +82,7 @@ export class ThemedSubmissionSectionUploadFileComponent
 
   protected inAndOutputNames: (keyof SubmissionSectionUploadFileComponent & keyof this)[] = [
     'availableAccessConditionOptions',
+    'isPrimary',
     'collectionId',
     'collectionPolicyType',
     'configMetadataForm',
@@ -76,8 +90,8 @@ export class ThemedSubmissionSectionUploadFileComponent
     'fileIndex',
     'fileName',
     'sectionId',
-    'submissionId'
-    ];
+    'submissionId',
+  ];
 
   protected getComponentName(): string {
     return 'SubmissionSectionUploadFileComponent';

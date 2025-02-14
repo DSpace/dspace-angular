@@ -1,25 +1,28 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
+import { DynamicLookupModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { LookupFieldParser } from './lookup-field-parser';
-import { DynamicLookupModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { ParserOptions } from './parser-options';
 
 describe('LookupFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues = {};
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'lookup'
+        type: 'lookup',
       },
       label: 'Journal',
       mandatory: 'false',
@@ -29,22 +32,22 @@ describe('LookupFieldParser test suite', () => {
         {
           metadata: 'journal',
           controlledVocabulary: 'JOURNALAuthority',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });
 
   it('should init parser properly', () => {
-    const parser = new LookupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new LookupFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     expect(parser instanceof LookupFieldParser).toBe(true);
   });
 
   it('should return a DynamicLookupModel object when repeatable option is false', () => {
-    const parser = new LookupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new LookupFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -57,7 +60,7 @@ describe('LookupFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test journal');
 
-    const parser = new LookupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new LookupFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 

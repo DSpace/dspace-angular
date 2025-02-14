@@ -1,20 +1,21 @@
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../cache/response.models';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { MetadataFieldDataService } from './metadata-field-data.service';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { RequestParam } from '../cache/models/request-param.model';
-import { FindListOptions } from './find-list-options.model';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { RestResponse } from '../cache/response.models';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { testCreateDataImplementation } from './base/create-data.spec';
-import { testSearchDataImplementation } from './base/search-data.spec';
-import { testPutDataImplementation } from './base/put-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testPutDataImplementation } from './base/put-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { FindListOptions } from './find-list-options.model';
+import { MetadataFieldDataService } from './metadata-field-data.service';
+import { RequestService } from './request.service';
 
 describe('MetadataFieldDataService', () => {
   let metadataFieldService: MetadataFieldDataService;
@@ -31,8 +32,8 @@ describe('MetadataFieldDataService', () => {
       prefix: 'dc',
       namespace: 'namespace',
       _links: {
-        self: { href: 'selflink' }
-      }
+        self: { href: 'selflink' },
+      },
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
@@ -73,7 +74,7 @@ describe('MetadataFieldDataService', () => {
     it('should call searchBy with the correct arguments', () => {
       metadataFieldService.findBySchema(schema);
       const expectedOptions = Object.assign(new FindListOptions(), {
-        searchParams: [new RequestParam('schema', schema.prefix)]
+        searchParams: [new RequestParam('schema', schema.prefix)],
       });
       expect(metadataFieldService.searchBy).toHaveBeenCalledWith('bySchema', expectedOptions, true, true);
     });

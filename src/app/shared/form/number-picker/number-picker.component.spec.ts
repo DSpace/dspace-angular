@@ -1,12 +1,25 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NumberPickerComponent } from './number-picker.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { createTestComponent } from '../../testing/utils.test';
+import { NumberPickerComponent } from './number-picker.component';
 
 describe('NumberPickerComponent test suite', () => {
 
@@ -23,17 +36,16 @@ describe('NumberPickerComponent test suite', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        NgbModule
-      ],
-      declarations: [
+        NgbModule,
+        TranslateModule.forRoot(),
         NumberPickerComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         NumberPickerComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -42,7 +54,6 @@ describe('NumberPickerComponent test suite', () => {
   beforeEach(() => {
     html = `
       <ds-number-picker
-        tabindex="1"
         [disabled]="disabled"
         [min]="min"
         [max]="max"
@@ -147,7 +158,12 @@ describe('NumberPickerComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    NumberPickerComponent],
 })
 class TestComponent {
 

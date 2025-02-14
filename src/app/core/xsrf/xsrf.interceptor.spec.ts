@@ -1,12 +1,21 @@
+import {
+  HTTP_INTERCEPTORS,
+  HttpHeaders,
+  HttpXsrfTokenExtractor,
+} from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpHeaders, HTTP_INTERCEPTORS, HttpXsrfTokenExtractor } from '@angular/common/http';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { CookieService } from '../services/cookie.service';
+
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { XsrfInterceptor } from './xsrf.interceptor';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
+import { RequestError } from '../data/request-error.model';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { CookieService } from '../services/cookie.service';
+import { XsrfInterceptor } from './xsrf.interceptor';
 
 describe(`XsrfInterceptor`, () => {
   let service: DspaceRestService;
@@ -19,7 +28,7 @@ describe(`XsrfInterceptor`, () => {
   // Mock payload/statuses are dummy content as we are not testing the results
   // of any below requests. We are only testing for X-XSRF-TOKEN header.
   const mockPayload = {
-    id: 1
+    id: 1,
   };
   const mockStatusCode = 200;
   const mockStatusText = 'SUCCESS';
@@ -35,7 +44,7 @@ describe(`XsrfInterceptor`, () => {
           multi: true,
         },
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock(testToken) },
-        { provide: CookieService, useValue: new CookieServiceMock() }
+        { provide: CookieService, useValue: new CookieServiceMock() },
       ],
     });
 
@@ -132,7 +141,7 @@ describe(`XsrfInterceptor`, () => {
     httpRequest.flush(mockPayload, {
       headers: new HttpHeaders().set('DSPACE-XSRF-TOKEN', mockNewXSRFToken),
       status: mockStatusCode,
-      statusText: mockStatusText
+      statusText: mockStatusText,
     });
   });
 
@@ -145,19 +154,20 @@ describe(`XsrfInterceptor`, () => {
     const mockErrorMessage = 'CSRF token mismatch';
 
     service.request(RestRequestMethod.GET, 'server/api/core/items').subscribe({
-      error: (error) => {
+      error: (error: unknown) => {
         expect(error).toBeTruthy();
+        expect(error instanceof RequestError).toBeTrue();
 
         // ensure mock error (added in below flush() call) is returned.
-        expect(error.statusCode).toBe(mockErrorCode);
-        expect(error.statusText).toBe(mockErrorText);
+        expect((error as RequestError).statusCode).toBe(mockErrorCode);
+        expect((error as RequestError).statusText).toBe(mockErrorText);
 
         // ensure our XSRF-TOKEN cookie exists & has the same value as the new DSPACE-XSRF-TOKEN header
         expect(cookieService.get('XSRF-TOKEN')).not.toBeNull();
         expect(cookieService.get('XSRF-TOKEN')).toBe(mockNewXSRFToken.toString());
 
         done();
-      }
+      },
     });
 
     const httpRequest = httpMock.expectOne('server/api/core/items');
@@ -166,7 +176,7 @@ describe(`XsrfInterceptor`, () => {
     httpRequest.flush(mockErrorMessage, {
       headers: new HttpHeaders().set('DSPACE-XSRF-TOKEN', mockNewXSRFToken),
       status: mockErrorCode,
-      statusText: mockErrorText
+      statusText: mockErrorText,
     });
   });
 

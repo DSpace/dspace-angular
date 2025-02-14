@@ -1,25 +1,32 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { BrowseService } from '../browse/browse.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
-import { ExternalSourceEntry } from '../shared/external-source-entry.model';
-import { ItemDataService } from './item-data.service';
-import { DeleteRequest, PostRequest } from './request.models';
-import { RequestService } from './request.service';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { CoreState } from '../core-state.model';
-import { RequestEntry } from './request-entry.model';
-import { FindListOptions } from './find-list-options.model';
-import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
+import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { testCreateDataImplementation } from './base/create-data.spec';
-import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { FindListOptions } from './find-list-options.model';
+import { ItemDataService } from './item-data.service';
+import {
+  DeleteRequest,
+  PostRequest,
+} from './request.models';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -46,7 +53,7 @@ describe('ItemDataService', () => {
   const objectCache = {} as ObjectCacheService;
   const halEndpointService: any = new HALEndpointServiceStub(itemEndpoint);
   const bundleService = jasmine.createSpyObj('bundleService', {
-    findByHref: {}
+    findByHref: {},
   });
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
@@ -54,8 +61,8 @@ describe('ItemDataService', () => {
     scopeID: scopeID,
     sort: {
       field: '',
-      direction: undefined
-    }
+      direction: undefined,
+    },
   });
 
   const browsesEndpoint = 'https://rest.api/discover/browses';
@@ -73,7 +80,7 @@ describe('ItemDataService', () => {
       cold('--a-', { a: itemBrowseEndpoint }) :
       cold('--#-', undefined, browseError);
     return jasmine.createSpyObj('bs', {
-      getBrowseURLFor: obs
+      getBrowseURLFor: obs,
     });
   }
 
@@ -158,7 +165,7 @@ describe('ItemDataService', () => {
     const externalSourceEntry = Object.assign(new ExternalSourceEntry(), {
       display: 'John, Doe',
       value: 'John, Doe',
-      _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
+      _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } },
     });
 
     beforeEach(() => {

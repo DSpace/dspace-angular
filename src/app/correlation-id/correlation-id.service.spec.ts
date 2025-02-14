@@ -1,11 +1,19 @@
-import { CorrelationIdService } from './correlation-id.service';
-import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
-import { UUIDService } from '../core/shared/uuid.service';
-import { MockStore } from '@ngrx/store/testing';
 import { TestBed } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { appReducers, AppState, storeModuleConfig } from '../app.reducer';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { MockStore } from '@ngrx/store/testing';
+
+import {
+  appReducers,
+  AppState,
+  storeModuleConfig,
+} from '../app.reducer';
+import { UUIDService } from '../core/shared/uuid.service';
+import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { SetCorrelationIdAction } from './correlation-id.actions';
+import { CorrelationIdService } from './correlation-id.service';
 
 describe('CorrelationIdService', () => {
   let service: CorrelationIdService;

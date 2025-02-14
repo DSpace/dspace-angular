@@ -5,18 +5,26 @@
          [ngClass]="getClass('element', 'control')">
 
       <!-- Draggable Container -->
-      <div cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
+      <div role="listbox" [attr.aria-label]="'dynamic-form-array.sortable-list.label' | translate" #dropList cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
         <!-- Draggable Items -->
-        <div *ngFor="let groupModel of model.groups; let idx = index"
+        <div #sortableElement
+             *ngFor="let groupModel of model.groups; let idx = index; let length = count"
              role="group"
-             [formGroupName]="idx"
+             [formGroupName]="groupModel.index"
              [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"
              cdkDrag
              [cdkDragDisabled]="dragDisabled"
              [cdkDragPreviewClass]="'ds-submission-reorder-dragging'"
              [class.grey-background]="model.isInlineGroupArray">
           <!-- Item content -->
-          <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0" cdkDragHandle>
+          <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0" cdkDragHandle
+               (focus)="addInstructionMessageToLiveRegion(sortableElement)"
+               (keydown.space)="toggleKeyboardDragAndDrop($event, sortableElement, idx, length)"
+               (keydown.enter)="toggleKeyboardDragAndDrop($event, sortableElement, idx, length)"
+               (keydown.tab)="stopKeyboardDragAndDrop(sortableElement, idx, length)"
+               (keydown.escape)="cancelKeyboardDragAndDrop(sortableElement, idx, length)"
+               (keydown.arrowUp)="handleArrowPress($event, dropList, length, idx, 'up')"
+               (keydown.arrowDown)="handleArrowPress($event, dropList, length, idx, 'down')">
             <i class="drag-icon fas fa-grip-vertical fa-fw" [class.drag-disable]="dragDisabled" ></i>
           </div>
           <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
@@ -25,7 +33,7 @@
                                              [formGroup]="group"
                                              [formModel]="formModel"
                                              [context]="groupModel"
-                                             [group]="control.get([idx])"
+                                             [group]="getControlOfGroup(groupModel)"
                                              [hidden]="_model.hidden"
                                              [class.d-none]="_model.hidden"
                                              [layout]="formLayout"

@@ -1,4 +1,5 @@
 <a *ngIf="isVisible | async" class="d-flex flex-row"
+   (click)="filterService.minimizeAll()"
    [routerLink]="[searchLink]"
    [queryParams]="changeQueryParams" queryParamsHandling="merge">
   <span class="filter-value px-1">{{filterValue.label}}</span>

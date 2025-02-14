@@ -1,6 +1,11 @@
 /* eslint-disable max-classes-per-file */
-import { EquatableObject, excludeFromEquals, fieldsForEquals } from './equals.decorators';
 import cloneDeep from 'lodash/cloneDeep';
+
+import {
+  EquatableObject,
+  excludeFromEquals,
+  fieldsForEquals,
+} from './equals.decorators';
 
 class Dog extends EquatableObject<Dog> {
   public name: string;
@@ -21,7 +26,7 @@ class Owner extends EquatableObject<Owner> {
   constructor(
     public name: string,
     public age: number,
-    favouriteFood: string
+    favouriteFood: string,
   ) {
     super();
     this.favouriteFood = favouriteFood;

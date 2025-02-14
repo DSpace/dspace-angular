@@ -1,14 +1,21 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ScriptHelpComponent } from './script-help.component';
-import { ScriptParameter } from '../../scripts/script-parameter.model';
-import { Script } from '../../scripts/script.model';
-import { ScriptParameterType } from '../../scripts/script-parameter-type.model';
-import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { Script } from '../../scripts/script.model';
+import { ScriptParameter } from '../../scripts/script-parameter.model';
+import { ScriptParameterType } from '../../scripts/script-parameter-type.model';
+import { ScriptHelpComponent } from './script-help.component';
 
 describe('ScriptHelpComponent', () => {
   let component: ScriptHelpComponent;
@@ -18,11 +25,11 @@ describe('ScriptHelpComponent', () => {
   function init() {
     const param1 = Object.assign(
       new ScriptParameter(),
-      {name: '-d', description: 'Lorem ipsum dolor sit amet,', type: ScriptParameterType.DATE}
+      { name: '-d', description: 'Lorem ipsum dolor sit amet,', type: ScriptParameterType.DATE },
     );
     const param2 = Object.assign(
       new ScriptParameter(),
-      {name: '-f', description: 'consetetur sadipscing elitr', type: ScriptParameterType.BOOLEAN}
+      { name: '-f', description: 'consetetur sadipscing elitr', type: ScriptParameterType.BOOLEAN },
     );
     script = Object.assign(new Script(), { parameters: [param1, param2] });
   }
@@ -34,13 +41,14 @@ describe('ScriptHelpComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [ ScriptHelpComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        ScriptHelpComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

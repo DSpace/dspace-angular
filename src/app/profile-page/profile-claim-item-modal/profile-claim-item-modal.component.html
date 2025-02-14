@@ -29,7 +29,7 @@
       <input type="checkbox" [checked]="checked" (change)="toggleCheckbox()"/>
       {{ 'dso-selector.claim.item.not-mine-label' | translate }}
     </div>
-    <button type="submit" class="btn btn-primary ml-5 mr-2" (click)="createFromScratch()" [disabled]="!checked">
+    <button type="submit" class="btn btn-primary ml-5 mr-2" (click)="createFromScratch()" [dsBtnDisabled]="!checked">
       <i class="fas fa-plus"></i>
       {{ 'dso-selector.claim.item.create-from-scratch' | translate }}
     </button>

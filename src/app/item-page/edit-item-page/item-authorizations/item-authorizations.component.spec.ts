@@ -1,18 +1,35 @@
-import { waitForAsync, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { ItemAuthorizationsComponent } from './item-authorizations.component';
+import { of as observableOf } from 'rxjs';
+
+import { LinkService } from '../../../core/cache/builders/link.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
-import { LinkService } from '../../../core/cache/builders/link.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList, createTestComponent } from '../../../shared/testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../../../shared/testing/utils.test';
+import { ItemAuthorizationsComponent } from './item-authorizations.component';
 
 describe('ItemAuthorizationsComponent test suite', () => {
   let comp: ItemAuthorizationsComponent;
@@ -24,35 +41,35 @@ describe('ItemAuthorizationsComponent test suite', () => {
 
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'bitstream1',
-    uuid: 'bitstream1'
+    uuid: 'bitstream1',
   });
   const bitstream2 = Object.assign(new Bitstream(), {
     id: 'bitstream2',
-    uuid: 'bitstream2'
+    uuid: 'bitstream2',
   });
   const bitstream3 = Object.assign(new Bitstream(), {
     id: 'bitstream3',
-    uuid: 'bitstream3'
+    uuid: 'bitstream3',
   });
   const bitstream4 = Object.assign(new Bitstream(), {
     id: 'bitstream4',
-    uuid: 'bitstream4'
+    uuid: 'bitstream4',
   });
   const bundle1 = Object.assign(new Bundle(), {
     id: 'bundle1',
     uuid: 'bundle1',
     _links: {
-      self: { href: 'bundle1-selflink' }
+      self: { href: 'bundle1-selflink' },
     },
-    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
   });
   const bundle2 = Object.assign(new Bundle(), {
     id: 'bundle2',
     uuid: 'bundle2',
     _links: {
-      self: { href: 'bundle2-selflink' }
+      self: { href: 'bundle2-selflink' },
     },
-    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4]))
+    bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream3, bitstream4])),
   });
   const bundles = [bundle1, bundle2];
 
@@ -60,36 +77,41 @@ describe('ItemAuthorizationsComponent test suite', () => {
     uuid: 'item',
     id: 'item',
     _links: {
-      self: { href: 'item-selflink' }
+      self: { href: 'item-selflink' },
     },
-    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2]))
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle1, bundle2])),
   });
 
   const routeStub = {
     data: observableOf({
-      dso: createSuccessfulRemoteDataObject(item)
-    })
+      dso: createSuccessfulRemoteDataObject(item),
+    }),
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         ItemAuthorizationsComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: LinkService, useValue: linkService },
         { provide: ActivatedRoute, useValue: routeStub },
-        ItemAuthorizationsComponent
+        ItemAuthorizationsComponent,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+        NO_ERRORS_SCHEMA,
+      ],
+    })
+      .overrideComponent(ItemAuthorizationsComponent, {
+        remove: { imports: [
+          ResourcePoliciesComponent,
+          AlertComponent,
+        ] },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -139,18 +161,18 @@ describe('ItemAuthorizationsComponent test suite', () => {
       expect(compAsAny.bundleBitstreamsMap.has('bundle2')).toBeTruthy();
       let bitstreamList = compAsAny.bundleBitstreamsMap.get('bundle1');
       expect(bitstreamList.bitstreams).toBeObservable(cold('(a|)', {
-        a : [bitstream1, bitstream2]
+        a : [bitstream1, bitstream2],
       }));
       bitstreamList = compAsAny.bundleBitstreamsMap.get('bundle2');
       expect(bitstreamList.bitstreams).toBeObservable(cold('(a|)', {
-        a: [bitstream3, bitstream4]
+        a: [bitstream3, bitstream4],
       }));
     });
 
     it('should get the item UUID', () => {
 
       expect(comp.getItemUUID()).toBeObservable(cold('(a|)', {
-        a: item.id
+        a: item.id,
       }));
 
     });
@@ -158,7 +180,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
     it('should get the item\'s bundle', () => {
 
       expect(comp.getItemBundles()).toBeObservable(cold('a', {
-        a: bundles
+        a: bundles,
       }));
 
     });
@@ -168,7 +190,8 @@ describe('ItemAuthorizationsComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

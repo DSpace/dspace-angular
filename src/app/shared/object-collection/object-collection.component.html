@@ -1,4 +1,4 @@
-<ds-themed-object-list [ngClass]="placeholderFontClass"
+<ds-object-list [ngClass]="placeholderFontClass"
                 [config]="config"
                 [sortConfig]="sortConfig"
                 [objects]="objects"
@@ -25,7 +25,7 @@
                 (prev)="goPrev()"
                 (next)="goNext()"
                 *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
-</ds-themed-object-list>
+</ds-object-list>
 
 <ds-object-grid [config]="config"
                 [sortConfig]="sortConfig"
@@ -58,3 +58,19 @@
 </ds-object-detail>
 
 
+<ds-object-table  [config]="config"
+                  [sortConfig]="sortConfig"
+                  [objects]="objects"
+                  [hideGear]="hideGear"
+                  [linkType]="linkType"
+                  [context]="context"
+                  [hidePaginationDetail]="hidePaginationDetail"
+                  [showPaginator]="showPaginator"
+                  [showThumbnails]="showThumbnails"
+                  (paginationChange)="onPaginationChange($event)"
+                  (pageChange)="onPageChange($event)"
+                  (pageSizeChange)="onPageSizeChange($event)"
+                  (sortDirectionChange)="onSortDirectionChange($event)"
+                  (sortFieldChange)="onSortFieldChange($event)"
+                  *ngIf="(currentMode$ | async) === viewModeEnum.Table">
+</ds-object-table>

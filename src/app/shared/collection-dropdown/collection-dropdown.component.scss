@@ -4,7 +4,8 @@
   overflow-x: hidden;
 }
 
-.collection-item {
+li:not(:last-of-type), .dropdown-divider {
+  border-top: none;
   border-bottom: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
 }
 

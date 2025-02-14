@@ -1,9 +1,17 @@
-import { Item } from '../../../../../core/shared/item.model';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { Item } from '../../../../../core/shared/item.model';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { StatusBadgeComponent } from './status-badge.component';
 
 let comp: StatusBadgeComponent;
@@ -17,11 +25,10 @@ let notPrivateItem = Object.assign(new Item(), { isDiscoverable: true });
 describe('ItemStatusBadgeComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [StatusBadgeComponent, TruncatePipe],
-      schemas: [NO_ERRORS_SCHEMA]
+      imports: [TranslateModule.forRoot(), StatusBadgeComponent, TruncatePipe],
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(StatusBadgeComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
     init();
   }));

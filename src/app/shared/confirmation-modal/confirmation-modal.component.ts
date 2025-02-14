@@ -1,11 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-confirmation-modal',
   templateUrl: 'confirmation-modal.component.html',
+  standalone: true,
+  imports: [NgIf, TranslateModule],
 })
 export class ConfirmationModalComponent {
   @Input() headerLabel: string;
@@ -18,7 +25,7 @@ export class ConfirmationModalComponent {
    */
   @Input() brandColor = 'primary';
 
-  @Input() dso: DSpaceObject;
+  @Input() name: string;
 
   /**
    * An event fired when the cancel or confirm button is clicked, with respectively false or true
@@ -28,7 +35,6 @@ export class ConfirmationModalComponent {
 
   constructor(
     protected activeModal: NgbActiveModal,
-    public dsoNameService: DSONameService,
   ) {
   }
 

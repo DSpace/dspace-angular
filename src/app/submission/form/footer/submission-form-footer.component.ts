@@ -1,13 +1,24 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-
-import { Observable, of as observableOf } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
-import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
+import { SubmissionService } from '../../submission.service';
 
 /**
  * This component represents submission form footer bar.
@@ -15,7 +26,9 @@ import { isNotEmpty } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
-  templateUrl: './submission-form-footer.component.html'
+  templateUrl: './submission-form-footer.component.html',
+  standalone: true,
+  imports: [CommonModule, BrowserOnlyPipe, TranslateModule, BtnDisabledDirective],
 })
 export class SubmissionFormFooterComponent implements OnChanges {
 
@@ -72,7 +85,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (isNotEmpty(this.submissionId)) {
       this.submissionIsInvalid = this.submissionService.getSubmissionStatus(this.submissionId).pipe(
-        map((isValid: boolean) => isValid === false)
+        map((isValid: boolean) => isValid === false),
       );
 
       this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
@@ -112,7 +125,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
         if (result === 'ok') {
           this.submissionService.dispatchDiscard(this.submissionId);
         }
-      }
+      },
     );
   }
 }

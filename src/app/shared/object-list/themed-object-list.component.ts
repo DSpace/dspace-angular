@@ -1,21 +1,32 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ObjectListComponent } from './object-list.component';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { Context } from '../../core/shared/context.model';
-import { RemoteData } from '../../core/data/remote-data';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Context } from '../../core/shared/context.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { ObjectListComponent } from './object-list.component';
 
 /**
  * Themed wrapper for ObjectListComponent
  */
 @Component({
-  selector: 'ds-themed-object-list',
+  selector: 'ds-object-list',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
+  imports: [ObjectListComponent],
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
 

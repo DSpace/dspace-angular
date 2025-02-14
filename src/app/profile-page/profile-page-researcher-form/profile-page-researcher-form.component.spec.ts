@@ -1,23 +1,29 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { of as observableOf } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form.component';
-import { ProfileClaimService } from '../profile-claim/profile-claim.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProfileClaimService } from '../profile-claim/profile-claim.service';
+import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form.component';
 
 describe('ProfilePageResearcherFormComponent', () => {
 
@@ -39,17 +45,17 @@ describe('ProfilePageResearcherFormComponent', () => {
   function init() {
 
     user = Object.assign(new EPerson(), {
-      id: 'beef9946-f4ce-479e-8f11-b90cbe9f7241'
+      id: 'beef9946-f4ce-479e-8f11-b90cbe9f7241',
     });
 
     profile = Object.assign(new ResearcherProfile(), {
       id: 'beef9946-f4ce-479e-8f11-b90cbe9f7241',
       visible: false,
-      type: 'profile'
+      type: 'profile',
     });
 
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user)
+      getAuthenticatedUserFromStore: observableOf(user),
     });
 
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
@@ -57,7 +63,7 @@ describe('ProfilePageResearcherFormComponent', () => {
       create: observableOf(profile),
       setVisibility: jasmine.createSpy('setVisibility'),
       delete: observableOf(true),
-      findRelatedItemId: observableOf('a42557ca-cbb8-4442-af9c-3bb5cad2d075')
+      findRelatedItemId: observableOf('a42557ca-cbb8-4442-af9c-3bb5cad2d075'),
     });
 
     notificationsServiceStub = new NotificationsServiceStub();
@@ -71,16 +77,15 @@ describe('ProfilePageResearcherFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageResearcherFormComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProfilePageResearcherFormComponent, VarDirective],
       providers: [
         NgbModal,
         { provide: ResearcherProfileDataService, useValue: researcherProfileService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: ProfileClaimService, useValue: profileClaimService },
-        { provide: AuthService, useValue: authService }
+        { provide: AuthService, useValue: authService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

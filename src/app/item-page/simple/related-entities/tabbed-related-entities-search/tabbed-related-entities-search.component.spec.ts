@@ -1,47 +1,63 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Item } from '../../../../core/shared/item.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { VarDirective } from '../../../../shared/utils/var.directive';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { Item } from '../../../../core/shared/item.model';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
+import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';
 
 describe('TabbedRelatedEntitiesSearchComponent', () => {
   let comp: TabbedRelatedEntitiesSearchComponent;
   let fixture: ComponentFixture<TabbedRelatedEntitiesSearchComponent>;
 
   const mockItem = Object.assign(new Item(), {
-    id: 'id1'
+    id: 'id1',
   });
   const mockRelationType = 'publications';
   const relationTypes = [
     {
       label: mockRelationType,
-      filter: mockRelationType
-    }
+      filter: mockRelationType,
+    },
   ];
 
   const router = new RouterMock();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule],
-      declarations: [TabbedRelatedEntitiesSearchComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule, TabbedRelatedEntitiesSearchComponent, VarDirective],
       providers: [
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParams: observableOf({ tab: mockRelationType })
+            queryParams: observableOf({ tab: mockRelationType }),
           },
         },
-        { provide: Router, useValue: router }
+        { provide: Router, useValue: router },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(TabbedRelatedEntitiesSearchComponent, {
+        remove: {
+          imports: [
+            RelatedEntitiesSearchComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -61,7 +77,7 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
   describe('onTabChange', () => {
     const event = {
       currentId: mockRelationType,
-      nextId: 'nextTab'
+      nextId: 'nextTab',
     };
 
     beforeEach(() => {
@@ -72,9 +88,9 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith([], {
         relativeTo: (comp as any).route,
         queryParams: {
-          tab: event.nextId
+          tab: event.nextId,
         },
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
     });
   });

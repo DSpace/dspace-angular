@@ -1,18 +1,16 @@
-import { WorkflowAction } from '../tasks/models/workflow-action-object.model';
-import { RequestService } from './request.service';
+import { Injectable } from '@angular/core';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Injectable } from '@angular/core';
-import { WORKFLOW_ACTION } from '../tasks/models/workflow-action-object.resource-type';
-import { dataService } from './base/data-service.decorator';
+import { WorkflowAction } from '../tasks/models/workflow-action-object.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
+import { RequestService } from './request.service';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the workflowactions endpoint
  */
-@Injectable()
-@dataService(WORKFLOW_ACTION)
+@Injectable({ providedIn: 'root' })
 export class WorkflowActionDataService extends IdentifiableDataService<WorkflowAction> {
   protected linkPath = 'workflowactions';
 

@@ -1,31 +1,40 @@
-import { autoserialize, autoserializeAs, deserialize, deserializeAs, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+  deserializeAs,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
+import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
+import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
+
 import { isEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { link, typedObject } from '../cache/builders/build-decorators';
+import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
+import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
+import { Bitstream } from './bitstream.model';
+import { BITSTREAM } from './bitstream.resource-type';
 import { Bundle } from './bundle.model';
 import { BUNDLE } from './bundle.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
 import { Collection } from './collection.model';
 import { COLLECTION } from './collection.resource-type';
-
 import { DSpaceObject } from './dspace-object.model';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
+import { HandleObject } from './handle-object.model';
+import { ITEM } from './item.resource-type';
 import { Relationship } from './item-relationships/relationship.model';
 import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
-import { ITEM } from './item.resource-type';
-import { ChildHALResource } from './child-hal-resource.model';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
-import { BITSTREAM } from './bitstream.resource-type';
-import { Bitstream } from './bitstream.model';
-import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
-import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { HandleObject } from './handle-object.model';
-import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
-import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
 
 /**
  * Class representing a DSpace Item
@@ -122,7 +131,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * Will be undefined unless the access status {@link HALLink} has been resolved.
    */
    @link(ACCESS_STATUS)
-   accessStatus?: Observable<RemoteData<AccessStatusObject>>;
+     accessStatus?: Observable<RemoteData<AccessStatusObject>>;
 
   /**
    * The identifier data for this Item

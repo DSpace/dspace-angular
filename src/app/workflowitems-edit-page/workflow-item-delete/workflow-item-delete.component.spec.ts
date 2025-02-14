@@ -1,23 +1,37 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
-import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouteService } from '../../core/services/route.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { VarDirective } from '../../shared/utils/var.directive';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
 import { RequestService } from '../../core/data/request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouteService } from '../../core/services/route.service';
+import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { LocationStub } from '../../shared/testing/location.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
 
 describe('WorkflowItemDeleteComponent', () => {
   let component: WorkflowItemDeleteComponent;
@@ -29,7 +43,7 @@ describe('WorkflowItemDeleteComponent', () => {
 
   function init() {
     wfiService = jasmine.createSpyObj('workflowItemService', {
-      delete: observableOf(true)
+      delete: observableOf(true),
     });
     itemRD$ = createSuccessfulRemoteDataObject$(itemRD$);
     wfi = new WorkflowItem();
@@ -43,10 +57,9 @@ describe('WorkflowItemDeleteComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [WorkflowItemDeleteComponent, VarDirective],
+          useClass: TranslateLoaderMock,
+        },
+      }), WorkflowItemDeleteComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },
@@ -56,7 +69,7 @@ describe('WorkflowItemDeleteComponent', () => {
         { provide: WorkflowItemDataService, useValue: wfiService },
         { provide: RequestService, useValue: getMockRequestService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

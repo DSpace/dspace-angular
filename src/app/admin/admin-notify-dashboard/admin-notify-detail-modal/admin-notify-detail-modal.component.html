@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{'notify-message-modal.title' | translate}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-4">
+    <div *ngFor="let key of notifyMessageKeys">
+      <div class="row mb-4">
+        <div class="font-weight-bold col">{{ key + '.notify-detail-modal' | translate}}</div>
+        <div class="col text-right">{{'notify-detail-modal.' + notifyMessage[key] | translate: {default: notifyMessage[key] ?? "n/a" } }}</div>
+      </div>
+    </div>
+
+  <div class="d-flex justify-content-end">
+    <button class="btn-primary" (click)="toggleCoarMessage()">
+      {{'notify-message-modal.show-message' | translate}}
+    </button>
+  </div>
+
+  <pre @fadeIn [innerHTML]="notifyMessage.message" class="bg-secondary text-white mt-2 p-2" *ngIf="isCoarMessageVisible"></pre>
+</div>

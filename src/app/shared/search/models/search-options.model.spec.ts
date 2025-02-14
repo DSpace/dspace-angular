@@ -1,6 +1,6 @@
-import { SearchOptions } from './search-options.model';
-import { SearchFilter } from './search-filter.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { SearchFilter } from './search-filter.model';
+import { SearchOptions } from './search-options.model';
 
 describe('SearchOptions', () => {
   let options: SearchOptions;
@@ -36,7 +36,7 @@ describe('SearchOptions', () => {
         'f.test=value&' +
         'f.example=another%20value&' +
         'f.example=second%20value&' +
-        'f.range=%5B2002%20TO%202021%5D,equals'
+        'f.range=%5B2002%20TO%202021%5D,equals',
       );
     });
 

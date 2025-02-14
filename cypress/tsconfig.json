@@ -4,6 +4,7 @@
     "**/*.ts"
   ],
   "compilerOptions": {
+    "sourceMap": false,
     "types": [
       "cypress",
       "cypress-axe",
