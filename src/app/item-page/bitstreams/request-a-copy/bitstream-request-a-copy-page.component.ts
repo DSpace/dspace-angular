@@ -1,10 +1,14 @@
+import 'altcha';
+
 import {
   AsyncPipe,
   Location,
   NgIf,
 } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
+  CUSTOM_ELEMENTS_SCHEMA,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -47,6 +51,7 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
+import { ProofOfWorkCaptchaDataService } from '../../../core/data/proof-of-work-captcha-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Item } from '../../../core/shared/item.model';
@@ -61,7 +66,9 @@ import {
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemPageRoute } from '../../item-page-routing-paths';
+import { AltchaCaptchaComponent } from './altcha-captcha.component';
 
 @Component({
   selector: 'ds-bitstream-request-a-copy-page',
@@ -73,7 +80,10 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     ReactiveFormsModule,
     NgIf,
     BtnDisabledDirective,
+    VarDirective,
+    AltchaCaptchaComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   standalone: true,
 })
 /**
@@ -94,6 +104,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   bitstream: Bitstream;
   bitstreamName: string;
 
+  // Captcha settings
+  captchaEnabled$: Observable<boolean>;
+  challengeHref$: Observable<string>;
+
   constructor(private location: Location,
               private translateService: TranslateService,
               private route: ActivatedRoute,
@@ -105,6 +119,8 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private dsoNameService: DSONameService,
               private bitstreamService: BitstreamDataService,
+              private captchaService: ProofOfWorkCaptchaDataService,
+              private changeDetectorRef: ChangeDetectorRef,
   ) {
   }
 
@@ -119,8 +135,15 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
       }),
       allfiles: new UntypedFormControl(''),
       message: new UntypedFormControl(''),
+      // Payload here is initialised as "required", but this validator will be cleared
+      // if the config property comes back as 'captcha not enabled'
+      captchaPayload: new UntypedFormControl('', {
+        validators: [Validators.required],
+      }),
     });
 
+    this.captchaEnabled$ = this.itemRequestDataService.isProtectedByCaptcha();
+    this.challengeHref$ = this.captchaService.getChallengeHref();
 
     this.item$ = this.route.data.pipe(
       map((data) => data.dso),
@@ -174,6 +197,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     return this.requestCopyForm.get('allfiles');
   }
 
+  get captchaPayload() {
+    return this.requestCopyForm.get('captchaPayload');
+  }
+
   /**
    * Initialise the form values based on the current user.
    */
@@ -187,6 +214,17 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     this.bitstream$.pipe(take(1)).subscribe((bitstream) => {
       this.requestCopyForm.patchValue({ allfiles: 'false' });
     });
+    this.subs.push(this.captchaEnabled$.pipe(
+      take(1),
+    ).subscribe((enabled) => {
+      if (!enabled) {
+        // Captcha not required? Clear validators to allow the form to be submitted normally
+        this.requestCopyForm.get('captchaPayload').clearValidators();
+        this.requestCopyForm.get('captchaPayload').reset();
+        this.requestCopyForm.updateValueAndValidity();
+      }
+      this.changeDetectorRef.detectChanges();
+    }));
   }
 
   /**
@@ -220,8 +258,9 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
     itemRequest.requestEmail = this.email.value;
     itemRequest.requestName = this.name.value;
     itemRequest.requestMessage = this.message.value;
+    const captchaPayloadString: string = this.captchaPayload.value;
 
-    this.itemRequestDataService.requestACopy(itemRequest).pipe(
+    this.itemRequestDataService.requestACopy(itemRequest, captchaPayloadString).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
@@ -231,6 +270,10 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         this.notificationsService.error(this.translateService.get('bitstream-request-a-copy.submit.error'));
       }
     });
+  }
+
+  handlePayload(event): void {
+    this.requestCopyForm.patchValue({ captchaPayload: event });
   }
 
   ngOnDestroy(): void {

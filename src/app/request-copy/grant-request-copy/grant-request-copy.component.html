@@ -1,9 +1,36 @@
 <div class="container" *ngVar="(itemRequestRD$ | async) as itemRequestRD">
   <h3 class="mb-4">{{'grant-request-copy.header' | translate}}</h3>
   <div *ngIf="itemRequestRD && itemRequestRD.hasSucceeded">
-    <p>{{'grant-request-copy.intro' | translate}}</p>
+    <div *ngIf="sendAsAttachment">
 
-    <ds-email-request-copy [subject]="subject$ | async" [message]="message$ | async" (send)="grant($event)">
+    </div>
+    <div *ngIf="!sendAsAttachment">
+
+    </div>
+    <!-- Show the appropriate intro text depending on whether the email will have an attachment or a web link -->
+    <p>{{'grant-request-copy.intro.' + (sendAsAttachment ? 'attachment' : 'link') | translate}}</p>
+
+    <div *ngIf="!sendAsAttachment && hasValue(previewLink)">
+      <p>{{ 'grant-request-copy.intro.link.preview' | translate }}
+<!--      <a [routerLink]="previewLinkOptions.routerLink" class="dont-break-out d-block" [queryParams]="previewLinkOptions.queryParams" [target]="'_blank'">-->
+<!--        {{ previewLink }}-->
+<!--      </a>-->
+        <a [attr.routerLink]="previewLinkOptions.routerLink" class="dont-break-out d-block" [target]="'_blank'"
+           [attr.queryParams]="previewLinkOptions.queryParams"
+           [attr.rel]=""
+        >
+          {{ previewLink }}
+        </a>
+      </p>
+    </div>
+
+    <!-- Only send access periods for display if an access token was present -->
+    <ds-email-request-copy [subject]="subject$ | async"
+                                  [message]="message$ | async"
+                                  [validAccessPeriods]="(hasValue(itemRequestRD.payload.accessToken) ? (validAccessPeriods$ | async) : [])"
+                                  (send)="grant($event)"
+                                  (selectedAccessPeriod)="selectAccessPeriod($event)"
+    >
       <p>{{ 'grant-deny-request-copy.email.permissions.info' | translate }}</p>
       <form class="mb-3">
         <div class="form-check">

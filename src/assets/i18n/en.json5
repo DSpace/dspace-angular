@@ -998,6 +998,10 @@
 
   "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
 
+  "bitstream-request-a-copy.access-by-token.warning": "You are viewing this item with the secure access link provided to you by the author or repository staff. It is important not to share this link to unauthorised users.",
+
+  "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
+
   "browse.back.all-results": "All browse results",
 
   "browse.comcol.by.author": "By Author",
@@ -2034,7 +2038,9 @@
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
-  "grant-deny-request-copy.deny": "Don't send copy",
+  "grant-deny-request-copy.deny": "Deny access request",
+
+  "grant-deny-request-copy.revoke": "Revoke access",
 
   "grant-deny-request-copy.email.back": "Back",
 
@@ -2052,7 +2058,7 @@
 
   "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
 
-  "grant-deny-request-copy.grant": "Send copy",
+  "grant-deny-request-copy.grant": "Grant access request",
 
   "grant-deny-request-copy.header": "Document copy request",
 
@@ -2062,6 +2068,8 @@
 
   "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
 
+  "grant-deny-request-copy.previous-decision": "This request was previously granted with a secure access token. You may revoke this access now to immediately invalidate the access token",
+
   "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
 
   "grant-request-copy.email.subject": "Request copy of document",
@@ -2070,9 +2078,25 @@
 
   "grant-request-copy.header": "Grant document copy request",
 
-  "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro.attachment": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+
+  "grant-request-copy.intro.link": "A message will be sent to the applicant of the request. A secure link providing access to the requested document(s) will be attached. The link will provide access for the duration of time selected in the \"Access Period\" menu below.",
+
+  "grant-request-copy.intro.link.preview": "Below is a preview of the link that will be sent to the applicant:",
 
   "grant-request-copy.success": "Successfully granted item request",
+
+  "grant-request-copy.access-period.header": "Access period",
+
+  "grant-request-copy.access-period.120": "2 minutes",
+
+  "grant-request-copy.access-period.240": "4 minutes",
+
+  "grant-request-copy.access-period.86400": "1 day",
+
+  "grant-request-copy.access-period.604800": "7 days",
+
+  "grant-request-copy.access-period.0": "Forever",
 
   "health.breadcrumbs": "Health",
 
