@@ -1326,6 +1326,8 @@
 
   "collection.page.news": "News",
 
+  "collection.page.options": "Options",
+
   "collection.search.results.head": "Search Results",
 
   "collection.select.confirm": "Confirm selected",
@@ -1561,6 +1563,8 @@
   "community.page.license": "License",
 
   "community.page.news": "News",
+
+  "community.page.options": "Options",
 
   "community.all-lists.head": "Subcommunities and Collections",
 
@@ -2764,6 +2768,8 @@
 
   "item.page.link.simple": "Simple item page",
 
+  "item.page.options": "Options",
+
   "item.page.orcid.title": "ORCID",
 
   "item.page.orcid.tooltip": "Open ORCID setting page",
@@ -3092,6 +3098,8 @@
 
   "journal.page.publisher": "Publisher",
 
+  "journal.page.options": "Options",
+
   "journal.page.titleprefix": "Journal: ",
 
   "journal.search.results.head": "Journal Search Results",
@@ -3116,6 +3124,8 @@
 
   "journalissue.page.number": "Number",
 
+  "journalissue.page.options": "Options",
+
   "journalissue.page.titleprefix": "Journal Issue: ",
 
   "journalissue.search.results.head": "Journal Issue Search Results",
@@ -3127,6 +3137,8 @@
   "journalvolume.page.edit": "Edit this item",
 
   "journalvolume.page.issuedate": "Issue Date",
+
+  "journalvolume.page.options": "Options",
 
   "journalvolume.page.titleprefix": "Journal Volume: ",
 
@@ -3678,6 +3690,8 @@
 
   "orgunit.page.id": "ID",
 
+  "orgunit.page.options": "Options",
+
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
   "orgunit.page.ror": "ROR Identifier",
@@ -3713,6 +3727,8 @@
   "person.page.name": "Name",
 
   "person.page.link.full": "Show all metadata",
+
+  "person.page.options": "Options",
 
   "person.page.orcid": "ORCID",
 
@@ -3956,6 +3972,8 @@
 
   "project.page.keyword": "Keywords",
 
+  "project.page.options": "Options",
+
   "project.page.status": "Status",
 
   "project.page.titleprefix": "Research Project: ",
@@ -3975,6 +3993,8 @@
   "publication.page.journal-title": "Journal Title",
 
   "publication.page.publisher": "Publisher",
+
+  "publication.page.options": "Options",
 
   "publication.page.titleprefix": "Publication: ",
 
