@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="item-page">
+    <ds-item-access-by-token-view [object]="(itemRD$ | async)?.payload"
+                                         [itemRequest$]="itemRequest$"
+                                         [viewMode]="viewMode">
+    </ds-item-access-by-token-view>
+  </div>
+</div>
