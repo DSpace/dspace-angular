@@ -7,6 +7,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -29,7 +30,6 @@ import { Process } from '../../../../process-page/processes/process.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ds-filtered-items-export-csv',

@@ -3,6 +3,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,10 +25,6 @@ import {
 } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv.component';
-import {
-  FormControl,
-  FormGroup,
-} from '@angular/forms';
 
 describe('FilteredItemsExportCsvComponent', () => {
   let component: FilteredItemsExportCsvComponent;
