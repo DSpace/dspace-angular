@@ -14,6 +14,8 @@
         </div>
 
         <h2 class="px-2 h5">{{'dso-selector.' + action + '.' + objectType.toString().toLowerCase() + '.input-header' | translate}}</h2>
-        <ds-dso-selector [currentDSOId]="dsoRD?.payload.uuid" [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)"></ds-dso-selector>
+        <ds-dso-selector [context]="Context.ScopeSelectorModal" [currentDSOId]="dsoRD?.payload.uuid"
+                         [types]="selectorTypes" [sort]="defaultSort" (onSelect)="selectObject($event)">
+        </ds-dso-selector>
     </div>
 </div>
