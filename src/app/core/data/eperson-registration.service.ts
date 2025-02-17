@@ -81,6 +81,7 @@ export class EpersonRegistrationService {
     let headers = new HttpHeaders();
     if (captchaToken) {
       headers = headers.append('x-recaptcha-token', captchaToken);
+      headers = headers.append('x-captcha-version', captchaToken);
     }
     options.headers = headers;
 
