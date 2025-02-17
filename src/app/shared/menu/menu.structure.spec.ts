@@ -4,7 +4,6 @@ import { NewMenuProvider } from './providers/new.menu';
 import { DsoOptionMenuProvider } from './providers/dso-option.menu';
 import { SubscribeMenuProvider } from './providers/comcol-subscribe.menu';
 import { buildMenuStructure } from './menu.structure';
-import { MenuProviderService } from './menu-provider.service';
 import { BrowseMenuProvider } from './providers/browse.menu';
 import { StatisticsMenuProvider } from './providers/statistics.menu';
 import { EditMenuProvider } from './providers/edit.menu';
@@ -103,16 +102,15 @@ describe('buildMenuStructure', () => {
 
   it('should have a double amount of objects with an additional service after the processing', () => {
     const result = buildMenuStructure(providerStructure);
-    expect(result.length).toEqual(orderedProviderTypeList.length * 2 + 1);
+    expect(result.length).toEqual(orderedProviderTypeList.length * 2);
   });
 
   it('should return a list with the MenuProviderService and then a resolved provider and provider type for each provider in the provided structure', () => {
     const result = buildMenuStructure(providerStructure);
-    expect(result[0]).toEqual(MenuProviderService);
 
     orderedProviderTypeList.forEach((provider, index) => {
-      expect((result[(index + 1) * 2 - 1] as any).deps).toEqual([provider]);
-      expect(result[(index + 1) * 2]).toEqual(provider);
+      expect((result[index * 2] as any).deps).toEqual([provider]);
+      expect(result[index * 2 + 1]).toEqual(provider);
     });
   });
 });
