@@ -1,5 +1,6 @@
-<div [ngClass]="{'expanded': (isExpanded$ | async)}"
-    [@bgColor]="{
+<div *ngIf="hasSubSections$ | async"
+     [ngClass]="{'expanded': (isExpanded$ | async)}"
+     [@bgColor]="{
      value: ((isExpanded$ | async) ? 'endBackground' : 'startBackground'),
      params: {endColor: (sidebarActiveBg$ | async)}
      }">
@@ -15,7 +16,7 @@
      href="javascript:void(0);"
   >
     <div class="sidebar-fixed-element-wrapper" data-test="sidebar-section-icon" aria-hidden="true">
-      <i class="fas fa-{{section.icon}} fa-fw"></i>
+      <i class="fas fa-{{section.icon ?? 'notdef'}} fa-fw"></i>
     </div>
     <div class="sidebar-collapsible-element-outer-wrapper">
       <div class="sidebar-collapsible-element-inner-wrapper sidebar-item toggler-wrapper">
