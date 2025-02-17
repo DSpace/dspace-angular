@@ -45,6 +45,7 @@ import { environment } from 'src/environments/environment';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
+import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv/filtered-items-export-csv.component';
 import { FilteredItems } from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
 import { PresetQuery } from './preset-query.model';
@@ -66,6 +67,7 @@ import { QueryPredicate } from './query-predicate.model';
     NgForOf,
     FiltersComponent,
     BtnDisabledDirective,
+    FilteredItemsExportCsvComponent,
   ],
   standalone: true,
 })
