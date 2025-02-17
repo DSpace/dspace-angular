@@ -100,12 +100,12 @@ describe('buildMenuStructure', () => {
     ];
 
 
-  it('should have a double amount of objects with an additional service after the processing', () => {
+  it('should have a double amount of objects after the processing', () => {
     const result = buildMenuStructure(providerStructure);
     expect(result.length).toEqual(orderedProviderTypeList.length * 2);
   });
 
-  it('should return a list with the MenuProviderService and then a resolved provider and provider type for each provider in the provided structure', () => {
+  it('should return a list with a resolved provider and provider type for each provider in the provided structure', () => {
     const result = buildMenuStructure(providerStructure);
 
     orderedProviderTypeList.forEach((provider, index) => {
