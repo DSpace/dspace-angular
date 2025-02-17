@@ -144,7 +144,6 @@ describe('FilteredItemsExportCsvComponent', () => {
           { name: '-f', value: FiltersComponent.toQueryString(params.value.filters) },
         ], []);
 
-      component.reportParams = null;
       fixture.detectChanges();
 
       component.export();
