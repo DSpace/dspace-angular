@@ -1,6 +1,5 @@
 import { buildMenuStructure } from './menu.structure';
 import { MenuID } from './menu-id.model';
-import { MenuProviderService } from './menu-provider.service';
 import { MenuRoute } from './menu-route.model';
 import { AccessControlMenuProvider } from './providers/access-control.menu';
 import { AdminSearchMenuProvider } from './providers/admin-search.menu';
@@ -101,18 +100,17 @@ describe('buildMenuStructure', () => {
     ];
 
 
-  it('should have a double amount of objects with an additional service after the processing', () => {
+  it('should have a double amount of objects after the processing', () => {
     const result = buildMenuStructure(providerStructure);
-    expect(result.length).toEqual(orderedProviderTypeList.length * 2 + 1);
+    expect(result.length).toEqual(orderedProviderTypeList.length * 2);
   });
 
-  it('should return a list with the MenuProviderService and then a resolved provider and provider type for each provider in the provided structure', () => {
+  it('should return a list with a resolved provider and provider type for each provider in the provided structure', () => {
     const result = buildMenuStructure(providerStructure);
-    expect(result[0]).toEqual(MenuProviderService);
 
     orderedProviderTypeList.forEach((provider, index) => {
-      expect((result[(index + 1) * 2 - 1] as any).deps).toEqual([provider]);
-      expect(result[(index + 1) * 2]).toEqual(provider);
+      expect((result[index * 2] as any).deps).toEqual([provider]);
+      expect(result[index * 2 + 1]).toEqual(provider);
     });
   });
 });

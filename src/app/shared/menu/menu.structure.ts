@@ -20,7 +20,6 @@ import {
   AbstractMenuProvider,
   MenuProviderTypeWithOptions,
 } from './menu-provider.model';
-import { MenuProviderService } from './menu-provider.service';
 import { MenuRoute } from './menu-route.model';
 
 export const MENU_PROVIDER = new InjectionToken<AbstractMenuProvider>('MENU_PROVIDER');
@@ -35,7 +34,6 @@ type MenuStructure = {
  */
 export function buildMenuStructure(structure: MenuStructure): Provider[] {
   const providers: Provider[] = [
-    MenuProviderService,
   ];
 
   Object.entries(structure).forEach(([menuID, providerTypes]) => {
