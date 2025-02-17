@@ -200,7 +200,7 @@ export class FormBuilderService extends DynamicFormService {
     iterateControlModels(groupModel);
   }
 
-  getValueFromModel(groupModel: DynamicFormControlModel[]): void {
+  getValueFromModel(groupModel: DynamicFormControlModel[]): any {
     let result = Object.create({});
     const customizer = (objValue, srcValue) => {
       if (Array.isArray(objValue)) {
@@ -210,6 +210,7 @@ export class FormBuilderService extends DynamicFormService {
 
     const normalizeValue = (controlModel, controlValue, controlModelIndex) => {
       let securityLevel = null;
+      let controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
       if (controlModel instanceof DynamicQualdropModel) {
         // get the security value inside in the metadataValue of input
         if (controlModel.group) {
@@ -234,6 +235,18 @@ export class FormBuilderService extends DynamicFormService {
             }
           });
         }
+
+        let qualdropLanguageControl = null;
+        for (const control of controlModel.group) {
+          if (hasValue((control as DsDynamicInputModel).language)) {
+            qualdropLanguageControl = control as DsDynamicInputModel;
+            break;
+          }
+        }
+        if (qualdropLanguageControl) {
+          controlModel.language = controlLanguage ?? qualdropLanguageControl.language;
+          controlLanguage = controlModel.language;
+        }
       }
       if (controlModel && (controlModel as any).securityLevel !== undefined) {
         securityLevel = (controlModel as any).securityLevel;
@@ -246,13 +259,13 @@ export class FormBuilderService extends DynamicFormService {
           }
         }
       }
-      const controlLanguage = (controlModel as DsDynamicInputModel).hasLanguages ? (controlModel as DsDynamicInputModel).language : null;
 
       if (controlModel?.metadataValue?.authority?.includes(VIRTUAL_METADATA_PREFIX)) {
         return controlModel.metadataValue;
       }
       if (isString(controlValue)) {
-        return new FormFieldMetadataValueObject(controlValue, controlLanguage, securityLevel, null, controlModelIndex);
+        const lang = controlModel instanceof DynamicQualdropModel ? controlModel.language : controlLanguage;
+        return new FormFieldMetadataValueObject(controlValue, lang, securityLevel, null, controlModelIndex);
       } else if (isNgbDateStruct(controlValue)) {
         return new FormFieldMetadataValueObject(dateToString(controlValue));
       } else if (isObject(controlValue)) {
