@@ -13,11 +13,13 @@ import { ResourcePolicyTargetResolver } from './resolvers/resource-policy-target
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared.module';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
+import { ThemedResourcePolicyFormComponent } from './form/themed-resource-policy-form.component';
 
 const COMPONENTS = [
   ResourcePoliciesComponent,
   ResourcePolicyEntryComponent,
   ResourcePolicyFormComponent,
+  ThemedResourcePolicyFormComponent,
   ResourcePolicyEditComponent,
   ResourcePolicyCreateComponent,
 ];
