@@ -67,7 +67,7 @@ export class EpersonRegistrationService {
   /**
    * Register a new email address
    * @param email
-   * @param captchaToken the value of x-recaptcha-token header
+   * @param captchaToken the value of x-captcha-payload header
    */
   registerEmail(email: string, captchaToken: string = null, type?: string): Observable<RemoteData<Registration>> {
     const registration = new Registration();
@@ -80,8 +80,7 @@ export class EpersonRegistrationService {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     if (captchaToken) {
-      headers = headers.append('x-recaptcha-token', captchaToken);
-      headers = headers.append('x-captcha-version', captchaToken);
+      headers = headers.append('x-captcha-payload', captchaToken);
     }
     options.headers = headers;
 
