@@ -26,6 +26,7 @@ import {
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
 import { OptionVO } from '../option-vo.model';
+import { QueryPredicate } from '../query-predicate.model';
 import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv.component';
 
 describe('FilteredItemsExportCsvComponent', () => {
@@ -41,8 +42,8 @@ describe('FilteredItemsExportCsvComponent', () => {
   const process = Object.assign(new Process(), { processId: 5, scriptName: 'metadata-export-filtered-items-report' });
 
   const params = new FormGroup({
-    collections: new FormControl(OptionVO.collection('1', 'coll1')),
-    queryPredicates: new FormControl(['name:equals:coll1']),
+    collections: new FormControl([OptionVO.collection('1', 'coll1')]),
+    queryPredicates: new FormControl([QueryPredicate.of('name', 'equals', 'coll1')]),
     filters: new FormControl([FiltersComponent.getFilter('is_item')]),
   });
 
