@@ -5,7 +5,11 @@
  *
  * http://www.dspace.org/license/
  */
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import { hasValue } from '../../app/shared/empty.util';
@@ -21,7 +25,9 @@ import {
  */
 @Injectable()
 export class BrowserHashedFileMapping extends HashedFileMapping {
-  constructor() {
+  constructor(
+    @Inject(DOCUMENT) protected document: any,
+  ) {
     super();
     const element = document.querySelector(`script#${ID}`);
 
