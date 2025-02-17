@@ -30,6 +30,7 @@ import { Process } from '../../../../process-page/processes/process.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
+import { QueryPredicate } from '../query-predicate.model';
 
 @Component({
   selector: 'ds-filtered-items-export-csv',
@@ -96,12 +97,7 @@ export class FilteredItemsExportCsvComponent implements OnInit {
       const field = preds[i].field;
       const op = preds[i].operator;
       if (field && op) {
-        const value = preds[i].value;
-        if (value) {
-          parameters.push({ name: '-qp', value: `${field}:${op}:${value}` });
-        } else {
-          parameters.push({ name: '-qp', value: `${field}:${op}` });
-        }
+        parameters.push({ name: '-qp', value: QueryPredicate.toString(preds[i]) });
       }
     }
 
