@@ -89,7 +89,7 @@ describe('FilteredItemsExportCsvComponent', () => {
         expect(component).toBeTruthy();
       });
     });
-    describe('when the user is an admin and the metadata-export-search script is present ', () => {
+    describe('when the user is an admin and the metadata-export-filtered-items-report script is present ', () => {
       beforeEach(waitForAsync(() => {
         initBeforeEachAsync();
       }));
@@ -114,7 +114,7 @@ describe('FilteredItemsExportCsvComponent', () => {
         expect(debugElement).toBeNull();
       });
     });
-    describe('when the metadata-export-search script is not present', () => {
+    describe('when the metadata-export-filtered-items-report script is not present', () => {
       beforeEach(waitForAsync(() => {
         initBeforeEachAsync();
         (scriptDataService.findById as jasmine.Spy).and.returnValue(createFailedRemoteDataObject$('Not found', 404));
@@ -137,7 +137,7 @@ describe('FilteredItemsExportCsvComponent', () => {
     });
     it('should call the invoke script method with the correct parameters', () => {
       component.export();
-      expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-search',
+      expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-filtered-items-reporth',
         [
           { name: '-c', value: params.value.collections },
           { name: '-qp', value: params.value.queryPredicates },
@@ -148,7 +148,7 @@ describe('FilteredItemsExportCsvComponent', () => {
       fixture.detectChanges();
 
       component.export();
-      expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-search', [], []);
+      expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-filtered-items-report', [], []);
 
     });
     it('should show a success message when the script was invoked successfully and redirect to the corresponding process page', () => {
