@@ -137,7 +137,7 @@ describe('FilteredItemsExportCsvComponent', () => {
     });
     it('should call the invoke script method with the correct parameters', () => {
       component.export();
-      expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-filtered-items-reporth',
+      expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-filtered-items-report',
         [
           { name: '-c', value: params.value.collections },
           { name: '-qp', value: params.value.queryPredicates },
