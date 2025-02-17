@@ -231,10 +231,10 @@ export class AccessibilitySettingsService {
   }
 
   /**
-   * Retrieve the placeholder to be used for the provided AccessibilitySetting.
-   * Returns an empty string when no placeholder is specified for the provided setting.
+   * Retrieve the default value to be used for the provided AccessibilitySetting.
+   * Returns an empty string when no default value is specified for the provided setting.
    */
-  getPlaceholder(setting: AccessibilitySetting): string {
+  getDefaultValue(setting: AccessibilitySetting): string {
     switch (setting) {
       case 'notificationTimeOut':
         return millisecondsToSeconds(environment.notifications.timeOut.toString());

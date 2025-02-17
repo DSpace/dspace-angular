@@ -8,6 +8,7 @@ import {
 import { take } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { isEmpty } from 'src/app/shared/empty.util';
 
 /**
  * Component providing the form where users can update accessibility settings.
@@ -32,10 +33,6 @@ export class AccessibilitySettingsComponent implements OnInit {
     this.updateFormValues();
   }
 
-  getPlaceholder(setting: AccessibilitySetting): string {
-    return this.settingsService.getPlaceholder(setting);
-  }
-
   /**
    * Saves the user-configured settings
    */
@@ -57,11 +54,23 @@ export class AccessibilitySettingsComponent implements OnInit {
   }
 
   /**
-   * Updates the form values with the currently stored accessibility settings
+   * Updates the form values with the currently stored accessibility settings and sets the default values for settings
+   * that have no stored value.
    */
   updateFormValues() {
     this.settingsService.getAll().pipe(take(1)).subscribe(storedSettings => {
-      this.formValues = this.settingsService.convertStoredValuesToFormValues(storedSettings);
+      const formValues = this.settingsService.convertStoredValuesToFormValues(storedSettings);
+
+      const settingsRequiringDefaultValue: AccessibilitySetting[] = ['notificationTimeOut', 'liveRegionTimeOut'];
+
+      for (const setting of settingsRequiringDefaultValue) {
+        if (isEmpty(formValues[setting])) {
+          const defaultValue = this.settingsService.getDefaultValue(setting);
+          formValues[setting] = defaultValue;
+        }
+      }
+
+      this.formValues = formValues;
     });
   }
 

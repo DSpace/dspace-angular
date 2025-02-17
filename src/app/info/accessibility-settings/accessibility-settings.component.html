@@ -32,7 +32,6 @@
         <input [type]="'number'" [id]="'notificationTimeOutInput'" class="form-control"
                [ngClass]="{'is-invalid': !settingsService.isValid('notificationTimeOut', formValues.notificationTimeOut)}"
                [min]="1"
-               [placeholder]="getPlaceholder('notificationTimeOut')"
                [readOnly]="!formValues.notificationTimeOutEnabled"
                [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'notificationTimeOutHint'">
@@ -60,7 +59,6 @@
         <input [type]="'number'" [id]="'liveRegionTimeOutInput'" class="form-control"
                [ngClass]="{'is-invalid': !settingsService.isValid('liveRegionTimeOut', formValues.liveRegionTimeOut)}"
                [min]="1"
-               [placeholder]="getPlaceholder('liveRegionTimeOut')"
                [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'liveRegionTimeOutHint'">
         <div class="invalid-feedback" [ngClass]="{ 'd-block': !settingsService.isValid('liveRegionTimeOut', formValues.liveRegionTimeOut) }">
@@ -82,7 +80,7 @@
       <button type="submit" (click)="saveSettings()" class="btn btn-primary mr-2">
         {{ 'info.accessibility-settings.submit' | translate }}
       </button>
-      <button type="reset" (click)="resetSettings()" class="btn btn-warning">
+      <button (click)="resetSettings()" class="btn btn-warning">
         {{ 'info.accessibility-settings.reset' | translate }}
       </button>
     </div>
