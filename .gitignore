@@ -42,3 +42,8 @@ yarn-error.log
 junit.xml
 
 /src/mirador-viewer/config.local.js
+
+
+
+.nx/cache
+.nx/workspace-data
