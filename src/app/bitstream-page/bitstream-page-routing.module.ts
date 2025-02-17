@@ -6,7 +6,7 @@ import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstr
 import { ResourcePolicyTargetResolver } from '../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
-import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
+import { ThemedResourcePolicyEditComponent } from '../shared/resource-policies/edit/themed-resource-policy-edit.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 import { BitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-breadcrumb.resolver';
@@ -74,7 +74,7 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
               breadcrumb: I18nBreadcrumbResolver,
               resourcePolicy: ResourcePolicyResolver
             },
-            component: ResourcePolicyEditComponent,
+            component: ThemedResourcePolicyEditComponent,
             data: { breadcrumbKey: 'item.edit', title: 'resource-policies.edit.page.title', showBreadcrumbs: true }
           },
           {

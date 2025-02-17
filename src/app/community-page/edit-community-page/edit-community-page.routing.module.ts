@@ -9,7 +9,7 @@ import { CommunityAuthorizationsComponent } from './community-authorizations/com
 import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { ThemedResourcePolicyEditComponent } from '../../shared/resource-policies/edit/themed-resource-policy-edit.component';
 import { CommunityAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
 import { CommunityAccessControlComponent } from './community-access-control/community-access-control.component';
 
@@ -79,7 +79,7 @@ import { CommunityAccessControlComponent } from './community-access-control/comm
                 resolve: {
                   resourcePolicy: ResourcePolicyResolver
                 },
-                component: ResourcePolicyEditComponent,
+                component: ThemedResourcePolicyEditComponent,
                 data: { title: 'resource-policies.edit.page.title' }
               },
               {

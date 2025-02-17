@@ -17,7 +17,7 @@ import { ItemAuthorizationsComponent } from './item-authorizations/item-authoriz
 import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { ThemedResourcePolicyEditComponent } from '../../shared/resource-policies/edit/themed-resource-policy-edit.component';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 import {
   ITEM_EDIT_AUTHORIZATIONS_PATH,
@@ -179,7 +179,7 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
                 resolve: {
                   resourcePolicy: ResourcePolicyResolver
                 },
-                component: ResourcePolicyEditComponent,
+                component: ThemedResourcePolicyEditComponent,
                 data: { title: 'resource-policies.edit.page.title' }
               },
               {

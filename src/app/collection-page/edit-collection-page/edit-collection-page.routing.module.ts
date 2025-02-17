@@ -11,7 +11,7 @@ import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.r
 import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
-import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
+import { ThemedResourcePolicyEditComponent } from '../../shared/resource-policies/edit/themed-resource-policy-edit.component';
 import { CollectionAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
 import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
 
@@ -86,7 +86,7 @@ import { CollectionAccessControlComponent } from './collection-access-control/co
                 resolve: {
                   resourcePolicy: ResourcePolicyResolver
                 },
-                component: ResourcePolicyEditComponent,
+                component: ThemedResourcePolicyEditComponent,
                 data: { title: 'resource-policies.edit.page.title' }
               },
               {

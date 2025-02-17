@@ -156,6 +156,7 @@ import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { FormModule } from '../../app/shared/form/form.module';
 import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
+import { ResourcePolicyEditComponent } from './app/shared/resource-policies/edit/resource-policy-edit.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -239,6 +240,7 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileComponent,
   ItemStatusComponent,
   EditBitstreamPageComponent,
+  ResourcePolicyEditComponent,
 ];
 
 @NgModule({
