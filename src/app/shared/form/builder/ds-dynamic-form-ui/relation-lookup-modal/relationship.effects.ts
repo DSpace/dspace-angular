@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map, mergeMap, switchMap, take, tap, concatMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import {
   getRemoteDataPayload,
@@ -36,11 +36,31 @@ import { TranslateService } from '@ngx-translate/core';
 
 const DEBOUNCE_TIME = 500;
 
+enum RelationOperationType {
+  Add,
+  Remove,
+}
+
+interface RelationOperation {
+  type: RelationOperationType
+  item1: Item
+  item2: Item
+  relationshipType: string
+  submissionId: string
+  nameVariant?: string
+}
+
 /**
  * NGRX effects for RelationshipEffects
  */
 @Injectable()
 export class RelationshipEffects {
+
+  /**
+   * Queue to hold all requests, so we can ensure they get sent one at a time
+   */
+  private requestQueue: Subject<RelationOperation> = new Subject();
+
   /**
    * Map that keeps track of the latest RelationshipEffects for each relationship's composed identifier
    */
@@ -82,9 +102,22 @@ export class RelationshipEffects {
                       nameVariant = this.nameVariantUpdates[identifier];
                       delete this.nameVariantUpdates[identifier];
                     }
-                    this.addRelationship(item1, item2, relationshipType, submissionId, nameVariant);
+                    this.requestQueue.next({
+                      type: RelationOperationType.Add,
+                      item1,
+                      item2,
+                      relationshipType,
+                      submissionId,
+                      nameVariant
+                    });
                   } else {
-                    this.removeRelationship(item1, item2, relationshipType, submissionId);
+                    this.requestQueue.next({
+                      type: RelationOperationType.Remove,
+                      item1,
+                      item2,
+                      relationshipType,
+                      submissionId,
+                    });
                   }
                 }
                 delete this.debounceMap[identifier];
@@ -161,7 +194,40 @@ export class RelationshipEffects {
               private selectableListService: SelectableListService,
               @Inject(DEBOUNCE_TIME_OPERATOR) private debounceTime: <T>(dueTime: number) => (source: Observable<T>) => Observable<T>,
   ) {
+    this.executeRequestsInQueue();
   }
+
+  /**
+   * Subscribe to the request queue, execute the requests inside. Wait for each request to complete
+   * before sending the next one
+   * @private
+   */
+  private executeRequestsInQueue() {
+    this.requestQueue.pipe(
+      // concatMap ensures the next request in the queue will only start after the previous one has emitted
+      concatMap((next: RelationOperation) => {
+        switch (next.type) {
+          case RelationOperationType.Add:
+            return this.addRelationship(next.item1, next.item2, next.relationshipType, next.submissionId, next.nameVariant).pipe(
+              map(() => next)
+            );
+          case RelationOperationType.Remove:
+            return this.removeRelationship(next.item1, next.item2, next.relationshipType).pipe(
+              map(() => next)
+            );
+          default:
+            return [next];
+        }
+      }),
+      // refresh the workspaceitem after each request. It would be great if we could find a way to
+      // optimize this so it only happens when the queue is empty.
+      switchMap((next: RelationOperation) => this.refreshWorkspaceItemInCache(next.submissionId))
+      // update the form after the workspaceitem is refreshed
+    ).subscribe((next: SubmissionObject) => {
+      this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(next.id, [next], false));
+    });
+  }
+
 
   private createIdentifier(item1: Item, item2: Item, relationshipType: string): string {
     return `${item1.uuid}-${item2.uuid}-${relationshipType}`;
@@ -185,7 +251,7 @@ export class RelationshipEffects {
           }
         }),
         take(1),
-        switchMap((rd: RemoteData<Relationship>) => {
+        tap((rd: RemoteData<Relationship>) => {
           if (hasNoValue(rd) || rd.hasFailed) {
             // An error occurred, deselect the object from the selectable list and display an error notification
             const listId = `list-${submissionId}-${relationshipType}`;
@@ -203,19 +269,15 @@ export class RelationshipEffects {
             }
             this.notificationsService.error(this.translateService.instant('relationships.add.error.title'), errorContent);
           }
-          return this.refreshWorkspaceItemInCache(submissionId);
-        }),
-      ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
+        })
+      );
   }
 
-  private removeRelationship(item1: Item, item2: Item, relationshipType: string, submissionId: string) {
-    this.relationshipService.getRelationshipByItemsAndLabel(item1, item2, relationshipType).pipe(
+  private removeRelationship(item1: Item, item2: Item, relationshipType: string) {
+    return this.relationshipService.getRelationshipByItemsAndLabel(item1, item2, relationshipType).pipe(
       mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id, 'none')),
       take(1),
-      switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
-    ).subscribe((submissionObject: SubmissionObject) => {
-      this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false));
-    });
+    );
   }
 
   /**

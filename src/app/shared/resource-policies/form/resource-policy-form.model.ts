@@ -68,6 +68,8 @@ const policyActionList: DynamicFormOptionConfig<any>[] = [
 export const RESOURCE_POLICY_FORM_NAME_CONFIG: DsDynamicInputModelConfig = {
   id: 'name',
   label: 'resource-policies.form.name.label',
+  maxLength: 30,
+  hint: 'resource-policies.form.name.hint',
   metadataFields: [],
   repeatable: false,
   submissionId: '',

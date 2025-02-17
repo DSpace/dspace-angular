@@ -1,5 +1,11 @@
 const fs = require('fs');
 
+// These two global variables are used to store information about the REST API used
+// by these e2e tests. They are filled out prior to running any tests in the before()
+// method of e2e.ts. They can then be accessed by any tests via the getters below.
+let REST_BASE_URL: string;
+let REST_DOMAIN: string;
+
 // Plugins enable you to tap into, modify, or extend the internal behavior of Cypress
 // For more info, visit https://on.cypress.io/plugins-api
 module.exports = (on, config) => {
@@ -30,6 +36,24 @@ module.exports = (on, config) => {
             }
 
             return null;
+        },
+        // Save value of REST Base URL, looked up before all tests.
+        // This allows other tests to use it easily via getRestBaseURL() below.
+        saveRestBaseURL(url: string) {
+            return (REST_BASE_URL = url);
+        },
+        // Retrieve currently saved value of REST Base URL
+        getRestBaseURL() {
+            return REST_BASE_URL ;
+        },
+        // Save value of REST Domain, looked up before all tests.
+        // This allows other tests to use it easily via getRestBaseDomain() below.
+        saveRestBaseDomain(domain: string) {
+            return (REST_DOMAIN = domain);
+        },
+        // Retrieve currently saved value of REST Domain
+        getRestBaseDomain() {
+            return REST_DOMAIN ;
         }
     });
 };

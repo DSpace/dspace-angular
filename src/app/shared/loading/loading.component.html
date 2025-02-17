@@ -1,6 +1,6 @@
 <div *ngIf="!spinner">
-  <label *ngIf="showMessage && message">{{ message }}</label>
-  <div class="loader">
+  <label *ngIf="showMessage && message" aria-live="polite">{{ message }}</label>
+  <div class="loader" aria-hidden="true">
     <span class="l-1"></span>
     <span class="l-2"></span>
     <span class="l-3"></span>
@@ -13,6 +13,6 @@
     <span class="l-10"></span>
   </div>
 </div>
-<div *ngIf='spinner' class="spinner spinner-border" role="status">
+<div *ngIf='spinner' class="spinner spinner-border" role="status" aria-live="polite">
   <span class="sr-only">{{ message }}</span>
 </div>

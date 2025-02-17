@@ -48,9 +48,16 @@ describe('requestReducer', () => {
       lastUpdated: 0
     }
   };
+  const testResponsePendingState = {
+    [id1]: {
+      state: RequestEntryState.ResponsePending,
+      lastUpdated: 0
+    }
+  };
   deepFreeze(testInitState);
   deepFreeze(testSuccessState);
   deepFreeze(testErrorState);
+  deepFreeze(testResponsePendingState);
 
   it('should return the current state when no valid actions have been made', () => {
     const action = new NullAction();
@@ -91,29 +98,94 @@ describe('requestReducer', () => {
     expect(newState[id1].response).toEqual(undefined);
   });
 
-  it('should set state to Success for the given RestRequest in the state, in response to a SUCCESS action', () => {
-    const state = testInitState;
+  describe(`in response to a SUCCESS action`, () => {
+    let startState;
+    describe(`when the entry isn't stale`, () => {
+      beforeEach(() => {
+        startState = Object.assign({}, testInitState, {
+          [id1]: Object.assign({}, testInitState[id1], {
+            state: RequestEntryState.ResponsePending
+          })
+        });
+        deepFreeze(startState);
+      });
+      it('should set state to Success for the given RestRequest in the state', () => {
+        const action = new RequestSuccessAction(id1, 200);
+        const newState = requestReducer(startState, action);
 
-    const action = new RequestSuccessAction(id1, 200);
-    const newState = requestReducer(state, action);
+        expect(newState[id1].request.uuid).toEqual(id1);
+        expect(newState[id1].request.href).toEqual(link1);
+        expect(newState[id1].state).toEqual(RequestEntryState.Success);
+        expect(newState[id1].response.statusCode).toEqual(200);
+      });
+    });
 
-    expect(newState[id1].request.uuid).toEqual(id1);
-    expect(newState[id1].request.href).toEqual(link1);
-    expect(newState[id1].state).toEqual(RequestEntryState.Success);
-    expect(newState[id1].response.statusCode).toEqual(200);
+    describe(`when the entry is stale`, () => {
+      beforeEach(() => {
+        startState = Object.assign({}, testInitState, {
+          [id1]: Object.assign({}, testInitState[id1], {
+            state: RequestEntryState.ResponsePendingStale
+          })
+        });
+        deepFreeze(startState);
+      });
+      it('should set state to SuccessStale for the given RestRequest in the state', () => {
+        const action = new RequestSuccessAction(id1, 200);
+        const newState = requestReducer(startState, action);
+
+        expect(newState[id1].request.uuid).toEqual(id1);
+        expect(newState[id1].request.href).toEqual(link1);
+        expect(newState[id1].state).toEqual(RequestEntryState.SuccessStale);
+        expect(newState[id1].response.statusCode).toEqual(200);
+      });
+    });
+
   });
 
-  it('should set state to Error for the given RestRequest in the state, in response to an ERROR action', () => {
-    const state = testInitState;
+  describe(`in response to an ERROR action`, () => {
+    let startState;
+    describe(`when the entry isn't stale`, () => {
+      beforeEach(() => {
+        startState = Object.assign({}, testInitState, {
+          [id1]: Object.assign({}, testInitState[id1], {
+            state: RequestEntryState.ResponsePending
+          })
+        });
+        deepFreeze(startState);
+      });
+      it('should set state to Error for the given RestRequest in the state', () => {
+        const action = new RequestErrorAction(id1, 404, 'Not Found');
+        const newState = requestReducer(startState, action);
 
-    const action = new RequestErrorAction(id1, 404, 'Not Found');
-    const newState = requestReducer(state, action);
+        expect(newState[id1].request.uuid).toEqual(id1);
+        expect(newState[id1].request.href).toEqual(link1);
+        expect(newState[id1].state).toEqual(RequestEntryState.Error);
+        expect(newState[id1].response.statusCode).toEqual(404);
+        expect(newState[id1].response.errorMessage).toEqual('Not Found');
+      });
+    });
 
-    expect(newState[id1].request.uuid).toEqual(id1);
-    expect(newState[id1].request.href).toEqual(link1);
-    expect(newState[id1].state).toEqual(RequestEntryState.Error);
-    expect(newState[id1].response.statusCode).toEqual(404);
-    expect(newState[id1].response.errorMessage).toEqual('Not Found');
+    describe(`when the entry is stale`, () => {
+      beforeEach(() => {
+        startState = Object.assign({}, testInitState, {
+          [id1]: Object.assign({}, testInitState[id1], {
+            state: RequestEntryState.ResponsePendingStale
+          })
+        });
+        deepFreeze(startState);
+      });
+      it('should set state to ErrorStale for the given RestRequest in the state', () => {
+        const action = new RequestErrorAction(id1, 404, 'Not Found');
+        const newState = requestReducer(startState, action);
+
+        expect(newState[id1].request.uuid).toEqual(id1);
+        expect(newState[id1].request.href).toEqual(link1);
+        expect(newState[id1].state).toEqual(RequestEntryState.ErrorStale);
+        expect(newState[id1].response.statusCode).toEqual(404);
+        expect(newState[id1].response.errorMessage).toEqual('Not Found');
+      });
+
+    });
   });
 
   it('should update the response\'s timeCompleted for the given RestRequest in the state, in response to a RESET_TIMESTAMPS action', () => {
@@ -145,28 +217,112 @@ describe('requestReducer', () => {
     expect(newState[id1]).toBeNull();
   });
 
-  describe(`for an entry with state: Success`, () => {
-    it(`should set the state to SuccessStale, in response to a STALE action`, () => {
-      const state = testSuccessState;
+  describe(`in response to a STALE action`, () => {
+    describe(`when the entry has been removed`, () => {
+      it(`shouldn't do anything`, () => {
+        const startState = {
+          [id1]: null
+        };
+        deepFreeze(startState);
 
-      const action = new RequestStaleAction(id1);
-      const newState = requestReducer(state, action);
+        const action = new RequestStaleAction(id1);
+        const newState = requestReducer(startState, action);
 
-      expect(newState[id1].state).toEqual(RequestEntryState.SuccessStale);
-      expect(newState[id1].lastUpdated).toBe(action.lastUpdated);
+        expect(newState[id1]).toBeNull();
+      });
+    });
+
+    describe(`for stale entries`, () => {
+      it(`shouldn't do anything`, () => {
+        const rpsStartState = Object.assign({}, testInitState, {
+          [id1]: Object.assign({}, testInitState[id1], {
+            state: RequestEntryState.ResponsePendingStale
+          })
+        });
+        deepFreeze(rpsStartState);
+
+        const action = new RequestStaleAction(id1);
+        let newState = requestReducer(rpsStartState, action);
+
+        expect(newState[id1].state).toEqual(rpsStartState[id1].state);
+        expect(newState[id1].lastUpdated).toBe(rpsStartState[id1].lastUpdated);
+
+        const ssStartState = Object.assign({}, testInitState, {
+          [id1]: Object.assign({}, testInitState[id1], {
+            state: RequestEntryState.SuccessStale
+          })
+        });
+
+        newState = requestReducer(ssStartState, action);
+
+        expect(newState[id1].state).toEqual(ssStartState[id1].state);
+        expect(newState[id1].lastUpdated).toBe(ssStartState[id1].lastUpdated);
+
+        const esStartState = Object.assign({}, testInitState, {
+          [id1]: Object.assign({}, testInitState[id1], {
+            state: RequestEntryState.ErrorStale
+          })
+        });
+
+        newState = requestReducer(esStartState, action);
+
+        expect(newState[id1].state).toEqual(esStartState[id1].state);
+        expect(newState[id1].lastUpdated).toBe(esStartState[id1].lastUpdated);
+
+      });
+    });
+
+    describe(`for and entry with state: RequestPending`, () => {
+      it(`shouldn't do anything`, () => {
+        const startState = Object.assign({}, testInitState, {
+          [id1]: Object.assign({}, testInitState[id1], {
+            state: RequestEntryState.RequestPending
+          })
+        });
+
+        const action = new RequestStaleAction(id1);
+        const newState = requestReducer(startState, action);
+
+        expect(newState[id1].state).toEqual(startState[id1].state);
+        expect(newState[id1].lastUpdated).toBe(startState[id1].lastUpdated);
+
+      });
+    });
+
+    describe(`for an entry with state: ResponsePending`, () => {
+      it(`should set the state to ResponsePendingStale`, () => {
+        const state = testResponsePendingState;
+
+        const action = new RequestStaleAction(id1);
+        const newState = requestReducer(state, action);
+
+        expect(newState[id1].state).toEqual(RequestEntryState.ResponsePendingStale);
+        expect(newState[id1].lastUpdated).toBe(action.lastUpdated);
+      });
+    });
+
+    describe(`for an entry with state: Success`, () => {
+      it(`should set the state to SuccessStale`, () => {
+        const state = testSuccessState;
+
+        const action = new RequestStaleAction(id1);
+        const newState = requestReducer(state, action);
+
+        expect(newState[id1].state).toEqual(RequestEntryState.SuccessStale);
+        expect(newState[id1].lastUpdated).toBe(action.lastUpdated);
+      });
+    });
+
+    describe(`for an entry with state: Error`, () => {
+      it(`should set the state to ErrorStale`, () => {
+        const state = testErrorState;
+
+        const action = new RequestStaleAction(id1);
+        const newState = requestReducer(state, action);
+
+        expect(newState[id1].state).toEqual(RequestEntryState.ErrorStale);
+        expect(newState[id1].lastUpdated).toBe(action.lastUpdated);
+      });
     });
   });
-
-  describe(`for an entry with state: Error`, () => {
-    it(`should set the state to ErrorStale, in response to a STALE action`, () => {
-      const state = testErrorState;
-
-      const action = new RequestStaleAction(id1);
-      const newState = requestReducer(state, action);
-
-      expect(newState[id1].state).toEqual(RequestEntryState.ErrorStale);
-      expect(newState[id1].lastUpdated).toBe(action.lastUpdated);
-    });
-  });
-
 });

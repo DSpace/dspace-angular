@@ -9,8 +9,6 @@
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "unautorisiert",
 
-
-
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -20,8 +18,6 @@
   // "403.forbidden": "forbidden",
   "403.forbidden": "verboten",
 
-
-
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Die Seite konnte nicht gefunden werden. Eventuell wurde sie verschoben oder gelöscht. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -30,6 +26,16 @@
 
   // "404.page-not-found": "page not found",
   "404.page-not-found": "Seite nicht gefunden",
+
+  // "500.page-internal-server-error": "Service unavailable",
+  "500.page-internal-server-error": "Dienst nicht verfügbar",
+
+  // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+  "500.help": "Der Dienst steht momentan nicht zur Verfügung. Bitte versuchen Sie es später noch einmal.",
+
+  // "500.link.home-page": "Take me to the home page",
+  "500.link.home-page": "Zur Startseite",
+
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "Personen suchen",
@@ -731,9 +737,6 @@
   // "admin.workflow.title": "Administer Workflow",
   "admin.workflow.title": "Workflows verwalten",
 
-  // "admin.workflow.item.workflow": "Workflow",
-  "admin.workflow.item.workflow": "Workflows",
-
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Löschen",
 
@@ -1382,7 +1385,7 @@
 
 
   // "community.create.head": "Create a Community",
-  "community.create.head": "Sammlung anlegen",
+  "community.create.head": "Bereich anlegen",
 
   // "community.create.notifications.success": "Successfully created the Community",
   "community.create.notifications.success": "Bereich erfolgreich angelegt",
@@ -1712,7 +1715,8 @@
   // "curation-task.task.vscan.label": "Virus Scan",
   "curation-task.task.vscan.label": "Virenscan",
 
-
+  // "curation-task.task.registerdoi.label": "Register DOI",
+  "curation-task.task.registerdoi.label": "DOI registrieren",
 
   // "curation.form.task-select.label": "Task:",
   "curation.form.task-select.label": "Aufgabe:",
@@ -2192,6 +2196,44 @@
   // "info.privacy.title": "Privacy Statement",
   "info.privacy.title": "Datenschutzerklärung",
 
+  // "info.feedback.breadcrumbs": "Feedback",
+  "info.feedback.breadcrumbs": "Feedback",
+
+  // "info.feedback.head": "Feedback",
+  "info.feedback.head": "Feedback",
+
+  // "info.feedback.title": "Feedback",
+  "info.feedback.title": "Feedback",
+
+  // "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+  "info.feedback.info": "Wir freuen uns auf Ihr Feedback. Sofern Sie eine Rückmeldung wünschen, werden wir uns in Kürze bei Ihnen melden.",
+
+  // "info.feedback.email_help": "This address will be used to follow up on your feedback.",
+  "info.feedback.email_help": "Sollten wir Rückfragen zu Ihrem Feedback haben, dann kontaktieren wir Sie unter dieser E-Mailadresse.",
+
+  // "info.feedback.send": "Send Feedback",
+  "info.feedback.send": "Feedback senden",
+
+  // "info.feedback.comments": "Comments",
+  "info.feedback.comments": "Ihr Kommentar",
+
+  // "info.feedback.email-label": "Your Email",
+  "info.feedback.email-label": "Ihre E-Mailadresse",
+
+  // "info.feedback.create.success": "Feedback Sent Successfully!",
+  "info.feedback.create.success": "Vielen Dank für Ihr Feedback! Ihr Feedback wurde erfolgreich versendet.",
+
+  // "info.feedback.error.email.required": "A valid email address is required",
+  "info.feedback.error.email.required": "Bitte geben Sie eine gültige E-Mailadresse ein!",
+
+  // "info.feedback.error.message.required": "A comment is required",
+  "info.feedback.error.message.required": "Bitte geben Sie einen Kommentar ein!",
+
+  // "info.feedback.page-label": "Page",
+  "info.feedback.page-label": "URL der Seite",
+
+  // "info.feedback.page_help": "The page related to your feedback",
+  "info.feedback.page_help": "Dies ist die URL der Seite, auf die sich Ihr Feedback bezieht.",
 
 
   // "item.alerts.private": "This item is private",
@@ -3013,7 +3055,7 @@
   "journalissue.listelement.badge": "Zeitschriftenheft",
 
   // "journalissue.page.description": "Description",
-  "journalissue.page.description": "Beschreibeung",
+  "journalissue.page.description": "Beschreibung",
 
   // "journalissue.page.edit": "Edit this item",
   "journalissue.page.edit": "Dieses Item bearbeiten",
@@ -3484,20 +3526,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Ihre Veröffentlichungen",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Archiviert",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archiviert",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Validierung",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Validierung",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "Warten auf die Überprüfung",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
+  "mydspace.status.mydspaceWaitingController": "Warten auf die Überprüfung",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Geschäftsgang",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Geschäftsgang",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Arbeitsbereich",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Arbeitsbereich",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mein DSpace",
@@ -4202,6 +4244,9 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Name",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "Maximal 30 Zeichen",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Wählen Sie den Richtlinientyp",
 
@@ -4487,6 +4532,21 @@
   // "search.filters.discoverable.false": "Yes",
   "search.filters.discoverable.false": "Ja",
 
+  // "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.Archived": "Archiviert",
+
+  // "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.Validation": "Validierung",
+
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for Controller",
+  "search.filters.namedresourcetype.Waiting for Controller": "Warten auf die Überprüfung",
+
+  // "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.Workflow": "Geschäftsgang",
+
+  // "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.Workspace": "Arbeitsbereich",
+
   // "search.filters.withdrawn.true": "Yes",
   "search.filters.withdrawn.true": "Ja",
 
@@ -4754,6 +4814,12 @@
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Zeitschriftenband importieren",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Item importieren",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Metadaten der Publikation importieren",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importiere Autor:innen-Metadaten",
@@ -5089,10 +5155,10 @@
   "submission.sections.general.deposit_error_notice": "Beim Einreichen des Items ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht",
+  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht.",
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal",
+  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
   "submission.sections.general.discard_success_notice": "Einreichung erfolgreich verworfen.",
@@ -5410,7 +5476,7 @@
   "workflow-item.delete.notification.success.title": "Gelöscht",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde gelöscht.",
+  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde erfolgreich gelöscht.",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
   "workflow-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
@@ -5455,4 +5521,46 @@
   // "workflow-item.send-back.button.confirm": "Send back"
   "workflow-item.send-back.button.confirm": "Zurücksenden",
 
+  // "workflow-item.view.breadcrumbs": "Workflow View",
+  "workflow-item.view.breadcrumbs": "Workflow-Ansicht",
+
+  // "workspace-item.view.breadcrumbs": "Workspace View",
+  "workspace-item.view.breadcrumbs": "Workspace-Ansicht",
+
+  // "workspace-item.view.title": "Workspace View",
+  "workspace-item.view.title": "Workspace-Ansicht",
+
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  "workspace-item.delete.breadcrumbs": "Workspace-Item löschen",
+
+  // "workspace-item.delete.header": "Delete workspace item",
+  "workspace-item.delete.header": "Workspace-Item löschen",
+
+  // "workspace-item.delete.button.confirm": "Delete",
+  "workspace-item.delete.button.confirm": "Löschen",
+
+  // "workspace-item.delete.button.cancel": "Cancel",
+  "workspace-item.delete.button.cancel": "Abbrechen",
+
+  // "workspace-item.delete.notification.success.title": "Deleted",
+  "workspace-item.delete.notification.success.title": "Gelöscht",
+
+  // "workspace-item.delete.title": "This workspace item was successfully deleted",
+  "workspace-item.delete.title": "Dieses Workspace-Item wurde erfolgreich gelöscht.",
+
+  // "workspace-item.delete.notification.error.title": "Something went wrong",
+  "workspace-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
+
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  "workspace-item.delete.notification.error.content": "Das Workspace-Item konnte nicht gelöscht werden.",
+
+
+  // "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Jahr",
+
+  // "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Monat",
+
+  // "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Tag",
 }

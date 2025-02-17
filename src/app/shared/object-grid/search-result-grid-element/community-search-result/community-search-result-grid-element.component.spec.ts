@@ -13,6 +13,7 @@ import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.ser
 import { Community } from '../../../../core/shared/community.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
@@ -80,7 +81,8 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
+        { provide: XSRFService, useValue: {} },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

@@ -1,12 +1,11 @@
-
-<a class="nav-item nav-link"
+<a class="ds-menu-item" role="menuitem"
    [ngClass]="{ 'disabled': !hasLink || item.disabled }"
    [attr.aria-disabled]="!hasLink || item.disabled"
-   [title]="item.text | translate"
+   [attr.data-test]="'link-menu-item.'+item.text"
    [routerLink]="getRouterLink()"
    [queryParams]="item.queryParams"
    (click)="$event.stopPropagation()"
    (keyup.space)="navigate($event)"
-   (keyup.enter)="navigate($event)"
+   (keydown.enter)="navigate($event)"
    href="javascript:void(0);"
 >{{item.text | translate}}</a>

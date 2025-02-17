@@ -20,10 +20,9 @@
            [ngModelOptions]="{standalone: true}" autocomplete="off"
     />
   </ng-template>
-  <label class="d-none">
-    <input type="submit"/>
-    <span>{{'search.filters.search.submit' | translate}}</span>
-  </label>
+  <button class="sr-only" type="submit">
+    {{'search.filters.search.submit' | translate}}
+  </button>
   <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
     <div class="dropdown-list">
       <div *ngFor="let suggestionOption of suggestions">

@@ -19,7 +19,6 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../../shared/remote-data.utils';
-import { AuthService } from '../../core/auth/auth.service';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
@@ -57,7 +56,6 @@ const mockSignpostingLinks: SignpostingLink[] = [mocklink, mocklink2];
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
-  let authService: AuthService;
   let authorizationDataService: AuthorizationDataService;
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
@@ -74,10 +72,6 @@ describe('ItemPageComponent', () => {
   });
 
   beforeEach(waitForAsync(() => {
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
-    });
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
       isAuthorized: observableOf(false),
     });
@@ -107,7 +101,6 @@ describe('ItemPageComponent', () => {
         { provide: ItemDataService, useValue: {} },
         { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
-        { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },

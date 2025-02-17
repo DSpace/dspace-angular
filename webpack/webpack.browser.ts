@@ -35,5 +35,12 @@ module.exports = Object.assign({}, commonExports, {
       buildAppConfig(join(process.cwd(), 'src/assets/config.json'));
       return middlewares;
     }
-  }
+  },
+  watchOptions: {
+    // Ignore directories that should not be watched for recompiling angular
+    ignored: [
+      '**/node_modules', '**/_build', '**/.git', '**/docker',
+      '**/.angular', '**/.idea', '**/.vscode', '**/.history', '**/.vsix'
+    ]
+  },
 });

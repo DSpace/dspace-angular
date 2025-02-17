@@ -7,6 +7,8 @@ import { ItemPageUriFieldComponent } from './item-page-uri-field.component';
 import { MetadataUriValuesComponent } from '../../../../field-components/metadata-uri-values/metadata-uri-values.component';
 import { environment } from '../../../../../../environments/environment';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { BrowseService } from '../../../../../core/browse/browse.service';
+import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 
@@ -28,7 +30,8 @@ describe('ItemPageUriFieldComponent', () => {
       })],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: BrowseService, useValue: BrowseServiceStub },
       ],
       declarations: [ItemPageUriFieldComponent, MetadataUriValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]

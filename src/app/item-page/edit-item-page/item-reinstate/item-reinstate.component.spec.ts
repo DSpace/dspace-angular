@@ -76,7 +76,7 @@ describe('ItemReinstateComponent', () => {
   });
 
   it('should render a page with messages based on the \'reinstate\' messageKey', () => {
-    const header = fixture.debugElement.query(By.css('h2')).nativeElement;
+    const header = fixture.debugElement.query(By.css('h1')).nativeElement;
     expect(header.innerHTML).toContain('item.edit.reinstate.header');
     const description = fixture.debugElement.query(By.css('p')).nativeElement;
     expect(description.innerHTML).toContain('item.edit.reinstate.description');

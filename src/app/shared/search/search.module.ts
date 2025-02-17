@@ -34,6 +34,10 @@ import { ThemedSearchSettingsComponent } from './search-settings/themed-search-s
 import { NouisliderModule } from 'ng2-nouislider';
 import { ThemedSearchFiltersComponent } from './search-filters/themed-search-filters.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import {
+  SearchResultsSkeletonComponent
+} from './search-results/search-results-skeleton/search-results-skeleton.component';
 
 const COMPONENTS = [
   SearchComponent,
@@ -62,6 +66,7 @@ const COMPONENTS = [
   ThemedSearchSettingsComponent,
   ThemedSearchFiltersComponent,
   ThemedSearchSidebarComponent,
+  SearchResultsSkeletonComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -74,6 +79,7 @@ const ENTRY_COMPONENTS = [
   SearchFacetSelectedOptionComponent,
   SearchFacetRangeOptionComponent,
   SearchAuthorityFilterComponent,
+  SearchResultsSkeletonComponent
 ];
 
 /**
@@ -93,11 +99,12 @@ export const MODELS = [
   imports: [
     CommonModule,
     TranslateModule.forChild({
-      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+      missingTranslationHandler: {provide: MissingTranslationHandler, useClass: MissingTranslationHelper},
       useDefaultLang: true
     }),
     SharedModule.withEntryComponents(),
     NouisliderModule,
+    NgxSkeletonLoaderModule,
   ],
   exports: [
     ...COMPONENTS

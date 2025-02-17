@@ -24,6 +24,7 @@ import { FormFieldMetadataValueObject } from './builder/models/form-field-metada
 import { createTestComponent } from '../testing/utils.test';
 import { BehaviorSubject } from 'rxjs';
 import { storeModuleConfig } from '../../app.reducer';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
 
 let TEST_FORM_MODEL;
 
@@ -156,7 +157,8 @@ describe('FormComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: Store, useClass: StoreMock }
+        { provide: Store, useClass: StoreMock },
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

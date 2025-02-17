@@ -6,6 +6,7 @@ import { ObjectNotFoundComponent } from './objectnotfound.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
 describe('ObjectNotFoundComponent', () => {
   let comp: ObjectNotFoundComponent;
@@ -17,6 +18,10 @@ describe('ObjectNotFoundComponent', () => {
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({id: testUUID, idType: uuidType})
   });
+  const serverResponseServiceStub = jasmine.createSpyObj('ServerResponseService', {
+    setNotFound: jasmine.createSpy('setNotFound')
+  });
+
   const activatedRouteStubHandle = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({id: handleId, idType: handlePrefix})
   });
@@ -26,6 +31,7 @@ describe('ObjectNotFoundComponent', () => {
         imports: [
           TranslateModule.forRoot()
         ], providers: [
+          {provide: ServerResponseService, useValue: serverResponseServiceStub},
           {provide: ActivatedRoute, useValue: activatedRouteStub}
         ],
         declarations: [ObjectNotFoundComponent],
@@ -48,6 +54,10 @@ describe('ObjectNotFoundComponent', () => {
       expect(comp.idType).toEqual(uuidType);
       expect(comp.missingItem).toEqual('uuid: ' + testUUID);
     });
+
+    it('should call serverResponseService.setNotFound', () => {
+      expect(serverResponseServiceStub.setNotFound).toHaveBeenCalled();
+    });
   });
 
   describe( 'legacy handle request', () => {
@@ -56,6 +66,7 @@ describe('ObjectNotFoundComponent', () => {
         imports: [
           TranslateModule.forRoot()
         ], providers: [
+          {provide: ServerResponseService, useValue: serverResponseServiceStub},
           {provide: ActivatedRoute, useValue: activatedRouteStubHandle}
         ],
         declarations: [ObjectNotFoundComponent],
@@ -74,6 +85,9 @@ describe('ObjectNotFoundComponent', () => {
       expect(comp.idType).toEqual(handlePrefix);
       expect(comp.missingItem).toEqual('handle: ' + handlePrefix + '/' + handleId);
     });
-  });
 
+    it('should call serverResponseService.setNotFound', () => {
+      expect(serverResponseServiceStub.setNotFound).toHaveBeenCalled();
+    });
+  });
 });

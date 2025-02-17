@@ -28,7 +28,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
         resolve: {
           dso: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver,
-          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -36,10 +35,16 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: '',
             component: ThemedItemPageComponent,
             pathMatch: 'full',
+            resolve: {
+              menu: DSOEditMenuResolver,
+            },
           },
           {
             path: 'full',
             component: ThemedFullItemPageComponent,
+            resolve: {
+              menu: DSOEditMenuResolver,
+            },
           },
           {
             path: ITEM_EDIT_PATH,

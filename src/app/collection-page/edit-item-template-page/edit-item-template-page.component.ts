@@ -8,7 +8,7 @@ import { ItemTemplateDataService } from '../../core/data/item-template-data.serv
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({

@@ -89,6 +89,18 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
         }
       }),
       map((list: PaginatedList<VocabularyEntry>) => list.page),
+      // Add user input as last item of the list
+      map((list: VocabularyEntry[]) => {
+        if (list && list.length > 0) {
+          if (isNotEmpty(this.currentValue)) {
+            let vocEntry = new VocabularyEntry();
+            vocEntry.display = this.currentValue;
+            vocEntry.value = this.currentValue;
+            list.push(vocEntry);
+        }
+        }
+        return list;
+      }),
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed));
 
@@ -139,7 +151,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
    * @param event The value to emit.
    */
   onBlur(event: Event) {
-    if (isNotEmpty(this.currentValue) && !this.instance.isPopupOpen()) {
+    if (isNotEmpty(this.currentValue) && (!this.model.hasAuthority || !this.instance.isPopupOpen())) {
       this.addTagsToChips();
     }
     this.blur.emit(event);

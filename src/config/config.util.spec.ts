@@ -1,7 +1,7 @@
 import { environment } from '../environments/environment.production';
 import { extendEnvironmentWithAppConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
-import { HandleThemeConfig } from './theme.model';
+import { HandleThemeConfig } from './theme.config';
 
 describe('Config Util', () => {
   describe('extendEnvironmentWithAppConfig', () => {

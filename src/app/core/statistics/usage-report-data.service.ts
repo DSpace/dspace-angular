@@ -15,6 +15,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { dataService } from '../data/base/data-service.decorator';
+import { RequestParam } from '../cache/models/request-param.model';
 
 /**
  * A service to retrieve {@link UsageReport}s from the REST API
@@ -45,10 +46,7 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
   searchStatistics(uri: string, page: number, size: number): Observable<UsageReport[]> {
     return this.searchBy('object', {
       searchParams: [
-        {
-          fieldName: `uri`,
-          fieldValue: uri,
-        },
+        new RequestParam('uri', uri),
       ],
       currentPage: page,
       elementsPerPage: size,

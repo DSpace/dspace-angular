@@ -2,6 +2,7 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { OrgUnitInputSuggestionsComponent } from './org-unit-input-suggestions.component';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 let component: OrgUnitInputSuggestionsComponent;
 let fixture: ComponentFixture<OrgUnitInputSuggestionsComponent>;
@@ -21,6 +22,7 @@ describe('OrgUnitInputSuggestionsComponent', () => {
       declarations: [OrgUnitInputSuggestionsComponent],
       imports: [
         FormsModule,
+        TranslateModule.forRoot(),
       ],
       providers: [
       ],

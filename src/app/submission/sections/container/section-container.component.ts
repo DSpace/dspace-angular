@@ -3,7 +3,7 @@ import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
 import { SectionsDirective } from '../sections.directive';
 import { SectionDataObject } from '../models/section-data.model';
 import { rendersSectionType } from '../sections-decorator';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 
 /**
  * This component represents a section that contains the submission license form.

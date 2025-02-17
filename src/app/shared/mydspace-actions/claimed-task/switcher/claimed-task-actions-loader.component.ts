@@ -1,8 +1,8 @@
 import {
   Component,
-  ComponentFactoryResolver,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -27,7 +27,7 @@ import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-ac
  * Component for loading a ClaimedTaskAction component depending on the "option" input
  * Passes on the ClaimedTask to the component and subscribes to the processCompleted output
  */
-export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
+export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * The item object that belonging to the ClaimedTask object
    */
@@ -68,19 +68,20 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
    * The list of input and output names for the dynamic component
    */
   protected inAndOutputNames: (keyof ClaimedTaskActionsAbstractComponent & keyof this)[] = [
+    'item',
     'object',
     'option',
+    'workflowitem',
     'processCompleted',
   ];
-
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
-  }
 
   /**
    * Fetch, create and initialize the relevant component
    */
   ngOnInit(): void {
-    this.instantiateComponent();
+    if (hasNoValue(this.compRef)) {
+      this.instantiateComponent();
+    }
   }
 
   /**
@@ -105,12 +106,10 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
   private instantiateComponent(changes?: SimpleChanges): void {
     const comp = this.getComponentByWorkflowTaskOption(this.option);
     if (hasValue(comp)) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
-
       const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
       viewContainerRef.clear();
 
-      this.compRef = viewContainerRef.createComponent(componentFactory);
+      this.compRef = viewContainerRef.createComponent(comp);
 
       if (hasValue(changes)) {
         this.ngOnChanges(changes);
@@ -133,6 +132,13 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnChanges {
       this.inAndOutputNames.filter((name: any) => this[name] !== undefined).forEach((name: any) => {
         this.compRef.instance[name] = this[name];
       });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
     }
   }
 }

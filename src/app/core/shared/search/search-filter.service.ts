@@ -27,6 +27,7 @@ const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
 export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
 export const REFRESH_FILTER: InjectionToken<BehaviorSubject<any>> = new InjectionToken<boolean>('refreshFilters');
+export const SCOPE: InjectionToken<string> = new InjectionToken<string>('scope');
 
 /**
  * Service that performs all actions that have to do with search filters and facets

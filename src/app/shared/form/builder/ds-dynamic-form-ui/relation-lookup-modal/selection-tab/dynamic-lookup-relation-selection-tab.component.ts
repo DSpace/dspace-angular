@@ -13,6 +13,8 @@ import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { SearchResult } from '../../../../../search/models/search-result.model';
+import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',
@@ -63,12 +65,12 @@ export class DsDynamicLookupRelationSelectionTabComponent {
   /**
    * Send an event to deselect an object from the list
    */
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() deselectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   /**
    * Send an event to select an object from the list
    */
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   /**
    * The initial pagination to use

@@ -182,6 +182,7 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
+import { SubmissionParentBreadcrumbsService } from './submission/submission-parent-breadcrumb.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -245,6 +246,7 @@ const PROVIDERS = [
   NotificationsService,
   WorkspaceitemDataService,
   WorkflowItemDataService,
+  SubmissionParentBreadcrumbsService,
   DSpaceObjectDataService,
   ConfigurationDataService,
   DSOChangeAnalyzer,

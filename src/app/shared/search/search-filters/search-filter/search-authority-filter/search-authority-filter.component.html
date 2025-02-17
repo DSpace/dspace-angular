@@ -26,5 +26,6 @@
                           (submitSuggestion)="onSubmit($event)"
                           (clickSuggestion)="onClick($event)"
                           (findSuggestions)="findSuggestions($event)"
+                          *ngIf="!(isAvailableForShowSearchText | async)"
                           ngDefaultControl></ds-filter-input-suggestions>
 </div>

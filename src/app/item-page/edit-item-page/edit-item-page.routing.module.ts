@@ -38,6 +38,8 @@ import { ItemPageBitstreamsGuard } from './item-page-bitstreams.guard';
 import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
+import { ItemPageCurateGuard } from './item-page-curate.guard';
+import { ItemPageAccessControlGuard } from './item-page-access-control.guard';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { ItemCurateComponent } from './item-curate/item-curate.component';
@@ -87,7 +89,8 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
               {
                 path: 'curate',
                 component: ItemCurateComponent,
-                data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true }
+                data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true },
+                canActivate: [ItemPageCurateGuard]
               },
               {
                 path: 'relationships',
@@ -116,7 +119,8 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
               {
                 path: 'access-control',
                 component: ItemAccessControlComponent,
-                data: { title: 'item.edit.tabs.access-control.title', showBreadcrumbs: true }
+                data: { title: 'item.edit.tabs.access-control.title', showBreadcrumbs: true },
+                canActivate: [ItemPageAccessControlGuard]
               },
               {
                 path: 'mapper',
@@ -202,11 +206,13 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
     ItemPageWithdrawGuard,
     ItemPageAdministratorGuard,
     ItemPageMetadataGuard,
+    ItemPageCurateGuard,
     ItemPageStatusGuard,
     ItemPageBitstreamsGuard,
     ItemPageRelationshipsGuard,
     ItemPageVersionHistoryGuard,
     ItemPageCollectionMapperGuard,
+    ItemPageAccessControlGuard,
     ItemPageRegisterDoiGuard,
   ]
 })

@@ -22,21 +22,39 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: COLLECTION_CREATE_PATH,
-        component: CreateCollectionPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
+        children: [
+          {
+            path: '',
+            component: CreateCollectionPageComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'collection.create',
+            },
+          },
+        ],
+        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard],
+        data: {
+          breadcrumbQueryParam: 'parent',
+        },
+        resolve: {
+          breadcrumb: CommunityBreadcrumbResolver,
+        },
+        runGuardsAndResolvers: 'always',
       },
       {
         path: ':id',
         resolve: {
           dso: CollectionPageResolver,
           breadcrumb: CollectionBreadcrumbResolver,
-          menu: DSOEditMenuResolver
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -66,6 +84,9 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: '',
             component: ThemedCollectionPageComponent,
             pathMatch: 'full',
+            resolve: {
+              menu: DSOEditMenuResolver,
+            },
           }
         ],
         data: {
@@ -94,6 +115,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     CreateCollectionPageGuard,
     CollectionPageAdministratorGuard,
+    CommunityBreadcrumbResolver,
   ]
 })
 export class CollectionPageRoutingModule {

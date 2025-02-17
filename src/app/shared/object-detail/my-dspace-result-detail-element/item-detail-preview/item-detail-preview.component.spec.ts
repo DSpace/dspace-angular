@@ -20,6 +20,7 @@ import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
@@ -99,6 +100,7 @@ describe('ItemDetailPreviewComponent', () => {
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },

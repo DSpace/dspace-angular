@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
  */
 @Component({
   selector: 'ds-link-menu-item',
-  templateUrl: './link-menu-item.component.html'
+  styleUrls: ['./menu-item.component.scss'],
+  templateUrl: './link-menu-item.component.html',
 })
 @rendersMenuItemForType(MenuItemType.LINK)
 export class LinkMenuItemComponent implements OnInit {

@@ -1,6 +1,7 @@
 
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
 /**
  * This component representing the `PageNotFound` DSpace page.
@@ -25,7 +26,7 @@ export class ObjectNotFoundComponent implements OnInit {
    * @param {AuthService} authservice
    * @param {ServerResponseService} responseService
    */
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private serverResponseService: ServerResponseService) {
     route.params.subscribe((params) => {
       this.idType = params.idType;
       this.id = params.id;
@@ -38,6 +39,7 @@ export class ObjectNotFoundComponent implements OnInit {
     } else {
       this.missingItem = 'handle: ' + this.idType + '/' + this.id;
     }
+    this.serverResponseService.setNotFound();
   }
 
 }

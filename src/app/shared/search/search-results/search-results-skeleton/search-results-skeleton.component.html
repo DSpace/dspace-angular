@@ -1,0 +1,38 @@
+<div class="row flex-nowrap">
+  <div [class.mb-2]="(viewMode$ | async) === ViewMode.ListElement" class="info-skeleton col-12">
+    <ngx-skeleton-loader/>
+  </div>
+</div>
+
+<ng-container *ngIf="(viewMode$ | async) === ViewMode.ListElement; else grid">
+  <ng-container *ngFor="let result of loadingResults; let first = first">
+    <div [class.my-4]="!first" class="row">
+      <div *ngIf="showThumbnails" class="col-3 col-md-2">
+        <div class="thumbnail-skeleton position-relative">
+          <ngx-skeleton-loader/>
+        </div>
+      </div>
+      <div [class.col-9]="showThumbnails" [class.col-md-10]="showThumbnails" [class.col-md-12]="!showThumbnails">
+        <div class="badge-skeleton">
+          <ngx-skeleton-loader/>
+        </div>
+        <div class="text-skeleton">
+          <ngx-skeleton-loader [count]="textLineCount"/>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #grid>
+  <div class="card-columns row">
+    <ng-container *ngFor="let result of loadingResults">
+      <div class="card-column col col-sm-6 col-lg-4">
+        <div class="card-skeleton">
+          <ngx-skeleton-loader/>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+

@@ -4,10 +4,12 @@ import { ListFieldParser } from './list-field-parser';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { ParserOptions } from './parser-options';
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
 describe('ListFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues = {};
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {
@@ -39,13 +41,13 @@ describe('ListFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     expect(parser instanceof ListFieldParser).toBe(true);
   });
 
   it('should return a DynamicListCheckboxGroupModel object when repeatable option is true', () => {
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -54,7 +56,7 @@ describe('ListFieldParser test suite', () => {
 
   it('should return a DynamicListRadioGroupModel object when repeatable option is false', () => {
     field.repeatable = false;
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -67,7 +69,7 @@ describe('ListFieldParser test suite', () => {
     };
     const expectedValue = [new FormFieldMetadataValueObject('test type')];
 
-    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new ListFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 

@@ -12,7 +12,7 @@ import {
 } from '../../../core/shared/operators';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

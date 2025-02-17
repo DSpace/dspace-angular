@@ -4,6 +4,7 @@ import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { hasValue } from '../../../shared/empty.util';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
+import { environment } from '../../../../environments/environment';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -89,5 +90,26 @@ export class MetadataValuesComponent implements OnChanges {
       return {value: value};
     }
     return queryParams;
+  }
+
+  /**
+   * Checks if the given link value is an internal link.
+   * @param linkValue - The link value to check.
+   * @returns True if the link value starts with the base URL defined in the environment configuration, false otherwise.
+   */
+  hasInternalLink(linkValue: string): boolean {
+    return linkValue.startsWith(environment.ui.baseUrl);
+  }
+
+  /**
+   * This method performs a validation and determines the target of the url.
+   * @returns - Returns the target url.
+   */
+  getLinkAttributes(urlValue: string): { target: string, rel: string } {
+    if (this.hasInternalLink(urlValue)) {
+      return { target: '_self', rel: '' };
+    } else {
+      return { target: '_blank', rel: 'noopener noreferrer' };
+    }
   }
 }

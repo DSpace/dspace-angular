@@ -219,11 +219,13 @@ export class SystemWideAlertFormComponent implements OnInit {
     } else {
       alert.countdownTo = null;
     }
-    if (hasValue(this.currentAlert)) {
-      const updatedAlert = Object.assign(new SystemWideAlert(), this.currentAlert, alert);
-      this.handleResponse(this.systemWideAlertDataService.put(updatedAlert), 'system-wide-alert.form.update', navigateToHomePage);
-    } else {
-      this.handleResponse(this.systemWideAlertDataService.create(alert), 'system-wide-alert.form.create', navigateToHomePage);
+    if (this.alertForm.valid) {
+      if (hasValue(this.currentAlert)) {
+        const updatedAlert = Object.assign(new SystemWideAlert(), this.currentAlert, alert);
+        this.handleResponse(this.systemWideAlertDataService.put(updatedAlert), 'system-wide-alert.form.update', navigateToHomePage);
+      } else {
+        this.handleResponse(this.systemWideAlertDataService.create(alert), 'system-wide-alert.form.create', navigateToHomePage);
+      }
     }
   }
 

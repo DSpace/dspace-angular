@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Subscription } from 'rxjs';
-import { AlertType } from '../alert/aletr-type';
+import { AlertType } from '../alert/alert-type';
 
 @Component({
   selector: 'ds-error',

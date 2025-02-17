@@ -54,6 +54,11 @@ export class UploaderComponent {
   @Input() uploadProperties: UploaderProperties;
 
   /**
+   * The aria label to describe what kind of files need to be uploaded
+   */
+  @Input() ariaLabel: string;
+
+  /**
    * The function to call when upload is completed
    */
   @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();

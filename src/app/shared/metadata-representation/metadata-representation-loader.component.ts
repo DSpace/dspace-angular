@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Inject, Input, OnInit, ViewChild, OnChanges, SimpleChanges, ComponentRef, ViewContainerRef, ComponentFactory } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild, OnChanges, OnDestroy, SimpleChanges, ComponentRef, ViewContainerRef } from '@angular/core';
 import {
   MetadataRepresentation,
   MetadataRepresentationType
@@ -18,8 +18,7 @@ import { ThemeService } from '../theme-support/theme.service';
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type), its metadata representation and, optionally, its context
  */
-export class MetadataRepresentationLoaderComponent implements OnInit, OnChanges {
-
+export class MetadataRepresentationLoaderComponent implements OnDestroy, OnInit, OnChanges {
   /**
    * The item or metadata to determine the component for
    */
@@ -55,7 +54,6 @@ export class MetadataRepresentationLoaderComponent implements OnInit, OnChanges 
   ];
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private themeService: ThemeService,
     @Inject(METADATA_REPRESENTATION_COMPONENT_FACTORY) private getMetadataRepresentationComponent: (entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>,
   ) {
@@ -65,7 +63,9 @@ export class MetadataRepresentationLoaderComponent implements OnInit, OnChanges 
    * Set up the dynamic child component
    */
   ngOnInit(): void {
-    this.instantiateComponent();
+    if (hasNoValue(this.compRef)) {
+      this.instantiateComponent();
+    }
   }
 
   /**
@@ -88,17 +88,24 @@ export class MetadataRepresentationLoaderComponent implements OnInit, OnChanges 
   }
 
   private instantiateComponent(changes?: SimpleChanges): void {
-    const componentFactory: ComponentFactory<MetadataRepresentationListElementComponent> = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
+    const component: GenericConstructor<MetadataRepresentationListElementComponent> = this.getComponent();
 
     const viewContainerRef: ViewContainerRef = this.mdRepDirective.viewContainerRef;
     viewContainerRef.clear();
 
-    this.compRef = viewContainerRef.createComponent(componentFactory);
+    this.compRef = viewContainerRef.createComponent(component);
 
     if (hasValue(changes)) {
       this.ngOnChanges(changes);
     } else {
       this.connectInputsAndOutputs();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
     }
   }
 

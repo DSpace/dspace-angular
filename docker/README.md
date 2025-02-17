@@ -101,8 +101,8 @@ and the backend at http://localhost:8080/server/
 
 ## Run DSpace Angular dist build with DSpace Demo site backend
 
-This allows you to run the Angular UI in *production* mode, pointing it at the demo backend
-(https://api7.dspace.org/server/).
+This allows you to run the Angular UI in *production* mode, pointing it at the demo or sandbox backend
+(https://demo.dspace.org/server/ or https://sandbox.dspace.org/server/).
 
 ```
 docker-compose -f docker/docker-compose-dist.yml pull

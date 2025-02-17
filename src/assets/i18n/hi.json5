@@ -2677,15 +2677,15 @@
 
   "mydspace.show.workspace": "आपकी प्रस्तुतियां",
 
-  "mydspace.status.archived": "संग्रहीत",
+  "mydspace.status.mydspaceArchived": "संग्रहीत",
 
-  "mydspace.status.validation": "सत्यापन",
+  "mydspace.status.mydspaceValidation": "सत्यापन",
 
-  "mydspace.status.waiting-for-controller": "नियंत्रक की प्रतीक्षा कर रहा है",
+  "mydspace.status.mydspaceWaitingController": "नियंत्रक की प्रतीक्षा कर रहा है",
 
-  "mydspace.status.workflow": "कार्यप्रवाह",
+  "mydspace.status.mydspaceWorkflow": "कार्यप्रवाह",
 
-  "mydspace.status.workspace": "कार्यस्थान",
+  "mydspace.status.mydspaceWorkspace": "कार्यस्थान",
 
   "mydspace.title": "मेरा डीस्पेस",
 
@@ -3421,6 +3421,10 @@
 
   "resource-policies.form.name.label": "नाम",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   "resource-policies.form.policy-type.label": "नीति प्रकार चुनें",
 
   "resource-policies.form.policy-type.required": "आपको संसाधन नीति प्रकार का चयन करना होगा।",
@@ -3811,7 +3815,7 @@
 
   "submission.import-external.source.cinii": "CiNii",
 
-  "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "Crossref",
 
   "submission.import-external.source.epo": "यूरोपीय पेटेंट कार्यालय",
 

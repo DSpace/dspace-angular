@@ -90,13 +90,11 @@ export class EditRelationshipComponent implements OnChanges {
         getRemoteDataPayload(),
         filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
       );
-      this.relatedItem$ = observableCombineLatest(
+      this.relatedItem$ = observableCombineLatest([
         this.leftItem$,
         this.rightItem$,
-      ).pipe(
-        map((items: Item[]) =>
-          items.find((item) => item.uuid !== this.editItem.uuid)
-        )
+      ]).pipe(
+        map(([leftItem, rightItem]: [Item, Item]) => leftItem.uuid === this.editItem.uuid ? rightItem : leftItem),
       );
     } else {
       this.relatedItem$ = of(this.update.relatedItem);
@@ -108,10 +106,10 @@ export class EditRelationshipComponent implements OnChanges {
    */
   remove(): void {
     this.closeVirtualMetadataModal();
-    observableCombineLatest(
+    observableCombineLatest([
       this.leftItem$,
       this.rightItem$,
-    ).pipe(
+    ]).pipe(
       map((items: Item[]) =>
         items.map((item) => this.objectUpdatesService
           .isSelectedVirtualMetadata(this.url, this.relationship.id, item.uuid))
@@ -127,9 +125,9 @@ export class EditRelationshipComponent implements OnChanges {
         ) as DeleteRelationship;
       }),
       take(1),
-    ).subscribe((deleteRelationship: DeleteRelationship) =>
-      this.objectUpdatesService.saveRemoveFieldUpdate(this.url, deleteRelationship)
-    );
+    ).subscribe((deleteRelationship: DeleteRelationship) => {
+      this.objectUpdatesService.saveRemoveFieldUpdate(this.url, deleteRelationship);
+    });
   }
 
   openVirtualMetadataModal(content: any) {

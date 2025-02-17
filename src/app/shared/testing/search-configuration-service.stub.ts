@@ -13,6 +13,10 @@ export class SearchConfigurationServiceStub {
     return observableOf([]);
   }
 
+  getCurrentFilters() {
+    return observableOf([]);
+  }
+
   getCurrentScope(a) {
     return observableOf('test-id');
   }

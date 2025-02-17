@@ -23,11 +23,9 @@ body {
     position: relative;
 }
 
-.main-content {
+#main-content {
     z-index: var(--ds-main-z-index);
     flex: 1 1 100%;
-    margin-top: var(--ds-content-spacing);
-    margin-bottom: var(--ds-content-spacing);
 }
 
 .alert.hide {
@@ -35,13 +33,49 @@ body {
     margin: 0;
 }
 
-ds-admin-sidebar {
-    position: fixed;
-    z-index: var(--ds-sidebar-z-index);
-}
-
 .sticky-top {
     z-index: 0;
+}
+
+.klaro
+.cookie-notice {
+  .cn-buttons {
+    .cm-btn.cm-btn-success {
+      color: var(--button-text-color-cookie);
+      background-color: var(--green1);
+      font-weight: 600;
+    }
+  }
+}
+
+.klaro .cookie-modal .cm-btn.cm-btn-success.cm-btn-accept-all {
+  color: var(--button-text-color-cookie);
+  background-color: var(--green1);
+  font-weight: 600;
+}
+
+.klaro .cookie-modal a,
+.klaro .context-notice a,
+.klaro .cookie-notice a {
+  color: var(--green1);
+  text-decoration: underline !important;
+}
+
+.klaro .cookie-modal .cm-modal .cm-body span,
+.klaro
+  .cookie-modal
+  .cm-modal
+  .cm-body
+  ul.cm-purposes
+  li.cm-purpose
+  span.cm-required,
+p.purposes,
+.klaro .cookie-modal .cm-modal .cm-footer .cm-powered-by a {
+  color: var(--bs-light) !important;
+}
+
+.klaro .cookie-modal .cm-btn.cm-btn-info {
+  background-color: var(--very-dark-cyan) !important;
 }
 
 .media-viewer
@@ -222,48 +256,254 @@ ds-dynamic-form-control-container.d-none {
 }
 
 .badge-validation {
-  background-color: #{map-get($theme-colors, warning)};
+    background-color: #{map-get($theme-colors, warning)};
 }
 
 .badge-waiting-controller {
-  background-color: #{map-get($theme-colors, info)};
+    background-color: #{map-get($theme-colors, info)};
 }
 
 .badge-workspace {
-  background-color: #{map-get($theme-colors, primary)};
+    background-color: #{map-get($theme-colors, primary)};
 }
 
 .badge-archived {
-  background-color: #{map-get($theme-colors, success)};
+    background-color: darken($green, 25);
 }
 
 .badge-workflow {
-  background-color: #{map-get($theme-colors, info)};
+    background-color: #{map-get($theme-colors, info)};
 }
 
 .badge-item-type {
-  background-color: #{map-get($theme-colors, info)};
+    background-color: #{map-get($theme-colors, info)};
 }
 
 .visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
-ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
-  // ensure that links in DSO edit menu dropdowns are unstyled (li elements are styled instead to support icons)
-  padding: 0;
-  display: inline;
+ul.dso-edit-menu-dropdown>li .nav-item.nav-link {
+    // ensure that links in DSO edit menu dropdowns are unstyled (li elements are styled instead to support icons)
+    padding: 0;
+    display: inline;
 }
 
 .table th,
 .table td {
-  vertical-align: middle;
+    vertical-align: middle;
+}
+
+/* Flexbox gap */
+
+.gap-0 { gap: 0; }
+.gap-1 { gap: calc(#{$spacer} * .25); }
+.gap-2 { gap: calc(#{$spacer} * .5); }
+.gap-3 { gap: #{$spacer}; }
+.gap-4 { gap: calc(#{$spacer} * 1.5); }
+.gap-5 { gap: calc(#{$spacer} * 3); }
+
+.gapx-0 { column-gap: 0; }
+.gapx-1 { column-gap: calc(#{$spacer} * .25); }
+.gapx-2 { column-gap: calc(#{$spacer} * .5); }
+.gapx-3 { column-gap: #{$spacer}; }
+.gapx-4 { column-gap: calc(#{$spacer} * 1.5); }
+.gapx-5 { column-gap: calc(#{$spacer} * 3); }
+
+.gapy-0 { row-gap: 0; }
+.gapy-1 { row-gap: calc(#{$spacer} * .25); }
+.gapy-2 { row-gap: calc(#{$spacer} * .5); }
+.gapy-3 { row-gap: #{$spacer}; }
+.gapy-4 { row-gap: calc(#{$spacer} * 1.5); }
+.gapy-5 { row-gap: calc(#{$spacer} * 3); }
+
+
+.pt-0\.5 {
+    padding-top: 0.125rem !important;
+}
+
+.pr-0\.5 {
+    padding-right: 0.125rem !important;
+}
+
+.pb-0\.5 {
+    padding-bottom: 0.125rem !important;
+}
+
+.pl-0\.5 {
+    padding-left: 0.125rem !important;
+}
+
+.px-0\.5 {
+    padding-left: 0.125rem !important;
+    padding-right: 0.125rem !important;
+}
+
+.py-0\.5 {
+    padding-top: 0.125rem !important;
+    padding-bottom: 0.125rem !important;
+}
+
+.btn {
+    &:focus {
+        outline-offset: 2px !important;
+        outline-style: solid !important;
+        outline-width: 2px !important;
+        box-shadow: none !important;
+    }
+    &:disabled {
+        opacity: 0.7;
+    }
+    &.btn-success {
+        background-color: darken($success, 20%);
+        border-color: darken($success, 20%);
+        &:hover {
+            background-color: darken($success, 30%);
+            border-color: darken($success, 30%);
+        }
+        &:focus {
+            outline-color: darken($success, 20%);
+        }
+    }
+    &.btn-outline-success {
+        border-color: darken($success, 20%);
+        color: darken($success, 20%);
+
+        &:hover {
+            background-color: darken($success, 30%);
+            color: $white;
+        }
+        &:focus {
+            outline-color: darken($success, 20%);
+        }
+    }
+    &.btn-warning {
+        background-color: darken($warning, 20%);
+        &:hover {
+            background-color: darken($warning, 30%);
+        }
+        &:disabled {
+            background-color: transparent;
+        }
+        &:focus {
+            outline-color: darken($warning, 22%);
+        }
+    }
+
+    &.btn-outline-warning {
+        border-color: darken($warning, 20%);
+        color: darken($warning, 20%);
+        &:hover {
+            background-color: darken($warning, 30%);
+            color: $white;
+        }
+        &:disabled {
+            background-color: transparent;
+
+            &:hover {
+                color: darken($warning, 20%);
+            }
+        }
+        :focus {
+            outline-color: darken($warning, 22%);
+        }
+        &:not(:disabled):hover {
+            background-color: darken($warning, 22%);
+        }
+    }
+
+    &.btn-secondary {
+        &:focus {
+            outline-color: darken($secondary, 20%);
+        }
+    }
+
+    &.btn-danger:focus, &.btn-outline-danger:focus {
+        outline-color: darken($danger, 20%);
+    }
+
+    &.btn-primary:focus, &.btn-outline-primary:focus {
+        outline-color: darken($primary, 5%);
+    }
+}
+
+dynamic-ng-bootstrap-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+    outline: 2px solid $gray-700 !important;
+    box-shadow: none !important;
+    outline-offset: 2px !important;
+}
+
+dynamic-ng-bootstrap-checkbox .custom-control-label::before {
+    border-color: $gray-700;
+}
+
+.text-warning {
+    color: darken($warning, 10%) !important;
+}
+
+.text-success {
+    color: darken($success, 11%) !important;
+}
+
+ngb-accordion {
+    a.close {
+        opacity: 0.75;
+    }
+    a.close:not(:disabled):not(.disabled):hover {
+        opacity: 0.9;
+    }
+}
+
+.form-control, .page-link {
+    &:disabled::placeholder {
+        color: lighten($gray-700, 10%);
+    }
+    &:focus {
+        box-shadow: none;
+        outline: 2px solid lighten($gray-700, 10%);
+        outline-offset: 2px !important;
+    }
+}
+
+.alert-success {
+    color: darken($success, 22%);
+}
+
+.alert-danger {
+    color: darken($danger, 22%);
+}
+
+// Margin utility classes based on DSpace content spacing
+.mt-cs { margin-top: var(--ds-content-spacing); }
+.mb-cs { margin-bottom: var(--ds-content-spacing); }
+.my-cs { margin-top: var(--ds-content-spacing); margin-bottom: var(--ds-content-spacing); }
+.mt-ncs { margin-top: calc(var(--ds-content-spacing) * -1); }
+.mb-ncs { margin-bottom: calc(var(--ds-content-spacing) * -1); }
+.my-ncs { margin-top: calc(var(--ds-content-spacing) * -1); margin-bottom: calc(var(--ds-content-spacing) * -1); }
+
+
+.link-contrast {
+  // Rules for accessibility to meet minimum contrast and have an identifiable link between other texts
+  color: darken($link-color, 5%);
+  // We use underline to discern link from text as we can't make color lighter on a white bg
+  text-decoration: underline;
+}
+
+// An element that is disabled should not have focus styles to avoid confusion
+// It however is still focusable for screen readers and keyboard navigation
+.disabled {
+    pointer-events: none;
+}
+
+.disabled:focus {
+    outline: none;
+    box-shadow: none;
 }

@@ -18,6 +18,7 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 
@@ -54,7 +55,7 @@ describe('SubmissionEditComponent Component', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: route },
-
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

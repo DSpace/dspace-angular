@@ -17,7 +17,6 @@ import {
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
@@ -29,6 +28,8 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -96,6 +97,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   query: string;
 
   /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  hiddenQuery: string;
+
+  /**
    * A map of subscriptions within this component
    */
   subMap: {
@@ -141,12 +147,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   /**
    * Maintain the list of the related items to be added
    */
-  toAdd = [];
+  toAdd: ItemSearchResult[] = [];
 
   /**
    * Maintain the list of the related items to be removed
    */
-  toRemove = [];
+  toRemove: ItemSearchResult[] = [];
 
   /**
    * Disable buttons while the submit button is pressed
@@ -157,7 +163,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
     private relationshipService: RelationshipDataService,
-    private relationshipTypeService: RelationshipTypeDataService,
     private externalSourceService: ExternalSourceDataService,
     private lookupRelationService: LookupRelationService,
     private searchConfigService: SearchConfigurationService,
@@ -210,13 +215,14 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.toAdd = [];
     this.toRemove = [];
     this.modal.close();
+    this.closeEv();
   }
 
   /**
    * Select (a list of) objects and add them to the store
    * @param selectableObjects
    */
-  select(...selectableObjects: SearchResult<Item>[]) {
+  select(...selectableObjects: SearchResult<DSpaceObject>[]) {
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = observableCombineLatest([...selectableObjects.map((sri: SearchResult<Item>) => {
@@ -259,11 +265,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * Deselect (a list of) objects and remove them from the store
    * @param selectableObjects
    */
-  deselect(...selectableObjects: SearchResult<Item>[]) {
+  deselect(...selectableObjects: SearchResult<DSpaceObject>[]) {
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
-        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType, this.submissionId));
+        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject as Item, this.relationshipOptions.relationshipType, this.submissionId));
       })
     );
   }
@@ -304,13 +310,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   /**
-   * Called when discard button is clicked, emit discard event to parent to conclude functionality
+   * Called when close button is clicked
+   */
+  closeEv(): void {
+  }
+
+  /**
+   * Called when discard button is clicked
    */
   discardEv(): void {
   }
 
   /**
-   * Called when submit button is clicked, emit submit event to parent to conclude functionality
+   * Called when submit button is clicked
    */
   submitEv(): void {
   }

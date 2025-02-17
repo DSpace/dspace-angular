@@ -19,7 +19,7 @@ describe('ItemFromWorkspaceResolver', () => {
       wfiService = {
         findById: (id: string) => createSuccessfulRemoteDataObject$(wfi)
       } as any;
-      resolver = new ItemFromWorkspaceResolver(wfiService, null);
+      resolver = new ItemFromWorkspaceResolver(wfiService);
     });
 
     it('should resolve a an item from from the workflow item with the correct id', (done) => {

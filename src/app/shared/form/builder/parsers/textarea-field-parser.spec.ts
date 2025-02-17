@@ -3,10 +3,12 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { TextareaFieldParser } from './textarea-field-parser';
 import { DsDynamicTextAreaModel } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { ParserOptions } from './parser-options';
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
 describe('TextareaFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {
@@ -36,13 +38,13 @@ describe('TextareaFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     expect(parser instanceof TextareaFieldParser).toBe(true);
   });
 
   it('should return a DsDynamicTextAreaModel object when repeatable option is false', () => {
-    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -57,7 +59,7 @@ describe('TextareaFieldParser test suite', () => {
     };
     const expectedValue = 'test description';
 
-    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 

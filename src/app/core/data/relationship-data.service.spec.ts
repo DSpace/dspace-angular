@@ -23,6 +23,7 @@ import { FindListOptions } from './find-list-options.model';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { MetadataValue } from '../shared/metadata.models';
 import { MetadataRepresentationType } from '../shared/metadata-representation/metadata-representation.model';
+import { environment } from '../../../environments/environment.test';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;
@@ -125,7 +126,8 @@ describe('RelationshipDataService', () => {
 
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => createSuccessfulRemoteDataObject(relatedItems.find((relatedItem) => relatedItem.id === uuid)),
-    findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
+    findByHref: createSuccessfulRemoteDataObject$(relatedItems[0]),
+    getIDHrefObs: (uuid: string) => observableOf(`https://demo.dspace.org/server/api/core/items/${uuid}`),
   });
 
   function initTestService() {
@@ -137,6 +139,7 @@ describe('RelationshipDataService', () => {
       itemService,
       null,
       jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),
+      environment,
     );
   }
 
@@ -152,7 +155,7 @@ describe('RelationshipDataService', () => {
   });
 
   describe('composition', () => {
-    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null);
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, environment);
 
     testSearchDataImplementation(initService);
   });
@@ -237,6 +240,16 @@ describe('RelationshipDataService', () => {
         expect((service as any).paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
         done();
       });
+    });
+  });
+
+  describe('searchByItemsAndType', () => {
+    it('should call addDependency for each item to invalidate the request when one of the items is update', () => {
+      spyOn(service as any, 'addDependency');
+
+      service.searchByItemsAndType(relationshipType.id, item.id, relationshipType.leftwardType, ['item-id-1', 'item-id-2']);
+
+      expect((service as any).addDependency).toHaveBeenCalledTimes(2);
     });
   });
 

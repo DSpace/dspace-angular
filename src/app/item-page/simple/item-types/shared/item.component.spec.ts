@@ -44,6 +44,8 @@ import { BrowseDefinitionDataService } from '../../../../core/browse/browse-defi
 import {
   BrowseDefinitionDataServiceStub
 } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { BrowseService } from '../../../../core/browse/browse.service';
+import { BrowseServiceStub } from '../../../../shared/testing/browse-service.stub';
 
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -133,6 +135,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
           { provide: AuthorizationDataService, useValue: authorizationService },
           { provide: ResearcherProfileDataService, useValue: {} },
           { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+          { provide: BrowseService, useValue: BrowseServiceStub },
         ],
 
         schemas: [NO_ERRORS_SCHEMA]

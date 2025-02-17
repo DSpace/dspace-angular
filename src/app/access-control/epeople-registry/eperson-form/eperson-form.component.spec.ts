@@ -1,11 +1,11 @@
 import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -19,7 +19,6 @@ import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock'
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -31,6 +30,12 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { RouterTestingModule } from '@angular/router/testing';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -43,6 +48,8 @@ describe('EPersonFormComponent', () => {
   let authorizationService: AuthorizationDataService;
   let groupsDataService: GroupDataService;
   let epersonRegistrationService: EpersonRegistrationService;
+  let route: ActivatedRouteStub;
+  let router: RouterStub;
 
   let paginationService;
 
@@ -53,9 +60,6 @@ describe('EPersonFormComponent', () => {
     ePersonDataServiceStub = {
       activeEPerson: null,
       allEpeople: mockEPeople,
-      getEPeople(): Observable<RemoteData<PaginatedList<EPerson>>> {
-        return createSuccessfulRemoteDataObject$(buildPaginatedList(null, this.allEpeople));
-      },
       getActiveEPerson(): Observable<EPerson> {
         return observableOf(this.activeEPerson);
       },
@@ -105,6 +109,9 @@ describe('EPersonFormComponent', () => {
         return createSuccessfulRemoteDataObject$(ePerson);
       },
       getEPersonByEmail(email): Observable<RemoteData<EPerson>> {
+        return createSuccessfulRemoteDataObject$(null);
+      },
+      findById(_id: string, _useCachedVersionIfAvailable = true, _reRequestOnStale = true, ..._linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<EPerson>> {
         return createSuccessfulRemoteDataObject$(null);
       }
     };
@@ -182,16 +189,14 @@ describe('EPersonFormComponent', () => {
     });
 
     paginationService = new PaginationServiceStub();
+    route = new ActivatedRouteStub();
+    router = new RouterStub();
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
+        RouterTestingModule,
+        TranslateModule.forRoot(),
       ],
-      declarations: [EPersonFormComponent],
+      declarations: [EPersonFormComponent, BtnDisabledDirective],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
@@ -202,9 +207,11 @@ describe('EPersonFormComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: Router, useValue: router },
         EPeopleRegistryComponent
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -223,37 +230,13 @@ describe('EPersonFormComponent', () => {
   });
 
   describe('check form validation', () => {
-    let firstName;
-    let lastName;
-    let email;
-    let canLogIn;
-    let requireCertificate;
+    let canLogIn: boolean;
+    let requireCertificate: boolean;
 
-    let expected;
     beforeEach(() => {
-      firstName = 'testName';
-      lastName = 'testLastName';
-      email = 'testEmail@test.com';
       canLogIn = false;
       requireCertificate = false;
 
-      expected = Object.assign(new EPerson(), {
-        metadata: {
-          'eperson.firstname': [
-            {
-              value: firstName
-            }
-          ],
-          'eperson.lastname': [
-            {
-              value: lastName
-            },
-          ],
-        },
-        email: email,
-        canLogIn: canLogIn,
-        requireCertificate: requireCertificate,
-      });
       spyOn(component.submitForm, 'emit');
       component.canLogIn.value = canLogIn;
       component.requireCertificate.value = requireCertificate;
@@ -263,24 +246,18 @@ describe('EPersonFormComponent', () => {
       fixture.detectChanges();
     });
     describe('firstName, lastName and email should be required', () => {
-      it('form should be invalid because the firstName is required', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.formGroup.controls.firstName.valid).toBeFalse();
-          expect(component.formGroup.controls.firstName.errors.required).toBeTrue();
-        });
-      }));
-      it('form should be invalid because the lastName is required', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.formGroup.controls.lastName.valid).toBeFalse();
-          expect(component.formGroup.controls.lastName.errors.required).toBeTrue();
-        });
-      }));
-      it('form should be invalid because the email is required', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.formGroup.controls.email.valid).toBeFalse();
-          expect(component.formGroup.controls.email.errors.required).toBeTrue();
-        });
-      }));
+      it('form should be invalid because the firstName is required', () => {
+        expect(component.formGroup.controls.firstName.valid).toBeFalse();
+        expect(component.formGroup.controls.firstName.errors.required).toBeTrue();
+      });
+      it('form should be invalid because the lastName is required', () => {
+        expect(component.formGroup.controls.lastName.valid).toBeFalse();
+        expect(component.formGroup.controls.lastName.errors.required).toBeTrue();
+      });
+      it('form should be invalid because the email is required', () => {
+        expect(component.formGroup.controls.email.valid).toBeFalse();
+        expect(component.formGroup.controls.email.errors.required).toBeTrue();
+      });
     });
 
     describe('after inserting information firstName,lastName and email not required', () => {
@@ -290,24 +267,18 @@ describe('EPersonFormComponent', () => {
         component.formGroup.controls.email.setValue('test@test.com');
         fixture.detectChanges();
       });
-      it('firstName should be valid because the firstName is set', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      it('firstName should be valid because the firstName is set', () => {
           expect(component.formGroup.controls.firstName.valid).toBeTrue();
           expect(component.formGroup.controls.firstName.errors).toBeNull();
-        });
-      }));
-      it('lastName should be valid because the lastName is set', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      });
+      it('lastName should be valid because the lastName is set', () => {
           expect(component.formGroup.controls.lastName.valid).toBeTrue();
           expect(component.formGroup.controls.lastName.errors).toBeNull();
-        });
-      }));
-      it('email should be valid because the email is set', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      });
+      it('email should be valid because the email is set', () => {
           expect(component.formGroup.controls.email.valid).toBeTrue();
           expect(component.formGroup.controls.email.errors).toBeNull();
-        });
-      }));
+      });
     });
 
 
@@ -316,12 +287,10 @@ describe('EPersonFormComponent', () => {
         component.formGroup.controls.email.setValue('test@test');
         fixture.detectChanges();
       });
-      it('email should not be valid because the email pattern', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      it('email should not be valid because the email pattern', () => {
           expect(component.formGroup.controls.email.valid).toBeFalse();
           expect(component.formGroup.controls.email.errors.pattern).toBeTruthy();
-        });
-      }));
+      });
     });
 
     describe('after already utilized email', () => {
@@ -336,22 +305,18 @@ describe('EPersonFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('email should not be valid because email is already taken', waitForAsync(() => {
-        fixture.whenStable().then(() => {
+      it('email should not be valid because email is already taken', () => {
           expect(component.formGroup.controls.email.valid).toBeFalse();
           expect(component.formGroup.controls.email.errors.emailTaken).toBeTruthy();
-        });
-      }));
+      });
     });
-
-
-
   });
+
   describe('when submitting the form', () => {
     let firstName;
     let lastName;
     let email;
-    let canLogIn;
+    let canLogIn: boolean;
     let requireCertificate;
 
     let expected;
@@ -380,6 +345,7 @@ describe('EPersonFormComponent', () => {
         requireCertificate: requireCertificate,
       });
       spyOn(component.submitForm, 'emit');
+      component.ngOnInit();
       component.firstName.value = firstName;
       component.lastName.value = lastName;
       component.email.value = email;
@@ -393,11 +359,9 @@ describe('EPersonFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should emit a new eperson using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
-        });
-      }));
+      it('should emit a new eperson using the correct values', () => {
+        expect(component.submitForm.emit).toHaveBeenCalledWith(expected);
+      });
     });
 
     describe('with an active eperson', () => {
@@ -421,18 +385,24 @@ describe('EPersonFormComponent', () => {
           email: email,
           canLogIn: canLogIn,
           requireCertificate: requireCertificate,
-          _links: undefined
+          _links: {
+            groups: {
+              href: '',
+            },
+            self: {
+              href: '',
+            },
+          },
         });
         spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(expectedWithId));
+        component.ngOnInit();
         component.onSubmit();
         fixture.detectChanges();
       });
 
-      it('should emit the existing eperson using the correct values', waitForAsync(() => {
-        fixture.whenStable().then(() => {
-          expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
-        });
-      }));
+      it('should emit the existing eperson using the correct values', () => {
+        expect(component.submitForm.emit).toHaveBeenCalledWith(expectedWithId);
+      });
     });
   });
 
@@ -473,34 +443,31 @@ describe('EPersonFormComponent', () => {
   });
 
   describe('delete', () => {
-
-    let ePersonId;
     let eperson: EPerson;
     let modalService;
 
     beforeEach(() => {
       spyOn(authService, 'impersonate').and.callThrough();
-      ePersonId = 'testEPersonId';
       eperson = EPersonMock;
       component.epersonInitial = eperson;
       component.canDelete$ = observableOf(true);
       spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(observableOf(eperson));
       modalService = (component as any).modalService;
       spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+      component.ngOnInit();
       fixture.detectChanges();
-
     });
 
-    it('the delete button should be active if the eperson can be deleted', () => {
+    it('the delete button should be visible if the ePerson can be deleted', () => {
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton).not.toBeNull();
     });
 
-    it('the delete button should be disabled if the eperson cannot be deleted', () => {
+    it('the delete button should be hidden if the ePerson cannot be deleted', () => {
       component.canDelete$ = observableOf(false);
       fixture.detectChanges();
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(true);
+      expect(deleteButton).toBeNull();
     });
 
     it('should call the epersonFormComponent delete when clicked on the button', () => {
@@ -515,7 +482,8 @@ describe('EPersonFormComponent', () => {
       // ePersonDataServiceStub.activeEPerson = eperson;
       spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBeNull();
+      expect(deleteButton.nativeElement.classList.contains('disabled')).toBeFalse();
       deleteButton.triggerEventHandler('click', null);
       fixture.detectChanges();
       expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);

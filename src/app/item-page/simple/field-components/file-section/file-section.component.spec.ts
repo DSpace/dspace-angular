@@ -13,6 +13,7 @@ import { of as observableOf } from 'rxjs';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
@@ -66,6 +67,7 @@ describe('FileSectionComponent', () => {
       }), BrowserAnimationsModule],
       declarations: [FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
       providers: [
+        { provide: XSRFService, useValue: {} },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: APP_CONFIG, useValue: environment }

@@ -6,6 +6,8 @@ import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loa
 import { SharedModule } from '../../../../../shared/shared.module';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { BrowseService } from '../../../../../core/browse/browse.service';
+import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
 import { By } from '@angular/platform-browser';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
@@ -27,7 +29,8 @@ describe('ItemPageAbstractFieldComponent', () => {
       ],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: BrowseService, useValue: BrowseServiceStub },
       ],
       declarations: [ItemPageAbstractFieldComponent],
       schemas: [NO_ERRORS_SCHEMA]

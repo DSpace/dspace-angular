@@ -41,6 +41,8 @@ import { BrowseDefinitionDataService } from '../../../../core/browse/browse-defi
 import {
   BrowseDefinitionDataServiceStub
 } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { BrowseService } from '../../../../core/browse/browse.service';
+import { BrowseServiceStub } from '../../../../shared/testing/browse-service.stub';
 
 const noMetadata = new MetadataMap();
 
@@ -96,6 +98,7 @@ describe('UntypedItemComponent', () => {
         { provide: ItemVersionsSharedService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: BrowseService, useValue: BrowseServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(UntypedItemComponent, {

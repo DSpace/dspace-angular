@@ -7,7 +7,6 @@ import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Store } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
@@ -24,6 +23,8 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+import {BtnDisabledDirective} from '../../../../btn-disabled.directive';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -103,7 +104,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationModalComponent],
+      declarations: [DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
       providers: [
         {
@@ -119,7 +120,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         {
           provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) }
         },
-        { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
           provide: Store, useValue: {
@@ -128,6 +128,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
             }
           }
         },
+        { provide: XSRFService, useValue: {} },
         { provide: NgZone, useValue: new NgZone({}) },
         NgbActiveModal
       ],
@@ -202,10 +203,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
   describe('when initialized and is relationship show the list of buttons', () => {
     it('submit button should be disabled', () => {
-      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.submit')).nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.submit')).nativeElement.classList.contains('disabled')).toBeTrue();
     });
     it('discard button should be disabled', () => {
-      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.discard')).nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.discard')).nativeElement.classList.contains('disabled')).toBeTrue();
     });
   });
 
@@ -243,9 +246,12 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
     it('there should show 1 spinner and disable all 3 buttons', () => {
       expect(debugElement.queryAll(By.css('.spinner-border')).length).toEqual(1);
-      expect(debugElement.query(By.css('.submit')).nativeElement?.disabled).toBeTrue();
-      expect(debugElement.query(By.css('.discard')).nativeElement?.disabled).toBeTrue();
-      expect(debugElement.query(By.css('.close')).nativeElement?.disabled).toBeTrue();
+      expect(debugElement.query(By.css('.submit')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.submit')).nativeElement?.classList.contains('disabled')).toBeTrue();
+      expect(debugElement.query(By.css('.discard')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.discard')).nativeElement?.classList.contains('disabled')).toBeTrue();
+      expect(debugElement.query(By.css('.close')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.close')).nativeElement?.classList.contains('disabled')).toBeTrue();
     });
 
   });

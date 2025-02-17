@@ -24,6 +24,7 @@ import { LinkHeadService } from '../../../core/services/link-head.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import {BtnDisabledDirective} from '../../btn-disabled.directive';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
@@ -98,7 +99,7 @@ describe('ItemSelectComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
-      declarations: [],
+      declarations: [BtnDisabledDirective],
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -184,15 +185,16 @@ describe('ItemSelectComponent', () => {
     beforeEach(() => {
       comp.featureId = FeatureID.CanManageMappings;
       spyOn(authorizationDataService, 'isAuthorized').and.returnValue(of(false));
+      comp.ngOnInit();
     });
 
-    it('should disable the checkbox', waitForAsync(() => {
+    it('should disable the checkbox', waitForAsync(async () => {
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        const checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
-        expect(authorizationDataService.isAuthorized).toHaveBeenCalled();
-        expect(checkbox.disabled).toBeTrue();
-      });
+      await fixture.whenStable();
+
+      const checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
+      expect(authorizationDataService.isAuthorized).toHaveBeenCalled();
+      expect(checkbox.disabled).toBeTrue();
     }));
   });
 });

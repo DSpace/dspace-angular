@@ -9,6 +9,8 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
+import { RouterStub } from '../testing/router.stub';
+import { Router } from '@angular/router';
 
 describe('AbstractTrackableComponent', () => {
   let comp: AbstractTrackableComponent;
@@ -27,6 +29,7 @@ describe('AbstractTrackableComponent', () => {
       success: successNotification
     }
   );
+  let router: RouterStub;
 
   const url = 'http://test-url.com/test-url';
 
@@ -42,6 +45,8 @@ describe('AbstractTrackableComponent', () => {
         isValidPage: observableOf(true)
       }
     );
+    router = new RouterStub();
+    router.url = url;
 
     scheduler = getTestScheduler();
 
@@ -51,6 +56,7 @@ describe('AbstractTrackableComponent', () => {
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: Router, useValue: router },
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -60,7 +66,6 @@ describe('AbstractTrackableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AbstractTrackableComponent);
     comp = fixture.componentInstance;
-    comp.url = url;
 
     fixture.detectChanges();
   });

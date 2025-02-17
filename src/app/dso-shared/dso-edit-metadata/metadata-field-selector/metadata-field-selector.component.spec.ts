@@ -28,7 +28,8 @@ describe('MetadataFieldSelectorComponent', () => {
     metadataSchema = Object.assign(new MetadataSchema(), {
       id: 0,
       prefix: 'dc',
-      namespace: 'http://dublincore.org/documents/dcmi-terms/',
+      namespace: 'https://schema.org/CreativeWork',
+      field: '.',
     });
     metadataFields = [
       Object.assign(new MetadataField(), {
@@ -68,10 +69,10 @@ describe('MetadataFieldSelectorComponent', () => {
   });
 
   describe('when a query is entered', () => {
-    const query = 'test query';
+    const query = 'dc.d';
 
     beforeEach(() => {
-      component.showInvalid = true;
+      component.showInvalid = false;
       component.query$.next(query);
     });
 
@@ -80,7 +81,7 @@ describe('MetadataFieldSelectorComponent', () => {
     });
 
     it('should query the registry service for metadata fields and include the schema', () => {
-      expect(registryService.queryMetadataFields).toHaveBeenCalledWith(query, { elementsPerPage: 10, sort: new SortOptions('fieldName', SortDirection.ASC) }, true, false, followLink('schema'));
+      expect(registryService.queryMetadataFields).toHaveBeenCalledWith(query, { elementsPerPage: 20, sort: new SortOptions('fieldName', SortDirection.ASC), currentPage: 1 }, true, false, followLink('schema'));
     });
   });
 

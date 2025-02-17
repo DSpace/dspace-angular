@@ -19,6 +19,7 @@ import {
   SUBMISSION_ID
 } from './field-parser';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { TranslateService } from '@ngx-translate/core';
 
 export class ConcatFieldParser extends FieldParser {
 
@@ -27,10 +28,11 @@ export class ConcatFieldParser extends FieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
+    translate: TranslateService,
     protected separator: string,
     protected firstPlaceholder: string = null,
     protected secondPlaceholder: string = null) {
-    super(submissionId, configData, initFormValues, parserOptions);
+    super(submissionId, configData, initFormValues, parserOptions, translate);
 
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;

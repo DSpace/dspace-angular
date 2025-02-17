@@ -25,6 +25,7 @@ import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service
 import { StoreMock } from '../../../../../testing/store.mock';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { storeModuleConfig } from '../../../../../../app.reducer';
+import { XSRFService } from '../../../../../../core/xsrf/xsrf.service';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -129,7 +130,8 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormComponent,
         FormService,
         { provide: VocabularyService, useValue: new VocabularyServiceStub() },
-        { provide: Store, useClass: StoreMock }
+        { provide: Store, useClass: StoreMock },
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

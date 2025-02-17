@@ -313,6 +313,33 @@
   // "admin.registries.schema.title": "Metadata Schema Registry",
   "admin.registries.schema.title": "Registre des schémas de métadonnées",
 
+  //"admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+  "admin.access-control.bulk-access.breadcrumbs": "Gestion des accès en lot",
+
+  //"administrativeBulkAccess.search.results.head": "Search Results",
+  "administrativeBulkAccess.search.results.head": "Résultats de recherche",
+
+  //"admin.access-control.bulk-access": "Bulk Access Management",
+  "admin.access-control.bulk-access": "Gestion des accès en lot",
+
+  //"admin.access-control.bulk-access.title": "Bulk Access Management",
+  "admin.access-control.bulk-access.title": "Gestion des accès en lot",
+
+
+  //"admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+  "admin.access-control.bulk-access-browse.header": "Étape 1 : Sélectionner les objets",
+
+  //"admin.access-control.bulk-access-browse.search.header": "Search",
+  "admin.access-control.bulk-access-browse.search.header": "Chercher",
+
+
+  //"admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+  "admin.access-control.bulk-access-browse.selected.header": "Sélection actuelle({{number}})",
+
+
+  //"admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+  "admin.access-control.bulk-access-settings.header": "Étape 2 : Opération à exécuter",
+
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Supprimer un(e) EPerson",
 
@@ -763,14 +790,26 @@
   // "admin.workflow.item.workflow": "Workflow",
   "admin.workflow.item.workflow": "En traitement",
 
+  //"admin.workflow.item.workspace": "Workspace",
+  "admin.workflow.item.workspace": "Dépôts en cours",
+
   // "admin.workflow.item.delete": "Delete",
   "admin.workflow.item.delete": "Supprimer",
 
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Retourner au déposant",
 
+  //"admin.workflow.item.policies": "Policies",
+  "admin.workflow.item.policies": "Politiques",
+
+  // "admin.workflow.item.supervision": "Supervision",
+  "admin.workflow.item.supervision": "Supervision",
+
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   "admin.metadata-import.breadcrumbs": "Importer Métadonnées",
+
+  //"admin.batch-import.breadcrumbs": "Import Batch",
+  "admin.batch-import.breadcrumbs": "Importation en lots",
 
   // "admin.metadata-import.title": "Import Metadata",
   "admin.metadata-import.title": "Importer Métadonnées",
@@ -778,11 +817,24 @@
   // "admin.metadata-import.page.header": "Import Metadata",
   "admin.metadata-import.page.header": "Importer Métadonnées",
 
+  //"admin.batch-import.page.header": "Import Batch",
+  "admin.batch-import.page.header": "Importation en lots",
+
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Vous pouvez glisser-déposer ou rechercher ici des fichiers CSV qui contiennent des opérations en lot sur les métadonnées",
 
+  //"admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  "admin.batch-import.page.help": "Sélectionner la collection dans laquelle importer les données. Ensuite, ajouter le fichier zip Simple Archive Format (SAF) contenant tous les Items à importer.",
+
+  //"admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  "admin.batch-import.page.toggle.help": "Il est possible d'effectuer l'importation en téléversant un fichier ou en utilisant un URL. Utiliser le bouton à bascule ci-dessus afin de sélectionner la source.",
+
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Déposer un fichier CSV à importer",
+
+  //"admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+  "admin.batch-import.page.dropMsg": "Glisser/déposer un fichier zip à importer",
+
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
   "admin.metadata-import.page.dropMsgReplace": "Déposer un nouveau fichier CSV pour remplacer le fichier à importer",
@@ -793,8 +845,26 @@
   // "admin.metadata-import.page.button.proceed": "Proceed",
   "admin.metadata-import.page.button.proceed": "Importer",
 
+  //"admin.metadata-import.page.button.select-collection": "Select Collection",
+  "admin.metadata-import.page.button.select-collection": "Sélectionner une collection",
+
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Veuillez d'abord sélectionner un fichier",
+
+  //"admin.metadata-import.page.toggle.upload": "Upload",
+  "admin.metadata-import.page.toggle.upload": "Téléverser",
+
+  //"admin.metadata-import.page.validateOnly": "Validate Only",
+  "admin.metadata-import.page.validateOnly": "Valider seulement",
+
+  //"admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.metadata-import.page.validateOnly.hint": "Si activé, le fichier CSV sera uniquement validé. Vous recevrez un rapport identifiant les changements détectés, mais aucun changement ne sera appliqué aux métadonnées.",
+
+  //"admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.batch-import.page.validateOnly.hint": "Si activé, le fichier ZIP SAF sera uniquement validé. Vous recevrez un rapport identifiant les changements détectés, mais aucun changement ne sera appliqué aux données.",
+
+  //"admin.batch-import.page.remove": "remove",
+  "admin.batch-import.page.remove": "supprimer",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "Adresse électronique ou mot de passe non valide.",
@@ -1374,6 +1444,12 @@
   // "collection.listelement.badge": "Collection",
   "collection.listelement.badge": "Collection",
 
+  // "collection.logo": "Collection logo",
+  "collection.logo": "Logo de la collection",
+
+  // "collection.page.browse.search.head": "Search",
+  "collection.page.browse.search.head": "Chercher",
+
   // "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.head": "Dépôts récents",
 
@@ -1391,6 +1467,9 @@
 
   // "collection.page.news": "News",
   "collection.page.news": "Nouvelles",
+
+  // "collection.search.results.head": "Search Results",
+  "collection.search.results.head": "Résultats de recherche",
 
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Confirmer la sélection",
@@ -1695,8 +1774,11 @@
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Sous-communautés et collections",
 
+  //"community.search.results.head": "Search Results",
+  "community.search.results.head": "Résultats de recherche",
+
   // "community.sub-collection-list.head": "Collections of this Community",
-  "community.sub-collection-list.head": "collections au sein de cette communauté",
+  "community.sub-collection-list.head": "Collections au sein de cette communauté",
 
   // "community.sub-community-list.head": "Communities of this Community",
   "community.sub-community-list.head": "Sous-communautés au sein de cette communauté",
@@ -3108,7 +3190,13 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Créer une nouvelle version",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  //"item.page.withdrawn": "Request a withdrawal for this item",
+  "item.page.withdrawn": "Demander le retrait de cet Item",
+
+  //"item.page.reinstate": "Request reinstatement",
+  "item.page.reinstate": "Demander la réintégration de cet Item",
+
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Une nouvelle version ne peut être créée car il y a une soumission en cours dans l'historique des versions",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
@@ -3234,7 +3322,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Supprimer la version",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Une nouvelle version ne peut pas être créée parce qu'il y a une soumission en cours dans l'historique des versions.",
 
   // "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
@@ -3273,7 +3361,7 @@
   // "item.version.create.notification.failure": "New version has not been created",
   "item.version.create.notification.failure": "La nouvelle version n'a pas été créée",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "Une nouvelle version ne peut pas être créée parce qu'il y a une soumission en cours dans l'historique des versions.",
 
   // "item.version.delete.modal.header": "Delete version",
@@ -3669,6 +3757,15 @@
   // "menu.section.new_process": "Process",
   "menu.section.new_process": "Processus",
 
+  //"menu.section.notifications": "Notifications",
+  "menu.section.notifications": "Notifications",
+
+  //"menu.section.quality-assurance": "Quality Assurance",
+  "menu.section.quality-assurance": "Assurance qualité",
+
+  //"menu.section.notifications_publication-claim": "Publication Claim",
+  "menu.section.notifications_publication-claim": "Réclamation de publication",
+
   // "menu.section.pin": "Pin sidebar",
   "menu.section.pin": "Épingler le menu latéral",
 
@@ -3822,20 +3919,20 @@
   //"mydspace.show.supervisedWorkspace": "Supervised items",
   "mydspace.show.supervisedWorkspace": "Items supervisés",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "Archivés",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "Archivés",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "En cours de validation",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "En cours de validation",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "En attente d'assignation",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
+  "mydspace.status.mydspaceWaitingController": "En attente d'assignation",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "En traitement",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "En traitement",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Dépôts en cours",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Dépôts en cours",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "Mon compte DSpace",
@@ -4047,6 +4144,27 @@
   // "process.detail.back": "Back",
   "process.detail.back": "Retour",
 
+  //"process.detail.delete.body": "Are you sure you want to delete the current process?",
+  "process.detail.delete.body": "Êtes-vous sûr de vouloir supprimer ce processus?",
+
+  //"process.detail.delete.button": "Delete process",
+  "process.detail.delete.button": "Supprimer le processus",
+
+  //"process.detail.delete.cancel": "Cancel",
+  "process.detail.delete.cancel": "Annuler",
+
+  //"process.detail.delete.confirm": "Delete process",
+  "process.detail.delete.confirm": "Supprimer le processus",
+
+  //"process.detail.delete.error": "Something went wrong when deleting the process",
+  "process.detail.delete.error": "Une erreur s'est produite lors de la suppression du processus",
+
+  //"process.detail.delete.header": "Delete process",
+  "process.detail.delete.header": "Supprimer un processus",
+
+  //"process.detail.delete.success": "The process was successfully deleted.",
+  "process.detail.delete.success": "Le processus a bien été supprimé.",
+
   // "process.detail.output": "Process Output",
   "process.detail.output": "Sortie du processus",
 
@@ -4064,6 +4182,9 @@
 
   // "process.detail.output-files.empty": "This process doesn't contain any output files",
   "process.detail.output-files.empty": "Ce processus ne contient pas de fichiers de sortie",
+
+  //"process.detail.refreshing": "Auto-refreshing…",
+  "process.detail.refreshing": "Actualisation automatique...",
 
   // "process.detail.script": "Script",
   "process.detail.script": "Script",
@@ -4558,6 +4679,9 @@
 
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nom",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "30 caractères maximum",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Sélectionner le type de règle",
@@ -5144,8 +5268,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef (DOI)",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref (DOI)",
 
   //"submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite (DOI)",
@@ -5636,6 +5760,24 @@
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Sections incomplètes.",
 
+  //"submission.sections.identifiers.info": "The following identifiers will be created for your item:",
+  "submission.sections.identifiers.info": "Les identifiants uniques suivants seront attribués à votre document :",
+
+  //"submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+  "submission.sections.identifiers.no_handle": "Aucun handle n'a été crée pour ce document.",
+
+  //"submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+  "submission.sections.identifiers.no_doi": "Aucun DOI n'a été créé pour ce document.",
+
+  //"submission.sections.identifiers.handle_label": "Handle: ",
+  "submission.sections.identifiers.handle_label": "Handle : ",
+
+  //"submission.sections.identifiers.doi_label": "DOI: ",
+  "submission.sections.identifiers.doi_label": "DOI : ",
+
+  //"submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
+  "submission.sections.identifiers.otherIdentifiers_label": "Autres identifiants : ",
+
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
   "submission.sections.submit.progressbar.accessCondition": "Autorisations d'accès à l'Item",
 
@@ -5656,6 +5798,9 @@
 
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   "submission.sections.submit.progressbar.detect-duplicate": "Doublon(s) potentiel(s)",
+
+  //"submission.sections.submit.progressbar.identifiers": "Identifiers",
+  "submission.sections.submit.progressbar.identifiers": "Identifiants",
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Licence du dépôt",
@@ -6002,10 +6147,91 @@
   "submission.workflow.tasks.pool.show-detail": "Afficher le détail",
 
   // "submission.workspace.generic.view": "View",
-  "submission.workspace.generic.view": "Voir",
+  "submission.workspace.generic.view": "Afficher",
 
-  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workspace.generic.view-help": "Sélectionner cette option pour voir les métadonnées de l'item.",
+  //"submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Sélectionner cette option pour afficher les métadonnées de l'item.",
+
+  //"submitter.empty": "N/A",
+  "submitter.empty": "S/O",
+
+  //"subscriptions.modal.title": "Subscriptions",
+  "subscriptions.modal.title": "Abonnements",
+
+  //"subscriptions.modal.type-frequency": "Type and frequency",
+  "subscriptions.modal.type-frequency": "Type et fréquence",
+
+  //"subscriptions.modal.close": "Close",
+  "subscriptions.modal.close": "Fermer",
+
+  //"subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
+  "subscriptions.modal.delete-info": "Pour vous désabonner, visitez la page Abonnements dans votre profil utilisateur",
+
+  //"subscriptions.modal.new-subscription-form.type.content": "Content",
+  "subscriptions.modal.new-subscription-form.type.content": "Contenu",
+
+  //"subscriptions.modal.new-subscription-form.frequency.D": "Daily",
+  "subscriptions.modal.new-subscription-form.frequency.D": "Quotidienne",
+
+  //"subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
+  "subscriptions.modal.new-subscription-form.frequency.W": "Hebdomadaire",
+
+  //"subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
+  "subscriptions.modal.new-subscription-form.frequency.M": "Mensuelle",
+
+  //"subscriptions.tooltip": "Subscribe",
+  "subscriptions.tooltip": "S'abonner",
+
+  //"subscriptions.modal.new-subscription-form.submit": "Submit",
+  "subscriptions.modal.new-subscription-form.submit": "Soumettre",
+
+  //"subscriptions.modal.new-subscription-form.processing": "Processing...",
+  "subscriptions.modal.new-subscription-form.processing": "En traitement...",
+
+  //"subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
+  "subscriptions.modal.create.success": "Abonnement à {{ type }} réussi.",
+
+  //"subscriptions.modal.delete.success": "Subscription deleted successfully",
+  "subscriptions.modal.delete.success": "L'abonnement a été résilié avec succès",
+
+  //"subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
+  "subscriptions.modal.update.success": "L'abonnement à {{ type }} a été mis à jour avec succès",
+
+  //"subscriptions.modal.create.error": "An error occurs during the subscription creation",
+  "subscriptions.modal.create.error": "Une erreur s'est produite lors de la création de l'abonnement",
+
+  //"subscriptions.modal.delete.error": "An error occurs during the subscription delete",
+  "subscriptions.modal.delete.error": "Une erreur s'est produite lors de la résiliation de l'abonnement",
+
+  //"subscriptions.modal.update.error": "An error occurs during the subscription update",
+  "subscriptions.modal.update.error": "Une erreur s'est produite lors de la mise à jour de l'abonnement",
+
+  //"subscriptions.table.dso": "Subject",
+  "subscriptions.table.dso": "Sujet",
+
+  //"subscriptions.table.subscription_type": "Subscription Type",
+  "subscriptions.table.subscription_type": "Type d'abonnement",
+
+  //"subscriptions.table.subscription_frequency": "Subscription Frequency",
+  "subscriptions.table.subscription_frequency": "Fréquence",
+
+  //"subscriptions.table.action": "Action",
+  "subscriptions.table.action": "Action",
+
+  //"subscriptions.table.edit": "Edit",
+  "subscriptions.table.edit": "Éditer",
+
+  //"subscriptions.table.delete": "Delete",
+  "subscriptions.table.delete": "Supprimer",
+
+  //"subscriptions.table.not-available": "Not available",
+  "subscriptions.table.not-available": "Indisponible",
+
+  //"subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
+  "subscriptions.table.not-available-message": "L'Item auquel vous étiez abonné a été supprimé, ou vous n'êtes pas autorisé à le consulter.",
+
+  //"subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  "subscriptions.table.empty.message": "Vous n'avez aucun abonnement. Pour vous abonnez à des mises à jour par courriel pour une commmunauté ou une collection, utilisez le bouton d'abonnement sur la page de l'Item.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Vignette d'image",
@@ -6177,7 +6403,377 @@
   // "idle-modal.extend-session": "Extend session",
   "idle-modal.extend-session": "Prolonger la session",
 
+  //"researcher.profile.action.processing": "Processing...",
+  "researcher.profile.action.processing": "En traitement...",
 
+  //"researcher.profile.associated": "Researcher profile associated",
+  "researcher.profile.associated": "Profil du chercheur associé",
+
+  //"researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
+  "researcher.profile.change-visibility.fail": "Une erreur inattendue s'est produite pendant le changement apporté à la visibilité du profil.",
+
+  //"researcher.profile.create.new": "Create new",
+  "researcher.profile.create.new": "Créer un nouveau",
+
+  //"researcher.profile.create.success": "Researcher profile created successfully",
+  "researcher.profile.create.success": "Profil créé avec succès",
+
+  //"researcher.profile.create.fail": "An error occurs during the researcher profile creation",
+  "researcher.profile.create.fail": "Une erreur s'est produite lors de la création du profil",
+
+  //"researcher.profile.delete": "Delete",
+  "researcher.profile.delete": "Supprimer",
+
+  //"researcher.profile.expose": "Expose",
+  "researcher.profile.expose": "Exposer",
+
+  //"researcher.profile.hide": "Hide",
+  "researcher.profile.hide": "Cacher",
+
+  //"researcher.profile.not.associated": "Researcher profile not yet associated",
+  "researcher.profile.not.associated": "Profil non associé",
+
+  //"researcher.profile.view": "View",
+  "researcher.profile.view": "Voir",
+
+  //"researcher.profile.private.visibility": "PRIVATE",
+  "researcher.profile.private.visibility": "PRIVÉ",
+
+  //"researcher.profile.public.visibility": "PUBLIC",
+  "researcher.profile.public.visibility": "PUBLIC",
+
+  //"researcher.profile.status": "Status:",
+  "researcher.profile.status": "Statut:",
+
+  //"researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
+  "researcherprofile.claim.not-authorized": "Vous n'êtes pas autorisé à réclamer cet item. Pour plus de détails contacter la personne administratrice.",
+
+  //"researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "Une erreur s'est produite lors de la réclamation du profil, veuillez réessayer plus tard.",
+
+  //"researcherprofile.error.claim.title": "Error",
+  "researcherprofile.error.claim.title": "Erreur",
+
+  //"researcherprofile.success.claim.body": "Profile claimed with success",
+  "researcherprofile.success.claim.body": "Profil réclamé avec succès",
+
+  //"researcherprofile.success.claim.title": "Success",
+  "researcherprofile.success.claim.title": "Succès",
+
+  //"person.page.orcid.create": "Create an ORCID ID",
+  "person.page.orcid.create": "Créer un identifiant ORCID",
+
+  //"person.page.orcid.granted-authorizations": "Granted authorizations",
+  "person.page.orcid.granted-authorizations": "Autorisations accordées",
+
+  //"person.page.orcid.grant-authorizations": "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Accorder des autorisations",
+
+  //"person.page.orcid.link": "Connect to ORCID ID",
+  "person.page.orcid.link": "Se connecter à ORCID",
+
+  //"person.page.orcid.link.processing": "Linking profile to ORCID...",
+  "person.page.orcid.link.processing": "Liaison du profil avec ORCID en cours...",
+
+  //"person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
+  "person.page.orcid.link.error.message": "Quelque chose a échoué lors de la connection du profil avec ORCID. Si le problème persiste, contacter la personne administratice.",
+
+  //"person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
+  "person.page.orcid.orcid-not-linked-message": "L'identifiant ORCID du profil ({{ orcid }}) n'a pas encore été connecté à une compte du registre ORCID ou la connection a expiré. ",
+
+  //"person.page.orcid.unlink": "Disconnect from ORCID",
+  "person.page.orcid.unlink": "Déconnecter d'ORCID",
+
+  //"person.page.orcid.unlink.processing": "Processing...",
+  "person.page.orcid.unlink.processing": "Traitement en cours...",
+
+  //"person.page.orcid.missing-authorizations": "Missing authorizations",
+  "person.page.orcid.missing-authorizations": "Autorisations manquantes",
+
+  //"person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
+  "person.page.orcid.missing-authorizations-message": "Les autorisations suivantes sont manquantes :",
+
+  //"person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
+  "person.page.orcid.no-missing-authorizations-message": "Cette boite est vide, vous avez autorisé l'utilisation de toutes les fonctions proposées par votre organisation.",
+
+  //"person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
+  "person.page.orcid.no-orcid-message": "Aucun identifiant ORCID n'est encore associé. En cliquant sur le bouton ci-dessous, il est possible de lier ce profil à un compte ORCID.",
+
+  //"person.page.orcid.profile-preferences": "Profile preferences",
+  "person.page.orcid.profile-preferences": "Préférences du profil",
+
+  //"person.page.orcid.funding-preferences": "Funding preferences",
+  "person.page.orcid.funding-preferences": "Préférence pour la section Financement",
+
+  //"person.page.orcid.publications-preferences": "Publication preferences",
+  "person.page.orcid.publications-preferences": "Préférence pour la section Publication",
+
+  //"person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
+  "person.page.orcid.remove-orcid-message": "Si vous avez besoin de retirer votre ORCID, contacter la personne administratrice du dépôt.",
+
+  //"person.page.orcid.save.preference.changes": "Update settings",
+  "person.page.orcid.save.preference.changes": "Mettre à jour les configurations",
+
+  //"person.page.orcid.sync-profile.affiliation": "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Affiliation",
+
+  //"person.page.orcid.sync-profile.biographical": "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Données biographiques",
+
+  //"person.page.orcid.sync-profile.education": "Education",
+  "person.page.orcid.sync-profile.education": "Éducation",
+
+  //"person.page.orcid.sync-profile.identifiers": "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Identifiants",
+
+  //"person.page.orcid.sync-fundings.all": "All fundings",
+  "person.page.orcid.sync-fundings.all": "Tous les financements",
+
+  //"person.page.orcid.sync-fundings.mine": "My fundings",
+  "person.page.orcid.sync-fundings.mine": "Mes financements",
+
+  //"person.page.orcid.sync-fundings.my_selected": "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Financements sélectionnés",
+
+  //"person.page.orcid.sync-fundings.disabled": "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "Désactivé",
+
+  //"person.page.orcid.sync-publications.all": "All publications",
+  "person.page.orcid.sync-publications.all": "Toutes les publications",
+
+  //"person.page.orcid.sync-publications.mine": "My publications",
+  "person.page.orcid.sync-publications.mine": "Mes publications",
+
+  //"person.page.orcid.sync-publications.my_selected": "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Publications sélectionnées",
+
+  //"person.page.orcid.sync-publications.disabled": "Disabled",
+  "person.page.orcid.sync-publications.disabled": "Désactivé",
+
+  //"person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Ignorer les changements et ne pas synchroniser avec le registre ORCID.",
+
+  //"person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
+  "person.page.orcid.sync-queue.discard.error": "L'annulation de la file d'attente ORCID a échoué.",
+
+  //"person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
+  "person.page.orcid.sync-queue.discard.success": "La file d'attente ORCID a été annulée avec succès.",
+
+  //"person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
+  "person.page.orcid.sync-queue.empty-message": "La file d'attente ORCID est vide.",
+
+  //"person.page.orcid.sync-queue.table.header.type": "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Type",
+
+  //"person.page.orcid.sync-queue.table.header.description": "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Description",
+
+  //"person.page.orcid.sync-queue.table.header.action": "Action",
+  "person.page.orcid.sync-queue.table.header.action": "Action",
+
+  //"person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+  "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+
+  //"person.page.orcid.sync-queue.description.country": "Country",
+  "person.page.orcid.sync-queue.description.country": "Pays",
+
+  //"person.page.orcid.sync-queue.description.education": "Educations",
+  "person.page.orcid.sync-queue.description.education": "Éducation",
+
+  //"person.page.orcid.sync-queue.description.external_ids": "External ids",
+  "person.page.orcid.sync-queue.description.external_ids": "Identifiants externes",
+
+  //"person.page.orcid.sync-queue.description.other_names": "Other names",
+  "person.page.orcid.sync-queue.description.other_names": "Autres noms",
+
+  //"person.page.orcid.sync-queue.description.qualification": "Qualifications",
+  "person.page.orcid.sync-queue.description.qualification": "Qualifications",
+
+  //"person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
+  "person.page.orcid.sync-queue.description.researcher_urls": "URLs du chercheur",
+
+  //"person.page.orcid.sync-queue.description.keywords": "Keywords",
+  "person.page.orcid.sync-queue.description.keywords": "Mots clés",
+
+  //"person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.insert": "Ajouter une nouvelle entrée dans le registre ORCID",
+
+  //"person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.update": "Mettre à jour cette entrée dans le registre ORCID",
+
+  //"person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.delete": "Supprimer cette entrée du registre ORCID",
+
+  //"person.page.orcid.sync-queue.tooltip.publication": "Publication",
+  "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+
+  //"person.page.orcid.sync-queue.tooltip.project": "Project",
+  "person.page.orcid.sync-queue.tooltip.project": "Projet",
+
+  //"person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+  "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+
+  //"person.page.orcid.sync-queue.tooltip.education": "Education",
+  "person.page.orcid.sync-queue.tooltip.education": "Éducation",
+
+  //"person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+  "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+
+  //"person.page.orcid.sync-queue.tooltip.other_names": "Other name",
+  "person.page.orcid.sync-queue.tooltip.other_names": "Autre nom",
+
+  //"person.page.orcid.sync-queue.tooltip.country": "Country",
+  "person.page.orcid.sync-queue.tooltip.country": "Pays",
+
+  //"person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
+  "person.page.orcid.sync-queue.tooltip.keywords": "Mot clé",
+
+  //"person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
+  "person.page.orcid.sync-queue.tooltip.external_ids": "Identifiant externe",
+
+  //"person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
+  "person.page.orcid.sync-queue.tooltip.researcher_urls": "URL du chercheur",
+
+  //"person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Synchroniser avec le registre ORCID",
+
+  //"person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
+  "person.page.orcid.sync-queue.send.unauthorized-error.title": "La transmission à ORCID a échoué en raison d'autorisations manquantes.",
+
+  //"person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Cliquer <a href='{{orcid}}'>ici</a> afin d'accorder à nouveau les permissions nécessaires. Si le problème persiste, contacter l'administrateur.",
+
+  //"person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
+  "person.page.orcid.sync-queue.send.bad-request-error": "La transmission à ORCID a échoué en raison du fait que la ressource envoyée n'est pas valide.",
+
+  //"person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
+  "person.page.orcid.sync-queue.send.error": "La transmission à ORCID a échoué.",
+
+  //"person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
+  "person.page.orcid.sync-queue.send.conflict-error": "La transmission à ORCID a échoué en raison du fait que la ressource est déjà présente dans le registre ORCID.",
+
+  //"person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
+  "person.page.orcid.sync-queue.send.not-found-warning": "La ressource n'existe plus dans le registre ORCID.",
+
+  //"person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
+  "person.page.orcid.sync-queue.send.success": "La transmission à ORCID a été effectuée avec succès.",
+
+  //"person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
+  "person.page.orcid.sync-queue.send.validation-error": "Les données que vous souhaitez synchroniser avec ORCID ne sont pas valides.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
+  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "La devise du montant est requise.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
+  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "La ressource à transmettre doit avoir au moins un identifiant.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
+  "person.page.orcid.sync-queue.send.validation-error.title.required": "Le titre est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "Le type de document est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
+  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "La date de début est obbligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
+  "person.page.orcid.sync-queue.send.validation-error.funder.required": "L'organisme subventionnaire est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Code de pays ISO 3166 à 2 chiffres invalide",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.required": "L'organisation est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "Le nom de l'organisation est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "La date de publication doit être d'au moins un an après 1900.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
+  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "L'organisation a transmettre doit avoir une adresse.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
+  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "L'adresse de l'organisation à transmettre doit mentionner une ville.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "L'adresse de l'organisation à transmettre doit avoir une code de pays ISO 3166 à 2 chiffres valide.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "Un identifiant pour désambiguer l'orgnisation est obligatoire. Les identifiants possibles sont GRID, Ringgold, Legal Entity identifiers (LEIs) et Crossref Funder Registry identifiers",
+
+  //"person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "Une valeur pour l'identifiant de l'organisation est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "La source de l'identifiant de l'organisation est obligatoire.",
+
+  //"person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "La source d'un des identifiants d'organisation est invalide. Les sources possibles sont RINGGOLD, GRID, LEI and FUNDREF",
+
+  //"person.page.orcid.synchronization-mode": "Synchronization mode",
+  "person.page.orcid.synchronization-mode": "Mode de synchronisation",
+
+  //"person.page.orcid.synchronization-mode.batch": "Batch",
+  "person.page.orcid.synchronization-mode.batch": "En lot",
+
+  //"person.page.orcid.synchronization-mode.label": "Synchronization mode",
+  "person.page.orcid.synchronization-mode.label": "Mode de synchronisation",
+
+  //"person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+  "person.page.orcid.synchronization-mode-message": "Sélectionner le mode de synchronisation vers ORCID. Les options sont \"Manuel\" (vous devrez sélectionner les données à transmettre vers ORCID manuellement), ou \"En lot\" (le système transmettra vos données vers ORCID automatiquement).",
+
+  //"person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+  "person.page.orcid.synchronization-mode-funding-message": "Sélectionnez si vous souhaitez transmettre vos projets de recherche vers votre profil ORCID.",
+
+  //"person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+  "person.page.orcid.synchronization-mode-publication-message": "Sélectionnez si vous souhaitez transmettre vos publications vers votre profil ORCID.",
+
+  //"person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
+  "person.page.orcid.synchronization-mode-profile-message": "Sélectionnez si vous souhaitez transmettre vos données biographiques vers votre profil ORCID.",
+
+  //"person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
+  "person.page.orcid.synchronization-settings-update.success": "Les paramètres de synchronisation ont été mis à jour avec succès.",
+
+  //"person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
+  "person.page.orcid.synchronization-settings-update.error": "La mise à jour des paramètres de synchronisation a échoué.",
+
+  //"person.page.orcid.synchronization-mode.manual": "Manual",
+  "person.page.orcid.synchronization-mode.manual": "Manuel",
+
+  //"person.page.orcid.scope.authenticate": "Get your ORCID iD",
+  "person.page.orcid.scope.authenticate": "Obtenez votre identifiant ORCID",
+
+  //"person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
+  "person.page.orcid.scope.read-limited": "Consultez vos informations ayant le paramètre de visibilité réglé sur Parties de confiance.",
+
+  //"person.page.orcid.scope.activities-update": "Add/update your research activities",
+  "person.page.orcid.scope.activities-update": "Ajouter ou mettre à jour vos activités de recherche",
+
+  //"person.page.orcid.scope.person-update": "Add/update other information about you",
+  "person.page.orcid.scope.person-update": "Ajouter ou mettre à jour d'autre information sur vous",
+
+  //"person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+  "person.page.orcid.unlink.success": "La déconnexion entre votre profil et le registre ORCID a été effectuée avec succès.",
+
+  //"person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+  "person.page.orcid.unlink.error": "Une erreur s'est produite lors de la déconnexion entre votre profil et le registre ORCID. Veuillez réessayer.",
+
+  //"person.orcid.sync.setting": "ORCID Synchronization settings",
+  "person.orcid.sync.setting": "Paramètres de synchronisation ORCID",
+
+  //"person.orcid.registry.queue": "ORCID Registry Queue",
+  "person.orcid.registry.queue": "Liste d'attente pour le registre ORCID",
+
+  //"person.orcid.registry.auth": "ORCID Authorizations",
+  "person.orcid.registry.auth": "Autorisation ORCID",
+
+  //"home.recent-submissions.head": "Recent Submissions",
+  "home.recent-submissions.head": "Dépôts récents",
+
+  //"listable-notification-object.default-message": "This object couldn't be retrieved",
+  "listable-notification-object.default-message": "Cet objet n'a pas été trouvé.",
 
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
   "system-wide-alert-banner.retrieval.error": "Une erreur s'est produite lors de la récupération de la bannière du message d'avertissement",
@@ -6193,8 +6789,6 @@
 
   // "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
   "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
-
-
 
   // "menu.section.system-wide-alert": "System-wide Alert",
   "menu.section.system-wide-alert": "Messages d'avertissement",
@@ -6250,6 +6844,63 @@
 
   //"admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Messages d'avertissement",
+
+  //"item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+  "item-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès des métadonnées de l'Item et de ses Bitstreams.",
+
+  //"collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  "collection-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès de tous les Items de cette collection. Les changements peuvent être appliqués aux métadonnées des Items ou à leur contenu (Bitstreams).",
+
+  //"community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  "community-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès de tous les Items de toutes les collections de cette communauté. Les changements peuvent être appliqués aux métadonnées des Items ou à leur contenu (Bitstreams).",
+
+  //"access-control-item-header-toggle": "Item's Metadata",
+  "access-control-item-header-toggle": "Métadonnées de l'Item",
+
+  //"access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  "access-control-item-toggle.enable": "Activer l'option permettant d'effectuer des modifications sur les métadonnées de l'Item",
+
+  //"access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  "access-control-item-toggle.disable": "Désactiver l'option permettant d'effectuer des modifications sur les métadonnées de l'Item",
+
+  //"access-control-bitstream-header-toggle": "Bitstreams",
+  "access-control-bitstream-header-toggle": "Bitstreams",
+
+  //"access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.enable": "Activer l'option permettant d'effectuer des modifications sur les Bitstreams",
+
+  //"access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.disable": "Désactiver l'option permettant d'effectuer des modifications sur les Bitstreams",
+
+  //"access-control-mode": "Mode",
+  "access-control-mode": "Mode",
+
+  //"access-control-access-conditions": "Access conditions",
+  "access-control-access-conditions": "Conditions d'accès",
+
+  //"access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+  //"access-control-no-access-conditions-warning-message": "Aucune condition d'accès n'est spécifiée ci-dessous pour l'instant. Si exécuté, ceci remplacera les conditions d'accès actuelles par les conditions d'accès par défaut héritées de celles de la collection.",
+
+  //"access-control-replace-all": "Replace access conditions",
+  "access-control-replace-all": "Remplacer les conditions d'accès",
+
+  //"access-control-add-to-existing":"Add to existing ones",
+  "access-control-add-to-existing": "Ajouter aux conditions d'accès existantes",
+
+  //"access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+  "access-control-limit-to-specific": "Limiter les modifications à des Bitstreams spécifiques",
+
+  //"access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+  "access-control-process-all-bitstreams": "Mise à jour de tous les Bitstreams de l'Item",
+
+  //"access-control-bitstreams-selected": "bitstreams selected",
+  "access-control-bitstreams-selected": "Bitstreams sélectionnés",
+
+  //"access-control-bitstreams-select": "Select bitstreams",
+  "access-control-bitstreams-select": "Sélectionner les Bitstreams",
+
+  //"access-control-cancel": "Cancel",
+  "access-control-cancel": "Annuler",
 
 
 }

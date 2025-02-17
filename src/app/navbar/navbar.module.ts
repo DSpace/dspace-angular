@@ -13,6 +13,7 @@ import { MenuModule } from '../shared/menu/menu.module';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ThemedNavbarComponent } from './themed-navbar.component';
+import { HoverOutsideDirective } from '../shared/utils/hover-outside.directive';
 
 const effects = [
   NavbarEffects
@@ -25,6 +26,10 @@ const ENTRY_COMPONENTS = [
   ThemedExpandableNavbarSectionComponent,
 ];
 
+const DIRECTIVES = [
+  HoverOutsideDirective,
+];
+
 @NgModule({
   imports: [
     CommonModule,
@@ -35,12 +40,14 @@ const ENTRY_COMPONENTS = [
     CoreModule.forRoot()
   ],
   declarations: [
+    ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     NavbarComponent,
     ThemedNavbarComponent,
   ],
   providers: [],
   exports: [
+    ...DIRECTIVES,
     ThemedNavbarComponent,
     NavbarSectionComponent,
     ThemedExpandableNavbarSectionComponent
