@@ -29,19 +29,19 @@ export class QueryPredicate {
     return pred;
   }
 
+  static toString(pred: QueryPredicate): string {
+    if (pred.value) {
+      return `${pred.field}:${pred.operator}:${pred.value}`;
+    }
+    return `${pred.field}:${pred.operator}`;
+  }
+
   toFormGroup(formBuilder: FormBuilder): FormGroup {
     return formBuilder.group({
       field: new FormControl(this.field),
       operator: new FormControl(this.operator),
       value: new FormControl(this.value),
     });
-  }
-
-  static toString(pred: QueryPredicate): string {
-    if (pred.value) {
-      return `${pred.field}:${pred.operator}:${pred.value}`;
-    }
-    return `${pred.field}:${pred.operator}`;
   }
 
 }
