@@ -106,9 +106,9 @@ export class ServerHashedFileMapping extends HashedFileMapping {
                      }, {});
 
     let root = parse(this.indexContent);
-    root.querySelector(`head > script#${ID}`)?.remove();
+    root.querySelector(`script#${ID}`)?.remove();
     root.querySelector('head')
-        .appendChild(`<script id="${ID}">${JSON.stringify(out)}</script>` as any);
+        .appendChild(`<script id="${ID}" type="application/json">${JSON.stringify(out)}</script>` as any);
 
     this.add(this.indexPath, root.toString());
   }
