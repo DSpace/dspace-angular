@@ -68,7 +68,7 @@ describe('ItemPageComponent', () => {
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
+    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) , links: [mocklink, mocklink2]  })
   });
 
   beforeEach(waitForAsync(() => {

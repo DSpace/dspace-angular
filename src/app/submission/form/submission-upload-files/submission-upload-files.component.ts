@@ -136,7 +136,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
               Object.keys(sections)
                 .forEach((sectionId) => {
                   const sectionData = normalizeSectionData(sections[sectionId]);
-                  const sectionWarning = hasValue(sectionData.files) ? this.parseErrorsForWarning(sectionData.files, errorsList[sectionId]) : [];
+                  const sectionWarning = hasValue(sectionData?.files) ? this.parseErrorsForWarning(sectionData.files, errorsList[sectionId]) : [];
                   const errorsForErrorNotification = difference(errorsList[sectionId], sectionWarning) as SubmissionSectionError[];
                   const sectionErrors = errorsList[sectionId];
 

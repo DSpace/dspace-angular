@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, tap, take } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap, tap, take, catchError } from 'rxjs/operators';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
 import { isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
@@ -129,6 +129,10 @@ export abstract class AuthRequestService {
         } else {
           return null;
         }
+      }),
+      catchError((error: Error) => {
+        console.error(error?.message);
+        return of(null);
       })
     );
   }

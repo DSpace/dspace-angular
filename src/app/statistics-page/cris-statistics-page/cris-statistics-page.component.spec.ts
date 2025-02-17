@@ -61,7 +61,7 @@ describe('CrisStatisticsPageComponent', () => {
         RouterTestingModule.withRoutes([
           {
             path: 'fake-url',
-            redirectTo: '/'
+            redirectTo: '/',
           },
         ]),
         SharedModule,
