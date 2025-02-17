@@ -87,7 +87,7 @@ export class FilteredItemsExportCsvComponent implements OnInit {
     const colls = this.reportParams.value.collections || [];
     for (let i = 0; i < colls.length; i++) {
       if (colls[i]) {
-        parameters.push({ name: '-c', value: colls[i] });
+        parameters.push({ name: '-c', value: colls[i].id });
       }
     }
 

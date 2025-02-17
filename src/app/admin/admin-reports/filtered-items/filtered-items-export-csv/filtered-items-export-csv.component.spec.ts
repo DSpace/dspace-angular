@@ -139,9 +139,9 @@ describe('FilteredItemsExportCsvComponent', () => {
       component.export();
       expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-filtered-items-report',
         [
-          { name: '-c', value: params.value.collections[0] },
+          { name: '-c', value: params.value.collections[0].id },
           { name: '-qp', value: QueryPredicate.toString(params.value.queryPredicates[0]) },
-          { name: '-f', value: params.value.filters },
+          { name: '-f', value: FiltersComponent.toQueryString(params.value.filters) },
         ], []);
 
       component.reportParams = null;
