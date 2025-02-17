@@ -42,7 +42,7 @@ describe('FilteredItemsExportCsvComponent', () => {
   const process = Object.assign(new Process(), { processId: 5, scriptName: 'metadata-export-filtered-items-report' });
 
   const params = new FormGroup({
-    collections: new FormControl([OptionVO.collection('1', 'coll1')]),
+    collections: new FormControl(OptionVO.collection('1', 'coll1')),
     queryPredicates: new FormControl([QueryPredicate.of('name', 'equals', 'coll1')]),
     filters: new FormControl([FiltersComponent.getFilter('is_item')]),
   });
