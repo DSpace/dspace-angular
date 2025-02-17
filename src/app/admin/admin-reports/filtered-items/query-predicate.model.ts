@@ -37,4 +37,11 @@ export class QueryPredicate {
     });
   }
 
+  static toString(pred: QueryPredicate): string {
+    if (pred.value) {
+      return `${pred.field}:${pred.operator}:${pred.value}`;
+    }
+    return `${pred.field}:${pred.operator}`;
+  }
+
 }
