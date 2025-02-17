@@ -8,7 +8,6 @@
 import { InjectionToken, Provider, Type, } from '@angular/core';
 import { MenuID } from './menu-id.model';
 import { AbstractMenuProvider, MenuProviderTypeWithOptions } from './menu-provider.model';
-import { MenuProviderService } from './menu-provider.service';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { MenuRoute } from './menu-route.model';
 
@@ -24,7 +23,6 @@ type MenuStructure = {
  */
 export function buildMenuStructure(structure: MenuStructure): Provider[] {
   const providers: Provider[] = [
-    MenuProviderService,
   ];
 
   Object.entries(structure).forEach(([menuID, providerTypes]) => {
