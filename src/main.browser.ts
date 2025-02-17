@@ -11,7 +11,7 @@ import { extendEnvironmentWithAppConfig } from './config/config.util';
 import { enableProdMode } from '@angular/core';
 import { BrowserHashedFileMapping } from './modules/dynamic-hash/hashed-file-mapping.browser';
 
-const hashedFileMapping = new BrowserHashedFileMapping();
+const hashedFileMapping = new BrowserHashedFileMapping(document);
 const bootstrap = () => platformBrowserDynamic()
   .bootstrapModule(BrowserAppModule, {});
 

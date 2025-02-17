@@ -10,6 +10,8 @@ import {
   readFileSync,
   rmSync,
   writeFileSync,
+  copyFileSync,
+  existsSync,
 } from 'fs';
 import glob from 'glob';
 import { parse } from 'node-html-parser';
@@ -48,9 +50,9 @@ export class ServerHashedFileMapping extends HashedFileMapping {
    * Otherwise, it is read out from the original path.
    * The original path is never overwritten.
    */
-  add(path: string, content?: string, compress = false) {
+  add(path: string, content?: string, compress = false): string {
     if (content === undefined) {
-      readFileSync(path);
+      content = readFileSync(path).toString();
     }
 
     // remove previous files
@@ -91,6 +93,27 @@ export class ServerHashedFileMapping extends HashedFileMapping {
           writeFileSync(hashPath + '.gz', compressed);
         }
       });
+    }
+
+    return hashPath;
+  }
+
+  addThemeStyles() {
+    glob.GlobSync(`${this.root}/*-theme.css`)
+        .found
+        .forEach(p => {
+          const hp = this.add(p);
+          this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.br');
+          this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.gz');
+        });
+  }
+
+  private ensureCompressedFilesAssumingUnchangedContent(path: string, hashedPath: string, compression: string) {
+    const compressedPath = `${path}${compression}`;
+    const compressedHashedPath = `${hashedPath}${compression}`;
+
+    if (existsSync(compressedPath) && !existsSync(compressedHashedPath)) {
+      copyFileSync(compressedPath, compressedHashedPath);
     }
   }
 
