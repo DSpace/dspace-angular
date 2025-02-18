@@ -136,6 +136,7 @@ describe('FilteredItemsExportCsvComponent', () => {
       initBeforeEach();
     });
     it('should call the invoke script method with the correct parameters', () => {
+      // Parameterized export
       component.export();
       expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-filtered-items-report',
         [
@@ -146,6 +147,8 @@ describe('FilteredItemsExportCsvComponent', () => {
 
       fixture.detectChanges();
 
+      // Non-parameterized export
+      component.reportParams = null;
       component.export();
       expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-filtered-items-report', [], []);
 
