@@ -1,5 +1,6 @@
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 
+import { environment } from '../../../../../environments/environment';
 import {
   DynamicTagModel,
   DynamicTagModelConfig,
@@ -19,6 +20,7 @@ export class TagFieldParser extends FieldParser {
       && this.configData.selectableMetadata[0].controlledVocabulary.length > 0) {
       this.setVocabularyOptions(tagModelConfig, this.parserOptions.collectionUUID);
     }
+    tagModelConfig.minChars = environment.submission.minChars;
     this.setValues(tagModelConfig, fieldValue, null, true);
     tagModelConfig.placeholder = 'Enter the Keywords';
     const tagModel = new DynamicTagModel(tagModelConfig, clsTag);
