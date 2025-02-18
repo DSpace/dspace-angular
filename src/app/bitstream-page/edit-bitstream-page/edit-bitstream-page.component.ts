@@ -199,6 +199,15 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   );
 
   /**
+   * The Dynamic Switch Model for set as alternative content
+   */
+  alternativeContentModel = new DynamicCustomSwitchModel({
+    id: 'alternativeContent',
+    name: 'alternativeContent',
+  },
+  );
+
+  /**
    * The Dynamic TextArea Model for the file's description
    */
   descriptionModel = new DsDynamicTextAreaModel({
@@ -316,7 +325,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.primaryBitstreamModel, this.fileNameModel, this.descriptionModel, this.selectedFormatModel,
+  inputModels = [this.primaryBitstreamModel, this.alternativeContentModel, this.fileNameModel, this.descriptionModel, this.selectedFormatModel,
     this.newFormatModel];
 
   /**
@@ -328,6 +337,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       id: 'fileNamePrimaryContainer',
       group: [
         this.primaryBitstreamModel,
+        this.alternativeContentModel,
         this.fileNameModel,
       ],
     }, {
@@ -367,6 +377,14 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     primaryBitstream: {
       grid: {
         container: 'col-12',
+      },
+      element: {
+        container: 'text-right',
+      },
+    },
+    alternativeContent: {
+      grid: {
+        container: 'col-12 mt-2',
       },
       element: {
         container: 'text-right',
@@ -548,6 +566,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       fileNamePrimaryContainer: {
         fileName: bitstream.name,
         primaryBitstream: this.primaryBitstreamUUID === bitstream.uuid,
+        alternativeContent: bitstream.firstMetadataValue('dc.type') === "alternative content"
       },
       descriptionContainer: {
         description: bitstream.firstMetadataValue('dc.description'),
@@ -614,7 +633,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   private updateFieldTranslation(fieldModel) {
     fieldModel.label = this.translate.instant(this.KEY_PREFIX + fieldModel.id + this.LABEL_KEY_SUFFIX);
-    if (fieldModel.id !== this.primaryBitstreamModel.id) {
+    if (fieldModel.id !== this.primaryBitstreamModel.id &&   fieldModel.id !== this.alternativeContentModel.id) {
       fieldModel.hint = this.translate.instant(this.KEY_PREFIX + fieldModel.id + this.HINT_KEY_SUFFIX);
     }
   }
@@ -640,6 +659,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const isNewFormat = this.selectedFormat.id !== this.originalFormat.id;
     const isPrimary = updatedValues.fileNamePrimaryContainer.primaryBitstream;
     const wasPrimary = this.primaryBitstreamUUID === this.bitstream.uuid;
+    const isAlternativeContent = updatedValues.fileNamePrimaryContainer.alternativeContent;
 
     let bitstream$;
     let bundle$: Observable<Bundle>;
@@ -704,6 +724,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       );
     } else {
       bitstream$ = observableOf(this.bitstream);
+    }
+    if (isAlternativeContent) {
+      updatedBitstream.setMetadata('dc.type', undefined, ...['alternative content']);
+    } else {
+      updatedBitstream.removeMetadata('dc.type');
     }
 
     combineLatest([bundle$, bitstream$]).pipe(
