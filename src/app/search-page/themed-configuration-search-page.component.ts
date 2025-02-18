@@ -188,6 +188,17 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   @Input() customData: any;
 
   /**
+   * Defines whether to start as showing the charts collapsed
+   */
+  @Input() collapseCharts = false;
+
+  /**
+   * Defines whether to show the toggle button to Show/Hide chart
+   */
+  @Input() showChartsToggle = false;
+
+
+  /**
    * Emit custom event for listable object custom actions.
    */
   @Output() customEvent = new EventEmitter<any>();
