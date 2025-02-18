@@ -11,6 +11,10 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasValue,
+  isUndefined,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -32,10 +36,6 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import {
-  hasValue,
-  isUndefined,
-} from '../empty.util';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SearchFilter } from '../search/models/search-filter.model';
 /**

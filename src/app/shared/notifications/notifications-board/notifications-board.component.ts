@@ -9,6 +9,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  hasNoValue,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils';
+import {
   select,
   Store,
 } from '@ngrx/store';
@@ -22,10 +26,6 @@ import { take } from 'rxjs/operators';
 
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { AppState } from '../../../app.reducer';
-import {
-  hasNoValue,
-  isNotEmptyOperator,
-} from '../../empty.util';
 import { LiveRegionService } from '../../live-region/live-region.service';
 import { INotification } from '../models/notification.model';
 import { NotificationComponent } from '../notification/notification.component';

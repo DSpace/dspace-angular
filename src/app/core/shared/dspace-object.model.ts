@@ -1,15 +1,15 @@
 import {
+  hasNoValue,
+  hasValue,
+  isUndefined,
+} from '@dspace/shared/utils';
+import {
   autoserialize,
   autoserializeAs,
   deserialize,
   deserializeAs,
 } from 'cerialize';
 
-import {
-  hasNoValue,
-  hasValue,
-  isUndefined,
-} from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';

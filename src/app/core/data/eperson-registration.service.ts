@@ -3,6 +3,10 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -10,10 +14,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { GenericConstructor } from '../shared/generic-constructor';

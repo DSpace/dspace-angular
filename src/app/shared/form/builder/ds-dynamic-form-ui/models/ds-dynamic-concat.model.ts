@@ -1,4 +1,8 @@
 import {
+  hasNoValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   DynamicFormGroupModel,
@@ -8,10 +12,6 @@ import {
 import { Subject } from 'rxjs';
 
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';

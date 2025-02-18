@@ -13,6 +13,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { isEmpty } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -21,7 +22,6 @@ import {
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';

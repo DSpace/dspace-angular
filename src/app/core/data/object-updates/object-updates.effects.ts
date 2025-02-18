@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
+import {
   Actions,
   createEffect,
   ofType,
@@ -19,10 +23,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../shared/empty.util';
 import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import {

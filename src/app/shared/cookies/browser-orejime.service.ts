@@ -3,6 +3,11 @@ import {
   Injectable,
   InjectionToken,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import cloneDeep from 'lodash/cloneDeep';
@@ -30,11 +35,6 @@ import {
   NativeWindowService,
 } from '../../core/services/window.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
 import { OrejimeService } from './orejime.service';
 import {
   ANONYMOUS_STORAGE_NAME_OREJIME,

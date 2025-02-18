@@ -10,6 +10,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   Observable,
   Subscription,
@@ -20,7 +21,6 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';

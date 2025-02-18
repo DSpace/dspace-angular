@@ -6,6 +6,12 @@ import {
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import {
+  dateToISOFormat,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils';
+import {
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicCheckboxModel,
@@ -41,12 +47,6 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { WorkspaceitemSectionAccessesObject } from '../../../core/submission/models/workspaceitem-section-accesses.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { dateToISOFormat } from '../../../shared/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';

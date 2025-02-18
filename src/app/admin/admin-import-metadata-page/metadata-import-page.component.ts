@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -16,7 +17,6 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 

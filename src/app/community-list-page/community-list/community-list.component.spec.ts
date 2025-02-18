@@ -15,6 +15,10 @@ import { By } from '@angular/platform-browser';
 import { RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
@@ -25,10 +29,6 @@ import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';

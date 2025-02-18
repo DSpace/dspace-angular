@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -35,7 +36,6 @@ import {
 } from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';

@@ -9,6 +9,10 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { zonedTimeToUtc } from 'date-fns-tz';
 import {
@@ -26,10 +30,6 @@ import {
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SystemWideAlert } from '../system-wide-alert.model';
 

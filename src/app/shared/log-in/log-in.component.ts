@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import {
   select,
   Store,
@@ -23,7 +24,6 @@ import {
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core-state.model';
-import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';

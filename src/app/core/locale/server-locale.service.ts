@@ -3,6 +3,11 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -16,11 +21,6 @@ import {
 } from 'rxjs/operators';
 
 import { REQUEST } from '../../../express.tokens';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../services/cookie.service';
 import { RouteService } from '../services/route.service';

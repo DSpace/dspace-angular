@@ -15,6 +15,10 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -49,10 +53,6 @@ import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
 } from '../../../core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';

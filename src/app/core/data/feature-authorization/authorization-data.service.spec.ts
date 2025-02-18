@@ -1,10 +1,10 @@
+import { hasValue } from '@dspace/shared/utils';
 import {
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
 } from 'rxjs';
 
-import { hasValue } from '../../../shared/empty.util';
 import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
 import {
   createFailedRemoteDataObject$,

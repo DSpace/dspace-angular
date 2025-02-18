@@ -14,6 +14,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -42,7 +43,6 @@ import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeInOut } from '../../shared/animations/fade';
-import { isNotEmpty } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';

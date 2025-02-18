@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils';
+import {
   combineLatest,
   Observable,
   of as observableOf,
@@ -8,10 +12,6 @@ import {
 
 import { getDSORoute } from '../../app-routing-paths';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import {
-  hasValue,
-  isEmpty,
-} from '../../shared/empty.util';
 import { SubmissionService } from '../../submission/submission.service';
 import { BreadcrumbsProviderService } from '../breadcrumbs/breadcrumbsProviderService';
 import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';

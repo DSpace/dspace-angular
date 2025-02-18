@@ -2,10 +2,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { hasValue } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../../app.reducer';
-import { hasValue } from '../../empty.util';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
   SelectableListDeselectAction,

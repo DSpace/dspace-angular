@@ -1,3 +1,4 @@
+import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
@@ -8,7 +9,6 @@ import {
 
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { hasValue } from '../../../../../empty.util';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   vocabularyOptions: VocabularyOptions;

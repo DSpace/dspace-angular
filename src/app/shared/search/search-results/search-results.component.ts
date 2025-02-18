@@ -6,6 +6,10 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
@@ -25,10 +29,6 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../animations/fade';
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '../../empty.util';
 import { ErrorComponent } from '../../error/error.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';

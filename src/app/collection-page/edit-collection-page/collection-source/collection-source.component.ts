@@ -13,6 +13,11 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
@@ -56,11 +61,6 @@ import {
   getFirstSucceededRemoteData,
 } from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { INotification } from '../../../shared/notifications/models/notification.model';

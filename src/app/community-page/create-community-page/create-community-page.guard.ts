@@ -6,6 +6,10 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
+import {
   Observable,
   of as observableOf,
 } from 'rxjs';
@@ -18,10 +22,6 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../shared/empty.util';
 
 /**
  * True when either NO parent ID query parameter has been provided, or the parent ID resolves to a valid parent community

@@ -1,45 +1,14 @@
 {
-  "compileOnSave": false,
   "buildOnSave": false,
   "atom": {
     "rewriteTsconfig": false
   },
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "declaration": false,
     "downlevelIteration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "module": "es2020",
-    "moduleResolution": "node",
-    "noEmitHelpers": true,
-    "importHelpers": true,
-    "noImplicitAny": false,
-    "strictNullChecks": false,
-    "skipDefaultLibCheck": true,
-    "pretty": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types",
-      "src/typings.d.ts"
-    ],
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es5",
-      "es6",
-      "es2015",
-      "es2016",
-      "es2017",
-      "es2018"
-    ],
-    "types": [
-      "node",
-      "jasmine"
-    ],
+
+    "typeRoots": ["node_modules/@types", "src/typings.d.ts"],
+    "types": ["node", "jasmine"],
     "useDefineForClassFields": false,
     "useUnknownInCatchVariables": true
   },
@@ -48,13 +17,10 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "extendedDiagnostics": {
-      // The categories to use for specific diagnostics.
       "checks": {
         "missingControlFlowDirective": "error"
-      },
+      }
     }
   },
-  "exclude": [
-    "cypress.config.ts"
-  ]
+  "extends": "./tsconfig.base.json"
 }

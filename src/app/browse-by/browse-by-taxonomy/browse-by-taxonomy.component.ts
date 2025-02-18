@@ -11,6 +11,7 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -34,7 +35,6 @@ import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page
 import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { hasValue } from '../../shared/empty.util';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';

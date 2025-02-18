@@ -9,6 +9,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -50,10 +54,6 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../../shared/animations/fade';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';

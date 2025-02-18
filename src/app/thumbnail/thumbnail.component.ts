@@ -5,6 +5,10 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -15,10 +19,6 @@ import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
-import {
-  hasNoValue,
-  hasValue,
-} from '../shared/empty.util';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 import { VarDirective } from '../shared/utils/var.directive';

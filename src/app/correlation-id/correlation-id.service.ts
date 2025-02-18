@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isEmpty } from '@dspace/shared/utils';
 import {
   select,
   Store,
@@ -8,7 +9,6 @@ import { take } from 'rxjs/operators';
 import { AppState } from '../app.reducer';
 import { CookieService } from '../core/services/cookie.service';
 import { UUIDService } from '../core/shared/uuid.service';
-import { isEmpty } from '../shared/empty.util';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { correlationIdSelector } from './correlation-id.selector';
 

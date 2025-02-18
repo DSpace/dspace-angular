@@ -17,6 +17,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   Observable,
   of as observableOf,
@@ -68,7 +69,6 @@ import {
   scaleLeave,
   scaleOutState,
 } from '../../animations/scale';
-import { isNotEmpty } from '../../empty.util';
 import { INotification } from '../models/notification.model';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
 import { NotificationsService } from '../notifications.service';

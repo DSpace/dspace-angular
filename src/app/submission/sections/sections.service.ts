@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils';
 import { parseReviver } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -26,12 +32,6 @@ import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/js
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 import { normalizeSectionData } from '../../core/submission/submission-response-parsing.service';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../shared/empty.util';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormError } from '../../shared/form/form.reducer';
 import { FormService } from '../../shared/form/form.service';

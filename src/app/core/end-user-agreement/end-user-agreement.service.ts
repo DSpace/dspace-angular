@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import {
   Observable,
   of as observableOf,
@@ -9,7 +10,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
 import { AuthService } from '../auth/auth.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { CookieService } from '../services/cookie.service';

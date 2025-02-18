@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { deepClone } from 'fast-json-patch';
-
 import {
   isEmpty,
   isNotEmpty,
   isNotNull,
-} from '../../shared/empty.util';
+} from '@dspace/shared/utils';
+import { deepClone } from 'fast-json-patch';
+
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';

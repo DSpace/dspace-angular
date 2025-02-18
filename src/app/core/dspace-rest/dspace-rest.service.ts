@@ -7,6 +7,10 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   Observable,
   throwError as observableThrowError,
 } from 'rxjs';
@@ -15,10 +19,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { RequestError } from '../data/request-error.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';

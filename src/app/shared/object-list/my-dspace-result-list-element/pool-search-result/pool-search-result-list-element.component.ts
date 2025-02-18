@@ -8,6 +8,10 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -39,10 +43,6 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';

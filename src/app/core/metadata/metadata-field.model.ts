@@ -1,10 +1,10 @@
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   autoserialize,
   deserialize,
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { isNotEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import {
   link,

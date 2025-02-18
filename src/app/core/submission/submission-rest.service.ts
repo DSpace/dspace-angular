@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -8,10 +12,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ErrorResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';

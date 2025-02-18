@@ -4,6 +4,10 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   createSelector,
   Store,
 } from '@ngrx/store';
@@ -41,10 +45,6 @@ import {
   getFirstSucceededRemoteData,
 } from '../core/shared/operators';
 import { PageInfo } from '../core/shared/page-info.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';

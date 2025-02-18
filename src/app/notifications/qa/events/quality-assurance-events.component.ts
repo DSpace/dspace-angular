@@ -8,6 +8,7 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
   NgbTooltipModule,
@@ -62,7 +63,6 @@ import {
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';

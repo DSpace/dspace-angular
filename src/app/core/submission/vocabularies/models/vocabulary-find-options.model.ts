@@ -1,4 +1,5 @@
-import { isNotEmpty } from '../../../../shared/empty.util';
+import { isNotEmpty } from '@dspace/shared/utils';
+
 import { RequestParam } from '../../../cache/models/request-param.model';
 import { SortOptions } from '../../../cache/models/sort-options.model';
 import { FindListOptions } from '../../../data/find-list-options.model';

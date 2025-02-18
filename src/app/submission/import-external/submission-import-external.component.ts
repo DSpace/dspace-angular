@@ -9,6 +9,10 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -42,10 +46,6 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';

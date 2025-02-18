@@ -20,6 +20,10 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -55,10 +59,6 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 

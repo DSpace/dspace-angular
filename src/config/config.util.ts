@@ -1,6 +1,6 @@
 import { all } from 'deepmerge';
 
-import { hasNoValue } from '../app/shared/empty.util';
+import { hasNoValue } from '../../modules/shared/utils/src/lib/utils/empty.util';
 import { BASE_THEME_NAME } from '../app/shared/theme-support/theme.constants';
 import { environment } from '../environments/environment';
 import { AppConfig } from './app-config.interface';

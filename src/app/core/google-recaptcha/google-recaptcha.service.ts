@@ -5,6 +5,7 @@ import {
   Renderer2,
   RendererFactory2,
 } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   BehaviorSubject,
   combineLatest,
@@ -19,7 +20,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { RemoteData } from '../data/remote-data';
 import { CookieService } from '../services/cookie.service';

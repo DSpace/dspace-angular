@@ -6,6 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
   NgbModalRef,
@@ -18,7 +19,6 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../empty.util';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';

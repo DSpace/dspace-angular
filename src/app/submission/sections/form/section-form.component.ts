@@ -6,6 +6,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  difference,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '@dspace/shared/utils';
+import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
 } from '@ng-dynamic-forms/core';
@@ -46,19 +53,12 @@ import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.mod
 import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isUndefined,
-} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { difference } from '../../../shared/object.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';

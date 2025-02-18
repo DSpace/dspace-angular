@@ -11,6 +11,11 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -40,11 +45,6 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';

@@ -2,6 +2,10 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils';
+import {
   Operation,
   ReplaceOperation,
 } from 'fast-json-patch';
@@ -15,10 +19,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {

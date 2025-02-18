@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -19,7 +20,6 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../empty.util';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 

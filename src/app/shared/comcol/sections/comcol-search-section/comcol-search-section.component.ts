@@ -8,6 +8,7 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -20,7 +21,6 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../empty.util';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
 
 /**

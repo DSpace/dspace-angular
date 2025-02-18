@@ -8,6 +8,17 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  dateToString,
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNgbDateStruct,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+} from '@dspace/shared/utils';
+import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
@@ -32,19 +43,6 @@ import { SubmissionFormsModel } from '../../../core/config/models/config-submiss
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import {
-  dateToString,
-  isNgbDateStruct,
-} from '../../date.util';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-} from '../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
 import {
   CONCAT_GROUP_SUFFIX,

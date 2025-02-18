@@ -18,6 +18,12 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -58,12 +64,6 @@ import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model'
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../animations/push';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';

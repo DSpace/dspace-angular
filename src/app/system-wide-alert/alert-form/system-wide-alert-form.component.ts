@@ -13,6 +13,10 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbDatepickerModule,
   NgbDateStruct,
   NgbTimepickerModule,
@@ -41,10 +45,6 @@ import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SystemWideAlert } from '../system-wide-alert.model';
 

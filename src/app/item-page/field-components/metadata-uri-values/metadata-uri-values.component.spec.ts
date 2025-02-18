@@ -9,6 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   TranslateLoader,
   TranslateModule,
@@ -17,7 +18,6 @@ import {
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 

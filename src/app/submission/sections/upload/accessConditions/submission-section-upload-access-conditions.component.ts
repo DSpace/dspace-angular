@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { isEmpty } from '@dspace/shared/utils';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -11,7 +12,6 @@ import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { ResourcePolicy } from '../../../../core/resource-policy/models/resource-policy.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { isEmpty } from '../../../../shared/empty.util';
 
 /**
  * This component represents a badge that describe an access condition

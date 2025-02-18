@@ -3,6 +3,13 @@ import {
   InjectionToken,
 } from '@angular/core';
 import {
+  hasValue,
+  isNgbDateStruct,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@dspace/shared/utils';
+import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   MATCH_VISIBLE,
@@ -13,13 +20,8 @@ import uniqueId from 'lodash/uniqueId';
 
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { isNgbDateStruct } from '../../../date.util';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '../../../empty.util';
+import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
+import { VisibilityType } from '../../../../submission/sections/visibility-type';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
@@ -31,8 +33,6 @@ import {
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../models/relationship-options.model';
-import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
-import { VisibilityType } from './../../../../submission/sections/visibility-type';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';

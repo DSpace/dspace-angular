@@ -3,6 +3,7 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -13,7 +14,6 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { Context } from '../../../../../core/shared/context.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { isNotEmpty } from '../../../../../shared/empty.util';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';

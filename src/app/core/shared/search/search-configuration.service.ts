@@ -8,6 +8,12 @@ import {
   Params,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils';
+import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   merge as observableMerge,
@@ -25,12 +31,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../config/app-config.interface';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';

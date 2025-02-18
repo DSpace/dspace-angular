@@ -1,3 +1,4 @@
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -12,7 +13,6 @@ import {
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestEntry } from '../../core/data/request-entry.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { hasValue } from '../empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observable<RemoteData<any>>, buildList$?: Observable<RemoteData<PaginatedList<any>>>): RemoteDataBuildService {

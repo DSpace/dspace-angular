@@ -16,6 +16,7 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -33,7 +34,6 @@ import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-
 import { Item } from '../../core/shared/item.model';
 import { MetadataValueFilter } from '../../core/shared/metadata.models';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
-import { hasValue } from '../../shared/empty.util';
 import {
   INotification,
   Notification,

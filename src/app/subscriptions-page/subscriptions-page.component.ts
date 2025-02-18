@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -31,7 +32,6 @@ import { getAllCompletedRemoteData } from '../core/shared/operators';
 import { PageInfo } from '../core/shared/page-info.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
-import { hasValue } from '../shared/empty.util';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';

@@ -4,11 +4,11 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-page.resolver';
-import { hasValue } from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CommunityDataService } from '../data/community-data.service';
 import { Community } from '../shared/community.model';

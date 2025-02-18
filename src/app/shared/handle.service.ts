@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  isEmpty,
+} from '@dspace/shared/utils';
+import {
   Observable,
   of as observableOf,
 } from 'rxjs';
@@ -12,10 +16,6 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { RemoteData } from '../core/data/remote-data';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import {
-  hasNoValue,
-  isEmpty,
-} from './empty.util';
 
 export const CANONICAL_PREFIX_KEY = 'handle.canonical.prefix';
 

@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -21,7 +22,6 @@ import { environment } from 'src/environments/environment';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ITEM } from '../../../../../core/shared/item.resource-type';
-import { hasValue } from '../../../../empty.util';
 import { AccessStatusObject } from './access-status.model';
 
 @Component({

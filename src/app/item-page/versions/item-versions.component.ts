@@ -11,6 +11,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -47,10 +51,6 @@ import { VersionHistory } from '../../core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';

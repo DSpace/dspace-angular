@@ -4,6 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -28,10 +32,6 @@ import { Version } from '../../../core/shared/version.model';
 import { VersionHistory } from '../../../core/shared/version-history.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../../shared/empty.util';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

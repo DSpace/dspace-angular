@@ -9,6 +9,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -26,10 +30,6 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 
 @Component({
   selector: 'ds-base-file-download-link',

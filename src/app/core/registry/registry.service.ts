@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  hasValueOperator,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils';
+import {
   createSelector,
   select,
   Store,
@@ -29,11 +34,6 @@ import {
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { MetadataRegistryState } from '../../admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import { AppState } from '../../app.reducer';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmptyOperator,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../cache/models/request-param.model';

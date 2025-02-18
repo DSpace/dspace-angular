@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   Observable,
   of,
 } from 'rxjs';
@@ -10,10 +14,6 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { createNoContentRemoteDataObject } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';

@@ -18,6 +18,7 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -49,7 +50,6 @@ import {
   getFirstCompletedRemoteData,
   metadataFieldsToString,
 } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';

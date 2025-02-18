@@ -2,9 +2,9 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
+import { hasNoValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { hasNoValue } from '../../shared/empty.util';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';

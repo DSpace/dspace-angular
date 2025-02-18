@@ -11,6 +11,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  yearFromString,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -20,7 +24,6 @@ import {
   map,
   startWith,
 } from 'rxjs/operators';
-import { yearFromString } from 'src/app/shared/date.util';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { RouteService } from '../../../../../core/services/route.service';
@@ -28,7 +31,6 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../../empty.util';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
 import {
   facetLoad,

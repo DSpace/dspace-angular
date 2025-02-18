@@ -12,6 +12,11 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isUndefined,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -28,11 +33,6 @@ import {
   XSRF_RESPONSE_HEADER,
 } from '../../../core/xsrf/xsrf.constants';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-  isUndefined,
-} from '../../empty.util';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderProperties } from './uploader-properties.model';
 

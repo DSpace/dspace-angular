@@ -8,6 +8,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils';
+import {
   DynamicCheckboxModel,
   DynamicFormArrayModel,
   DynamicFormControlLayout,
@@ -20,10 +24,6 @@ import {
 import { environment } from '../../../../../environments/environment';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../shared/empty.util';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 

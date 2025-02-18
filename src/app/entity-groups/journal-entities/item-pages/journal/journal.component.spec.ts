@@ -11,6 +11,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -51,7 +52,6 @@ import { ThemedMetadataRepresentationListComponent } from '../../../../item-page
 import { TabbedRelatedEntitiesSearchComponent } from '../../../../item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../../../item-page/simple/related-items/related-items-component';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';

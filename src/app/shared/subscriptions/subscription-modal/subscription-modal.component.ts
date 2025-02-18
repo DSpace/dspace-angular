@@ -16,6 +16,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   NgbActiveModal,
   NgbModal,
@@ -49,7 +50,6 @@ import {
 } from '../../../core/shared/operators';
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { isNotEmpty } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { Subscription } from '../models/subscription.model';

@@ -13,6 +13,10 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbTypeahead,
   NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
@@ -45,10 +49,6 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../empty.util';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';

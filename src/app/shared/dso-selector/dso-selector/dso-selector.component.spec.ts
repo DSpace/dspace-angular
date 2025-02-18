@@ -7,6 +7,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
@@ -16,7 +17,6 @@ import {
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { hasValue } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';

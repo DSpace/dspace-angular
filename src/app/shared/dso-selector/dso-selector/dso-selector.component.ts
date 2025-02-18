@@ -19,6 +19,12 @@ import {
   UntypedFormControl,
 } from '@angular/forms';
 import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -54,12 +60,6 @@ import {
 } from '../../../core/shared/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { ViewMode } from '../../../core/shared/view-mode.model';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../empty.util';
 import { HoverClassDirective } from '../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { NotificationType } from '../../notifications/models/notification-type';

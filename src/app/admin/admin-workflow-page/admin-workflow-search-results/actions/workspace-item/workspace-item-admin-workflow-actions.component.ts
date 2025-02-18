@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
   NgbModalRef,
@@ -34,7 +35,6 @@ import { SupervisionOrder } from '../../../../../core/supervision-order/models/s
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../../../../shared/empty.util';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';

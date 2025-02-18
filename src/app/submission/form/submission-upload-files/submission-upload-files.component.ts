@@ -5,6 +5,11 @@ import {
   OnChanges,
   OnDestroy,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -19,11 +24,6 @@ import {
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '../../../core/submission/submission-response-parsing.service';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';

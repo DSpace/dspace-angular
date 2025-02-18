@@ -9,6 +9,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -36,10 +40,6 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
 import { fadeInOut } from '../animations/fade';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SearchEvent } from './eperson-group-list-event-type';

@@ -4,9 +4,9 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasNoValue } from '@dspace/shared/utils';
 
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { hasNoValue } from '../../shared/empty.util';
 import { currentPathFromSnapshot } from '../../shared/utils/route.utils';
 import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,7 +11,6 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { isNotEmpty } from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { AccessControlFormState } from './access-control-form-container-intial-state';
 

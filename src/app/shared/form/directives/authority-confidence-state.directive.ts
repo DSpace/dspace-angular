@@ -18,6 +18,10 @@ import {
   Renderer2,
   SimpleChanges,
 } from '@angular/core';
+import {
+  isNotEmpty,
+  isNull,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 
@@ -27,10 +31,6 @@ import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import {
-  isNotEmpty,
-  isNull,
-} from '../../empty.util';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 /**

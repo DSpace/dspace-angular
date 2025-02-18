@@ -1,9 +1,3 @@
-import differenceWith from 'lodash/differenceWith';
-import findKey from 'lodash/findKey';
-import isEqual from 'lodash/isEqual';
-import uniqWith from 'lodash/uniqWith';
-
-import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import {
   hasValue,
   isEmpty,
@@ -11,7 +5,13 @@ import {
   isNotNull,
   isNull,
   isUndefined,
-} from '../../shared/empty.util';
+} from '@dspace/shared/utils';
+import differenceWith from 'lodash/differenceWith';
+import findKey from 'lodash/findKey';
+import isEqual from 'lodash/isEqual';
+import uniqWith from 'lodash/uniqWith';
+
+import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import {
   ChangeSubmissionCollectionAction,
   CleanDuplicateDetectionAction,

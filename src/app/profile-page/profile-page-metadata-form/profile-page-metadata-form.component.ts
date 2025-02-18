@@ -6,6 +6,10 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   DynamicFormControlModel,
   DynamicFormValueControlModel,
   DynamicInputModel,
@@ -22,10 +26,6 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

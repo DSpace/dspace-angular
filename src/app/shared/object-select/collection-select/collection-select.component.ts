@@ -8,6 +8,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import {
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   map,
@@ -19,10 +23,6 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  hasValueOperator,
-  isNotEmpty,
-} from '../../empty.util';
 import { ErrorComponent } from '../../error/error.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { PaginationComponent } from '../../pagination/pagination.component';

@@ -20,6 +20,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -44,7 +45,6 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
-import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 

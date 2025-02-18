@@ -14,6 +14,11 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -33,11 +38,6 @@ import {
 } from '../core/shared/operators';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { Process } from '../process-page/processes/process.model';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../shared/empty.util';
 import { HandleService } from '../shared/handle.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 

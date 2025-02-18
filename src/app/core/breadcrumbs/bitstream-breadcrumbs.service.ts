@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   Observable,
   of as observableOf,
 } from 'rxjs';
@@ -11,10 +15,6 @@ import {
 import { getDSORoute } from '../../app-routing-paths';
 import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-page.resolver';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { LinkService } from '../cache/builders/link.service';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { RemoteData } from '../data/remote-data';

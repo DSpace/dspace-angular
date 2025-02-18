@@ -7,6 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -25,7 +26,6 @@ import {
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { hasValue } from '../../../../../shared/empty.util';
 import {
   getListableObjectComponent,
   listableObjectComponent,

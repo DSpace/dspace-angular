@@ -17,6 +17,10 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
+import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
@@ -37,10 +41,6 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../empty.util';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { currentPath } from '../../../../utils/route.utils';
 import { AppliedFilter } from '../../../models/applied-filter.model';

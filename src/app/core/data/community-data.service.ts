@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -7,7 +8,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

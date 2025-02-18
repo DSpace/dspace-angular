@@ -8,6 +8,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { isEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -21,7 +22,6 @@ import { lazyDataService } from '../../../core/lazy-data-service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
-import { isEmpty } from '../../empty.util';
 
 /**
  * Method for resolving an item based on the parameters in the current route

@@ -19,6 +19,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  dateToISOFormat,
+  isNotEmptyOperator,
+  stringToNgbDateStruct,
+} from '@dspace/shared/utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -46,11 +51,6 @@ import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-p
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { SubmissionService } from '../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  dateToISOFormat,
-  stringToNgbDateStruct,
-} from '../../date.util';
-import { isNotEmptyOperator } from '../../empty.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';

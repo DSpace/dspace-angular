@@ -14,6 +14,7 @@ import {
   RouterLinkActive,
   Scroll,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -36,7 +37,6 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { isNotEmpty } from '../../empty.util';
 
 export interface ComColPageNavOption {
   id: string;

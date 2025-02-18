@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '@dspace/shared/utils';
+import {
   AsyncSubject,
   combineLatest as observableCombineLatest,
   Observable,
@@ -13,13 +20,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isUndefined,
-} from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import {
   followLink,

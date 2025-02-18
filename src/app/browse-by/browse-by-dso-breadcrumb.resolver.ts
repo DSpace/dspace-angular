@@ -4,6 +4,7 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -17,7 +18,6 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../core/shared/operators';
-import { hasValue } from '../shared/empty.util';
 
 /**
  * Method for resolving a breadcrumb config object

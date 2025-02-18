@@ -9,6 +9,10 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils';
+import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
@@ -23,10 +27,6 @@ import { map } from 'rxjs/operators';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
-import {
-  hasValue,
-  isEmpty,
-} from '../../shared/empty.util';
 import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 

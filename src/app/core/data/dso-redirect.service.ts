@@ -10,6 +10,7 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -18,7 +19,6 @@ import {
   AppConfig,
 } from '../../../config/app-config.interface';
 import { getDSORoute } from '../../app-routing-paths';
-import { hasValue } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HardRedirectService } from '../services/hard-redirect.service';

@@ -1,7 +1,7 @@
+import { isNotEmpty } from '@dspace/shared/utils';
 import { of as observableOf } from 'rxjs';
 
 import { ThemeConfig } from '../../../config/theme.config';
-import { isNotEmpty } from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 
 export function getMockThemeService(themeName = 'base', themes?: ThemeConfig[]): ThemeService {

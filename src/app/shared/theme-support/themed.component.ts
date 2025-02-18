@@ -12,6 +12,11 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   BehaviorSubject,
   combineLatest,
   from as fromPromise,
@@ -27,11 +32,6 @@ import {
 } from 'rxjs/operators';
 
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
 import { ThemeService } from './theme.service';
 

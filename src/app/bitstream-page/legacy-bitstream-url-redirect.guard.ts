@@ -6,6 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { hasNoValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,7 +16,6 @@ import { RemoteData } from '../core/data/remote-data';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { hasNoValue } from '../shared/empty.util';
 
 /**
  * Redirects to a bitstream based on the handle of the item, and the sequence id or the filename of the

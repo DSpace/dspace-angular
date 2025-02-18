@@ -14,6 +14,11 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+  isValidDate,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -41,11 +46,6 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
-import { isValidDate } from '../../shared/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';

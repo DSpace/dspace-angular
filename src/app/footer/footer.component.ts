@@ -9,6 +9,7 @@ import {
   Optional,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -23,7 +24,6 @@ import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.s
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { OrejimeService } from '../shared/cookies/orejime.service';
-import { hasValue } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-base-footer',

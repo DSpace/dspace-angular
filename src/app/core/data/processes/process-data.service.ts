@@ -4,6 +4,7 @@ import {
   InjectionToken,
   NgZone,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import {
   Observable,
   Subscription,
@@ -17,7 +18,6 @@ import {
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 
 import { Process } from '../../../process-page/processes/process.model';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';

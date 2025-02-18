@@ -4,6 +4,12 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -36,12 +42,6 @@ import { Collection } from '../../../core/shared/collection.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-  isUndefined,
-} from '../../../shared/empty.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';

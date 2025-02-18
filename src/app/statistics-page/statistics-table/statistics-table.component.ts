@@ -4,6 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { isEmpty } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -24,7 +25,6 @@ import {
   Point,
   UsageReport,
 } from '../../core/statistics/models/usage-report.model';
-import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Component representing a statistics table for a given usage report.

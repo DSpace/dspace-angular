@@ -1,4 +1,5 @@
-import { hasValue } from '../../../../shared/empty.util';
+import { hasValue } from '@dspace/shared/utils';
+
 import { BrowseDefinition } from '../../browse-definition.model';
 import { MetadataValue } from '../../metadata.models';
 import {

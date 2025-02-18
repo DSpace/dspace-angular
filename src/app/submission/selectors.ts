@@ -1,10 +1,10 @@
+import { hasValue } from '@dspace/shared/utils';
 import {
   createSelector,
   MemoizedSelector,
   Selector,
 } from '@ngrx/store';
 
-import { hasValue } from '../shared/empty.util';
 import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import {

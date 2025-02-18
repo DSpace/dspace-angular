@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   select,
   Store,
@@ -47,7 +48,6 @@ import { FeatureID } from '../../../../core/data/feature-authorization/feature-i
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { isNotEmpty } from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 
 /**

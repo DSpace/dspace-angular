@@ -16,6 +16,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -30,11 +35,6 @@ import { VocabularyOptions } from '../../../core/submission/vocabularies/models/
 import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../empty.util';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';

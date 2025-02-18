@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { MoveOperation } from 'fast-json-patch';
 import {
@@ -31,10 +35,6 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../shared/empty.util';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';

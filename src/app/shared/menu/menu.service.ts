@@ -5,6 +5,13 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   createSelector,
   MemoizedSelector,
   select,
@@ -27,13 +34,6 @@ import {
   keySelector,
 } from '../../app.reducer';
 import { compareArraysUsingIds } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,

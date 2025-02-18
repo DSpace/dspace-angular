@@ -10,6 +10,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -41,10 +45,6 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../../../../animations/fade';
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../../../../empty.util';
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';

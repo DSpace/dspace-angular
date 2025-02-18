@@ -8,6 +8,11 @@ import {
   Inject,
 } from '@angular/core';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbDropdown,
   NgbDropdownModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -36,11 +41,6 @@ import {
   getPaginatedListPayload,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';

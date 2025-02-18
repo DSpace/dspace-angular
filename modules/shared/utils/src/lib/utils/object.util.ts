@@ -37,6 +37,7 @@ export function hasOnlyEmptyProperties(obj: object): boolean {
       return result;
     }
   }
+  return false
 }
 
 /**

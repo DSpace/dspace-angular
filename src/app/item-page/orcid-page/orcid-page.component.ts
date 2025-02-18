@@ -14,6 +14,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -38,7 +39,6 @@ import {
 } from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import { isNotEmpty } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';

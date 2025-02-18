@@ -4,6 +4,10 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  isEmpty,
+  isNotNull,
+} from '@dspace/shared/utils';
+import {
   select,
   Store,
 } from '@ngrx/store';
@@ -24,10 +28,6 @@ import {
   NativeWindowService,
 } from '../../../../core/services/window.service';
 import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
-import {
-  isEmpty,
-  isNotNull,
-} from '../../../empty.util';
 
 @Component({
   selector: 'ds-log-in-external-provider',

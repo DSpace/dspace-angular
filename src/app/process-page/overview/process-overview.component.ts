@@ -10,12 +10,12 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { hasValue } from '../../shared/empty.util';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessStatus } from '../processes/process-status.model';

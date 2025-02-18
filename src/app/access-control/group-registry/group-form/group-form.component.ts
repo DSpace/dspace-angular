@@ -16,6 +16,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -66,11 +71,6 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

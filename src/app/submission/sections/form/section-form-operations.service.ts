@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
+  dateToString,
+  hasValue,
+  isNgbDateStruct,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+  isUndefined,
+} from '@dspace/shared/utils';
+import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DynamicFormArrayGroupModel,
@@ -15,18 +25,6 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import {
-  dateToString,
-  isNgbDateStruct,
-} from '../../../shared/date.util';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-  isUndefined,
-} from '../../../shared/empty.util';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';

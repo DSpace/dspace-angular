@@ -8,6 +8,10 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -28,10 +32,6 @@ import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';

@@ -1,3 +1,8 @@
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
@@ -11,11 +16,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';

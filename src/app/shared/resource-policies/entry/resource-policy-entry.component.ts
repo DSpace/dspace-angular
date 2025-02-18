@@ -18,6 +18,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  dateToString,
+  hasValue,
+  isNotEmpty,
+  stringToNgbDateStruct,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -33,14 +39,6 @@ import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
-import {
-  dateToString,
-  stringToNgbDateStruct,
-} from '../../date.util';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
 import { HasValuePipe } from '../../utils/has-value.pipe';
 
 export interface ResourcePolicyCheckboxEntry {

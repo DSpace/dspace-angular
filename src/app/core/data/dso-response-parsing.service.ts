@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import {
   hasNoValue,
   hasValue,
-} from '../../shared/empty.util';
+} from '@dspace/shared/utils';
+
 import { ObjectCacheService } from '../cache/object-cache.service';
 import {
   DSOSuccessResponse,

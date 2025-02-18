@@ -17,6 +17,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
   NgbModalRef,
@@ -57,7 +58,6 @@ import {
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/alert-type';
-import { hasValue } from '../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

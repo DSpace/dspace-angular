@@ -1,14 +1,15 @@
-import { ConfidenceType } from '../../../../core/shared/confidence-type';
-import {
-  MetadataValueInterface,
-  VIRTUAL_METADATA_PREFIX,
-} from '../../../../core/shared/metadata.models';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
   isNotNull,
-} from '../../../empty.util';
+} from '@dspace/shared/utils';
+
+import { ConfidenceType } from '../../../../core/shared/confidence-type';
+import {
+  MetadataValueInterface,
+  VIRTUAL_METADATA_PREFIX,
+} from '../../../../core/shared/metadata.models';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 
 export interface OtherInformation {

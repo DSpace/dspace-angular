@@ -1,3 +1,4 @@
+import { hasValue } from '@dspace/shared/utils';
 import { Operation } from 'fast-json-patch';
 import {
   AsyncSubject,
@@ -13,7 +14,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

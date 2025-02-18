@@ -7,6 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -38,7 +39,6 @@ import { WorkspaceItem } from '../../../../../core/submission/models/workspaceit
 import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { hasValue } from '../../../../../shared/empty.util';
 import {
   getListableObjectComponent,
   listableObjectComponent,

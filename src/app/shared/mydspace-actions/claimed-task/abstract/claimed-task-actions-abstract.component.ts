@@ -5,6 +5,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { isEmpty } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -18,7 +19,6 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { CLAIMED_TASK } from '../../../../core/tasks/models/claimed-task-object.resource-type';
-import { isEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { MyDSpaceReloadableActionsComponent } from '../../mydspace-reloadable-actions';
 

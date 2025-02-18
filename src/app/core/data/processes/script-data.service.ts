@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -8,7 +9,6 @@ import {
 import { Process } from '../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { Script } from '../../../process-page/scripts/script.model';
-import { hasValue } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';

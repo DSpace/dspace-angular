@@ -1,16 +1,16 @@
 // eslint-disable-next-line max-classes-per-file
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils';
+import {
   Observable,
   of as observableOf,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';

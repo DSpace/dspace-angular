@@ -3,6 +3,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { ReplaceOperation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 import {
@@ -12,7 +13,6 @@ import {
 } from 'rxjs/operators';
 
 import { QualityAssuranceEventData } from '../../../../notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
-import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';

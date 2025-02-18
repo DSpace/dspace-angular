@@ -7,6 +7,10 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  hasValue,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils';
+import {
   BehaviorSubject,
   Observable,
   of as observableOf,
@@ -22,10 +26,6 @@ import {
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import {
-  hasValue,
-  isNotEmptyOperator,
-} from '../empty.util';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuService } from './menu.service';
 import { MenuID } from './menu-id.model';

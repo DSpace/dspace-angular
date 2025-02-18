@@ -13,6 +13,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -34,10 +38,6 @@ import { SearchFilterService } from '../../../../core/shared/search/search-filte
 import { SequenceService } from '../../../../core/shared/sequence.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../../animations/slide';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { FacetValues } from '../../models/facet-values.model';

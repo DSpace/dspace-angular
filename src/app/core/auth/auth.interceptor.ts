@@ -13,6 +13,11 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import {
   Observable,
@@ -25,11 +30,6 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction } from './auth.actions';
 import { AuthService } from './auth.service';
 import { AuthMethod } from './models/auth.method';

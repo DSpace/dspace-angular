@@ -1,5 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -32,10 +36,6 @@ import { RestRequest } from '../../core/data/rest-request.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import {
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { Subscription } from './models/subscription.model';

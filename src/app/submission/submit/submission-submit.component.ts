@@ -9,6 +9,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmptyOperator,
+  isNotNull,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -26,12 +32,6 @@ import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmptyOperator,
-  isNotNull,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionService } from '../submission.service';
 

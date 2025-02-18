@@ -3,9 +3,9 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { hasValue } from '../../empty.util';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
 
 /**

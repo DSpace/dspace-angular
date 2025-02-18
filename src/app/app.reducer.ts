@@ -1,3 +1,4 @@
+import { hasValue } from '@dspace/shared/utils';
 import {
   routerReducer,
   RouterReducerState,
@@ -29,7 +30,6 @@ import {
   contextHelpReducer,
   ContextHelpState,
 } from './shared/context-help.reducer';
-import { hasValue } from './shared/empty.util';
 import {
   NameVariantListsState,
   nameVariantReducer,

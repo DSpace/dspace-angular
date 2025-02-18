@@ -1,12 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import {
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '@dspace/shared/utils';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../data/remote-data';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { AuthService } from './auth.service';

@@ -12,6 +12,10 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -53,10 +57,6 @@ import {
 } from '../../../core/shared/operators';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { followLink } from '../../../shared/utils/follow-link-config.model';

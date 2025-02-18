@@ -7,6 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@dspace/shared/utils';
+import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -34,12 +40,6 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/models/workspaceitem-section-license.model';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';

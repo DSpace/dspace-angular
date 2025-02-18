@@ -14,6 +14,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isEmpty } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -40,7 +41,6 @@ import {
 import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**

@@ -10,6 +10,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
@@ -29,7 +30,6 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
-import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({

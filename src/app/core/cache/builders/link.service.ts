@@ -4,6 +4,10 @@ import {
   Injector,
 } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   EMPTY,
   Observable,
 } from 'rxjs';
@@ -16,10 +20,6 @@ import {
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
 } from '../../../../config/app-config.interface';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { HALDataService } from '../../data/base/hal-data-service.interface';
 import { PaginatedList } from '../../data/paginated-list.model';

@@ -5,6 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   BehaviorSubject,
   EMPTY,
   Observable,
@@ -24,10 +28,6 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';

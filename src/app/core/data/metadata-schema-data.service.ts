@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

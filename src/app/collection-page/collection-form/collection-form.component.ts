@@ -8,6 +8,10 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import {
+  hasNoValue,
+  isNotNull,
+} from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -20,10 +24,6 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  hasNoValue,
-  isNotNull,
-} from 'src/app/shared/empty.util';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';

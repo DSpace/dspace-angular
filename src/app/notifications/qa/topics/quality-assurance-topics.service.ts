@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,7 +14,6 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
 import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
 
 /**
  * The service handling all Quality Assurance topic requests to the REST service.

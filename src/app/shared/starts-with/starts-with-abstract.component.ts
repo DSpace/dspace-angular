@@ -12,10 +12,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { Subscription } from 'rxjs';
 
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { hasValue } from '../empty.util';
 import { StartsWithType } from './starts-with-type';
 
 /**

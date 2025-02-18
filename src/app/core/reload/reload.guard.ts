@@ -6,13 +6,13 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 
 import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
 import { HOME_PAGE_PATH } from '../../app-routing-paths';
-import { isNotEmpty } from '../../shared/empty.util';
 
 /**
  * A guard redirecting the user to the URL provided in the route's query params

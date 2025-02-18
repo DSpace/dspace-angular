@@ -11,6 +11,7 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -39,7 +40,6 @@ import {
 } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 

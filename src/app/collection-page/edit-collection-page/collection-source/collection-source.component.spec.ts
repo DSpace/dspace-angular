@@ -14,6 +14,7 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -30,7 +31,6 @@ import {
   ContentSource,
   ContentSourceHarvestType,
 } from '../../../core/shared/content-source.model';
-import { hasValue } from '../../../shared/empty.util';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {

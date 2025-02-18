@@ -6,6 +6,10 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -34,10 +38,6 @@ import {
   getFirstCompletedRemoteData,
 } from '../../../../../core/shared/operators';
 import { AlertComponent } from '../../../../alert/alert.component';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';

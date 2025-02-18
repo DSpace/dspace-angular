@@ -6,6 +6,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   of as observableOf,
   Subscription,
@@ -18,7 +19,6 @@ import {
   LinkHeadService,
 } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
-import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-home-coar',

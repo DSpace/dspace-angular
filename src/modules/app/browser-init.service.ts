@@ -27,6 +27,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { isNotEmpty } from '../../../modules/shared/utils/src/lib/utils/empty.util';
 import { logStartupMessage } from '../../../startup-message';
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
@@ -40,7 +41,6 @@ import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
-import { isNotEmpty } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';

@@ -8,6 +8,7 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -25,7 +26,6 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { hasValue } from '../../../empty.util';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

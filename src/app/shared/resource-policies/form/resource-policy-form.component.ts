@@ -10,6 +10,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  dateToISOFormat,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  stringToNgbDateStruct,
+} from '@dspace/shared/utils';
+import {
   NgbModal,
   NgbNavChangeEvent,
   NgbNavModule,
@@ -44,16 +52,6 @@ import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-p
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  dateToISOFormat,
-  stringToNgbDateStruct,
-} from '../../date.util';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../../empty.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';

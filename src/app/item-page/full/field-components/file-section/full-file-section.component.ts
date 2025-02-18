@@ -7,6 +7,10 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -27,10 +31,6 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';

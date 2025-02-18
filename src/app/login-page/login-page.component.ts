@@ -4,6 +4,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -24,10 +28,6 @@ import {
 } from '../core/auth/auth.actions';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '../core/auth/selectors';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../shared/empty.util';
 import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 
 /**

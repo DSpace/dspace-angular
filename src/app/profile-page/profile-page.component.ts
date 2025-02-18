@@ -8,6 +8,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -41,10 +45,6 @@ import {
   getRemoteDataPayload,
 } from '../core/shared/operators';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../shared/empty.util';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';

@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -33,7 +34,6 @@ import {
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
 } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**

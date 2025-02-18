@@ -1,3 +1,4 @@
+import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicCheckboxGroupModel,
   DynamicFormControlLayout,
@@ -9,7 +10,6 @@ import { Subject } from 'rxjs';
 
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { hasValue } from '../../../../../empty.util';
 
 export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupModelConfig {
   vocabularyOptions: VocabularyOptions;

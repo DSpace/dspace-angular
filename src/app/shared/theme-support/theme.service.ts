@@ -10,6 +10,11 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   createFeatureSelector,
   createSelector,
   select,
@@ -49,11 +54,6 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import {
   NO_OP_ACTION_TYPE,
   NoOpAction,

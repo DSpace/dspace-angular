@@ -31,6 +31,12 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils';
+import {
   NgbModal,
   NgbModalRef,
   NgbTooltipModule,
@@ -100,12 +106,6 @@ import { SubmissionObjectDataService } from '../../../../core/submission/submiss
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../empty.util';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';

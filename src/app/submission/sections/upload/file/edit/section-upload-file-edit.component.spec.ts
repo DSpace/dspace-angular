@@ -15,6 +15,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { dateToISOFormat } from '@dspace/shared/utils';
 import {
   NgbActiveModal,
   NgbModal,
@@ -39,7 +40,6 @@ import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/b
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
-import { dateToISOFormat } from '../../../../../shared/date.util';
 import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';

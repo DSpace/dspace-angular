@@ -7,6 +7,11 @@
  */
 
 import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '@dspace/shared/utils';
+import {
   AsyncSubject,
   from as observableFrom,
   Observable,
@@ -23,11 +28,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotEmptyOperator,
-} from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import {
   getLinkDefinition,

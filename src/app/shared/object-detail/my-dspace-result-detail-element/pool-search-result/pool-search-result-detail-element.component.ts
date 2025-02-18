@@ -5,6 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   BehaviorSubject,
   EMPTY,
   Observable,
@@ -24,10 +28,6 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';

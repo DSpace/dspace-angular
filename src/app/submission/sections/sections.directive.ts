@@ -5,6 +5,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils';
 import uniq from 'lodash/uniq';
 import {
   Observable,
@@ -12,11 +17,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../shared/empty.util';
 import { SubmissionSectionError } from '../objects/submission-section-error.model';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';

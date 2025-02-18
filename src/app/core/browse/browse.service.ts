@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -7,12 +13,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import {
   followLink,
   FollowLinkConfig,

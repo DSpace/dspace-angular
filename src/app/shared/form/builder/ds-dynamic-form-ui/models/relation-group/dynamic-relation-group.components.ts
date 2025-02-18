@@ -14,6 +14,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import {
+  hasOnlyEmptyProperties,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -46,14 +53,7 @@ import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabul
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
-import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { ChipsItem } from '../../../../chips/models/chips-item.model';

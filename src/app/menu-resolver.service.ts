@@ -3,6 +3,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest,
@@ -42,7 +43,6 @@ import { ThemedEditCommunitySelectorComponent } from './shared/dso-selector/moda
 import { ThemedEditItemSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
 import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
-import { hasValue } from './shared/empty.util';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/menu-id.model';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';

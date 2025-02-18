@@ -20,6 +20,7 @@ import {
   ReactiveFormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormArrayComponent,
   DynamicFormControlCustomEvent,
@@ -37,7 +38,6 @@ import {
 } from '@ngx-translate/core';
 
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
-import { hasValue } from '../../../../../empty.util';
 import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';

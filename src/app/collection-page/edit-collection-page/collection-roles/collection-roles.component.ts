@@ -4,6 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   first,
@@ -18,7 +19,6 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
-import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a collection's roles

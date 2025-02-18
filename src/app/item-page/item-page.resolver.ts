@@ -5,6 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,7 +18,6 @@ import { ResolvedAction } from '../core/resolving/resolver.actions';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { hasValue } from '../shared/empty.util';
 import { getItemPageLinksToFollow } from './item.resolver';
 import { getItemPageRoute } from './item-page-routing-paths';
 

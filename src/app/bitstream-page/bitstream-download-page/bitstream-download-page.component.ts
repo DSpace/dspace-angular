@@ -13,6 +13,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -40,10 +44,6 @@ import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { FileService } from '../../core/shared/file.service';
 import { getRemoteDataPayload } from '../../core/shared/operators';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-bitstream-download-page',

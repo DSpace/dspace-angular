@@ -16,6 +16,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils';
+import {
   NgbDropdownModule,
   NgbPaginationModule,
   NgbTooltipModule,
@@ -43,10 +47,6 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
-import {
-  hasValue,
-  hasValueOperator,
-} from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { RSSComponent } from '../rss-feed/rss.component';

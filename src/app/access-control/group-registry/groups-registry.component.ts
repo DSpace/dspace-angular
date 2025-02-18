@@ -9,6 +9,7 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -57,7 +58,6 @@ import {
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';

@@ -11,6 +11,10 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -37,10 +41,6 @@ import { SubmissionJsonPatchOperationsService } from '../../../core/submission/s
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { SectionsService } from '../../sections/sections.service';
 import { SectionsType } from '../../sections/sections-type';
 import { SubmissionService } from '../../submission.service';

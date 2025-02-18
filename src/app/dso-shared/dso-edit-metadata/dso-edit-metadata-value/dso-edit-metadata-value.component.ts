@@ -22,6 +22,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -67,7 +68,6 @@ import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabul
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {
   DsDynamicOneboxModelConfig,

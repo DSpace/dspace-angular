@@ -4,6 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -16,7 +17,6 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
-import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a collection's curation tasks

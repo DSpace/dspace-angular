@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -10,7 +11,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
 import {
   followLink,
   FollowLinkConfig,

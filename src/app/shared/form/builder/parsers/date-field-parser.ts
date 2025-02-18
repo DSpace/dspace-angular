@@ -1,4 +1,5 @@
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty } from '@dspace/shared/utils';
+
 import { DS_DATE_PICKER_SEPARATOR } from '../ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import {
   DynamicDsDateControlModelConfig,

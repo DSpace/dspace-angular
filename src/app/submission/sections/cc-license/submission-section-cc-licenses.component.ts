@@ -5,6 +5,7 @@ import {
   Inject,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -44,7 +45,6 @@ import { SubmissionCcLicenseDataService } from '../../../core/submission/submiss
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
-import { isNotEmpty } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';

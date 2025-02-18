@@ -9,6 +9,7 @@ import {
   Data,
   Router,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -30,7 +31,6 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { getItemPageLinksToFollow } from '../../item.resolver';

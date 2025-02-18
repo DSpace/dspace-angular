@@ -1,6 +1,6 @@
+import { hasValueOperator } from '@dspace/shared/utils';
 import { of as observableOf } from 'rxjs';
 
-import { hasValueOperator } from '../../shared/empty.util';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import {

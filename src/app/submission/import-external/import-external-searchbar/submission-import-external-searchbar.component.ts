@@ -9,6 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -37,7 +38,6 @@ import {
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../shared/empty.util';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 

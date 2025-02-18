@@ -13,6 +13,10 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbDropdown,
   NgbDropdownModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -51,10 +55,6 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';

@@ -6,6 +6,7 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import { isEmpty } from '@dspace/shared/utils';
 import {
   Observable,
   of as observableOf,
@@ -18,7 +19,6 @@ import {
   HttpOptions,
 } from '../../../core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.model';
-import { isEmpty } from '../../empty.util';
 import {
   MOCK_RESPONSE_MAP,
   ResponseMapMock,

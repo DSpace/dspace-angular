@@ -6,6 +6,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isEmpty } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -23,7 +24,6 @@ import {
   getFirstSucceededRemoteData,
 } from '../../../../../core/shared/operators';
 import { ResourceType } from '../../../../../core/shared/resource-type';
-import { isEmpty } from '../../../../empty.util';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 
 @Component({

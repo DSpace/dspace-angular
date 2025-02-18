@@ -9,6 +9,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbModal,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -24,10 +28,6 @@ import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators'
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../empty.util';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';

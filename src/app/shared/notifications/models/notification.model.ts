@@ -1,6 +1,6 @@
+import { isEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { isEmpty } from '../../empty.util';
 import {
   INotificationOptions,
   NotificationOptions,

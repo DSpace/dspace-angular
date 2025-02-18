@@ -1,15 +1,15 @@
 import { InjectionToken } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 
 import { ThemeConfig } from '../../../../../config/theme.config';
 import { environment } from '../../../../../environments/environment';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { ListableObject } from '../listable-object.model';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;

@@ -1,3 +1,5 @@
+import { hasValue } from '@dspace/shared/utils';
+
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
 import { Collection } from './core/shared/collection.model';
@@ -9,7 +11,6 @@ import {
   getItemModuleRoute,
   getItemPageRoute,
 } from './item-page/item-page-routing-paths';
-import { hasValue } from './shared/empty.util';
 
 export const BITSTREAM_MODULE_PATH = 'bitstreams';
 

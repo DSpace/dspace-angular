@@ -7,6 +7,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -24,7 +25,6 @@ import { LogOutAction } from '../../core/auth/auth.actions';
 import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 

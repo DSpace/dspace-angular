@@ -8,6 +8,10 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -29,10 +33,6 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Context } from '../../core/shared/context.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeIn } from '../animations/fade';
-import {
-  hasNoValue,
-  hasValue,
-} from '../empty.util';
 import { ErrorComponent } from '../error/error.component';
 import {
   HostWindowService,

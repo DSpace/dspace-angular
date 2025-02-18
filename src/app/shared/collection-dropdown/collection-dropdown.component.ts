@@ -15,6 +15,7 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
@@ -46,7 +47,6 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
-import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { followLink } from '../utils/follow-link-config.model';
 

@@ -16,6 +16,11 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbDropdown,
   NgbDropdownModule,
   NgbTooltipModule,
@@ -45,11 +50,6 @@ import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../../../../empty.util';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';

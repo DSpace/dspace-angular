@@ -5,6 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -20,7 +21,6 @@ import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/oper
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
-import { hasValue } from '../../../empty.util';
 import { MetadataFieldWrapperComponent } from '../../../metadata-field-wrapper/metadata-field-wrapper.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';

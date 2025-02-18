@@ -5,6 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
@@ -37,10 +41,6 @@ import {
   getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import { NgForTrackByIdDirective } from '../../../shared/ng-for-track-by-id.directive';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { followLink } from '../../../shared/utils/follow-link-config.model';

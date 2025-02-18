@@ -11,6 +11,11 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -38,11 +43,6 @@ import { ResourcePolicy } from '../../core/resource-policy/models/resource-polic
 import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
 import {

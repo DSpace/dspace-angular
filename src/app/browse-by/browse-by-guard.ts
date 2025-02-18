@@ -6,6 +6,10 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -21,10 +25,6 @@ import { BrowseDefinitionDataService } from '../core/browse/browse-definition-da
 import { RemoteData } from '../core/data/remote-data';
 import { BrowseDefinition } from '../core/shared/browse-definition.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import {
-  hasNoValue,
-  hasValue,
-} from '../shared/empty.util';
 
 export const browseByGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

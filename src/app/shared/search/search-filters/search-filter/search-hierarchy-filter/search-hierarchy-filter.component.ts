@@ -13,6 +13,7 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
   NgbModalRef,
@@ -42,7 +43,6 @@ import { SearchFilterService } from '../../../../../core/shared/search/search-fi
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { addOperatorToFilterValue } from '../../../search.utils';

@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -25,7 +26,6 @@ import { ObjectCacheService } from '../../../../core/cache/object-cache.service'
 import { RequestService } from '../../../../core/data/request.service';
 import { RestRequestMethod } from '../../../../core/data/rest-request-method';
 import { Community } from '../../../../core/shared/community.model';
-import { hasValue } from '../../../empty.util';
 import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';

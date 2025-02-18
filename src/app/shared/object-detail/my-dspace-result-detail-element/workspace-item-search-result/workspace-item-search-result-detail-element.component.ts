@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { isNotUndefined } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
@@ -12,7 +13,6 @@ import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { isNotUndefined } from '../../../empty.util';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';

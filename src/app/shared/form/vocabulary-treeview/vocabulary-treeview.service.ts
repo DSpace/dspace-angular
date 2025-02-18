@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import findIndex from 'lodash/findIndex';
 import {
   BehaviorSubject,
@@ -22,10 +26,6 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../empty.util';
 import {
   LOAD_MORE_NODE,
   LOAD_MORE_ROOT_NODE,

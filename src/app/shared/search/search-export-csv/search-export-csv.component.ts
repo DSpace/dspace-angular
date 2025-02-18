@@ -5,6 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -25,10 +29,6 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { Process } from '../../../process-page/processes/process.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilter } from '../models/search-filter.model';

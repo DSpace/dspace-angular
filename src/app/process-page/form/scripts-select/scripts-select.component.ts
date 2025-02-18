@@ -17,6 +17,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -36,7 +37,6 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { Script } from '../../scripts/script.model';
 import { controlContainerFactory } from '../process-form-factory';

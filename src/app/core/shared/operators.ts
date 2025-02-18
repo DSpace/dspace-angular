@@ -1,5 +1,11 @@
 import { InjectionToken } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   combineLatest as observableCombineLatest,
   interval,
   MonoTypeOperatorFunction,
@@ -17,12 +23,6 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';

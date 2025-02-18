@@ -17,6 +17,12 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils';
+import {
   NgbModal,
   NgbModalRef,
   NgbTypeahead,
@@ -58,12 +64,6 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import {
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../empty.util';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';

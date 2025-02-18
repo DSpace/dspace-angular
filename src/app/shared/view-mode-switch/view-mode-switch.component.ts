@@ -12,16 +12,16 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../empty.util';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 

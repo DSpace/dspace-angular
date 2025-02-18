@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils';
+import {
   Actions,
   createEffect,
   ofType,
@@ -38,11 +43,6 @@ import { WorkspaceitemSectionsObject } from '../../core/submission/models/worksp
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import {
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../shared/empty.util';
 import { FormState } from '../../shared/form/form.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';

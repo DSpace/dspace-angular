@@ -12,6 +12,12 @@ import {
   Output,
 } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -64,12 +70,6 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-} from '../../../../shared/empty.util';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';

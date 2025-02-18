@@ -6,6 +6,15 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '@dspace/shared/utils';
+import {
   select,
   Store,
 } from '@ngrx/store';
@@ -29,15 +38,6 @@ import {
   RESPONSE,
 } from '../../../express.tokens';
 import { AppState } from '../../app.reducer';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';

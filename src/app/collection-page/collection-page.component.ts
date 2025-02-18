@@ -9,6 +9,10 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -38,10 +42,6 @@ import { ThemedComcolPageHandleComponent } from '../shared/comcol/comcol-page-ha
 import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../shared/empty.util';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../shared/object-collection/object-collection.component';

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -14,7 +15,6 @@ import {
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Process } from '../processes/process.model';
 

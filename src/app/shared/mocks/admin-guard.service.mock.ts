@@ -5,8 +5,7 @@ import {
   CanActivateChild,
   RouterStateSnapshot,
 } from '@angular/router';
-
-import { hasValue } from '../empty.util';
+import { hasValue } from '@dspace/shared/utils';
 
 @Injectable()
 export class MockAdminGuard implements CanActivate, CanActivateChild {

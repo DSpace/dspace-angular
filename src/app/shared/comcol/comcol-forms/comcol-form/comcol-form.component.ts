@@ -13,6 +13,10 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -55,10 +59,6 @@ import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { ResourceType } from '../../../../core/shared/resource-type';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { FormComponent } from '../../../form/form.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';

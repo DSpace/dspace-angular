@@ -10,6 +10,7 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import { isNotUndefined } from '@dspace/shared/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterReducerState } from '@ngrx/router-store';
 import {
@@ -45,7 +46,6 @@ import {
   fadeInOut,
   fadeOut,
 } from '../animations/fade';
-import { isNotUndefined } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ThemedLogInComponent } from '../log-in/themed-log-in.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';

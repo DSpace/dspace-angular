@@ -1,5 +1,9 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -9,10 +13,6 @@ import {
 } from 'rxjs/operators';
 
 import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';

@@ -9,6 +9,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   NgbDropdownModule,
   NgbTooltipModule,
@@ -21,7 +22,6 @@ import { MenuSection } from 'src/app/shared/menu/menu-section.model';
 import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { hasValue } from '../../../empty.util';
 import { MenuService } from '../../../menu/menu.service';
 
 /**

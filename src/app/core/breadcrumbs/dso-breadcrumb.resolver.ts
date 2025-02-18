@@ -2,12 +2,12 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getDSORoute } from '../../app-routing-paths';
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { hasValue } from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { DSpaceObject } from '../shared/dspace-object.model';

@@ -18,6 +18,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -33,7 +34,6 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Context } from '../../core/shared/context.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { isEmpty } from '../empty.util';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';

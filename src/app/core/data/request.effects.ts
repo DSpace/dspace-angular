@@ -3,6 +3,10 @@ import {
   Injector,
 } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   Actions,
   createEffect,
   ofType,
@@ -16,10 +20,6 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { StoreActionTypes } from '../../store.actions';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { ParsedResponse } from '../cache/response.models';

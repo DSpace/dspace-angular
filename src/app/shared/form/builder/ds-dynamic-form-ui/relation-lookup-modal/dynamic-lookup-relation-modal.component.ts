@@ -9,6 +9,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   NgbActiveModal,
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -47,10 +51,6 @@ import {
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../object-collection/shared/listable-object.model';

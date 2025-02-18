@@ -7,6 +7,11 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils';
 import isEqual from 'lodash/isEqual';
 import {
   Observable,
@@ -28,11 +33,6 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SectionVisibility } from '../objects/section-visibility.model';

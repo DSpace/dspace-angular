@@ -6,10 +6,10 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
 import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
-import { hasValue } from '../../shared/empty.util';
 
 /**
  * Log Interceptor intercepting Http Requests & Responses to

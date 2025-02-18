@@ -3,6 +3,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -28,11 +33,6 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { ResourceType } from '../../../../core/shared/resource-type';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 
 /**

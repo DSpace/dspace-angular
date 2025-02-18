@@ -12,7 +12,7 @@ import {
 import { load } from 'js-yaml';
 import { join } from 'path';
 
-import { isNotEmpty } from '../app/shared/empty.util';
+import { isNotEmpty } from '../../modules/shared/utils/src/lib/utils/empty.util';
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';

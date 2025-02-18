@@ -14,6 +14,10 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -31,10 +35,6 @@ import { SearchConfigurationService } from '../../../core/shared/search/search-c
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
 import { FilterType } from '../models/filter-type.model';

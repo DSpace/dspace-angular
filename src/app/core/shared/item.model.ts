@@ -1,3 +1,4 @@
+import { isEmpty } from '@dspace/shared/utils';
 import {
   autoserialize,
   autoserializeAs,
@@ -9,7 +10,6 @@ import { Observable } from 'rxjs';
 import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 
-import { isEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
 import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';

@@ -10,6 +10,10 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -34,10 +38,6 @@ import {
 } from '../../../../../core/shared/operators';
 import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
 import { SubmissionService } from '../../../../../submission/submission.service';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';

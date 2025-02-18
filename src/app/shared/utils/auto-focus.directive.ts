@@ -4,8 +4,7 @@ import {
   ElementRef,
   Input,
 } from '@angular/core';
-
-import { isNotEmpty } from '../empty.util';
+import { isNotEmpty } from '@dspace/shared/utils';
 
 /**
  * Directive to set focus on an element when it is rendered

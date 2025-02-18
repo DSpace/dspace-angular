@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -38,7 +39,6 @@ import {
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 

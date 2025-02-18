@@ -14,6 +14,10 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
+import {
   NgbDropdownModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -50,10 +54,6 @@ import {
   paginatedListToArray,
 } from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../../../shared/empty.util';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';

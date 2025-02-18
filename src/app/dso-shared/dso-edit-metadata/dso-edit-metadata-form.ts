@@ -1,5 +1,11 @@
 /* eslint-disable max-classes-per-file */
 import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   MoveOperation,
   Operation,
 } from 'fast-json-patch';
@@ -13,12 +19,6 @@ import {
   MetadataMap,
   MetadataValue,
 } from '../../core/shared/metadata.models';
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 
 /**
  * Enumeration for the type of change occurring on a metadata value

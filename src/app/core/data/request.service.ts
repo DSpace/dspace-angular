@@ -1,6 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   createSelector,
   MemoizedSelector,
   select,
@@ -23,12 +29,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';

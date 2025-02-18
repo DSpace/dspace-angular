@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -6,7 +7,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../shared/empty.util';
 import {
   followLink,
   FollowLinkConfig,

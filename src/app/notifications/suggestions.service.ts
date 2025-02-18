@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
   forkJoin,
@@ -36,11 +41,6 @@ import {
 } from '../core/shared/operators';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../shared/empty.util';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
 

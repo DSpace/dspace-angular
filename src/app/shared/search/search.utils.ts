@@ -1,4 +1,5 @@
-import { isNotEmpty } from '../empty.util';
+import { isNotEmpty } from '@dspace/shared/utils';
+
 import { FacetValue } from './models/facet-value.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 

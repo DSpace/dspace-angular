@@ -3,6 +3,10 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+} from '@dspace/shared/utils';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -17,10 +21,6 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { WorkspaceitemSectionSherpaPoliciesObject } from '../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../shared/empty.util';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';

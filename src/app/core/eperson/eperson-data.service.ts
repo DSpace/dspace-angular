@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+} from '@dspace/shared/utils';
+import {
   createSelector,
   select,
   Store,
@@ -19,10 +23,6 @@ import {
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
-import {
-  hasNoValue,
-  hasValue,
-} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

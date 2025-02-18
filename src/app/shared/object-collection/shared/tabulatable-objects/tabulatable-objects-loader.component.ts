@@ -12,6 +12,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   combineLatest,
   Observable,
   of as observableOf,
@@ -23,11 +28,6 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../empty.util';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { ListableObject } from '../listable-object.model';

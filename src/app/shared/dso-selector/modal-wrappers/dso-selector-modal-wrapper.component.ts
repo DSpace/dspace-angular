@@ -9,16 +9,16 @@ import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
 } from '@angular/router';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../empty.util';
 
 export enum SelectorActionType {
   CREATE = 'create',

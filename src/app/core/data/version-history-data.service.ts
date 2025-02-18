@@ -1,6 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils';
+import {
   combineLatest,
   Observable,
   of as observableOf,
@@ -13,10 +17,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import {

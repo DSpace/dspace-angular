@@ -12,6 +12,7 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -46,7 +47,6 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../../shared/animations/fade';
-import { hasValue } from '../../../shared/empty.util';
 import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
 import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
 import {

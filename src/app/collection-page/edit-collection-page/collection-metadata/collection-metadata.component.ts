@@ -11,6 +11,7 @@ import {
   RouterLink,
   Scroll,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -36,7 +37,6 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { CollectionFormComponent } from '../../collection-form/collection-form.component';

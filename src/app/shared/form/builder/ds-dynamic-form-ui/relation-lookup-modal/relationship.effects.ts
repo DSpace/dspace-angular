@@ -4,6 +4,11 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+} from '@dspace/shared/utils';
+import {
   Actions,
   createEffect,
   ofType,
@@ -44,11 +49,6 @@ import { SubmissionObject } from '../../../../../core/submission/models/submissi
 import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
 import { SubmissionState } from '../../../../../submission/submission.reducers';
-import {
-  hasNoValue,
-  hasValue,
-  hasValueOperator,
-} from '../../../../empty.util';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { followLink } from '../../../../utils/follow-link-config.model';

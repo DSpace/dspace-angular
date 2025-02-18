@@ -18,6 +18,10 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
@@ -41,10 +45,6 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';

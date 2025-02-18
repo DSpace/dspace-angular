@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   Observable,
   of as observableOf,
 } from 'rxjs';
@@ -9,11 +14,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../../shared/empty.util';
 import {
   followLink,
   FollowLinkConfig,

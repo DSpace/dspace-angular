@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -31,7 +32,6 @@ import {
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../../../../empty.util';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';

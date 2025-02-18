@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -25,7 +26,6 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Group } from '../../../../../../core/eperson/models/group.model';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
-import { isNotEmpty } from '../../../../../../shared/empty.util';
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 
 export interface SupervisionOrderListEntry {

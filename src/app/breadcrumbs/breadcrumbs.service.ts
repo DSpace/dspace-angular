@@ -5,6 +5,11 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+  isUndefined,
+} from '@dspace/shared/utils';
+import {
   combineLatest,
   Observable,
   of as observableOf,
@@ -17,11 +22,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasNoValue,
-  hasValue,
-  isUndefined,
-} from '../shared/empty.util';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 
 @Injectable({

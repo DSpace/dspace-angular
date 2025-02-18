@@ -12,6 +12,7 @@ import {
   DomSanitizer,
   SafeHtml,
 } from '@angular/platform-browser';
+import { isEmpty } from '@dspace/shared/utils';
 import { Subject } from 'rxjs';
 import {
   filter,
@@ -21,7 +22,6 @@ import {
 
 import { environment } from '../../../environments/environment';
 import { MathService } from '../../core/shared/math.service';
-import { isEmpty } from '../empty.util';
 
 const markdownItLoader = async () => (await import('markdown-it')).default;
 type LazyMarkdownIt = ReturnType<typeof markdownItLoader>;

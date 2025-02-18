@@ -7,6 +7,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import {
+  dateToISOFormat,
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
@@ -39,13 +46,6 @@ import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/build
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
-import { dateToISOFormat } from '../../../../../shared/date.util';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-  isNotNull,
-} from '../../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { FormComponent } from '../../../../../shared/form/form.component';

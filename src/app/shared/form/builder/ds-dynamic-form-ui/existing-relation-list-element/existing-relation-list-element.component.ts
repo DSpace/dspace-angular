@@ -9,6 +9,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
@@ -25,10 +29,6 @@ import {
 } from '../../../../../core/shared/operators';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';

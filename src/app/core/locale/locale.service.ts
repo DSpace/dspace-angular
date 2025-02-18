@@ -3,6 +3,10 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -17,10 +21,6 @@ import {
 
 import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
-import {
-  isEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../services/cookie.service';
 import { RouteService } from '../services/route.service';

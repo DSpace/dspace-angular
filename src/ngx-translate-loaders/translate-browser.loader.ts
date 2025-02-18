@@ -7,7 +7,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '../app/shared/empty.util';
+import { hasValue } from '../../modules/shared/utils/src/lib/utils/empty.util';
 import { environment } from '../environments/environment';
 import {
   NGX_TRANSLATE_STATE,

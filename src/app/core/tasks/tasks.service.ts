@@ -1,4 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -9,10 +13,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../cache/cacheable-object.model';

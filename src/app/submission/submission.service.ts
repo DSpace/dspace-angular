@@ -2,6 +2,11 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  hasValue,
+  isEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils';
+import {
   createSelector,
   MemoizedSelector,
   select,
@@ -40,11 +45,6 @@ import { WorkspaceitemSectionsObject } from '../core/submission/models/workspace
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import {
-  hasValue,
-  isEmpty,
-  isNotUndefined,
-} from '../shared/empty.util';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,

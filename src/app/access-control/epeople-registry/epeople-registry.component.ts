@@ -15,6 +15,7 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -52,7 +53,6 @@ import {
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';

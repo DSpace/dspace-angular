@@ -11,6 +11,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { isEmpty } from '@dspace/shared/utils';
 import {
   NgbAccordion,
   NgbAccordionModule,
@@ -35,7 +36,6 @@ import { MetadataSchema } from 'src/app/core/metadata/metadata-schema.model';
 import { Collection } from 'src/app/core/shared/collection.model';
 import { Community } from 'src/app/core/shared/community.model';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
-import { isEmpty } from 'src/app/shared/empty.util';
 import { environment } from 'src/environments/environment';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

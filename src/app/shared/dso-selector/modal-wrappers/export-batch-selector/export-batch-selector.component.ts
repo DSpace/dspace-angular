@@ -6,6 +6,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   NgbActiveModal,
   NgbModal,
@@ -39,7 +40,6 @@ import { getProcessDetailRoute } from '../../../../process-page/process-page-rou
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';

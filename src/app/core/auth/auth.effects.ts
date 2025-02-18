@@ -3,6 +3,7 @@ import {
   NgZone,
   Type,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 // import @ngrx
 import {
   Actions,
@@ -34,7 +35,6 @@ import {
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
-import { hasValue } from '../../shared/empty.util';
 import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
 import { StoreActionTypes } from '../../store.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';

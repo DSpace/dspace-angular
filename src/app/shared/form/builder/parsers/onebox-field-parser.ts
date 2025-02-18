@@ -1,9 +1,9 @@
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   DynamicSelectModel,
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
-import { isNotEmpty } from '../../../empty.util';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

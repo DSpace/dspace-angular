@@ -7,6 +7,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -33,7 +34,6 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
-import { isNotEmpty } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';

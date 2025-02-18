@@ -12,6 +12,7 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
@@ -28,7 +29,6 @@ import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.se
 import { SelectReviewerAdvancedWorkflowInfo } from '../../../core/tasks/models/select-reviewer-advanced-workflow-info.model';
 import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';

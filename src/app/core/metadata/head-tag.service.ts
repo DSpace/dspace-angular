@@ -13,6 +13,11 @@ import {
   Router,
 } from '@angular/router';
 import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+import {
   createSelector,
   select,
   Store,
@@ -39,11 +44,6 @@ import {
   AppConfig,
 } from '../../../config/app-config.interface';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
-import {
-  hasNoValue,
-  hasValue,
-  isNotEmpty,
-} from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { coreSelector } from '../core.selectors';

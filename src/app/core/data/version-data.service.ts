@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { Operation } from 'fast-json-patch';
 import {
   EMPTY,
@@ -9,7 +10,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';

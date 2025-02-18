@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import {
   Operation,
   RemoveOperation,
@@ -16,7 +17,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {

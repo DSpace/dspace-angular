@@ -8,6 +8,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import {
   filter,
   map,
@@ -19,7 +20,6 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { hasValue } from '../../../../shared/empty.util';
 import {
   NotifyRequestsStatus,
   NotifyStatuses,

@@ -1,12 +1,12 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
-
-import { environment } from '../../../environments/environment';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../../shared/empty.util';
+} from '@dspace/shared/utils';
+
+import { environment } from '../../../environments/environment';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';

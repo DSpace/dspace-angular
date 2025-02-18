@@ -10,6 +10,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -22,7 +23,6 @@ import {
 
 import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';

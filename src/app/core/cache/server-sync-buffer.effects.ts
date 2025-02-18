@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '@dspace/shared/utils';
+import {
   Actions,
   createEffect,
   ofType,
@@ -26,11 +31,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  hasValue,
-  isNotEmpty,
-  isNotUndefined,
-} from '../../shared/empty.util';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';

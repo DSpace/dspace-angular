@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-
 import {
   dateToISOFormat,
   dateToString,
-  isNgbDateStruct,
-} from '../../../shared/date.util';
-import {
   hasNoValue,
   hasValue,
   isEmpty,
+  isNgbDateStruct,
   isNotEmpty,
-} from '../../../shared/empty.util';
+} from '@dspace/shared/utils';
+import { Store } from '@ngrx/store';
+
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { CoreState } from '../../core-state.model';

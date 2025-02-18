@@ -17,6 +17,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -32,7 +33,6 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
-import { isNotEmpty } from '../../shared/empty.util';
 import { getItemPageRoute } from '../item-page-routing-paths';
 
 @Component({
