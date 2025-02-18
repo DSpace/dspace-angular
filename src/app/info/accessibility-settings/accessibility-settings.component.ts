@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth/auth.service';
 import {
   AccessibilitySetting,
   AccessibilitySettingsService,
   AccessibilitySettingsFormValues,
 } from '../../accessibility/accessibility-settings.service';
-import { take } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Subscription, take } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { isEmpty } from 'src/app/shared/empty.util';
+import { AlertType } from '../../shared/alert/aletr-type';
+import { KlaroService } from '../../shared/cookies/klaro.service';
 
 /**
  * Component providing the form where users can update accessibility settings.
@@ -17,20 +19,41 @@ import { isEmpty } from 'src/app/shared/empty.util';
   selector: 'ds-accessibility-settings',
   templateUrl: './accessibility-settings.component.html'
 })
-export class AccessibilitySettingsComponent implements OnInit {
+export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
+  // Redeclared for use in template
+  protected readonly AlertType = AlertType;
 
   protected formValues: AccessibilitySettingsFormValues;
+
+  isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  cookieIsAccepted: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  private subscriptions: Subscription[] = [];
 
   constructor(
     protected authService: AuthService,
     protected settingsService: AccessibilitySettingsService,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
+    protected klaroService: KlaroService,
   ) {
   }
 
   ngOnInit() {
     this.updateFormValues();
+
+    this.subscriptions.push(
+      this.authService.isAuthenticated().pipe(distinctUntilChanged())
+        .subscribe(val => this.isAuthenticated.next(val)),
+      this.klaroService.getSavedPreferences().pipe(
+        map(preferences => preferences?.accessibility === true),
+        distinctUntilChanged(),
+      ).subscribe(val => this.cookieIsAccepted.next(val)),
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   /**
@@ -42,8 +65,12 @@ export class AccessibilitySettingsComponent implements OnInit {
 
     if (this.settingsService.allValid(convertedValues)) {
       this.settingsService.setSettings(convertedValues).pipe(take(1)).subscribe(location => {
-        this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));
-        this.updateFormValues();
+        if (location !== 'failed') {
+          this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));
+          this.updateFormValues();
+        } else {
+          this.notificationsService.error(null, this.translateService.instant('info.accessibility-settings.failed-notification'));
+        }
       });
     } else {
       this.notificationsService.error(
@@ -78,9 +105,13 @@ export class AccessibilitySettingsComponent implements OnInit {
    * Resets accessibility settings
    */
   resetSettings() {
-    this.settingsService.clearSettings().pipe(take(1)).subscribe(() => {
-      this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.reset-notification'));
-      this.updateFormValues();
+    this.settingsService.clearSettings().pipe(take(1)).subscribe(([cookieReset, metadataReset]) => {
+      if (cookieReset === 'failed' && metadataReset === 'failed') {
+        this.notificationsService.warning(null, this.translateService.instant('info.accessibility-settings.reset-failed'));
+      } else {
+        this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.reset-notification'));
+        this.updateFormValues();
+      }
     });
   }
 

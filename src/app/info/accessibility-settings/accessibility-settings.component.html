@@ -87,4 +87,8 @@
 
   </form>
 
+  <div *ngIf="(isAuthenticated | async) === false && (cookieIsAccepted | async) === false" class="mt-2">
+    <ds-alert [type]="AlertType.Warning">{{ 'info.accessibility-settings.cookie-warning' | translate }}</ds-alert>
+  </div>
+
 </div>
