@@ -53,6 +53,16 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   @Input()
   context: Context;
 
+  /**
+   * Defines whether to start as showing the charts collapsed
+   */
+  @Input() collapseCharts = false;
+
+  /**
+   * Defines whether to show the toggle button to Show/Hide chart
+   */
+  @Input() showChartsToggle = false;
+
   protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] =
     ['context', 'configuration', 'fixedFilterQuery', 'inPlaceSearch', 'searchEnabled', 'sideBarWidth'];
 
