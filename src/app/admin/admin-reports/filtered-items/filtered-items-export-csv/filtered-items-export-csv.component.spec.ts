@@ -47,6 +47,12 @@ describe('FilteredItemsExportCsvComponent', () => {
     filters: new FormControl([FiltersComponent.getFilter('is_item')]),
   });
 
+  const emptyParams = new FormGroup({
+    collections: new FormControl([]),
+    queryPredicates: new FormControl([]),
+    filters: new FormControl([]),
+  });
+
   function initBeforeEachAsync() {
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
       findById: createSuccessfulRemoteDataObject$(script),
@@ -148,7 +154,8 @@ describe('FilteredItemsExportCsvComponent', () => {
       fixture.detectChanges();
 
       // Non-parameterized export
-      component.reportParams = null;
+      component.reportParams = emptyParams;
+      fixture.detectChanges();
       component.export();
       expect(scriptDataService.invoke).toHaveBeenCalledWith('metadata-export-filtered-items-report', [], []);
 
