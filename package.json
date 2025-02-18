@@ -19,7 +19,7 @@
     "build:ssr": "nx build --configuration production && nx run dspace-angular:server:production",
     "build:lint": "rimraf 'lint/dist/**/*.js' 'lint/dist/**/*.js.map' && tsc -b lint/tsconfig.json",
     "test": "nx test --source-map=true --watch=false --configuration test",
-    "test:watch": "nodemon --exec \"ng test --source-map=true --watch=true --configuration test\"",
+    "test:watch": "nodemon --exec \"nx test --source-map=true --watch=true --configuration test\"",
     "test:headless": "nx test --source-map=true --watch=false --configuration test --browsers=ChromeHeadless --code-coverage",
     "test:lint": "npm run build:lint && npm run test:lint:nobuild",
     "test:lint:nobuild": "jasmine --config=lint/jasmine.json",
