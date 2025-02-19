@@ -186,6 +186,11 @@ describe('SearchManager', () => {
       const uuidList = (service as any).extractUUID([firstPublication, firstPublication], [{ type: 'Publication', metadata: ['dc.contributor.author'] }]);
       expect(uuidList).toEqual([validAuthority]);
     });
+
+    it('should limit the number of extracted uuids', () => {
+      const uuidList = (service as any).extractUUID([firstPublication, secondPublication, invalidAuthorityPublication], [{ type: 'Publication', metadata: ['dc.contributor.author'] }], 2);
+      expect(uuidList.length).toBe(2);
+    });
   });
 
 });

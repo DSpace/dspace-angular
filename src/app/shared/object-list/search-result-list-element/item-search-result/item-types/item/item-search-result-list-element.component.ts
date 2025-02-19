@@ -15,6 +15,11 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  differenceInDays,
+  differenceInMilliseconds,
+  parseISO,
+} from 'date-fns';
+import {
   combineLatest,
   Observable,
 } from 'rxjs';
@@ -120,6 +125,14 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
         }),
       );
     }
+  }
+
+  getDateForItem(itemStartDate: string) {
+    const itemStartDateConverted: Date = parseISO(itemStartDate);
+    const days: number = Math.floor(differenceInDays(Date.now(), itemStartDateConverted));
+    const remainingMilliseconds: number = differenceInMilliseconds(Date.now(), itemStartDateConverted) - days * 24 * 60 * 60 * 1000;
+    const hours: number = Math.floor(remainingMilliseconds / (60 * 60 * 1000));
+    return `${days} d ${hours} h`;
   }
 
   /**

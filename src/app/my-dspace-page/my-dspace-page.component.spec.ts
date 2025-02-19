@@ -29,6 +29,7 @@ import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-ds
 import { MyDSpacePageComponent } from './my-dspace-page.component';
 import SpyObj = jasmine.SpyObj;
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 
@@ -44,12 +45,10 @@ describe('MyDSpacePageComponent', () => {
     },
   );
 
-  const myDSpaceConfigurationServiceStub: SpyObj<MyDSpaceConfigurationService> =
-    jasmine.createSpyObj('MyDSpaceConfigurationService', {
-      getAvailableConfigurationOptions: jasmine.createSpy(
-        'getAvailableConfigurationOptions',
-      ),
-    });
+  const myDSpaceConfigurationServiceStub: SpyObj<MyDSpaceConfigurationService> = jasmine.createSpyObj('MyDSpaceConfigurationService', {
+    getAvailableConfigurationOptions: jasmine.createSpy('getAvailableConfigurationOptions'),
+    getCurrentConfiguration: jasmine.createSpy('getCurrentConfiguration'),
+  });
 
   const configurationList = [
     {
@@ -63,6 +62,11 @@ describe('MyDSpacePageComponent', () => {
       context: Context.Workflow,
     },
   ];
+
+  const selectableListService = jasmine.createSpyObj('selectableListService', {
+    selectSingle: jasmine.createSpy('selectSingle'),
+    deselectSingle: jasmine.createSpy('deselectSingle'),
+  });
 
   beforeEach(waitForAsync(() => {
     roleService = jasmine.createSpyObj('roleService', {
@@ -84,6 +88,7 @@ describe('MyDSpacePageComponent', () => {
           useValue: myDSpaceConfigurationServiceStub,
         },
         { provide: RoleService, useValue: roleService },
+        { provide: SelectableListService, useValue: selectableListService },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -115,9 +120,8 @@ describe('MyDSpacePageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MyDSpacePageComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
-    myDSpaceConfigurationServiceStub.getAvailableConfigurationOptions.and.returnValue(
-      observableOf(configurationList),
-    );
+    myDSpaceConfigurationServiceStub.getAvailableConfigurationOptions.and.returnValue(observableOf(configurationList));
+    myDSpaceConfigurationServiceStub.getCurrentConfiguration.and.returnValue(observableOf('test'));
 
     fixture.detectChanges();
   });

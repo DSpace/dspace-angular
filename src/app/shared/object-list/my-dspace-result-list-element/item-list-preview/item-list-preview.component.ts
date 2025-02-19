@@ -11,6 +11,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  differenceInDays,
+  differenceInMilliseconds,
+  parseISO,
+} from 'date-fns';
+import { Observable } from 'rxjs';
 import { Context } from 'src/app/core/shared/context.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 
@@ -31,6 +37,7 @@ import { ItemCorrectionComponent } from '../../../object-collection/shared/mydsp
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { AdditionalMetadataComponent } from '../../search-result-list-element/additional-metadata/additional-metadata.component';
 
@@ -116,15 +123,29 @@ export class ItemListPreviewComponent implements OnInit {
 
   authorMetadata = environment.searchResult.authorMetadata;
 
+  authorMetadataLimit = environment.followAuthorityMetadataValuesLimit;
+
+  isCollapsed$: Observable<boolean>;
+
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     public dsoNameService: DSONameService,
+    public truncateService: TruncatableService,
   ) {
+  }
+
+  getDateForArchivedItem(itemStartDate: string, dateAccessioned: string) {
+    const itemStartDateConverted: Date = parseISO(itemStartDate);
+    const dateAccessionedConverted: Date = parseISO(dateAccessioned);
+    const days: number = Math.floor(differenceInDays(dateAccessionedConverted, itemStartDateConverted));
+    const remainingMilliseconds: number = differenceInMilliseconds(dateAccessionedConverted, itemStartDateConverted) - days * 24 * 60 * 60 * 1000;
+    const hours: number = Math.floor(remainingMilliseconds / (60 * 60 * 1000));
+    return `${days} d ${hours} h`;
   }
 
   ngOnInit(): void {
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item);
+    this.isCollapsed$ = this.truncateService.isCollapsed(this.item.uuid);
   }
-
 }

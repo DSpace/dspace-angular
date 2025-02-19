@@ -1,0 +1,97 @@
+<div class="w-100 d-flex mt-1 mb-3 align-items-start">
+  <button
+    type="button"
+    class="btn btn-info mr-2"
+    ngbTooltip="{{'submission.workflow.tasks.pool.claim_selected_help' | translate}}"
+    [disabled]="(processing$ | async) || (claimEnabled$ | async) !== true"
+    (click)="claimAllSelectedTask()"
+    [attr.data-test-disabled]="(claimEnabled$ | async) !== true"
+  >
+    <span>
+      <i class="fas fa-hand-paper"></i>
+      {{'submission.workflow.tasks.pool.claim.selected' | translate}}
+    </span>
+  </button>
+
+  <button
+    type="button"
+    class="btn btn-success mr-2"
+    ngbTooltip="{{'submission.workflow.tasks.claimed.approve_selected_help' | translate}}"
+    [disabled]="(processing$ | async) || (claimedTaskActionsEnabled$ | async) !== true"
+    (click)="submitAllSelectedTask()"
+    [attr.data-test-disabled]="(claimedTaskActionsEnabled$ | async) !== true"
+  >
+    <span>
+      <i class="fa fa-thumbs-up"></i>
+      {{'submission.workflow.tasks.claimed.approve.selected' | translate}}
+    </span>
+  </button>
+
+  <button
+    class="btn btn-danger mr-2"
+    [ngbTooltip]="rejectTipContent"
+    [disabled]="(claimedTaskActionsEnabled$ | async) !== true"
+    (click)="openRejectModal(rejectModal)"
+    [attr.data-test-disabled]="(claimedTaskActionsEnabled$ | async) !== true"
+  >
+    <span>
+      <i class="fa fa-trash"></i>
+      {{'submission.workflow.tasks.claimed.reject.selected.submit' | translate}}
+    </span>
+  </button>
+
+  <button
+    type="button"
+    class="btn btn-secondary"
+    ngbTooltip="{{'submission.workflow.tasks.claimed.return_help' | translate}}"
+    [disabled]="(claimedTaskActionsEnabled$ | async) !== true"
+    (click)="returnSelectedToPool()"
+    [attr.data-test-disabled]="(claimedTaskActionsEnabled$ | async) !== true"
+  >
+    <span>
+      <i class="fa fa-undo"></i>
+      {{'submission.workflow.tasks.claimed.return.selected' | translate}}
+    </span>
+  </button>
+
+  <span *ngIf="(processing$ | async)">
+    <i class='fas fa-circle-notch fa-spin'></i>
+    {{'submission.workflow.tasks.generic.processing' | translate}}
+  </span>
+</div>
+
+<ng-template #rejectTipContent><p [innerHTML]="'submission.workflow.tasks.claimed.reject_help' | translate"></p></ng-template>
+<ng-template #rejectModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'submission.workflow.tasks.claimed.reject.reason.title' | translate}}</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-info" role="alert">
+      {{'submission.workflow.tasks.claimed.reject.reason.info' | translate}}
+    </div>
+    <form (ngSubmit)="rejectSelected();" [formGroup]="rejectForm">
+      <textarea
+        style="width: 100%"
+        formControlName="reason"
+        rows="4"
+        placeholder="{{'submission.workflow.tasks.claimed.reject.reason.placeholder' | translate}}"
+      ></textarea>
+      <button
+        id="btn-chat"
+        class="btn btn-danger btn-lg btn-block mt-3"
+        [disabled]="!rejectForm.valid"
+        type="submit"
+      >
+        <span>{{'submission.workflow.tasks.claimed.reject.reason.submit' | translate}}</span>
+      </button>
+    </form>
+  </div>
+</ng-template>
