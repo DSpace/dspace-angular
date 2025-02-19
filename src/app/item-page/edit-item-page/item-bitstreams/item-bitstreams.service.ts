@@ -35,9 +35,9 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 

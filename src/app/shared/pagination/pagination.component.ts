@@ -45,13 +45,13 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { RSSComponent } from '../rss-feed/rss.component';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
-import { PaginationComponentOptions } from './pagination-component-options.model';
 
 interface PaginationDetails {
   range: string;

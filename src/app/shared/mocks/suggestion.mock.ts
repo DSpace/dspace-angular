@@ -2,8 +2,8 @@ import { of as observableOf } from 'rxjs';
 
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
+import { SearchResult } from '../../core/shared/search/models/search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { SearchResult } from '../search/models/search-result.model';
 import { createPaginatedList } from '../testing/utils.test';
 
 // REST Mock ---------------------------------------------------------------------

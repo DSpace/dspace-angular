@@ -24,6 +24,7 @@ import {
   SortOptions,
 } from '../core/cache/models/sort-options.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
+import { followLink } from '../core/data/follow-link-config.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { Suggestion } from '../core/notifications/suggestions/models/suggestion.model';
@@ -41,7 +42,6 @@ import {
 } from '../core/shared/operators';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
 
 /**

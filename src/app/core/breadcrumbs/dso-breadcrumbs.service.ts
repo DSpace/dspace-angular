@@ -12,8 +12,8 @@ import {
 
 import { getDSORoute } from '../../app-routing-paths';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { LinkService } from '../cache/builders/link.service';
+import { followLink } from '../data/follow-link-config.model';
 import { RemoteData } from '../data/remote-data';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
 import { DSpaceObject } from '../shared/dspace-object.model';

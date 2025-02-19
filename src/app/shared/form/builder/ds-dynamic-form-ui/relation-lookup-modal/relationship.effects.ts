@@ -32,6 +32,7 @@ import {
 
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
+import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -51,7 +52,6 @@ import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submissio
 import { SubmissionState } from '../../../../../submission/submission.reducers';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { followLink } from '../../../../utils/follow-link-config.model';
 import {
   AddRelationshipAction,
   RelationshipAction,

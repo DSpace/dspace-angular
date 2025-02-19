@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { COLLECTION_PAGE_LINKS_TO_FOLLOW } from '../../collection-page/collection-page.resolver';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CollectionDataService } from '../data/collection-data.service';
+import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { Collection } from '../shared/collection.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';

@@ -48,6 +48,7 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '../../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import {
@@ -56,7 +57,6 @@ import {
 } from '../../../shared/animations/fade';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { getItemPageRoute } from '../../item-page-routing-paths';

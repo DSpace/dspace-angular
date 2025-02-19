@@ -12,11 +12,11 @@ import {
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { SearchServiceStub } from '../../shared/testing/search-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';

@@ -1,7 +1,7 @@
 import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
+import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
 import { DynamicLookupModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
-import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { LookupFieldParser } from './lookup-field-parser';
 import { ParserOptions } from './parser-options';

@@ -21,10 +21,6 @@ import {
 } from 'rxjs/operators';
 
 import { InputSuggestion } from '../../../shared/input-suggestions/input-suggestions.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { FacetValue } from '../../../shared/search/models/facet-value.model';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { SearchOptions } from '../../../shared/search/models/search-options.model';
 import {
   getFacetValueForType,
   stripOperatorFromFilterValue,
@@ -52,6 +48,10 @@ import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
 import { RouteService } from '../../services/route.service';
 import { getFirstSucceededRemoteData } from '../operators';
+import { PaginationComponentOptions } from '../pagination-component-options.model';
+import { FacetValue } from './models/facet-value.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchOptions } from './models/search-options.model';
 import { SearchService } from './search.service';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;

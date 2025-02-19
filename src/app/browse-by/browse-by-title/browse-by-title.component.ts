@@ -23,9 +23,9 @@ import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,

@@ -33,6 +33,7 @@ import {
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { followLink } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { VersionDataService } from '../../core/data/version-data.service';
@@ -46,6 +47,8 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
@@ -53,9 +56,6 @@ import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 
 interface VersionsDTO {

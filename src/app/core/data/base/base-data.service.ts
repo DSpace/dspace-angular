@@ -28,7 +28,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import {
   getLinkDefinition,
   LinkDefinition,
@@ -44,6 +43,7 @@ import { HALLink } from '../../shared/hal-link.model';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { FindListOptions } from '../find-list-options.model';
+import { FollowLinkConfig } from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
 import { GetRequest } from '../request.models';

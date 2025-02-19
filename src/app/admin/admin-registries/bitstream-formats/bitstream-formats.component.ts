@@ -26,9 +26,9 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 /**
  * This component renders a list of bitstream formats

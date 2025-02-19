@@ -10,7 +10,6 @@ import {
   map,
   tap,
 } from 'rxjs/operators';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
 import {
   BitstreamFormatsRegistryDeselectAction,
@@ -38,6 +37,7 @@ import {
 } from './base/find-all-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { FindListOptions } from './find-list-options.model';
+import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import {

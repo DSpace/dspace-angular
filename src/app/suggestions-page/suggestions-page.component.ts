@@ -41,6 +41,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../core/shared/operators';
+import { PaginationComponentOptions } from '../core/shared/pagination-component-options.model';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
@@ -55,7 +56,6 @@ import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../shared/utils/var.directive';
 import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 

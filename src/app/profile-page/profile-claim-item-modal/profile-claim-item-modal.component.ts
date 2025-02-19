@@ -20,13 +20,13 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { SearchObjects } from '../../core/shared/search/models/search-objects.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DSOSelectorModalWrapperComponent } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 
 /**

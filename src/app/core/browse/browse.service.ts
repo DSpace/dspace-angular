@@ -13,11 +13,11 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { SortDirection } from '../cache/models/sort-options.model';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
-import { SortDirection } from '../cache/models/sort-options.model';
+} from '../data/follow-link-config.model';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';

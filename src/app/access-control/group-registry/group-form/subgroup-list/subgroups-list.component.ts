@@ -29,6 +29,7 @@ import {
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { followLink } from '../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
@@ -40,11 +41,10 @@ import {
   getFirstCompletedRemoteData,
 } from '../../../../core/shared/operators';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../../core/shared/pagination-component-options.model';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 /**
  * Keys to keep track of specific subscriptions

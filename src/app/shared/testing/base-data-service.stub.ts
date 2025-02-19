@@ -4,9 +4,9 @@ import {
 } from 'rxjs';
 
 import { CacheableObject } from '../../core/cache/cacheable-object.model';
+import { FollowLinkConfig } from '../../core/data/follow-link-config.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
 
 /**
  * Stub class for {@link BaseDataService}

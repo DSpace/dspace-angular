@@ -37,6 +37,7 @@ import { FormRowModel } from '../../../core/config/models/config-submission-form
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { FormFieldModel } from '../../../core/shared/form/form-field.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { getMockTranslateService } from '../../mocks/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
@@ -55,7 +56,6 @@ import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormBuilderService } from './form-builder.service';
-import { FormFieldModel } from './models/form-field.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 
 describe('FormBuilderService test suite', () => {

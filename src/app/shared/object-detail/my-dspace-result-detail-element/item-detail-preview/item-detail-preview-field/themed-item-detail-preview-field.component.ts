@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 
 import { Item } from '../../../../../core/shared/item.model';
-import { SearchResult } from '../../../../search/models/search-result.model';
+import { SearchResult } from '../../../../../core/shared/search/models/search-result.model';
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
 

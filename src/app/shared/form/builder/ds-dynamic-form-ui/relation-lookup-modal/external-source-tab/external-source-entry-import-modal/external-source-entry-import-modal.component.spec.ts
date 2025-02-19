@@ -16,6 +16,7 @@ import { ItemDataService } from '../../../../../../../core/data/item-data.servic
 import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
 import { Collection } from '../../../../../../../core/shared/collection.model';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
+import { RelationshipOptions } from '../../../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
@@ -23,7 +24,6 @@ import { SelectableListService } from '../../../../../../object-list/selectable-
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import { createPaginatedList } from '../../../../../../testing/utils.test';
-import { RelationshipOptions } from '../../../../models/relationship-options.model';
 import {
   ExternalSourceEntryImportModalComponent,
   ImportType,

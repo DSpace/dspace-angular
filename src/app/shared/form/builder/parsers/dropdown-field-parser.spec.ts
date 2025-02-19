@@ -1,7 +1,7 @@
 import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
+import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
 import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { FormFieldModel } from '../models/form-field.model';
 import { DropdownFieldParser } from './dropdown-field-parser';
 import { ParserOptions } from './parser-options';
 

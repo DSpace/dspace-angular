@@ -26,7 +26,6 @@ import {
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   link,
   typedObject,
@@ -40,6 +39,7 @@ import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
 import { FindListOptions } from '../find-list-options.model';
+import { followLink } from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';

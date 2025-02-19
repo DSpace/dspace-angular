@@ -22,6 +22,7 @@ import { RelationshipDataService } from '../../../../../../core/data/relationshi
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Context } from '../../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
+import { RelationshipOptions } from '../../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
@@ -29,17 +30,16 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../../../core/shared/operators';
+import { SearchObjects } from '../../../../../../core/shared/search/models/search-objects.model';
+import { SearchResult } from '../../../../../../core/shared/search/models/search-result.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { SearchObjects } from '../../../../../search/models/search-objects.model';
-import { SearchResult } from '../../../../../search/models/search-result.model';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
 
 
 @Component({

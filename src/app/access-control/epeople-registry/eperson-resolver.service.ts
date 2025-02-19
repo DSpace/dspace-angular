@@ -6,15 +6,15 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../core/data/follow-link-config.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { ResolvedAction } from '../../core/resolving/resolver.actions';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 
 export const EPERSON_EDIT_FOLLOW_LINKS: FollowLinkConfig<EPerson>[] = [
   followLink('groups'),

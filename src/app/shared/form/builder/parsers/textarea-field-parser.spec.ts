@@ -1,7 +1,7 @@
 import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
+import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
 import { DsDynamicTextAreaModel } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
 import { TextareaFieldParser } from './textarea-field-parser';

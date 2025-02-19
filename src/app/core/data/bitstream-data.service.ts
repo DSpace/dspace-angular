@@ -19,10 +19,6 @@ import {
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -53,6 +49,10 @@ import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,

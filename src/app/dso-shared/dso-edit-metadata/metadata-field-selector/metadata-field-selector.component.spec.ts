@@ -12,6 +12,7 @@ import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../core/registry/registry.service';
@@ -21,7 +22,6 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector.component';
 

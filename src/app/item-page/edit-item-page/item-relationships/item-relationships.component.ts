@@ -26,6 +26,7 @@ import {
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -43,7 +44,6 @@ import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { compareArraysUsingIds } from '../../simple/item-types/shared/item-relationships-utils';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';

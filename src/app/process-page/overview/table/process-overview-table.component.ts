@@ -53,9 +53,9 @@ import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
 } from '../../../core/shared/operators';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { Process } from '../../processes/process.model';
 import { ProcessStatus } from '../../processes/process-status.model';

@@ -13,11 +13,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { AppliedFilter } from '../../../../core/shared/search/models/applied-filter.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { currentPath } from '../../../utils/route.utils';
-import { AppliedFilter } from '../../models/applied-filter.model';
 
 /**
  * Component that represents the label containing the currently active filters

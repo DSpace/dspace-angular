@@ -16,6 +16,7 @@ import {
 } from '../../../core/cache/models/sort-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
+import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
@@ -24,7 +25,6 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { createPaginatedList } from '../../testing/utils.test';
 import { DSOSelectorComponent } from './dso-selector.component';
 

@@ -36,9 +36,12 @@ import { Collection } from '../../../../../../core/shared/collection.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
+import { RelationshipOptions } from '../../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
@@ -51,11 +54,8 @@ import { ObjectCollectionComponent } from '../../../../../object-collection/obje
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 

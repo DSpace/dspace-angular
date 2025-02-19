@@ -21,7 +21,7 @@ import {
 import {
   followLink,
   FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
+} from '../../data/follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,

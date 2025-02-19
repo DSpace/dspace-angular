@@ -5,9 +5,6 @@ import {
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
-import { FilterType } from '../../../shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { SearchOptions } from '../../../shared/search/models/search-options.model';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -25,6 +22,9 @@ import {
   SortOptions,
 } from '../../cache/models/sort-options.model';
 import { RouteService } from '../../services/route.service';
+import { FilterType } from './models/filter-type.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchOptions } from './models/search-options.model';
 import { SearchService } from './search.service';
 import { SearchFilterService } from './search-filter.service';
 

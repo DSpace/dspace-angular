@@ -15,6 +15,7 @@ import { take } from 'rxjs/operators';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Context } from '../../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
@@ -34,7 +35,6 @@ import { WorkflowItemSearchResult } from '../../../../../shared/object-collectio
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)

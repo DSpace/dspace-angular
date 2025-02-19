@@ -29,6 +29,7 @@ import {
 import { SearchDataImpl } from '../../../core/data/base/search-data';
 import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { MultipartPostRequest } from '../../../core/data/request.models';
@@ -39,7 +40,6 @@ import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { LdnServiceConstrain } from '../ldn-services-model/ldn-service.constrain.model';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 

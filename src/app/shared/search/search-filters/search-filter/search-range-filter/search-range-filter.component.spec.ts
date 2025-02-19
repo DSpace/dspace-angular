@@ -20,6 +20,9 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RouteService } from '../../../../../core/services/route.service';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { FacetValue } from '../../../../../core/shared/search/models/facet-value.model';
+import { FilterType } from '../../../../../core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '../../../../../core/shared/search/models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
@@ -30,9 +33,6 @@ import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { FacetValue } from '../../../models/facet-value.model';
-import { FilterType } from '../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
 

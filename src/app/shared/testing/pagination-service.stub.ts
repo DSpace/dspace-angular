@@ -5,7 +5,7 @@ import {
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 
 export class PaginationServiceStub {
 

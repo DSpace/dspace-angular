@@ -55,8 +55,8 @@ import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Context } from '../../core/shared/context.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 

@@ -35,9 +35,9 @@ import { GroupDataService } from '../../core/eperson/group-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
+import { SearchFilter } from '../../core/shared/search/models/search-filter.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { SearchFilter } from '../search/models/search-filter.model';
 /**
  * The Rss feed button component.
  */

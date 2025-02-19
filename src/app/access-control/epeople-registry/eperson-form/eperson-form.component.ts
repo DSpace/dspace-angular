@@ -47,6 +47,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
@@ -62,6 +63,7 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { Registration } from '../../../core/shared/registration.model';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
@@ -71,8 +73,6 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';

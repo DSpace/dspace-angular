@@ -34,6 +34,7 @@ import { SubmissionFormsModel } from '../../../core/config/models/config-submiss
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
@@ -42,7 +43,6 @@ import { Collection } from '../../../core/shared/collection.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';

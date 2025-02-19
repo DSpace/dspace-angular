@@ -31,6 +31,7 @@ import {
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Context } from '../../core/shared/context.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeIn } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
@@ -43,7 +44,6 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 
 @Component({

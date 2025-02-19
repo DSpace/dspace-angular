@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { AppliedFilter } from '../../../core/shared/search/models/applied-filter.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
-import { AppliedFilter } from '../models/applied-filter.model';
 import { SearchLabelComponent } from './search-label/search-label.component';
 import { SearchLabelLoaderComponent } from './search-label-loader/search-label-loader.component';
 

@@ -21,10 +21,6 @@ import {
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -47,6 +43,10 @@ import {
 } from '../data/base/search-data';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../data/follow-link-config.model';
 import { ItemDataService } from '../data/item-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';

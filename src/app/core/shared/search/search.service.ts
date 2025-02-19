@@ -20,19 +20,12 @@ import {
 } from 'rxjs/operators';
 
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
-import { FacetValues } from '../../../shared/search/models/facet-values.model';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { SearchObjects } from '../../../shared/search/models/search-objects.model';
-import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { BaseDataService } from '../../data/base/base-data.service';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
+import { FollowLinkConfig } from '../../data/follow-link-config.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
 import { GetRequest } from '../../data/request.models';
@@ -49,7 +42,14 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../operators';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { PaginationComponentOptions } from '../pagination-component-options.model';
 import { ViewMode } from '../view-mode.model';
+import { AppliedFilter } from './models/applied-filter.model';
+import { FacetValues } from './models/facet-values.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchResult } from './models/search-result.model';
 import { SearchConfigurationService } from './search-configuration.service';
 
 /**

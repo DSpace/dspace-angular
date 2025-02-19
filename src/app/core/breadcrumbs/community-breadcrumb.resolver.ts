@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-page.resolver';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CommunityDataService } from '../data/community-data.service';
+import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { Community } from '../shared/community.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import {

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -15,6 +14,7 @@ import { IdentifiableDataService } from './base/identifiable-data.service';
 import { BundleDataService } from './bundle-data.service';
 import { CollectionDataService } from './collection-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { FollowLinkConfig } from './follow-link-config.model';
 import { BaseItemDataService } from './item-data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';

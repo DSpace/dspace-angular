@@ -18,12 +18,12 @@ import {
 } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
+import { SearchResult } from '../../../../core/shared/search/models/search-result.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
-import { SearchResult } from '../../../search/models/search-result.model';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 

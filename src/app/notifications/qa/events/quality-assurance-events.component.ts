@@ -44,6 +44,7 @@ import {
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -60,6 +61,7 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
@@ -67,8 +69,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   ProjectEntryImportModalComponent,
   QualityAssuranceEventData,

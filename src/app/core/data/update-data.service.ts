@@ -15,7 +15,6 @@ import {
 } from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -50,6 +49,7 @@ import {
 } from './base/search-data';
 import { ChangeAnalyzer } from './change-analyzer';
 import { FindListOptions } from './find-list-options.model';
+import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import {

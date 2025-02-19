@@ -6,11 +6,11 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { followLink } from '../core/data/follow-link-config.model';
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { followLink } from '../shared/utils/follow-link-config.model';
 
 /**
  * Method for resolving a workflow item based on the parameters in the current route

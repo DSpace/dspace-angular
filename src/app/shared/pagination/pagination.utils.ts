@@ -1,5 +1,5 @@
 import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginationComponentOptions } from './pagination-component-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 
 /**
  * Transform a PaginationComponentOptions object into a FindListOptions object

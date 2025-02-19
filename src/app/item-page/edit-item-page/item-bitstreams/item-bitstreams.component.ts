@@ -53,12 +53,12 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';

@@ -1,12 +1,12 @@
 import { isNotEmpty } from '@dspace/shared/utils';
 
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
+import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import {
   DynamicRelationGroupModel,
   DynamicRelationGroupModelConfig,
 } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
 

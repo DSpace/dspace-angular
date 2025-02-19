@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';

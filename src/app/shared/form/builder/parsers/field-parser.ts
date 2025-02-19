@@ -18,6 +18,8 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
+import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
+import { RelationshipOptions } from '../../../../core/shared/form/relationship-options.model';
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
@@ -30,9 +32,7 @@ import {
   DynamicRowArrayModel,
   DynamicRowArrayModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../models/relationship-options.model';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';

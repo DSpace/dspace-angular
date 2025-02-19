@@ -24,7 +24,6 @@ import {
 import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -47,6 +46,7 @@ import {
 } from '../data/base/search-data';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
+import { FollowLinkConfig } from '../data/follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,

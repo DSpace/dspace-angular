@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
@@ -16,7 +17,6 @@ import { ListableObjectComponentLoaderComponent } from '../../../../object-colle
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element.component';

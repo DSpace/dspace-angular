@@ -20,11 +20,11 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { FindListOptions } from '../find-list-options.model';
+import { followLink } from '../follow-link-config.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';

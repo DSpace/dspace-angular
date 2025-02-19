@@ -24,15 +24,15 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { Context } from '../../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { PaginatedSearchOptions } from '../../../../../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../../../core/shared/pagination-component-options.model';
+import { SearchResult } from '../../../../../../core/shared/search/models/search-result.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
-import { SearchResult } from '../../../../../search/models/search-result.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',

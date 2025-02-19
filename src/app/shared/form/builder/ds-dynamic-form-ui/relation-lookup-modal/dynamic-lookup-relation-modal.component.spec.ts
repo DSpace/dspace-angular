@@ -29,7 +29,9 @@ import { LookupRelationService } from '../../../../../core/data/lookup-relation.
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
+import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { PaginatedSearchOptions } from '../../../../../core/shared/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
@@ -37,9 +39,7 @@ import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../../../search/models/paginated-search-options.model';
 import { createPaginatedList } from '../../../../testing/utils.test';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import {
   AddRelationshipAction,

@@ -23,6 +23,8 @@ import { TestScheduler } from 'rxjs/testing';
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import { RouteService } from '../../core/services/route.service';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
+import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
@@ -30,13 +32,11 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';

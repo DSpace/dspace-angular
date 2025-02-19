@@ -52,6 +52,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
@@ -74,7 +75,6 @@ import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   getGroupEditRoute,
   getGroupsRoute,

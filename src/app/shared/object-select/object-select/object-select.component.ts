@@ -22,7 +22,7 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { ObjectSelectService } from '../object-select.service';
 
 /**

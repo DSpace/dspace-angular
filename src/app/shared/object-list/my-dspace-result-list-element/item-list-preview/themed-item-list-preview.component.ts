@@ -6,7 +6,7 @@ import { Context } from 'src/app/core/shared/context.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 
 import { Item } from '../../../../core/shared/item.model';
-import { SearchResult } from '../../../search/models/search-result.model';
+import { SearchResult } from '../../../../core/shared/search/models/search-result.model';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 

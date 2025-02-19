@@ -14,7 +14,6 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-bu
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -30,6 +29,7 @@ import { BitstreamDataService } from './bitstream-data.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { FollowLinkConfig } from './follow-link-config.model';
 import { RemoteData } from './remote-data';
 import {
   PatchRequest,

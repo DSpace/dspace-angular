@@ -24,7 +24,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import {
   followLink,
   FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
+} from '../../data/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
 import { RemoteData } from '../../data/remote-data';

@@ -14,10 +14,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -30,6 +26,10 @@ import {
   SearchDataImpl,
 } from '../base/search-data';
 import { FindListOptions } from '../find-list-options.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';

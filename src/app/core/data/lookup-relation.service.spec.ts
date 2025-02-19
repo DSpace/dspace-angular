@@ -4,14 +4,14 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { SearchResult } from '../../shared/search/models/search-result.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSource } from '../shared/external-source.model';
+import { RelationshipOptions } from '../shared/form/relationship-options.model';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';
+import { PaginatedSearchOptions } from '../shared/paginated-search-options.model';
+import { SearchResult } from '../shared/search/models/search-result.model';
 import { SearchService } from '../shared/search/search.service';
 import { ExternalSourceDataService } from './external-source-data.service';
 import { LookupRelationService } from './lookup-relation.service';

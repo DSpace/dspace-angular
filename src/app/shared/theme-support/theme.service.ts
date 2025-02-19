@@ -46,6 +46,7 @@ import {
 import { environment } from '../../../environments/environment';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { followLink } from '../../core/data/follow-link-config.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { distinctNext } from '../../core/shared/distinct-next';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -59,7 +60,6 @@ import {
   NoOpAction,
 } from '../ngrx/no-op.action';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
-import { followLink } from '../utils/follow-link-config.model';
 import {
   SetThemeAction,
   ThemeActionTypes,

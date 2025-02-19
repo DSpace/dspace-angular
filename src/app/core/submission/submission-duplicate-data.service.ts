@@ -6,7 +6,6 @@ import {
 import { Observable } from 'rxjs';
 
 import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -16,6 +15,7 @@ import {
   SearchDataImpl,
 } from '../data/base/search-data';
 import { FindListOptions } from '../data/find-list-options.model';
+import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RemoteData } from '../data/remote-data';

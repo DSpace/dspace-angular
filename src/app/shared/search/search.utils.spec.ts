@@ -1,5 +1,5 @@
-import { FacetValue } from './models/facet-value.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
+import { FacetValue } from '../../core/shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '../../core/shared/search/models/search-filter-config.model';
 import {
   addOperatorToFilterValue,
   escapeRegExp,

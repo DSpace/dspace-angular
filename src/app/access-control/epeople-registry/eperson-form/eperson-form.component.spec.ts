@@ -32,6 +32,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../../core/data/follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -61,7 +62,6 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';

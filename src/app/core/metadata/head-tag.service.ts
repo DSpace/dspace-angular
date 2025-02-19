@@ -44,13 +44,13 @@ import {
   AppConfig,
 } from '../../../config/app-config.interface';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { BundleDataService } from '../data/bundle-data.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '../data/find-list-options.model';
+import { followLink } from '../data/follow-link-config.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RootDataService } from '../data/root-data.service';

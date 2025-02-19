@@ -12,7 +12,7 @@ import { RequestService } from '../core/data/request.service';
 import { RestRequest } from '../core/data/rest-request.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
-import { SearchOptions } from '../shared/search/models/search-options.model';
+import { SearchOptions } from '../core/shared/search/models/search-options.model';
 import { TrackRequest } from './track-request.model';
 
 /**

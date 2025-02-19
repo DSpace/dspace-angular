@@ -40,7 +40,7 @@ import {
 import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+import { followLink } from '../data/follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,

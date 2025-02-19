@@ -12,7 +12,7 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { Process } from '../processes/process.model';
 import { ProcessStatus } from '../processes/process-status.model';
 

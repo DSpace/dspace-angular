@@ -16,7 +16,6 @@ import {
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -28,6 +27,7 @@ import { MetadataRepresentationType } from '../shared/metadata-representation/me
 import { PageInfo } from '../shared/page-info.model';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { FindListOptions } from './find-list-options.model';
+import { followLink } from './follow-link-config.model';
 import { ItemDataService } from './item-data.service';
 import { buildPaginatedList } from './paginated-list.model';
 import { RelationshipDataService } from './relationship-data.service';

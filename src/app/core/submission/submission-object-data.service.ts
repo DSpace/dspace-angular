@@ -6,9 +6,9 @@ import {
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { SubmissionService } from '../../submission/submission.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestEntryState } from '../data/request-entry-state.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

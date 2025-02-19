@@ -29,6 +29,7 @@ import {
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -43,7 +44,6 @@ import {
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NgForTrackByIdDirective } from '../../../shared/ng-for-track-by-id.directive';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 /**
  * Interface for a bundle's bitstream map entry

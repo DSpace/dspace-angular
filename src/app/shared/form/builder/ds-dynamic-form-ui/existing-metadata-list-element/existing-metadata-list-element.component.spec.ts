@@ -12,6 +12,7 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
@@ -24,7 +25,6 @@ import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
 import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';
 import { ThemeService } from '../../../../theme-support/theme.service';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import {
   ExistingMetadataListElementComponent,

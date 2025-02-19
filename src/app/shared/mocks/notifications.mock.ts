@@ -8,12 +8,12 @@ import { QualityAssuranceTopicDataService } from '../../core/notifications/qa/to
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { ResourceType } from '../../core/shared/resource-type';
+import { SearchResult } from '../../core/shared/search/models/search-result.model';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../remote-data.utils';
-import { SearchResult } from '../search/models/search-result.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

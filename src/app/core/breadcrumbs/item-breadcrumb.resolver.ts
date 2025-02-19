@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { getItemPageLinksToFollow } from '../../item-page/item.resolver';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { ItemDataService } from '../data/item-data.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';

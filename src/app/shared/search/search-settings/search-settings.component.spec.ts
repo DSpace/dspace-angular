@@ -15,10 +15,10 @@ import {
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { SidebarService } from '../../sidebar/sidebar.service';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';

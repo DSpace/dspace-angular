@@ -8,8 +8,8 @@ import { map } from 'rxjs/operators';
 
 import { getDSORoute } from '../../app-routing-paths';
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,

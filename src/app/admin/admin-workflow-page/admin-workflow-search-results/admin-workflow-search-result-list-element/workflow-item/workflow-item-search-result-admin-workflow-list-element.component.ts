@@ -16,6 +16,7 @@ import {
 } from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Context } from '../../../../../core/shared/context.model';
 import { Item } from '../../../../../core/shared/item.model';
@@ -30,7 +31,6 @@ import { ListableObjectComponentLoaderComponent } from '../../../../../shared/ob
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)

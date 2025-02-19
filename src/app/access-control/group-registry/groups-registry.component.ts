@@ -35,6 +35,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { followLink } from '../../core/data/follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -57,12 +58,11 @@ import {
   getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-groups-registry',

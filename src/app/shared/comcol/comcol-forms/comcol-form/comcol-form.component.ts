@@ -46,6 +46,7 @@ import {
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
+import { followLink } from '../../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -63,7 +64,6 @@ import { FormComponent } from '../../../form/form.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../utils/var.directive';
 import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 

@@ -17,12 +17,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
@@ -34,10 +28,16 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../shared/operators';
+import { PaginatedSearchOptions } from '../shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../shared/pagination-component-options.model';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { FindListOptions } from './find-list-options.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { PostRequest } from './request.models';

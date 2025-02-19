@@ -22,6 +22,7 @@ import {
 import { filter } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
+import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
@@ -33,7 +34,6 @@ import { ThemedLoadingComponent } from '../../../../loading/themed-loading.compo
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 

@@ -45,6 +45,7 @@ import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabula
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { MetadataService } from '../../../core/metadata/metadata.service';
@@ -82,7 +83,6 @@ import { FormFieldMetadataValueObject } from '../../../shared/form/builder/model
 import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { DebounceDirective } from '../../../shared/utils/debounce.directive';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   DsoEditMetadataChangeType,

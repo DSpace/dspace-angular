@@ -34,6 +34,7 @@ import {
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { followLink } from '../../core/data/follow-link-config.model';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -48,6 +49,7 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
@@ -57,10 +59,8 @@ import {
 } from '../../shared/animations/fade';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-collection-item-mapper',

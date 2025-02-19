@@ -30,13 +30,13 @@ import { FormRowModel } from '../../../core/config/models/config-submission-form
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { FormFieldModel } from '../../../core/shared/form/form-field.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldModel } from '../../../shared/form/builder/models/form-field.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';

@@ -25,6 +25,7 @@ import { PaginatedList } from '../../../../../../../core/data/paginated-list.mod
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { Context } from '../../../../../../../core/shared/context.model';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
+import { RelationshipOptions } from '../../../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
@@ -33,6 +34,9 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../../../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../../../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../../../../core/shared/pagination-component-options.model';
+import { SearchResult } from '../../../../../../../core/shared/search/models/search-result.model';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
@@ -41,11 +45,7 @@ import { CollectionElementLinkType } from '../../../../../../object-collection/c
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../../../../search/models/paginated-search-options.model';
-import { SearchResult } from '../../../../../../search/models/search-result.model';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
-import { RelationshipOptions } from '../../../../models/relationship-options.model';
 
 /**
  * The possible types of import for the external entry

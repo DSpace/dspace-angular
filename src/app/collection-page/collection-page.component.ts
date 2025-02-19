@@ -32,6 +32,7 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { Collection } from '../core/shared/collection.model';
 import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
+import { PaginationComponentOptions } from '../core/shared/pagination-component-options.model';
 import {
   fadeIn,
   fadeInOut,
@@ -45,7 +46,6 @@ import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../shared/object-collection/object-collection.component';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { getCollectionPageRoute } from './collection-page-routing-paths';

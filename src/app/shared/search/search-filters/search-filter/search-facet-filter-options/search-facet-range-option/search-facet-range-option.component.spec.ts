@@ -18,17 +18,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../../../core/shared/pagination-component-options.model';
+import { FacetValue } from '../../../../../../core/shared/search/models/facet-value.model';
+import { FilterType } from '../../../../../../core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '../../../../../../core/shared/search/models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RouterStub } from '../../../../../testing/router.stub';
 import { SearchServiceStub } from '../../../../../testing/search-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { FilterType } from '../../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,

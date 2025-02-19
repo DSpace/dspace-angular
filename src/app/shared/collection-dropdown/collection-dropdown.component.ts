@@ -39,6 +39,7 @@ import {
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { followLink } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
@@ -48,7 +49,6 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
-import { followLink } from '../utils/follow-link-config.model';
 
 /**
  * An interface to represent a collection entry

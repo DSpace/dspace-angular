@@ -16,6 +16,7 @@ import {
 
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -24,7 +25,6 @@ import { Item } from '../../../core/shared/item.model';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
-import { FollowLinkConfig } from '../../utils/follow-link-config.model';
 import { ItemAccessControlSelectBitstreamsModalComponent } from './item-access-control-select-bitstreams-modal.component';
 
 describe('ItemAccessControlSelectBitstreamsModalComponent', () => {

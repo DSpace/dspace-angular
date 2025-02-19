@@ -25,6 +25,7 @@ import { IdentifiableDataService } from '../../core/data/base/identifiable-data.
 import { SearchDataImpl } from '../../core/data/base/search-data';
 import { DSOChangeAnalyzer } from '../../core/data/dso-change-analyzer.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { followLink } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import {
@@ -37,7 +38,6 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { NotificationsService } from '../notifications/notifications.service';
-import { followLink } from '../utils/follow-link-config.model';
 import { Subscription } from './models/subscription.model';
 
 /**

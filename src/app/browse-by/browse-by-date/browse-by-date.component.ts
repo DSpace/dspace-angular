@@ -46,8 +46,8 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import {
   BrowseByMetadataComponent,

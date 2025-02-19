@@ -22,8 +22,10 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { Collection } from '../../../../../../core/shared/collection.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
+import { RelationshipOptions } from '../../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
+import { PaginatedSearchOptions } from '../../../../../../core/shared/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
@@ -35,12 +37,10 @@ import {
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../../testing/utils.test';
 import { VarDirective } from '../../../../../utils/var.directive';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
 import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 

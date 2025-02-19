@@ -33,6 +33,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { followLink } from '../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
@@ -47,7 +48,6 @@ import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-t
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../utils/var.directive';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';

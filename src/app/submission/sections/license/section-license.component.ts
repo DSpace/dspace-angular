@@ -34,6 +34,7 @@ import {
 } from 'rxjs/operators';
 
 import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -43,7 +44,6 @@ import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/mode
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionService } from '../../submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionModelComponent } from '../models/section.model';

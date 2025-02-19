@@ -12,12 +12,12 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { followLink } from '../../../core/data/follow-link-config.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { followLink } from '../../utils/follow-link-config.model';
 
 /**
  * Component representing a grid element for collection

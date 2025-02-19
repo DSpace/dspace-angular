@@ -17,14 +17,14 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { FacetValue } from '../../../../../../core/shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '../../../../../../core/shared/search/models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { LiveRegionService } from '../../../../../live-region/live-region.service';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { getFacetValueForType } from '../../../../search.utils';
 
 @Component({

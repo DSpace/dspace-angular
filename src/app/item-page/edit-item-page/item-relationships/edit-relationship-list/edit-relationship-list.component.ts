@@ -48,6 +48,7 @@ import {
 } from '../../../../../config/app-config.interface';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { RequestParam } from '../../../../core/cache/models/request-param.model';
+import { FollowLinkConfig } from '../../../../core/data/follow-link-config.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
@@ -58,6 +59,7 @@ import { RelationshipDataService } from '../../../../core/data/relationship-data
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Collection } from '../../../../core/shared/collection.model';
+import { RelationshipOptions } from '../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
@@ -69,15 +71,13 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
+import { PaginationComponentOptions } from '../../../../core/shared/pagination-component-options.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { VarDirective } from '../../../../shared/utils/var.directive';

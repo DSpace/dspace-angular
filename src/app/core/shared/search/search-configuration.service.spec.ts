@@ -9,12 +9,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment.test';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { SearchFilter } from '../../../shared/search/models/search-filter.model';
-import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import {
@@ -23,6 +18,11 @@ import {
 } from '../../cache/models/sort-options.model';
 import { RemoteData } from '../../data/remote-data';
 import { RequestEntry } from '../../data/request-entry.model';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { PaginationComponentOptions } from '../pagination-component-options.model';
+import { AppliedFilter } from './models/applied-filter.model';
+import { SearchFilter } from './models/search-filter.model';
+import { SearchObjects } from './models/search-objects.model';
 import { SearchConfigurationService } from './search-configuration.service';
 
 describe('SearchConfigurationService', () => {

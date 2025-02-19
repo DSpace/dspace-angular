@@ -27,6 +27,7 @@ import {
 } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
@@ -35,7 +36,6 @@ import { SelectableListItemControlComponent } from '../../../shared/object-colle
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';

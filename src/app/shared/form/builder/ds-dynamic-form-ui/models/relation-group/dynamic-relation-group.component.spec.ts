@@ -40,6 +40,7 @@ import { environment } from 'src/environments/environment.test';
 
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
+import { FormFieldModel } from '../../../../../../core/shared/form/form-field.model';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { XSRFService } from '../../../../../../core/xsrf/xsrf.service';
@@ -50,7 +51,6 @@ import { Chips } from '../../../../chips/models/chips.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
-import { FormFieldModel } from '../../../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';

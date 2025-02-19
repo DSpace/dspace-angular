@@ -14,6 +14,7 @@ import {
 } from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Context } from '../../../../../core/shared/context.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
@@ -22,7 +23,6 @@ import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-objec
 import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/claimed-task-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { followLink } from '../../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../../utils/var.directive';
 import { SearchResultListElementComponent } from '../../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-item-list-preview.component';

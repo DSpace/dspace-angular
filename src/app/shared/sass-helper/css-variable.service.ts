@@ -20,8 +20,8 @@ import {
   PaginatedList,
 } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { KeyValuePair } from '../key-value-pair.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import {
   AddAllCSSVariablesAction,
   AddCSSVariableAction,

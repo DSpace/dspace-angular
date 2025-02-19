@@ -7,6 +7,7 @@ import {
   SortOptions,
 } from '../core/cache/models/sort-options.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
+import { followLink } from '../core/data/follow-link-config.model';
 import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
 import { SuggestionDataService } from '../core/notifications/suggestions/suggestion-data.service';
 import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
@@ -16,7 +17,6 @@ import { ResourceType } from '../core/shared/resource-type';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {

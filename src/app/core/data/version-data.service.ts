@@ -10,7 +10,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -23,6 +22,7 @@ import {
   PatchDataImpl,
 } from './base/patch-data';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { followLink } from './follow-link-config.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';

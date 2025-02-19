@@ -1,10 +1,10 @@
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { BaseDataService } from './base/base-data.service';
+import { FindListOptions } from './find-list-options.model';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
-import { BaseDataService } from './base/base-data.service';
-import { FindListOptions } from './find-list-options.model';
+} from './follow-link-config.model';
 import { HrefOnlyDataService } from './href-only-data.service';
 
 describe(`HrefOnlyDataService`, () => {

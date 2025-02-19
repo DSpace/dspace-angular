@@ -49,10 +49,6 @@ import {
   SetNameVariantAction,
 } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
 import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -86,6 +82,10 @@ import {
   SearchDataImpl,
 } from './base/search-data';
 import { FindListOptions } from './find-list-options.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';

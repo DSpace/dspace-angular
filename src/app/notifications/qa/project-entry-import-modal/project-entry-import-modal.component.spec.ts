@@ -17,6 +17,8 @@ import { of as observableOf } from 'rxjs';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -27,9 +29,7 @@ import {
 } from '../../../shared/mocks/notifications.mock';
 import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';

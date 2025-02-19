@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { followLink } from '../../../../core/data/follow-link-config.model';
 import { Community } from '../../../../core/shared/community.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
@@ -20,7 +21,6 @@ import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 
 @Component({

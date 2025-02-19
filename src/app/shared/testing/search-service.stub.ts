@@ -4,10 +4,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
+import { AppliedFilter } from '../../core/shared/search/models/applied-filter.model';
+import { SearchFilterConfig } from '../../core/shared/search/models/search-filter-config.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { AppliedFilter } from '../search/models/applied-filter.model';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { SearchFilterConfig } from '../search/models/search-filter-config.model';
 
 /**
  * Stub class of {@link SearchService}

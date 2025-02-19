@@ -9,7 +9,6 @@ import {
 import { Process } from '../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { Script } from '../../../process-page/scripts/script.model';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
@@ -21,6 +20,7 @@ import {
 } from '../base/find-all-data';
 import { IdentifiableDataService } from '../base/identifiable-data.service';
 import { FindListOptions } from '../find-list-options.model';
+import { FollowLinkConfig } from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
 import { MultipartPostRequest } from '../request.models';

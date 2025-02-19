@@ -29,6 +29,8 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
+import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../../shared/error/error.component';
@@ -38,13 +40,11 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

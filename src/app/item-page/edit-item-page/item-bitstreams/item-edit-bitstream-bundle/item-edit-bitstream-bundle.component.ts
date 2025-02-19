@@ -41,6 +41,7 @@ import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { BundleDataService } from '../../../../core/data/bundle-data.service';
+import { followLink } from '../../../../core/data/follow-link-config.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
@@ -53,14 +54,13 @@ import {
   getAllSucceededRemoteData,
   paginatedListToArray,
 } from '../../../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../core/shared/pagination-component-options.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { PaginatedSearchOptions } from '../../../../shared/search/models/paginated-search-options.model';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
-import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import {
   BitstreamTableEntry,

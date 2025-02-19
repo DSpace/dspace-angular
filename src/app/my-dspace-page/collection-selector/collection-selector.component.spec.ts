@@ -25,6 +25,7 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
@@ -37,7 +38,6 @@ import {
 } from '../../shared/remote-data.utils';
 import { MockElementRef } from '../../shared/testing/element-ref.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CollectionSelectorComponent } from './collection-selector.component';
 
 describe('CollectionSelectorComponent', () => {

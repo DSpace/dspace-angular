@@ -18,12 +18,12 @@ import {
 } from '../../../config/app-config.interface';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
+import { SearchObjects } from '../../core/shared/search/models/search-objects.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 import {
   AdminNotifyMetricsBox,

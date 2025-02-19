@@ -6,7 +6,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -27,6 +26,7 @@ import {
   SearchDataImpl,
 } from './base/search-data';
 import { FindListOptions } from './find-list-options.model';
+import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';
 import { RelationshipTypeDataService } from './relationship-type-data.service';
 import { RemoteData } from './remote-data';

@@ -27,6 +27,7 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
+import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
@@ -43,7 +44,6 @@ import { MetadataRepresentationLoaderComponent } from '../../../../metadata-repr
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 

@@ -9,14 +9,14 @@ import { Observable } from 'rxjs';
 
 import { AppState } from '../app.reducer';
 import { CommunityDataService } from '../core/data/community-data.service';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../core/data/follow-link-config.model';
 import { RemoteData } from '../core/data/remote-data';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
 import { Community } from '../core/shared/community.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../shared/utils/follow-link-config.model';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

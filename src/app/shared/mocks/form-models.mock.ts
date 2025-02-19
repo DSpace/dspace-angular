@@ -1,6 +1,7 @@
 import { DynamicSelectModel } from '@ng-dynamic-forms/core';
 
 import { FormRowModel } from '../../core/config/models/config-submission-form.model';
+import { FormFieldModel } from '../../core/shared/form/form-field.model';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
@@ -12,7 +13,6 @@ import {
 } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicRelationGroupModel } from '../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { FormFieldModel } from '../form/builder/models/form-field.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 
 export const qualdropSelectConfig = {

@@ -40,6 +40,11 @@ import { RemoteData } from '../../core/data/remote-data';
 import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
+import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
+import { FilterType } from '../../core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '../../core/shared/search/models/search-filter-config.model';
+import { SearchObjects } from '../../core/shared/search/models/search-objects.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
@@ -50,7 +55,6 @@ import {
 import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
@@ -60,10 +64,6 @@ import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component
 import { SidebarService } from '../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
-import { FilterType } from './models/filter-type.model';
-import { PaginatedSearchOptions } from './models/paginated-search-options.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchObjects } from './models/search-objects.model';
 import { SearchComponent } from './search.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';

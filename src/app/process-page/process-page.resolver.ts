@@ -6,10 +6,10 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { followLink } from '../core/data/follow-link-config.model';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { Process } from './processes/process.model';
 
 export const PROCESS_PAGE_FOLLOW_LINKS = [

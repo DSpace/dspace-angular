@@ -22,6 +22,7 @@ import { map } from 'rxjs/operators';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { followLink } from '../../../../core/data/follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -30,14 +31,13 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { SearchResult } from '../../../../core/shared/search/models/search-result.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({

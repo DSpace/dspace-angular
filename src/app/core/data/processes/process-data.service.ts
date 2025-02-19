@@ -19,7 +19,6 @@ import { ProcessStatus } from 'src/app/process-page/processes/process-status.mod
 
 import { Process } from '../../../process-page/processes/process.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { Bitstream } from '../../shared/bitstream.model';
@@ -41,6 +40,7 @@ import {
 } from '../base/search-data';
 import { BitstreamDataService } from '../bitstream-data.service';
 import { FindListOptions } from '../find-list-options.model';
+import { FollowLinkConfig } from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';

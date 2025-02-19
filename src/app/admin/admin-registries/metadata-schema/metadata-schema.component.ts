@@ -40,10 +40,10 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
 

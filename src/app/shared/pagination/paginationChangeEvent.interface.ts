@@ -1,5 +1,5 @@
 import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from './pagination-component-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 
 
 /**

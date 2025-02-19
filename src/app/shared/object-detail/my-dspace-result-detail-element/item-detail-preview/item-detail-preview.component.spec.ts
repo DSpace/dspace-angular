@@ -24,6 +24,7 @@ import { CommunityDataService } from '../../../../core/data/community-data.servi
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -43,7 +44,6 @@ import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
-import { FollowLinkConfig } from '../../../utils/follow-link-config.model';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';

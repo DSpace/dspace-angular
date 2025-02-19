@@ -52,11 +52,11 @@ import {
   getFirstCompletedRemoteData,
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   getEPersonEditRoute,
   getEPersonsRoute,

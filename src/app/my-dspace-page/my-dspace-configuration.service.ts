@@ -29,8 +29,8 @@ import { RoleService } from '../core/roles/role.service';
 import { RouteService } from '../core/services/route.service';
 import { Context } from '../core/shared/context.model';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
+import { PaginationComponentOptions } from '../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 

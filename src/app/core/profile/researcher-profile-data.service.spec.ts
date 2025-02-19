@@ -19,7 +19,6 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
@@ -27,6 +26,7 @@ import { testCreateDataImplementation } from '../data/base/create-data.spec';
 import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
 import { testPatchDataImplementation } from '../data/base/patch-data.spec';
 import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { followLink } from '../data/follow-link-config.model';
 import { buildPaginatedList } from '../data/paginated-list.model';
 import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';

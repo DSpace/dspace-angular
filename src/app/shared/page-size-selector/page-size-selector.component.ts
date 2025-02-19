@@ -16,10 +16,10 @@ import {
 } from 'rxjs/operators';
 
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component';
 
 @Component({

@@ -20,8 +20,8 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 
 export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams';
 

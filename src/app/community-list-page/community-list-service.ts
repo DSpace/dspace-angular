@@ -33,6 +33,7 @@ import { getCommunityPageRoute } from '../community-page/community-page-routing-
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { FindListOptions } from '../core/data/find-list-options.model';
+import { followLink } from '../core/data/follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -45,7 +46,6 @@ import {
   getFirstSucceededRemoteData,
 } from '../core/shared/operators';
 import { PageInfo } from '../core/shared/page-info.model';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
 import { FlatNode } from './flat-node.model';

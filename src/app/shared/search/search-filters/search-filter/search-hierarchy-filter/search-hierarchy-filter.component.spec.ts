@@ -29,6 +29,7 @@ import { buildPaginatedList } from '../../../../../core/data/paginated-list.mode
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { SearchFilterConfig } from '../../../../../core/shared/search/models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -37,7 +38,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-c
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {

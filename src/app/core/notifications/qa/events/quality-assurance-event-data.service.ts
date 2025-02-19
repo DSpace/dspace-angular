@@ -14,7 +14,6 @@ import {
 
 import { QualityAssuranceEventData } from '../../../../notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
@@ -37,6 +36,7 @@ import {
 } from '../../../data/base/search-data';
 import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
 import { FindListOptions } from '../../../data/find-list-options.model';
+import { FollowLinkConfig } from '../../../data/follow-link-config.model';
 import { PaginatedList } from '../../../data/paginated-list.model';
 import { RemoteData } from '../../../data/remote-data';
 import {

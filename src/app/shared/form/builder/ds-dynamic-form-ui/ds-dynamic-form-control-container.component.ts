@@ -82,12 +82,14 @@ import {
   AppConfig,
 } from '../../../../../config/app-config.interface';
 import { AppState } from '../../../../app.reducer';
+import { followLink } from '../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { MetadataService } from '../../../../core/metadata/metadata.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { RelationshipOptions } from '../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import {
@@ -101,6 +103,7 @@ import {
   getPaginatedListPayload,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
+import { SearchResult } from '../../../../core/shared/search/models/search-result.model';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
@@ -109,12 +112,9 @@ import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { followLink } from '../../../utils/follow-link-config.model';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { RelationshipOptions } from '../models/relationship-options.model';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import {
   ExistingMetadataListElementComponent,

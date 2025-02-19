@@ -1,7 +1,7 @@
 import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
+import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
 import { SeriesFieldParser } from './series-field-parser';

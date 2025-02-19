@@ -5,6 +5,7 @@ import {
 } from 'rxjs';
 
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -14,7 +15,6 @@ import { MetadataValue } from '../../core/shared/metadata.models';
 import { MetadataRepresentation } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { FollowLinkConfig } from '../utils/follow-link-config.model';
 
 /**
  * Stub class of {@link RelationshipDataService}

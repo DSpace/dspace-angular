@@ -34,6 +34,7 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { RouteService } from '../../core/services/route.service';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import {
   fadeIn,
@@ -43,7 +44,6 @@ import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../object-collection/object-collection.component';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ThemedResultsBackButtonComponent } from '../results-back-button/themed-results-back-button.component';
 import { StartsWithLoaderComponent } from '../starts-with/starts-with-loader.component';
 import { StartsWithType } from '../starts-with/starts-with-type';

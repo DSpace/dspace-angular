@@ -1,7 +1,7 @@
 import { hasValue } from '@dspace/shared/utils';
 
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { HALResource } from '../../core/shared/hal-resource.model';
+import { HALResource } from '../shared/hal-resource.model';
+import { FindListOptions } from './find-list-options.model';
 
 /**
  * A class to send the retrieval of a {@link HALLink}

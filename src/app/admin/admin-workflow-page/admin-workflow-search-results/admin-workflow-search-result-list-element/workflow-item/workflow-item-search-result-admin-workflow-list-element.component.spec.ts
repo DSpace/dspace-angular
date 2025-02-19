@@ -14,6 +14,7 @@ import { AuthService } from '../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
@@ -28,7 +29,6 @@ import { WorkflowItemSearchResult } from '../../../../../shared/object-collectio
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './workflow-item-search-result-admin-workflow-list-element.component';
 
 describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {

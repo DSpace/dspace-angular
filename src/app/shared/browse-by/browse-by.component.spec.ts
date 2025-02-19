@@ -32,6 +32,7 @@ import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { HostWindowService } from '../host-window.service';
@@ -44,7 +45,6 @@ import {
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';

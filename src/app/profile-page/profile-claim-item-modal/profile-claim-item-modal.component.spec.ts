@@ -14,11 +14,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { Item } from '../../core/shared/item.model';
+import { SearchObjects } from '../../core/shared/search/models/search-objects.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal.component';

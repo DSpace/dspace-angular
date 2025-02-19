@@ -6,6 +6,7 @@ import {
 } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 
+import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
@@ -17,7 +18,6 @@ import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
   CONFIG_DATA,

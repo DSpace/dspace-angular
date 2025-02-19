@@ -18,13 +18,13 @@ import {
 import { map } from 'rxjs/operators';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { FacetValue } from '../../../../../../core/shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '../../../../../../core/shared/search/models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,

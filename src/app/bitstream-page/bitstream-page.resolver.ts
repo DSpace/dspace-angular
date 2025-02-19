@@ -7,13 +7,13 @@ import {
 import { Observable } from 'rxjs';
 
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import {
   followLink,
   FollowLinkConfig,
-} from '../shared/utils/follow-link-config.model';
+} from '../core/data/follow-link-config.model';
+import { RemoteData } from '../core/data/remote-data';
+import { Bitstream } from '../core/shared/bitstream.model';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

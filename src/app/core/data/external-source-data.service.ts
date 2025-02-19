@@ -11,19 +11,19 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PaginatedSearchOptions } from '../shared/paginated-search-options.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   SearchData,
   SearchDataImpl,
 } from './base/search-data';
 import { FindListOptions } from './find-list-options.model';
+import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';

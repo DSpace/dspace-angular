@@ -8,12 +8,12 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { BaseDataService } from './base/base-data.service';
+import { FollowLinkConfig } from './follow-link-config.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { Root } from './root.model';
