@@ -16,10 +16,10 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
 

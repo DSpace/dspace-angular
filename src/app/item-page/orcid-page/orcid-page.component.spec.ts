@@ -23,6 +23,11 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
@@ -34,11 +39,6 @@ import { ResearcherProfileDataService } from '../../core/profile/researcher-prof
 import { Item } from '../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';

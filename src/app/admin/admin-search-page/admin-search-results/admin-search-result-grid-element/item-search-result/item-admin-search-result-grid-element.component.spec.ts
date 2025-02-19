@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -24,7 +25,6 @@ import { getMockThemeService } from '../../../../../shared/mocks/theme-service.m
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';

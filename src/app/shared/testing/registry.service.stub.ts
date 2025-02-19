@@ -4,6 +4,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { FollowLinkConfig } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -11,7 +12,6 @@ import { RemoteData } from '../../core/data/remote-data';
 import { MetadataField } from '../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../core/metadata/metadata-schema.model';
 import { NoContent } from '../../core/shared/NoContent.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from './utils.test';
 
 /**

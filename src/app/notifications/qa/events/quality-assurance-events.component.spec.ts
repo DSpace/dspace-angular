@@ -25,6 +25,11 @@ import { AuthorizationDataService } from 'src/app/core/data/feature-authorizatio
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 
 import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
@@ -47,11 +52,6 @@ import {
 } from '../../../shared/mocks/notifications.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';

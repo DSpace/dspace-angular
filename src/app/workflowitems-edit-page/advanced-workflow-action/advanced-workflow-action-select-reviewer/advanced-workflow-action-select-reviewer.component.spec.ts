@@ -11,6 +11,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { RouteService } from '../../../core/services/route.service';
@@ -20,10 +24,6 @@ import { WorkflowItemDataService } from '../../../core/submission/workflowitem-d
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
 import {
   EPersonMock,

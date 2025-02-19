@@ -4,6 +4,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { FollowLinkConfig } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -14,7 +15,6 @@ import { Relationship } from '../../core/shared/item-relationships/relationship.
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { MetadataRepresentation } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { NoContent } from '../../core/shared/NoContent.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 /**
  * Stub class of {@link RelationshipDataService}

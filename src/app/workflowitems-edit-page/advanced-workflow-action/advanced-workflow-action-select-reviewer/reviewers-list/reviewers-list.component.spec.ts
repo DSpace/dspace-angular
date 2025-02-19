@@ -34,6 +34,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RestResponse } from '../../../../core/cache/response.models';
 import {
   buildPaginatedList,
@@ -53,10 +57,6 @@ import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import {
   EPersonMock,

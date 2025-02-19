@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
@@ -19,7 +20,6 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
 import { SearchFilterServiceStub } from '../testing/search-filter-service.stub';

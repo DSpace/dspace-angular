@@ -14,6 +14,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -25,7 +26,6 @@ import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { ClaimedTaskSearchResultDetailElementComponent } from './claimed-task-search-result-detail-element.component';

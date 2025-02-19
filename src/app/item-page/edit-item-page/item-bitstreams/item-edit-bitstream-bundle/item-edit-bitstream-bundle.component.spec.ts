@@ -15,6 +15,7 @@ import {
   Subject,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { BundleDataService } from '../../../../core/data/bundle-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
@@ -24,7 +25,6 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
 import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';

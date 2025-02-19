@@ -20,6 +20,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { createFailedRemoteDataObjectFromError$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
@@ -32,7 +33,6 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-orcid-auth',

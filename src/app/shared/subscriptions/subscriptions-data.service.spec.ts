@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
@@ -10,10 +14,6 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { NotificationsService } from '../notifications/notifications.service';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
 import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { createPaginatedList } from '../testing/utils.test';

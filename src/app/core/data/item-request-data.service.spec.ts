@@ -1,7 +1,7 @@
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemRequest } from '../shared/item-request.model';

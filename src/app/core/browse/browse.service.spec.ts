@@ -6,12 +6,12 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import {
   createPaginatedList,

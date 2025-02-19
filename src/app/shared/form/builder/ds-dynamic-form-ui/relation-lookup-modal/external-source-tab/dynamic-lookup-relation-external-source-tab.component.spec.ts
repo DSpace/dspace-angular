@@ -17,6 +17,11 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createPendingRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Collection } from '../../../../../../core/shared/collection.model';
@@ -32,11 +37,6 @@ import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.co
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import {
-  createFailedRemoteDataObject$,
-  createPendingRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../../remote-data.utils';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../../testing/utils.test';

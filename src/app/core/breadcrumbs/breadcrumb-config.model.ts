@@ -1,4 +1,4 @@
-import { BreadcrumbsProviderService } from '../../core/breadcrumbs/breadcrumbsProviderService';
+import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 
 /**
  * Interface for breadcrumb configuration objects

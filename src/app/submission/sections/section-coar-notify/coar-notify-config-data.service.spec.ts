@@ -5,6 +5,7 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
@@ -22,7 +23,6 @@ import { RequestEntry } from '../../../core/data/request-entry.model';
 import { RequestEntryState } from '../../../core/data/request-entry-state.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 
 describe('CoarNotifyConfigDataService test', () => {

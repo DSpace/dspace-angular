@@ -15,6 +15,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
@@ -34,10 +38,6 @@ import {
 } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

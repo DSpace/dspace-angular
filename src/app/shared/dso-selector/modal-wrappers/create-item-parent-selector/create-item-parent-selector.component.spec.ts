@@ -14,9 +14,9 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
 import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';

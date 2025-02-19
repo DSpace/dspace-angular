@@ -31,6 +31,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { environment } from '../../environments/environment';
 import { ErrorResponse } from '../core/cache/response.models';
 import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
@@ -46,10 +50,6 @@ import { SubmissionJsonPatchOperationsService } from '../core/submission/submiss
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-} from '../shared/remote-data.utils';
 import { SectionScope } from './objects/section-visibility.model';
 import { SubmissionError } from './objects/submission-error.model';
 import {

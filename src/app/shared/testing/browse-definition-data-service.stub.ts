@@ -4,6 +4,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { BrowseService } from '../../core/browse/browse.service';
 import {
   buildPaginatedList,
@@ -14,7 +15,6 @@ import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 
 // This data is in post-serialized form (metadata -> metadataKeys)
 export const mockData: BrowseDefinition[] = [

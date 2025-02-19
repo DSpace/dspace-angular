@@ -27,6 +27,7 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createFailedRemoteDataObject } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
 import { ErrorResponse } from '../core/cache/response.models';
@@ -49,7 +50,6 @@ import {
 } from '../shared/mocks/submission.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject } from '../shared/remote-data.utils';
 import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
 import { SectionScope } from './objects/section-visibility.model';

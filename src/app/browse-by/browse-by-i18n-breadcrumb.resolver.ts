@@ -4,7 +4,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 
-import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { BreadcrumbConfig } from '../core/breadcrumbs/breadcrumb-config.model';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 /**

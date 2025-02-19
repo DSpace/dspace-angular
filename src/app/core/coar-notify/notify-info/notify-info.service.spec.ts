@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { ConfigurationDataService } from '../../data/configuration-data.service';
 import { AuthorizationDataService } from '../../data/feature-authorization/authorization-data.service';

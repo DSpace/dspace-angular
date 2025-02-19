@@ -34,9 +34,9 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AppState } from '../../app.reducer';
 import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
 import { StoreActionTypes } from '../../store.actions';
+import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { RequestActionTypes } from '../data/request.actions';
 import { EPerson } from '../eperson/models/eperson.model';
@@ -322,6 +322,6 @@ export class AuthEffects {
               private zone: NgZone,
               private authorizationsService: AuthorizationDataService,
               private authService: AuthService,
-              private store: Store<AppState>) {
+              private store: Store<CoreState>) {
   }
 }

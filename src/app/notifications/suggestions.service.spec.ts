@@ -2,6 +2,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   SortDirection,
   SortOptions,
@@ -16,7 +17,6 @@ import { ResearcherProfileDataService } from '../core/profile/researcher-profile
 import { ResourceType } from '../core/shared/resource-type';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {

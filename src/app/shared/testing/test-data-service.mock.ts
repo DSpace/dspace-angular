@@ -5,11 +5,11 @@ import {
   of,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { FollowLinkConfig } from '../../core/data/follow-link-config.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 @Injectable()
 export class TestDataService {

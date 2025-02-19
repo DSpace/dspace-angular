@@ -31,6 +31,7 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
+import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import {
   buildPaginatedList,
@@ -49,7 +50,6 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import {

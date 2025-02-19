@@ -14,6 +14,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
@@ -22,11 +27,6 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

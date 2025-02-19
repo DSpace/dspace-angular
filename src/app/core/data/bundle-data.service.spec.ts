@@ -5,9 +5,9 @@ import {
   Operation,
 } from 'fast-json-patch';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

@@ -5,11 +5,11 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { EPerson } from '../../eperson/models/eperson.model';

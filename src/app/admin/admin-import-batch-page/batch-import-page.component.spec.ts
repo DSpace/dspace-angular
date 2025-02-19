@@ -13,15 +13,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   BATCH_IMPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '../../core/data/processes/script-data.service';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';

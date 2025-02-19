@@ -5,6 +5,7 @@ import {
 } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import {
@@ -16,7 +17,6 @@ import { PaginatedSearchOptions } from '../../core/shared/paginated-search-optio
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { SearchServiceStub } from '../../shared/testing/search-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';

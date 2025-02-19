@@ -22,6 +22,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -39,10 +43,6 @@ import {
 } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { CollectionSourceComponent } from './collection-source.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';

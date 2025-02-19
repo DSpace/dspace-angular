@@ -3,10 +3,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { CacheableObject } from '../../core/cache/cacheable-object.model';
 import { FollowLinkConfig } from '../../core/data/follow-link-config.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 /**
  * Stub class for {@link BaseDataService}

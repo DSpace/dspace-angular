@@ -15,6 +15,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -32,7 +33,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspac
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.utils';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',

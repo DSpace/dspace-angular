@@ -19,6 +19,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../core/auth/auth.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
@@ -38,7 +39,6 @@ import {
 } from '../shared/mocks/suggestion.mock';
 import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';

@@ -7,17 +7,26 @@ import {
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-page.resolver';
 import { CommunityDataService } from '../data/community-data.service';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../data/follow-link-config.model';
 import { Community } from '../shared/community.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { BreadcrumbConfig } from './breadcrumb-config.model';
 import {
   DSOBreadcrumbResolver,
   DSOBreadcrumbResolverByUuid,
 } from './dso-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+
+const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
+  followLink('logo'),
+  followLink('subcommunities'),
+  followLink('collections'),
+  followLink('parentCommunity'),
+];
 
 /**
  * The resolve function that resolves the BreadcrumbConfig object for a Community

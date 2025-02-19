@@ -4,8 +4,8 @@ import {
 } from '@angular/core/testing';
 import { of } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';

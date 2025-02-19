@@ -16,6 +16,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RouteService } from '../../../../../core/services/route.service';
@@ -26,7 +27,6 @@ import { SearchFilterConfig } from '../../../../../core/shared/search/models/sea
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { routeServiceStub } from '../../../../testing/route-service.stub';
 import { RouterStub } from '../../../../testing/router.stub';

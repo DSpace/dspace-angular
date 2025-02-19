@@ -15,6 +15,7 @@ import {
 import { of as observableOf } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
@@ -28,7 +29,6 @@ import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';

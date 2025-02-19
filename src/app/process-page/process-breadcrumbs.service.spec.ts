@@ -4,7 +4,7 @@ import {
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { Breadcrumb } from '../breadcrumbs/breadcrumb/breadcrumb.model';
+import { Breadcrumb } from '../core/breadcrumbs/breadcrumb.model';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 import { Process } from './processes/process.model';
 

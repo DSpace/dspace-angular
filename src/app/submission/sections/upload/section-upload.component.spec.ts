@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
@@ -39,7 +40,6 @@ import {
   mockUploadFilesData,
 } from '../../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';

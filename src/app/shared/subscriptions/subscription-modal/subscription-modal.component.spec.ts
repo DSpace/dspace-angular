@@ -23,6 +23,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../../core/auth/auth.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
@@ -31,7 +32,6 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import {
   subscriptionMock,
   subscriptionMock2,

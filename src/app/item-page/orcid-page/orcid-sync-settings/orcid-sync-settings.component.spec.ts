@@ -25,15 +25,15 @@ import { Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';

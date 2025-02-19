@@ -7,6 +7,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
@@ -14,7 +15,6 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALResource } from '../../../core/shared/hal-resource.model';
 import { SearchResult } from '../../../core/shared/search/models/search-result.model';
 import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { VarDirective } from '../../utils/var.directive';
 

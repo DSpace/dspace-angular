@@ -30,6 +30,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import {
@@ -49,7 +50,6 @@ import { getMockFormBuilderService } from '../../shared/mocks/form-builder-servi
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {
   EPersonMock,
   EPersonMock2,

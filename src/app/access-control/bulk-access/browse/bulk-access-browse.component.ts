@@ -21,6 +21,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -36,7 +37,6 @@ import { SelectableListItemControlComponent } from '../../../shared/object-colle
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 

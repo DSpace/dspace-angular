@@ -17,6 +17,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -34,7 +35,6 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';

@@ -16,12 +16,12 @@ import {
 import { map } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';

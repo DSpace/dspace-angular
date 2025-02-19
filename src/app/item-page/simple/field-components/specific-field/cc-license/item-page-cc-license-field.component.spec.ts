@@ -17,9 +17,9 @@ import {
   MetadataMap,
   MetadataValue,
 } from 'src/app/core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';

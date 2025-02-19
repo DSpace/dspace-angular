@@ -24,6 +24,11 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import {
   BATCH_EXPORT_SCRIPT_NAME,
@@ -36,11 +41,6 @@ import { ProcessParameter } from '../../../../process-page/processes/process-par
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';

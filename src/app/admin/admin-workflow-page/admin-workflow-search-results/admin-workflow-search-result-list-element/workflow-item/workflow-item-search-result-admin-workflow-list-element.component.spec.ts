@@ -8,6 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { AuthService } from '../../../../../core/auth/auth.service';
@@ -26,7 +27,6 @@ import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucata
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './workflow-item-search-result-admin-workflow-list-element.component';

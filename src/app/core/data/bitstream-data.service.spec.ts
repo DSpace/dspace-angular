@@ -5,11 +5,11 @@ import {
   of as observableOf,
 } from 'rxjs';
 import { ItemMock } from 'src/app/shared/mocks/item.mock';
+
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from 'src/app/shared/remote-data.utils';
-
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

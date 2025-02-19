@@ -32,14 +32,14 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { environment } from '../../../environments/environment';
 import {
   REQUEST,
   RESPONSE,
 } from '../../../express.tokens';
-import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { CoreState } from '../core-state.model';
 import { followLink } from '../data/follow-link-config.model';
 import {
   buildPaginatedList,
@@ -119,7 +119,7 @@ export class AuthService {
               protected router: Router,
               protected routeService: RouteService,
               protected storage: CookieService,
-              protected store: Store<AppState>,
+              protected store: Store<CoreState>,
               protected hardRedirectService: HardRedirectService,
               private notificationService: NotificationsService,
               private translateService: TranslateService,

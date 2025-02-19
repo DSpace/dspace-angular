@@ -14,13 +14,13 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction,
 } from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';

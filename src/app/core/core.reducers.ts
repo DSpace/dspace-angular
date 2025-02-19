@@ -1,6 +1,10 @@
 import { ActionReducerMap } from '@ngrx/store';
 
+import { ePeopleRegistryReducer } from '../access-control/epeople-registry/epeople-registry.reducers';
+import { groupRegistryReducer } from '../access-control/group-registry/group-registry.reducers';
 import { bitstreamFormatReducer } from '../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import { metadataRegistryReducer } from '../admin/admin-registries/metadata-registry/metadata-registry.reducers';
+import { nameVariantReducer } from '../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { authReducer } from './auth/auth.reducer';
 import { objectCacheReducer } from './cache/object-cache.reducer';
 import { serverSyncBufferReducer } from './cache/server-sync-buffer.reducer';
@@ -25,4 +29,8 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'json/patch': jsonPatchOperationsReducer,
   'metaTag': metaTagReducer,
   'route': routeReducer,
+  'epeopleRegistry': ePeopleRegistryReducer,
+  'relationshipLists': nameVariantReducer,
+  'metadataRegistry': metadataRegistryReducer,
+  groupRegistry: groupRegistryReducer,
 };

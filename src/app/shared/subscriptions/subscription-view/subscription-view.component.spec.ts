@@ -22,6 +22,7 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
@@ -29,7 +30,6 @@ import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 // Import utils
 import { NotificationsService } from '../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import {
   findByEPersonAndDsoResEmpty,

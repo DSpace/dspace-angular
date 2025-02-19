@@ -25,6 +25,7 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
@@ -51,7 +52,6 @@ import {
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';

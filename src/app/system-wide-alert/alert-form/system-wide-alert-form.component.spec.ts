@@ -12,13 +12,13 @@ import {
 } from 'date-fns-tz';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
-import { RequestService } from '../../core/data/request.service';
-import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { RequestService } from '../../core/data/request.service';
+import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';

@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -28,7 +29,6 @@ import { NotificationsService } from '../../../../../shared/notifications/notifi
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
 import {
   supervisionOrderPaginatedListRD,

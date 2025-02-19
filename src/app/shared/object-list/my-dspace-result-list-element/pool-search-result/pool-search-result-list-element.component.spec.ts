@@ -14,6 +14,10 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
@@ -30,10 +34,6 @@ import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

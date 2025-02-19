@@ -12,13 +12,13 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

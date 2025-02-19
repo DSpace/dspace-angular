@@ -18,6 +18,7 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   SortDirection,
   SortOptions,
@@ -45,7 +46,6 @@ import {
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { routeServiceStub } from '../testing/route-service.stub';

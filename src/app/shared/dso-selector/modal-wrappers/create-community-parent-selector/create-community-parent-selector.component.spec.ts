@@ -16,10 +16,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { Community } from '../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';

@@ -23,6 +23,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
@@ -39,7 +40,6 @@ import {
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 
 /**
  * Interface for the selected external source element.

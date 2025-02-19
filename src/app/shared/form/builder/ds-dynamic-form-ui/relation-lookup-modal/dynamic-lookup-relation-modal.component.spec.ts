@@ -22,6 +22,7 @@ import {
   Subscription,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
@@ -38,7 +39,6 @@ import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import {

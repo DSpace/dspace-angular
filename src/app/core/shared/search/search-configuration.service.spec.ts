@@ -7,9 +7,9 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { environment } from '../../../../environments/environment.test';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import {

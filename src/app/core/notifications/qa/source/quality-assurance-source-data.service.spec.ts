@@ -6,12 +6,12 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
 } from '../../../../shared/mocks/notifications.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
 import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';

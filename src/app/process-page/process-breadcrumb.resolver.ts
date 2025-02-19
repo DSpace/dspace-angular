@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { BreadcrumbConfig } from '../core/breadcrumbs/breadcrumb-config.model';
 import { followLink } from '../core/data/follow-link-config.model';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { RemoteData } from '../core/data/remote-data';

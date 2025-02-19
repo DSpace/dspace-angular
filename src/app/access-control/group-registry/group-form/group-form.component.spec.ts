@@ -30,6 +30,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -58,7 +59,6 @@ import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock'
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import {
   GroupMock,

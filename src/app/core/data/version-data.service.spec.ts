@@ -6,11 +6,11 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';

@@ -3,6 +3,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
@@ -19,11 +24,6 @@ import { ItemType } from '../../../core/shared/item-relationships/item-type.mode
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { EntityTypeDataServiceStub } from '../../../shared/testing/entity-type-data.service.stub';
 import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

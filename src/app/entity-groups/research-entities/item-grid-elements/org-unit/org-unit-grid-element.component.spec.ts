@@ -11,6 +11,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -22,7 +23,6 @@ import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';

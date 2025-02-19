@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   SortDirection,
   SortOptions,
@@ -15,7 +16,6 @@ import {
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
 } from '../../../shared/mocks/notifications.mock';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 
 describe('QualityAssuranceSourceService', () => {

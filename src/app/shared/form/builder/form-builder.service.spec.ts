@@ -33,6 +33,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
@@ -40,7 +41,6 @@ import { ConfigurationProperty } from '../../../core/shared/configuration-proper
 import { FormFieldModel } from '../../../core/shared/form/form-field.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { getMockTranslateService } from '../../mocks/translate.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';

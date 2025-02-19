@@ -26,6 +26,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RequestService } from '../core/data/request.service';
 import { RouteService } from '../core/services/route.service';
 import { WorkflowItem } from '../core/submission/models/workflowitem.model';
@@ -33,10 +37,6 @@ import { WorkflowItemDataService } from '../core/submission/workflowitem-data.se
 import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LocationStub } from '../shared/testing/location.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';

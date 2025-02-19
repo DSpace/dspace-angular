@@ -1,8 +1,8 @@
 import { first } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { Registration } from '../core/shared/registration.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { registrationResolver } from './registration.resolver';
 
 describe('registrationResolver', () => {

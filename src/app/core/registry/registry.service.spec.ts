@@ -12,6 +12,10 @@ import {
 } from 'rxjs';
 
 import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
   MetadataRegistryDeselectAllFieldAction,
@@ -25,10 +29,6 @@ import {
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { storeModuleConfig } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { StoreMock } from '../../shared/testing/store.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';

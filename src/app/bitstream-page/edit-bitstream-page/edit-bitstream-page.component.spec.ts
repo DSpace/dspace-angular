@@ -24,6 +24,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
@@ -40,10 +44,6 @@ import {
 } from '../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

@@ -11,6 +11,10 @@ import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
@@ -21,10 +25,6 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
 import { DSOSelectorComponent } from './dso-selector.component';
 

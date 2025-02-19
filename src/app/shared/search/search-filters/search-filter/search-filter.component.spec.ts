@@ -17,6 +17,7 @@ import {
 } from 'rxjs';
 import { SearchFilterService } from 'src/app/core/shared/search/search-filter.service';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AppliedFilter } from '../../../../core/shared/search/models/applied-filter.model';
 import { FacetValues } from '../../../../core/shared/search/models/facet-values.model';
 import { FilterType } from '../../../../core/shared/search/models/filter-type.model';
@@ -24,7 +25,6 @@ import { SearchFilterConfig } from '../../../../core/shared/search/models/search
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SequenceService } from '../../../../core/shared/sequence.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';

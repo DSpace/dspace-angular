@@ -5,8 +5,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { EPerson } from 'src/app/core/eperson/models/eperson.model';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { EPersonDataComponent } from './ePerson-data.component';
 

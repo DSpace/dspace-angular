@@ -17,6 +17,7 @@ import {
   of,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -26,7 +27,6 @@ import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

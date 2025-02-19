@@ -29,6 +29,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   AppState,
   storeModuleConfig,
@@ -37,7 +38,6 @@ import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../core/shared/item.model';
 import { getMockThemeService } from '../mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuComponent } from './menu.component';
 import { MenuService } from './menu.service';

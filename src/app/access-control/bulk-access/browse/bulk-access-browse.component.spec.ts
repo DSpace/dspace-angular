@@ -11,6 +11,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
@@ -19,7 +20,6 @@ import { SelectableListItemControlComponent } from '../../../shared/object-colle
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SelectableObject } from '../../../shared/object-list/selectable-list/selectable-list.service.spec';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { BulkAccessBrowseComponent } from './bulk-access-browse.component';

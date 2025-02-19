@@ -17,14 +17,14 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
+} from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { Community } from '../../../../core/shared/community.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createNoContentRemoteDataObject$,
-} from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 

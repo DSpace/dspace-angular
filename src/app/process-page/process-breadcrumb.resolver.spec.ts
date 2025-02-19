@@ -1,5 +1,5 @@
+import { createSuccessfulRemoteDataObject$ } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { processBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { Process } from './processes/process.model';
 

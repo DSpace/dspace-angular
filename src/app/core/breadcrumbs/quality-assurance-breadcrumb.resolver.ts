@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { QualityAssuranceBreadcrumbService } from './quality-assurance-breadcrumb.service';
 
 export const qualityAssuranceBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (

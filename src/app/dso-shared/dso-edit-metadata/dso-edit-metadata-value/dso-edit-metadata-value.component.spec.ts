@@ -23,6 +23,7 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 import { VocabularyServiceStub } from 'src/app/shared/testing/vocabulary-service.stub';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
@@ -38,7 +39,6 @@ import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   DsoEditMetadataChangeType,

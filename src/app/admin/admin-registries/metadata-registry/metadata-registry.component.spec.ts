@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
@@ -30,7 +31,6 @@ import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-se
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';

@@ -5,15 +5,15 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import {
+  createNoContentRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Item } from '../../core/shared/item.model';
 import { SearchObjects } from '../../core/shared/search/models/search-objects.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
-import {
-  createNoContentRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
 import { ProfileClaimService } from './profile-claim.service';
 
 describe('ProfileClaimService', () => {

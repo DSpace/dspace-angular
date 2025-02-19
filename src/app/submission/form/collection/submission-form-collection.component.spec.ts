@@ -23,6 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { CommunityDataService } from '../../../core/data/community-data.service';
@@ -37,7 +38,6 @@ import {
   mockSubmissionId,
   mockSubmissionRestResponse,
 } from '../../../shared/mocks/submission.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';

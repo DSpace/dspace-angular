@@ -18,16 +18,16 @@ import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction,
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import {
   EPersonMock,
   EPersonMock2,
@@ -73,8 +73,10 @@ describe('EPersonDataService', () => {
   let rdbService;
 
   const initialState = {
-    epeopleRegistry: {
-      editEPerson: null,
+    core: {
+      epeopleRegistry: {
+        editEPerson: null,
+      },
     },
   };
 

@@ -18,11 +18,11 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';

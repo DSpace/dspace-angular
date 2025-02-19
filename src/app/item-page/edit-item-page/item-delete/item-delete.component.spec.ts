@@ -19,6 +19,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -32,10 +36,6 @@ import { RelationshipType } from '../../../core/shared/item-relationships/relati
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

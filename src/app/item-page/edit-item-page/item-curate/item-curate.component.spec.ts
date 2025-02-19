@@ -11,10 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../core/shared/item.model';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ItemCurateComponent } from './item-curate.component';
 
 describe('ItemCurateComponent', () => {

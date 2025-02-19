@@ -15,6 +15,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Item } from '../../../../core/shared/item.model';
@@ -22,7 +23,6 @@ import { Relationship } from '../../../../core/shared/item-relationships/relatio
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';

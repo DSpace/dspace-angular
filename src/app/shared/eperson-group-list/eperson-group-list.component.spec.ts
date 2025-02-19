@@ -17,6 +17,7 @@ import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
@@ -34,7 +35,6 @@ import { PaginationComponentOptions } from '../../core/shared/pagination-compone
 import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { EPersonMock } from '../testing/eperson.mock';
 import { GroupMock } from '../testing/group-mock';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';

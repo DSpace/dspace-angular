@@ -32,6 +32,7 @@ import { SelectableListService } from 'src/app/shared/object-list/selectable-lis
 import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
@@ -49,7 +50,6 @@ import { Item } from '../../core/shared/item.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';

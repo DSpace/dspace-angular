@@ -15,6 +15,11 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -25,11 +30,6 @@ import { ItemRequest } from '../../core/shared/item-request.model';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';

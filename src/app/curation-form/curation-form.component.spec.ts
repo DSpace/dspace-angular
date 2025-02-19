@@ -15,6 +15,10 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
@@ -23,10 +27,6 @@ import { getProcessDetailRoute } from '../process-page/process-page-routing.path
 import { Process } from '../process-page/processes/process.model';
 import { HandleService } from '../shared/handle.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { CurationFormComponent } from './curation-form.component';

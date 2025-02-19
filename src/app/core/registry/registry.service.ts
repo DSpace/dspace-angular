@@ -33,9 +33,9 @@ import {
   MetadataRegistrySelectSchemaAction,
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { MetadataRegistryState } from '../../admin/admin-registries/metadata-registry/metadata-registry.reducers';
-import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RequestParam } from '../cache/models/request-param.model';
+import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
@@ -47,7 +47,7 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 
-const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
+const metadataRegistryStateSelector = (state: any) => state.core.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
 const selectedMetadataSchemasSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.selectedSchemas);
 const editMetadataFieldSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editField);
@@ -59,7 +59,7 @@ const selectedMetadataFieldsSelector = createSelector(metadataRegistryStateSelec
 @Injectable({ providedIn: 'root' })
 export class RegistryService {
 
-  constructor(private store: Store<AppState>,
+  constructor(private store: Store<CoreState>,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private metadataSchemaService: MetadataSchemaDataService,

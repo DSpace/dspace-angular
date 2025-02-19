@@ -35,10 +35,10 @@ import {
   of,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RouteService } from '../../../core/services/route.service';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';

@@ -17,6 +17,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { AppliedFilter } from '../../../../../core/shared/search/models/applied-filter.model';
@@ -26,7 +27,6 @@ import { SearchFilterConfig } from '../../../../../core/shared/search/models/sea
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';

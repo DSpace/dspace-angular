@@ -11,18 +11,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import {
-  createFailedRemoteDataObject$,
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

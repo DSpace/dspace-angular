@@ -11,11 +11,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { VersionHistory } from '../../../core/shared/version-history.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ItemVersionsNoticeComponent } from './item-versions-notice.component';
 

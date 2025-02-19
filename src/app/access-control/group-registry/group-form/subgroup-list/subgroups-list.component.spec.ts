@@ -35,6 +35,7 @@ import {
 } from 'rxjs';
 import { EPersonMock2 } from 'src/app/shared/testing/eperson.mock';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RestResponse } from '../../../../core/cache/response.models';
 import {
@@ -54,7 +55,6 @@ import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import {
   GroupMock,

@@ -22,6 +22,7 @@ import {
   of,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
@@ -52,7 +53,6 @@ import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';

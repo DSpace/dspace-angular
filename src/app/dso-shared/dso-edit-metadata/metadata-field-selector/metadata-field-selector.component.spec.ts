@@ -9,6 +9,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
@@ -17,10 +21,6 @@ import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector.component';

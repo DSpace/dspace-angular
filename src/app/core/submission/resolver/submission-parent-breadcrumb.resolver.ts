@@ -6,7 +6,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BreadcrumbConfig } from '../../../breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb-config.model';
 import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
 import {
   getFirstCompletedRemoteData,

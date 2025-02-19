@@ -14,6 +14,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
@@ -28,7 +29,6 @@ import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
 

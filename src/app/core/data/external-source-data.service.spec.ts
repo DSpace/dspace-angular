@@ -1,7 +1,7 @@
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { testSearchDataImplementation } from './base/search-data.spec';

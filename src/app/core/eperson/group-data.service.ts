@@ -18,7 +18,6 @@ import {
   GroupRegistryEditGroupAction,
 } from '../../access-control/group-registry/group-registry.actions';
 import { GroupRegistryState } from '../../access-control/group-registry/group-registry.reducers';
-import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -62,7 +61,7 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 
-const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
+const groupRegistryStateSelector = (state: any) => state.core.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
 
 /**

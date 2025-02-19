@@ -15,11 +15,11 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import {
   createPaginatedList,

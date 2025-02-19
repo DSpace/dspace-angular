@@ -28,6 +28,10 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
@@ -45,10 +49,6 @@ import { getMockLinkService } from '../mocks/link-service.mock';
 import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { NotificationsService } from '../notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
 import { EPersonMock } from '../testing/eperson.mock';
 import { GroupMock } from '../testing/group-mock';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';

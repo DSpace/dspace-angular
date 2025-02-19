@@ -21,6 +21,7 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../core/auth/auth.service';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { PaginationService } from '../core/pagination/pagination.service';
@@ -30,7 +31,6 @@ import { ThemedLoadingComponent } from '../shared/loading/themed-loading.compone
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
 import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';

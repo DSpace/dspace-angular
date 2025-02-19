@@ -10,6 +10,7 @@ import {
   isNotEmptyOperator,
 } from '@dspace/shared/utils';
 import {
+  createSelector,
   MemoizedSelector,
   select,
   Store,
@@ -35,10 +36,6 @@ import {
   AppConfig,
 } from '../../../config/app-config.interface';
 import {
-  AppState,
-  keySelector,
-} from '../../app.reducer';
-import {
   compareArraysUsingIds,
   PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems,
@@ -53,6 +50,7 @@ import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core-state.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { MetadataService } from '../metadata/metadata.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -97,14 +95,24 @@ import { RequestService } from './request.service';
 import { RequestEntryState } from './request-entry-state.model';
 import { RestRequest } from './rest-request.model';
 
-const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
+function relationshipKeySelector<T>(key: string, selector): MemoizedSelector<CoreState, T> {
+  return createSelector(selector, (state) => {
+    if (hasValue(state)) {
+      return state[key];
+    } else {
+      return undefined;
+    }
+  });
+}
 
-const relationshipListStateSelector = (listID: string): MemoizedSelector<AppState, NameVariantListState> => {
-  return keySelector<NameVariantListState>(listID, relationshipListsStateSelector);
+const relationshipListsStateSelector = (state: any) => state.core.relationshipLists;
+
+const relationshipListStateSelector = (listID: string): MemoizedSelector<CoreState, NameVariantListState> => {
+  return relationshipKeySelector<NameVariantListState>(listID, relationshipListsStateSelector);
 };
 
-const relationshipStateSelector = (listID: string, itemID: string): MemoizedSelector<AppState, string> => {
-  return keySelector<string>(itemID, relationshipListStateSelector(listID));
+const relationshipStateSelector = (listID: string, itemID: string): MemoizedSelector<CoreState, string> => {
+  return relationshipKeySelector<string>(itemID, relationshipListStateSelector(listID));
 };
 
 /**
@@ -135,7 +143,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     protected objectCache: ObjectCacheService,
     protected metadataService: MetadataService,
     protected itemService: ItemDataService,
-    protected appStore: Store<AppState>,
+    protected appStore: Store<CoreState>,
     @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {

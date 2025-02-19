@@ -11,6 +11,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
@@ -23,7 +24,6 @@ import { getMockLinkService } from '../../../../mocks/link-service.mock';
 import { mockTruncatableService } from '../../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ClaimedDeclinedTaskTaskSearchResult } from '../../../../object-collection/shared/claimed-declined-task-task-search-result.model';
-import { createSuccessfulRemoteDataObject } from '../../../../remote-data.utils';
 import { ThemeService } from '../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../../utils/var.directive';

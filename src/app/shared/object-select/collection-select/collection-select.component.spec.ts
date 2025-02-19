@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
@@ -19,7 +20,6 @@ import { ConfigurationProperty } from '../../../core/shared/configuration-proper
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { HostWindowService } from '../../host-window.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';

@@ -7,14 +7,14 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';

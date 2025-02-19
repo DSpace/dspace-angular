@@ -31,6 +31,10 @@ import {
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -53,10 +57,6 @@ import {
   mockSubmissionObject,
 } from '../../../shared/mocks/submission.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';

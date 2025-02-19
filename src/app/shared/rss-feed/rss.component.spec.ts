@@ -11,6 +11,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
@@ -28,10 +32,6 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { RouterMock } from '../mocks/router.mock';
 import { getMockTranslateService } from '../mocks/translate.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { createPaginatedList } from '../testing/utils.test';

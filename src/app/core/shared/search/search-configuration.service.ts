@@ -27,11 +27,11 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../config/app-config.interface';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
 import { LinkService } from '../../cache/builders/link.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';

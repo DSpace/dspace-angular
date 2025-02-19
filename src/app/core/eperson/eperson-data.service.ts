@@ -22,7 +22,6 @@ import {
   EPeopleRegistryEditEPersonAction,
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
-import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -69,7 +68,7 @@ import { EPerson } from './models/eperson.model';
 
 // todo: optimize imports
 
-const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
+const ePeopleRegistryStateSelector = (state: any) => state.core.epeopleRegistry;
 export const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
 
 /**

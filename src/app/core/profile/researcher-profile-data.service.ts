@@ -19,8 +19,8 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
+import { createFailedRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';

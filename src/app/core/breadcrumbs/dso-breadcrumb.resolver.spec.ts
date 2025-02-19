@@ -1,6 +1,6 @@
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { Collection } from '../shared/collection.model';
 import { collectionBreadcrumbResolver } from './collection-breadcrumb.resolver';
 

@@ -20,6 +20,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   AppState,
   storeModuleConfig,
 } from '../app.reducer';
@@ -36,10 +40,6 @@ import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-defi
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
 import { EPersonMock } from '../shared/testing/eperson.mock';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';

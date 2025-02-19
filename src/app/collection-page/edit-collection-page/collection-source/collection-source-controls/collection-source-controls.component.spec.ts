@@ -12,6 +12,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
@@ -24,7 +25,6 @@ import { ContentSourceSetSerializer } from '../../../../core/shared/content-sour
 import { Process } from '../../../../process-page/processes/process.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { CollectionSourceControlsComponent } from './collection-source-controls.component';

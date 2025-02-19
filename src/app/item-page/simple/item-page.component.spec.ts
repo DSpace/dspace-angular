@@ -20,6 +20,12 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createPendingRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -35,12 +41,6 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import {
-  createFailedRemoteDataObject$,
-  createPendingRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';

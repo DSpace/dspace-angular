@@ -4,6 +4,7 @@ import {
   Subscription,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
@@ -12,7 +13,6 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { Relationship } from '../../core/shared/item-relationships/relationship.model';
 import { NoContent } from '../../core/shared/NoContent.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 /**
  * Stub class of {@link EditItemRelationshipsService}

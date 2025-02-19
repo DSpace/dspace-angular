@@ -7,12 +7,12 @@ import {
 import { Observable } from 'rxjs';
 
 import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-page.resolver';
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { BitstreamBreadcrumbsService } from './bitstream-breadcrumbs.service';
+import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 
 /**

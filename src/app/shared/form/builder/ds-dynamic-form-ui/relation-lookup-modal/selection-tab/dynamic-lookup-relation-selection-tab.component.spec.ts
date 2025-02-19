@@ -12,6 +12,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -26,7 +27,6 @@ import { ObjectCollectionComponent } from '../../../../../object-collection/obje
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationSelectionTabComponent } from './dynamic-lookup-relation-selection-tab.component';

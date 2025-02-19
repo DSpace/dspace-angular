@@ -57,6 +57,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
@@ -69,7 +70,6 @@ import { SubmissionObjectDataService } from '../../../../core/submission/submiss
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';

@@ -16,14 +16,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemRegisterDoiComponent } from './item-register-doi.component';

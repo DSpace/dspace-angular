@@ -14,16 +14,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { FormatFormComponent } from '../format-form/format-form.component';

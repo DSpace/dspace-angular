@@ -20,6 +20,11 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
@@ -45,11 +50,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { SearchFormComponent } from '../../shared/search-form/search-form.component';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

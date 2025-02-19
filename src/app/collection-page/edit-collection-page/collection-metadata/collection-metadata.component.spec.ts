@@ -14,6 +14,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -25,11 +30,6 @@ import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 import { CollectionMetadataComponent } from './collection-metadata.component';
 

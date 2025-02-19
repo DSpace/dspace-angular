@@ -10,14 +10,14 @@ import {
 import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import {
   createFailedRemoteDataObject,
   createPendingRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../../shared/remote-data.utils';
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
+import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import {
   followLink,
   FollowLinkConfig,

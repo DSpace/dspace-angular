@@ -11,6 +11,7 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { Item } from '../../../core/shared/item.model';
@@ -18,7 +19,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';

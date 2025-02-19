@@ -1,7 +1,7 @@
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

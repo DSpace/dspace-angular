@@ -20,6 +20,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
 import { REQUEST } from '../../../../../express.tokens';
@@ -46,7 +47,6 @@ import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { AuthRequestServiceStub } from '../../../../shared/testing/auth-request-service.stub';
 import { EditItemRelationshipsServiceStub } from '../../../../shared/testing/edit-item-relationships.service.stub';

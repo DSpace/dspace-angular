@@ -28,6 +28,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -51,7 +52,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import {

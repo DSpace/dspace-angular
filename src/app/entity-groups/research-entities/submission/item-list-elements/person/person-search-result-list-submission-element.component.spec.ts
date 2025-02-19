@@ -19,6 +19,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { REQUEST } from '../../../../../../express.tokens';
 import { AuthService } from '../../../../../core/auth/auth.service';
@@ -40,7 +41,6 @@ import { getMockThemeService } from '../../../../../shared/mocks/theme-service.m
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';

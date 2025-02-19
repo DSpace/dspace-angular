@@ -9,6 +9,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
@@ -16,10 +20,6 @@ import { SearchFilter } from '../../../core/shared/search/models/search-filter.m
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { Process } from '../../../process-page/processes/process.model';
 import { NotificationsService } from '../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { SearchExportCsvComponent } from './search-export-csv.component';
 

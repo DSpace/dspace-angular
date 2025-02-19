@@ -1,3 +1,4 @@
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { Item } from '../../../../core/shared/item.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -5,7 +6,6 @@ import {
   createRelationshipsObservable,
   getItemPageFieldsTest,
 } from '../../../../item-page/simple/item-types/shared/item.component.spec';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { PersonComponent } from './person.component';
 
 const mockItem: Item = Object.assign(new Item(), {

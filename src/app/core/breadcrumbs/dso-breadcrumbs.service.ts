@@ -10,15 +10,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { LinkService } from '../cache/builders/link.service';
 import { followLink } from '../data/follow-link-config.model';
 import { RemoteData } from '../data/remote-data';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { DSONameService } from './dso-name.service';
+import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
@@ -49,7 +49,7 @@ export class DSOBreadcrumbsService implements BreadcrumbsProviderService<ChildHA
       switchMap((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => {
         if (hasValue(parentRD) && hasValue(parentRD.payload)) {
           const parent = parentRD.payload;
-          return this.getBreadcrumbs(parent, getDSORoute(parent));
+          return this.getBreadcrumbs(parent, getDSpaceObjectRoute(parent));
         }
         return observableOf([]);
 

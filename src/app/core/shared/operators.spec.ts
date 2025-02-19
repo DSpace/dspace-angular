@@ -6,11 +6,11 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { GetRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';

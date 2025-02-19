@@ -3,8 +3,8 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';

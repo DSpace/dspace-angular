@@ -22,6 +22,7 @@ import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -44,7 +45,6 @@ import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Duplicate } from '../../../shared/object-list/duplicate-data/duplicate.model';
 import { DUPLICATE } from '../../../shared/object-list/duplicate-data/duplicate.resource-type';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';

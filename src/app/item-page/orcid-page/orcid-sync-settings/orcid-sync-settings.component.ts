@@ -30,6 +30,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
+import { createFailedRemoteDataObjectFromError$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
@@ -41,7 +42,6 @@ import {
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-orcid-sync-setting',

@@ -18,6 +18,10 @@ import {
   of,
 } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AppConfig } from '../../../config/app-config.interface';
 import {
   ItemMock,
@@ -26,10 +30,6 @@ import {
   MockBitstream3,
 } from '../../shared/mocks/item.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';

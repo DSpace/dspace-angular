@@ -18,6 +18,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
@@ -39,10 +43,6 @@ import {
 } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
 import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
 import { RouterStub } from '../../../shared/testing/router.stub';

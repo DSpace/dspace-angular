@@ -16,6 +16,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { RouteService } from '../../../core/services/route.service';
@@ -26,10 +30,6 @@ import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.se
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
 import { LocationStub } from '../../../shared/testing/location.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

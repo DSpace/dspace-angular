@@ -8,12 +8,12 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NativeWindowRefMock } from '../../shared/mocks/mock-native-window-ref';
-import { RouterMock } from '../../shared/mocks/router.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { NativeWindowRefMock } from '../../shared/mocks/mock-native-window-ref';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { ResearcherProfile } from '../profile/model/researcher-profile.model';

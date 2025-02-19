@@ -24,6 +24,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
@@ -41,7 +42,6 @@ import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

@@ -6,8 +6,6 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -15,7 +13,9 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
+import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
+import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 /**
  * Method for resolving a breadcrumb config object
@@ -60,7 +60,7 @@ export const DSOBreadcrumbResolverByUuid: (route: ActivatedRouteSnapshot, state:
     getRemoteDataPayload(),
     map((object: DSpaceObject) => {
       if (hasValue(object)) {
-        return { provider: breadcrumbService, key: object, url: getDSORoute(object) };
+        return { provider: breadcrumbService, key: object, url: getDSpaceObjectRoute(object) };
       } else {
         return undefined;
       }

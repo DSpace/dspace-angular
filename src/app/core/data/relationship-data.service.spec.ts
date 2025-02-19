@@ -3,16 +3,16 @@ import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
 import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';

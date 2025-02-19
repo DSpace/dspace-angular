@@ -16,6 +16,7 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -38,7 +39,6 @@ import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { createPaginatedList } from '../../../testing/utils.test';

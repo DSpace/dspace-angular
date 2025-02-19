@@ -1,10 +1,10 @@
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
 
 export const MockBitstreamFormat1: BitstreamFormat = Object.assign(new BitstreamFormat(), {

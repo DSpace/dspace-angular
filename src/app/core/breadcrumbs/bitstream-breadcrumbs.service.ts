@@ -12,9 +12,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { getDSORoute } from '../../app-routing-paths';
 import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-page.resolver';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { LinkService } from '../cache/builders/link.service';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { RemoteData } from '../data/remote-data';
@@ -27,8 +25,10 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
+import { Breadcrumb } from './breadcrumb.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';
+import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
@@ -59,7 +59,7 @@ export class BitstreamBreadcrumbsService extends DSOBreadcrumbsService {
       switchMap((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => {
         if (isNotEmpty(parentRD) && hasValue(parentRD.payload)) {
           const parent = parentRD.payload;
-          return super.getBreadcrumbs(parent, getDSORoute(parent));
+          return super.getBreadcrumbs(parent, getDSpaceObjectRoute(parent));
         }
         return observableOf([]);
 

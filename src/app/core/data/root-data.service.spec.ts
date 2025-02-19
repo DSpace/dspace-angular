@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteData } from './remote-data';
 import { Root } from './root.model';

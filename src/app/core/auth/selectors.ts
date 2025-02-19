@@ -13,7 +13,7 @@ import { AuthState } from './auth.reducer';
 /**
  * Returns the user state.
  * @function getUserState
- * @param {AppState} state Top level state.
+ * @param {CoreState} state Top level state.
  * @return {AuthState}
  */
 export const getAuthState = createSelector(coreSelector, (state: CoreState) => state.auth);

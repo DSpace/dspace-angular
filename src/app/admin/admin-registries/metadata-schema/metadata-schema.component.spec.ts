@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
@@ -25,7 +26,6 @@ import { SearchConfigurationService } from '../../../core/shared/search/search-c
 import { HostWindowService } from '../../../shared/host-window.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

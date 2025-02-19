@@ -15,6 +15,7 @@ import { of as observableOf } from 'rxjs';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -25,7 +26,6 @@ import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';

@@ -3,6 +3,7 @@ import {
   Observable,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -13,7 +14,6 @@ import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.m
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 const mockData = [
   Object.assign(new FlatBrowseDefinition(), {

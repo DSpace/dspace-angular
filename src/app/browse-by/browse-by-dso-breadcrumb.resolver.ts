@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getDSORoute } from '../app-routing-paths';
-import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { BreadcrumbConfig } from '../core/breadcrumbs/breadcrumb-config.model';
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
 import { Collection } from '../core/shared/collection.model';

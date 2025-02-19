@@ -16,13 +16,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ItemWithdrawComponent } from './item-withdraw.component';

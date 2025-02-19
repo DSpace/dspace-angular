@@ -5,6 +5,7 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -26,7 +27,6 @@ import { RequestEntry } from '../../../core/data/request-entry.model';
 import { RequestEntryState } from '../../../core/data/request-entry-state.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { mockLdnService } from '../ldn-service-serviceMock/ldnServicesRD$-mock';
 import { LdnServicesService } from './ldn-services-data.service';

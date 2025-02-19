@@ -6,6 +6,7 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
@@ -16,7 +17,6 @@ import { RequestEntry } from '../../../core/data/request-entry.model';
 import { RequestEntryState } from '../../../core/data/request-entry-state.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { LdnServicesService } from '../../admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { mockAdminNotifyMessages } from '../admin-notify-search-result/admin-notify-search-result.component.spec';
 import { AdminNotifyMessage } from '../models/admin-notify-message.model';

@@ -25,9 +25,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { Item } from '../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { EditItemPageComponent } from './edit-item-page.component';
 
 describe('EditItemPageComponent', () => {

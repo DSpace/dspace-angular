@@ -29,6 +29,7 @@ import {
   of,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
@@ -58,7 +59,6 @@ import {
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import {
   EPersonMock,

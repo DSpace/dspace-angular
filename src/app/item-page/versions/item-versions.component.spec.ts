@@ -28,6 +28,7 @@ import {
   of,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -45,7 +46,6 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';

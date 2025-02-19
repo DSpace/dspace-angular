@@ -11,14 +11,14 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';

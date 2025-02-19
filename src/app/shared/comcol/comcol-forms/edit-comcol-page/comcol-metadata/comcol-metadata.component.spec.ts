@@ -13,14 +13,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ComColDataService } from '../../../../../core/data/comcol-data.service';
-import { Community } from '../../../../../core/shared/community.model';
-import { NotificationsService } from '../../../../notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../remote-data.utils';
+} from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { ComColDataService } from '../../../../../core/data/comcol-data.service';
+import { Community } from '../../../../../core/shared/community.model';
+import { NotificationsService } from '../../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 

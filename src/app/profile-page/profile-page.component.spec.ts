@@ -19,6 +19,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { storeModuleConfig } from '../app.reducer';
 import { authReducer } from '../core/auth/auth.reducer';
 import { AuthService } from '../core/auth/auth.service';
@@ -34,10 +38,6 @@ import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
 import {
   EmptySpecialGroupDataMock$,
   SpecialGroupDataMock$,

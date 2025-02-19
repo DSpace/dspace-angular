@@ -10,9 +10,8 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { SubmissionService } from '../../submission/submission.service';
+import { Breadcrumb } from '../breadcrumbs/breadcrumb.model';
 import { BreadcrumbsProviderService } from '../breadcrumbs/breadcrumbsProviderService';
 import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
@@ -24,6 +23,7 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { SubmissionObject } from './models/submission-object.model';
+import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 /**
  * Service to calculate the parent {@link DSpaceObject} breadcrumbs for a {@link SubmissionObject}
@@ -70,7 +70,7 @@ export class SubmissionParentBreadcrumbsService implements BreadcrumbsProviderSe
           return observableOf(collection);
         }
       }),
-      switchMap((collection: Collection) => this.dsoBreadcrumbsService.getBreadcrumbs(collection, getDSORoute(collection))),
+      switchMap((collection: Collection) => this.dsoBreadcrumbsService.getBreadcrumbs(collection, getDSpaceObjectRoute(collection))),
     );
   }
 

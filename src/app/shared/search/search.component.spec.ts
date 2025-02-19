@@ -25,6 +25,10 @@ import {
 } from 'rxjs';
 
 import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
 } from '../../../config/app-config.interface';
@@ -55,10 +59,6 @@ import {
 import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';

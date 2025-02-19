@@ -10,18 +10,6 @@ import {
 } from '@ngrx/store';
 
 import {
-  ePeopleRegistryReducer,
-  EPeopleRegistryState,
-} from './access-control/epeople-registry/epeople-registry.reducers';
-import {
-  groupRegistryReducer,
-  GroupRegistryState,
-} from './access-control/group-registry/group-registry.reducers';
-import {
-  metadataRegistryReducer,
-  MetadataRegistryState,
-} from './admin/admin-registries/metadata-registry/metadata-registry.reducers';
-import {
   CommunityListReducer,
   CommunityListState,
 } from './community-list-page/community-list.reducer';
@@ -30,10 +18,6 @@ import {
   contextHelpReducer,
   ContextHelpState,
 } from './shared/context-help.reducer';
-import {
-  NameVariantListsState,
-  nameVariantReducer,
-} from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import {
   formReducer,
   FormState,
@@ -81,7 +65,6 @@ export interface AppState {
   router: RouterReducerState;
   hostWindow: HostWindowState;
   forms: FormState;
-  metadataRegistry: MetadataRegistryState;
   notifications: NotificationsState;
   sidebar: SidebarState;
   searchFilter: SearchFiltersState;
@@ -91,10 +74,7 @@ export interface AppState {
   menus: MenusState;
   objectSelection: ObjectSelectionListState;
   selectableLists: SelectableListsState;
-  relationshipLists: NameVariantListsState;
   communityList: CommunityListState;
-  epeopleRegistry: EPeopleRegistryState;
-  groupRegistry: GroupRegistryState;
   correlationId: string;
   contextHelp: ContextHelpState;
 }
@@ -103,7 +83,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   router: routerReducer,
   hostWindow: hostWindowReducer,
   forms: formReducer,
-  metadataRegistry: metadataRegistryReducer,
   notifications: notificationsReducer,
   sidebar: sidebarReducer,
   searchFilter: filterReducer,
@@ -113,10 +92,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   menus: menusReducer,
   objectSelection: objectSelectionReducer,
   selectableLists: selectableListReducer,
-  relationshipLists: nameVariantReducer,
   communityList: CommunityListReducer,
-  epeopleRegistry: ePeopleRegistryReducer,
-  groupRegistry: groupRegistryReducer,
   correlationId: correlationIdReducer,
   contextHelp: contextHelpReducer,
 };

@@ -5,8 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
-
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
 import { FindListOptions } from '../../data/find-list-options.model';

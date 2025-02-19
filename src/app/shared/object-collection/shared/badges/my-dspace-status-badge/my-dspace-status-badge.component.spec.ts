@@ -14,11 +14,11 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { Context } from '../../../../../core/shared/context.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../../core/tasks/models/pool-task-object.model';
 import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject } from '../../../../remote-data.utils';
 import { EPersonMock } from '../../../../testing/eperson.mock';
 import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component';
 

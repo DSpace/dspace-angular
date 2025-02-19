@@ -16,6 +16,7 @@ import {
 } from 'rxjs';
 import { last } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../../../core/cache/response.models';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
@@ -31,7 +32,6 @@ import { WorkspaceItem } from '../../../../../core/submission/models/workspaceit
 import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import {
   AddRelationshipAction,
   RelationshipActionTypes,

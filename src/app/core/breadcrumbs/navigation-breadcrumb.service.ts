@@ -4,7 +4,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 
 /**

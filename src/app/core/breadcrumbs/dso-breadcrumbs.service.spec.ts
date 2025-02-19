@@ -5,20 +5,20 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { getDSORoute } from '../../app-routing-paths';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { getMockLinkService } from '../../shared/mocks/link-service.mock';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../shared/remote-data.utils';
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { getMockLinkService } from '../../shared/mocks/link-service.mock';
 import { LinkService } from '../cache/builders/link.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
+import { Breadcrumb } from './breadcrumb.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';
+import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 describe('DSOBreadcrumbsService', () => {
   let service: DSOBreadcrumbsService;
@@ -115,9 +115,9 @@ describe('DSOBreadcrumbsService', () => {
     it('should return the breadcrumbs based on an Item', () => {
       const breadcrumbs = service.getBreadcrumbs(testItem, testItem._links.self);
       const expectedCrumbs = [
-        new Breadcrumb(getName(testCommunity), getDSORoute(testCommunity)),
-        new Breadcrumb(getName(testCollection), getDSORoute(testCollection)),
-        new Breadcrumb(getName(testItem), getDSORoute(testItem)),
+        new Breadcrumb(getName(testCommunity), getDSpaceObjectRoute(testCommunity)),
+        new Breadcrumb(getName(testCollection), getDSpaceObjectRoute(testCollection)),
+        new Breadcrumb(getName(testItem), getDSpaceObjectRoute(testItem)),
       ];
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: expectedCrumbs });
     });

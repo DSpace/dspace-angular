@@ -4,9 +4,9 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { environment } from '../../../environments/environment';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { EndpointMapRequest } from '../data/request.models';

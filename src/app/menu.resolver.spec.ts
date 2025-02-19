@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
 import { BrowseService } from './core/browse/browse.service';
 import { ConfigurationDataService } from './core/data/configuration-data.service';
@@ -21,7 +22,6 @@ import { FeatureID } from './core/data/feature-authorization/feature-id';
 import { ScriptDataService } from './core/data/processes/script-data.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/menu-id.model';
-import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { ConfigurationDataServiceStub } from './shared/testing/configuration-data.service.stub';
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { createPaginatedList } from './shared/testing/utils.test';

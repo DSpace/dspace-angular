@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 
-import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { BreadcrumbConfig } from '../core/breadcrumbs/breadcrumb-config.model';
 import { SubmissionObject } from '../core/submission/models/submission-object.model';
 import { SubmissionParentBreadcrumbResolver } from '../core/submission/resolver/submission-parent-breadcrumb.resolver';
 import { SubmissionParentBreadcrumbsService } from '../core/submission/submission-parent-breadcrumb.service';

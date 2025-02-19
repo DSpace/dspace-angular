@@ -4,14 +4,14 @@ import {
 } from 'angulartics2';
 import { of } from 'rxjs';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import { GOOGLE_ANALYTICS_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../shared/remote-data.utils';
 import { GoogleAnalyticsService } from './google-analytics.service';
 
 describe('GoogleAnalyticsService', () => {

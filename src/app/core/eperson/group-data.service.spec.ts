@@ -17,6 +17,7 @@ import {
 } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction,
@@ -24,7 +25,6 @@ import {
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {
   EPersonMock,
   EPersonMock2,

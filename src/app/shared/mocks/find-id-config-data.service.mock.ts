@@ -1,5 +1,5 @@
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export function getMockFindByIdDataService(propertyKey: string, ...values: string[]) {
   return jasmine.createSpyObj('findByIdDataService', {

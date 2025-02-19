@@ -10,6 +10,7 @@ import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
@@ -18,7 +19,6 @@ import { SubmissionCcLicence } from '../../../core/submission/models/submission-
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';

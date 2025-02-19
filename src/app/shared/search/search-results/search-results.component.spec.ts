@@ -12,13 +12,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { createFailedRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { Community } from '../../../core/shared/community.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../error/error.component';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { createFailedRemoteDataObject } from '../../remote-data.utils';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';

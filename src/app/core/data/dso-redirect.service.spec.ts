@@ -4,9 +4,9 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AppConfig } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HardRedirectService } from '../services/hard-redirect.service';

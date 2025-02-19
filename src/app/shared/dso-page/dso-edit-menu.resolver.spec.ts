@@ -21,6 +21,10 @@ import {
 } from 'rxjs';
 import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontype-data.service';
 
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -34,10 +38,6 @@ import { MenuID } from '../menu/menu-id.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { NotificationsService } from '../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
 import { DSOEditMenuResolverService } from './dso-edit-menu-resolver.service';

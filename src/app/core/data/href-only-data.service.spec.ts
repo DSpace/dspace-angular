@@ -1,4 +1,4 @@
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { BaseDataService } from './base/base-data.service';
 import { FindListOptions } from './find-list-options.model';
 import {

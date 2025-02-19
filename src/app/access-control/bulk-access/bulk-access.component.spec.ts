@@ -7,13 +7,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { Process } from '../../process-page/processes/process.model';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BulkAccessComponent } from './bulk-access.component';

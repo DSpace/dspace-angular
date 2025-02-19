@@ -25,12 +25,12 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../../../../core/shared/configuration-property.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,

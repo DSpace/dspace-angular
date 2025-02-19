@@ -17,6 +17,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ProcessDataService } from '../../../core/data/processes/process-data.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -26,7 +27,6 @@ import { RouteService } from '../../../core/services/route.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

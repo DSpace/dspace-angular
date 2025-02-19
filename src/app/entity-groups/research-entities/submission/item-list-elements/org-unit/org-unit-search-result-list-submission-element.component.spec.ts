@@ -17,6 +17,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
@@ -39,7 +40,6 @@ import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucata
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { OrgUnitSearchResultListSubmissionElementComponent } from './org-unit-search-result-list-submission-element.component';

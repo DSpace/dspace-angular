@@ -15,6 +15,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -35,10 +39,6 @@ import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { createPaginatedList } from '../../../testing/utils.test';

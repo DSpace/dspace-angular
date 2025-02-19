@@ -14,6 +14,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
@@ -30,7 +31,6 @@ import {
   externalSourceOrcid,
   getMockExternalSourceService,
 } from '../../../shared/mocks/external-source.service.mock';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {

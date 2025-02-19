@@ -6,11 +6,11 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../data/feature-authorization/feature-id';
 import { ItemDataService } from '../data/item-data.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { DSONameService } from './dso-name.service';
 

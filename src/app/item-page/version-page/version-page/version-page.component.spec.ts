@@ -8,14 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of as observableOf } from 'rxjs';
 
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../../core/auth/auth.service';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { createRelationshipsObservable } from '../../simple/item-types/shared/item.component.spec';

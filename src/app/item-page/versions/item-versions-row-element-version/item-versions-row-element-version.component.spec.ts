@@ -24,6 +24,7 @@ import {
   of,
 } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { VersionDataService } from '../../../core/data/version-data.service';
@@ -34,7 +35,6 @@ import { VersionHistory } from '../../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

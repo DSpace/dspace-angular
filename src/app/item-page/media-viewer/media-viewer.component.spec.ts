@@ -12,6 +12,7 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
@@ -21,7 +22,6 @@ import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';

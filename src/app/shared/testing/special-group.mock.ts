@@ -1,16 +1,16 @@
 import { Observable } from 'rxjs';
 
 import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import {
   buildPaginatedList,
   PaginatedList,
 } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Group } from '../../core/eperson/models/group.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 
 export const SpecialGroupMock2: Group = Object.assign(new Group(), {

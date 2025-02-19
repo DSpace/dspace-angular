@@ -22,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { BrowseService } from '../../core/browse/browse.service';
@@ -40,7 +41,6 @@ import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-heade
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { RouterMock } from '../../shared/mocks/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
