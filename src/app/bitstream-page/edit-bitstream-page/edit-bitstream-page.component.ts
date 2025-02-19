@@ -566,7 +566,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       fileNamePrimaryContainer: {
         fileName: bitstream.name,
         primaryBitstream: this.primaryBitstreamUUID === bitstream.uuid,
-        alternativeContent: bitstream.firstMetadataValue('dc.type') === "alternative content"
+        alternativeContent: bitstream.firstMetadataValue('dc.type') === 'alternative content',
       },
       descriptionContainer: {
         description: bitstream.firstMetadataValue('dc.description'),
