@@ -75,18 +75,17 @@ export class SearchChartsComponent implements OnInit {
   chartsVisibilityList$: Observable<boolean[]> = of([true]);
 
   /**
+   * Prop that provides the boolean value for an existing valid chart (true if at least one valid chart is found)
+   */
+  hasValidCharts = false;
+
+  /**
    *
    * @param cdr
    * @param searchService
    * @param platformId
    * @param searchConfigService
    */
-
-  /**
-   * Prop that provides the boolean value for an existing valid chart (true if at least one valid chart is found)
-   */
-  hasValidCharts = false;
-
   constructor(
     private cdr: ChangeDetectorRef,
     private searchService: SearchService,
