@@ -4620,7 +4620,7 @@
   "journalissue.listelement.badge": "Zeitschriftenheft",
 
   // "journalissue.page.description": "Description",
-  "journalissue.page.description": "Beschreibeung",
+  "journalissue.page.description": "Beschreibung",
 
   // "journalissue.page.edit": "Edit this item",
   "journalissue.page.edit": "Dieses Item bearbeiten",
@@ -5757,10 +5757,10 @@
   "process.overview.table.user": "Benutzer:in",
 
   // "process.overview.title": "Processes Overview",
-  "process.overview.title": "Überblick der Prozesse",
+  "process.overview.title": "Übersicht der Prozesse",
 
   // "process.overview.breadcrumbs": "Processes Overview",
-  "process.overview.breadcrumbs": "Überblick der Prozesse",
+  "process.overview.breadcrumbs": "Übersicht der Prozesse",
 
   // "process.overview.new": "New",
   "process.overview.new": "Neu",
@@ -8454,7 +8454,7 @@
   "workflow-item.delete.notification.success.title": "Gelöscht",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde gelöscht.",
+  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde erfolgreich gelöscht.",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
   "workflow-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
@@ -9573,7 +9573,7 @@
   "item.page.supplemented": "Ergänzt durch",
 
   // "menu.section.icon.ldn_services": "LDN Services overview",
-  "menu.section.icon.ldn_services": "Überblick der LDN-Dienste",
+  "menu.section.icon.ldn_services": "Übersicht der LDN-Dienste",
 
   // "menu.section.services": "LDN Services",
   "menu.section.services": "LDN-Dienste",
@@ -9633,10 +9633,10 @@
   "service.overview.table.user": "Benutzer:in",
 
   // "service.overview.title": "Services Overview",
-  "service.overview.title": "Überblick über die Dienste",
+  "service.overview.title": "Übersicht der Dienste",
 
   // "service.overview.breadcrumbs": "Services Overview",
-  "service.overview.breadcrumbs": "Überblick über die Dienste",
+  "service.overview.breadcrumbs": "Übersicht der Dienste",
 
   // "service.overview.table.actions": "Actions",
   "service.overview.table.actions": "Aktionen",
