@@ -18,7 +18,6 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
-import { getDSORoute } from '../../app-routing-paths';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
@@ -29,6 +28,7 @@ import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RemoteData } from './remote-data';
 import { IdentifierType } from './request.models';
 import { RequestService } from './request.service';
+import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 const ID_ENDPOINT = 'pid';
 const UUID_ENDPOINT = 'dso';
@@ -104,7 +104,7 @@ export class DsoRedirectService {
         if (response.hasSucceeded) {
           const dso = response.payload;
           if (hasValue(dso.uuid)) {
-            const newRoute = getDSORoute(dso);
+            const newRoute = getDSpaceObjectRoute(dso);
             if (hasValue(newRoute)) {
               // Use a "301 Moved Permanently" redirect for SEO purposes
               this.hardRedirectService.redirect(this.appConfig.ui.nameSpace.replace(/\/$/, '') + newRoute, 301);
