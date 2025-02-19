@@ -7,8 +7,9 @@ import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
-import { mergeConfig } from './config.util';
+import { mergeConfig, extendEnvironmentWithAppConfig } from './config.util';
 import { isNotEmpty } from '../app/shared/empty.util';
+import { RawBootstrapResponse } from '../app/core/dspace-rest/raw-rest-response.model';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 
@@ -242,4 +243,44 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   }
 
   return appConfig;
+};
+
+export const setupEndpointPrefetching = async (appConfig: AppConfig, destConfigPath: string, env: any): Promise<void> => {
+  await prefetchResponses(appConfig, destConfigPath, env);
+
+  setInterval(() => void prefetchResponses(appConfig, destConfigPath, env), appConfig.prefetch.refreshInterval);
+};
+
+export const prefetchResponses = async (appConfig: AppConfig, destConfigPath: string, env: any): Promise<void> => {
+  console.info('Prefetching endpoint maps');
+  const restConfig = appConfig.rest;
+  const prefetchConfig = appConfig.prefetch;
+
+  const baseUrl = restConfig.baseUrl;
+  const mapping: Record<string, RawBootstrapResponse> = {};
+
+  for (const relativeUrl of prefetchConfig.urls) {
+    const url = baseUrl + relativeUrl;
+
+    const response = await fetch(url);
+
+    const headers: Record<string, string> = {};
+    response.headers.forEach((value, header) => {
+      headers[header] = value;
+    });
+
+    const rawBootstrapResponse: RawBootstrapResponse = {
+      payload: await response.json(),
+      headers: headers,
+      statusCode: response.status,
+      statusText: response.statusText,
+    };
+
+    mapping[url] = rawBootstrapResponse;
+  }
+
+  prefetchConfig.bootstrap = mapping;
+
+  extendEnvironmentWithAppConfig(env, appConfig, false);
+  writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
 };
