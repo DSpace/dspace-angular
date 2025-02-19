@@ -64,6 +64,8 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
+  BITSTREAM_FORM_ALTERNATIVE_CONTENT,
+  BITSTREAM_FORM_ALTERNATIVE_CONTENT_LAYOUT,
   BITSTREAM_FORM_PRIMARY,
   BITSTREAM_FORM_PRIMARY_LAYOUT,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
@@ -99,6 +101,12 @@ implements OnInit, OnDestroy {
    * @type {boolean, null}
    */
   isPrimary: boolean;
+
+  /**
+   * The indicator if is alternative content bitstream
+   * @type {boolean, null}
+   */
+  isAlternativeContent: boolean;
 
   /**
    * The list of available access condition
@@ -221,6 +229,9 @@ implements OnInit, OnDestroy {
     const primaryBitstreamModel: any = this.formBuilderService.findById('primary', formModel, this.fileIndex);
     primaryBitstreamModel.value = this.isPrimary || false;
 
+    const alternativeContentBitstreamModel: any = this.formBuilderService.findById('alternativeContent', formModel, this.fileIndex);
+    alternativeContentBitstreamModel.value = this.isAlternativeContent || false;
+
     this.fileData.accessConditions.forEach((accessCondition, index) => {
       Array.of('name', 'startDate', 'endDate')
         .filter((key) => accessCondition.hasOwnProperty(key) && isNotEmpty(accessCondition[key]))
@@ -323,6 +334,8 @@ implements OnInit, OnDestroy {
     const formModel: DynamicFormControlModel[] = [];
 
     formModel.push(new DynamicCustomSwitchModel(BITSTREAM_FORM_PRIMARY, BITSTREAM_FORM_PRIMARY_LAYOUT));
+
+    formModel.push(new DynamicCustomSwitchModel(BITSTREAM_FORM_ALTERNATIVE_CONTENT, BITSTREAM_FORM_ALTERNATIVE_CONTENT_LAYOUT));
 
     const metadataGroupModelConfig = Object.assign({}, BITSTREAM_METADATA_FORM_GROUP_CONFIG);
     metadataGroupModelConfig.group = this.formBuilderService.modelFromConfiguration(
@@ -436,6 +449,14 @@ implements OnInit, OnDestroy {
       take(1),
       mergeMap((formData: any) => {
         this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
+
+        //Set operations to bitstream alternative content flag
+        const alternativeContentPath = 'alternativecontent';
+        if (formData.alternativeContent[0]) {
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, alternativeContentPath]), true, false, true);
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, alternativeContentPath]));
+        }
 
         // collect bitstream metadata
         Object.keys((formData.metadata))
