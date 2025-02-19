@@ -13,6 +13,8 @@ import { RouterStub } from '../../shared/testing/router.stub';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 describe(`AuthInterceptor`, () => {
   let service: DspaceRestService;
@@ -39,6 +41,7 @@ describe(`AuthInterceptor`, () => {
           multi: true,
         },
         { provide: Store, useValue: store },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 
