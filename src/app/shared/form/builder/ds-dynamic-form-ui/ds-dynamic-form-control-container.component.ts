@@ -15,7 +15,8 @@ import {
   SimpleChanges,
   Type,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  ComponentRef,
 } from '@angular/core';
 import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 
@@ -65,7 +66,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/dat
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
+import { hasNoValue, hasValue, isNotEmpty, isNotUndefined, hasValueOperator } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
@@ -120,6 +121,9 @@ import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-cons
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
+import {
+  ThemedDsDynamicLookupRelationModalComponent
+} from './relation-lookup-modal/themed-dynamic-lookup-relation-modal.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -424,7 +428,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Open a modal where the user can select relationships to be added to item being submitted
    */
   openLookup() {
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
+    this.modalRef = this.modalService.open(ThemedDsDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
 
@@ -448,24 +452,30 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     this.submissionService.dispatchSave(this.model.submissionId);
 
-    const modalComp = this.modalRef.componentInstance;
+    const modalComp$ = this.modalRef.componentInstance.compRef$.pipe(
+      hasValueOperator(),
+      map((compRef: ComponentRef<DsDynamicLookupRelationModalComponent>) => compRef.instance),
+      take(1)
+    );
 
-    if (hasValue(this.model.value) && !this.model.readOnly) {
-      if (typeof this.model.value === 'string') {
-        modalComp.query = this.model.value;
-      } else if (typeof this.model.value.value === 'string') {
-        modalComp.query = this.model.value.value;
+    modalComp$.subscribe((modalComp: DsDynamicLookupRelationModalComponent) => {
+      if (hasValue(this.model.value) && !this.model.readOnly) {
+        if (typeof this.model.value === 'string') {
+          modalComp.query = this.model.value;
+        } else if (typeof this.model.value.value === 'string') {
+          modalComp.query = this.model.value.value;
+        }
       }
-    }
 
-    modalComp.repeatable = this.model.repeatable;
-    modalComp.listId = this.listId;
-    modalComp.relationshipOptions = this.model.relationship;
-    modalComp.label = this.model.relationship.relationshipType;
-    modalComp.metadataFields = this.model.metadataFields;
-    modalComp.item = this.item;
-    modalComp.collection = this.collection;
-    modalComp.submissionId = this.model.submissionId;
+      modalComp.repeatable = this.model.repeatable;
+      modalComp.listId = this.listId;
+      modalComp.relationshipOptions = this.model.relationship;
+      modalComp.label = this.model.relationship.relationshipType;
+      modalComp.metadataFields = this.model.metadataFields;
+      modalComp.item = this.item;
+      modalComp.collection = this.collection;
+      modalComp.submissionId = this.model.submissionId;
+    });
   }
 
   /**

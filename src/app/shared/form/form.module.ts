@@ -7,6 +7,7 @@ import { DsDynamicListComponent } from './builder/ds-dynamic-form-ui/models/list
 import { DsDynamicLookupComponent } from './builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { DsDynamicDisabledComponent } from './builder/ds-dynamic-form-ui/models/disabled/dynamic-disabled.component';
 import { DsDynamicLookupRelationModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { ThemedDsDynamicLookupRelationModalComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/themed-dynamic-lookup-relation-modal.component';
 import { DsDynamicScrollableDropdownComponent } from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DsDynamicTagComponent } from './builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
 import { DsDynamicOneboxComponent } from './builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
@@ -56,6 +57,7 @@ const COMPONENTS = [
   ThemedDynamicLookupRelationExternalSourceTabComponent,
   DsDynamicDisabledComponent,
   DsDynamicLookupRelationModalComponent,
+  ThemedDsDynamicLookupRelationModalComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
   DsDynamicOneboxComponent,

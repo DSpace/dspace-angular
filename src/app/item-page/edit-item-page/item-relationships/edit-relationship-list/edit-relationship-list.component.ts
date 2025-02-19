@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ComponentRef } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -25,7 +25,7 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { ThemedDsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/themed-dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../shared/search/models/search-result.model';
@@ -41,6 +41,9 @@ import { FieldUpdates } from '../../../../core/data/object-updates/field-updates
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
+import {
+  DsDynamicLookupRelationModalComponent
+} from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -212,10 +215,15 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   openLookup() {
 
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
+    this.modalRef = this.modalService.open(ThemedDsDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
-    const modalComp: DsDynamicLookupRelationModalComponent = this.modalRef.componentInstance;
+    const modalComp$ = this.modalRef.componentInstance.compRef$.pipe(
+      hasValueOperator(),
+      map((compRef: ComponentRef<DsDynamicLookupRelationModalComponent>) => compRef.instance),
+      take(1)
+    );
+    modalComp$.subscribe((modalComp: DsDynamicLookupRelationModalComponent) => {
     modalComp.repeatable = true;
     modalComp.isEditRelationship = true;
     modalComp.listId = this.listId;
@@ -225,13 +233,11 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.toAdd = [];
     modalComp.toRemove = [];
     modalComp.isPending = false;
-
     this.item.owningCollection.pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((collection: Collection) => {
       modalComp.collection = collection;
     });
-
     modalComp.select = (...selectableObjects: SearchResult<Item>[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
@@ -273,9 +279,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         }
       });
     };
-
-
-
     modalComp.submitEv = () => {
 
       const subscriptions = [];
@@ -284,15 +287,15 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         const relatedItem = searchResult.indexableObject;
         subscriptions.push(this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
           map((nameVariant) => {
-          const update = {
-            uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
-            nameVariant,
-            type: this.relationshipType,
-            relatedItem,
-          } as RelationshipIdentifiable;
-          this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
-          return update;
-        })
+            const update = {
+              uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
+              nameVariant,
+              type: this.relationshipType,
+              relatedItem,
+            } as RelationshipIdentifiable;
+            this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
+            return update;
+          })
         ));
       });
 
@@ -350,6 +353,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
           }
         );
       });
+  });
 
     this.selectableListService.deselectAll(this.listId);
   }
