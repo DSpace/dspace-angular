@@ -1,9 +1,14 @@
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser,
+} from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnChanges,
   OnInit,
+  PLATFORM_ID,
   SimpleChanges,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -87,6 +92,7 @@ export class ThumbnailComponent implements OnInit, OnChanges {
   isLoading = true;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformID: any,
     protected auth: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected fileService: FileService,
@@ -111,16 +117,18 @@ export class ThumbnailComponent implements OnInit, OnChanges {
    * Use a default image if no actual image is available.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (hasNoValue(this.thumbnail)) {
-      this.setSrc(this.defaultImage);
-      return;
-    }
+    if (isPlatformBrowser(this.platformID)) {
+      if (hasNoValue(this.thumbnail)) {
+        this.setSrc(this.defaultImage);
+        return;
+      }
 
-    const src = this.contentHref;
-    if (hasValue(src)) {
-      this.setSrc(src);
-    } else {
-      this.setSrc(this.defaultImage);
+      const src = this.contentHref;
+      if (hasValue(src)) {
+        this.setSrc(src);
+      } else {
+        this.setSrc(this.defaultImage);
+      }
     }
   }
 
