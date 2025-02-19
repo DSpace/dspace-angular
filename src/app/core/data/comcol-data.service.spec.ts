@@ -12,12 +12,12 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+} from '../utilities/remote-data.utils';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { Bitstream } from '../shared/bitstream.model';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

@@ -9,7 +9,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { createNoContentRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createNoContentRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';

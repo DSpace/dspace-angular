@@ -1,6 +1,6 @@
-import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { FilteredDiscoveryQueryResponse } from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { getMockObjectCacheService } from '../mocks/object-cache.service.mock';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { FilteredDiscoveryPageResponseParsingService } from './filtered-discovery-page-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';

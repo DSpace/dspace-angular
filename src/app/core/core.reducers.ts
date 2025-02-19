@@ -16,6 +16,7 @@ import { indexReducer } from './index/index.reducer';
 import { jsonPatchOperationsReducer } from './json-patch/json-patch-operations.reducer';
 import { metaTagReducer } from './metadata/meta-tag.reducer';
 import { routeReducer } from './services/route.reducer';
+import { correlationIdReducer } from "./correlation-id/correlation-id.reducer";
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'bitstreamFormats': bitstreamFormatReducer,
@@ -32,5 +33,6 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'epeopleRegistry': ePeopleRegistryReducer,
   'relationshipLists': nameVariantReducer,
   'metadataRegistry': metadataRegistryReducer,
-  groupRegistry: groupRegistryReducer,
+  'groupRegistry': groupRegistryReducer,
+  'correlationId': correlationIdReducer,
 };

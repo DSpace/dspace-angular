@@ -14,12 +14,11 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { storeModuleConfig } from '../../app.reducer';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { StoreMock } from '../../shared/testing/store.mock';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { ObjectCacheService } from './object-cache.service';
@@ -29,6 +28,7 @@ import {
   ServerSyncBufferActionTypes,
 } from './server-sync-buffer.actions';
 import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
+import { mockStoreModuleConfig } from "../utilities/test/mock-state-utilities";
 
 describe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;
@@ -50,7 +50,7 @@ describe('ServerSyncBufferEffects', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}, storeModuleConfig),
+        StoreModule.forRoot({}, mockStoreModuleConfig),
       ],
       providers: [
         ServerSyncBufferEffects,

@@ -15,9 +15,9 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { ListableObject } from '../../../../core/object-collection/listable-object.model';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-selectable-list-item-control',

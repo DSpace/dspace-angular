@@ -4,13 +4,13 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import {
   link,
   typedObject,
 } from '../../cache/builders/build-decorators';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
+import { ListableObject } from '../../object-collection/listable-object.model';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALLink } from '../../shared/hal-link.model';

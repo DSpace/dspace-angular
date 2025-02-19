@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { getItemPageLinksToFollow } from '../../item-page/item.resolver';
+import { getItemPageLinksToFollow } from '../shared/resolvers/item.resolver';
 import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { ItemDataService } from '../data/item-data.service';
 import { DSpaceObject } from '../shared/dspace-object.model';

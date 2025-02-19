@@ -27,7 +27,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';

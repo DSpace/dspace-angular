@@ -8,7 +8,7 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../utilities/remote-data.utils';
 import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';

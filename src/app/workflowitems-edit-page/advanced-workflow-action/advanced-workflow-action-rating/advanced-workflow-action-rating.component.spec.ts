@@ -19,7 +19,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { RouteService } from '../../../core/services/route.service';

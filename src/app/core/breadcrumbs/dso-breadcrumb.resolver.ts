@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { FollowLinkConfig } from '../data/follow-link-config.model';
+import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,
@@ -15,7 +16,6 @@ import {
 } from '../shared/operators';
 import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 /**
  * Method for resolving a breadcrumb config object

@@ -11,7 +11,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { FileValueAccessorDirective } from '../../../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../../../shared/utils/require-file.validator';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';

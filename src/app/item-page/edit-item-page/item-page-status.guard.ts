@@ -3,7 +3,7 @@ import { of as observableOf } from 'rxjs';
 
 import { dsoPageSomeFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-some-feature.guard';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { itemPageResolver } from '../item-page.resolver';
+import { itemPageResolver } from '../../core/shared/resolvers/item-page.resolver';
 
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring any of the rights required for

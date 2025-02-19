@@ -17,14 +17,11 @@ import {
 } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction,
 } from '../../access-control/group-registry/group-registry.actions';
-import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import {
   EPersonMock,
   EPersonMock2,
@@ -50,6 +47,9 @@ import {
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getMockObjectCacheService } from '../mocks/object-cache.service.mock';
+import { getMockRemoteDataBuildServiceHrefMap } from '../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { Item } from '../shared/item.model';
 import { GroupDataService } from './group-data.service';
 

@@ -18,13 +18,13 @@ import { of as observableOf } from 'rxjs';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { RequestService } from '../../core/data/request.service';
+import { getMockRequestService } from '../../core/mocks/request.service.mock';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { RouteService } from '../../core/services/route.service';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { LocationStub } from '../../shared/testing/location.stub';

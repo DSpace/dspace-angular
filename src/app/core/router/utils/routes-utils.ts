@@ -1,9 +1,13 @@
-import { DSpaceObject } from "../../shared/dspace-object.model";
-import { hasValue, isNotEmpty } from "@dspace/shared/utils";
-import { Community } from "../../shared/community.model";
-import { Collection } from "../../shared/collection.model";
-import { Item } from "../../shared/item.model";
-import { URLCombiner } from "../../url-combiner/url-combiner";
+import {
+  hasValue,
+  isNotEmpty,
+} from '@dspace/shared/utils';
+
+import { Collection } from '../../shared/collection.model';
+import { Community } from '../../shared/community.model';
+import { DSpaceObject } from '../../shared/dspace-object.model';
+import { Item } from '../../shared/item.model';
+import { URLCombiner } from '../../url-combiner/url-combiner';
 
 export function getDSpaceObjectRoute(dso: DSpaceObject): string {
   if (hasValue(dso)) {

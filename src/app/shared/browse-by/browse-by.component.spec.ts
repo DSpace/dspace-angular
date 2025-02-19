@@ -18,7 +18,7 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import {
   SortDirection,
   SortOptions,
@@ -26,6 +26,8 @@ import {
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { GroupDataService } from '../../core/eperson/group-data.service';
+import { getMockThemeService } from '../../core/mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { RouteService } from '../../core/services/route.service';
@@ -37,8 +39,6 @@ import { PaginationComponentOptions } from '../../core/shared/pagination-compone
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { HostWindowService } from '../host-window.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import {
   DEFAULT_CONTEXT,
   listableObjectComponent,

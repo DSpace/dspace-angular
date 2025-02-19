@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import {
   SortDirection,
   SortOptions,

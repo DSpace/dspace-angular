@@ -23,13 +23,13 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
+import { NativeWindowMockFactory } from '../../../core/mocks/mock-native-window-ref';
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { NativeWindowService } from '../../../core/services/window.service';
 import { Item } from '../../../core/shared/item.model';
-import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';

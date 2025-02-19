@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
 import { collectionPageResolver } from './collection-page.resolver';
 
 describe('collectionPageResolver', () => {

@@ -5,12 +5,12 @@ import {
 import { hasNoValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { Item } from '../shared/item.model';
 import { AccessStatusDataService } from './access-status-data.service';
 import { RemoteData } from './remote-data';

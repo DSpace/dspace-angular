@@ -13,12 +13,12 @@ import {
 import { LinkService } from '../cache/builders/link.service';
 import { followLink } from '../data/follow-link-config.model';
 import { RemoteData } from '../data/remote-data';
+import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { DSONameService } from './dso-name.service';
-import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route

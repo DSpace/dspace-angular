@@ -23,12 +23,12 @@ import { BitstreamFormatDataService } from '../../../../core/data/bitstream-form
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
+import { CollectionSearchResult } from '../../../../core/object-collection/collection-search-result.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

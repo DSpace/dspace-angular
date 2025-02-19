@@ -9,7 +9,7 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
-import { itemPageResolver } from './item-page.resolver';
+import { itemPageResolver } from '../core/shared/resolvers/item-page.resolver';
 import {
   ITEM_EDIT_PATH,
   ORCID_PATH,

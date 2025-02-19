@@ -19,9 +19,8 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { REQUEST } from '../../../express.tokens';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
@@ -39,6 +38,7 @@ import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data/remote-data';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
+import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { ClientCookieService } from '../services/client-cookie.service';
 import { CookieService } from '../services/cookie.service';
 import { HardRedirectService } from '../services/hard-redirect.service';

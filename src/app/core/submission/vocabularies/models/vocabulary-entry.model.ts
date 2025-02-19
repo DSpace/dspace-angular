@@ -6,8 +6,8 @@ import {
 
 import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
-import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
+import { ListableObject } from '../../../object-collection/listable-object.model';
 import { GenericConstructor } from '../../../shared/generic-constructor';
 import { HALLink } from '../../../shared/hal-link.model';
 import { excludeFromEquals } from '../../../utilities/equals.decorators';

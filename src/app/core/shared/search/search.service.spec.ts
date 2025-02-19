@@ -14,8 +14,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
@@ -26,6 +25,7 @@ import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { PaginationService } from '../../pagination/pagination.service';
 import { RouteService } from '../../services/route.service';
 import { HALEndpointService } from '../hal-endpoint.service';

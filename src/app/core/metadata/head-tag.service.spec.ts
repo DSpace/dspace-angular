@@ -21,21 +21,21 @@ import {
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../utilities/remote-data.utils';
 import { AppConfig } from '../../../config/app-config.interface';
-import {
-  ItemMock,
-  MockBitstream1,
-  MockBitstream2,
-  MockBitstream3,
-} from '../../shared/mocks/item.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RootDataService } from '../data/root-data.service';
+import {
+  ItemMock,
+  MockBitstream1,
+  MockBitstream2,
+  MockBitstream3,
+} from '../mocks/item.mock';
+import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';

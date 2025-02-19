@@ -20,7 +20,6 @@ import {
 import { first } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { storeModuleConfig } from '../../app.reducer';
 import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
 import { RestRequestMethod } from '../data/rest-request-method';
@@ -39,6 +38,7 @@ import {
 import { Patch } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
+import { mockStoreModuleConfig } from "../utilities/test/mock-state-utilities";
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
@@ -116,7 +116,7 @@ describe('ObjectCacheService', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(coreReducers, storeModuleConfig),
+        StoreModule.forRoot(coreReducers, mockStoreModuleConfig),
       ],
       providers: [
         provideMockStore({ initialState }),

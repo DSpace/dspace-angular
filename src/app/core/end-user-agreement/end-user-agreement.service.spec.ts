@@ -1,8 +1,8 @@
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { EPerson } from '../eperson/models/eperson.model';
+import { CookieServiceMock } from '../mocks/cookie.service.mock';
 import {
   END_USER_AGREEMENT_COOKIE,
   END_USER_AGREEMENT_METADATA_FIELD,

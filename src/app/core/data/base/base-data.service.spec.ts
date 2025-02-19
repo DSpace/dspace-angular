@@ -20,9 +20,7 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+} from '../../utilities/remote-data.utils';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
@@ -33,6 +31,8 @@ import {
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { BITSTREAM } from '../../shared/bitstream.resource-type';
 import { COLLECTION } from '../../shared/collection.resource-type';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';

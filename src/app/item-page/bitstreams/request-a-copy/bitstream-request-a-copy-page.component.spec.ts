@@ -23,17 +23,17 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import { AuthService } from '../../../core/auth/auth.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Item } from '../../../core/shared/item.model';
 import { ItemRequest } from '../../../core/shared/item-request.model';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';

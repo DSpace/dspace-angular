@@ -20,12 +20,12 @@ import {
 import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 
 import { RequestService } from '../../../../core/data/request.service';
+import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
+import { getMockSearchService } from '../../../../core/mocks/search-service.mock';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RouterStub } from '../../../testing/router.stub';

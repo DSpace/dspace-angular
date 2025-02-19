@@ -36,6 +36,7 @@ import { ConfigurationDataService } from '../../../../core/data/configuration-da
 import { followLink } from '../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { PoolTaskSearchResult } from '../../../../core/object-collection/pool-task-search-result.model';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -46,7 +47,6 @@ import { SubmissionDuplicateDataService } from '../../../../core/submission/subm
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { Duplicate } from '../../duplicate-data/duplicate.model';

@@ -20,6 +20,7 @@ import {
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { ListableObject } from '../../../core/object-collection/listable-object.model';
 import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
@@ -36,7 +37,6 @@ import {
 import { ErrorComponent } from '../../error/error.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
 

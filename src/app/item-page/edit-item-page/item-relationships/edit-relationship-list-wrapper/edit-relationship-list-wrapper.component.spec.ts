@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';

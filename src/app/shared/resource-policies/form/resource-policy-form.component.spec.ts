@@ -39,11 +39,14 @@ import {
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { getMockFormService } from '../../../core/mocks/form-service.mock';
+import { getMockRequestService } from '../../../core/mocks/request.service.mock';
+import { RouterMock } from '../../../core/mocks/router.mock';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { ActionType } from '../../../core/resource-policy/models/action-type.model';
 import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
@@ -58,9 +61,6 @@ import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-
 import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
-import { getMockFormService } from '../../mocks/form-service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RouterMock } from '../../mocks/router.mock';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { GroupMock } from '../../testing/group-mock';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';

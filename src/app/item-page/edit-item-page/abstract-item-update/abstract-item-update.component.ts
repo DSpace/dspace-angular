@@ -33,7 +33,7 @@ import { Item } from '../../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
-import { getItemPageLinksToFollow } from '../../item.resolver';
+import { getItemPageLinksToFollow } from '../../../core/shared/resolvers/item.resolver';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

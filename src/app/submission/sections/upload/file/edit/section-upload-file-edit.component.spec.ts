@@ -38,16 +38,8 @@ import {
 import { environment } from '../../../../../../environments/environment.test';
 import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
-import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
-import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
-import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
-import { FormComponent } from '../../../../../shared/form/form.component';
-import { FormService } from '../../../../../shared/form/form.service';
-import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
-import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
+import { getMockFormService } from '../../../../../core/mocks/form-service.mock';
+import { getMockSectionUploadService } from '../../../../../core/mocks/section-upload.service.mock';
 import {
   mockFileFormData,
   mockSubmissionCollectionId,
@@ -56,7 +48,15 @@ import {
   mockUploadConfigResponse,
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
-} from '../../../../../shared/mocks/submission.mock';
+} from '../../../../../core/mocks/submission.mock';
+import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormComponent } from '../../../../../shared/form/form.component';
+import { FormService } from '../../../../../shared/form/form.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';

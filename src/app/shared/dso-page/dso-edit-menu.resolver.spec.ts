@@ -24,7 +24,7 @@ import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontyp
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';

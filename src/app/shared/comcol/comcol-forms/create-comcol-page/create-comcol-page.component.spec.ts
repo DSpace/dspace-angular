@@ -14,7 +14,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../../core/utilities/remote-data.utils';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { RequestService } from '../../../../core/data/request.service';

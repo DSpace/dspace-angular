@@ -17,10 +17,10 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { Script } from '../../scripts/script.model';

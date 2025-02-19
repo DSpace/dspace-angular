@@ -1,4 +1,4 @@
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { Item } from '../../../../core/shared/item.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';

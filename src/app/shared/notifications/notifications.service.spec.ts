@@ -14,7 +14,7 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
 import { NotificationComponent } from './notification/notification.component';

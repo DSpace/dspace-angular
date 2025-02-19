@@ -17,8 +17,8 @@ import {
 
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 
 let comp: MetadataUriValuesComponent;

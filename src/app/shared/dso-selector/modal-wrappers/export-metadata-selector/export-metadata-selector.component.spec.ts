@@ -28,18 +28,18 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../../core/utilities/remote-data.utils';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import {
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '../../../../core/data/processes/script-data.service';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';

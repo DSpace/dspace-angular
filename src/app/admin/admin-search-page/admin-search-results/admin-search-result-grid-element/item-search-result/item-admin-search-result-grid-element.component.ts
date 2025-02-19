@@ -10,12 +10,12 @@ import { hasValue } from '@dspace/shared/utils';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import {
   getListableObjectComponent,
   listableObjectComponent,

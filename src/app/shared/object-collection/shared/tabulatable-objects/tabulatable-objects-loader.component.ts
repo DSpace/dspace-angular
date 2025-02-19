@@ -25,12 +25,12 @@ import {
 import { take } from 'rxjs/operators';
 
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { ListableObject } from '../../../../core/object-collection/listable-object.model';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { ListableObject } from '../listable-object.model';
 import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';
 import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
 

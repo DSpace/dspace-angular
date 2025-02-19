@@ -8,8 +8,7 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -18,6 +17,7 @@ import { CoreState } from '../core-state.model';
 import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
+import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { PageInfo } from '../shared/page-info.model';

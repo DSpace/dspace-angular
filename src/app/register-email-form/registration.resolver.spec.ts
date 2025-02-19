@@ -1,6 +1,6 @@
 import { first } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { Registration } from '../core/shared/registration.model';
 import { registrationResolver } from './registration.resolver';

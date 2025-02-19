@@ -1,4 +1,4 @@
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { ListableObject } from '../object-collection/listable-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { Item } from '../shared/item.model';

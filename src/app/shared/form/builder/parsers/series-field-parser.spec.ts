@@ -1,5 +1,4 @@
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
-
+import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
 import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';

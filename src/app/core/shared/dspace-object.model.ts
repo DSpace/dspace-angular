@@ -10,9 +10,9 @@ import {
   deserializeAs,
 } from 'cerialize';
 
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { ListableObject } from '../object-collection/listable-object.model';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { DSPACE_OBJECT } from './dspace-object.resource-type';
 import { GenericConstructor } from './generic-constructor';

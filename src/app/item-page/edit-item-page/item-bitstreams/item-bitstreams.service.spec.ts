@@ -9,20 +9,20 @@ import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ObjectUpdatesServiceStub } from '../../../core/data/object-updates/object-updates.service.stub';
 import { RequestService } from '../../../core/data/request.service';
+import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
+import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

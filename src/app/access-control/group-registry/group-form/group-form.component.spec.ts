@@ -30,7 +30,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -45,6 +45,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
+import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
+import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';
+import { RouterMock } from '../../../core/mocks/router.mock';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
@@ -55,9 +58,6 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import {

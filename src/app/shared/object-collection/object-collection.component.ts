@@ -31,6 +31,7 @@ import {
 } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { ListableObject } from '../../core/object-collection/listable-object.model';
 import { Context } from '../../core/shared/context.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
@@ -41,7 +42,6 @@ import { ThemedObjectListComponent } from '../object-list/themed-object-list.com
 import { ObjectTableComponent } from '../object-table/object-table.component';
 import { setPlaceHolderAttributes } from '../utils/object-list-utils';
 import { CollectionElementLinkType } from './collection-element-link.type';
-import { ListableObject } from './shared/listable-object.model';
 
 /**
  * Component that can render a list of listable objects in different view modes

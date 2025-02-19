@@ -8,13 +8,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
+import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { Context } from '../../core/shared/context.model';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
 } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
-import { getMockThemeService } from '../mocks/theme-service.mock';
 import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 import { ThemeService } from '../theme-support/theme.service';
 import { METADATA_REPRESENTATION_COMPONENT_FACTORY } from './metadata-representation.decorator';

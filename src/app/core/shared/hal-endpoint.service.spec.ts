@@ -4,14 +4,14 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { environment } from '../../../environments/environment';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { EndpointMapRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestEntryState } from '../data/request-entry-state.model';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { HALEndpointService } from './hal-endpoint.service';
 
 

@@ -16,12 +16,12 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { getMockLinkService } from '../../../../core/mocks/link-service.mock';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { EPersonMock } from '../../../testing/eperson.mock';
 import { ItemSubmitterComponent } from './item-submitter.component';
 

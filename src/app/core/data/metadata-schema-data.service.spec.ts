@@ -1,11 +1,11 @@
 import { of as observableOf } from 'rxjs';
 
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RestResponse } from '../cache/response.models';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';

@@ -2,13 +2,14 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
 import {
   SortDirection,
   SortOptions,
 } from '../core/cache/models/sort-options.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { followLink } from '../core/data/follow-link-config.model';
+import { mockSuggestionPublicationOne } from '../core/mocks/publication-claim.mock';
 import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
 import { SuggestionDataService } from '../core/notifications/suggestions/suggestion-data.service';
 import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
@@ -16,7 +17,6 @@ import { ResearcherProfile } from '../core/profile/model/researcher-profile.mode
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
 import { ResourceType } from '../core/shared/resource-type';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {

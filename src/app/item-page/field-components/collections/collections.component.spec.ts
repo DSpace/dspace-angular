@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -23,11 +23,11 @@ import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../core/data/paginated-list.model';
+import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
+import { getMockRemoteDataBuildService } from '../../../core/mocks/remote-data-build.service.mock';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { CollectionsComponent } from './collections.component';
 

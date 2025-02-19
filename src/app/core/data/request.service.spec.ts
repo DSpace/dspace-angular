@@ -23,15 +23,14 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { storeModuleConfig } from '../../app.reducer';
-import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import {
-  defaultUUID,
-  getMockUUIDService,
-} from '../../shared/mocks/uuid.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
+import { getMockObjectCacheService } from '../mocks/object-cache.service.mock';
+import {
+  defaultUUID,
+  getMockUUIDService,
+} from '../mocks/uuid.service.mock';
 import { UUIDService } from '../shared/uuid.service';
 import {
   RequestConfigureAction,
@@ -51,6 +50,7 @@ import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 import { RequestEntryState } from './request-entry-state.model';
 import { RestRequest } from './rest-request.model';
+import { mockStoreModuleConfig } from "../utilities/test/mock-state-utilities";
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -85,7 +85,7 @@ describe('RequestService', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(coreReducers, storeModuleConfig),
+        StoreModule.forRoot(coreReducers, mockStoreModuleConfig),
       ],
       providers: [
         provideMockStore({ initialState }),

@@ -11,11 +11,11 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { NativeWindowRefMock } from '../../shared/mocks/mock-native-window-ref';
-import { RouterMock } from '../../shared/mocks/router.mock';
+} from '../utilities/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ConfigurationDataService } from '../data/configuration-data.service';
+import { NativeWindowRefMock } from '../mocks/mock-native-window-ref';
+import { RouterMock } from '../mocks/router.mock';
 import { ResearcherProfile } from '../profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';

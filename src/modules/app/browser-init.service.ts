@@ -38,7 +38,7 @@ import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { HeadTagService } from '../../app/core/metadata/head-tag.service';
 import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
+import { CorrelationIdService } from '../../app/core/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MenuService } from '../../app/shared/menu/menu.service';

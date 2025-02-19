@@ -17,7 +17,7 @@ import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import {
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
@@ -29,11 +29,11 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { EPERSON } from '../../core/eperson/models/eperson.resource-type';
 import { GROUP } from '../../core/eperson/models/group.resource-type';
+import { DSONameServiceMock } from '../../core/mocks/dso-name.service.mock';
+import { getMockRequestService } from '../../core/mocks/request.service.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { EPersonMock } from '../testing/eperson.mock';
 import { GroupMock } from '../testing/group-mock';

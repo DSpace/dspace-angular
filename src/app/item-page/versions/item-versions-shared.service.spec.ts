@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { VersionDataService } from '../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../core/data/version-history-data.service';

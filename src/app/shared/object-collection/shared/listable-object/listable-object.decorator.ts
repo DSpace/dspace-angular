@@ -7,10 +7,10 @@ import {
 
 import { ThemeConfig } from '../../../../../config/theme.config';
 import { environment } from '../../../../../environments/environment';
+import { ListableObject } from '../../../../core/object-collection/listable-object.model';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { ListableObject } from '../listable-object.model';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
 export const DEFAULT_CONTEXT = Context.Any;

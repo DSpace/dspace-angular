@@ -11,12 +11,12 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { WorkflowItemSearchResult } from '../../../../core/object-collection/workflow-item-search-result.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 

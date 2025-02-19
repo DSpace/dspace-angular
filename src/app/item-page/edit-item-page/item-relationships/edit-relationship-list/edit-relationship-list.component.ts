@@ -57,6 +57,7 @@ import { ObjectUpdatesService } from '../../../../core/data/object-updates/objec
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { ItemSearchResult } from '../../../../core/object-collection/item-search-result.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { RelationshipOptions } from '../../../../core/shared/form/relationship-options.model';
@@ -75,7 +76,6 @@ import { PaginationComponentOptions } from '../../../../core/shared/pagination-c
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
-import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';

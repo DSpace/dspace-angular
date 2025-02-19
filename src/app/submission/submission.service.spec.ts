@@ -27,28 +27,28 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createFailedRemoteDataObject } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createFailedRemoteDataObject } from '../core/utilities/remote-data.utils';
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
 import { ErrorResponse } from '../core/cache/response.models';
 import { RequestService } from '../core/data/request.service';
 import { RequestError } from '../core/data/request-error.model';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
+import { MockActivatedRoute } from '../core/mocks/active-router.mock';
+import { getMockRequestService } from '../core/mocks/request.service.mock';
+import { RouterMock } from '../core/mocks/router.mock';
+import { getMockSearchService } from '../core/mocks/search-service.mock';
+import {
+  mockSubmissionDefinition,
+  mockSubmissionRestResponse,
+} from '../core/mocks/submission.mock';
+import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
 import { RouteService } from '../core/services/route.service';
 import { Item } from '../core/shared/item.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { getMockRequestService } from '../shared/mocks/request.service.mock';
-import { RouterMock } from '../shared/mocks/router.mock';
-import { getMockSearchService } from '../shared/mocks/search-service.mock';
-import {
-  mockSubmissionDefinition,
-  mockSubmissionRestResponse,
-} from '../shared/mocks/submission.mock';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';

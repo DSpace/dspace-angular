@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment.test';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../core/utilities/remote-data.utils';
 import { AppState } from '../app.reducer';
 import {
   SortDirection,

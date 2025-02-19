@@ -25,7 +25,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';

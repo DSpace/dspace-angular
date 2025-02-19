@@ -3,7 +3,7 @@ import { first } from 'rxjs/operators';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../core/utilities/remote-data.utils';
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
 import { RouterStub } from '../shared/testing/router.stub';
 import { browseByGuard } from './browse-by-guard';

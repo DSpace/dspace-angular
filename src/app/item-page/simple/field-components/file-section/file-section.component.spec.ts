@@ -15,19 +15,19 @@ import {
 import { of as observableOf } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
 } from '../../../../../config/app-config.interface';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { MockBitstreamFormat1 } from '../../../../core/mocks/item.mock';
+import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';

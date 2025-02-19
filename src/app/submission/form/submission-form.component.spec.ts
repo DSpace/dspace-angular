@@ -18,9 +18,6 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {
   mockSectionsData,
   mockSectionsList,
@@ -30,8 +27,11 @@ import {
   mockSubmissionObjectNew,
   mockSubmissionSelfUrl,
   mockSubmissionState,
-} from '../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+} from '../../core/mocks/submission.mock';
+import { getMockThemeService } from '../../core/mocks/theme-service.mock';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Item } from '../../core/shared/item.model';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';

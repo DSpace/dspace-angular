@@ -13,17 +13,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
+import { ItemSearchResult } from '../../../core/object-collection/item-search-result.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createPaginatedList } from '../../testing/utils.test';
 import { DSOSelectorComponent } from './dso-selector.component';

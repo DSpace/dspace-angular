@@ -21,14 +21,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { RestRequestMethod } from '../../../../core/data/rest-request-method';
+import { AuthServiceMock } from '../../../../core/mocks/auth.service.mock';
 import { Community } from '../../../../core/shared/community.model';
 import { FormComponent } from '../../../form/form.component';
-import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';

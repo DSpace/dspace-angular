@@ -1,7 +1,7 @@
 import {
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
+} from '../../../core/mocks/notifications.mock';
 import {
   AddTopicsAction,
   RetrieveAllTopicsAction,

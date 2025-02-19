@@ -33,4 +33,5 @@ export interface CoreState {
     'relationshipLists': NameVariantListsState;
     'metadataRegistry': MetadataRegistryState;
     'groupRegistry': GroupRegistryState;
+    'correlationId': string;
 }

@@ -13,7 +13,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import {
   SortDirection,
   SortOptions,
@@ -21,6 +21,9 @@ import {
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { GroupDataService } from '../../core/eperson/group-data.service';
+import { MockActivatedRoute } from '../../core/mocks/active-router.mock';
+import { RouterMock } from '../../core/mocks/router.mock';
+import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { Collection } from '../../core/shared/collection.model';
@@ -29,9 +32,6 @@ import { PaginatedSearchOptions } from '../../core/shared/paginated-search-optio
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchFilter } from '../../core/shared/search/models/search-filter.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { MockActivatedRoute } from '../mocks/active-router.mock';
-import { RouterMock } from '../mocks/router.mock';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
 import { createPaginatedList } from '../testing/utils.test';

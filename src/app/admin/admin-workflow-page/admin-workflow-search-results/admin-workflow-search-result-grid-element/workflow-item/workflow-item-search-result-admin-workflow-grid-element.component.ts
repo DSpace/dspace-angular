@@ -17,6 +17,7 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
+import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import { Item } from '../../../../../core/shared/item.model';
@@ -31,7 +32,6 @@ import {
   getListableObjectComponent,
   listableObjectComponent,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';

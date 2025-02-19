@@ -29,7 +29,7 @@ import {
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
@@ -46,17 +46,17 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Group } from '../../core/eperson/models/group.model';
+import {
+  DSONameServiceMock,
+  UNDEFINED_NAME,
+} from '../../core/mocks/dso-name.service.mock';
+import { RouterMock } from '../../core/mocks/router.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import {
-  DSONameServiceMock,
-  UNDEFINED_NAME,
-} from '../../shared/mocks/dso-name.service.mock';
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';

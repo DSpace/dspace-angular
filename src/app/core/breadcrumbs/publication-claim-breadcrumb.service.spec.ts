@@ -5,7 +5,7 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { Breadcrumb } from './breadcrumb.model';
 import { PublicationClaimBreadcrumbService } from './publication-claim-breadcrumb.service';
 

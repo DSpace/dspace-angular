@@ -23,7 +23,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';

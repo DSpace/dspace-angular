@@ -23,7 +23,7 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 import { VocabularyServiceStub } from 'src/app/shared/testing/vocabulary-service.stub';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';

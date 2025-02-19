@@ -17,7 +17,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -26,6 +26,7 @@ import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-a
 import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
+import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../../core/shared/item.model';
@@ -34,7 +35,6 @@ import { UUIDService } from '../../../../../core/shared/uuid.service';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';

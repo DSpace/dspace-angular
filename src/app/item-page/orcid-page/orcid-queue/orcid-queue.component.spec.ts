@@ -14,15 +14,15 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
 import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

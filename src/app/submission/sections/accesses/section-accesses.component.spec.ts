@@ -22,6 +22,15 @@ import { environment } from 'src/environments/environment.test';
 
 import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';
+import { getMockFormOperationsService } from '../../../core/mocks/form-operations-service.mock';
+import { getMockFormService } from '../../../core/mocks/form-service.mock';
+import { getSectionAccessesService } from '../../../core/mocks/section-accesses.service.mock';
+import {
+  getSubmissionAccessesConfigNotChangeDiscoverableService,
+  getSubmissionAccessesConfigService,
+} from '../../../core/mocks/section-accesses-config.service.mock';
+import { mockAccessesFormData } from '../../../core/mocks/submission.mock';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { XSRFService } from '../../../core/xsrf/xsrf.service';
@@ -30,15 +39,6 @@ import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/d
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
-import {
-  getSubmissionAccessesConfigNotChangeDiscoverableService,
-  getSubmissionAccessesConfigService,
-} from '../../../shared/mocks/section-accesses-config.service.mock';
-import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
 import {
   accessConditionChangeEvent,
   checkboxChangeEvent,

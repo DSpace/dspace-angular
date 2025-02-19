@@ -8,13 +8,13 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { focusShadow } from '../../../../animations/focus';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';

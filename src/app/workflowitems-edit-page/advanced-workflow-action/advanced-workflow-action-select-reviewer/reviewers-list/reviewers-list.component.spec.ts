@@ -37,7 +37,7 @@ import {
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../../core/utilities/remote-data.utils';
 import { RestResponse } from '../../../../core/cache/response.models';
 import {
   buildPaginatedList,
@@ -48,13 +48,13 @@ import { EPersonDataService } from '../../../../core/eperson/eperson-data.servic
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { getMockFormBuilderService } from '../../../../core/mocks/form-builder-service.mock';
+import { RouterMock } from '../../../../core/mocks/router.mock';
+import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';

@@ -9,16 +9,16 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { RestResponse } from '../../core/cache/response.models';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
 import { CookieService } from '../../core/services/cookie.service';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
 import {
   BrowserOrejimeService,
   COOKIE_MDFIELD,

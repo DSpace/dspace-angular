@@ -5,9 +5,9 @@ import {
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { ItemSearchResult } from '../../../../../../../../app/core/object-collection/item-search-result.model';
 import { Context } from '../../../../../../../../app/core/shared/context.model';
 import { ViewMode } from '../../../../../../../../app/core/shared/view-mode.model';
-import { ItemSearchResult } from '../../../../../../../../app/shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { PublicationSidebarSearchListElementComponent as BaseComponent } from '../../../../../../../../app/shared/object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';
 import { TruncatablePartComponent } from '../../../../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';

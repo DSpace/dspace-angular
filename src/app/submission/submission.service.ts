@@ -34,7 +34,7 @@ import {
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../core/utilities/remote-data.utils';
 import { environment } from '../../environments/environment';
 import { ErrorResponse } from '../core/cache/response.models';
 import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';

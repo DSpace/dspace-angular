@@ -7,7 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FeedbackComponent } from './feedback.component';

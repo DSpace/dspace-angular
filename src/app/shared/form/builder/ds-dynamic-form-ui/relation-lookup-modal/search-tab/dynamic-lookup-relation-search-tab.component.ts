@@ -19,6 +19,7 @@ import { take } from 'rxjs/operators';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
+import { ListableObject } from '../../../../../../core/object-collection/listable-object.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Context } from '../../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
@@ -36,7 +37,6 @@ import { SearchService } from '../../../../../../core/shared/search/search.servi
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';

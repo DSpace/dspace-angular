@@ -4,9 +4,9 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
 import { TypedObject } from '../cache/typed-object.model';
+import { ListableObject } from '../object-collection/listable-object.model';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { BROWSE_ENTRY } from './browse-entry.resource-type';
 import { GenericConstructor } from './generic-constructor';

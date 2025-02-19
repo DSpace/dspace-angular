@@ -8,7 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { AuthService } from '../../../../../core/auth/auth.service';
@@ -16,19 +16,19 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { followLink } from '../../../../../core/data/follow-link-config.model';
+import { AuthServiceMock } from '../../../../../core/mocks/auth.service.mock';
+import { DSONameServiceMock } from '../../../../../core/mocks/dso-name.service.mock';
+import { getMockLinkService } from '../../../../../core/mocks/link-service.mock';
+import { mockTruncatableService } from '../../../../../core/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
+import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
-import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
 import {
   supervisionOrderPaginatedListRD,

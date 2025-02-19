@@ -4,8 +4,8 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
+import { ListableObject } from '../object-collection/listable-object.model';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { EXTERNAL_SOURCE_ENTRY } from './external-source-entry.resource-type';
 import { GenericConstructor } from './generic-constructor';

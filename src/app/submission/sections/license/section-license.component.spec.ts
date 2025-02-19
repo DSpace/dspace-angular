@@ -34,11 +34,19 @@ import { environment } from 'src/environments/environment.test';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { getMockFormOperationsService } from '../../../core/mocks/form-operations-service.mock';
+import { getMockFormService } from '../../../core/mocks/form-service.mock';
+import {
+  mockLicenseParsedErrors,
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+  mockSubmissionObject,
+} from '../../../core/mocks/submission.mock';
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
@@ -48,14 +56,6 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import {
-  mockLicenseParsedErrors,
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-  mockSubmissionObject,
-} from '../../../shared/mocks/submission.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';

@@ -28,7 +28,7 @@ import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import {
   SortDirection,
   SortOptions,
@@ -36,11 +36,6 @@ import {
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { followLink } from '../../../core/data/follow-link-config.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import {
   getMockQualityAssuranceEventRestService,
   ItemMockPid8,
@@ -49,8 +44,13 @@ import {
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
   qualityAssuranceEventObjectMissingProjectNotFound,
-} from '../../../shared/mocks/notifications.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+} from '../../../core/mocks/notifications.mock';
+import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
+import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

@@ -15,13 +15,13 @@ import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../core/utilities/remote-data.utils';
 import { AuthService } from '../core/auth/auth.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { RemoteData } from '../core/data/remote-data';
+import { getMockThemeService } from '../core/mocks/theme-service.mock';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
-import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 import { VarDirective } from '../shared/utils/var.directive';

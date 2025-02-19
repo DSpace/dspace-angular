@@ -11,15 +11,15 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 import { Context } from 'src/app/core/shared/context.model';
 
-import { createSuccessfulRemoteDataObject } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock';
+import { getMockLinkService } from '../../../../core/mocks/link-service.mock';
+import { WorkflowItemSearchResult } from '../../../../core/object-collection/workflow-item-search-result.model';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { WorkspaceItemSearchResultDetailElementComponent } from './workspace-item-search-result-detail-element.component';
 

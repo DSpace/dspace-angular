@@ -16,9 +16,9 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 

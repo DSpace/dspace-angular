@@ -2,8 +2,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import {
@@ -13,6 +11,8 @@ import {
   SubmissionRequest,
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { SubmissionRestService } from './submission-rest.service';
 
 describe('SubmissionRestService test suite', () => {

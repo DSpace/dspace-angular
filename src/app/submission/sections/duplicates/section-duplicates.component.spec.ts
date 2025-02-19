@@ -22,11 +22,19 @@ import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';
+import { getMockFormOperationsService } from '../../../core/mocks/form-operations-service.mock';
+import { getMockFormService } from '../../../core/mocks/form-service.mock';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../../core/mocks/submission.mock';
+import { defaultUUID } from '../../../core/mocks/uuid.service.mock';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
@@ -34,14 +42,6 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-} from '../../../shared/mocks/submission.mock';
-import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Duplicate } from '../../../shared/object-list/duplicate-data/duplicate.model';
 import { DUPLICATE } from '../../../shared/object-list/duplicate-data/duplicate.resource-type';

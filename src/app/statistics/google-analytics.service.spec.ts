@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../core/utilities/remote-data.utils';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { OrejimeService } from '../shared/cookies/orejime.service';

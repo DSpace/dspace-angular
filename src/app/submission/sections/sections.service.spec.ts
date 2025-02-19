@@ -19,19 +19,19 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import { FormClearErrorsAction } from '../../shared/form/form.actions';
-import { FormService } from '../../shared/form/form.service';
-import { getMockFormService } from '../../shared/mocks/form-service.mock';
-import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
+import { getMockFormService } from '../../core/mocks/form-service.mock';
+import { getMockScrollToService } from '../../core/mocks/scroll-to-service.mock';
 import {
   mockSectionsData,
   mockSectionsErrors,
   mockSubmissionState,
   mockSubmissionStateWithoutUpload,
-} from '../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+} from '../../core/mocks/submission.mock';
+import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import { FormClearErrorsAction } from '../../shared/form/form.actions';
+import { FormService } from '../../shared/form/form.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';

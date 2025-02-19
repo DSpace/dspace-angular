@@ -20,6 +20,7 @@ import {
 } from '../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -28,7 +29,6 @@ import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RemoteData } from './remote-data';
 import { IdentifierType } from './request.models';
 import { RequestService } from './request.service';
-import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 const ID_ENDPOINT = 'pid';
 const UUID_ENDPOINT = 'dso';

@@ -32,7 +32,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { environment } from '../../../environments/environment';
 import {
   REQUEST,

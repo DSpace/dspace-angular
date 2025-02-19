@@ -1,6 +1,6 @@
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { NativeWindowRef } from '../services/window.service';
 import { GoogleRecaptchaService } from './google-recaptcha.service';
 

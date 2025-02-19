@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
@@ -23,12 +23,7 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
+import { getMockSectionUploadService } from '../../../core/mocks/section-upload.service.mock';
 import {
   mockGroup,
   mockSubmissionCollectionId,
@@ -38,8 +33,13 @@ import {
   mockUploadConfigResponseNotRequired,
   mockUploadFiles,
   mockUploadFilesData,
-} from '../../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+} from '../../../core/mocks/submission.mock';
+import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
+import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';

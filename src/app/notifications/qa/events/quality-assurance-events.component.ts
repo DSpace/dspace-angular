@@ -53,6 +53,7 @@ import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
 } from '../../../core/notifications/qa/models/quality-assurance-event.model';
+import { ItemSearchResult } from '../../../core/object-collection/item-search-result.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
@@ -67,7 +68,6 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import {
   ProjectEntryImportModalComponent,

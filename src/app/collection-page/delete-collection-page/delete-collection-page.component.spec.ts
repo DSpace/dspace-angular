@@ -13,7 +13,7 @@ import { of as observableOf } from 'rxjs';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { RequestService } from '../../core/data/request.service';
-import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { DSONameServiceMock } from '../../core/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DeleteCollectionPageComponent } from './delete-collection-page.component';
 

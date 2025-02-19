@@ -24,6 +24,7 @@ import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { followLink } from '../../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { PoolTaskSearchResult } from '../../../../core/object-collection/pool-task-search-result.model';
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
@@ -31,7 +32,6 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 

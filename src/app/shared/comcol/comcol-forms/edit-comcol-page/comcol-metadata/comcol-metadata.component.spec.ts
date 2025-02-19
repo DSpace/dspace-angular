@@ -17,7 +17,7 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../../../core/utilities/remote-data.utils';
 import { ComColDataService } from '../../../../../core/data/comcol-data.service';
 import { Community } from '../../../../../core/shared/community.model';
 import { NotificationsService } from '../../../../notifications/notifications.service';

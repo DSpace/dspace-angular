@@ -4,19 +4,19 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { ItemMock } from 'src/app/shared/mocks/item.mock';
 
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+} from '../utilities/remote-data.utils';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { ItemMock } from '../mocks/item.mock';
+import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../shared/bitstream-format-support-level';

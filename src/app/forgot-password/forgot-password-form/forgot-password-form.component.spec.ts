@@ -24,7 +24,7 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { CoreState } from '../../core/core-state.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';

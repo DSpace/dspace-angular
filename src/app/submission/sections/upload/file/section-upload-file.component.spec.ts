@@ -26,20 +26,20 @@ import {
 import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { FormService } from '../../../../shared/form/form.service';
-import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
-import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
+import { getMockFormService } from '../../../../core/mocks/form-service.mock';
+import { getMockSectionUploadService } from '../../../../core/mocks/section-upload.service.mock';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockUploadConfigResponse,
   mockUploadFiles,
-} from '../../../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+} from '../../../../core/mocks/submission.mock';
+import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
+import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormService } from '../../../../shared/form/form.service';
 import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';

@@ -13,7 +13,7 @@ import {
   CommunityListReducer,
   CommunityListState,
 } from './community-list-page/community-list.reducer';
-import { correlationIdReducer } from './correlation-id/correlation-id.reducer';
+import { correlationIdReducer } from './core/correlation-id/correlation-id.reducer';
 import {
   contextHelpReducer,
   ContextHelpState,
@@ -75,7 +75,6 @@ export interface AppState {
   objectSelection: ObjectSelectionListState;
   selectableLists: SelectableListsState;
   communityList: CommunityListState;
-  correlationId: string;
   contextHelp: ContextHelpState;
 }
 
@@ -93,7 +92,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   objectSelection: objectSelectionReducer,
   selectableLists: selectableListReducer,
   communityList: CommunityListReducer,
-  correlationId: correlationIdReducer,
   contextHelp: contextHelpReducer,
 };
 

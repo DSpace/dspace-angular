@@ -15,7 +15,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

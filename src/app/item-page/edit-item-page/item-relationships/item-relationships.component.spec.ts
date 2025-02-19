@@ -21,7 +21,7 @@ import {
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../core/utilities/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
@@ -31,12 +31,12 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { RequestService } from '../../../core/data/request.service';
+import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import {
   INotification,
   Notification,

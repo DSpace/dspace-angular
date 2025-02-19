@@ -17,8 +17,8 @@ import { of as observableOf } from 'rxjs';
 
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RequestService } from '../../core/data/request.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { RouterMock } from '../../core/mocks/router.mock';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

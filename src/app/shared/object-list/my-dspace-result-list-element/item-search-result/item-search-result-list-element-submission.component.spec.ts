@@ -12,17 +12,17 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
-import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../core/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
+import { ItemSearchResult } from '../../../../core/object-collection/item-search-result.model';
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';

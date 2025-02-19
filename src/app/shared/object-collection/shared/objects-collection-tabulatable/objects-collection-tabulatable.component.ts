@@ -7,10 +7,10 @@ import {
 
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { ListableObject } from '../../../../core/object-collection/listable-object.model';
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-objects-collection-tabulatable',

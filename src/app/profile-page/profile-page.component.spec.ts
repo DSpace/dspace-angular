@@ -22,7 +22,7 @@ import {
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../core/utilities/remote-data.utils';
 import { storeModuleConfig } from '../app.reducer';
 import { authReducer } from '../core/auth/auth.reducer';
 import { AuthService } from '../core/auth/auth.service';

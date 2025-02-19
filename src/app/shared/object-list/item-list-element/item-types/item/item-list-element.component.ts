@@ -4,9 +4,9 @@ import {
 } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils';
 
+import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { AbstractListableElementComponent } from '../../../../object-collection/shared/object-collection-element/abstract-listable-element.component';

@@ -10,8 +10,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { getMockThemeService } from '../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { getMockThemeService } from '../core/mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { CommunityListPageComponent } from './community-list-page.component';
 import { CommunityListService } from './community-list-service';

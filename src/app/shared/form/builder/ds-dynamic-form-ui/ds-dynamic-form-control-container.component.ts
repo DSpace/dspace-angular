@@ -87,6 +87,7 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { MetadataService } from '../../../../core/metadata/metadata.service';
+import { ItemSearchResult } from '../../../../core/object-collection/item-search-result.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { RelationshipOptions } from '../../../../core/shared/form/relationship-options.model';
@@ -109,7 +110,6 @@ import { SubmissionObjectDataService } from '../../../../core/submission/submiss
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';

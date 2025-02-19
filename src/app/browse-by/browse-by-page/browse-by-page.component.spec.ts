@@ -7,10 +7,10 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
+import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';

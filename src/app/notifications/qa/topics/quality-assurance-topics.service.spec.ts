@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import {
   SortDirection,
@@ -10,13 +10,13 @@ import {
 } from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import {
   getMockQualityAssuranceTopicRestService,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../../../shared/mocks/notifications.mock';
+} from '../../../core/mocks/notifications.mock';
+import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
+import { PageInfo } from '../../../core/shared/page-info.model';
 import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 
 describe('QualityAssuranceTopicsService', () => {

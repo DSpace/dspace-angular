@@ -13,7 +13,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { followLink } from '../../core/data/follow-link-config.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';

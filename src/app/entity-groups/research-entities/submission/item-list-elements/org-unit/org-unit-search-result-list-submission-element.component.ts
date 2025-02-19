@@ -17,12 +17,12 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';

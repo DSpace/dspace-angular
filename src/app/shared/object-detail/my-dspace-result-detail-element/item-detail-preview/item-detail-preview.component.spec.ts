@@ -16,7 +16,7 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -28,6 +28,9 @@ import { FindListOptions } from '../../../../core/data/find-list-options.model';
 import { FollowLinkConfig } from '../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { AuthServiceMock } from '../../../../core/mocks/auth.service.mock';
+import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
@@ -35,9 +38,6 @@ import { Item } from '../../../../core/shared/item.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
-import { AuthServiceMock } from '../../../mocks/auth.service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';

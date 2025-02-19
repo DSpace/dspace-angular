@@ -23,14 +23,14 @@ import { BitstreamFormatDataService } from '../../../../core/data/bitstream-form
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
+import { AuthServiceMock } from '../../../../core/mocks/auth.service.mock';
+import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
+import { CommunitySearchResult } from '../../../../core/object-collection/community-search-result.model';
 import { Community } from '../../../../core/shared/community.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
-import { AuthServiceMock } from '../../../mocks/auth.service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { StoreMock } from '../../../testing/store.mock';
 import { ThemeService } from '../../../theme-support/theme.service';

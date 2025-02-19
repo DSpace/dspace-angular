@@ -20,14 +20,14 @@ import {
 } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import {
   LOAD_MORE_NODE,

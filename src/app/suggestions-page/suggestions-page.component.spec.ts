@@ -19,8 +19,18 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../core/utilities/remote-data.utils';
 import { AuthService } from '../core/auth/auth.service';
+import {
+  mockSuggestionPublicationOne,
+  mockSuggestionPublicationTwo,
+} from '../core/mocks/publication-claim.mock';
+import { mockSuggestionTargetsObjectOne } from '../core/mocks/publication-claim-targets.mock';
+import {
+  getMockSuggestionNotificationsStateService,
+  getMockSuggestionsService,
+} from '../core/mocks/suggestion.mock';
+import { getMockTranslateService } from '../core/mocks/translate.service.mock';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
@@ -28,16 +38,6 @@ import { SuggestionEvidencesComponent } from '../notifications/suggestion-list-e
 import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../notifications/suggestions.service';
-import {
-  mockSuggestionPublicationOne,
-  mockSuggestionPublicationTwo,
-} from '../shared/mocks/publication-claim.mock';
-import { mockSuggestionTargetsObjectOne } from '../shared/mocks/publication-claim-targets.mock';
-import {
-  getMockSuggestionNotificationsStateService,
-  getMockSuggestionsService,
-} from '../shared/mocks/suggestion.mock';
-import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';

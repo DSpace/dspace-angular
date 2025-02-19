@@ -13,12 +13,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../../../core/services/link-head.service';
 import { Community } from '../../../../core/shared/community.model';
@@ -26,7 +27,6 @@ import { ConfigurationProperty } from '../../../../core/shared/configuration-pro
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';

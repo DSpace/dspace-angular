@@ -4,7 +4,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSource } from '../shared/external-source.model';
 import { RelationshipOptions } from '../shared/form/relationship-options.model';

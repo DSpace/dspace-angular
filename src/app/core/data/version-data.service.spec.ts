@@ -9,11 +9,11 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
+} from '../utilities/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
+import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Version } from '../shared/version.model';

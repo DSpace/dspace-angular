@@ -1,6 +1,6 @@
+import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { createSidebarSearchListElementTests } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.spec';
 import { OrgUnitSidebarSearchListElementComponent } from './org-unit-sidebar-search-list-element.component';
 

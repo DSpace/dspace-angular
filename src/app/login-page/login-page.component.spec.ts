@@ -12,8 +12,8 @@ import { of as observableOf } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
 import { AuthService } from '../core/auth/auth.service';
+import { AuthServiceMock } from '../core/mocks/auth.service.mock';
 import { XSRFService } from '../core/xsrf/xsrf.service';
-import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LoginPageComponent } from './login-page.component';
 

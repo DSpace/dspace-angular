@@ -16,6 +16,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { RequestService } from '../../../../core/data/request.service';
+import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
+import { getMockSearchService } from '../../../../core/mocks/search-service.mock';
+import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
@@ -23,9 +26,6 @@ import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';

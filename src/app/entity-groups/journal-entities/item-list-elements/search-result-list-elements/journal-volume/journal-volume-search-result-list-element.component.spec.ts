@@ -11,17 +11,17 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../../core/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../core/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
+import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';

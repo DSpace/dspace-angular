@@ -12,10 +12,11 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-page.resolver';
+import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../shared/resolvers/bitstream-page.resolver';
 import { LinkService } from '../cache/builders/link.service';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { RemoteData } from '../data/remote-data';
+import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
 import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
 import { ChildHALResource } from '../shared/child-hal-resource.model';
@@ -28,7 +29,6 @@ import {
 import { Breadcrumb } from './breadcrumb.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';
-import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route

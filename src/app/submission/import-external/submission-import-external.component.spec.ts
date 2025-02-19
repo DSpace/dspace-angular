@@ -24,8 +24,10 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
+import { getMockExternalSourceService } from '../../core/mocks/external-source.service.mock';
+import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { RouteService } from '../../core/services/route.service';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
@@ -34,8 +36,6 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';

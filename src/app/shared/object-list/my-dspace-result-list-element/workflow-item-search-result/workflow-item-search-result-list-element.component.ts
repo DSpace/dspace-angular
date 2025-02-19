@@ -16,6 +16,8 @@ import {
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { followLink } from '../../../../core/data/follow-link-config.model';
+import { ItemSearchResult } from '../../../../core/object-collection/item-search-result.model';
+import { WorkflowItemSearchResult } from '../../../../core/object-collection/workflow-item-search-result.model';
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
@@ -24,10 +26,8 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 

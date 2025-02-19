@@ -14,7 +14,7 @@ import {
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../utilities/remote-data.utils';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -27,7 +27,6 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { storeModuleConfig } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { StoreMock } from '../../shared/testing/store.mock';
@@ -40,6 +39,7 @@ import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { NoContent } from '../shared/NoContent.model';
 import { RegistryService } from './registry.service';
+import { mockStoreModuleConfig } from "../utilities/test/mock-state-utilities";
 
 @Component({
   template: '',
@@ -158,7 +158,7 @@ describe('RegistryService', () => {
   beforeEach(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot(), DummyComponent,
+      imports: [CommonModule, StoreModule.forRoot({}, mockStoreModuleConfig), TranslateModule.forRoot(), DummyComponent,
       ],
       providers: [
         { provide: Store, useClass: StoreMock },

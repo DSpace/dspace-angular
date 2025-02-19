@@ -31,13 +31,16 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
+import { getMockLinkService } from '../../core/mocks/link-service.mock';
+import { getMockResourcePolicyService } from '../../core/mocks/mock-resource-policy-service';
+import { getMockRequestService } from '../../core/mocks/request.service.mock';
 import { ActionType } from '../../core/resource-policy/models/action-type.model';
 import { PolicyType } from '../../core/resource-policy/models/policy-type.model';
 import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
@@ -45,9 +48,6 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { getMockLinkService } from '../mocks/link-service.mock';
-import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
-import { getMockRequestService } from '../mocks/request.service.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import { EPersonMock } from '../testing/eperson.mock';
 import { GroupMock } from '../testing/group-mock';

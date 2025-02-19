@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
 import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
 import {
@@ -19,6 +18,7 @@ import {
 } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
+import { ListableObject } from '../object-collection/listable-object.model';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Bundle } from './bundle.model';

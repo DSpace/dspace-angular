@@ -18,10 +18,10 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { Process } from '../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../process-page/processes/process-status.model';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { testDeleteDataImplementation } from '../base/delete-data.spec';
 import { testFindAllDataImplementation } from '../base/find-all-data.spec';

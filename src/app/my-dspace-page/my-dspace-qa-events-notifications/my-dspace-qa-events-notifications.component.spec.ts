@@ -5,7 +5,7 @@ import {
 import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications.component';
 

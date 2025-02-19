@@ -14,7 +14,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
@@ -22,15 +22,15 @@ import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../core/data/paginated-list.model';
-import { ExternalSource } from '../../../core/shared/external-source.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { HostWindowService } from '../../../shared/host-window.service';
 import {
   externalSourceCiencia,
   externalSourceMyStaffDb,
   externalSourceOrcid,
   getMockExternalSourceService,
-} from '../../../shared/mocks/external-source.service.mock';
+} from '../../../core/mocks/external-source.service.mock';
+import { ExternalSource } from '../../../core/shared/external-source.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {

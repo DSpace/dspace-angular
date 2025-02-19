@@ -26,6 +26,7 @@ import { BitstreamDataService } from '../../../../../core/data/bitstream-data.se
 import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
+import { WorkspaceItemSearchResult } from '../../../../../core/object-collection/workspace-item-search-result.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
@@ -44,7 +45,6 @@ import {
   getListableObjectComponent,
   listableObjectComponent,
 } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { WorkspaceItemSearchResult } from '../../../../../shared/object-collection/shared/workspace-item-search-result.model';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';

@@ -14,18 +14,18 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { BrowseService } from '../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { Item } from '../../../../core/shared/item.model';
 import { MathService } from '../../../../core/shared/math.service';
 import {
   MetadataMap,
   MetadataValue,
 } from '../../../../core/shared/metadata.models';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { BrowseServiceStub } from '../../../../shared/testing/browse-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';

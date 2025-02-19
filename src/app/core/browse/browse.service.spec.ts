@@ -9,9 +9,7 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+} from '../utilities/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import {
   createPaginatedList,
@@ -19,6 +17,8 @@ import {
 } from '../../shared/testing/utils.test';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
+import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
 import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';

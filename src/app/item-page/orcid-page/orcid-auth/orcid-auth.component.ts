@@ -20,7 +20,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { createFailedRemoteDataObjectFromError$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createFailedRemoteDataObjectFromError$ } from '../../../core/utilities/remote-data.utils';
 import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';

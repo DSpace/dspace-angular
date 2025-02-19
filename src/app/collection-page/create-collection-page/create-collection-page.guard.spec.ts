@@ -3,9 +3,9 @@ import { first } from 'rxjs/operators';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
+import { RouterMock } from '../../core/mocks/router.mock';
 import { Community } from '../../core/shared/community.model';
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { createCollectionPageGuard } from './create-collection-page.guard';
 
 describe('createCollectionPageGuard', () => {

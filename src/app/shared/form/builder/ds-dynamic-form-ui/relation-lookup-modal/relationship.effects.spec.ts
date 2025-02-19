@@ -16,7 +16,7 @@ import {
 } from 'rxjs';
 import { last } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../../../core/cache/response.models';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';

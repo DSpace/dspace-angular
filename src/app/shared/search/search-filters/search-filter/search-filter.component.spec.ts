@@ -17,7 +17,7 @@ import {
 } from 'rxjs';
 import { SearchFilterService } from 'src/app/core/shared/search/search-filter.service';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { AppliedFilter } from '../../../../core/shared/search/models/applied-filter.model';
 import { FacetValues } from '../../../../core/shared/search/models/facet-values.model';
 import { FilterType } from '../../../../core/shared/search/models/filter-type.model';

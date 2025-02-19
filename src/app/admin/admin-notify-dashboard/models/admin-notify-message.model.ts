@@ -6,10 +6,10 @@ import {
 import { Observable } from 'rxjs';
 
 import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { ListableObject } from '../../../core/object-collection/listable-object.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
 
 /**

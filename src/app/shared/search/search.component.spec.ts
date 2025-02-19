@@ -27,7 +27,7 @@ import {
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../core/utilities/remote-data.utils';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,

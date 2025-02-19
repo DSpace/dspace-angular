@@ -17,8 +17,8 @@ import {
 import { of as observableOf } from 'rxjs';
 import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { FilteredCollectionsComponent } from './filtered-collections.component';
 
 describe('FiltersComponent', () => {

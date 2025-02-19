@@ -15,16 +15,16 @@ import {
   Subject,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { BundleDataService } from '../../../../core/data/bundle-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { RequestService } from '../../../../core/data/request.service';
+import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';

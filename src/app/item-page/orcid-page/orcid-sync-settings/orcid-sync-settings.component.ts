@@ -30,7 +30,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { createFailedRemoteDataObjectFromError$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createFailedRemoteDataObjectFromError$ } from '../../../core/utilities/remote-data.utils';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';

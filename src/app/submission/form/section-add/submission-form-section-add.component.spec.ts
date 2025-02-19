@@ -18,11 +18,11 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { HostWindowService } from '../../../shared/host-window.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
-} from '../../../shared/mocks/submission.mock';
+} from '../../../core/mocks/submission.mock';
+import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';

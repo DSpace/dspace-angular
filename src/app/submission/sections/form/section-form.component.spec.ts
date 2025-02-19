@@ -25,12 +25,22 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';
+import { getMockFormOperationsService } from '../../../core/mocks/form-operations-service.mock';
+import { getMockFormService } from '../../../core/mocks/form-service.mock';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+  mockUploadResponse1ParsedErrors,
+} from '../../../core/mocks/submission.mock';
+import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
+import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
 import { FormFieldModel } from '../../../core/shared/form/form-field.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
@@ -41,16 +51,6 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-  mockUploadResponse1ParsedErrors,
-} from '../../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';

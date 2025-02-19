@@ -11,10 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { ListableObject } from '../../../../core/object-collection/listable-object.model';
 import { Item } from '../../../../core/shared/item.model';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { ListableObject } from '../listable-object.model';
 import { SelectableListItemControlComponent } from './selectable-list-item-control.component';
 
 describe('SelectableListItemControlComponent', () => {

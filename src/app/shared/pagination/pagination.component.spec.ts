@@ -35,13 +35,13 @@ import {
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { MockActivatedRoute } from '../../core/mocks/active-router.mock';
+import { HostWindowServiceMock } from '../../core/mocks/host-window-service.mock';
+import { RouterMock } from '../../core/mocks/router.mock';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { HostWindowService } from '../host-window.service';
-import { MockActivatedRoute } from '../mocks/active-router.mock';
-import { HostWindowServiceMock } from '../mocks/host-window-service.mock';
-import { RouterMock } from '../mocks/router.mock';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { RSSComponent } from '../rss-feed/rss.component';
 import { createTestComponent } from '../testing/utils.test';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';

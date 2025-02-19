@@ -12,20 +12,20 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../core/utilities/remote-data.utils';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
+import { ItemSearchResult } from '../../../../../../core/object-collection/item-search-result.model';
+import { ListableObject } from '../../../../../../core/object-collection/listable-object.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { PaginatedSearchOptions } from '../../../../../../core/shared/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../../../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { VarDirective } from '../../../../../utils/var.directive';

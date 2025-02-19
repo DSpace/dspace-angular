@@ -16,11 +16,11 @@ import {
 import { RemoteData } from 'src/app/core/data/remote-data';
 
 import { RequestService } from '../../../../core/data/request.service';
+import { ClaimedDeclinedTaskTaskSearchResult } from '../../../../core/object-collection/claimed-declined-task-task-search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { ClaimedDeclinedTaskTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';

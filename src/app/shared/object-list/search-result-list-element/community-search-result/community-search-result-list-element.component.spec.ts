@@ -14,10 +14,10 @@ import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
+import { CommunitySearchResult } from '../../../../core/object-collection/community-search-result.model';
 import { Community } from '../../../../core/shared/community.model';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

@@ -3,8 +3,8 @@ import { waitForAsync } from '@angular/core/testing';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+} from '../../core/utilities/remote-data.utils';
+import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 

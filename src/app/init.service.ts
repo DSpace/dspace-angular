@@ -39,7 +39,7 @@ import { isAuthenticationBlocking } from './core/auth/selectors';
 import { LAZY_DATA_SERVICES } from './core/data-services-map';
 import { LocaleService } from './core/locale/locale.service';
 import { HeadTagService } from './core/metadata/head-tag.service';
-import { CorrelationIdService } from './correlation-id/correlation-id.service';
+import { CorrelationIdService } from './core/correlation-id/correlation-id.service';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';

@@ -3,14 +3,14 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { testSearchDataImplementation } from '../data/base/search-data.spec';
 import { FindListOptions } from '../data/find-list-options.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { PoolTaskDataService } from './pool-task-data.service';
 
 describe('PoolTaskDataService', () => {

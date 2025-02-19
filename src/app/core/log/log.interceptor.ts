@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
+import { CorrelationIdService } from '../correlation-id/correlation-id.service';
 
 /**
  * Log Interceptor intercepting Http Requests & Responses to

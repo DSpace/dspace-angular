@@ -16,11 +16,11 @@ import { of as observableOf } from 'rxjs';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../../../core/data/request.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
-import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
+import { DSONameServiceMock } from '../../../../../core/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolRoleComponent } from './comcol-role.component';

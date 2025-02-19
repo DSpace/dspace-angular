@@ -31,7 +31,7 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { createSuccessfulRemoteDataObject } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import {
   buildPaginatedList,

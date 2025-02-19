@@ -21,16 +21,16 @@ import {
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
 import { RestResponse } from '../core/cache/response.models';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
+import { CookieServiceMock } from '../core/mocks/cookie.service.mock';
 import { CookieService } from '../core/services/cookie.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
-import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';

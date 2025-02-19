@@ -17,13 +17,13 @@ import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../data/collection-data.service';
 import { RemoteData } from '../data/remote-data';
+import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
 import { Collection } from '../shared/collection.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
 import { SubmissionObject } from './models/submission-object.model';
-import { getDSpaceObjectRoute } from "../router/utils/routes-utils";
 
 /**
  * Service to calculate the parent {@link DSpaceObject} breadcrumbs for a {@link SubmissionObject}

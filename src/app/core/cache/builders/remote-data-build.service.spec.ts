@@ -14,10 +14,7 @@ import {
   createFailedRemoteDataObject,
   createPendingRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+} from '../../utilities/remote-data.utils';
 import {
   followLink,
   FollowLinkConfig,
@@ -30,6 +27,9 @@ import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
 import { RequestEntryState } from '../../data/request-entry-state.model';
+import { getMockLinkService } from '../../mocks/link-service.mock';
+import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { HALLink } from '../../shared/hal-link.model';
 import { Item } from '../../shared/item.model';
 import { ITEM } from '../../shared/item.resource-type';

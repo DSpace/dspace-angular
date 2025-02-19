@@ -21,7 +21,7 @@ import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+} from '../../../../../../core/utilities/remote-data.utils';
 import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Collection } from '../../../../../../core/shared/collection.model';

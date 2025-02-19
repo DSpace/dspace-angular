@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from './core/utilities/remote-data.utils';
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
 import { BrowseService } from './core/browse/browse.service';
 import { ConfigurationDataService } from './core/data/configuration-data.service';

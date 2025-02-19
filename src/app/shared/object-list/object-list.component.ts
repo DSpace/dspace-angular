@@ -14,13 +14,13 @@ import {
 } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { ListableObject } from '../../core/object-collection/listable-object.model';
 import { Context } from '../../core/shared/context.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeIn } from '../animations/fade';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ImportableListItemControlComponent } from '../object-collection/shared/importable-list-item-control/importable-list-item-control.component';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { PaginationComponent } from '../pagination/pagination.component';

@@ -17,15 +17,15 @@ import {
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { mockSubmissionObject } from '../../core/mocks/submission.mock';
+import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { XSRFService } from '../../core/xsrf/xsrf.service';
-import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';

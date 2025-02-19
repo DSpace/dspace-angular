@@ -40,6 +40,8 @@ import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
+import { ListableObject } from '../../../../../core/object-collection/listable-object.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
@@ -55,8 +57,6 @@ import { SearchConfigurationService } from '../../../../../core/shared/search/se
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';

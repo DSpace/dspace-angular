@@ -14,7 +14,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { FollowLinkConfig } from '../../../core/data/follow-link-config.model';

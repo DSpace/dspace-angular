@@ -8,11 +8,11 @@ import {
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/shared/utils/src/lib/utils/remote-data.utils';
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
+} from '../../utilities/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { EPerson } from '../../eperson/models/eperson.model';
+import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';
 import { Site } from '../../shared/site.model';

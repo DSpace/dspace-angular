@@ -6,8 +6,8 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
+import { getMockThemeService } from '../core/mocks/theme-service.mock';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { ThemedSubmissionImportExternalComponent } from '../submission/import-external/themed-submission-import-external.component';
