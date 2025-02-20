@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -14,8 +10,8 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   selector: 'span[ds-html]',
   templateUrl: './html.component.html',
   styleUrls: ['./html.component.scss'],
+  standalone: true,
 })
-@MetadataBoxFieldRendering(FieldRenderingType.HTML)
 export class HtmlComponent extends RenderingTypeValueModelComponent {
 
   /**

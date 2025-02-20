@@ -3,10 +3,6 @@ import {
   OnInit,
 } from '@angular/core';
 
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -17,8 +13,8 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   selector: 'span[ds-longhtml]',
   templateUrl: './longhtml.component.html',
   styleUrls: ['./longhtml.component.scss'],
+  standalone: true,
 })
-@MetadataBoxFieldRendering(FieldRenderingType.LONGHTML)
 export class LonghtmlComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**
