@@ -156,6 +156,8 @@ import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { FormModule } from '../../app/shared/form/form.module';
 import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
+import { SubmissionSectionContainerComponent } from './app/submission/sections/container/section-container.component';
+import { SubmissionFormFooterComponent } from './app/submission/form/footer/submission-form-footer.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -239,6 +241,8 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileComponent,
   ItemStatusComponent,
   EditBitstreamPageComponent,
+  SubmissionSectionContainerComponent,
+  SubmissionFormFooterComponent,
 ];
 
 @NgModule({

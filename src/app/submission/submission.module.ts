@@ -67,6 +67,8 @@ import {
 } from './sections/sherpa-policies/metadata-information/metadata-information.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
 import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
+import { ThemedSubmissionSectionContainerComponent } from './sections/container/themed-section-container.component';
+import { ThemedSubmissionFormFooterComponent } from './form/footer/themed-submission-form-footer.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -106,6 +108,8 @@ const DECLARATIONS = [
   PublicationInformationComponent,
   MetadataInformationComponent,
   ThemedSubmissionSectionUploadFileComponent,
+  ThemedSubmissionSectionContainerComponent,
+  ThemedSubmissionFormFooterComponent,
 ];
 
 @NgModule({

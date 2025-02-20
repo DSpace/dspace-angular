@@ -28,12 +28,12 @@
     <div class="submission-form-content">
         <ds-themed-loading *ngIf="(isLoading() | async)" message="Loading..."></ds-themed-loading>
         <ng-container *ngFor="let object of (submissionSections | async)">
-            <ds-submission-section-container [collectionId]="collectionId"
-                                             [submissionId]="submissionId"
-                                             [sectionData]="object"></ds-submission-section-container>
+            <ds-themed-submission-section-container [collectionId]="collectionId"
+                                                    [submissionId]="submissionId"
+                                                    [sectionData]="object"></ds-themed-submission-section-container>
         </ng-container>
     </div>
     <div *ngIf="!(isLoading() | async)" class="submission-form-footer mt-3 mb-3 position-sticky">
-        <ds-submission-form-footer [submissionId]="submissionId"></ds-submission-form-footer>
+        <ds-themed-submission-form-footer [submissionId]="submissionId"></ds-themed-submission-form-footer>
     </div>
 </div>
