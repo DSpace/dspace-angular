@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { map, mergeMap, switchMap, toArray } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, EMPTY, expand, from, Observable, reduce } from 'rxjs';
+import { map, mergeMap, toArray } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -62,34 +62,49 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
    */
   getRelationshipTypeByLabelAndTypes(relationshipTypeLabel: string, firstItemType: string, secondItemType: string): Observable<RelationshipType> {
     // Retrieve all relationship types from the server in a single page
-    return this.findAllData.findAll({ currentPage: 1, elementsPerPage: 9999 }, true, true, followLink('leftType'), followLink('rightType'))
-               .pipe(
-                 getFirstSucceededRemoteData(),
-                 // Emit each type in the page array separately
-                 switchMap((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => typeListRD.payload.page),
-                 // Check each type individually, to see if it matches the provided types
-                 mergeMap((relationshipType: RelationshipType) => {
-                   if (relationshipType.leftwardType === relationshipTypeLabel) {
-                     return this.checkType(relationshipType, firstItemType, secondItemType);
-                   } else if (relationshipType.rightwardType === relationshipTypeLabel) {
-                     return this.checkType(relationshipType, secondItemType, firstItemType);
-                   } else {
-                     return [null];
-                   }
-                 }),
-                 // Wait for all types to be checked and emit once, with the results combined back into an
-                 // array
-                 toArray(),
-                 // Look for a match in the array and emit it if found, or null if one isn't found
-                 map((types: RelationshipType[]) => {
-                   const match = types.find((type: RelationshipType) => hasValue(type));
-                   if (hasValue(match)) {
-                     return match;
-                   } else {
-                     return null;
-                   }
-                 }),
-               );
+    const initialPageInfo = { currentPage: 1, elementsPerPage: 20 };
+    return this.findAllData.findAll(initialPageInfo, true, true, followLink('leftType'), followLink('rightType'))
+      .pipe(
+        getFirstSucceededRemoteData(),
+        // Emit each type in the page array separately
+        expand((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => {
+          const currentPage = typeListRD.payload.pageInfo.currentPage;
+          const totalPages = typeListRD.payload.pageInfo.totalPages;
+          if (currentPage < totalPages) {
+            const nextPageInfo = { currentPage: currentPage + 1, elementsPerPage: 20 };
+            return this.findAllData.findAll(nextPageInfo, true, true, followLink('leftType'), followLink('rightType')).pipe(
+              getFirstSucceededRemoteData()
+            );
+          } else {
+            return EMPTY;
+          }
+        }),
+        // Collect all pages into a single array
+        reduce((acc: RelationshipType[], typeListRD: RemoteData<PaginatedList<RelationshipType>>) => acc.concat(typeListRD.payload.page), []),
+        mergeMap((relationshipTypes: RelationshipType[]) => from(relationshipTypes)),
+        // Check each type individually, to see if it matches the provided types
+        mergeMap((relationshipType: RelationshipType) => {
+          if (relationshipType.leftwardType === relationshipTypeLabel) {
+            return this.checkType(relationshipType, firstItemType, secondItemType);
+          } else if (relationshipType.rightwardType === relationshipTypeLabel) {
+            return this.checkType(relationshipType, secondItemType, firstItemType);
+          } else {
+            return [null];
+          }
+        }),
+        // Wait for all types to be checked and emit once, with the results combined back into an
+        // array
+        toArray(),
+        // Look for a match in the array and emit it if found, or null if one isn't found
+        map((types: RelationshipType[]) => {
+          const match = types.find((type: RelationshipType) => hasValue(type));
+          if (hasValue(match)) {
+            return match;
+          } else {
+            return null;
+          }
+        }),
+      );
   }
 
   /**

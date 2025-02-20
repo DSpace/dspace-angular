@@ -23,13 +23,13 @@
                                      (clickSuggestion)="select($event)"
                                      (submitSuggestion)="selectCustom($event)"></ds-person-input-suggestions>
         <span class="text-muted">
-        <span *ngIf="dso.allMetadata(['person.jobTitle']).length > 0"
-              class="item-list-job-title">
-                <span *ngFor="let value of allMetadataValues(['person.jobTitle']); let last=last;">
-                    <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
-                </span>
+          <span *ngIf="dso.allMetadata(['person.jobTitle']).length > 0"
+                class="item-list-job-title">
+                  <span *ngFor="let value of allMetadataValues(['person.jobTitle']); let last=last;">
+                      <span [innerHTML]="value"></span><span *ngIf="!last">; </span>
+                  </span>
+          </span>
         </span>
-    </span>
       </div>
     </div>
   </div>

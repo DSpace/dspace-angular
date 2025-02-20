@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  OnDestroy,
+  PLATFORM_ID
+} from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
@@ -38,6 +48,8 @@ import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import { isPlatformServer } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'ds-search',
@@ -177,6 +189,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() scope: string;
 
   /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide = false;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -285,6 +302,7 @@ export class SearchComponent implements OnDestroy, OnInit {
               protected routeService: RouteService,
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
@@ -297,6 +315,14 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.universal.enableSearchComponent && isPlatformServer(this.platformId)) {
+      this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
+        this.searchOptions$.next(options);
+      }));
+      this.initialized$.next(true);
+      return;
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);

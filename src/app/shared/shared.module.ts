@@ -284,6 +284,9 @@ import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bi
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
 import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
+import { OrcidBadgeAndTooltipComponent } from './orcid-badge-and-tooltip/orcid-badge-and-tooltip.component';
+import { LiveRegionComponent } from './live-region/live-region.component';
+import {BtnDisabledDirective} from './btn-disabled.directive';
 
 const MODULES = [
   CommonModule,
@@ -404,6 +407,7 @@ const COMPONENTS = [
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
   ThemedItemPageTitleFieldComponent,
+  OrcidBadgeAndTooltipComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -467,7 +471,8 @@ const ENTRY_COMPONENTS = [
   AdvancedClaimedTaskActionRatingComponent,
   EpersonGroupListComponent,
   EpersonSearchBoxComponent,
-  GroupSearchBoxComponent
+  GroupSearchBoxComponent,
+  LiveRegionComponent,
 ];
 
 const PROVIDERS = [
@@ -493,6 +498,7 @@ const DIRECTIVES = [
   MetadataFieldValidator,
   HoverClassDirective,
   ContextHelpDirective,
+  BtnDisabledDirective,
 ];
 
 @NgModule({
