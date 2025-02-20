@@ -110,7 +110,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
       return;
     }
 
-    if (hasValue(this.getConstructorFor<any>((co as any).type))) {
+    if (hasValue(this.getConstructorFor<any>(co as any))) {
       this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, alternativeURL);
     }
   }
