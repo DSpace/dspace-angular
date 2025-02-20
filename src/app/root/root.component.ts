@@ -1,6 +1,6 @@
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, take, tap } from 'rxjs/operators';
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -20,6 +20,7 @@ import { slideSidebarPadding } from '../shared/animations/slide';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { hasValueOperator } from '../shared/empty.util';
+import { RootDataService } from '../core/data/root-data.service';
 
 @Component({
   selector: 'ds-root',
@@ -46,6 +47,8 @@ export class RootComponent implements OnInit {
    */
   @Input() shouldShowRouteLoader: boolean;
 
+  shouldShowRouteLoader$: Observable<boolean>;
+
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     private translate: TranslateService,
@@ -56,12 +59,15 @@ export class RootComponent implements OnInit {
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
+    private rootDataService: RootDataService,
+    private activateRoute: ActivatedRoute,
   ) {
     this.notificationOptions = environment.notifications;
   }
 
   ngOnInit() {
+
     this.sidebarVisible = this.menuService.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
 
     this.collapsedSidebarWidth = this.cssService.getVariable('--ds-collapsed-sidebar-width').pipe(hasValueOperator());
@@ -74,8 +80,9 @@ export class RootComponent implements OnInit {
         startWith(true),
       );
 
-    if (this.router.url === getPageInternalServerErrorRoute()) {
-      this.shouldShowRouteLoader = false;
-    }
+    this.shouldShowRouteLoader$ = this.activateRoute.url.pipe(
+      map((url) => url.join('/')),
+      map((url) => url === getPageInternalServerErrorRoute()),
+    )
   }
 }

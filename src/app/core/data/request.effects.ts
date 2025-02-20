@@ -21,11 +21,12 @@ import { ParsedResponse } from '../cache/response.models';
 import { RequestError } from './request-error.model';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { RequestEntry } from './request-entry.model';
+import { ServerCheckService } from '../server-check/server-check.service';
 
 @Injectable()
 export class RequestEffects {
 
-   execute = createEffect(() => this.actions$.pipe(
+  execute = createEffect(() => this.actions$.pipe(
     ofType(RequestActionTypes.EXECUTE),
     mergeMap((action: RequestExecuteAction) => {
       return this.requestService.getByUUID(action.payload).pipe(
@@ -46,6 +47,7 @@ export class RequestEffects {
         catchError((error: RequestError) => {
           if (hasValue(error.statusCode)) {
             // if it's an error returned by the server, complete the request
+            this.serverCheckService.checkAndUpdateServerAvailability(request, error);
             return [new RequestErrorAction(request.uuid, error.statusCode, error.message)];
           } else {
             // if it's a client side error, throw it
@@ -64,7 +66,7 @@ export class RequestEffects {
    * This assumes that the server cached everything a negligible
    * time ago, and will likely need to be revisited later
    */
-   fixTimestampsOnRehydrate = createEffect(() => this.actions$
+  fixTimestampsOnRehydrate = createEffect(() => this.actions$
     .pipe(ofType(StoreActionTypes.REHYDRATE),
       map(() => new ResetResponseTimestampsAction(new Date().getTime()))
     ));
@@ -73,7 +75,9 @@ export class RequestEffects {
     private actions$: Actions,
     private restApi: DspaceRestService,
     private injector: Injector,
-    protected requestService: RequestService
-  ) { }
+    protected requestService: RequestService,
+    protected serverCheckService: ServerCheckService,
+  ) {
+  }
 
 }

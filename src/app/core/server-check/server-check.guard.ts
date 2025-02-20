@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { ServerCheckService } from './server-check.service';
 
-import { RootDataService } from '../data/root-data.service';
-import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
  * If not redirect to 500 error page
  */
 export class ServerCheckGuard implements CanActivateChild {
-  constructor(private router: Router, private rootDataService: RootDataService) {
+  constructor(protected serverCheckService: ServerCheckService,) {
   }
 
   /**
@@ -24,16 +23,13 @@ export class ServerCheckGuard implements CanActivateChild {
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
-
-    return this.rootDataService.checkServerAvailability().pipe(
-      take(1),
-      tap((isAvailable: boolean) => {
-        if (!isAvailable) {
-          this.rootDataService.invalidateRootCache();
-          this.router.navigateByUrl(getPageInternalServerErrorRoute());
-        }
-      })
-    );
-
+    return this.serverCheckService.checkServerAvailabilityFromStore()
+      .pipe(
+        tap((isReallyAvailable: boolean) => {
+          if (!isReallyAvailable) {
+            this.serverCheckService.invalidateCacheAndNavigateToInternalServerErrorPage();
+          }
+        })
+      );
   }
 }
