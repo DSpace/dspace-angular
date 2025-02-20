@@ -30,16 +30,6 @@ import { FormRowModel } from '../../../core/config/models/config-submission-form
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';
-import { getMockFormOperationsService } from '../../../core/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../core/mocks/form-service.mock';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-  mockUploadResponse1ParsedErrors,
-} from '../../../core/mocks/submission.mock';
-import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
-import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { FormFieldModel } from '../../../core/shared/form/form-field.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
@@ -56,6 +46,16 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+  mockUploadResponse1ParsedErrors,
+} from '../../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionService } from '../../submission.service';

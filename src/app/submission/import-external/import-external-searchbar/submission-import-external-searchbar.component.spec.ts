@@ -21,18 +21,18 @@ import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../core/data/paginated-list.model';
-import {
-  externalSourceCiencia,
-  externalSourceMyStaffDb,
-  externalSourceOrcid,
-  getMockExternalSourceService,
-} from '../../../core/mocks/external-source.service.mock';
 import { ExternalSource } from '../../../core/shared/external-source.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { HostWindowServiceStub } from '../../../core/utilities/testing/host-window-service.stub';
 import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { HostWindowService } from '../../../shared/host-window.service';
+import {
+  externalSourceCiencia,
+  externalSourceMyStaffDb,
+  externalSourceOrcid,
+  getMockExternalSourceService,
+} from '../../../shared/mocks/external-source.service.mock';
 import {
   SourceElement,
   SubmissionImportExternalSearchbarComponent,

@@ -17,6 +17,8 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import {
   link,
   typedObject,
@@ -24,8 +26,6 @@ import {
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
 import { BITSTREAM } from '../../shared/bitstream.resource-type';
 import { COLLECTION } from '../../shared/collection.resource-type';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';

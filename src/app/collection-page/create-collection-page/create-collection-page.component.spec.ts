@@ -15,11 +15,11 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
-import { AuthServiceMock } from '../../core/mocks/auth.service.mock';
-import { DSONameServiceMock } from '../../core/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { RouteService } from '../../core/services/route.service';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { CollectionFormComponent } from '../collection-form/collection-form.component';
 import { CreateCollectionPageComponent } from './create-collection-page.component';
 

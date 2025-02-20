@@ -1,11 +1,11 @@
 import { waitForAsync } from '@angular/core/testing';
 
-import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../core/utilities/remote-data.utils';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 
 describe('ProcessBulkDeleteService', () => {

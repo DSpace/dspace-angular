@@ -26,7 +26,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../../app.reducer';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { Notification } from '../models/notification.model';
 import { NotificationOptions } from '../models/notification-options.model';
 import { NotificationType } from '../models/notification-type';

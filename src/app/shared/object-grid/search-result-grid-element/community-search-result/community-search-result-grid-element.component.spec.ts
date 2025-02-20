@@ -23,8 +23,6 @@ import { BitstreamFormatDataService } from '../../../../core/data/bitstream-form
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
-import { AuthServiceMock } from '../../../../core/mocks/auth.service.mock';
-import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { CommunitySearchResult } from '../../../../core/object-collection/community-search-result.model';
 import { Community } from '../../../../core/shared/community.model';
@@ -33,6 +31,8 @@ import { UUIDService } from '../../../../core/shared/uuid.service';
 import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
 import { StoreMock } from '../../../../core/utilities/testing/store.mock';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
+import { AuthServiceMock } from '../../../mocks/auth.service.mock';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';

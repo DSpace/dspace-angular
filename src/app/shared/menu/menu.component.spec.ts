@@ -35,9 +35,9 @@ import {
 } from '../../app.reducer';
 import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { Item } from '../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuComponent } from './menu.component';
 import { MenuService } from './menu.service';

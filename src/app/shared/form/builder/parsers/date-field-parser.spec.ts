@@ -1,5 +1,5 @@
-import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
 import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DateFieldParser } from './date-field-parser';

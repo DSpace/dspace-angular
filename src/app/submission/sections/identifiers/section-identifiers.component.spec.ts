@@ -25,12 +25,6 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { getMockFormOperationsService } from '../../../core/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../core/mocks/form-service.mock';
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-} from '../../../core/mocks/submission.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Collection } from '../../../core/shared/collection.model';
@@ -47,6 +41,12 @@ import { SubmissionServiceStub } from '../../../core/utilities/testing/submissio
 import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
+import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../../shared/mocks/submission.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';

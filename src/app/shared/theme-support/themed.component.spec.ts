@@ -10,7 +10,7 @@ import {
 } from '@angular/core/testing';
 
 import { ThemeConfig } from '../../core/config/theme.config';
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 import { VarDirective } from '../utils/var.directive';
 import { TestComponent } from './test/test.component.spec';
 import { ThemeService } from './theme.service';

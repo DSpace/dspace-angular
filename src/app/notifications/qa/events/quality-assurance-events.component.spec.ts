@@ -31,16 +31,6 @@ import {
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { followLink } from '../../../core/data/follow-link-config.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import {
-  getMockQualityAssuranceEventRestService,
-  ItemMockPid8,
-  ItemMockPid9,
-  ItemMockPid10,
-  NotificationsMockDspaceObject,
-  qualityAssuranceEventObjectMissingProjectFound,
-  qualityAssuranceEventObjectMissingProjectNotFound,
-} from '../../../core/mocks/notifications.mock';
-import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
@@ -56,6 +46,16 @@ import { ActivatedRouteStub } from '../../../core/utilities/testing/active-route
 import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
 import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+import {
+  getMockQualityAssuranceEventRestService,
+  ItemMockPid8,
+  ItemMockPid9,
+  ItemMockPid10,
+  NotificationsMockDspaceObject,
+  qualityAssuranceEventObjectMissingProjectFound,
+  qualityAssuranceEventObjectMissingProjectNotFound,
+} from '../../../shared/mocks/notifications.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 

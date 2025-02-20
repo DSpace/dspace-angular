@@ -19,22 +19,22 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { getMockFormService } from '../../core/mocks/form-service.mock';
-import { getMockScrollToService } from '../../core/mocks/scroll-to-service.mock';
-import {
-  mockSectionsData,
-  mockSectionsErrors,
-  mockSubmissionState,
-  mockSubmissionStateWithoutUpload,
-} from '../../core/mocks/submission.mock';
-import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormService } from '../../shared/form/form.service';
+import { getMockFormService } from '../../shared/mocks/form-service.mock';
+import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
+import {
+  mockSectionsData,
+  mockSectionsErrors,
+  mockSubmissionState,
+  mockSubmissionStateWithoutUpload,
+} from '../../shared/mocks/submission.mock';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,

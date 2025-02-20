@@ -4,7 +4,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
 import { RemoteData } from '../data/remote-data';
 import { RequestEntryState } from '../data/request-entry-state.model';
 
@@ -21,7 +20,7 @@ const FIXED_TIMESTAMP = new Date().getTime();
 export function createSuccessfulRemoteDataObject<T>(object: T, timeCompleted = FIXED_TIMESTAMP): RemoteData<T> {
   return new RemoteData(
     timeCompleted,
-    environment.cache.msToLive.default,
+    15 * 60 * 1000,
     timeCompleted,
     RequestEntryState.Success,
     undefined,
@@ -49,7 +48,7 @@ export function createSuccessfulRemoteDataObject$<T>(object: T, timeCompleted?: 
 export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCode?: number, timeCompleted = 1577836800000): RemoteData<T> {
   return new RemoteData(
     timeCompleted,
-    environment.cache.msToLive.default,
+    15 * 60 * 1000,
     timeCompleted,
     RequestEntryState.Error,
     errorMessage,
@@ -76,7 +75,7 @@ export function createFailedRemoteDataObject$<T>(errorMessage?: string, statusCo
 export function createPendingRemoteDataObject<T>(lastVerified = FIXED_TIMESTAMP): RemoteData<T> {
   return new RemoteData(
     undefined,
-    environment.cache.msToLive.default,
+    15 * 60 * 1000,
     lastVerified,
     RequestEntryState.ResponsePending,
     undefined,

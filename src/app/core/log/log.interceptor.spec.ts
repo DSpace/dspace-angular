@@ -7,11 +7,11 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 
+import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { coreReducers } from '../core.reducers';
 import { CorrelationIdService } from '../correlation-id/correlation-id.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { CookieServiceMock } from '../mocks/cookie.service.mock';
 import { CookieService } from '../services/cookie.service';
 import { UUIDService } from '../shared/uuid.service';
 import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';

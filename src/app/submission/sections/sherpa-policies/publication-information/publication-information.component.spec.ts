@@ -9,8 +9,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { SherpaDataResponse } from '../../../../core/mocks/section-sherpa-policies.service.mock';
 import { TranslateLoaderMock } from '../../../../core/utilities/testing/translate-loader.mock';
+import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
 import { PublicationInformationComponent } from './publication-information.component';
 
 describe('PublicationInformationComponent', () => {

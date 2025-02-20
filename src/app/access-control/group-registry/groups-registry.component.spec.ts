@@ -45,11 +45,6 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Group } from '../../core/eperson/models/group.model';
-import {
-  DSONameServiceMock,
-  UNDEFINED_NAME,
-} from '../../core/mocks/dso-name.service.mock';
-import { RouterMock } from '../../core/mocks/router.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { RouteService } from '../../core/services/route.service';
@@ -70,6 +65,11 @@ import { NotificationsServiceStub } from '../../core/utilities/testing/notificat
 import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
 import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
+import {
+  DSONameServiceMock,
+  UNDEFINED_NAME,
+} from '../../shared/mocks/dso-name.service.mock';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { GroupsRegistryComponent } from './groups-registry.component';
 

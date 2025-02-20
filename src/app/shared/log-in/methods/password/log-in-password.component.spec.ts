@@ -24,11 +24,11 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
 import { AuthServiceStub } from '../../../../core/utilities/testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../../core/utilities/testing/authorization-service.stub';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { LogInPasswordComponent } from './log-in-password.component';
 

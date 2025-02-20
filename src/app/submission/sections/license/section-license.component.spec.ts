@@ -35,14 +35,6 @@ import { SubmissionFormsConfigDataService } from '../../../core/config/submissio
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { getMockFormOperationsService } from '../../../core/mocks/form-operations-service.mock';
-import { getMockFormService } from '../../../core/mocks/form-service.mock';
-import {
-  mockLicenseParsedErrors,
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-  mockSubmissionObject,
-} from '../../../core/mocks/submission.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
@@ -61,6 +53,14 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import {
+  mockLicenseParsedErrors,
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+  mockSubmissionObject,
+} from '../../../shared/mocks/submission.mock';
 import { SubmissionService } from '../../submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionDataObject } from '../models/section-data.model';

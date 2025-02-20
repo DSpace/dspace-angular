@@ -12,7 +12,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../../../core/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { DateValueInputComponent } from './date-value-input.component';
 
 describe('DateValueInputComponent', () => {

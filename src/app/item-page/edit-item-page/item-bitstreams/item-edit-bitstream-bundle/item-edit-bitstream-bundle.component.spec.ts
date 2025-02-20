@@ -20,13 +20,13 @@ import { FieldChangeType } from '../../../../core/data/object-updates/field-chan
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { RequestService } from '../../../../core/data/request.service';
-import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { PaginationServiceStub } from '../../../../core/utilities/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
+import { getMockRequestService } from '../../../../shared/mocks/request.service.mock';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import {

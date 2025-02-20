@@ -1,9 +1,9 @@
 import { of as observableOf } from 'rxjs';
 
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RestResponse } from '../cache/response.models';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';

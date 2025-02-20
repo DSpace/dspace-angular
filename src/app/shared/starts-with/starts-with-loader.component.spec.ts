@@ -13,12 +13,12 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
 import { RouterStub } from '../../core/utilities/testing/router.stub';
 import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { StartsWithLoaderComponent } from './starts-with-loader.component';
 import { StartsWithType } from './starts-with-type';

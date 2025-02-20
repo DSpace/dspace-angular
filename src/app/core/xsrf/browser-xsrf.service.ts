@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import { take } from 'rxjs/operators';
 
+import { APP_CONFIG } from '../config/app-config.interface';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { XSRFService } from './xsrf.service';
 
@@ -13,10 +17,12 @@ import { XSRFService } from './xsrf.service';
  */
 @Injectable()
 export class BrowserXSRFService extends XSRFService {
+  private readonly appConfig = inject(APP_CONFIG);
+
   initXSRFToken(httpClient: HttpClient): () => Promise<any> {
     return () => new Promise<void>((resolve) => {
       // Force a new token to be created by calling the CSRF endpoint
-      httpClient.get(new RESTURLCombiner('/security/csrf').toString(), undefined).pipe(
+      httpClient.get(new RESTURLCombiner(this.appConfig.rest.baseUrl, '/security/csrf').toString(), undefined).pipe(
         take(1),
       ).subscribe(() => {
         // Once token is returned, set tokenInitialized to true.

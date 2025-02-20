@@ -11,6 +11,7 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
@@ -24,7 +25,6 @@ import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { RouterMock } from '../mocks/router.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

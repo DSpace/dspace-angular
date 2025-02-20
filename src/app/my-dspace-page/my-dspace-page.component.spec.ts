@@ -13,10 +13,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { getMockThemeService } from '../core/mocks/theme-service.mock';
 import { RoleService } from '../core/roles/role.service';
 import { Context } from '../core/shared/context.model';
 import { SearchService } from '../core/shared/search/search.service';
+import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';
 import { ThemeService } from '../shared/theme-support/theme.service';

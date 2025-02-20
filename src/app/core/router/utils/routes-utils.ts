@@ -9,6 +9,7 @@ import { DSpaceObject } from '../../shared/dspace-object.model';
 import { Item } from '../../shared/item.model';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 
+// TODO: make paths variable again!
 export function getDSpaceObjectRoute(dso: DSpaceObject): string {
   if (hasValue(dso)) {
     switch ((dso as any).type) {

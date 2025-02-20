@@ -18,7 +18,6 @@ import { environment } from '../../../../../environments/environment';
 import { BrowseService } from '../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { APP_CONFIG } from '../../../../core/config/app-config.interface';
-import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { Item } from '../../../../core/shared/item.model';
 import { MathService } from '../../../../core/shared/math.service';
 import {
@@ -29,6 +28,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/re
 import { BrowseDefinitionDataServiceStub } from '../../../../core/utilities/testing/browse-definition-data-service.stub';
 import { BrowseServiceStub } from '../../../../core/utilities/testing/browse-service.stub';
 import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { MarkdownDirective } from '../../../../shared/utils/markdown.directive';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from './item-page-field.component';

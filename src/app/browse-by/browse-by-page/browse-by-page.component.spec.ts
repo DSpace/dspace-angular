@@ -7,11 +7,11 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';

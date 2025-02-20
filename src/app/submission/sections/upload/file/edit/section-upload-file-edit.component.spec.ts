@@ -38,17 +38,6 @@ import {
 } from '../../../../../core/config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { getMockFormService } from '../../../../../core/mocks/form-service.mock';
-import { getMockSectionUploadService } from '../../../../../core/mocks/section-upload.service.mock';
-import {
-  mockFileFormData,
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-  mockSubmissionObject,
-  mockUploadConfigResponse,
-  mockUploadConfigResponseMetadata,
-  mockUploadFiles,
-} from '../../../../../core/mocks/submission.mock';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../core/utilities/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../../core/utilities/testing/submission-service.stub';
@@ -60,6 +49,17 @@ import { FormBuilderService } from '../../../../../shared/form/builder/form-buil
 import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
+import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
+import { getMockSectionUploadService } from '../../../../../shared/mocks/section-upload.service.mock';
+import {
+  mockFileFormData,
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+  mockSubmissionObject,
+  mockUploadConfigResponse,
+  mockUploadConfigResponseMetadata,
+  mockUploadFiles,
+} from '../../../../../shared/mocks/submission.mock';
 import { SubmissionService } from '../../../../submission.service';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';

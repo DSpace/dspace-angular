@@ -16,16 +16,16 @@ import { AuthService } from '../../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG } from '../../../../../../core/config/app-config.interface';
 import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
-import {
-  DSONameServiceMock,
-  UNDEFINED_NAME,
-} from '../../../../../../core/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../../core/mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../../core/mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../../../core/object-collection/item-search-result.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { ActivatedRouteStub } from '../../../../../../core/utilities/testing/active-router.stub';
 import { AuthServiceStub } from '../../../../../../core/utilities/testing/auth-service.stub';
+import {
+  DSONameServiceMock,
+  UNDEFINED_NAME,
+} from '../../../../../mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';

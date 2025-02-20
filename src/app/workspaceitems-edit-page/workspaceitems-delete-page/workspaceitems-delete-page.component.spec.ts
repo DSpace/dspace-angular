@@ -19,7 +19,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RouterMock } from '../../core/mocks/router.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -30,6 +29,7 @@ import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.s
 import { LocationStub } from '../../core/utilities/testing/location.stub';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 
 describe('WorkspaceitemsDeletePageComponent', () => {

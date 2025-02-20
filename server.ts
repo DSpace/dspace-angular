@@ -49,7 +49,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from './src/app/core/config/app-config.interface';
-import { extendEnvironmentWithAppConfig } from './src/app/core/config/config.util';
+import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
 import { CommonEngine } from '@angular/ssr';

@@ -20,8 +20,6 @@ import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.ser
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';
-import { getMockFormService } from '../../../core/mocks/form-service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RegistryService } from '../../../core/registry/registry.service';
@@ -36,6 +34,8 @@ import { SearchConfigurationServiceStub } from '../../../core/utilities/testing/
 import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { FormService } from '../../../shared/form/form.service';
 import { HostWindowService } from '../../../shared/host-window.service';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { MetadataRegistryComponent } from './metadata-registry.component';

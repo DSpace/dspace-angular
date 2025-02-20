@@ -19,12 +19,12 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
 import { RemoteData } from '../data/remote-data';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import { ClientCookieService } from '../services/client-cookie.service';
 import { CookieService } from '../services/cookie.service';

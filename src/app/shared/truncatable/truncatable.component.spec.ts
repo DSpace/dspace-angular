@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { mockTruncatableService } from '../../core/mocks/mock-trucatable.service';
+import { mockTruncatableService } from '../mocks/mock-trucatable.service';
 import { TruncatableComponent } from './truncatable.component';
 import { TruncatableService } from './truncatable.service';
 

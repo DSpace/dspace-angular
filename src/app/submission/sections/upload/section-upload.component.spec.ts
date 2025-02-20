@@ -22,18 +22,6 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
-import { getMockSectionUploadService } from '../../../core/mocks/section-upload.service.mock';
-import {
-  mockGroup,
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-  mockSubmissionState,
-  mockUploadConfigResponse,
-  mockUploadConfigResponseNotRequired,
-  mockUploadFiles,
-  mockUploadFilesData,
-} from '../../../core/mocks/submission.mock';
-import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { Collection } from '../../../core/shared/collection.model';
@@ -43,6 +31,18 @@ import { SectionsServiceStub } from '../../../core/utilities/testing/sections-se
 import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
 import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
+import {
+  mockGroup,
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+  mockSubmissionState,
+  mockUploadConfigResponse,
+  mockUploadConfigResponseNotRequired,
+  mockUploadFiles,
+  mockUploadFilesData,
+} from '../../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';

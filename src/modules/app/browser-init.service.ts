@@ -37,7 +37,6 @@ import {
   APP_CONFIG_STATE,
   AppConfig,
 } from '../../app/core/config/app-config.interface';
-import { extendEnvironmentWithAppConfig } from '../../app/core/config/config.util';
 import { DefaultAppConfig } from '../../app/core/config/default-app-config';
 import { coreSelector } from '../../app/core/core.selectors';
 import { CorrelationIdService } from '../../app/core/correlation-id/correlation-id.service';
@@ -56,6 +55,7 @@ import { MenuService } from '../../app/shared/menu/menu.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
+import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { environment } from '../../environments/environment';
 
 /**

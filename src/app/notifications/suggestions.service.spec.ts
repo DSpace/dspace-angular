@@ -8,7 +8,6 @@ import {
 } from '../core/cache/models/sort-options.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { followLink } from '../core/data/follow-link-config.model';
-import { mockSuggestionPublicationOne } from '../core/mocks/publication-claim.mock';
 import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
 import { SuggestionDataService } from '../core/notifications/suggestions/suggestion-data.service';
 import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
@@ -17,6 +16,7 @@ import { ResearcherProfileDataService } from '../core/profile/researcher-profile
 import { ResourceType } from '../core/shared/resource-type';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
+import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {

@@ -23,14 +23,14 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { coreReducers } from '../core.reducers';
-import { CoreState } from '../core-state.model';
-import { getMockObjectCacheService } from '../mocks/object-cache.service.mock';
+import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import {
   defaultUUID,
   getMockUUIDService,
-} from '../mocks/uuid.service.mock';
+} from '../../shared/mocks/uuid.service.mock';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { coreReducers } from '../core.reducers';
+import { CoreState } from '../core-state.model';
 import { UUIDService } from '../shared/uuid.service';
 import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
 import {

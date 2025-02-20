@@ -1,5 +1,5 @@
-import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
 import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DynamicDisabledModel } from '../ds-dynamic-form-ui/models/disabled/dynamic-disabled.model';
 import { DisabledFieldParser } from './disabled-field-parser';
 import { ParserOptions } from './parser-options';

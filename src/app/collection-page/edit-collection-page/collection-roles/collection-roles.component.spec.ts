@@ -16,7 +16,6 @@ import { of as observableOf } from 'rxjs';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../core/data/request.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Collection } from '../../../core/shared/collection.model';
 import {
@@ -24,6 +23,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../core/utilities/remote-data.utils';
 import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { CollectionRolesComponent } from './collection-roles.component';
 
 describe('CollectionRolesComponent', () => {

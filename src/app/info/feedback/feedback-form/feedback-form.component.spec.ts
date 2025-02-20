@@ -16,8 +16,6 @@ import { of } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
 import { Feedback } from '../../../core/feedback/models/feedback.model';
-import { NativeWindowMockFactory } from '../../../core/mocks/mock-native-window-ref';
-import { RouterMock } from '../../../core/mocks/router.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { RouteService } from '../../../core/services/route.service';
 import { NativeWindowService } from '../../../core/services/window.service';
@@ -26,6 +24,8 @@ import { EPersonMock } from '../../../core/utilities/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { routeServiceStub } from '../../../core/utilities/testing/route-service.stub';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
+import { RouterMock } from '../../../shared/mocks/router.mock';
 import { FeedbackFormComponent } from './feedback-form.component';
 
 

@@ -17,7 +17,6 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { GroupDataService } from '../../core/eperson/group-data.service';
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { Community } from '../../core/shared/community.model';
@@ -30,6 +29,7 @@ import { PaginationServiceStub } from '../../core/utilities/testing/pagination-s
 import { SearchConfigurationServiceStub } from '../../core/utilities/testing/search-configuration-service.stub';
 import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { HostWindowService } from '../../shared/host-window.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TopLevelCommunityListComponent } from './top-level-community-list.component';

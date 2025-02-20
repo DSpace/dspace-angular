@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import {
   hasValue,
   hasValueOperator,
@@ -12,8 +15,11 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
 import { SortDirection } from '../cache/models/sort-options.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
 import {
   followLink,
   FollowLinkConfig,
@@ -38,15 +44,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
-export function getBrowseLinksToFollow(): FollowLinkConfig<BrowseEntry | Item>[] {
-  const followLinks = [
-    followLink('thumbnail'),
-  ];
-  if (environment.item.showAccessStatuses) {
-    followLinks.push(followLink('accessStatus'));
-  }
-  return followLinks;
-}
+
 
 /**
  * The service handling all browse requests
@@ -54,6 +52,7 @@ export function getBrowseLinksToFollow(): FollowLinkConfig<BrowseEntry | Item>[]
 @Injectable({ providedIn: 'root' })
 export class BrowseService {
   protected linkPath = 'browses';
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   public static toSearchKeyArray(metadataKey: string): string[] {
     const keyParts = metadataKey.split('.');
@@ -74,6 +73,16 @@ export class BrowseService {
     private browseDefinitionDataService: BrowseDefinitionDataService,
     private hrefOnlyDataService: HrefOnlyDataService,
   ) {
+  }
+
+  getBrowseLinksToFollow(): FollowLinkConfig<BrowseEntry | Item>[] {
+    const followLinks = [
+      followLink('thumbnail'),
+    ];
+    if (this.appConfig.item.showAccessStatuses) {
+      followLinks.push(followLink('accessStatus'));
+    }
+    return followLinks;
   }
 
   /**
@@ -122,7 +131,7 @@ export class BrowseService {
       }),
     );
     if (options.fetchThumbnail ) {
-      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...getBrowseLinksToFollow());
+      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...this.getBrowseLinksToFollow());
     }
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
@@ -170,7 +179,7 @@ export class BrowseService {
       }),
     );
     if (options.fetchThumbnail) {
-      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, undefined, undefined, ...getBrowseLinksToFollow());
+      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, undefined, undefined, ...this.getBrowseLinksToFollow());
     }
     return this.hrefOnlyDataService.findListByHref<Item>(href$);
   }

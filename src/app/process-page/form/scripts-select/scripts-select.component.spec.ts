@@ -19,10 +19,10 @@ import {
 
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
 import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { Script } from '../../scripts/script.model';
 import { ScriptsSelectComponent } from './scripts-select.component';
 

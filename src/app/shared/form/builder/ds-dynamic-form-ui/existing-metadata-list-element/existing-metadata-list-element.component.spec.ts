@@ -12,7 +12,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
@@ -23,6 +22,7 @@ import { ActivatedRouteStub } from '../../../../../core/utilities/testing/active
 import { SubmissionServiceStub } from '../../../../../core/utilities/testing/submission-service.stub';
 import { TranslateLoaderMock } from '../../../../../core/utilities/testing/translate-loader.mock';
 import { SubmissionService } from '../../../../../submission/submission.service';
+import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { ThemeService } from '../../../../theme-support/theme.service';

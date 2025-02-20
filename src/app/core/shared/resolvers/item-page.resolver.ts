@@ -13,6 +13,10 @@ import { map } from 'rxjs/operators';
 import { AppState } from '../../../app.reducer';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AuthService } from '../../auth/auth.service';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { ItemDataService } from '../../data/item-data.service';
 import { RemoteData } from '../../data/remote-data';
 import { ResolvedAction } from '../../resolving/resolver.actions';
@@ -29,6 +33,7 @@ import { getItemPageLinksToFollow } from './item.resolver';
  * @param {ItemDataService} itemService
  * @param {Store<AppState>} store
  * @param {AuthService} authService
+ * @param appConfig
  * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
  * or an error if something went wrong
  */
@@ -39,12 +44,13 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   itemService: ItemDataService = inject(ItemDataService),
   store: Store<AppState> = inject(Store<AppState>),
   authService: AuthService = inject(AuthService),
+  appConfig: AppConfig = inject(APP_CONFIG),
 ): Observable<RemoteData<Item>> => {
   const itemRD$ = itemService.findById(
     route.params.id,
     true,
     false,
-    ...getItemPageLinksToFollow(),
+    ...getItemPageLinksToFollow(appConfig.item.showAccessStatuses),
   ).pipe(
     getFirstCompletedRemoteData(),
     redirectOn4xx(router, authService),

@@ -15,8 +15,8 @@ import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
 import {
   HealthInfoResponseObj,
   HealthResponseObj,
-} from '../core/mocks/health-endpoint.mocks';
-import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
+} from '../shared/mocks/health-endpoint.mocks';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { HealthService } from './health.service';
 import { HealthPageComponent } from './health-page.component';
 

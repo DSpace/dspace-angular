@@ -6,10 +6,10 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
-import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
 import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
 import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';

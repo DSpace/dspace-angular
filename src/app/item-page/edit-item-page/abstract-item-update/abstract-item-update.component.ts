@@ -1,5 +1,6 @@
 import {
   Component,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -24,6 +25,7 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
+import { APP_CONFIG } from '../../../core/config/app-config.interface';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
@@ -66,6 +68,8 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    */
   itemUpdateSubscription: Subscription;
 
+  private readonly appConfig = inject(APP_CONFIG);
+
   constructor(
     public itemService: ItemDataService,
     public objectUpdatesService: ObjectUpdatesService,
@@ -92,7 +96,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
           this.item = rd.payload;
         }),
         switchMap((rd: RemoteData<Item>) => {
-          return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...getItemPageLinksToFollow());
+          return this.itemService.findByHref(rd.payload._links.self.href, true, true, ...getItemPageLinksToFollow(this.appConfig.item.showAccessStatuses));
         }),
         getAllSucceededRemoteData(),
       ).subscribe((rd: RemoteData<Item>) => {

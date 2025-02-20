@@ -15,12 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import {
-  ItemMockPid10,
-  NotificationsMockDspaceObject,
-  qualityAssuranceEventObjectMissingProjectFound,
-} from '../../../core/mocks/notifications.mock';
-import { getMockSearchService } from '../../../core/mocks/search-service.mock';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
@@ -31,6 +25,12 @@ import { ActivatedRouteStub } from '../../../core/utilities/testing/active-route
 import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import {
+  ItemMockPid10,
+  NotificationsMockDspaceObject,
+  qualityAssuranceEventObjectMissingProjectFound,
+} from '../../../shared/mocks/notifications.mock';
+import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 import {

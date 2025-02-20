@@ -14,8 +14,6 @@ import { AccessStatusDataService } from '../../../../../core/data/access-status-
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { mockTruncatableService } from '../../../../../core/mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../../core/shared/file.service';
@@ -25,6 +23,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities
 import { AuthServiceStub } from '../../../../../core/utilities/testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../../../core/utilities/testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../../core/utilities/testing/file-service.stub';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ListableModule } from '../../../../../shared/modules/listable.module';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';

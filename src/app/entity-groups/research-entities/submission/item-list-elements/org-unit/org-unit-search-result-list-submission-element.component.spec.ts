@@ -30,8 +30,6 @@ import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { DSONameServiceMock } from '../../../../../core/mocks/dso-name.service.mock';
-import { mockTruncatableService } from '../../../../../core/mocks/mock-trucatable.service';
 import { NotificationsService } from '../../../../../core/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
@@ -39,6 +37,8 @@ import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.serv
 import { Item } from '../../../../../core/shared/item.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';

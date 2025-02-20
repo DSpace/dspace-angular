@@ -15,11 +15,6 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { followLink } from '../../../../../core/data/follow-link-config.model';
-import { AuthServiceMock } from '../../../../../core/mocks/auth.service.mock';
-import { DSONameServiceMock } from '../../../../../core/mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../../../core/mocks/link-service.mock';
-import { mockTruncatableService } from '../../../../../core/mocks/mock-trucatable.service';
-import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
 import { NotificationsService } from '../../../../../core/notifications/notifications.service';
 import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
@@ -33,6 +28,11 @@ import {
   supervisionOrderPaginatedListRD,
   supervisionOrderPaginatedListRD$,
 } from '../../../../../core/utilities/testing/supervision-order.mock';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';

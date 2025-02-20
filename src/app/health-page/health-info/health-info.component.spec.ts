@@ -10,8 +10,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { HealthInfoResponseObj } from '../../core/mocks/health-endpoint.mocks';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
+import { HealthInfoResponseObj } from '../../shared/mocks/health-endpoint.mocks';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { HealthInfoComponent } from './health-info.component';
 

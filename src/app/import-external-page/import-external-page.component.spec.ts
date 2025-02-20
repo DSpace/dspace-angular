@@ -6,9 +6,9 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { getMockThemeService } from '../core/mocks/theme-service.mock';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { ActivatedRouteStub } from '../core/utilities/testing/active-router.stub';
+import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { ThemedSubmissionImportExternalComponent } from '../submission/import-external/themed-submission-import-external.component';
 import { ImportExternalPageComponent } from './import-external-page.component';

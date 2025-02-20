@@ -20,8 +20,6 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { ItemRequestDataService } from '../../core/data/item-request-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { DSONameServiceMock } from '../../core/mocks/dso-name.service.mock';
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { RequestCopyEmail } from '../../core/request-copy/request-copy-email.model';
 import { Item } from '../../core/shared/item.model';
@@ -31,6 +29,8 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../core/utilities/remote-data.utils';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { DenyRequestCopyComponent } from './deny-request-copy.component';

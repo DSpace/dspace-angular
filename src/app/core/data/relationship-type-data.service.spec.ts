@@ -1,9 +1,9 @@
 import { hasValueOperator } from '@dspace/shared/utils';
 import { of as observableOf } from 'rxjs';
 
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import {

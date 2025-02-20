@@ -20,8 +20,6 @@ import {
 import { AuthService } from '../../core/auth/auth.service';
 import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { mockSubmissionObject } from '../../core/mocks/submission.mock';
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
@@ -34,6 +32,8 @@ import { SectionsServiceStub } from '../../core/utilities/testing/sections-servi
 import { SubmissionJsonPatchOperationsServiceStub } from '../../core/utilities/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
 import { XSRFService } from '../../core/xsrf/xsrf.service';
+import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SectionsService } from '../sections/sections.service';

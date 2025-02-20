@@ -1,13 +1,13 @@
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FindListOptions } from '../data/find-list-options.model';
 import { GetRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
 import { ConfigDataService } from './config-data.service';

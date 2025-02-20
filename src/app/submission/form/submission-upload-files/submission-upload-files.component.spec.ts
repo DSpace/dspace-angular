@@ -20,6 +20,13 @@ import {
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../core/utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import {
   mockSectionsData,
   mockSubmissionCollectionId,
@@ -28,15 +35,8 @@ import {
   mockUploadResponse1ParsedErrors,
   mockUploadResponse2Errors,
   mockUploadResponse2ParsedErrors,
-} from '../../../core/mocks/submission.mock';
-import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../core/utilities/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+} from '../../../shared/mocks/submission.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';

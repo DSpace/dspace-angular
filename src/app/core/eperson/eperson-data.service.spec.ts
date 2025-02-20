@@ -17,6 +17,8 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -29,8 +31,6 @@ import {
   PostRequest,
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { getMockRemoteDataBuildServiceHrefMap } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';

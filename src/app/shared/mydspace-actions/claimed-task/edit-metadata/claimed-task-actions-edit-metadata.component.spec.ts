@@ -19,8 +19,6 @@ import {
 } from '@ngx-translate/core';
 
 import { RequestService } from '../../../../core/data/request.service';
-import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
-import { getMockSearchService } from '../../../../core/mocks/search-service.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
@@ -30,6 +28,8 @@ import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-ro
 import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../../../../core/utilities/testing/router.stub';
 import { TranslateLoaderMock } from '../../../../core/utilities/testing/translate-loader.mock';
+import { getMockRequestService } from '../../../mocks/request.service.mock';
+import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-edit-metadata.component';
 
 let component: ClaimedTaskActionsEditMetadataComponent;

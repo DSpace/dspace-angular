@@ -14,16 +14,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import {
-  getMockNotificationsStateService,
-  qualityAssuranceSourceObjectMoreAbstract,
-  qualityAssuranceSourceObjectMorePid,
-} from '../../../core/mocks/notifications.mock';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
 import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import {
+  getMockNotificationsStateService,
+  qualityAssuranceSourceObjectMoreAbstract,
+  qualityAssuranceSourceObjectMorePid,
+} from '../../../shared/mocks/notifications.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { NotificationsStateService } from '../../notifications-state.service';
 import { QualityAssuranceSourceComponent } from './quality-assurance-source.component';

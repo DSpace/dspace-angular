@@ -13,12 +13,12 @@ import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../core/config/app-config.interface';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import { Item } from '../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';

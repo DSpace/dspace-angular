@@ -14,9 +14,9 @@ import { join } from 'path';
 
 // TODO: find a way to use the relative module path without braking the build
 import { isNotEmpty } from '../../../../modules/shared/utils/src/lib/utils/empty.util';
+import { mergeConfig } from '../../../config/config.util';
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
-import { mergeConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
 

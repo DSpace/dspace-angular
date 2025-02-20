@@ -21,8 +21,6 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { getMockExternalSourceService } from '../../core/mocks/external-source.service.mock';
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { RouteService } from '../../core/services/route.service';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
@@ -44,6 +42,8 @@ import {
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';

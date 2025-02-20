@@ -9,12 +9,12 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
-import { mockTruncatableService } from '../../../core/mocks/mock-trucatable.service';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALResource } from '../../../core/shared/hal-resource.model';
 import { SearchResult } from '../../../core/shared/search/models/search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { VarDirective } from '../../utils/var.directive';
 

@@ -12,7 +12,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import { Community } from '../../../core/shared/community.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
@@ -22,6 +21,7 @@ import { QueryParamsDirectiveStub } from '../../../core/utilities/testing/query-
 import { SearchConfigurationServiceStub } from '../../../core/utilities/testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../core/utilities/testing/search-service.stub';
 import { ErrorComponent } from '../../error/error.component';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { ThemeService } from '../../theme-support/theme.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';

@@ -14,11 +14,11 @@ import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG } from '../../../../core/config/app-config.interface';
-import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock';
-import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
 import { CollectionSearchResult } from '../../../../core/object-collection/collection-search-result.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';

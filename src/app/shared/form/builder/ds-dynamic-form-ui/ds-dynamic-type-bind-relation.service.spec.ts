@@ -18,11 +18,11 @@ import {
   REQUIRED_MATCHER_PROVIDER,
 } from '@ng-dynamic-forms/core';
 
-import { getMockFormBuilderService } from '../../../../core/mocks/form-builder-service.mock';
+import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
 import {
   mockInputWithTypeBindModel,
   MockRelationModel,
-} from '../../../../core/mocks/form-models.mock';
+} from '../../../mocks/form-models.mock';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';

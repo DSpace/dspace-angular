@@ -4,9 +4,9 @@ import {
 } from '@angular/core/testing';
 import { of } from 'rxjs';
 
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { getMockRequestService } from '../mocks/request.service.mock';
 import { Item } from '../shared/item.model';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';

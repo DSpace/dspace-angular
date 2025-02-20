@@ -12,9 +12,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';

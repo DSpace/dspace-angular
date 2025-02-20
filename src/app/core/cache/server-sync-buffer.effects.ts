@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import {
   hasValue,
   isNotEmpty,
@@ -30,7 +33,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { PatchRequest } from '../data/request.models';
@@ -53,6 +59,7 @@ import {
 
 @Injectable()
 export class ServerSyncBufferEffects {
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   /**
    * When an ADDToSSBAction is dispatched
@@ -64,7 +71,7 @@ export class ServerSyncBufferEffects {
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
-        const autoSyncConfig = environment.cache.autoSync;
+        const autoSyncConfig = this.appConfig.cache.autoSync;
         const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
         return observableOf(new CommitSSBAction(action.payload.method)).pipe(
           delay(timeoutInSeconds * 1000),

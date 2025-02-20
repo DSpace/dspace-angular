@@ -27,7 +27,6 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { AuthServiceMock } from '../../core/mocks/auth.service.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import {
@@ -40,6 +39,7 @@ import { RouterStub } from '../../core/utilities/testing/router.stub';
 import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

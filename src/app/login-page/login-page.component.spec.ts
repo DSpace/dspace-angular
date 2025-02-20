@@ -12,9 +12,9 @@ import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../core/auth/auth.service';
 import { APP_DATA_SERVICES_MAP } from '../core/config/app-config.interface';
-import { AuthServiceMock } from '../core/mocks/auth.service.mock';
 import { ActivatedRouteStub } from '../core/utilities/testing/active-router.stub';
 import { XSRFService } from '../core/xsrf/xsrf.service';
+import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { LoginPageComponent } from './login-page.component';
 
 describe('LoginPageComponent', () => {

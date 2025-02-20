@@ -8,14 +8,14 @@ import {
 } from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import {
   getMockQualityAssuranceSourceRestService,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
-} from '../../../core/mocks/notifications.mock';
-import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+} from '../../../shared/mocks/notifications.mock';
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 
 describe('QualityAssuranceSourceService', () => {

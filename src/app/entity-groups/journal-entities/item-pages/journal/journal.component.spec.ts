@@ -36,8 +36,6 @@ import { RelationshipDataService } from '../../../../core/data/relationship-data
 import { RemoteData } from '../../../../core/data/remote-data';
 import { VersionDataService } from '../../../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
-import { mockTruncatableService } from '../../../../core/mocks/mock-trucatable.service';
-import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { RouteService } from '../../../../core/services/route.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -58,6 +56,8 @@ import { TabbedRelatedEntitiesSearchComponent } from '../../../../item-page/simp
 import { RelatedItemsComponent } from '../../../../item-page/simple/related-items/related-items-component';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';

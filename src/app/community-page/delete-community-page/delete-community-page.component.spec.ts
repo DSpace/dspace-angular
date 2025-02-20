@@ -13,8 +13,8 @@ import { of as observableOf } from 'rxjs';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
-import { DSONameServiceMock } from '../../core/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { DeleteCommunityPageComponent } from './delete-community-page.component';
 
 describe('DeleteCommunityPageComponent', () => {

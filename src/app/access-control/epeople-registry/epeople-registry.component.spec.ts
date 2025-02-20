@@ -40,8 +40,6 @@ import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { getMockFormBuilderService } from '../../core/mocks/form-builder-service.mock';
-import { RouterMock } from '../../core/mocks/router.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -55,6 +53,8 @@ import { PaginationServiceStub } from '../../core/utilities/testing/pagination-s
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { getMockFormBuilderService } from '../../shared/mocks/form-builder-service.mock';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';

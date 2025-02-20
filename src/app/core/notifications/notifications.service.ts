@@ -1,11 +1,17 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import { of as observableOf } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
 import {
   INotification,
   Notification,
@@ -20,6 +26,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class NotificationsService {
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
 
   constructor(private store: Store<Notification>,
               private translate: TranslateService) {
@@ -117,9 +124,9 @@ export class NotificationsService {
 
   private getDefaultOptions(): NotificationOptions {
     return new NotificationOptions(
-      environment.notifications.timeOut,
-      environment.notifications.clickToClose,
-      environment.notifications.animate,
+      this.appConfig.notifications.timeOut,
+      this.appConfig.notifications.clickToClose,
+      this.appConfig.notifications.animate,
     );
   }
 }

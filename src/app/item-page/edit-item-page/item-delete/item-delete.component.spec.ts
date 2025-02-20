@@ -25,7 +25,6 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
@@ -38,6 +37,7 @@ import {
 import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { VarDirective } from '../../../shared/utils/var.directive';

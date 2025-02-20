@@ -27,7 +27,6 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { RequestService } from '../../../core/data/request.service';
-import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import {
   INotification,
   Notification,
@@ -47,6 +46,7 @@ import { relationshipTypes } from '../../../core/utilities/testing/relationship-
 import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 

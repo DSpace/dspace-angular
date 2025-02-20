@@ -28,7 +28,6 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { GroupDataService } from '../../core/eperson/group-data.service';
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { RouteService } from '../../core/services/route.service';
@@ -54,6 +53,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configurat
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';

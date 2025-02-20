@@ -14,9 +14,6 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { followLink } from '../../../../../core/data/follow-link-config.model';
-import { AuthServiceMock } from '../../../../../core/mocks/auth.service.mock';
-import { getMockLinkService } from '../../../../../core/mocks/link-service.mock';
-import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
 import { NotificationsService } from '../../../../../core/notifications/notifications.service';
 import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
@@ -31,6 +28,9 @@ import {
   supervisionOrderPaginatedListRD$,
 } from '../../../../../core/utilities/testing/supervision-order.mock';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ListableModule } from '../../../../../shared/modules/listable.module';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';

@@ -21,7 +21,6 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { ProcessDataService } from '../../../core/data/processes/process-data.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { AuthServiceMock } from '../../../core/mocks/auth.service.mock';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RouteService } from '../../../core/services/route.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
@@ -29,6 +28,7 @@ import { PaginationServiceStub } from '../../../core/utilities/testing/paginatio
 import { routeServiceStub } from '../../../core/utilities/testing/route-service.stub';
 import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { Process } from '../../processes/process.model';

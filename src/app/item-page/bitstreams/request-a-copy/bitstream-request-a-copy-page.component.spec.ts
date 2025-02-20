@@ -25,7 +25,6 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Item } from '../../../core/shared/item.model';
@@ -37,6 +36,7 @@ import {
 } from '../../../core/utilities/remote-data.utils';
 import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 
 

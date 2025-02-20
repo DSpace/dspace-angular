@@ -15,8 +15,8 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { TranslateLoaderMock } from '../../../../../core/mocks/translate-loader.mock';
 import { Item } from '../../../../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../../../mocks/translate-loader.mock';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
 

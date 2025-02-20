@@ -29,10 +29,10 @@ import {
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
 import { EPersonMock } from '../../../core/utilities/testing/eperson.mock';
 import { XSRFService } from '../../../core/xsrf/xsrf.service';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { UserMenuComponent } from './user-menu.component';
 
 describe('UserMenuComponent', () => {

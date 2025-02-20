@@ -29,7 +29,6 @@ import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '../../../../core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -43,6 +42,7 @@ import { NotificationsServiceStub } from '../../../../core/utilities/testing/not
 import { SearchServiceStub } from '../../../../core/utilities/testing/search-service.stub';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents

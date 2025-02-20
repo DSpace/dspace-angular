@@ -13,11 +13,11 @@ import { of as observableOf } from 'rxjs';
 
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { getMockFormBuilderService } from '../../../../core/mocks/form-builder-service.mock';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { RegistryServiceStub } from '../../../../core/utilities/testing/registry.service.stub';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { MetadataFieldFormComponent } from './metadata-field-form.component';
 

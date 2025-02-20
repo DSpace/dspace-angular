@@ -19,14 +19,14 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { ItemDataService } from '../../core/data/item-data.service';
-import { mockSubmissionObject } from '../../core/mocks/submission.mock';
-import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../../core/utilities/testing/router.stub';
 import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
+import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { SubmissionService } from '../submission.service';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 

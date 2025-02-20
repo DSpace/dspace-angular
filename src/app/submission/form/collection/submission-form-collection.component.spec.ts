@@ -28,11 +28,6 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
-import {
-  mockSubmissionId,
-  mockSubmissionRestResponse,
-} from '../../../core/mocks/submission.mock';
 import { Collection } from '../../../core/shared/collection.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
@@ -41,6 +36,11 @@ import { SubmissionServiceStub } from '../../../core/utilities/testing/submissio
 import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
+import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import {
+  mockSubmissionId,
+  mockSubmissionRestResponse,
+} from '../../../shared/mocks/submission.mock';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';

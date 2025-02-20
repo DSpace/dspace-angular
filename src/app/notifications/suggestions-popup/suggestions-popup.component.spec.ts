@@ -8,8 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { mockSuggestionTargetsObjectOne } from '../../core/mocks/publication-claim-targets.mock';
 import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { mockSuggestionTargetsObjectOne } from '../../shared/mocks/publication-claim-targets.mock';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../suggestions.service';
 import { SuggestionsPopupComponent } from './suggestions-popup.component';

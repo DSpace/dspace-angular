@@ -1,16 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { makeEnvironmentProviders } from '@angular/core';
+import {
+  inject,
+  makeEnvironmentProviders,
+} from '@angular/core';
 
-import { environment } from '../../environments/environment';
 import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
 import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { Process } from '../process-page/processes/process.model';
 import { Script } from '../process-page/scripts/script.model';
+import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
+import {
+  MOCK_RESPONSE_MAP,
+  ResponseMapMock,
+} from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
+import { APP_CONFIG } from './config/app-config.interface';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
 import { SubmissionAccessesModel } from './config/models/config-submission-accesses.model';
 import { SubmissionDefinitionsModel } from './config/models/config-submission-definitions.model';
@@ -24,11 +32,6 @@ import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
-import { EndpointMockingRestService } from './mocks/dspace-rest/endpoint-mocking-rest.service';
-import {
-  MOCK_RESPONSE_MAP,
-  ResponseMapMock,
-} from './mocks/dspace-rest/mocks/response-map.mock';
 import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
@@ -97,7 +100,7 @@ export const provideCore = () => {
  * If there is no mock version available for the endpoint, the actual REST response will be used just like in production mode
  */
 export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient) => {
-  if (environment.production) {
+  if (inject(APP_CONFIG).production) {
     return new DspaceRestService(http);
   } else {
     return new EndpointMockingRestService(mocks, http);

@@ -8,13 +8,14 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { environment } from '../../../environments/environment.test';
+import { APP_CONFIG } from '../config/app-config.interface';
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { endUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
 
 describe('endUserAgreementGuard', () => {
   let endUserAgreementService: EndUserAgreementService;
   let router: Router;
+  let environment;
 
   beforeEach(() => {
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
@@ -26,6 +27,8 @@ describe('endUserAgreementGuard', () => {
       parseUrl: new UrlTree(),
       createUrlTree: new UrlTree(),
     });
+
+    environment = TestBed.inject(APP_CONFIG);
 
     TestBed.configureTestingModule({
       providers: [

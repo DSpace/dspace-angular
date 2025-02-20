@@ -19,9 +19,6 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { RequestService } from '../../core/data/request.service';
-import { getMockRequestService } from '../../core/mocks/request.service.mock';
-import { getMockSearchService } from '../../core/mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { Item } from '../../core/shared/item.model';
 import { SearchService } from '../../core/shared/search/search.service';
@@ -37,6 +34,9 @@ import {
 import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../../core/utilities/testing/router.stub';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { getMockSearchService } from '../mocks/search-service.mock';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { PoolTaskActionsComponent } from './pool-task/pool-task-actions.component';
 
 let mockDataService: PoolTaskDataService;

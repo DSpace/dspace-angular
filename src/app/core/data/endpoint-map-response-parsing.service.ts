@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils';
 
-import { environment } from '../../../environments/environment';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ParsedResponse } from '../cache/response.models';
@@ -22,7 +21,6 @@ import { RestRequest } from './rest-request.model';
  */
 @Injectable({ providedIn: 'root' })
 export class EndpointMapResponseParsingService extends DspaceRestResponseParsingService {
-
   /**
    * Parse an endpoint map response.
    *
@@ -111,7 +109,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
     }
 
     if (hasValue(this.getConstructorFor<any>((co as any).type))) {
-      this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, alternativeURL);
+      this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : this.appConfig.cache.msToLive.default, request.uuid, alternativeURL);
     }
   }
 

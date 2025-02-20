@@ -9,7 +9,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { HealthStatus } from '../../models/health-component.model';
 import { HealthStatusComponent } from './health-status.component';
 

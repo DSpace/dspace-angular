@@ -25,7 +25,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
 import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
@@ -43,6 +42,7 @@ import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.s
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
 import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { OrcidPageComponent } from './orcid-page.component';
 
 describe('OrcidPageComponent test suite', () => {

@@ -1,11 +1,11 @@
+import { Item } from '../../core/shared/item.model';
 import {
   mockSubmissionCollectionId,
   mockSubmissionDefinitionResponse,
   mockSubmissionId,
   mockSubmissionSelfUrl,
   mockSubmissionState,
-} from '../../core/mocks/submission.mock';
-import { Item } from '../../core/shared/item.model';
+} from '../../shared/mocks/submission.mock';
 import { SectionsType } from '../sections/sections-type';
 import {
   CancelSubmissionFormAction,

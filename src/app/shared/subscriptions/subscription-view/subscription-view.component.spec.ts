@@ -22,9 +22,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
-// Import mocks
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 // Import utils
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
@@ -35,6 +32,9 @@ import {
   findByEPersonAndDsoResEmpty,
   subscriptionMock,
 } from '../../../core/utilities/testing/subscriptions-data.mock';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
+// Import mocks
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionsDataService } from '../subscriptions-data.service';

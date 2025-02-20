@@ -4,13 +4,12 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { environment } from '../../../environments/environment';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { EndpointMapRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestEntryState } from '../data/request-entry-state.model';
-import { getMockRequestService } from '../mocks/request.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { HALEndpointService } from './hal-endpoint.service';
 
@@ -121,7 +120,7 @@ describe('HALEndpointService', () => {
   describe('getRootEndpointMap', () => {
     it('should send a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
-      const expected = new EndpointMapRequest(requestService.generateRequestId(), `${environment.rest.baseUrl}/api`);
+      const expected = new EndpointMapRequest(requestService.generateRequestId(), `${envConfig.rest.baseUrl}/api`);
       expect(requestService.send).toHaveBeenCalledWith(expected, true);
     });
 

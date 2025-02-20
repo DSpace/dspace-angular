@@ -12,8 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { getMockFormBuilderService } from '../../../../core/mocks/form-builder-service.mock';
-import { getMockFormService } from '../../../../core/mocks/form-service.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
@@ -25,6 +23,8 @@ import { NotificationsServiceStub } from '../../../../core/utilities/testing/not
 import { RouterStub } from '../../../../core/utilities/testing/router.stub';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
 import { FormatFormComponent } from '../format-form/format-form.component';
 import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
 

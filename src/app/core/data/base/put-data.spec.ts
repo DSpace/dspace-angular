@@ -11,10 +11,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../../utilities/testing/hal-endpoint-service.stub';

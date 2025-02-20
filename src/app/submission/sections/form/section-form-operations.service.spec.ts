@@ -16,7 +16,12 @@ import {
 import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import {
   mockInputWithAuthorityValueModel,
   mockInputWithFormFieldValueModel,
@@ -28,13 +33,8 @@ import {
   MockQualdropModel,
   MockRelationModel,
   mockRowGroupModel,
-} from '../../../core/mocks/form-models.mock';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
+} from '../../../shared/mocks/form-models.mock';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { SectionFormOperationsService } from './section-form-operations.service';
 
 describe('SectionFormOperationsService test suite', () => {

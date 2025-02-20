@@ -15,8 +15,6 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock';
-import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
 import { ListableObject } from '../../../../core/object-collection/listable-object.model';
 import { Context } from '../../../../core/shared/context.model';
 import { FileService } from '../../../../core/shared/file.service';
@@ -29,6 +27,8 @@ import { FileServiceStub } from '../../../../core/utilities/testing/file-service
 import { TruncatableServiceStub } from '../../../../core/utilities/testing/truncatable-service.stub';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ListableModule } from '../../../modules/listable.module';
 import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';

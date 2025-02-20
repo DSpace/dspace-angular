@@ -27,7 +27,6 @@ import {
 } from 'rxjs';
 
 import { RequestService } from '../core/data/request.service';
-import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../core/notifications/notifications.service';
 import { RouteService } from '../core/services/route.service';
 import { WorkflowItem } from '../core/submission/models/workflowitem.model';
@@ -42,6 +41,7 @@ import { NotificationsServiceStub } from '../core/utilities/testing/notification
 import { RequestServiceStub } from '../core/utilities/testing/request-service.stub';
 import { RouterStub } from '../core/utilities/testing/router.stub';
 import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { VarDirective } from '../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from './workflow-item-action-page.component';
 

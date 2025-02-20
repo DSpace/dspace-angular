@@ -20,7 +20,7 @@ import {
 } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
-import { getMockFormBuilderService } from '../../core/mocks/form-builder-service.mock';
+import { getMockFormBuilderService } from '../mocks/form-builder-service.mock';
 import { FormBuilderService } from './builder/form-builder.service';
 import { formReducer } from './form.reducer';
 import { FormService } from './form.service';

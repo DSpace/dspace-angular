@@ -14,13 +14,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  mockSubmissionCollectionId,
-  mockSubmissionId,
-} from '../../../core/mocks/submission.mock';
 import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
 import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../../shared/mocks/submission.mock';
 import { SubmissionService } from '../../submission.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsDirective } from '../sections.directive';

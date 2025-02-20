@@ -1,14 +1,18 @@
 /* eslint-disable max-classes-per-file */
+import { inject } from '@angular/core';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
 
-import { environment } from '../../../environments/environment';
 import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { Serializer } from '../serializer';
 import { GenericConstructor } from '../shared/generic-constructor';
@@ -48,6 +52,9 @@ export abstract class BaseResponseParsingService {
   protected abstract toCache: boolean;
   protected shouldDirectlyAttachEmbeds = false;
   protected serializerConstructor: GenericConstructor<Serializer<any>> = DSpaceSerializer;
+
+  private readonly appConfig: AppConfig = inject(APP_CONFIG);
+
 
   protected process<ObjectDomain>(data: any, request: RestRequest, alternativeURL?: string): any {
     if (isNotEmpty(data)) {
@@ -156,7 +163,7 @@ export abstract class BaseResponseParsingService {
       return;
     }
 
-    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, alternativeURL);
+    this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : this.appConfig.cache.msToLive.default, request.uuid, alternativeURL);
   }
 
   processPageInfo(payload: any): PageInfo {

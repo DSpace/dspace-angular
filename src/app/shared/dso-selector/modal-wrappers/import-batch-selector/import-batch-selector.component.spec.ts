@@ -8,13 +8,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
 import { SearchServiceStub } from '../../../../core/utilities/testing/search-service.stub';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';
 

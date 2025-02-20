@@ -38,9 +38,9 @@ import {
   toArray,
 } from 'rxjs/operators';
 
+import { getDefaultThemeConfig } from '../../../config/config.util';
 import { environment } from '../../../environments/environment';
 import { LinkService } from '../../core/cache/builders/link.service';
-import { getDefaultThemeConfig } from '../../core/config/config.util';
 import {
   HeadTagConfig,
   ThemeConfig,

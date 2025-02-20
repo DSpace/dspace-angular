@@ -34,9 +34,6 @@ import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
-import { getMockLinkService } from '../../core/mocks/link-service.mock';
-import { getMockResourcePolicyService } from '../../core/mocks/mock-resource-policy-service';
-import { getMockRequestService } from '../../core/mocks/request.service.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { ActionType } from '../../core/resource-policy/models/action-type.model';
 import { PolicyType } from '../../core/resource-policy/models/policy-type.model';
@@ -57,6 +54,9 @@ import {
   createPaginatedList,
   createTestComponent,
 } from '../../core/utilities/testing/utils.test';
+import { getMockLinkService } from '../mocks/link-service.mock';
+import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { HasValuePipe } from '../utils/has-value.pipe';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
 import { ResourcePoliciesComponent } from './resource-policies.component';

@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { Collection } from '../../core/shared/collection.model';
 import {
@@ -20,6 +19,7 @@ import {
 } from '../../core/utilities/remote-data.utils';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
 import { EditItemTemplatePageComponent } from './edit-item-template-page.component';

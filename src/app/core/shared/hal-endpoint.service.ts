@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import {
   hasValue,
   isEmpty,
@@ -18,6 +21,7 @@ import {
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { EndpointMap } from '../cache/response.models';
+import { APP_CONFIG } from '../config/app-config.interface';
 import { RemoteData } from '../data/remote-data';
 import { EndpointMapRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
@@ -27,6 +31,8 @@ import { getFirstCompletedRemoteData } from './operators';
 @Injectable({ providedIn: 'root' })
 export class HALEndpointService {
 
+  private readonly appConfig = inject(APP_CONFIG);
+
   constructor(
     private requestService: RequestService,
     private rdbService: RemoteDataBuildService,
@@ -34,7 +40,7 @@ export class HALEndpointService {
   }
 
   public getRootHref(): string {
-    return new RESTURLCombiner().toString();
+    return new RESTURLCombiner(this.appConfig.rest.baseUrl).toString();
   }
 
   protected getRootEndpointMap(): Observable<EndpointMap> {

@@ -30,13 +30,6 @@ import { AuthService } from './core/auth/auth.service';
 import { APP_CONFIG } from './core/config/app-config.interface';
 import { LocaleService } from './core/locale/locale.service';
 import { HeadTagService } from './core/metadata/head-tag.service';
-import { MockActivatedRoute } from './core/mocks/active-router.mock';
-import { AngularticsProviderMock } from './core/mocks/angulartics-provider.service.mock';
-import { AuthServiceMock } from './core/mocks/auth.service.mock';
-import { HeadTagServiceMock } from './core/mocks/head-tag-service.mock';
-import { RouterMock } from './core/mocks/router.mock';
-import { getMockThemeService } from './core/mocks/theme-service.mock';
-import { TranslateLoaderMock } from './core/mocks/translate-loader.mock';
 import { RouteService } from './core/services/route.service';
 import {
   NativeWindowRef,
@@ -49,6 +42,13 @@ import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';
 import { MenuService } from './shared/menu/menu.service';
+import { MockActivatedRoute } from './shared/mocks/active-router.mock';
+import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
+import { AuthServiceMock } from './shared/mocks/auth.service.mock';
+import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
+import { RouterMock } from './shared/mocks/router.mock';
+import { getMockThemeService } from './shared/mocks/theme-service.mock';
+import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { ThemeService } from './shared/theme-support/theme.service';

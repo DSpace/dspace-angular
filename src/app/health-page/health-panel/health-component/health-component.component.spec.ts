@@ -15,8 +15,8 @@ import {
 import {
   HealthComponentOne,
   HealthComponentTwo,
-} from '../../../core/mocks/health-endpoint.mocks';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+} from '../../../shared/mocks/health-endpoint.mocks';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { HealthComponentComponent } from './health-component.component';
 
