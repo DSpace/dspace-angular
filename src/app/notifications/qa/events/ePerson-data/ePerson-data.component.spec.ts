@@ -6,8 +6,8 @@ import {
 } from '@angular/core/testing';
 import { EPerson } from 'src/app/core/eperson/models/eperson.model';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { EPersonDataComponent } from './ePerson-data.component';
 
 describe('EPersonDataComponent', () => {

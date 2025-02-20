@@ -8,8 +8,8 @@ import {
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { Community } from '../../../core/shared/community.model';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { CollectionAccessControlComponent } from './collection-access-control.component';
 

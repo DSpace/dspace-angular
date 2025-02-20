@@ -12,7 +12,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../shared/resolvers/bitstream-page.resolver';
 import { LinkService } from '../cache/builders/link.service';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { RemoteData } from '../data/remote-data';
@@ -26,6 +25,7 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
+import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../shared/resolvers/bitstream-page.resolver';
 import { Breadcrumb } from './breadcrumb.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';

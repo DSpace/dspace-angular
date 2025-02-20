@@ -20,7 +20,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import {
   followLink,
   FollowLinkConfig,
@@ -45,6 +44,7 @@ import {
   getRequestFromRequestHref,
   getRequestFromRequestUUID,
 } from '../../shared/request.operators';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
 import { getClassForType } from './build-decorators';

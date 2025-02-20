@@ -12,9 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { CollectionAuthorizationsComponent } from './collection-authorizations.component';
 

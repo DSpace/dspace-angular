@@ -1,10 +1,5 @@
 import { of as observableOf } from 'rxjs';
 
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
 import { QualityAssuranceEventDataService } from '../notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '../notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceSourceObject } from '../notifications/qa/models/quality-assurance-source.model';
@@ -14,6 +9,11 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import { ResourceType } from '../shared/resource-type';
 import { SearchResult } from '../shared/search/models/search-result.model';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

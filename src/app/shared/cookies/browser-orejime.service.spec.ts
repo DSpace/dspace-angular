@@ -6,10 +6,6 @@ import cloneDeep from 'lodash/cloneDeep';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { RestResponse } from '../../core/cache/response.models';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
@@ -19,6 +15,10 @@ import { getMockTranslateService } from '../../core/mocks/translate.service.mock
 import { CookieService } from '../../core/services/cookie.service';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
 import {
   BrowserOrejimeService,
   COOKIE_MDFIELD,

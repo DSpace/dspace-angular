@@ -13,13 +13,13 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { CollectionStatisticsPageComponent } from './collection-statistics-page.component';
 

@@ -1,10 +1,10 @@
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
 import { SubmissionDefinitionsModel } from '../config/models/config-submission-definitions.model';
 import { buildPaginatedList } from '../data/paginated-list.model';
 import { Group } from '../eperson/models/group.model';
 import { PageInfo } from '../shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 
 export const mockSectionsData = {
   traditionalpageone: {

@@ -6,11 +6,11 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../shared/resolvers/bitstream-page.resolver';
 import { BitstreamDataService } from '../data/bitstream-data.service';
 import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../shared/resolvers/bitstream-page.resolver';
 import { BitstreamBreadcrumbsService } from './bitstream-breadcrumbs.service';
 import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';

@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../../app.reducer';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AuthService } from '../../auth/auth.service';
 import { ItemDataService } from '../../data/item-data.service';
 import { RemoteData } from '../../data/remote-data';
@@ -19,7 +20,6 @@ import { redirectOn4xx } from '../authorized.operators';
 import { Item } from '../item.model';
 import { getFirstCompletedRemoteData } from '../operators';
 import { getItemPageLinksToFollow } from './item.resolver';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 
 /**
  * Method for resolving an item based on the parameters in the current route

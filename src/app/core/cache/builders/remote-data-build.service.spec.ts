@@ -11,11 +11,6 @@ import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
 import {
-  createFailedRemoteDataObject,
-  createPendingRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../../utilities/remote-data.utils';
-import {
   followLink,
   FollowLinkConfig,
 } from '../../data/follow-link-config.model';
@@ -35,6 +30,11 @@ import { Item } from '../../shared/item.model';
 import { ITEM } from '../../shared/item.resource-type';
 import { PageInfo } from '../../shared/page-info.model';
 import { UnCacheableObject } from '../../shared/uncacheable-object.model';
+import {
+  createFailedRemoteDataObject,
+  createPendingRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../utilities/remote-data.utils';
 import { ObjectCacheService } from '../object-cache.service';
 import { LinkService } from './link.service';
 import { RemoteDataBuildService } from './remote-data-build.service';

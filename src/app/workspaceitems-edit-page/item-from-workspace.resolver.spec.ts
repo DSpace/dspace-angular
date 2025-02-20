@@ -1,7 +1,7 @@
 import { first } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
 import { itemFromWorkspaceResolver } from './item-from-workspace.resolver';
 
 describe('itemFromWorkspaceResolver', () => {

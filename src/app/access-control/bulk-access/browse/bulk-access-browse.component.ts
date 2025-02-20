@@ -21,7 +21,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -31,6 +30,7 @@ import { ListableObject } from '../../../core/object-collection/listable-object.
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';

@@ -9,9 +9,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
 import { AuthService } from '../../../auth/auth.service';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
 import { RemoteData } from '../../remote-data';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';

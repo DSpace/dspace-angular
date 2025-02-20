@@ -15,7 +15,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject } from '../../../../../../core/utilities/remote-data.utils';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -30,6 +29,7 @@ import { PaginatedSearchOptions } from '../../../../../../core/shared/paginated-
 import { PaginationComponentOptions } from '../../../../../../core/shared/pagination-component-options.model';
 import { SearchResult } from '../../../../../../core/shared/search/models/search-result.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject } from '../../../../../../core/utilities/remote-data.utils';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';

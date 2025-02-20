@@ -12,7 +12,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -21,6 +20,7 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { FileService } from '../../core/shared/file.service';
+import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
 
 describe('BitstreamDownloadPageComponent', () => {

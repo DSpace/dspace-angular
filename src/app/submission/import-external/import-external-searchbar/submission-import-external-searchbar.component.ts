@@ -23,7 +23,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
@@ -38,6 +37,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { HostWindowService } from '../../../shared/host-window.service';
 

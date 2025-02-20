@@ -5,7 +5,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import {
   buildPaginatedList,
@@ -14,6 +13,7 @@ import {
 import { RemoteData } from '../data/remote-data';
 import { RequestEntry } from '../data/request-entry.model';
 import { PageInfo } from '../shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 
 export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observable<RemoteData<any>>, buildList$?: Observable<RemoteData<PaginatedList<any>>>): RemoteDataBuildService {
   return {

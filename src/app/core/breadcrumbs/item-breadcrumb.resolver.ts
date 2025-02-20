@@ -6,11 +6,11 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { getItemPageLinksToFollow } from '../shared/resolvers/item.resolver';
 import { FollowLinkConfig } from '../data/follow-link-config.model';
 import { ItemDataService } from '../data/item-data.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
+import { getItemPageLinksToFollow } from '../shared/resolvers/item.resolver';
 import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
