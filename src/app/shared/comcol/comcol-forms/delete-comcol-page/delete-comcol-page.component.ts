@@ -19,11 +19,11 @@ import {
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { NotificationsService } from '../../../notifications/notifications.service';
 
 /**
  * Component representing the delete page for communities and collections

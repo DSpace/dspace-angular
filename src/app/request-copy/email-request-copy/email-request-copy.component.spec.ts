@@ -8,9 +8,9 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { RequestCopyEmail } from '../../core/request-copy/request-copy-email.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { EmailRequestCopyComponent } from './email-request-copy.component';
-import { RequestCopyEmail } from './request-copy-email.model';
 
 describe('EmailRequestCopyComponent', () => {
   let component: EmailRequestCopyComponent;

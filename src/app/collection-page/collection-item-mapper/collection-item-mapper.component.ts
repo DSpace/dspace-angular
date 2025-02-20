@@ -38,6 +38,7 @@ import { followLink } from '../../core/data/follow-link-config.model';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { Collection } from '../../core/shared/collection.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
@@ -57,7 +58,6 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';

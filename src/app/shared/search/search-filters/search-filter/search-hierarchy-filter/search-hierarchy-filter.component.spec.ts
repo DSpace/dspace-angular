@@ -22,9 +22,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
@@ -34,10 +34,10 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
+import { RouterStub } from '../../../../../core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../../core/utilities/testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../../../core/utilities/testing/search-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { RouterStub } from '../../../../testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {

@@ -21,10 +21,10 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '../../../core/submission/submission-response-parsing.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';

@@ -21,25 +21,25 @@ import {
 } from 'rxjs';
 import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontype-data.service';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
 import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
+import { MenuServiceStub } from '../../core/utilities/testing/menu-service.stub';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { MenuService } from '../menu/menu.service';
 import { MenuID } from '../menu/menu-id.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
-import { NotificationsService } from '../notifications/notifications.service';
-import { MenuServiceStub } from '../testing/menu-service.stub';
-import { createPaginatedList } from '../testing/utils.test';
 import { DSOEditMenuResolverService } from './dso-edit-menu-resolver.service';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';

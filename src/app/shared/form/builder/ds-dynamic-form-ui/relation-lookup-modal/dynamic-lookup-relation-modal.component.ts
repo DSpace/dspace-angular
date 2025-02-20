@@ -54,17 +54,17 @@ import {
 } from '../../../../../core/shared/operators';
 import { SearchResult } from '../../../../../core/shared/search/models/search-result.model';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import {
+  AddRelationshipAction,
+  RemoveRelationshipAction,
+  UpdateRelationshipNameVariantAction,
+} from '../../../../../core/states/name-variant/relationship.actions';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
-import {
-  AddRelationshipAction,
-  RemoveRelationshipAction,
-  UpdateRelationshipNameVariantAction,
-} from './relationship.actions';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
 

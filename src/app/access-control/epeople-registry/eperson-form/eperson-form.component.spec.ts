@@ -28,7 +28,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { AuthService } from '../../../core/auth/auth.service';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -44,24 +43,25 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { AuthServiceStub } from '../../../core/utilities/testing/auth-service.stub';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../../core/utilities/testing/eperson.mock';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';

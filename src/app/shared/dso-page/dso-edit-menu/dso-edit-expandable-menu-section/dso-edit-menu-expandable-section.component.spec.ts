@@ -10,11 +10,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
+import { CSSVariableServiceStub } from '../../../../core/utilities/testing/css-variable-service.stub';
+import { MenuServiceStub } from '../../../../core/utilities/testing/menu-service.stub';
+import { RouterStub } from '../../../../core/utilities/testing/router.stub';
 import { MenuService } from '../../../menu/menu.service';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../testing/menu-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
 import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';
 
 describe('DsoEditMenuExpandableSectionComponent', () => {

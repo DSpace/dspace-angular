@@ -11,17 +11,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { ComColDataService } from '../../../../core/data/comcol-data.service';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
+import { RouteService } from '../../../../core/services/route.service';
+import { Community } from '../../../../core/shared/community.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../core/utilities/remote-data.utils';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { RouteService } from '../../../../core/services/route.service';
-import { Community } from '../../../../core/shared/community.model';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
 import { CreateComColPageComponent } from './create-comcol-page.component';
 
 describe('CreateComColPageComponent', () => {

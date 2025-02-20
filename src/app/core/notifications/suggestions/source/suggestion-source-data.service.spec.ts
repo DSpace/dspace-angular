@@ -7,8 +7,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { RestResponse } from '../../../cache/response.models';
@@ -22,6 +20,8 @@ import { RequestService } from '../../../data/request.service';
 import { RequestEntry } from '../../../data/request-entry.model';
 import { RequestEntryState } from '../../../data/request-entry-state.model';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
+import { NotificationsService } from '../../notifications.service';
 import { SuggestionSource } from '../models/suggestion-source.model';
 import { SuggestionSourceDataService } from './suggestion-source-data.service';
 

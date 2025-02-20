@@ -14,10 +14,10 @@ import { of as observableOf } from 'rxjs';
 
 import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { RouterStub } from '../../core/utilities/testing/router.stub';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
-import { RouterStub } from '../testing/router.stub';
 import { ThemeService } from '../theme-support/theme.service';
 import { ObjectCollectionComponent } from './object-collection.component';
 

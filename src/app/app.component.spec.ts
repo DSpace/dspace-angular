@@ -20,7 +20,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
@@ -28,6 +27,7 @@ import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { authReducer } from './core/auth/auth.reducer';
 import { AuthService } from './core/auth/auth.service';
+import { APP_CONFIG } from './core/config/app-config.interface';
 import { LocaleService } from './core/locale/locale.service';
 import { HeadTagService } from './core/metadata/head-tag.service';
 import { MockActivatedRoute } from './core/mocks/active-router.mock';
@@ -42,15 +42,15 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from './core/services/window.service';
+import { CSSVariableServiceStub } from './core/utilities/testing/css-variable-service.stub';
+import { HostWindowServiceStub } from './core/utilities/testing/host-window-service.stub';
+import { MenuServiceStub } from './core/utilities/testing/menu-service.stub';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';
 import { MenuService } from './shared/menu/menu.service';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
-import { CSSVariableServiceStub } from './shared/testing/css-variable-service.stub';
-import { HostWindowServiceStub } from './shared/testing/host-window-service.stub';
-import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 

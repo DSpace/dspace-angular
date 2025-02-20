@@ -9,18 +9,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
+import { SearchFilter } from '../../../core/shared/search/models/search-filter.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../core/utilities/remote-data.utils';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
-import { SearchFilter } from '../../../core/shared/search/models/search-filter.model';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { Process } from '../../../process-page/processes/process.model';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { SearchExportCsvComponent } from './search-export-csv.component';
 
 describe('SearchExportCsvComponent', () => {

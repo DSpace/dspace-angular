@@ -14,11 +14,11 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
+} from '../../../core/config/app-config.interface';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
 import { SearchFilterConfig } from '../../../core/shared/search/models/search-filter-config.model';

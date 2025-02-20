@@ -23,7 +23,7 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
+} from '../../../core/config/app-config.interface';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';

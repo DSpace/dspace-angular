@@ -26,10 +26,10 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { mockSubmissionId } from '../../../core/mocks/submission.mock';
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
+import { SubmissionRestServiceStub } from '../../../core/utilities/testing/submission-rest-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 

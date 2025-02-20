@@ -20,10 +20,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../core/utilities/remote-data.utils';
-import {
   AppState,
   storeModuleConfig,
 } from '../app.reducer';
@@ -38,11 +34,15 @@ import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.mode
 import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
 import { Item } from '../core/shared/item.model';
 import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../core/utilities/remote-data.utils';
+import { EPersonMock } from '../core/utilities/testing/eperson.mock';
+import { HostWindowServiceStub } from '../core/utilities/testing/host-window-service.stub';
+import { MenuServiceStub } from '../core/utilities/testing/menu-service.stub';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
-import { EPersonMock } from '../shared/testing/eperson.mock';
-import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
-import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { NavbarComponent } from './navbar.component';
 

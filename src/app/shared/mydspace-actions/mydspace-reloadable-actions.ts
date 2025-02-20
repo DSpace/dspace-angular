@@ -19,13 +19,13 @@ import {
 import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
+import { NotificationOptions } from '../../core/notifications/models/notification-options.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
 import { SearchService } from '../../core/shared/search/search.service';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
-import { NotificationOptions } from '../notifications/models/notification-options.model';
-import { NotificationsService } from '../notifications/notifications.service';
 import { getSearchResultFor } from '../search/search-result-element-decorator';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
 

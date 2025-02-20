@@ -21,7 +21,6 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { APP_CONFIG } from 'src/config/app-config.interface';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -30,6 +29,8 @@ import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { authReducer } from './core/auth/auth.reducer';
 import { AuthService } from './core/auth/auth.service';
+import { APP_CONFIG } from './core/config/app-config.interface';
+import { CorrelationIdService } from './core/correlation-id/correlation-id.service';
 import { LocaleService } from './core/locale/locale.service';
 import { MockActivatedRoute } from './core/mocks/active-router.mock';
 import { AngularticsProviderMock } from './core/mocks/angulartics-provider.service.mock';
@@ -38,7 +39,6 @@ import { RouterMock } from './core/mocks/router.mock';
 import { getMockThemeService } from './core/mocks/theme-service.mock';
 import { TranslateLoaderMock } from './core/mocks/translate-loader.mock';
 import { RouteService } from './core/services/route.service';
-import { CorrelationIdService } from './core/correlation-id/correlation-id.service';
 import { InitService } from './init.service';
 import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';

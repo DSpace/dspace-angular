@@ -5,7 +5,7 @@ import {
 } from '@ngrx/store';
 
 import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
-import { subStateSelector } from '../../submission/selectors';
+import { subStateSelector } from '../../shared/selector.util';
 import {
   suggestionNotificationsSelector,
   SuggestionNotificationsState,

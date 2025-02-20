@@ -1,14 +1,14 @@
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { RestResponse } from '../cache/response.models';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { createPaginatedList } from '../utilities/testing/utils.test';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testPutDataImplementation } from './base/put-data.spec';

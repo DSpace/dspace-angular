@@ -23,6 +23,7 @@ import { ItemDataService } from '../../../../../../../core/data/item-data.servic
 import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
+import { NotificationsService } from '../../../../../../../core/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../../../core/object-collection/item-search-result.model';
 import { ListableObject } from '../../../../../../../core/object-collection/listable-object.model';
 import { Context } from '../../../../../../../core/shared/context.model';
@@ -42,7 +43,6 @@ import { SearchResult } from '../../../../../../../core/shared/search/models/sea
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
-import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';

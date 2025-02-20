@@ -28,14 +28,12 @@ import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-
 import { HostWindowService } from 'src/app/shared/host-window.service';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { SelectableListService } from 'src/app/shared/object-list/selectable-list/selectable-list.service';
-import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
+import { APP_CONFIG } from '../../core/config/app-config.interface';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import {
   buildPaginatedList,
@@ -50,8 +48,10 @@ import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {

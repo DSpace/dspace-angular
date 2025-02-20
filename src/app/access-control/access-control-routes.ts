@@ -8,6 +8,7 @@ import {
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { groupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { siteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import { EPersonResolver } from '../core/eperson/eperson-resolver.service';
 import {
   EPERSON_PATH,
   GROUP_PATH,
@@ -15,7 +16,6 @@ import {
 import { BulkAccessComponent } from './bulk-access/bulk-access.component';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-form.component';
-import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
 import { groupPageGuard } from './group-registry/group-page.guard';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';

@@ -11,10 +11,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
@@ -32,9 +28,13 @@ import { PaginatedSearchOptions } from '../../core/shared/paginated-search-optio
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchFilter } from '../../core/shared/search/models/search-filter.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../testing/utils.test';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../core/utilities/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { RSSComponent } from './rss.component';
 
 describe('RssComponent', () => {

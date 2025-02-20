@@ -13,8 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { mockUploadFiles } from '../../../../../core/mocks/submission.mock';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { createTestComponent } from '../../../../../core/utilities/testing/utils.test';
 import { FormComponent } from '../../../../../shared/form/form.component';
-import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';

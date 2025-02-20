@@ -12,18 +12,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { Item } from '../../../core/shared/item.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { HostWindowServiceStub } from '../../../core/utilities/testing/host-window-service.stub';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { ItemStatusComponent } from './item-status.component';
 
 let mockIdentifierDataService: IdentifierDataService;

@@ -27,6 +27,7 @@ import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
 import { IndexName } from '../index/index-name.model';
 import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
 import {
   AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
@@ -38,7 +39,6 @@ import {
 import { Patch } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';
 import { AddToSSBAction } from './server-sync-buffer.actions';
-import { mockStoreModuleConfig } from "../utilities/test/mock-state-utilities";
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;

@@ -1,8 +1,8 @@
 import { isNotEmpty } from '@dspace/shared/utils';
 import { of as observableOf } from 'rxjs';
 
-import { ThemeConfig } from '../../../config/theme.config';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { ThemeConfig } from '../config/theme.config';
 
 export function getMockThemeService(themeName = 'base', themes?: ThemeConfig[]): ThemeService {
   const spy = jasmine.createSpyObj('themeService', {

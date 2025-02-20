@@ -6,7 +6,7 @@ import {
 } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
 
-import { StoreActionTypes } from '../../store.actions';
+import { StoreActionTypes } from '../../core/store.actions';
 import { ReinitMenuAction } from './menu.actions';
 
 @Injectable()

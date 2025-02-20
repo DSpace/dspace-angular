@@ -17,12 +17,11 @@ import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import {
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
-} from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+} from '../../core/config/app-config.interface';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -34,11 +33,12 @@ import { getMockRequestService } from '../../core/mocks/request.service.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
+import { EPersonMock } from '../../core/utilities/testing/eperson.mock';
+import { GroupMock } from '../../core/utilities/testing/group-mock';
+import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+import { createTestComponent } from '../../core/utilities/testing/utils.test';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { EPersonMock } from '../testing/eperson.mock';
-import { GroupMock } from '../testing/group-mock';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { createTestComponent } from '../testing/utils.test';
 import { EpersonGroupListComponent } from './eperson-group-list.component';
 import { SearchEvent } from './eperson-group-list-event-type';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';

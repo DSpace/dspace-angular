@@ -20,11 +20,6 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
@@ -32,26 +27,31 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { HostWindowServiceStub } from '../../../core/utilities/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { ObjectSelectServiceStub } from '../../../core/utilities/testing/object-select-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { SearchServiceStub } from '../../../core/utilities/testing/search-service.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
 import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { SearchServiceStub } from '../../../shared/testing/search-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemCollectionMapperComponent } from './item-collection-mapper.component';

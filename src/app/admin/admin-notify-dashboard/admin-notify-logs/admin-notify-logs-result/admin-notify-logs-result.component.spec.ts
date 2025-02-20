@@ -9,11 +9,11 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MockActivatedRoute } from '../../../../core/mocks/active-router.mock';
+import { RouterStub } from '../../../../core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../core/utilities/testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
 import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
-import { RouterStub } from '../../../../shared/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
 import { AdminNotifyLogsResultComponent } from './admin-notify-logs-result.component';
 
 describe('AdminNotifyLogsResultComponent', () => {

@@ -39,6 +39,7 @@ export class EpersonRegistrationService {
 
   protected linkPath = 'registrations';
   protected searchByTokenPath = '/search/findByToken?token=';
+  protected responseMsToLive: number;
 
   constructor(
     protected requestService: RequestService,

@@ -24,20 +24,20 @@ import {
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { Version } from '../../../core/shared/version.model';
 import { VersionHistory } from '../../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { ItemVersionsComponent } from '../item-versions.component';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version.component';
 

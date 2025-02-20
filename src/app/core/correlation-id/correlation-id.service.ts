@@ -6,11 +6,11 @@ import {
 } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 
+import { CoreState } from '../core-state.model';
 import { CookieService } from '../services/cookie.service';
 import { UUIDService } from '../shared/uuid.service';
-import { SetCorrelationIdAction } from './correlation-id.actions';
-import { correlationIdSelector } from './correlation-id.selector';
-import { CoreState } from "../core-state.model";
+import { SetCorrelationIdAction } from '../states/correlation-id/correlation-id.actions';
+import { correlationIdSelector } from '../states/correlation-id/correlation-id.selector';
 
 /**
  * Service to manage the correlation id, an id used to give context to server side logs

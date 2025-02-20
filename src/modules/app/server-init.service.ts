@@ -17,18 +17,18 @@ import { take } from 'rxjs/operators';
 
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { HeadTagService } from '../../app/core/metadata/head-tag.service';
-import { CorrelationIdService } from '../../app/core/correlation-id/correlation-id.service';
-import { InitService } from '../../app/init.service';
-import { MenuService } from '../../app/shared/menu/menu.service';
-import { ThemeService } from '../../app/shared/theme-support/theme.service';
-import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-} from '../../config/app-config.interface';
+} from '../../app/core/config/app-config.interface';
+import { CorrelationIdService } from '../../app/core/correlation-id/correlation-id.service';
+import { LocaleService } from '../../app/core/locale/locale.service';
+import { HeadTagService } from '../../app/core/metadata/head-tag.service';
+import { InitService } from '../../app/init.service';
+import { MenuService } from '../../app/shared/menu/menu.service';
+import { ThemeService } from '../../app/shared/theme-support/theme.service';
+import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
 
 /**

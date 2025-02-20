@@ -33,6 +33,8 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { RequestService } from '../../../core/data/request.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { compareArraysUsingIds } from '../../../core/shared/item-relationships/item-relationships-utils';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import {
@@ -43,9 +45,7 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { compareArraysUsingIds } from '../../simple/item-types/shared/item-relationships-utils';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
 import { EditRelationshipListComponent } from './edit-relationship-list/edit-relationship-list.component';

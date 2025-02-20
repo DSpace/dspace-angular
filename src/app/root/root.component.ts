@@ -25,13 +25,14 @@ import {
   skipWhile,
   startWith,
 } from 'rxjs/operators';
-import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
 
-import { ThemeConfig } from '../../config/theme.config';
 import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
+import { INotificationBoardOptions } from '../core/config/notifications-config.interfaces';
+import { ThemeConfig } from '../core/config/theme.config';
+import { NotificationsBoardComponent } from '../core/notifications/notifications-board/notifications-board.component';
 import {
   NativeWindowRef,
   NativeWindowService,
@@ -44,7 +45,6 @@ import { LiveRegionComponent } from '../shared/live-region/live-region.component
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
-import { NotificationsBoardComponent } from '../shared/notifications/notifications-board/notifications-board.component';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 

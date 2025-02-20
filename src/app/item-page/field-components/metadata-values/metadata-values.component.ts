@@ -13,11 +13,11 @@ import { RouterLink } from '@angular/router';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { environment } from '../../../../environments/environment';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
-import { environment } from '../../../../environments/environment';
+} from '../../../core/config/app-config.interface';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';

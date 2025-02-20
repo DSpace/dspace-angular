@@ -3,11 +3,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
@@ -19,16 +14,21 @@ import {
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { EntityTypeDataServiceStub } from '../../../shared/testing/entity-type-data.service.stub';
-import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { ObjectUpdatesServiceStub } from '../../../shared/testing/object-updates.service.stub';
-import { RelationshipDataServiceStub } from '../../../shared/testing/relationship-data.service.stub';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { EntityTypeDataServiceStub } from '../../../core/utilities/testing/entity-type-data.service.stub';
+import { ItemDataServiceStub } from '../../../core/utilities/testing/item-data.service.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { ObjectUpdatesServiceStub } from '../../../core/utilities/testing/object-updates.service.stub';
+import { RelationshipDataServiceStub } from '../../../core/utilities/testing/relationship-data.service.stub';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
 
 describe('EditItemRelationshipsService', () => {

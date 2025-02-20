@@ -43,6 +43,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   getFirstCompletedRemoteData,
@@ -50,7 +51,6 @@ import {
 } from '../../../core/shared/operators';
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionsDataService } from '../subscriptions-data.service';

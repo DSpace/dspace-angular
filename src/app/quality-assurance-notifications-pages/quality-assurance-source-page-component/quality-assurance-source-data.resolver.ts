@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
+} from '../../core/config/app-config.interface';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceSourceService } from '../../notifications/qa/source/quality-assurance-source.service';

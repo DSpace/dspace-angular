@@ -8,12 +8,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { AuthServiceMock } from '../../../../../core/mocks/auth.service.mock';
@@ -21,19 +20,20 @@ import { DSONameServiceMock } from '../../../../../core/mocks/dso-name.service.m
 import { getMockLinkService } from '../../../../../core/mocks/link-service.mock';
 import { mockTruncatableService } from '../../../../../core/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
+import { NotificationsService } from '../../../../../core/notifications/notifications.service';
 import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../core/utilities/testing/notifications-service.stub';
 import {
   supervisionOrderPaginatedListRD,
   supervisionOrderPaginatedListRD$,
-} from '../../../../../shared/testing/supervision-order.mock';
+} from '../../../../../core/utilities/testing/supervision-order.mock';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { WorkspaceItemSearchResultAdminWorkflowListElementComponent } from './workspace-item-search-result-admin-workflow-list-element.component';

@@ -23,7 +23,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { CommunityDataService } from '../../../core/data/community-data.service';
@@ -36,11 +35,12 @@ import {
 } from '../../../core/mocks/submission.mock';
 import { Collection } from '../../../core/shared/collection.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../core/utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';

@@ -10,12 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../../config/app-config.interface';
 import { environment } from '../../environments/environment.test';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
+import { APP_CONFIG } from '../core/config/app-config.interface';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
+import { ActivatedRouteStub } from '../core/utilities/testing/active-router.stub';
+import { AuthorizationDataServiceStub } from '../core/utilities/testing/authorization-service.stub';
 import { FooterComponent } from './footer.component';
 
 let comp: FooterComponent;

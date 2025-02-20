@@ -18,13 +18,6 @@ import {
 import { TestScheduler } from 'rxjs/testing';
 
 import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import {
   link,
   typedObject,
 } from '../../cache/builders/build-decorators';
@@ -38,6 +31,13 @@ import { COLLECTION } from '../../shared/collection.resource-type';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../../utilities/testing/hal-endpoint-service.stub';
+import { ObjectCacheServiceStub } from '../../utilities/testing/object-cache-service.stub';
+import { createPaginatedList } from '../../utilities/testing/utils.test';
 import { FindListOptions } from '../find-list-options.model';
 import { followLink } from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';

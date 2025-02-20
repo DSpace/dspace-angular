@@ -47,6 +47,7 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import {
@@ -57,7 +58,6 @@ import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-op
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';

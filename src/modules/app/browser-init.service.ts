@@ -14,6 +14,7 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import { isNotEmpty } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -27,35 +28,34 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { isNotEmpty } from '../../../modules/shared/utils/src/lib/utils/empty.util';
 import { logStartupMessage } from '../../../startup-message';
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { AuthService } from '../../app/core/auth/auth.service';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+} from '../../app/core/config/app-config.interface';
+import { extendEnvironmentWithAppConfig } from '../../app/core/config/config.util';
+import { DefaultAppConfig } from '../../app/core/config/default-app-config';
 import { coreSelector } from '../../app/core/core.selectors';
+import { CorrelationIdService } from '../../app/core/correlation-id/correlation-id.service';
 import { RequestService } from '../../app/core/data/request.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { HeadTagService } from '../../app/core/metadata/head-tag.service';
 import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
-import { CorrelationIdService } from '../../app/core/correlation-id/correlation-id.service';
+import {
+  StoreAction,
+  StoreActionTypes,
+} from '../../app/core/store.actions';
 import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import {
-  StoreAction,
-  StoreActionTypes,
-} from '../../app/store.actions';
-import {
-  APP_CONFIG,
-  APP_CONFIG_STATE,
-  AppConfig,
-} from '../../config/app-config.interface';
-import { extendEnvironmentWithAppConfig } from '../../config/config.util';
-import { DefaultAppConfig } from '../../config/default-app-config';
 import { environment } from '../../environments/environment';
 
 /**

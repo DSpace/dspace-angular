@@ -25,16 +25,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
 import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../core/config/app-config.interface';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -47,20 +43,24 @@ import {
   mockSubmissionId,
   mockSubmissionObject,
 } from '../../../core/mocks/submission.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionService } from '../../submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionDataObject } from '../models/section-data.model';

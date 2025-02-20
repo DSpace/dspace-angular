@@ -3,10 +3,10 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import {

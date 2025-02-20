@@ -5,11 +5,6 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
@@ -18,14 +13,19 @@ import { ObjectUpdatesServiceStub } from '../../../core/data/object-updates/obje
 import { RequestService } from '../../../core/data/request.service';
 import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
 import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { Bundle } from '../../../core/shared/bundle.model';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { BitstreamDataServiceStub } from '../../../core/utilities/testing/bitstream-data-service.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import {
   ItemBitstreamsService,
   SelectedBitstreamTableEntry,

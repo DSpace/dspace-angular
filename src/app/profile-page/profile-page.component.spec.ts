@@ -19,10 +19,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../core/utilities/remote-data.utils';
 import { storeModuleConfig } from '../app.reducer';
 import { authReducer } from '../core/auth/auth.reducer';
 import { AuthService } from '../core/auth/auth.service';
@@ -32,17 +28,21 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
+import { NotificationsService } from '../core/notifications/notifications.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
-import { ErrorComponent } from '../shared/error/error.component';
-import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { PaginationComponent } from '../shared/pagination/pagination.component';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../core/utilities/remote-data.utils';
 import {
   EmptySpecialGroupDataMock$,
   SpecialGroupDataMock$,
-} from '../shared/testing/special-group.mock';
-import { createPaginatedList } from '../shared/testing/utils.test';
+} from '../core/utilities/testing/special-group.mock';
+import { createPaginatedList } from '../core/utilities/testing/utils.test';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageComponent } from './profile-page.component';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';

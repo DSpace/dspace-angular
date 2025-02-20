@@ -15,10 +15,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
@@ -27,20 +23,24 @@ import { FieldChangeType } from '../../../core/data/object-updates/field-change-
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockRequestService } from '../../../core/mocks/request.service.mock';
+import {
+  INotification,
+  Notification,
+} from '../../../core/notifications/models/notification.model';
+import { NotificationType } from '../../../core/notifications/models/notification-type';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
-  INotification,
-  Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { BitstreamDataServiceStub } from '../../../core/utilities/testing/bitstream-data-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';

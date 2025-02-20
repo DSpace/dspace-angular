@@ -31,12 +31,12 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { PatchRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { NoOpAction } from '../shared/ngrx/no-op.action';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';

@@ -34,15 +34,14 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
+import { LazyDataServicesMap } from 'src/app/core/data-services-map';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { UpdateDataService } from '../../core/data/update-data.service';
 import { lazyDataService } from '../../core/lazy-data-service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
@@ -50,7 +49,6 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
 import { DsoEditMetadataForm } from './dso-edit-metadata-form';
 import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';

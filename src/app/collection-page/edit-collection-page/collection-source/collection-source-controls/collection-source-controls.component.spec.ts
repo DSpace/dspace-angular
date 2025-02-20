@@ -12,20 +12,20 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestService } from '../../../../core/data/request.service';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
 import { Process } from '../../../../process-page/processes/process.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { CollectionSourceControlsComponent } from './collection-source-controls.component';
 

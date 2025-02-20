@@ -14,14 +14,14 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { NoOpAction } from '../../../shared/ngrx/no-op.action';
 import {
   INotification,
   Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+} from '../../notifications/models/notification.model';
+import { NotificationType } from '../../notifications/models/notification-type';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import { NotificationsServiceStub } from '../../utilities/testing/notifications-service.stub';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,

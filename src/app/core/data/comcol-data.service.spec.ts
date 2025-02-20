@@ -7,20 +7,20 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core-state.model';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import { Bitstream } from '../shared/bitstream.model';
+import { Community } from '../shared/community.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   createFailedRemoteDataObject,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../utilities/remote-data.utils';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core-state.model';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { Bitstream } from '../shared/bitstream.model';
-import { Community } from '../shared/community.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';

@@ -14,10 +14,10 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
 import { Item } from '../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { RouterStub } from '../../../testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
+import { RouterStub } from '../../../../core/utilities/testing/router.stub';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { EditItemSelectorComponent } from './edit-item-selector.component';
 

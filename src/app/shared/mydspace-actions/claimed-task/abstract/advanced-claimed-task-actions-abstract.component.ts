@@ -12,11 +12,11 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 
 import { RequestService } from '../../../../core/data/request.service';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
 
 /**

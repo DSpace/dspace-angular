@@ -13,11 +13,11 @@ import {
   ScriptDataService,
 } from '../../core/data/processes/script-data.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({

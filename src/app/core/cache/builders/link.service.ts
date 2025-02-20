@@ -16,14 +16,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
 import { HALDataService } from '../../data/base/hal-data-service.interface';
 import { FollowLinkConfig } from '../../data/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
+import { LazyDataServicesMap } from '../../data-services-map';
 import { lazyDataService } from '../../lazy-data-service';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';

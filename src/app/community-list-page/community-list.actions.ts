@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { type } from '../shared/ngrx/type';
+import { type } from '../core/shared/ngrx/type';
 import { FlatNode } from './flat-node.model';
 
 /**

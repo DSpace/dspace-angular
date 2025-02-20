@@ -19,11 +19,6 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { CoreState } from '../../core/core-state.model';
 import {
@@ -32,11 +27,16 @@ import {
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { Registration } from '../../core/shared/registration.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../core/utilities/testing/router.stub';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
 import { CreateProfileComponent } from './create-profile.component';
 
 describe('CreateProfileComponent', () => {

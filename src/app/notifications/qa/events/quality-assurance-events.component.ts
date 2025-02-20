@@ -48,6 +48,7 @@ import { followLink } from '../../../core/data/follow-link-config.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import {
   QualityAssuranceEventObject,
@@ -67,7 +68,6 @@ import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import {
   ProjectEntryImportModalComponent,

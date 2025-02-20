@@ -7,7 +7,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -28,6 +27,7 @@ import { StatusCodeOnlyResponseParsingService } from '../data/status-code-only-r
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import { Collection } from '../shared/collection.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

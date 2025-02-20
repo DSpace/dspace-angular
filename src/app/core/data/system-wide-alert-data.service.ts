@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SystemWideAlert } from '../../system-wide-alert/system-wide-alert.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import {
   CreateData,
   CreateDataImpl,

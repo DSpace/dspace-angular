@@ -17,12 +17,12 @@ import {
   MetadataMap,
   MetadataValue,
 } from 'src/app/core/shared/metadata.models';
-import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
+import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { TranslateLoaderMock } from '../../../../../core/utilities/testing/translate-loader.mock';
+import { createPaginatedList } from '../../../../../core/utilities/testing/utils.test';
 import { ItemPageCcLicenseFieldComponent } from './item-page-cc-license-field.component';
 
 

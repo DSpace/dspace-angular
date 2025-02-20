@@ -25,12 +25,11 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
@@ -44,11 +43,16 @@ import { VersionDataService } from '../../../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../../../core/data/version-history-data.service';
 import { mockTruncatableService } from '../../../../core/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { ResearcherProfileDataService } from '../../../../core/profile/researcher-profile-data.service';
 import { RouteService } from '../../../../core/services/route.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
+import {
+  compareArraysUsing,
+  compareArraysUsingIds,
+} from '../../../../core/shared/item-relationships/item-relationships-utils';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
@@ -56,14 +60,14 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
+import { AuthServiceStub } from '../../../../core/utilities/testing/auth-service.stub';
+import { BrowseDefinitionDataServiceStub } from '../../../../core/utilities/testing/browse-definition-data-service.stub';
+import { routeServiceStub } from '../../../../core/utilities/testing/route-service.stub';
+import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
-import { AuthServiceStub } from '../../../../shared/testing/auth-service.stub';
-import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
-import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
@@ -73,10 +77,6 @@ import { ThemedMetadataRepresentationListComponent } from '../../metadata-repres
 import { TabbedRelatedEntitiesSearchComponent } from '../../related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../related-items/related-items-component';
 import { ItemComponent } from './item.component';
-import {
-  compareArraysUsing,
-  compareArraysUsingIds,
-} from './item-relationships-utils';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {

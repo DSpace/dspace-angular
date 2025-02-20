@@ -18,7 +18,7 @@ import { DragService } from '../../../core/drag.service';
 import { CookieServiceMock } from '../../../core/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../../core/mocks/http-xsrf-token-extractor.mock';
 import { CookieService } from '../../../core/services/cookie.service';
-import { createTestComponent } from '../../testing/utils.test';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { UploaderComponent } from './uploader.component';
 import { UploaderOptions } from './uploader-options.model';
 

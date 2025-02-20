@@ -22,19 +22,19 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 // Import mocks
 import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+// Import utils
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
-// Import utils
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import {
   findByEPersonAndDsoResEmpty,
   subscriptionMock,
-} from '../../testing/subscriptions-data.mock';
+} from '../../../core/utilities/testing/subscriptions-data.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionsDataService } from '../subscriptions-data.service';

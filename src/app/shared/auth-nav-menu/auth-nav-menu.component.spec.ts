@@ -19,7 +19,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AppState } from '../../app.reducer';
 import {
   authReducer,
@@ -27,12 +26,13 @@ import {
 } from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
+import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { BrowserOnlyMockPipe } from '../../core/utilities/testing/browser-only-mock.pipe';
+import { EPersonMock } from '../../core/utilities/testing/eperson.mock';
+import { HostWindowServiceStub } from '../../core/utilities/testing/host-window-service.stub';
 import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../host-window.service';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
-import { EPersonMock } from '../testing/eperson.mock';
-import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
 
 describe('AuthNavMenuComponent', () => {

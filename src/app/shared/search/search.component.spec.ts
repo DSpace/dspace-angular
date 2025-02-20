@@ -24,14 +24,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
@@ -39,6 +31,10 @@ import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../core/config/app-config.interface';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { RouteService } from '../../core/services/route.service';
@@ -56,13 +52,17 @@ import {
   SearchConfig,
   SortConfig,
 } from '../../core/shared/search/search-filters/search-config.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
+import { SidebarServiceStub } from '../../core/utilities/testing/sidebar-service.stub';
 import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { SidebarServiceStub } from '../testing/sidebar-service.stub';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { SearchComponent } from './search.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';

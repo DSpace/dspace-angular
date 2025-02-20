@@ -11,11 +11,11 @@ import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+} from '../../../../../core/config/app-config.interface';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
 import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';

@@ -14,10 +14,10 @@ import {
 import { Observable } from 'rxjs';
 
 import { RequestService } from '../../core/data/request.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { RouteService } from '../../core/services/route.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.component';
 

@@ -17,26 +17,6 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import {
-  EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction,
-} from '../../access-control/epeople-registry/epeople-registry.actions';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../shared/testing/eperson.mock';
-import { GroupMock } from '../../shared/testing/group-mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import {
-  createPaginatedList,
-  createRequestEntry$,
-} from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -51,8 +31,28 @@ import {
 import { RequestService } from '../data/request.service';
 import { getMockRemoteDataBuildServiceHrefMap } from '../mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import {
+  EPeopleRegistryCancelEPersonAction,
+  EPeopleRegistryEditEPersonAction,
+} from '../states/epeople-registry/epeople-registry.actions';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../utilities/testing/eperson.mock';
+import { GroupMock } from '../utilities/testing/group-mock';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+import {
+  createPaginatedList,
+  createRequestEntry$,
+} from '../utilities/testing/utils.test';
 import {
   editEPersonSelector,
   EPersonDataService,

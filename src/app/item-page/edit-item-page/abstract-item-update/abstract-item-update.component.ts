@@ -29,11 +29,11 @@ import { FieldUpdate } from '../../../core/data/object-updates/field-update.mode
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../../core/shared/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { getItemPageLinksToFollow } from '../../../core/shared/resolvers/item.resolver';
+import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

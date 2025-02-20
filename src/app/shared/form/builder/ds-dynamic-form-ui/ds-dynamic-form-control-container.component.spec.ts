@@ -57,17 +57,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
+import { environment } from '../../../../../environments/environment';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../../config/app-config.interface';
-import { environment } from '../../../../../environments/environment';
+} from '../../../../core/config/app-config.interface';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { FormBuilderService } from '../form-builder.service';

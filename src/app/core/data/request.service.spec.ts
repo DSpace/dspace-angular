@@ -32,6 +32,7 @@ import {
   getMockUUIDService,
 } from '../mocks/uuid.service.mock';
 import { UUIDService } from '../shared/uuid.service';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
 import {
   RequestConfigureAction,
   RequestExecuteAction,
@@ -50,7 +51,6 @@ import { RequestService } from './request.service';
 import { RequestEntry } from './request-entry.model';
 import { RequestEntryState } from './request-entry-state.model';
 import { RestRequest } from './rest-request.model';
-import { mockStoreModuleConfig } from "../utilities/test/mock-state-utilities";
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

@@ -12,14 +12,6 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { getMockRequestService } from '../mocks/request.service.mock';
@@ -27,6 +19,14 @@ import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { Collection } from '../shared/collection.model';
 import { ContentSource } from '../shared/content-source.model';
 import { PageInfo } from '../shared/page-info.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+import { ObjectCacheServiceStub } from '../utilities/testing/object-cache-service.stub';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testFindAllDataImplementation } from './base/find-all-data.spec';

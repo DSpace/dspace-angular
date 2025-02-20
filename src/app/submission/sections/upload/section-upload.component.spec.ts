@@ -14,8 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
@@ -39,10 +38,11 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionObjectState } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';

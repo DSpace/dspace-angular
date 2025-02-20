@@ -6,11 +6,11 @@ import {
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+} from '../../../core/config/app-config.interface';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { SearchResult } from '../../../core/shared/search/models/search-result.model';

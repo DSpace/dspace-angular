@@ -13,17 +13,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+import { ClaimedTaskDataServiceStub } from '../../../../core/utilities/testing/claimed-task-data-service.stub';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../core/utilities/testing/router.stub';
+import { SearchServiceStub } from '../../../../core/utilities/testing/search-service.stub';
 import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { AdvancedClaimedTaskActionRatingComponent } from './advanced-claimed-task-action-rating.component';
 
 const taskId = 'claimed-task-1';

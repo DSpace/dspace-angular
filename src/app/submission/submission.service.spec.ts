@@ -27,7 +27,6 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createFailedRemoteDataObject } from '../core/utilities/remote-data.utils';
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
 import { ErrorResponse } from '../core/cache/response.models';
@@ -43,15 +42,16 @@ import {
   mockSubmissionRestResponse,
 } from '../core/mocks/submission.mock';
 import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../core/notifications/notifications.service';
 import { RouteService } from '../core/services/route.service';
 import { Item } from '../core/shared/item.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
+import { createFailedRemoteDataObject } from '../core/utilities/remote-data.utils';
+import { SubmissionJsonPatchOperationsServiceStub } from '../core/utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionRestServiceStub } from '../core/utilities/testing/submission-rest-service.stub';
 import { SectionScope } from './objects/section-visibility.model';
 import {
   CancelSubmissionFormAction,

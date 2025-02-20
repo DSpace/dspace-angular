@@ -24,6 +24,7 @@ import { getDSORoute } from '../../app-routing-paths';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
@@ -40,7 +41,6 @@ import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { MenuSection } from '../menu/menu-section.model';
-import { NotificationsService } from '../notifications/notifications.service';
 import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import {

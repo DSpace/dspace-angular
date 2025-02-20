@@ -20,7 +20,7 @@ import { map } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
+} from '../../../core/config/app-config.interface';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AppliedFilter } from '../../../core/shared/search/models/applied-filter.model';
 import { SearchFilterConfig } from '../../../core/shared/search/models/search-filter-config.model';

@@ -28,6 +28,7 @@ import {
 
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
 import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
@@ -40,7 +41,6 @@ import { PaginationComponentOptions } from '../../../core/shared/pagination-comp
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 @Component({

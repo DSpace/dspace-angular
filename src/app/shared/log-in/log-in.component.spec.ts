@@ -27,12 +27,12 @@ import { NativeWindowMockFactory } from '../../core/mocks/mock-native-window-ref
 import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { NativeWindowService } from '../../core/services/window.service';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import {
   authMethodsMock,
   AuthServiceStub,
-} from '../testing/auth-service.stub';
-import { createTestComponent } from '../testing/utils.test';
+} from '../../core/utilities/testing/auth-service.stub';
+import { createTestComponent } from '../../core/utilities/testing/utils.test';
 import { ThemeService } from '../theme-support/theme.service';
 import { LogInComponent } from './log-in.component';
 

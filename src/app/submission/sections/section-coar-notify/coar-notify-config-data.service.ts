@@ -35,10 +35,10 @@ import { MultipartPostRequest } from '../../../core/data/request.models';
 import { RequestService } from '../../../core/data/request.service';
 import { RestRequest } from '../../../core/data/rest-request.model';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
 
 

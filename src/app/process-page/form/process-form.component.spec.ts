@@ -19,9 +19,9 @@ import { ScriptDataService } from '../../core/data/processes/script-data.service
 import { RequestService } from '../../core/data/request.service';
 import { RouterMock } from '../../core/mocks/router.mock';
 import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { NotificationsService } from '../../core/notifications/notifications.service';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { Script } from '../scripts/script.model';
 import { ScriptParameter } from '../scripts/script-parameter.model';

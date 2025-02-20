@@ -58,6 +58,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { Community } from '../../../core/shared/community.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -74,7 +75,6 @@ import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/c
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   getGroupEditRoute,
   getGroupsRoute,

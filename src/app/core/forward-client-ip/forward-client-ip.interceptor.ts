@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { REQUEST } from '../../../express.tokens';
+import { REQUEST } from '../tokens/express.tokens';
 
 @Injectable({ providedIn: 'root' })
 /**

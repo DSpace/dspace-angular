@@ -7,7 +7,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { REQUEST } from '../../../express.tokens';
+import { REQUEST } from '../tokens/express.tokens';
 import { ReferrerService } from './referrer.service';
 
 /**

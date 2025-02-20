@@ -13,8 +13,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
+import { APP_CONFIG } from '../../../core/config/app-config.interface';
 import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { MetadataValuesComponent } from './metadata-values.component';

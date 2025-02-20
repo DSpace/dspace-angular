@@ -17,12 +17,12 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SuggestionConfig } from '../../config/suggestion-config.interfaces';
 import { environment } from '../../environments/environment';
 import {
   SortDirection,
   SortOptions,
 } from '../core/cache/models/sort-options.model';
+import { SuggestionConfig } from '../core/config/suggestion-config.interfaces';
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { followLink } from '../core/data/follow-link-config.model';
 import { PaginatedList } from '../core/data/paginated-list.model';

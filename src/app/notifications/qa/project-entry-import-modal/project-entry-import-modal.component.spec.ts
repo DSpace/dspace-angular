@@ -14,7 +14,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import {
   ItemMockPid10,
@@ -27,12 +26,13 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
   ImportType,
   ProjectEntryImportModalComponent,

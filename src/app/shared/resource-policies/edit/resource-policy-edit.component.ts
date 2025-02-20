@@ -22,12 +22,12 @@ import {
 } from 'rxjs/operators';
 
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
-import { NotificationsService } from '../../notifications/notifications.service';
 import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,

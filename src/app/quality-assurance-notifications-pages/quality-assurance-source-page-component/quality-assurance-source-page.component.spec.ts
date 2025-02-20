@@ -5,8 +5,8 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import { QualityAssuranceSourceComponent } from '../../notifications/qa/source/quality-assurance-source.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { QualityAssuranceSourcePageComponent } from './quality-assurance-source-page.component';
 
 describe('QualityAssuranceSourcePageComponent', () => {

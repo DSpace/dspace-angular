@@ -20,12 +20,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
-import { REQUEST } from '../../../../../express.tokens';
 import { AuthRequestService } from '../../../../core/auth/auth-request.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
@@ -43,17 +41,19 @@ import { Relationship } from '../../../../core/shared/item-relationships/relatio
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { PaginationComponentOptions } from '../../../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { REQUEST } from '../../../../core/tokens/express.tokens';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+import { AuthRequestServiceStub } from '../../../../core/utilities/testing/auth-request-service.stub';
+import { EditItemRelationshipsServiceStub } from '../../../../core/utilities/testing/edit-item-relationships.service.stub';
+import { HostWindowServiceStub } from '../../../../core/utilities/testing/host-window-service.stub';
+import { PaginationServiceStub } from '../../../../core/utilities/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../../core/utilities/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
-import { AuthRequestServiceStub } from '../../../../shared/testing/auth-request-service.stub';
-import { EditItemRelationshipsServiceStub } from '../../../../shared/testing/edit-item-relationships.service.stub';
-import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';
 

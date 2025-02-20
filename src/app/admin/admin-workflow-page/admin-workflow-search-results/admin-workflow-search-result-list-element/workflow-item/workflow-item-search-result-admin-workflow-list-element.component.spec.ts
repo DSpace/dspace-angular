@@ -8,12 +8,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { AuthServiceMock } from '../../../../../core/mocks/auth.service.mock';
@@ -25,6 +24,7 @@ import { WorkflowItemSearchResult } from '../../../../../core/object-collection/
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';

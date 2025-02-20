@@ -19,17 +19,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { Item } from '../../../core/shared/item.model';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../core/utilities/remote-data.utils';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action.component';
 

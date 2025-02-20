@@ -13,8 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { Community } from '../../../core/shared/community.model';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
 import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { CommunityGridElementComponent } from './community-grid-element.component';
 
 let communityGridElementComponent: CommunityGridElementComponent;

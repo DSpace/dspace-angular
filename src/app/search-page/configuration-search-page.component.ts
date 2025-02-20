@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../config/app-config.interface';
+} from '../core/config/app-config.interface';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';

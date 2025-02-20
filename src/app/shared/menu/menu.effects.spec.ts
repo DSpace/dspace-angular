@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import {
   StoreAction,
   StoreActionTypes,
-} from '../../store.actions';
+} from '../../core/store.actions';
 import { ReinitMenuAction } from './menu.actions';
 import { MenuEffects } from './menu.effects';
 

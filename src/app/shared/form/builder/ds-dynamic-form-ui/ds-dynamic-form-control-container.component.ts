@@ -80,8 +80,8 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../config/app-config.interface';
-import { AppState } from '../../../../app.reducer';
+} from '../../../../core/config/app-config.interface';
+import { CoreState } from '../../../../core/core-state.model';
 import { followLink } from '../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
@@ -92,7 +92,9 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { RelationshipOptions } from '../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../core/shared/item.model';
+import { paginatedRelationsToItems } from '../../../../core/shared/item-relationships/item-relationships-utils';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { ReorderableRelationship } from '../../../../core/shared/item-relationships/reorderable-relationship.model';
 import {
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
@@ -107,19 +109,15 @@ import {
 import { SearchResult } from '../../../../core/shared/search/models/search-result.model';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
-import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
+import { itemLinksToFollow } from '../../../../core/utilities/relation-query.utils';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import {
-  ExistingMetadataListElementComponent,
-  ReorderableRelationship,
-} from './existing-metadata-list-element/existing-metadata-list-element.component';
+import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
@@ -204,7 +202,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected modalService: NgbModal,
     protected relationshipService: RelationshipDataService,
     protected selectableListService: SelectableListService,
-    protected store: Store<AppState>,
+    protected store: Store<CoreState>,
     protected submissionObjectService: SubmissionObjectDataService,
     protected ref: ChangeDetectorRef,
     protected formBuilderService: FormBuilderService,

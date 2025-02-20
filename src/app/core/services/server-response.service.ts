@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { Response } from 'express';
 
-import { RESPONSE } from '../../../express.tokens';
+import { RESPONSE } from '../tokens/express.tokens';
 
 /**
  * Service responsible to provide method to manage the response object

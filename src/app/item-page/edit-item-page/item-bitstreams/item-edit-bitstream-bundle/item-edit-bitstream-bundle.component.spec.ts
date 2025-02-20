@@ -15,7 +15,6 @@ import {
   Subject,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { BundleDataService } from '../../../../core/data/bundle-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
@@ -25,10 +24,11 @@ import { getMockRequestService } from '../../../../core/mocks/request.service.mo
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../../../core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import {
   BitstreamTableEntry,
   ItemBitstreamsService,

@@ -18,7 +18,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import {
   SortDirection,
   SortOptions,
@@ -38,6 +37,12 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { HostWindowServiceStub } from '../../core/utilities/testing/host-window-service.stub';
+import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
+import { SearchConfigurationServiceStub } from '../../core/utilities/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { HostWindowService } from '../host-window.service';
 import {
   DEFAULT_CONTEXT,
@@ -46,11 +51,6 @@ import {
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { HostWindowServiceStub } from '../testing/host-window-service.stub';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { routeServiceStub } from '../testing/route-service.stub';
-import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../testing/utils.test';
 import { ThemeService } from '../theme-support/theme.service';
 import { BrowseByComponent } from './browse-by.component';
 

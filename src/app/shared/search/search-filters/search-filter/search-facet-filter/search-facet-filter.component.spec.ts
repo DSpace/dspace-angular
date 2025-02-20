@@ -17,7 +17,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { AppliedFilter } from '../../../../../core/shared/search/models/applied-filter.model';
@@ -26,11 +25,12 @@ import { FilterType } from '../../../../../core/shared/search/models/filter-type
 import { SearchFilterConfig } from '../../../../../core/shared/search/models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { RouterStub } from '../../../../../core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../../core/utilities/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../../../core/utilities/testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../../../../core/utilities/testing/search-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { RouterStub } from '../../../../testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 
 describe('SearchFacetFilterComponent', () => {

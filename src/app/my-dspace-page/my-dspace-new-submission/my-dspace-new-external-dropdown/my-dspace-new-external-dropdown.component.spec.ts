@@ -15,16 +15,16 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../../shared/testing/utils.test';
+} from '../../../core/utilities/testing/utils.test';
 import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {

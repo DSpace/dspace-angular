@@ -13,22 +13,22 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from './core/utilities/remote-data.utils';
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
 import { BrowseService } from './core/browse/browse.service';
 import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import { ScriptDataService } from './core/data/processes/script-data.service';
+import { createSuccessfulRemoteDataObject$ } from './core/utilities/remote-data.utils';
+import { ConfigurationDataServiceStub } from './core/utilities/testing/configuration-data.service.stub';
+import { MenuServiceStub } from './core/utilities/testing/menu-service.stub';
+import { createPaginatedList } from './core/utilities/testing/utils.test';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/menu-id.model';
-import { ConfigurationDataServiceStub } from './shared/testing/configuration-data.service.stub';
-import { MenuServiceStub } from './shared/testing/menu-service.stub';
-import { createPaginatedList } from './shared/testing/utils.test';
 import createSpy = jasmine.createSpy;
 import { AuthService } from './core/auth/auth.service';
+import { AuthServiceStub } from './core/utilities/testing/auth-service.stub';
 import { MenuResolverService } from './menu-resolver.service';
-import { AuthServiceStub } from './shared/testing/auth-service.stub';
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {

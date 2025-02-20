@@ -3,7 +3,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
-import { REQUEST } from '../../../express.tokens';
+import { REQUEST } from '../tokens/express.tokens';
 import {
   CookieService,
   ICookieService,

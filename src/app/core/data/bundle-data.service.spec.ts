@@ -5,16 +5,16 @@ import {
   Operation,
 } from 'fast-json-patch';
 
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
 import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
 import { Bundle } from '../shared/bundle.model';
 import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { createPaginatedList } from '../utilities/testing/utils.test';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { BundleDataService } from './bundle-data.service';
 import { ChangeAnalyzer } from './change-analyzer';

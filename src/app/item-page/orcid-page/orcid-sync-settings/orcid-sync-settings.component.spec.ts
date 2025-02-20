@@ -25,17 +25,17 @@ import { Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
+import { Item } from '../../../core/shared/item.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../core/utilities/remote-data.utils';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';
 
 describe('OrcidSyncSettingsComponent test suite', () => {

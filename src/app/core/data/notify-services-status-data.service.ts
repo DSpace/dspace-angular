@@ -5,9 +5,9 @@ import {
   take,
 } from 'rxjs';
 
-import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotifyRequestsStatus } from '../notify-requests/notify-requests-status.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RemoteData } from './remote-data';

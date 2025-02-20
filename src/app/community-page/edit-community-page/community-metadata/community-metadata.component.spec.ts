@@ -11,8 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { CommunityDataService } from '../../../core/data/community-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { CommunityFormComponent } from '../../community-form/community-form.component';
 import { CommunityMetadataComponent } from './community-metadata.component';
 

@@ -9,10 +9,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { CSSVariableServiceStub } from '../../../core/utilities/testing/css-variable-service.stub';
+import { MenuServiceStub } from '../../../core/utilities/testing/menu-service.stub';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
-import { CSSVariableServiceStub } from '../../../shared/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../shared/testing/menu-service.stub';
 import { AdminSidebarSectionComponent } from './admin-sidebar-section.component';
 
 describe('AdminSidebarSectionComponent', () => {

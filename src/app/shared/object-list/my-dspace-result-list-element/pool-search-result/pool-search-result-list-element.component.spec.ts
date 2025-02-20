@@ -14,14 +14,10 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../../core/mocks/link-service.mock';
@@ -33,8 +29,12 @@ import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
-import { createPaginatedList } from '../../../testing/utils.test';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';

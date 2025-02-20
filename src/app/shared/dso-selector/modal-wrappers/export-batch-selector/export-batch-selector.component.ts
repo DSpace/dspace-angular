@@ -24,7 +24,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
@@ -33,15 +32,16 @@ import {
   ScriptDataService,
 } from '../../../../core/data/processes/script-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

@@ -14,12 +14,12 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
+} from '../config/app-config.interface';
 import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { DSpaceObject } from '../shared/dspace-object.model';

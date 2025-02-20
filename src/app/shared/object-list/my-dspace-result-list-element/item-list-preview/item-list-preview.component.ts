@@ -12,11 +12,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Context } from 'src/app/core/shared/context.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+} from '../../../../core/config/app-config.interface';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchResult } from '../../../../core/shared/search/models/search-result.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';

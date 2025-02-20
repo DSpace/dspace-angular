@@ -29,12 +29,12 @@ import {
 } from '../../core/mocks/submission.mock';
 import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormService } from '../../shared/form/form.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,

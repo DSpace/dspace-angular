@@ -51,6 +51,7 @@ import { HardRedirectService } from '../../app/core/services/hard-redirect.servi
 import { ReferrerService } from '../../app/core/services/referrer.service';
 import { ClientMathService } from '../../app/core/shared/client-math.service';
 import { MathService } from '../../app/core/shared/math.service';
+import { REQUEST } from '../../app/core/tokens/express.tokens';
 import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
 import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { BrowserOrejimeService } from '../../app/shared/cookies/browser-orejime.service';
@@ -58,7 +59,6 @@ import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { SubmissionService } from '../../app/submission/submission.service';
-import { REQUEST } from '../../express.tokens';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
 

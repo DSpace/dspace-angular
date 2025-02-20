@@ -29,7 +29,7 @@ import { take } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
+} from '../../../core/config/app-config.interface';
 import { FilterType } from '../../../core/shared/search/models/filter-type.model';
 import { SearchFilterConfig } from '../../../core/shared/search/models/search-filter-config.model';
 import { SearchService } from '../../../core/shared/search/search.service';

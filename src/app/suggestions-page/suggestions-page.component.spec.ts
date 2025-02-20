@@ -19,7 +19,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../core/utilities/remote-data.utils';
 import { AuthService } from '../core/auth/auth.service';
 import {
   mockSuggestionPublicationOne,
@@ -31,17 +30,18 @@ import {
   getMockSuggestionsService,
 } from '../core/mocks/suggestion.mock';
 import { getMockTranslateService } from '../core/mocks/translate.service.mock';
+import { NotificationsService } from '../core/notifications/notifications.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject } from '../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../core/utilities/testing/pagination-service.stub';
+import { RouterStub } from '../core/utilities/testing/router.stub';
 import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 import { SuggestionEvidencesComponent } from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../notifications/suggestions.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SuggestionsPageComponent } from './suggestions-page.component';

@@ -35,16 +35,16 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../core/utilities/remote-data.utils';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../core/utilities/remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+} from '../../../../../../core/utilities/testing/dynamic-form-mock-services';
+import { createTestComponent } from '../../../../../../core/utilities/testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../../core/utilities/testing/vocabulary-service.stub';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';

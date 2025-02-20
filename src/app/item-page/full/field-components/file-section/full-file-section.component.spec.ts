@@ -12,23 +12,23 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
+import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { MockBitstreamFormat1 } from '../../../../core/mocks/item.mock';
 import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';

@@ -14,14 +14,14 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
 import { DSONameServiceMock } from '../../../../../core/mocks/dso-name.service.mock';
+import { NotificationsService } from '../../../../../core/notifications/notifications.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
+import { NotificationsServiceStub } from '../../../../../core/utilities/testing/notifications-service.stub';
+import { supervisionOrderEntryMock } from '../../../../../core/utilities/testing/supervision-order.mock';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
-import { supervisionOrderEntryMock } from '../../../../../shared/testing/supervision-order.mock';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
 import { WorkspaceItemAdminWorkflowActionsComponent } from './workspace-item-admin-workflow-actions.component';

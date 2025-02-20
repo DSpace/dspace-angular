@@ -20,9 +20,9 @@ import {
 
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   getItemEditRoute,
   getItemPageRoute,

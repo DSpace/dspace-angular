@@ -7,9 +7,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../../../utilities/remote-data.utils';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
@@ -25,6 +22,9 @@ import {
 } from '../../../mocks/notifications.mock';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { PageInfo } from '../../../shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../../../utilities/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../../utilities/testing/object-cache-service.stub';
+import { NotificationsService } from '../../notifications.service';
 import { QualityAssuranceEventDataService } from './quality-assurance-event-data.service';
 
 describe('QualityAssuranceEventDataService', () => {

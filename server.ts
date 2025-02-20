@@ -42,14 +42,14 @@ import { enableProdMode } from '@angular/core';
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { hasValue } from './modules/shared/utils/src/lib/utils/empty.util';
-import { UIServerConfig } from './src/config/ui-server-config.interface';
+import { UIServerConfig } from './src/app/core/config/ui-server-config.interface';
 import bootstrap from './src/main.server';
-import { buildAppConfig } from './src/config/config.server';
+import { buildAppConfig } from './src/app/core/config/config.server';
 import {
   APP_CONFIG,
   AppConfig,
-} from './src/config/app-config.interface';
-import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+} from './src/app/core/config/app-config.interface';
+import { extendEnvironmentWithAppConfig } from './src/app/core/config/config.util';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
 import { CommonEngine } from '@angular/ssr';
@@ -57,7 +57,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import {
   REQUEST,
   RESPONSE,
-} from './src/express.tokens';
+} from './src/app/core/tokens/express.tokens';
 
 /*
  * Set path for the browser application's dist folder

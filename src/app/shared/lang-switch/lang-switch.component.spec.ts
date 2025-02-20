@@ -22,7 +22,7 @@ import {
   of,
 } from 'rxjs';
 
-import { LangConfig } from '../../../config/lang-config.interface';
+import { LangConfig } from '../../core/config/lang-config.interface';
 import { LocaleService } from '../../core/locale/locale.service';
 import { LangSwitchComponent } from './lang-switch.component';
 

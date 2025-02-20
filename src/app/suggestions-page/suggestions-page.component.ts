@@ -33,6 +33,7 @@ import {
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
+import { NotificationsService } from '../core/notifications/notifications.service';
 import { Suggestion } from '../core/notifications/suggestions/models/suggestion.model';
 import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
 import { PaginationService } from '../core/pagination/pagination.service';
@@ -54,7 +55,6 @@ import {
 } from '../notifications/suggestions.service';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { VarDirective } from '../shared/utils/var.directive';
 import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';

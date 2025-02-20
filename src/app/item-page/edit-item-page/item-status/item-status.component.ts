@@ -34,6 +34,8 @@ import {
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { Identifier } from '../../../core/data/identifier.model';
+import { IdentifierData } from '../../../core/data/identifier-data.model';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
@@ -47,8 +49,6 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../../shared/animations/fade';
-import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
-import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
 import {
   getItemEditRoute,
   getItemPageRoute,

@@ -5,11 +5,11 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { testCreateDataImplementation } from './base/create-data.spec';

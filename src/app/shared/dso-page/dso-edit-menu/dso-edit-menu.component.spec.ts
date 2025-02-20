@@ -15,10 +15,10 @@ import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
+import { AuthServiceStub } from '../../../core/utilities/testing/auth-service.stub';
+import { MenuServiceStub } from '../../../core/utilities/testing/menu-service.stub';
 import { MenuService } from '../../menu/menu.service';
 import { MenuItemModel } from '../../menu/menu-item/models/menu-item.model';
-import { AuthServiceStub } from '../../testing/auth-service.stub';
-import { MenuServiceStub } from '../../testing/menu-service.stub';
 import { ThemeService } from '../../theme-support/theme.service';
 import { DsoEditMenuComponent } from './dso-edit-menu.component';
 

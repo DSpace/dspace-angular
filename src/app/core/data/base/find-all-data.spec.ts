@@ -11,7 +11,6 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import {
@@ -22,6 +21,7 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../../utilities/testing/hal-endpoint-service.stub';
 import { FindListOptions } from '../find-list-options.model';
 import { followLink } from '../follow-link-config.model';
 import { RemoteData } from '../remote-data';

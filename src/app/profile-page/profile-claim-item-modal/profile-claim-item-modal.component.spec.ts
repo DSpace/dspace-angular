@@ -13,13 +13,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import { ItemSearchResult } from '../../core/object-collection/item-search-result.model';
 import { Item } from '../../core/shared/item.model';
 import { SearchObjects } from '../../core/shared/search/models/search-objects.model';
+import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
+import { RouterStub } from '../../core/utilities/testing/router.stub';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { RouterStub } from '../../shared/testing/router.stub';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal.component';
 

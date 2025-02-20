@@ -22,11 +22,11 @@ import {
   qualityAssuranceTopicObjectMorePid,
 } from '../../../core/mocks/notifications.mock';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsStateService } from '../../notifications-state.service';
 import { QualityAssuranceTopicsComponent } from './quality-assurance-topics.component';
 

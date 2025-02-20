@@ -16,7 +16,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import {
   AddToObjectCacheAction,
   ObjectCacheActionTypes,
@@ -29,6 +28,7 @@ import {
   RequestStaleAction,
 } from '../data/request.actions';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { NoOpAction } from '../shared/ngrx/no-op.action';
 import {
   AddToIndexAction,
   RemoveFromIndexByValueAction,

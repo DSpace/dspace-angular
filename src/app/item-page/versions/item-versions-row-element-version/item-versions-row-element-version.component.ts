@@ -38,6 +38,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { VersionDataService } from '../../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
@@ -49,7 +50,6 @@ import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.mod
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   getItemEditVersionhistoryRoute,
   getItemVersionRoute,

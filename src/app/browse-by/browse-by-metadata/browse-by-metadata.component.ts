@@ -35,10 +35,6 @@ import {
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
@@ -47,6 +43,10 @@ import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../core/config/app-config.interface';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';

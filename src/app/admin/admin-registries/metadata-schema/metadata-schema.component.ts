@@ -33,6 +33,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
@@ -41,7 +42,6 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';

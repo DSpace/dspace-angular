@@ -1,5 +1,5 @@
 // import actions
-import { StoreActionTypes } from '../../store.actions';
+import { StoreActionTypes } from '../store.actions';
 import {
   AddAuthenticationMessageAction,
   AuthActions,

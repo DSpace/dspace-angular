@@ -12,7 +12,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { MenuServiceStub } from '../../testing/menu-service.stub';
+import { MenuServiceStub } from '../../../core/utilities/testing/menu-service.stub';
 import { MenuService } from '../menu.service';
 import { LinkMenuItemComponent } from '../menu-item/link-menu-item.component';
 import { MenuSection } from '../menu-section.model';

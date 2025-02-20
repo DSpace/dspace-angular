@@ -19,8 +19,6 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { createFailedRemoteDataObject$ } from '../utilities/remote-data.utils';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -54,10 +52,12 @@ import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { createFailedRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { ResearcherProfile } from './model/researcher-profile.model';
 
 /**

@@ -15,23 +15,23 @@ import {
 import { of as observableOf } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../../config/app-config.interface';
+} from '../../../../core/config/app-config.interface';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { MockBitstreamFormat1 } from '../../../../core/mocks/item.mock';
 import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';

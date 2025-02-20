@@ -17,25 +17,6 @@ import {
 } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
-import {
-  GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction,
-} from '../../access-control/group-registry/group-registry.actions';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '../../shared/testing/eperson.mock';
-import {
-  GroupMock,
-  GroupMock2,
-} from '../../shared/testing/group-mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
-import {
-  createPaginatedList,
-  createRequestEntry$,
-} from '../../shared/testing/utils.test';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { CoreState } from '../core-state.model';
@@ -51,6 +32,25 @@ import { getMockObjectCacheService } from '../mocks/object-cache.service.mock';
 import { getMockRemoteDataBuildServiceHrefMap } from '../mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { Item } from '../shared/item.model';
+import {
+  GroupRegistryCancelGroupAction,
+  GroupRegistryEditGroupAction,
+} from '../states/group-registry/group-registry.actions';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../utilities/testing/eperson.mock';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../utilities/testing/group-mock';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { TranslateLoaderMock } from '../utilities/testing/translate-loader.mock';
+import {
+  createPaginatedList,
+  createRequestEntry$,
+} from '../utilities/testing/utils.test';
 import { GroupDataService } from './group-data.service';
 
 describe('GroupDataService', () => {

@@ -18,9 +18,9 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../core/mocks/submission.mock';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { SubmissionService } from '../../submission.service';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsDirective } from '../sections.directive';

@@ -16,9 +16,9 @@ import {
 } from 'rxjs/operators';
 
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
 import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   AddTopicsAction,
   QualityAssuranceTopicActionTypes,

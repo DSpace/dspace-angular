@@ -39,12 +39,12 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
-import { getBitstreamDownloadRoute } from '../../app-routing-paths';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
+} from '../config/app-config.interface';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { BundleDataService } from '../data/bundle-data.service';

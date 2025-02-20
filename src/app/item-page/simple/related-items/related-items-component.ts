@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../config/app-config.interface';
+} from '../../../core/config/app-config.interface';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';

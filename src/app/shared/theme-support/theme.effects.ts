@@ -8,9 +8,9 @@ import {
 } from '@ngrx/effects';
 import { map } from 'rxjs/operators';
 
-import { getDefaultThemeConfig } from '../../../config/config.util';
+import { getDefaultThemeConfig } from '../../core/config/config.util';
+import { BASE_THEME_NAME } from '../../core/config/theme.constants';
 import { SetThemeAction } from './theme.actions';
-import { BASE_THEME_NAME } from './theme.constants';
 
 @Injectable()
 export class ThemeEffects {

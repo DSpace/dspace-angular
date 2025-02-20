@@ -17,7 +17,7 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { AuthServiceMock } from '../../../core/mocks/auth.service.mock';
 import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import { Collection } from '../../../core/shared/collection.model';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
 import { ThemeService } from '../../theme-support/theme.service';
 import { CollectionGridElementComponent } from './collection-grid-element.component';
 

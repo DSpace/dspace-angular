@@ -12,12 +12,10 @@ import { isEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
 import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { LazyDataServicesMap } from '../../../core/data-services-map';
 import { lazyDataService } from '../../../core/lazy-data-service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';

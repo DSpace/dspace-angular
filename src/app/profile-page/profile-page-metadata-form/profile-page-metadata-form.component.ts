@@ -18,17 +18,17 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 
-import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
+import { LangConfig } from '../../core/config/lang-config.interface';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-base-profile-page-metadata-form',

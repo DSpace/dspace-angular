@@ -18,9 +18,9 @@ import {
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 
 import { Process } from '../../../process-page/processes/process.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { NotificationsService } from '../../notifications/notifications.service';
 import { Bitstream } from '../../shared/bitstream.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NoContent } from '../../shared/NoContent.model';

@@ -31,11 +31,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 
+import { environment } from '../../../../../../environments/environment.test';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../../../config/app-config.interface';
-import { environment } from '../../../../../../environments/environment.test';
+} from '../../../../../core/config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import { getMockFormService } from '../../../../../core/mocks/form-service.mock';
@@ -50,6 +50,9 @@ import {
   mockUploadFiles,
 } from '../../../../../core/mocks/submission.mock';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../core/utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../../../core/utilities/testing/utils.test';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
@@ -57,9 +60,6 @@ import { FormBuilderService } from '../../../../../shared/form/builder/form-buil
 import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { SubmissionService } from '../../../../submission.service';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';

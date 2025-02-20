@@ -7,11 +7,11 @@ import {
 } from 'jasmine-marbles';
 
 import { AppState } from '../app.reducer';
+import { CSSVariableServiceStub } from '../core/utilities/testing/css-variable-service.stub';
 import {
   HostWindowService,
   WidthCategory,
 } from './host-window.service';
-import { CSSVariableServiceStub } from './testing/css-variable-service.stub';
 
 describe('HostWindowService', () => {
   let service: HostWindowService;

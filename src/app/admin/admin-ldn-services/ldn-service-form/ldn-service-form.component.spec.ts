@@ -35,12 +35,12 @@ import {
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { MockActivatedRoute } from '../../../core/mocks/active-router.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { RouteService } from '../../../core/services/route.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
 import { LdnServiceFormComponent } from './ldn-service-form.component';

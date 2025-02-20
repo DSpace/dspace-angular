@@ -18,8 +18,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 import { environment } from '../../../environments/environment';
+import { MediaViewerConfig } from '../../core/config/media-viewer-config.interface';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { followLink } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';

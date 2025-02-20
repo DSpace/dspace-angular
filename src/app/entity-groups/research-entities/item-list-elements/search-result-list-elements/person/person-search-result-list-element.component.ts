@@ -10,11 +10,11 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+} from '../../../../../core/config/app-config.interface';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';

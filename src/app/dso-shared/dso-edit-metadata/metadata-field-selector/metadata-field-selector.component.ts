@@ -45,6 +45,7 @@ import {
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
 import { followLink } from '../../../core/data/follow-link-config.model';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { RegistryService } from '../../../core/registry/registry.service';
 import {
   getAllSucceededRemoteData,
@@ -52,7 +53,6 @@ import {
   metadataFieldsToString,
 } from '../../../core/shared/operators';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
 
 @Component({

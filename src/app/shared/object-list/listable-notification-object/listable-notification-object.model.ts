@@ -1,9 +1,9 @@
 import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { TypedObject } from '../../../core/cache/typed-object.model';
+import { NotificationType } from '../../../core/notifications/models/notification-type';
 import { ListableObject } from '../../../core/object-collection/listable-object.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { ResourceType } from '../../../core/shared/resource-type';
-import { NotificationType } from '../../notifications/models/notification-type';
 import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.resource-type';
 
 /**

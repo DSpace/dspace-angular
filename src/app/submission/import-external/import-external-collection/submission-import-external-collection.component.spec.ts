@@ -13,10 +13,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
 

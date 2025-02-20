@@ -18,10 +18,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
@@ -32,21 +28,25 @@ import { RelationshipDataService } from '../../../core/data/relationship-data.se
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
+import {
+  INotification,
+  Notification,
+} from '../../../core/notifications/models/notification.model';
+import { NotificationType } from '../../../core/notifications/models/notification-type';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
-  INotification,
-  Notification,
-} from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
-import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { ItemDataServiceStub } from '../../../core/utilities/testing/item-data.service.stub';
+import { relationshipTypes } from '../../../core/utilities/testing/relationship-types.mock';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { ItemRelationshipsComponent } from './item-relationships.component';
 

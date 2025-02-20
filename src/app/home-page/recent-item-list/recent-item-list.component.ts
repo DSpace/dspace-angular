@@ -15,15 +15,15 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../core/config/app-config.interface';
 import {
   followLink,
   FollowLinkConfig,

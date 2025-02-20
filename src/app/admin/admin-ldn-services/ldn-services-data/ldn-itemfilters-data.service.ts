@@ -13,8 +13,8 @@ import { FollowLinkConfig } from '../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
 
 /**

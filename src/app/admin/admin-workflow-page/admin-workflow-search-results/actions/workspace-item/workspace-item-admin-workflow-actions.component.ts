@@ -27,6 +27,7 @@ import {
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { NotificationsService } from '../../../../../core/notifications/notifications.service';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
@@ -35,7 +36,6 @@ import { SupervisionOrder } from '../../../../../core/supervision-order/models/s
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';

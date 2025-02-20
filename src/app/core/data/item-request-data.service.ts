@@ -12,10 +12,10 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RequestCopyEmail } from '../../request-copy/email-request-copy/request-copy-email.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { RequestCopyEmail } from '../request-copy/request-copy-email.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemRequest } from '../shared/item-request.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';

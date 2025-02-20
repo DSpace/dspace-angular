@@ -5,7 +5,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -25,9 +24,10 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { RequestEntry } from '../../../core/data/request-entry.model';
 import { RequestEntryState } from '../../../core/data/request-entry-state.model';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { mockLdnService } from '../ldn-service-serviceMock/ldnServicesRD$-mock';
 import { LdnServicesService } from './ldn-services-data.service';
 

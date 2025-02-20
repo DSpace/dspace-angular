@@ -13,7 +13,6 @@ import {
 } from 'rxjs/operators';
 
 import { QualityAssuranceEventData } from '../../../../notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
@@ -47,6 +46,7 @@ import { RequestService } from '../../../data/request.service';
 import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NoContent } from '../../../shared/NoContent.model';
+import { NotificationsService } from '../../notifications.service';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
 
 /**

@@ -30,7 +30,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import {
@@ -43,19 +42,20 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { getMockFormBuilderService } from '../../core/mocks/form-builder-service.mock';
 import { RouterMock } from '../../core/mocks/router.mock';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+} from '../../core/utilities/testing/eperson.mock';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
+import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';
 

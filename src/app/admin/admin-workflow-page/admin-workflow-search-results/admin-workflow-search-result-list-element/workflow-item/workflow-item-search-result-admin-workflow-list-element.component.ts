@@ -10,12 +10,12 @@ import {
   Observable,
 } from 'rxjs';
 
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
+} from '../../../../../core/config/app-config.interface';
 import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';

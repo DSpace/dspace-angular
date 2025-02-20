@@ -7,7 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import { PrivacyComponent } from './privacy.component';
 
 describe('PrivacyComponent', () => {

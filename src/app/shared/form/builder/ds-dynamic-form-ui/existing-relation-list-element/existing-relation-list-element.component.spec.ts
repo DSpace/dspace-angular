@@ -8,17 +8,17 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
+import { ReorderableRelationship } from '../../../../../core/shared/item-relationships/reorderable-relationship.model';
+import { RemoveRelationshipAction } from '../../../../../core/states/name-variant/relationship.actions';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { SubmissionServiceStub } from '../../../../../core/utilities/testing/submission-service.stub';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
-import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
-import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element.component';
 
 describe('ExistingRelationListElementComponent', () => {

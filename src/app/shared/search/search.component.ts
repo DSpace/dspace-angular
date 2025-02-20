@@ -40,14 +40,14 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../core/config/app-config.interface';
 import { followLink } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';

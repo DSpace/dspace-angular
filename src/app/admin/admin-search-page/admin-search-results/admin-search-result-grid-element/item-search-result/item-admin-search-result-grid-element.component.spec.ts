@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -21,13 +20,14 @@ import { ItemSearchResult } from '../../../../../core/object-collection/item-sea
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../../core/shared/file.service';
 import { Item } from '../../../../../core/shared/item.model';
-import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { AuthServiceStub } from '../../../../../core/utilities/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '../../../../../core/utilities/testing/authorization-service.stub';
+import { FileServiceStub } from '../../../../../core/utilities/testing/file-service.stub';
+import { ListableModule } from '../../../../../shared/modules/listable.module';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
-import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';

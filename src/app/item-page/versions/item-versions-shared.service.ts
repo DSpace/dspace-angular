@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { RemoteData } from '../../core/data/remote-data';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { Version } from '../../core/shared/version.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable({
   providedIn: 'root',

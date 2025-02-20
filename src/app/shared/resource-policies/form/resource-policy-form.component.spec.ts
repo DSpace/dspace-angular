@@ -33,13 +33,12 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of as observableOf } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
+import { environment } from 'src/environments/environment.test';
+
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
-
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+} from '../../../core/config/app-config.interface';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -53,6 +52,11 @@ import { PolicyType } from '../../../core/resource-policy/models/policy-type.mod
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+import { EPersonMock } from '../../../core/utilities/testing/eperson.mock';
+import { GroupMock } from '../../../core/utilities/testing/group-mock';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { SubmissionService } from '../../../submission/submission.service';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
@@ -61,10 +65,6 @@ import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-
 import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
-import { EPersonMock } from '../../testing/eperson.mock';
-import { GroupMock } from '../../testing/group-mock';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { createTestComponent } from '../../testing/utils.test';
 import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,

@@ -28,11 +28,11 @@ import {
 
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { ClaimedDeclinedTaskSearchResult } from '../../../../core/object-collection/claimed-declined-task-search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';

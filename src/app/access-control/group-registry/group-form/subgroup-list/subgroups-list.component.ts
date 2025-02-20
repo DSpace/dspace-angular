@@ -34,6 +34,7 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import {
@@ -43,7 +44,6 @@ import {
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../../../core/shared/pagination-component-options.model';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**

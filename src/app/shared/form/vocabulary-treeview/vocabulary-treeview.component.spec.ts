@@ -21,7 +21,7 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { createTestComponent } from '../../testing/utils.test';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';

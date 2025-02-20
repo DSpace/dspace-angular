@@ -11,12 +11,11 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -25,6 +24,7 @@ import { sendRequest } from '../shared/request.operators';
 import { BaseDataService } from './base/base-data.service';
 import { ConfigurationDataService } from './configuration-data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { IdentifierData } from './identifier-data.model';
 import { RemoteData } from './remote-data';
 import { PostRequest } from './request.models';
 import { RequestService } from './request.service';

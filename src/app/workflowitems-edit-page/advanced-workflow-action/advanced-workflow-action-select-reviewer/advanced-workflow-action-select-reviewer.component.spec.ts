@@ -11,31 +11,31 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
 import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { RouteService } from '../../../core/services/route.service';
 import { Item } from '../../../core/shared/item.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { ClaimedTaskDataServiceStub } from '../../../core/utilities/testing/claimed-task-data-service.stub';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../../../shared/testing/eperson.mock';
-import { LocationStub } from '../../../shared/testing/location.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
+} from '../../../core/utilities/testing/eperson.mock';
+import { LocationStub } from '../../../core/utilities/testing/location.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { RequestServiceStub } from '../../../core/utilities/testing/request-service.stub';
+import { routeServiceStub } from '../../../core/utilities/testing/route-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { WorkflowActionDataServiceStub } from '../../../core/utilities/testing/workflow-action-data-service.stub';
+import { WorkflowItemDataServiceStub } from '../../../core/utilities/testing/workflow-item-data-service.stub';
 import {
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
   AdvancedWorkflowActionSelectReviewerComponent,

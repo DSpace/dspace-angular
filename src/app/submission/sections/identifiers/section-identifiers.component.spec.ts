@@ -20,7 +20,6 @@ import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
@@ -32,6 +31,7 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../core/mocks/submission.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
@@ -39,14 +39,14 @@ import { Item } from '../../../core/shared/item.model';
 import { License } from '../../../core/shared/license.model';
 import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';

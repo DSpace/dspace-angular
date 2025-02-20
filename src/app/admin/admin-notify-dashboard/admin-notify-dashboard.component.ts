@@ -15,7 +15,11 @@ import { map } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../config/app-config.interface';
+} from '../../core/config/app-config.interface';
+import {
+  AdminNotifyMetricsBox,
+  AdminNotifyMetricsRow,
+} from '../../core/config/models/admin-notify-metrics.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
@@ -25,10 +29,6 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
-import {
-  AdminNotifyMetricsBox,
-  AdminNotifyMetricsRow,
-} from './admin-notify-metrics/admin-notify-metrics.model';
 
 @Component({
   selector: 'ds-admin-notify-dashboard',

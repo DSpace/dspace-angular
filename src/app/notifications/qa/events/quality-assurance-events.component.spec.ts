@@ -25,11 +25,6 @@ import { AuthorizationDataService } from 'src/app/core/data/feature-authorizatio
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 
 import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
@@ -46,16 +41,21 @@ import {
   qualityAssuranceEventObjectMissingProjectNotFound,
 } from '../../../core/mocks/notifications.mock';
 import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 

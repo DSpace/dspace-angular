@@ -24,27 +24,27 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
+import {
+  INotification,
+  Notification,
+} from '../../core/notifications/models/notification.model';
+import { NotificationType } from '../../core/notifications/models/notification-type';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValueFilter } from '../../core/shared/metadata.models';
-import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import {
-  INotification,
-  Notification,
-} from '../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../shared/notifications/models/notification-type';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { EditBitstreamPageComponent } from './edit-bitstream-page.component';

@@ -1,15 +1,42 @@
-import { MemoizedSelector } from '@ngrx/store';
-
+import { hasValue } from '@dspace/shared/utils';
 import {
-  keySelector,
-  subStateSelector,
-} from '../../submission/selectors';
+  createSelector,
+  MemoizedSelector,
+  Selector,
+} from '@ngrx/store';
+
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import {
   JsonPatchOperationsEntry,
   JsonPatchOperationsResourceEntry,
 } from './json-patch-operations.reducer';
+
+/**
+ * Export a function to return a subset of the state by key
+ */
+export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: string, key: string): MemoizedSelector<T, V> {
+  return createSelector<T,unknown[],V>(parentSelector, (state: T) => {
+    if (hasValue(state) && hasValue(state[subState])) {
+      return state[subState][key];
+    } else {
+      return undefined;
+    }
+  });
+}
+
+/**
+ * Export a function to return a subset of the state
+ */
+export function subStateSelector<T, V>(parentSelector: Selector<any, any>, subState: string): MemoizedSelector<T, V> {
+  return createSelector<T,unknown[],V>(parentSelector, (state: T) => {
+    if (hasValue(state) && hasValue(state[subState])) {
+      return state[subState];
+    } else {
+      return undefined;
+    }
+  });
+}
 
 /**
  * Return MemoizedSelector to select all jsonPatchOperations for a specified resource type, stored in the state

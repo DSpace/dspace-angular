@@ -10,14 +10,14 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../core/data/bundle-data.service';
 import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { Item } from '../../core/shared/item.model';
 import { MetadataMap } from '../../core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { HostWindowService } from '../../shared/host-window.service';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
 import { MiradorViewerComponent } from './mirador-viewer.component';
 import { MiradorViewerService } from './mirador-viewer.service';

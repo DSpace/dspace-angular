@@ -25,7 +25,6 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
@@ -41,21 +40,22 @@ import {
 } from '../../../core/mocks/submission.mock';
 import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { FormFieldModel } from '../../../core/shared/form/form-field.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionService } from '../../submission.service';

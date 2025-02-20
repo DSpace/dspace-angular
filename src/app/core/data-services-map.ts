@@ -1,4 +1,5 @@
-import { LazyDataServicesMap } from '../../config/app-config.interface';
+import { Type } from '@angular/core';
+
 import {
   LDN_SERVICE,
   LDN_SERVICE_CONSTRAINT_FILTERS,
@@ -9,16 +10,16 @@ import { PROCESS } from '../process-page/processes/process.resource-type';
 import { SCRIPT } from '../process-page/scripts/script.resource-type';
 import { ACCESS_STATUS } from '../shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 import { DUPLICATE } from '../shared/object-list/duplicate-data/duplicate.resource-type';
-import { IDENTIFIERS } from '../shared/object-list/identifier-data/identifier-data.resource-type';
 import { SUBSCRIPTION } from '../shared/subscriptions/models/subscription.resource-type';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from '../submission/sections/section-coar-notify/section-coar-notify-service.resource-type';
-import { SYSTEMWIDEALERT } from '../system-wide-alert/system-wide-alert.resource-type';
 import {
   BULK_ACCESS_CONDITION_OPTIONS,
   SUBMISSION_ACCESSES_TYPE,
   SUBMISSION_FORMS_TYPE,
   SUBMISSION_UPLOADS_TYPE,
 } from './config/models/config-type';
+import { HALDataService } from './data/base/hal-data-service.interface';
+import { IDENTIFIERS } from './data/identifier-data.resource-type';
 import { ROOT } from './data/root.resource-type';
 import { EPERSON } from './eperson/models/eperson.resource-type';
 import { GROUP } from './eperson/models/group.resource-type';
@@ -65,9 +66,13 @@ import {
   VOCABULARY_ENTRY_DETAIL,
 } from './submission/vocabularies/models/vocabularies.resource-type';
 import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.resource-type';
+import { SYSTEMWIDEALERT } from './system-wide-alert/system-wide-alert.resource-type';
 import { CLAIMED_TASK } from './tasks/models/claimed-task-object.resource-type';
 import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
 import { WORKFLOW_ACTION } from './tasks/models/workflow-action-object.resource-type';
+
+export type LazyDataServicesMap = Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>;
+
 
 export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [AUTHORIZATION.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],

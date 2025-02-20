@@ -31,16 +31,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-} from '../core/utilities/remote-data.utils';
 import { environment } from '../../environments/environment';
 import { ErrorResponse } from '../core/cache/response.models';
 import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
 import { RemoteData } from '../core/data/remote-data';
 import { RequestService } from '../core/data/request.service';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../core/notifications/notifications.service';
 import { RouteService } from '../core/services/route.service';
 import { Item } from '../core/shared/item.model';
 import { SearchService } from '../core/shared/search/search.service';
@@ -49,7 +46,10 @@ import { WorkspaceitemSectionsObject } from '../core/submission/models/workspace
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { NotificationsService } from '../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+} from '../core/utilities/remote-data.utils';
 import { SectionScope } from './objects/section-visibility.model';
 import { SubmissionError } from './objects/submission-error.model';
 import {

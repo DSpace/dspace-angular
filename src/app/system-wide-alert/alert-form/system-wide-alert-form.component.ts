@@ -43,10 +43,10 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { SystemWideAlert } from '../../core/system-wide-alert/system-wide-alert.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SystemWideAlert } from '../system-wide-alert.model';
 
 
 /**

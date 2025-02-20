@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
@@ -19,12 +18,13 @@ import { Collection } from '../../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { HostWindowServiceStub } from '../../../core/utilities/testing/host-window-service.stub';
+import { ObjectSelectServiceStub } from '../../../core/utilities/testing/object-select-service.stub';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../core/utilities/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { HostWindowService } from '../../host-window.service';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../testing/utils.test';
 import { ObjectSelectService } from '../object-select.service';
 import { CollectionSelectComponent } from './collection-select.component';
 

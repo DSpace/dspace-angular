@@ -15,20 +15,17 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../../core/mocks/link-service.mock';
 import { mockTruncatableService } from '../../../../core/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { ClaimedTaskSearchResult } from '../../../../core/object-collection/claimed-task-search-result.model';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Context } from '../../../../core/shared/context.model';
@@ -37,11 +34,14 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
+import { SearchServiceStub } from '../../../../core/utilities/testing/search-service.stub';
+import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { createPaginatedList } from '../../../testing/utils.test';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';

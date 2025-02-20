@@ -8,7 +8,7 @@ import { RequestEntryState } from '../core/data/request-entry-state.model';
 import { BrowserHardRedirectService } from '../core/services/browser-hard-redirect.service';
 import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { Bitstream } from '../core/shared/bitstream.model';
-import { RouterStub } from '../shared/testing/router.stub';
+import { RouterStub } from '../core/utilities/testing/router.stub';
 import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';
 
 describe('legacyBitstreamURLRedirectGuard', () => {

@@ -14,20 +14,20 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
 import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { OrcidQueueComponent } from './orcid-queue.component';
 
 describe('OrcidQueueComponent test suite', () => {

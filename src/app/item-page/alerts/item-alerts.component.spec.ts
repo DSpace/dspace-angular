@@ -11,20 +11,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../core/shared/item.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { CorrectionType } from '../../core/submission/models/correctiontype.model';
 import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,
 } from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ItemAlertsComponent } from './item-alerts.component';
 
 describe('ItemAlertsComponent', () => {

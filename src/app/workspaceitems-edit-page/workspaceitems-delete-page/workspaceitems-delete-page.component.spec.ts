@@ -19,17 +19,17 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import { RouterMock } from '../../core/mocks/router.mock';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { LocationStub } from '../../shared/testing/location.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { LocationStub } from '../../core/utilities/testing/location.stub';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 
 describe('WorkspaceitemsDeletePageComponent', () => {

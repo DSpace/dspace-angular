@@ -1,9 +1,9 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { type } from '../../../shared/ngrx/type';
-import { INotification } from '../../../shared/notifications/models/notification.model';
+import { INotification } from '../../notifications/models/notification.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
+import { type } from '../../shared/ngrx/type';
 import { FieldChangeType } from './field-change-type.model';
 import { Identifiable } from './identifiable.model';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';

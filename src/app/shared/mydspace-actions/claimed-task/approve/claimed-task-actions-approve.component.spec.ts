@@ -20,15 +20,15 @@ import { RequestService } from '../../../../core/data/request.service';
 import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
 import { getMockSearchService } from '../../../../core/mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItemDataService } from '../../../../core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { RouterStub } from '../../../testing/router.stub';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../core/utilities/testing/router.stub';
 import { ClaimedTaskActionsApproveComponent } from './claimed-task-actions-approve.component';
 
 let component: ClaimedTaskActionsApproveComponent;

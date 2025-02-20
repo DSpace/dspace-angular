@@ -20,9 +20,9 @@ import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
 import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { RouterStub } from '../../../shared/testing/router.stub';
 import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 
 const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction';

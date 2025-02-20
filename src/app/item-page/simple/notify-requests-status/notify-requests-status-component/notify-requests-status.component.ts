@@ -17,13 +17,13 @@ import {
 
 import { NotifyRequestsStatusDataService } from '../../../../core/data/notify-services-status-data.service';
 import {
+  NotifyRequestsStatus,
+  NotifyStatuses,
+} from '../../../../core/notify-requests/notify-requests-status.model';
+import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import {
-  NotifyRequestsStatus,
-  NotifyStatuses,
-} from '../notify-requests-status.model';
 import { RequestStatusEnum } from '../notify-status.enum';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 

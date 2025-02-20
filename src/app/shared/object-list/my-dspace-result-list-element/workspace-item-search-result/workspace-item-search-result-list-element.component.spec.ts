@@ -14,10 +14,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../../core/mocks/link-service.mock';
@@ -27,6 +26,7 @@ import { WorkflowItemSearchResult } from '../../../../core/object-collection/wor
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';

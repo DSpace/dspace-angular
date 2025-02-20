@@ -21,17 +21,17 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { getMockThemeService } from '../../core/mocks/theme-service.mock';
 import { Item } from '../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
+import { AuthServiceStub } from '../../core/utilities/testing/auth-service.stub';
+import { CSSVariableServiceStub } from '../../core/utilities/testing/css-variable-service.stub';
+import { MenuServiceStub } from '../../core/utilities/testing/menu-service.stub';
 import { MenuService } from '../../shared/menu/menu.service';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { AdminSidebarComponent } from './admin-sidebar.component';
 

@@ -6,9 +6,9 @@ import {
 import { first } from 'rxjs/operators';
 
 import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { AuthServiceStub } from '../../utilities/testing/auth-service.stub';
 import { DSpaceObject } from '../dspace-object.model';
 import { MetadataValueFilter } from '../metadata.models';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { itemPageResolver } from './item-page.resolver';
 
 describe('itemPageResolver', () => {

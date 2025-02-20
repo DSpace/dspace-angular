@@ -27,11 +27,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../config/app-config.interface';
 import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
 import { LinkService } from '../../cache/builders/link.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
@@ -39,6 +34,10 @@ import {
   SortDirection,
   SortOptions,
 } from '../../cache/models/sort-options.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
@@ -47,6 +46,7 @@ import { RequestService } from '../../data/request.service';
 import { PaginationService } from '../../pagination/pagination.service';
 import { RouteService } from '../../services/route.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { DSpaceObjectType } from '../dspace-object-type.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';

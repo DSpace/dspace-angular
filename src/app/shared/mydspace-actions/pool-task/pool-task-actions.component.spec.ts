@@ -19,11 +19,11 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockRequestService } from '../../../core/mocks/request.service.mock';
 import { getMockSearchService } from '../../../core/mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { PoolTaskSearchResult } from '../../../core/object-collection/pool-task-search-result.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -32,10 +32,10 @@ import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.se
 import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
 
 let mockDataService: PoolTaskDataService;

@@ -25,13 +25,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../core/config/app-config.interface';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { followLink } from '../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';

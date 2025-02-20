@@ -13,12 +13,6 @@ import {
 import { take } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
-import {
-  GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction,
-} from '../../access-control/group-registry/group-registry.actions';
-import { GroupRegistryState } from '../../access-control/group-registry/group-registry.reducers';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -53,11 +47,17 @@ import {
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import {
+  GroupRegistryCancelGroupAction,
+  GroupRegistryEditGroupAction,
+} from '../states/group-registry/group-registry.actions';
+import { GroupRegistryState } from '../states/group-registry/group-registry.reducers';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
 

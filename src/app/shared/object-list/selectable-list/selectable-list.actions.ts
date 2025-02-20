@@ -2,7 +2,7 @@
 import { Action } from '@ngrx/store';
 
 import { ListableObject } from '../../../core/object-collection/listable-object.model';
-import { type } from '../../ngrx/type';
+import { type } from '../../../core/shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple

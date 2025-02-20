@@ -30,7 +30,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -48,23 +47,24 @@ import { Group } from '../../../core/eperson/models/group.model';
 import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
 import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../core/mocks/router.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { UUIDService } from '../../../core/shared/uuid.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../../../core/utilities/testing/group-mock';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import {
-  GroupMock,
-  GroupMock2,
-} from '../../../shared/testing/group-mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { GroupFormComponent } from './group-form.component';
 import { MembersListComponent } from './members-list/members-list.component';
 import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';

@@ -8,11 +8,10 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { AuthServiceStub } from '../utilities/testing/auth-service.stub';
+import { RouterStub } from '../utilities/testing/router.stub';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
 
@@ -21,7 +20,7 @@ describe(`AuthInterceptor`, () => {
   let httpMock: HttpTestingController;
 
   const authServiceStub = new AuthServiceStub();
-  const store: Store<TruncatablesState> = jasmine.createSpyObj('store', {
+  const store: Store<any> = jasmine.createSpyObj('store', {
     dispatch: {},
     select: observableOf(true),
   });

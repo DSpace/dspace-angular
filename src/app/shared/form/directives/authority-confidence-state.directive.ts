@@ -25,8 +25,8 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 
-import { ConfidenceIconConfig } from '../../../../config/submission-config.interface';
 import { environment } from '../../../../environments/environment';
+import { ConfidenceIconConfig } from '../../../core/config/submission-config.interface';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';

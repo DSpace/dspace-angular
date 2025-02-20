@@ -16,16 +16,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { Item } from '../../../core/shared/item.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../core/utilities/remote-data.utils';
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { ItemRegisterDoiComponent } from './item-register-doi.component';
 
 let comp: ItemRegisterDoiComponent;

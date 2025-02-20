@@ -28,6 +28,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { followLink } from '../../core/data/follow-link-config.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { NoContent } from '../../core/shared/NoContent.model';
@@ -37,7 +38,6 @@ import {
 } from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';

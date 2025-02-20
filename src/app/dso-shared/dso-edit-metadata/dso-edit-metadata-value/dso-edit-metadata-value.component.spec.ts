@@ -19,14 +19,11 @@ import { Vocabulary } from 'src/app/core/submission/vocabularies/models/vocabula
 import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
 import { DynamicOneboxModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
-import { createPaginatedList } from 'src/app/shared/testing/utils.test';
-import { VocabularyServiceStub } from 'src/app/shared/testing/vocabulary-service.stub';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
@@ -35,6 +32,9 @@ import {
   VIRTUAL_METADATA_PREFIX,
 } from '../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { VocabularyServiceStub } from '../../../core/utilities/testing/vocabulary-service.stub';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';

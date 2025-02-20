@@ -12,7 +12,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../core/utilities/remote-data.utils';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -25,9 +24,10 @@ import { Item } from '../../../../../../core/shared/item.model';
 import { PaginatedSearchOptions } from '../../../../../../core/shared/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../../../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../../../../../core/utilities/testing/pagination-service.stub';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationSelectionTabComponent } from './dynamic-lookup-relation-selection-tab.component';
 

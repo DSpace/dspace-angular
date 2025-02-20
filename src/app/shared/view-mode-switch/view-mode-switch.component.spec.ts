@@ -19,7 +19,7 @@ import {
 import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { SearchServiceStub } from '../testing/search-service.stub';
+import { SearchServiceStub } from '../../core/utilities/testing/search-service.stub';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
 @Component({

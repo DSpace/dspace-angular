@@ -22,9 +22,8 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
-import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { APP_DATA_SERVICES_MAP } from '../../../../../core/config/app-config.interface';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
@@ -35,16 +34,17 @@ import { RelationshipOptions } from '../../../../../core/shared/form/relationshi
 import { Item } from '../../../../../core/shared/item.model';
 import { PaginatedSearchOptions } from '../../../../../core/shared/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
-import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { createPaginatedList } from '../../../../testing/utils.test';
-import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
-} from './relationship.actions';
+} from '../../../../../core/states/name-variant/relationship.actions';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../core/utilities/testing/utils.test';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
+import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;

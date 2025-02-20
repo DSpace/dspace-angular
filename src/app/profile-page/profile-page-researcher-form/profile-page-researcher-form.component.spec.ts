@@ -10,17 +10,17 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { AuthService } from '../../core/auth/auth.service';
+import { followLink } from '../../core/data/follow-link-config.model';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
+import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../core/utilities/remote-data.utils';
-import { AuthService } from '../../core/auth/auth.service';
-import { followLink } from '../../core/data/follow-link-config.model';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form.component';

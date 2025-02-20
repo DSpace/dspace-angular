@@ -23,19 +23,19 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { AuthService } from '../../../core/auth/auth.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { getMockThemeService } from '../../../core/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import {
   subscriptionMock,
   subscriptionMock2,
-} from '../../testing/subscriptions-data.mock';
+} from '../../../core/utilities/testing/subscriptions-data.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionModalComponent } from './subscription-modal.component';

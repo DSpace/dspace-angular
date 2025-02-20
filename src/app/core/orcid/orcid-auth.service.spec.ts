@@ -8,11 +8,6 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 import { NativeWindowRefMock } from '../mocks/mock-native-window-ref';
 import { RouterMock } from '../mocks/router.mock';
@@ -21,6 +16,11 @@ import { ResearcherProfileDataService } from '../profile/researcher-profile-data
 import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { Item } from '../shared/item.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
+import { createPaginatedList } from '../utilities/testing/utils.test';
 import { OrcidAuthService } from './orcid-auth.service';
 
 describe('OrcidAuthService', () => {

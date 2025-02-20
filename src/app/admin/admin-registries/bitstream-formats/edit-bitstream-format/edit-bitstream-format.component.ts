@@ -16,9 +16,9 @@ import { map } from 'rxjs/operators';
 
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { FormatFormComponent } from '../format-form/format-form.component';
 

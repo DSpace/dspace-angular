@@ -30,10 +30,6 @@ import {
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { NgxMaskModule } from 'ngx-mask';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../config/app-config.interface';
 import { StoreDevModules } from '../config/store/devtools';
 import { environment } from '../environments/environment';
 import { EagerThemesModule } from '../themes/eager-themes.module';
@@ -54,6 +50,10 @@ import {
 } from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from './core/config/app-config.interface';
 import { LocaleInterceptor } from './core/locale/locale.interceptor';
 import { LogInterceptor } from './core/log/log.interceptor';
 import {
@@ -61,16 +61,16 @@ import {
   provideCore,
 } from './core/provide-core';
 import { ClientCookieService } from './core/services/client-cookie.service';
-import { ListableModule } from './core/shared/listable.module';
+import { DSpaceRouterStateSerializer } from './core/shared/ngrx/dspace-router-state-serializer';
 import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { RootModule } from './root.module';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
 import { METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP } from './shared/metadata-representation/metadata-representation.decorator';
+import { ListableModule } from './shared/modules/listable.module';
 import {
   ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP,
   WORKFLOW_TASK_OPTION_DECORATOR_MAP,
 } from './shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 import { STARTS_WITH_DECORATOR_MAP } from './shared/starts-with/starts-with-decorator';
 
 export function getConfig() {

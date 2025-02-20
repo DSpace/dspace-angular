@@ -22,10 +22,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -38,10 +34,14 @@ import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

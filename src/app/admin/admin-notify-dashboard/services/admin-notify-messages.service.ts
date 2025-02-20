@@ -20,12 +20,12 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { PostRequest } from '../../../core/data/request.models';
 import { RequestService } from '../../../core/data/request.service';
 import { RestRequest } from '../../../core/data/rest-request.model';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
 } from '../../../core/shared/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { LdnServicesService } from '../../admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 

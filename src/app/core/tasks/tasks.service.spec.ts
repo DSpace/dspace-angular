@@ -9,7 +9,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
@@ -25,6 +24,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
 import { TaskObject } from './models/task-object.model';
 import { TasksService } from './tasks.service';
 

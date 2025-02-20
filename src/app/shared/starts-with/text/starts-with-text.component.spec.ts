@@ -15,9 +15,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { RouterStub } from '../../testing/router.stub';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { StartsWithTextComponent } from './starts-with-text.component';
 

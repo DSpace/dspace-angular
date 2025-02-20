@@ -26,9 +26,9 @@ import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
+import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+import { AuthServiceStub } from '../../../../core/utilities/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '../../../../core/utilities/testing/authorization-service.stub';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { LogInPasswordComponent } from './log-in-password.component';
 

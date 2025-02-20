@@ -14,9 +14,9 @@ import { of as observableOf } from 'rxjs';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { getMockFormBuilderService } from '../../../../core/mocks/form-builder-service.mock';
 import { RegistryService } from '../../../../core/registry/registry.service';
+import { RegistryServiceStub } from '../../../../core/utilities/testing/registry.service.stub';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
-import { RegistryServiceStub } from '../../../../shared/testing/registry.service.stub';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { MetadataSchemaFormComponent } from './metadata-schema-form.component';
 

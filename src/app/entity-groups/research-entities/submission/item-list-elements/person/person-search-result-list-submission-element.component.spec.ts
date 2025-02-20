@@ -19,12 +19,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
-import { REQUEST } from '../../../../../../express.tokens';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
+import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
 import { CommunityDataService } from '../../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
@@ -38,6 +36,8 @@ import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
+import { REQUEST } from '../../../../../core/tokens/express.tokens';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';

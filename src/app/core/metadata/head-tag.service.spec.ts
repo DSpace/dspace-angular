@@ -18,13 +18,8 @@ import {
   of,
 } from 'rxjs';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { AppConfig } from '../../../config/app-config.interface';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { AppConfig } from '../config/app-config.interface';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
@@ -41,6 +36,11 @@ import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
 import { Item } from '../shared/item.model';
 import { MetadataValue } from '../shared/metadata.models';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../utilities/remote-data.utils';
+import { createPaginatedList } from '../utilities/testing/utils.test';
 import { HeadTagService } from './head-tag.service';
 import {
   AddMetaTagAction,

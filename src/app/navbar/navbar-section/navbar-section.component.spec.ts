@@ -7,10 +7,10 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
+import { HostWindowServiceStub } from '../../core/utilities/testing/host-window-service.stub';
+import { MenuServiceStub } from '../../core/utilities/testing/menu-service.stub';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
 import { NavbarSectionComponent } from './navbar-section.component';
 
 describe('NavbarSectionComponent', () => {

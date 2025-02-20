@@ -5,8 +5,8 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils';
 
-import { ThemeConfig } from '../../../../../config/theme.config';
 import { environment } from '../../../../../environments/environment';
+import { ThemeConfig } from '../../../../core/config/theme.config';
 import { ListableObject } from '../../../../core/object-collection/listable-object.model';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';

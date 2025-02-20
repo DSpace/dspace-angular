@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
+import { type } from '../../../../core/shared/ngrx/type';
 import { SearchFilterConfig } from '../../../../core/shared/search/models/search-filter-config.model';
-import { type } from '../../../ngrx/type';
 
 /**
  * For each action type in an action group, make a simple

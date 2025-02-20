@@ -13,7 +13,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { FindListOptions } from '../../../../core/data/find-list-options.model';
@@ -26,12 +25,13 @@ import { Community } from '../../../../core/shared/community.model';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
+import { HostWindowServiceStub } from '../../../../core/utilities/testing/host-window-service.stub';
+import { PaginationServiceStub } from '../../../../core/utilities/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../../core/utilities/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
-import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
 

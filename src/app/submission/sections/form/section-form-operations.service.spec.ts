@@ -13,7 +13,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { getMockFormBuilderService } from '../../../core/mocks/form-builder-service.mock';

@@ -6,9 +6,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -20,8 +17,11 @@ import { RequestEntry } from '../data/request-entry.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { GroupDataService } from '../eperson/group-data.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PageInfo } from '../shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
+import { ObjectCacheServiceStub } from '../utilities/testing/object-cache-service.stub';
 import { ActionType } from './models/action-type.model';
 import { PolicyType } from './models/policy-type.model';
 import { ResourcePolicyDataService } from './resource-policy-data.service';

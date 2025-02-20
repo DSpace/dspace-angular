@@ -30,12 +30,12 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../config/app-config.interface';
-import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+} from '../../../../../core/config/app-config.interface';
+import { FilterVocabularyConfig } from '../../../../../core/config/filter-vocabulary-config';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';

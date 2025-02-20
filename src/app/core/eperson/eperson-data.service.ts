@@ -16,13 +16,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { getEPersonEditRoute } from '../../access-control/access-control-routing-paths';
-import {
-  EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction,
-} from '../../access-control/epeople-registry/epeople-registry.actions';
-import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -57,6 +50,7 @@ import {
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { NotificationsService } from '../notifications/notifications.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import {
@@ -64,6 +58,12 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
+import {
+  EPeopleRegistryCancelEPersonAction,
+  EPeopleRegistryEditEPersonAction,
+} from '../states/epeople-registry/epeople-registry.actions';
+import { EPeopleRegistryState } from '../states/epeople-registry/epeople-registry.reducers';
+import { URLCombiner } from '../url-combiner/url-combiner';
 import { EPerson } from './models/eperson.model';
 
 // todo: optimize imports
@@ -345,7 +345,12 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
         this.editEPerson(ePerson);
       }
     });
-    return getEPersonEditRoute(ePerson.id);
+    return this.getEPersonEditRoute(ePerson.id);
+  }
+
+  private getEPersonEditRoute(id: string): string {
+    const ePersonRoute = new URLCombiner('/access-control', 'epeople').toString();
+    return new URLCombiner(ePersonRoute, id, 'edit').toString();
   }
 
   /**

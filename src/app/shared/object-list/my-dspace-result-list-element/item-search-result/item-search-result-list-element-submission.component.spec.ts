@@ -13,9 +13,9 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../core/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../core/mocks/theme-service.mock';

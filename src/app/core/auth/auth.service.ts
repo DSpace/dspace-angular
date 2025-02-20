@@ -32,13 +32,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
-import { environment } from '../../../environments/environment';
 import {
-  REQUEST,
-  RESPONSE,
-} from '../../../express.tokens';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
 import { CoreState } from '../core-state.model';
 import { followLink } from '../data/follow-link-config.model';
 import {
@@ -50,6 +47,7 @@ import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { Group } from '../eperson/models/group.model';
+import { NotificationsService } from '../notifications/notifications.service';
 import { CookieService } from '../services/cookie.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RouteService } from '../services/route.service';
@@ -62,6 +60,11 @@ import {
   getFirstCompletedRemoteData,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
+import {
+  REQUEST,
+  RESPONSE,
+} from '../tokens/express.tokens';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,
@@ -123,6 +126,7 @@ export class AuthService {
               protected hardRedirectService: HardRedirectService,
               private notificationService: NotificationsService,
               private translateService: TranslateService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     this.store.pipe(
       // when this service is constructed the store is not fully initialized yet
@@ -412,7 +416,7 @@ export class AuthService {
       if (!currentlyRefreshingToken) {
         token = authTokenInfo || null;
         if (token !== undefined && token !== null) {
-          let timeLeftBeforeRefresh = token.expires - new Date().getTime() - environment.auth.rest.timeLeftBeforeTokenRefresh;
+          let timeLeftBeforeRefresh = token.expires - new Date().getTime() - this.appConfig.auth.rest.timeLeftBeforeTokenRefresh;
           if (timeLeftBeforeRefresh < 0) {
             timeLeftBeforeRefresh = 0;
           }

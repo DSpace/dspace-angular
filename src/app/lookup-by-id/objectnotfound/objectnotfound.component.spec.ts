@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import { ObjectNotFoundComponent } from './objectnotfound.component';
 
 describe('ObjectNotFoundComponent', () => {

@@ -4,7 +4,7 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
 import { SubComColSectionComponent } from './sub-com-col-section.component';
 
 describe('SubComColSectionComponent', () => {

@@ -10,7 +10,7 @@ import {
 import {
   REQUEST,
   RESPONSE,
-} from '../../../express.tokens';
+} from '../tokens/express.tokens';
 import { HardRedirectService } from './hard-redirect.service';
 
 /**

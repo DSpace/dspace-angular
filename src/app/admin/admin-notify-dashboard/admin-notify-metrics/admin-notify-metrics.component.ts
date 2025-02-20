@@ -6,9 +6,9 @@ import {
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { AdminNotifyMetricsRow } from '../../../core/config/models/admin-notify-metrics.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { NotificationBoxComponent } from '../../../shared/notification-box/notification-box.component';
-import { AdminNotifyMetricsRow } from './admin-notify-metrics.model';
 
 @Component({
   selector: 'ds-admin-notify-metrics',

@@ -26,22 +26,22 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { RequestService } from '../core/data/request.service';
+import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../core/notifications/notifications.service';
+import { RouteService } from '../core/services/route.service';
+import { WorkflowItem } from '../core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../core/utilities/remote-data.utils';
-import { RequestService } from '../core/data/request.service';
-import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
-import { RouteService } from '../core/services/route.service';
-import { WorkflowItem } from '../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
+import { ActivatedRouteStub } from '../core/utilities/testing/active-router.stub';
+import { LocationStub } from '../core/utilities/testing/location.stub';
+import { NotificationsServiceStub } from '../core/utilities/testing/notifications-service.stub';
+import { RequestServiceStub } from '../core/utilities/testing/request-service.stub';
+import { RouterStub } from '../core/utilities/testing/router.stub';
 import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { LocationStub } from '../shared/testing/location.stub';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RequestServiceStub } from '../shared/testing/request-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
 import { VarDirective } from '../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from './workflow-item-action-page.component';
 

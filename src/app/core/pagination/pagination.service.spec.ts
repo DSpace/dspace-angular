@@ -1,12 +1,12 @@
 import { of as observableOf } from 'rxjs';
 
-import { RouterStub } from '../../shared/testing/router.stub';
 import {
   SortDirection,
   SortOptions,
 } from '../cache/models/sort-options.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { PaginationComponentOptions } from '../shared/pagination-component-options.model';
+import { RouterStub } from '../utilities/testing/router.stub';
 import { PaginationService } from './pagination.service';
 
 

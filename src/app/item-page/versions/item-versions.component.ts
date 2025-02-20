@@ -38,6 +38,7 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { VersionDataService } from '../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
 import {
@@ -54,7 +55,6 @@ import { VersionHistory } from '../../core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 

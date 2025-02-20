@@ -25,9 +25,9 @@ import { SearchFilterConfig } from '../../../../../../core/shared/search/models/
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { RouterStub } from '../../../../../testing/router.stub';
-import { SearchServiceStub } from '../../../../../testing/search-service.stub';
+import { PaginationServiceStub } from '../../../../../../core/utilities/testing/pagination-service.stub';
+import { RouterStub } from '../../../../../../core/utilities/testing/router.stub';
+import { SearchServiceStub } from '../../../../../../core/utilities/testing/search-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import {
   RANGE_FILTER_MAX_SUFFIX,

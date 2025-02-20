@@ -22,27 +22,27 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { getMockLinkService } from '../../../core/mocks/link-service.mock';
+import { getMockResourcePolicyService } from '../../../core/mocks/mock-resource-policy-service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { ActionType } from '../../../core/resource-policy/models/action-type.model';
+import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
+import { Item } from '../../../core/shared/item.model';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../core/utilities/remote-data.utils';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { getMockLinkService } from '../../../core/mocks/link-service.mock';
-import { getMockResourcePolicyService } from '../../../core/mocks/mock-resource-policy-service';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { EPersonMock } from '../../testing/eperson.mock';
-import { GroupMock } from '../../testing/group-mock';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
+import { EPersonMock } from '../../../core/utilities/testing/eperson.mock';
+import { GroupMock } from '../../../core/utilities/testing/group-mock';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../testing/utils.test';
+} from '../../../core/utilities/testing/utils.test';
 import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,

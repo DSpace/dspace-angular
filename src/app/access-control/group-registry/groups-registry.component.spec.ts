@@ -29,9 +29,8 @@ import {
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -51,26 +50,27 @@ import {
   UNDEFINED_NAME,
 } from '../../core/mocks/dso-name.service.mock';
 import { RouterMock } from '../../core/mocks/router.mock';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../../shared/testing/eperson.mock';
+} from '../../core/utilities/testing/eperson.mock';
 import {
   GroupMock,
   GroupMock2,
-} from '../../shared/testing/group-mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
+} from '../../core/utilities/testing/group-mock';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { GroupsRegistryComponent } from './groups-registry.component';
 
 describe('GroupsRegistryComponent', () => {

@@ -38,19 +38,19 @@ import {
   mockSubmissionState,
 } from '../../core/mocks/submission.mock';
 import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
-import { StoreMock } from '../../shared/testing/store.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
-import { mockSubmissionObjectDataService } from '../../shared/testing/submission-oject-data-service.mock';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../core/utilities/testing/sections-service.stub';
+import { StoreMock } from '../../core/utilities/testing/store.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../core/utilities/testing/submission-json-patch-operations-service.stub';
+import { mockSubmissionObjectDataService } from '../../core/utilities/testing/submission-oject-data-service.mock';
+import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';

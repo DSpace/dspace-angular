@@ -12,7 +12,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../../core/utilities/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { ItemPageTitleFieldComponent } from './item-page-title-field.component';

@@ -42,12 +42,12 @@ import {
   toArray,
 } from 'rxjs/operators';
 
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { RequestParam } from '../../../../core/cache/models/request-param.model';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../config/app-config.interface';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { RequestParam } from '../../../../core/cache/models/request-param.model';
+} from '../../../../core/config/app-config.interface';
 import { FollowLinkConfig } from '../../../../core/data/follow-link-config.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
@@ -73,13 +73,13 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { PaginationComponentOptions } from '../../../../core/shared/pagination-component-options.model';
+import { itemLinksToFollow } from '../../../../core/utilities/relation-query.utils';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
-import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';

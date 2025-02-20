@@ -22,11 +22,11 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../core/mocks/submission.mock';
+import { HostWindowServiceStub } from '../../../core/utilities/testing/host-window-service.stub';
+import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormSectionAddComponent } from './submission-form-section-add.component';

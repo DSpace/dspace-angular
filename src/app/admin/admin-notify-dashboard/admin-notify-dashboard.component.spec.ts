@@ -7,12 +7,12 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
+import { APP_CONFIG } from '../../core/config/app-config.interface';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { SearchService } from '../../core/shared/search/search.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 import { AdminNotifyMessage } from './models/admin-notify-message.model';

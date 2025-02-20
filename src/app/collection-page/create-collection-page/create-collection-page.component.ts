@@ -10,11 +10,11 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { RouteService } from '../../core/services/route.service';
 import { Collection } from '../../core/shared/collection.model';
 import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/create-comcol-page/create-comcol-page.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CollectionFormComponent } from '../collection-form/collection-form.component';
 
 /**

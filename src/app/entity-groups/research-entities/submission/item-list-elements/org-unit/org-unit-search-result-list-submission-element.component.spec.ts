@@ -17,12 +17,11 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
+import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { CommunityDataService } from '../../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
@@ -33,12 +32,13 @@ import { RelationshipDataService } from '../../../../../core/data/relationship-d
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { DSONameServiceMock } from '../../../../../core/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../core/mocks/mock-trucatable.service';
+import { NotificationsService } from '../../../../../core/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';

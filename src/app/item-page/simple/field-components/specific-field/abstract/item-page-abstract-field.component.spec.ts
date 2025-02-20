@@ -13,13 +13,13 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseService } from '../../../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
-import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../../shared/testing/browse-service.stub';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
+import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
+import { BrowseDefinitionDataServiceStub } from '../../../../../core/utilities/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '../../../../../core/utilities/testing/browse-service.stub';
+import { TranslateLoaderMock } from '../../../../../core/utilities/testing/translate-loader.mock';
 import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.component';
 
 let comp: ItemPageAbstractFieldComponent;

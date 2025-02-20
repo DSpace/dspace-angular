@@ -13,11 +13,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -29,8 +24,13 @@ import { COMMUNITY } from '../../core/shared/community.resource-type';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { ITEM } from '../../core/shared/item.resource-type';
-import { NoOpAction } from '../ngrx/no-op.action';
-import { ConfigurationDataServiceStub } from '../testing/configuration-data.service.stub';
+import { NoOpAction } from '../../core/shared/ngrx/no-op.action';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
+import { ConfigurationDataServiceStub } from '../../core/utilities/testing/configuration-data.service.stub';
 import { SetThemeAction } from './theme.actions';
 import { Theme } from './theme.model';
 import { ThemeService } from './theme.service';

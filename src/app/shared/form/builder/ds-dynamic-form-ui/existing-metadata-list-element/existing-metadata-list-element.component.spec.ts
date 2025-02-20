@@ -12,20 +12,20 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
+import { RemoveRelationshipAction } from '../../../../../core/states/name-variant/relationship.actions';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../core/utilities/testing/active-router.stub';
+import { SubmissionServiceStub } from '../../../../../core/utilities/testing/submission-service.stub';
+import { TranslateLoaderMock } from '../../../../../core/utilities/testing/translate-loader.mock';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
-import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
-import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';
 import { ThemeService } from '../../../../theme-support/theme.service';
-import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import {
   ExistingMetadataListElementComponent,
   ReorderableRelationship,

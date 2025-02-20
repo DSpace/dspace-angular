@@ -19,19 +19,19 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockRequestService } from '../../../core/mocks/request.service.mock';
 import { getMockSearchService } from '../../../core/mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
+import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
 
 let component: WorkflowitemActionsComponent;

@@ -38,12 +38,10 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from 'src/config/app-config.interface';
+import { LazyDataServicesMap } from 'src/app/core/data-services-map';
 
 import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
+import { APP_DATA_SERVICES_MAP } from '../../../../../../core/config/app-config.interface';
 import { FindAllDataImpl } from '../../../../../../core/data/base/find-all-data';
 import {
   buildPaginatedList,

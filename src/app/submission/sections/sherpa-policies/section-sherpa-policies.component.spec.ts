@@ -17,14 +17,14 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
+import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SherpaDataResponse } from '../../../core/mocks/section-sherpa-policies.service.mock';
 import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../../submission.service';
 import { SectionsService } from '../sections.service';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';

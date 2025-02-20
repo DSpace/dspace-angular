@@ -11,8 +11,8 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { TranslateLoaderMock } from '../shared/testing/translate-loader.mock';
+import { ActivatedRouteStub } from '../core/utilities/testing/active-router.stub';
+import { TranslateLoaderMock } from '../core/utilities/testing/translate-loader.mock';
 import { PageErrorComponent } from './page-error.component';
 
 describe('PageErrorComponent', () => {

@@ -14,10 +14,10 @@ import { ObjectUpdatesService } from '../../core/data/object-updates/object-upda
 import {
   INotification,
   Notification,
-} from '../notifications/models/notification.model';
-import { NotificationType } from '../notifications/models/notification-type';
-import { NotificationsService } from '../notifications/notifications.service';
-import { RouterStub } from '../testing/router.stub';
+} from '../../core/notifications/models/notification.model';
+import { NotificationType } from '../../core/notifications/models/notification-type';
+import { NotificationsService } from '../../core/notifications/notifications.service';
+import { RouterStub } from '../../core/utilities/testing/router.stub';
 import { AbstractTrackableComponent } from './abstract-trackable.component';
 
 describe('AbstractTrackableComponent', () => {

@@ -11,20 +11,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
+import { getMockFormBuilderService } from '../../../../core/mocks/form-builder-service.mock';
+import { getMockFormService } from '../../../../core/mocks/form-service.mock';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
+import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../core/utilities/remote-data.utils';
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { getMockFormBuilderService } from '../../../../core/mocks/form-builder-service.mock';
-import { getMockFormService } from '../../../../core/mocks/form-service.mock';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../core/utilities/testing/router.stub';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../../shared/testing/router.stub';
 import { FormatFormComponent } from '../format-form/format-form.component';
 import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
 

@@ -7,7 +7,6 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { NotifyServicePattern } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
 import {
@@ -15,7 +14,8 @@ import {
   LdnServiceByPattern,
 } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { SectionsService } from '../sections.service';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';

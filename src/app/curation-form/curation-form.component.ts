@@ -31,6 +31,7 @@ import { map } from 'rxjs/operators';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { RemoteData } from '../core/data/remote-data';
+import { NotificationsService } from '../core/notifications/notifications.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import {
   getFirstCompletedRemoteData,
@@ -39,7 +40,6 @@ import {
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { Process } from '../process-page/processes/process.model';
 import { HandleService } from '../shared/handle.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 

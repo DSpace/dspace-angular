@@ -22,6 +22,7 @@ import {
 
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -32,7 +33,6 @@ import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-res
 import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';
 
 /**

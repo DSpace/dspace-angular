@@ -23,8 +23,8 @@ import {
   RetrieveAuthenticatedEpersonSuccessAction,
 } from '../../core/auth/auth.actions';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,

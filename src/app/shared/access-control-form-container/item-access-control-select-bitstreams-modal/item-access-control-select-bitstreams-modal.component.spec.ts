@@ -14,7 +14,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { FollowLinkConfig } from '../../../core/data/follow-link-config.model';
@@ -23,8 +22,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Item } from '../../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { createPaginatedList } from '../../testing/utils.test';
 import { ItemAccessControlSelectBitstreamsModalComponent } from './item-access-control-select-bitstreams-modal.component';
 
 describe('ItemAccessControlSelectBitstreamsModalComponent', () => {

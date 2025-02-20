@@ -42,13 +42,13 @@ import {
 } from 'rxjs/operators';
 import { RegistryService } from 'src/app/core/registry/registry.service';
 import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
-import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { followLink } from '../../../core/data/follow-link-config.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { MetadataService } from '../../../core/metadata/metadata.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';

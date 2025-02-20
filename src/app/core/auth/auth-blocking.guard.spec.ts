@@ -13,7 +13,7 @@ import {
 import { cold } from 'jasmine-marbles';
 
 import { CoreState } from '../core-state.model';
-import { mockStoreModuleConfig } from '../utilities/test/mock-state-utilities';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
 import { authReducer } from './auth.reducer';
 import { authBlockingGuard } from './auth-blocking.guard';
 

@@ -19,9 +19,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
+import { LangConfig } from '../config/lang-config.interface';
 import { CookieService } from '../services/cookie.service';
 import { RouteService } from '../services/route.service';
 import {

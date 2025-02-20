@@ -21,7 +21,7 @@ import {
 import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { EPersonMock } from '../testing/eperson.mock';
+import { EPersonMock } from '../../core/utilities/testing/eperson.mock';
 import { VarDirective } from '../utils/var.directive';
 import { ImpersonateNavbarComponent } from './impersonate-navbar.component';
 

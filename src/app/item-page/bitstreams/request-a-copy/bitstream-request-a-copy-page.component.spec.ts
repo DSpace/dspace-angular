@@ -19,11 +19,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
 import { AuthService } from '../../../core/auth/auth.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
@@ -31,12 +26,17 @@ import { AuthorizationDataService } from '../../../core/data/feature-authorizati
 import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Item } from '../../../core/shared/item.model';
 import { ItemRequest } from '../../../core/shared/item-request.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 
 

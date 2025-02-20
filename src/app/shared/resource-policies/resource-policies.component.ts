@@ -40,11 +40,11 @@ import { followLink } from '../../core/data/follow-link-config.model';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
-import { NotificationsService } from '../notifications/notifications.service';
 import {
   ResourcePolicyCheckboxEntry,
   ResourcePolicyEntryComponent,

@@ -35,7 +35,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RestResponse } from '../../../../core/cache/response.models';
 import {
@@ -51,21 +50,22 @@ import { DSONameServiceMock } from '../../../../core/mocks/dso-name.service.mock
 import { getMockFormBuilderService } from '../../../../core/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../../core/mocks/router.mock';
 import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { ContextHelpDirective } from '../../../../shared/context-help.directive';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../../../../shared/testing/eperson.mock';
-import { GroupMock } from '../../../../shared/testing/group-mock';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+} from '../../../../core/utilities/testing/eperson.mock';
+import { GroupMock } from '../../../../core/utilities/testing/group-mock';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../core/utilities/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '../../../../core/utilities/testing/translate-loader.mock';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { MembersListComponent } from './members-list.component';
 
 // todo: optimize imports

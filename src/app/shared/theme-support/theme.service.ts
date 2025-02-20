@@ -38,33 +38,33 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { getDefaultThemeConfig } from '../../../config/config.util';
+import { environment } from '../../../environments/environment';
+import { LinkService } from '../../core/cache/builders/link.service';
+import { getDefaultThemeConfig } from '../../core/config/config.util';
 import {
   HeadTagConfig,
   ThemeConfig,
-} from '../../../config/theme.config';
-import { environment } from '../../../environments/environment';
-import { LinkService } from '../../core/cache/builders/link.service';
+} from '../../core/config/theme.config';
+import { BASE_THEME_NAME } from '../../core/config/theme.constants';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { followLink } from '../../core/data/follow-link-config.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { distinctNext } from '../../core/shared/distinct-next';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
+  NO_OP_ACTION_TYPE,
+  NoOpAction,
+} from '../../core/shared/ngrx/no-op.action';
+import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
-import {
-  NO_OP_ACTION_TYPE,
-  NoOpAction,
-} from '../ngrx/no-op.action';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
 import {
   SetThemeAction,
   ThemeActionTypes,
 } from './theme.actions';
-import { BASE_THEME_NAME } from './theme.constants';
 import {
   Theme,
   themeFactory,

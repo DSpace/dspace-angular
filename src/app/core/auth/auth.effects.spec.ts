@@ -22,15 +22,15 @@ import {
   throwError as observableThrow,
 } from 'rxjs';
 
+import { CoreState } from '../core-state.model';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { type } from '../shared/ngrx/type';
 import {
   authMethodsMock,
   AuthServiceStub,
-} from '../../shared/testing/auth-service.stub';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { StoreActionTypes } from '../../store.actions';
-import { CoreState } from '../core-state.model';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { mockStoreModuleConfig } from '../utilities/test/mock-state-utilities';
+} from '../utilities/testing/auth-service.stub';
+import { EPersonMock } from '../utilities/testing/eperson.mock';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
 import {
   AuthActionTypes,
   AuthenticatedAction,
@@ -424,7 +424,7 @@ describe('AuthEffects', () => {
     describe('when auth loaded is false', () => {
       it('should not call removeToken method', fakeAsync(() => {
         store.overrideSelector(isAuthenticatedLoaded, false);
-        actions = observableOf({ type: StoreActionTypes.REHYDRATE });
+        actions = observableOf({ type: type('dspace/ngrx/REHYDRATE') });
         spyOn(authServiceStub, 'removeToken');
 
         authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
@@ -440,7 +440,7 @@ describe('AuthEffects', () => {
         spyOn(console, 'log').and.callThrough();
 
         store.overrideSelector(isAuthenticatedLoaded, true);
-        actions = observableOf({ type: StoreActionTypes.REHYDRATE });
+        actions = observableOf({ type: type('dspace/ngrx/REHYDRATE') });
         spyOn(authServiceStub, 'removeToken');
 
         authEffects.clearInvalidTokenOnRehydrate$.subscribe(() => {
@@ -453,7 +453,7 @@ describe('AuthEffects', () => {
 
   describe('invalidateAuthorizationsRequestCache$', () => {
     it('should call invalidateAuthorizationsRequestCache method in response to a REHYDRATE action', (done) => {
-      actions = observableOf({ type: StoreActionTypes.REHYDRATE });
+      actions = observableOf({ type: type('dspace/ngrx/REHYDRATE') });
 
       authEffects.invalidateAuthorizationsRequestCache$.subscribe(() => {
         expect((authEffects as  any).authorizationsService.invalidateAuthorizationsRequestCache).toHaveBeenCalled();

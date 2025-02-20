@@ -12,12 +12,12 @@ import { utcToZonedTime } from 'date-fns-tz';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { SystemWideAlert } from '../system-wide-alert.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
+import { SystemWideAlert } from '../../core/system-wide-alert/system-wide-alert.model';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { SystemWideAlertBannerComponent } from './system-wide-alert-banner.component';
 
 

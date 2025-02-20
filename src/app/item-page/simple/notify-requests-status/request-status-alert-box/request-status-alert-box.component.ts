@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { NotifyStatuses } from '../../../../core/notify-requests/notify-requests-status.model';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { NotifyStatuses } from '../notify-requests-status.model';
 import { RequestStatusEnum } from '../notify-status.enum';
 
 @Component({

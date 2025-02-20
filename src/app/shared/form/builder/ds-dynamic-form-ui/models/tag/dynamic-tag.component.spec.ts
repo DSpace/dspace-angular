@@ -37,9 +37,9 @@ import { VocabularyService } from '../../../../../../core/submission/vocabularie
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+} from '../../../../../../core/utilities/testing/dynamic-form-mock-services';
+import { createTestComponent } from '../../../../../../core/utilities/testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../../core/utilities/testing/vocabulary-service.stub';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicTagComponent } from './dynamic-tag.component';

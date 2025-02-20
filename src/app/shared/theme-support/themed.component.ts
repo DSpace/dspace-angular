@@ -31,8 +31,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { BASE_THEME_NAME } from '../../core/config/theme.constants';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { BASE_THEME_NAME } from './theme.constants';
 import { ThemeService } from './theme.service';
 
 @Component({

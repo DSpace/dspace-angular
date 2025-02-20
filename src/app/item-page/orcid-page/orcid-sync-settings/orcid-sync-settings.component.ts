@@ -30,8 +30,8 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { createFailedRemoteDataObjectFromError$ } from '../../../core/utilities/remote-data.utils';
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
 import { Item } from '../../../core/shared/item.model';
@@ -39,9 +39,9 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { createFailedRemoteDataObjectFromError$ } from '../../../core/utilities/remote-data.utils';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-orcid-sync-setting',

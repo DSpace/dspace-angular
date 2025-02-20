@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -20,13 +19,14 @@ import { getMockLinkService } from '../../../../../core/mocks/link-service.mock'
 import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
 import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { AuthorizationDataServiceStub } from '../../../../../core/utilities/testing/authorization-service.stub';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { ListableModule } from '../../../../../shared/modules/listable.module';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './workflow-item-search-result-admin-workflow-grid-element.component';

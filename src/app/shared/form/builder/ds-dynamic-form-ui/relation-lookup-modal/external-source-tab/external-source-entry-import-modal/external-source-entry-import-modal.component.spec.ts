@@ -12,18 +12,18 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../core/utilities/remote-data.utils';
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
+import { NotificationsService } from '../../../../../../../core/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../../../core/object-collection/item-search-result.model';
 import { Collection } from '../../../../../../../core/shared/collection.model';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
 import { RelationshipOptions } from '../../../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { NotificationsService } from '../../../../../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../../../core/utilities/testing/utils.test';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
-import { createPaginatedList } from '../../../../../../testing/utils.test';
 import {
   ExternalSourceEntryImportModalComponent,
   ImportType,

@@ -21,8 +21,8 @@ import {
 
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';
 import { ProcessParameter } from '../processes/process-parameter.model';

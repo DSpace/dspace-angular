@@ -33,6 +33,7 @@ import {
 import { environment } from '../../../environments/environment';
 import { followLink } from '../../core/data/follow-link-config.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
@@ -45,7 +46,6 @@ import { SubmissionJsonPatchOperationsService } from '../../core/submission/subm
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { FormState } from '../../shared/form/form.reducer';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SectionsService } from '../sections/sections.service';
 import { SectionsType } from '../sections/sections-type';
 import { SubmissionState } from '../submission.reducers';

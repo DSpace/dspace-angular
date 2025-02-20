@@ -6,8 +6,8 @@ import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 
 import { AppComponent } from './app/app.component';
-import { AppConfig } from './config/app-config.interface';
-import { extendEnvironmentWithAppConfig } from './config/config.util';
+import { AppConfig } from './app/core/config/app-config.interface';
+import { extendEnvironmentWithAppConfig } from './app/core/config/config.util';
 import { environment } from './environments/environment';
 import { browserAppConfig } from './modules/app/browser-app.config';
 

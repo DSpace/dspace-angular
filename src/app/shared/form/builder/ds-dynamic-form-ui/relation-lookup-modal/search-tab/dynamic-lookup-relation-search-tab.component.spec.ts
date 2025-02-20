@@ -8,7 +8,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../core/utilities/remote-data.utils';
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
@@ -21,10 +20,11 @@ import { PaginatedSearchOptions } from '../../../../../../core/shared/paginated-
 import { SearchObjects } from '../../../../../../core/shared/search/models/search-objects.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../../../../../core/utilities/testing/pagination-service.stub';
+import { relatedRelationships } from '../../../../../../core/utilities/testing/related-relationships.mock';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
-import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { relatedRelationships } from '../../../../../testing/related-relationships.mock';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
 

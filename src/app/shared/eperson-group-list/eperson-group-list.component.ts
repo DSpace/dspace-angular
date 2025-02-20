@@ -21,12 +21,10 @@ import {
   Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LazyDataServicesMap } from 'src/app/core/data-services-map';
 
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';

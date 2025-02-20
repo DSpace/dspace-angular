@@ -10,7 +10,7 @@ import {
 } from '@ngx-translate/core';
 
 import { SherpaDataResponse } from '../../../../core/mocks/section-sherpa-policies.service.mock';
-import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../core/utilities/testing/translate-loader.mock';
 import { MetadataInformationComponent } from './metadata-information.component';
 
 describe('MetadataInformationComponent', () => {

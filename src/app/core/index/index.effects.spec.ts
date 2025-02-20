@@ -10,9 +10,9 @@ import {
 } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import { AddToObjectCacheAction } from '../cache/object-cache.actions';
 import { Item } from '../shared/item.model';
+import { NoOpAction } from '../shared/ngrx/no-op.action';
 import { AddToIndexAction } from './index.actions';
 import { UUIDIndexEffects } from './index.effects';
 import { IndexName } from './index-name.model';

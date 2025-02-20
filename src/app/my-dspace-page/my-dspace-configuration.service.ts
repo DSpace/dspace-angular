@@ -13,16 +13,16 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../config/app-config.interface';
 import { LinkService } from '../core/cache/builders/link.service';
 import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
 import {
   SortDirection,
   SortOptions,
 } from '../core/cache/models/sort-options.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../core/config/app-config.interface';
 import { RequestService } from '../core/data/request.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { RoleService } from '../core/roles/role.service';

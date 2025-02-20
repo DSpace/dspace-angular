@@ -14,15 +14,15 @@ import {
   Subscription,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
 import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../core/config/app-config.interface';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';

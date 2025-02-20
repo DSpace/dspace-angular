@@ -27,6 +27,7 @@ import { FieldUpdates } from '../../../core/data/object-updates/field-updates.mo
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { Bundle } from '../../../core/shared/bundle.model';
@@ -37,7 +38,6 @@ import {
 } from '../../../core/shared/operators';
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 

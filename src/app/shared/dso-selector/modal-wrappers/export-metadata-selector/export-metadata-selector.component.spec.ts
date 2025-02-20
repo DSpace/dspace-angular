@@ -24,24 +24,24 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../core/utilities/remote-data.utils';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import {
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '../../../../core/data/processes/script-data.service';
 import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { Item } from '../../../../core/shared/item.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 

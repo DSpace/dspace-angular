@@ -11,10 +11,6 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -28,7 +24,11 @@ import { getMockRemoteDataBuildService } from '../../../core/mocks/remote-data-b
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
 import { CollectionsComponent } from './collections.component';
 
 const createMockCollection = (id: string) => Object.assign(new Collection(), {

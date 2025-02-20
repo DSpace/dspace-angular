@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../core/mocks/dso-name.service.mock';
 import { Community } from '../../../core/shared/community.model';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
 import { CommunityListElementComponent } from './community-list-element.component';
 
 let communityListElementComponent: CommunityListElementComponent;

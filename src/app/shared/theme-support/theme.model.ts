@@ -15,14 +15,14 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { getDSORoute } from '../../app-routing-paths';
 import {
   HandleThemeConfig,
   NamedThemeConfig,
   RegExThemeConfig,
   ThemeConfig,
   UUIDThemeConfig,
-} from '../../../config/theme.config';
-import { getDSORoute } from '../../app-routing-paths';
+} from '../../core/config/theme.config';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { HandleObject } from '../../core/shared/handle-object.model';
 import { HandleService } from '../handle.service';

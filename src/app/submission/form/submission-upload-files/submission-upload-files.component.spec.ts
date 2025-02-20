@@ -30,13 +30,13 @@ import {
   mockUploadResponse2ParsedErrors,
 } from '../../../core/mocks/submission.mock';
 import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../core/utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';

@@ -16,11 +16,11 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../config/app-config.interface';
-import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
+} from '../core/config/app-config.interface';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { OrejimeService } from '../shared/cookies/orejime.service';

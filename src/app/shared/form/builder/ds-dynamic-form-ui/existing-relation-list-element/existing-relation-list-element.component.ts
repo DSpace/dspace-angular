@@ -16,7 +16,6 @@ import {
 import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
-  Observable,
   Subscription,
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -25,49 +24,18 @@ import { AppState } from '../../../../../app.reducer';
 import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { ReorderableRelationship } from '../../../../../core/shared/item-relationships/reorderable-relationship.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { RemoveRelationshipAction } from '../../../../../core/states/name-variant/relationship.actions';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
-import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
-/**
- * Abstract class that defines objects that can be reordered
- */
-export abstract class Reorderable {
-
-  constructor(public oldIndex?: number, public newIndex?: number) {
-  }
-
-  /**
-   * Return the id for this Reorderable
-   */
-  abstract getId(): string;
-
-  /**
-   * Return the place metadata for this Reorderable
-   */
-  abstract getPlace(): number;
-
-  /**
-   * Update the Reorderable
-   */
-  abstract update(): Observable<any>;
-
-  /**
-   * Returns true if the oldIndex of this Reorderable
-   * differs from the newIndex
-   */
-  get hasMoved(): boolean {
-    return this.oldIndex !== this.newIndex;
-  }
-}
 
 /**
  * Represents a single existing relationship value as metadata in submission

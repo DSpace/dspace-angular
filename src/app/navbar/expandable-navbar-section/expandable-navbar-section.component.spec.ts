@@ -13,12 +13,12 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
+import { HostWindowServiceStub } from '../../core/utilities/testing/host-window-service.stub';
+import { MenuServiceStub } from '../../core/utilities/testing/menu-service.stub';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
 import { MenuSection } from '../../shared/menu/menu-section.model';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
 import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 

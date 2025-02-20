@@ -5,21 +5,21 @@ import {
 } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
-import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
+import { APP_CONFIG } from '../../core/config/app-config.interface';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { SearchServiceStub } from '../../shared/testing/search-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+import { SearchServiceStub } from '../../core/utilities/testing/search-service.stub';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { RecentItemListComponent } from './recent-item-list.component';
 
 describe('RecentItemListComponent', () => {

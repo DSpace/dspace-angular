@@ -28,6 +28,7 @@ import { CollectionDataService } from '../../../../core/data/collection-data.ser
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestService } from '../../../../core/data/request.service';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
@@ -39,7 +40,6 @@ import {
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**

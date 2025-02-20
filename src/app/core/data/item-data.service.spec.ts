@@ -7,15 +7,15 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { BrowseService } from '../browse/browse.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
 import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
 import { testCreateDataImplementation } from './base/create-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';

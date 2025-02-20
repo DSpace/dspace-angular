@@ -5,15 +5,15 @@ import {
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { NotifyRequestsStatus } from '../notify-requests/notify-requests-status.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../utilities/remote-data.utils';
-import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotifyRequestsStatusDataService } from './notify-services-status-data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';

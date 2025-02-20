@@ -3,7 +3,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
+import { MediaViewerConfig } from '../../core/config/media-viewer-config.interface';
 import { Item } from '../../core/shared/item.model';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { MediaViewerComponent } from './media-viewer.component';

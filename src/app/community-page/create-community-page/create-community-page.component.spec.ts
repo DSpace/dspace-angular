@@ -14,9 +14,9 @@ import { AuthService } from '../../core/auth/auth.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { AuthServiceMock } from '../../core/mocks/auth.service.mock';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { RouteService } from '../../core/services/route.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { CommunityFormComponent } from '../community-form/community-form.component';
 import { CreateCommunityPageComponent } from './create-community-page.component';
 

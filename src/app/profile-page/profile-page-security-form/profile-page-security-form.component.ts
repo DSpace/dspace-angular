@@ -25,10 +25,10 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormComponent } from '../../shared/form/form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-profile-page-security-form',

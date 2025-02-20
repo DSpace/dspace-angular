@@ -6,8 +6,8 @@ import {
 import { isNotEmpty } from '@dspace/shared/utils';
 
 import { Item } from '../../../../core/shared/item.model';
+import { getFilterByRelation } from '../../../../core/utilities/relation-query.utils';
 import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
-import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
 
 @Component({
   selector: 'ds-related-entities-search',

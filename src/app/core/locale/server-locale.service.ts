@@ -20,7 +20,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { REQUEST } from '../../../express.tokens';
 import { AuthService } from '../auth/auth.service';
 import { CookieService } from '../services/cookie.service';
 import { RouteService } from '../services/route.service';
@@ -28,6 +27,7 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '../services/window.service';
+import { REQUEST } from '../tokens/express.tokens';
 import {
   LANG_ORIGIN,
   LocaleService,

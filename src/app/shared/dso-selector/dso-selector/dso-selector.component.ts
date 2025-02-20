@@ -51,6 +51,8 @@ import {
   PaginatedList,
 } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationType } from '../../../core/notifications/models/notification-type';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { ListableObject } from '../../../core/object-collection/listable-object.model';
 import { Context } from '../../../core/shared/context.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -65,8 +67,6 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { HoverClassDirective } from '../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
-import { NotificationType } from '../../notifications/models/notification-type';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ListableNotificationObject } from '../../object-list/listable-notification-object/listable-notification-object.model';

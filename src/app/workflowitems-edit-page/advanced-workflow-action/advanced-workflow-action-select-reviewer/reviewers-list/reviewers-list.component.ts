@@ -41,11 +41,11 @@ import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**

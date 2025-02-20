@@ -11,21 +11,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../core/utilities/remote-data.utils';
-import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
 

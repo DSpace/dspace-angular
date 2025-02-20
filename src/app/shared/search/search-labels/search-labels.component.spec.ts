@@ -14,8 +14,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchServiceStub } from '../../../core/utilities/testing/search-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { SearchServiceStub } from '../../testing/search-service.stub';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
 import { SearchLabelComponent } from './search-label/search-label.component';
 import { SearchLabelsComponent } from './search-labels.component';

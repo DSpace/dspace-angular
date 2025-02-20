@@ -14,11 +14,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CommunityDataService } from '../../data/community-data.service';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
@@ -28,6 +23,11 @@ import { RequestEntry } from '../../data/request-entry.model';
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { PaginationService } from '../../pagination/pagination.service';
 import { RouteService } from '../../services/route.service';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../utilities/testing/pagination-service.stub';
+import { routeServiceStub } from '../../utilities/testing/route-service.stub';
+import { RouterStub } from '../../utilities/testing/router.stub';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { ViewMode } from '../view-mode.model';

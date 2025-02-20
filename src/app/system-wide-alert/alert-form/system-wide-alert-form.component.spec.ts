@@ -12,17 +12,17 @@ import {
 } from 'date-fns-tz';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
+import { RequestService } from '../../core/data/request.service';
+import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
+import { SystemWideAlert } from '../../core/system-wide-alert/system-wide-alert.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../core/utilities/remote-data.utils';
-import { RequestService } from '../../core/data/request.service';
-import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { SystemWideAlert } from '../system-wide-alert.model';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../core/utilities/testing/router.stub';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';
 
 describe('SystemWideAlertFormComponent', () => {

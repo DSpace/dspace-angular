@@ -6,12 +6,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../utilities/remote-data.utils';
-import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -25,6 +19,12 @@ import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.ser
 import { getMockRequestService } from '../../mocks/request.service.mock';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { PageInfo } from '../../shared/page-info.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../utilities/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../utilities/testing/object-cache-service.stub';
+import { createPaginatedList } from '../../utilities/testing/utils.test';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyDataService } from './vocabulary.data.service';

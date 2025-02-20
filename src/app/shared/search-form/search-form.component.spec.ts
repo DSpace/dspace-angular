@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
@@ -20,10 +19,11 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { RouterStub } from '../testing/router.stub';
-import { SearchFilterServiceStub } from '../testing/search-filter-service.stub';
-import { SearchServiceStub } from '../testing/search-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+import { RouterStub } from '../../core/utilities/testing/router.stub';
+import { SearchFilterServiceStub } from '../../core/utilities/testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../core/utilities/testing/search-service.stub';
 import { SearchFormComponent } from './search-form.component';
 
 describe('SearchFormComponent', () => {

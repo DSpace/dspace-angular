@@ -11,22 +11,22 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  BitstreamFormatsRegistryDeselectAction,
-  BitstreamFormatsRegistryDeselectAllAction,
-  BitstreamFormatsRegistrySelectAction,
-} from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
-import { BitstreamFormatRegistryState } from '../../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notifications/notifications.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
+import {
+  BitstreamFormatsRegistryDeselectAction,
+  BitstreamFormatsRegistryDeselectAllAction,
+  BitstreamFormatsRegistrySelectAction,
+} from '../states/bitstream-format/bitstream-format.actions';
+import { BitstreamFormatRegistryState } from '../states/bitstream-format/bitstream-format.reducers';
 import {
   DeleteData,
   DeleteDataImpl,

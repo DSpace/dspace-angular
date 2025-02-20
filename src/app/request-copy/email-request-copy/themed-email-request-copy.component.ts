@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
+import { RequestCopyEmail } from '../../core/request-copy/request-copy-email.model';
 import { EmailRequestCopyComponent } from './email-request-copy.component';
-import { RequestCopyEmail } from './request-copy-email.model';
 
 /**
  * Themed wrapper for email-request-copy.component

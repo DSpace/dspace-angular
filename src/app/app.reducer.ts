@@ -13,7 +13,10 @@ import {
   CommunityListReducer,
   CommunityListState,
 } from './community-list-page/community-list.reducer';
-import { correlationIdReducer } from './core/correlation-id/correlation-id.reducer';
+import {
+  notificationsReducer,
+  NotificationsState,
+} from './core/notifications/notifications.reducers';
 import {
   contextHelpReducer,
   ContextHelpState,
@@ -24,10 +27,6 @@ import {
 } from './shared/form/form.reducer';
 import { menusReducer } from './shared/menu/menu.reducer';
 import { MenusState } from './shared/menu/menus-state.model';
-import {
-  notificationsReducer,
-  NotificationsState,
-} from './shared/notifications/notifications.reducers';
 import {
   selectableListReducer,
   SelectableListsState,

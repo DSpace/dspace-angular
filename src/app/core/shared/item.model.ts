@@ -10,12 +10,12 @@ import { Observable } from 'rxjs';
 import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 
-import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
-import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
 import {
   link,
   typedObject,
 } from '../cache/builders/build-decorators';
+import { IdentifierData } from '../data/identifier-data.model';
+import { IDENTIFIERS } from '../data/identifier-data.resource-type';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { ListableObject } from '../object-collection/listable-object.model';

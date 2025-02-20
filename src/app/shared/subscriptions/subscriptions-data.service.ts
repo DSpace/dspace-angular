@@ -34,10 +34,10 @@ import {
 } from '../../core/data/request.models';
 import { RequestService } from '../../core/data/request.service';
 import { RestRequest } from '../../core/data/rest-request.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { NotificationsService } from '../notifications/notifications.service';
 import { Subscription } from './models/subscription.model';
 
 /**

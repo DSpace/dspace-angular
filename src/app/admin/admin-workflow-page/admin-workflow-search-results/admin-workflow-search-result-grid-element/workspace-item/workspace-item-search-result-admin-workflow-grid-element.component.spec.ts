@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -18,22 +17,23 @@ import { followLink } from '../../../../../core/data/follow-link-config.model';
 import { AuthServiceMock } from '../../../../../core/mocks/auth.service.mock';
 import { getMockLinkService } from '../../../../../core/mocks/link-service.mock';
 import { getMockThemeService } from '../../../../../core/mocks/theme-service.mock';
+import { NotificationsService } from '../../../../../core/notifications/notifications.service';
 import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
-import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../core/utilities/testing/notifications-service.stub';
 import {
   supervisionOrderPaginatedListRD,
   supervisionOrderPaginatedListRD$,
-} from '../../../../../shared/testing/supervision-order.mock';
+} from '../../../../../core/utilities/testing/supervision-order.mock';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { ListableModule } from '../../../../../shared/modules/listable.module';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { WorkspaceItemSearchResultAdminWorkflowGridElementComponent } from './workspace-item-search-result-admin-workflow-grid-element.component';

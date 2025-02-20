@@ -20,10 +20,10 @@ import { CommunitySearchResult } from '../../../../../core/object-collection/com
 import { Community } from '../../../../../core/shared/community.model';
 import { FileService } from '../../../../../core/shared/file.service';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { AuthServiceStub } from '../../../../../core/utilities/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '../../../../../core/utilities/testing/authorization-service.stub';
+import { FileServiceStub } from '../../../../../core/utilities/testing/file-service.stub';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
-import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CommunityAdminSearchResultGridElementComponent } from './community-admin-search-result-grid-element.component';

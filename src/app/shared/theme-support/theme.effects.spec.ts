@@ -7,8 +7,8 @@ import {
   hot,
 } from 'jasmine-marbles';
 
+import { BASE_THEME_NAME } from '../../core/config/theme.constants';
 import { SetThemeAction } from './theme.actions';
-import { BASE_THEME_NAME } from './theme.constants';
 import { ThemeEffects } from './theme.effects';
 
 describe('ThemeEffects', () => {

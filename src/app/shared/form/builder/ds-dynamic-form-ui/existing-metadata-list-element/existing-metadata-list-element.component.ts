@@ -30,7 +30,10 @@ import { AppState } from '../../../../../app.reducer';
 import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
 import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
+import {
+  Reorderable,
+  ReorderableRelationship,
+} from '../../../../../core/shared/item-relationships/reorderable-relationship.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataRepresentation } from '../../../../../core/shared/metadata-representation/metadata-representation.model';
@@ -38,6 +41,7 @@ import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
+import { RemoveRelationshipAction } from '../../../../../core/states/name-variant/relationship.actions';
 import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
@@ -45,41 +49,7 @@ import { MetadataRepresentationLoaderComponent } from '../../../../metadata-repr
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
-import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
-/**
- * Abstract class that defines objects that can be reordered
- */
-export abstract class Reorderable {
-
-  constructor(public oldIndex?: number, public newIndex?: number) {
-  }
-
-  /**
-   * Return the id for this Reorderable
-   */
-  abstract getId(): string;
-
-  /**
-   * Return the place metadata for this Reorderable
-   */
-  abstract getPlace(): number;
-
-  /**
-   * Update the Reorderable
-   */
-  update(): void {
-    this.oldIndex = this.newIndex;
-  }
-
-  /**
-   * Returns true if the oldIndex of this Reorderable
-   * differs from the newIndex
-   */
-  get hasMoved(): boolean {
-    return this.oldIndex !== this.newIndex;
-  }
-}
 
 /**
  * A Reorderable representation of a FormFieldMetadataValue
@@ -117,42 +87,6 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
     return this.metadataValue.place;
   }
 
-}
-
-/**
- * Represents a single relationship that can be reordered in a list of multiple relationships
- */
-export class ReorderableRelationship extends Reorderable {
-
-  constructor(
-    public relationship: Relationship,
-    public useLeftItem: boolean,
-    protected store: Store<AppState>,
-    protected submissionID: string,
-    oldIndex?: number,
-    newIndex?: number) {
-    super(oldIndex, newIndex);
-    this.relationship = relationship;
-    this.useLeftItem = useLeftItem;
-  }
-
-  /**
-   * Return the id for this Reorderable
-   */
-  getId(): string {
-    return this.relationship.id;
-  }
-
-  /**
-   * Return the place metadata for this Reorderable
-   */
-  getPlace(): number {
-    if (this.useLeftItem) {
-      return this.relationship.rightPlace;
-    } else {
-      return this.relationship.leftPlace;
-    }
-  }
 }
 
 /**

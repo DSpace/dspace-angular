@@ -9,19 +9,19 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
 import { followLink } from '../../../core/data/follow-link-config.model';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector.component';
 

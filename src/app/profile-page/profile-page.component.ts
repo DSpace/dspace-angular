@@ -37,6 +37,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { Group } from '../core/eperson/models/group.model';
+import { NotificationsService } from '../core/notifications/notifications.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import {
@@ -49,7 +50,6 @@ import { PaginationComponentOptions } from '../core/shared/pagination-component-
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';

@@ -45,6 +45,7 @@ import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { NoContent } from '../../core/shared/NoContent.model';
 import {
@@ -55,7 +56,6 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import {
   getEPersonEditRoute,

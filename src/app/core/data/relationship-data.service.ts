@@ -31,33 +31,27 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
-import {
-  compareArraysUsingIds,
-  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
-  relationsToItems,
-} from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
-import {
-  RemoveNameVariantAction,
-  SetNameVariantAction,
-} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
-import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
-import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
 import { CoreState } from '../core-state.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { MetadataService } from '../metadata/metadata.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import {
+  compareArraysUsingIds,
+  PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
+  relationsToItems,
+} from '../shared/item-relationships/item-relationships-utils';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { ReorderableRelationship } from '../shared/item-relationships/reorderable-relationship.model';
 import { MetadataValue } from '../shared/metadata.models';
 import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataRepresentation } from '../shared/metadata-representation/metadata-representation.model';
@@ -70,6 +64,12 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
+import {
+  RemoveNameVariantAction,
+  SetNameVariantAction,
+} from '../states/name-variant/name-variant.actions';
+import { NameVariantListState } from '../states/name-variant/name-variant.reducer';
+import { itemLinksToFollow } from '../utilities/relation-query.utils';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PutData,

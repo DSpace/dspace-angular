@@ -4,14 +4,13 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
-import { AppConfig } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment.test';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { AppConfig } from '../config/app-config.interface';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
 import { EMBED_SEPARATOR } from './base/base-data.service';
 import { DsoRedirectService } from './dso-redirect.service';
 import { followLink } from './follow-link-config.model';
@@ -37,6 +36,11 @@ describe('DsoRedirectService', () => {
   const requestUUIDURL = `https://rest.api/rest/api/pid/find?id=${dsoUUID}`;
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
   const objectCache = {} as ObjectCacheService;
+  const environment = {
+    ui: {
+      nameSpace:  '/',
+    },
+  };
 
   beforeEach(() => {
     scheduler = getTestScheduler();
@@ -65,7 +69,7 @@ describe('DsoRedirectService', () => {
     });
 
     service = new DsoRedirectService(
-      environment as AppConfig,
+      environment as any as AppConfig,
       requestService,
       rdbService,
       objectCache,

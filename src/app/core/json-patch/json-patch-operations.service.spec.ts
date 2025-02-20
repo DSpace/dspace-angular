@@ -8,11 +8,6 @@ import { of as observableOf } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
 import { SubmissionPatchRequest } from '../data/request.models';
@@ -22,6 +17,11 @@ import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.servic
 import { getMockRequestService } from '../mocks/request.service.mock';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
 import {
   CommitPatchOperationsAction,
   DeletePendingJsonPatchOperationsAction,

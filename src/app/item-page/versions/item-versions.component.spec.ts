@@ -28,7 +28,6 @@ import {
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { AuthService } from '../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -36,20 +35,21 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { VersionDataService } from '../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ItemVersionsComponent } from './item-versions.component';
 

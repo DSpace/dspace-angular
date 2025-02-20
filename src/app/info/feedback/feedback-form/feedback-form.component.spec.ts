@@ -18,14 +18,14 @@ import { FeedbackDataService } from '../../../core/feedback/feedback-data.servic
 import { Feedback } from '../../../core/feedback/models/feedback.model';
 import { NativeWindowMockFactory } from '../../../core/mocks/mock-native-window-ref';
 import { RouterMock } from '../../../core/mocks/router.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { RouteService } from '../../../core/services/route.service';
 import { NativeWindowService } from '../../../core/services/window.service';
+import { AuthServiceStub } from '../../../core/utilities/testing/auth-service.stub';
+import { EPersonMock } from '../../../core/utilities/testing/eperson.mock';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { routeServiceStub } from '../../../core/utilities/testing/route-service.stub';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import { EPersonMock } from '../../../shared/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { FeedbackFormComponent } from './feedback-form.component';
 
 

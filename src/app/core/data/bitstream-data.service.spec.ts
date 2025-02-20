@@ -5,23 +5,23 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../utilities/remote-data.utils';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ItemMock } from '../mocks/item.mock';
 import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../shared/bitstream-format-support-level';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
 import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testSearchDataImplementation } from './base/search-data.spec';

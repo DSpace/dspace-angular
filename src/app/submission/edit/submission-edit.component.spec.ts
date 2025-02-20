@@ -17,23 +17,23 @@ import {
   of,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
+import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { mockSubmissionObject } from '../../core/mocks/submission.mock';
 import { getMockThemeService } from '../../core/mocks/theme-service.mock';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { AuthServiceStub } from '../../core/utilities/testing/auth-service.stub';
+import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../core/utilities/testing/router.stub';
+import { SectionsServiceStub } from '../../core/utilities/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../core/utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
 import { XSRFService } from '../../core/xsrf/xsrf.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SectionsService } from '../sections/sections.service';

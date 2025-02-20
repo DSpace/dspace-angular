@@ -1,4 +1,5 @@
 import {
+  Inject,
   Injectable,
   NgZone,
   Type,
@@ -33,13 +34,16 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
-import { StoreActionTypes } from '../../store.actions';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
 import { CoreState } from '../core-state.model';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { RequestActionTypes } from '../data/request.actions';
 import { EPerson } from '../eperson/models/eperson.model';
+import { NotificationsActionTypes } from '../notifications/notifications.actions';
+import { StoreActionTypes } from '../store.actions';
 import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
 import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
 // import actions
@@ -303,7 +307,7 @@ export class AuthEffects {
     // in, and start a new timer
     switchMap(() =>
       // Start a timer outside of Angular's zone
-      timer(environment.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler)),
+      timer(this.appConfig.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler)),
     ),
     // Re-enter the zone to dispatch the action
     observeOn(new EnterZoneScheduler(this.zone, queueScheduler)),
@@ -317,11 +321,13 @@ export class AuthEffects {
    * @param {AuthorizationDataService} authorizationsService
    * @param {AuthService} authService
    * @param {Store} store
+   * @param appConfig
    */
   constructor(private actions$: Actions,
               private zone: NgZone,
               private authorizationsService: AuthorizationDataService,
               private authService: AuthService,
-              private store: Store<CoreState>) {
+              private store: Store<CoreState>,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig) {
   }
 }

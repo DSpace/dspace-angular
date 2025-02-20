@@ -44,6 +44,7 @@ import { followLink } from '../../../core/data/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
@@ -59,7 +60,6 @@ import { FormFieldPreviousValueObject } from '../../../shared/form/builder/model
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
 import { SubmissionService } from '../../submission.service';

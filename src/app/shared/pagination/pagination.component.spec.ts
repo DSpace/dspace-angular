@@ -41,9 +41,9 @@ import { RouterMock } from '../../core/mocks/router.mock';
 import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
+import { createTestComponent } from '../../core/utilities/testing/utils.test';
 import { HostWindowService } from '../host-window.service';
 import { RSSComponent } from '../rss-feed/rss.component';
-import { createTestComponent } from '../testing/utils.test';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponent } from './pagination.component';
 

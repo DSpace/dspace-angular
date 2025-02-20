@@ -29,9 +29,9 @@ import {
 
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SystemWideAlert } from '../system-wide-alert.model';
+import { SystemWideAlert } from '../../core/system-wide-alert/system-wide-alert.model';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert

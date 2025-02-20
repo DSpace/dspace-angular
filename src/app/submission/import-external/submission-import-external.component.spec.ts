@@ -20,11 +20,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import { getMockExternalSourceService } from '../../core/mocks/external-source.service.mock';
 import { getMockThemeService } from '../../core/mocks/theme-service.mock';
@@ -33,18 +28,23 @@ import { ExternalSourceEntry } from '../../core/shared/external-source-entry.mod
 import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../core/utilities/testing/host-window-service.stub';
+import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
+import { RouterStub } from '../../core/utilities/testing/router.stub';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';

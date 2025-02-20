@@ -22,9 +22,9 @@ import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
-import { AuthServiceStub } from '../../testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
-import { createTestComponent } from '../../testing/utils.test';
+import { AuthServiceStub } from '../../../core/utilities/testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '../../../core/utilities/testing/authorization-service.stub';
+import { createTestComponent } from '../../../core/utilities/testing/utils.test';
 import { LogInContainerComponent } from './log-in-container.component';
 
 describe('LogInContainerComponent', () => {

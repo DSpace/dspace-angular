@@ -33,7 +33,6 @@ import {
   MetadataRegistrySelectSchemaAction,
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { MetadataRegistryState } from '../../admin/admin-registries/metadata-registry/metadata-registry.reducers';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';
@@ -44,6 +43,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { NotificationsService } from '../notifications/notifications.service';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 

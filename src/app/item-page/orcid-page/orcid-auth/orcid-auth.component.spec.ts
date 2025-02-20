@@ -20,19 +20,19 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
 import { NativeWindowMockFactory } from '../../../core/mocks/mock-native-window-ref';
 import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { NativeWindowService } from '../../../core/services/window.service';
 import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { OrcidAuthComponent } from './orcid-auth.component';
 
 describe('OrcidAuthComponent test suite', () => {

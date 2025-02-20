@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -20,13 +19,14 @@ import { ConfigurationProperty } from '../../../core/shared/configuration-proper
 import { Item } from '../../../core/shared/item.model';
 import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { HostWindowServiceStub } from '../../../core/utilities/testing/host-window-service.stub';
+import { ObjectSelectServiceStub } from '../../../core/utilities/testing/object-select-service.stub';
+import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../core/utilities/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { HostWindowService } from '../../host-window.service';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../testing/utils.test';
 import { ObjectSelectService } from '../object-select.service';
 import { ItemSelectComponent } from './item-select.component';
 

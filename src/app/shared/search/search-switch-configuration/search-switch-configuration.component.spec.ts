@@ -18,11 +18,11 @@ import { of as observableOf } from 'rxjs';
 import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { Context } from '../../../core/shared/context.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../core/utilities/testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
-import { RouterStub } from '../../testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { SearchSwitchConfigurationComponent } from './search-switch-configuration.component';
 
 describe('SearchSwitchConfigurationComponent', () => {

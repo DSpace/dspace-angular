@@ -16,7 +16,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RouteService } from '../../../../../core/services/route.service';
@@ -26,13 +25,14 @@ import { FilterType } from '../../../../../core/shared/search/models/filter-type
 import { SearchFilterConfig } from '../../../../../core/shared/search/models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../core/utilities/testing/active-router.stub';
+import { routeServiceStub } from '../../../../../core/utilities/testing/route-service.stub';
+import { RouterStub } from '../../../../../core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../../core/utilities/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../../../core/utilities/testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../../../../core/utilities/testing/search-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
-import { routeServiceStub } from '../../../../testing/route-service.stub';
-import { RouterStub } from '../../../../testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
 

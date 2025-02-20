@@ -24,25 +24,25 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../core/utilities/remote-data.utils';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '../../../../core/data/processes/script-data.service';
 import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
+import { SearchServiceStub } from '../../../../core/utilities/testing/search-service.stub';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents

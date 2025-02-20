@@ -22,6 +22,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
+import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { RouteService } from '../../../core/services/route.service';
 import {
   NativeWindowRef,
@@ -32,7 +33,6 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../shared/error/error.component';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-base-feedback-form',

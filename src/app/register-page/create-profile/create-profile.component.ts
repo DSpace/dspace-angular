@@ -23,9 +23,9 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
+import { LangConfig } from '../../core/config/lang-config.interface';
 import { CoreState } from '../../core/core-state.model';
 import { RemoteData } from '../../core/data/remote-data';
 import {
@@ -34,6 +34,7 @@ import {
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { NotificationsService } from '../../core/notifications/notifications.service';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -41,7 +42,6 @@ import {
 import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token

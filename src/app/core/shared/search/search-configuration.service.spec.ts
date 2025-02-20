@@ -7,10 +7,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { environment } from '../../../../environments/environment.test';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import {
   SortDirection,
   SortOptions,
@@ -18,6 +15,9 @@ import {
 import { RemoteData } from '../../data/remote-data';
 import { RequestEntry } from '../../data/request-entry.model';
 import { getMockRequestService } from '../../mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../utilities/testing/pagination-service.stub';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { PaginationComponentOptions } from '../pagination-component-options.model';
 import { AppliedFilter } from './models/applied-filter.model';
