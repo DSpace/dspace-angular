@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  NgClass,
   NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
@@ -19,7 +18,7 @@ import { slideMobileNav } from '../../../../app/shared/animations/slide';
   styleUrls: ['header-navbar-wrapper.component.scss'],
   templateUrl: 'header-navbar-wrapper.component.html',
   standalone: true,
-  imports: [NgClass, ThemedHeaderComponent, ThemedNavbarComponent, AsyncPipe, TranslateModule, NgIf],
+  imports: [ThemedHeaderComponent, ThemedNavbarComponent, AsyncPipe, TranslateModule, NgIf],
   animations: [slideMobileNav],
 })
 export class HeaderNavbarWrapperComponent extends BaseComponent {

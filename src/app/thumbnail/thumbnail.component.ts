@@ -1,15 +1,17 @@
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser,
+} from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnChanges,
+  PLATFORM_ID,
   SimpleChanges,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  of as observableOf,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth/auth.service';
@@ -53,7 +55,7 @@ export class ThumbnailComponent implements OnChanges {
   /**
    * The src attribute used in the template to render the image.
    */
-  src$ = new BehaviorSubject<string>(undefined);
+  src: string = undefined;
 
   retriedWithToken = false;
 
@@ -76,9 +78,10 @@ export class ThumbnailComponent implements OnChanges {
    * Whether the thumbnail is currently loading
    * Start out as true to avoid flashing the alt text while a thumbnail is being loaded.
    */
-  isLoading$ = new BehaviorSubject(true);
+  isLoading = true;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformID: any,
     protected auth: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected fileService: FileService,
@@ -90,16 +93,18 @@ export class ThumbnailComponent implements OnChanges {
    * Use a default image if no actual image is available.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (hasNoValue(this.thumbnail)) {
-      this.setSrc(this.defaultImage);
-      return;
-    }
+    if (isPlatformBrowser(this.platformID)) {
+      if (hasNoValue(this.thumbnail)) {
+        this.setSrc(this.defaultImage);
+        return;
+      }
 
-    const src = this.contentHref;
-    if (hasValue(src)) {
-      this.setSrc(src);
-    } else {
-      this.setSrc(this.defaultImage);
+      const src = this.contentHref;
+      if (hasValue(src)) {
+        this.setSrc(src);
+      } else {
+        this.setSrc(this.defaultImage);
+      }
     }
   }
 
@@ -129,7 +134,7 @@ export class ThumbnailComponent implements OnChanges {
    * Otherwise, fall back to the default image or a HTML placeholder
    */
   errorHandler() {
-    const src = this.src$.getValue();
+    const src = this.src;
     const thumbnail = this.bitstream;
     const thumbnailSrc = thumbnail?._links?.content?.href;
 
@@ -181,9 +186,9 @@ export class ThumbnailComponent implements OnChanges {
    * @param src
    */
   setSrc(src: string): void {
-    this.src$.next(src);
+    this.src = src;
     if (src === null) {
-      this.isLoading$.next(false);
+      this.isLoading = false;
     }
   }
 
@@ -191,6 +196,6 @@ export class ThumbnailComponent implements OnChanges {
    * Stop the loading animation once the thumbnail is successfully loaded
    */
   successHandler() {
-    this.isLoading$.next(false);
+    this.isLoading = false;
   }
 }

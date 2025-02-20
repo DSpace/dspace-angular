@@ -21,6 +21,7 @@ import { RemoteData } from 'src/app/core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedDeclinedTaskTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
@@ -32,7 +33,7 @@ export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
   templateUrl: './claimed-task-actions-decline-task.component.html',
   styleUrls: ['./claimed-task-actions-decline-task.component.scss'],
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component for displaying and processing the decline task action on a workflow task item

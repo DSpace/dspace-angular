@@ -25,6 +25,10 @@ import {
 } from 'rxjs/operators';
 
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import {
   AppState,
   keySelector,
 } from '../../app.reducer';
@@ -133,6 +137,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     protected itemService: ItemDataService,
     protected appStore: Store<AppState>,
     @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
     super('relationships', requestService, rdbService, objectCache, halService, 15 * 60 * 1000);
 
@@ -319,7 +324,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param options
    */
   getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
-    const linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(options.fetchThumbnail);
+    const linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(options.fetchThumbnail, this.appConfig.item.showAccessStatuses);
     linksToFollow.push(followLink('relationshipType'));
 
     return this.getItemRelationshipsByLabel(item, label, options, true, true, ...linksToFollow).pipe(this.paginatedRelationsToItems(item.uuid));
