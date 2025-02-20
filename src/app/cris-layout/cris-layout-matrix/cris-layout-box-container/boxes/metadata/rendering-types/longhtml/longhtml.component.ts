@@ -3,6 +3,8 @@ import {
   OnInit,
 } from '@angular/core';
 
+import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -14,6 +16,10 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   templateUrl: './longhtml.component.html',
   styleUrls: ['./longhtml.component.scss'],
   standalone: true,
+  imports: [
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 export class LonghtmlComponent extends RenderingTypeValueModelComponent implements OnInit {
 
