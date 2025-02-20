@@ -25,6 +25,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { ItemDataService } from '../../core/data/item-data.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import {
   LinkDefinition,
   LinkHeadService,
@@ -41,7 +42,6 @@ import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.s
 import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';

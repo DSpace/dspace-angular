@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
+import { RouterMock } from '../core/mocks/router.mock';
 import { NotificationsBoardComponent } from '../core/notifications/notifications-board/notifications-board.component';
 import { CSSVariableServiceStub } from '../core/utilities/testing/css-variable-service.stub';
 import { HostWindowServiceStub } from '../core/utilities/testing/host-window-service.stub';
@@ -19,7 +20,6 @@ import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { RouterMock } from '../shared/mocks/router.mock';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 import { RootComponent } from './root.component';

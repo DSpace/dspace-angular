@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { CoreState } from "../core-state.model";
 
-import { AppState } from '../../app.reducer';
 
 @Injectable()
 export class NotificationsEffects {
@@ -28,6 +28,6 @@ export class NotificationsEffects {
    * @param {Store} store
    */
   constructor(private actions$: Actions,
-              private store: Store<AppState>) {
+              private store: Store<CoreState>) {
   }
 }

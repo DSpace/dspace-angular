@@ -33,6 +33,9 @@ import { ErrorResponse } from '../core/cache/response.models';
 import { RequestService } from '../core/data/request.service';
 import { RequestError } from '../core/data/request-error.model';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
+import { getMockRequestService } from '../core/mocks/request.service.mock';
+import { RouterMock } from '../core/mocks/router.mock';
+import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../core/notifications/notifications.service';
 import { RouteService } from '../core/services/route.service';
 import { Item } from '../core/shared/item.model';
@@ -44,14 +47,11 @@ import { createFailedRemoteDataObject } from '../core/utilities/remote-data.util
 import { SubmissionJsonPatchOperationsServiceStub } from '../core/utilities/testing/submission-json-patch-operations-service.stub';
 import { SubmissionRestServiceStub } from '../core/utilities/testing/submission-rest-service.stub';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
-import { getMockRequestService } from '../shared/mocks/request.service.mock';
-import { RouterMock } from '../shared/mocks/router.mock';
 import { getMockSearchService } from '../shared/mocks/search-service.mock';
 import {
   mockSubmissionDefinition,
   mockSubmissionRestResponse,
 } from '../shared/mocks/submission.mock';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { SectionScope } from './objects/section-visibility.model';
 import {
   CancelSubmissionFormAction,

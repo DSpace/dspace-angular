@@ -13,12 +13,12 @@ import {
 import { LinkService } from '../../core/cache/builders/link.service';
 import { followLink } from '../../core/data/follow-link-config.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { Process } from '../../core/processes/process.model';
+import { Script } from '../../core/scripts/script.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';
-import { Process } from '../processes/process.model';
-import { Script } from '../scripts/script.model';
 
 /**
  * Component to create a new script

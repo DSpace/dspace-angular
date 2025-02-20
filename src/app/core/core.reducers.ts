@@ -1,6 +1,6 @@
 import { ActionReducerMap } from '@ngrx/store';
 
-import { metadataRegistryReducer } from '../admin/admin-registries/metadata-registry/metadata-registry.reducers';
+import { metadataRegistryReducer } from './states/metadata-registry/metadata-registry.reducers';
 import { authReducer } from './auth/auth.reducer';
 import { objectCacheReducer } from './cache/object-cache.reducer';
 import { serverSyncBufferReducer } from './cache/server-sync-buffer.reducer';
@@ -17,6 +17,7 @@ import { correlationIdReducer } from './states/correlation-id/correlation-id.red
 import { ePeopleRegistryReducer } from './states/epeople-registry/epeople-registry.reducers';
 import { groupRegistryReducer } from './states/group-registry/group-registry.reducers';
 import { nameVariantReducer } from './states/name-variant/name-variant.reducer';
+import { notificationsReducer } from "./notifications/notifications.reducers";
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'bitstreamFormats': bitstreamFormatReducer,
@@ -35,4 +36,5 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'metadataRegistry': metadataRegistryReducer,
   'groupRegistry': groupRegistryReducer,
   'correlationId': correlationIdReducer,
+  'notifications': notificationsReducer,
 };

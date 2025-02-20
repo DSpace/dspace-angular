@@ -5,9 +5,9 @@ import {
   Operation,
 } from 'fast-json-patch';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import { Bundle } from '../shared/bundle.model';
 import { HALLink } from '../shared/hal-link.model';

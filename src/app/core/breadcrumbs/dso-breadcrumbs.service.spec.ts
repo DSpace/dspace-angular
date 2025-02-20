@@ -9,8 +9,8 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { getMockLinkService } from '../../shared/mocks/link-service.mock';
 import { LinkService } from '../cache/builders/link.service';
+import { getMockLinkService } from '../mocks/link-service.mock';
 import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';

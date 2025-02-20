@@ -19,6 +19,7 @@ import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { getMockLinkService } from '../../../../core/mocks/link-service.mock';
 import { PoolTaskSearchResult } from '../../../../core/object-collection/pool-task-search-result.model';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Context } from '../../../../core/shared/context.model';
@@ -32,7 +33,6 @@ import {
 } from '../../../../core/utilities/remote-data.utils';
 import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { ThemeService } from '../../../theme-support/theme.service';

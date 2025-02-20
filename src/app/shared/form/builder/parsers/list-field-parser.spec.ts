@@ -1,5 +1,5 @@
+import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
 import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
-import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';

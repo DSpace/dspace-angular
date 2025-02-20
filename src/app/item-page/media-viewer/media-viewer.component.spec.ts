@@ -14,15 +14,15 @@ import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { MockBitstreamFormat1 } from '../../core/mocks/item.mock';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

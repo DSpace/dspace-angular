@@ -11,11 +11,11 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import {
   HealthInfoComponentOne,
   HealthInfoComponentTwo,
 } from '../../../shared/mocks/health-endpoint.mocks';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { HealthInfoComponentComponent } from './health-info-component.component';
 

@@ -6,8 +6,6 @@ import {
 } from '../admin/admin-ldn-services/ldn-services-model/ldn-service.resource-type';
 import { ADMIN_NOTIFY_MESSAGE } from '../admin/admin-notify-dashboard/models/admin-notify-message.resource-type';
 import { NOTIFYREQUEST } from '../item-page/simple/notify-requests-status/notify-requests-status.resource-type';
-import { PROCESS } from '../process-page/processes/process.resource-type';
-import { SCRIPT } from '../process-page/scripts/script.resource-type';
 import { ACCESS_STATUS } from '../shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 import { DUPLICATE } from '../shared/object-list/duplicate-data/duplicate.resource-type';
 import { SUBSCRIPTION } from '../shared/subscriptions/models/subscription.resource-type';
@@ -36,8 +34,10 @@ import { SUGGESTION_SOURCE } from './notifications/suggestions/models/suggestion
 import { SUGGESTION_TARGET } from './notifications/suggestions/models/suggestion-target-object.resource-type';
 import { ORCID_HISTORY } from './orcid/model/orcid-history.resource-type';
 import { ORCID_QUEUE } from './orcid/model/orcid-queue.resource-type';
+import { PROCESS } from './processes/process.resource-type';
 import { RESEARCHER_PROFILE } from './profile/model/researcher-profile.resource-type';
 import { RESOURCE_POLICY } from './resource-policy/models/resource-policy.resource-type';
+import { SCRIPT } from './scripts/script.resource-type';
 import { AUTHORIZATION } from './shared/authorization.resource-type';
 import { BITSTREAM } from './shared/bitstream.resource-type';
 import { BITSTREAM_FORMAT } from './shared/bitstream-format.resource-type';

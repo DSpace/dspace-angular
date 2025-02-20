@@ -26,6 +26,7 @@ import { SubmissionFormsConfigDataService } from '../../../core/config/submissio
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { defaultUUID } from '../../../core/mocks/uuid.service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Collection } from '../../../core/shared/collection.model';
@@ -46,7 +47,6 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
-import { defaultUUID } from '../../../shared/mocks/uuid.service.mock';
 import { Duplicate } from '../../../shared/object-list/duplicate-data/duplicate.model';
 import { DUPLICATE } from '../../../shared/object-list/duplicate-data/duplicate.resource-type';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';

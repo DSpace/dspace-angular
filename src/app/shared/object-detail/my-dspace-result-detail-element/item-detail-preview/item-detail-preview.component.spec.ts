@@ -27,6 +27,7 @@ import { FindListOptions } from '../../../../core/data/find-list-options.model';
 import { FollowLinkConfig } from '../../../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../core/shared/file.service';
@@ -41,7 +42,6 @@ import { createPaginatedList } from '../../../../core/utilities/testing/utils.te
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { TruncatePipe } from '../../../utils/truncate.pipe';

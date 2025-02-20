@@ -25,14 +25,14 @@ import {
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { storeModuleConfig } from '../../../app.reducer';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Notification } from '../models/notification.model';
 import { NotificationOptions } from '../models/notification-options.model';
 import { NotificationType } from '../models/notification-type';
 import { notificationsReducer } from '../notifications.reducers';
 import { NotificationsService } from '../notifications.service';
 import { NotificationComponent } from './notification.component';
+import { mockStoreModuleConfig } from "../../utilities/testing/mock-state-utilities";
 
 describe('NotificationComponent', () => {
 
@@ -54,7 +54,7 @@ describe('NotificationComponent', () => {
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
+        StoreModule.forRoot({ notificationsReducer }, mockStoreModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

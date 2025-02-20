@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { AppState } from '../app.reducer';
 import { type } from './shared/ngrx/type';
+import { CoreState } from "./core-state.model";
 
 export const StoreActionTypes = {
   REHYDRATE: type('dspace/ngrx/REHYDRATE'),
@@ -10,9 +10,9 @@ export const StoreActionTypes = {
 
 export class StoreAction implements Action {
   type: string;
-  payload: AppState | Action[];
+  payload: CoreState | Action[];
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  constructor(type: string, payload: AppState | Action[]) {
+  constructor(type: string, payload: CoreState | Action[]) {
     this.type = type;
     this.payload = payload;
   }

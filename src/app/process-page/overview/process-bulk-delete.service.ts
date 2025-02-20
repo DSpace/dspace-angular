@@ -15,8 +15,8 @@ import {
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { NotificationsService } from '../../core/notifications/notifications.service';
+import { Process } from '../../core/processes/process.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { Process } from '../processes/process.model';
 
 @Injectable({
   providedIn: 'root',

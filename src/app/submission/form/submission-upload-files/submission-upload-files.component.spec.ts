@@ -20,6 +20,7 @@ import {
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
@@ -36,7 +37,6 @@ import {
   mockUploadResponse2Errors,
   mockUploadResponse2ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';

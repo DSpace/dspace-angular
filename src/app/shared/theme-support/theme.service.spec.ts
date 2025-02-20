@@ -16,6 +16,7 @@ import { of as observableOf } from 'rxjs';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { RouterMock } from '../../core/mocks/router.mock';
 import { Collection } from '../../core/shared/collection.model';
 import { COLLECTION } from '../../core/shared/collection.resource-type';
 import { Community } from '../../core/shared/community.model';
@@ -30,7 +31,6 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../core/utilities/remote-data.utils';
 import { ConfigurationDataServiceStub } from '../../core/utilities/testing/configuration-data.service.stub';
-import { RouterMock } from '../mocks/router.mock';
 import { SetThemeAction } from './theme.actions';
 import { Theme } from './theme.model';
 import { ThemeService } from './theme.service';

@@ -28,6 +28,7 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { HeadTagService } from '../../core/metadata/head-tag.service';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
@@ -41,7 +42,6 @@ import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-ed
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

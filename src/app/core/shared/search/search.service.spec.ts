@@ -14,13 +14,13 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CommunityDataService } from '../../data/community-data.service';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { PaginationService } from '../../pagination/pagination.service';
 import { RouteService } from '../../services/route.service';
 import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';

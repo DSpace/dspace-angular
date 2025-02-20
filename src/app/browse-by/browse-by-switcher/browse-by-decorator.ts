@@ -11,7 +11,7 @@ import { BrowseByDateComponent } from '../browse-by-date/browse-by-date.componen
 import { BrowseByMetadataComponent } from '../browse-by-metadata/browse-by-metadata.component';
 import { BrowseByTaxonomyComponent } from '../browse-by-taxonomy/browse-by-taxonomy.component';
 import { BrowseByTitleComponent } from '../browse-by-title/browse-by-title.component';
-import { BrowseByDataType } from './browse-by-data-type';
+import { BrowseByDataType } from '../../core/shared/browse-by-data-type';
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 export const DEFAULT_BROWSE_BY_CONTEXT = Context.Any;

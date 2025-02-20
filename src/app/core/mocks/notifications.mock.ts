@@ -1,19 +1,19 @@
 import { of as observableOf } from 'rxjs';
 
-import { QualityAssuranceEventDataService } from '../../core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventObject } from '../../core/notifications/qa/models/quality-assurance-event.model';
-import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceTopicObject } from '../../core/notifications/qa/models/quality-assurance-topic.model';
-import { QualityAssuranceTopicDataService } from '../../core/notifications/qa/topics/quality-assurance-topic-data.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { ResourceType } from '../../core/shared/resource-type';
-import { SearchResult } from '../../core/shared/search/models/search-result.model';
+import { QualityAssuranceEventDataService } from '../notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceEventObject } from '../notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceSourceObject } from '../notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from '../notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicDataService } from '../notifications/qa/topics/quality-assurance-topic-data.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
+import { ResourceType } from '../shared/resource-type';
+import { SearchResult } from '../shared/search/models/search-result.model';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
+} from '../utilities/remote-data.utils';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

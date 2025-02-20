@@ -17,12 +17,12 @@ import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
+import { NativeWindowMockFactory } from '../../../../core/mocks/mock-native-window-ref';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { NativeWindowService } from '../../../../core/services/window.service';
 import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
 import { AuthServiceStub } from '../../../../core/utilities/testing/auth-service.stub';
 import { RouterStub } from '../../../../core/utilities/testing/router.stub';
-import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 import { LogInExternalProviderComponent } from './log-in-external-provider.component';
 
 describe('LogInExternalProviderComponent', () => {

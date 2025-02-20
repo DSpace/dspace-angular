@@ -20,6 +20,8 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { NativeWindowMockFactory } from '../../../core/mocks/mock-native-window-ref';
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
@@ -31,8 +33,6 @@ import {
 } from '../../../core/utilities/remote-data.utils';
 import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
-import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { OrcidAuthComponent } from './orcid-auth.component';
 
 describe('OrcidAuthComponent test suite', () => {

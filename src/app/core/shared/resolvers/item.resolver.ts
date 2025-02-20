@@ -7,7 +7,6 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState } from '../../../app.reducer';
 import {
   APP_CONFIG,
   AppConfig,
@@ -21,6 +20,7 @@ import { RemoteData } from '../../data/remote-data';
 import { ResolvedAction } from '../../resolving/resolver.actions';
 import { Item } from '../item.model';
 import { getFirstCompletedRemoteData } from '../operators';
+import { CoreState } from "../../core-state.model";
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future
@@ -46,7 +46,7 @@ export const itemResolver: ResolveFn<RemoteData<Item>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   itemService: ItemDataService = inject(ItemDataService),
-  store: Store<AppState> = inject(Store<AppState>),
+  store: Store<CoreState> = inject(Store<CoreState>),
   appConfig: AppConfig = inject(APP_CONFIG),
 ): Observable<RemoteData<Item>> => {
   const itemRD$ = itemService.findById(

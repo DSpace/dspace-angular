@@ -7,8 +7,8 @@
  */
 import { of as observableOf } from 'rxjs';
 
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { FindListOptions } from '../find-list-options.model';
 import { followLink } from '../follow-link-config.model';
 import {

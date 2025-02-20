@@ -12,11 +12,11 @@ import {
 import { of } from 'rxjs';
 
 import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
+import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
 import {
   HealthInfoResponseObj,
   HealthResponseObj,
 } from '../shared/mocks/health-endpoint.mocks';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { HealthService } from './health.service';
 import { HealthPageComponent } from './health-page.component';
 

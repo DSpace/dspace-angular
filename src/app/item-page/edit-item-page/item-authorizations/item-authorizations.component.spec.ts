@@ -15,6 +15,7 @@ import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { getMockLinkService } from '../../../core/mocks/link-service.mock';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
@@ -27,7 +28,6 @@ import {
   createTestComponent,
 } from '../../../core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { ItemAuthorizationsComponent } from './item-authorizations.component';
 

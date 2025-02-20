@@ -16,6 +16,8 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { RequestService } from '../../core/data/request.service';
+import { getMockRequestService } from '../../core/mocks/request.service.mock';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { RouteService } from '../../core/services/route.service';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
@@ -28,8 +30,6 @@ import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.s
 import { LocationStub } from '../../core/utilities/testing/location.stub';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../../core/utilities/testing/router.stub';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
 

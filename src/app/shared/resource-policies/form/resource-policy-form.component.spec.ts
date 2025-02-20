@@ -43,6 +43,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { getMockRequestService } from '../../../core/mocks/request.service.mock';
+import { RouterMock } from '../../../core/mocks/router.mock';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { ActionType } from '../../../core/resource-policy/models/action-type.model';
 import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
@@ -63,8 +65,6 @@ import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
 import { getMockFormService } from '../../mocks/form-service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RouterMock } from '../../mocks/router.mock';
 import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,

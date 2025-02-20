@@ -58,7 +58,7 @@ import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../../core/shared/browse-by-data-type';
 
 export const BBM_PAGINATION_ID = 'bbm';
 

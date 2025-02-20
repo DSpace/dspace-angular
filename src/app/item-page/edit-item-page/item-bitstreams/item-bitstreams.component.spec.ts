@@ -22,6 +22,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RequestService } from '../../../core/data/request.service';
+import { getMockRequestService } from '../../../core/mocks/request.service.mock';
 import {
   INotification,
   Notification,
@@ -40,7 +41,6 @@ import { BitstreamDataServiceStub } from '../../../core/utilities/testing/bitstr
 import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';

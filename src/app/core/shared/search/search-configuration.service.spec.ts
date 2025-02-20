@@ -1,4 +1,5 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
+import { TestBed } from '@angular/core/testing';
 import { Params } from '@angular/router';
 import {
   combineLatest as observableCombineLatest,
@@ -11,9 +12,10 @@ import {
   SortDirection,
   SortOptions,
 } from '../../cache/models/sort-options.model';
+import { APP_CONFIG } from '../../config/app-config.interface';
 import { RemoteData } from '../../data/remote-data';
 import { RequestEntry } from '../../data/request-entry.model';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { ActivatedRouteStub } from '../../utilities/testing/active-router.stub';
 import { PaginationServiceStub } from '../../utilities/testing/pagination-service.stub';
@@ -23,8 +25,6 @@ import { AppliedFilter } from './models/applied-filter.model';
 import { SearchFilter } from './models/search-filter.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchConfigurationService } from './search-configuration.service';
-import { TestBed } from "@angular/core/testing";
-import { APP_CONFIG } from "../../config/app-config.interface";
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;

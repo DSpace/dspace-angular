@@ -13,8 +13,7 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { storeModuleConfig } from '../../app.reducer';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
 import { NotificationComponent } from './notification/notification.component';
@@ -26,6 +25,7 @@ import {
 import { notificationsReducer } from './notifications.reducers';
 import { NotificationsService } from './notifications.service';
 import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
+import { mockStoreModuleConfig } from "../utilities/testing/mock-state-utilities";
 
 describe('NotificationsService test', () => {
   const store: Store<Notification> = jasmine.createSpyObj('store', {
@@ -37,7 +37,7 @@ describe('NotificationsService test', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
+        StoreModule.forRoot({ notificationsReducer }, mockStoreModuleConfig),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

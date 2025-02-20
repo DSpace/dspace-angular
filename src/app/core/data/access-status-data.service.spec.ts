@@ -5,9 +5,9 @@ import {
 import { hasNoValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { Item } from '../shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';

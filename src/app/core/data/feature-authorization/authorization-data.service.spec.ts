@@ -5,9 +5,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { getMockObjectCacheService } from '../../../shared/mocks/object-cache.service.mock';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { EPerson } from '../../eperson/models/eperson.model';
+import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock';
 import { Authorization } from '../../shared/authorization.model';
 import { Feature } from '../../shared/feature.model';
 import { Site } from '../../shared/site.model';

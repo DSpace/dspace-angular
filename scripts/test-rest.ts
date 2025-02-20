@@ -2,7 +2,7 @@ import { request } from 'http';
 import { request as https_request } from 'https';
 
 import { AppConfig } from '../src/app/core/config/app-config.interface';
-import { buildAppConfig } from '../src/app/core/config/config.server';
+import { buildAppConfig } from '../src/config/config.server';
 
 const appConfig: AppConfig = buildAppConfig();
 

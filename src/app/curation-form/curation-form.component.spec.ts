@@ -19,6 +19,7 @@ import { ConfigurationDataService } from '../core/data/configuration-data.servic
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { NotificationsService } from '../core/notifications/notifications.service';
+import { Process } from '../core/processes/process.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import {
   createFailedRemoteDataObject$,
@@ -27,7 +28,6 @@ import {
 import { NotificationsServiceStub } from '../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../core/utilities/testing/router.stub';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
-import { Process } from '../process-page/processes/process.model';
 import { HandleService } from '../shared/handle.service';
 import { CurationFormComponent } from './curation-form.component';
 

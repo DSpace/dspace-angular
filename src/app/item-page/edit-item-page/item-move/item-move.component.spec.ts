@@ -16,6 +16,7 @@ import { of as observableOf } from 'rxjs';
 
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RequestService } from '../../../core/data/request.service';
+import { getMockRequestService } from '../../../core/mocks/request.service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
@@ -29,7 +30,6 @@ import { NotificationsServiceStub } from '../../../core/utilities/testing/notifi
 import { RouterStub } from '../../../core/utilities/testing/router.stub';
 import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { ItemMoveComponent } from './item-move.component';
 
 describe('ItemMoveComponent', () => {

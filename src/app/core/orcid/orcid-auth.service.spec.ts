@@ -8,9 +8,9 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NativeWindowRefMock } from '../../shared/mocks/mock-native-window-ref';
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { ConfigurationDataService } from '../data/configuration-data.service';
+import { NativeWindowRefMock } from '../mocks/mock-native-window-ref';
+import { RouterMock } from '../mocks/router.mock';
 import { ResearcherProfile } from '../profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
 import { ConfigurationProperty } from '../shared/configuration-property.model';

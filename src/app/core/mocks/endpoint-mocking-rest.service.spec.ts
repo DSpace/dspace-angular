@@ -4,9 +4,9 @@ import {
 } from '@angular/common/http';
 import { of as observableOf } from 'rxjs';
 
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import { RestRequestMethod } from '../data/rest-request-method';
 import { EndpointMockingRestService } from './endpoint-mocking-rest.service';
-import { ResponseMapMock } from './mocks/response-map.mock';
+import { ResponseMapMock } from './response-map.mock';
 
 describe('EndpointMockingRestService', () => {
   let service: EndpointMockingRestService;

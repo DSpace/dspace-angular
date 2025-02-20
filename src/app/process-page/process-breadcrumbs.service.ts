@@ -7,7 +7,7 @@ import {
 
 import { Breadcrumb } from '../core/breadcrumbs/breadcrumb.model';
 import { BreadcrumbsProviderService } from '../core/breadcrumbs/breadcrumbsProviderService';
-import { Process } from './processes/process.model';
+import { Process } from '../core/processes/process.model';
 
 /**
  * Service to calculate process breadcrumbs for a single part of the route

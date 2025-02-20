@@ -23,6 +23,7 @@ import { of } from 'rxjs';
 import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { NativeWindowMockFactory } from '../../core/mocks/mock-native-window-ref';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { NativeWindowService } from '../../core/services/window.service';
 import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
@@ -31,7 +32,6 @@ import {
   AuthServiceStub,
 } from '../../core/utilities/testing/auth-service.stub';
 import { createTestComponent } from '../../core/utilities/testing/utils.test';
-import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { LogInComponent } from './log-in.component';

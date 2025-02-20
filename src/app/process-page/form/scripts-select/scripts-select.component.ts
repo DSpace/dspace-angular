@@ -33,12 +33,12 @@ import {
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
+import { Script } from '../../../core/scripts/script.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { Script } from '../../scripts/script.model';
 import { controlContainerFactory } from '../process-form-factory';
 
 const SCRIPT_QUERY_PARAMETER = 'script';

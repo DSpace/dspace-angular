@@ -16,9 +16,9 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../core/config/app-config.interface';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { Item } from '../../../../core/shared/item.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';

@@ -5,8 +5,8 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 
 import { Breadcrumb } from '../core/breadcrumbs/breadcrumb.model';
+import { Process } from '../core/processes/process.model';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
-import { Process } from './processes/process.model';
 
 describe('ProcessBreadcrumbsService', () => {
   let service: ProcessBreadcrumbsService;

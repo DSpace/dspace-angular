@@ -16,6 +16,8 @@ import { environment } from 'src/environments/environment';
 
 import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { MockBitstreamFormat1 } from '../../../../core/mocks/item.mock';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -26,8 +28,6 @@ import { PaginationServiceStub } from '../../../../core/utilities/testing/pagina
 import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';

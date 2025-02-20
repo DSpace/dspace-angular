@@ -12,10 +12,10 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { Collection } from '../shared/collection.model';
 import { ContentSource } from '../shared/content-source.model';
 import { PageInfo } from '../shared/page-info.model';

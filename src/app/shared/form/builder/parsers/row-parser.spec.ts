@@ -2,8 +2,8 @@ import { Injector } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
+import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
 import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
-import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { RowParser } from './row-parser';

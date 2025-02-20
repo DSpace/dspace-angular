@@ -1,11 +1,11 @@
 import { of as observableOf } from 'rxjs';
 
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { Bundle } from '../../core/shared/bundle.model';
-import { Item } from '../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+import { Bitstream } from '../shared/bitstream.model';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { Bundle } from '../shared/bundle.model';
+import { Item } from '../shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { createPaginatedList } from '../utilities/testing/utils.test';
 
 export const MockBitstreamFormat1: BitstreamFormat = Object.assign(new BitstreamFormat(), {
   shortDescription: 'Microsoft Word XML',

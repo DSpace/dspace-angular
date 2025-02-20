@@ -44,6 +44,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
+import { RouterMock } from '../../../core/mocks/router.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
@@ -64,7 +65,6 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormComponent } from '../../../shared/form/form.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { RouterMock } from '../../../shared/mocks/router.mock';
 import { GroupFormComponent } from './group-form.component';
 import { MembersListComponent } from './members-list/members-list.component';
 import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';

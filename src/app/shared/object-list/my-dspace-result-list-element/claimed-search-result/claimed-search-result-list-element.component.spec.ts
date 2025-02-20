@@ -21,6 +21,7 @@ import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { APP_CONFIG } from '../../../../core/config/app-config.interface';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { getMockLinkService } from '../../../../core/mocks/link-service.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { ClaimedTaskSearchResult } from '../../../../core/object-collection/claimed-task-search-result.model';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
@@ -38,7 +39,6 @@ import { NotificationsServiceStub } from '../../../../core/utilities/testing/not
 import { SearchServiceStub } from '../../../../core/utilities/testing/search-service.stub';
 import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';

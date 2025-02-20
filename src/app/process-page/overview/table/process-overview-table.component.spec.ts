@@ -22,6 +22,8 @@ import { ProcessDataService } from '../../../core/data/processes/process-data.se
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { Process } from '../../../core/processes/process.model';
+import { ProcessStatus } from '../../../core/processes/process-status.model';
 import { RouteService } from '../../../core/services/route.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
 import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
@@ -31,8 +33,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { Process } from '../../processes/process.model';
-import { ProcessStatus } from '../../processes/process-status.model';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import { ProcessOverviewService } from '../process-overview.service';
 import { ProcessOverviewTableComponent } from './process-overview-table.component';

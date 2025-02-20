@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { RequestService } from '../../../../core/data/request.service';
+import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -27,7 +28,6 @@ import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-ro
 import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../../../../core/utilities/testing/router.stub';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ClaimedTaskActionsEditMetadataComponent } from '../edit-metadata/claimed-task-actions-edit-metadata.component';

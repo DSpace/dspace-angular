@@ -40,6 +40,7 @@ import {
   PaginatedList,
 } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { RouterMock } from '../../core/mocks/router.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Community } from '../../core/shared/community.model';
@@ -50,7 +51,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-d
 import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
 import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
 import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

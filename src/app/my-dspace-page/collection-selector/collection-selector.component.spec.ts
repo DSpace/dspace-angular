@@ -28,6 +28,7 @@ import { FindListOptions } from '../../core/data/find-list-options.model';
 import { FollowLinkConfig } from '../../core/data/follow-link-config.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import {
@@ -37,7 +38,6 @@ import {
 import { MockElementRef } from '../../core/utilities/testing/element-ref.mock';
 import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CollectionSelectorComponent } from './collection-selector.component';
 
 describe('CollectionSelectorComponent', () => {

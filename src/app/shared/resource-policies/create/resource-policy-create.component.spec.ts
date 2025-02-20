@@ -23,6 +23,7 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { getMockLinkService } from '../../../core/mocks/link-service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { ActionType } from '../../../core/resource-policy/models/action-type.model';
 import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
@@ -41,7 +42,6 @@ import {
   createPaginatedList,
   createTestComponent,
 } from '../../../core/utilities/testing/utils.test';
-import { getMockLinkService } from '../../mocks/link-service.mock';
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
 import {
   ResourcePolicyEvent,

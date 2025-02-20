@@ -44,7 +44,7 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 import { hasValue } from './modules/shared/utils/src/lib/utils/empty.util';
 import { UIServerConfig } from './src/app/core/config/ui-server-config.interface';
 import bootstrap from './src/main.server';
-import { buildAppConfig } from './src/app/core/config/config.server';
+import { buildAppConfig } from './src/config/config.server';
 import {
   APP_CONFIG,
   AppConfig,

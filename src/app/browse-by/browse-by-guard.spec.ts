@@ -7,7 +7,7 @@ import {
 } from '../core/utilities/remote-data.utils';
 import { RouterStub } from '../core/utilities/testing/router.stub';
 import { browseByGuard } from './browse-by-guard';
-import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../core/shared/browse-by-data-type';
 
 describe('browseByGuard', () => {
   describe('canActivate', () => {

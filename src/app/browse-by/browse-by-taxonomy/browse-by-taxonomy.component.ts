@@ -38,7 +38,7 @@ import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-ed
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../../core/shared/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',

@@ -10,7 +10,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
-import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../../../../core/shared/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';

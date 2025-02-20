@@ -6,13 +6,6 @@ import {
 
 import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
 import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { Process } from '../process-page/processes/process.model';
-import { Script } from '../process-page/scripts/script.model';
-import { EndpointMockingRestService } from '../shared/mocks/dspace-rest/endpoint-mocking-rest.service';
-import {
-  MOCK_RESPONSE_MAP,
-  ResponseMapMock,
-} from '../shared/mocks/dspace-rest/mocks/response-map.mock';
 import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
@@ -32,6 +25,11 @@ import { EPerson } from './eperson/models/eperson.model';
 import { Group } from './eperson/models/group.model';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
+import { EndpointMockingRestService } from './mocks/endpoint-mocking-rest.service';
+import {
+  MOCK_RESPONSE_MAP,
+  ResponseMapMock,
+} from './mocks/response-map.mock';
 import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
@@ -40,8 +38,10 @@ import { SuggestionTarget } from './notifications/suggestions/models/suggestion-
 import { NotifyRequestsStatus } from './notify-requests/notify-requests-status.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
+import { Process } from './processes/process.model';
 import { ResearcherProfile } from './profile/model/researcher-profile.model';
 import { ResourcePolicy } from './resource-policy/models/resource-policy.model';
+import { Script } from './scripts/script.model';
 import { Authorization } from './shared/authorization.model';
 import { Bitstream } from './shared/bitstream.model';
 import { BitstreamFormat } from './shared/bitstream-format.model';

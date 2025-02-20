@@ -12,7 +12,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -48,6 +47,7 @@ import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { getGroupEditRoute } from '../router/utils/routes-utils';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

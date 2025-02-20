@@ -15,6 +15,7 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { followLink } from '../../../../../core/data/follow-link-config.model';
+import { getMockLinkService } from '../../../../../core/mocks/link-service.mock';
 import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
@@ -23,7 +24,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';

@@ -19,6 +19,7 @@ import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../core/data/paginated-list.model';
+import { getMockRemoteDataBuildService } from '../../../core/mocks/remote-data-build.service.mock';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -28,7 +29,6 @@ import {
 } from '../../../core/utilities/remote-data.utils';
 import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { CollectionsComponent } from './collections.component';
 
 const createMockCollection = (id: string) => Object.assign(new Collection(), {

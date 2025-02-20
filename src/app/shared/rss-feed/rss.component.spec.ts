@@ -17,6 +17,8 @@ import {
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { GroupDataService } from '../../core/eperson/group-data.service';
+import { RouterMock } from '../../core/mocks/router.mock';
+import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { Collection } from '../../core/shared/collection.model';
@@ -33,8 +35,6 @@ import { PaginationServiceStub } from '../../core/utilities/testing/pagination-s
 import { SearchConfigurationServiceStub } from '../../core/utilities/testing/search-configuration-service.stub';
 import { createPaginatedList } from '../../core/utilities/testing/utils.test';
 import { MockActivatedRoute } from '../mocks/active-router.mock';
-import { RouterMock } from '../mocks/router.mock';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { RSSComponent } from './rss.component';
 
 describe('RssComponent', () => {

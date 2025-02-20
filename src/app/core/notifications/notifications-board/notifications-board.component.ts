@@ -24,7 +24,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AppState } from '../../../app.reducer';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { INotificationBoardOptions } from '../../config/notifications-config.interfaces';
 import { INotification } from '../models/notification.model';
@@ -32,6 +31,7 @@ import { NotificationComponent } from '../notification/notification.component';
 import { NotificationsState } from '../notifications.reducers';
 import { NotificationsService } from '../notifications.service';
 import { notificationsStateSelector } from '../selectors';
+import { CoreState } from "../../core-state.model";
 
 @Component({
   selector: 'ds-notifications-board',
@@ -67,7 +67,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: NotificationsService,
-    private store: Store<AppState>,
+    private store: Store<CoreState>,
     private cdr: ChangeDetectorRef,
     protected liveRegionService: LiveRegionService,
   ) {

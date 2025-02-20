@@ -44,6 +44,8 @@ import { EPersonDataService } from '../../../../core/eperson/eperson-data.servic
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { RouterMock } from '../../../../core/mocks/router.mock';
+import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -63,8 +65,6 @@ import { TranslateLoaderMock } from '../../../../core/utilities/testing/translat
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ReviewersListComponent } from './reviewers-list.component';
 

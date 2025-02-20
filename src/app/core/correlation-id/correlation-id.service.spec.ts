@@ -5,9 +5,9 @@ import {
 } from '@ngrx/store';
 import { MockStore } from '@ngrx/store/testing';
 
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
+import { CookieServiceMock } from '../mocks/cookie.service.mock';
 import { UUIDService } from '../shared/uuid.service';
 import { SetCorrelationIdAction } from '../states/correlation-id/correlation-id.actions';
 import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';

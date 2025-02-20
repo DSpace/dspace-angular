@@ -11,6 +11,7 @@ import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ObjectUpdatesServiceStub } from '../../../core/data/object-updates/object-updates.service.stub';
 import { RequestService } from '../../../core/data/request.service';
+import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
@@ -25,7 +26,6 @@ import { NotificationsServiceStub } from '../../../core/utilities/testing/notifi
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import {
   ItemBitstreamsService,
   SelectedBitstreamTableEntry,

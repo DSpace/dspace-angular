@@ -17,12 +17,12 @@ import {
   ScriptDataService,
 } from '../../core/data/processes/script-data.service';
 import { NotificationsService } from '../../core/notifications/notifications.service';
+import { ProcessParameter } from '../../core/processes/process-parameter.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../core/utilities/remote-data.utils';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';

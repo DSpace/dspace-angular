@@ -15,6 +15,7 @@ import { environment } from '../../../../../../environments/environment';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
+import { getMockLinkService } from '../../../../../core/mocks/link-service.mock';
 import { ClaimedApprovedTaskSearchResult } from '../../../../../core/object-collection/claimed-approved-task-search-result.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { Item } from '../../../../../core/shared/item.model';
@@ -22,7 +23,6 @@ import { WorkflowItem } from '../../../../../core/submission/models/workflowitem
 import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
 import { createSuccessfulRemoteDataObject } from '../../../../../core/utilities/remote-data.utils';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
-import { getMockLinkService } from '../../../../mocks/link-service.mock';
 import { mockTruncatableService } from '../../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../../theme-support/theme.service';

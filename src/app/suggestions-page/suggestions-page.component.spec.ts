@@ -20,6 +20,7 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../core/auth/auth.service';
+import { getMockTranslateService } from '../core/mocks/translate.service.mock';
 import { NotificationsService } from '../core/notifications/notifications.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
@@ -41,7 +42,6 @@ import {
   getMockSuggestionNotificationsStateService,
   getMockSuggestionsService,
 } from '../shared/mocks/suggestion.mock';
-import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SuggestionsPageComponent } from './suggestions-page.component';

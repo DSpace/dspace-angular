@@ -16,9 +16,9 @@ import {
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ProcessParameter } from '../../processes/process-parameter.model';
-import { Script } from '../../scripts/script.model';
-import { ScriptParameter } from '../../scripts/script-parameter.model';
+import { ProcessParameter } from '../../../core/processes/process-parameter.model';
+import { Script } from '../../../core/scripts/script.model';
+import { ScriptParameter } from '../../../core/scripts/script-parameter.model';
 import { controlContainerFactory } from '../process-form-factory';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 

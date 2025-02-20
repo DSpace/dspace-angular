@@ -64,7 +64,6 @@ export interface AppState {
   router: RouterReducerState;
   hostWindow: HostWindowState;
   forms: FormState;
-  notifications: NotificationsState;
   sidebar: SidebarState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
@@ -81,7 +80,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   router: routerReducer,
   hostWindow: hostWindowReducer,
   forms: formReducer,
-  notifications: notificationsReducer,
   sidebar: sidebarReducer,
   searchFilter: filterReducer,
   truncatable: truncatableReducer,

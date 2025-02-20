@@ -8,9 +8,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { NotificationsService } from '../../core/notifications/notifications.service';
+import { Process } from '../../core/processes/process.model';
 import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { Process } from '../../process-page/processes/process.model';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';

@@ -1,9 +1,9 @@
 import { Store } from '@ngrx/store';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core-state.model';
 import { testCreateDataImplementation } from '../data/base/create-data.spec';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import { HALLink } from '../shared/hal-link.model';
 import { Item } from '../shared/item.model';

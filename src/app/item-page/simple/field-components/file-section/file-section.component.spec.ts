@@ -20,6 +20,8 @@ import {
   APP_DATA_SERVICES_MAP,
 } from '../../../../core/config/app-config.interface';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { MockBitstreamFormat1 } from '../../../../core/mocks/item.mock';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -29,9 +31,7 @@ import { NotificationsServiceStub } from '../../../../core/utilities/testing/not
 import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';

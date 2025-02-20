@@ -1,4 +1,4 @@
-import { MetadataRegistryState } from '../admin/admin-registries/metadata-registry/metadata-registry.reducers';
+import { MetadataRegistryState } from './states/metadata-registry/metadata-registry.reducers';
 import { AuthState } from './auth/auth.reducer';
 import { ObjectCacheState } from './cache/object-cache.reducer';
 import { ServerSyncBufferState } from './cache/server-sync-buffer.reducer';
@@ -13,6 +13,7 @@ import { BitstreamFormatRegistryState } from './states/bitstream-format/bitstrea
 import { EPeopleRegistryState } from './states/epeople-registry/epeople-registry.reducers';
 import { GroupRegistryState } from './states/group-registry/group-registry.reducers';
 import { NameVariantListsState } from './states/name-variant/name-variant.reducer';
+import { NotificationsState } from "./notifications/notifications.reducers";
 
 /**
  * The core sub-state in the NgRx store
@@ -34,4 +35,5 @@ export interface CoreState {
     'metadataRegistry': MetadataRegistryState;
     'groupRegistry': GroupRegistryState;
     'correlationId': string;
+    'notifications': NotificationsState;
 }

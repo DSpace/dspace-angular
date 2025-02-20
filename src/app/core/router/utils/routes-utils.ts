@@ -9,7 +9,10 @@ import { DSpaceObject } from '../../shared/dspace-object.model';
 import { Item } from '../../shared/item.model';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 
-// TODO: make paths variable again!
+
+export const HOME_PAGE_PATH = 'home';
+
+// TODO: make paths constants again!
 export function getDSpaceObjectRoute(dso: DSpaceObject): string {
   if (hasValue(dso)) {
     switch ((dso as any).type) {
@@ -27,4 +30,30 @@ export function getDSpaceObjectRoute(dso: DSpaceObject): string {
         }
     }
   }
+}
+
+export function getGroupEditRoute(id: string): string {
+  const groupsRoute = new URLCombiner('/access-control', 'groups').toString();
+  return new URLCombiner(groupsRoute, id, 'edit').toString();
+}
+
+export function getPageInternalServerErrorRoute() {
+  return `/500`;
+}
+
+export function getBitstreamDownloadRoute(bitstream): string {
+  return new URLCombiner('/bitstream', bitstream.uuid, 'download').toString();
+}
+
+export function getPageNotFoundRoute() {
+  return `/404`;
+}
+
+export function getForbiddenRoute() {
+  return `/403`;
+}
+
+
+export function getEndUserAgreementPath() {
+  return '/info/end-user-agreement';
 }

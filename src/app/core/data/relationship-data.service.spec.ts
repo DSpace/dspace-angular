@@ -3,11 +3,11 @@ import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { APP_CONFIG } from '../config/app-config.interface';
+import { getMockRemoteDataBuildServiceHrefMap } from '../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../shared/item-relationships/item-relationships-utils';

@@ -10,8 +10,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AppState } from '../../../app.reducer';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AuthService } from '../../auth/auth.service';
 import {
   APP_CONFIG,
@@ -20,10 +18,12 @@ import {
 import { ItemDataService } from '../../data/item-data.service';
 import { RemoteData } from '../../data/remote-data';
 import { ResolvedAction } from '../../resolving/resolver.actions';
+import { getDSpaceObjectRoute } from '../../router/utils/routes-utils';
 import { redirectOn4xx } from '../authorized.operators';
 import { Item } from '../item.model';
 import { getFirstCompletedRemoteData } from '../operators';
 import { getItemPageLinksToFollow } from './item.resolver';
+import { CoreState } from "../../core-state.model";
 
 /**
  * Method for resolving an item based on the parameters in the current route
@@ -31,7 +31,7 @@ import { getItemPageLinksToFollow } from './item.resolver';
  * @param {RouterStateSnapshot} state The current RouterStateSnapshot
  * @param {Router} router
  * @param {ItemDataService} itemService
- * @param {Store<AppState>} store
+ * @param {Store<CoreState>} store
  * @param {AuthService} authService
  * @param appConfig
  * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
@@ -42,7 +42,7 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   state: RouterStateSnapshot,
   router: Router = inject(Router),
   itemService: ItemDataService = inject(ItemDataService),
-  store: Store<AppState> = inject(Store<AppState>),
+  store: Store<CoreState> = inject(Store<CoreState>),
   authService: AuthService = inject(AuthService),
   appConfig: AppConfig = inject(APP_CONFIG),
 ): Observable<RemoteData<Item>> => {
@@ -69,7 +69,7 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
         // or semicolons) and thisRoute has been encoded with that function. If we want to compare
         // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
         // the same characters are encoded the same way.
-        const itemRoute = router.parseUrl(getItemPageRoute(rd.payload)).toString();
+        const itemRoute = router.parseUrl(getDSpaceObjectRoute(rd.payload)).toString();
 
         if (!thisRoute.startsWith(itemRoute)) {
           const itemId = rd.payload.uuid;

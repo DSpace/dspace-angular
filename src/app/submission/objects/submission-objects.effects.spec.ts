@@ -24,6 +24,7 @@ import {
   storeModuleConfig,
 } from '../../app.reducer';
 import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
@@ -50,7 +51,6 @@ import {
   mockSubmissionSelfUrl,
   mockSubmissionState,
 } from '../../shared/mocks/submission.mock';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';

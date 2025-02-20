@@ -22,7 +22,7 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
-} from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
+} from '../states/metadata-registry/metadata-registry.actions';
 import { FindListOptions } from '../data/find-list-options.model';
 import { MetadataFieldDataService } from '../data/metadata-field-data.service';
 import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';

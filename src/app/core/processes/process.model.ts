@@ -8,18 +8,18 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../core/cache/cacheable-object.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BITSTREAM } from '../../core/shared/bitstream.resource-type';
-import { HALLink } from '../../core/shared/hal-link.model';
-import { PROCESS_OUTPUT_TYPE } from '../../core/shared/process-output.resource-type';
-import { ResourceType } from '../../core/shared/resource-type';
-import { excludeFromEquals } from '../../core/utilities/equals.decorators';
+} from '../cache/builders/build-decorators';
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
 import { Script } from '../scripts/script.model';
 import { SCRIPT } from '../scripts/script.resource-type';
+import { Bitstream } from '../shared/bitstream.model';
+import { BITSTREAM } from '../shared/bitstream.resource-type';
+import { HALLink } from '../shared/hal-link.model';
+import { PROCESS_OUTPUT_TYPE } from '../shared/process-output.resource-type';
+import { ResourceType } from '../shared/resource-type';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { Filetypes } from './filetypes.model';
 import { FILETYPES } from './filetypes.resource-type';
 import { PROCESS } from './process.resource-type';

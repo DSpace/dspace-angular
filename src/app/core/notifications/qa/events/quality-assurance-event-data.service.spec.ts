@@ -7,11 +7,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  qualityAssuranceEventObjectMissingPid,
-  qualityAssuranceEventObjectMissingPid2,
-  qualityAssuranceEventObjectMissingProjectFound,
-} from '../../../../shared/mocks/notifications.mock';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
@@ -20,6 +15,11 @@ import { FindListOptions } from '../../../data/find-list-options.model';
 import { buildPaginatedList } from '../../../data/paginated-list.model';
 import { RequestService } from '../../../data/request.service';
 import { RequestEntry } from '../../../data/request-entry.model';
+import {
+  qualityAssuranceEventObjectMissingPid,
+  qualityAssuranceEventObjectMissingPid2,
+  qualityAssuranceEventObjectMissingProjectFound,
+} from '../../../mocks/notifications.mock';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { PageInfo } from '../../../shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../utilities/remote-data.utils';

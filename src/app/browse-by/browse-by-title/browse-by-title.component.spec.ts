@@ -24,6 +24,7 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { APP_CONFIG } from '../../core/config/app-config.interface';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { RouterMock } from '../../core/mocks/router.mock';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Community } from '../../core/shared/community.model';
@@ -39,7 +40,6 @@ import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-heade
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { RouterMock } from '../../shared/mocks/router.mock';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';

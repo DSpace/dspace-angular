@@ -13,12 +13,12 @@ import { load } from 'js-yaml';
 import { join } from 'path';
 
 // TODO: find a way to use the relative module path without braking the build
-import { isNotEmpty } from '../../../../modules/shared/utils/src/lib/utils/empty.util';
-import { mergeConfig } from '../../../config/config.util';
-import { AppConfig } from './app-config.interface';
-import { Config } from './config.interface';
-import { DefaultAppConfig } from './default-app-config';
-import { ServerConfig } from './server-config.interface';
+import { isNotEmpty } from '../../modules/shared/utils/src/lib/utils/empty.util';
+import { AppConfig } from '../app/core/config/app-config.interface';
+import { Config } from '../app/core/config/config.interface';
+import { DefaultAppConfig } from '../app/core/config/default-app-config';
+import { ServerConfig } from '../app/core/config/server-config.interface';
+import { mergeConfig } from './config.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 

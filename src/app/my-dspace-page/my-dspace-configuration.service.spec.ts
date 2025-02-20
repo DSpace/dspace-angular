@@ -9,6 +9,7 @@ import {
   SortDirection,
   SortOptions,
 } from '../core/cache/models/sort-options.model';
+import { getMockRemoteDataBuildService } from '../core/mocks/remote-data-build.service.mock';
 import { Context } from '../core/shared/context.model';
 import { PaginatedSearchOptions } from '../core/shared/paginated-search-options.model';
 import { PaginationComponentOptions } from '../core/shared/pagination-component-options.model';
@@ -16,7 +17,6 @@ import { SearchFilter } from '../core/shared/search/models/search-filter.model';
 import { ActivatedRouteStub } from '../core/utilities/testing/active-router.stub';
 import { HALEndpointServiceStub } from '../core/utilities/testing/hal-endpoint-service.stub';
 import { PaginationServiceStub } from '../core/utilities/testing/pagination-service.stub';
-import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';

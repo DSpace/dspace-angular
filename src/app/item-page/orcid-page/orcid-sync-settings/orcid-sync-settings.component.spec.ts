@@ -25,6 +25,7 @@ import { Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../../../core/profile/researcher-profile-data.service';
@@ -35,7 +36,6 @@ import {
 } from '../../../core/utilities/remote-data.utils';
 import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';
 
 describe('OrcidSyncSettingsComponent test suite', () => {

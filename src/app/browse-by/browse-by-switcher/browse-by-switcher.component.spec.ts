@@ -14,7 +14,7 @@ import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-d
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { BrowseByDataType } from './browse-by-data-type';
+import { BrowseByDataType } from '../../core/shared/browse-by-data-type';
 import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 
 @Component({

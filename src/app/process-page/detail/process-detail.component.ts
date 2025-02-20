@@ -48,6 +48,8 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { NotificationsService } from '../../core/notifications/notifications.service';
+import { Process } from '../../core/processes/process.model';
+import { ProcessStatus } from '../../core/processes/process-status.model';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -66,8 +68,6 @@ import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { PROCESS_PAGE_FOLLOW_LINKS } from '../process-page.resolver';
 import { getProcessListRoute } from '../process-page-routing.paths';
-import { Process } from '../processes/process.model';
-import { ProcessStatus } from '../processes/process-status.model';
 import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 
 @Component({

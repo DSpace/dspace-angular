@@ -26,6 +26,8 @@ import {
 import { of } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
+import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { ClaimedDeclinedTaskSearchResult } from '../../../../core/object-collection/claimed-declined-task-search-result.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -35,9 +37,7 @@ import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../../../../core/utilities/testing/router.stub';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ClaimedTaskActionsRejectComponent } from './claimed-task-actions-reject.component';
 
 let component: ClaimedTaskActionsRejectComponent;

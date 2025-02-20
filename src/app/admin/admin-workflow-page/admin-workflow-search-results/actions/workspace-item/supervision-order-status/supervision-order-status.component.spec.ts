@@ -13,8 +13,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { TranslateLoaderMock } from '../../../../../../core/mocks/translate-loader.mock';
 import { supervisionOrderListMock } from '../../../../../../core/utilities/testing/supervision-order.mock';
-import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 import { SupervisionOrderStatusComponent } from './supervision-order-status.component';
 

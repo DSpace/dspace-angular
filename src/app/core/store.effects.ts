@@ -11,9 +11,9 @@ import {
 import { of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AppState } from '../app.reducer';
 import { HostWindowResizeAction } from '../shared/host-window.actions';
 import { StoreActionTypes } from './store.actions';
+import { CoreState } from "./core-state.model";
 
 @Injectable()
 export class StoreEffects {
@@ -33,7 +33,7 @@ export class StoreEffects {
     map(() => new HostWindowResizeAction(window.innerWidth, window.innerHeight)),
   ));
 
-  constructor(private actions: Actions, private store: Store<AppState>) {
+  constructor(private actions: Actions, private store: Store<CoreState>) {
 
   }
 

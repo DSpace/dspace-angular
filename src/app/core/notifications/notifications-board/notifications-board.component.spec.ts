@@ -19,7 +19,6 @@ import {
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
-import { AppState } from '../../../app.reducer';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { LiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { INotificationBoardOptions } from '../../config/notifications-config.interfaces';
@@ -31,6 +30,7 @@ import { NotificationComponent } from '../notification/notification.component';
 import { notificationsReducer } from '../notifications.reducers';
 import { NotificationsService } from '../notifications.service';
 import { NotificationsBoardComponent } from './notifications-board.component';
+import { CoreState } from "../../core-state.model";
 
 export const bools = { f: false, t: true };
 
@@ -62,7 +62,7 @@ describe('NotificationsBoardComponent', () => {
     }).compileComponents();  // compile template and css
   }));
 
-  beforeEach(inject([NotificationsService, Store], (service: NotificationsService, store: Store<AppState>) => {
+  beforeEach(inject([NotificationsService, Store], (service: NotificationsService, store: Store<CoreState>) => {
     store
       .subscribe((state) => {
         const notifications = [

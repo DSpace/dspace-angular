@@ -8,9 +8,9 @@ import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
+import { MockBitstreamFormat1 } from '../../../core/mocks/item.mock';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
-import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
 import { MediaViewerImageComponent } from './media-viewer-image.component';
 
 describe('MediaViewerImageComponent', () => {

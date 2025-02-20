@@ -18,6 +18,8 @@ import {
 import { of } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
+import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
@@ -26,9 +28,7 @@ import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
 import { RouterStub } from '../../../../core/utilities/testing/router.stub';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';
 
 let component: ClaimedTaskActionsReturnToPoolComponent;

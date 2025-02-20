@@ -15,10 +15,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { DragService } from '../../../core/drag.service';
+import { CookieServiceMock } from '../../../core/mocks/cookie.service.mock';
+import { HttpXsrfTokenExtractorMock } from '../../../core/mocks/http-xsrf-token-extractor.mock';
 import { CookieService } from '../../../core/services/cookie.service';
 import { createTestComponent } from '../../../core/utilities/testing/utils.test';
-import { CookieServiceMock } from '../../mocks/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '../../mocks/http-xsrf-token-extractor.mock';
 import { UploaderComponent } from './uploader.component';
 import { UploaderOptions } from './uploader-options.model';
 

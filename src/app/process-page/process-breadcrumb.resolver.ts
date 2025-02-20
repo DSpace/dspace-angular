@@ -11,9 +11,9 @@ import { BreadcrumbConfig } from '../core/breadcrumbs/breadcrumb-config.model';
 import { followLink } from '../core/data/follow-link-config.model';
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { RemoteData } from '../core/data/remote-data';
+import { Process } from '../core/processes/process.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
-import { Process } from './processes/process.model';
 
 /**
  * Method for resolving a process based on the parameters in the current route

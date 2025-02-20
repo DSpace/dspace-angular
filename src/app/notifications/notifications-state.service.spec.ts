@@ -13,7 +13,7 @@ import {
   qualityAssuranceTopicObjectMissingPid,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../shared/mocks/notifications.mock';
+} from '../core/mocks/notifications.mock';
 import { suggestionNotificationsReducers } from './notifications.reducer';
 import { NotificationsStateService } from './notifications-state.service';
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';

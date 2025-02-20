@@ -29,6 +29,8 @@ import { ProcessDataService } from '../../../../core/data/processes/process-data
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { NotificationsService } from '../../../../core/notifications/notifications.service';
+import { Process } from '../../../../core/processes/process.model';
+import { ProcessStatus } from '../../../../core/processes/process-status.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
@@ -37,8 +39,6 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { Process } from '../../../../process-page/processes/process.model';
-import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 

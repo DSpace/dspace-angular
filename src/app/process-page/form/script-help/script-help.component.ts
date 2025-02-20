@@ -5,8 +5,8 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Script } from '../../scripts/script.model';
-import { ScriptParameterType } from '../../scripts/script-parameter-type.model';
+import { Script } from '../../../core/scripts/script.model';
+import { ScriptParameterType } from '../../../core/scripts/script-parameter-type.model';
 
 /**
  * Components that represents a help section for the script use and parameters

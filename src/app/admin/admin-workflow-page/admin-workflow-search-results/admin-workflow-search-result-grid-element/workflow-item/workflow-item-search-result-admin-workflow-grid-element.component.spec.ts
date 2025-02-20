@@ -14,6 +14,7 @@ import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { followLink } from '../../../../../core/data/follow-link-config.model';
+import { getMockLinkService } from '../../../../../core/mocks/link-service.mock';
 import { WorkflowItemSearchResult } from '../../../../../core/object-collection/workflow-item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
@@ -22,7 +23,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities
 import { AuthorizationDataServiceStub } from '../../../../../core/utilities/testing/authorization-service.stub';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
-import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ListableModule } from '../../../../../shared/modules/listable.module';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';

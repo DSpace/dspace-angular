@@ -31,8 +31,8 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
-} from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { MetadataRegistryState } from '../../admin/admin-registries/metadata-registry/metadata-registry.reducers';
+} from '../states/metadata-registry/metadata-registry.actions';
+import { MetadataRegistryState } from '../states/metadata-registry/metadata-registry.reducers';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CoreState } from '../core-state.model';
 import { FindListOptions } from '../data/find-list-options.model';

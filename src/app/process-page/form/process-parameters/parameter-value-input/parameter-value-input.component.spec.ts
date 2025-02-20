@@ -11,11 +11,11 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
+import { ScriptParameter } from '../../../../core/scripts/script-parameter.model';
+import { ScriptParameterType } from '../../../../core/scripts/script-parameter-type.model';
 import { FileValueAccessorDirective } from '../../../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../../../shared/utils/require-file.validator';
-import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
 import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';
 import { DateValueInputComponent } from './date-value-input/date-value-input.component';
 import { FileValueInputComponent } from './file-value-input/file-value-input.component';

@@ -8,11 +8,11 @@ import {
 } from '@angular/router';
 import { isNotEmpty } from '@dspace/shared/utils';
 
-import { HOME_PAGE_PATH } from '../../app-routing-paths';
 import {
   APP_CONFIG,
   AppConfig,
 } from '../config/app-config.interface';
+import { HOME_PAGE_PATH } from '../router/utils/routes-utils';
 
 /**
  * A guard redirecting the user to the URL provided in the route's query params

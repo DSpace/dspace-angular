@@ -14,9 +14,9 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { NoOpAction } from '../shared/ngrx/no-op.action';
 import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';

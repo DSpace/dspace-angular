@@ -16,16 +16,16 @@ import { LinkService } from '../../core/cache/builders/link.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RequestService } from '../../core/data/request.service';
+import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../core/notifications/notifications.service';
+import { ProcessParameter } from '../../core/processes/process-parameter.model';
+import { Script } from '../../core/scripts/script.model';
+import { ScriptParameter } from '../../core/scripts/script-parameter.model';
 import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';
-import { ProcessParameter } from '../processes/process-parameter.model';
-import { Script } from '../scripts/script.model';
-import { ScriptParameter } from '../scripts/script-parameter.model';
 import { NewProcessComponent } from './new-process.component';
 
 describe('NewProcessComponent', () => {

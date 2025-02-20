@@ -11,10 +11,10 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { ProcessParameter } from '../../processes/process-parameter.model';
-import { Script } from '../../scripts/script.model';
-import { ScriptParameter } from '../../scripts/script-parameter.model';
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
+import { ProcessParameter } from '../../../core/processes/process-parameter.model';
+import { Script } from '../../../core/scripts/script.model';
+import { ScriptParameter } from '../../../core/scripts/script-parameter.model';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 import { ProcessParametersComponent } from './process-parameters.component';
 

@@ -2,7 +2,7 @@ import { existsSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 import { AppConfig } from '../src/app/core/config/app-config.interface';
-import { buildAppConfig } from '../src/app/core/config/config.server';
+import { buildAppConfig } from '../src/config/config.server';
 
 /**
  * Script to set baseHref as `ui.nameSpace` for development mode. Adds `baseHref` to angular.json build options.

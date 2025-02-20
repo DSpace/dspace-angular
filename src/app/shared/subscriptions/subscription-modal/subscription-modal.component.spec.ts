@@ -26,6 +26,7 @@ import {
 import { AuthService } from '../../../core/auth/auth.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../core/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -35,7 +36,6 @@ import {
   subscriptionMock2,
 } from '../../../core/utilities/testing/subscriptions-data.mock';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionModalComponent } from './subscription-modal.component';

@@ -25,6 +25,7 @@ import { RestResponse } from '../core/cache/response.models';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
+import { CookieServiceMock } from '../core/mocks/cookie.service.mock';
 import { NotificationsService } from '../core/notifications/notifications.service';
 import { CookieService } from '../core/services/cookie.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
@@ -33,7 +34,6 @@ import { NotificationsServiceStub } from '../core/utilities/testing/notification
 import { RouterStub } from '../core/utilities/testing/router.stub';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
-import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import {
   RegisterEmailFormComponent,
   TYPE_REQUEST_FORGOT,

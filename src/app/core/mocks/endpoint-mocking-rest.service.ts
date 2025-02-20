@@ -16,17 +16,17 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../core/config/app-config.interface';
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
+} from '../config/app-config.interface';
+import { RestRequestMethod } from '../data/rest-request-method';
 import {
   DspaceRestService,
   HttpOptions,
-} from '../../../core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.model';
+} from '../dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import {
   MOCK_RESPONSE_MAP,
   ResponseMapMock,
-} from './mocks/response-map.mock';
+} from './response-map.mock';
 
 /**
  * Service to access DSpace's REST API.
