@@ -5040,9 +5040,19 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isCreatorOfProduct": "Creator of the Product",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isInventorOfPatent": "Inventor of the Patent",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
 
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openAIREFunding": "Funding OpenAIRE API",
+
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isCreatorOfProduct": "Creator of the Product",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isInventorOfPatent": "Inventor of the Patent",
 
   "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
 
@@ -5089,6 +5099,10 @@
   "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
 
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
+
+  "submission.sections.describe.relationship-lookup.title.isCreatorOfProduct": "Product",
+
+  "submission.sections.describe.relationship-lookup.title.isInventorOfPatent": "Patent",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
