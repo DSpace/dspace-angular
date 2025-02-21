@@ -5,7 +5,7 @@
             id="discard"
             [attr.data-test]="'discard' | dsBrowserOnly"
             class="btn btn-danger"
-            [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+            [dsBtnDisabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
             (click)="$event.preventDefault();confirmDiscard(content)">
       <i class="fas fa-trash"></i> {{'submission.general.discard.submit' | translate}}
     </button>
@@ -28,7 +28,7 @@
               class="btn btn-secondary"
               id="save"
               [attr.data-test]="'save' | dsBrowserOnly"
-              [disabled]="(processingSaveStatus | async) || (hasUnsavedModification | async) !== true"
+              [dsBtnDisabled]="(processingSaveStatus | async) || (hasUnsavedModification | async) !== true"
               (click)="save($event)">
         <span><i class="fas fa-save"></i> {{'submission.general.save' | translate}}</span>
       </button>
@@ -38,7 +38,7 @@
               class="btn"
               id="saveForLater"
               [attr.data-test]="'save-for-later' | dsBrowserOnly"
-              [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+              [dsBtnDisabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
               (click)="saveLater($event)">
         <span><i class="fas fa-save"></i> {{'submission.general.save-later' | translate}}</span>
       </button>
@@ -47,7 +47,7 @@
               id="deposit"
               [attr.data-test]="'deposit' | dsBrowserOnly"
               class="btn btn-success"
-              [disabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
+              [dsBtnDisabled]="(processingSaveStatus | async) || (processingDepositStatus | async)"
               (click)="deposit($event)">
         <span><i class="fas fa-plus"></i> {{'submission.general.deposit' | translate}}</span>
       </button>

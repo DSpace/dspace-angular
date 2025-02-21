@@ -35,14 +35,14 @@
             <div class="btn-group edit-field">
               <button (click)="deleteMemberFromGroup(epersonDTO.eperson)"
                       *ngIf="epersonDTO.ableToDelete"
-                      [disabled]="actionConfig.remove.disabled"
+                      [dsBtnDisabled]="actionConfig.remove.disabled"
                       [ngClass]="['btn btn-sm', actionConfig.remove.css]"
                       title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(epersonDTO.eperson) } }}">
                 <i [ngClass]="actionConfig.remove.icon"></i>
               </button>
               <button *ngIf="!epersonDTO.ableToDelete"
                       (click)="addMemberToGroup(epersonDTO.eperson)"
-                      [disabled]="actionConfig.add.disabled"
+                      [dsBtnDisabled]="actionConfig.add.disabled"
                       [ngClass]="['btn btn-sm', actionConfig.add.css]"
                       title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(epersonDTO.eperson) } }}">
                 <i [ngClass]="actionConfig.add.icon"></i>
@@ -122,7 +122,7 @@
           <td class="align-middle">
             <div class="btn-group edit-field">
               <button (click)="addMemberToGroup(eperson)"
-                      [disabled]="actionConfig.add.disabled"
+                      [dsBtnDisabled]="actionConfig.add.disabled"
                       [ngClass]="['btn btn-sm', actionConfig.add.css]"
                       title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(eperson) } }}">
                 <i [ngClass]="actionConfig.add.icon"></i>

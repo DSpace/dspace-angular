@@ -40,7 +40,7 @@
               <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left"></i> {{'item.edit.move.cancel' | translate}}
               </button>
-              <button class="btn btn-primary" [disabled]="!canMove" (click)="moveToCollection()">
+              <button class="btn btn-primary" [dsBtnDisabled]="!canMove" (click)="moveToCollection()">
               <span *ngIf="!processing">
                 <i class="fas fa-save"></i> {{'item.edit.move.save-button' | translate}}
               </span>
@@ -48,7 +48,7 @@
                 <i class="fas fa-circle-notch fa-spin"></i> {{'item.edit.move.processing' | translate}}
               </span>
               </button>
-              <button class="btn btn-danger" [disabled]="!canSubmit" (click)="discard()">
+              <button class="btn btn-danger" [dsBtnDisabled]="!canSubmit" (click)="discard()">
                 <i class="fas fa-times"></i> {{"item.edit.move.discard-button" | translate}}
               </button>
             </div>

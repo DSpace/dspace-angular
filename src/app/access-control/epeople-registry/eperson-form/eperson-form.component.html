@@ -25,7 +25,7 @@
           </button>
         </div>
         <div *ngIf="displayResetPassword" between class="btn-group">
-          <button class="btn btn-primary" [disabled]="(canReset$ | async) !== true" type="button" (click)="resetPassword()">
+          <button class="btn btn-primary" [dsBtnDisabled]="(canReset$ | async) !== true" type="button" (click)="resetPassword()">
             <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
           </button>
         </div>

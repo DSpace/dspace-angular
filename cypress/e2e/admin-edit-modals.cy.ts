@@ -9,10 +9,12 @@ describe('Admin Edit Modals', () => {
 
   it('Edit Community modal should pass accessibility tests', () => {
     // Pin the sidebar open
+    cy.get('[data-test="sidebar-collapse-toggle"]').trigger('mouseover');
     cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
-    cy.get('#admin-menu-section-edit-title').click();
+    cy.get('[data-test="admin-menu-section-edit-title"]').should('be.visible');
+    cy.get('[data-test="admin-menu-section-edit-title"]').click();
 
     cy.get('a[data-test="menu.section.edit_community"]').click();
 
@@ -22,10 +24,12 @@ describe('Admin Edit Modals', () => {
 
   it('Edit Collection modal should pass accessibility tests', () => {
     // Pin the sidebar open
+    cy.get('[data-test="sidebar-collapse-toggle"]').trigger('mouseover');
     cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
-    cy.get('#admin-menu-section-edit-title').click();
+    cy.get('[data-test="admin-menu-section-edit-title"]').should('be.visible');
+    cy.get('[data-test="admin-menu-section-edit-title"]').click();
 
     cy.get('a[data-test="menu.section.edit_collection"]').click();
 
@@ -35,10 +39,12 @@ describe('Admin Edit Modals', () => {
 
   it('Edit Item modal should pass accessibility tests', () => {
     // Pin the sidebar open
+    cy.get('[data-test="sidebar-collapse-toggle"]').trigger('mouseover');
     cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
-    cy.get('#admin-menu-section-edit-title').click();
+    cy.get('[data-test="admin-menu-section-edit-title"]').should('be.visible');
+    cy.get('[data-test="admin-menu-section-edit-title"]').click();
 
     cy.get('a[data-test="menu.section.edit_item"]').click();
 

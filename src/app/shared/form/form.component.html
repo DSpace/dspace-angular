@@ -41,7 +41,7 @@
                     title="{{'form.discard' | translate}}"
                     attr.aria-label="{{'form.discard' | translate}}"
                     (click)="removeItem($event, context, index)"
-                    [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
+                    [dsBtnDisabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
               <span>{{'form.discard' | translate}}</span>
             </button>
           </div>
@@ -62,7 +62,7 @@
             </button>
             <ng-content select="[between]"></ng-content>
             <button *ngIf="displaySubmit" type="submit" class="btn btn-primary" (click)="onSubmit()"
-                    [disabled]="(isValid() | async) !== true">
+                    [dsBtnDisabled]="(isValid() | async) !== true">
               <i class="fas fa-save" aria-hidden="true"></i> {{submitLabel | translate}}
             </button>
             <ng-content select="[after]"></ng-content>

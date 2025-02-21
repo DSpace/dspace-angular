@@ -19,32 +19,32 @@
         </div>
 
         <button *ngIf="(testConfigRunning$ |async) !== true" class="btn btn-secondary"
-                [disabled]="!(isEnabled)"
+                [dsBtnDisabled]="!(isEnabled)"
                 (click)="testConfiguration(contentSource)">
             <span>{{'collection.source.controls.test.submit' | translate}}</span>
         </button>
         <button *ngIf="(testConfigRunning$ |async)" class="btn btn-secondary"
-                [disabled]="true">
+                [dsBtnDisabled]="true">
             <span class="spinner-border spinner-border-sm spinner-button" role="status" aria-hidden="true"></span>
             <span>{{'collection.source.controls.test.running' | translate}}</span>
         </button>
         <button *ngIf="(importRunning$ |async) !== true" class="btn btn-primary"
-                [disabled]="!(isEnabled)"
+                [dsBtnDisabled]="!(isEnabled)"
                 (click)="importNow()">
             <span class="d-none d-sm-inline">{{'collection.source.controls.import.submit' | translate}}</span>
         </button>
         <button *ngIf="(importRunning$ |async)" class="btn btn-primary"
-                [disabled]="true">
+                [dsBtnDisabled]="true">
             <span class="spinner-border spinner-border-sm spinner-button" role="status" aria-hidden="true"></span>
             <span class="d-none d-sm-inline">{{'collection.source.controls.import.running' | translate}}</span>
         </button>
         <button *ngIf="(reImportRunning$ |async) !== true" class="btn btn-primary"
-                [disabled]="!(isEnabled)"
+                [dsBtnDisabled]="!(isEnabled)"
                 (click)="resetAndReimport()">
             <span class="d-none d-sm-inline">&nbsp;{{'collection.source.controls.reset.submit' | translate}}</span>
         </button>
         <button *ngIf="(reImportRunning$ |async)" class="btn btn-primary"
-                [disabled]="true">
+                [dsBtnDisabled]="true">
             <span class="spinner-border spinner-border-sm spinner-button" role="status" aria-hidden="true"></span>
             <span class="d-none d-sm-inline">&nbsp;{{'collection.source.controls.reset.running' | translate}}</span>
         </button>

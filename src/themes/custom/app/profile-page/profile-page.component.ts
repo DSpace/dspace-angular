@@ -2,6 +2,7 @@ import {
   AsyncPipe,
   NgForOf,
   NgIf,
+  NgTemplateOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -33,6 +34,7 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
     NgIf,
     NgForOf,
     SuggestionsNotificationComponent,
+    NgTemplateOutlet,
     PaginationComponent,
     ThemedLoadingComponent,
     ErrorComponent,
