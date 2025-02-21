@@ -56,6 +56,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'resultFound',
     'deselectObject',
     'selectObject',
+    'showClearButton'
   ];
 
   @Input() configurationList: SearchConfigurationOption[];
@@ -113,6 +114,9 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
+
+  @Input() showClearButton = false;
+
 
   protected getComponentName(): string {
     return 'SearchComponent';

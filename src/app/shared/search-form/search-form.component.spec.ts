@@ -72,6 +72,15 @@ describe('SearchFormComponent', () => {
     expect(de.query(By.css('.scope-button'))).toBeFalsy();
   }));
 
+  it('should not display scopes when clear button is false', fakeAsync(() => {
+    comp.showClearButton = false;
+
+    fixture.detectChanges();
+    tick();
+
+    expect(de.query(By.css('.clear-button'))).toBeFalsy();
+  }));
+
   it('should display scopes when showScopeSelector is true', fakeAsync(() => {
     comp.showScopeSelector = true;
 
@@ -104,6 +113,19 @@ describe('SearchFormComponent', () => {
     const scopeSelect = de.query(By.css('.scope-button')).nativeElement;
 
     expect(scopeSelect.textContent).toContain('Sample Community');
+  }));
+
+  it('should clear text on click clear button', fakeAsync(() => {
+    comp.query = 'TEST';
+    comp.showClearButton = true;
+    fixture.detectChanges();
+
+    tick();
+    const clearText = de.query(By.css('.clear-button')).nativeElement;
+    clearText.click();
+    fixture.detectChanges();
+
+    expect(comp.query).toBe('');
   }));
 
   describe('updateSearch', () => {

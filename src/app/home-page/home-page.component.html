@@ -5,7 +5,9 @@
                               [showViewModes]="false"
                               [searchEnabled]="false"
                               [inPlaceSearch]="false"
-                              [showScopeSelector]="false">
+                              [showScopeSelector]="false"
+                              [showClearButton]="true"
+>
   <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
 </ds-configuration-search-page>
 <div *ngIf="!showDiscoverFilters" class="container">

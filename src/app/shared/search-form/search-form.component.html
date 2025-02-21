@@ -9,8 +9,14 @@
                 </button>
             </div>
             <input type="text" [(ngModel)]="query" name="query" class="form-control"
+                   [class.input-clear-button]="showClearButton"
                    [attr.aria-label]="searchPlaceholder" [attr.data-test]="'search-box' | dsBrowserOnly"
                    [placeholder]="searchPlaceholder">
+            <div class="input-group-append" *ngIf="query && showClearButton">
+              <button class="btn clear-button" type="button" (click)="clearText()">
+                <i class="fas fa-xmark"></i>
+              </button>
+            </div>
             <span class="input-group-append">
             <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>
         </span>

@@ -96,6 +96,11 @@ export class SearchFormComponent implements OnChanges {
    */
   @Output() submitSearch = new EventEmitter<any>();
 
+  /**
+   * Defines whether or not to show the clear button
+   */
+  @Output() showClearButton = false;
+
   constructor(
     protected router: Router,
     protected searchService: SearchService,
@@ -191,5 +196,12 @@ export class SearchFormComponent implements OnChanges {
       this.selectedScope.next(scope);
       this.onScopeChange(scope);
     });
+  }
+
+  /**
+   * Clear the current query
+   */
+  clearText() {
+    this.query = '';
   }
 }
