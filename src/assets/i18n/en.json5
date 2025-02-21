@@ -4840,6 +4840,12 @@
 
   "submission.import-external.source.ror": "Research Organization Registry (ROR)",
 
+  "submission.import-external.source.openalexPublication": "OpenAlex Search by Title",
+
+  "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Search by Author ID",
+
+  "submission.import-external.source.openalexPerson": "OpenAlex Search by name",
+
   "submission.import-external.preview.title": "Item Preview",
 
   "submission.import-external.preview.title.Publication": "Publication Preview",
