@@ -328,5 +328,9 @@ export const environment: BuildConfig = {
 
   search: {
     filterPlaceholdersCount: 5
-  }
+  },
+
+  accessibility: {
+    cookieExpirationDuration: 7,
+  },
 };
