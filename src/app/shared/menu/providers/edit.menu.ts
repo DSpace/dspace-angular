@@ -39,6 +39,7 @@ export class EditMenuProvider extends AbstractExpandableMenuProvider {
   public getTopSection(): Observable<PartialMenuSection> {
     return observableOf(
       {
+        accessibilityHandle: 'edit',
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.edit',
@@ -55,7 +56,7 @@ export class EditMenuProvider extends AbstractExpandableMenuProvider {
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
       this.authorizationService.isAuthorized(FeatureID.CanEditItem),
     ]).pipe(
-      map(([isCollectionAdmin, isCommunityAdmin, canEditItem]) => {
+      map(([isCollectionAdmin, isCommunityAdmin, canEditItem]: [boolean, boolean, boolean]) => {
         return [
           {
             visible: isCommunityAdmin,

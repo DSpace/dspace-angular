@@ -7,7 +7,7 @@
   <a class="sidebar-section-wrapper"
      role="menuitem" tabindex="0"
      aria-haspopup="menu"
-     [attr.aria-controls]="adminMenuSectionId(section.id)"
+     [attr.aria-controls]="adminMenuSectionId(section)"
      [attr.aria-expanded]="isExpanded$ | async"
      [attr.aria-label]="('menu.section.toggle.' + section.id) | translate"
      [class.disabled]="section.model?.disabled"
@@ -20,7 +20,7 @@
     </div>
     <div class="sidebar-collapsible-element-outer-wrapper">
       <div class="sidebar-collapsible-element-inner-wrapper sidebar-item toggler-wrapper">
-        <span [id]="adminMenuSectionTitleId(section.id)" [attr.data-test]="adminMenuSectionTitleId(section.id) | dsBrowserOnly">
+        <span [id]="adminMenuSectionTitleAccessibilityHandle(section)" [attr.data-test]="adminMenuSectionTitleAccessibilityHandle(section) | dsBrowserOnly">
           <ng-container
             *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
         </span>
@@ -34,7 +34,7 @@
     <div class="sidebar-fixed-element-wrapper"></div>
     <div class="sidebar-collapsible-element-outer-wrapper">
       <div class="sidebar-collapsible-element-inner-wrapper">
-        <div class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section.id)" [attr.aria-label]="('menu.section.' + section.id) | translate">
+        <div class="sidebar-sub-level-item-list" role="menu" [id]="adminMenuSectionId(section)" [attr.aria-label]="('menu.section.' + section.id) | translate">
           <div class="sidebar-item" *ngFor="let subSection of (subSections$ | async)">
             <ng-container
               *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>

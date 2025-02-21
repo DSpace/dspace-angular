@@ -19,6 +19,7 @@ import { EditMenuProvider } from './edit.menu';
 describe('EditMenuProvider', () => {
 
   const expectedTopSection: PartialMenuSection = {
+    accessibilityHandle: 'edit',
     visible: true,
     model: {
       type: MenuItemType.TEXT,

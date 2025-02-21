@@ -43,6 +43,7 @@ export class ExportMenuProvider extends AbstractExpandableMenuProvider {
   public getTopSection(): Observable<PartialMenuSection> {
     return observableOf(
       {
+        accessibilityHandle: 'export',
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.export',
@@ -58,7 +59,7 @@ export class ExportMenuProvider extends AbstractExpandableMenuProvider {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.scriptDataService.scriptWithNameExistsAndCanExecute(METADATA_EXPORT_SCRIPT_NAME),
     ]).pipe(
-      map(([authorized, metadataExportScriptExists]) => {
+      map(([authorized, metadataExportScriptExists]: [boolean, boolean]) => {
         return [
           {
             visible: authorized && metadataExportScriptExists,

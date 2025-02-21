@@ -40,6 +40,7 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
   public getTopSection(): Observable<PartialMenuSection> {
     return observableOf(
       {
+        accessibilityHandle: 'new',
         model: {
           type: MenuItemType.TEXT,
           text: 'menu.section.new',
@@ -56,7 +57,7 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
-    ]).pipe(map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit]) => {
+    ]).pipe(map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit]: [boolean, boolean, boolean, boolean]) => {
 
       return [
         {

@@ -66,11 +66,13 @@ export class AdminSidebarSectionComponent extends AbstractMenuSectionComponent i
     }
   }
 
-  adminMenuSectionId(sectionId: string) {
-    return `admin-menu-section-${sectionId}`;
+  adminMenuSectionId(section: MenuSection) {
+    const accessibilityHandle = section.accessibilityHandle ?? section.id;
+    return `admin-menu-section-${accessibilityHandle}`;
   }
 
-  adminMenuSectionTitleId(sectionId: string) {
-    return `admin-menu-section-${sectionId}-title`;
+  adminMenuSectionTitleAccessibilityHandle(section: MenuSection) {
+    const accessibilityHandle = section.accessibilityHandle ?? section.id;
+    return `admin-menu-section-${accessibilityHandle}-title`;
   }
 }

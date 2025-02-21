@@ -19,6 +19,7 @@ import { ExportMenuProvider } from './export.menu';
 
 describe('ExportMenuProvider', () => {
   const expectedTopSection: PartialMenuSection = {
+    accessibilityHandle: 'export',
     visible: true,
     model: {
       type: MenuItemType.TEXT,

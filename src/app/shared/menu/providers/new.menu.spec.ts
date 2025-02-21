@@ -18,6 +18,7 @@ import { NewMenuProvider } from './new.menu';
 
 describe('NewMenuProvider', () => {
   const expectedTopSection: PartialMenuSection = {
+    accessibilityHandle: 'new',
     visible: true,
     model: {
       type: MenuItemType.TEXT,
