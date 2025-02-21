@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
-import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
-import { ThemeService } from '../../../theme-support/theme.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 
 /**
  * Themed wrapper for CreateItemParentSelectorComponent
