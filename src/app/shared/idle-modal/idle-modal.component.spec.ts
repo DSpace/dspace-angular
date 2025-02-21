@@ -130,7 +130,7 @@ describe('IdleModalComponent', () => {
   describe('when the click method emits on close button', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'closePressed');
-      debugElement.query(By.css('.close')).triggerEventHandler('click', {
+      debugElement.query(By.css('.btn-close')).triggerEventHandler('click', {
         preventDefault: () => {/**/
         },
       });

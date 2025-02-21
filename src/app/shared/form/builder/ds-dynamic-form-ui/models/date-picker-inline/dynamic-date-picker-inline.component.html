@@ -23,20 +23,18 @@
            (change)="onChange($event)"
            (focus)="onFocus($event)">
 
-    <div class="input-group-append">
 
-        <button class="btn btn-outline-secondary"
-                type="button"
-                [attr.aria-labelledby]="'label_' + model.id"
-                [class.disabled]="model.disabled"
-                [dsBtnDisabled]="model.disabled"
-                (click)="datepicker.toggle()">
+    <button class="btn btn-outline-secondary"
+            type="button"
+            [attr.aria-labelledby]="'label_' + model.id"
+            [class.disabled]="model.disabled"
+            [dsBtnDisabled]="model.disabled"
+            (click)="datepicker.toggle()">
 
-            <i *ngIf="model.toggleIcon" class="{{model.toggleIcon}}" aria-hidden="true"></i>
-            <span *ngIf="model.toggleLabel">{{ model.toggleLabel }}</span>
+        <i *ngIf="model.toggleIcon" class="{{model.toggleIcon}}" aria-hidden="true"></i>
+        <span *ngIf="model.toggleLabel">{{ model.toggleLabel }}</span>
 
-        </button>
+    </button>
 
-    </div>
 
 </div>

@@ -22,7 +22,6 @@ export const slideMobileNav = trigger('slideMobileNav', [
   state('expanded', style({ height: '*', minHeight: '*' })),
 
   state('collapsed', style({ height: 0, minHeight: 0 })),
-
   transition('expanded <=> collapsed', animate('300ms')),
 ]);
 
