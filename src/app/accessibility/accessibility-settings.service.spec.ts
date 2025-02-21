@@ -14,6 +14,7 @@ import { EPerson } from '../core/eperson/models/eperson.model';
 import { fakeAsync, flush } from '@angular/core/testing';
 import { createSuccessfulRemoteDataObject$, createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
 import { KlaroServiceStub } from '../shared/cookies/klaro.service.stub';
+import { AppConfig } from '../../config/app-config.interface';
 
 
 describe('accessibilitySettingsService', () => {
@@ -22,11 +23,13 @@ describe('accessibilitySettingsService', () => {
   let authService: AuthServiceStub;
   let ePersonService: EPersonDataService;
   let klaroService: KlaroServiceStub;
+  let appConfig: AppConfig;
 
   beforeEach(() => {
     cookieService = new CookieServiceMock();
     authService = new AuthServiceStub();
     klaroService = new KlaroServiceStub();
+    appConfig = { accessibility: { cookieExpirationDuration: 10 }} as AppConfig;
 
     klaroService.getSavedPreferences.and.returnValue(of({ accessibility: true }));
 
@@ -43,6 +46,7 @@ describe('accessibilitySettingsService', () => {
       authService as unknown as AuthService,
       ePersonService,
       klaroService,
+      appConfig,
     );
   });
 

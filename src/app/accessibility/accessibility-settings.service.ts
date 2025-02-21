@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable, of, switchMap, combineLatest } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { CookieService } from '../core/services/cookie.service';
@@ -11,6 +11,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { environment } from '../../environments/environment';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { KlaroService } from '../shared/cookies/klaro.service';
+import { AppConfig, APP_CONFIG } from '../../config/app-config.interface';
 
 /**
  * Name of the cookie used to store the settings locally
@@ -64,6 +65,7 @@ export class AccessibilitySettingsService {
     protected authService: AuthService,
     protected ePersonService: EPersonDataService,
     protected klaroService: KlaroService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
   }
 
@@ -221,7 +223,7 @@ export class AccessibilitySettingsService {
       map((accessibilityCookieAccepted: boolean) => {
         if (accessibilityCookieAccepted) {
           if (isNotEmpty(settings)) {
-            this.cookieService.set(ACCESSIBILITY_COOKIE, settings, { expires: environment.accessibility.cookieExpirationDuration });
+            this.cookieService.set(ACCESSIBILITY_COOKIE, settings, { expires: this.appConfig.accessibility.cookieExpirationDuration });
           } else {
             this.cookieService.remove(ACCESSIBILITY_COOKIE);
           }
