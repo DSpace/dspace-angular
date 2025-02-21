@@ -61,9 +61,9 @@ export class AccessibilitySettingsComponent implements OnInit, OnDestroy {
    */
   saveSettings() {
     const formValues = this.formValues;
-    const convertedValues = this.settingsService.convertFormValuesToStoredValues(formValues);
 
-    if (this.settingsService.allValid(convertedValues)) {
+    if (this.settingsService.formValuesValid(formValues)) {
+      const convertedValues = this.settingsService.convertFormValuesToStoredValues(formValues);
       this.settingsService.setSettings(convertedValues).pipe(take(1)).subscribe(location => {
         if (location !== 'failed') {
           this.notificationsService.success(null, this.translateService.instant('info.accessibility-settings.save-notification.' + location));

@@ -24,11 +24,16 @@ export const ACCESSIBILITY_COOKIE = 'dsAccessibilityCookie';
 export const ACCESSIBILITY_SETTINGS_METADATA_KEY = 'dspace.accessibility.settings';
 
 /**
- * Type containing all possible accessibility settings.
+ * Array containing all possible accessibility settings.
  * When adding new settings, make sure to add the new setting to the accessibility-settings component form.
  * The converter methods to convert from stored format to form format (and vice-versa) need to be updated as well.
  */
-export type AccessibilitySetting = 'notificationTimeOut' | 'liveRegionTimeOut';
+export const accessibilitySettingKeys = ['notificationTimeOut', 'liveRegionTimeOut'] as const;
+
+/**
+ * Type representing the possible accessibility settings
+ */
+export type AccessibilitySetting = typeof accessibilitySettingKeys[number];
 
 /**
  * Type representing an object that contains accessibility settings values for all accessibility settings.
@@ -294,24 +299,26 @@ export class AccessibilitySettingsService {
   }
 
   /**
-   * Returns true if the provided value is a valid value for the provided AccessibilitySetting.
+   * Returns true if the provided AccessibilitySetting is valid in regard to the provided formValues.
    */
-  isValid(setting: AccessibilitySetting | string, value: string): boolean {
+  isValid(setting: AccessibilitySetting, formValues: AccessibilitySettingsFormValues): boolean {
     switch (setting) {
       case 'notificationTimeOut':
-        return hasNoValue(value) || parseFloat(value) > 0;
+        return formValues.notificationTimeOutEnabled ?
+          hasNoValue(formValues.notificationTimeOut) || parseFloat(formValues.notificationTimeOut) > 0 :
+          true;
       case 'liveRegionTimeOut':
-        return hasNoValue(value) || parseFloat(value) > 0;
+        return hasNoValue(formValues.liveRegionTimeOut) || parseFloat(formValues.liveRegionTimeOut) > 0;
       default:
         throw new Error(`Unhandled accessibility setting during validity check: ${setting}`);
     }
   }
 
   /**
-   * Returns true if all settings in the provided AccessibilitySettings object are valid
+   * Returns true if all settings in the provided AccessibilitySettingsFormValues object are valid
    */
-  allValid(settings: AccessibilitySettings) {
-    return Object.entries(settings).every(([setting, value], _) => this.isValid(setting, value));
+  formValuesValid(formValues: AccessibilitySettingsFormValues) {
+    return accessibilitySettingKeys.every(setting => this.isValid(setting, formValues));
   }
 }
 

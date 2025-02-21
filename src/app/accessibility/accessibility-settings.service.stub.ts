@@ -40,5 +40,5 @@ export class AccessibilitySettingsServiceStub {
 
   isValid = jasmine.createSpy('isValid').and.returnValue(true);
 
-  allValid = jasmine.createSpy('allValid').and.returnValue(true);
+  formValuesValid = jasmine.createSpy('allValid').and.returnValue(true);
 }
