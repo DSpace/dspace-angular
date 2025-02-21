@@ -36,13 +36,14 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
       this.getSubSections(),
     ]).pipe(
       map((
-        [partialTopSection, partialSubSections]: [PartialMenuSection, PartialMenuSection[]]
+        [partialTopSection, partialSubSections]: [PartialMenuSection, PartialMenuSection[]],
       ) => {
+        const parentID = partialTopSection.id ?? this.getAutomatedSectionIdForTopSection();
         const subSections = partialSubSections.map((partialSub, index) => {
           return {
             ...partialSub,
-            id: partialSub.id ?? `${this.menuProviderId}_${index}`,
-            parentID: this.menuProviderId,
+            id: partialSub.id ?? this.getAutomatedSectionIdForSubsection(index),
+            parentID: parentID,
             alwaysRenderExpandable: false,
           };
         });
@@ -51,11 +52,11 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
           ...subSections,
           {
             ...partialTopSection,
-            id: this.menuProviderId,
+            id: parentID,
             alwaysRenderExpandable: this.alwaysRenderExpandable,
           },
         ];
-      })
+      }),
     );
   }
 
@@ -63,7 +64,7 @@ export abstract class AbstractExpandableMenuProvider extends AbstractMenuProvide
     return this.getAutomatedSectionId(0);
   }
   protected getAutomatedSectionIdForSubsection(indexOfSubSectionInProvider: number): string {
-    return `${this.menuProviderId}_0_${indexOfSubSectionInProvider}`;
+    return `${this.getAutomatedSectionIdForTopSection()}_${indexOfSubSectionInProvider}`;
   }
 
 }

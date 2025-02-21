@@ -20,6 +20,11 @@ export interface MenuSection {
   id: string;
 
   /**
+   * Accessibility handle that can be used to find a specific menu in the html
+   */
+  accessibilityHandle?: string;
+
+  /**
    * Whether this section should be visible.
    */
   visible: boolean;

@@ -16,7 +16,7 @@ import { CacheableObject } from '../../../../core/cache/cacheable-object.model';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 
-describe('AbstractExpandableMenuProvider', () => {
+describe('AbstractRouteContextMenuProvider', () => {
 
   class TestClass extends AbstractRouteContextMenuProvider<CacheableObject> {
     getRouteContext(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<CacheableObject> {

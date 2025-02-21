@@ -19,6 +19,7 @@ import { MenuRoute } from './menu-route.model';
  */
 export interface PartialMenuSection {
   id?: string;
+  accessibilityHandle?: string;
   visible: boolean;
   model: MenuItemModels;
   parentID?: string;

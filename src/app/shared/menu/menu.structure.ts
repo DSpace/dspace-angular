@@ -83,7 +83,11 @@ function addProviderToList(providers: Provider[], providerType: Type<AbstractMen
       provider.index = provider.index ?? index;
       if (hasValue(parentID)) {
         provider.menuProviderId =  provider.menuProviderId ?? `${parentID}_${index}`;
-        provider.parentID = provider.parentID ?? parentID;
+        let providerParentID = provider.parentID;
+        if (hasValue(providerParentID)) {
+          providerParentID = `${providerParentID}_0`;
+        }
+        provider.parentID = providerParentID ?? parentID;
       } else {
         provider.menuProviderId = provider.menuProviderId ?? `${menuID}_${index}`;
       }
